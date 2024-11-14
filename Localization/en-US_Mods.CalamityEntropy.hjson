@@ -1,0 +1,781 @@
+Items: {
+	VoidBlade: {
+		DisplayName: Void Blade
+		Tooltip: Quickly perform continuous slashing
+	}
+
+	Weapons: {
+		Rogue: {
+			Revelation: {
+				Tooltip:
+					'''
+					Throw out a sickle
+					When Stealth, Chop and fire projectiles
+					'''
+				DisplayName: Revelation
+			}
+
+			Silence: {
+				DisplayName: Silence
+				Tooltip: ""
+			}
+
+			ShadewindLance: {
+				Tooltip:
+					'''
+					Throw out a javelin containing void
+					Stealth attacks will deal higher damage and can penetrate infinitely
+					'''
+				DisplayName: Shadewind Lance
+			}
+		}
+	}
+
+	PrisonOfPermafrost: {
+		Tooltip:
+			'''
+			Summon a magic array while using
+			Continuously launching ice spikes and ice cones
+			'''
+		DisplayName: Prison Of Permafrost
+	}
+
+	Kinanition: {
+		DisplayName: Kinanition
+		Tooltip:
+			'''
+			[c/ce97fa:Left click to launch a series of lightning arrows]
+			[c/ce97fa:Lightning arrows retain the original effect of ammunition]
+			[c/ce97fa:and track after hitting the target,]
+			[c/0078b9:Right click to launch a tracking Thunderbolt Spear]
+			[c/0078b9:Burst out with lightning after hitting the target]
+			'''
+	}
+
+	VoidRelics: {
+		DisplayName: Void Relics
+		Tooltip:
+			'''
+			Spawns a Void Mark follow your mouse
+			Consume all summon slots
+			The more slots consumed, the higher the damage
+			'''
+	}
+
+	AuricToilet: {
+		Tooltip:
+			'''
+			This was used by the Yharim
+			Sitting on such a throne would be a disgrace to all
+			"Now it can sit"
+			'''
+		DisplayName: Auric Toilet
+	}
+
+	LotteryBox: {
+		DisplayName: Lottery Box
+		Tooltip:
+			'''
+			Spawn a Lottery Machine
+			"May have a hot temper"
+			'''
+	}
+
+	ToyRock: {
+		DisplayName: Toy Rock
+		Tooltip:
+			'''
+			Spawn Wyrm-chan
+			"She's still young"
+			'''
+	}
+
+	YharimsStimulants: {
+		DisplayName: Yharims Stimulants
+		Tooltip: Gives decent buffs to ALL offensive and defensive stats
+	}
+
+	VoidBottle: {
+		DisplayName: Void Bottle
+		Tooltip: Summon Cruiser
+	}
+
+	VoidMonument: {
+		DisplayName: Void Monument
+		Tooltip: ""
+	}
+
+	Lore.CruiserLore.DisplayName: Cruiser
+
+	BrokenChainsaw: {
+		DisplayName: Broken Chainsaw
+		Tooltip: ""
+	}
+
+	MechanicalChainsaw: {
+		DisplayName: Mechanical Chainsaw
+		Tooltip: ""
+	}
+
+	EnslavedStar: {
+		DisplayName: Enslaved Star
+		Tooltip: ""
+	}
+
+	Euangelion: {
+		DisplayName: Euangelion
+		Tooltip: ""
+	}
+
+	Pioneer: {
+		DisplayName: Pioneer
+		Tooltip: ""
+	}
+
+	GodsSnack: {
+		DisplayName: Gods Snack
+		Tooltip: ""
+	}
+
+	CruiserBag: {
+		DisplayName: Treasure Bag(Cruiser)
+		Tooltip: ""
+	}
+
+	CruiserRelic: {
+		DisplayName: Cruiser Relic
+		Tooltip: ""
+	}
+
+	DivineRemnants: {
+		DisplayName: Divine Remnants
+		Tooltip: ""
+	}
+
+	VoidElytra: {
+		DisplayName: Void Elytra
+		Tooltip:
+			'''
+			Horizontal speed: 10
+			Acceleration multiplier: 3
+			Excellent vertical speed
+			Flight time: 290
+			Allow you to dash in four directions
+			[c/356498:Dedicate life to the void and achieve breakthroughs in the limits]
+			'''
+	}
+
+	BottleDarkMatter: {
+		DisplayName: Bottle Dark Matter
+		Tooltip: ""
+	}
+
+	DivineIntervention: {
+		DisplayName: Divine Intervention
+		Tooltip:
+			'''
+			Shoot a Divine Shield
+			Rebound projectile in contact with the projectile
+			'''
+	}
+
+	Godhead: {
+		DisplayName: Godhead
+		Tooltip: Your projectile will carry a halo, causing sustained damage to enemies within the halo
+	}
+
+	VoidEcho: {
+		Tooltip:
+			'''
+			Summon a circle of divine cannons
+			Releasing the mouse will simultaneously emit a void laser
+			"Even if it's just a part of the void, it has the power to annihilate all things"
+			'''
+		DisplayName: Symbol of Theocracy
+	}
+
+	FriendBox: {
+		DisplayName: Friend Box
+		Tooltip: ""
+	}
+
+	LightningPendant: {
+		DisplayName: Lightning Pendant
+		Tooltip: ""
+	}
+
+	EvilFriend: {
+		DisplayName: Evil Friend
+		Tooltip: Summon a Lil Brimstone
+	}
+
+	TheocracyPearlToy: {
+		DisplayName: Theocracy Pearl Toy
+		Tooltip: ""
+	}
+
+	CruiserTrophy: {
+		Tooltip: ""
+		DisplayName: Cruiser Trophy
+	}
+
+	VoidMonolith: {
+		Tooltip: ""
+		DisplayName: Void Monolith
+	}
+
+	VoidToy: {
+		DisplayName: Void Toy
+		Tooltip: ""
+	}
+
+	WingsOfHush: {
+		Tooltip: Shoot powerful void arrow
+		DisplayName: Wings Of Hush
+	}
+
+	SoyMilk: {
+		DisplayName: Soy Milk
+		Tooltip: More attack speed, less damage
+	}
+
+	DarkArts: {
+		Tooltip: ""
+		DisplayName: Dark Arts
+	}
+
+	VenomPiece: {
+		DisplayName: Venom Piece
+		Tooltip: ""
+	}
+
+	WisdomCard: {
+		Tooltip: -40% Mana Cost
+		DisplayName: Wisdom Card
+	}
+
+	TemperanceCard: {
+		Tooltip: +2 Minion Slot
+		DisplayName: Temperance Card
+	}
+
+	RadianceCard: {
+		Tooltip: +20% Life Regen
+		DisplayName: Radiance Card
+	}
+
+	OracleDeck: {
+		Tooltip:
+			'''
+			+13% Crit Chance
+			+15% Attack Speed
+			+30% Move Speed
+			+20 Max Stealth
+			-60% Mana COsr
+			-20% Damage Taken
+			+10 Armor Penetration
+			+3 Minion Slot
+			+100% Light
+			Heal players nearby 30 per 5 sec
+			'''
+		DisplayName: Oracle Deck
+	}
+
+	MetropolisCard: {
+		Tooltip: +15 Max Stealth
+		DisplayName: Metropolis Card
+	}
+
+	InspirationCard: {
+		Tooltip: +20% Move Speed
+		DisplayName: Inspiration Card
+	}
+
+	EntityCard: {
+		Tooltip: + 10% Attack Speed
+		DisplayName: Entity Card
+	}
+
+	EnduranceCard: {
+		Tooltip: -12% Damage Taken
+		DisplayName: Endurance Card
+	}
+
+	BrillianceCard: {
+		Tooltip: +20% Life Regen
+		DisplayName: Brilliance Card
+	}
+
+	AuraCard: {
+		Tooltip: +5% Crit Chance
+		DisplayName: Aura Card
+	}
+
+	ThreadOfFate: {
+		Tooltip: Can be used to craft Oracle Desk
+		DisplayName: Thread Of Fate
+	}
+
+	RuneSong: {
+		DisplayName: Rune Song
+		Tooltip: ""
+	}
+
+	GalaxyGrapeSoda: {
+		Tooltip: ""
+		DisplayName: Galaxy Grape Soda
+	}
+
+	VoidAnnihilate: {
+		DisplayName: Void Annihilate
+		Tooltip:
+			'''
+			throw a Void Annihilate
+			Press [KEY] To Retrieve all
+			Right click a void annihilate to teleport to it.
+			'''
+	}
+
+	AuricBoulder: {
+		DisplayName: Auric Boulder
+		Tooltip: ""
+	}
+
+	DustyStar: {
+		Tooltip: ""
+		DisplayName: Dusty Star
+	}
+
+	SoulCandle: {
+		DisplayName: Soul Candle
+		Tooltip:
+			'''
+			Summon the Assassin of the God
+			"Although the blade is small, it is sharp enough"
+			'''
+	}
+
+	KosRunePendant: {
+		DisplayName: Kos Rune Pendant
+		Tooltip: Summon the Devourer and the Little Apostle
+	}
+
+	OdinsRefuge: {
+		DisplayName: Odins Refuge
+		Tooltip:
+			'''
+			Allows the ability to ram dash, empowered by the cosmic inferno
+			This dash can slam through enemies without taking damage
+			Grants immunity to knockback and fire blocks
+			Grants immunity to the vast majority of debuffs, including God Slayer Inferno
+			Causes stars to fall and increases length of invincibility after taking damage
+			Grants bonus invincibility frames based on your missing health
+			This effect scales from 10 frames at full HP to 40 frames at 25% or less HP
+			Being struck for over 200 damage grants 30 additional invincibility frames
+			Grants immunity to knockback
+			Puts a shell around the owner when below 50% life that reduces damage taken
+			Absorbs 25% of damage done to players on your team when above 25% life
+			'''
+	}
+
+	VoidBar: {
+		DisplayName: Void Bar
+		Tooltip: A tightly packed void
+	}
+
+	VoidOre: {
+		DisplayName: Void Ore
+		Tooltip: Unstable substances generated by the infiltration of void
+	}
+
+	VoidScales: {
+		Tooltip: A scale composed of pure void
+		DisplayName: Void Scales
+	}
+
+	HolyMoonlight: {
+		DisplayName: Holy Moonlight
+		Tooltip:
+			'''
+			Get a magic shield every thirty seconds, which is equivalent to 75% of the magic limit,
+			During the existence of the Magic Shield, increase movement speed by 10% and reduce magic consumption by 10%,
+			The shield will deal damage to the enemies it touches,
+			When the magic shield is broken, it eliminates its own magic sickness and benefits, and returns to its full magic value,
+			When there is no shield, magic barrage can suck blood,
+			The higher your current magic value, the higher your blood sucking ability
+			'''
+	}
+
+	PhantomPlanetKillerEngine: {
+		DisplayName: Phantom Planet Killer Engine
+		Tooltip:
+			'''
+			Summon a Planet Killer warship to shoot at your enemies
+			Warships will consume the bullets in your inventory
+			Alternate firing rockets and bullets
+			Will not consume ammunition
+			33% chance of firing bullets, doubling
+			Launch a laser every 20 shots
+			'''
+	}
+
+	PowerOfTyrant: {
+		DisplayName: Power Of Tyrant
+		Tooltip: ""
+	}
+
+	VoidFaquirCuises: {
+		Tooltip:
+			'''
+			+10％damage
+			+10％critical strike chance
+			+20％movement speed
+			'''
+		DisplayName: Void Faquir Cuises
+	}
+
+	VoidFaquirBodyArmor: {
+		Tooltip:
+			'''
+			+15％damage
+			+5％critical strike chance
+			+20 armor penetration
+			'''
+		DisplayName: Void Faquir Body Armor
+	}
+
+	VoidFaquirDevourerHelm: {
+		Tooltip: ""
+		DisplayName: Void Faquir Devourer Helm
+	}
+
+	VoidFaquirCosmosHood: {
+		Tooltip: ""
+		DisplayName: Void Faquir Cosmos Hood
+	}
+
+	VoidFaquirEvokerHelm: {
+		DisplayName: Void Faquir Evoker Helm
+		Tooltip: ""
+	}
+
+	VoidFaquirLurkerMask: {
+		DisplayName: Void Faquir Lurker Mask
+		Tooltip: ""
+	}
+
+	VoidFaquirShadowHelm: {
+		DisplayName: Void Faquir Shadow Helm
+		Tooltip: ""
+	}
+
+	GreedCard: {
+		DisplayName: Greed Card
+		Tooltip: +2% damage for each summon slots
+	}
+
+	GhostdomWhisper: {
+		Tooltip:
+			'''
+			Long press the left mouse button to charge and shoot
+			Charge up and shoot an arrow reinforced by the void
+			'''
+		DisplayName: Ghostdom Whisper
+	}
+
+	Interdimensionallens: {
+		Tooltip: Project the appearance behind the world
+		DisplayName: Interdimensional Lens
+	}
+
+	PowerBank: {
+		Tooltip: When put it in your inventory, Automatically recharge the items in your inventory
+		DisplayName: Power Bank
+	}
+}
+
+Projectiles: {
+	VoidBladeProj.DisplayName: Void Blade
+	VoidBladeHit.DisplayName: Void Blade Hit
+	RevelationThrow.DisplayName: Revelation Throw
+	RevelationMelee.DisplayName: Revelation Melee
+	Rvshoot.DisplayName: Rvshoot
+	PrisonOfPermafrostCircle.DisplayName: Prison Of Permafrost
+	IceSpike.DisplayName: Ice Spike
+	IceSpikeSmall.DisplayName: Ice Spike Small
+	Icicle.DisplayName: Icicle
+	IceEdge.DisplayName: Ice Edge
+	LightningBolt.DisplayName: Lightning Bolt
+	LightningSpear.DisplayName: Lightning Spear
+	Impact.DisplayName: Impact
+	Lcircle.DisplayName: Lcircle
+	VoidMark.DisplayName: Void Mark
+	Slash.DisplayName: Slash
+	Slash2.DisplayName: Slash2
+	AtlasNuc.DisplayName: Atlas Nuc
+	AtlasItem.DisplayName: Atlas Item
+	LMSpawner.DisplayName: Spawner
+	WyrmChan.DisplayName: Wyrm Chan
+	VoidStar.DisplayName: Void Star
+	CruiserLaserMouth.DisplayName: Cruiser Laser Mouth
+	VoidExplode.DisplayName: Void Explode
+	VoidMonumentProj.DisplayName: Void Monument Proj
+	Vmwave.DisplayName: Vmwave
+	MonumentGround.DisplayName: Monument Ground
+	VoidBottleThrow.DisplayName: Void Bottle Throw
+	BrokenChainsaw0.DisplayName: Broken Chainsaw
+	MechanicalChainsaw0.DisplayName: Mechanical Chainsaw
+	EnslavedStar0.DisplayName: Enslaved Star
+	Euangelion0.DisplayName: Euangelion
+	Pioneer0.DisplayName: Pioneer
+	CruiserSlash.DisplayName: Cruiser Slash
+	DoG.DisplayName: DoG
+	CruiserBlackhole.DisplayName: Cruiser Blackhole
+	CruiserBlackholeBullet.DisplayName: Cruiser Blackhole Bullet
+	VoidSpike.DisplayName: Void Spike
+	BHExp.DisplayName: Explosion
+	Rvshoot2.DisplayName: Rvshoot
+	CruiserLaser2.DisplayName: Cruiser Laser
+	AstrumDeus.DisplayName: Astrum Deus
+	AstralShot.DisplayName: Astral Shot
+	DarkFissure.DisplayName: Dark Fissure
+	DivingShield.DisplayName: Divine Shield
+	VoidEchoProj.DisplayName: Void Echo Proj
+	TwistedTwin.DisplayName: Twisted Twin
+	StormWeaverPet.DisplayName: Storm Weaver
+	VoidLaser.DisplayName: Void Laser
+	VoidBlaster.DisplayName: Void Blaster
+	VBSpawner.DisplayName: V B Spawner
+	Brimstone.DisplayName: Brimstone
+	LilBrimstone.DisplayName: Lil Brimstone
+	SilenceHook.DisplayName: Silence Hook
+	SilenceThrow.DisplayName: Silence Throw
+	AbyssPet.DisplayName: Abyss Pet
+	VoidPalProj.DisplayName: Void Pal Proj
+	WohShot.DisplayName: Woh Shot
+	VoidStarF.DisplayName: Void Star
+	WohLaser.DisplayName: Woh Laser
+	MelonCatProj.DisplayName: Melon Cat Proj
+	RuneSong.DisplayName: Rune Song
+	RuneSongProj.DisplayName: Rune Song Proj
+	RuneArrow.DisplayName: Rune Arrow
+	Rune.DisplayName: Rune
+	VoidAnnihilateProj.DisplayName: Void Annihilate Proj
+	VaProj.DisplayName: Va Proj
+	AuricBoulderProj.DisplayName: Auric Boulder Proj
+	SigPetProj.DisplayName: Sig Pet Proj
+	AuricBoulderProjFriendly.DisplayName: Auric Boulder Proj Friendly
+	MoonlightShieldBreak.DisplayName: Moonlight Shield Break
+	PlanetKiller.DisplayName: Planet Killer
+	PoTProj.DisplayName: Po T Proj
+	PoTPhantom.DisplayName: Po T Phantom
+	ShadewindLanceThrow.DisplayName: Shadewind Lance Throw
+	VoidRExp.DisplayName: Void R Exp
+	GhostdomWhisperHoldout.DisplayName: Ghostdom Whisper Holdout
+	VoidWraith.DisplayName: Void Wraith
+	VoidBullet.DisplayName: Void Bullet
+	VoidMonster.DisplayName: Void Monster
+	VoidMonsterShoot.DisplayName: Void Monster Shoot
+}
+
+LegendTooltip: - Legend -
+KilledByVoidTouch: was killed by the void
+
+Buffs: {
+	VoidStorm: {
+		DisplayName: Void Storm
+		Description: The gaze from the deepest part of the void
+	}
+
+	VoidTouch: {
+		Description: ""
+		DisplayName: Void Touch
+	}
+
+	WyrmChanBuff: {
+		DisplayName: Wyrm-Chan
+		Description: Wyrm-Chan will follow you
+	}
+
+	YharimPower: {
+		DisplayName: Yharim's Power
+		Description: You feel like you can break the world in two... with your bare hands!
+	}
+
+	DoGBuff: {
+		DisplayName: DoG
+		Description: DoG
+	}
+
+	AstrumDeusBuff: {
+		DisplayName: Divine Remnant
+		Description: ""
+	}
+
+	WeakGravity: {
+		DisplayName: Weak Gravity
+		Description: ""
+	}
+
+	DivingShieldCooldown: {
+		Description: ""
+		DisplayName: Divine Shield Cooldown
+	}
+
+	TwistedTwinBuff: {
+		Description: ""
+		DisplayName: Twisted Twin
+	}
+
+	Rainstorm: {
+		DisplayName: Rainstorm
+		Description: ""
+	}
+
+	LilBrimstoneBuff: {
+		Description: Evil Friend
+		DisplayName: Lil Brimstone
+	}
+
+	AbyssBuff: {
+		DisplayName: Abyss
+		Description: ""
+	}
+
+	VoidPal: {
+		Description: ""
+		DisplayName: Void Pal
+	}
+
+	SoyMilkBuff: {
+		Description: More attack speed, less damage
+		DisplayName: Soy Milk
+	}
+
+	StealthState: {
+		Description: ""
+		DisplayName: Stealth State
+	}
+
+	MelonCatBuff: {
+		Description: ""
+		DisplayName: Melon Cat Buff
+	}
+
+	DevourersAssassin: {
+		DisplayName: Devourer's Assassin
+		Description: One of the three little apostles
+	}
+
+	DevourerAndTheApostles: {
+		Description: '''"We are four in one"'''
+		DisplayName: Devourer And The Apostles
+	}
+
+	PlanetDestroyer: {
+		DisplayName: Planet Destroyer
+		Description: Planet Killer will fight for you
+	}
+}
+
+NPCs: {
+	LotteryMachine.DisplayName: Lottery Machine
+	CruiserTail.DisplayName: Cruiser
+
+	CruiserHead: {
+		DisplayName: Cruiser
+
+		BossChecklistIntegration: {
+			EntryName: Cruiser
+			SpawnInfo: Use [i:CalamityEntropy/VoidBottle] to summon
+			DespawnMessage: Cruiser has been defeated
+		}
+	}
+
+	CruiserBody.DisplayName: Cruiser
+	AbyssalWraith.DisplayName: Abyssal Wraith
+}
+
+loreCruiser:
+	'''
+	The creature wandering in the void, patrolling its territory... 
+	now it's staring at you. It's not difficult for you to tear it apart.
+	'''
+loreCruiserEffect: Permanently increase the max life by 60 and increase the max mana by 100
+Keybinds.RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
+CdMoonlight: Moonlight Shield
+CdDS: Divine Shield Cooldown
+CruiserBestiary: 在神明吞噬者于各维度之间的穿梭中，不仅无尽虚空，还有其他虚空造物也被无意地制造了出来——然而，它们不像无尽虚空那般天赋异禀，究其只是一群无意识、试图吸收一切的愚昧之物罢了。但其中一个被人们称为巡游者的虚空生物，扭曲地模仿着神明吞噬者的体态，暗中跟随神明吞噬者，于其捕猎时快速偷走一块猎物的碎渣，吞噬并从中汲取力量；当噬神者欲来到下一个宇宙时，它也紧跟着噬神者进入它制造的虫洞。久而久之，巡游者在不被神明吞噬者发现（当然，神明吞噬者就算发现了也无意管辖）的情况下，一路毫不费力地走到了仅略弱于其仆从力量的程度，并凝结出了属于自己的装甲以保护自己的本体。只是它没意识到，没有战斗经验，即使有了力量也不足以成为一方强者——这也是它与神明吞噬者三哨卫最大差距。
+WorldGen.VoidOreSpawn: Void energy is emanating from the sky
+
+Tiles: {
+	AuricBoulder.MapEntry: Auric Boulder
+	AuricBoulderTile.MapEntry: Auric Boulder Tile
+	VoidOre.MapEntry: Void Ore
+	VoidOreTile.MapEntry: Void Ore Tile
+	VoidBarTile.MapEntry: Void Bar Tile
+}
+
+VoidChargeBar: Void Charging Bar
+
+Configs: {
+	Config: {
+		VoidChargeBarX: {
+			Label: Void Charge Bar X
+			Tooltip: ""
+		}
+
+		Headers.Misc: Misc Header
+		DisplayName: Config
+
+		VoidChargeBarY: {
+			Label: Void Charge Bar Y
+			Tooltip: ""
+		}
+	}
+}
+
+vfb:
+	'''
+	Armor Bonus:
+	Hitting the target will increase void energy
+	Provides movement and flight speed bonuses based on the amount of void energy
+	Press the armor bonus key to activate Void energy Summon a Void Wraith to assist in battle and fly indefinitely for 10 seconds
+	Void Wrairh damage type depends on the weapon in hand
+	'''
+helmvfc:
+	'''
+	+35%magic damage
+	+25%magic critical strike chance
+	+150 max mana
+	－25% mana cost
+	Magic Barrage hits enemies to reduce your Mana Sickness by 0.5s
+	'''
+helmvfd:
+	'''
+	+30％melee speed
+	+30％melee damage
+	+15％melee critical strike chance
+	+10％damage reducing
+	accumulates more void energy when hitting targets.
+	'''
+helmvfs:
+	'''
+	+35%ranged damage
+	+35％ranged critical strike chance
+	Projectile damage increases with time
+	'''
+helmvfl:
+	'''
+	+30％rogue damage
+	+30％rogue critical strike chance
+	+15％movement speed
+	+150 maximum stealth
+	Stealth strikes will accumulate more void energy
+	'''
+helmvfe:
+	'''
+	+8max minions
+	+90％ summon damage
+	Summon a Void Monster with you
+	'''

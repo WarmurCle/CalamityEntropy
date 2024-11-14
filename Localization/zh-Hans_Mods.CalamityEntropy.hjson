@@ -1,0 +1,784 @@
+Items: {
+	VoidBlade: {
+		DisplayName: 虚空锋刃
+		Tooltip: 快速，连续的进行斩击
+	}
+
+	Weapons: {
+		Rogue: {
+			Revelation: {
+				Tooltip:
+					'''
+					使用后扔出一把镰刀
+					潜伏攻击可以挥舞并射出弹幕
+					'''
+				DisplayName: 启示录
+			}
+
+			Silence: {
+				DisplayName: 沉默
+				Tooltip:
+					'''
+					丢出一个能用虚空锁链将自己拉向敌人的飞盘
+					潜伏攻击会挂在敌人身上持续造成伤害
+					'''
+			}
+
+			ShadewindLance: {
+				Tooltip:
+					'''
+					扔出一把蕴含虚空的标枪
+					潜伏攻击会有更高的伤害并能无限穿透
+					'''
+				DisplayName: 苍穹坠影
+			}
+		}
+	}
+
+	PrisonOfPermafrost: {
+		Tooltip:
+			'''
+			使用时会召唤一个魔法阵
+			持续发射冰刺和冰锥
+			[c/BEE2FF:"我超，冰！"]
+			'''
+		DisplayName: 至臻极冰之樊寒神像
+	}
+
+	Kinanition: {
+		DisplayName: 孱弱血亲
+		Tooltip:
+			'''
+			[c/ce97fa:左键发射一连串的闪电箭，]
+			[c/ce97fa:闪电箭保留弹药原有效果，并在击中目标后追踪]
+			[c/0078b9:右键发射一发追踪的雷电之矛，]
+			[c/0078b9:击中目标后爆发出雷电]
+			'''
+	}
+
+	VoidRelics: {
+		DisplayName: 虚空圣契
+		Tooltip:
+			'''
+			召唤一个虚空标记跟随鼠标移动
+			对范围内的敌怪进行斩击
+			消耗所有召唤栏，使用的召唤栏越多，伤害越高
+			同时只能存在一个虚空标记
+			如果存在标记时使用，标记下一次的斩击会更大且会造成双倍伤害并为附近敌怪赋予死亡标记减益
+			'''
+	}
+
+	AuricToilet: {
+		Tooltip:
+			'''
+			曾被寻神者使用过
+			现在你也可以坐了
+			“会唐走的”
+			'''
+		DisplayName: 圣金马桶
+	}
+
+	LotteryBox: {
+		DisplayName: 抽奖盒子
+		Tooltip:
+			'''
+			生成一个抽奖机
+			”脾气可能比较暴躁“
+			'''
+	}
+
+	ToyRock: {
+		DisplayName: 终末石玩具
+		Tooltip:
+			'''
+			召唤妖龙酱
+			“她还小呢”
+			'''
+	}
+
+	YharimsStimulants: {
+		DisplayName: 亚利姆牌兴奋剂
+		Tooltip: 给你全属性的提升
+	}
+
+	VoidBottle: {
+		DisplayName: 虚空瓶
+		Tooltip: 召唤寻游者
+	}
+
+	VoidMonument: {
+		DisplayName: 虚空符石
+		Tooltip: ""
+	}
+
+	Lore.CruiserLore.DisplayName: 巡游者
+
+	BrokenChainsaw: {
+		DisplayName: 破损链锯
+		Tooltip: ""
+	}
+
+	MechanicalChainsaw: {
+		DisplayName: 机械链锯
+		Tooltip: ""
+	}
+
+	EnslavedStar: {
+		DisplayName: 奴役之星
+		Tooltip: ""
+	}
+
+	Euangelion: {
+		DisplayName: 福音
+		Tooltip: ""
+	}
+
+	Pioneer: {
+		DisplayName: 先驱者
+		Tooltip: ""
+	}
+
+	GodsSnack: {
+		DisplayName: 神明点心
+		Tooltip: 召唤一个狗狗宠物
+	}
+
+	CruiserBag: {
+		DisplayName: 宝藏袋（巡游者）
+		Tooltip: ""
+	}
+
+	CruiserRelic: {
+		DisplayName: 巡游者圣物
+		Tooltip: ""
+	}
+
+	DivineRemnants: {
+		DisplayName: 神瘟残枝
+		Tooltip: ""
+	}
+
+	VoidElytra: {
+		DisplayName: 虚空推进鞘翅
+		Tooltip:
+			'''
+			水平飞行速度： 10
+			加速倍率： 3
+			优异的垂直飞行速度
+			飞行时间：290
+			允许你向四个方向冲刺
+			[c/356498:将生命献给虚空，得到对极限的突破]
+			'''
+	}
+
+	BottleDarkMatter: {
+		DisplayName: 瓶装暗物质
+		Tooltip: 召唤一位小虚空
+	}
+
+	DivineIntervention: {
+		DisplayName: 神圣干预
+		Tooltip:
+			'''
+			发射一个神圣护盾
+			弹反接触到的弹幕
+			对击中的敌人造成伤害
+			30秒冷却时间
+			'''
+	}
+
+	Godhead: {
+		DisplayName: 神性
+		Tooltip: 你的射弹会带有一个光环，对光环内的敌人持续造成伤害
+	}
+
+	VoidEcho: {
+		Tooltip:
+			'''
+			召唤一圈神权炮
+			松开鼠标会同时发射虚空镭射
+			“即便只是虚空的一部分，也拥有湮灭万物的力量”
+			'''
+		DisplayName: 神权象征
+	}
+
+	FriendBox: {
+		DisplayName: 朋友盒
+		Tooltip:
+			'''
+			召唤一对纠缠双子，复制你的弹幕
+			每对纠缠双子消耗4个召唤栏
+			'''
+	}
+
+	LightningPendant: {
+		DisplayName: 闪电挂件
+		Tooltip: 召唤一位小编织者
+	}
+
+	EvilFriend: {
+		DisplayName: 邪恶伙伴
+		Tooltip: 召唤一个硫磺火宝宝
+	}
+
+	TheocracyPearlToy: {
+		DisplayName: 神权珍珠
+		Tooltip: 召唤一个虚空武神阿比斯
+	}
+
+	CruiserTrophy: {
+		Tooltip: ""
+		DisplayName: 巡游者纪念章
+	}
+
+	VoidMonolith: {
+		Tooltip: ""
+		DisplayName: 虚空石碑
+	}
+
+	VoidToy: {
+		DisplayName: 虚空珍珠
+		Tooltip: 召唤一个虚空伙伴
+	}
+
+	WingsOfHush: {
+		Tooltip: 射出强力的虚空镭射和2发虚空矢
+		DisplayName: 虚寂之翼
+	}
+
+	SoyMilk: {
+		DisplayName: 豆奶
+		Tooltip: 大幅提升射速，大幅降低伤害
+	}
+
+	DarkArts: {
+		Tooltip:
+			'''
+			使用后进入潜行状态，此状态下不受到伤害，并标记碰到的敌人和射弹，
+			2秒后退出此状态，并对所有标记的敌怪造成伤害，并清除标记的射弹
+			'''
+		DisplayName: 暗仪刺刀
+	}
+
+	VenomPiece: {
+		DisplayName: 毒瓜瓣
+		Tooltip: 召唤一个瓜猫
+	}
+
+	WisdomCard: {
+		Tooltip: -40%魔力消耗
+		DisplayName: 『智慧』
+	}
+
+	TemperanceCard: {
+		Tooltip: +2 召唤栏
+		DisplayName: 『克己』
+	}
+
+	RadianceCard: {
+		Tooltip: +20%生命恢复
+		DisplayName: 『光芒』
+	}
+
+	OracleDeck: {
+		Tooltip:
+			'''
+			+13%暴击率
+			+15%攻速
+			+30%移速
+			+20潜伏值
+			-60%魔力消耗
+			受到伤害降低20%
+			+10护甲穿透
+			+3召唤栏
+			+100%光照
+			装备后每隔五秒附近所有玩家受到30点治疗
+			'''
+		DisplayName: 神谕卡组
+	}
+
+	MetropolisCard: {
+		Tooltip: +15潜伏值上限
+		DisplayName: 『都市』
+	}
+
+	InspirationCard: {
+		Tooltip: +20%移动速度
+		DisplayName: 『启迪』
+	}
+
+	EntityCard: {
+		Tooltip: +10%攻击速度
+		DisplayName: 『实体』
+	}
+
+	EnduranceCard: {
+		Tooltip: -12%受到的伤害
+		DisplayName: 『坚忍』
+	}
+
+	BrillianceCard: {
+		Tooltip: +50%光照
+		DisplayName: 『辉煌』
+	}
+
+	AuraCard: {
+		Tooltip: +5%暴击
+		DisplayName: 『灵光』
+	}
+
+	ThreadOfFate: {
+		Tooltip: 用于制作神谕卡组
+		DisplayName: 命运之绳
+	}
+
+	RuneSong: {
+		DisplayName: 符文之歌
+		Tooltip: ""
+	}
+
+	GalaxyGrapeSoda: {
+		Tooltip: “里面含有葡萄、神明的精华、还有黑檀圣卫和血化圣卫…?”
+		DisplayName: 银河葡萄汽水
+	}
+
+	VoidAnnihilate: {
+		DisplayName: 虚湮黯天
+		Tooltip:
+			'''
+			扔出一把飞刀
+			按下[KEY]收回所有飞刀
+			右键飞刀位移到该位置
+			最多存在5把
+			'''
+	}
+
+	AuricBoulder: {
+		DisplayName: 圣金源巨石
+		Tooltip: 哦不
+	}
+
+	DustyStar: {
+		Tooltip: ""
+		DisplayName: 尘封之星
+	}
+
+	SoulCandle: {
+		DisplayName: 灵魂火烛
+		Tooltip:
+			'''
+			召唤小小神之刺客
+			“虽然刀身很小，但足够锋利”
+			'''
+	}
+
+	KosRunePendant: {
+		DisplayName: 宇宙符文吊坠
+		Tooltip: 召唤噬神者和小小使徒
+	}
+
+	OdinsRefuge: {
+		DisplayName: 上神之佑
+		Tooltip: 获得阿斯加德之庇护和神之壁垒的效果
+	}
+
+	VoidBar: {
+		DisplayName: 虚渺锭
+		Tooltip: 紧密的一团虚空
+	}
+
+	VoidOre: {
+		DisplayName: 虚渺矿
+		Tooltip: 虚空渗透而产生的不稳定物质
+	}
+
+	VoidScales: {
+		Tooltip: 由纯粹虚空构成的鳞片
+		DisplayName: 虚渺鳞片
+	}
+
+	HolyMoonlight: {
+		DisplayName: 圣洁月光
+		Tooltip:
+			'''
+			每三十秒获得一个魔力护盾，数值等同于魔力上限的75％，
+			魔力护盾存在期间增加10％移动速度并降低10％魔力消耗，
+			护盾会对触碰到的敌人造成伤害，
+			魔力护盾被击破时消除自身魔力病减益并回满魔力值，
+			没有护盾时魔法弹幕能够吸血，
+			你的当前魔力值越高，你的吸血量便越高
+			'''
+	}
+
+	PhantomPlanetKillerEngine: {
+		DisplayName: 猎星引擎
+		Tooltip:
+			'''
+			召唤一艘猎星战舰射击你的敌人
+			战舰会消耗你物品栏中的子弹
+			交替发射火箭和子弹
+			不会消耗弹药
+			33％概率射出子弹翻倍
+			每20次射击发射一道镭射
+			'''
+	}
+
+	PowerOfTyrant: {
+		DisplayName: 魔君之威
+		Tooltip: ""
+	}
+
+	VoidFaquirCuises: {
+		Tooltip:
+			'''
+			+10%伤害
+			+10%暴击率
+			+20%移动速度
+			'''
+		DisplayName: 虚空行者腿甲
+	}
+
+	VoidFaquirBodyArmor: {
+		Tooltip:
+			'''
+			+15%伤害
+			+5%暴击率
+			+20护甲穿透
+			'''
+		DisplayName: 虚空行者胸甲
+	}
+
+	VoidFaquirDevourerHelm: {
+		Tooltip: ""
+		DisplayName: 虚湮吞天盔
+	}
+
+	VoidFaquirCosmosHood: {
+		Tooltip: ""
+		DisplayName: 虚灵宙法盔
+	}
+
+	VoidFaquirEvokerHelm: {
+		DisplayName: 虚空唤灵盔
+		Tooltip: ""
+	}
+
+	VoidFaquirLurkerMask: {
+		DisplayName: 虚影潜袭盔
+		Tooltip: ""
+	}
+
+	VoidFaquirShadowHelm: {
+		DisplayName: 虚寂猎影盔
+		Tooltip: ""
+	}
+
+	GreedCard: {
+		DisplayName: 『贪婪』
+		Tooltip: 每有一个召唤栏，+2%伤害
+	}
+
+	GhostdomWhisper: {
+		Tooltip:
+			'''
+			可以蓄力射击
+			蓄满力射出一发被虚空强化的箭
+			'''
+		DisplayName: 冥星低语
+	}
+
+	Interdimensionallens: {
+		Tooltip: 投射出世界背后的样子
+		DisplayName: 异次元透镜
+	}
+
+	PowerBank: {
+		Tooltip: 放在物品栏时，自动为物品栏中所有可以充能的物品充能
+		DisplayName: 便携充能背包
+	}
+}
+
+Projectiles: {
+	VoidBladeProj.DisplayName: 虚空锋刃
+	VoidBladeHit.DisplayName: 虚空缝隙
+	RevelationThrow.DisplayName: 启示录
+	RevelationMelee.DisplayName: 启示录
+	Rvshoot.DisplayName: 启示录
+	PrisonOfPermafrostCircle.DisplayName: 樊寒法阵
+	IceSpike.DisplayName: 冰刺
+	IceSpikeSmall.DisplayName: 小冰刺
+	Icicle.DisplayName: 冰锥
+	IceEdge.DisplayName: 凌冽神剑
+	LightningBolt.DisplayName: 闪电
+	LightningSpear.DisplayName: 雷电之矛
+	Impact.DisplayName: 冲击波
+	Lcircle.DisplayName: 闪电箭尾迹
+	VoidMark.DisplayName: 虚空标记
+	Slash.DisplayName: 斩击
+	Slash2.DisplayName: 大斩击
+	AtlasNuc.DisplayName: 核爆
+	AtlasItem.DisplayName: 奖品
+	LMSpawner.DisplayName: 生成
+	WyrmChan.DisplayName: 妖龙酱
+	VoidStar.DisplayName: 虚空新星
+	CruiserLaserMouth.DisplayName: 巡游者激光
+	VoidExplode.DisplayName: 虚空爆炸
+	VoidMonumentProj.DisplayName: 虚空符石
+	Vmwave.DisplayName: 震荡波
+	MonumentGround.DisplayName: 虚空符石
+	VoidBottleThrow.DisplayName: 掷出的虚空瓶
+	BrokenChainsaw0.DisplayName: 破损链锯
+	MechanicalChainsaw0.DisplayName: 机械链锯
+	EnslavedStar0.DisplayName: 奴役之星
+	Euangelion0.DisplayName: 福音
+	Pioneer0.DisplayName: 先驱者
+	CruiserSlash.DisplayName: 巡游者撕裂
+	DoG.DisplayName: 狗狗
+	CruiserBlackhole.DisplayName: 巡游者黑洞
+	CruiserBlackholeBullet.DisplayName: 黑洞弹
+	VoidSpike.DisplayName: 虚空尖刺
+	BHExp.DisplayName: 黑洞爆炸
+	Rvshoot2.DisplayName: 启示录
+	CruiserLaser2.DisplayName: 巡游者激光
+	AstrumDeus.DisplayName: 游龙
+	AstralShot.DisplayName: 星辉射线
+	DarkFissure.DisplayName: 黑暗裂隙
+	DivingShield.DisplayName: 神圣护盾
+	VoidEchoProj.DisplayName: 虚空回响
+	TwistedTwin.DisplayName: 纠缠双子
+	StormWeaverPet.DisplayName: 风编
+	VoidLaser.DisplayName: 虚空镭射
+	VoidBlaster.DisplayName: 虚空轰击炮
+	VBSpawner.DisplayName: 虚空回响
+	Brimstone.DisplayName: 鲜血激光柱
+	LilBrimstone.DisplayName: 硫磺火宝宝
+	SilenceHook.DisplayName: 沉默之钩
+	SilenceThrow.DisplayName: 沉默
+	AbyssPet.DisplayName: 阿比斯
+	VoidPalProj.DisplayName: 虚空伙伴
+	WohShot.DisplayName: 虚空矢
+	VoidStarF.DisplayName: 虚空新星
+	WohLaser.DisplayName: 虚寂射线
+	MelonCatProj.DisplayName: 瓜猫
+	RuneSong.DisplayName: 符文之歌
+	RuneSongProj.DisplayName: 符文之歌
+	RuneArrow.DisplayName: 符文之矢
+	Rune.DisplayName: 符文
+	VoidAnnihilateProj.DisplayName: 湮灭飞刀
+	VaProj.DisplayName: 湮灭弹
+	AuricBoulderProj.DisplayName: 圣金源巨石
+	SigPetProj.DisplayName: 使徒
+	AuricBoulderProjFriendly.DisplayName: 圣金源巨石
+	MoonlightShieldBreak.DisplayName: 月光护盾破碎
+	PlanetKiller.DisplayName: 猎星战舰
+	PoTProj.DisplayName: 魔君之威
+	PoTPhantom.DisplayName: 幻影魔君
+	ShadewindLanceThrow.DisplayName: 苍穹坠影
+	VoidRExp.DisplayName: 虚空爆炸
+	GhostdomWhisperHoldout.DisplayName: 冥星低语
+	VoidWraith.DisplayName: 虚空之灵
+	VoidBullet.DisplayName: 虚空弹
+	VoidMonster.DisplayName: 虚空怪物
+	VoidMonsterShoot.DisplayName: 虚空弹
+}
+
+LegendTooltip: - 传奇物品 -
+KilledByVoidTouch: 消散在了时间与空间的各处
+
+Buffs: {
+	VoidStorm: {
+		DisplayName: 虚空强袭
+		Description: 来自虚空最深处的凝视
+	}
+
+	VoidTouch: {
+		Description: 你正在被虚空侵蚀
+		DisplayName: 虚空之触
+	}
+
+	WyrmChanBuff: {
+		DisplayName: 妖龙酱
+		Description: ""
+	}
+
+	YharimPower: {
+		DisplayName: 亚利姆之力
+		Description: 你感觉你能徒手将嘉登掰成两半！
+	}
+
+	DoGBuff: {
+		DisplayName: 狗
+		Description: 狗
+	}
+
+	AstrumDeusBuff: {
+		DisplayName: 神瘟残枝
+		Description: ""
+	}
+
+	WeakGravity: {
+		DisplayName: 微弱引力
+		Description: ""
+	}
+
+	DivingShieldCooldown: {
+		Description: ""
+		DisplayName: 神圣干预冷却
+	}
+
+	TwistedTwinBuff: {
+		Description: ""
+		DisplayName: 纠缠双子
+	}
+
+	Rainstorm: {
+		DisplayName: 突降暴雨
+		Description: ""
+	}
+
+	LilBrimstoneBuff: {
+		Description: 硫磺火宝宝将为你而战
+		DisplayName: 硫磺火宝宝
+	}
+
+	AbyssBuff: {
+		DisplayName: 阿比斯
+		Description: ""
+	}
+
+	VoidPal: {
+		Description: ""
+		DisplayName: 虚空伙伴
+	}
+
+	SoyMilkBuff: {
+		Description: 攻速翻倍，伤害减少40%
+		DisplayName: 豆奶
+	}
+
+	StealthState: {
+		Description: 你可以不受到伤害并穿过敌人
+		DisplayName: 潜伏状态
+	}
+
+	MelonCatBuff: {
+		Description: 喵~
+		DisplayName: 瓜猫
+	}
+
+	DevourersAssassin: {
+		DisplayName: 吞噬者之刺客
+		Description: “三个小使徒中的其中一位”
+	}
+
+	DevourerAndTheApostles: {
+		Description: 噬神者与小小使徒团
+		DisplayName: “我们四合一！”
+	}
+
+	PlanetDestroyer: {
+		DisplayName: 幻影猎星者
+		Description: 猎星战舰将为你战斗
+	}
+}
+
+NPCs: {
+	LotteryMachine.DisplayName: 抽奖机
+	CruiserTail.DisplayName: 巡游者
+
+	CruiserHead: {
+		DisplayName: 巡游者
+
+		BossChecklistIntegration: {
+			EntryName: 巡游者
+			SpawnInfo: 使用[i:CalamityEntropy/VoidBottle]召唤
+			DespawnMessage: 巡游者已被击败！
+		}
+	}
+
+	CruiserBody.DisplayName: 巡游者
+	AbyssalWraith.DisplayName: 祟界虚灵
+}
+
+loreCruiser:
+	'''
+	在虚空中游荡的生物，巡视着它的地盘……
+	现在它盯上了你。我想撕碎它对你来说不是什么难事。
+	'''
+loreCruiserEffect: 使用后永久增加60生命上限和100魔力上限
+Keybinds.RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
+CdMoonlight: 月光护盾
+CdDS: 神圣干预冷却
+CruiserBestiary: 在神明吞噬者于各维度之间的穿梭中，不仅无尽虚空，还有其他虚空造物也被无意地制造了出来——然而，它们不像无尽虚空那般天赋异禀，究其只是一群无意识、试图吸收一切的愚昧之物罢了。但其中一个被人们称为巡游者的虚空生物，扭曲地模仿着神明吞噬者的体态，暗中跟随神明吞噬者，于其捕猎时快速偷走一块猎物的碎渣，吞噬并从中汲取力量；当噬神者欲来到下一个宇宙时，它也紧跟着噬神者进入它制造的虫洞。久而久之，巡游者在不被神明吞噬者发现（当然，神明吞噬者就算发现了也无意管辖）的情况下，一路毫不费力地走到了仅略弱于其仆从力量的程度，并凝结出了属于自己的装甲以保护自己的本体。只是它没意识到，没有战斗经验，即使有了力量也不足以成为一方强者——这也是它与神明吞噬者三哨卫最大差距。
+WorldGen.VoidOreSpawn: 天空中散发着虚空能量
+
+Tiles: {
+	AuricBoulder.MapEntry: 圣金源巨石
+	AuricBoulderTile.MapEntry: 圣金源巨石
+	VoidOre.MapEntry: Void Ore
+	VoidOreTile.MapEntry: 虚渺矿
+	VoidBarTile.MapEntry: 虚渺锭
+}
+
+VoidChargeBar: 虚空充能条
+
+Configs: {
+	Config: {
+		VoidChargeBarX: {
+			Label: 虚空充能条位置X
+			Tooltip: ""
+		}
+
+		Headers.Misc: 杂项
+		DisplayName: 配置
+
+		VoidChargeBarY: {
+			Label: 虚空充能条位置Y
+			Tooltip: ""
+		}
+	}
+}
+
+vfb:
+	'''
+	套装奖励:
+	攻击命中目标会积攒虚空能量，
+	根据虚空能量数量提供部分移速和飞行速度加成
+	按下 套装奖励 键激发虚空能量
+	召唤一个虚空的幻影协助战斗并无限飞行，持续10秒
+	幻影的伤害类型取决于手中武器
+	'''
+helmvfc:
+	'''
+	+35%魔法伤害
+	+25%魔法暴击率。
+	+150点魔力值上限
+	减少25%的魔力消耗
+	魔法弹幕击中敌人减少自身魔力病减益0.5s
+	'''
+helmvfd:
+	'''
+	+30％近战攻速
+	+30％近战伤害
+	+15暴击率
+	+10％减伤
+	击中敌人获取更多的虚空能量
+	'''
+helmvfs:
+	'''
+	增加35%远程伤害和暴击率
+	射弹伤害随时间增加
+	'''
+helmvfl:
+	'''
+	增加30%盗贼伤害和暴击率
+	增加15%移动速度
+	+150最大潜行值
+	潜伏攻击获得更多虚空能量
+	'''
+helmvfe:
+	'''
+	+90%召唤伤害
+	+8召唤栏
+	召唤一只虚空共生体协助战斗
+	'''

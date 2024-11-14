@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Import tModLoader mod properties -->
+	<Import Project="..\tModLoader.targets" />
+
+	<!-- General -->
+	<PropertyGroup>
+		
+	</PropertyGroup>
+	<ItemGroup>
+	  <AdditionalFiles Remove="Items\Vanity\ggs\**" />
+	  <Compile Remove="Items\Vanity\ggs\**" />
+	  <EmbeddedResource Remove="Items\Vanity\ggs\**" />
+	  <None Remove="Items\Vanity\ggs\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="System.Text.Json" Version="8.0.4" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="CalamityMod">
+	    <HintPath>..\CalamityMod\CalamityMod.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<!-- References -->
+
+</Project>
