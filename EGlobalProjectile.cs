@@ -239,9 +239,7 @@ namespace CalamityEntropy
                     netsnc = false;
                 }
                 playerPosL = projectile.owner.ToPlayer().Center;
-                playerMPosL = projectile.owner.ToPlayer().MountedCenter;
                 projectile.owner.ToPlayer().Center = playerPosL + (projectile.Entropy().OnProj.ToProj().Center - playerPosL) / 2;
-                projectile.owner.ToPlayer().MountedCenter += projectile.owner.ToPlayer().Center - playerPosL;
             }
             projectile.Entropy().counter++;
             projectile.Entropy().odp.Add(projectile.Center);
@@ -321,14 +319,12 @@ namespace CalamityEntropy
             if (projectile.Entropy().OnProj >= 0)
             {
                 projectile.owner.ToPlayer().Center = playerPosL;
-                projectile.owner.ToPlayer().MountedCenter = playerMPosL;
             }
             else
             {
                 if (projectile.owner == Main.myPlayer)
                 {
-                    ModContent.GetInstance<EModSys>().lpp = projectile.owner.ToPlayer().Center;
-                    ModContent.GetInstance<EModSys>().mp = projectile.owner.ToPlayer().MountedCenter;
+                    ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
                 }
             }
         }
@@ -344,7 +340,7 @@ namespace CalamityEntropy
             return distance <= radius;
         }
         public Vector2 lmc;
-        public Vector2 lc;
+        public Vector2 lastCenter;
         public override void PostDraw(Projectile projectile, Color lightColor)
         {
             if (projectile.ModProjectile != null)
@@ -353,18 +349,15 @@ namespace CalamityEntropy
             }
             if (projectile.Entropy().OnProj >= 0)
             {
-                projectile.owner.ToPlayer().MountedCenter = lmc;
-                projectile.owner.ToPlayer().Center = lc;
+                projectile.owner.ToPlayer().Center = lastCenter;
             }
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
             if (projectile.Entropy().OnProj >= 0)
             {
-                lmc = projectile.owner.ToPlayer().MountedCenter;
-                lc = projectile.owner.ToPlayer().Center;
-                projectile.owner.ToPlayer().Center = lc + (projectile.Entropy().OnProj.ToProj().Center - lc) / 2;
-                projectile.owner.ToPlayer().MountedCenter += projectile.owner.ToPlayer().Center - lc;
+                lastCenter = projectile.owner.ToPlayer().Center;
+                projectile.owner.ToPlayer().Center = lastCenter + (projectile.Entropy().OnProj.ToProj().Center - lastCenter) / 2;
             }
             Texture2D tx;
             if (projectile.Entropy().DI)

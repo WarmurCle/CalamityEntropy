@@ -26,10 +26,8 @@ namespace CalamityEntropy
     public class EModSys : ModSystem
     {
         public float counter = 0;
-        public static Effect screenShader;
         public override void Load()
         {
-            screenShader = ModContent.Request<Effect>("CalamityEntropy/Effects/wormhole", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         }
         public override void UpdateUI(GameTime gameTime)
         {
@@ -123,8 +121,7 @@ namespace CalamityEntropy
             }
 
         }
-        public Vector2 lpp;
-        public Vector2 mp;
+        public Vector2 LastPlayerPos;
         internal static int timer;
 
         public override void PreUpdateProjectiles()
@@ -132,8 +129,7 @@ namespace CalamityEntropy
             timer++;
             if (!Main.dedServ)
             {
-                lpp = Main.LocalPlayer.Center;
-                mp = Main.LocalPlayer.MountedCenter;
+                LastPlayerPos = Main.LocalPlayer.Center;
             }
         }
 
@@ -143,8 +139,7 @@ namespace CalamityEntropy
         {
             if (!Main.dedServ)
             {
-                Main.LocalPlayer.Center = lpp;
-                Main.LocalPlayer.MountedCenter = mp;
+                Main.LocalPlayer.Center = LastPlayerPos;
             }
         }
     }

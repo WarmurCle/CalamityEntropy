@@ -78,10 +78,6 @@ namespace CalamityEntropy
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/VoidBlade/f" + i.ToString()).Value;
             }
             Instance = this;
-			if (!Main.dedServ)
-            {
-				CEShaders.LoadShaders();
-			}
 			CUtil.load();
 			foreach (int id in CalamityLists.needsDebuffIconDisplayList)
 			{
