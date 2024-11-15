@@ -346,7 +346,10 @@ namespace CalamityEntropy
         {
             if (projectile.Entropy().vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
             {
-                return false;
+                if (!target.friendly)
+                {
+                    return false;
+                }
             }
             return base.CanHitNPC(projectile, target);
         }
