@@ -47,7 +47,7 @@ namespace CalamityEntropy
         public float dmgUp = 0.1f;
         public bool GWBow = false;
         public int dmgupcount = 10;
-
+        public int vddirection = 1;
         public override GlobalProjectile Clone(Projectile from, Projectile to)
         {
             var p = to.Entropy();
@@ -61,6 +61,7 @@ namespace CalamityEntropy
             p.GWBow = GWBow;
             p.dmgupcount = dmgupcount;
             p.counter = counter;
+            p.withGrav = withGrav;
             return p;
         }
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
@@ -72,12 +73,18 @@ namespace CalamityEntropy
             binaryWriter.Write(projectile.Entropy().OnProj);
             binaryWriter.Write(projectile.Entropy().ttindex);
             binaryWriter.Write(projectile.Entropy().GWBow);
+            binaryWriter.Write(projectile.Entropy().withGrav);
+            binaryWriter.Write(vdtype);
+            binaryWriter.Write(vddirection);
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
             projectile.Entropy().OnProj = binaryReader.ReadInt32();
             projectile.Entropy().ttindex = binaryReader.ReadInt32();
             projectile.Entropy().GWBow = binaryReader.ReadBoolean();
+            projectile.Entropy().withGrav = binaryReader.ReadBoolean();
+            vdtype = binaryReader.ReadInt32();
+            vddirection = binaryReader.ReadInt32();
         }
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
@@ -197,8 +204,18 @@ namespace CalamityEntropy
             }
             return base.ShouldUpdatePosition(projectile);
         }
+
         public override bool PreAI(Projectile projectile)
         {
+            if (vdtype == 0)
+            {
+                projectile.velocity = projectile.velocity.RotatedBy(Math.Cos((counter + MathHelper.Pi * 0.5f) * 0.2f) * (float)vddirection * 0.18f);
+                projectile.rotation = projectile.velocity.ToRotation();
+            }
+            if (withGrav)
+            {
+                projectile.velocity.Y += 0.3f;
+            }
             dmgupcount--;
             if (maxDmgUps > 0 && dmgupcount <= 0)
             {
@@ -341,6 +358,8 @@ namespace CalamityEntropy
         }
         public Vector2 lmc;
         public Vector2 lastCenter;
+        public bool withGrav = false;
+        public int vdtype = -1;
         public override void PostDraw(Projectile projectile, Color lightColor)
         {
             if (projectile.ModProjectile != null)
@@ -363,6 +382,10 @@ namespace CalamityEntropy
             if (projectile.Entropy().DI)
             {
                 lightColor = new Color(230, 230, 150);
+            }
+            if (projectile.Entropy().daTarget)
+            {
+                lightColor = Color.Black;
             }
             if (projectile.Entropy().gh)
             {
@@ -405,15 +428,54 @@ namespace CalamityEntropy
 
                 return false;
             }
-            if (projectile.Entropy().daTarget)
+            if (vdtype >= 0)
             {
-                lightColor = Color.Black;
+                Color color = Color.Purple;
+                if (vdtype == 1)
+                {
+                    color = Color.IndianRed;
+                }
+                if (vdtype == 2)
+                {
+                    color = Color.DeepSkyBlue;
+                }
+                if (vdtype == 3)
+                {
+                    color = Color.Black;
+                }
+                if (vdtype == 4)
+                {
+                    color = Color.DarkRed;
+                }
+                float size = 5;
+                float sizej = size / odp2.Count;
+                for (int i = odp2.Count - 1; i >= 1; i--)
+                {
+                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value, this.odp2[i], this.odp2[i - 1], color * ((float)i / (float)odp2.Count), size);
+                    size -= sizej;
+                }
+
             }
+            
             return true;
         }
-        
+
+        public override void OnKill(Projectile projectile, int timeLeft)
+        {
+            if (vdtype == 4)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.position, projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(180)).RotatedByRandom(35) * 16, projectile.type, ((int)(projectile.damage * 0.7f)), projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1], projectile.ai[2]);
+                }
+            }
+        }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (vdtype == 3)
+            {
+                EGlobalNPC.AddVoidTouch(target, 240, 10, 800, 16);
+            }
             if (GWBow)
             {
                 EGlobalNPC.AddVoidTouch(target, 160, 6, 600, 20);

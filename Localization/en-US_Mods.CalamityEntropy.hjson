@@ -492,6 +492,21 @@ Items: {
 		Tooltip: When put it in your inventory, Automatically recharge the items in your inventory
 		DisplayName: Power Bank
 	}
+
+	RustyGrenade: {
+		DisplayName: Rusty Grenade
+		Tooltip: ""
+	}
+
+	RustExpeditioner: {
+		Tooltip: ""
+		DisplayName: Rust Expeditioner
+	}
+
+	VoidDevastator: {
+		DisplayName: Void Devastator
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -576,6 +591,7 @@ Projectiles: {
 	VoidBullet.DisplayName: Void Bullet
 	VoidMonster.DisplayName: Void Monster
 	VoidMonsterShoot.DisplayName: Void Monster Shoot
+	RustyGrenadeProjectile.DisplayName: Rusty Grenade Projectile
 }
 
 LegendTooltip: - Legend -

@@ -496,6 +496,21 @@ Items: {
 		Tooltip: 放在物品栏时，自动为物品栏中所有可以充能的物品充能
 		DisplayName: 便携充能背包
 	}
+
+	RustyGrenade: {
+		DisplayName: 锈蚀榴弹
+		Tooltip: 视为火箭
+	}
+
+	RustExpeditioner: {
+		Tooltip: 使用火箭类弹药
+		DisplayName: 锈蚀远征者
+	}
+
+	VoidDevastator: {
+		DisplayName: 虚泯湮灭者
+		Tooltip: 使用火箭类弹药
+	}
 }
 
 Projectiles: {
@@ -580,6 +595,7 @@ Projectiles: {
 	VoidBullet.DisplayName: 虚空弹
 	VoidMonster.DisplayName: 虚空怪物
 	VoidMonsterShoot.DisplayName: 虚空弹
+	// RustyGrenadeProjectile.DisplayName: Rusty Grenade Projectile
 }
 
 LegendTooltip: - 传奇物品 -
