@@ -207,6 +207,10 @@ namespace CalamityEntropy
 
         public override bool PreAI(Projectile projectile)
         {
+            if (projectile.Entropy().vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
+            {
+                projectile.hostile = false;
+            }
             if (vdtype == 0)
             {
                 projectile.velocity = projectile.velocity.RotatedBy(Math.Cos((counter + MathHelper.Pi * 0.5f) * 0.2f) * (float)vddirection * 0.18f);
@@ -332,27 +336,8 @@ namespace CalamityEntropy
             return true;
         }
 
-        public override bool CanHitPlayer(Projectile projectile, Player target)
-        {
 
-            if (projectile.Entropy().vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
-            {
-                return false;
-            }
-            return base.CanHitPlayer(projectile, target);
-        }
 
-        public override bool? CanHitNPC(Projectile projectile, NPC target)
-        {
-            if (projectile.Entropy().vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
-            {
-                if (!target.friendly)
-                {
-                    return false;
-                }
-            }
-            return base.CanHitNPC(projectile, target);
-        }
 
         public override void PostAI(Projectile projectile)
         {
