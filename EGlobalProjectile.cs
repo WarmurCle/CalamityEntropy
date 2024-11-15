@@ -238,10 +238,10 @@ namespace CalamityEntropy
                         GeneralParticleHandler.SpawnParticle(smokeGlow);
                     }
                 }
-                NPC target = projectile.FindTargetWithinRange(800, false);
+                NPC target = projectile.FindTargetWithinRange(256, false);
                 if (target != null)
                 {
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), 0.09f * projectile.velocity.Length(), true));
+                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), 0.12f * projectile.velocity.Length(), true));
                 }
             }
             if (projectile.Entropy().daTarget)
@@ -331,6 +331,26 @@ namespace CalamityEntropy
             
             return true;
         }
+
+        public override bool CanHitPlayer(Projectile projectile, Player target)
+        {
+
+            if (projectile.Entropy().vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
+            {
+                return false;
+            }
+            return base.CanHitPlayer(projectile, target);
+        }
+
+        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        {
+            if (projectile.Entropy().vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
+            {
+                return false;
+            }
+            return base.CanHitNPC(projectile, target);
+        }
+
         public override void PostAI(Projectile projectile)
         {
             if (projectile.Entropy().OnProj >= 0)

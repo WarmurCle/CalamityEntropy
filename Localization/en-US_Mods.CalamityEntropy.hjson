@@ -507,6 +507,11 @@ Items: {
 		DisplayName: Void Devastator
 		Tooltip: ""
 	}
+
+	GodSlayerRocket: {
+		DisplayName: God Slayer Rocket
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -592,6 +597,8 @@ Projectiles: {
 	VoidMonster.DisplayName: Void Monster
 	VoidMonsterShoot.DisplayName: Void Monster Shoot
 	RustyGrenadeProjectile.DisplayName: Rusty Grenade Projectile
+	GodSlayerRocket.DisplayName: God Slayer Rocket
+	GodSlayerRocketProjectile.DisplayName: God Slayer Rocket Projectile
 }
 
 LegendTooltip: - Legend -

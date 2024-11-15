@@ -509,7 +509,20 @@ Items: {
 
 	VoidDevastator: {
 		DisplayName: 虚泯湮灭者
-		Tooltip: 使用火箭类弹药
+		Tooltip:
+		'''
+		使用火箭类弹药，不会对友方造成伤害
+		发射附带不同效果的火箭
+		'''
+	}
+
+	GodSlayerRocket: {
+		DisplayName: 弑神者火箭
+		Tooltip: 
+		'''
+		视为火箭，不会对友方造成伤害
+		命中时产生大爆炸并给与附近敌怪虚空之触减益
+		'''
 	}
 }
 
@@ -596,6 +609,8 @@ Projectiles: {
 	VoidMonster.DisplayName: 虚空怪物
 	VoidMonsterShoot.DisplayName: 虚空弹
 	// RustyGrenadeProjectile.DisplayName: Rusty Grenade Projectile
+	// GodSlayerRocket.DisplayName: God Slayer Rocket
+	// GodSlayerRocketProjectile.DisplayName: God Slayer Rocket Projectile
 }
 
 LegendTooltip: - 传奇物品 -
