@@ -260,7 +260,7 @@ namespace CalamityEntropy
                     netsnc = false;
                 }
                 playerPosL = projectile.owner.ToPlayer().Center;
-                projectile.owner.ToPlayer().Center = playerPosL + (projectile.Entropy().OnProj.ToProj().Center - playerPosL) / 2;
+                projectile.owner.ToPlayer().Center = projectile.Entropy().OnProj.ToProj().Center;
             }
             projectile.Entropy().counter++;
             projectile.Entropy().odp.Add(projectile.Center);
@@ -384,7 +384,7 @@ namespace CalamityEntropy
             if (projectile.Entropy().OnProj >= 0)
             {
                 lastCenter = projectile.owner.ToPlayer().Center;
-                projectile.owner.ToPlayer().Center = lastCenter + (projectile.Entropy().OnProj.ToProj().Center - lastCenter) / 2;
+                projectile.owner.ToPlayer().Center = projectile.Entropy().OnProj.ToProj().Center;
             }
             Texture2D tx;
             if (projectile.Entropy().DI)
