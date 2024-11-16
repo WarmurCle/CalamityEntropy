@@ -278,11 +278,8 @@ namespace CalamityEntropy.Projectiles
             Player player = Main.player[Projectile.owner];
             
             Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Extra/Extra_201").Value;  //SwordSlashTexture
-            Effect se = GameShaders.Misc["CalamityEntropy:Dogma"].Shader;
+
             var r = Main.rand;
-            se.Parameters["r1"].SetValue((float)r.Next(1, 100000 / 4));
-            se.Parameters["r2"].SetValue((float)r.Next(1, 100000 / 4));
-            se.Parameters["SpriteTexture"].SetValue(tail);
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             List<Vertex> ve = new List<Vertex>();

@@ -22,8 +22,8 @@ namespace CalamityEntropy.Items
             Item.width = 142;
             Item.noUseGraphic = true;
             Item.height = 142;
-            Item.useTime = 1;
-            Item.useAnimation = 1;
+            Item.useTime = 4;
+            Item.useAnimation = 4;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.value = CalamityGlobalItem.RarityHotPinkBuyPrice;

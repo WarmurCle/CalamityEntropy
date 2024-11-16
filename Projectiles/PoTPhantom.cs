@@ -168,40 +168,6 @@ namespace CalamityEntropy.Projectiles
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, 0, tx.Size() / 2, Projectile.scale * 3, (Projectile.velocity.X >= 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);
 
 
-            /*SpriteBatch sb = Main.spriteBatch;
-            GraphicsDevice gd = Main.graphics.GraphicsDevice;
-            Player player = Main.player[Projectile.owner];
-            
-            Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Extra/Extra_201").Value;  //SwordSlashTexture
-            Effect se = GameShaders.Misc["CalamityEntropy:Dogma"].Shader;
-            var r = Main.rand;
-            se.Parameters["r1"].SetValue((float)r.Next(1, 100000 / 4));
-            se.Parameters["r2"].SetValue((float)r.Next(1, 100000 / 4));
-            se.Parameters["SpriteTexture"].SetValue(tail);
-            sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            List<Vertex> ve = new List<Vertex>();
-            for (int i = 0; i < odr.Count; i++)
-            {
-                Color b = Color.Lerp(new Color(24, 24, 20), new Color(180, 50, 60), (float)i / (float)odr.Count) * 0.8f;
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(280 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
-                      new Vector3(i / (float)odr.Count, 1, 1),
-                      b));
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
-                      new Vector3(i / (float)odr.Count, 0, 1),
-                      b));
-            }
-            
-            if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
-            {
-                gd.Textures[0] = tail;
-                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
-            }
-
-            //结束顶点绘制
-            sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            */
             Main.EntitySpriteDraw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(0, TextureAssets.Projectile[Projectile.type].Value.Height), Projectile.scale * 1.5f * scaleD * scale2, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
