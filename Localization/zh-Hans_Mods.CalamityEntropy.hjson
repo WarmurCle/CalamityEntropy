@@ -524,6 +524,11 @@ Items: {
 			命中时产生大爆炸并给与附近敌怪虚空之触减益
 			'''
 	}
+
+	RailPulseBow: {
+		Tooltip: 射出带有电流的箭
+		DisplayName: 磁轨脉冲弓
+	}
 }
 
 Projectiles: {
@@ -539,6 +544,7 @@ Projectiles: {
 	IceEdge.DisplayName: 凌冽神剑
 	LightningBolt.DisplayName: 闪电
 	LightningSpear.DisplayName: 雷电之矛
+	// Lightning.DisplayName: Lightning
 	Impact.DisplayName: 冲击波
 	Lcircle.DisplayName: 闪电箭尾迹
 	VoidMark.DisplayName: 虚空标记
@@ -611,6 +617,7 @@ Projectiles: {
 	// RustyGrenadeProjectile.DisplayName: Rusty Grenade Projectile
 	// GodSlayerRocket.DisplayName: God Slayer Rocket
 	// GodSlayerRocketProjectile.DisplayName: God Slayer Rocket Projectile
+	// RailPulseBowProjectile.DisplayName: Rail Pulse Bow Projectile
 }
 
 LegendTooltip: - 传奇物品 -

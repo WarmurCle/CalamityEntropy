@@ -19,6 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -106,7 +107,7 @@ namespace CalamityEntropy
                     maxDmgUps = 10;
                 }
             }
-            if (source is EntitySource_ItemUse && checkHoldOut && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>()))
+            if (source is EntitySource_ItemUse && checkHoldOut && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>()))
             {
                 checkHoldOut = false;
                 foreach (Projectile p in Main.projectile)
@@ -242,8 +243,8 @@ namespace CalamityEntropy
                         GeneralParticleHandler.SpawnParticle(smokeGlow);
                     }
                 }
-                NPC target = projectile.FindTargetWithinRange(256, false);
-                if (target != null)
+                NPC target = projectile.FindTargetWithinRange(1000, false);
+                if (target != null && counter > 35)
                 {
                     projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), 0.12f * projectile.velocity.Length(), true));
                 }
@@ -368,6 +369,8 @@ namespace CalamityEntropy
         public Vector2 lastCenter;
         public bool withGrav = false;
         public int vdtype = -1;
+        public bool rpBow = false;
+
         public override void PostDraw(Projectile projectile, Color lightColor)
         {
             if (projectile.ModProjectile != null)
@@ -464,7 +467,26 @@ namespace CalamityEntropy
                 }
 
             }
-            
+            if (rpBow)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+                lightColor = Color.White;
+                Texture2D txx = TextureAssets.Projectile[projectile.type].Value;
+                float rot = 0;
+                for (int i = 0; i < 8; i++)
+                {
+                    Main.spriteBatch.Draw(txx, projectile.position + rot.ToRotationVector2() * 2 - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), projectile.scale, SpriteEffects.None, 0);
+                    rot += MathHelper.Pi * 2f / 8f;
+                }
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                Main.spriteBatch.Draw(txx, projectile.position - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), projectile.scale, SpriteEffects.None, 0);
+
+                return false;
+            }
             return true;
         }
 
@@ -475,6 +497,12 @@ namespace CalamityEntropy
                 for (int i = 0; i < 2; i++)
                 {
                     Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.position, projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(180)).RotatedByRandom(35) * 16, projectile.type, ((int)(projectile.damage * 0.7f)), projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1], projectile.ai[2]);
+                }
+            }
+            if (rpBow && Main.myPlayer == projectile.owner)
+            {
+                for(int i = 0; i < 3; i++) {
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, new Vector2(30, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<Lightning>(), (int)(projectile.damage * 0.6f), 4, projectile.owner);
                 }
             }
         }

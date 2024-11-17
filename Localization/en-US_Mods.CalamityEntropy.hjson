@@ -512,6 +512,11 @@ Items: {
 		DisplayName: God Slayer Rocket
 		Tooltip: ""
 	}
+
+	RailPulseBow: {
+		Tooltip: ""
+		DisplayName: Rail Pulse Bow
+	}
 }
 
 Projectiles: {
@@ -527,6 +532,7 @@ Projectiles: {
 	IceEdge.DisplayName: Ice Edge
 	LightningBolt.DisplayName: Lightning Bolt
 	LightningSpear.DisplayName: Lightning Spear
+	Lightning.DisplayName: Lightning
 	Impact.DisplayName: Impact
 	Lcircle.DisplayName: Lcircle
 	VoidMark.DisplayName: Void Mark
@@ -599,6 +605,7 @@ Projectiles: {
 	RustyGrenadeProjectile.DisplayName: Rusty Grenade Projectile
 	GodSlayerRocket.DisplayName: God Slayer Rocket
 	GodSlayerRocketProjectile.DisplayName: God Slayer Rocket Projectile
+	RailPulseBowProjectile.DisplayName: Rail Pulse Bow Projectile
 }
 
 LegendTooltip: - Legend -

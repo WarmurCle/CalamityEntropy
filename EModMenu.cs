@@ -32,6 +32,7 @@ namespace CalamityEntropy
             return true;
         }
 
+        public override bool IsAvailable => false;
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<MenuBack>();
     }
 }
