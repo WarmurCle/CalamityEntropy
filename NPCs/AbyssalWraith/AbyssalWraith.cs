@@ -501,7 +501,6 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                         }
                         NPC.ai[2]--;
                     }
-                    
 
                     if (counter % 340 == 0 && Util.Util.getDistance(NPC.Center, target.Center) > 4000)
                     {
