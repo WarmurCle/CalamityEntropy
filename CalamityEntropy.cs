@@ -586,6 +586,30 @@ namespace CalamityEntropy
 
                     }
                 }
+                foreach (NPC n in checkNPC)
+                {
+                    if (n.active && n.ModNPC is AbyssalWraith aw)
+                    {
+                        if (aw.portalAlpha > 0)
+                        {
+                            float s = 0;
+                            float sj = 1;
+                            for (int i = 0; i <= 30; i++)
+                            {
+                                aw.DrawPortal(aw.portalPos + new Vector2(0, 220 - i * 2.2f), new Color(50, 35, 240) * aw.portalAlpha, 270 * s, 0.3f, i * 3f);
+                                s = s + (sj - s) * 0.05f;
+                            }
+
+                            s = 0;
+                            sj = 1;
+                            for (int i = 0; i <= 30; i++)
+                            {
+                                aw.DrawPortal(aw.portalTarget + new Vector2(0, 220 - i * 2.2f), new Color(50, 35, 240) * aw.portalAlpha, 270 * s, 0.3f, i * 3f);
+                                s = s + (sj - s) * 0.05f;
+                            }
+                        }
+                    }
+                }
                 Main.spriteBatch.End();
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
                 graphicsDevice.Clear(Color.Transparent);

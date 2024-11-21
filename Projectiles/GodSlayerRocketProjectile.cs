@@ -19,7 +19,7 @@ namespace CalamityEntropy.Projectiles
 		public override void SetStaticDefaults() {
 			ProjectileID.Sets.IsARocketThatDealsDoubleDamageToPrimaryEnemy[Type] = true; // Deals double damage on direct hits.
 			ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true; // Damage dealt to players does not scale with difficulty in vanilla.
-
+			ProjectileID.Sets.RocketsSkipDamageForPlayers[Type] = true;
 			// This set handles some things for us already:
 			// Sets the timeLeft to 3 and the projectile direction when colliding with an NPC or player in PVP (so the explosive can detonate).
 			// Explosives also bounce off the top of Shimmer, detonate with no blast damage when touching the bottom or sides of Shimmer, and damage other players in For the Worthy worlds.
@@ -94,16 +94,21 @@ namespace CalamityEntropy.Projectiles
 			PrepareBombToBlow();
 			Projectile.timeLeft = 3;
         }
+        public override bool CanHitPlayer(Player target)
+        {
+            return false;
+        }
         public override void PrepareBombToBlow() {
 			Projectile.tileCollide = false; // This is important or the explosion will be in the wrong place if the rocket explodes on slopes.
 			Projectile.alpha = 255; // Make the rocket invisible.
             SoundStyle s = new SoundStyle("CalamityEntropy/Sounds/DevourerDeathImpact");
             s.Volume = 0.36f;
             SoundEngine.PlaySound(s, Projectile.position);
-            // Resize the hitbox of the projectile for the blast "radius".
-            // Rocket I: 128, Rocket III: 200, Mini Nuke Rocket: 250
-            // Measurements are in pixels, so 128 / 16 = 8 tiles.
-            Projectile.Resize(320, 320);
+			// Resize the hitbox of the projectile for the blast "radius".
+			// Rocket I: 128, Rocket III: 200, Mini Nuke Rocket: 250
+			// Measurements are in pixels, so 128 / 16 = 8 tiles.
+			Projectile.Resize(320, 320);
+			Projectile.hostile = false;
 			// Set the knockback of the blast.
 			// Rocket I: 8f, Rocket III: 10f, Mini Nuke Rocket: 12f
 			Projectile.knockBack = 8f;

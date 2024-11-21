@@ -44,7 +44,7 @@ namespace CalamityEntropy
             if (SCalIndex != -1)
             {
                 UseTargetPosition(Main.npc[SCalIndex].Center);
-                Filters.Scene["CalamityMod:SupremeCalamitas"].GetShader().UseColor(0.35f, 0.3f, 0.9f);
+                Filters.Scene["CalamityMod:SupremeCalamitas"].GetShader().UseColor(1f, 1f, 1f);
             }
             base.Apply();
         }

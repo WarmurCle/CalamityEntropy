@@ -206,11 +206,21 @@ namespace CalamityEntropy
             return base.ShouldUpdatePosition(projectile);
         }
 
+        public override bool CanHitPlayer(Projectile projectile, Player target)
+        {
+            if (vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
+            {
+                return false;
+            }
+            return base.CanHitPlayer(projectile, target);
+        }
+
         public override bool PreAI(Projectile projectile)
         {
             if (projectile.Entropy().vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
             {
                 projectile.hostile = false;
+                projectile.friendly = true;
             }
             if (vdtype == 0)
             {
@@ -244,7 +254,7 @@ namespace CalamityEntropy
                     }
                 }
                 NPC target = projectile.FindTargetWithinRange(1000, false);
-                if (target != null && counter > 35)
+                if (target != null && counter > 15)
                 {
                     projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), 0.12f * projectile.velocity.Length(), true));
                 }
@@ -502,7 +512,7 @@ namespace CalamityEntropy
             if (rpBow && Main.myPlayer == projectile.owner)
             {
                 for(int i = 0; i < 3; i++) {
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, new Vector2(30, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<Lightning>(), (int)(projectile.damage * 0.6f), 4, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, new Vector2(30, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<Lightning>(), (int)(projectile.damage * 0.6f), 4, projectile.owner, 0, 0, (Main.rand.NextBool(8) ? 1 : 0));
                 }
             }
         }

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using CalamityEntropy.Projectiles;
 using Terraria.Audio;
 using Newtonsoft.Json.Linq;
+using CalamityMod.Buffs.StatDebuffs;
 
 namespace CalamityEntropy.Projectiles
 {
@@ -85,20 +86,11 @@ namespace CalamityEntropy.Projectiles
                         }
                     }
                     Vector2 pv = vc + new Vector2(r.Next(-12, 13), r.Next(-12, 13));
-                    Lighting.AddLight(pv, new Vector3(1f, 1f, 1f));
                     if (i == 0)
                     {
                         pv = vc;
                     }
                     Tile tile = Main.tile[(int)pv.X / 16, (int)pv.Y / 16];
-                    if (tile != null && tile.HasTile && false) {
-                        if (Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]) {
-                            drawEnd = true;
-                            endPos = pv;
-                            points.Add(pv);
-                            break;
-                        }
-                    }
                     points.Add(pv);
                     
                     vc += avc * Projectile.velocity.Length();
@@ -134,6 +126,14 @@ namespace CalamityEntropy.Projectiles
             }
             return false;
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Projectile.ai[2] == 1)
+            {
+                target.AddBuff(ModContent.BuffType<GalvanicCorrosion>(), 240);
+            }
+        }
+        
         public override bool PreDraw(ref Color lightColor)
         {
             if (points.Count < 1)
@@ -144,16 +144,21 @@ namespace CalamityEntropy.Projectiles
             Texture2D lm = ModContent.Request<Texture2D>("CalamityEntropy/Extra/lightmask").Value;
             float jd = 1;
             float lw = 0.7f * ((36f - Projectile.ai[0]) / 36f);
+            Color color = Color.White;
+            if (Projectile.ai[2] == 1)
+            {
+                color = Color.Red;
+            }
             for (int i = 1; i < points.Count; i++)
             {
                 Vector2 jv = points[i] - points[i - 1];
                 jv.Normalize();
                 jv *= 2;
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, Color.White * jd, 2f * lw);
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, Color.White * 0.8f * jd, 4f * lw);
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, Color.White * 0.6f * jd, 8f * lw);
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, Color.White * 0.4f * jd, 12f * lw);
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, Color.White * 0.2f * jd, 16f * lw);
+                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * jd, 2f * lw);
+                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * 0.8f * jd, 4f * lw);
+                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * 0.6f * jd, 8f * lw);
+                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * 0.4f * jd, 12f * lw);
+                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * 0.2f * jd, 16f * lw);
                 lw -= 0.7f * ((36f - Projectile.ai[0]) / 36f) / ((float)points.Count + 1);
             }
             if (drawEnd && Projectile.ai[0] < 12)

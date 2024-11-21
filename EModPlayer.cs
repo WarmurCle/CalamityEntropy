@@ -79,6 +79,22 @@ namespace CalamityEntropy
                 }
             }
         }
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+        {
+            if (SCrown)
+            {
+                Player.Calamity().nextHitDealsDefenseDamage = false;
+            }
+        }
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
+        {
+            if (SCrown)
+            {
+                Player.Calamity().nextHitDealsDefenseDamage = false;
+            }
+        }
+        public bool SCrown;
+
         public int VoidInspire = 0;
 
         public bool GreedCard = false;
@@ -112,7 +128,7 @@ namespace CalamityEntropy
             VFHelmSummoner = false;
             VFHelmRouge = false;
             VFHelmMelee = false;
-
+            SCrown = false;
             GreedCard = false;
         }
         public int crSky = 0;
@@ -163,9 +179,13 @@ namespace CalamityEntropy
             Player.runAcceleration *= 1f + VoidCharge;
             Player.maxRunSpeed *= 1f + VoidCharge;
         }
-
+        
         public override void PostUpdateMiscEffects()
         {
+            if (Player.Entropy().SCrown)
+            {
+                Player.Calamity().defenseDamageRatio = 0;
+            }
             if (Player.Entropy().wisdomCard)
             {
                 Player.manaCost *= 0.6f;
@@ -194,6 +214,7 @@ namespace CalamityEntropy
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
+
             modifiers.ModifyHurtInfo += EPHurtModifier;
             float d = 1;
             if (Player.Entropy().enduranceCard)
@@ -215,6 +236,10 @@ namespace CalamityEntropy
 
         private void EPHurtModifier(ref Player.HurtInfo info)
         {
+            if (SCrown)
+            {
+                Player.Calamity().defenseDamageRatio = 0f;
+            }
             if (MagiShield > 0)
             {
                 if (MagiShield >= info.Damage)
@@ -555,7 +580,7 @@ namespace CalamityEntropy
         }
         public override bool CanBeHitByProjectile(Projectile proj)
         {
-            if (Player.HasBuff(ModContent.BuffType<StealthState>()) || DarkArtsTarget.Count > 0 || VaMoving > 0)
+            if (Player.HasBuff(ModContent.BuffType<StealthState>()) || DarkArtsTarget.Count > 0 || VaMoving > 0 || proj.Entropy().vdtype >= 0 || proj.ModProjectile is GodSlayerRocketProjectile)
             {
                 return false;
             }

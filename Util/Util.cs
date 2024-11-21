@@ -12,6 +12,10 @@ namespace CalamityEntropy.Util
 {
     //Most of these code is stupid, I wrote them very early on, but But I'm too lazy to modify them
     public static class Util{
+        public static float randomRot()
+        {
+            return (float)(Main.rand.NextDouble() * MathHelper.Pi * 2);
+        }
         public static bool inWorld(int i, int j)
         {
             return !(i < 0 || j < 0 || i > Main.tile.Width || j > Main.tile.Height);
@@ -204,9 +208,9 @@ namespace CalamityEntropy.Util
             return Collision.CheckAABBvLineCollision(rect.TopLeft(), rect.Size(), start, end, lineWidth, ref point);
         }
 
-        public static void drawLine(SpriteBatch spriteBatch, Texture2D px, Vector2 start, Vector2 end, Color color, float width, int wa = 0)
+        public static void drawLine(SpriteBatch spriteBatch, Texture2D px, Vector2 start, Vector2 end, Color color, float width, int wa = 0, bool worldpos = true)
         {
-            spriteBatch.Draw(px, start - Main.screenPosition, null, color, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(getDistance(start, end) + wa, width), SpriteEffects.None, 0);
+            spriteBatch.Draw(px, start - (worldpos ? Main.screenPosition : Vector2.Zero), null, color, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(getDistance(start, end) + wa, width), SpriteEffects.None, 0);
         }
 
         public static void drawTextureToPoint(SpriteBatch sb, Texture2D texture, Color color, Vector2 lu, Vector2 ru, Vector2 ld, Vector2 rd) {

@@ -1,0 +1,139 @@
+using Terraria;
+using Terraria.ID;
+using System;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using CalamityEntropy.Util;
+using Terraria.Audio;
+using System.IO;
+namespace CalamityEntropy.Projectiles.AbyssalWraith
+{
+    
+    public class VoidLightBall: ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Projectile.type] = 1;
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 5000;
+
+        }
+        public float counter = 0;
+        public int drawcount = 0;
+        public override void SetDefaults()
+        {
+            Projectile.width = 30;
+            Projectile.height = 30;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.light = 1f;
+            Projectile.scale = 1f;
+            Projectile.timeLeft = 110;
+            
+        }
+        
+        public override void AI(){
+            
+            if (Projectile.ai[0] == 0)
+            {
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/light_bolt_delayed"));
+            }
+            if (Projectile.ai[0] == 60)
+            {
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/light_bolt"));
+            }
+            
+            Projectile.velocity *= 0.94f;
+            Projectile.ai[0] += (Projectile.ai[1] == 2 ? 1f : 1);
+            counter += (Projectile.ai[1] == 2 ? 1f : 1);
+            if (counter > 60)
+            {
+                Projectile.velocity *= 0;
+            }
+            else
+            {
+                if ((((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().HasValidTarget) || Projectile.ai[1] == 2)
+                {
+                    Player target = ((int)Projectile.ai[2]).ToNPC().target.ToPlayer();
+                    if (Projectile.ai[1] == 0)
+                    {
+                        Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.12f, false);
+                    }
+                    if (counter <= 1)
+                    {
+                        if (Projectile.ai[1] == 2)
+                        {
+                            Projectile.rotation = Util.Util.randomRot();
+                            rotSpeed = (Util.Util.randomRot() - MathHelper.Pi) * 0.05f;
+                            Projectile.netUpdate = true;
+                            Projectile.timeLeft = 220;
+                        }
+                        else
+                        {
+                            Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 1, false);
+                        }
+
+                    }
+                }
+            }
+            if (Projectile.ai[1] == 2 && counter == 60)
+            {
+                rotSpeed = 0;
+            }
+            Projectile.rotation += rotSpeed;
+            rotSpeed *= 0.92f;
+            if (counter >= 90)
+            {
+                opc -= 1f / 20f;
+            }
+        }
+        float opc = 1;
+        float rotSpeed = 0;
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return counter > 60 && counter < 90 && Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 2400, targetHitbox, 24);
+        }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(rotSpeed);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            rotSpeed = reader.ReadSingle();
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            drawcount++;
+            SpriteBatch spriteBatch = Main.spriteBatch;
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            Texture2D warn = ModContent.Request<Texture2D>("CalamityEntropy/Extra/vlbw").Value;
+            Texture2D t = TextureAssets.Projectile[Projectile.type].Value;
+            spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * opc, MathHelper.ToRadians(drawcount * 4f), t.Size() / 2, new Vector2(1.5f, 1) * Projectile.scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * opc, MathHelper.ToRadians((drawcount + 64) * 14f), t.Size() / 2, new Vector2(1.5f, 1) * Projectile.scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * opc, MathHelper.ToRadians((drawcount + 154) * 34f), t.Size() / 2, new Vector2(1.5f, 1) * Projectile.scale, SpriteEffects.None, 0);
+            if (counter <= 60)
+            {
+                spriteBatch.Draw(warn, Projectile.Center - Main.screenPosition, null, Color.White * opc * (counter / 60f), Projectile.rotation, warn.Size() / 2 * new Vector2(0, 1), new Vector2(9f * counter / 60f * (Projectile.ai[1] == 1 ? 3 : 1), 1 * (Projectile.ai[1] == 1 ? 0.4f : 1)) * Projectile.scale, SpriteEffects.None, 0);
+            }
+            else
+            {
+                spriteBatch.Draw(warn, Projectile.Center - Main.screenPosition, null, Color.Purple * opc, Projectile.rotation, warn.Size() / 2 * new Vector2(0, 1), new Vector2(20, 1.2f) * Projectile.scale * 1.46f, SpriteEffects.None, 0);
+                spriteBatch.Draw(warn, Projectile.Center - Main.screenPosition, null, ((drawcount / 2) % 2 == 0 ? Color.White : Color.Purple) * opc, Projectile.rotation, warn.Size() / 2 * new Vector2(0, 1), new Vector2(20, 1) * Projectile.scale * 1.46f, SpriteEffects.None, 0);
+            }
+
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            return false;
+        }
+    }
+
+}

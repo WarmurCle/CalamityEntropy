@@ -517,7 +517,25 @@ Items: {
 		Tooltip: ""
 		DisplayName: Rail Pulse Bow
 	}
+
+	JailerWhip: {
+		Tooltip: ""
+		DisplayName: Jailer Whip
+	}
+
+	SilvasCrown: {
+		DisplayName: Silva's Crown
+		Tooltip:
+			'''
+			+8 Life Regen
+			+50 max life
+			Remove defense damage.
+			-Death Mode-
+			'''
+	}
 }
+
+DeathMode: Death Mode
 
 Projectiles: {
 	VoidBladeProj.DisplayName: Void Blade
@@ -606,6 +624,13 @@ Projectiles: {
 	GodSlayerRocket.DisplayName: God Slayer Rocket
 	GodSlayerRocketProjectile.DisplayName: God Slayer Rocket Projectile
 	RailPulseBowProjectile.DisplayName: Rail Pulse Bow Projectile
+	JailerWhipProjectile.DisplayName: Jailer Whip Projectile
+	VoidLightBall.DisplayName: Void Light Ball
+	SpImpact.DisplayName: Sp Impact
+	SighterPin.DisplayName: Sighter Pin
+	VoidFeather.DisplayName: Void Feather
+	HugeLightBall.DisplayName: Huge Light Ball
+	HomingLightBall.DisplayName: Homing Light Ball
 }
 
 LegendTooltip: - Legend -
@@ -705,6 +730,11 @@ Buffs: {
 	PlanetDestroyer: {
 		DisplayName: Planet Destroyer
 		Description: Planet Killer will fight for you
+	}
+
+	JailerWhipDebuff: {
+		Description: Mods.CalamityEntropy.Buffs.JailerWhipDebuff.Description
+		DisplayName: Jailer Whip Debuff
 	}
 }
 

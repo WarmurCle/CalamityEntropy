@@ -29,6 +29,8 @@ using CalamityEntropy.Items.Vanity;
 using CalamityMod.Items.Pets;
 using Terraria.GameContent.ItemDropRules;
 using CalamityEntropy.Items.Armor.VoidFaquir;
+using CalamityEntropy.Items.Accessories;
+using CalamityMod.World;
 
 namespace CalamityEntropy
 {
@@ -65,8 +67,8 @@ namespace CalamityEntropy
 
         public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
         {
-            speed *= 1 + player.Entropy().VoidCharge * 0.5f;
-            acceleration *= 1 + player.Entropy().VoidCharge * 0.5f;
+            speed *= 1 + player.Entropy().VoidCharge * 0.25f;
+            acceleration *= 1 + player.Entropy().VoidCharge * 0.25f;
         }
 
         public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
@@ -362,6 +364,37 @@ namespace CalamityEntropy
                     }
                     return false;
                 }
+                if (item.rare == ModContent.RarityType<GlowGreen>())
+                {
+                    float xa = 0;
+                    for (int i = 0; i < line.Text.Length; i++)
+                    {
+                        string text = line.Text[i].ToString();
+                        var font = FontAssets.MouseText.Value;
+                        Vector2 size = font.MeasureString(text);
+                        float yofs;
+                        Color color = new Color(60, 255, 60);
+                        yofs = 0;
+                        Color strokeColord = new Color(210, 255, 210);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+
+
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs), color);
+
+
+
+                        xa += size.X;
+
+                    }
+                    return false;
+                }
             }
             if (line.Name == "LegendItem" || (line.Name == "ItemName" && item.Entropy().tooltipStyle == 2))
             {
@@ -550,6 +583,11 @@ namespace CalamityEntropy
             {
                 itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 3));
             }
+            if (item.type == ItemID.WallOfFleshBossBag)
+            {
+                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<SilvasCrown>()));
+
+            }
             if (item.type == ItemID.IronCrate || item.type == ItemID.IronCrateHard)
             {
                 itemLoot.Add(ModContent.ItemType<AuraCard>(), new Fraction(1, 10));
@@ -574,6 +612,12 @@ namespace CalamityEntropy
                 };
                 itemLoot.AddIf(getsAH, ModContent.ItemType<GalaxyGrapeSoda>());
             }
+        }
+        public class IsDeathMode : IItemDropRuleCondition, IProvideItemConditionDescription
+        {
+            public bool CanDrop(DropAttemptInfo info) => CalamityWorld.death;
+            public bool CanShowItemDropInUI() => CalamityWorld.death;
+            public string GetConditionDescription() => Language.GetTextValue("Mods.CalamityEntropy.DeathMode");
         }
     }
 }

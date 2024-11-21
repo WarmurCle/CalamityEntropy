@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static CalamityEntropy.EGlobalItem;
 
 namespace CalamityEntropy.Items
 {
@@ -53,8 +54,8 @@ namespace CalamityEntropy.Items
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-			// Money
-			itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<CruiserHead>()));
+            // Money
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<CruiserHead>()));
 
             // Materials
             itemLoot.Add(ModContent.ItemType<VoidRelics>(), new Fraction(3, 5));
@@ -67,10 +68,8 @@ namespace CalamityEntropy.Items
             itemLoot.Add(ModContent.ItemType<PhantomPlanetKillerEngine>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<VoidToy>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<VoidScales>(), new Fraction(1, 1), 58, 68);
-            if (Main.masterMode && CalamityWorld.death)
-            {
-                itemLoot.Add(ModContent.ItemType<TheocracyPearlToy>(), new Fraction(1, 6));
-            }
+            itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<TheocracyPearlToy>(), 5));
+
             itemLoot.Add(ModContent.ItemType<VoidMonolith>(), new Fraction(2, 5));
         }
     }

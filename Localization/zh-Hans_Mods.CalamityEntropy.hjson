@@ -529,7 +529,25 @@ Items: {
 		Tooltip: 射出带有电流的箭
 		DisplayName: 磁轨脉冲弓
 	}
+
+	JailerWhip: {
+		Tooltip: ""
+		DisplayName: 狱卒长鞭
+	}
+
+	SilvasCrown: {
+		DisplayName: 始源冠冕
+		Tooltip:
+			'''
+			+8 生命再生
+			+50 最大生命值
+			移除防御损伤
+			-死亡模式专属-
+			'''
+	}
 }
+
+DeathMode: 死亡模式
 
 Projectiles: {
 	VoidBladeProj.DisplayName: 虚空锋刃
@@ -614,10 +632,17 @@ Projectiles: {
 	VoidBullet.DisplayName: 虚空弹
 	VoidMonster.DisplayName: 虚空怪物
 	VoidMonsterShoot.DisplayName: 虚空弹
-	// RustyGrenadeProjectile.DisplayName: Rusty Grenade Projectile
-	// GodSlayerRocket.DisplayName: God Slayer Rocket
-	// GodSlayerRocketProjectile.DisplayName: God Slayer Rocket Projectile
-	// RailPulseBowProjectile.DisplayName: Rail Pulse Bow Projectile
+	RustyGrenadeProjectile.DisplayName: 锈蚀榴弹
+	GodSlayerRocket.DisplayName: 弑神者火箭
+	GodSlayerRocketProjectile.DisplayName: 弑神者火箭
+	RailPulseBowProjectile.DisplayName: 磁轨脉冲弓
+	JailerWhipProjectile.DisplayName: 狱卒长鞭
+	VoidLightBall.DisplayName: 虚光射线
+	SpImpact.DisplayName: 冲击波
+	SighterPin.DisplayName: 视域之矛
+	VoidFeather.DisplayName: 虚空之羽
+	HugeLightBall.DisplayName: 虚空圣光
+	HomingLightBall.DisplayName: 虚空光球
 }
 
 LegendTooltip: - 传奇物品 -
@@ -717,6 +742,11 @@ Buffs: {
 	PlanetDestroyer: {
 		DisplayName: 幻影猎星者
 		Description: 猎星战舰将为你战斗
+	}
+
+	JailerWhipDebuff: {
+		// Description: Mods.CalamityEntropy.Buffs.JailerWhipDebuff.Description
+		// DisplayName: Jailer Whip Debuff
 	}
 }
 

@@ -10,6 +10,7 @@ using System.Reflection;
 using CalamityEntropy.Util;
 using System.Xml.Linq;
 using System;
+using CalamityEntropy.NPCs.AbyssalWraith;
 
 namespace CalamityEntropy
 {
@@ -42,9 +43,10 @@ namespace CalamityEntropy
 
         public override Color OnTileColor(Color inColor)
         {
-            return Color.Lerp(inColor, new Color(63, 51, 90, inColor.A), opacity);
+            return Color.Lerp(inColor, new Color(255, 255, 255, inColor.A), opacity);
         }
         public int counter = 0;
+        public int awtime = 0;
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
             
@@ -53,7 +55,29 @@ namespace CalamityEntropy
             //float pc = 1 + ((float)(Math.Cos(counter * 0.01f))) * 0.12f;
             float pc = 1f;
             Color ocolor = new Color((int)(12 * pc), (int)(65 * pc), (int)(100 * pc));
-            
+            bool drawAWMask = false;
+            int AWIndex = -1;
+            if (NPC.AnyNPCs(ModContent.NPCType<AbyssalWraith>()))
+            {
+                awtime = 180;
+                ocolor = new Color((int)(220 * pc), (int)(65 * pc), (int)(255 * pc));
+                foreach (NPC n in Main.npc)
+                {
+                    if (n.active && n.type == ModContent.NPCType<AbyssalWraith>())
+                    {
+                        drawAWMask = true;
+                        AWIndex = n.whoAmI;
+                        break;
+
+                    }
+                }
+            }
+            awtime--;
+            if (awtime > 0)
+            {
+                ocolor = new Color((int)(220 * pc), (int)(65 * pc), (int)(255 * pc));
+            }
+
             Vector2 dp = new Vector2((Main.screenPosition.X * -0.5f + counter * 0.3f) % txd.Width, (Main.screenPosition.Y * -0.5f + counter * -0.1f) % txd.Height);
             spriteBatch.Draw(txd, dp + new Vector2(0, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(txd, dp - txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
@@ -79,10 +103,16 @@ namespace CalamityEntropy
             spriteBatch.Draw(txd, dp + new Vector2(-txd.Width, txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(txd, dp + new Vector2(0, txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(txd, dp + txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            if (drawAWMask)
+            {
+                Texture2D m = ModContent.Request<Texture2D>("CalamityEntropy/Extra/lightball").Value;
+                float size = ((AbyssalWraith)AWIndex.ToNPC().ModNPC).anmlerp;
 
+                spriteBatch.Draw(m, AWIndex.ToNPC().Center - Main.screenPosition, null, Color.Purple, 0, m.Size() / 2, 16 * size, SpriteEffects.None, 0);
+            }
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
+            
         }
 
         public override void Update(GameTime gameTime)
