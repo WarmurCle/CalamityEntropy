@@ -539,7 +539,7 @@ Items: {
 		DisplayName: 始源冠冕
 		Tooltip:
 			'''
-			+8 生命再生
+			+8/s 每秒生命再生
 			+50 最大生命值
 			移除防御损伤
 			-死亡模式专属-
@@ -643,6 +643,7 @@ Projectiles: {
 	VoidFeather.DisplayName: 虚空之羽
 	HugeLightBall.DisplayName: 虚空圣光
 	HomingLightBall.DisplayName: 虚空光球
+	// AbyssalLaser.DisplayName: Abyssal Laser
 }
 
 LegendTooltip: - 传奇物品 -

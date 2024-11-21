@@ -46,6 +46,7 @@ using Terraria.WorldBuilding;
 using System.Threading;
 using Steamworks;
 using CalamityEntropy.NPCs.AbyssalWraith;
+using CalamityEntropy.Projectiles.AbyssalWraith;
 namespace CalamityEntropy
 {
 
@@ -67,6 +68,8 @@ namespace CalamityEntropy
         public static Texture2D pixel;
         public override void Load()
         {
+
+            
             ets = true;
             kscreen = ModContent.Request<Effect>("CalamityEntropy/Effects/kscreen", AssetRequestMode.ImmediateLoad).Value;
             kscreen2 = ModContent.Request<Effect>("CalamityEntropy/Effects/kscreen2", AssetRequestMode.ImmediateLoad).Value;
@@ -78,7 +81,8 @@ namespace CalamityEntropy
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/VoidBlade/f" + i.ToString()).Value;
             }
             Instance = this;
-			CUtil.load();
+            AbyssalWraith.loadHead();
+            CUtil.load();
 			foreach (int id in CalamityLists.needsDebuffIconDisplayList)
 			{
 				calDebuffIconDisplayList.Add(id);
@@ -476,6 +480,10 @@ namespace CalamityEntropy
                             
 
                         }
+                    }
+                    if (p.ModProjectile is AbyssalLaser al)
+                    {
+                        al.drawLaser();
                     }
                     if (p.ModProjectile is WohLaser)
                     {

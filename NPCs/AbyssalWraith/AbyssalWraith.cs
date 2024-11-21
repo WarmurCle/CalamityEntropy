@@ -25,7 +25,27 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
     [AutoloadBossHead]
     public class AbyssalWraith : ModNPC
     {
+        public static int icon = ModContent.GetModBossHeadSlot("CalamityEntropy/NPCs/AbyssalWraith/AbyssalWraith_Head_Boss");
+        public static int iconGather = -1;
+        public static void loadHead()
+        {
+            string path = "CalamityEntropy/NPCs/AbyssalWraith/AbyssalWraith_Head_Boss_GatherWing";
+            CalamityEntropy.Instance.AddBossHeadTexture(path, -1);
+            iconGather = ModContent.GetModBossHeadSlot(path);
 
+        }
+        public override void BossHeadSlot(ref int index)
+        {
+            
+            if (gatherWing > 0.5f)
+            {
+                index = iconGather;
+            }
+            else
+            {
+                index = icon;
+            }
+        }
         public int animation = 0;
         public int escape = 0;
         public int wingFrame = 0;
@@ -201,7 +221,8 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                 }
                 else
                 {
-                    Dust.NewDust(NPC.Center - new Vector2(40, 40), 80, 80, ModContent.DustType<AwDeath>());
+                    Main.dust[Dust.NewDust(NPC.Center - new Vector2(40, 40), 80, 80, ModContent.DustType<AwDeath>())].alpha = (int)((float)deathCount * 1.4f);
+
                 }
                 Stand();
                 return;
@@ -269,7 +290,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                             stayAtPlayerUp();
                         }
                         else {
-                            int t = random.Next(0, 8);
+                            int t = random.Next(0, 9);
                             NPC.ai[3] = random.Next(30, 100);
                             NPC.netUpdate = true;
                             if (NPC.netSpam >= 10)
@@ -307,6 +328,10 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                             {
                                 NPC.ai[2] = 80;
                             }
+                            if (t == 8)
+                            {
+                                NPC.ai[2] = 260;
+                            }
                         }
                     }
                     else
@@ -332,16 +357,26 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                         if (NPC.ai[1] == 1)
                         {
                             
-                            if (wingFrame == 7 || wingFrame == 5)
+                            if (NPC.ai[2] == 90)
                             {
-                                wingFrame = 6;
+                                animation = 1;
+                            }
+                            if (NPC.ai[2] < 50)
+                            {
+                                Stand();
+                                animation = 0;
+                                wingFrame = 7;
                                 anmChange = 0;
+                            }
+                            else
+                            {
+                                KeepDist(600);
                             }
                             if (addlight < 1)
                             {
                                 addlight += 0.05f;
                             }
-                            KeepDist(600);
+                            
                             if (NPC.ai[2] > 20 && NPC.ai[2] < 50)
                             {
                                 int c = (int)((50 - NPC.ai[2]) / 5f);
@@ -499,8 +534,32 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                                 }
                             }
                         }
+                        if (NPC.ai[1] == 8)
+                        {
+                            Stand();
+                            if (NPC.ai[2] > 220)
+                            {
+                                if (addlight < 1)
+                                {
+                                    addlight += 0.05f;
+                                }
+                            }
+                            if (NPC.ai[2] == 260)
+                            {
+                                animation = 1;
+                            }
+                            if (NPC.ai[2] == 220)
+                            {
+                                animation = 0;
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * 300, ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
+                                }
+                            }
+                        }
                         NPC.ai[2]--;
                     }
+
 
                     if (counter % 340 == 0 && Util.Util.getDistance(NPC.Center, target.Center) > 4000)
                     {
@@ -657,9 +716,9 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
         {
             Player target = NPC.target.ToPlayer();
             Vector2 pos = target.Center + (NPC.Center - target.Center).SafeNormalize(Vector2.One) * dist;
-            NPC.velocity += (pos - NPC.Center).SafeNormalize(Vector2.Zero) * 0.4f;
+            NPC.velocity += (pos - NPC.Center).SafeNormalize(Vector2.Zero) * 1f;
             NPC.rotation = MathHelper.ToRadians(NPC.velocity.X * 1.4f);
-            NPC.velocity *= 0.99f;
+            NPC.velocity *= 0.98f;
 
         }
 

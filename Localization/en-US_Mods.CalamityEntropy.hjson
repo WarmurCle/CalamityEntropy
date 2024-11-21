@@ -527,7 +527,7 @@ Items: {
 		DisplayName: Silva's Crown
 		Tooltip:
 			'''
-			+8 Life Regen
+			+8 Life Regen/s
 			+50 max life
 			Remove defense damage.
 			-Death Mode-
@@ -631,6 +631,7 @@ Projectiles: {
 	VoidFeather.DisplayName: Void Feather
 	HugeLightBall.DisplayName: Huge Light Ball
 	HomingLightBall.DisplayName: Homing Light Ball
+	AbyssalLaser.DisplayName: Abyssal Laser
 }
 
 LegendTooltip: - Legend -

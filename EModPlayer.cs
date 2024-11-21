@@ -179,9 +179,15 @@ namespace CalamityEntropy
             Player.runAcceleration *= 1f + VoidCharge;
             Player.maxRunSpeed *= 1f + VoidCharge;
         }
-        
+        public int scHealCD = 60;
         public override void PostUpdateMiscEffects()
         {
+            scHealCD--;
+            if(scHealCD < 0)
+            {
+                scHealCD = 60;
+                Player.Heal(8);
+            }
             if (Player.Entropy().SCrown)
             {
                 Player.Calamity().defenseDamageRatio = 0;

@@ -33,7 +33,6 @@ namespace CalamityEntropy.Items.Accessories
             
             player.Entropy().SCrown = true;
             player.statLifeMax2 += 50;
-            player.lifeRegen += 8;
         }
 
     }
