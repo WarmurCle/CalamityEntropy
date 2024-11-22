@@ -23,7 +23,7 @@ namespace CalamityEntropy.Items
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 7200;
+            Item.damage = 6200;
             Item.ArmorPenetration = 56;
             Item.noMelee = true;
             Item.noUseGraphic = true;

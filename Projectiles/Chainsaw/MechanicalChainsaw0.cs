@@ -143,7 +143,7 @@ namespace CalamityEntropy.Projectiles.Chainsaw
             {
                 ef = SpriteEffects.FlipVertically;
             }
-            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition + new Vector2(rand.Next(-2, 3), rand.Next(-2, 3)), null, Color.White, Projectile.rotation, tx.Size() / 2, new Vector2(Projectile.scale, Projectile.scale), ef, 0);
+            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition + new Vector2(rand.Next(-2, 3), rand.Next(-2, 3)), null, dc, Projectile.rotation, tx.Size() / 2, new Vector2(Projectile.scale, Projectile.scale), ef, 0);
             return false;
         }
         public override bool? CanCutTiles()
@@ -151,6 +151,5 @@ namespace CalamityEntropy.Projectiles.Chainsaw
             return false;
         }
     }
-    
 
 }

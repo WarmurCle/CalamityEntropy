@@ -48,6 +48,7 @@ namespace CalamityEntropy.Items
             recipe.AddIngredient(ItemID.Katana, 1);
             recipe.AddIngredient(ModContent.ItemType<Voidstone>(), 5);
             recipe.AddIngredient(ItemID.Silk, 20);
+            recipe.AddIngredient(ModContent.ItemType<PurifiedGel>(), 6);
             recipe.AddTile(TileID.DemonAltar);
             recipe.Register();
         }

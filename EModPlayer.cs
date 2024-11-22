@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Buffs;
 using CalamityEntropy.Cooldowns;
 using CalamityEntropy.Items;
+using CalamityEntropy.NPCs.AbyssalWraith;
 using CalamityEntropy.Projectiles;
 using CalamityEntropy.Projectiles.Cruiser;
 using CalamityEntropy.Projectiles.VoidEchoProj;
@@ -182,12 +183,7 @@ namespace CalamityEntropy
         public int scHealCD = 60;
         public override void PostUpdateMiscEffects()
         {
-            scHealCD--;
-            if(scHealCD < 0)
-            {
-                scHealCD = 60;
-                Player.Heal(8);
-            }
+            
             if (Player.Entropy().SCrown)
             {
                 Player.Calamity().defenseDamageRatio = 0;
@@ -217,6 +213,7 @@ namespace CalamityEntropy
                 Player.GetDamage(DamageClass.Generic) += 0.5f;
                 Player.Calamity().infiniteFlight = true;
             }
+
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
@@ -278,8 +275,15 @@ namespace CalamityEntropy
         public int effectCount = 0;
         public int shielddamagecd = 0;
         
+        
         public override void PostUpdate()
         {
+            scHealCD--;
+            if (scHealCD < 0 && Player.statLife < Player.statLifeMax2 && SCrown)
+            {
+                scHealCD = 60;
+                Player.Heal(8);
+            }
             vfcd--;
             if (VoidInspire > 0)
             {
@@ -421,7 +425,10 @@ namespace CalamityEntropy
                     OracleDeskHealCd = 300;
                     if (Util.Util.getDistance(Main.LocalPlayer.Center, Player.Center) < 1600)
                     {
-                        Main.LocalPlayer.Heal(30);
+                        if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2)
+                        {
+                            Main.LocalPlayer.Heal(30);
+                        }
                     }
                 }
             }
@@ -548,8 +555,17 @@ namespace CalamityEntropy
 
         public override void ModifyScreenPosition()
         {
+            foreach(NPC n in Main.npc)
+            {
+                if (n.active && n.ModNPC is AbyssalWraith aw)
+                {
+                    Main.screenPosition = Vector2.Lerp(Main.screenPosition, n.Center - Main.ScreenSize.ToVector2() / 2, aw.camLerp);
+                    break;
+                }
+            }
             var shaker = Main.rand;
             Main.screenPosition += new Vector2(shaker.Next(-CalamityEntropy.Instance.screenShakeAmp * 8, CalamityEntropy.Instance.screenShakeAmp * 8 + 1), shaker.Next(-CalamityEntropy.Instance.screenShakeAmp, CalamityEntropy.Instance.screenShakeAmp + 1));
+        
         }
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {

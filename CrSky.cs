@@ -11,6 +11,10 @@ using CalamityEntropy.Util;
 using System.Xml.Linq;
 using System;
 using CalamityEntropy.NPCs.AbyssalWraith;
+using CalamityEntropy.Projectiles.AbyssalWraith;
+using CalamityEntropy.Projectiles.Cruiser;
+using CalamityEntropy.Projectiles;
+using System.Collections.Generic;
 
 namespace CalamityEntropy
 {
@@ -18,7 +22,6 @@ namespace CalamityEntropy
     {
         private bool skyActive;
         private float opacity;
-        
         
 
         public override void Deactivate(params object[] args)
@@ -47,6 +50,7 @@ namespace CalamityEntropy
         }
         public int counter = 0;
         public int awtime = 0;
+
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
             
@@ -73,10 +77,7 @@ namespace CalamityEntropy
                 }
             }
             awtime--;
-            if (awtime > 0)
-            {
-                ocolor = new Color((int)(220 * pc), (int)(65 * pc), (int)(255 * pc));
-            }
+
 
             Vector2 dp = new Vector2((Main.screenPosition.X * -0.5f + counter * 0.3f) % txd.Width, (Main.screenPosition.Y * -0.5f + counter * -0.1f) % txd.Height);
             spriteBatch.Draw(txd, dp + new Vector2(0, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
@@ -89,10 +90,21 @@ namespace CalamityEntropy
             spriteBatch.Draw(txd, dp + new Vector2(0, txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(txd, dp + txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            if (awtime > 0)
+            {
+                txd = ModContent.Request<Texture2D>("CalamityEntropy/Extra/SwirlNoise").Value;
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                ocolor = new Color((int)(40 * pc), (int)(40 * pc), (int)(40 * pc)); 
+            }
+            else
+            {
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                ocolor = new Color((int)(12 * pc), (int)(62 * pc), (int)(96 * pc));
+            }
             float c = 1f;
-            ocolor = new Color((int)(12 * pc), (int)(65 * pc), (int)(100 * pc));
+            
             dp = new Vector2((Main.screenPosition.X * -0.5f * c + counter * -0.3f * c) % txd.Width, (Main.screenPosition.Y * -0.5f * c + counter * 0.1f * c) % txd.Height);
             spriteBatch.Draw(txd, dp + new Vector2(0, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(txd, dp - txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);

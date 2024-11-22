@@ -49,6 +49,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
         public int animation = 0;
         public int escape = 0;
         public int wingFrame = 0;
+        public float camLerp = 0;
         public int seed = -1;
         
         public List<Texture2D> wingflying = new List<Texture2D>();
@@ -98,7 +99,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
             } if (Main.masterMode) {
                 NPC.damage += 20;
             }
-            NPC.defense = 44;
+            NPC.defense = 60;
             NPC.lifeMax = 2800000;
             if (CalamityWorld.death)
             {
@@ -117,6 +118,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
             NPC.Entropy().VoidTouchDR = 0.55f;
             NPC.dontCountMe = true;
             NPC.netAlways = true;
+            NPC.defense = 60;
             if (!Main.dedServ)
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/boss2");
@@ -154,13 +156,21 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
         public float anmlerp = 1;
         public long counter = 0;
         public float gatherWing = 0;
-        public int spawnAnm = 120;
+        public int spawnAnm = 180;
         public Random random;
         public int deathCount = -60;
         public float alphaPor = 1;
         public float portalAlpha = 0;
         public override void AI()
         {
+            if (spawnAnm > 0 || deathAnm)
+            {
+                camLerp = camLerp + (1 - camLerp) * 0.06f;
+            }
+            else
+            {
+                camLerp = camLerp + (0 - camLerp) * 0.06f;
+            }
             if(portalTime > 0)
             {
                 if (portalAlpha < 1)
@@ -792,7 +802,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
             
             if (spawnAnm > 20)
             {
-                alpha = (140f - (float)spawnAnm) / 120f;
+                alpha = (200f - (float)spawnAnm) / 180f;
             }
             aweffect.Parameters["alpha"].SetValue(alpha * alphaPor);
             if (gatherWing <= 0)

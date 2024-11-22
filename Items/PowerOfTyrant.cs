@@ -16,7 +16,7 @@ namespace CalamityEntropy.Items
     {
         public override void SetDefaults()
         {
-            Item.damage = 1210;
+            Item.damage = 1110;
             Item.crit = 22;
             Item.DamageType = DamageClass.Melee;
             Item.width = 142;

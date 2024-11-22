@@ -77,6 +77,7 @@ namespace CalamityEntropy
             binaryWriter.Write(projectile.Entropy().withGrav);
             binaryWriter.Write(vdtype);
             binaryWriter.Write(vddirection);
+            binaryWriter.Write(rpBow);
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
@@ -86,6 +87,7 @@ namespace CalamityEntropy
             projectile.Entropy().withGrav = binaryReader.ReadBoolean();
             vdtype = binaryReader.ReadInt32();
             vddirection = binaryReader.ReadInt32();
+            rpBow = binaryReader.ReadBoolean();
         }
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
@@ -512,7 +514,7 @@ namespace CalamityEntropy
             if (rpBow && Main.myPlayer == projectile.owner)
             {
                 for(int i = 0; i < 3; i++) {
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, new Vector2(30, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<Lightning>(), (int)(projectile.damage * 0.6f), 4, projectile.owner, 0, 0, (Main.rand.NextBool(8) ? 1 : 0));
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, new Vector2(30, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<Lightning>(), (int)(projectile.damage * 0.3f), 4, projectile.owner, 0, 0, (Main.rand.NextBool(8) ? 1 : 0));
                 }
             }
         }

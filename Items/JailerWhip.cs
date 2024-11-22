@@ -18,7 +18,7 @@ namespace CalamityEntropy.Items
 		}
 
 		public override void AddRecipes() {
-			CreateRecipe().AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 8)
+			CreateRecipe().AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 2)
 				.AddIngredient(ItemID.Chain, 6)
 				.AddIngredient(ItemID.Silk, 4)
 				.AddTile(TileID.Anvils).Register();
