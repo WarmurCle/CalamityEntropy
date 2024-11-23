@@ -46,7 +46,7 @@ using Terraria.WorldBuilding;
 using System.Threading;
 using Steamworks;
 using CalamityEntropy.NPCs.AbyssalWraith;
-using CalamityEntropy.Projectiles.AbyssalWraith;
+using CalamityEntropy.Projectiles.AbyssalWraithProjs;
 namespace CalamityEntropy
 {
 

@@ -11,7 +11,8 @@ using CalamityEntropy.Util;
 using Terraria.Audio;
 using System.IO;
 using System.Runtime.Intrinsics.Arm;
-namespace CalamityEntropy.Projectiles.AbyssalWraith
+using CalamityEntropy.NPCs.AbyssalWraith;
+namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
 {
     
     public class AbyssalLaser: ModProjectile
@@ -45,6 +46,13 @@ namespace CalamityEntropy.Projectiles.AbyssalWraith
         public int soundcounter = 0;
         public override void AI()
         {
+            if (((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().ModNPC is AbyssalWraith aw)
+            {
+                if (aw.deathAnm)
+                {
+                    Projectile.Kill();
+                }
+            }
             if (soundcounter == 0)
             {
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/light_bolt_delayed"));

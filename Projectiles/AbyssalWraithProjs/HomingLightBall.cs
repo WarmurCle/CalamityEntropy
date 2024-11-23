@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using CalamityEntropy.NPCs.AbyssalWraith;
 using CalamityEntropy.Util;
 using Terraria.Audio;
 using System.IO;
-namespace CalamityEntropy.Projectiles.AbyssalWraith
+using CalamityMod.Items.Accessories;
+namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
 {
     
     public class HomingLightBall: ModProjectile
@@ -38,7 +40,13 @@ namespace CalamityEntropy.Projectiles.AbyssalWraith
 
         public override void AI()
         {
-
+            if(((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().ModNPC is AbyssalWraith aw)
+            {
+                if (aw.deathAnm)
+                {
+                    Projectile.Kill();
+                }
+            }
             if ((((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().HasValidTarget))
             {
                 Player target = ((int)Projectile.ai[2]).ToNPC().target.ToPlayer();

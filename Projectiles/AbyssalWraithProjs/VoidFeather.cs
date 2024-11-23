@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using CalamityEntropy.Util;
-namespace CalamityEntropy.Projectiles.AbyssalWraith
+namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
 {
     
     public class VoidFeather : ModProjectile

@@ -11,7 +11,7 @@ using CalamityEntropy.Util;
 using System.Xml.Linq;
 using System;
 using CalamityEntropy.NPCs.AbyssalWraith;
-using CalamityEntropy.Projectiles.AbyssalWraith;
+using CalamityEntropy.Projectiles.AbyssalWraithProjs;
 using CalamityEntropy.Projectiles.Cruiser;
 using CalamityEntropy.Projectiles;
 using System.Collections.Generic;

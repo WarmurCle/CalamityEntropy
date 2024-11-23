@@ -9,9 +9,13 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <AdditionalFiles Remove="Items\Vanity\ggs\**" />
+	  <AdditionalFiles Remove="Projectiles\AbyssalWraith\**" />
 	  <Compile Remove="Items\Vanity\ggs\**" />
+	  <Compile Remove="Projectiles\AbyssalWraith\**" />
 	  <EmbeddedResource Remove="Items\Vanity\ggs\**" />
+	  <EmbeddedResource Remove="Projectiles\AbyssalWraith\**" />
 	  <None Remove="Items\Vanity\ggs\**" />
+	  <None Remove="Projectiles\AbyssalWraith\**" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="System.Text.Json" Version="8.0.4" />
@@ -33,9 +37,6 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Projectiles\AbyssalWraith\" />
 	</ItemGroup>
 
 	<!-- References -->

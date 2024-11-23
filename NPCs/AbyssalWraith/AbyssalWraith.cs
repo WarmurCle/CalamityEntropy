@@ -14,7 +14,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using CalamityEntropy.Projectiles.Pets.Signus;
-using CalamityEntropy.Projectiles.AbyssalWraith;
+using CalamityEntropy.Projectiles.AbyssalWraithProjs;
 using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using CalamityEntropy.Dusts;

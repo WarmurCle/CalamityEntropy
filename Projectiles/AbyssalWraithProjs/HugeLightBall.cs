@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using CalamityEntropy.Util;
-namespace CalamityEntropy.Projectiles.AbyssalWraith
+using CalamityEntropy.NPCs.AbyssalWraith;
+namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
 {
     
     public class HugeLightBall : ModProjectile
@@ -32,6 +33,13 @@ namespace CalamityEntropy.Projectiles.AbyssalWraith
         public int l = 6;
         public override void AI()
         {
+            if (((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().ModNPC is AbyssalWraith aw)
+            {
+                if (aw.deathAnm)
+                {
+                    Projectile.Kill();
+                }
+            }
             cd--;
             if (cd < 0 && l > 0)
             {
