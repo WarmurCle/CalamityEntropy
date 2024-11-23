@@ -260,14 +260,14 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                     NPC.velocity.X *= 0;
                     NPC.rotation = 0;
                     NPC.velocity.Y += 0.5f;
-                    if (NPC.Center.Y > portalPos.Y - 80)
+                    if (NPC.Center.Y > portalPos.Y - 120 && NPC.velocity.Y > 0)
                     {
                         alphaPor -= 0.1f;
                         if (alphaPor <= 0)
                         {
                             alphaPor = 0;
                             portal = false;
-                            NPC.Center = portalTarget;
+                            NPC.Center = portalTarget + new Vector2(0, 60);
                             NPC.velocity.Y *= -1;
                             NPC.netUpdate = true;
                             portalTime = 40;
@@ -546,32 +546,44 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                         }
                         if (NPC.ai[1] == 8)
                         {
-                            Stand();
+                            
                             if (NPC.ai[2] > 220)
                             {
                                 if (addlight < 1)
                                 {
                                     addlight += 0.05f;
                                 }
+                                animation = 1;
+                                Stand();
                             }
-                            if (NPC.ai[2] == 260)
+                            if (NPC.ai[2] == 220)
+                            {
+                                NPC.rotation = (target.Center - NPC.Center).ToRotation() + MathHelper.PiOver2;
+                                NPC.velocity *= 0;
+                                
+                            }
+                            if (NPC.ai[2] >= 220)
                             {
                                 animation = 1;
                             }
                             if (NPC.ai[2] == 220)
                             {
-                                animation = 0;
+                                
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * 300, ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center-new Vector2(0, 30), (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * Util.Util.getDistance(NPC.Center, target.Center), ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
                                 }
+                            }
+                            if (NPC.ai[2] == 2)
+                            {
+                                animation = 0;
                             }
                         }
                         NPC.ai[2]--;
                     }
 
 
-                    if (counter % 340 == 0 && Util.Util.getDistance(NPC.Center, target.Center) > 4000)
+                    if (counter % 10 == 0 && Util.Util.getDistance(NPC.Center, target.Center) > 4000)
                     {
                         setPortalTo(target.Center + new Vector2(Main.rand.Next(-300, 301), 100));
                     }

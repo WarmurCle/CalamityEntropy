@@ -124,6 +124,7 @@ namespace CalamityEntropy.Projectiles.AbyssalWraith
             Color b = new Color(60, 60, 160) * opc;
             List<Vector2> points = new List<Vector2>();
             Vector2 pb = Projectile.Center + Projectile.velocity;
+            points.Add(Projectile.Center - Projectile.velocity.SafeNormalize(Vector2.One) * 2);
             for (int i = 0; i < 10; i++)
             {
                 float prog = (float)i / 10f;
