@@ -30,15 +30,15 @@ namespace CalamityEntropy.Items
                 .AddIngredient(ItemID.Wood, 16)
                 .AddIngredient(ItemID.Torch, 1)
                 .AddIngredient(ItemID.IronBar, 5)
-                .AddIngredient(TileID.WorkBenches)
-                .Create();
+                .AddTile(TileID.WorkBenches)
+                .Register();
             CreateRecipe()
                 .AddIngredient(ItemID.StoneBlock, 40)
                 .AddIngredient(ItemID.Wood, 16)
                 .AddIngredient(ItemID.Torch, 1)
                 .AddIngredient(ItemID.LeadBar, 5)
-                .AddIngredient(TileID.WorkBenches)
-                .Create();
+                .AddTile(TileID.WorkBenches)
+                .Register();
         }
     }
 }
