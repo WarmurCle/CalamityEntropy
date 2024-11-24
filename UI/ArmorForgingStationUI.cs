@@ -41,7 +41,7 @@ namespace CalamityEntropy.UI
             text = new UIText("", 1, false);
             text.Width.Set(10, 0);
             text.Height.Set(2, 0);
-            text.Left.Set(16, 0);
+            text.Left.Set(60, 0);
             text.Top.Set(56, 0);
             text.TextColor = Color.Gold;
             panel.Append(text);
