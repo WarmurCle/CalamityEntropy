@@ -39,7 +39,7 @@ namespace CalamityEntropy.Tiles
             AddMapEntry(new Color(140, 140, 140));
 
             DustType = DustID.Stone;
-            AnimationFrameHeight = 72;
+            AnimationFrameHeight = 74;
         }
 
 
