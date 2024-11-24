@@ -12,9 +12,9 @@ using CalamityEntropy.Buffs;
 using CalamityEntropy.Util;
 namespace CalamityEntropy.Projectiles.TwistedTwin
 {
-    public class TwistedTwin : ModProjectile
+    public class TwistedTwinMinion : ModProjectile
     {
-        public static float damageMul = 0.08f;
+        public static float damageMul = 0.05f;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -106,7 +106,7 @@ namespace CalamityEntropy.Projectiles.TwistedTwin
             Texture2D tx;
             if (Projectile.ai[1] > 0)
             {
-                tx = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/TwistedTwin/TwistedTwin").Value;
+                tx = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/TwistedTwin/TwistedTwinMinion").Value;
                 if (Projectile.ai[0] > 0)
                 {
                     tx = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/TwistedTwin/a1").Value;

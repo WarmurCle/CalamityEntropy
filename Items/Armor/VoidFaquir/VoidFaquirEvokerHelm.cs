@@ -39,14 +39,13 @@ namespace CalamityEntropy.Items.Armor.VoidFaquir
 
         public override void UpdateArmorSet(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.25f;
-            player.GetCritChance(DamageClass.Generic) += 15;
+            player.GetDamage(DamageClass.Generic) += 0.2f;
             player.GetArmorPenetration(DamageClass.Generic) += 20;
             player.Entropy().VFSet = true;
 
-            player.GetDamage(DamageClass.Summon) += 0.9f;
-            player.maxMinions += 8;
-            player.Entropy().VFHelmSummoner = true; ;
+            
+            
+            player.Entropy().VFHelmSummoner = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<VoidMonster>()] < 1)
             {
                 Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<VoidMonster>(), 320, 4, player.whoAmI);
@@ -56,6 +55,8 @@ namespace CalamityEntropy.Items.Armor.VoidFaquir
         public override void UpdateEquip(Player player)
         {
             player.Entropy().summonerVF = true;
+            player.GetDamage(DamageClass.Summon) += 0.9f;
+            player.maxMinions += 8;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

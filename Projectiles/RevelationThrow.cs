@@ -81,6 +81,7 @@ namespace CalamityEntropy.Projectiles
                 Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Projectile.Center, rt.ToRotationVector2() * 26, ModContent.ProjectileType<EmpyreanStellarDetritus>(), (int)(Projectile.damage * 0.33f), Projectile.knockBack, Projectile.owner);
                 rt += MathHelper.ToRadians(120);
             }
+            Projectile.damage = (int)(Projectile.damage * 0.7f);
         }
 
         public override bool PreDraw(ref Color lightColor)

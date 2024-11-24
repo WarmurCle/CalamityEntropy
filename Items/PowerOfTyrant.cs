@@ -10,15 +10,16 @@ using CalamityMod.Items.Placeables;
 using CalamityEntropy.Projectiles;
 using CalamityMod.Items;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using CalamityMod;
 namespace CalamityEntropy.Items
 {
     public class PowerOfTyrant : ModItem
     {
         public override void SetDefaults()
         {
-            Item.damage = 1110;
+            Item.damage = 236;
             Item.crit = 22;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 142;
             Item.noUseGraphic = true;
             Item.height = 142;
@@ -30,7 +31,7 @@ namespace CalamityEntropy.Items
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.UseSound = null;
             Item.channel = true;
-            Item.ArmorPenetration = 40;
+            Item.ArmorPenetration = 80;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<PoTProj>();
             Item.shootSpeed = 6f;

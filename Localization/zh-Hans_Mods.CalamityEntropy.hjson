@@ -441,36 +441,59 @@ Items: {
 	VoidFaquirBodyArmor: {
 		Tooltip:
 			'''
-			+15%伤害
-			+5%暴击率
-			+20护甲穿透
+			+5% 伤害
+			+2% 暴击率
+			+20 护甲穿透
 			'''
 		DisplayName: 虚空行者胸甲
 	}
 
 	VoidFaquirDevourerHelm: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			+30% 攻击速度
+			+30% 近战伤害
+			+25% 近战暴击率
+			'''
 		DisplayName: 虚湮吞天盔
 	}
 
 	VoidFaquirCosmosHood: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			+40% 魔法伤害
+			+30% 魔法暴击率
+			+150 最大魔力值
+			'''
 		DisplayName: 虚灵宙法盔
 	}
 
 	VoidFaquirEvokerHelm: {
-		DisplayName: 虚空唤灵盔
-		Tooltip: ""
+		DisplayName:
+			'''
+			+90% 召唤伤害
+			+8 召唤栏
+			'''
+		Tooltip: 增加2%召唤伤害
 	}
 
 	VoidFaquirLurkerMask: {
 		DisplayName: 虚影潜袭盔
-		Tooltip: ""
+		Tooltip:
+			'''
+			+30% 盗贼伤害
+			+30% 盗贼暴击率
+			+150% 最大潜行值
+			'''
 	}
 
 	VoidFaquirShadowHelm: {
 		DisplayName: 虚寂猎影盔
-		Tooltip: ""
+		Tooltip:
+			'''
+			+35% 远程伤害
+			+35% 远程暴击率
+			'''
 	}
 
 	GreedCard: {
@@ -544,6 +567,25 @@ Items: {
 			移除防御损伤
 			-死亡模式专属-
 			'''
+	}
+
+	AbyssalDragon: {
+		DisplayName: 幽渊魔龙杖
+		Tooltip: ""
+	}
+
+	ArchmagesHandmirror: {
+		Tooltip:
+			'''
+			给予你25%的额外魔力
+			当使用这些魔力时，魔法伤害提高25%
+			'''
+		DisplayName: 大魔导师手镜
+	}
+
+	SlimeYoyo: {
+		DisplayName: 凝胶悠悠球
+		Tooltip: ""
 	}
 }
 
@@ -630,8 +672,8 @@ Projectiles: {
 	GhostdomWhisperHoldout.DisplayName: 冥星低语
 	VoidWraith.DisplayName: 虚空之灵
 	VoidBullet.DisplayName: 虚空弹
-	VoidMonster.DisplayName: 虚空怪物
-	VoidMonsterShoot.DisplayName: 虚空弹
+	VoidMonster.DisplayName: 虚空共生体
+	VoidMonsterShoot.DisplayName: 虚寂弹
 	RustyGrenadeProjectile.DisplayName: 锈蚀榴弹
 	GodSlayerRocket.DisplayName: 弑神者火箭
 	GodSlayerRocketProjectile.DisplayName: 弑神者火箭
@@ -643,7 +685,12 @@ Projectiles: {
 	VoidFeather.DisplayName: 虚空之羽
 	HugeLightBall.DisplayName: 虚空圣光
 	HomingLightBall.DisplayName: 虚空光球
-	// AbyssalLaser.DisplayName: Abyssal Laser
+	AbyssalLaser.DisplayName: 深渊激光
+	TwistedTwinMinion.DisplayName: 纠缠双子
+	AbyssalDragonHoldout.DisplayName: 幽渊魔龙杖
+	// AbyssDragonProj.DisplayName: Abyss Dragon Proj
+	// AbyssalStar.DisplayName: Abyssal Star
+	// SlimeYoyoProjectile.DisplayName: Slime Yoyo Projectile
 }
 
 LegendTooltip: - 传奇物品 -
@@ -811,43 +858,25 @@ Configs: {
 vfb:
 	'''
 	套装奖励:
+	+20% 伤害
+	+15% 暴击率
+	+20 护甲穿透
 	攻击命中目标会积攒虚空能量，
 	根据虚空能量数量提供部分移速和飞行速度加成
 	按下 套装奖励 键激发虚空能量
 	召唤一个虚空的幻影协助战斗并无限飞行，持续10秒
 	幻影的伤害类型取决于手中武器
 	'''
-helmvfc:
-	'''
-	+35%魔法伤害
-	+25%魔法暴击率。
-	+150点魔力值上限
-	减少25%的魔力消耗
-	魔法弹幕击中敌人减少自身魔力病减益0.5s
-	'''
+helmvfc: 魔法弹幕击中敌人减少自身魔力病减益0.5s
 helmvfd:
 	'''
-	+30％近战攻速
-	+30％近战伤害
-	+15暴击率
 	+10％减伤
 	击中敌人获取更多的虚空能量
 	'''
-helmvfs:
-	'''
-	增加35%远程伤害和暴击率
-	射弹伤害随时间增加
-	'''
+helmvfs: 远程射弹伤害随时间增加
 helmvfl:
 	'''
-	增加30%盗贼伤害和暴击率
-	增加15%移动速度
-	+150最大潜行值
+	+15% 移动速度
 	潜伏攻击获得更多虚空能量
 	'''
-helmvfe:
-	'''
-	+90%召唤伤害
-	+8召唤栏
-	召唤一只虚空共生体协助战斗
-	'''
+helmvfe: 召唤一只虚空共生体协助战斗

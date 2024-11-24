@@ -39,7 +39,7 @@ namespace CalamityEntropy.Projectiles
             Projectile.timeLeft = 2000;
             Projectile.extraUpdates = 3;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 0;
+            Projectile.localNPCHitCooldown = -1;
         }
         public int hNPC = -1;
         public Vector2 offset;

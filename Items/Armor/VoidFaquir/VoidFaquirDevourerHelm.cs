@@ -1,14 +1,8 @@
 ﻿using CalamityEntropy.Util;
-using CalamityMod.Buffs.Summon;
-using CalamityMod.CalPlayer;
 using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
-using CalamityMod.Rarities;
 using System.Collections.Generic;
-using System.Security.Policy;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Items.Armor.VoidFaquir
@@ -37,20 +31,21 @@ namespace CalamityEntropy.Items.Armor.VoidFaquir
 
         public override void UpdateArmorSet(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.25f;
-            player.GetCritChance(DamageClass.Generic) += 15;
+            player.GetDamage(DamageClass.Generic) += 0.2f;
+            player.GetCritChance(DamageClass.Generic) += 10;
             player.GetArmorPenetration(DamageClass.Generic) += 20;
             player.Entropy().VFSet = true;
 
-            player.GetAttackSpeed(DamageClass.Melee) += 0.3f;
-            player.GetDamage(DamageClass.Melee) += 0.3f;
-            player.GetCritChance(DamageClass.Melee) += 15;
+            
             player.Entropy().VFHelmMelee = true;
         }
 
         public override void UpdateEquip(Player player)
         {
             player.Entropy().meleeVF = true;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.3f;
+            player.GetDamage(DamageClass.Melee) += 0.3f;
+            player.GetCritChance(DamageClass.Melee) += 25;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

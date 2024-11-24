@@ -18,6 +18,7 @@ using CalamityMod.Projectiles.Magic;
 using CalamityMod.Systems;
 using CalamityMod.Projectiles.Melee;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
+using CalamityMod;
 
 namespace CalamityEntropy.Projectiles
 {
@@ -38,7 +39,7 @@ namespace CalamityEntropy.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Projectile.width = 1;
             Projectile.height = 1;
             Projectile.friendly = true;
@@ -46,7 +47,7 @@ namespace CalamityEntropy.Projectiles
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 4;
+            Projectile.localNPCHitCooldown = 10;
             Projectile.timeLeft = 4;
             Projectile.ArmorPenetration = 80;
         }

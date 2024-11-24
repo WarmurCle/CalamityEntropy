@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.CalPlayer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,7 +23,16 @@ namespace CalamityEntropy.UI
             string folder = $"{baseFolder}MoonShield";
             return folder;
         }
+        public string ManaTexturePath()
+        {
+            if (Main.LocalPlayer.Entropy().ArchmagesMirror)
+            {
+                string folder = $"{baseFolder}AH";
 
+                return folder;
+            }
+            else { return string.Empty; }
+        }
 
         public override void PostDrawResource(ResourceOverlayDrawContext context)
         {
@@ -31,26 +41,52 @@ namespace CalamityEntropy.UI
             string fancyFolder = "Images/UI/PlayerResourceSets/FancyClassic/";
             string barsFolder = "Images/UI/PlayerResourceSets/HorizontalBars/";
 
-
-            if (LifeTexturePath() == string.Empty)
-                return;
-
-            // Draw hearts for Classic and Fancy
-            if (asset == TextureAssets.Heart || asset == TextureAssets.Heart2 || CompareAssets(asset, fancyFolder + "Heart_Fill") || CompareAssets(asset, fancyFolder + "Heart_Fill_B"))
+            
+            if (LifeTexturePath() != string.Empty)
             {
-                if ((context.resourceNumber + 1) * 30 <= Main.LocalPlayer.Entropy().MagiShield)
+
+
+                // Draw hearts for Classic and Fancy
+                if (asset == TextureAssets.Heart || asset == TextureAssets.Heart2 || CompareAssets(asset, fancyFolder + "Heart_Fill") || CompareAssets(asset, fancyFolder + "Heart_Fill_B"))
                 {
-                    context.texture = ModContent.Request<Texture2D>(LifeTexturePath() + "Heart");
-                    context.Draw();
+                    if ((context.resourceNumber + 1) * 30 <= Main.LocalPlayer.Entropy().MagiShield)
+                    {
+                        context.texture = ModContent.Request<Texture2D>(LifeTexturePath() + "Heart");
+                        if (Main.LocalPlayer.Entropy().MagiShield - (context.resourceNumber + 1) * 30 < 30){
+                            float s = ((float)(Main.LocalPlayer.Entropy().MagiShield - (context.resourceNumber + 1) * 30)) / 30f;
+                            context.scale = new Vector2(s, s);
+                        }
+                        context.Draw();
+                    }
+                }
+                // Draw health bars
+                else if (CompareAssets(asset, barsFolder + "HP_Fill") || CompareAssets(asset, barsFolder + "HP_Fill_Honey"))
+                {
+                    if ((context.resourceNumber + 1) * 30 <= Main.LocalPlayer.Entropy().MagiShield)
+                    {
+                        context.texture = ModContent.Request<Texture2D>(LifeTexturePath() + "Bar");
+                        context.Draw();
+                    }
                 }
             }
-            // Draw health bars
-            else if (CompareAssets(asset, barsFolder + "HP_Fill") || CompareAssets(asset, barsFolder + "HP_Fill_Honey"))
+            if (ManaTexturePath() != string.Empty && Main.LocalPlayer.Entropy().ArchmagesMirror)
             {
-                if ((context.resourceNumber + 1) * 30 <= Main.LocalPlayer.Entropy().MagiShield)
+                if (asset == TextureAssets.Mana || CompareAssets(asset, fancyFolder + "Star_Fill"))
                 {
-                    context.texture = ModContent.Request<Texture2D>(LifeTexturePath() + "Bar");
-                    context.Draw();
+                    if ((context.resourceNumber + 1) * 20 > Main.LocalPlayer.Entropy().manaNorm)
+                    {
+                        context.texture = ModContent.Request<Texture2D>(ManaTexturePath() + "Star");
+                        context.Draw();
+                    }
+                }
+                // Draw mana bars
+                else if (CompareAssets(asset, barsFolder + "MP_Fill"))
+                {
+                    if ((context.resourceNumber + 1) * 20 > Main.LocalPlayer.Entropy().manaNorm)
+                    {
+                        context.texture = ModContent.Request<Texture2D>(ManaTexturePath() + "Bar");
+                        context.Draw();
+                    }
                 }
             }
         }

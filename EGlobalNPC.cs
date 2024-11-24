@@ -160,7 +160,7 @@ namespace CalamityEntropy
         {
             if (nPC.Entropy().VoidTouchTime < maxTime)
             {
-                nPC.Entropy().VoidTouchTime += time;
+                nPC.Entropy().VoidTouchTime += (int)(time * 1.4f);
                 if (nPC.Entropy().VoidTouchTime > maxTime)
                 {
                     nPC.Entropy().VoidTouchTime = maxTime;
@@ -499,6 +499,7 @@ namespace CalamityEntropy
             if (shop.NpcType == ModContent.NPCType<DILF>())
             {
                 shop.Add(ModContent.ItemType<ThreadOfFate>());
+                shop.Add(ModContent.ItemType<ArchmagesHandmirror>());
             }
             if (shop.NpcType == 108)
             {

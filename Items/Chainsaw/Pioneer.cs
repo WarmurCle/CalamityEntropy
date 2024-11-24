@@ -10,6 +10,7 @@ using CalamityEntropy.Projectiles.Chainsaw;
 using CalamityMod.Rarities;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using CalamityMod;
 namespace CalamityEntropy.Items.Chainsaw
 {	
 	public class Pioneer : ModItem
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Items.Chainsaw
 		public override void SetDefaults()
 		{
 			Item.damage = 1;
-			Item.DamageType = DamageClass.Melee;
+			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Item.width = 42;
             Item.height = 42;
             Item.noUseGraphic = true;

@@ -90,7 +90,7 @@ namespace CalamityEntropy.Projectiles
 
         public override void OnHitNPC(NPC t, NPC.HitInfo hit, int damageDone)
         {
-			EGlobalNPC.AddVoidTouch(t, 60, 3);
+			EGlobalNPC.AddVoidTouch(t, 60, 4.5f, 800, 20);
 			PrepareBombToBlow();
 			Projectile.timeLeft = 3;
         }

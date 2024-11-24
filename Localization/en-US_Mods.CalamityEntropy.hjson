@@ -427,9 +427,9 @@ Items: {
 	VoidFaquirCuises: {
 		Tooltip:
 			'''
-			+10％damage
-			+10％critical strike chance
-			+20％movement speed
+			+10% Damage
+			+10% Crit Chance
+			+20% Movement Speed
 			'''
 		DisplayName: Void Faquir Cuises
 	}
@@ -437,36 +437,59 @@ Items: {
 	VoidFaquirBodyArmor: {
 		Tooltip:
 			'''
-			+15％damage
-			+5％critical strike chance
-			+20 armor penetration
+			+5% Damage
+			+2% Critical Strike Chance
+			+20 Armor Penetration
 			'''
 		DisplayName: Void Faquir Body Armor
 	}
 
 	VoidFaquirDevourerHelm: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			+30% Attack Speed
+			+30% Melee Damage
+			+25% Melee Crit Chance
+			'''
 		DisplayName: Void Faquir Devourer Helm
 	}
 
 	VoidFaquirCosmosHood: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			+40% Magic Damage
+			+30% Magic Crit Chance
+			+150 Max Mana
+			'''
 		DisplayName: Void Faquir Cosmos Hood
 	}
 
 	VoidFaquirEvokerHelm: {
 		DisplayName: Void Faquir Evoker Helm
-		Tooltip: ""
+		Tooltip:
+			'''
+			+90% Summon Damage
+			+8 Max Minions
+			'''
 	}
 
 	VoidFaquirLurkerMask: {
 		DisplayName: Void Faquir Lurker Mask
-		Tooltip: ""
+		Tooltip:
+			'''
+			+30% Rouge Damage
+			+30% Rouge Crit Chance
+			+150% Max Stealth
+			'''
 	}
 
 	VoidFaquirShadowHelm: {
 		DisplayName: Void Faquir Shadow Helm
-		Tooltip: ""
+		Tooltip:
+			'''
+			+35% Ranged Damage
+			+35% Ranged Crit Chance
+			'''
 	}
 
 	GreedCard: {
@@ -532,6 +555,25 @@ Items: {
 			Remove defense damage.
 			-Death Mode-
 			'''
+	}
+
+	AbyssalDragon: {
+		DisplayName: Abyssal Dragon
+		Tooltip: ""
+	}
+
+	ArchmagesHandmirror: {
+		Tooltip:
+			'''
+			Gives you 25% extra mana
+			magic damage increased by 25% when using these mana
+			'''
+		DisplayName: Archmage's Handmirror
+	}
+
+	SlimeYoyo: {
+		DisplayName: Slime Yoyo
+		Tooltip: ""
 	}
 }
 
@@ -618,8 +660,8 @@ Projectiles: {
 	GhostdomWhisperHoldout.DisplayName: Ghostdom Whisper Holdout
 	VoidWraith.DisplayName: Void Wraith
 	VoidBullet.DisplayName: Void Bullet
-	VoidMonster.DisplayName: Void Monster
-	VoidMonsterShoot.DisplayName: Void Monster Shoot
+	VoidMonster.DisplayName: Void Symbiont
+	VoidMonsterShoot.DisplayName: Void Symbiont Shoot
 	RustyGrenadeProjectile.DisplayName: Rusty Grenade Projectile
 	GodSlayerRocket.DisplayName: God Slayer Rocket
 	GodSlayerRocketProjectile.DisplayName: God Slayer Rocket Projectile
@@ -632,6 +674,11 @@ Projectiles: {
 	HugeLightBall.DisplayName: Huge Light Ball
 	HomingLightBall.DisplayName: Homing Light Ball
 	AbyssalLaser.DisplayName: Abyssal Laser
+	TwistedTwinMinion.DisplayName: Twisted Twin Minion
+	AbyssalDragonHoldout.DisplayName: Abyssal Dragon Holdout
+	AbyssDragonProj.DisplayName: Abyss Dragon Proj
+	AbyssalStar.DisplayName: Abyssal Star
+	SlimeYoyoProjectile.DisplayName: Slime Yoyo Projectile
 }
 
 LegendTooltip: - Legend -
@@ -806,37 +853,18 @@ vfb:
 	'''
 helmvfc:
 	'''
-	+35%magic damage
-	+25%magic critical strike chance
-	+150 max mana
-	－25% mana cost
-	Magic Barrage hits enemies to reduce your Mana Sickness by 0.5s
+	-25% Mana Cost
+	Magic Projectiles hits enemies will reduce your Mana Sickness by 0.5s
 	'''
 helmvfd:
 	'''
-	+30％melee speed
-	+30％melee damage
-	+15％melee critical strike chance
-	+10％damage reducing
-	accumulates more void energy when hitting targets.
+	+10% Damage Reduce
+	Accumulates more void energy when hitting targets.
 	'''
-helmvfs:
-	'''
-	+35%ranged damage
-	+35％ranged critical strike chance
-	Projectile damage increases with time
-	'''
+helmvfs: Projectile damage increases with time
 helmvfl:
 	'''
-	+30％rogue damage
-	+30％rogue critical strike chance
-	+15％movement speed
-	+150 maximum stealth
+	+15% movement speed
 	Stealth strikes will accumulate more void energy
 	'''
-helmvfe:
-	'''
-	+8max minions
-	+90％ summon damage
-	Summon a Void Monster with you
-	'''
+helmvfe: Summon a Void Symbiont fight for you

@@ -22,7 +22,7 @@ namespace CalamityEntropy.Items
         }
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 50;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 36;
             Item.height = 110;
@@ -101,7 +101,7 @@ namespace CalamityEntropy.Items
         {
             
             if (player.altFunctionUse == 2) {
-                Projectile.NewProjectile(source, position, velocity, type, damage * 8, knockback);
+                Projectile.NewProjectile(source, position, velocity, type, damage * 12, knockback);
             }
             else
             {

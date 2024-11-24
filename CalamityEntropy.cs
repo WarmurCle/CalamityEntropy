@@ -193,7 +193,25 @@ namespace CalamityEntropy
         {
             
         }
-        
+
+        public Rope rope;
+        public void drawRope()
+        {
+            Player player = Main.LocalPlayer;
+            if (rope == null)
+            {
+                rope = new Rope(player.Center, Main.MouseWorld, 30, 5, new Vector2(0, 1f), 0.02f, 15, false);
+            }
+            rope.StartPos = player.Center;
+            rope.EndPos = Main.MouseWorld;
+            rope.Update();
+            List<Vector2> points = rope.GetPoints();
+            points.Add(Main.MouseWorld);
+            for (int i = 1; i < points.Count; i++) {
+                Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value;
+                Util.Util.drawLine(Main.spriteBatch, t, points[i - 1], points[i], Color.White, 8);
+            }
+        }
         private void ec(On_FilterManager.orig_EndCapture orig, FilterManager self, RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
         {
 
@@ -299,8 +317,10 @@ namespace CalamityEntropy
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 
+
                 foreach (Projectile p in checkProj)
                 {
+                    
                     if (!p.active)
                     {
                         continue;
@@ -709,6 +729,9 @@ namespace CalamityEntropy
                     }
                     
                 }
+
+                //drawRope();
+
                 Main.spriteBatch.End();
 
                 graphicsDevice.SetRenderTarget(Main.screenTarget);

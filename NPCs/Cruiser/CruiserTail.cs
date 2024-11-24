@@ -31,7 +31,7 @@ namespace CalamityEntropy.NPCs.Cruiser
             NPC.height = 45;
             NPC.damage = 180;
             NPC.dontCountMe = true;
-            NPC.defense = 12;
+            NPC.defense = 40;
             NPC.lifeMax = 80000;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath4;

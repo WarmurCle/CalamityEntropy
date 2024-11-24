@@ -36,7 +36,7 @@ namespace CalamityEntropy.Items
 			Item.useAnimation = 16;
 			Item.knockBack = 2;
 			Item.useStyle = ItemUseStyleID.RaiseLamp;
-			Item.shoot = ModContent.ProjectileType<TwistedTwin>();
+			Item.shoot = ModContent.ProjectileType<TwistedTwinMinion>();
 			Item.shootSpeed = 2f;
 			Item.value = 100000;
 			Item.autoReuse = true;

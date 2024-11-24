@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -43,17 +44,37 @@ namespace CalamityEntropy.Projectiles
         }
         public bool mprdLast = true;
         public bool playerComeimg = false;
+        int select = -1;
+
+
+        
         public override void AI()
         {
             bool MouseRight = Mouse.GetState().RightButton == ButtonState.Pressed;
             if (!playerComeimg)
             {
-                if (Projectile.ai[0] > 0)
+                if (Main.myPlayer == Projectile.owner)
                 {
-                    if (MouseRight && !mprdLast && new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 1, 1).Intersects(Projectile.getRect()))
+                    select = -1;
+                    float dist = 5000;
+                    foreach (Projectile p in Main.projectile)
                     {
-                        playerComeimg = true;
-                        SoundEngine.PlaySound(new("CalamityEntropy/Sounds/teleport"), Projectile.Center);
+                        if (p.active && p.type == Projectile.type)
+                        {
+                            if (Util.Util.getDistance(Main.MouseWorld, p.Center) < dist)
+                            {
+                                select = p.whoAmI;
+                                dist = Util.Util.getDistance(Main.MouseWorld, p.Center);
+                            }
+                        }
+                    }
+                    if (Projectile.ai[0] > 0 && select == Projectile.whoAmI)
+                    {
+                        if (MouseRight && !mprdLast) // && new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 1, 1).Intersects(Projectile.getRect())
+                        {
+                            playerComeimg = true;
+                            SoundEngine.PlaySound(new("CalamityEntropy/Sounds/teleport"), Projectile.Center);
+                        }
                     }
                 }
             }
@@ -108,7 +129,18 @@ namespace CalamityEntropy.Projectiles
                     {
                         if (Projectile.owner == Main.myPlayer)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(10, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<VaProj>(), Projectile.damage / 2, 6, Projectile.owner);
+                            NPC target = null;
+                            target = Projectile.FindTargetWithinRange(800, false);
+                            if (target != null)
+                            {
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(10, 0).RotatedBy((target.Center - Projectile.Center).ToRotation()), ModContent.ProjectileType<VaProj>(), Projectile.damage / 2, 6, Projectile.owner);
+
+                            }
+                            else
+                            {
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(10, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<VaProj>(), Projectile.damage / 2, 6, Projectile.owner);
+
+                            }
                         }
                     }
                 }
@@ -155,6 +187,7 @@ namespace CalamityEntropy.Projectiles
         public int counter = 0;
         public override bool PreDraw(ref Color lightColor)
         {
+            lightColor = Color.White;
             counter -= 2;
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -163,8 +196,16 @@ namespace CalamityEntropy.Projectiles
             Main.spriteBatch.Draw(chaintx, Projectile.Center - Main.screenPosition, new Rectangle(counter, 0, (int)Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center), chaintx.Height), Color.Purple, (Projectile.owner.ToPlayer().Center - Projectile.Center).ToRotation(), new Vector2(0, chaintx.Height) / 2, new Vector2(1, 0.4f), SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
+            if (select == Projectile.whoAmI)
+            {
+                List<Vector2> adv = new List<Vector2>() { new Vector2(-2, -2), new Vector2(2, -2), new Vector2(-2, 2), new Vector2(2, 2) };
+                foreach (Vector2 v in adv)
+                {
+                    Main.spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/Vaoutline").Value, Projectile.Center - Main.screenPosition + v, null, Color.Yellow, Projectile.rotation, TextureAssets.Projectile[Projectile.type].Value.Size() / 2, Projectile.scale, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+                }
+            }
             Main.spriteBatch.Draw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, TextureAssets.Projectile[Projectile.type].Value.Size() / 2, Projectile.scale, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+            
             return false;
         }
     }

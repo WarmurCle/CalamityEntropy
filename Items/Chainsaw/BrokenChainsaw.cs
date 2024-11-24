@@ -10,14 +10,15 @@ using CalamityEntropy.Projectiles.Chainsaw;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityEntropy.Projectiles;
 using CalamityMod.Particles;
+using CalamityMod;
 namespace CalamityEntropy.Items.Chainsaw
 {	
 	public class BrokenChainsaw : ModItem
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 6;
-			Item.DamageType = DamageClass.Melee;
+			Item.damage = 2;
+			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Item.width = 42;
             Item.height = 42;
             Item.noUseGraphic = true;

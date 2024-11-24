@@ -45,7 +45,7 @@ namespace CalamityEntropy
         public Vector2 playerMPosL;
         public bool daTarget = false;
         public int maxDmgUps = 0;
-        public float dmgUp = 0.1f;
+        public float dmgUp = 0.05f;
         public bool GWBow = false;
         public int dmgupcount = 10;
         public int vddirection = 1;
@@ -114,7 +114,7 @@ namespace CalamityEntropy
                 checkHoldOut = false;
                 foreach (Projectile p in Main.projectile)
                 {
-                    if (p.active && p.type == ModContent.ProjectileType<TwistedTwin>() && p.owner == Main.myPlayer) {
+                    if (p.active && p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.owner == Main.myPlayer) {
                         int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
                         Projectile ph = phd.ToProj();
                         ph.scale *= 0.8f;
@@ -122,7 +122,7 @@ namespace CalamityEntropy
                         ph.Entropy().ttindex = p.whoAmI;
                         ph.netUpdate = true;
                         Projectile projts = ph;
-                        ph.damage = (int)(ph.damage * TwistedTwin.damageMul);
+                        ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);
                         if (!projts.usesLocalNPCImmunity)
                         {
                             projts.usesLocalNPCImmunity = true;
@@ -168,7 +168,7 @@ namespace CalamityEntropy
                 {
                     if (plr.Entropy().twinSpawnIndex != -1)
                     {
-                        if (projectile.type != ModContent.ProjectileType<TwistedTwin>())
+                        if (projectile.type != ModContent.ProjectileType<TwistedTwinMinion>())
                         {
                             projectile.scale *= 0.8f;
                             projectile.Entropy().OnProj = plr.Entropy().twinSpawnIndex;
@@ -234,9 +234,9 @@ namespace CalamityEntropy
                 projectile.velocity.Y += 0.3f;
             }
             dmgupcount--;
-            if (maxDmgUps > 0 && dmgupcount <= 0)
+            if (maxDmgUps > 0 && dmgupcount <= 0 && projectile.DamageType == DamageClass.Ranged)
             {
-                dmgupcount = 16;
+                dmgupcount = 24;
                 maxDmgUps--;
                 projectile.damage = (int)(Math.Ceiling(projectile.damage * dmgUp)) + (projectile.damage);
             }

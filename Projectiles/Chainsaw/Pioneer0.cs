@@ -24,7 +24,7 @@ namespace CalamityEntropy.Projectiles.Chainsaw
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Projectile.width = 96;
             Projectile.height = 96;
             Projectile.friendly = true;
@@ -63,7 +63,7 @@ namespace CalamityEntropy.Projectiles.Chainsaw
                 player.direction = 1;
             }
             else { 
-                player.direction = 0; 
+                player.direction = -1; 
             }
             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
@@ -132,7 +132,7 @@ namespace CalamityEntropy.Projectiles.Chainsaw
             }
             if (Projectile.owner == Main.myPlayer)
             {
-                CalamityEntropy.Instance.screenShakeAmp = 3;
+                CalamityEntropy.Instance.screenShakeAmp = 1;
             }
             float sparkCount = 6;
             for (int i = 0; i < sparkCount; i++)

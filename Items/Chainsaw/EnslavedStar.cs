@@ -7,14 +7,15 @@ using CalamityEntropy.Projectiles.VoidBlade;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using CalamityEntropy.Projectiles.Chainsaw;
+using CalamityMod;
 namespace CalamityEntropy.Items.Chainsaw
 {	
 	public class EnslavedStar : ModItem
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 110;
-			Item.DamageType = DamageClass.Melee;
+			Item.damage = 60;
+			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Item.width = 42;
             Item.height = 42;
             Item.noUseGraphic = true;

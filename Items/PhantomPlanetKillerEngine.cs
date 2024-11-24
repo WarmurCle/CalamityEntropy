@@ -15,6 +15,7 @@ using Terraria.Audio;
 using CalamityEntropy.Projectiles.TwistedTwin;
 using CalamityMod.Rarities;
 using CalamityMod.Items.Weapons.Summon;
+using CalamityMod.Items.Weapons.DraedonsArsenal;
 namespace CalamityEntropy.Items
 {	
 	public class PhantomPlanetKillerEngine : ModItem
@@ -28,7 +29,7 @@ namespace CalamityEntropy.Items
 		
 		public override void SetDefaults()
 		{
-			Item.damage = 100;
+			Item.damage = 120;
 			Item.crit = 0;
 			Item.DamageType = DamageClass.Summon;
 			Item.width = 64;
@@ -50,15 +51,20 @@ namespace CalamityEntropy.Items
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(Item.buffType, 3);
-			int projectile = Projectile.NewProjectile(source, Main.MouseWorld, velocity, type, (int)(damage), knockback, player.whoAmI, 0, 1, 0);
-			Main.projectile[projectile].originalDamage = damage;
+			int projectile = Projectile.NewProjectile(source, Main.MouseWorld, velocity, type, Item.damage, knockback, player.whoAmI, 0, 1, 0);
+			Main.projectile[projectile].originalDamage = Item.damage;
             
             return false;
         }
 
         public override void AddRecipes()
         {
-
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<EndothermicEnergy>(), 8)
+				.AddIngredient(ModContent.ItemType<CosmicViperEngine>())
+				.AddIngredient(ModContent.ItemType<PoleWarper>())
+				.AddIngredient(ModContent.ItemType<VoidBar>(), 8)
+				.AddTile(ModContent.TileType<CosmicAnvil>()).Register();
         }
     }
 }

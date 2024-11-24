@@ -27,7 +27,7 @@ namespace CalamityEntropy.Items
 		
 		public override void SetDefaults()
 		{
-			Item.damage = 34;
+			Item.damage = 56;
 			Item.crit = 0;
 			Item.DamageType = DamageClass.Summon;
 			Item.width = 64;
@@ -78,8 +78,8 @@ namespace CalamityEntropy.Items
                 //player.slotsMinions += availableSummonSlots;
 
                 player.AddBuff(Item.buffType, 3);
-				int projectile = Projectile.NewProjectile(source, Main.MouseWorld, velocity, type, (int)(damage * availableSummonSlots), knockback, player.whoAmI, 0, 0, availableSummonSlots);
-				Main.projectile[projectile].originalDamage = (int)(damage * availableSummonSlots);
+				int projectile = Projectile.NewProjectile(source, Main.MouseWorld, velocity, type, (int)(Item.damage * availableSummonSlots), knockback, player.whoAmI, 0, 0, availableSummonSlots);
+				Main.projectile[projectile].originalDamage = (int)(Item.damage * availableSummonSlots);
 				Main.projectile[projectile].OriginalCritChance = Item.crit;
             }
             return false;

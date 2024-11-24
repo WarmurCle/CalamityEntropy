@@ -96,6 +96,7 @@ namespace CalamityEntropy.Projectiles
                 }
             }
             EGlobalNPC.AddVoidTouch(target, 50, 2);
+            Projectile.damage = (int)(Projectile.damage * 0.8f);
         }
         public override bool PreDraw(ref Color lightColor)
         {

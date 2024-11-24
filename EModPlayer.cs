@@ -54,7 +54,7 @@ namespace CalamityEntropy
         public int pot_time = 0;
         public int pot_amp = 0;
         public bool oracleDeskInInv = false;
-
+        public bool hasSM = false;
         public bool summonerVF;
         public bool magiVF;
         public bool rougeVF;
@@ -69,6 +69,7 @@ namespace CalamityEntropy
         public bool VFHelmMelee;
         public int vfcd = 0;
         public float voidcharge = 0;
+        public bool ArchmagesMirror = false;
         public float VoidCharge 
         { 
             get { return voidcharge; } 
@@ -79,6 +80,11 @@ namespace CalamityEntropy
                     voidcharge = value; vfcd = 8;
                 }
             }
+        }
+
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            voidcharge = 0;VoidInspire = 0;
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -131,13 +137,25 @@ namespace CalamityEntropy
             VFHelmMelee = false;
             SCrown = false;
             GreedCard = false;
+            ArchmagesMirror = false;
         }
         public int crSky = 0;
         public int llSky = 0;
         public int magiShieldCd = 0;
         public override void PreUpdate()
         {
-            
+            bool sm = Player.HasBuff(ModContent.BuffType<SoyMilkBuff>());
+            if (hasSM && !sm)
+            {
+                foreach(Projectile p in Main.projectile)
+                {
+                    if (p.active && p.owner == Player.whoAmI)
+                    {
+                        p.Kill();
+                    }
+                }
+            }
+            hasSM = sm;
             if (crSky > 0)
             {
                 crSky--;
@@ -213,8 +231,18 @@ namespace CalamityEntropy
                 Player.GetDamage(DamageClass.Generic) += 0.5f;
                 Player.Calamity().infiniteFlight = true;
             }
-
+            manaNorm = Player.statManaMax2;
+            if (ArchmagesMirror)
+            {
+                Player.statManaMax2 = (int)(Player.statManaMax2 * 1.25f);
+                if (Player.statMana > manaNorm)
+                {
+                    Player.GetDamage(DamageClass.Magic) += 0.25f;
+                }
+            }
+            
         }
+        public int manaNorm = 0;
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
 
@@ -274,8 +302,8 @@ namespace CalamityEntropy
         public int OracleDeskHealCd = 0;
         public int effectCount = 0;
         public int shielddamagecd = 0;
-        
-        
+
+        public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
             scHealCD--;
@@ -285,6 +313,7 @@ namespace CalamityEntropy
                 Player.Heal(8);
             }
             vfcd--;
+            
             if (VoidInspire > 0)
             {
                 Main.LocalPlayer.wingTime = Main.LocalPlayer.wingTimeMax;
@@ -293,6 +322,17 @@ namespace CalamityEntropy
                 {
                     VoidCharge = 0;
                 }
+            }
+            else
+            {
+                if (!VSoundsPlayed && voidcharge >= 1) {
+                    VSoundsPlayed = true;
+                    SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/PhantomHeartUse"));
+                }
+            }
+            if (VoidInspire <= 0 && voidcharge < 1)
+            {
+                VSoundsPlayed = false;
             }
             if (VoidCharge >= 1 && CalamityKeybinds.ArmorSetBonusHotKey.JustPressed)
             {

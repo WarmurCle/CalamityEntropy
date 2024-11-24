@@ -48,8 +48,8 @@ namespace CalamityEntropy.Items
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(Item.buffType, 3);
-			int projectile = Projectile.NewProjectile(source, Main.MouseWorld, velocity, type, (int)(damage), knockback, player.whoAmI, 0, 0, 0);
-            Main.projectile[projectile].originalDamage = damage;
+			int projectile = Projectile.NewProjectile(source, Main.MouseWorld, velocity, type, Item.damage, knockback, player.whoAmI, 0, 0, 0);
+            Main.projectile[projectile].originalDamage = Item.damage;
             
             return false;
         }

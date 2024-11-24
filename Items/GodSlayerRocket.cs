@@ -37,7 +37,7 @@ namespace CalamityEntropy.Items
             Item.value = Item.sellPrice(silver: 1);
             Item.rare = ItemRarityID.Orange;
             Item.ammo = AmmoID.Rocket;
-            Item.damage = 140;
+            Item.damage = 100;
         }
 
         public override void AddRecipes()

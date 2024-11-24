@@ -7,14 +7,15 @@ using CalamityEntropy.Projectiles.VoidBlade;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using CalamityEntropy.Projectiles.Chainsaw;
+using CalamityMod;
 namespace CalamityEntropy.Items.Chainsaw
 {	
 	public class Euangelion : ModItem
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 260;
-			Item.DamageType = DamageClass.Melee;
+			Item.damage = 100;
+			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Item.width = 42;
             Item.height = 42;
             Item.noUseGraphic = true;

@@ -38,9 +38,9 @@ namespace CalamityEntropy.Projectiles
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 260;
+            Projectile.timeLeft = 300;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 40;
+            Projectile.localNPCHitCooldown = 20;
             Projectile.ArmorPenetration = 36;
         }
         NPC target = null;
@@ -50,6 +50,9 @@ namespace CalamityEntropy.Projectiles
             if (Projectile.ai[0] == 0)
             {
                 angle = Projectile.velocity.ToRotation();
+            }
+            if (Projectile.owner.ToPlayer().ownedProjectileCounts[ModContent.ProjectileType<SilenceHook>()] < 1) {
+                thrownHook = false;
             }
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
@@ -64,7 +67,7 @@ namespace CalamityEntropy.Projectiles
             {
                 target = Projectile.FindTargetWithinRange(800, false);
             }
-            if (target != null && !thrownHook && Projectile.ai[0] > 10)
+            if (target != null && !thrownHook && Projectile.ai[0] > 4)
             {
                 thrownHook = true;
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/chain1"), Projectile.Center);
@@ -82,16 +85,17 @@ namespace CalamityEntropy.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            EGlobalNPC.AddVoidTouch(target, 30, 3.6f, 180, 12);
+            EGlobalNPC.AddVoidTouch(target, 60, 3.6f, 800, 12);
             
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 36; i++)
             {
                 Particle p = new Particle();
                 p.position = target.Center;
-                p.alpha = 0.6f;
+                p.alpha = 0.4f + Main.rand.NextFloat() * 0.3f;
 
                 var rd = Main.rand;
                 p.velocity = new Vector2((float)((rd.NextDouble() - 0.5) * 16), (float)((rd.NextDouble() - 0.5) * 16));
+                
                 VoidParticles.particles.Add(p);
             }
         }

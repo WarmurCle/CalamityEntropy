@@ -23,7 +23,7 @@ namespace CalamityEntropy.Items
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 6200;
+            Item.damage = 3400;
             Item.ArmorPenetration = 56;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Items
 
        
          
-        public override float StealthDamageMultiplier => 1f;
+        public override float StealthDamageMultiplier => 1.2f;
         public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 3f;
 

@@ -19,7 +19,7 @@ namespace CalamityEntropy.Items
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 300;
+			Item.damage = 465;
 			Item.DamageType = DamageClass.Magic;
 			Item.width = 96;
 			Item.noUseGraphic = true;
@@ -42,7 +42,6 @@ namespace CalamityEntropy.Items
             Item.Entropy().NameColor = new Color(60, 80, 140);
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;
-			Item.Entropy().Legend = true;
         }
         public override bool CanUseItem(Player player)
         {

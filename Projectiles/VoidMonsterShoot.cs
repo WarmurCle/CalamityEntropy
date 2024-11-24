@@ -89,7 +89,7 @@ namespace CalamityEntropy.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            EGlobalNPC.AddVoidTouch(target, 120, 4, 800, 16);
+            EGlobalNPC.AddVoidTouch(target, 30, 1, 120, 16);
         }
 
         public override bool PreDraw(ref Color lightColor)

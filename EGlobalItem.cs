@@ -169,7 +169,7 @@ namespace CalamityEntropy
                 {
                     if (player.whoAmI == Main.myPlayer)
                     {
-                        if (player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwin>()] > 0)
+                        if (player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()] > 0)
                         {
                             if ((item.useAmmo == AmmoID.Arrow && type == ProjectileID.WoodenArrowFriendly) || (item.useAmmo == AmmoID.Bullet && type == ProjectileID.Bullet))
                             {
@@ -186,13 +186,13 @@ namespace CalamityEntropy
                             }
                             foreach (Projectile p in Main.projectile)
                             {
-                                if (p.type == ModContent.ProjectileType<TwistedTwin>() && p.active && p.owner == Main.myPlayer)
+                                if (p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.active && p.owner == Main.myPlayer)
                                 {
                                     player.Entropy().twinSpawnIndex = p.whoAmI;
                                     p.ai[0] = 30;
                                     if (item.ModItem == null)
                                     {
-                                        int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwin.damageMul), knockback, Main.myPlayer);
+                                        int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback, Main.myPlayer);
 
                                         pj.ToProj().scale *= 0.8f;
                                         pj.ToProj().Entropy().OnProj = p.whoAmI;
@@ -208,9 +208,9 @@ namespace CalamityEntropy
                                     }
                                     else
                                     {
-                                        if(item.ModItem.Shoot(player, source, position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwin.damageMul), knockback))
+                                        if(item.ModItem.Shoot(player, source, position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback))
                                         {
-                                            int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwin.damageMul), knockback, Main.myPlayer);
+                                            int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback, Main.myPlayer);
                                             pj.ToProj().scale *= 0.8f;
                                             pj.ToProj().Entropy().OnProj = p.whoAmI;
                                             pj.ToProj().Entropy().ttindex = p.whoAmI;
@@ -586,8 +586,12 @@ namespace CalamityEntropy
             if (item.type == ItemID.WallOfFleshBossBag)
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<SilvasCrown>()));
-
             }
+            if (item.type == ItemID.KingSlimeBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<SlimeYoyo>(), new Fraction(4, 10));
+            }
+
             if (item.type == ItemID.IronCrate || item.type == ItemID.IronCrateHard)
             {
                 itemLoot.Add(ModContent.ItemType<AuraCard>(), new Fraction(1, 10));

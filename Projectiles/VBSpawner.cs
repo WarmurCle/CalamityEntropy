@@ -46,7 +46,7 @@ namespace CalamityEntropy.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            if (Projectile.ai[0] % 60 == 0 && spawned < 6 && Projectile.owner == Main.myPlayer)
+            if (Projectile.ai[0] % 30 == 0 && spawned < 6 && Projectile.owner == Main.myPlayer)
             {
                 Vector2 offset = Projectile.Center - Projectile.owner.ToPlayer().Center + new Vector2(200, 0).RotatedBy(rot);
                 int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer().Center + offset, Vector2.Zero, ModContent.ProjectileType<VoidBlaster>(), Projectile.damage, 0, Projectile.owner, 0, offset.X, offset.Y);

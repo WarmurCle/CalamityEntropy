@@ -182,7 +182,7 @@ namespace CalamityEntropy.Projectiles
             }
             CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, Color.Magenta, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, (Projectile.Calamity().stealthStrike ? 2.2f : 1) * 0.65f, (Projectile.Calamity().stealthStrike ? 30 : 26));
             GeneralParticleHandler.SpawnParticle(explosion2);
-            EGlobalNPC.AddVoidTouch(target, Projectile.Calamity().stealthStrike ? 360 : 100, Projectile.Calamity().stealthStrike ? 10 : 2, 800, 20);
+            EGlobalNPC.AddVoidTouch(target, Projectile.Calamity().stealthStrike ? 360 : 100, Projectile.Calamity().stealthStrike ? 5 : 2, 800, 10);
             float sparkCount = Projectile.Calamity().stealthStrike ? 26 : 16;
             for (int i = 0; i < sparkCount; i++)
             {

@@ -14,7 +14,7 @@ namespace CalamityEntropy.Buffs
         }
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwin>()] > 0){
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()] > 0){
                 player.buffTime[buffIndex] = 18000;
             }
             else{

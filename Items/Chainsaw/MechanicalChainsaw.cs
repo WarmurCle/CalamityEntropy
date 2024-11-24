@@ -7,14 +7,15 @@ using CalamityEntropy.Projectiles.VoidBlade;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using CalamityEntropy.Projectiles.Chainsaw;
+using CalamityMod;
 namespace CalamityEntropy.Items.Chainsaw
 {	
 	public class MechanicalChainsaw : ModItem
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 74;
-			Item.DamageType = DamageClass.Melee;
+			Item.damage = 35;
+			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Item.width = 42;
             Item.height = 42;
             Item.noUseGraphic = true;
@@ -22,6 +23,7 @@ namespace CalamityEntropy.Items.Chainsaw
 			Item.useAnimation = 0;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 6;
+            Item.ArmorPenetration = 45;
 			Item.value = 2000000;
 			Item.rare = ItemRarityID.Red;
             Item.UseSound = SoundID.Item23;

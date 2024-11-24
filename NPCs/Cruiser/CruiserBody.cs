@@ -49,12 +49,12 @@ namespace CalamityEntropy.NPCs.Cruiser
             NPC.value = 50f;
             NPC.knockBackResist = 0f;
             NPC.noTileCollide = true;
-            NPC.defense = 46;
+            NPC.defense = 40;
             NPC.boss = true;
             NPC.noGravity = true;
-            NPC.Entropy().VoidTouchDR = 0.99f;
+            NPC.Entropy().VoidTouchDR = 0.7f;
             NPC.scale = 1.1f;
-            NPC.Calamity().DR = 0.5f;
+            NPC.Calamity().DR = 0.3f;
             if (!Main.dedServ)
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/CruiserBoss");

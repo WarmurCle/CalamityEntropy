@@ -22,6 +22,7 @@ using CalamityMod.Projectiles.Ranged;
 using CalamityMod.Particles;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityEntropy.Items;
+using CalamityEntropy.Projectiles.TwistedTwin;
 namespace CalamityEntropy.Projectiles
 {
     public class GhostdomWhisperHoldout : ModProjectile
@@ -51,6 +52,14 @@ namespace CalamityEntropy.Projectiles
         {
             
             Player player = Projectile.owner.ToPlayer();
+            if (player.dead)
+            {
+                Projectile.Kill();
+            }
+            if (Projectile.Entropy().ttindex != -1 && !(Projectile.Entropy().ttindex.ToProj().active))
+            {
+                Projectile.Kill();
+            }
             if (player.HasAmmo(player.HeldItem))
             {
                 player.PickAmmo(player.HeldItem, out int projID, out float shootSpeed, out int damage, out float kb, out ammoID, true);
@@ -110,7 +119,7 @@ namespace CalamityEntropy.Projectiles
                         {
                             gw2.cs = false;
                         }
-                        int p = Projectile.NewProjectile(player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, ammoID), Projectile.Center, new Vector2(shootSpeed, 0).RotatedBy(Projectile.rotation) * (Projectile.ai[1] / (float)maxCharge), projID, (int)(damage * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1.8f : 1)), kb * (Projectile.ai[1] / (float)maxCharge), Projectile.owner);
+                        int p = Projectile.NewProjectile(player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, ammoID), Projectile.Center, new Vector2(shootSpeed, 0).RotatedBy(Projectile.rotation) * (Projectile.ai[1] / (float)maxCharge), projID, (int)(damage * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1.8f : 1) * (Projectile.Entropy().ttindex == -1 ? 1 : TwistedTwinMinion.damageMul)), kb * (Projectile.ai[1] / (float)maxCharge), Projectile.owner);
                         p.ToProj().scale = 1.6f * Projectile.scale;
                         if (Projectile.ai[1] >= maxCharge)
                         {

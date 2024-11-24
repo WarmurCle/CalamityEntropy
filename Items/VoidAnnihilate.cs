@@ -39,7 +39,7 @@ namespace CalamityEntropy.Items
         }
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[Item.shoot] < 5 * (1 + player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwin>()]);
+            return player.ownedProjectileCounts[Item.shoot] < 5 * (1 + player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()]);
         }
         public override void AddRecipes()
         {

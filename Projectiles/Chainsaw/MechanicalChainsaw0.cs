@@ -12,6 +12,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework.Audio;
 using CalamityEntropy.Util;
 using CalamityMod.Particles;
+using CalamityMod;
 namespace CalamityEntropy.Projectiles.Chainsaw
 {
     public class MechanicalChainsaw0 : ModProjectile
@@ -23,7 +24,7 @@ namespace CalamityEntropy.Projectiles.Chainsaw
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Projectile.width = 96;
             Projectile.height = 96;
             Projectile.friendly = true;
@@ -33,7 +34,7 @@ namespace CalamityEntropy.Projectiles.Chainsaw
             Projectile.scale = 1.6f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 4;
-            Projectile.ArmorPenetration = 25;
+            Projectile.ArmorPenetration = 45;
         }
         int frame = 2;
         public override void AI()
@@ -62,7 +63,7 @@ namespace CalamityEntropy.Projectiles.Chainsaw
                 player.direction = 1;
             }
             else { 
-                player.direction = 0; 
+                player.direction = -1; 
             }
             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
