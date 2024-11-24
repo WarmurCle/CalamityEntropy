@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Tiles;
 using CalamityEntropy.Util;
+using CalamityMod.Items;
 using CalamityMod.Tiles.Furniture.Monoliths;
 using Terraria;
 using Terraria.ID;
@@ -19,8 +20,9 @@ namespace CalamityEntropy.Items
             Item.useTime = 20;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = true;
+            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.createTile = ModContent.TileType<ArmorReforgStationTile>();
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemRarityID.Green;
         }
 
         public override void AddRecipes()

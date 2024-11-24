@@ -1,12 +1,14 @@
 This mod is an expansion of CalamityMod.
+
 -What we added-
 a new boss
 weapons
 Accessories
+Armor Prefixes
 some new pet
 Auric toilet that can sit
 Auric Boulder
 
-will continue to add more new content in the future (the creators are still in the learning stage, please forgive us if there are any shortcomings)
+We will continue to add more new content in the future
 
 Bug Reports: https://github.com/WarmurCle/CalamityEntropy/issues
