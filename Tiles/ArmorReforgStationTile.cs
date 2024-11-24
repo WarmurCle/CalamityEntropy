@@ -61,6 +61,7 @@ namespace CalamityEntropy.Tiles
         {
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
+            
             player.cursorItemIconEnabled = true;
             player.cursorItemIconID = ModContent.ItemType<ArmorReforgStation>();
         }
@@ -69,8 +70,16 @@ namespace CalamityEntropy.Tiles
 
         public override bool RightClick(int i, int j)
         {
-            ArmorForgingStationUI.Visible = true;
-            Main.playerInventory = true;
+            if (ArmorForgingStationUI.Visible)
+            {
+                ArmorForgingStationUI.Visible = false;
+                Main.playerInventory = false;
+            }
+            else
+            {
+                ArmorForgingStationUI.Visible = true;
+                Main.playerInventory = true;
+            }
             SoundEngine.PlaySound(SoundID.Mech, new Vector2(i * 16, j * 16));
             return true;
         }
