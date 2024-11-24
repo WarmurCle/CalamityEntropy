@@ -70,6 +70,9 @@ namespace CalamityEntropy
         public int vfcd = 0;
         public float voidcharge = 0;
         public bool ArchmagesMirror = false;
+        public float damageReduce = 1;
+        public float moveSpeed = 1;
+        public float Thorn = 0;
         public float VoidCharge 
         { 
             get { return voidcharge; } 
@@ -82,6 +85,8 @@ namespace CalamityEntropy
             }
         }
 
+        public bool CRing = false;
+
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
             voidcharge = 0;VoidInspire = 0;
@@ -91,6 +96,10 @@ namespace CalamityEntropy
             if (SCrown)
             {
                 Player.Calamity().nextHitDealsDefenseDamage = false;
+            }
+            if (Thorn > 0)
+            {
+                Player.ApplyDamageToNPC(npc, (int)(hurtInfo.Damage * Thorn), 0, 0, false);
             }
         }
         public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
@@ -105,8 +114,15 @@ namespace CalamityEntropy
         public int VoidInspire = 0;
 
         public bool GreedCard = false;
+        public int lifeRegenPerSec = 0;
+        public int lifeRegenCD = 60;
+        public float light = 0;
         public override void ResetEffects()
         {
+            Thorn = 0;
+            light = 0;
+            CRing = false;
+            lifeRegenPerSec = 0;
             Godhead = false;
             auraCard = false;
             if (brillianceCard > 0)
@@ -138,12 +154,15 @@ namespace CalamityEntropy
             SCrown = false;
             GreedCard = false;
             ArchmagesMirror = false;
+            damageReduce = 1;
+            moveSpeed = 1;
         }
         public int crSky = 0;
         public int llSky = 0;
         public int magiShieldCd = 0;
         public override void PreUpdate()
         {
+            Lighting.AddLight(Player.Center, light, light, light);
             bool sm = Player.HasBuff(ModContent.BuffType<SoyMilkBuff>());
             if (hasSM && !sm)
             {
@@ -168,6 +187,7 @@ namespace CalamityEntropy
         }
         public List<Vector2> daPoints = new List<Vector2>();
         public Vector2 daLastP = Vector2.Zero;
+
         public override void PostUpdateRunSpeeds()
         {
             if (Player.Entropy().inspirationCard)
@@ -195,8 +215,15 @@ namespace CalamityEntropy
                 Player.runAcceleration *= 1.15f;
                 Player.maxRunSpeed *= 1.15f;
             }
+            if (CRing)
+            {
+                Player.runAcceleration *= 1.05f;
+                Player.maxRunSpeed *= 1.05f;
+            }
             Player.runAcceleration *= 1f + VoidCharge;
             Player.maxRunSpeed *= 1f + VoidCharge;
+            Player.runAcceleration *= 1f + moveSpeed;
+            Player.maxRunSpeed *= 1f + moveSpeed;
         }
         public int scHealCD = 60;
         public override void PostUpdateMiscEffects()
@@ -247,7 +274,7 @@ namespace CalamityEntropy
         {
 
             modifiers.ModifyHurtInfo += EPHurtModifier;
-            float d = 1;
+            float d = 2 - damageReduce;
             if (Player.Entropy().enduranceCard)
             {
                 d -= 0.18f;
@@ -311,6 +338,14 @@ namespace CalamityEntropy
             {
                 scHealCD = 60;
                 Player.Heal(8);
+            }
+            if (Player.statLife < Player.statLifeMax2 && lifeRegenPerSec > 0)
+            {
+                lifeRegenCD--;
+                if (lifeRegenCD <= 0)
+                {
+                    Player.Heal(lifeRegenPerSec);
+                }
             }
             vfcd--;
             

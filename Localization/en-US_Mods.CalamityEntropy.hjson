@@ -575,6 +575,25 @@ Items: {
 		DisplayName: Slime Yoyo
 		Tooltip: ""
 	}
+
+	CelestialRing: {
+		Tooltip:
+			'''
+			+18% damage
+			+5HP/s Life Regen
+			+3 Max Minions
+			+75% Minions Knockback
+			+5% Crit Chance
+			+5% Move Speed
+			+20% Pick Speed
+			'''
+		DisplayName: Celestial Ring
+	}
+
+	ArmorReforgStation: {
+		DisplayName: Armor Reforg Station
+		Tooltip: ""
+	}
 }
 
 DeathMode: Death Mode
@@ -840,6 +859,11 @@ Configs: {
 			Label: Void Charge Bar Y
 			Tooltip: ""
 		}
+
+		CraftArmorWithPrefixChance: {
+			Label: Craft Armor With Prefix Chance
+			Tooltip: ""
+		}
 	}
 }
 
@@ -868,3 +892,31 @@ helmvfl:
 	Stealth strikes will accumulate more void energy
 	'''
 helmvfe: Summon a Void Symbiont fight for you
+Reforge: Reforge
+ArmorPrefixHardName: Hard
+ArmorPrefixHardDescription: +10 defense
+ArmorPrefixLightName: Light
+ArmorPrefixLightDescription: +10% Move Speed
+ArmorPrefixBrokenName: Broken
+ArmorPrefixBrokenDescription: -20% Defense
+ArmorPrefixGodForgedName: God Forged
+ArmorPrefixGodForgedDescription:
+	'''
+	+15%Defense
+	+5% Damage Reduce
+	+5% Damage
+	'''
+ArmorPrefixGuardedName: Guarded
+ArmorPrefixGuardedDescription: +20% Defense
+ArmorPrefixHeavyName: Heavy
+ArmorPrefixHeavyDescription: -10% Move Speed
+ArmorPrefixResilientName: Resilient
+ArmorPrefixResilientDescription: Let you jump higher
+ArmorPrefixRustName: Rusty
+ArmorPrefixRustDescription: -10% Defense
+ArmorPrefixShiningName: Shining
+ArmorPrefixShiningDescription: Make you glow
+ArmorPrefixThornyName: Thorny
+ArmorPrefixThornyDescription: +100% Reverse injury
+ArmorPrefixWaterWalkerName: Water Walker
+ArmorPrefixWaterWalkerDescription: Enable you to walk on the water surface

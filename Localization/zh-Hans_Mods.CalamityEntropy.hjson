@@ -401,8 +401,8 @@ Items: {
 		DisplayName: 圣洁月光
 		Tooltip:
 			'''
-			每三十秒获得一个魔力护盾，数值等同于魔力上限的75％，
-			魔力护盾存在期间增加10％移动速度并降低10％魔力消耗，
+			每三十秒获得一个魔力护盾，数值等同于魔力上限的75%，
+			魔力护盾存在期间增加10%移动速度并降低10%魔力消耗，
 			护盾会对触碰到的敌人造成伤害，
 			魔力护盾被击破时消除自身魔力病减益并回满魔力值，
 			没有护盾时魔法弹幕能够吸血，
@@ -418,7 +418,7 @@ Items: {
 			战舰会消耗你物品栏中的子弹
 			交替发射火箭和子弹
 			不会消耗弹药
-			33％概率射出子弹翻倍
+			33%概率射出子弹翻倍
 			每20次射击发射一道镭射
 			'''
 	}
@@ -585,6 +585,25 @@ Items: {
 
 	SlimeYoyo: {
 		DisplayName: 凝胶悠悠球
+		Tooltip: ""
+	}
+
+	CelestialRing: {
+		Tooltip:
+			'''
+			+18% 伤害
+			+5HP/s 生命再生
+			+3 召唤栏
+			+75% 仆从击退
+			+5% 暴击率
+			+5% 移动速度和加速度
+			+20% 挖掘速度
+			'''
+		DisplayName: 天界指环
+	}
+
+	ArmorReforgStation: {
+		DisplayName: 盔甲锻造站
 		Tooltip: ""
 	}
 }
@@ -852,6 +871,11 @@ Configs: {
 			Label: 虚空充能条位置Y
 			Tooltip: ""
 		}
+
+		CraftArmorWithPrefixChance: {
+			Label: 合成带有词缀的盔甲的概率
+			Tooltip: ""
+		}
 	}
 }
 
@@ -870,7 +894,7 @@ vfb:
 helmvfc: 魔法弹幕击中敌人减少自身魔力病减益0.5s
 helmvfd:
 	'''
-	+10％减伤
+	+10%减伤
 	击中敌人获取更多的虚空能量
 	'''
 helmvfs: 远程射弹伤害随时间增加
@@ -880,3 +904,31 @@ helmvfl:
 	潜伏攻击获得更多虚空能量
 	'''
 helmvfe: 召唤一只虚空共生体协助战斗
+Reforge: 重铸
+ArmorPrefixHardName: 坚硬
+ArmorPrefixHardDescription: +10% 防御
+ArmorPrefixLightName: 轻便
+ArmorPrefixLightDescription: +10% 移动速度
+ArmorPrefixBrokenName: 破损
+ArmorPrefixBrokenDescription: -20% 防御
+ArmorPrefixGodForgedName: 神铸
+ArmorPrefixGodForgedDescription:
+	'''
+	+15% 防御
+	+5% 伤害减免
+	+5% 伤害
+	'''
+ArmorPrefixGuardedName: 守护
+ArmorPrefixGuardedDescription: +20% 防御
+ArmorPrefixHeavyName: 沉重
+ArmorPrefixHeavyDescription: -10% 移动速度
+ArmorPrefixResilientName: 弹力
+ArmorPrefixResilientDescription: 增加跳跃高度
+ArmorPrefixRustName: 锈蚀
+ArmorPrefixRustDescription: -10% 防御
+ArmorPrefixShiningName: 发光
+ArmorPrefixShiningDescription: 让你发光
+ArmorPrefixThornyName: 荆棘
+ArmorPrefixThornyDescription: +100% 接触伤害反伤
+ArmorPrefixWaterWalkerName: 水上行者
+ArmorPrefixWaterWalkerDescription: 使你能够在水面上行走

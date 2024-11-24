@@ -20,6 +20,7 @@ using CalamityEntropy.Util;
 using CalamityMod.UI.DraedonsArsenal;
 using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Terraria.Localization;
+using CalamityEntropy.UI;
 
 namespace CalamityEntropy
 {
@@ -32,8 +33,13 @@ namespace CalamityEntropy
         public override void UpdateUI(GameTime gameTime)
         {
             counter += 1f;
-        }
+            if (ArmorForgingStationUI.Visible)
+            {
+                CalamityEntropy.Instance.userInterface?.Update(gameTime);
 
+            }
+            base.UpdateUI(gameTime);
+        }
         
         public override void PostUpdateDusts()
         {
@@ -42,8 +48,21 @@ namespace CalamityEntropy
         }
         public bool prd = true;
         public bool mi = false;
+        public bool escLast = true;
         public override void PostUpdatePlayers()
         {
+
+            
+            if (!Main.playerInventory)
+            {
+                if (ArmorForgingStationUI.Visible)
+                {
+                    CalamityEntropy.Instance.armorForgingStationUI.close();
+                }
+                ArmorForgingStationUI.Visible = false;
+
+            }
+            escLast = Keyboard.GetState().IsKeyDown(Keys.Escape);
             if (!Main.dedServ)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftControl) && Keyboard.GetState().IsKeyDown(Keys.N))
@@ -76,11 +95,26 @@ namespace CalamityEntropy
             int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
             if (mouseIndex != -1)
             {
-                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Void Charge Bar", () =>
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Void Charge Bar", () =>
                 {
                     DrawVoidChargeBar(Main.spriteBatch);
                     return true;
                 }, InterfaceScaleType.None));
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer(
+           //这里是绘制层的名字
+           "CalamityEntropy: Armor Reforging Station",
+           //这里是匿名方法
+           delegate
+           {
+               //当Visible开启时（当UI开启时）
+               if (ArmorForgingStationUI.Visible)
+                   //绘制UI（运行exampleUI的Draw方法）
+                    CalamityEntropy.Instance.armorForgingStationUI.Draw(Main.spriteBatch);
+               return true;
+           },
+           //这里是绘制层的类型
+           InterfaceScaleType.UI)
+       );
             }
             }
 

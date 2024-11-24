@@ -74,7 +74,7 @@ namespace CalamityEntropy.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-            Main.EntitySpriteDraw(texture, Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, lightColor, Projectile.rotation - MathHelper.ToRadians(12) * Projectile.direction, new Vector2(0, texture.Height / 2), Projectile.scale * 0.8f, (Projectile.direction > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically));
+            Main.EntitySpriteDraw(texture, Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, lightColor, Projectile.rotation - MathHelper.ToRadians(12) * Projectile.direction, new Vector2(0, texture.Height / 2), Projectile.scale * 0.8f, (Projectile.direction > 0 ? SpriteEffects.FlipVertically : SpriteEffects.None));
             return false;
         }
     }

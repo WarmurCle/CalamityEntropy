@@ -1,0 +1,36 @@
+﻿using CalamityEntropy.Tiles;
+using CalamityEntropy.Util;
+using CalamityMod.Tiles.Furniture.Monoliths;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+namespace CalamityEntropy.Items
+{
+    public class ArmorReforgStation : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.width = 56;
+            Item.height = 56;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 20;
+            Item.useTime = 20;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.createTile = ModContent.TileType<ArmorReforgStationTile>();
+            Item.rare = ItemRarityID.LightRed;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.StoneBlock, 40)
+                .AddIngredient(ItemID.Wood, 16)
+                .AddIngredient(ItemID.Torch, 1)
+                .AddIngredient(ItemID.WorkBench)
+                .Create();
+        }
+    }
+}

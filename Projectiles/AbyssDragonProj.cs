@@ -57,7 +57,7 @@ namespace CalamityEntropy.Projectiles
             }
             Texture2D tx = TextureAssets.Projectile[Projectile.type].Value;
             Util.Util.DrawAfterimage(tx, odp, odr);
-            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tx.Size() / 2, Projectile.scale, (Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);
+            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tx.Size() / 2, Projectile.scale, (Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically), 0);
             return false;
         }
     }

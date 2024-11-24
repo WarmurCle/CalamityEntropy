@@ -47,6 +47,8 @@ using System.Threading;
 using Steamworks;
 using CalamityEntropy.NPCs.AbyssalWraith;
 using CalamityEntropy.Projectiles.AbyssalWraithProjs;
+using CalamityEntropy.UI;
+using Terraria.UI;
 namespace CalamityEntropy
 {
 
@@ -66,9 +68,14 @@ namespace CalamityEntropy
         public Vector2 screensz = Vector2.Zero;
         public static bool ets = true;
         public static Texture2D pixel;
+        public ArmorForgingStationUI armorForgingStationUI;
+        public UserInterface userInterface;
         public override void Load()
         {
-
+            armorForgingStationUI = new ArmorForgingStationUI();
+            armorForgingStationUI.Activate();
+            userInterface = new UserInterface();
+            userInterface.SetState(armorForgingStationUI);
             
             ets = true;
             kscreen = ModContent.Request<Effect>("CalamityEntropy/Effects/kscreen", AssetRequestMode.ImmediateLoad).Value;
@@ -103,6 +110,7 @@ namespace CalamityEntropy
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
         }
 
+        
         private void al_torch(On_Lighting.orig_AddLight_Vector2_int orig, Vector2 position, int torchID)
         {
             if (brillianceLightMulti > 1)

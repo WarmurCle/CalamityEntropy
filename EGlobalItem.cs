@@ -31,6 +31,9 @@ using Terraria.GameContent.ItemDropRules;
 using CalamityEntropy.Items.Armor.VoidFaquir;
 using CalamityEntropy.Items.Accessories;
 using CalamityMod.World;
+using Terraria.ModLoader.IO;
+using CalamityEntropy.ArmorPrefixes;
+using System.IO;
 
 namespace CalamityEntropy
 {
@@ -81,8 +84,72 @@ namespace CalamityEntropy
         }
 
         public override bool InstancePerEntity => true;
+        public string armorPrefixName = string.Empty;
+        public ArmorPrefix armorPrefix = null;
+        public override void SaveData(Item item, TagCompound tag)
+        {
+            tag.Add("ArmorPrefix", armorPrefixName);
+        }
+
+        public override void LoadData(Item item, TagCompound tag)
+        {
+            if (tag.ContainsKey("ArmorPrefix"))
+            {
+                armorPrefixName = tag.Get<string>("ArmorPrefix");
+                ArmorPrefix result = ArmorPrefix.findByName(armorPrefixName);
+                armorPrefix = result;
+            }
+        }
+        public override void UpdateEquip(Item item, Player player)
+        {
+            if (armorPrefix != null)
+            {
+                armorPrefix.updateEquip(player, item);
+                player.statDefense += (int)(item.defense * armorPrefix.AddDefense());
+            }
+        }
+        public override void NetSend(Item item, BinaryWriter writer)
+        {
+            writer.Write(armorPrefixName);
+        }
+
+        public override void NetReceive(Item item, BinaryReader reader)
+        {
+            armorPrefixName = reader.ReadString();
+            armorPrefix = ArmorPrefix.findByName(armorPrefixName);
+        }
+
+        public override void OnCreated(Item item, ItemCreationContext context)
+        {
+            if (Util.Util.IsArmor(item) && Main.rand.NextDouble() < ModContent.GetInstance<Config>().CraftArmorWithPrefixChance) {
+                ArmorPrefix armorPrefix = ArmorPrefix.RollPrefixToItem(item);
+                if (armorPrefix != null)
+                {
+                    item.Entropy().armorPrefix = armorPrefix;
+                    item.Entropy().armorPrefixName = armorPrefix.RegisterName();
+                }
+            }
+        }
+
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (item.Entropy().armorPrefix != null)
+            {
+                foreach (var tooltip in tooltips)
+                {
+                    if (tooltip.Mod == "Terraria")
+                    {
+                        if (tooltip.Name == "ItemName")
+                        {
+                            tooltip.Text = item.Entropy().armorPrefix.getName() + " " + tooltip.Text;
+                        }
+                        if (tooltip.Name == "Defense" && armorPrefix.AddDefense() != 0)
+                        {
+                            tooltip.Text += (armorPrefix.AddDefense() > 0 ? "(+" : "(") + ((int)(armorPrefix.AddDefense() * item.defense)).ToString() + ")";
+                        }
+                    }
+                }
+            }
             if (item.type == ModContent.ItemType<VoidFaquirBodyArmor>() || item.type == ModContent.ItemType<VoidFaquirCuises>() || item.type == ModContent.ItemType<VoidFaquirCosmosHood>() || item.type == ModContent.ItemType<VoidFaquirDevourerHelm>() || item.type == ModContent.ItemType<VoidFaquirEvokerHelm>() || item.type == ModContent.ItemType<VoidFaquirLurkerMask>() || item.type == ModContent.ItemType<VoidFaquirShadowHelm>())
             {
                 if (Main.LocalPlayer.Entropy().VFSet)
@@ -116,6 +183,10 @@ namespace CalamityEntropy
                     tooltips.Add(t);
                 }
             }
+            if (armorPrefix != null)
+            {
+                tooltips.Add(armorPrefix.getDescTooltipLine());
+            }
             if (item.Entropy().Legend)
             {
                 TooltipLine tl = new TooltipLine(CalamityEntropy.Instance, "LegendItem", Language.GetTextValue("Mods.CalamityEntropy.LegendTooltip"));
@@ -134,8 +205,11 @@ namespace CalamityEntropy
             obj.NameColor = NameColor;
             obj.HasCustomNameColor = HasCustomNameColor;
             obj.HasCustomStrokeColor = HasCustomStrokeColor;
+            obj.armorPrefix = armorPrefix;
+            obj.armorPrefixName = armorPrefixName;
             return obj;
         }
+        
         public override void UpdateInventory(Item item, Player player)
         {
             if (item.type == ModContent.ItemType<CalamityMod.Items.Placeables.FurnitureAuric.AuricToilet>())

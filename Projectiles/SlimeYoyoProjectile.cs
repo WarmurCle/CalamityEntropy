@@ -16,6 +16,9 @@ using CalamityEntropy.Dusts;
 using CalamityMod.Particles;
 using CalamityEntropy.Util;
 using System.Diagnostics.Metrics;
+using CalamityMod.NPCs;
+using CalamityMod.CalPlayer;
+using CalamityMod.Buffs.DamageOverTime;
 namespace CalamityEntropy.Projectiles
 {
     public class SlimeYoyoProjectile : ModProjectile
@@ -44,8 +47,20 @@ namespace CalamityEntropy.Projectiles
             Projectile.timeLeft = 3;
         }
         Vector2 lmp = Vector2.Zero;
+        public int dmgandkbUp = 30;
         public override void AI()
         {
+            if (dmgandkbUp == 30)
+            {
+                Projectile.damage *= 3;
+                Projectile.knockBack *= 6f;
+            }
+            if (dmgandkbUp == 0)
+            {
+                Projectile.damage /= 3;
+                Projectile.knockBack /= 6f;
+            }
+            dmgandkbUp--;
             if (rope == null)
             {
                 rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 25, 0, new Vector2(0, 0.6f), 0.06f, 15, true);
@@ -113,6 +128,7 @@ namespace CalamityEntropy.Projectiles
             Projectile.owner.ToPlayer().itemRotation = (Projectile.Center - Projectile.owner.ToPlayer().Center).ToRotation() * Projectile.owner.ToPlayer().direction;
             Projectile.owner.ToPlayer().itemTime = 6;
             Projectile.owner.ToPlayer().itemAnimation = 6;
+            
         }
         Rope rope;
 

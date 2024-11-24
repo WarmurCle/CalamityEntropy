@@ -26,5 +26,12 @@ namespace CalamityEntropy
         [DrawTicks]
         public float VoidChargeBarY { get; set; }
 
+        [SliderColor(224, 165, 56, 128)]
+        [Range(0f, 1f)]
+        [DefaultValue(0.7f)]
+        [Increment(0.01f)]
+        [DrawTicks]
+        public float CraftArmorWithPrefixChance { get; set; }
+
     }
 }

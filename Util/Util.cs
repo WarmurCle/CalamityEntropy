@@ -85,6 +85,10 @@ namespace CalamityEntropy.Util
         {
             return item.GetGlobalItem<EGlobalItem>();
         }
+        public static bool IsArmor(Item item, bool vanity = false)
+        {
+            return (vanity || !item.vanity) && (item.headSlot != -1 || item.bodySlot != -1 || item.legSlot != -1);
+        }
         public static EGlobalProjectile Entropy(this Projectile p)
         {
             return p.GetGlobalProjectile<EGlobalProjectile>();
