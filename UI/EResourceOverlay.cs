@@ -69,7 +69,7 @@ namespace CalamityEntropy.UI
                     }
                 }
             }
-            if (ManaTexturePath() != string.Empty && Main.LocalPlayer.Entropy().ArchmagesMirror)
+            if (ManaTexturePath() != string.Empty && Main.LocalPlayer.Entropy().enhancedMana > 0)
             {
                 if (asset == TextureAssets.Mana || CompareAssets(asset, fancyFolder + "Star_Fill"))
                 {

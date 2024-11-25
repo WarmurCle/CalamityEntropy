@@ -37,6 +37,10 @@ namespace CalamityEntropy.Items.Accessories
             player.Entropy().CRing = true;
             player.Entropy().lifeRegenPerSec += 5;
             player.maxMinions += 3;
+            player.accMerman = true;
+            player.wolfAcc = true;
+            player.hideWolf = hideVisual;
+            player.hideMerman = hideVisual;
         }
 
         public override void AddRecipes()
@@ -45,8 +49,8 @@ namespace CalamityEntropy.Items.Accessories
                 AddIngredient(ItemID.CelestialShell).
                 AddIngredient(ModContent.ItemType<DarkSunRing>()).
                 AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 6).
-                AddIngredient(ModContent.ItemType<AuricBar>(), 6).
-                AddTile(ModContent.TileType<CosmicAnvil>()).
+                AddIngredient(ModContent.ItemType<AuricBar>(), 6)
+                .AddTile(ModContent.TileType<CosmicAnvil>()).
                 Register();
         }
     }
