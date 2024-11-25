@@ -58,7 +58,16 @@ namespace CalamityEntropy.Projectiles
             }
         }
         public override void AI(){
-            Projectile.rotation+=0.06f;
+            Projectile.rotation+=0.16f;
+            NPC target = Projectile.FindTargetWithinRange(600, false);
+            if (target != null)
+            {
+                Projectile.velocity *= 0.96f;
+                Vector2 v = target.Center - Projectile.Center;
+                v.Normalize();
+
+                Projectile.velocity += v * 1.5f;
+            }
         }
 
 

@@ -48,7 +48,7 @@ namespace CalamityEntropy.Items.Armor.VoidFaquir
             player.Entropy().VFHelmSummoner = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<VoidMonster>()] < 1)
             {
-                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<VoidMonster>(), 320, 4, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<VoidMonster>(), 1800, 4, player.whoAmI);
             }
         }
 

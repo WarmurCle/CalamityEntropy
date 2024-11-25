@@ -15,7 +15,8 @@ namespace CalamityEntropy.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.GetDamage(DamageClass.Generic) += 0.4f;
+            player.GetDamage(DamageClass.Generic) += 0.3f;
+            player.GetCritChance(DamageClass.Generic) += 15;
             player.GetKnockback(DamageClass.Generic) += 0.3f;
             player.Entropy().Thorn += 2f;
             player.Entropy().AttackVoidTouch += 0.1f;

@@ -24,7 +24,10 @@ namespace CalamityEntropy.UI
         UIText text;
         public override void OnInitialize()
         {
-            
+            if (Main.dedServ)
+            {
+                return;
+            }
             //实例化一个面板
             UIPanel panel = new UIPanel();
             //设置面板的宽度
@@ -74,6 +77,10 @@ namespace CalamityEntropy.UI
         }
         public override void Update(GameTime gameTime)
         {
+            if (Main.dedServ)
+            {
+                return;
+            }
             if (item[0].active && Util.Util.IsArmor(item[0]))
             {
                 text.SetText(Main.ValueToCoins((int)(item[0].value / 6)));
@@ -122,6 +129,7 @@ namespace CalamityEntropy.UI
         }
         public void close()
         {
+            
             Item.NewItem(Player.GetSource_None(), Main.LocalPlayer.getRect(), item[0]);
             item[0].TurnToAir();
         }

@@ -49,6 +49,7 @@ using CalamityEntropy.NPCs.AbyssalWraith;
 using CalamityEntropy.Projectiles.AbyssalWraithProjs;
 using CalamityEntropy.UI;
 using Terraria.UI;
+using CalamityMod.UI.CalamitasEnchants;
 namespace CalamityEntropy
 {
 
@@ -76,7 +77,7 @@ namespace CalamityEntropy
             armorForgingStationUI.Activate();
             userInterface = new UserInterface();
             userInterface.SetState(armorForgingStationUI);
-            
+            EnchantmentManager.ItemUpgradeRelationship[ModContent.ItemType<VoidEcho>()] = ModContent.ItemType<Mercy>();
             ets = true;
             kscreen = ModContent.Request<Effect>("CalamityEntropy/Effects/kscreen", AssetRequestMode.ImmediateLoad).Value;
             kscreen2 = ModContent.Request<Effect>("CalamityEntropy/Effects/kscreen2", AssetRequestMode.ImmediateLoad).Value;

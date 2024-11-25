@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Buffs;
 using CalamityEntropy.Items;
 using CalamityEntropy.Projectiles;
+using CalamityEntropy.Projectiles.HBProj;
 using CalamityEntropy.Projectiles.TwistedTwin;
 using CalamityEntropy.Projectiles.VoidEchoProj;
 using CalamityEntropy.Util;
@@ -116,7 +117,7 @@ namespace CalamityEntropy
                     maxDmgUps = 10;
                 }
             }
-            if (source is EntitySource_ItemUse && checkHoldOut && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>()))
+            if (source is EntitySource_ItemUse && checkHoldOut && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<HB>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>()))
             {
                 checkHoldOut = false;
                 foreach (Projectile p in Main.projectile)

@@ -12,6 +12,15 @@ namespace CalamityEntropy.Util
 {
     //Most of these code is stupid, I wrote them very early on, but But I'm too lazy to modify them
     public static class Util{
+
+        
+        public static void DrawLines(List<Vector2> points, Color color, float width)
+        {
+            for(int i = 1; i < points.Count; i++)
+            {
+                drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value, points[i - 1], points[i], color, width, 2, true);
+            }
+        }
         public static void recordOldPosAndRots(Projectile p, ref List<Vector2> odp, ref List<float> odr, int maxLength = 12)
         {
             odp.Add(p.Center);

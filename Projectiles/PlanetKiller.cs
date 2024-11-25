@@ -84,10 +84,13 @@ namespace CalamityEntropy.Projectiles
                 Vector2 velocity = Projectile.SafeDirectionTo(target.Center) * shootSpeed;
 
                 int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center, velocity.RotatedByRandom(MathHelper.ToRadians(2)), projID, damage, kb, Main.myPlayer);
-
+                p.ToProj().usesLocalNPCImmunity = true;
+                p.ToProj().localNPCHitCooldown = 10;
                 if (Main.rand.NextBool(3))
                 {
                     p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center, velocity.RotatedByRandom(MathHelper.ToRadians(2)), projID, damage, kb, Main.myPlayer);
+                    p.ToProj().usesLocalNPCImmunity = true;
+                    p.ToProj().localNPCHitCooldown = 10;
                 }
             }
             if (Projectile.ai[0] % 210 == 0)
@@ -99,6 +102,8 @@ namespace CalamityEntropy.Projectiles
                 p.ToProj().DamageType = Projectile.DamageType;
                 p.ToProj().netUpdate = true;
                 p.ToProj().tileCollide = false;
+                p.ToProj().usesLocalNPCImmunity = true;
+                p.ToProj().localNPCHitCooldown = 16;
             }
         }
 

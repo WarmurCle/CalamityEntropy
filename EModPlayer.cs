@@ -4,6 +4,7 @@ using CalamityEntropy.Items;
 using CalamityEntropy.NPCs.AbyssalWraith;
 using CalamityEntropy.Projectiles;
 using CalamityEntropy.Projectiles.Cruiser;
+using CalamityEntropy.Projectiles.HBProj;
 using CalamityEntropy.Projectiles.VoidEchoProj;
 using CalamityEntropy.Tiles;
 using CalamityEntropy.Util;
@@ -71,7 +72,7 @@ namespace CalamityEntropy
         public float voidcharge = 0;
         public bool ArchmagesMirror = false;
         public float damageReduce = 1;
-        public float moveSpeed = 1;
+        public float moveSpeed = 0;
         public float ManaCost = 1;
         public float Thorn = 0;
         public float WingSpeed = 1;
@@ -166,7 +167,7 @@ namespace CalamityEntropy
             enhancedMana = 0;
             ArchmagesMirror = false;
             damageReduce = 1;
-            moveSpeed = 1;
+            moveSpeed = 0;
             DebuffImmuneChance = 0;
         }
         public int crSky = 0;
@@ -275,7 +276,6 @@ namespace CalamityEntropy
             if (ArchmagesMirror)
             {
                 enhancedMana += 0.25f;
-                
             }
             Player.statManaMax2 += (int)(Player.statManaMax2 * enhancedMana);
             if (Player.statMana > manaNorm)
@@ -534,6 +534,13 @@ namespace CalamityEntropy
                     if (Player.ownedProjectileCounts[ModContent.ProjectileType<VoidEchoProj>()] <= 0)
                     {
                         Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<VoidEchoProj>(), Player.HeldItem.damage, 0, Player.whoAmI);
+                    }
+                }
+                if (!Player.HeldItem.IsAir && Player.HeldItem.type == ModContent.ItemType<Mercy>())
+                {
+                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<HB>()] <= 0)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<HB>(), Player.HeldItem.damage, 0, Player.whoAmI);
                     }
                 }
                 if (!Player.HeldItem.IsAir && Player.HeldItem.type == ModContent.ItemType<GhostdomWhisper>())

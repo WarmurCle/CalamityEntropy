@@ -594,6 +594,31 @@ Items: {
 		DisplayName: Armor Reforg Station
 		Tooltip: ""
 	}
+
+	OverloadFurnace: {
+		Tooltip: ""
+		DisplayName: Overload Furnace
+	}
+
+	RustyDetectionEquipment: {
+		DisplayName: Rusty Detection Equipment
+		Tooltip:
+			'''
+			Improve your jumping speed
+			Give you a slight push forward
+			Increase partial movement speed
+			'''
+	}
+
+	MagneticController: {
+		DisplayName: Magnetic Controller
+		Tooltip: ""
+	}
+
+	Mercy: {
+		Tooltip: Use Void and Dark Magic to Burn Everything Down
+		DisplayName: Mercy
+	}
 }
 
 DeathMode: Death Mode
@@ -698,6 +723,13 @@ Projectiles: {
 	AbyssDragonProj.DisplayName: Abyss Dragon Proj
 	AbyssalStar.DisplayName: Abyssal Star
 	SlimeYoyoProjectile.DisplayName: Slime Yoyo Projectile
+	OverloadFurnaceHoldout.DisplayName: Overload Furnace Holdout
+	LightningBall.DisplayName: Lightning Ball
+	Teletor.DisplayName: Teletor
+	MercySpawner.DisplayName: Mercy Spawner
+	HelhieimBlaster.DisplayName: Helhieim Blaster
+	MercyShoot.DisplayName: Mercy Shoot
+	HB.DisplayName: H B
 }
 
 LegendTooltip: - Legend -
@@ -800,8 +832,13 @@ Buffs: {
 	}
 
 	JailerWhipDebuff: {
-		Description: Mods.CalamityEntropy.Buffs.JailerWhipDebuff.Description
-		DisplayName: Jailer Whip Debuff
+		Description: ""
+		DisplayName: Jailer Whip Teg
+	}
+
+	TeletorBuff: {
+		DisplayName: Teletor
+		Description: ""
 	}
 }
 
@@ -870,6 +907,9 @@ Configs: {
 vfb:
 	'''
 	Armor Bonus:
+	+20% Damage
+	+10% Crit
+	+20 Armor Penetration
 	Hitting the target will increase void energy
 	Provides movement and flight speed bonuses based on the amount of void energy
 	Press the armor bonus key to activate Void energy Summon a Void Wraith to assist in battle and fly indefinitely for 10 seconds
@@ -981,9 +1021,9 @@ ArmorPrefixSilenceDescription: +20% Max Stealth
 ArmorPrefixMagicalName: Magical
 ArmorPrefixMagicalDescription:
 	'''
-	+30 Max Mana
+	+10 Max Mana
 	-10% Mana Cost
-	+10% Enha
+	+10% Enhanced Mana
 	'''
 ArmorPrefixEvokerName: Evoker
 ArmorPrefixEvokerDescription: +2 Max Minion
@@ -991,7 +1031,7 @@ ArmorPrefixEndName: End
 ArmorPrefixEndDescription:
 	'''
 	+20% Defense
-	+40% Damage
+	+30% Damage
 	+30% Knockback
 	+200% Reverse injury
 	+1 Void Touch
@@ -1002,3 +1042,6 @@ ArmorPrefixWizardDescription:
 	+1 Max Minions
 	+5% Summon Damage
 	'''
+PrefixEnchanted: Enchanted
+PrefixEnchantedDesc: +12% Enhanced Mana
+Prefixes.Enchanted.DisplayName: Enchanted

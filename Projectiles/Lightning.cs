@@ -35,6 +35,7 @@ namespace CalamityEntropy.Projectiles
             Projectile.light = 0f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
+            Projectile.ArmorPenetration = 128;
 
         }
         public override bool ShouldUpdatePosition()

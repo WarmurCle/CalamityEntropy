@@ -606,6 +606,31 @@ Items: {
 		DisplayName: 盔甲锻造站
 		Tooltip: ""
 	}
+
+	OverloadFurnace: {
+		Tooltip: 蓄力射出闪电球，击中后迸发出闪电
+		DisplayName: 过载熔炉
+	}
+
+	RustyDetectionEquipment: {
+		DisplayName: 锈蚀侦查设备
+		Tooltip:
+			'''
+			提升你的跳跃速度
+			给予你略微的推进
+			增加部分移速
+			'''
+	}
+
+	MagneticController: {
+		DisplayName: 磁机遥控器
+		Tooltip: 召唤一个磁流灵为你战斗
+	}
+
+	Mercy: {
+		Tooltip: 使用虚空与黑魔法焚毁一切
+		DisplayName: 怜悯
+	}
 }
 
 DeathMode: 死亡模式
@@ -707,9 +732,16 @@ Projectiles: {
 	AbyssalLaser.DisplayName: 深渊激光
 	TwistedTwinMinion.DisplayName: 纠缠双子
 	AbyssalDragonHoldout.DisplayName: 幽渊魔龙杖
-	// AbyssDragonProj.DisplayName: Abyss Dragon Proj
-	// AbyssalStar.DisplayName: Abyssal Star
-	// SlimeYoyoProjectile.DisplayName: Slime Yoyo Projectile
+	AbyssDragonProj.DisplayName: 幽渊魔龙
+	AbyssalStar.DisplayName: 深渊星
+	SlimeYoyoProjectile.DisplayName: 史莱姆悠悠球
+	OverloadFurnaceHoldout.DisplayName: 过载熔炉
+	LightningBall.DisplayName: 闪电球
+	Teletor.DisplayName: 磁流灵
+	MercySpawner.DisplayName: 怜悯
+	HelhieimBlaster.DisplayName: 地狱炮
+	MercyShoot.DisplayName: 怜悯火焰
+	// HB.DisplayName: H B
 }
 
 LegendTooltip: - 传奇物品 -
@@ -812,8 +844,13 @@ Buffs: {
 	}
 
 	JailerWhipDebuff: {
-		// Description: Mods.CalamityEntropy.Buffs.JailerWhipDebuff.Description
-		// DisplayName: Jailer Whip Debuff
+		Description: ""
+		DisplayName: 狱卒鞭标记
+	}
+
+	TeletorBuff: {
+		DisplayName: 磁流灵
+		Description: ""
 	}
 }
 
@@ -883,7 +920,7 @@ vfb:
 	'''
 	套装奖励:
 	+20% 伤害
-	+15% 暴击率
+	+10% 暴击率
 	+20 护甲穿透
 	攻击命中目标会积攒虚空能量，
 	根据虚空能量数量提供部分移速和飞行速度加成
@@ -993,7 +1030,7 @@ ArmorPrefixSilenceDescription: +20% 最大潜伏值
 ArmorPrefixMagicalName: 注魔
 ArmorPrefixMagicalDescription:
 	'''
-	+30 最大魔力值
+	+10 最大魔力值
 	-10% 魔力消耗
 	+10% 强化魔力
 	'''
@@ -1003,7 +1040,7 @@ ArmorPrefixEndName: 末日
 ArmorPrefixEndDescription:
 	'''
 	+20% 防御
-	+40% 伤害
+	+30% 伤害
 	+30% 击退
 	+200% 接触伤害反伤
 	+1 虚空之触
@@ -1014,3 +1051,6 @@ ArmorPrefixWizardDescription:
 	+1 召唤栏
 	+5% 召唤伤害
 	'''
+PrefixEnchanted: 注魔
+PrefixEnchantedDesc: +12% 强化魔力
+Prefixes.Enchanted.DisplayName: 注魔

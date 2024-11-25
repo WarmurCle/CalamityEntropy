@@ -25,7 +25,7 @@ namespace CalamityEntropy.UI
         }
         public string ManaTexturePath()
         {
-            if (Main.LocalPlayer.Entropy().ArchmagesMirror)
+            if (Main.LocalPlayer.Entropy().enhancedMana > 0)
             {
                 string folder = $"{baseFolder}AH";
 
