@@ -359,6 +359,7 @@ namespace CalamityEntropy
                 lifeRegenCD--;
                 if (lifeRegenCD <= 0)
                 {
+                    lifeRegenCD = 60;
                     Player.Heal(lifeRegenPerSec);
                 }
             }
