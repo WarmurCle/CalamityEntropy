@@ -17,6 +17,10 @@ namespace CalamityEntropy.ArmorPrefixes
             instances.Add(this);
         }
 
+        public virtual bool Precious()
+        {
+            return false;
+        }
         public virtual int getRollChance()
         {
             return 5;

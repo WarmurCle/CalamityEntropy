@@ -106,11 +106,23 @@ namespace CalamityEntropy
             On_Lighting.AddLight_Vector2_float_float_float += al_vfff;
             On_Lighting.AddLight_Vector2_Vector3 += al_vv;
             On_Lighting.AddLight_Vector2_int += al_torch;
+            On_Player.AddBuff += add_buff;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
         }
 
-        
+        private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
+        {
+           if (Main.debuff[type])
+            {
+                if (Main.rand.NextDouble() < self.Entropy().DebuffImmuneChance)
+                {
+                    return;
+                }
+            }
+           orig(self, type, timeToAdd, quiet, foodHack);
+        }
+
         private void al_torch(On_Lighting.orig_AddLight_Vector2_int orig, Vector2 position, int torchID)
         {
             if (brillianceLightMulti > 1)

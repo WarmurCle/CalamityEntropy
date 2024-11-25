@@ -469,12 +469,12 @@ Items: {
 	}
 
 	VoidFaquirEvokerHelm: {
-		DisplayName:
+		DisplayName: 虚空唤灵盔
+		Tooltip:
 			'''
 			+90% 召唤伤害
 			+8 召唤栏
 			'''
-		Tooltip: 增加2%召唤伤害
 	}
 
 	VoidFaquirLurkerMask: {
@@ -908,7 +908,11 @@ Reforge: 重铸
 ArmorPrefixHardName: 坚硬
 ArmorPrefixHardDescription: +10% 防御
 ArmorPrefixLightName: 轻便
-ArmorPrefixLightDescription: +10% 移动速度
+ArmorPrefixLightDescription:
+	'''
+	+10% 移动速度
+	+10% 飞行速度
+	'''
 ArmorPrefixBrokenName: 破损
 ArmorPrefixBrokenDescription: -20% 防御
 ArmorPrefixGodForgedName: 神铸
@@ -932,3 +936,81 @@ ArmorPrefixThornyName: 荆棘
 ArmorPrefixThornyDescription: +100% 接触伤害反伤
 ArmorPrefixWaterWalkerName: 水上行者
 ArmorPrefixWaterWalkerDescription: 使你能够在水面上行走
+ArmorPrefixMiracleName: 奇迹
+ArmorPrefixMiracleDescription:
+	'''
+	+25% 防御
+	+2% 伤害减免
+	+20% 盔甲光照
+	+5% 伤害
+	'''
+ArmorPrefixGreatName: 杰出
+ArmorPrefixGreatDescription:
+	'''
+	+10% 防御
+	+15% 伤害
+	'''
+ArmorPrefixMassiveName: 厚重
+ArmorPrefixMassiveDescription:
+	'''
+	+35% 防御
+	-15% 移动速度
+	'''
+ArmorPrefixDestinedGreatnessName: 注定伟大
+ArmorPrefixDestinedGreatnessDescription:
+	'''
+	+8% 暴击率
+	+10% 防御
+	+1 幸运
+	'''
+ArmorPrefixRegenName: 再生
+ArmorPrefixRegenDescription: +3/s 每秒生命再生
+ArmorPrefixVoidTouchedName: 虚空之触
+ArmorPrefixVoidTouchedDescription: +4 虚空之触
+ArmorPrefixBiochemistryName: 生化
+ArmorPrefixBiochemistryDescription: +35% 减益免疫概率
+ArmorPrefixVoidName: 虚空
+ArmorPrefixVoidDescription:
+	'''
+	+1 虚空之触
+	+40% 接触伤害反伤
+	+50% 弹速
+	'''
+ArmorPrefixRecklessName: 鲁莽
+ArmorPrefixRecklessDescription:
+	'''
+	+30% 伤害
+	-50% 防御
+	'''
+ArmorPrefixSacrificalName: 牺牲
+ArmorPrefixSacrificalDescription:
+	'''
+	+60% 伤害
+	-90% 防御
+	'''
+ArmorPrefixSilenceName: 寂静
+ArmorPrefixSilenceDescription: +20% 最大潜伏值
+ArmorPrefixMagicalName: 注魔
+ArmorPrefixMagicalDescription:
+	'''
+	+30 最大魔力值
+	-10% 魔力消耗
+	+10% 强化魔力
+	'''
+ArmorPrefixEvokerName: 唤灵
+ArmorPrefixEvokerDescription: +2 召唤栏
+ArmorPrefixEndName: 末日
+ArmorPrefixEndDescription:
+	'''
+	+20% 防御
+	+40% 伤害
+	+30% 击退
+	+200% 接触伤害反伤
+	+1 虚空之触
+	'''
+ArmorPrefixWizardName: 巫祝
+ArmorPrefixWizardDescription:
+	'''
+	+1 召唤栏
+	+5% 召唤伤害
+	'''

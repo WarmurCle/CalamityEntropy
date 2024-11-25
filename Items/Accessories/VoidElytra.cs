@@ -60,7 +60,7 @@ namespace CalamityEntropy.Items.Accessories
                 }
                 
             }
-            if (player.wingTime < 2 && !(player.mount.Active))
+            if (player.wingTime < 2 && !(player.mount.Active) && inUse)
             {
                 player.wingTime = 2;
                 player.AddBuff(ModContent.BuffType<VoidTouch>(), 5);

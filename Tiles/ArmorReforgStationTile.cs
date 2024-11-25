@@ -72,8 +72,8 @@ namespace CalamityEntropy.Tiles
         {
             if (ArmorForgingStationUI.Visible)
             {
-                ArmorForgingStationUI.Visible = false;
                 Main.playerInventory = false;
+                
             }
             else
             {

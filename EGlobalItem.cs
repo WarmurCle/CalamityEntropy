@@ -70,8 +70,11 @@ namespace CalamityEntropy
 
         public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
         {
+            speed *= player.Entropy().WingSpeed;
+            acceleration *= player.Entropy().WingSpeed;
             speed *= 1 + player.Entropy().VoidCharge * 0.25f;
             acceleration *= 1 + player.Entropy().VoidCharge * 0.25f;
+            
         }
 
         public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
@@ -81,6 +84,12 @@ namespace CalamityEntropy
             maxAscentMultiplier *= 1 + player.Entropy().VoidCharge * 0.5f;
             maxCanAscendMultiplier *= 1 + player.Entropy().VoidCharge * 0.5f;
             constantAscend *= 1 + player.Entropy().VoidCharge * 0.5f;
+            ascentWhenFalling *= player.Entropy().WingSpeed;
+            ascentWhenRising *= player.Entropy().WingSpeed;
+            maxAscentMultiplier *= player.Entropy().WingSpeed;
+            maxCanAscendMultiplier *= player.Entropy().WingSpeed;
+            constantAscend *= player.Entropy().WingSpeed;
+            
         }
 
         public override bool InstancePerEntity => true;
@@ -105,7 +114,7 @@ namespace CalamityEntropy
             if (armorPrefix != null)
             {
                 armorPrefix.updateEquip(player, item);
-                player.statDefense += (int)(item.defense * armorPrefix.AddDefense());
+                player.statDefense += (int)(Math.Round(item.defense * armorPrefix.AddDefense()));
             }
         }
         public override void NetSend(Item item, BinaryWriter writer)
@@ -145,7 +154,7 @@ namespace CalamityEntropy
                         }
                         if (tooltip.Name == "Defense" && armorPrefix.AddDefense() != 0)
                         {
-                            tooltip.Text += (armorPrefix.AddDefense() > 0 ? "(+" : "(") + ((int)(armorPrefix.AddDefense() * item.defense)).ToString() + ")";
+                            tooltip.Text += (armorPrefix.AddDefense() > 0 ? "(+" : "(") + ((int)Math.Round(armorPrefix.AddDefense() * item.defense)).ToString() + ")";
                         }
                     }
                 }

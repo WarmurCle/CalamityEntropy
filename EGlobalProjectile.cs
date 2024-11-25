@@ -102,6 +102,13 @@ namespace CalamityEntropy
         
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            if (source is EntitySource_Parent s)
+            {
+                if (s.Entity is Player player)
+                {
+                    projectile.velocity *= player.Entropy().shootSpeed;
+                }
+            }
             if (projectile.friendly && projectile.owner != -1)
             {
                 if (projectile.owner.ToPlayer().Entropy().VFHelmRanged)
@@ -198,6 +205,7 @@ namespace CalamityEntropy
                 }
                 
             }
+
         }
         public override bool ShouldUpdatePosition(Projectile projectile)
         {

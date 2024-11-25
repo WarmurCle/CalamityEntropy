@@ -137,6 +137,17 @@ namespace CalamityEntropy
                     }
                 }
             }
+            if (projectile.owner != -1)
+            {
+                if (projectile.owner.ToPlayer().active)
+                {
+                    if (projectile.owner.ToPlayer().Entropy().AttackVoidTouch > 0)
+                    {
+                        float vt = projectile.owner.ToPlayer().Entropy().AttackVoidTouch;
+                        AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
+                    }
+                }
+            }
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
@@ -153,6 +164,11 @@ namespace CalamityEntropy
                 {
                     player.Entropy().VoidCharge = 1;
                 }
+            }
+            if (player.Entropy().AttackVoidTouch > 0)
+            {
+                float vt = player.Entropy().AttackVoidTouch;
+                AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
             }
         }
 

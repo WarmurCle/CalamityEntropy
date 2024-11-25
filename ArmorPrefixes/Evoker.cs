@@ -1,4 +1,6 @@
 ﻿using CalamityEntropy.Util;
+using CalamityMod;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +10,19 @@ using Terraria;
 
 namespace CalamityEntropy.ArmorPrefixes
 {
-    public class Light : ArmorPrefix
+    public class Evoker : ArmorPrefix
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.Entropy().moveSpeed += 0.1f;
-            player.Entropy().WingSpeed += 0.1f;
+            player.maxMinions += 2;
+        }
+        public override Color getColor()
+        {
+            return Color.LightBlue;
+        }
+        public override int getRollChance()
+        {
+            return 1;
         }
     }
 }

@@ -896,7 +896,11 @@ Reforge: Reforge
 ArmorPrefixHardName: Hard
 ArmorPrefixHardDescription: +10 defense
 ArmorPrefixLightName: Light
-ArmorPrefixLightDescription: +10% Move Speed
+ArmorPrefixLightDescription:
+	'''
+	+10% Move Speed
+	+10% Wing Speed
+	'''
 ArmorPrefixBrokenName: Broken
 ArmorPrefixBrokenDescription: -20% Defense
 ArmorPrefixGodForgedName: God Forged
@@ -920,3 +924,81 @@ ArmorPrefixThornyName: Thorny
 ArmorPrefixThornyDescription: +100% Reverse injury
 ArmorPrefixWaterWalkerName: Water Walker
 ArmorPrefixWaterWalkerDescription: Enable you to walk on the water surface
+ArmorPrefixMiracleName: Miracle
+ArmorPrefixMiracleDescription:
+	'''
+	+25% Defense
+	+2% Damage Reduce
+	+20% Light
+	+5% Damage
+	'''
+ArmorPrefixGreatName: Great
+ArmorPrefixGreatDescription:
+	'''
+	+10% Defense
+	+15% Damage
+	'''
+ArmorPrefixMassiveName: Massive
+ArmorPrefixMassiveDescription:
+	'''
+	+35% Defense
+	-15% Move Speed
+	'''
+ArmorPrefixDestinedGreatnessName: Destined Greatness
+ArmorPrefixDestinedGreatnessDescription:
+	'''
+	+8% Crit
+	+10% Defense
+	+1 Luck
+	'''
+ArmorPrefixRegenName: Regen
+ArmorPrefixRegenDescription: +3/s Life Regen
+ArmorPrefixVoidTouchedName: Void Touched
+ArmorPrefixVoidTouchedDescription: +4 Void Touch
+ArmorPrefixBiochemistryName: Biochemistry
+ArmorPrefixBiochemistryDescription: +35% Debuff immunity probability
+ArmorPrefixVoidName: Void
+ArmorPrefixVoidDescription:
+	'''
+	+1 Void Touch
+	+40% Reverse injury
+	+50% Shoot Speed
+	'''
+ArmorPrefixRecklessName: Reckless
+ArmorPrefixRecklessDescription:
+	'''
+	+30% Damage
+	-50% Defense
+	'''
+ArmorPrefixSacrificalName: Sacrifical
+ArmorPrefixSacrificalDescription:
+	'''
+	+60% Damage
+	-90% Defense
+	'''
+ArmorPrefixSilenceName: Silence
+ArmorPrefixSilenceDescription: +20% Max Stealth
+ArmorPrefixMagicalName: Magical
+ArmorPrefixMagicalDescription:
+	'''
+	+30 Max Mana
+	-10% Mana Cost
+	+10% Enha
+	'''
+ArmorPrefixEvokerName: Evoker
+ArmorPrefixEvokerDescription: +2 Max Minion
+ArmorPrefixEndName: End
+ArmorPrefixEndDescription:
+	'''
+	+20% Defense
+	+40% Damage
+	+30% Knockback
+	+200% Reverse injury
+	+1 Void Touch
+	'''
+ArmorPrefixWizardName: Wizard
+ArmorPrefixWizardDescription:
+	'''
+	+1 Max Minions
+	+5% Summon Damage
+	'''

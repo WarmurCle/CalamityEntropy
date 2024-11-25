@@ -72,7 +72,9 @@ namespace CalamityEntropy
         public bool ArchmagesMirror = false;
         public float damageReduce = 1;
         public float moveSpeed = 1;
+        public float ManaCost = 1;
         public float Thorn = 0;
+        public float WingSpeed = 1;
         public float VoidCharge 
         { 
             get { return voidcharge; } 
@@ -117,13 +119,21 @@ namespace CalamityEntropy
         public int lifeRegenPerSec = 0;
         public int lifeRegenCD = 60;
         public float light = 0;
+        public float AttackVoidTouch = 0;
+        public float DebuffImmuneChance = 0;
+        public float shootSpeed = 1;
+        public float enhancedMana = 0;
         public override void ResetEffects()
         {
+            shootSpeed = 1;
             Thorn = 0;
+            WingSpeed = 1;
+            AttackVoidTouch = 0;
             light = 0;
             CRing = false;
             lifeRegenPerSec = 0;
             Godhead = false;
+            ManaCost = 1;
             auraCard = false;
             if (brillianceCard > 0)
             {
@@ -153,13 +163,16 @@ namespace CalamityEntropy
             VFHelmMelee = false;
             SCrown = false;
             GreedCard = false;
+            enhancedMana = 0;
             ArchmagesMirror = false;
             damageReduce = 1;
             moveSpeed = 1;
+            DebuffImmuneChance = 0;
         }
         public int crSky = 0;
         public int llSky = 0;
         public int magiShieldCd = 0;
+        
         public override void PreUpdate()
         {
             Lighting.AddLight(Player.Center, light, light, light);
@@ -228,7 +241,7 @@ namespace CalamityEntropy
         public int scHealCD = 60;
         public override void PostUpdateMiscEffects()
         {
-            
+            Player.manaCost *= ManaCost;
             if (Player.Entropy().SCrown)
             {
                 Player.Calamity().defenseDamageRatio = 0;
@@ -261,13 +274,15 @@ namespace CalamityEntropy
             manaNorm = Player.statManaMax2;
             if (ArchmagesMirror)
             {
-                Player.statManaMax2 = (int)(Player.statManaMax2 * 1.25f);
-                if (Player.statMana > manaNorm)
-                {
-                    Player.GetDamage(DamageClass.Magic) += 0.25f;
-                }
+                enhancedMana += 0.25f;
+                
             }
-            
+            Player.statManaMax2 += (int)(Player.statManaMax2 * enhancedMana);
+            if (Player.statMana > manaNorm)
+            {
+                Player.GetDamage(DamageClass.Magic) += 0.25f;
+            }
+
         }
         public int manaNorm = 0;
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
