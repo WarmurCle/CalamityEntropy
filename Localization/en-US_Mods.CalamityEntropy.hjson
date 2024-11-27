@@ -932,6 +932,11 @@ Configs: {
 			Label: Craft Armor With Prefix Chance
 			Tooltip: ""
 		}
+
+		ChainsawShakeScreen: {
+			Label: 电锯震动效果
+			Tooltip: ""
+		}
 	}
 }
 

@@ -380,7 +380,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                             }
                             else
                             {
-                                KeepDist(400);
+                                KeepDist(300);
                             }
                             if (addlight < 1)
                             {
@@ -389,7 +389,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                             
                             if (NPC.ai[2] > 20 && NPC.ai[2] < 50)
                             {
-                                int c = (int)((50 - NPC.ai[2]) / 5f);
+                                int c = (int)((50 - NPC.ai[2]) / 4f);
                                 if (NPC.ai[2] % 7 == 0)
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)

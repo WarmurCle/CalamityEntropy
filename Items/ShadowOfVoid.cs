@@ -40,6 +40,16 @@ namespace CalamityEntropy.Items
 
         public override void AddRecipes()
 		{
+			CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 16)
+				.AddIngredient(ModContent.ItemType<ShadowspecBar>(), 10)
+				.AddIngredient(ModContent.ItemType<VoidAnnihilate>())
+				.AddIngredient(ModContent.ItemType<Silence>())
+				.AddIngredient(ModContent.ItemType<VoidEcho>())
+				.AddIngredient(ModContent.ItemType<WingsOfHush>())
+				.AddIngredient(ModContent.ItemType<VoidRelics>())
+				.AddTile(ModContent.TileType<CosmicAnvil>())
+				.Register();
+                
         }
 	}
 }

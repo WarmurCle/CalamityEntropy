@@ -944,6 +944,11 @@ Configs: {
 			Label: 合成带有词缀的盔甲的概率
 			Tooltip: ""
 		}
+
+		ChainsawShakeScreen: {
+			// Label: 电锯震动效果
+			// Tooltip: ""
+		}
 	}
 }
 
