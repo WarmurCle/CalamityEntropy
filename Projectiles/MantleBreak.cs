@@ -30,7 +30,7 @@ namespace CalamityEntropy.Projectiles
             Projectile.penetrate = -1;
         }
         public int frame = 0;
-        public int frameAddCounter = 4;
+        public int frameAddCounter = 3;
         public bool playedSound = false;
         public override void AI(){
             if (!playedSound)
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Projectiles
             frameAddCounter--;
             if (frameAddCounter == 0)
             {
-                frameAddCounter = 4;
+                frameAddCounter = 3;
                 frame++;
                 if(frame > 7)
                 {

@@ -641,6 +641,11 @@ Items: {
 		DisplayName: 迷失游魂
 		Tooltip: '''"保护他"'''
 	}
+
+	ShadowOfVoid: {
+		Tooltip: ""
+		DisplayName: 虚渺之像
+	}
 }
 
 DeathMode: 死亡模式
@@ -658,7 +663,7 @@ Projectiles: {
 	IceEdge.DisplayName: 凌冽神剑
 	LightningBolt.DisplayName: 闪电
 	LightningSpear.DisplayName: 雷电之矛
-	// Lightning.DisplayName: Lightning
+	Lightning.DisplayName: 闪电
 	Impact.DisplayName: 冲击波
 	Lcircle.DisplayName: 闪电箭尾迹
 	VoidMark.DisplayName: 虚空标记
@@ -754,7 +759,8 @@ Projectiles: {
 	HB.DisplayName: 封魂大印
 	EaterProj.DisplayName: 吞噬者
 	LostSoulProj.DisplayName: 迷失游魂
-	// MantleBreak.DisplayName: Mantle Break
+	MantleBreak.DisplayName: 斗篷破碎
+	CruiserShadow.DisplayName: 巡游者之影
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1081,6 +1087,8 @@ ArmorPrefixLastStandDescription:
 	'''
 	+60% 防御
 	+20% 伤害减免
+	增加一次复活机会
+	该复活不可叠加
 	'''
 PrefixEnchanted: 注魔
 PrefixEnchantedDesc: +12% 强化魔力

@@ -111,7 +111,7 @@ namespace CalamityEntropy.Projectiles.Chainsaw
                 SoundEngine.PlaySound(hitSound, Projectile.Center);
                 soundCd = 16;
             }
-            if (Projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer && ModContent.GetInstance<Config>().ChainsawShakeScreen)
             {
                 CalamityEntropy.Instance.screenShakeAmp = 1;
             }

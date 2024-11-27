@@ -328,7 +328,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                             }
                             if (t == 5)
                             {
-                                NPC.ai[2] = 580;
+                                NPC.ai[2] = 290;
                             }
                             if (t == 6)
                             {
@@ -380,7 +380,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                             }
                             else
                             {
-                                KeepDist(600);
+                                KeepDist(400);
                             }
                             if (addlight < 1)
                             {
@@ -390,16 +390,15 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                             if (NPC.ai[2] > 20 && NPC.ai[2] < 50)
                             {
                                 int c = (int)((50 - NPC.ai[2]) / 5f);
-                                if (NPC.ai[2] % 5 == 0)
+                                if (NPC.ai[2] % 7 == 0)
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).SafeNormalize(Vector2.One) * 6, ModContent.ProjectileType<SighterPin>(), NPC.damage / 8, 4);
+                                        float rot = -MathHelper.ToRadians(8f * (float)c / 2f);
                                         for (int i = 1; i <= c; i++)
                                         {
-                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).SafeNormalize(Vector2.One).RotatedBy(MathHelper.ToRadians(11) * i) * 6, ModContent.ProjectileType<SighterPin>(), NPC.damage / 8, 4);
-                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).SafeNormalize(Vector2.One).RotatedBy(MathHelper.ToRadians(-11) * i) * 6, ModContent.ProjectileType<SighterPin>(), NPC.damage / 8, 4);
-
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).SafeNormalize(Vector2.One).RotatedBy(rot) * 2, ModContent.ProjectileType<SighterPin>(), NPC.damage / 8, 4);
+                                            rot += MathHelper.ToRadians(16);
                                         }
                                     }
                                 }
@@ -484,12 +483,12 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                         if (NPC.ai[1] == 5)
                         {
                             Stand();
-                            if (NPC.ai[2] == 580)
+                            if (NPC.ai[2] == 290)
                             {
                                 NPC.dontTakeDamage = true;
                                 animation = 1;
                             }
-                            if (NPC.ai[2] == 560)
+                            if (NPC.ai[2] == 280)
                             {
                                 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)

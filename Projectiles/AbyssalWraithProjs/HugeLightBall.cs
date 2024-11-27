@@ -27,10 +27,10 @@ namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 300;
         }
         public int cd = 20;
-        public int l = 6;
+        public int l = 3;
         public override void AI()
         {
             if (((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().ModNPC is AbyssalWraith aw)

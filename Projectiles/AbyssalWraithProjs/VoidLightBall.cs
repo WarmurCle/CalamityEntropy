@@ -37,8 +37,13 @@ namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
             Projectile.timeLeft = 110;
             
         }
-        
+        public List<Vector2> odp = new List<Vector2>();
         public override void AI(){
+            odp.Add(Projectile.Center);
+            if(odp.Count > 36)
+            {
+                odp.RemoveAt(0);
+            }
             if (((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().ModNPC is AbyssalWraith aw)
             {
                 if (aw.deathAnm)
@@ -117,12 +122,19 @@ namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
         public override bool PreDraw(ref Color lightColor)
         {
             drawcount++;
+
             SpriteBatch spriteBatch = Main.spriteBatch;
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D warn = ModContent.Request<Texture2D>("CalamityEntropy/Extra/vlbw").Value;
             Texture2D t = TextureAssets.Projectile[Projectile.type].Value;
+            for(int i = 0; i < odp.Count; i++)
+            {
+                float alpha = (float)i / (float)odp.Count;
+                spriteBatch.Draw(t, odp[i] - Main.screenPosition, null, Color.White * opc * alpha, 0, t.Size() / 2, new Vector2(1, 1) * Projectile.scale, SpriteEffects.None, 0);
+
+            }
             spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * opc, MathHelper.ToRadians(drawcount * 4f), t.Size() / 2, new Vector2(1.5f, 1) * Projectile.scale, SpriteEffects.None, 0);
             spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * opc, MathHelper.ToRadians((drawcount + 64) * 14f), t.Size() / 2, new Vector2(1.5f, 1) * Projectile.scale, SpriteEffects.None, 0);
             spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * opc, MathHelper.ToRadians((drawcount + 154) * 34f), t.Size() / 2, new Vector2(1.5f, 1) * Projectile.scale, SpriteEffects.None, 0);
@@ -132,8 +144,8 @@ namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
             }
             else
             {
-                spriteBatch.Draw(warn, Projectile.Center - Main.screenPosition, null, Color.Purple * opc, Projectile.rotation, warn.Size() / 2 * new Vector2(0, 1), new Vector2(20, 1.2f) * Projectile.scale * 1.46f, SpriteEffects.None, 0);
-                spriteBatch.Draw(warn, Projectile.Center - Main.screenPosition, null, ((drawcount / 2) % 2 == 0 ? Color.White : Color.Purple) * opc, Projectile.rotation, warn.Size() / 2 * new Vector2(0, 1), new Vector2(20, 1) * Projectile.scale * 1.46f, SpriteEffects.None, 0);
+                spriteBatch.Draw(warn, Projectile.Center - Main.screenPosition, null, Color.Purple * opc, Projectile.rotation, warn.Size() / 2 * new Vector2(0, 1), new Vector2(20, 1.2f) * Projectile.scale * 1.46f * new Vector2(1, opc), SpriteEffects.None, 0);
+                spriteBatch.Draw(warn, Projectile.Center - Main.screenPosition, null, ((drawcount / 2) % 2 == 0 ? Color.White : Color.Purple) * opc, Projectile.rotation, warn.Size() / 2 * new Vector2(0, 1), new Vector2(20, 1) * Projectile.scale * 1.46f * new Vector2(1, opc), SpriteEffects.None, 0);
             }
 
             spriteBatch.End();

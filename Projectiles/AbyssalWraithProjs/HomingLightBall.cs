@@ -12,6 +12,7 @@ using CalamityEntropy.Util;
 using Terraria.Audio;
 using System.IO;
 using CalamityMod.Items.Accessories;
+using System.Runtime.Intrinsics.Arm;
 namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
 {
     
@@ -37,10 +38,15 @@ namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
             Projectile.timeLeft = 600;
             
         }
-
+        public List<Vector2> odp = new List<Vector2>();
         public override void AI()
         {
-            if(((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().ModNPC is AbyssalWraith aw)
+            odp.Add(Projectile.Center);
+            if (odp.Count > 36)
+            {
+                odp.RemoveAt(0);
+            }
+            if (((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().ModNPC is AbyssalWraith aw)
             {
                 if (aw.deathAnm)
                 {
@@ -75,6 +81,12 @@ namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
 
             Texture2D warn = ModContent.Request<Texture2D>("CalamityEntropy/Extra/vlbw").Value;
             Texture2D t = TextureAssets.Projectile[Projectile.type].Value;
+            for (int i = 0; i < odp.Count; i++)
+            {
+                float alpha = (float)i / (float)odp.Count;
+                spriteBatch.Draw(t, odp[i] - Main.screenPosition, null, Color.White * opc * alpha, 0, t.Size() / 2, new Vector2(1, 1) * Projectile.scale, SpriteEffects.None, 0);
+
+            }
             spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * opc, MathHelper.ToRadians(drawcount * 4f), t.Size() / 2, new Vector2(1.5f, 1) * Projectile.scale, SpriteEffects.None, 0);
             spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * opc, MathHelper.ToRadians((drawcount + 64) * 14f), t.Size() / 2, new Vector2(1.5f, 1) * Projectile.scale, SpriteEffects.None, 0);
             spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * opc, MathHelper.ToRadians((drawcount + 154) * 34f), t.Size() / 2, new Vector2(1.5f, 1) * Projectile.scale, SpriteEffects.None, 0);

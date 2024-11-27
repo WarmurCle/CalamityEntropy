@@ -629,6 +629,11 @@ Items: {
 		DisplayName: Lost Soul
 		Tooltip: '''"Protect him"'''
 	}
+
+	ShadowOfVoid: {
+		Tooltip: ""
+		DisplayName: Shadow Of Void
+	}
 }
 
 DeathMode: Death Mode
@@ -743,6 +748,7 @@ Projectiles: {
 	EaterProj.DisplayName: Eater
 	LostSoulProj.DisplayName: Lost Soul
 	MantleBreak.DisplayName: Mantle Break
+	CruiserShadow.DisplayName: Cruiser Shadow
 }
 
 LegendTooltip: - Legend -

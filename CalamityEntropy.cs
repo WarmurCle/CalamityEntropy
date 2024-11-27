@@ -627,13 +627,30 @@ namespace CalamityEntropy
                     }
                     //catch { }
                 }
-                foreach(Projectile p in checkProj)
+                foreach (Projectile p in checkProj)
                 {
-                    if (p.ModProjectile is MoonlightShieldBreak)
+                    if (p.active)
                     {
-                        Texture2D shieldTexture = Util.Util.getExtraTex("shield");
-                        Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255) * p.ai[2], 0, shieldTexture.Size() / 2, 0.47f * (1 + p.ai[1]), SpriteEffects.None, 0);
+                        if (p.ModProjectile is MoonlightShieldBreak)
+                        {
+                            Texture2D shieldTexture = Util.Util.getExtraTex("shield");
+                            Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255) * p.ai[2], 0, shieldTexture.Size() / 2, 0.47f * (1 + p.ai[1]), SpriteEffects.None, 0);
 
+                        }
+                        if (p.ModProjectile is CruiserShadow aw)
+                        {
+                            if (aw.alphaPor > 0)
+                            {
+                                float s = 0;
+                                float sj = 1;
+                                for (int i = 0; i <= 30; i++)
+                                {
+                                    aw.DrawPortal(aw.spawnPos, new Color(50, 35, 240) * aw.alphaPor, aw.spawnRot, 270 * s, 0.3f, i * 3f);
+                                    s = s + (sj - s) * 0.05f;
+                                }
+
+                            }
+                        }
                     }
                 }
                 foreach (NPC n in checkNPC)
@@ -724,7 +741,7 @@ namespace CalamityEntropy
                     {
                         continue;
                     }
-                    if (p.ModProjectile is VoidBottleThrow)
+                    if (p.ModProjectile is VoidBottleThrow || p.ModProjectile is CruiserShadow)
                     {
                         Color color = Color.White;
                         p.ModProjectile.PreDraw(ref color);

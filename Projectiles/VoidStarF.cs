@@ -24,16 +24,18 @@ namespace CalamityEntropy.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.width = 32;
+            Projectile.height = 32;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.scale = 1f;
-            Projectile.timeLeft = 160;
+            Projectile.timeLeft = 400;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 16;
             Projectile.extraUpdates = 1;
         }
         public bool setv = true;
@@ -49,7 +51,22 @@ namespace CalamityEntropy.Projectiles
                 odp.RemoveAt(0);
             }
             Projectile.velocity *= 0.999f;
-            
+            if (Projectile.timeLeft < 380)
+            {
+                NPC target = Projectile.FindTargetWithinRange(4000, false);
+                if (target != null)
+                {
+                    Projectile.velocity *= 0.99f;
+                    Vector2 v = target.Center - Projectile.Center;
+                    v.Normalize();
+
+                    Projectile.velocity += v * 0.4f;
+                    if (Util.Util.getDistance(Projectile.Center, target.Center) < 180)
+                    {
+                        Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((target.Center - Projectile.Center).ToRotation());
+                    }
+                }
+            }
             if (Projectile.timeLeft < 40)
             {
                 Projectile.alpha += 255 / 40;
