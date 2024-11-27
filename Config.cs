@@ -34,6 +34,6 @@ namespace CalamityEntropy
         public float CraftArmorWithPrefixChance { get; set; }
 
         [DefaultValue(true)]
-        public bool ChainsawShakeScreen = true;
+        public bool ChainsawShakeScreen { get; set; }
     }
 }
