@@ -55,10 +55,6 @@ namespace CalamityEntropy.Projectiles
         public override void AI()
         {
             back *= 0.9f;
-            if (frame > 8)
-            {
-                up -= 6;
-            }
             if (Projectile.ai[0] > 0 && Projectile.ai[0] % 3 == 0)
             {
                 if (frame < 8)

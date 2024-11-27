@@ -181,7 +181,7 @@ namespace CalamityEntropy.Projectiles
             }
             if (target == null || !target.active)
             {
-                NPC t = Projectile.FindTargetWithinRange(1000, false);
+                NPC t = Projectile.FindTargetWithinRange(2400, false);
                 if (t != null)
                 {
                     target = t;

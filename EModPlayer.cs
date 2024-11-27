@@ -76,6 +76,7 @@ namespace CalamityEntropy
         public float ManaCost = 1;
         public float Thorn = 0;
         public float WingSpeed = 1;
+        public bool GodHeadVisual = false;
         public float VoidCharge 
         { 
             get { return voidcharge; } 
@@ -89,10 +90,24 @@ namespace CalamityEntropy
         }
 
         public bool CRing = false;
-
+        public bool LastStand = false;
+        public int lastStandCd = 0;
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
+        {
+            if (LastStand && lastStandCd <= 0)
+            {
+                playSound = false;
+                genDust = false;
+                lastStandCd = 4000;
+                Player.Heal(100);
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/holyshield_shatter") { Volume = 0.6f }, Player.Center);
+                return false;
+            }
+            return true;
+        }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            voidcharge = 0;VoidInspire = 0;
+            voidcharge = 0;VoidInspire = 0;lastStandCd = 0;
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -126,6 +141,7 @@ namespace CalamityEntropy
         public float enhancedMana = 0;
         public override void ResetEffects()
         {
+            GodHeadVisual = true;
             shootSpeed = 1;
             Thorn = 0;
             WingSpeed = 1;
@@ -136,6 +152,7 @@ namespace CalamityEntropy
             Godhead = false;
             ManaCost = 1;
             auraCard = false;
+            LastStand = false;
             if (brillianceCard > 0)
             {
                 brillianceCard -= 1;
@@ -176,6 +193,7 @@ namespace CalamityEntropy
         
         public override void PreUpdate()
         {
+            lastStandCd--;
             Lighting.AddLight(Player.Center, light, light, light);
             bool sm = Player.HasBuff(ModContent.BuffType<SoyMilkBuff>());
             if (hasSM && !sm)

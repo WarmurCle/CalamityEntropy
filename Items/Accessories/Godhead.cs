@@ -1,4 +1,5 @@
 using CalamityEntropy.Buffs;
+using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
@@ -25,6 +26,7 @@ namespace CalamityEntropy.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.Entropy().GodHeadVisual = !hideVisual;
             player.GetModPlayer<EModPlayer>().Godhead = true;
         }
 

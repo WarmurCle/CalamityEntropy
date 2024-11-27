@@ -419,7 +419,7 @@ namespace CalamityEntropy
             {
                 lightColor = Color.Black;
             }
-            if (projectile.Entropy().gh)
+            if (projectile.Entropy().gh && projectile.owner.ToPlayer().Entropy().GodHeadVisual)
             {
                 tx = ModContent.Request<Texture2D>("CalamityEntropy/Extra/godhead").Value;
                 float rsize = (projectile.width + projectile.height) / 2 * 6;

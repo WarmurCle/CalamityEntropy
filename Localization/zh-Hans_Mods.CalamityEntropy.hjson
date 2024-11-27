@@ -631,6 +631,16 @@ Items: {
 		Tooltip: 使用虚空与黑魔法焚毁一切
 		DisplayName: 怜悯
 	}
+
+	CannedCarrion: {
+		Tooltip: 召唤一只小吞噬者
+		DisplayName: 腐肉罐头
+	}
+
+	LostSoul: {
+		DisplayName: 迷失游魂
+		Tooltip: '''"保护他"'''
+	}
 }
 
 DeathMode: 死亡模式
@@ -739,9 +749,12 @@ Projectiles: {
 	LightningBall.DisplayName: 闪电球
 	Teletor.DisplayName: 磁流灵
 	MercySpawner.DisplayName: 怜悯
-	HelhieimBlaster.DisplayName: 地狱炮
+	HelhieimBlaster.DisplayName: 荷尔海姆炮
 	MercyShoot.DisplayName: 怜悯火焰
-	// HB.DisplayName: H B
+	HB.DisplayName: 封魂大印
+	EaterProj.DisplayName: 吞噬者
+	LostSoulProj.DisplayName: 迷失游魂
+	// MantleBreak.DisplayName: Mantle Break
 }
 
 LegendTooltip: - 传奇物品 -
@@ -852,7 +865,19 @@ Buffs: {
 		DisplayName: 磁流灵
 		Description: ""
 	}
+
+	EaterBuff: {
+		DisplayName: 吞噬者
+		Description: ""
+	}
+
+	LostSoulBuff: {
+		DisplayName: 迷失游魂
+		Description: ""
+	}
 }
+
+Uh: 呃啊~
 
 NPCs: {
 	LotteryMachine.DisplayName: 抽奖机
@@ -1050,6 +1075,12 @@ ArmorPrefixWizardDescription:
 	'''
 	+1 召唤栏
 	+5% 召唤伤害
+	'''
+ArmorPrefixLastStandName: 屹立不倒
+ArmorPrefixLastStandDescription:
+	'''
+	+60% 防御
+	+20% 伤害减免
 	'''
 PrefixEnchanted: 注魔
 PrefixEnchantedDesc: +12% 强化魔力

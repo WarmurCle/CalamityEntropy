@@ -29,7 +29,7 @@ namespace CalamityEntropy.Items
 		
 		public override void SetDefaults()
 		{
-			Item.damage = 155;
+			Item.damage = 185;
 			Item.crit = 0;
 			Item.DamageType = DamageClass.Summon;
 			Item.width = 64;

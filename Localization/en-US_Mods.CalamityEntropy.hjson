@@ -619,6 +619,16 @@ Items: {
 		Tooltip: Use Void and Dark Magic to Burn Everything Down
 		DisplayName: Mercy
 	}
+
+	CannedCarrion: {
+		Tooltip: ""
+		DisplayName: Canned Carrion
+	}
+
+	LostSoul: {
+		DisplayName: Lost Soul
+		Tooltip: '''"Protect him"'''
+	}
 }
 
 DeathMode: Death Mode
@@ -730,6 +740,9 @@ Projectiles: {
 	HelhieimBlaster.DisplayName: Helhieim Blaster
 	MercyShoot.DisplayName: Mercy Shoot
 	HB.DisplayName: H B
+	EaterProj.DisplayName: Eater
+	LostSoulProj.DisplayName: Lost Soul
+	MantleBreak.DisplayName: Mantle Break
 }
 
 LegendTooltip: - Legend -
@@ -840,7 +853,19 @@ Buffs: {
 		DisplayName: Teletor
 		Description: ""
 	}
+
+	EaterBuff: {
+		DisplayName: Eater
+		Description: ""
+	}
+
+	LostSoulBuff: {
+		DisplayName: Lost Soul
+		Description: ""
+	}
 }
+
+Uh: ""
 
 NPCs: {
 	LotteryMachine.DisplayName: Lottery Machine
@@ -1041,6 +1066,12 @@ ArmorPrefixWizardDescription:
 	'''
 	+1 Max Minions
 	+5% Summon Damage
+	'''
+ArmorPrefixLastStandName: Last Stand
+ArmorPrefixLastStandDescription:
+	'''
+	+60% Defense
+	+20% Damage Reduce
 	'''
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +12% Enhanced Mana

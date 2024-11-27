@@ -50,9 +50,9 @@ using CalamityEntropy.Projectiles.AbyssalWraithProjs;
 using CalamityEntropy.UI;
 using Terraria.UI;
 using CalamityMod.UI.CalamitasEnchants;
+using CalamityEntropy.ILEditing;
 namespace CalamityEntropy
 {
-
 	public class CalamityEntropy : Mod
 	{
 		public static List<int> calDebuffIconDisplayList = new List<int>();
@@ -110,6 +110,7 @@ namespace CalamityEntropy
             On_Player.AddBuff += add_buff;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
+            EModILEdit.load();
         }
 
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)

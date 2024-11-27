@@ -415,6 +415,13 @@ namespace CalamityEntropy
 
         public override void OnKill(NPC npc)
         {
+            if (npc.type == NPCID.GiantWormHead)
+            {
+                if (Main.rand.NextDouble() < 0.1f)
+                {
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CannedCarrion>(), 1));
+                }
+            }
             if (npc.type == NPCID.Harpy || npc.type == NPCID.WyvernHead)
             {
                 if (Main.rand.NextDouble() < 0.04f)
@@ -424,9 +431,13 @@ namespace CalamityEntropy
             }
             if (npc.type == NPCID.Wraith || npc.type == NPCID.PossessedArmor)
             {
-                if (Main.rand.NextDouble() < 0.04f)
+                if (Main.rand.NextDouble() < 0.03f)
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<SoulCandle>(), 1));
+                }
+                if (Main.rand.NextDouble() < 0.03f)
+                {
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<LostSoul>(), 1));
                 }
             }
             if (npc.type == ModContent.NPCType<CeaselessVoid>())

@@ -44,6 +44,8 @@ namespace CalamityEntropy.Projectiles
             Projectile.minion = true;
             Projectile.minionSlots = 1;
             Projectile.ArmorPenetration = 20;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 30;
         }
         public override bool? CanCutTiles()
         {

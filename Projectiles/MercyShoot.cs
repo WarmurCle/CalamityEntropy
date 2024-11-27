@@ -41,11 +41,17 @@ namespace CalamityEntropy.Projectiles
         {
             target.AddBuff(ModContent.BuffType<VulnerabilityHex>(), 360);
         }
+        Color? colorset = null;
         public override void AI(){
             Projectile projectile = Projectile;
+            if (colorset == null)
+            {
+                colorset = Color.Lerp(Color.Red, new Color(170, 50, 50), (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f));
+            }
+            Color color = (Color)colorset;
                 Vector2 direction = new Vector2(-1, 0).RotatedBy(projectile.velocity.ToRotation());
                 Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.9f;
-                CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, Color.Lerp(Color.Red, new Color(100, 30, 30), (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
+                CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity,color, 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
                 GeneralParticleHandler.SpawnParticle(smoke);
 
                 if (Main.rand.NextBool(2))
