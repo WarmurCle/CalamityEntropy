@@ -81,7 +81,7 @@ namespace CalamityEntropy
                         VoidParticles.particles.Add(p);
                     }
                 }
-                if (Main.GameUpdateCount % 20 == 0)
+                if (Main.GameUpdateCount % 20 == 0 && !npc.dontTakeDamage)
                 {
                     NPC.HitInfo hit = npc.CalculateHitInfo((int)(100 * npc.Entropy().VoidTouchLevel * (1 - npc.Entropy().VoidTouchDR)), 0, false, 0, DamageClass.Generic, false, 0);
                     hit.HideCombatText = true;

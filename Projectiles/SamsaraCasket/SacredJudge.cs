@@ -30,8 +30,7 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
         public bool shieldLast = false;
         public override void AI()
         {
-            
-            setDamage(2);
+            setDamage(1);
             Projectile.Resize(20, 20);
             Projectile.timeLeft = 5;
             Player player = Projectile.owner.ToPlayer();
@@ -194,8 +193,8 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
             }
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI) => overPlayers.Add(index);
-        public int phantom0 = 9;
-        public int phantom1 = 9;
+        public int phantom0 = 0;
+        public int phantom1 = 0;
         public override bool PreDraw(ref Color lightColor)
         {
             if (hideTime > 0)

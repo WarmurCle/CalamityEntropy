@@ -1145,12 +1145,15 @@ namespace CalamityEntropy.NPCs.Cruiser
         }
         public override void OnKill()
         {
-
-            NPC.SetEventFlagCleared(ref EDownedBosses.downedCruiser, -1);
-            if (!BossRushEvent.BossRushActive)
+            if (!EDownedBosses.downedCruiser)
             {
-                VoidOreSystem.BlessWorldWithOre();
+                if (!BossRushEvent.BossRushActive)
+                {
+                    VoidOreSystem.BlessWorldWithOre();
+                }
             }
+            NPC.SetEventFlagCleared(ref EDownedBosses.downedCruiser, -1);
+            
         }
 
         public override bool CheckActive()

@@ -109,6 +109,41 @@ namespace CalamityEntropy.NPCs
         public RewardPool p3;
         public RewardPool p4;
         public bool sd = true;
+        public bool say = false;
+        public Color sayColor = Color.White;
+        public string sayStr = "";
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(open);
+            writer.Write(sameItemCount);
+            writer.Write(lastCItem);
+            writer.Write(textureSpecial);
+            writer.Write(specialTime);
+            writer.Write(nucTime);
+            writer.Write(useCd);
+            writer.Write(flag1);
+            writer.Write(say);
+            writer.WriteRGB(sayColor);
+            writer.Write(sayStr);
+                
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            open = reader.ReadBoolean();
+            sameItemCount = reader.ReadInt32();
+            lastCItem = reader.ReadInt32();
+            textureSpecial = reader.ReadInt32();
+            specialTime = reader.ReadInt32();
+            nucTime = reader.ReadInt32();
+            useCd = reader.ReadInt32();
+            flag1 = reader.ReadBoolean();
+            say = reader.ReadBoolean();
+            sayColor = reader.ReadRGB();
+            sayStr = reader.ReadString();
+        }
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 1;
@@ -373,10 +408,22 @@ namespace CalamityEntropy.NPCs
 
                 #endregion
             }
-            if (NPC.ai[0] == 1)
+            if (NPC.ai[0] == 1 && !Main.dedServ)
             {
                 NPC.ai[0] = 0;
-                RightClicked(Main.player[(int)NPC.ai[1]]);
+                if(Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    ModPacket packet = Mod.GetPacket();
+                    packet.Write((byte)CalamityEntropy.NetPackages.LotteryMachineRightClicked);
+                    packet.Write(Main.LocalPlayer.whoAmI);
+                    packet.Write(NPC.whoAmI);
+                    packet.Write(Main.myPlayer);
+                    packet.Send(ignoreClient: Main.myPlayer);
+                }
+                else
+                {
+                    RightClicked(Main.LocalPlayer);
+                }
             }
             var r = Main.rand;
             NPC.onFire = false;
@@ -422,7 +469,8 @@ namespace CalamityEntropy.NPCs
             {
                 nucTime = 0;
                 Vector2 spawnPos = Main.LocalPlayer.position + new Vector2(0, -600);
-                Projectile.NewProjectile(Main.LocalPlayer.GetSource_FromAI(), spawnPos, new Vector2(0, 10), ModContent.ProjectileType<AtlasNuc>(), 0, 0, Main.myPlayer);
+                int p = Projectile.NewProjectile(NPC.GetSource_FromAI(), spawnPos, new Vector2(0, 10), ModContent.ProjectileType<AtlasNuc>(), 0, 0, Main.myPlayer);
+                NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 if (sameItemCount > 6)
                 {
                     for (int i = 0; i < sameItemCount - 6; i++)
@@ -493,6 +541,14 @@ namespace CalamityEntropy.NPCs
         
         public void RightClicked(Player player)
         {
+            if (Main.dedServ)
+            {
+                NPC.netUpdate = true;
+                if(NPC.netSpam >= 10)
+                {
+                    NPC.netSpam = 9;
+                }
+            }
             var r = Main.rand;
             if (!open)
             {
@@ -609,12 +665,13 @@ namespace CalamityEntropy.NPCs
                             Say("给，这是你的奖励;)", Color.Yellow, 0.86f);
                             useCd = 160;
                             SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerDoubles"), NPC.Center);
-
-                            int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
-                            Main.projectile[pj].Entropy().AtlasItemStack = 0;
-                            Main.projectile[pj].Entropy().AtlasItemType = 0;
-                            Main.projectile[pj].netUpdate = true;
-
+                            if (Main.myPlayer == player.whoAmI)
+                            {
+                                int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
+                                Main.projectile[pj].Entropy().AtlasItemStack = 0;
+                                Main.projectile[pj].Entropy().AtlasItemType = 0;
+                                Main.projectile[pj].netUpdate = true;
+                            }
                         }
                     }
                     else if (itemType == ItemID.SilverCoin)
@@ -645,12 +702,13 @@ namespace CalamityEntropy.NPCs
                             stack = ri.stack;
                             useCd = 160;
                             SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerDoubles"), NPC.Center);
-
-                            int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
-                            Main.projectile[pj].Entropy().AtlasItemStack = stack;
-                            Main.projectile[pj].Entropy().AtlasItemType = rtype;
-                            Main.projectile[pj].netUpdate = true;
-
+                            if (Main.myPlayer == player.whoAmI)
+                            {
+                                int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
+                                Main.projectile[pj].Entropy().AtlasItemStack = stack;
+                                Main.projectile[pj].Entropy().AtlasItemType = rtype;
+                                Main.projectile[pj].netUpdate = true;
+                            }
                         }
                     }
                     else if (itemType == ItemID.GoldCoin)
@@ -686,11 +744,13 @@ namespace CalamityEntropy.NPCs
                             stack = ri.stack;
                             useCd = 160;
                             SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerDoubles"), NPC.Center);
-
-                            int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
-                            Main.projectile[pj].Entropy().AtlasItemStack = stack;
-                            Main.projectile[pj].Entropy().AtlasItemType = rtype;
-                            Main.projectile[pj].netUpdate = true;
+                            if (Main.myPlayer == player.whoAmI)
+                            {
+                                int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
+                                Main.projectile[pj].Entropy().AtlasItemStack = stack;
+                                Main.projectile[pj].Entropy().AtlasItemType = rtype;
+                                Main.projectile[pj].netUpdate = true;
+                            }
                         }
                     }
                     else if (itemType == ItemID.PlatinumCoin)
@@ -743,11 +803,13 @@ namespace CalamityEntropy.NPCs
                             stack = ri.stack;
                             useCd = 160;
                             SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerDoubles"), NPC.Center);
-
-                            int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
-                            Main.projectile[pj].Entropy().AtlasItemStack = stack;
-                            Main.projectile[pj].Entropy().AtlasItemType = rtype;
-                            Main.projectile[pj].netUpdate = true;
+                            if (Main.myPlayer == player.whoAmI)
+                            {
+                                int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
+                                Main.projectile[pj].Entropy().AtlasItemStack = stack;
+                                Main.projectile[pj].Entropy().AtlasItemType = rtype;
+                                Main.projectile[pj].netUpdate = true;
+                            }
 
                         }
                     }
@@ -842,7 +904,11 @@ namespace CalamityEntropy.NPCs
 
         public void Say(string text, Color color, float pitch = 1)
         {
-            int t =CombatText.NewText(NPC.getRect(), color, text);
+            if (Main.dedServ)
+            {
+                return;
+            }
+            int t = CombatText.NewText(NPC.getRect(), color, text);
             Main.combatText[t].lifeTime = 16 * text.Length;
             SoundStyle s1 = new("CalamityMod/Sounds/Custom/WulfrumDroidChirp1");
             SoundStyle s2 = new("CalamityMod/Sounds/Custom/WulfrumDroidChirp2");

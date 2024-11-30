@@ -36,10 +36,9 @@ namespace CalamityEntropy.Items
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<VoidPurple>();
-            Item.shoot = ModContent.ProjectileType<AbyssalDragonHoldout>();
+            Item.shoot = ModContent.ProjectileType<AbyssDragonProj>();
             Item.shootSpeed = 20f;
             Item.mana = 65;
-            Item.noUseGraphic = true;
             Item.DamageType = DamageClass.Magic;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -51,7 +50,7 @@ namespace CalamityEntropy.Items
                 Projectile.NewProjectile(player.GetSource_ItemUse(Item), position, velocity.RotatedByRandom(MathHelper.ToRadians(6)), ModContent.ProjectileType<AbyssalStar>(), (int)(damage * 0.3f), knockback, player.whoAmI);
 
             }
-            return true;
+            return false;
         }
         public override void AddRecipes()
         {

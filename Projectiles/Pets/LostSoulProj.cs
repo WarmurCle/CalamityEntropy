@@ -273,15 +273,15 @@ namespace CalamityEntropy.Projectiles.Pets
         private void Loots()
         {
             Projectile.netUpdate = true;
-            if (!(Main.myPlayer == Projectile.owner))
+            if (!(Main.netMode == NetmodeID.MultiplayerClient))
             {
-                return;
-            }
-            foreach(NPC n in needLoots)
-            {
-                n.Center = Projectile.Center;
-                n.NPCLoot();
-                
+                foreach (NPC n in needLoots)
+                {
+
+                    n.Center = Projectile.Center;
+                    n.NPCLoot();
+
+                }
             }
             needLoots.Clear();
         }

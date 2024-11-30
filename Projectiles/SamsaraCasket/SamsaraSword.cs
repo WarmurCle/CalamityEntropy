@@ -149,7 +149,7 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
                     Vector2 targetPos = player.Center + new Vector2(Util.Util.getDistance(Projectile.Center, player.Center) - 26, 0).RotatedBy(spawnRot);
                     if (Util.Util.getDistance(Projectile.Center, player.Center) > 500)
                     {
-                        Projectile.velocity = (player.Center - Projectile.Center) * 0.4f;
+                        Projectile.velocity = (player.Center - Projectile.Center) * 0.08f;
                     }
                     else
                     {

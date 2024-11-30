@@ -38,8 +38,6 @@ namespace CalamityEntropy.Items.Accessories
             player.Entropy().lifeRegenPerSec += 5;
             player.maxMinions += 3;
             player.accMerman = true;
-            player.wolfAcc = true;
-            player.hideWolf = hideVisual;
             player.hideMerman = hideVisual;
         }
 

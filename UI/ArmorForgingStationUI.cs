@@ -121,6 +121,7 @@ namespace CalamityEntropy.UI
                 if (armorPrefix.Dramatic())
                 {
                     ReforgeCD = 60;
+                    SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/AscendantActivate"));
                 }
                 item[0].Entropy().armorPrefix = armorPrefix;
                 item[0].Entropy().armorPrefixName = armorPrefix.RegisterName();
@@ -130,7 +131,7 @@ namespace CalamityEntropy.UI
         public void close()
         {
             
-            Item.NewItem(Player.GetSource_None(), Main.LocalPlayer.getRect(), item[0]);
+            Main.LocalPlayer.QuickSpawnItem(Player.GetSource_None(), item[0]);
             item[0].TurnToAir();
         }
     }

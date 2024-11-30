@@ -57,11 +57,11 @@ namespace CalamityEntropy.Projectiles
             counter++;
             if (counter == 15)
             {
-                SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerRoulette"));
+                SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerRoulette"), Projectile.Center);
             }
             if (counter == 160)
             {
-                SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerTriples"));
+                SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerTriples"), Projectile.Center);
             }
             if (counter < 160)
             {

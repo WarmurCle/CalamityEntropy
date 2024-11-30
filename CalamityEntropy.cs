@@ -54,8 +54,13 @@ using CalamityEntropy.ILEditing;
 using CalamityEntropy.BeesGame;
 namespace CalamityEntropy
 {
+    
 	public class CalamityEntropy : Mod
 	{
+        public enum NetPackages : byte
+        {
+            LotteryMachineRightClicked
+        }
 		public static List<int> calDebuffIconDisplayList = new List<int>();
 		public static CalamityEntropy Instance;
         public static Effect kscreen;
@@ -72,6 +77,30 @@ namespace CalamityEntropy
         public static Texture2D pixel;
         public ArmorForgingStationUI armorForgingStationUI;
         public UserInterface userInterface;
+
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
+        {
+            if(reader.ReadByte() == (byte)NetPackages.LotteryMachineRightClicked)
+            {
+                int plr = reader.ReadInt32();
+                int npc = reader.ReadInt32();
+                int wai = reader.ReadInt32();
+                if (npc.ToNPC().ModNPC is LotteryMachine lm)
+                {
+                    lm.RightClicked(Main.player[plr]);
+                    if (Main.dedServ)
+                    {
+                        ModPacket packet = CalamityEntropy.Instance.GetPacket();
+                        packet.Write((byte)CalamityEntropy.NetPackages.LotteryMachineRightClicked);
+                        packet.Write(plr);
+                        packet.Write(npc);
+                        packet.Write(wai);
+                        packet.Send(ignoreClient: wai);
+                    }
+                }
+            }
+        }
+
         public override void Load()
         {
             

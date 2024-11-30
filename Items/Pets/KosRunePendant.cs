@@ -28,5 +28,15 @@ namespace CalamityEntropy.Items.Pets
 			}
    			return true;
 		}
-	}
+
+        public override void AddRecipes()
+        {
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<BottleDarkMatter>())
+				.AddIngredient(ModContent.ItemType<LightningPendant>())
+				.AddIngredient(ModContent.ItemType<SoulCandle>())
+				.AddIngredient((ModContent.ItemType<GodsSnack>()))
+				.AddTile(TileID.WorkBenches).Register();
+        }
+    }
 }

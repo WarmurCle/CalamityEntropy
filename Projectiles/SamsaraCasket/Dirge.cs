@@ -31,7 +31,7 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
             Vector2 targetPos = t.Center + new Vector2(0, 100 + t.height);
             Projectile.velocity = (targetPos - Projectile.Center) * 0.1f;
             Projectile.rotation = (t.Center - Projectile.Center).ToRotation();
-            setDamage(5);
+            setDamage(2);
             if (Projectile.ai[1]++ % 40 == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item88, Projectile.position);

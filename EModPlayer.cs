@@ -105,6 +105,24 @@ namespace CalamityEntropy
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
+            if(immune > 0)
+            {
+                if(Player.statLife < 6)
+                {
+                    Player.statLife = 6;
+                }
+                return false;
+            }
+            if(SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            {
+                SacredJudgeShields -= 1;
+                if (Player.statLife < 6)
+                {
+                    Player.statLife = 6;
+                }
+                immune = 120;
+                return false;
+            }
             if (LastStand && lastStandCd <= 0)
             {
                 playSound = false;
@@ -114,6 +132,7 @@ namespace CalamityEntropy
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/holyshield_shatter") { Volume = 0.6f }, Player.Center);
                 return false;
             }
+            
             return true;
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -212,7 +231,7 @@ namespace CalamityEntropy
                 Player.immuneTime = immune;
                 immune--;
             }
-            if(SacredJudgeShields < 2 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            if(SacredJudgeShields < 2)
             {
                 sJudgeCd -= 1;
                 if(sJudgeCd <= 0)

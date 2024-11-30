@@ -28,8 +28,8 @@ namespace CalamityEntropy.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 68;
-            Projectile.height = 68;
+            Projectile.width = 48;
+            Projectile.height = 48;
             Projectile.hostile = false;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;

@@ -106,7 +106,7 @@ namespace CalamityEntropy.Util
         }
         public static bool IsArmor(Item item, bool vanity = false)
         {
-            return (vanity || !item.vanity) && (item.headSlot != -1 || item.bodySlot != -1 || item.legSlot != -1);
+            return (vanity || !item.vanity) && (item.headSlot != -1 || item.bodySlot != -1 || item.legSlot != -1) && item.maxStack == 1;
         }
         public static EGlobalProjectile Entropy(this Projectile p)
         {

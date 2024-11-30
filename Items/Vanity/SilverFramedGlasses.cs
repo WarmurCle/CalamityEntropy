@@ -65,10 +65,8 @@ namespace CalamityEntropy.Items.Vanity
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<GodsSnack>(), 1)
-                .AddIngredient(ItemID.Bottle, 1)
-                .AddIngredient(ItemID.FallenStar, 5)
-                .AddIngredient(ModContent.ItemType<BlightedGel>(), 20)
+                .AddIngredient(ItemID.SnowBlock, 50)
+                .AddIngredient(ItemID.FallenStar, 1)
                 .AddTile(TileID.WorkBenches).Register();
         }
     }

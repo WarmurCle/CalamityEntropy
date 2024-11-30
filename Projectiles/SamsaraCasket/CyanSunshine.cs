@@ -81,7 +81,7 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
                     Projectile.velocity = (t.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * (42 + t.velocity.Length());
                 }
             }
-            setDamage(14);
+            setDamage(3);
             Projectile.rotation = (t.Center - Projectile.Center).ToRotation();
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

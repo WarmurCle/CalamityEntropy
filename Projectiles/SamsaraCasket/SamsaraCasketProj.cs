@@ -70,9 +70,15 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
         public override void AI()
         {
             Player player = Projectile.owner.ToPlayer();
+            if (player.dead)
+            {
+
+                Projectile.Kill();
+                return;
+            }
             var modPlayer = player.Entropy();
             Projectile.Center = player.Center;
-            if(player.HeldItem.ModItem is HorizonssKey)
+            if(player.HeldItem.type == ModContent.ItemType<HorizonssKey>())
             {
                 Projectile.timeLeft = 3;
             }
@@ -81,7 +87,7 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
                 int count = 0;
                 foreach (Projectile p in Main.projectile)
                 {
-                    if(p.active && p.ModProjectile is SamsaraSword)
+                    if(p.active && p.ModProjectile is SamsaraSword && p.owner == Projectile.owner)
                     {
                         count++;
                     }
@@ -218,7 +224,7 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
                     later.Add(new SpawnLater(type, index, rot, circleRot, hideTime));
                 }
                 else {
-                    Projectile p = Projectile.NewProjectile(Projectile.owner.ToPlayer().GetSource_ItemUse(Projectile.owner.ToPlayer().HeldItem), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner).ToProj();
+                    Projectile p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner).ToProj();
                     p.Entropy().ttindex = Projectile.Entropy().ttindex;
                     SamsaraSword ss = ((SamsaraSword)p.ModProjectile);
                     ss.casket = Projectile.whoAmI;
@@ -251,7 +257,7 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
             int count = 0;
             foreach (Projectile p in Main.projectile)
             {
-                if (p.active && p.ModProjectile is SamsaraSword)
+                if (p.active && p.ModProjectile is SamsaraSword && p.owner == Projectile.owner)
                 {
                     count++;
                 }

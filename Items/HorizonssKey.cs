@@ -61,6 +61,10 @@ namespace CalamityEntropy.Items
             Item.Entropy().Legend = true;
 		}
 
+        public override void UpdateInventory(Player player)
+        {
+            Item.damage = (int)(15 * damageMul());
+        }
         public override bool? UseItem(Player player)
         {
 
@@ -72,7 +76,7 @@ namespace CalamityEntropy.Items
                     int npc = -1;
                     foreach (NPC n in Main.npc)
                     {
-                        if (n.active && Util.Util.getDistance(n.Center, Main.MouseWorld) < dist)
+                        if (n.active && !n.friendly && Util.Util.getDistance(n.Center, Main.MouseWorld) < dist)
                         {
                             npc = n.whoAmI;
                             dist = Util.Util.getDistance(n.Center, Main.MouseWorld);
@@ -154,7 +158,11 @@ namespace CalamityEntropy.Items
         }
         public static int getLevel()
         {
-            int j = 1;
+            int j = 0;
+            if (NPC.downedSlimeKing)
+            {
+                j++;
+            }
             if (NPC.downedBoss1)
             {
                 j++;
@@ -239,19 +247,28 @@ namespace CalamityEntropy.Items
             tooltips.Add(new TooltipLine(Mod, "Caskept Level", Mod.GetLocalization("hkLevel") + " " + getLevel().ToString() + "/20"));
         }
 
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        public float damageMul()
         {
-            float ad = 0;
+            float ad = 1.1f;
+            if (NPC.downedSlimeKing)
+            {
+                ad += 0.15f;
+            }
             if (NPC.downedBoss1)
             {
-                ad += 0.4f;
+                ad += 0.26f;
             }
-            if (NPC.downedBoss2) {
-                ad += 0.4f;
+            if (NPC.downedBoss2)
+            {
+                ad += 0.26f;
             }
             if (NPC.downedBoss3)
             {
-                ad += 1f;
+                ad += 0.8f;
+            }
+            if (Main.hardMode)
+            {
+                ad += 0.4f;
             }
             if (DownedBossSystem.downedCryogen)
             {
@@ -301,7 +318,7 @@ namespace CalamityEntropy.Items
             {
                 ad += 10;
             }
-            damage += ad;
+            return ad;
         }
         public override void ModifyWeaponCrit(Player player, ref float crit)
         {

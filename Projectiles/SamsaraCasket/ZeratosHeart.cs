@@ -76,9 +76,12 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
             else
             {
                 yOffset += (-30 - yOffset) * 0.1f;
-                if(yOffset < 0)
+                if (yOffset < 0)
                 {
-                    ((SamsaraCasketProj)casket.ToProj().ModProjectile).swords[index] = true;
+                    if (casket.ToProj().ModProjectile is SamsaraCasketProj)
+                    {
+                        ((SamsaraCasketProj)casket.ToProj().ModProjectile).swords[index] = true;
+                    }
                     Projectile.Kill();
                 }
             }
