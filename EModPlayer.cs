@@ -1,15 +1,18 @@
-﻿using CalamityEntropy.Buffs;
+﻿using CalamityEntropy.BeesGame;
+using CalamityEntropy.Buffs;
 using CalamityEntropy.Cooldowns;
 using CalamityEntropy.Items;
 using CalamityEntropy.NPCs.AbyssalWraith;
 using CalamityEntropy.Projectiles;
 using CalamityEntropy.Projectiles.Cruiser;
 using CalamityEntropy.Projectiles.HBProj;
+using CalamityEntropy.Projectiles.SamsaraCasket;
 using CalamityEntropy.Projectiles.VoidEchoProj;
 using CalamityEntropy.Tiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
 using CalamityMod.Items.Accessories.Wings;
@@ -77,6 +80,11 @@ namespace CalamityEntropy
         public float Thorn = 0;
         public float WingSpeed = 1;
         public bool GodHeadVisual = false;
+        public bool samsaraCasketOpened = false;
+        public int sCasketLevel = 0;
+        public bool AWraith = false;
+        public int SacredJudgeShields = 2;
+        public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge 
         { 
             get { return voidcharge; } 
@@ -92,6 +100,9 @@ namespace CalamityEntropy
         public bool CRing = false;
         public bool LastStand = false;
         public int lastStandCd = 0;
+
+        
+
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
             if (LastStand && lastStandCd <= 0)
@@ -139,8 +150,10 @@ namespace CalamityEntropy
         public float DebuffImmuneChance = 0;
         public float shootSpeed = 1;
         public float enhancedMana = 0;
+        public bool sacrMask = false;
         public override void ResetEffects()
         {
+            sacrMask = false;
             GodHeadVisual = true;
             shootSpeed = 1;
             Thorn = 0;
@@ -190,9 +203,24 @@ namespace CalamityEntropy
         public int crSky = 0;
         public int llSky = 0;
         public int magiShieldCd = 0;
-        
+        public int sJudgeCd = 30 * 60;
         public override void PreUpdate()
         {
+            if(immune > 0)
+            {
+                Player.immune = true;
+                Player.immuneTime = immune;
+                immune--;
+            }
+            if(SacredJudgeShields < 2 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            {
+                sJudgeCd -= 1;
+                if(sJudgeCd <= 0)
+                {
+                    sJudgeCd = 30 * 60;
+                    SacredJudgeShields += 1;
+                }
+            }
             lastStandCd--;
             Lighting.AddLight(Player.Center, light, light, light);
             bool sm = Player.HasBuff(ModContent.BuffType<SoyMilkBuff>());
@@ -322,11 +350,39 @@ namespace CalamityEntropy
             }
             modifiers.SourceDamage *= d;
         }
-        
-        
+        public int immune = 0;
+
+        public override bool ConsumableDodge(Player.HurtInfo info)
+        {
+            if(SacredJudgeShields > 0 && info.Damage * (2 - damageReduce) - Player.statDefense < 80 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            {
+                immune = 120;
+                SacredJudgeShields -= 1;
+                Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
+                return true;
+            }
+            if(SacredJudgeShields > 1 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            {
+                immune = 120;
+                SacredJudgeShields -= 2;
+                Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
+
+                return true;
+            }
+            return false;
+        }
+
 
         private void EPHurtModifier(ref Player.HurtInfo info)
         {
+            if(SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            {
+                SacredJudgeShields--;
+                info.Damage -= 80;
+                Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
+
+                immune = 120;
+            }
             if (SCrown)
             {
                 Player.Calamity().defenseDamageRatio = 0f;
@@ -366,6 +422,11 @@ namespace CalamityEntropy
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
+            if (AWraith)
+            {
+                Player.ManageSpecialBiomeVisuals("HeatDistortion", true);
+            }
+            AWraith = false;
             scHealCD--;
             if (scHealCD < 0 && Player.statLife < Player.statLifeMax2 && SCrown)
             {
@@ -545,7 +606,7 @@ namespace CalamityEntropy
             {
                 OracleDeskHealCd--;
             }
-            if (Player.whoAmI == Main.myPlayer)
+            if (Player.whoAmI == Main.myPlayer && !Player.HasBuff(ModContent.BuffType<NOU>()))
             {
                 if (!Player.HeldItem.IsAir && Player.HeldItem.type == ModContent.ItemType<VoidEcho>())
                 {
@@ -724,7 +785,19 @@ namespace CalamityEntropy
             }
             return base.CanBeHitByProjectile(proj);
         }
-        
+
+        public override void SetControls()
+        {
+            if (BeeGame.Active)
+            {
+                Player.controlDown = false;
+                Player.controlJump = false;
+                Player.controlLeft = false;
+                Player.controlRight = false;
+                Player.controlUp = false;
+            }
+        }
+
         public override void Initialize()
         {
             CruiserLoreUsed = false;

@@ -163,6 +163,11 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
         public float portalAlpha = 0;
         public override void AI()
         {
+            if (Util.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 8000)
+            {
+                Main.LocalPlayer.Entropy().AWraith = true;
+            }
+
             if (spawnAnm > 0 || deathAnm)
             {
                 camLerp = camLerp + (1 - camLerp) * 0.06f;
@@ -387,17 +392,17 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                                 addlight += 0.05f;
                             }
                             
-                            if (NPC.ai[2] > 20 && NPC.ai[2] < 50)
+                            if (NPC.ai[2] > 12 && NPC.ai[2] < 50)
                             {
-                                int c = (int)((50 - NPC.ai[2]) / 4f);
-                                if (NPC.ai[2] % 7 == 0)
+                                int c = (int)((50 - NPC.ai[2]) / 1f);
+                                if (NPC.ai[2] % 8 == 0)
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
                                         float rot = -MathHelper.ToRadians(8f * (float)c / 2f);
                                         for (int i = 1; i <= c; i++)
                                         {
-                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).SafeNormalize(Vector2.One).RotatedBy(rot) * 2, ModContent.ProjectileType<SighterPin>(), NPC.damage / 8, 4);
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).SafeNormalize(Vector2.One).RotatedBy(rot) * 4, ModContent.ProjectileType<SighterPin>(), NPC.damage / 8, 4);
                                             rot += MathHelper.ToRadians(16);
                                         }
                                     }

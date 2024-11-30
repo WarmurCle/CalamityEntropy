@@ -30,6 +30,10 @@ namespace CalamityEntropy.Items.Accessories.Cards
 
         public override void AddRecipes()
         {
+            CreateRecipe().AddIngredient(ItemID.OasisCrate, 5)
+                .AddTile(TileID.WorkBenches).Register();
+            CreateRecipe().AddIngredient(ItemID.OasisCrateHard, 5)
+                .AddTile(TileID.WorkBenches).Register();
         }
     }
 }

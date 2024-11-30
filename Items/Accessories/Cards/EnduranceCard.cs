@@ -1,6 +1,7 @@
 using CalamityEntropy.Buffs;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Fishing.SulphurCatches;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
@@ -32,6 +33,8 @@ namespace CalamityEntropy.Items.Accessories.Cards
 
         public override void AddRecipes()
         {
+            CreateRecipe().AddIngredient(ModContent.ItemType<HydrothermalCrate>(), 5)
+                .AddTile(TileID.WorkBenches).Register();
         }
     }
 }

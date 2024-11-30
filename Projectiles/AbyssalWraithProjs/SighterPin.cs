@@ -52,9 +52,13 @@ namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
             }
             
             Projectile.velocity = Projectile.velocity.RotatedBy(Math.Cos(Projectile.ai[0]++ * 0.2f) * 0.022f);
-            if (Projectile.timeLeft < 500)
+            if (Projectile.timeLeft < 450)
             {
-                Projectile.velocity *= 1.013f;
+                Projectile.velocity *= 1.007f;
+            }
+            else
+            {
+                Projectile.velocity *= 1.002f;
             }
         }
         public override bool PreDraw(ref Color lightColor)

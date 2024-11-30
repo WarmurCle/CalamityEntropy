@@ -42,6 +42,8 @@ using CalamityMod.NPCs.StormWeaver;
 using CalamityEntropy.Items;
 using CalamityEntropy.Items.Accessories.Cards;
 using CalamityMod.NPCs.SunkenSea;
+using CalamityEntropy.Items.Accessories;
+using CalamityMod.NPCs.Ravager;
 
 namespace CalamityEntropy
 {
@@ -446,6 +448,10 @@ namespace CalamityEntropy
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BottleDarkMatter>(), 1));
                 }
+            }
+            if (npc.type == ModContent.NPCType<RavagerBody>())
+            {
+                Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<SacrificalMask>(), 1));
             }
 
             if (npc.type == ModContent.NPCType<DevilFish>() || npc.type == ModContent.NPCType<Laserfish>() || npc.type == ModContent.NPCType<ToxicMinnow>() || npc.type == ModContent.NPCType<LuminousCorvina>() || npc.type == ModContent.NPCType<Viperfish>() || npc.type == ModContent.NPCType<OarfishHead>())

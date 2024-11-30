@@ -21,6 +21,7 @@ using CalamityMod.UI.DraedonsArsenal;
 using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Terraria.Localization;
 using CalamityEntropy.UI;
+using CalamityEntropy.BeesGame;
 
 namespace CalamityEntropy
 {
@@ -49,9 +50,19 @@ namespace CalamityEntropy
         public bool prd = true;
         public bool mi = false;
         public bool escLast = true;
+        public bool rCtrlLast = false;
+        
         public override void PostUpdatePlayers()
         {
+            
+            bool rCtrl = Keyboard.GetState().IsKeyDown(Keys.RightControl);
+            if(!rCtrlLast && rCtrl)
+            {
+                //BeeGame.Active = !BeeGame.Active;
 
+            }
+            rCtrlLast = rCtrl;
+            
             
             if (!Main.playerInventory)
             {

@@ -35,5 +35,8 @@ namespace CalamityEntropy
 
         [DefaultValue(true)]
         public bool ChainsawShakeScreen { get; set; }
+
+
+
     }
 }

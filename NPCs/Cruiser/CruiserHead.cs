@@ -116,26 +116,26 @@ namespace CalamityEntropy.NPCs.Cruiser
         }
         public override void SetDefaults()
         {
-
+            NPC.Calamity().canBreakPlayerDefense = true;
             NPC.boss = true;
             NPC.width = 88;
             NPC.height = 88;
-            NPC.damage = 168;
+            NPC.damage = 160;
             if (Main.expertMode){
                 NPC.damage += 16;   
             }if (Main.masterMode){
                 NPC.damage += 16;
             }
             NPC.defense = 40;
-            NPC.lifeMax = 1000000;
+            NPC.lifeMax = 1100000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 14;
+                NPC.damage += 22;
                 length += 4;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 14;
+                NPC.damage += 16;
                 length += 2;
             }
             tdamage = NPC.damage;

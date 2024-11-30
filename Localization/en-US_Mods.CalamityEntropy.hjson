@@ -312,7 +312,20 @@ Items: {
 	}
 
 	ThreadOfFate: {
-		Tooltip: Can be used to craft Oracle Desk
+		Tooltip:
+			'''
+			Can be used to craft Oracle Desk
+			Need those cards:
+			Aura: Golden Chest，Iron Crate: 10%
+			Brilliance: Selling at merchants' premises
+			Entity: Loot from Giant Clam
+			Inspiration:Desert Chest: 30%
+			Metropolics: Using bookshelf to create
+			Wisdom: Loot from Skeletron
+			Radiance: Using Crystal Ball to create
+			Temperance: Loot from Skeletron Prime
+			Endurance: Abyssal Chests : 33%(Conflict with Infernum Mode)
+			'''
 		DisplayName: Thread Of Fate
 	}
 
@@ -634,6 +647,29 @@ Items: {
 		Tooltip: ""
 		DisplayName: Shadow Of Void
 	}
+
+	HorizonssKey: {
+		Tooltip:
+			'''
+			[c/d9bd1b:The strength of this weapon increases as the game progresses]
+			[c/d9bd1b:Affected by the bonus of all damage classes]
+			'''
+		DisplayName: Horizons' Key
+	}
+
+	SacrificalMask: {
+		Tooltip:
+			'''
+			Summon a circle of sacrificial daggers around you
+			The dagger will stab nearby enemies and heal you
+			'''
+		DisplayName: Sacrifical Mask
+	}
+
+	SilverFramedGlasses: {
+		Tooltip: ""
+		DisplayName: Silver Framed Glasses
+	}
 }
 
 DeathMode: Death Mode
@@ -749,6 +785,25 @@ Projectiles: {
 	LostSoulProj.DisplayName: Lost Soul
 	MantleBreak.DisplayName: Mantle Break
 	CruiserShadow.DisplayName: Cruiser Shadow
+	SamsaraCasketProj.DisplayName: Samsara Casket Proj
+	Recovery.DisplayName: Recovery
+	Dirge.DisplayName: Dirge
+	CyanSunshine.DisplayName: Cyan Sunshine
+	Asleep.DisplayName: Asleep
+	SacredJudge.DisplayName: Sacred Judge
+	SoulDissipate.DisplayName: Soul Dissipate
+	ZeratosHeart.DisplayName: Zeratos' Heart
+	e0.DisplayName: Effect
+	AsleepPhantom.DisplayName: Asleep Phantom
+	CyanFeather.DisplayName: Cyan Feather
+	RecoveryVineTop.DisplayName: Recovery Vine Top
+	RecoveryVine.DisplayName: Recovery Vine
+	FlowerSkeleton0.DisplayName: Flower Skeleton
+	LunarExplode0.DisplayName: Lunar Explode
+	FireDragonsRoar.DisplayName: Fire Dragons Roar
+	ZeratosBullet0.DisplayName: Zeratos Bullet
+	ZeratosFireball0.DisplayName: Zeratos Explode
+	SacrificalDagger.DisplayName: Sacrifical Dagger
 }
 
 LegendTooltip: - Legend -
@@ -937,6 +992,36 @@ Configs: {
 			Label: 电锯震动效果
 			Tooltip: ""
 		}
+
+		CasketLevel: {
+			Label: Casket Level
+			Tooltip: ""
+		}
+
+		CasketDamageMul: {
+			Label: Casket Damage Mul
+			Tooltip: ""
+		}
+
+		CasketKnockbackMul: {
+			Label: Casket Knockback Mul
+			Tooltip: ""
+		}
+
+		CaskekCritMul: {
+			Label: Caskek Crit Mul
+			Tooltip: ""
+		}
+
+		CaskekVoidTouch: {
+			Tooltip: ""
+			Label: Caskek Void Touch
+		}
+
+		CaskekArmorPen: {
+			Tooltip: ""
+			Label: Caskek Armor Pen
+		}
 	}
 }
 
@@ -1087,3 +1172,5 @@ ArmorPrefixLastStandDescription:
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +12% Enhanced Mana
 Prefixes.Enchanted.DisplayName: Enchanted
+DamageClasses.NoneTypeDamageClass.DisplayName: Damage
+hkLevel: Level

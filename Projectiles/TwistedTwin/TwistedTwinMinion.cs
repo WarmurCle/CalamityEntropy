@@ -14,7 +14,7 @@ namespace CalamityEntropy.Projectiles.TwistedTwin
 {
     public class TwistedTwinMinion : ModProjectile
     {
-        public static float damageMul = 0.05f;
+        public static float damageMul = 0.12f;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;

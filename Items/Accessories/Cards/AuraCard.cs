@@ -1,5 +1,6 @@
 using CalamityEntropy.Buffs;
 using CalamityMod.Items;
+using CalamityMod.Items.Fishing.SulphurCatches;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
@@ -32,6 +33,10 @@ namespace CalamityEntropy.Items.Accessories.Cards
 
         public override void AddRecipes()
         {
+            CreateRecipe().AddIngredient(ItemID.IronCrate, 5)
+                .AddTile(TileID.WorkBenches).Register();
+            CreateRecipe().AddIngredient(ItemID.IronCrateHard, 5)
+                .AddTile(TileID.WorkBenches).Register();
         }
     }
 }

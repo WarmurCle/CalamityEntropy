@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using CalamityEntropy;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.Arm;
+using NATUPNPLib;
 
 namespace CalamityEntropy.Util
 {
@@ -73,6 +74,15 @@ namespace CalamityEntropy.Util
             catch { return false; }
         }
 
+        public static NPC findTarget(Player player, Projectile proj, int maxDistance, bool check = false)
+        {
+            NPC target = proj.FindTargetWithinRange(maxDistance, check);
+            if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
+            {
+                target = player.MinionAttackTargetNPC.ToNPC();
+            }
+            return target;
+        }
         public static Texture2D getExtraTex(string name)
         {
             return ModContent.Request<Texture2D>("CalamityEntropy/Extra/" + name).Value;
@@ -235,7 +245,10 @@ namespace CalamityEntropy.Util
         {
             spriteBatch.Draw(px, start - (worldpos ? Main.screenPosition : Vector2.Zero), null, color, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(getDistance(start, end) + wa, width), SpriteEffects.None, 0);
         }
-
+        public static void drawLine(Vector2 start, Vector2 end, Color color, float width, int wa = 0, bool worldpos = true)
+        {
+            Main.spriteBatch.Draw(getExtraTex("white"), start - (worldpos ? Main.screenPosition : Vector2.Zero), null, color, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(getDistance(start, end) + wa, width), SpriteEffects.None, 0);
+        }
         public static void drawTextureToPoint(SpriteBatch sb, Texture2D texture, Color color, Vector2 lu, Vector2 ru, Vector2 ld, Vector2 rd) {
             sb.End();
 

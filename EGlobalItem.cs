@@ -34,6 +34,7 @@ using CalamityMod.World;
 using Terraria.ModLoader.IO;
 using CalamityEntropy.ArmorPrefixes;
 using System.IO;
+using CalamityMod.Items.Fishing.SulphurCatches;
 
 namespace CalamityEntropy
 {
@@ -674,7 +675,10 @@ namespace CalamityEntropy
             {
                 itemLoot.Add(ModContent.ItemType<SlimeYoyo>(), new Fraction(4, 10));
             }
-
+            if (item.type == ModContent.ItemType<HydrothermalCrate>())
+            {
+                itemLoot.Add(ModContent.ItemType<EnduranceCard>(), new Fraction(1, 5));
+            }
             if (item.type == ItemID.IronCrate || item.type == ItemID.IronCrateHard)
             {
                 itemLoot.Add(ModContent.ItemType<AuraCard>(), new Fraction(1, 10));

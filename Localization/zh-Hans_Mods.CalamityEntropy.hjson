@@ -328,7 +328,21 @@ Items: {
 	}
 
 	ThreadOfFate: {
-		Tooltip: 用于制作神谕卡组
+		Tooltip:
+			'''
+			用于制作神谕卡组
+			需要以下卡牌
+			灵光:金箱子，铁匣，秘银匣10%概率获取
+			辉煌:商人5金币出售
+			实体:掉落自巨像蛤
+			启迪:砂岩箱，绿洲匣，幻象匣30%获取
+			都市:恶魔骨灰5，混乱精华3，书架处合成
+			智慧:掉落自骷髅王
+			光芒:凋星微尘5，日光精华5，光明之魂3，水晶球处合成
+			克己:掉落自机械骷髅王
+			坚忍:深渊宝藏箱33%概率获取
+			(如果你加了炼狱的话，坚忍卡牌不会正常生成，请尝试从渊泉匣获取)
+			'''
 		DisplayName: 命运之绳
 	}
 
@@ -646,6 +660,31 @@ Items: {
 		Tooltip: ""
 		DisplayName: 虚渺之像
 	}
+
+	HorizonssKey: {
+		Tooltip:
+			'''
+			左键打开剑匣，剑会自动攻击附近的敌人
+			右键敌怪以指定剑的攻击目标
+			[c/d9bd1b:这把武器的强度随着游戏进度而增加]
+			[c/d9bd1b:受所有加成影响]
+			'''
+		DisplayName: 视界之键
+	}
+
+	SacrificalMask: {
+		Tooltip:
+			'''
+			召唤一圈献祭匕首围绕你
+			匕首会刺向附近的敌人并为你恢复生命值
+			'''
+		DisplayName: 献祭面具
+	}
+
+	SilverFramedGlasses: {
+		// Tooltip: ""
+		DisplayName: 银框眼镜
+	}
 }
 
 DeathMode: 死亡模式
@@ -761,6 +800,25 @@ Projectiles: {
 	LostSoulProj.DisplayName: 迷失游魂
 	MantleBreak.DisplayName: 斗篷破碎
 	CruiserShadow.DisplayName: 巡游者之影
+	SamsaraCasketProj.DisplayName: 轮回剑匣
+	Recovery.DisplayName: 复苏
+	Dirge.DisplayName: 夜歌
+	CyanSunshine.DisplayName: 青晖
+	Asleep.DisplayName: 沉眠
+	SacredJudge.DisplayName: 圣裁
+	SoulDissipate.DisplayName: 殁魂
+	ZeratosHeart.DisplayName: 龙心
+	e0.DisplayName: 闪烁
+	AsleepPhantom.DisplayName: 沉眠幻影
+	CyanFeather.DisplayName: 青晖
+	RecoveryVineTop.DisplayName: 复苏之藤
+	RecoveryVine.DisplayName: 复苏之藤
+	FlowerSkeleton0.DisplayName: 复苏毒云
+	LunarExplode0.DisplayName: 月之爆炎
+	FireDragonsRoar.DisplayName: 龙魂之矛
+	ZeratosBullet0.DisplayName: 龙魂火球
+	ZeratosFireball0.DisplayName: 龙魂爆炸
+	SacrificalDagger.DisplayName: 献祭匕首
 }
 
 LegendTooltip: - 传奇物品 -
@@ -946,8 +1004,38 @@ Configs: {
 		}
 
 		ChainsawShakeScreen: {
-			// Label: 电锯震动效果
-			// Tooltip: ""
+			Label: 电锯震动效果
+			Tooltip: ""
+		}
+
+		CasketLevel: {
+			Label: 剑匣等级（0 ~ 6）
+			Tooltip: ""
+		}
+
+		CasketDamageMul: {
+			Label: 剑匣伤害倍率（%）
+			Tooltip: ""
+		}
+
+		CasketKnockbackMul: {
+			Label: 剑匣击退加成（%）
+			Tooltip: ""
+		}
+
+		CaskekCritMul: {
+			Label: 剑匣暴击加成（%）
+			Tooltip: ""
+		}
+
+		CaskekVoidTouch: {
+			Tooltip: ""
+			Label: 剑匣虚空之触叠层
+		}
+
+		CaskekArmorPen: {
+			Tooltip: ""
+			Label: 剑匣护甲穿透
 		}
 	}
 }
@@ -1098,3 +1186,5 @@ ArmorPrefixLastStandDescription:
 PrefixEnchanted: 注魔
 PrefixEnchantedDesc: +12% 强化魔力
 Prefixes.Enchanted.DisplayName: 注魔
+DamageClasses.NoneTypeDamageClass.DisplayName: 伤害
+hkLevel: 当前解锁进度

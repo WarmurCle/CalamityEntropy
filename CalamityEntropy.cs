@@ -51,6 +51,7 @@ using CalamityEntropy.UI;
 using Terraria.UI;
 using CalamityMod.UI.CalamitasEnchants;
 using CalamityEntropy.ILEditing;
+using CalamityEntropy.BeesGame;
 namespace CalamityEntropy
 {
 	public class CalamityEntropy : Mod
@@ -73,6 +74,7 @@ namespace CalamityEntropy
         public UserInterface userInterface;
         public override void Load()
         {
+            
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
             userInterface = new UserInterface();
@@ -935,13 +937,45 @@ namespace CalamityEntropy
                 }
                 Main.spriteBatch.End();
             }
+            if (BeeGame.Active)
+            {
+                if (!beegameInited)
+                {
+                    BeeGame.init();
+                    beegameInited = true;
+                }
+                BeeGame.update();
+                graphicsDevice.SetRenderTarget(screen2);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+
+
+                graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+                graphicsDevice.Clear(Color.SkyBlue);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
+
+                BeeGame.draw();
+
+                Main.spriteBatch.End();
+
+                graphicsDevice.SetRenderTarget(Main.screenTarget);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+
+                Main.spriteBatch.Draw(screen2, Vector2.Zero, Color.White);
+                Main.spriteBatch.Draw(Main.screenTargetSwap, new Rectangle((Main.screenWidth - BeeGame.maxWidth) / 2, (Main.screenHeight - BeeGame.maxHeight) / 2, BeeGame.maxWidth, BeeGame.maxHeight), Color.White);
+
+                Main.spriteBatch.End();
+            }
             orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
         }
         public static Vector2 vLToCenter(Vector2 v, float z)
         {
             return Main.ScreenSize.ToVector2() / 2 + (v - Main.ScreenSize.ToVector2() / 2) * z;
         }
-        
+        public bool beegameInited = false;
         public override void Unload()
         {
             WallpaperHelper.wallpaper = null;
