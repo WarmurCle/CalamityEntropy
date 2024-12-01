@@ -51,7 +51,10 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
         public int wingFrame = 0;
         public float camLerp = 0;
         public int seed = -1;
+        public float wingRotLeft = 0;
+        public float wingRotRight = 0;
         
+
         public List<Texture2D> wingflying = new List<Texture2D>();
         public override void OnSpawn(IEntitySource source)
         {
@@ -163,6 +166,8 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
         public float portalAlpha = 0;
         public override void AI()
         {
+            wingRotLeft *= 0.86f;
+            wingRotRight *= 0.86f;
             if (Util.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 8000)
             {
                 Main.LocalPlayer.Entropy().AWraith = true;
@@ -470,16 +475,31 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                             {
                                 animation = 0;
                             }
+                            if (NPC.ai[2] < 40)
+                            {
+                                wingFrame = 0;
+                                anmChange = 0;
+                                float j = (float)Math.Cos(NPC.ai[2]) * 0.2f;
+                                if(target.Center.X < NPC.Center.X)
+                                {
+                                    wingRotLeft += j;
+                                }
+                                else
+                                {
+                                    wingRotRight += j;
+                                }
+                            }
                             if (NPC.ai[2] < 30)
                             {
                                 for (int i = 0; i < 2; i++)
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).SafeNormalize(Vector2.Zero) * 8 + new Vector2(6 * (Main.rand.NextFloat() - 0.5f), 6 * (Main.rand.NextFloat() - 0.5f)), ModContent.ProjectileType<VoidFeather>(), NPC.damage / 7, 6, -1, 0, NPC.whoAmI);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + (target.Center.X > NPC.Center.X ? 1 : -1) * new Vector2(140 + Main.rand.Next(0, 60), 0) + new Vector2(0, -50), (target.Center - NPC.Center).SafeNormalize(Vector2.Zero) * 8 + new Vector2(9 * (Main.rand.NextFloat() - 0.5f), 6 * (Main.rand.NextFloat() - 0.5f)), ModContent.ProjectileType<VoidFeather>(), NPC.damage / 7, 6, -1, 0, NPC.whoAmI);
                                     }
                                     
                                 }
+                                
                                 SoundEffect se = ModContent.Request<SoundEffect>("CalamityEntropy/Sounds/feathershot").Value;
                                 if (se != null && NPC.ai[2] % 5 == 0) { se.Play(Main.soundVolume, 0, 0); }
                                 //SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/feathershot"), NPC.Center);
@@ -575,7 +595,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                                 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center-new Vector2(0, 30), (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * Util.Util.getDistance(NPC.Center, target.Center), ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center-new Vector2(0, 30), (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * MathHelper.Max(200, MathHelper.Min(Util.Util.getDistance(NPC.Center, target.Center), 660)), ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
                                 }
                             }
                             if (NPC.ai[2] == 2)
@@ -833,9 +853,9 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                 if (spawnAnm <= 20)
                 {
                     Vector2 origin = new Vector2(320, 222);
-                    sb.Draw(wing, drawCenter + new Vector2(-64, 0).RotatedBy(NPC.rotation) - Main.screenPosition, null, Color.White * alpha, NPC.rotation - rot, origin, NPC.scale, SpriteEffects.None, 0);
+                    sb.Draw(wing, drawCenter + new Vector2(-64, 0).RotatedBy(NPC.rotation) - Main.screenPosition, null, Color.White * alpha, NPC.rotation - rot - wingRotLeft, origin, NPC.scale, SpriteEffects.None, 0);
                     origin = new Vector2(wing.Width - origin.X, origin.Y);
-                    sb.Draw(wing, drawCenter + new Vector2(64, 0).RotatedBy(NPC.rotation) - Main.screenPosition, null, Color.White * alpha, NPC.rotation + rot, origin, NPC.scale, SpriteEffects.FlipHorizontally, 0);
+                    sb.Draw(wing, drawCenter + new Vector2(64, 0).RotatedBy(NPC.rotation) - Main.screenPosition, null, Color.White * alpha, NPC.rotation + rot + wingRotRight, origin, NPC.scale, SpriteEffects.FlipHorizontally, 0);
                 }
             }
             else

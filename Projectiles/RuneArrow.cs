@@ -94,7 +94,6 @@ namespace CalamityEntropy.Projectiles
         {
             if (!htd)
             {
-                target.immune[Projectile.owner] = 0;
                 Projectile.timeLeft = 20;
                 htd = true;
             }
@@ -142,13 +141,19 @@ namespace CalamityEntropy.Projectiles
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
-                if (htd) { return false; }
-                Texture2D light = Util.Util.getExtraTex("lightball");
-                Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, Color.White * 0.4f, Projectile.rotation, light.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-                
+                if (!htd)
+                {
+                    Texture2D light = Util.Util.getExtraTex("lightball");
+                    Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, Color.White * 0.4f, Projectile.rotation, light.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+                }
 
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                if (htd)
+                {
+                    return false;
+
+                }
                 Main.spriteBatch.Draw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, TextureAssets.Projectile[Projectile.type].Value.Size()/2, Projectile.scale, SpriteEffects.None, 0);
                 
             }

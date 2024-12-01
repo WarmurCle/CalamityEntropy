@@ -57,9 +57,91 @@ namespace CalamityEntropy
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;
-       
+        public bool ToFriendly = false;
+        public int hitCd = 30;
+        public Vector2? plrOldPos = null;
+        public Vector2? plrOldVel = null;
+        public override void PostAI(NPC npc)
+        {
+            if (plrOldPos.HasValue)
+            {
+                Main.player[0].position = plrOldPos.Value;
+                plrOldPos = null;
+            }
+            if (plrOldVel.HasValue)
+            {
+                Main.player[0].velocity = plrOldVel.Value;
+                plrOldVel = null;
+            }
+        }
+        public static int TamedDmgMul = 100;//48;
+        public override bool CheckActive(NPC npc)
+        {
+            return !ToFriendly;
+        }
         public override bool PreAI(NPC npc)
         {
+            if (ToFriendly)
+            {
+                hitCd--;
+                npc.boss = false;
+                
+                npc.friendly = true;
+
+                bool h = false;
+                foreach (NPC npcc in Main.npc)
+                {
+                    if (npcc.active && !npcc.friendly && !npcc.dontTakeDamage && npc.Hitbox.Intersects(npcc.Hitbox))
+                    {
+                        if (hitCd <= 0)
+                        {
+                            h = true;
+                            npcc.SimpleStrikeNPC(npc.damage * TamedDmgMul, npc.velocity.X > 0 ? 1 : -1, false, 5, DamageClass.Generic);
+                        }
+                    }
+                }
+                if (h)
+                {
+                    hitCd = 20;
+                }
+                NPC t = null;
+                float dist = 4600;
+                foreach (NPC n in Main.npc)
+                {
+                    if (n.active && !n.friendly && !n.dontTakeDamage)
+                    {
+                        if (Util.Util.getDistance(n.Center,npc.Center) < dist)
+                        {
+                            t = n;
+                            dist = Util.Util.getDistance(n.Center, npc.Center);
+                        }
+                    }
+                }
+                if (t == null)
+                {
+                    plrOldPos = Main.player[0].position;
+                    plrOldVel = Main.player[0].velocity;
+                    Main.player[0].Center = f_owner.ToPlayer().Center;
+                    Main.player[0].velocity = f_owner.ToPlayer().velocity;
+                }
+                else
+                {
+                    plrOldPos = Main.player[0].position;
+                    plrOldVel = Main.player[0].velocity;
+                    Main.player[0].Center = t.Center;
+                    Main.player[0].velocity = t.velocity;
+                }
+                if (npc.realLife < 0) {
+                    foreach (NPC nPC in Main.npc)
+                    {
+                        if (nPC.realLife == npc.whoAmI)
+                        {
+                            nPC.Entropy().ToFriendly = true;
+                            nPC.Entropy().f_owner = f_owner;
+                        }
+                    } 
+                }
+            }
             if (npc.Entropy().daTarget && npc.realLife == -1) {
                 npc.velocity *= 0;
                 return false;
@@ -417,6 +499,27 @@ namespace CalamityEntropy
 
         public override void OnKill(NPC npc)
         {
+            if (ToFriendly)
+            {
+                Main.player[Main.player.Length - 1].active = false;
+            }
+            if (npc.type == ModContent.NPCType<GiantClam>())
+            {
+                if (!(Main.netMode == NetmodeID.MultiplayerClient))
+                {
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<EntityCard>()));
+                }
+            }
+            if (npc.type == NPCID.SkeletronHead)
+            {
+                Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<WisdomCard>()));
+
+            }
+            if (npc.type == NPCID.SkeletronPrime)
+            {
+                Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<TemperanceCard>()));
+
+            }
             if (npc.type == NPCID.GiantWormHead)
             {
                 if (Main.rand.NextDouble() < 0.1f)
@@ -495,32 +598,31 @@ namespace CalamityEntropy
             }
            
         }
-
+        public int f_owner = -1;
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
-
-        }
-        public override bool PreKill(NPC npc)
-        {
-            if (npc.type == ModContent.NPCType<GiantClam>())
+            if(source is EntitySource_Parent esource)
             {
-                if (!(Main.netMode == NetmodeID.MultiplayerClient))
+                if(esource.Entity is NPC np)
                 {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<EntityCard>()));
+                    ToFriendly = np.Entropy().ToFriendly;
+                    if (ToFriendly)
+                    {
+                        f_owner = np.Entropy().f_owner;
+                    }
+                }
+                if (esource.Entity is Projectile pj)
+                {
+                    ToFriendly = pj.Entropy().ToFriendly;
+                }
+                if (ToFriendly)
+                {
+                    npc.friendly = true;
                 }
             }
-            if (npc.type == NPCID.SkeletronHead)
-            {
-                Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<WisdomCard>()));
-
-            }
-            if (npc.type == NPCID.SkeletronPrime)
-            {
-                Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<TemperanceCard>()));
-
-            }
-            return base.PreKill(npc);
         }
+
+
 
         public override void ModifyShop(NPCShop shop)
         {

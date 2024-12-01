@@ -260,15 +260,15 @@ namespace CalamityEntropy.Items
             }
             if (NPC.downedBoss2)
             {
-                ad += 0.26f;
+                ad += 0.16f;
             }
             if (NPC.downedBoss3)
             {
-                ad += 0.8f;
+                ad += 0.7f;
             }
             if (Main.hardMode)
             {
-                ad += 0.4f;
+                ad += 0.6f;
             }
             if (DownedBossSystem.downedCryogen)
             {
@@ -312,7 +312,7 @@ namespace CalamityEntropy.Items
             }
             if (DownedBossSystem.downedExoMechs)
             {
-                ad += 2;
+                ad += 1;
             }
             if (DownedBossSystem.downedCalamitas)
             {

@@ -411,19 +411,16 @@ namespace CalamityEntropy.NPCs
             if (NPC.ai[0] == 1 && !Main.dedServ)
             {
                 NPC.ai[0] = 0;
-                if(Main.netMode == NetmodeID.MultiplayerClient)
+                if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     ModPacket packet = Mod.GetPacket();
                     packet.Write((byte)CalamityEntropy.NetPackages.LotteryMachineRightClicked);
                     packet.Write(Main.LocalPlayer.whoAmI);
                     packet.Write(NPC.whoAmI);
                     packet.Write(Main.myPlayer);
-                    packet.Send(ignoreClient: Main.myPlayer);
+                    packet.Send();
                 }
-                else
-                {
-                    RightClicked(Main.LocalPlayer);
-                }
+                else { RightClicked(Main.LocalPlayer); }
             }
             var r = Main.rand;
             NPC.onFire = false;
@@ -543,7 +540,6 @@ namespace CalamityEntropy.NPCs
         {
             if (Main.dedServ)
             {
-                NPC.netUpdate = true;
                 if(NPC.netSpam >= 10)
                 {
                     NPC.netSpam = 9;

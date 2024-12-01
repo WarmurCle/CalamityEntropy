@@ -685,6 +685,11 @@ Items: {
 		// Tooltip: ""
 		DisplayName: 银框眼镜
 	}
+
+	TargetingWand: {
+		Tooltip: ""
+		DisplayName: 奴役权杖
+	}
 }
 
 DeathMode: 死亡模式
@@ -819,6 +824,7 @@ Projectiles: {
 	ZeratosBullet0.DisplayName: 龙魂火球
 	ZeratosFireball0.DisplayName: 龙魂爆炸
 	SacrificalDagger.DisplayName: 献祭匕首
+	// TargetSetProj.DisplayName: Target Set Proj
 }
 
 LegendTooltip: - 传奇物品 -

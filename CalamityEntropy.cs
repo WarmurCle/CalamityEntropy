@@ -70,7 +70,7 @@ namespace CalamityEntropy
         public RenderTarget2D screen = null;
         public RenderTarget2D screen2 = null;
         public RenderTarget2D screen3 = null;
-        public int screenShakeAmp = 0;
+        public float screenShakeAmp = 0;
         public float cvcount = 0;
         public Vector2 screensz = Vector2.Zero;
         public static bool ets = true;
@@ -95,7 +95,7 @@ namespace CalamityEntropy
                         packet.Write(plr);
                         packet.Write(npc);
                         packet.Write(wai);
-                        packet.Send(ignoreClient: wai);
+                        packet.Send();
                     }
                 }
             }
@@ -139,9 +139,30 @@ namespace CalamityEntropy
             On_Lighting.AddLight_Vector2_Vector3 += al_vv;
             On_Lighting.AddLight_Vector2_int += al_torch;
             On_Player.AddBuff += add_buff;
+            On_NPC.TargetClosest += targetClost;
+            On_NPC.TargetClosestUpgraded += targetClostUpgraded;
+
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
+        }
+
+        private void targetClostUpgraded(On_NPC.orig_TargetClosestUpgraded orig, NPC self, bool faceTarget, Vector2? checkPosition)
+        {
+            orig(self, faceTarget, checkPosition);
+            if (self.Entropy().ToFriendly)
+            {
+                self.target = 0;
+            }
+        }
+
+        private void targetClost(On_NPC.orig_TargetClosest orig, NPC self, bool faceTarget)
+        {
+            orig(self, faceTarget);
+            if (self.Entropy().ToFriendly)
+            {
+                self.target = 0;
+            }
         }
 
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
@@ -267,7 +288,7 @@ namespace CalamityEntropy
         }
         private void ec(On_FilterManager.orig_EndCapture orig, FilterManager self, RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
         {
-
+            screenShakeAmp *= 0.9f;
             Texture2D dt;
             Texture2D dt2;
             Texture2D lb;

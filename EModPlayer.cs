@@ -262,6 +262,10 @@ namespace CalamityEntropy
             {
                 llSky--;
             }
+            if(VFSet && !Player.controlLeft && !Player.controlRight)
+            {
+                Player.velocity.X *= 0.92f;
+            }
 
         }
         public List<Vector2> daPoints = new List<Vector2>();
@@ -760,7 +764,7 @@ namespace CalamityEntropy
                 }
             }
             var shaker = Main.rand;
-            Main.screenPosition += new Vector2(shaker.Next(-CalamityEntropy.Instance.screenShakeAmp * 8, CalamityEntropy.Instance.screenShakeAmp * 8 + 1), shaker.Next(-CalamityEntropy.Instance.screenShakeAmp, CalamityEntropy.Instance.screenShakeAmp + 1));
+            Main.screenPosition += new Vector2(shaker.Next((int)-CalamityEntropy.Instance.screenShakeAmp * 8, (int)CalamityEntropy.Instance.screenShakeAmp * 8 + 1), shaker.Next((int)-CalamityEntropy.Instance.screenShakeAmp, (int)CalamityEntropy.Instance.screenShakeAmp + 1));
         
         }
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
