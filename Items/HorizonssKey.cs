@@ -40,6 +40,10 @@ namespace CalamityEntropy.Items
 
         public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
         {
+            if(damageClass == Util.CUtil.rougeDC)
+            {
+                return new StatInheritanceData(0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
+            }
             return StatInheritanceData.Full;
         }
     }

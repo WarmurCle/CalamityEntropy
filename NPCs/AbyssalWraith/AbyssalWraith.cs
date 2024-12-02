@@ -181,6 +181,11 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
             {
                 camLerp = camLerp + (0 - camLerp) * 0.06f;
             }
+            if (!Main.dedServ)
+            {
+                Main.LocalPlayer.Entropy().screenShift = camLerp;
+                Main.LocalPlayer.Entropy().screenPos = NPC.Center;
+            }
             if(portalTime > 0)
             {
                 if (portalAlpha < 1)

@@ -690,6 +690,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: 奴役权杖
 	}
+
+	DimensionKey: {
+		// DisplayName: Dimension Key
+		// Tooltip: ""
+	}
 }
 
 DeathMode: 死亡模式

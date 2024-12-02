@@ -8,6 +8,7 @@ using CalamityEntropy;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.Arm;
 using NATUPNPLib;
+using System.Linq;
 
 namespace CalamityEntropy.Util
 {
@@ -39,6 +40,10 @@ namespace CalamityEntropy.Util
         public static bool inWorld(int i, int j)
         {
             return !(i < 0 || j < 0 || i > Main.tile.Width || j > Main.tile.Height);
+        }
+        public static Projectile ToProj_Identity(this int id)
+        {
+            return Main.projectile.FirstOrDefault(x => x.identity==id);
         }
         public static bool isAir(Vector2 dp, bool plat = false)
         {

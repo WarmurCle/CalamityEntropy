@@ -61,8 +61,13 @@ namespace CalamityEntropy
         public int hitCd = 30;
         public Vector2? plrOldPos = null;
         public Vector2? plrOldVel = null;
+        public Vector2? plrOldPos2 = null;
+        public Vector2? plrOldVel2 = null;
+        public Vector2? plrOldPos3 = null;
+        public Vector2? plrOldVel3 = null;
         public override void PostAI(NPC npc)
         {
+
             if (plrOldPos.HasValue)
             {
                 Main.player[0].position = plrOldPos.Value;
@@ -73,16 +78,65 @@ namespace CalamityEntropy
                 Main.player[0].velocity = plrOldVel.Value;
                 plrOldVel = null;
             }
+            if (plrOldPos2.HasValue)
+            {
+                Main.player[0].position = plrOldPos2.Value;
+                plrOldPos2 = null;
+            }
+            if (plrOldVel2.HasValue)
+            {
+                Main.player[0].velocity = plrOldVel2.Value;
+                plrOldVel2 = null;
+            }
+            if (!ToFriendly)
+            {
+                ModContent.GetInstance<EModSys>().LastPlayerVel = Main.player[0].velocity;
+                ModContent.GetInstance<EModSys>().LastPlayerPos = Main.player[0].Center;
+
+            }
         }
-        public static int TamedDmgMul = 100;//48;
+        public static int TamedDmgMul = 16;
         public override bool CheckActive(NPC npc)
         {
             return !ToFriendly;
         }
+        public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
+        {
+            binaryWriter.Write(ToFriendly);
+            binaryWriter.Write(f_owner);
+        }
+        public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
+        {
+            ToFriendly = binaryReader.ReadBoolean();
+            f_owner = binaryReader.ReadInt32();
+        }
+        public static void setFriendly(int id, int owner = 0)
+        {
+            if (id.ToNPC().Entropy().ToFriendly)
+            {
+                return;
+            }
+            id.ToNPC().Entropy().ToFriendly = true;
+            id.ToNPC().Entropy().f_owner = owner;
+            if(Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                ModPacket p = CalamityEntropy.Instance.GetPacket();
+                p.Write((byte)CalamityEntropy.NetPackages.TurnFriendly);
+                p.Write(id);
+                p.Write(owner);
+                p.Send();
+            }
+        }
+        public bool friendlyDecLife = true;
         public override bool PreAI(NPC npc)
         {
             if (ToFriendly)
             {
+                if (friendlyDecLife)
+                {
+                    friendlyDecLife = false;
+                    npc.life = 1 + (int)(npc.life / damageMul);
+                }
                 hitCd--;
                 npc.boss = false;
                 
@@ -93,10 +147,10 @@ namespace CalamityEntropy
                 {
                     if (npcc.active && !npcc.friendly && !npcc.dontTakeDamage && npc.Hitbox.Intersects(npcc.Hitbox))
                     {
-                        if (hitCd <= 0)
+                        if (hitCd <= 0 && !(Main.netMode == NetmodeID.MultiplayerClient))
                         {
                             h = true;
-                            npcc.SimpleStrikeNPC(npc.damage * TamedDmgMul, npc.velocity.X > 0 ? 1 : -1, false, 5, DamageClass.Generic);
+                            npcc.StrikeNPC(npcc.CalculateHitInfo(npc.damage * TamedDmgMul, npc.velocity.X > 0 ? 1 : -1, false, 6, DamageClass.Generic));
                         }
                     }
                 }
@@ -130,6 +184,11 @@ namespace CalamityEntropy
                     plrOldVel = Main.player[0].velocity;
                     Main.player[0].Center = t.Center;
                     Main.player[0].velocity = t.velocity;
+                }
+                if (npc.aiStyle == NPCAIStyleID.Slime)
+                {
+                    Main.LocalPlayer.npcTypeNoAggro[npc.type] = false;
+                    npc.TargetClosest();
                 }
                 if (npc.realLife < 0) {
                     foreach (NPC nPC in Main.npc)
@@ -197,7 +256,7 @@ namespace CalamityEntropy
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage *= 1 + (npc.Entropy().VoidTouchLevel) * 0.05f * (1 - npc.Entropy().VoidTouchDR);
+            modifiers.FinalDamage *= 1 + (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
             if (projectile.owner >= 0)
             {
                 if (projectile.owner.ToPlayer().Entropy().VFSet)

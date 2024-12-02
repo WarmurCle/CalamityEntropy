@@ -47,14 +47,12 @@ namespace CalamityEntropy.Projectiles
             {
                 id = target.realLife;
             }
-            id.ToNPC().Entropy().ToFriendly = true;
-            id.ToNPC().Entropy().f_owner = Projectile.owner;
+            EGlobalNPC.setFriendly(id, Projectile.owner);
             foreach(NPC n in Main.npc)
             {
                 if(n.active && n.realLife == id)
                 {
-                    n.Entropy().ToFriendly = true;
-                    n.Entropy().f_owner = Projectile.owner;
+                    EGlobalNPC.setFriendly(n.whoAmI, Projectile.owner);
                 }
             }
         }

@@ -675,6 +675,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: Targeting Wand
 	}
+
+	DimensionKey: {
+		DisplayName: Dimension Key
+		Tooltip: ""
+	}
 }
 
 DeathMode: Death Mode

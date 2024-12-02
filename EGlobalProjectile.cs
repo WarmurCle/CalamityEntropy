@@ -67,6 +67,8 @@ namespace CalamityEntropy
             p.dmgupcount = dmgupcount;
             p.counter = counter;
             p.withGrav = withGrav;
+            p.ToFriendly = ToFriendly;
+            
             return p;
         }
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
@@ -82,6 +84,7 @@ namespace CalamityEntropy
             binaryWriter.Write(vdtype);
             binaryWriter.Write(vddirection);
             binaryWriter.Write(rpBow);
+            binaryWriter.Write(ToFriendly);
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
@@ -92,6 +95,7 @@ namespace CalamityEntropy
             vdtype = binaryReader.ReadInt32();
             vddirection = binaryReader.ReadInt32();
             rpBow = binaryReader.ReadBoolean();
+            ToFriendly = binaryReader.ReadBoolean();
         }
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
@@ -129,7 +133,10 @@ namespace CalamityEntropy
                     projectile.localNPCHitCooldown = 14;
                     projectile.friendly = true;
                     projectile.hostile = false;
-                    
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, projectile.whoAmI);
+                    }
                 }
             }
             if (projectile.friendly && projectile.owner != -1)
@@ -251,6 +258,13 @@ namespace CalamityEntropy
         public Vector2? plrOldVel = null;
         public override bool PreAI(Projectile projectile)
         {
+            if (ToFriendly)
+            {
+                projectile.usesLocalNPCImmunity = true;
+                projectile.localNPCHitCooldown = 14;
+                projectile.friendly = true;
+                projectile.hostile = false;
+            }
             if (dmgUpFrd && ToFriendly)
             {
                 dmgUpFrd = false;

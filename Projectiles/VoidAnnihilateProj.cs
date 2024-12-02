@@ -68,10 +68,11 @@ namespace CalamityEntropy.Projectiles
                             }
                         }
                     }
-                    if (Projectile.ai[0] > 0 && select == Projectile.whoAmI)
+                    if (Projectile.ai[0] > 0 && select == Projectile.whoAmI && !Main.LocalPlayer.HasBuff(BuffID.ChaosState))
                     {
                         if (MouseRight && !mprdLast) // && new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 1, 1).Intersects(Projectile.getRect())
                         {
+                            Main.LocalPlayer.AddBuff(BuffID.ChaosState, 300);
                             playerComeimg = true;
                             SoundEngine.PlaySound(new("CalamityEntropy/Sounds/teleport"), Projectile.Center);
                         }
