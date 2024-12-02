@@ -23,6 +23,7 @@ using CalamityMod.Tiles.Abyss.AbyssAmbient;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,6 +85,8 @@ namespace CalamityEntropy
         public int sCasketLevel = 0;
         public bool AWraith = false;
         public int SacredJudgeShields = 2;
+        public float screenShift = 0;
+        public Vector2 screenPos = Vector2.Zero;
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge 
         { 
@@ -225,7 +228,12 @@ namespace CalamityEntropy
         public int sJudgeCd = 30 * 60;
         public override void PreUpdate()
         {
-            if(immune > 0)
+            if (SubworldSystem.IsActive<DimDungeon.DimDungeon>())
+            {
+                crSky = 5;
+            }
+            screenShift = screenShift + (0 - screenShift) * 0.06f;
+            if (immune > 0)
             {
                 Player.immune = true;
                 Player.immuneTime = immune;
@@ -261,6 +269,10 @@ namespace CalamityEntropy
             if (llSky > 0)
             {
                 llSky--;
+            }
+            if(VFSet && !Player.controlLeft && !Player.controlRight)
+            {
+                Player.velocity.X *= 0.92f;
             }
 
         }
@@ -751,16 +763,10 @@ namespace CalamityEntropy
 
         public override void ModifyScreenPosition()
         {
-            foreach(NPC n in Main.npc)
-            {
-                if (n.active && n.ModNPC is AbyssalWraith aw)
-                {
-                    Main.screenPosition = Vector2.Lerp(Main.screenPosition, n.Center - Main.ScreenSize.ToVector2() / 2, aw.camLerp);
-                    break;
-                }
-            }
+            Main.screenPosition = Vector2.Lerp(Main.screenPosition, screenPos - Main.ScreenSize.ToVector2() / 2, screenShift);
+
             var shaker = Main.rand;
-            Main.screenPosition += new Vector2(shaker.Next(-CalamityEntropy.Instance.screenShakeAmp * 8, CalamityEntropy.Instance.screenShakeAmp * 8 + 1), shaker.Next(-CalamityEntropy.Instance.screenShakeAmp, CalamityEntropy.Instance.screenShakeAmp + 1));
+            Main.screenPosition += new Vector2(shaker.Next((int)-CalamityEntropy.Instance.screenShakeAmp * 8, (int)CalamityEntropy.Instance.screenShakeAmp * 8 + 1), shaker.Next((int)-CalamityEntropy.Instance.screenShakeAmp, (int)CalamityEntropy.Instance.screenShakeAmp + 1));
         
         }
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)

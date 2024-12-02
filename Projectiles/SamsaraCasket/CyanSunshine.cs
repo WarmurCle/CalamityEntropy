@@ -27,23 +27,32 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
         public int charge = 60;
         public List<Vector2> lightningPoints = new List<Vector2>();
         public float lightningWidth = 0;
+        public int impotence = 0;
         public override void AI()
         {
             if (lightningWidth > 0)
             {
                 lightningWidth -= 0.1f;
             }
-            if (light > 0)
+            if (impotence > 0)
             {
-                light -= 0.1f;
+                impotence--;
             }
-            if (xscale < 1)
+            else
             {
-                xscale += 0.1f;
-            }
-            if (light2 > 0)
-            {
-                light2 -= 1f / 60f;
+                
+                if (light > 0)
+                {
+                    light -= 0.1f;
+                }
+                if (xscale < 1)
+                {
+                    xscale += 0.1f;
+                }
+                if (light2 > 0)
+                {
+                    light2 -= 1f / 60f;
+                }
             }
             base.AI();
 
@@ -51,6 +60,13 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
         
         public override void attackAI(NPC t)
         {
+            if(impotence > 0)
+            {
+                Vector2 targetpos = t.Center + new Vector2(-160 - (t.width + t.height) / 4, -160 - (t.width + t.height) / 4);
+                Projectile.velocity *= 0.92f;
+                Projectile.velocity += (targetpos - Projectile.Center).SafeNormalize(Vector2.Zero) * 2f;
+                return;
+            }
             if(charge == 50)
             {
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/light_bolt_delayed"), Projectile.Center);
@@ -107,13 +123,21 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
                 lightningWidth = 1;
                 lightningPoints = Util.LightningGenerator.GenerateLightning(target.Center, target.Center + new Vector2(Main.rand.Next(-36, 37), Main.rand.Next(-160, -100) - t.height / 2), 9, 7);
                 Projectile.velocity *= 0;
-                
+                impotence = 100;
             }
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            if(impotence > 0)
+            {
+                return false;
+            }
+            return base.CanHitNPC(target);
         }
         public override bool PreDraw(ref Color lightColor)
         {
 
-            if (hideTime > 0)
+            if (hideTime > 0 || impotence > 0)
             {
                 return false;
             }
@@ -142,17 +166,17 @@ namespace CalamityEntropy.Projectiles.SamsaraCasket
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             tex = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/SamsaraCasket/csglow1").Value;
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(153, 200, 193) * light2, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale * new Vector2(1, xscale), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(153, 200, 193) * light2, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale * xscale, SpriteEffects.None, 0);
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             tex = TextureAssets.Projectile[Projectile.type].Value;
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Lerp(lightColor, Color.White, light2), Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale * new Vector2(1, xscale), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Lerp(lightColor, Color.White, light2), Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale * xscale, SpriteEffects.None, 0);
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             tex = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/SamsaraCasket/csglow").Value;
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White * light, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale * new Vector2(1, xscale), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White * light, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale * xscale, SpriteEffects.None, 0);
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

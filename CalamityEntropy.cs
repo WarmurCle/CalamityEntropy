@@ -52,6 +52,7 @@ using Terraria.UI;
 using CalamityMod.UI.CalamitasEnchants;
 using CalamityEntropy.ILEditing;
 using CalamityEntropy.BeesGame;
+using CalamityMod.NPCs.TownNPCs;
 namespace CalamityEntropy
 {
     
@@ -59,7 +60,8 @@ namespace CalamityEntropy
 	{
         public enum NetPackages : byte
         {
-            LotteryMachineRightClicked
+            LotteryMachineRightClicked,
+            TurnFriendly
         }
 		public static List<int> calDebuffIconDisplayList = new List<int>();
 		public static CalamityEntropy Instance;
@@ -70,7 +72,7 @@ namespace CalamityEntropy
         public RenderTarget2D screen = null;
         public RenderTarget2D screen2 = null;
         public RenderTarget2D screen3 = null;
-        public int screenShakeAmp = 0;
+        public float screenShakeAmp = 0;
         public float cvcount = 0;
         public Vector2 screensz = Vector2.Zero;
         public static bool ets = true;
@@ -80,7 +82,8 @@ namespace CalamityEntropy
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
-            if(reader.ReadByte() == (byte)NetPackages.LotteryMachineRightClicked)
+            byte type = reader.ReadByte();
+            if (type == (byte)NetPackages.LotteryMachineRightClicked)
             {
                 int plr = reader.ReadInt32();
                 int npc = reader.ReadInt32();
@@ -95,8 +98,23 @@ namespace CalamityEntropy
                         packet.Write(plr);
                         packet.Write(npc);
                         packet.Write(wai);
-                        packet.Send(ignoreClient: wai);
+                        packet.Send();
                     }
+                }
+            }
+            if (type == (byte)NetPackages.TurnFriendly)
+            {
+                int id = reader.ReadInt32();
+                int owner = reader.ReadInt32();
+                id.ToNPC().Entropy().ToFriendly = true;
+                id.ToNPC().Entropy().f_owner = owner;
+                if (Main.dedServ)
+                {
+                    ModPacket p = this.GetPacket();
+                    p.Write((byte)CalamityEntropy.NetPackages.TurnFriendly);
+                    p.Write(id);
+                    p.Write(owner);
+                    p.Send();
                 }
             }
         }
@@ -139,11 +157,151 @@ namespace CalamityEntropy
             On_Lighting.AddLight_Vector2_Vector3 += al_vv;
             On_Lighting.AddLight_Vector2_int += al_torch;
             On_Player.AddBuff += add_buff;
+            On_NPC.TargetClosest += targetClost;
+            On_NPC.TargetClosestUpgraded += targetClostUpgraded;
+            On_NPC.FindFrame += findFrame;
+            On_NPC.VanillaAI += vAi;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
         }
 
+        private void vAi(On_NPC.orig_VanillaAI orig, NPC self)
+        {
+            orig(self);
+        }
+
+        private void findFrame(On_NPC.orig_FindFrame orig, NPC self)
+        {
+            if (self.Entropy().ToFriendly)
+            {
+                self.target = 0;
+                NPC npc = self;
+                npc.boss = false;
+
+                npc.friendly = true;
+
+                NPC t = null;
+                float dist = 4600;
+                foreach (NPC n in Main.npc)
+                {
+                    if (n.active && !n.friendly && !n.dontTakeDamage)
+                    {
+                        if (Util.Util.getDistance(n.Center, npc.Center) < dist)
+                        {
+                            t = n;
+                            dist = Util.Util.getDistance(n.Center, npc.Center);
+                        }
+                    }
+                }
+                if (t == null)
+                {
+                    npc.Entropy().plrOldPos3 = Main.player[0].position;
+                    npc.Entropy().plrOldVel3 = Main.player[0].velocity;
+                    Main.player[0].Center = npc.Entropy().f_owner.ToPlayer().Center;
+                    Main.player[0].velocity = npc.Entropy().f_owner.ToPlayer().velocity;
+                }
+                else
+                {
+                    npc.Entropy().plrOldPos3 = Main.player[0].position;
+                    npc.Entropy().plrOldVel3 = Main.player[0].velocity;
+                    Main.player[0].Center = t.Center;
+                    Main.player[0].velocity = t.velocity;
+                }
+            }
+            orig(self);
+            if (self.Entropy().plrOldPos3.HasValue)
+            {
+                Main.player[0].position = self.Entropy().plrOldPos3.Value;
+                self.Entropy().plrOldPos3 = null;
+            }
+            if (self.Entropy().plrOldVel3.HasValue)
+            {
+                Main.player[0].velocity = self.Entropy().plrOldVel3.Value;
+                self.Entropy().plrOldVel3 = null;
+            }
+        }
+
+
+        private void targetClostUpgraded(On_NPC.orig_TargetClosestUpgraded orig, NPC self, bool faceTarget, Vector2? checkPosition)
+        {
+            orig(self, faceTarget, checkPosition);
+            if (self.Entropy().ToFriendly)
+            {
+                self.target = 0;
+                NPC npc = self;
+                npc.boss = false;
+
+                npc.friendly = true;
+
+                SetTargetTrackingValues(self, faceTarget, Util.Util.getDistance(self.Center, Main.player[0].Center), -1);
+            }
+        }
+
+        public static void SetTargetTrackingValues(NPC npc, bool faceTarget, float realDist, int tankTarget)
+        {
+            if (tankTarget >= 0)
+            {
+                npc.targetRect = new Rectangle((int)Main.projectile[tankTarget].position.X, (int)Main.projectile[tankTarget].position.Y, Main.projectile[tankTarget].width, Main.projectile[tankTarget].height);
+                npc.direction = 1;
+                if ((float)(npc.targetRect.X + npc.targetRect.Width / 2) < npc.position.X + (float)(npc.width / 2))
+                    npc.direction = -1;
+
+                npc.directionY = 1;
+                if ((float)(npc.targetRect.Y + npc.targetRect.Height / 2) < npc.position.Y + (float)(npc.height / 2))
+                    npc.directionY = -1;
+            }
+            else
+            {
+                if (npc.target < 0 || npc.target >= 255)
+                    npc.target = 0;
+
+                npc.targetRect = new Rectangle((int)Main.player[npc.target].position.X, (int)Main.player[npc.target].position.Y, Main.player[npc.target].width, Main.player[npc.target].height);
+                if (Main.player[npc.target].dead)
+                    faceTarget = false;
+
+                if (Main.player[npc.target].npcTypeNoAggro[npc.type] && npc.direction != 0)
+                    faceTarget = false;
+
+                if (faceTarget)
+                {
+                    _ = Main.player[npc.target].aggro;
+                    _ = (Main.player[npc.target].height + Main.player[npc.target].width + npc.height + npc.width) / 4;
+                    bool flag = npc.oldTarget >= 0 && npc.oldTarget <= 254;
+                    bool num = Main.player[npc.target].itemAnimation == 0 && Main.player[npc.target].aggro < 0;
+                    bool flag2 = !npc.boss;
+                    if (!(num && flag && flag2))
+                    {
+                        npc.direction = 1;
+                        if ((float)(npc.targetRect.X + npc.targetRect.Width / 2) < npc.position.X + (float)(npc.width / 2))
+                            npc.direction = -1;
+
+                        npc.directionY = 1;
+                        if ((float)(npc.targetRect.Y + npc.targetRect.Height / 2) < npc.position.Y + (float)(npc.height / 2))
+                            npc.directionY = -1;
+                    }
+                }
+            }
+
+            if (npc.confused)
+                npc.direction *= -1;
+
+            if ((npc.direction != npc.oldDirection || npc.directionY != npc.oldDirectionY || npc.target != npc.oldTarget) && !npc.collideX && !npc.collideY)
+                npc.netUpdate = true;
+        }
+        private void targetClost(On_NPC.orig_TargetClosest orig, NPC self, bool faceTarget)
+        {
+            orig(self, faceTarget);
+            if (self.Entropy().ToFriendly)
+            {
+                self.target = 0;
+                NPC npc = self;
+                npc.boss = false;
+
+                npc.friendly = true;
+                SetTargetTrackingValues(self, faceTarget, Util.Util.getDistance(self.Center, Main.player[0].Center), -1);
+            }
+        }
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
            if (Main.debuff[type])
@@ -267,7 +425,7 @@ namespace CalamityEntropy
         }
         private void ec(On_FilterManager.orig_EndCapture orig, FilterManager self, RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
         {
-
+            screenShakeAmp *= 0.9f;
             Texture2D dt;
             Texture2D dt2;
             Texture2D lb;
@@ -1024,6 +1182,11 @@ namespace CalamityEntropy
             On_Lighting.AddLight_Vector2_float_float_float -= al_vfff;
             On_Lighting.AddLight_Vector2_Vector3 -= al_vv;
             On_Lighting.AddLight_Vector2_int -= al_torch;
+            On_Player.AddBuff -= add_buff;
+            On_NPC.TargetClosest -= targetClost;
+            On_NPC.TargetClosestUpgraded -= targetClostUpgraded;
+            On_NPC.FindFrame -= findFrame;
+            On_NPC.VanillaAI -= vAi;
         }
 
     }

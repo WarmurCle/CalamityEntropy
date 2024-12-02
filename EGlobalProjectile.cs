@@ -6,6 +6,7 @@ using CalamityEntropy.Projectiles.SamsaraCasket;
 using CalamityEntropy.Projectiles.TwistedTwin;
 using CalamityEntropy.Projectiles.VoidEchoProj;
 using CalamityEntropy.Util;
+using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Magic;
@@ -51,6 +52,7 @@ namespace CalamityEntropy
         public bool GWBow = false;
         public int dmgupcount = 10;
         public int vddirection = 1;
+        public bool ToFriendly = false;
         public override GlobalProjectile Clone(Projectile from, Projectile to)
         {
             var p = to.Entropy();
@@ -65,6 +67,8 @@ namespace CalamityEntropy
             p.dmgupcount = dmgupcount;
             p.counter = counter;
             p.withGrav = withGrav;
+            p.ToFriendly = ToFriendly;
+            
             return p;
         }
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
@@ -80,6 +84,7 @@ namespace CalamityEntropy
             binaryWriter.Write(vdtype);
             binaryWriter.Write(vddirection);
             binaryWriter.Write(rpBow);
+            binaryWriter.Write(ToFriendly);
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
@@ -90,6 +95,7 @@ namespace CalamityEntropy
             vdtype = binaryReader.ReadInt32();
             vddirection = binaryReader.ReadInt32();
             rpBow = binaryReader.ReadBoolean();
+            ToFriendly = binaryReader.ReadBoolean();
         }
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
@@ -101,6 +107,7 @@ namespace CalamityEntropy
         }
         public bool netsnc = true;
         public static bool checkHoldOut = true;
+        public bool dmgUpFrd = true;
         
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
@@ -109,6 +116,27 @@ namespace CalamityEntropy
                 if (s.Entity is Player player)
                 {
                     projectile.velocity *= player.Entropy().shootSpeed;
+                }
+                if (s.Entity is NPC np)
+                {
+                    ToFriendly = np.Entropy().ToFriendly;
+                    
+                }
+                if (s.Entity is Projectile pj)
+                {
+                    ToFriendly = pj.Entropy().ToFriendly;
+                    
+                }
+                if (ToFriendly)
+                {
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 14;
+                    projectile.friendly = true;
+                    projectile.hostile = false;
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, projectile.whoAmI);
+                    }
                 }
             }
             if (projectile.friendly && projectile.owner != -1)
@@ -226,9 +254,49 @@ namespace CalamityEntropy
             }
             return base.CanHitPlayer(projectile, target);
         }
-
+        public Vector2? plrOldPos = null;
+        public Vector2? plrOldVel = null;
         public override bool PreAI(Projectile projectile)
         {
+            if (ToFriendly)
+            {
+                projectile.usesLocalNPCImmunity = true;
+                projectile.localNPCHitCooldown = 14;
+                projectile.friendly = true;
+                projectile.hostile = false;
+            }
+            if (dmgUpFrd && ToFriendly)
+            {
+                dmgUpFrd = false;
+                projectile.damage *= EGlobalNPC.TamedDmgMul;
+                projectile.originalDamage *= EGlobalNPC.TamedDmgMul;
+            }
+            if (ToFriendly)
+            {
+                NPC t = null;
+                float dist = 4600;
+                foreach (NPC n in Main.npc)
+                {
+                    if (n.active && !n.friendly && !n.dontTakeDamage)
+                    {
+                        if (Util.Util.getDistance(n.Center, projectile.Center) < dist)
+                        {
+                            t = n;
+                            dist = Util.Util.getDistance(n.Center, projectile.Center);
+                        }
+                    }
+                }
+                if (t == null)
+                {
+                }
+                else
+                {
+                    plrOldPos = Main.player[0].position;
+                    plrOldVel = Main.player[0].velocity;
+                    Main.player[0].Center = t.Center;
+                    Main.player[0].velocity = t.velocity;
+                }
+            }
             if (projectile.Entropy().vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
             {
                 projectile.hostile = false;
@@ -364,6 +432,16 @@ namespace CalamityEntropy
 
         public override void PostAI(Projectile projectile)
         {
+            if (plrOldPos.HasValue)
+            {
+                Main.player[0].position = plrOldPos.Value;
+                plrOldPos = null;
+            }
+            if (plrOldVel.HasValue)
+            {
+                Main.player[0].velocity = plrOldVel.Value;
+                plrOldVel = null;
+            }
             if (projectile.Entropy().OnProj >= 0)
             {
                 projectile.owner.ToPlayer().Center = playerPosL;
@@ -514,6 +592,27 @@ namespace CalamityEntropy
 
         public override void OnKill(Projectile projectile, int timeLeft)
         {
+            if (projectile.Entropy().OnProj >= 0)
+            {
+                projectile.owner.ToPlayer().Center = playerPosL;
+            }
+            else
+            {
+                if (projectile.owner == Main.myPlayer)
+                {
+                    ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
+                }
+            }
+            if (plrOldPos.HasValue)
+            {
+                Main.player[0].position = plrOldPos.Value;
+                plrOldPos = null;
+            }
+            if (plrOldVel.HasValue)
+            {
+                Main.player[0].velocity = plrOldVel.Value;
+                plrOldVel = null;
+            }
             if (vdtype == 4)
             {
                 for (int i = 0; i < 2; i++)

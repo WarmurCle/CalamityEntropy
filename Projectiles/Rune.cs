@@ -57,10 +57,10 @@ namespace CalamityEntropy.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D light = Util.Util.getExtraTex("lightball");
-            Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, Color.White * 0.6f * (0.5f + (float)(Math.Cos(Projectile.ai[0] * 0.5f) * 0.5f)), Projectile.rotation, light.Size() / 2, Projectile.scale * 0.8f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f * (0.5f + (float)(Math.Cos(Projectile.ai[0] * 0.5f) * 0.5f)), Projectile.rotation, light.Size() / 2, Projectile.scale * 0.8f, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

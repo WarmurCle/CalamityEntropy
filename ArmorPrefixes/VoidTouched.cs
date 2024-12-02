@@ -33,9 +33,5 @@ namespace CalamityEntropy.ArmorPrefixes
             return true;
         }
 
-        public override bool Precious()
-        {
-            return true;
-        }
     }
 }

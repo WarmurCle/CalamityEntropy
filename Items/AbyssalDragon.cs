@@ -21,6 +21,10 @@ namespace CalamityEntropy.Items
 {
     public class AbyssalDragon :ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Item.staff[Item.type] = true;
+        }
         public override void SetDefaults()
         {
             Item.width = 84;

@@ -16,6 +16,7 @@ using CalamityMod.NPCs.DevourerofGods;
 using System.Text;
 using Terraria.Localization;
 using Terraria.DataStructures;
+using CalamityMod.Events;
 namespace CalamityEntropy.Projectiles.Pets
 {
     public class LostSoulProj : ModProjectile
@@ -164,6 +165,12 @@ namespace CalamityEntropy.Projectiles.Pets
 
                     hasBoss = true;
                 }
+            }
+            if (BossRushEvent.BossRushActive)
+            {
+                hasBoss = false;
+                bosses.Clear();
+                needLoots.Clear();
             }
             if (hideVisualTime <= 0)
             {

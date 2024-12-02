@@ -167,6 +167,7 @@ namespace CalamityEntropy
 
         }
         public Vector2 LastPlayerPos;
+        public Vector2 LastPlayerVel;
         internal static int timer;
 
         public override void PreUpdateProjectiles()
@@ -177,8 +178,6 @@ namespace CalamityEntropy
                 LastPlayerPos = Main.LocalPlayer.Center;
             }
         }
-
-
 
         public override void PostUpdateProjectiles()
         {

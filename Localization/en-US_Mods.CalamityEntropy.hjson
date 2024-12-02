@@ -670,6 +670,16 @@ Items: {
 		Tooltip: ""
 		DisplayName: Silver Framed Glasses
 	}
+
+	TargetingWand: {
+		Tooltip: ""
+		DisplayName: Targeting Wand
+	}
+
+	DimensionKey: {
+		DisplayName: Dimension Key
+		Tooltip: ""
+	}
 }
 
 DeathMode: Death Mode
@@ -804,6 +814,7 @@ Projectiles: {
 	ZeratosBullet0.DisplayName: Zeratos Bullet
 	ZeratosFireball0.DisplayName: Zeratos Explode
 	SacrificalDagger.DisplayName: Sacrifical Dagger
+	TargetSetProj.DisplayName: Target Set Proj
 }
 
 LegendTooltip: - Legend -
