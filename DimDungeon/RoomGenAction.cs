@@ -1,4 +1,6 @@
-﻿namespace CalamityEntropy.DimDungeon;
+﻿using System.Collections.Generic;
+
+namespace CalamityEntropy.DimDungeon;
 
 public enum Direction
 {
@@ -10,14 +12,9 @@ public enum Direction
 
 public record RoomGenAction
 {
-    public Corridor Corridor { get; init; }
-    public Direction Direction { get; init; }
-    public Room NextRoom { get; init; }
-
-    public RoomGenAction(Corridor corridor, Direction direction, Room nextRoom)
+    public Room room;
+    public RoomGenAction(Room room)
     {
-        Corridor = corridor;
-        Direction = direction;
-        NextRoom = nextRoom;
+        this.room = room;
     }
 }

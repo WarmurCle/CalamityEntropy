@@ -1048,6 +1048,11 @@ Configs: {
 			Tooltip: ""
 			Label: 剑匣护甲穿透
 		}
+
+		DungeonMax: {
+			// Label: Dungeon Max
+			// Tooltip: ""
+		}
 	}
 }
 

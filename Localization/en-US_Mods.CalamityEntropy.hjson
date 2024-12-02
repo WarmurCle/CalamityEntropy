@@ -1033,6 +1033,11 @@ Configs: {
 			Tooltip: ""
 			Label: Caskek Armor Pen
 		}
+
+		DungeonMax: {
+			Label: Dungeon Max
+			Tooltip: ""
+		}
 	}
 }
 
