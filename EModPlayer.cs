@@ -228,10 +228,6 @@ namespace CalamityEntropy
         public int sJudgeCd = 30 * 60;
         public override void PreUpdate()
         {
-            if (SubworldSystem.IsActive<DimDungeon.DimDungeon>())
-            {
-                crSky = 5;
-            }
             screenShift = screenShift + (0 - screenShift) * 0.06f;
             if (immune > 0)
             {
