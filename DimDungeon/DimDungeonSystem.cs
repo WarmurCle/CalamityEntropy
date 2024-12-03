@@ -26,7 +26,11 @@ public class DimDungeonSystem : ModSystem
     public bool hasEnemyLast = false;
     public override void PostUpdatePlayers()
     {
-        if (rooms != null && SubworldSystem.IsActive<DimDungeonSubworld>())
+        if (!SubworldSystem.IsActive<DimDungeonSubworld>())
+        {
+            return;
+        }
+        if (rooms != null)
         {
             foreach (Room room in rooms)
             {
