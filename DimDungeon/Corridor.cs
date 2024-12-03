@@ -1,16 +1,20 @@
-﻿namespace CalamityEntropy.DimDungeon;
+﻿using Microsoft.Xna.Framework;
+
+namespace CalamityEntropy.DimDungeon;
 
 public class Corridor
 {
-    public int Width { get; set; }
-    public int Length { get; set; }
-    public Room NextRoom { get; init; }
-    public Direction Direction { get; init; }
-    public Corridor(int width, int length, Room nextRoom, Direction direction)
+    public CorridorMetadata Metadata { get; set; }
+    public Rectangle Bounds { get; set; }
+    public Direction Direction { get; set; }
+    
+    public Room RoomA { get; set; }
+    public Room RoomB { get; set; }
+
+    public Corridor(Rectangle bounds, Direction direction, CorridorMetadata metadata)
     {
-        Width = width;
-        Length = length;
-        NextRoom = nextRoom;
+        Bounds = bounds;
         Direction = direction;
+        Metadata = metadata;
     }
 }
