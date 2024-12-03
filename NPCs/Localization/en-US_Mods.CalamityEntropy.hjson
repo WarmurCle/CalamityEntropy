@@ -240,7 +240,7 @@ Items: {
 	}
 
 	DarkArts: {
-		Tooltip: ""
+		Tooltip: "[c/ff0000:This item is now WIP]"
 		DisplayName: Dark Arts
 	}
 
@@ -672,13 +672,13 @@ Items: {
 	}
 
 	TargetingWand: {
-		Tooltip: ""
+		Tooltip: "[c/ff0000:This item is now WIP]"
 		DisplayName: Targeting Wand
 	}
 
 	DimensionKey: {
 		DisplayName: Dimension Key
-		Tooltip: ""
+		Tooltip: "[c/ff0000:This item is now WIP]"
 	}
 }
 

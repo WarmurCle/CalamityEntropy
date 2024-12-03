@@ -693,7 +693,7 @@ Items: {
 
 	DimensionKey: {
 		// DisplayName: Dimension Key
-		// Tooltip: ""
+		// Tooltip: "[c/ff0000:This item is now WIP]"
 	}
 }
 

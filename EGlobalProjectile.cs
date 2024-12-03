@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Buffs;
+using CalamityEntropy.DimDungeon;
 using CalamityEntropy.Items;
 using CalamityEntropy.Projectiles;
 using CalamityEntropy.Projectiles.HBProj;
@@ -10,9 +11,11 @@ using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Magic;
+using CalamityMod.Projectiles.Melee;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
+using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -111,6 +114,10 @@ namespace CalamityEntropy
         
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            if(projectile.ModProjectile is CrystylCrusherRay && SubworldSystem.IsActive<DimDungeonSubworld>())
+            {
+                projectile.Kill();
+            }
             if (source is EntitySource_Parent s)
             {
                 if (s.Entity is Player player)

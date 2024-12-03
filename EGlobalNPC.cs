@@ -44,6 +44,8 @@ using CalamityEntropy.Items.Accessories.Cards;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityEntropy.Items.Accessories;
 using CalamityMod.NPCs.Ravager;
+using SubworldLibrary;
+using CalamityEntropy.DimDungeon;
 
 namespace CalamityEntropy
 {
@@ -98,7 +100,7 @@ namespace CalamityEntropy
         public static int TamedDmgMul = 16;
         public override bool CheckActive(NPC npc)
         {
-            return !ToFriendly;
+            return !ToFriendly && !SubworldSystem.IsActive<DimDungeonSubworld>();
         }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
