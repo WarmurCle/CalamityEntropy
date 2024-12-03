@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 
 namespace CalamityEntropy.DimDungeon;
 
 public class Room
 {
-    public int Width { get; set; }
-    public int Height { get; set; }
-    public List<Corridor> Corridor { get; init; }
+    public Rectangle Bounds { get; set; }
 
-    public Room(int width, int height, List<Corridor> corridors)
+    public Room()
     {
-        Width = width;
-        Height = height;
-        Corridor = corridors;
+        
+    }
+    
+    public Room(Rectangle bounds)
+    {
+        Bounds = bounds;
     }
 }

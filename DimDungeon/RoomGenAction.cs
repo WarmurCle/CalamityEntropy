@@ -12,9 +12,13 @@ public enum Direction
 
 public record RoomGenAction
 {
-    public Room room;
-    public RoomGenAction(Room room)
+    public Direction Direction { get; init; }
+    public CorridorMetadata Corridor { get; init; }
+    public RoomMetadata NextRoom { get; init; }
+    public RoomGenAction(CorridorMetadata corridor, Direction direction,  RoomMetadata nextRoom)
     {
-        this.room = room;
+        Direction = direction;
+        Corridor = corridor;
+        NextRoom = nextRoom;
     }
 }

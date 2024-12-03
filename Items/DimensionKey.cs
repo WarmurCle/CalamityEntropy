@@ -49,9 +49,9 @@ namespace CalamityEntropy.Items
         }
         public override bool? UseItem(Player player)
         {
-            if (!SubworldSystem.IsActive<DimDungeon.DimDungeon>())
+            if (!SubworldSystem.IsActive<DimDungeon.DimDungeonSubworld>())
             {
-                SubworldSystem.Enter<DimDungeon.DimDungeon>();
+                SubworldSystem.Enter<DimDungeon.DimDungeonSubworld>();
                 return true;
             }
             return false;
