@@ -74,12 +74,13 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
             NPCID.Sets.BossBestiaryPriority.Add(Type);
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
-                Scale = 0.65f,
-                PortraitScale = 0.7f,
-                CustomTexturePath = "CalamityEntropy/Extra/CruiserBes",
+                Scale = 0.3f,
+                PortraitScale = 0.4f,
+                CustomTexturePath = "CalamityEntropy/Extra/AWBes",
                 PortraitPositionXOverride = 0,
                 PortraitPositionYOverride = 0
             };
+
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
         }
@@ -90,9 +91,10 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                 new FlavorTextBestiaryInfoElement("Mods.CalamityEntropy.AbyssalWraithBestiary")
             });
         }
+        
         public override void SetDefaults()
         {
-
+            
             NPC.boss = true;
             NPC.width = 140;
             NPC.height = 140;

@@ -959,14 +959,16 @@ NPCs: {
 
 loreCruiser:
 	'''
-	The creature wandering in the void, patrolling its territory... 
-	now it's staring at you. It's not difficult for you to tear it apart.
+	This worm like giant creature once lived in the void,
+	Once the channel linking reality and the void is opened,
+	It's not difficult to tear you apart
 	'''
 loreCruiserEffect: Permanently increase the max life by 60 and increase the max mana by 100
 Keybinds.RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
 CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
-CruiserBestiary: 在神明吞噬者于各维度之间的穿梭中，不仅无尽虚空，还有其他虚空造物也被无意地制造了出来——然而，它们不像无尽虚空那般天赋异禀，究其只是一群无意识、试图吸收一切的愚昧之物罢了。但其中一个被人们称为巡游者的虚空生物，扭曲地模仿着神明吞噬者的体态，暗中跟随神明吞噬者，于其捕猎时快速偷走一块猎物的碎渣，吞噬并从中汲取力量；当噬神者欲来到下一个宇宙时，它也紧跟着噬神者进入它制造的虫洞。久而久之，巡游者在不被神明吞噬者发现（当然，神明吞噬者就算发现了也无意管辖）的情况下，一路毫不费力地走到了仅略弱于其仆从力量的程度，并凝结出了属于自己的装甲以保护自己的本体。只是它没意识到，没有战斗经验，即使有了力量也不足以成为一方强者——这也是它与神明吞噬者三哨卫最大差距。
+CruiserBestiary: The worm like creature living in the void has been completely eroded by the void. When its scales shatter, you will see its true form.
+AbyssalWraithBestiary: The false gods generated under distorted beliefs can burst out infinite void energy, but even such ultimate creatures are just the tip of the iceberg in the void.
 WorldGen.VoidOreSpawn: Void energy is emanating from the sky
 
 Tiles: {

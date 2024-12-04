@@ -14,11 +14,26 @@ using Terraria.DataStructures;
 using Terraria.Enums;
 using CalamityMod.Tiles;
 using CalamityEntropy.Items.Vanity;
+using SubworldLibrary;
+using CalamityEntropy.DimDungeon;
 
 namespace CalamityEntropy
 {
     public class EGlobalTile : GlobalTile
     {
+        public override bool CanExplode(int i, int j, int type)
+        {
+            return !SubworldSystem.IsActive<DimDungeonSubworld>();
+        }
+        public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
+        {
+            return !SubworldSystem.IsActive<DimDungeonSubworld>();
+        }
+        public override bool CanPlace(int i, int j, int type)
+        {
+            return !SubworldSystem.IsActive<DimDungeonSubworld>();
+        }
+
         public override void PlaceInWorld(int i, int j, int type, Item item)
         {
             if (type == ModContent.TileType<AuricToiletTile>())
