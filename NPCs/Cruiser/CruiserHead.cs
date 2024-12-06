@@ -433,7 +433,10 @@ namespace CalamityEntropy.NPCs.Cruiser
                     }
                 }
             }
-            Main.LocalPlayer.Entropy().crSky = 8;
+            if (!NPC.Entropy().ToFriendly)
+            {
+                Main.LocalPlayer.Entropy().crSky = 8;
+            }
             if (NPC.ai[0] > 10)
             {
                 Player player = Main.player[Main.myPlayer];

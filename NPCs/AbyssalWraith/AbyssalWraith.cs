@@ -170,7 +170,7 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
         {
             wingRotLeft *= 0.86f;
             wingRotRight *= 0.86f;
-            if (Util.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 8000)
+            if (Util.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 8000 && !NPC.Entropy().ToFriendly)
             {
                 Main.LocalPlayer.Entropy().AWraith = true;
             }
@@ -203,8 +203,10 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                     portalAlpha -= 0.05f;
                 }
             }
-            Main.LocalPlayer.Entropy().crSky = 10;
-            if (spawnAnm > 0)
+            if (!NPC.Entropy().ToFriendly)
+            {
+                Main.LocalPlayer.Entropy().crSky = 10;
+            }            if (spawnAnm > 0)
             {
                 NPC.dontTakeDamage = true;
                 spawnAnm -= 3;
@@ -309,6 +311,13 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                 {
                     Player target = NPC.target.ToPlayer();
                     escape = 0;
+                    if (NPC.Entropy().ToFriendly && NPC.Entropy().f_target == -1)
+                    {
+                        NPC.ai[2] = 0;
+                        NPC.ai[3] = 10;
+                        animation = 0;
+                        KeepDist(200, 400);
+                    }
                     if (NPC.ai[2] <= 0)
                     {
                         if (NPC.ai[3] > 0)
@@ -406,8 +415,8 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
                             
                             if (NPC.ai[2] > 12 && NPC.ai[2] < 50)
                             {
-                                int c = (int)((50 - NPC.ai[2]) / 1f);
-                                if (NPC.ai[2] % 8 == 0)
+                                int c = (int)((50 - NPC.ai[2]) / 2f);
+                                if (NPC.ai[2] % 9 == 0)
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
@@ -765,9 +774,14 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
             NPC.rotation = MathHelper.ToRadians(NPC.velocity.X * 1.4f);
         }
 
-        public void KeepDist(float dist)
+        public void KeepDist(float dist, float maxDist = -1)
         {
             Player target = NPC.target.ToPlayer();
+            if (maxDist >= 0 && Util.Util.getDistance(NPC.Center, target.Center) >= dist && Util.Util.getDistance(NPC.Center, target.Center) <= maxDist)
+            {
+                NPC.velocity *= 0.94f;
+                return;
+            }
             Vector2 pos = target.Center + (NPC.Center - target.Center).SafeNormalize(Vector2.One) * dist;
             NPC.velocity += (pos - NPC.Center).SafeNormalize(Vector2.Zero) * 1f;
             NPC.rotation = MathHelper.ToRadians(NPC.velocity.X * 1.4f);

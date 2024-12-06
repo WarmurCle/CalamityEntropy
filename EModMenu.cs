@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy
@@ -64,8 +66,9 @@ namespace CalamityEntropy
                 MenuParticle.particles.Add(particle);
                 particle.pos += particle.velocity * 2;
             }
-            if (Main.rand.NextBool(140))
+            if (Main.rand.NextBool(120))
             {
+                
                 LightningParticle.lightningParticles.Add(new LightningParticle());
             }
             foreach (MenuParticle p in MenuParticle.particles)
@@ -182,7 +185,7 @@ namespace CalamityEntropy
 
             float jd = 1;
             float lw = 2f * ((float)timeleft / 20f);
-            Color color = Color.Purple;
+            Color color = Color.White;
             for (int i = 1; i < points.Count; i++)
             {
                 Vector2 jv = points[i] - points[i - 1];
@@ -194,7 +197,6 @@ namespace CalamityEntropy
 
             jd = 1;
             lw = 2f * ((float)timeleft / 20f);
-            color = Color.White;
             for (int i = 1; i < points2.Count; i++)
             {
                 Vector2 jv = points2[i] - points2[i - 1];

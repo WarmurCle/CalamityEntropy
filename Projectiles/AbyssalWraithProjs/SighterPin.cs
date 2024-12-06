@@ -43,7 +43,7 @@ namespace CalamityEntropy.Projectiles.AbyssalWraithProjs
                 odp.RemoveAt(0);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Projectile.timeLeft % 6 == 0)
+            if (Projectile.timeLeft % 30 == 0)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

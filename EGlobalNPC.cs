@@ -61,6 +61,7 @@ namespace CalamityEntropy
         public bool daTarget = false;
         public bool ToFriendly = false;
         public int hitCd = 30;
+        public int f_target = -1;
         public Vector2? plrOldPos = null;
         public Vector2? plrOldVel = null;
         public Vector2? plrOldPos2 = null;
@@ -69,7 +70,7 @@ namespace CalamityEntropy
         public Vector2? plrOldVel3 = null;
         public override void PostAI(NPC npc)
         {
-
+            
             if (plrOldPos.HasValue)
             {
                 Main.player[0].position = plrOldPos.Value;
@@ -175,6 +176,7 @@ namespace CalamityEntropy
                 }
                 if (t == null)
                 {
+                    f_target = -1;
                     plrOldPos = Main.player[0].position;
                     plrOldVel = Main.player[0].velocity;
                     Main.player[0].Center = f_owner.ToPlayer().Center;
@@ -182,6 +184,7 @@ namespace CalamityEntropy
                 }
                 else
                 {
+                    f_target = t.whoAmI;
                     plrOldPos = Main.player[0].position;
                     plrOldVel = Main.player[0].velocity;
                     Main.player[0].Center = t.Center;

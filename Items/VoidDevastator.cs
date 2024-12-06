@@ -34,7 +34,7 @@ namespace CalamityEntropy.Items
 
         public override void AddRecipes()
         {
-			CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 12).AddIngredient(ModContent.ItemType<ArmoredShell>(), 1).AddIngredient(ModContent.ItemType<CoreofCalamity>(), 1).AddIngredient(ItemID.Celeb2, 15).AddTile(ModContent.TileType<CosmicAnvil>()).Register();
+			CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 12).AddIngredient(ModContent.ItemType<ArmoredShell>(), 3).AddIngredient(ModContent.ItemType<CoreofCalamity>(), 1).AddIngredient(ItemID.Celeb2, 1).AddTile(ModContent.TileType<CosmicAnvil>()).Register();
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -25,7 +25,7 @@ namespace CalamityEntropy.Projectiles
             Projectile.friendly = false;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 30;
+            Projectile.timeLeft = 20;
             Projectile.penetrate = -1;
         }
 
@@ -50,7 +50,7 @@ namespace CalamityEntropy.Projectiles
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Extra/impact").Value;
-            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * ((float)Projectile.timeLeft / 20f), Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, ((float)(60 - Projectile.timeLeft)) / 160f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * ((float)Projectile.timeLeft / 20f), Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, ((float)(40 - Projectile.timeLeft)) / 160f, SpriteEffects.None, 0);
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

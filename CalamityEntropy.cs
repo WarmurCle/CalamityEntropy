@@ -380,8 +380,7 @@ namespace CalamityEntropy
                         Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                         {
                             Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/BCL/Cruiser").Value;
-                            Vector2 centered = new Vector2(rect.Center.X - (texture.Width / 2), rect.Center.Y - (texture.Height / 2));
-                            sb.Draw(texture, centered, color);
+                            sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.7f, SpriteEffects.None, 0);
                         };
                         Func<bool> cruiser = () => EDownedBosses.downedCruiser;
                         AddBoss(bossChecklist, CalamityEntropy.Instance, entryName, 21.7f, cruiser, segments, new Dictionary<string, object>()
