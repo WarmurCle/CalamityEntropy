@@ -773,7 +773,6 @@ namespace CalamityEntropy.NPCs.AbyssalWraith
             NPC.velocity *= 0.9f;
             NPC.rotation = MathHelper.ToRadians(NPC.velocity.X * 1.4f);
         }
-
         public void KeepDist(float dist, float maxDist = -1)
         {
             Player target = NPC.target.ToPlayer();
