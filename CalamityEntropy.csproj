@@ -41,9 +41,6 @@
 	    <HintPath>..\ModAssemblies\SubworldLibrary.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="NPCs\VoidInvasion\" />
-	</ItemGroup>
 
 	<!-- References -->
 

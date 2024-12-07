@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Runtime.Intrinsics.Arm;
 using NATUPNPLib;
 using System.Linq;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Util
 {
@@ -20,7 +21,7 @@ namespace CalamityEntropy.Util
         {
             for(int i = 1; i < points.Count; i++)
             {
-                drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value, points[i - 1], points[i], color, width, 2, true);
+                drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, points[i - 1], points[i], color, width, 2, true);
             }
         }
         public static void DrawRectAlt(Rectangle rect, Color color, float width, int num = 16)
@@ -102,7 +103,7 @@ namespace CalamityEntropy.Util
         }
         public static Texture2D getExtraTex(string name)
         {
-            return ModContent.Request<Texture2D>("CalamityEntropy/Extra/" + name).Value;
+            return ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/" + name).Value;
         }
         public static Rectangle GetCutTexRect(Texture2D tex, int count, int index)
         {

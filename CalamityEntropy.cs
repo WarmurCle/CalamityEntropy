@@ -11,14 +11,9 @@ using System.Collections.Generic;
 using Terraria.Graphics.Effects;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
-using CalamityEntropy.Projectiles;
 using Terraria.DataStructures;
 using System.IO;
 using Microsoft.CodeAnalysis;
-using CalamityEntropy.NPCs;
-using CalamityEntropy.NPCs.Cruiser;
-using CalamityEntropy.Buffs;
-using CalamityEntropy.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Armor.Vanity;
 using CalamityMod.Items.LoreItems;
@@ -28,30 +23,36 @@ using CalamityMod.Items.SummonItems;
 using CalamityMod.NPCs.DesertScourge;
 using Terraria.Localization;
 using CalamityMod.UI;
-using CalamityEntropy.Projectiles.Cruiser;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Terraria.GameContent.Bestiary;
 using CalamityMod.Items.TreasureBags;
-using CalamityEntropy.Items.Accessories;
-using CalamityEntropy.Projectiles.Pets.Abyss;
-using CalamityEntropy.Items.Pets;
 using CalamityMod.Skies;
 using System.Runtime.Intrinsics.Arm;
 using Microsoft.CodeAnalysis.FlowAnalysis;
 using Terraria.GameContent;
 using CalamityMod.Projectiles.Melee;
-using CalamityEntropy.Items.Accessories.Cards;
 using CalamityMod.Events;
 using Terraria.WorldBuilding;
 using System.Threading;
 using Steamworks;
-using CalamityEntropy.NPCs.AbyssalWraith;
-using CalamityEntropy.Projectiles.AbyssalWraithProjs;
-using CalamityEntropy.UI;
 using Terraria.UI;
 using CalamityMod.UI.CalamitasEnchants;
-using CalamityEntropy.ILEditing;
-using CalamityEntropy.BeesGame;
+using CalamityEntropy.Common;
+using CalamityEntropy.Content.BeesGame;
+using CalamityEntropy.Content.ILEditing;
+using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Pets;
+using CalamityEntropy.Content.NPCs;
+using CalamityEntropy.Content.NPCs.AbyssalWraith;
+using CalamityEntropy.Content.NPCs.Cruiser;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
+using CalamityEntropy.Content.Projectiles.Cruiser;
+using CalamityEntropy.Content.Projectiles.Pets.Abyss;
+using CalamityEntropy.Content.Skies;
+using CalamityEntropy.Content.UI;
 using CalamityMod.NPCs.TownNPCs;
 namespace CalamityEntropy
 {
@@ -128,14 +129,14 @@ namespace CalamityEntropy
             userInterface.SetState(armorForgingStationUI);
             EnchantmentManager.ItemUpgradeRelationship[ModContent.ItemType<VoidEcho>()] = ModContent.ItemType<Mercy>();
             ets = true;
-            kscreen = ModContent.Request<Effect>("CalamityEntropy/Effects/kscreen", AssetRequestMode.ImmediateLoad).Value;
-            kscreen2 = ModContent.Request<Effect>("CalamityEntropy/Effects/kscreen2", AssetRequestMode.ImmediateLoad).Value;
-            cve = ModContent.Request<Effect>("CalamityEntropy/Effects/cvoid", AssetRequestMode.ImmediateLoad).Value;
-            cve2 = ModContent.Request<Effect>("CalamityEntropy/Effects/cvoid2", AssetRequestMode.ImmediateLoad).Value;
+            kscreen = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/kscreen", AssetRequestMode.ImmediateLoad).Value;
+            kscreen2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/kscreen2", AssetRequestMode.ImmediateLoad).Value;
+            cve = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid", AssetRequestMode.ImmediateLoad).Value;
+            cve2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid2", AssetRequestMode.ImmediateLoad).Value;
             pixel = Util.Util.getExtraTex("white");
             for (int i = 0; i < 10; i++)
 			{
-                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/VoidBlade/f" + i.ToString()).Value;
+                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidBlade/f" + i.ToString()).Value;
             }
             Instance = this;
             AbyssalWraith.loadHead();
@@ -379,7 +380,7 @@ namespace CalamityEntropy
                         List<int> collection = new List<int>() { ModContent.ItemType<CruiserBag>(), ModContent.ItemType<CruiserTrophy>(), ModContent.ItemType<VoidScales>(), ModContent.ItemType<VoidMonolith>(), ModContent.ItemType<CruiserRelic>(), ModContent.ItemType<VoidRelics>(), ModContent.ItemType<PhantomPlanetKillerEngine>(), ModContent.ItemType<VoidAnnihilate>(), ModContent.ItemType<VoidElytra>(), ModContent.ItemType<VoidEcho>(), ModContent.ItemType<Silence>(), ModContent.ItemType<RuneSong>(), ModContent.ItemType<WingsOfHush>(), ModContent.ItemType<VoidToy>(), ModContent.ItemType<TheocracyPearlToy>() };
                         Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                         {
-                            Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/BCL/Cruiser").Value;
+                            Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Cruiser").Value;
                             sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.7f, SpriteEffects.None, 0);
                         };
                         Func<bool> cruiser = () => EDownedBosses.downedCruiser;
@@ -418,7 +419,7 @@ namespace CalamityEntropy
             List<Vector2> points = rope.GetPoints();
             points.Add(Main.MouseWorld);
             for (int i = 1; i < points.Count; i++) {
-                Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value;
+                Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
                 Util.Util.drawLine(Main.spriteBatch, t, points[i - 1], points[i], Color.White, 8);
             }
         }
@@ -428,9 +429,9 @@ namespace CalamityEntropy
             Texture2D dt;
             Texture2D dt2;
             Texture2D lb;
-            dt = ModContent.Request<Texture2D>("CalamityEntropy/Extra/cvmask").Value;
-            dt2 = ModContent.Request<Texture2D>("CalamityEntropy/Extra/cvmask2").Value;
-            lb = ModContent.Request<Texture2D>("CalamityEntropy/Extra/lightball").Value;
+            dt = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cvmask").Value;
+            dt2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cvmask2").Value;
+            lb = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightball").Value;
             checkProj.Clear();
             checkNPC.Clear();
             foreach (Projectile p in Main.projectile)
@@ -537,7 +538,7 @@ namespace CalamityEntropy
                     }
                     if (p.ModProjectile is CruiserSlash)
                     {
-                        Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/CruiserSlash").Value;
+                        Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/CruiserSlash").Value;
 
                         if (((CruiserSlash)p.ModProjectile).ct > 60)
                         {
@@ -552,7 +553,7 @@ namespace CalamityEntropy
 
                     if (p.ModProjectile is CruiserBlackholeBullet || p.ModProjectile is VoidBullet)
                     {
-                        Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/Cruiser/CruiserBlackholeBullet").Value;
+                        Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/CruiserBlackholeBullet").Value;
                         Main.spriteBatch.Draw(tx, p.Center - Main.screenPosition, null, Color.White, p.rotation, new Vector2(tx.Width, tx.Height) / 2, p.scale, SpriteEffects.None, 0);
                     }
                     if (p.ModProjectile is VoidMonster vmnpc)
@@ -570,7 +571,7 @@ namespace CalamityEntropy
                     
                     if (n.type == ModContent.NPCType<CruiserHead>() && n.active && ((CruiserHead)n.ModNPC).phaseTrans > 120 && n.ai[0] > 1)
                     {
-                        Texture2D disTex = ModContent.Request<Texture2D>("CalamityEntropy/Extra/cruiserSpace2").Value;
+                        Texture2D disTex = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cruiserSpace2").Value;
                         Vector2 ddp = (n.Center + ((CruiserHead)n.ModNPC).bodies[((CruiserHead)n.ModNPC).bodies.Count - 1]) / 2;
                         if (((CruiserHead)n.ModNPC).aitype == 4)
                         {
@@ -635,16 +636,16 @@ namespace CalamityEntropy
                 cve.CurrentTechnique = cve.Techniques["Technique1"];
                 cve.CurrentTechnique.Passes[0].Apply();
                 cve.Parameters["tex0"].SetValue(screen3);
-                Texture2D backg = ModContent.Request<Texture2D>("CalamityEntropy/Extra/planetarium_blue_base").Value;//ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg").Value;
+                Texture2D backg = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_blue_base").Value;//ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg").Value;
                 /*cve.Parameters["tex1"].SetValue(backg);
                 cve.Parameters["tex2"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg1").Value);
                 cve.Parameters["tex3"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg2").Value);*/
                 cve.Parameters["tex1"].SetValue(backg);
-                cve.Parameters["tex2"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/planetarium_starfield_1").Value);
-                cve.Parameters["tex3"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/planetarium_starfield_2").Value);
-                cve.Parameters["tex4"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/planetarium_starfield_3").Value);
-                cve.Parameters["tex5"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/planetarium_starfield_4").Value);
-                cve.Parameters["tex6"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/planetarium_starfield_5").Value);
+                cve.Parameters["tex2"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_starfield_1").Value);
+                cve.Parameters["tex3"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_starfield_2").Value);
+                cve.Parameters["tex4"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_starfield_3").Value);
+                cve.Parameters["tex5"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_starfield_4").Value);
+                cve.Parameters["tex6"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_starfield_5").Value);
                 cve.Parameters["time"].SetValue((float)cvcount / 50f);
                 cve.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
                 cve.Parameters["offset"].SetValue((Main.screenPosition * Main.GameViewMatrix.Zoom + new Vector2(-cvcount / 6f, cvcount / 6f)) / Main.ScreenSize.ToVector2());
@@ -652,7 +653,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.End();
 
 
-                //2ºÅshader
+                //2ï¿½ï¿½shader
                 graphicsDevice.SetRenderTarget(screen);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -663,7 +664,7 @@ namespace CalamityEntropy
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                //»æÖÆ
+                //ï¿½ï¿½ï¿½ï¿½
                 
                 foreach (Projectile p in checkProj)
                 {
@@ -701,9 +702,9 @@ namespace CalamityEntropy
                                   new Vector3((float)0, 0, 1),
                                   b));*/
                             GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                            if (ve.Count >= 3)//ÒòÎª¶¥µãÐèÒªÎ§³ÉÒ»¸öÈý½ÇÐÎ²ÅÄÜ»­³öÀ´ ËùÒÔÐèÒªÅÐ¶¥µãÊý>=3 ·ñÔò±¨´í
+                            if (ve.Count >= 3)//ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÎ§ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½>=3 ï¿½ï¿½ï¿½ò±¨´ï¿½
                             {
-                                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Extra/wohslash").Value;
+                                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
                                 gd.Textures[0] = tx;
                                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                             }
@@ -767,7 +768,7 @@ namespace CalamityEntropy
                                     Color cl = new Color(100, 200, 255);
                                     for (int i = mp.odp.Count - 1; i >= 1; i--)
                                     {
-                                        Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((float)i / (float)mp.odp.Count) * (((float)(255 - p.alpha)) / 255f), size);
+                                        Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((float)i / (float)mp.odp.Count) * (((float)(255 - p.alpha)) / 255f), size);
                                         size -= sizej;
                                     }
                                 }
@@ -786,7 +787,7 @@ namespace CalamityEntropy
                                 Color cl = new Color(100, 200, 255);
                                 for (int i = mp.odp.Count - 1; i >= 1; i--)
                                 {
-                                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((float)i / (float)mp.odp.Count) * (((float)(255 - p.alpha)) / 255f), size);
+                                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((float)i / (float)mp.odp.Count) * (((float)(255 - p.alpha)) / 255f), size);
                                     size -= sizej;
                                 }
                             }
@@ -872,7 +873,7 @@ namespace CalamityEntropy
                 cve2.CurrentTechnique = cve2.Techniques["Technique1"];
                 cve2.CurrentTechnique.Passes[0].Apply();
                 cve2.Parameters["tex0"].SetValue(Main.screenTargetSwap);
-                cve2.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/VoidBack").Value);
+                cve2.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/VoidBack").Value);
                 cve2.Parameters["time"].SetValue((float)cvcount / 50f);
                 cve2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(cvcount * 1.4f, cvcount * 1.4f)) / new Vector2(1920, 1080));
                 Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
@@ -907,7 +908,7 @@ namespace CalamityEntropy
                             for (int i = 1; i < player.Entropy().daPoints.Count; i++)
                             {
 
-                                Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value, player.Entropy().daPoints[i - 1], player.Entropy().daPoints[i], color * 0.6f, 12 * sc, 0);
+                                Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, player.Entropy().daPoints[i - 1], player.Entropy().daPoints[i], color * 0.6f, 12 * sc, 0);
                                 sc += scj;
                             }
                         }
@@ -949,7 +950,7 @@ namespace CalamityEntropy
                     }
                     if (p.ModProjectile is VoidStar || p.ModProjectile is VoidStarF)
                     {
-                        Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Projectiles/Cruiser/VoidStar").Value;
+                        Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar").Value;
 
                         Main.spriteBatch.Draw(t, p.Center - Main.screenPosition, null, Color.White * (((float)(255 - p.alpha)) / 255f), p.rotation, t.Size() / 2, p.scale, SpriteEffects.None, 0);
 
@@ -982,9 +983,9 @@ namespace CalamityEntropy
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Texture2D kt = ModContent.Request<Texture2D>("CalamityEntropy/Extra/ksc1").Value;
-                Texture2D kt2 = ModContent.Request<Texture2D>("CalamityEntropy/Extra/kscc").Value;
-                Texture2D st = ModContent.Request<Texture2D>("CalamityEntropy/Extra/kslash").Value;
+                Texture2D kt = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/ksc1").Value;
+                Texture2D kt2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/kscc").Value;
+                Texture2D st = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/kslash").Value;
 
                 foreach (Projectile p in checkProj)
                 {
