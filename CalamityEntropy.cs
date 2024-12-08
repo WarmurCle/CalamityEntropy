@@ -66,6 +66,7 @@ namespace CalamityEntropy
         }
 		public static List<int> calDebuffIconDisplayList = new List<int>();
 		public static CalamityEntropy Instance;
+        public static int noMusTime = 0;
         public static Effect kscreen;
         public static Effect kscreen2;
         public static Effect cve;
