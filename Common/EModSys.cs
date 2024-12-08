@@ -43,6 +43,17 @@ namespace CalamityEntropy.Common
         public override void PostUpdatePlayers()
         {
             
+            if(CalamityEntropy.noMusTime > 0)
+            {
+                CalamityEntropy.noMusTime--;
+                Main.curMusic = 0;
+                Main.newMusic = 0;
+                for(int i = 0; i < Main.maxMusic; i++)
+                {
+                    Main.musicFade[i] = 0;
+                }
+            }
+
             bool rCtrl = Keyboard.GetState().IsKeyDown(Keys.RightControl);
             if(!rCtrlLast && rCtrl)
             {
