@@ -166,14 +166,14 @@ namespace CalamityEntropy.Content.Projectiles
         public bool eff = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Color.Aqua, new Vector2(2f, 2f), 0, 0.1f, (Projectile.Calamity().stealthStrike ? 2 : 1) * 0.85f, (Projectile.Calamity().stealthStrike ? 46 : 36));
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Color.Purple, new Vector2(2f, 2f), 0, 0.1f, (Projectile.Calamity().stealthStrike ? 2 : 1) * 0.85f, (Projectile.Calamity().stealthStrike ? 46 : 36));
             GeneralParticleHandler.SpawnParticle(pulse);
             if (Projectile.Calamity().stealthStrike && Main.myPlayer == Projectile.owner && eff)
             {
                 eff = false;
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center   , Vector2.Zero, ModContent.ProjectileType<VoidRExp>(), 0, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidRExp>(), 0, 0, Projectile.owner);
             }
-            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, Color.Magenta, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, (Projectile.Calamity().stealthStrike ? 2.2f : 1) * 0.65f, (Projectile.Calamity().stealthStrike ? 30 : 26));
+            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, Color.Purple, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, (Projectile.Calamity().stealthStrike ? 2.2f : 1) * 0.65f, (Projectile.Calamity().stealthStrike ? 30 : 26));
             GeneralParticleHandler.SpawnParticle(explosion2);
             EGlobalNPC.AddVoidTouch(target, Projectile.Calamity().stealthStrike ? 360 : 100, Projectile.Calamity().stealthStrike ? 5 : 2, 800, 10);
             float sparkCount = Projectile.Calamity().stealthStrike ? 26 : 16;

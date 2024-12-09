@@ -54,6 +54,9 @@ using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
 using CalamityMod.NPCs.TownNPCs;
+using CalamityEntropy.Content.Projectiles.SamsaraCasket;
+using CalamityEntropy.Content.Projectiles.TwistedTwin;
+using Microsoft.Build.Evaluation;
 namespace CalamityEntropy
 {
     
@@ -333,13 +336,13 @@ namespace CalamityEntropy
         public static bool BrilEnable
         {
             get
-            { return Main.LocalPlayer.Entropy().brillianceCard > 0; }
+            { if (Main.gameMenu) { return false; } return Main.LocalPlayer.Entropy().brillianceCard > 0; }
             set
-            { if (value) { Main.LocalPlayer.Entropy().brillianceCard = 3; } else { Main.LocalPlayer.Entropy().brillianceCard = 0; } }
+            { if (Main.gameMenu) { return; } if (value) { Main.LocalPlayer.Entropy().brillianceCard = 3; } else { Main.LocalPlayer.Entropy().brillianceCard = 0; } }
         }
         public static float BrillianceCardValue = 1.5f;
         public static float OracleDeskBrilValue = 2f;
-        public static float brillianceLightMulti { get { if (Main.LocalPlayer.Entropy().oracleDeck) { return OracleDeskBrilValue; }  else if (BrilEnable) { return BrillianceCardValue; } else { return 1; } } }
+        public static float brillianceLightMulti { get { if (Main.gameMenu) { return 1; } if (Main.LocalPlayer.Entropy().oracleDeck) { return OracleDeskBrilValue; }  else if (BrilEnable) { return BrillianceCardValue; } else { return 1; } } }
 
         private void al_vv(On_Lighting.orig_AddLight_Vector2_Vector3 orig, Vector2 position, Vector3 rgb)
         {
@@ -363,11 +366,60 @@ namespace CalamityEntropy
             orig(i, j, torchID, lightAmount * brillianceLightMulti);
         }
 
+        public override object Call(params object[] args)
+        {
+            if(args.Length > 0)
+            {
+                if (args[0] is string str)
+                {
+                    if (str.Equals("SetTTHoldoutCheck"))
+                    {
+                        EGlobalProjectile.checkHoldOut = (bool)args[1];
+                    }
+                    if (str.Equals("GetTTHoldoutCheck"))
+                    {
+                        return EGlobalProjectile.checkHoldOut;
+                    }
+                    if (str.Equals("CopyProjForTTwin"))
+                    {
+                        Projectile projectile = ((int)args[1]).ToProj();
+                        EGlobalProjectile.checkHoldOut = false;
+                        foreach (Projectile p in Main.projectile)
+                        {
+                            if (p.active && p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.owner == Main.myPlayer)
+                            {
+
+                                int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                                Projectile ph = phd.ToProj();
+                                ph.scale *= 0.8f;
+                                ph.Entropy().OnProj = p.whoAmI;
+                                ph.Entropy().ttindex = p.whoAmI;
+                                ph.netUpdate = true;
+                                Projectile projts = ph;
+                                ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);
+                                if (!projts.usesLocalNPCImmunity)
+                                {
+                                    projts.usesLocalNPCImmunity = true;
+                                    projts.localNPCHitCooldown = 12;
+                                }
+                            }
+                        }
+                        EGlobalProjectile.checkHoldOut = true;
+                    }
+                }
+            }
+            return null;
+        }
         private static void AddBoss(Mod bossChecklist, Mod hostMod, string name, float difficulty, Func<bool> downed, object npcTypes, Dictionary<string, object> extraInfo)
             => bossChecklist.Call("LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
         public override void PostSetupContent()
         {
-            
+            if(ModLoader.TryGetMod("IsaacMod", out Mod isaac))
+            {
+                isaac.Call("HeldProj", ModContent.ProjectileType<RailPulseBowProjectile>());
+                isaac.Call("HeldProj", ModContent.ProjectileType<GhostdomWhisperHoldout>());
+                isaac.Call("HeldProj", ModContent.ProjectileType<SamsaraCasketProj>());
+            }
             //TextureAssets.Projectile[ModContent.ProjectileType<MurasamaSlash>()] = ModContent.Request<Texture2D>("CalamityEntropy/Extra/Voidsama");
             Mod bossChecklist;
             if (ModLoader.TryGetMod("BossChecklist", out bossChecklist))

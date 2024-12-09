@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
 using CalamityEntropy.Util;
 using CalamityMod.Items.Potions;
+using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
@@ -165,6 +166,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public int deathCount = -60;
         public float alphaPor = 1;
         public float portalAlpha = 0;
+        public Color[] pixelData = null;
         public override void AI()
         {
             wingRotLeft *= 0.86f;
@@ -232,6 +234,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                     }
                 }
             }
+            Texture2D deathTex = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/AbyssalWraith/AWDeath").Value;
             if (deathAnm)
             {
                 lbsize += lbj;
@@ -243,14 +246,67 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                 deathCount++;
                 animation = 0;
                 wingFrame = 0;
-                if (1 - ((float)deathCount * 1.4f) / 255f <= 0)
+                
+                if (pixelData == null)
+                {
+                    pixelData = new Color[deathTex.Width * deathTex.Height];
+
+                    deathTex.GetData(pixelData);
+                }
+                if (deathPer >= 1)
                 {
                     NPC.StrikeInstantKill();
                 }
                 else
                 {
-                    Main.dust[Dust.NewDust(NPC.Center - new Vector2(40, 40), 80, 80, ModContent.DustType<AwDeath>())].alpha = (int)((float)deathCount * 1.4f);
+                    if (pixelData.Length > 1)
+                    {
+                        Color GetPixelColor(Texture2D texture, Color[] pixelData, int x, int y)
+                        {
+                            // 获取纹理的宽度和高度
+                            int width = texture.Width;
+                            int height = texture.Height;
 
+                            // 确保x和y在纹理的有效范围内
+                            if (x < 0 || x >= width || y < 0 || y >= height || y * width + x >= pixelData.Length)
+                                throw new ArgumentOutOfRangeException("x or y is out of bounds of the texture:" + x.ToString() + "," + y.ToString() + "/" + pixelData.Length.ToString());
+
+                            // 创建一个颜色数组来存储纹理的所有像素
+
+
+                            // 计算指定像素的索引
+                            int index = y * width + x;
+
+                            // 返回指定位置的颜色
+                            return pixelData[index];
+                        }
+                        deathPer += 0.005f;
+                        if (deathPer > 1)
+                        {
+                            deathPer = 1;
+                        }
+                        if (deathPer < 1)
+                        {
+                            for (int i = 0; i < deathTex.Width; i += 6)
+                            {
+                                if (i >= deathTex.Width)
+                                {
+                                    continue;
+                                }
+                                if (GetPixelColor(deathTex, pixelData, i, (int)(deathTex.Height * deathPer)).A != 0)
+                                {
+                                    Dust.NewDust(NPC.Center + (-deathTex.Size() / 2 + new Vector2(i, (deathTex.Height * deathPer))) * NPC.scale, 1, 1, ModContent.DustType<AwDeath>());
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        pixelData = new Color[deathTex.Width * deathTex.Height];
+
+                        deathTex.GetData(pixelData);
+                    }
+                    
                 }
                 Stand();
                 return;
@@ -841,7 +897,10 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                         
                     }
                     anmlerp = anmlerp + (10 - anmlerp) * 0.01f;
-                    alpha -= ((float)deathCount * 1.4f) / 255f;
+                    Texture2D deathTex = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/AbyssalWraith/AWDeath").Value;
+
+                    sb.Draw(deathTex, NPC.Center - Main.screenPosition + new Vector2(0, deathTex.Height / 2 * deathPer), new Rectangle(0, (int)(deathTex.Height * deathPer), deathTex.Width, (int)(deathTex.Height * (1 - deathPer))), Color.White, 0, new Vector2(deathTex.Width / 2, deathTex.Height * (1 - deathPer) / 2), NPC.scale, SpriteEffects.None, 0);
+                    return;
                 }
                 else
                 {
@@ -956,13 +1015,14 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         }
         public float lbsize = 0;
         public float lbj = 0;
+        public float deathPer = 0;
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             return !deathAnm;
         }
         public override bool CheckDead()
         {
-            if (1 - ((float)deathCount * 1.4f) / 255f <= 0)
+            if (deathPer >= 1)
             {
                 return true;
             }

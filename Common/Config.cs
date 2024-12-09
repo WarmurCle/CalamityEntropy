@@ -31,8 +31,6 @@ namespace CalamityEntropy.Common
         [DefaultValue(true)]
         public bool ChainsawShakeScreen { get; set; }
 
-        [DefaultValue(16)]
-        public int DungeonMax {  get; set; }
 
     }
 }
