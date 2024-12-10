@@ -695,6 +695,11 @@ Items: {
 		// DisplayName: Dimension Key
 		// Tooltip: "[c/ff0000:This item is now WIP]"
 	}
+
+	UhrwerkHammer: {
+		DisplayName: 核心熔解
+		Tooltip: "哪个傻波一画的这玩意啊"
+	}
 }
 
 DeathMode: 死亡模式
@@ -830,6 +835,7 @@ Projectiles: {
 	ZeratosFireball0.DisplayName: 龙魂爆炸
 	SacrificalDagger.DisplayName: 献祭匕首
 	// TargetSetProj.DisplayName: Target Set Proj
+	// UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
 }
 
 LegendTooltip: - 传奇物品 -

@@ -680,6 +680,11 @@ Items: {
 		DisplayName: Dimension Key
 		Tooltip: "[c/ff0000:This item is now WIP]"
 	}
+
+	UhrwerkHammer: {
+		DisplayName: Kernschmelze
+		Tooltip: ""
+	}
 }
 
 DeathMode: Death Mode
@@ -815,6 +820,7 @@ Projectiles: {
 	ZeratosFireball0.DisplayName: Zeratos Explode
 	SacrificalDagger.DisplayName: Sacrifical Dagger
 	TargetSetProj.DisplayName: Target Set Proj
+	UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
 }
 
 LegendTooltip: - Legend -
