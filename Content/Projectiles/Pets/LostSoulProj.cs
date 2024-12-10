@@ -153,12 +153,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             {
                 if (n.active && n.boss)
                 {
-                    if (hideVisualTime <= 0 && !bosses.Contains(n.whoAmI) && n.realLife < 0)
-                    {
-                        bosses.Add(n.whoAmI);
-                    }
-
                     hasBoss = true;
+                    break;
                 }
             }
             if (BossRushEvent.BossRushActive)
@@ -176,11 +172,10 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                 }
                 for (int i = bosses.Count - 1; i >= 0; i--) {
                     int b = bosses[i];
-                    if (!b.ToNPC().active)
-                    {
-                        bosses.RemoveAt(i);
-                       needLoots.Add((NPC)b.ToNPC().Clone());
-                    }
+                    bosses.RemoveAt(i);
+                    NPC npc = ((NPC)b.ToNPC().Clone());
+                    npc.Entropy().lostSoulDrop = false;
+                    needLoots.Add(npc);
                 }
             }
             

@@ -681,6 +681,11 @@ Items: {
 		Tooltip: "[c/ff0000:This item is now WIP]"
 	}
 
+	DreamCatcher: {
+		DisplayName: Dream Catcher
+		Tooltip: ""
+	}
+
 	UhrwerkHammer: {
 		DisplayName: Kernschmelze
 		Tooltip: ""

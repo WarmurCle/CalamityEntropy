@@ -8,7 +8,9 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Pets;
+using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.NPCs;
@@ -552,6 +554,20 @@ namespace CalamityEntropy.Common
             {
                 Main.player[Main.player.Length - 1].active = false;
             }
+            if (lostSoulDrop && npc.boss)
+            {
+                foreach (Projectile p in Main.projectile)
+                {
+                    if (p.active && p.ModProjectile is LostSoulProj ls)
+                    {
+                        if (ls.hideVisualTime <= 0 && npc.realLife < 0)
+                        {
+                            ls.bosses.Add(npc.whoAmI);
+                        }
+                    }
+                }
+            }
+            
             if (npc.type == ModContent.NPCType<GiantClam>())
             {
                 if (!(Main.netMode == NetmodeID.MultiplayerClient))
@@ -574,6 +590,13 @@ namespace CalamityEntropy.Common
                 if (Main.rand.NextDouble() < 0.1f)
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CannedCarrion>(), 1));
+                }
+            }
+            if (npc.type == NPCID.WyvernHead)
+            {
+                if (Main.rand.NextDouble() < 0.06f)
+                {
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<DreamCatcher>(), 1));
                 }
             }
             if (npc.type == NPCID.Harpy || npc.type == NPCID.WyvernHead)
@@ -648,6 +671,8 @@ namespace CalamityEntropy.Common
            
         }
         public int f_owner = -1;
+        public bool lostSoulDrop = true;
+
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
             if(source is EntitySource_Parent esource)

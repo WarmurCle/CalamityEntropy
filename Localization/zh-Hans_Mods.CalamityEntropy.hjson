@@ -363,7 +363,7 @@ Items: {
 			扔出一把飞刀
 			按下[KEY]收回所有飞刀
 			右键飞刀位移到该位置
-			最多存在5把
+			最多存在4把
 			'''
 	}
 
@@ -699,6 +699,11 @@ Items: {
 	UhrwerkHammer: {
 		DisplayName: 核心熔解
 		Tooltip: "哪个傻波一画的这玩意啊"
+	}
+
+	DreamCatcher: {
+		DisplayName: 捕梦网
+		Tooltip: ""
 	}
 }
 
