@@ -4,6 +4,7 @@ using System.IO;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;

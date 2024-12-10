@@ -1,4 +1,5 @@
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

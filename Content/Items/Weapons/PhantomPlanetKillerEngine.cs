@@ -1,15 +1,19 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Weapons.DraedonsArsenal;
+using CalamityMod.Items.Weapons.Summon;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Weapons
 {	
-	public class MagneticController : ModItem
+	public class PhantomPlanetKillerEngine : ModItem
 	{
        public override void SetStaticDefaults()
 	   {
@@ -20,23 +24,24 @@ namespace CalamityEntropy.Content.Items
 		
 		public override void SetDefaults()
 		{
-			Item.damage = 12;
+			Item.damage = 185;
 			Item.crit = 0;
 			Item.DamageType = DamageClass.Summon;
-			Item.width = 16;
-			Item.height = 16;
-			Item.useTime = 14;
-			Item.useAnimation = 14;
+			Item.width = 64;
+			Item.height = 64;
+			Item.useTime = 16;
+			Item.useAnimation = 16;
+			Item.knockBack = 2;
 			Item.useStyle = ItemUseStyleID.RaiseLamp;
-			Item.shoot = ModContent.ProjectileType<Teletor>();
+			Item.shoot = ModContent.ProjectileType<PlanetKiller>();
 			Item.shootSpeed = 2f;
-			Item.value = 460;
+			Item.value = 100000;
 			Item.autoReuse = true;
             Item.UseSound = SoundID.Item15;
             Item.noMelee = true;
-			Item.mana = 10;
-			Item.buffType = ModContent.BuffType<TeletorBuff>();
-            Item.rare = ItemRarityID.Orange;
+			Item.mana = 80;
+			Item.buffType = ModContent.BuffType<PlanetDestroyer>();
+            Item.rare = ModContent.RarityType<VoidPurple>();
         }
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -49,11 +54,12 @@ namespace CalamityEntropy.Content.Items
 
         public override void AddRecipes()
         {
-            CreateRecipe().
-                AddIngredient(ModContent.ItemType<DubiousPlating>(), 6).
-                AddIngredient(ModContent.ItemType<MysteriousCircuitry>(), 4).
-                AddTile(TileID.Anvils).
-                Register();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<EndothermicEnergy>(), 8)
+				.AddIngredient(ModContent.ItemType<CosmicViperEngine>())
+				.AddIngredient(ModContent.ItemType<PoleWarper>())
+				.AddIngredient(ModContent.ItemType<VoidBar>(), 8)
+				.AddTile(ModContent.TileType<CosmicAnvil>()).Register();
         }
     }
 }

@@ -10,7 +10,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Weapons
 {	
 	public class PrisonOfPermafrost : ModItem
 	{

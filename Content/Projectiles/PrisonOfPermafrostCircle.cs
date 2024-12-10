@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;

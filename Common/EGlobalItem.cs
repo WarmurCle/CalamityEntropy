@@ -9,6 +9,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Armor.VoidFaquir;
 using CalamityEntropy.Content.Items.Vanity;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;

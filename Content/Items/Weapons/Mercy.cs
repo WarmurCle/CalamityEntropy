@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Weapons
 {	
 	public class Mercy : ModItem
 	{

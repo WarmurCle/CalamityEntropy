@@ -5,7 +5,7 @@ using CalamityMod.Items.Materials;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Weapons
 {
     public class OverloadFurnace : ModItem
     {

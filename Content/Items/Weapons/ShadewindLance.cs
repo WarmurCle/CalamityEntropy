@@ -1,56 +1,47 @@
 ﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.Rarities;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class Silence : RogueWeapon
+    public class ShadewindLance : RogueWeapon
     {
         public override void SetDefaults()
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 280;
+            Item.damage = 3400;
+            Item.ArmorPenetration = 56;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 14;
+            Item.useAnimation = Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.ArmorPenetration = 30;
+            Item.ArmorPenetration = 86;
             Item.knockBack = 1f;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<DarkBlue>();
-            Item.shoot = ModContent.ProjectileType<SilenceThrow>();
-            Item.shootSpeed = 18f;
+            Item.rare = ModContent.RarityType<VoidPurple>();
+            Item.shoot = ModContent.ProjectileType<ShadewindLanceThrow>();
+            Item.shootSpeed = 46f;
             Item.DamageType = CUtil.rougeDC;
-            Item.rare = ItemRarityID.Red;
-            Item.Entropy().stroke = true;
-            Item.Entropy().strokeColor = new Color(20, 26, 92);
-            Item.Entropy().tooltipStyle = 4;
-            Item.Entropy().NameColor = new Color(60, 80, 140);
-            Item.Entropy().HasCustomStrokeColor = true;
-            Item.Entropy().HasCustomNameColor = true;
         }
 
-        public override void ModifyStatsExtra(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            if (player.Calamity().StealthStrikeAvailable())
-                type = ModContent.ProjectileType<SilenceThrow>();
-        }
        
          
-        public override float StealthDamageMultiplier => 1f;
-        public override float StealthVelocityMultiplier => 1.5f;
+        public override float StealthDamageMultiplier => 1.2f;
+        public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 3f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -60,12 +51,23 @@ namespace CalamityEntropy.Content.Items
                 int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
                 if (p.WithinBounds(Main.maxProjectiles)) {
                     Main.projectile[p].Calamity().stealthStrike = true;
-                    p.ToProj().penetrate = 9;
                 }
-                    
+                p.ToProj().extraUpdates += 1;
+                p.ToProj().netUpdate = true;
+                p.ToProj().penetrate = -1;
                 return false;
             }
             return true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
+                .AddIngredient(ModContent.ItemType<PhantasmalRuin>(), 1)
+                .AddIngredient(ModContent.ItemType<DarksunFragment>(), 10)
+                .AddTile(ModContent.TileType<CosmicAnvil>())
+                .Register();
         }
     }
 }

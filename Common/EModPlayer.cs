@@ -3,6 +3,7 @@ using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;

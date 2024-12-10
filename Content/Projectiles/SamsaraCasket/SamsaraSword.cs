@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;

@@ -43,6 +43,7 @@ using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Pets;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;

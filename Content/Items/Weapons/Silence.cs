@@ -2,41 +2,42 @@
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
+using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class Revelation : RogueWeapon
+    public class Silence : RogueWeapon
     {
         public override void SetDefaults()
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 80;
+            Item.damage = 280;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 20;
+            Item.useAnimation = Item.useTime = 14;
             Item.useStyle = ItemUseStyleID.Swing;
+            Item.ArmorPenetration = 30;
             Item.knockBack = 1f;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.maxStack = 1;
-            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice / 4; // This buy price is intentionally reduced due to how common this item is.
-            Item.rare = ItemRarityID.Orange;
-            Item.shoot = ModContent.ProjectileType<RevelationThrow>();
-            Item.shootSpeed = 45f;
+            Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
+            Item.rare = ModContent.RarityType<DarkBlue>();
+            Item.shoot = ModContent.ProjectileType<SilenceThrow>();
+            Item.shootSpeed = 18f;
             Item.DamageType = CUtil.rougeDC;
             Item.rare = ItemRarityID.Red;
-            Item.Entropy().tooltipStyle = 3;
-            Item.Entropy().NameColor = new Color(160, 0, 0);
             Item.Entropy().stroke = true;
-            Item.Entropy().strokeColor = new Color(90, 0, 0);
+            Item.Entropy().strokeColor = new Color(20, 26, 92);
+            Item.Entropy().tooltipStyle = 4;
+            Item.Entropy().NameColor = new Color(60, 80, 140);
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;
         }
@@ -44,33 +45,27 @@ namespace CalamityEntropy.Content.Items
         public override void ModifyStatsExtra(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (player.Calamity().StealthStrikeAvailable())
-                type = ModContent.ProjectileType<RevelationMelee>();
+                type = ModContent.ProjectileType<SilenceThrow>();
         }
        
          
-        public override float StealthDamageMultiplier => 4f;
-        public override float StealthVelocityMultiplier => 1f;
-        public override float StealthKnockbackMultiplier => 4f;
+        public override float StealthDamageMultiplier => 1f;
+        public override float StealthVelocityMultiplier => 1.5f;
+        public override float StealthKnockbackMultiplier => 3f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.Calamity().StealthStrikeAvailable())
             {
                 int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
-                if (p.WithinBounds(Main.maxProjectiles))
+                if (p.WithinBounds(Main.maxProjectiles)) {
                     Main.projectile[p].Calamity().stealthStrike = true;
+                    p.ToProj().penetrate = 9;
+                }
+                    
                 return false;
             }
             return true;
-        }
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<MeldConstruct>(), 5);
-            recipe.AddIngredient(ModContent.ItemType<ShardofAntumbra>(), 1);
-            recipe.AddIngredient(ItemID.DeathSickle, 1);
-            recipe.AddTile(412);
-            recipe.Register();
         }
     }
 }
