@@ -154,6 +154,7 @@ namespace CalamityEntropy.Common
                 foreach (Projectile p in Main.projectile)
                 {
                     if (p.active && p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.owner == Main.myPlayer) {
+
                         int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
                         Projectile ph = phd.ToProj();
                         ph.scale *= 0.8f;
@@ -232,7 +233,7 @@ namespace CalamityEntropy.Common
                     }
                     if (plr.HasBuff(ModContent.BuffType<SoyMilkBuff>()))
                     {
-                        projectile.extraUpdates = (projectile.extraUpdates + 1) * 2 - 1;
+                        projectile.extraUpdates = (projectile.extraUpdates + 1) * 3 - 1;
                     }
                 }
                 

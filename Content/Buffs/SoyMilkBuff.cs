@@ -19,10 +19,10 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetAttackSpeed(DamageClass.Generic) *= 2;
-            player.GetDamage(DamageClass.Generic) *= 0.54f;
+            player.GetAttackSpeed(DamageClass.Generic) *= 3;
+            player.GetDamage(DamageClass.Generic) *= 0.35f;
             player.Calamity().rogueStealth = 0;
-            player.pickSpeed *= 2;
+            player.pickSpeed *= 3;
         }
     }
 }

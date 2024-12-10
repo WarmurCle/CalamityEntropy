@@ -138,14 +138,15 @@ namespace CalamityEntropy.Content.Projectiles
 
             for (int i = 1; i < points.Count - 1; i++)
             {
+                jn += Util.Util.getDistance(points[i - 1], points[i]) / (float)16 * lc;
+
                 ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 5 * lc,
                       new Vector3(jn, 1, 1),
                       Lighting.GetColor(new Point((int)(points[i].X / 16f), (int)(points[i].Y / 16f)))));
                 ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 5 * lc,
                       new Vector3(jn, 0, 1),
                       Lighting.GetColor(new Point((int)(points[i].X / 16f), (int)(points[i].Y / 16f)))));
-                jn += Util.Util.getDistance(points[i - 1], points[i]) / (float)16 * lc;
-
+                
             }
 
             SpriteBatch sb = Main.spriteBatch;

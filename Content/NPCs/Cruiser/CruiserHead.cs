@@ -1138,6 +1138,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     VoidOreSystem.BlessWorldWithOre();
                 }
             }
+
             NPC.SetEventFlagCleared(ref EDownedBosses.downedCruiser, -1);
             
         }

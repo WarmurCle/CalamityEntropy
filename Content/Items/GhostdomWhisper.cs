@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Rarities;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Content.Items
         {
             Item.width = 80;
             Item.height = 80;
-            Item.damage = 1600;
+            Item.damage = 1920;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 5;
             Item.useAnimation = 5;
@@ -32,6 +33,7 @@ namespace CalamityEntropy.Content.Items
             Item.useAmmo = AmmoID.Arrow;
             Item.channel = true;
             Item.noUseGraphic = true;
+            Item.Calamity().devItem = true;
         }
         public bool cs = false;
         public override bool CanConsumeAmmo(Item ammo, Player player)

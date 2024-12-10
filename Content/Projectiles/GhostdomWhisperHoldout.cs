@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Util;
@@ -78,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            if (player.channel)
+            if (player.channel && !(Projectile.ai[1] >= maxCharge && player.HasBuff<SoyMilkBuff>()))
             {
                 player.itemAnimation = 3;
                 player.itemTime = 3;
