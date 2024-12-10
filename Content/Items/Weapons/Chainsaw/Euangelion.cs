@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Chainsaw
+namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
 {	
 	public class Euangelion : ModItem
 	{

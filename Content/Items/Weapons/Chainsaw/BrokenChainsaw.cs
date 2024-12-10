@@ -5,13 +5,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Chainsaw
+namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
 {	
-	public class MechanicalChainsaw : ModItem
+	public class BrokenChainsaw : ModItem
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 35;
+			Item.damage = 2;
 			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Item.width = 42;
             Item.height = 42;
@@ -20,32 +20,34 @@ namespace CalamityEntropy.Content.Items.Chainsaw
 			Item.useAnimation = 0;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 6;
-            Item.ArmorPenetration = 45;
-			Item.value = 2000000;
-			Item.rare = ItemRarityID.Red;
+			Item.value = 36;
+			Item.rare = ItemRarityID.Gray;
             Item.UseSound = SoundID.Item23;
 			Item.channel = true;
 			Item.noMelee = true;
-			Item.shoot = ModContent.ProjectileType<MechanicalChainsaw0>();
+			Item.shoot = ModContent.ProjectileType<BrokenChainsaw0>();
 			Item.shootSpeed = 1f;
         }
         public override bool CanUseItem(Player player)
         {
             return player.ownedProjectileCounts[Item.shoot] < 1;
         }
+
+        
+
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient<BrokenChainsaw>().
-                AddIngredient(ItemID.AdamantiteBar, 10).
-                AddIngredient<EssenceofHavoc>(3).
-                AddTile(TileID.MythrilAnvil).
+                AddIngredient<DubiousPlating>(5).
+                AddIngredient(ItemID.IronBar, 10).
+                AddIngredient(ItemID.Chain, 1).
+                AddTile(TileID.Anvils).
                 Register();
             CreateRecipe().
-                AddIngredient<BrokenChainsaw>().
-                AddIngredient(ItemID.TitaniumBar, 10).
-                AddIngredient<EssenceofHavoc>(3).
-                AddTile(TileID.MythrilAnvil).
+                AddIngredient<DubiousPlating>(5).
+                AddIngredient(704, 10).
+                AddIngredient(ItemID.Chain, 1).
+                AddTile(TileID.Anvils).
                 Register();
         }
     }

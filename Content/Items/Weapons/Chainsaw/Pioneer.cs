@@ -1,17 +1,20 @@
 using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityMod;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Placeables.Ores;
+using CalamityMod.Rarities;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Chainsaw
+namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
 {	
-	public class BrokenChainsaw : ModItem
+	public class Pioneer : ModItem
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 2;
+			Item.damage = 1;
 			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Item.width = 42;
             Item.height = 42;
@@ -21,11 +24,11 @@ namespace CalamityEntropy.Content.Items.Chainsaw
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 6;
 			Item.value = 36;
-			Item.rare = ItemRarityID.Gray;
+			Item.rare = ModContent.RarityType<DarkBlue>();
             Item.UseSound = SoundID.Item23;
 			Item.channel = true;
 			Item.noMelee = true;
-			Item.shoot = ModContent.ProjectileType<BrokenChainsaw0>();
+			Item.shoot = ModContent.ProjectileType<Pioneer0>();
 			Item.shootSpeed = 1f;
         }
         public override bool CanUseItem(Player player)
@@ -33,21 +36,13 @@ namespace CalamityEntropy.Content.Items.Chainsaw
             return player.ownedProjectileCounts[Item.shoot] < 1;
         }
 
-        
-
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient<DubiousPlating>(5).
-                AddIngredient(ItemID.IronBar, 10).
-                AddIngredient(ItemID.Chain, 1).
-                AddTile(TileID.Anvils).
-                Register();
-            CreateRecipe().
-                AddIngredient<DubiousPlating>(5).
-                AddIngredient(704, 10).
-                AddIngredient(ItemID.Chain, 1).
-                AddTile(TileID.Anvils).
+                AddIngredient<Euangelion>().
+                AddIngredient<ExodiumCluster>(20).
+                AddIngredient<DarksunFragment>(5).
+                AddTile<CosmicAnvil>().
                 Register();
         }
     }
