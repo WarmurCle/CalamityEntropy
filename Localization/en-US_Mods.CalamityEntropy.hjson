@@ -1183,6 +1183,7 @@ ArmorPrefixEndDescription:
 	+20% Defense
 	+30% Damage
 	+30% Knockback
+	+15% Crit
 	+200% Reverse injury
 	+1 Void Touch
 	'''

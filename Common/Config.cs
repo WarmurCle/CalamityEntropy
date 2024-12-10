@@ -23,7 +23,7 @@ namespace CalamityEntropy.Common
 
         [SliderColor(224, 165, 56, 128)]
         [Range(0f, 1f)]
-        [DefaultValue(0.7f)]
+        [DefaultValue(0f)]
         [Increment(0.01f)]
         [DrawTicks]
         public float CraftArmorWithPrefixChance { get; set; }

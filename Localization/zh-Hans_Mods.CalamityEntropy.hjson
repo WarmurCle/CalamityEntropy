@@ -696,14 +696,14 @@ Items: {
 		// Tooltip: "[c/ff0000:This item is now WIP]"
 	}
 
-	UhrwerkHammer: {
-		DisplayName: 核心熔解
-		Tooltip: "哪个傻波一画的这玩意啊"
-	}
-
 	DreamCatcher: {
 		DisplayName: 捕梦网
 		Tooltip: ""
+	}
+
+	UhrwerkHammer: {
+		DisplayName: 核心熔解
+		Tooltip: 哪个傻波一画的这玩意啊
 	}
 }
 
@@ -1195,6 +1195,7 @@ ArmorPrefixEndDescription:
 	+20% 防御
 	+30% 伤害
 	+30% 击退
+	+15% 暴击
 	+200% 接触伤害反伤
 	+1 虚空之触
 	'''
