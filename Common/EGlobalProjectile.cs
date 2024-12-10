@@ -232,7 +232,7 @@ namespace CalamityEntropy.Common
                     }
                     if (plr.HasBuff(ModContent.BuffType<SoyMilkBuff>()))
                     {
-                        projectile.extraUpdates = (projectile.extraUpdates + 1) * 2 - 1;
+                        projectile.extraUpdates = (projectile.extraUpdates + 1) * 3 - 1;
                     }
                 }
                 
