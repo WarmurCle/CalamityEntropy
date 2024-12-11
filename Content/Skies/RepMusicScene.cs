@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Skies
             {
                 foreach (NPC npc in Main.npc)
                 {
-                    if (npc.active && npc.boss && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod) && !BossRushEvent.BossRushActive)
+                    if (npc.active && npc.boss && Util.Util.getDistance(npc.Center, player.Center) < 8000 && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod) && !BossRushEvent.BossRushActive)
                     {
                         return true;
                     }
