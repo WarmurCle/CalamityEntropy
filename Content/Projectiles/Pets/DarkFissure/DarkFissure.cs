@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.DarkFissure
                 {
                     Projectile.ai[1] = 1;
                 }
-                else if (Util.Util.getDistance(targetPos * new Vector2(1, 0), Projectile.Center * new Vector2(1, 0)) > 160)
+                else if (Util.Util.getDistance(targetPos * new Vector2(1, 0), Projectile.Center * new Vector2(1, 0)) > 120)
                 {
                     if (targetPos.X > Projectile.Center.X)
                     {
