@@ -690,6 +690,11 @@ Items: {
 		DisplayName: Kernschmelze
 		Tooltip: ""
 	}
+
+	AquaticFlute: {
+		Tooltip: ""
+		DisplayName: Aquatic Flute
+	}
 }
 
 DeathMode: Death Mode
@@ -826,6 +831,7 @@ Projectiles: {
 	SacrificalDagger.DisplayName: Sacrifical Dagger
 	TargetSetProj.DisplayName: Target Set Proj
 	UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
+	AquaticPet.DisplayName: Aquatic Pet
 }
 
 LegendTooltip: - Legend -
@@ -946,6 +952,11 @@ Buffs: {
 		DisplayName: Lost Soul
 		Description: ""
 	}
+
+	AquaticChan: {
+		Description: Mods.CalamityEntropy.Buffs.AquaticChan.Description
+		DisplayName: Aquatic Chan
+	}
 }
 
 Uh: ""
@@ -999,7 +1010,11 @@ Configs: {
 			Tooltip: ""
 		}
 
-		Headers.Misc: Misc Header
+		Headers: {
+			Misc: Misc
+			Other: Other
+		}
+
 		DisplayName: Config
 
 		VoidChargeBarY: {
@@ -1013,43 +1028,18 @@ Configs: {
 		}
 
 		ChainsawShakeScreen: {
-			Label: 电锯震动效果
+			Label: Chainsaw Shake Screen
 			Tooltip: ""
 		}
 
-		CasketLevel: {
-			Label: Casket Level
+		BindingOfIsaac_Rep_BossMusic: {
+			Label: Binding Of Isaac Rep Boss Music
 			Tooltip: ""
 		}
 
-		CasketDamageMul: {
-			Label: Casket Damage Mul
+		RepBossMusicReplaceCalamityMusic: {
 			Tooltip: ""
-		}
-
-		CasketKnockbackMul: {
-			Label: Casket Knockback Mul
-			Tooltip: ""
-		}
-
-		CaskekCritMul: {
-			Label: Caskek Crit Mul
-			Tooltip: ""
-		}
-
-		CaskekVoidTouch: {
-			Tooltip: ""
-			Label: Caskek Void Touch
-		}
-
-		CaskekArmorPen: {
-			Tooltip: ""
-			Label: Caskek Armor Pen
-		}
-
-		DungeonMax: {
-			Label: Dungeon Max
-			Tooltip: ""
+			Label: Rep Boss Music Replace Calamity Music
 		}
 	}
 }
@@ -1196,8 +1186,8 @@ ArmorPrefixWizardDescription:
 ArmorPrefixLastStandName: Last Stand
 ArmorPrefixLastStandDescription:
 	'''
-	+60% Defense
-	+20% Damage Reduce
+	+30% Defense
+	+10% Damage Reduce
 	'''
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +12% Enhanced Mana

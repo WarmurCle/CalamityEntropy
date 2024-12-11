@@ -16,6 +16,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
             instances.Add(this);
         }
 
+
         public virtual bool Precious()
         {
             return false;

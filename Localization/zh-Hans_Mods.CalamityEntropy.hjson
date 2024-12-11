@@ -682,7 +682,7 @@ Items: {
 	}
 
 	SilverFramedGlasses: {
-		// Tooltip: ""
+		Tooltip: ""
 		DisplayName: 银框眼镜
 	}
 
@@ -692,8 +692,8 @@ Items: {
 	}
 
 	DimensionKey: {
-		// DisplayName: Dimension Key
-		// Tooltip: "[c/ff0000:This item is now WIP]"
+		DisplayName: 维度钥匙
+		Tooltip: "[c/ff0000:未完成]"
 	}
 
 	DreamCatcher: {
@@ -704,6 +704,11 @@ Items: {
 	UhrwerkHammer: {
 		DisplayName: 核心熔解
 		Tooltip: 哪个傻波一画的这玩意啊
+	}
+
+	AquaticFlute: {
+		Tooltip: 召唤海灾酱
+		DisplayName: 渊海水笛
 	}
 }
 
@@ -839,8 +844,9 @@ Projectiles: {
 	ZeratosBullet0.DisplayName: 龙魂火球
 	ZeratosFireball0.DisplayName: 龙魂爆炸
 	SacrificalDagger.DisplayName: 献祭匕首
-	// TargetSetProj.DisplayName: Target Set Proj
-	// UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
+	TargetSetProj.DisplayName: 奴役你😡
+	UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
+	AquaticPet.DisplayName: 海灾酱
 }
 
 LegendTooltip: - 传奇物品 -
@@ -961,6 +967,11 @@ Buffs: {
 		DisplayName: 迷失游魂
 		Description: ""
 	}
+
+	AquaticChan: {
+		Description: 小海灾会跟着你
+		DisplayName: 海灾酱
+	}
 }
 
 Uh: 呃啊~
@@ -1014,7 +1025,11 @@ Configs: {
 			Tooltip: ""
 		}
 
-		Headers.Misc: 杂项
+		Headers: {
+			Misc: 杂项
+			Other: 其他
+		}
+
 		DisplayName: 配置
 
 		VoidChargeBarY: {
@@ -1032,39 +1047,14 @@ Configs: {
 			Tooltip: ""
 		}
 
-		CasketLevel: {
-			Label: 剑匣等级（0 ~ 6）
+		BindingOfIsaac_Rep_BossMusic: {
+			Label: 使用以撒的结合：忏悔的Boss战音乐
 			Tooltip: ""
 		}
 
-		CasketDamageMul: {
-			Label: 剑匣伤害倍率（%）
+		RepBossMusicReplaceCalamityMusic: {
 			Tooltip: ""
-		}
-
-		CasketKnockbackMul: {
-			Label: 剑匣击退加成（%）
-			Tooltip: ""
-		}
-
-		CaskekCritMul: {
-			Label: 剑匣暴击加成（%）
-			Tooltip: ""
-		}
-
-		CaskekVoidTouch: {
-			Tooltip: ""
-			Label: 剑匣虚空之触叠层
-		}
-
-		CaskekArmorPen: {
-			Tooltip: ""
-			Label: 剑匣护甲穿透
-		}
-
-		DungeonMax: {
-			// Label: Dungeon Max
-			// Tooltip: ""
+			Label: 忏悔音乐是否替换灾厄Boss音乐
 		}
 	}
 }
@@ -1208,8 +1198,8 @@ ArmorPrefixWizardDescription:
 ArmorPrefixLastStandName: 屹立不倒
 ArmorPrefixLastStandDescription:
 	'''
-	+60% 防御
-	+20% 伤害减免
+	+30% 防御
+	+10% 伤害减免
 	增加一次复活机会
 	该复活不可叠加
 	'''

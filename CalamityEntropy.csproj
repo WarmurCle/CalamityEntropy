@@ -8,12 +8,16 @@
 		
 	</PropertyGroup>
 	<ItemGroup>
+	  <AdditionalFiles Remove="Content\Items\Chainsaw\**" />
 	  <AdditionalFiles Remove="Items\Vanity\ggs\**" />
 	  <AdditionalFiles Remove="Projectiles\AbyssalWraith\**" />
+	  <Compile Remove="Content\Items\Chainsaw\**" />
 	  <Compile Remove="Items\Vanity\ggs\**" />
 	  <Compile Remove="Projectiles\AbyssalWraith\**" />
+	  <EmbeddedResource Remove="Content\Items\Chainsaw\**" />
 	  <EmbeddedResource Remove="Items\Vanity\ggs\**" />
 	  <EmbeddedResource Remove="Projectiles\AbyssalWraith\**" />
+	  <None Remove="Content\Items\Chainsaw\**" />
 	  <None Remove="Items\Vanity\ggs\**" />
 	  <None Remove="Projectiles\AbyssalWraith\**" />
 	</ItemGroup>
@@ -40,9 +44,6 @@
 	  <Reference Include="SubworldLibrary">
 	    <HintPath>..\ModAssemblies\SubworldLibrary.dll</HintPath>
 	  </Reference>
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Content\Items\Chainsaw\" />
 	</ItemGroup>
 
 	<!-- References -->

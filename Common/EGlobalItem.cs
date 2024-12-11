@@ -8,6 +8,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Armor.VoidFaquir;
+using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
@@ -656,6 +657,10 @@ namespace CalamityEntropy.Common
             if (item.type == ModContent.ItemType<BrimstoneWaifuBag>())
             {
                 itemLoot.Add(ModContent.ItemType<EvilFriend>(), new Fraction(4, 9));
+            }
+            if (item.type == ModContent.ItemType<AquaticScourgeBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<AquaticFlute>(), new Fraction(1, 4));
             }
             if (item.type == ModContent.ItemType<CalamitasCloneBag>())
             {

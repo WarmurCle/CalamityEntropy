@@ -31,6 +31,13 @@ namespace CalamityEntropy.Common
         [DefaultValue(true)]
         public bool ChainsawShakeScreen { get; set; }
 
+        [Header("Other")]
+
+        [DefaultValue(false)]
+        public bool BindingOfIsaac_Rep_BossMusic { get; set; }
+
+        [DefaultValue(false)]
+        public bool RepBossMusicReplaceCalamityMusic { get; set; }
 
     }
 }

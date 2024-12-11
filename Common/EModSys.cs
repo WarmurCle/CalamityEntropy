@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Util;
 using CalamityMod.Items.Placeables.FurnitureAuric;
@@ -42,13 +43,20 @@ namespace CalamityEntropy.Common
         
         public override void PostUpdatePlayers()
         {
-            
+            if (ModContent.GetInstance<RepMusicScene>().IsSceneEffectActive(Main.LocalPlayer))
+            {
+                Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/RepBossTrack")] = 1;
+            }
+            else
+            {
+                Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/RepBossTrack")] = 0;
+            }
             if(CalamityEntropy.noMusTime > 0)
             {
                 CalamityEntropy.noMusTime--;
                 Main.curMusic = 0;
                 Main.newMusic = 0;
-                for(int i = 0; i < Main.maxMusic; i++)
+                for(int i = 0; i < Main.musicFade.Length; i++)
                 {
                     Main.musicFade[i] = 0;
                 }

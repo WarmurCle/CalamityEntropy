@@ -13,8 +13,10 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityEntropy.Util;
 using CalamityMod;
+using CalamityMod.Events;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
+using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.DevourerofGods;
@@ -27,6 +29,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using SubworldLibrary;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -554,20 +557,27 @@ namespace CalamityEntropy.Common
             {
                 Main.player[Main.player.Length - 1].active = false;
             }
-            if (lostSoulDrop && npc.boss)
+            if (npc.boss)
             {
-                foreach (Projectile p in Main.projectile)
+                if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && CalamityEntropy.noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod))
                 {
-                    if (p.active && p.ModProjectile is LostSoulProj ls)
+                    CalamityEntropy.noMusTime = 300;
+                    SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
+                }
+                if (lostSoulDrop)
+                {
+                    foreach (Projectile p in Main.projectile)
                     {
-                        if (ls.hideVisualTime <= 0 && npc.realLife < 0)
+                        if (p.active && p.ModProjectile is LostSoulProj ls)
                         {
-                            ls.bosses.Add(npc.whoAmI);
+                            if (ls.hideVisualTime <= 0 && npc.realLife < 0)
+                            {
+                                ls.bosses.Add(npc.whoAmI);
+                            }
                         }
                     }
                 }
             }
-            
             if (npc.type == ModContent.NPCType<GiantClam>())
             {
                 if (!(Main.netMode == NetmodeID.MultiplayerClient))
