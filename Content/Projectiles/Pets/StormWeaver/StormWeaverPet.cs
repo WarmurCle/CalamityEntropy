@@ -103,12 +103,12 @@ namespace CalamityEntropy.Content.Projectiles.Pets.StormWeaver
                 {
                     Vector2 px = targetPos - Projectile.Center;
                     px.Normalize();
-                    Projectile.velocity += px * 0.68f;
+                    Projectile.velocity += px * 1.4f;
 
-                    Projectile.velocity *= 0.986f;
+                    Projectile.velocity *= 0.97f;
 
                 }
-                if (Util.Util.getDistance(Projectile.Center, targetPos) < 100 && !(Util.Util.isAir(Projectile.owner.ToPlayer().Center + new Vector2(0, Projectile.owner.ToPlayer().height / 2 + 2), true)))
+                if (Projectile.Center.Y < targetPos.Y - 16 && Util.Util.getDistance(Projectile.Center, targetPos) < 100 && !(Util.Util.isAir(Projectile.owner.ToPlayer().Center + new Vector2(0, Projectile.owner.ToPlayer().height / 2 + 2), true)))
                 {
                     Projectile.ai[1] = 0;
                 }
@@ -123,28 +123,32 @@ namespace CalamityEntropy.Content.Projectiles.Pets.StormWeaver
             }
             else
             {
-                counter += Math.Abs(Projectile.velocity.X / 1.2f);
+                if (Projectile.velocity.Y == 0)
+                {
+                    counter += Math.Abs(Projectile.velocity.X / 4);
+                }
                 Projectile.tileCollide = true;
                 Projectile.rotation = 0;
                 Projectile.velocity.Y += 0.5f;
-                if (Util.Util.getDistance(targetPos, Projectile.Center) > 500) {
+                if (Util.Util.getDistance(targetPos, Projectile.Center) > 340 || (Math.Abs(targetPos.Y - Projectile.Center.Y) > 60 && Projectile.owner.ToPlayer().velocity.Y == 0))
+                {
                     Projectile.ai[1] = 1;
                 }
                 else if (Util.Util.getDistance(targetPos * new Vector2(1, 0), Projectile.Center * new Vector2(1, 0)) > 80)
                 {
                     if (targetPos.X > Projectile.Center.X)
                     {
-                        Projectile.velocity.X += 0.7f;
+                        Projectile.velocity.X += 1f;
                     }
                     else
                     {
-                        Projectile.velocity.X -= 0.7f;
+                        Projectile.velocity.X -= 1f;
                     }
-                    Projectile.velocity.X *= 0.98f;
+                    Projectile.velocity.X *= 0.95f;
                 }
                 else
                 {
-                    Projectile.velocity.X *= 0.93f;
+                    Projectile.velocity.X *= 0.9f;
                 }
                 if (targetPos.X > Projectile.Center.X)
                 {
@@ -154,13 +158,13 @@ namespace CalamityEntropy.Content.Projectiles.Pets.StormWeaver
                 {
                     Projectile.direction = -1;
                 }
-                
-                if (Math.Abs(Projectile.velocity.X) > 0.5f && !Util.Util.isAir(Projectile.Center + (Projectile.velocity * new Vector2(1, 0)).SafeNormalize(Vector2.Zero) * 13 + new Vector2(0, 18)) && Util.Util.isAir(Projectile.Center))
+
+                if (Math.Abs(Projectile.velocity.X) > 0.3f && !Util.Util.isAir(Projectile.Center + (Projectile.velocity * new Vector2(1, 0)).SafeNormalize(Vector2.Zero) * 14 + new Vector2(0, 23)))
                 {
                     Projectile.velocity.Y -= 1.5f;
                 }
             }
-            
+
         }
         public override bool PreAI()
         {

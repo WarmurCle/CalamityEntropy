@@ -106,9 +106,9 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
                 {
                     Vector2 px = targetPos - Projectile.Center;
                     px.Normalize();
-                    Projectile.velocity += px * 0.6f;
+                    Projectile.velocity += px * 0.8f;
 
-                    Projectile.velocity *= 0.986f;
+                    Projectile.velocity *= 0.98f;
 
                 }
                 if (Projectile.Center.Y < targetPos.Y - 16 && Util.Util.getDistance(Projectile.Center, targetPos) < 100 && !(Util.Util.isAir(Projectile.owner.ToPlayer().Center + new Vector2(0, Projectile.owner.ToPlayer().height / 2 + 2), true)))
@@ -126,7 +126,10 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
             }
             else
             {
-                counter += Math.Abs(Projectile.velocity.X / 4);
+                if (Projectile.velocity.Y == 0)
+                {
+                    counter += Math.Abs(Projectile.velocity.X / 4);
+                }
                 Projectile.tileCollide = true;
                 Projectile.rotation = 0;
                 Projectile.velocity.Y += 0.5f;

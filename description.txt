@@ -11,4 +11,15 @@ Auric Boulder
 
 We will continue to add more new content in the future
 
+-Credits-
+Polaris: Leader, Code, Concept
+ChaLost: Sprite, Concept
+Serrat Antler: Sprite, Concept
+Ahirith: Sprite, Concept (Pets)
+JesterRomut: Sprite, Music (Title Theme), Code
+
+Special thanks to Hadrian (FRANCIUMKILLA) for making Cruiser's theme
+
 Bug Reports: https://github.com/WarmurCle/CalamityEntropy/issues
+
+Discord Server: https://discord.com/invite/Mnmzd34Fda 
