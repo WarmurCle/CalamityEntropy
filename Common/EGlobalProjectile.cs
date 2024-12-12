@@ -141,14 +141,14 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if (projectile.friendly && projectile.owner != -1)
+            if (projectile.friendly && projectile.owner >= 0)
             {
                 if (projectile.owner.ToPlayer().Entropy().VFHelmRanged)
                 {
                     maxDmgUps = 10;
                 }
             }
-            if (source is EntitySource_ItemUse && checkHoldOut && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<HB>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>() || projectile.type == ModContent.ProjectileType<SamsaraCasketProj>()))
+            if (source is EntitySource_ItemUse && checkHoldOut && projectile.friendly && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<HB>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>() || projectile.type == ModContent.ProjectileType<SamsaraCasketProj>()))
             {
                 checkHoldOut = false;
                 foreach (Projectile p in Main.projectile)
@@ -346,7 +346,7 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
-            if (projectile.Entropy().OnProj >= 0)
+            if (projectile.Entropy().OnProj >= 0 && projectile.owner >= 0)
             {
                 if (netsnc)
                 {
@@ -369,14 +369,14 @@ namespace CalamityEntropy.Common
             {
                 projectile.Entropy().odp2.RemoveAt(0);
             }
-            if (projectile.arrow)
+            if (projectile.arrow && projectile.owner >= 0)
             {
                 if (projectile.owner.ToPlayer().HeldItem.type == ModContent.ItemType<Kinanition>())
                 {
                     projectile.Entropy().Lightning = true;
                 }
             }
-            if (projectile.Entropy().Lightning)
+            if (projectile.Entropy().Lightning && projectile.owner >= 0)
             {
                 if (projectile.Entropy().counter % 18 == 0 && projectile.owner == Main.myPlayer) {
                     int p = Projectile.NewProjectile(projectile.owner.ToPlayer().GetSource_FromAI(), projectile.Center + projectile.velocity * 1.4f, Vector2.Zero, ModContent.ProjectileType<Lcircle>(), 0, 0, projectile.owner);
@@ -445,15 +445,18 @@ namespace CalamityEntropy.Common
                 Main.player[0].velocity = plrOldVel.Value;
                 plrOldVel = null;
             }
-            if (projectile.Entropy().OnProj >= 0)
+            if(projectile.friendly && projectile.owner >= 0)
             {
-                projectile.owner.ToPlayer().Center = playerPosL;
-            }
-            else
-            {
-                if (projectile.owner == Main.myPlayer)
+                if (projectile.Entropy().OnProj >= 0)
                 {
-                    ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
+                    projectile.owner.ToPlayer().Center = playerPosL;
+                }
+                else
+                {
+                    if (projectile.owner == Main.myPlayer)
+                    {
+                        ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
+                    }
                 }
             }
         }
@@ -480,14 +483,14 @@ namespace CalamityEntropy.Common
             {
                 projectile.ModProjectile.PostDraw(lightColor);
             }
-            if (projectile.Entropy().OnProj >= 0)
+            if (projectile.Entropy().OnProj >= 0 && projectile.owner >= 0)
             {
                 projectile.owner.ToPlayer().Center = lastCenter;
             }
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
-            if (projectile.Entropy().OnProj >= 0)
+            if (projectile.Entropy().OnProj >= 0 && projectile.owner >= 0 && projectile.friendly)
             {
                 lastCenter = projectile.owner.ToPlayer().Center;
                 projectile.owner.ToPlayer().Center = projectile.Entropy().OnProj.ToProj().Center;
@@ -501,7 +504,7 @@ namespace CalamityEntropy.Common
             {
                 lightColor = Color.Black;
             }
-            if (projectile.Entropy().gh && projectile.owner.ToPlayer().Entropy().GodHeadVisual)
+            if (projectile.Entropy().gh && projectile.friendly && projectile.owner >= 0 && projectile.owner.ToPlayer().Entropy().GodHeadVisual)
             {
                 tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/godhead").Value;
                 float rsize = (projectile.width + projectile.height) / 2 * 6;
@@ -601,9 +604,12 @@ namespace CalamityEntropy.Common
             }
             else
             {
-                if (projectile.owner == Main.myPlayer)
+                if (projectile.friendly && projectile.owner >= 0)
                 {
-                    ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
+                    if (projectile.owner == Main.myPlayer)
+                    {
+                        ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
+                    }
                 }
             }
             if (plrOldPos.HasValue)
@@ -655,7 +661,7 @@ namespace CalamityEntropy.Common
                         projectile.owner.ToPlayer().Heal(projectile.owner.ToPlayer().statManaMax2 / 100);
                     }
                 }
-                if (plr.VFHelmMagic)
+                if (plr.VFHelmMagic && projectile.owner >= 0)
                 {
                     var player = projectile.owner.ToPlayer();
                     if (player.HasBuff(BuffID.ManaSickness))

@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         }
         public override void BossHeadSlot(ref int index)
         {
-            
+
             if (gatherWing > 0.5f)
             {
                 index = iconGather;
@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public int seed = -1;
         public float wingRotLeft = 0;
         public float wingRotRight = 0;
-        
+
 
         public List<Texture2D> wingflying = new List<Texture2D>();
         public override void OnSpawn(IEntitySource source)
@@ -91,10 +91,10 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                 new FlavorTextBestiaryInfoElement("Mods.CalamityEntropy.AbyssalWraithBestiary")
             });
         }
-        
+
         public override void SetDefaults()
         {
-            
+
             NPC.boss = true;
             NPC.width = 140;
             NPC.height = 140;
@@ -145,6 +145,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             writer.Write(portalTime);
             writer.WriteVector2(portalPos);
             writer.WriteVector2(portalTarget);
+            
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
@@ -167,11 +168,18 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public float alphaPor = 1;
         public float portalAlpha = 0;
         public Color[] pixelData = null;
+        public bool deathSoundPlay = true;
+        public bool looted = false;
         public override void AI()
         {
+            if (deathAnm && deathSoundPlay && !Main.dedServ)
+            {
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/awdead"));
+                deathSoundPlay = false;
+            }
             wingRotLeft *= 0.86f;
             wingRotRight *= 0.86f;
-            if (Util.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 8000 && !NPC.Entropy().ToFriendly)
+            if (Util.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 8000 && !NPC.Entropy().ToFriendly && !Main.dedServ)
             {
                 Main.LocalPlayer.Entropy().AWraith = true;
             }
@@ -189,7 +197,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                 Main.LocalPlayer.Entropy().screenShift = camLerp;
                 Main.LocalPlayer.Entropy().screenPos = NPC.Center;
             }
-            if(portalTime > 0)
+            if (portalTime > 0)
             {
                 if (portalAlpha < 1)
                 {
@@ -199,15 +207,15 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             }
             else
             {
-                if ( portalAlpha > 0)
+                if (portalAlpha > 0)
                 {
                     portalAlpha -= 0.05f;
                 }
             }
-            if (!NPC.Entropy().ToFriendly)
+            if (!NPC.Entropy().ToFriendly && !Main.dedServ)
             {
                 Main.LocalPlayer.Entropy().crSky = 10;
-            }            if (spawnAnm > 0)
+            } if (spawnAnm > 0)
             {
                 NPC.dontTakeDamage = true;
                 spawnAnm -= 3;
@@ -223,7 +231,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                 if (!deathAnm)
                 {
                     deathAnm = true;
-                    SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/awdead"));
+
                     lbj = 6f;
                     NPC.netUpdate = true;
                     if (NPC.netSpam >= 10)
@@ -237,6 +245,8 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             Texture2D deathTex = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/AbyssalWraith/AWDeath").Value;
             if (deathAnm)
             {
+                NPC.dontTakeDamage = true;
+                NPC.damage = 0;
                 lbsize += lbj;
                 lbj -= 0.16f;
                 if (lbsize <= 0)
@@ -246,72 +256,86 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                 deathCount++;
                 animation = 0;
                 wingFrame = 0;
-                
-                if (pixelData == null)
+
+                if (pixelData == null && !Main.dedServ)
                 {
                     pixelData = new Color[deathTex.Width * deathTex.Height];
 
                     deathTex.GetData(pixelData);
                 }
-                if (deathPer >= 1)
+                if (deathPer >= 1 - 0.005f)
                 {
-                    NPC.StrikeInstantKill();
+                    deathPer = 1 - 0.005f;
+                    Kill();
+                    return;
                 }
                 else
                 {
-                    if (pixelData.Length > 1)
+                    deathPer += 0.005f;
+                    if (deathPer > 1)
                     {
-                        Color GetPixelColor(Texture2D texture, Color[] pixelData, int x, int y)
+                        deathPer = 1;
+                    }
+                    if (deathPer > 1 - 0.005f)
+                    {
+                        deathPer = 1 - 0.005f;
+                    }
+                    if (!Main.dedServ)
+                    {
+                        if (pixelData.Length > 1)
                         {
-                            // 获取纹理的宽度和高度
-                            int width = texture.Width;
-                            int height = texture.Height;
-
-                            // 确保x和y在纹理的有效范围内
-                            if (x < 0 || x >= width || y < 0 || y >= height || y * width + x >= pixelData.Length)
-                                throw new ArgumentOutOfRangeException("x or y is out of bounds of the texture:" + x.ToString() + "," + y.ToString() + "/" + pixelData.Length.ToString());
-
-                            // 创建一个颜色数组来存储纹理的所有像素
-
-
-                            // 计算指定像素的索引
-                            int index = y * width + x;
-
-                            // 返回指定位置的颜色
-                            return pixelData[index];
-                        }
-                        deathPer += 0.005f;
-                        if (deathPer > 1)
-                        {
-                            deathPer = 1;
-                        }
-                        if (deathPer < 1)
-                        {
-                            for (int i = 0; i < deathTex.Width; i += 6)
+                            Color GetPixelColor(Texture2D texture, Color[] pixelData, int x, int y)
                             {
-                                if (i >= deathTex.Width)
+                                // 获取纹理的宽度和高度
+                                int width = texture.Width;
+                                int height = texture.Height;
+
+                                // 确保x和y在纹理的有效范围内
+                                if (x < 0 || x >= width || y < 0 || y >= height || y * width + x >= pixelData.Length)
+                                    throw new ArgumentOutOfRangeException("x or y is out of bounds of the texture:" + x.ToString() + "," + y.ToString() + "/" + pixelData.Length.ToString());
+
+                                // 创建一个颜色数组来存储纹理的所有像素
+
+
+                                // 计算指定像素的索引
+                                int index = y * width + x;
+
+                                // 返回指定位置的颜色
+                                return pixelData[index];
+                            }
+                            
+                            if (deathPer < 1)
+                            {
+                                for (int i = 0; i < deathTex.Width; i += 6)
                                 {
-                                    continue;
-                                }
-                                if (GetPixelColor(deathTex, pixelData, i, (int)(deathTex.Height * deathPer)).A != 0)
-                                {
-                                    Dust.NewDust(NPC.Center + (-deathTex.Size() / 2 + new Vector2(i, (deathTex.Height * deathPer))) * NPC.scale, 1, 1, ModContent.DustType<AwDeath>());
+                                    if (i >= deathTex.Width)
+                                    {
+                                        continue;
+                                    }
+                                    if (GetPixelColor(deathTex, pixelData, i, (int)(deathTex.Height * deathPer)).A != 0)
+                                    {
+                                        Dust.NewDust(NPC.Center + (-deathTex.Size() / 2 + new Vector2(i, (deathTex.Height * deathPer))) * NPC.scale, 1, 1, ModContent.DustType<AwDeath>());
+                                    }
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        pixelData = new Color[deathTex.Width * deathTex.Height];
+                        else
+                        {
+                            pixelData = new Color[deathTex.Width * deathTex.Height];
 
-                        deathTex.GetData(pixelData);
+                            deathTex.GetData(pixelData);
+                        }
                     }
-                    
+
                 }
+                
                 Stand();
                 return;
             }
-            spawnParticle();
+            if (!Main.dedServ)
+            {
+                spawnParticle();
+            }
             checkAnm();
             if (portalTime > 0)
             {
@@ -328,7 +352,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             }
             if (portalTime > 0)
             {
-                
+
                 if (portal)
                 {
                     NPC.velocity.X *= 0;
@@ -439,7 +463,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             }
                             if (NPC.ai[2] == 4 || NPC.ai[2] == 18)
                             {
-                                for(int i = 0; i < 5; i++)
+                                for (int i = 0; i < 5; i++)
                                 {
                                     ThrowALightBall();
                                 }
@@ -447,7 +471,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                         }
                         if (NPC.ai[1] == 1)
                         {
-                            
+
                             if (NPC.ai[2] == 90)
                             {
                                 animation = 1;
@@ -467,7 +491,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             {
                                 addlight += 0.05f;
                             }
-                            
+
                             if (NPC.ai[2] > 12 && NPC.ai[2] < 50)
                             {
                                 int c = (int)((50 - NPC.ai[2]) / 2f);
@@ -551,7 +575,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                                 wingFrame = 0;
                                 anmChange = 0;
                                 float j = (float)Math.Cos(NPC.ai[2]) * 0.2f;
-                                if(target.Center.X < NPC.Center.X)
+                                if (target.Center.X < NPC.Center.X)
                                 {
                                     wingRotLeft += j;
                                 }
@@ -568,9 +592,9 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                                     {
                                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + (target.Center.X > NPC.Center.X ? 1 : -1) * new Vector2(140 + Main.rand.Next(0, 60), 0) + new Vector2(0, -50), (target.Center - NPC.Center).SafeNormalize(Vector2.Zero) * 8 + new Vector2(9 * (Main.rand.NextFloat() - 0.5f), 6 * (Main.rand.NextFloat() - 0.5f)), ModContent.ProjectileType<VoidFeather>(), NPC.damage / 7, 6, -1, 0, NPC.whoAmI);
                                     }
-                                    
+
                                 }
-                                
+
                                 SoundEffect se = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/feathershot").Value;
                                 if (se != null && NPC.ai[2] % 5 == 0) { se.Play(Main.soundVolume, 0, 0); }
                                 //SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/feathershot"), NPC.Center);
@@ -586,7 +610,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             }
                             if (NPC.ai[2] == 280)
                             {
-                                
+
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(0, 100), Vector2.Zero, ModContent.ProjectileType<HugeLightBall>(), NPC.damage / 7 + 5, 10);
@@ -610,12 +634,12 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             {
                                 animation = 0;
                                 float a = Util.Util.randomRot();
-                                for (int i = 0; i < 18; i ++)
+                                for (int i = 0; i < 18; i++)
                                 {
                                     a += MathHelper.ToRadians(20);
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center,a.ToRotationVector2() * 48, ModContent.ProjectileType<VoidLightBall>(), (int)(NPC.damage * 0.14f), 6, -1, 0, 1, NPC.whoAmI);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, a.ToRotationVector2() * 48, ModContent.ProjectileType<VoidLightBall>(), (int)(NPC.damage * 0.14f), 6, -1, 0, 1, NPC.whoAmI);
                                     }
                                 }
                             }
@@ -641,7 +665,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                         }
                         if (NPC.ai[1] == 8)
                         {
-                            
+
                             if (NPC.ai[2] > 220)
                             {
                                 if (addlight < 1)
@@ -655,7 +679,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             {
                                 NPC.rotation = (target.Center - NPC.Center).ToRotation() + MathHelper.PiOver2;
                                 NPC.velocity *= 0;
-                                
+
                             }
                             if (NPC.ai[2] >= 220)
                             {
@@ -663,10 +687,10 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             }
                             if (NPC.ai[2] == 220)
                             {
-                                
+
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center-new Vector2(0, 30), (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * MathHelper.Max(200, MathHelper.Min(Util.Util.getDistance(NPC.Center, target.Center), 660)), ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(0, 30), (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * MathHelper.Max(200, MathHelper.Min(Util.Util.getDistance(NPC.Center, target.Center), 660)), ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
                                 }
                             }
                             if (NPC.ai[2] == 2)
@@ -698,6 +722,16 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
 
             NPC.netUpdate = true;
             counter++;
+        }
+
+        private void Kill()
+        {
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC.StrikeInstantKill();
+                NPC.netSpam = 9;
+                NPC.netUpdate = true;
+            }
         }
 
         private void ThrowALightBall()
@@ -894,7 +928,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                     if (addlight < 1)
                     {
                         addlight += 0.02f;
-                        
+
                     }
                     anmlerp = anmlerp + (10 - anmlerp) * 0.01f;
                     Texture2D deathTex = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/AbyssalWraith/AWDeath").Value;
@@ -913,7 +947,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             aweffect.Parameters["a"].SetValue(addlight);
             aweffect.CurrentTechnique.Passes[0].Apply();
 
-            
+
             if (spawnAnm > 20)
             {
                 alpha = (200f - (float)spawnAnm) / 180f;
@@ -986,7 +1020,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                 sb.Draw(wing, drawCenter + new Vector2(64, 0).RotatedBy(NPC.rotation) - Main.screenPosition, null, Color.White * alpha, NPC.rotation + rot, origin, NPC.scale, SpriteEffects.FlipHorizontally, 0);
 
             }
-            else if(gatherWing <= 0.9f)
+            else if (gatherWing <= 0.9f)
             {
                 Texture2D wing = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/AbyssalWraith/WingGather").Value;
                 Vector2 origin = wing.Size() / 2;
@@ -1022,7 +1056,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         }
         public override bool CheckDead()
         {
-            if (deathPer >= 1)
+            if (deathPer >= 0.9f)
             {
                 return true;
             }
@@ -1065,14 +1099,20 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPosition, Color drawColor)
         {
-            
+
 
             if (NPC.IsABestiaryIconDummy)
                 return true;
             return false;
         }
 
-        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers) => modifiers.SetMaxDamage(NPC.life - 1);
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
+        {
+            if (!deathAnm)
+            {
+                modifiers.SetMaxDamage(NPC.life - 1);
+            }
+        }
 
         public bool deathAnm = false;
 

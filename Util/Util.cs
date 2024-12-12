@@ -15,8 +15,9 @@ namespace CalamityEntropy.Util
 {
     //Most of these code is stupid, I wrote them very early on, but But I'm too lazy to modify them
     public static class Util{
+        public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
 
-        
+
         public static void DrawLines(List<Vector2> points, Color color, float width)
         {
             for(int i = 1; i < points.Count; i++)
@@ -145,6 +146,10 @@ namespace CalamityEntropy.Util
         }
         public static Player ToPlayer(this int ins)
         {
+            if(ins < 0 || !Main.player[ins].active)
+            {
+                return null;
+            }
             return Main.player[ins];
         }
         public static Projectile ToProj(this int ins)

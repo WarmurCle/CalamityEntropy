@@ -847,6 +847,7 @@ Projectiles: {
 	TargetSetProj.DisplayName: 奴役你😡
 	UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
 	AquaticPet.DisplayName: 海灾酱
+	// VoidRitualCircle.DisplayName: Void Ritual Circle
 }
 
 LegendTooltip: - 传奇物品 -
@@ -992,6 +993,7 @@ NPCs: {
 
 	CruiserBody.DisplayName: 巡游者
 	AbyssalWraith.DisplayName: 祟界虚灵
+	VoidCultistAssassin.DisplayName: 虚空邪教徒
 }
 
 loreCruiser:
@@ -1030,7 +1032,7 @@ Configs: {
 			Other: 其他
 		}
 
-		DisplayName: 配置
+		DisplayName: 个人配置
 
 		VoidChargeBarY: {
 			Label: 虚空充能条位置Y
@@ -1038,8 +1040,8 @@ Configs: {
 		}
 
 		CraftArmorWithPrefixChance: {
-			Label: 合成带有词缀的盔甲的概率
-			Tooltip: ""
+			// Label: Craft Armor With Prefix Chance
+			// Tooltip: ""
 		}
 
 		ChainsawShakeScreen: {
@@ -1055,6 +1057,16 @@ Configs: {
 		RepBossMusicReplaceCalamityMusic: {
 			Tooltip: ""
 			Label: 忏悔音乐是否替换灾厄Boss音乐
+		}
+	}
+
+	ServerConfig: {
+		DisplayName: 模组配置
+		Headers.Misc: 杂项
+
+		CraftArmorWithPrefixChance: {
+			Label: 合成带有词缀的盔甲的概率
+			Tooltip: ""
 		}
 	}
 }

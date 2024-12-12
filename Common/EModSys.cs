@@ -33,6 +33,7 @@ namespace CalamityEntropy.Common
         
         public override void PostUpdateDusts()
         {
+            PixelParticle.Update();
             VoidParticles.Update();
             FloatParticles.Update();
         }

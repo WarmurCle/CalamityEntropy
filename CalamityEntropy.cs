@@ -58,6 +58,7 @@ using CalamityMod.NPCs.TownNPCs;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using Microsoft.Build.Evaluation;
+using Terraria.Audio;
 namespace CalamityEntropy
 {
     
@@ -66,7 +67,9 @@ namespace CalamityEntropy
         public enum NetPackages : byte
         {
             LotteryMachineRightClicked,
-            TurnFriendly
+            TurnFriendly,
+            Text,
+            BossKilled
         }
 		public static List<int> calDebuffIconDisplayList = new List<int>();
 		public static CalamityEntropy Instance;
@@ -121,6 +124,20 @@ namespace CalamityEntropy
                     p.Write(id);
                     p.Write(owner);
                     p.Send();
+                }
+            }
+            if(type == (byte)NetPackages.Text)
+            {
+                Main.NewText(reader.ReadString());
+            }
+            if(type == (byte)NetPackages.BossKilled)
+            {
+                bool flag = reader.ReadBoolean();
+                Main.NewText("Try to play jingle: " + flag.ToString() + ", " + ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic.ToString());
+                if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && CalamityEntropy.noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || flag))
+                {
+                    CalamityEntropy.noMusTime = 300;
+                    SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
                 }
             }
         }
@@ -974,9 +991,9 @@ namespace CalamityEntropy
                 {
 
                 }
-                
 
 
+                PixelParticle.drawAll();
 
                 foreach (Projectile p in checkProj)
                 {

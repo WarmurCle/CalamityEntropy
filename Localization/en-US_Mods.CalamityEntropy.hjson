@@ -832,6 +832,7 @@ Projectiles: {
 	TargetSetProj.DisplayName: Target Set Proj
 	UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
 	AquaticPet.DisplayName: Aquatic Pet
+	VoidRitualCircle.DisplayName: Void Ritual Circle
 }
 
 LegendTooltip: - Legend -
@@ -977,6 +978,7 @@ NPCs: {
 
 	CruiserBody.DisplayName: Cruiser
 	AbyssalWraith.DisplayName: Abyssal Wraith
+	VoidCultistAssassin.DisplayName: Void Cultist Assassin
 }
 
 loreCruiser:
@@ -1040,6 +1042,16 @@ Configs: {
 		RepBossMusicReplaceCalamityMusic: {
 			Tooltip: ""
 			Label: Rep Boss Music Replace Calamity Music
+		}
+	}
+
+	ServerConfig: {
+		DisplayName: Server Config
+		Headers.Misc: Misc Header
+
+		CraftArmorWithPrefixChance: {
+			Label: Craft Armor With Prefix Chance
+			Tooltip: ""
 		}
 	}
 }

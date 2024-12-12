@@ -126,7 +126,7 @@ namespace CalamityEntropy.Common
 
         public override void OnCreated(Item item, ItemCreationContext context)
         {
-            if (Util.Util.IsArmor(item) && Main.rand.NextDouble() < ModContent.GetInstance<Config>().CraftArmorWithPrefixChance) {
+            if (Util.Util.IsArmor(item) && Main.rand.NextDouble() < ModContent.GetInstance<ServerConfig>().CraftArmorWithPrefixChance) {
                 ArmorPrefix armorPrefix = ArmorPrefix.RollPrefixToItem(item);
                 if (armorPrefix != null)
                 {

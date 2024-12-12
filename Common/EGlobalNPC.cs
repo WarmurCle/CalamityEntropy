@@ -9,6 +9,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
+using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityEntropy.Util;
@@ -226,16 +227,19 @@ namespace CalamityEntropy.Common
                         NetMessage.SendStrikeNPC(npc, hit);
                     CombatText.NewText(npc.getRect(), new Color(148, 148, 255), damageDone);
                 }
-                if (npc.boss)
+                if (!(npc.ModNPC is VoidCultist))
                 {
-                    npc.velocity *= 0.96f;
-                }
-                else
-                {
-                    npc.velocity *= 0.88f;
+                    if (npc.boss)
+                    {
+                        npc.velocity *= 0.96f;
+                    }
+                    else
+                    {
+                        npc.velocity *= 0.88f;
+                    }
                 }
                 var r = Main.rand;
-                Dust.NewDust(npc.Center, npc.width, npc.height, DustID.CorruptSpray, (float)r.NextDouble() * 2 - 1, (float)r.NextDouble() * 2 - 1);
+                Dust.NewDust(npc.position, npc.width, npc.height, DustID.CorruptSpray, (float)r.NextDouble() * 2 - 1, (float)r.NextDouble() * 2 - 1);
                 npc.Entropy().VoidTouchTime = VoidTouchTime - 1;
             }
             if (npc.Entropy().VoidTouchTime > 0)
@@ -559,10 +563,20 @@ namespace CalamityEntropy.Common
             }
             if (npc.boss)
             {
-                if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && CalamityEntropy.noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod))
+                if (Main.dedServ)
                 {
-                    CalamityEntropy.noMusTime = 300;
-                    SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
+                    ModPacket pack = Mod.GetPacket();
+                    pack.Write((byte)CalamityEntropy.NetPackages.BossKilled);
+                    pack.Write(npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod);
+                    pack.Send();
+                }
+                else
+                {
+                    if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && CalamityEntropy.noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod))
+                    {
+                        CalamityEntropy.noMusTime = 300;
+                        SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
+                    }
                 }
                 if (lostSoulDrop)
                 {
