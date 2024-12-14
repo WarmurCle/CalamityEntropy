@@ -557,6 +557,28 @@ namespace CalamityEntropy.Common
 
         public override void OnKill(NPC npc)
         {
+            
+            if(!npc.friendly && npc.lifeMax > 20)
+            {
+                Player n = null;
+                foreach (Player plr in Main.player)
+                {
+                    if (plr.active && Util.Util.getDistance(plr.Center, npc.Center) < 4000)
+                    {
+                        if (plr.ZoneHallow)
+                        {
+                            n = plr; break;
+                        }
+                    }
+                }
+                if (n != null)
+                {
+                    if (Main.rand.NextBool(70))
+                    {
+                        Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<HolyMantle>()));
+                    }
+                }
+            }
             if (ToFriendly)
             {
                 Main.player[Main.player.Length - 1].active = false;

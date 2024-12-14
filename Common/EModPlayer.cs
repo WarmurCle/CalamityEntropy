@@ -3,6 +3,7 @@ using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
@@ -71,6 +72,9 @@ namespace CalamityEntropy.Common
         public bool AWraith = false;
         public int SacredJudgeShields = 2;
         public float screenShift = 0;
+        public bool holyMantle = false;
+        public int mantleCd = 0;
+        public bool HolyShield = false;
         public Vector2 screenPos = Vector2.Zero;
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge 
@@ -125,7 +129,7 @@ namespace CalamityEntropy.Common
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            voidcharge = 0;VoidInspire = 0;lastStandCd = 0;
+            voidcharge = 0;VoidInspire = 0;lastStandCd = 0;mantleCd = 0;magiShieldCd = 0;sJudgeCd = 2;
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -173,6 +177,7 @@ namespace CalamityEntropy.Common
             ManaCost = 1;
             auraCard = false;
             LastStand = false;
+            holyMantle = false;
             if (brillianceCard > 0)
             {
                 brillianceCard -= 1;
@@ -213,6 +218,21 @@ namespace CalamityEntropy.Common
         public int sJudgeCd = 30 * 60;
         public override void PreUpdate()
         {
+            if (HolyShield)
+            {
+                mantleCd = HolyMantle.Cooldown;
+            }
+            else
+            {
+                mantleCd--;
+            }
+            if(!HolyShield && holyMantle)
+            {
+                if(mantleCd <= 0) {
+                    mantleCd = HolyMantle.Cooldown;
+                    HolyShield = true;
+                }
+            }
             screenShift = screenShift + (0 - screenShift) * 0.06f;
             if (immune > 0)
             {
@@ -366,6 +386,26 @@ namespace CalamityEntropy.Common
 
         public override bool ConsumableDodge(Player.HurtInfo info)
         {
+            if (HolyShield)
+            {
+                immune = 120;
+                HolyShield = false;
+                
+                Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
+                if (holyMantle)
+                {
+                    if (info.Damage * (2 - damageReduce) - Player.statDefense < 60)
+                    {
+                        mantleCd = 6 * 60;
+                        Player.AddCooldown("HolyMantleCooldown", mantleCd, true);
+                    }
+                    else
+                    {
+                        Player.AddCooldown("HolyMantleCooldown", HolyMantle.Cooldown, true);
+                    }
+                }
+                return true;
+            }
             if(SacredJudgeShields > 0 && info.Damage * (2 - damageReduce) - Player.statDefense < 80 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
             {
                 immune = 120;

@@ -1,4 +1,5 @@
 using System;
+using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
@@ -6,6 +7,7 @@ using CalamityMod.CalPlayer;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
+using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
@@ -28,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            
+            player.Entropy().holyMantle = true;
             player.Calamity().DashID = AsgardianAegisDash.ID;
             player.dashType = 0;
             player.noKnockback = true;
@@ -103,7 +105,8 @@ namespace CalamityEntropy.Content.Items.Accessories
             CreateRecipe().
                 AddIngredient(ModContent.ItemType<AsgardianAegis>(), 1).
                 AddIngredient(ModContent.ItemType<RampartofDeities>(), 1).
-                AddIngredient(ModContent.ItemType<VoidBar>(), 5).
+                AddIngredient(ModContent.ItemType<HolyMantle>(), 1).
+                AddIngredient(ModContent.ItemType<AuricBar>(), 5).
                 AddTile(ModContent.TileType<CosmicAnvil>()).
                 Register();
         }

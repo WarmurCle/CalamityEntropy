@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
             healCd--;
             Projectile.velocity *= 0;
             Player player = Projectile.owner.ToPlayer();
-            if (player.Entropy().sacrMask)
+            if (player.Entropy().sacrMask && !player.dead)
             {
                 Projectile.timeLeft = 3;
             }

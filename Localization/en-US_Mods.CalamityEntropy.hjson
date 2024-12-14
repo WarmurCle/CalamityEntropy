@@ -388,6 +388,8 @@ Items: {
 			Grants immunity to knockback
 			Puts a shell around the owner when below 50% life that reduces damage taken
 			Absorbs 25% of damage done to players on your team when above 25% life
+			Provide you with a Holy Shield that can withstand damage once
+			This effect has a 30 second cooldown time
 			'''
 	}
 
@@ -695,9 +697,20 @@ Items: {
 		Tooltip: ""
 		DisplayName: Aquatic Flute
 	}
+
+	HolyMantle: {
+		Tooltip:
+			'''
+			Provide you with a Holy Shield that can withstand damage once
+			This effect has a 30 second cooldown time
+			Loot from hallow monsters
+			'''
+		DisplayName: Holy Mantle
+	}
 }
 
 DeathMode: Death Mode
+CdMantle: Holy Mantle Cooldown
 
 Projectiles: {
 	VoidBladeProj.DisplayName: Void Blade

@@ -44,7 +44,7 @@ namespace CalamityEntropy.Common
             {
                 if(tile.TileType == TileID.CorruptThorns || tile.TileType == TileID.CrimsonThorns)
                 {
-                    if (Main.rand.NextBool(70)) {
+                    if (Main.rand.NextBool(200)) {
                         Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ModContent.ItemType<VenomPiece>());
                     }
                 }

@@ -40,7 +40,7 @@ namespace CalamityEntropy.Common
         public bool gh = false;
         public int ghcounter = 0;
         public int ttindex = -1;
-        public int OnProj = -1;
+        public int OnProj { get { return ttindex; } set { ttindex = value; } }
         public int flagTT = 0;
         public Vector2 playerPosL;
         public Vector2 playerMPosL;
@@ -106,13 +106,9 @@ namespace CalamityEntropy.Common
         public bool netsnc = true;
         public static bool checkHoldOut = true;
         public bool dmgUpFrd = true;
-        
+
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            if(projectile.ModProjectile is CrystylCrusherRay && SubworldSystem.IsActive<DimDungeonSubworld>())
-            {
-                projectile.Kill();
-            }
             if (source is EntitySource_Parent s)
             {
                 if (s.Entity is Player player)
@@ -122,12 +118,12 @@ namespace CalamityEntropy.Common
                 if (s.Entity is NPC np)
                 {
                     ToFriendly = np.Entropy().ToFriendly;
-                    
+
                 }
                 if (s.Entity is Projectile pj)
                 {
                     ToFriendly = pj.Entropy().ToFriendly;
-                    
+
                 }
                 if (ToFriendly)
                 {
@@ -141,81 +137,36 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if (projectile.friendly && projectile.owner >= 0)
+            if (projectile.friendly)
             {
-                if (projectile.owner.ToPlayer().Entropy().VFHelmRanged)
+                if (projectile.ModProjectile is CrystylCrusherRay && SubworldSystem.IsActive<DimDungeonSubworld>())
                 {
-                    maxDmgUps = 10;
+                    projectile.Kill();
                 }
-            }
-            if (source is EntitySource_ItemUse && checkHoldOut && projectile.friendly && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<HB>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>() || projectile.type == ModContent.ProjectileType<SamsaraCasketProj>()))
-            {
-                checkHoldOut = false;
-                foreach (Projectile p in Main.projectile)
+                
+                if (projectile.friendly && projectile.owner >= 0)
                 {
-                    if (p.active && p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.owner == Main.myPlayer) {
+                    if (projectile.owner.ToPlayer().Entropy().VFHelmRanged)
+                    {
+                        maxDmgUps = 10;
+                    }
+                }
+                if (source is EntitySource_ItemUse && checkHoldOut && projectile.friendly && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<HB>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>() || projectile.type == ModContent.ProjectileType<SamsaraCasketProj>()))
+                {
+                    checkHoldOut = false;
+                    foreach (Projectile p in Main.projectile)
+                    {
+                        if (p.active && p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.owner == Main.myPlayer)
+                        {
 
-                        int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
-                        Projectile ph = phd.ToProj();
-                        ph.scale *= 0.8f;
-                        ph.Entropy().OnProj = p.whoAmI;
-                        ph.Entropy().ttindex = p.whoAmI;
-                        ph.netUpdate = true;
-                        Projectile projts = ph;
-                        ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);
-                        if (!projts.usesLocalNPCImmunity)
-                        {
-                            projts.usesLocalNPCImmunity = true;
-                            projts.localNPCHitCooldown = 12;
-                        }
-                    }
-                }
-                checkHoldOut = true;
-            }
-            if (source is EntitySource_Parent ps)
-            {
-                if (ps.Entity is Projectile pj)
-                {
-                    
-                    if (((Projectile)ps.Entity).Entropy().DI)
-                    {
-                        projectile.friendly = ((Projectile)ps.Entity).friendly;
-                        projectile.hostile = ((Projectile)ps.Entity).hostile;
-                    }
-                    if (((Projectile)ps.Entity).Entropy().gh)
-                    {
-                        if (!projectile.minion && projectile.damage > 0)
-                        {
-                            projectile.Entropy().gh = true;
-                        }
-                    }
-                    if (pj.Entropy().ttindex != -1)
-                    {
-                        projectile.Entropy().ttindex = pj.Entropy().ttindex;
-                        int type = projectile.type;
-                        
-                        if (projectile.velocity.Length() > 1)
-                        {
-                            if (!(type == 493) && !(type == 494) && !(type == 150) && !(type == 151) && !(type == 152) && !(type == ModContent.ProjectileType<AtlantisSpear>())) {
-                                //projectile.Center = projectile.Entropy().ttindex.ToProj().Center;
-                            }
-                        }
-                        
-                    }
-                    projectile.Entropy().flagTT = pj.Entropy().flagTT + 1;  
-                }
-                if (ps.Entity is Player plr)
-                {
-                    if (plr.Entropy().twinSpawnIndex != -1)
-                    {
-                        if (projectile.type != ModContent.ProjectileType<TwistedTwinMinion>())
-                        {
-                            projectile.scale *= 0.8f;
-                            projectile.Entropy().OnProj = plr.Entropy().twinSpawnIndex;
-                            projectile.Entropy().ttindex = plr.Entropy().twinSpawnIndex;
-                            projectile.netUpdate = true;
-                            
-                            Projectile projts = projectile;
+                            int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                            Projectile ph = phd.ToProj();
+                            ph.scale *= 0.8f;
+                            ph.Entropy().ttindex = p.identity;
+                            p.netUpdate = true;
+                            ph.netUpdate = true;
+                            Projectile projts = ph;
+                            ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);
                             if (!projts.usesLocalNPCImmunity)
                             {
                                 projts.usesLocalNPCImmunity = true;
@@ -223,22 +174,69 @@ namespace CalamityEntropy.Common
                             }
                         }
                     }
-                    
-                    if (plr.GetModPlayer<EModPlayer>().Godhead)
+                    checkHoldOut = true;
+                }
+                if (source is EntitySource_Parent ps)
+                {
+                    if (ps.Entity is Projectile pj)
                     {
-                        if (!projectile.minion && projectile.damage > 0)
+
+                        if (((Projectile)ps.Entity).Entropy().DI)
                         {
-                            projectile.Entropy().gh = true;
+                            projectile.friendly = ((Projectile)ps.Entity).friendly;
+                            projectile.hostile = ((Projectile)ps.Entity).hostile;
+                        }
+                        if (((Projectile)ps.Entity).Entropy().gh)
+                        {
+                            if (!projectile.minion && projectile.damage > 0)
+                            {
+                                projectile.Entropy().gh = true;
+                            }
+                        }
+                        if (pj.Entropy().ttindex != -1)
+                        {
+                            projectile.Entropy().ttindex = pj.Entropy().ttindex;
+                            int type = projectile.type;
+
+
+                        }
+                        projectile.Entropy().flagTT = pj.Entropy().flagTT + 1;
+                    }
+                    if (ps.Entity is Player plr)
+                    {
+                        if (plr.Entropy().twinSpawnIndex != -1)
+                        {
+                            if (projectile.type != ModContent.ProjectileType<TwistedTwinMinion>())
+                            {
+                                projectile.scale *= 0.8f;
+                                projectile.Entropy().ttindex = plr.Entropy().twinSpawnIndex;
+                                projectile.netUpdate = true;
+
+                                Projectile projts = projectile;
+                                if (!projts.usesLocalNPCImmunity)
+                                {
+                                    projts.usesLocalNPCImmunity = true;
+                                    projts.localNPCHitCooldown = 12;
+                                }
+                            }
+                        }
+
+                        if (plr.GetModPlayer<EModPlayer>().Godhead)
+                        {
+                            if (!projectile.minion && projectile.damage > 0)
+                            {
+                                projectile.Entropy().gh = true;
+                            }
+                        }
+                        if (plr.HasBuff(ModContent.BuffType<SoyMilkBuff>()))
+                        {
+                            projectile.extraUpdates = (projectile.extraUpdates + 1) * 3 - 1;
                         }
                     }
-                    if (plr.HasBuff(ModContent.BuffType<SoyMilkBuff>()))
-                    {
-                        projectile.extraUpdates = (projectile.extraUpdates + 1) * 3 - 1;
-                    }
-                }
-                
-            }
 
+                }
+
+            }
         }
         public override bool ShouldUpdatePosition(Projectile projectile)
         {
@@ -346,7 +344,7 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
-            if (projectile.Entropy().OnProj >= 0 && projectile.owner >= 0)
+            if (projectile.Entropy().ttindex>= 0 && projectile.owner >= 0)
             {
                 if (netsnc)
                 {
@@ -354,7 +352,7 @@ namespace CalamityEntropy.Common
                     netsnc = false;
                 }
                 playerPosL = projectile.owner.ToPlayer().Center;
-                projectile.owner.ToPlayer().Center = projectile.Entropy().OnProj.ToProj().Center;
+                projectile.owner.ToPlayer().Center = projectile.Entropy().ttindex.ToProj_Identity().Center;
             }
             projectile.Entropy().counter++;
             projectile.Entropy().odp.Add(projectile.Center);
@@ -447,7 +445,7 @@ namespace CalamityEntropy.Common
             }
             if(projectile.friendly && projectile.owner >= 0)
             {
-                if (projectile.Entropy().OnProj >= 0)
+                if (projectile.Entropy().ttindex >= 0)
                 {
                     projectile.owner.ToPlayer().Center = playerPosL;
                 }
@@ -493,7 +491,7 @@ namespace CalamityEntropy.Common
             if (projectile.Entropy().OnProj >= 0 && projectile.owner >= 0 && projectile.friendly)
             {
                 lastCenter = projectile.owner.ToPlayer().Center;
-                projectile.owner.ToPlayer().Center = projectile.Entropy().OnProj.ToProj().Center;
+                projectile.owner.ToPlayer().Center = projectile.Entropy().OnProj.ToProj_Identity().Center;
             }
             Texture2D tx;
             if (projectile.Entropy().DI)
@@ -598,41 +596,45 @@ namespace CalamityEntropy.Common
 
         public override void OnKill(Projectile projectile, int timeLeft)
         {
-            if (projectile.Entropy().OnProj >= 0)
+            if (projectile.friendly)
             {
-                projectile.owner.ToPlayer().Center = playerPosL;
-            }
-            else
-            {
-                if (projectile.friendly && projectile.owner >= 0)
+                if (projectile.Entropy().OnProj >= 0)
                 {
-                    if (projectile.owner == Main.myPlayer)
+                    projectile.owner.ToPlayer().Center = playerPosL;
+                }
+                else
+                {
+                    if (projectile.friendly && projectile.owner >= 0)
                     {
-                        ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
+                        if (projectile.owner == Main.myPlayer)
+                        {
+                            ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
+                        }
                     }
                 }
-            }
-            if (plrOldPos.HasValue)
-            {
-                Main.player[0].position = plrOldPos.Value;
-                plrOldPos = null;
-            }
-            if (plrOldVel.HasValue)
-            {
-                Main.player[0].velocity = plrOldVel.Value;
-                plrOldVel = null;
-            }
-            if (vdtype == 4)
-            {
-                for (int i = 0; i < 2; i++)
+                if (plrOldPos.HasValue)
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.position, projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(180)).RotatedByRandom(35) * 16, projectile.type, ((int)(projectile.damage * 0.7f)), projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1], projectile.ai[2]);
+                    Main.player[0].position = plrOldPos.Value;
+                    plrOldPos = null;
                 }
-            }
-            if (rpBow && Main.myPlayer == projectile.owner)
-            {
-                for(int i = 0; i < 3; i++) {
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, new Vector2(30, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<Lightning>(), (int)(projectile.damage * 0.3f), 4, projectile.owner, 0, 0, (Main.rand.NextBool(8) ? 1 : 0));
+                if (plrOldVel.HasValue)
+                {
+                    Main.player[0].velocity = plrOldVel.Value;
+                    plrOldVel = null;
+                }
+                if (vdtype == 4)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.position, projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(180)).RotatedByRandom(35) * 16, projectile.type, ((int)(projectile.damage * 0.7f)), projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1], projectile.ai[2]);
+                    }
+                }
+                if (rpBow && Main.myPlayer == projectile.owner)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, new Vector2(30, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<Lightning>(), (int)(projectile.damage * 0.3f), 4, projectile.owner, 0, 0, (Main.rand.NextBool(8) ? 1 : 0));
+                    }
                 }
             }
         }

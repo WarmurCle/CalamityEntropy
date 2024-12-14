@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         }
         public override int getRollChance()
         {
-            return 1;
+            return 2;
         }
         public override Color getColor()
         {

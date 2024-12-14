@@ -133,7 +133,6 @@ namespace CalamityEntropy
             if(type == (byte)NetPackages.BossKilled)
             {
                 bool flag = reader.ReadBoolean();
-                Main.NewText("Try to play jingle: " + flag.ToString() + ", " + ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic.ToString());
                 if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && CalamityEntropy.noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || flag))
                 {
                     CalamityEntropy.noMusTime = 300;

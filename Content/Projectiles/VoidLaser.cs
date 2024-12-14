@@ -59,8 +59,8 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f) * 3;
-            Projectile.Center = ((int)(Projectile.ai[2])).ToProj().Center + ((int)(Projectile.ai[2])).ToProj().rotation.ToRotationVector2() * 60;
-            Projectile.rotation = ((int)(Projectile.ai[2])).ToProj().rotation;
+            Projectile.Center = ((int)(Projectile.ai[2])).ToProj_Identity().Center + ((int)(Projectile.ai[2])).ToProj_Identity().rotation.ToRotationVector2() * 60;
+            Projectile.rotation = ((int)(Projectile.ai[2])).ToProj_Identity().rotation;
             Projectile.velocity = Vector2.Zero;
             if (Projectile.timeLeft < 20)
             {

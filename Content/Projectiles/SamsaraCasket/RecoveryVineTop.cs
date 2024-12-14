@@ -32,8 +32,10 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             uCount--;
             Projectile.rotation = Projectile.velocity.ToRotation();
             if(uCount <= 0 && uLeft > 0)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<RecoveryVine>(), Projectile.damage, Projectile.knockBack);
+            {if (Main.myPlayer == Projectile.owner)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<RecoveryVine>(), Projectile.damage, Projectile.knockBack);
+                }
                 uCount = 4;
                 uLeft--;
                 Projectile.Center += Projectile.velocity;

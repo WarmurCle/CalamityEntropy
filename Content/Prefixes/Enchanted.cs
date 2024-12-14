@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Prefixes
 		public override PrefixCategory Category => PrefixCategory.Accessory;
 
 		public override float RollChance(Item item) {
-			return 1f;
+			return 4f;
 		}
 
 		public override bool CanRoll(Item item) {

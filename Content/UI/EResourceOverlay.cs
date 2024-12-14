@@ -54,6 +54,15 @@ namespace CalamityEntropy.Content.UI
                             float s = ((float)(Main.LocalPlayer.Entropy().MagiShield - (context.resourceNumber + 1) * 30)) / 30f;
                             context.scale = new Vector2(s, s);
                         }
+                        
+                        context.Draw();
+                    }
+                    if (context.resourceNumber == 0 && Main.LocalPlayer.Entropy().HolyShield)
+                    {
+                        context.texture = ModContent.Request<Texture2D>($"{baseFolder}mantle");
+                        context.scale = new Vector2(2, 2);
+                        context.origin += new Vector2(0.5f, 0.5f);
+                        Main.spriteBatch.UseSampleState(SamplerState.PointClamp);
                         context.Draw();
                     }
                 }
@@ -63,6 +72,14 @@ namespace CalamityEntropy.Content.UI
                     if ((context.resourceNumber + 1) * 30 <= Main.LocalPlayer.Entropy().MagiShield)
                     {
                         context.texture = ModContent.Request<Texture2D>(LifeTexturePath() + "Bar");
+                        context.Draw();
+                    }
+                    if (context.resourceNumber == 0 && Main.LocalPlayer.Entropy().HolyShield)
+                    {
+                        context.texture = ModContent.Request<Texture2D>($"{baseFolder}mantle");
+                        context.scale = new Vector2(2, 2);
+                        context.origin += new Vector2(0.5f, 0.5f);
+                        Main.spriteBatch.UseSampleState(SamplerState.PointClamp);
                         context.Draw();
                     }
                 }

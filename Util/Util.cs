@@ -25,6 +25,11 @@ namespace CalamityEntropy.Util
                 drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, points[i - 1], points[i], color, width, 2, true);
             }
         }
+        public static void UseSampleState(this SpriteBatch sb, SamplerState sampler)
+        {
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, sampler, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+        }
         public static void DrawRectAlt(Rectangle rect, Color color, float width, int num = 16)
         {
             drawLine(new Vector2(rect.X + num, rect.Y), new Vector2(rect.X + rect.Width - num, rect.Y), color, width, 2);
@@ -148,7 +153,7 @@ namespace CalamityEntropy.Util
         {
             if(ins < 0 || !Main.player[ins].active)
             {
-                return null;
+                return Main.LocalPlayer;
             }
             return Main.player[ins];
         }

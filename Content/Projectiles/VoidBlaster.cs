@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (up == 0)
                     {
-                        int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 60, Vector2.Zero, ModContent.ProjectileType<VoidLaser>(), Projectile.damage, 0, Projectile.owner, 0, 0, Projectile.whoAmI);
+                        int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 60, Vector2.Zero, ModContent.ProjectileType<VoidLaser>(), Projectile.damage, 0, Projectile.owner, 0, 0, Projectile.identity);
                         p.ToProj().rotation = Projectile.rotation;
                         p.ToProj().scale = Projectile.scale;
                         p.ToProj().netUpdate = true;

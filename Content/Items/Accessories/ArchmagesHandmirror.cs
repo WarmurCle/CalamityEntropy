@@ -5,12 +5,10 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Accessories
 {
     public class ArchmagesHandmirror : ModItem
     {
-
-
         public override void SetStaticDefaults()
         {
             ItemID.Sets.AnimatesAsSoul[Type] = true;

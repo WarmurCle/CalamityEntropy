@@ -267,15 +267,14 @@ namespace CalamityEntropy.Common
                             {
                                 if (p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.active && p.owner == Main.myPlayer)
                                 {
-                                    player.Entropy().twinSpawnIndex = p.whoAmI;
+                                    player.Entropy().twinSpawnIndex = p.identity;
                                     p.ai[0] = 30;
                                     if (item.ModItem == null)
                                     {
                                         int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback, Main.myPlayer);
 
                                         pj.ToProj().scale *= 0.8f;
-                                        pj.ToProj().Entropy().OnProj = p.whoAmI;
-                                        pj.ToProj().Entropy().ttindex = p.whoAmI;
+                                        pj.ToProj().Entropy().ttindex = p.identity;
                                         pj.ToProj().netUpdate = true;
 
                                         Projectile projts = pj.ToProj();
@@ -291,8 +290,7 @@ namespace CalamityEntropy.Common
                                         {
                                             int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback, Main.myPlayer);
                                             pj.ToProj().scale *= 0.8f;
-                                            pj.ToProj().Entropy().OnProj = p.whoAmI;
-                                            pj.ToProj().Entropy().ttindex = p.whoAmI;
+                                            pj.ToProj().Entropy().ttindex = p.identity;
                                             pj.ToProj().netUpdate = true;
                                             Projectile projts = pj.ToProj();
                                             if (!projts.usesLocalNPCImmunity)

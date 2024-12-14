@@ -423,12 +423,13 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         {
             if(aiStyle == AIStyle.Summoning)
             {
-                float handRot = (float)(Math.Cos(NPC.ai[0] * 0.13f) * 25);
-                Main.EntitySpriteDraw(RightHandTex, NPC.Center + drawOffset * NPC.scale - screenPos + new Vector2(8 * NPC.scale * NPC.direction, 6), null, drawColor * drawAlpha, NPC.rotation + MathHelper.ToRadians(180 + handRot), (NPC.direction > 0 ? new Vector2(RightHandTex.Width, 0) : new Vector2(0, 0)), NPC.scale, (NPC.direction > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None));
+                float handRotL = (float)(Math.Cos(NPC.ai[0] * 0.06f) * 70) + NPC.direction * 26;
+                float handRotR = (float)(Math.Cos(NPC.ai[0] * 0.06f) * 66) + NPC.direction * 4;
+                Main.EntitySpriteDraw(RightHandTex, NPC.Center + drawOffset * NPC.scale - screenPos + new Vector2(8 * NPC.scale * NPC.direction, 6), null, drawColor * drawAlpha, NPC.rotation + MathHelper.ToRadians(180 + handRotR), (NPC.direction > 0 ? new Vector2(RightHandTex.Width, 0) : new Vector2(0, 0)), NPC.scale, (NPC.direction > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None));
 
                 Main.EntitySpriteDraw(BodyTex, NPC.Center + drawOffset * NPC.scale - screenPos, null, drawColor * drawAlpha, NPC.rotation, BodyTex.Size() / 2, NPC.scale, (NPC.direction > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None));
 
-                Main.EntitySpriteDraw(LeftHandTex, NPC.Center + drawOffset * NPC.scale - screenPos + new Vector2(-4 * NPC.scale * NPC.direction, 6), null, drawColor * drawAlpha, NPC.rotation + MathHelper.ToRadians(180 + handRot), (NPC.direction < 0 ? new Vector2(LeftHandTex.Width, 0) : new Vector2(0, 0)), NPC.scale, (NPC.direction > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None));
+                Main.EntitySpriteDraw(LeftHandTex, NPC.Center + drawOffset * NPC.scale - screenPos + new Vector2(-4 * NPC.scale * NPC.direction, 6), null, drawColor * drawAlpha, NPC.rotation + MathHelper.ToRadians(180 + handRotL), (NPC.direction < 0 ? new Vector2(LeftHandTex.Width, 0) : new Vector2(0, 0)), NPC.scale, (NPC.direction > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None));
 
                 return false;
             }
