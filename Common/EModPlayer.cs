@@ -386,7 +386,12 @@ namespace CalamityEntropy.Common
 
         public override bool ConsumableDodge(Player.HurtInfo info)
         {
-            if (HolyShield)
+            if(immune > 0)
+            {
+                return true;
+            }
+            
+            if (HolyShield && info.Damage * (2 - damageReduce) - Player.statDefense > 16)
             {
                 immune = 120;
                 HolyShield = false;
@@ -406,20 +411,23 @@ namespace CalamityEntropy.Common
                 }
                 return true;
             }
-            if(SacredJudgeShields > 0 && info.Damage * (2 - damageReduce) - Player.statDefense < 80 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            if (info.Damage * (2 - damageReduce) - Player.statDefense > 16)
             {
-                immune = 120;
-                SacredJudgeShields -= 1;
-                Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
-                return true;
-            }
-            if(SacredJudgeShields > 1 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
-            {
-                immune = 120;
-                SacredJudgeShields -= 2;
-                Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
+                if (SacredJudgeShields > 0 && info.Damage * (2 - damageReduce) - Player.statDefense < 80 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+                {
+                    immune = 120;
+                    SacredJudgeShields -= 1;
+                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
+                    return true;
+                }
+                if (SacredJudgeShields > 1 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+                {
+                    immune = 120;
+                    SacredJudgeShields -= 2;
+                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
 
-                return true;
+                    return true;
+                }
             }
             return false;
         }

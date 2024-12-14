@@ -109,6 +109,10 @@ namespace CalamityEntropy.Common
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            if (Main.gameMenu)
+            {
+                return;
+            }
             if (source is EntitySource_Parent s)
             {
                 if (s.Entity is Player player)
@@ -143,7 +147,6 @@ namespace CalamityEntropy.Common
                 {
                     projectile.Kill();
                 }
-                
                 if (projectile.friendly && projectile.owner >= 0)
                 {
                     if (projectile.owner.ToPlayer().Entropy().VFHelmRanged)
