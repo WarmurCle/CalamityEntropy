@@ -699,6 +699,20 @@ namespace CalamityEntropy.Common
                     return playerName.ToLower().Contains("ahi") || playerName.ToLower().Contains("fr9");
                 };
                 itemLoot.AddIf(getsAH, ModContent.ItemType<GalaxyGrapeSoda>());
+
+                static bool getsDD(DropAttemptInfo info)
+                {
+                    string playerName = info.player.name;
+                    return playerName.ToLower().Contains("dream") || playerName.ToLower().Contains("梦");
+                };
+                itemLoot.AddIf(getsDD, ModContent.ItemType<DreamCatcher>());
+
+                static bool getsCHA(DropAttemptInfo info)
+                {
+                    string playerName = info.player.name;
+                    return playerName.ToLower().Contains("cha") || playerName.ToLower().Contains("lost");
+                };
+                itemLoot.AddIf(getsCHA, ModContent.ItemType<ToyKnife>());
             }
         }
         public class IsDeathMode : IItemDropRuleCondition, IProvideItemConditionDescription

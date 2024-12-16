@@ -748,7 +748,7 @@ namespace CalamityEntropy.Common
         {
             if (shop.NpcType == 17)
             {
-                shop.Add(ModContent.ItemType<SoyMilk>(), new Condition("Downed Boss2", () => NPC.downedBoss2));
+                shop.Add(ModContent.ItemType<SoyMilk>(), new Condition(Mod.GetLocalizationKey("DownedBoss2"), () => NPC.downedBoss2));
                 shop.Add(ModContent.ItemType<BrillianceCard>());
             }
             if (shop.NpcType == ModContent.NPCType<DILF>())
@@ -758,15 +758,15 @@ namespace CalamityEntropy.Common
             }
             if (shop.NpcType == 108)
             {
-                shop.Add(ModContent.ItemType<AuraCard>(), new Condition("Have Oracle Desk", () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<BrillianceCard>(), new Condition("Have Oracle Desk", () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<EnduranceCard>(), new Condition("Have Oracle Desk", () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<EntityCard>(), new Condition("Have Oracle Desk", () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<InspirationCard>(), new Condition("Have Oracle Desk", () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<MetropolisCard>(), new Condition("Have Oracle Desk", () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<RadianceCard>(), new Condition("Have Oracle Desk", () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<TemperanceCard>(), new Condition("Have Oracle Desk", () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<WisdomCard>(), new Condition("Have Oracle Desk", () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<AuraCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<BrillianceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<EnduranceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<EntityCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<InspirationCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<MetropolisCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<RadianceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<TemperanceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<WisdomCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
 
             }
 

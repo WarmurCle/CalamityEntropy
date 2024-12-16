@@ -707,6 +707,11 @@ Items: {
 			'''
 		DisplayName: Holy Mantle
 	}
+
+	ToyKnife: {
+		DisplayName: Toy Knife
+		Tooltip: ""
+	}
 }
 
 DeathMode: Death Mode
@@ -846,6 +851,8 @@ Projectiles: {
 	UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
 	AquaticPet.DisplayName: Aquatic Pet
 	VoidRitualCircle.DisplayName: Void Ritual Circle
+	VPVoidLightBall.DisplayName: Void Light Ball
+	VPRot.DisplayName: Void Pope Hand
 }
 
 LegendTooltip: - Legend -
@@ -992,6 +999,8 @@ NPCs: {
 	CruiserBody.DisplayName: Cruiser
 	AbyssalWraith.DisplayName: Abyssal Wraith
 	VoidCultistAssassin.DisplayName: Void Cultist Assassin
+	VoidPope.DisplayName: Void Pope
+	VoidPopeHand.DisplayName: Void Pope Hand
 }
 
 loreCruiser:
@@ -1219,3 +1228,6 @@ PrefixEnchantedDesc: +12% Enhanced Mana
 Prefixes.Enchanted.DisplayName: Enchanted
 DamageClasses.NoneTypeDamageClass.DisplayName: Damage
 hkLevel: Level
+ZoneGraveyard: Zone Graveyard
+DownedBoss2: After Defeat Eater of World / Brain of cthulhu
+HaveOracleDesk: When Oracle Desk is in inventory

@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
             }
-            else if (Projectile.ai[0] < 50)
+            else if (Projectile.ai[0] < 36)
             {
                 handrotspeed *= 0.84f;
                 var owner = Projectile.owner.ToPlayer();

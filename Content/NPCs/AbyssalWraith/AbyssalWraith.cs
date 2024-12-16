@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public int seed = -1;
         public float wingRotLeft = 0;
         public float wingRotRight = 0;
-
+        public int lifeCounter = -1;
 
         public List<Texture2D> wingflying = new List<Texture2D>();
         public override void OnSpawn(IEntitySource source)
@@ -105,7 +105,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                 NPC.damage += 20;
             }
             NPC.defense = 60;
-            NPC.lifeMax = 2800000;
+            NPC.lifeMax = 5500000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 20;
@@ -172,6 +172,15 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public bool looted = false;
         public override void AI()
         {
+            if (lifeCounter < 0)
+            {
+                lifeCounter = NPC.lifeMax;
+            }
+            lifeCounter -= (int)(((float)NPC.lifeMax) / (4.5f * 60f * 60f));
+            if(lifeCounter < 0)
+            {
+                lifeCounter = 0;
+            }
             if (deathAnm && deathSoundPlay && !Main.dedServ)
             {
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/awdead"));
@@ -1110,7 +1119,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         {
             if (!deathAnm)
             {
-                modifiers.SetMaxDamage(NPC.life - 1);
+                modifiers.SetMaxDamage(Math.Min(NPC.life - 1, (int)(16000 * (NPC.life < lifeCounter ? (1 / (1 + (lifeCounter - NPC.life) * 0.00001f)) : 1))));
             }
         }
 

@@ -735,6 +735,11 @@ Items: {
 			'''
 		DisplayName: 神圣屏障
 	}
+
+	ToyKnife: {
+		DisplayName: 玩具刀
+		Tooltip: ""
+	}
 }
 
 DeathMode: 死亡模式
@@ -873,7 +878,9 @@ Projectiles: {
 	TargetSetProj.DisplayName: 奴役你😡
 	UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
 	AquaticPet.DisplayName: 海灾酱
-	// VoidRitualCircle.DisplayName: Void Ritual Circle
+	VoidRitualCircle.DisplayName: 虚空邪教徒召唤法阵
+	VPVoidLightBall.DisplayName: 虚光球
+	VPRot.DisplayName: 虚空教主
 }
 
 LegendTooltip: - 传奇物品 -
@@ -907,7 +914,7 @@ Buffs: {
 
 	AstrumDeusBuff: {
 		DisplayName: 神瘟残枝
-		Description: ""
+		Description: "召唤一位星神跟随你"
 	}
 
 	WeakGravity: {
@@ -1020,6 +1027,8 @@ NPCs: {
 	CruiserBody.DisplayName: 巡游者
 	AbyssalWraith.DisplayName: 祟界虚灵
 	VoidCultistAssassin.DisplayName: 虚空邪教徒
+	VoidPope.DisplayName: 虚空教主
+	VoidPopeHand.DisplayName: 虚空教主
 }
 
 loreCruiser:
@@ -1246,3 +1255,6 @@ PrefixEnchantedDesc: +12% 强化魔力
 Prefixes.Enchanted.DisplayName: 注魔
 DamageClasses.NoneTypeDamageClass.DisplayName: 伤害
 hkLevel: 当前解锁进度
+ZoneGraveyard: 当在墓地环境时
+DownedBoss2: 击败 克苏鲁之脑 / 世界吞噬怪 后
+HaveOracleDesk: 持有神谕卡组时

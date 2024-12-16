@@ -573,9 +573,16 @@ namespace CalamityEntropy.Common
             shielddamagecd--;
             if (holyMoonlight)
             {
+                if (MagiShield > 0)
+                {
+                    magiShieldCd = 30 * 60;
+                }
                 if (magiShieldCd > 0)
                 {
-                    magiShieldCd -= 1;
+                    if (MagiShield <= 0)
+                    {
+                        magiShieldCd -= 1;
+                    }
                 }
                 else
                 {

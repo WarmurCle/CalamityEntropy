@@ -17,7 +17,10 @@ namespace CalamityEntropy.Util
     public static class Util{
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
 
-
+        public static Rectangle getRectCentered(this Vector2 center, float w, float h)
+        {
+            return new Rectangle((int)(center.X - w / 2), (int)(center.Y - h / 2), (int)w, (int)h);
+        }
         public static void DrawLines(List<Vector2> points, Color color, float width)
         {
             for(int i = 1; i < points.Count; i++)
