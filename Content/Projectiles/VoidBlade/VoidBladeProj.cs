@@ -166,7 +166,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
                 int pj = Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidBladeHit>(), Projectile.damage, 0, Projectile.owner, 0, (target.Center - Main.player[Projectile.owner].Center).ToRotation());
 
             }
-            EGlobalNPC.AddVoidTouch(target, 60, 0.5f, 460, 1);
+            EGlobalNPC.AddVoidTouch(target, 60, 0.5f + 0.3f * Projectile.owner.ToPlayer().Entropy().WeaponBoost, 460, 1);
             target.Entropy().vtnoparticle = target.Entropy().VoidTouchTime;
             float sparkCount = 3;
             for (int i = 0; i < sparkCount; i++)

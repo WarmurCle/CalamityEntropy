@@ -58,6 +58,11 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Main.player[Projectile.owner].Center, (ca.ToRotationVector2() * 26).RotatedBy(MathHelper.ToRadians(0)), ModContent.ProjectileType<Rvshoot2>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Projectile.owner);
                     Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Main.player[Projectile.owner].Center, (ca.ToRotationVector2() * 26).RotatedBy(MathHelper.ToRadians(32)), ModContent.ProjectileType<Rvshoot2>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Projectile.owner);
                     Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Main.player[Projectile.owner].Center, (ca.ToRotationVector2() * 26).RotatedBy(MathHelper.ToRadians(-32)), ModContent.ProjectileType<Rvshoot2>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Projectile.owner);
+                    for(int i = 0; i < Projectile.owner.ToPlayer().Entropy().WeaponBoost; i++)
+                    {
+                        Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Main.player[Projectile.owner].Center, (ca.ToRotationVector2() * 26).RotatedByRandom(0.4f), ModContent.ProjectileType<Rvshoot2>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Projectile.owner);
+
+                    }
                 }
             }
             if (Projectile.velocity.X > 0)

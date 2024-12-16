@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/HB/hb" + ((ct / 3) % 3 + 6).ToString()).Value;
             }
-            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * back + new Vector2(0, up), null, Color.White, Projectile.rotation, new Vector2(165, 144) / 2, Projectile.scale, ef, 0);
+            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * back + new Vector2(0, up), null, Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 ? Color.Purple : Color.White, Projectile.rotation, new Vector2(165, 144) / 2, Projectile.scale, ef, 0);
             return false;
         }
     }

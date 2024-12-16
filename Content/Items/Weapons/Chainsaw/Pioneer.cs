@@ -5,6 +5,7 @@ using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,6 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
 			Item.shoot = ModContent.ProjectileType<Pioneer0>();
 			Item.shootSpeed = 1f;
         }
+        
         public override bool CanUseItem(Player player)
         {
             return player.ownedProjectileCounts[Item.shoot] < 1;

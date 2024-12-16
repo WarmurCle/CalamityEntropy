@@ -347,18 +347,18 @@ namespace CalamityEntropy.Content.Projectiles
                 SoundEngine.PlaySound(s, Projectile.Center); odr.Clear();
                 potbuffcd = 4;
                 Player player = Projectile.owner.ToPlayer();
-                if (player.Entropy().pot_time < 600)
+                if (player.Entropy().pot_time < 600 + player.Entropy().WeaponBoost * 200)
                 {
-                    player.Entropy().pot_time += 60;
-                    if (player.Entropy().pot_time > 600)
+                    player.Entropy().pot_time += 60 + player.Entropy().WeaponBoost * 40;
+                    if (player.Entropy().pot_time > 600 + player.Entropy().WeaponBoost * 200)
                     {
-                        player.Entropy().pot_time = 600;
+                        player.Entropy().pot_time = 600 + player.Entropy().WeaponBoost * 200;
                     }
                 }
                 
-                if (player.Entropy().pot_amp < 10)
+                if (player.Entropy().pot_amp < 10 + player.Entropy().WeaponBoost * 5)
                 {
-                    player.Entropy().pot_amp += 1;
+                    player.Entropy().pot_amp += 1 + player.Entropy().WeaponBoost;
                 }
             }
         }

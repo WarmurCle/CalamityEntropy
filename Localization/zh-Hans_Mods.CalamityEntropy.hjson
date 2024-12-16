@@ -583,7 +583,7 @@ Items: {
 	}
 
 	JailerWhip: {
-		Tooltip: ""
+		Tooltip: +8 召唤物伤害
 		DisplayName: 狱卒长鞭
 	}
 
@@ -740,6 +740,20 @@ Items: {
 		DisplayName: 玩具刀
 		Tooltip: ""
 	}
+
+	DeusCore: {
+		DisplayName: 星神龙核
+		Tooltip: ""
+	}
+
+	CarlosIceCream: {
+		DisplayName: 卡洛的冰激凌
+		Tooltip:
+			'''
+			召唤一只乌姆
+			“我还没有忘记你上一次吃冰激凌的时候，并且我很确定你也没有忘记我上次的暴走...”
+			'''
+	}
 }
 
 DeathMode: 死亡模式
@@ -881,6 +895,7 @@ Projectiles: {
 	VoidRitualCircle.DisplayName: 虚空邪教徒召唤法阵
 	VPVoidLightBall.DisplayName: 虚光球
 	VPRot.DisplayName: 虚空教主
+	WuppoPet.DisplayName: 乌姆
 }
 
 LegendTooltip: - 传奇物品 -
@@ -914,7 +929,7 @@ Buffs: {
 
 	AstrumDeusBuff: {
 		DisplayName: 神瘟残枝
-		Description: "召唤一位星神跟随你"
+		Description: 召唤一位星神跟随你
 	}
 
 	WeakGravity: {
@@ -1005,6 +1020,11 @@ Buffs: {
 	AquaticChan: {
 		Description: 小海灾会跟着你
 		DisplayName: 海灾酱
+	}
+
+	WumBuff: {
+		DisplayName: 乌姆
+		Description: 这只传奇乌姆会跟着你
 	}
 }
 

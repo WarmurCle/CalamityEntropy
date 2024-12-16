@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
             SoundStyle sd = new("CalamityMod/Sounds/Item/AnomalysNanogunMPFBExplosion");
             SoundEngine.PlaySound(sd, Projectile.Center);
             var r = Main.rand;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 8 + 4 * Projectile.owner.ToPlayer().Entropy().WeaponBoost; i++)
             {
                 Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Projectile.Center, new Vector2(40, 0).RotateRandom(Math.PI * 2), ModContent.ProjectileType<LightningBolt>(), (int)(Projectile.damage * 0.3f), 1);
             }

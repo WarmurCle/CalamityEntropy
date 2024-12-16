@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Projectiles
                     p.ToProj().localNPCHitCooldown = 10;
                 }
             }
-            if (Projectile.ai[0] % 210 == 0)
+            if (Projectile.ai[0] % (int)(210 / (1 + Projectile.owner.ToPlayer().Entropy().WeaponBoost)) == 0)
             {
                 Vector2 velocity = Projectile.SafeDirectionTo(target.Center) * 12;
 

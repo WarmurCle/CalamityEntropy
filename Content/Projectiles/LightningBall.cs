@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
            if (Main.myPlayer == Projectile.owner)
             {
                 Projectile projectile = Projectile;
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 3 + Projectile.owner.ToPlayer().Entropy().WeaponBoost; i++)
                 {
                     Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, new Vector2(30, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<Lightning>(), (int)(projectile.damage * 0.333f), 4, projectile.owner, 0, 0, Projectile.ai[1]).ToProj().DamageType = DamageClass.Magic;
                 }

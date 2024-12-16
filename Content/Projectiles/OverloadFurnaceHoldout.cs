@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Projectiles
             
             if (Projectile.ai[0] < maxTime)
             {
-                Projectile.ai[0] += 1 * owner.GetAttackSpeed(DamageClass.Magic);
+                Projectile.ai[0] += 1 * owner.GetAttackSpeed(DamageClass.Magic) * (1 + owner.Entropy().WeaponBoost * 0.6f);
                 if (Projectile.ai[0] >= maxTime)
                 {
                     float a = 0;

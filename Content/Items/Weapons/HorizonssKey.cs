@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if(damageClass == Util.CUtil.rougeDC)
             {
-                return new StatInheritanceData(0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
+                return new StatInheritanceData(0.35f, 0.35f, 0.35f, 0.35f, 0.35f);
             }
             return StatInheritanceData.Full;
         }
@@ -149,6 +149,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 ap += 30;
             }
+            ap += 46 * Main.LocalPlayer.Entropy().WeaponBoost;
             return ap;
         }
         public static int getLevel()

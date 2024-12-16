@@ -134,7 +134,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             if (aitype == AttackAIStyle.Circle)
             {
                 circleCounter+=circlespeed * 0.38f;
-                if (aichange < 6.5f * 60)
+                if (aichange < 2.5f * 60)
                 {
                     circlespeed += 0.01f;
                     circlespeed *= 0.97f;
@@ -173,7 +173,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                         circleCounter = 0;
                         circlespeed = 0;
                     }
-                    if (aitype == AttackAIStyle.Circle && aichange > 8 * 60)
+                    if (aitype == AttackAIStyle.Circle && aichange > 4 * 60)
                     {
                         aitype = AttackAIStyle.Melee;
                         aichange = 0;

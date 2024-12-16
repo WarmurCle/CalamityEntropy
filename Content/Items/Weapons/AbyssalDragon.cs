@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
@@ -42,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
 
             Projectile.NewProjectile(player.GetSource_ItemUse(Item), position, velocity, ModContent.ProjectileType<AbyssDragonProj>(), damage, knockback, player.whoAmI);
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 6 + player.Entropy().WeaponBoost * 3; i++)
             {
                 Projectile.NewProjectile(player.GetSource_ItemUse(Item), position, velocity.RotatedByRandom(MathHelper.ToRadians(6)), ModContent.ProjectileType<AbyssalStar>(), (int)(damage * 0.3f), knockback, player.whoAmI);
 

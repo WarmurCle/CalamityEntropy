@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
                 if (p.WithinBounds(Main.maxProjectiles)) {
                     Main.projectile[p].Calamity().stealthStrike = true;
-                    p.ToProj().penetrate = 9;
+                    p.ToProj().penetrate = 9 + player.Entropy().WeaponBoost * 4;
                 }
                     
                 return false;

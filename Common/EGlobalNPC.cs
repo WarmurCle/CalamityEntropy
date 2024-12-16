@@ -14,6 +14,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityEntropy.Util;
 using CalamityMod;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Events;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
@@ -59,9 +60,14 @@ namespace CalamityEntropy.Common
         public Vector2? plrOldVel2 = null;
         public Vector2? plrOldPos3 = null;
         public Vector2? plrOldVel3 = null;
+        public int applyMarkedOfDeath = 0;
         public override void PostAI(NPC npc)
         {
-            
+            if(applyMarkedOfDeath > 0)
+            {
+                npc.AddBuff(ModContent.BuffType<MarkedforDeath>(), applyMarkedOfDeath);
+                applyMarkedOfDeath = 0;
+            }
             if (plrOldPos.HasValue)
             {
                 Main.player[0].position = plrOldPos.Value;
@@ -557,7 +563,12 @@ namespace CalamityEntropy.Common
 
         public override void OnKill(NPC npc)
         {
-            
+            if(npc.type == -3 || npc.type == 1 || npc.type == -8 || npc.type == -7 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10)
+            {
+                if (Main.rand.NextBool(120))
+                {
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CarlosIceCream>()));
+                }
             if(!npc.friendly && npc.lifeMax > 20)
             {
                 Player n = null;
@@ -767,6 +778,11 @@ namespace CalamityEntropy.Common
                 shop.Add(ModContent.ItemType<RadianceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
                 shop.Add(ModContent.ItemType<TemperanceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
                 shop.Add(ModContent.ItemType<WisdomCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+
+            }
+            if(shop.NpcType == 663)
+            {
+                shop.Add(ModContent.ItemType<CarlosIceCream>());
 
             }
 

@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
                 player.itemTime = 3;
                 if (Projectile.ai[1] < maxCharge)
                 {
-                    Projectile.ai[1] += 1.8f * player.GetTotalAttackSpeed(DamageClass.Ranged);
+                    Projectile.ai[1] += 1.8f * player.GetTotalAttackSpeed(DamageClass.Ranged) * (1 + player.Entropy().WeaponBoost);
                     if (Projectile.ai[1] >= maxCharge)
                     {
                         SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/ArtAttackCast"), Projectile.Center);
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 
             }
-            else
+            if(!player.channel || (Projectile.ai[1] >= maxCharge && (player.HasBuff<SoyMilkBuff>() || player.Entropy().WeaponBoost > 0)))
             {
                 if (Projectile.ai[1] > 16 && player.HasAmmo(player.HeldItem))
                 {

@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
@@ -7,7 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Weapons
 {
     public class WingsOfHush : ModItem
     {
@@ -33,10 +34,15 @@ namespace CalamityEntropy.Content.Items
         public override Vector2? HoldoutOffset() => new Vector2(-28, 0);
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<WohLaser>(), damage, knockback, player.whoAmI);
+            int p = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<WohLaser>(), damage, knockback, player.whoAmI);
+
             Projectile.NewProjectile(source, position, velocity.RotatedBy(MathHelper.ToRadians(16)), ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
             Projectile.NewProjectile(source, position, velocity.RotatedBy(MathHelper.ToRadians(-16)), ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
+            for(int i = 0; i < player.Entropy().WeaponBoost; i++)
+            {
+                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(-9)), ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
 
+            }
             return false;
         }
     }

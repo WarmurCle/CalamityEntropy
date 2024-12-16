@@ -557,7 +557,7 @@ Items: {
 	}
 
 	JailerWhip: {
-		Tooltip: ""
+		Tooltip: +8 Minion Damage
 		DisplayName: Jailer Whip
 	}
 
@@ -712,6 +712,16 @@ Items: {
 		DisplayName: Toy Knife
 		Tooltip: ""
 	}
+
+	DeusCore: {
+		DisplayName: Deus Core
+		Tooltip: ""
+	}
+
+	CarlosIceCream: {
+		DisplayName: Carlo's Ice Cream
+		Tooltip: Summon a Wum
+	}
 }
 
 DeathMode: Death Mode
@@ -853,6 +863,7 @@ Projectiles: {
 	VoidRitualCircle.DisplayName: Void Ritual Circle
 	VPVoidLightBall.DisplayName: Void Light Ball
 	VPRot.DisplayName: Void Pope Hand
+	WuppoPet.DisplayName: Wuppo Pet
 }
 
 LegendTooltip: - Legend -
@@ -977,6 +988,11 @@ Buffs: {
 	AquaticChan: {
 		Description: Mods.CalamityEntropy.Buffs.AquaticChan.Description
 		DisplayName: Aquatic Chan
+	}
+
+	WumBuff: {
+		DisplayName: Wum Buff
+		Description: Wum will follow you
 	}
 }
 

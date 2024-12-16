@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
                 player.itemTime = 3;
                 if (Projectile.ai[1] < maxCharge)
                 {
-                    Projectile.ai[1] += 1.8f * player.GetTotalAttackSpeed(DamageClass.Ranged);
+                    Projectile.ai[1] += 1.8f * player.GetTotalAttackSpeed(DamageClass.Ranged) * (1 + player.Entropy().WeaponBoost);
                     if (Projectile.ai[1] >= maxCharge)
                     {
                     }

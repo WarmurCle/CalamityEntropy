@@ -40,12 +40,12 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (dmgandkbUp == 30)
             {
-                Projectile.damage *= 3;
+                Projectile.damage *= 3 + Projectile.owner.ToPlayer().Entropy().WeaponBoost * 2;
                 Projectile.knockBack *= 6f;
             }
             if (dmgandkbUp == 0)
             {
-                Projectile.damage /= 3;
+                Projectile.damage /= 3 + Projectile.owner.ToPlayer().Entropy().WeaponBoost * 2;
                 Projectile.knockBack /= 6f;
             }
             dmgandkbUp--;

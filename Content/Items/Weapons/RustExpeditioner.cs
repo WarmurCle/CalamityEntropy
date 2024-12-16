@@ -15,13 +15,13 @@ namespace CalamityEntropy.Content.Items.Weapons
 		}
 
 		public override void SetDefaults() {
-			Item.DefaultToRangedWeapon(ProjectileID.RocketI, AmmoID.Rocket, singleShotTime: 30, shotVelocity: 20f, hasAutoReuse: true);
+			Item.DefaultToRangedWeapon(ProjectileID.RocketI, AmmoID.Rocket, singleShotTime: 50, shotVelocity: 20f, hasAutoReuse: true);
 			Item.width = 50;
 			Item.height = 20;
 			Item.damage = 40;
 			Item.knockBack = 4f;
-			Item.crit = 15;
-			Item.UseSound = SoundID.Item11;
+			Item.crit = 5;
+			Item.UseSound = SoundID.Item61;
 			Item.value = Item.buyPrice(gold: 3);
 			Item.rare = ItemRarityID.Orange;
 		}
@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 			int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
-			p.ToProj().Entropy().withGrav = true;
+			p.ToProj().Entropy().withGrav = player.Entropy().WeaponBoost == 0;
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);

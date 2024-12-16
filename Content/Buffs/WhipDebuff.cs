@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Buffs
 
 
 
-	public class ExampleWhipDebuffNPC : GlobalNPC
+	public class WhipDebuffNPC : GlobalNPC
 	{
 		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers) {
 			if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)

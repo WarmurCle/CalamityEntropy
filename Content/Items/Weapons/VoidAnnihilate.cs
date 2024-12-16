@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
+using CalamityEntropy.Util;
 using CalamityMod;
 using Terraria;
 using Terraria.ID;
@@ -35,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[Item.shoot] < 4 * (1 + player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()]);
+            return player.ownedProjectileCounts[Item.shoot] < (4 + player.Entropy().WeaponBoost) * (1 + player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()]);
         }
         public override void AddRecipes()
         {

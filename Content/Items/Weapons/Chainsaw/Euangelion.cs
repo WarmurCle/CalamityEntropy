@@ -2,6 +2,7 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 

@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
                 int j = 2;
                 var var = Main.rand;
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 2 + player.Entropy().WeaponBoost; i++)
                 {
                     if (i == 0)
                     {

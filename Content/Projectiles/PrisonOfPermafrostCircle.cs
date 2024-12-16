@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
                                 }
                             }
                         }
-                        if (usingTime % 65 == 0 && usingTime > 120)
+                        if (usingTime % Math.Max(1, 65 - player.Entropy().WeaponBoost * 20) == 0 && usingTime > 120)
                         {
                             Vector2 ofs;
                             float ag = (float)(Main.rand.NextDouble() * Math.PI * 2);
@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Projectiles
                                 ag += MathHelper.ToRadians(360f / (float)projCount);
                             }
                         }
-                        if (usingTime % 180 == 0)
+                        if (usingTime % Math.Max(20, 180 - player.Entropy().WeaponBoost * 50) == 0)
                         {
                             float anglep = MathHelper.ToRadians(5);
                             for (int i = 0; i < 6; i++)

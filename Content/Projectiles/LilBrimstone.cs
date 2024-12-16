@@ -139,7 +139,7 @@ namespace CalamityEntropy.Content.Projectiles
                             
                             if (Projectile.owner == Main.myPlayer)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ((target.Center + target.velocity * 20 - Projectile.Center) * 6).SafeNormalize(Vector2.Zero), ModContent.ProjectileType<Brimstone>(), Projectile.damage, 5, Projectile.owner, 0, Projectile.scale * 0.4f, Projectile.whoAmI);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ((target.Center + target.velocity * 20 - Projectile.Center) * 6).SafeNormalize(Vector2.Zero), ModContent.ProjectileType<Brimstone>(), (int)(Projectile.damage * (1 + player.Entropy().WeaponBoost * 0.35f)), 5, Projectile.owner, 0, Projectile.scale * 0.4f + player.Entropy().WeaponBoost * 0.4f, Projectile.whoAmI);
                                 
                             }
                             SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/blood laser weak 1"), Projectile.Center);

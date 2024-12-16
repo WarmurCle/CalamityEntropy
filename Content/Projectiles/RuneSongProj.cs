@@ -125,10 +125,10 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Projectile.owner == Main.myPlayer)
                 {
                     float angle = 0;
-                    for (int i = 0; i < 6; i++)
+                    for (int i = 0; i < 6 + Projectile.owner.ToPlayer().Entropy().WeaponBoost * 2; i++)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(angle) * 5f, ModContent.ProjectileType<Rune>(), (int)(Projectile.damage * 0.6f), 4, Projectile.owner, 0, Main.rand.Next(1, 12));
-                        angle += (float)(Math.PI / 3f);
+                        angle += (float)(Math.PI * 2f / (float)(6 + Projectile.owner.ToPlayer().Entropy().WeaponBoost * 2));
                     }
                 }
             }
@@ -148,9 +148,10 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.5f) * 3, ModContent.ProjectileType<RuneArrow>(), (int)(Projectile.damage * 0.6f), 4, Projectile.owner);
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.5f) * 3, ModContent.ProjectileType<RuneArrow>(), (int)(Projectile.damage * 0.6f), 4, Projectile.owner);
-
+                    for (int i = 0; i < 2 + Projectile.owner.ToPlayer().Entropy().WeaponBoost; i++)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.5f) * 3, ModContent.ProjectileType<RuneArrow>(), (int)(Projectile.damage * 0.6f), 4, Projectile.owner);
+                    }
                 }
             }
             if (Projectile.ai[0] == 22 || Projectile.ai[0] == 62)
@@ -169,9 +170,10 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.5f) * 3, ModContent.ProjectileType<RuneArrow>(), (int)(Projectile.damage * 0.6f), 4, Projectile.owner);
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.5f) * 3, ModContent.ProjectileType<RuneArrow>(), (int)(Projectile.damage * 0.6f), 4, Projectile.owner);
-
+                    for (int i = 0; i < 2 + Projectile.owner.ToPlayer().Entropy().WeaponBoost; i++)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.5f) * 3, ModContent.ProjectileType<RuneArrow>(), (int)(Projectile.damage * 0.6f), 4, Projectile.owner);
+                    }
                 }
             }
             if (noSlowTime <= 0)

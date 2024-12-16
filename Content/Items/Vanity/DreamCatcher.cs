@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using CalamityMod;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -41,6 +42,7 @@ namespace CalamityEntropy.Content.Items.Vanity
             Item.value = CalamityMod.Items.CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.vanity = true;
+            Item.Calamity().donorItem = true;
         }
 
         public override void UpdateVanity(Player player)

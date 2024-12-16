@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,6 +34,10 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             Projectile.ArmorPenetration = 50;
         }
         int frame = 2;
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.scale += Projectile.owner.ToPlayer().Entropy().WeaponBoost * 0.8f;
+        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

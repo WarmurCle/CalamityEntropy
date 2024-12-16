@@ -52,7 +52,18 @@ namespace CalamityEntropy.Content.Projectiles
             handrot = reader.ReadSingle();
         }
         public override void AI(){
-            
+            if(Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 && Projectile.ai[0] > 12)
+            {
+                int boost = Projectile.owner.ToPlayer().Entropy().WeaponBoost;
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    if(Projectile.timeLeft % Math.Max(((int)(10 / boost)), 1) == 0)
+                    {
+                        Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 0.4f, ModContent.ProjectileType<VoidStarF>(), (int)(Projectile.damage * 0.1f), 5, Projectile.owner)];
+                        p.DamageType = CUtil.rougeDC;
+                    }
+                }
+            }
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
             if (odp.Count > 16)

@@ -19,10 +19,11 @@ namespace CalamityEntropy.Content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.moveSpeed *= 2;
-            
+            player.Entropy().WingSpeed += 1;
             foreach (NPC npc in Main.npc)
             {
-                if (npc.active && !npc.friendly && npc.Hitbox.Intersects(player.getRect()))
+                int w = 40 + 32 * player.Entropy().WeaponBoost;
+                if (npc.active && !npc.friendly && (npc.Hitbox.Intersects(player.getRect()) || (player.Entropy().WeaponBoost > 0 && npc.Hitbox.Intersects(player.Center.getRectCentered(w, w)))))
                 {
                     if (!player.Entropy().DarkArtsTarget.Contains(npc))
                     {
@@ -35,7 +36,8 @@ namespace CalamityEntropy.Content.Buffs
             }
             foreach (Projectile proj in Main.projectile)
             {
-                if (proj.active && proj.hostile && proj.width < 100 && proj.height < 100 && proj.Hitbox.Intersects(player.getRect()))
+                int w = 40 + 32 * player.Entropy().WeaponBoost;
+                if (proj.active && proj.hostile && proj.width < 100 && proj.height < 100 && (proj.Hitbox.Intersects(player.getRect())) || (player.Entropy().WeaponBoost > 0 && proj.Hitbox.Intersects(player.Center.getRectCentered(w, w))))
                 {
                     if (!player.Entropy().DarkArtsTarget.Contains(proj))
                     {

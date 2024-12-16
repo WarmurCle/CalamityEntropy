@@ -76,6 +76,7 @@ namespace CalamityEntropy.Common
         public int mantleCd = 0;
         public bool HolyShield = false;
         public Vector2 screenPos = Vector2.Zero;
+        public int WeaponBoost = 0;
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge 
         { 
@@ -167,6 +168,7 @@ namespace CalamityEntropy.Common
             sacrMask = false;
             GodHeadVisual = true;
             shootSpeed = 1;
+            WeaponBoost = 0;
             Thorn = 0;
             WingSpeed = 1;
             AttackVoidTouch = 0;

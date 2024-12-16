@@ -11,10 +11,12 @@ using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Util;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Melee;
+using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
@@ -260,8 +262,20 @@ namespace CalamityEntropy.Common
         }
         public Vector2? plrOldPos = null;
         public Vector2? plrOldVel = null;
+        
         public override bool PreAI(Projectile projectile)
         {
+            if((projectile.ModProjectile is ExobladeProj || projectile.type == ProjectileID.LastPrismLaser || projectile.type == ProjectileID.LastPrism) && projectile.owner.ToPlayer().Entropy().WeaponBoost > 0)
+            {
+                if(counter % 2 == 0)
+                {
+                    projectile.extraUpdates += projectile.owner.ToPlayer().Entropy().WeaponBoost;
+                }
+                else
+                {
+                    projectile.extraUpdates -= projectile.owner.ToPlayer().Entropy().WeaponBoost;
+                }
+            }
             if (ToFriendly)
             {
                 projectile.usesLocalNPCImmunity = true;
@@ -643,6 +657,13 @@ namespace CalamityEntropy.Common
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (projectile.ModProjectile is MagnusBeam || projectile.ModProjectile is LunicBeam)
+            {
+                if (projectile.owner.ToPlayer().Entropy().WeaponBoost > 0)
+                {
+                    target.Entropy().applyMarkedOfDeath = 480 + projectile.owner.ToPlayer().Entropy().WeaponBoost * 260;
+                }
+            }
             if (vdtype == 3)
             {
                 EGlobalNPC.AddVoidTouch(target, 240, 10, 800, 16);

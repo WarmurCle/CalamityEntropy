@@ -58,6 +58,7 @@ namespace CalamityEntropy.Content.Projectiles
             spawnPos = Projectile.Center;
             spawnRot = Projectile.velocity.ToRotation();
             Projectile.Center += Projectile.velocity * 10;
+            Projectile.timeLeft += Projectile.owner.ToPlayer().Entropy().WeaponBoost * 120;
         }
         float counter = 0;
         public void DrawPortal(Vector2 pos, Color color, float rot, float size, float xmul = 0.3f, float aj = 0)

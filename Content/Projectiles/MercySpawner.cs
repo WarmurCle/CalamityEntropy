@@ -25,6 +25,17 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float rot = 0;
         public bool setRot = true;
+        public int getMax()
+        {
+            if (Projectile.owner.ToPlayer().Entropy().WeaponBoost > 1)
+            {
+                return 5 + Projectile.owner.ToPlayer().Entropy().WeaponBoost;
+            }
+            else
+            {
+                return 6;
+            }
+        }
         public override void AI(){
             if (setRot)
             {
@@ -36,13 +47,13 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            if (Projectile.ai[0] % 30 == 0 && spawned < 6 && Projectile.owner == Main.myPlayer)
+            if (Projectile.ai[0] % 30 == 0 && spawned < getMax() && Projectile.owner == Main.myPlayer)
             {
                 Vector2 offset = Projectile.Center - Projectile.owner.ToPlayer().Center + new Vector2(200, 0).RotatedBy(rot);
                 int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer().Center + offset, Vector2.Zero, ModContent.ProjectileType<HelhieimBlaster>(), Projectile.damage, 0, Projectile.owner, 0, offset.X, offset.Y);
                 spawned++;
                 p.ToProj().scale = Projectile.scale;
-                rot += (float)(Math.PI * 2 / 6);
+                rot += (float)(Math.PI * 2 / getMax());
             }
             Projectile.owner.ToPlayer().itemAnimation = 2;
             Projectile.owner.ToPlayer().itemTime = 2;

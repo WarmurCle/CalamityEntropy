@@ -18,11 +18,17 @@ using CalamityMod;
 using CalamityMod.Items.Fishing.SulphurCatches;
 using CalamityMod.Items.TreasureBags;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
+using CalamityMod.Items.Weapons.Magic;
+using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Items.Weapons.Ranged;
+using CalamityMod.Items.Weapons.Rogue;
+using CalamityMod.Projectiles.Rogue;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
@@ -248,6 +254,205 @@ namespace CalamityEntropy.Common
                 {
                     if (player.whoAmI == Main.myPlayer)
                     {
+                        if(player.Entropy().WeaponBoost > 0)
+                        {
+                            if(item.type == ModContent.ItemType<LunarKunai>())
+                            {
+                                float shootSpeed = item.shootSpeed;
+                                Vector2 vector = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true);
+                                float num = (float)Main.mouseX + Main.screenPosition.X - vector.X;
+                                float num2 = (float)Main.mouseY + Main.screenPosition.Y - vector.Y;
+                                if (player.gravDir == -1f)
+                                {
+                                    num2 = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY - vector.Y;
+                                }
+
+                                float num3 = (float)Math.Sqrt(num * num + num2 * num2);
+                                if ((float.IsNaN(num) && float.IsNaN(num2)) || (num == 0f && num2 == 0f))
+                                {
+                                    num = player.direction;
+                                    num2 = 0f;
+                                    num3 = shootSpeed;
+                                }
+                                else
+                                {
+                                    num3 = shootSpeed / num3;
+                                }
+
+                                num *= num3;
+                                num2 *= num3;
+                                int num4 = (player.Calamity().StealthStrikeAvailable() ? 9 + 3 * player.Entropy().WeaponBoost : 3 + player.Entropy().WeaponBoost);
+                                for (int i = 0; i < num4; i++)
+                                {
+                                    float num5 = num;
+                                    float num6 = num2;
+                                    float num7 = 0.05f * (float)i;
+                                    num5 += (float)Main.rand.Next(-35, 36) * num7;
+                                    num6 += (float)Main.rand.Next(-35, 36) * num7;
+                                    num3 = (float)Math.Sqrt(num5 * num5 + num6 * num6);
+                                    num3 = shootSpeed / num3;
+                                    num5 *= num3;
+                                    num6 *= num3;
+                                    float x = vector.X;
+                                    float y = vector.Y;
+                                    int num8 = Projectile.NewProjectile(source, x, y, num5, num6, ModContent.ProjectileType<LunarKunaiProj>(), damage, knockback, player.whoAmI);
+                                    if (num8.WithinBounds(Main.maxProjectiles) && player.Calamity().StealthStrikeAvailable())
+                                    {
+                                        Main.projectile[num8].Calamity().stealthStrike = true;
+                                    }
+                                }
+                                return false;
+                            }
+                            if (item.type == ModContent.ItemType<NuclearFury>())
+                            {
+                                for (int i = 0; i < 8 + 4 * player.Entropy().WeaponBoost; i++)
+                                {
+                                    Vector2 velocity2 = (MathF.PI * 2f * (float)i / (float)(8 + 4 * player.Entropy().WeaponBoost) + velocity.ToRotation()).ToRotationVector2() * velocity.Length() * 0.5f;
+                                    Projectile.NewProjectile(source, position, velocity2, type, damage, knockback, Main.myPlayer);
+                                }
+                                return false;
+                            }
+                            if (item.type == ModContent.ItemType<AsteroidStaff>())
+                            {
+                                float shootSpeed = item.shootSpeed;
+                                Vector2 vector = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true);
+                                float num = (float)Main.mouseX + Main.screenPosition.X - vector.X;
+                                float num2 = (float)Main.mouseY + Main.screenPosition.Y - vector.Y;
+                                if (player.gravDir == -1f)
+                                {
+                                    num2 = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY - vector.Y;
+                                }
+
+                                float num3 = (float)Math.Sqrt(num * num + num2 * num2);
+                                if ((float.IsNaN(num) && float.IsNaN(num2)) || (num == 0f && num2 == 0f))
+                                {
+                                    num = player.direction;
+                                    num2 = 0f;
+                                    num3 = shootSpeed;
+                                }
+                                else
+                                {
+                                    num3 = shootSpeed / num3;
+                                }
+
+                                int num4 = player.Entropy().WeaponBoost;
+                                for (int i = 0; i < num4; i++)
+                                {
+                                    vector = new Vector2(player.Center.X + (float)Main.rand.Next(201) * (0f - (float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y - 600f);
+                                    vector.X = (vector.X + player.Center.X) / 2f + (float)Main.rand.Next(-200, 201);
+                                    vector.Y -= 100 * i;
+                                    num = (float)Main.mouseX + Main.screenPosition.X - vector.X + (float)Main.rand.Next(-40, 41) * 0.03f;
+                                    num2 = (float)Main.mouseY + Main.screenPosition.Y - vector.Y;
+                                    if (num2 < 0f)
+                                    {
+                                        num2 *= -1f;
+                                    }
+
+                                    if (num2 < 20f)
+                                    {
+                                        num2 = 20f;
+                                    }
+
+                                    num3 = (float)Math.Sqrt(num * num + num2 * num2);
+                                    num3 = shootSpeed / num3;
+                                    num *= num3;
+                                    num2 *= num3;
+                                    float num5 = num;
+                                    float num6 = num2 + (float)Main.rand.Next(-40, 41) * 0.02f;
+                                    Projectile.NewProjectile(source, vector.X, vector.Y, num5 * 0.75f, num6 * 0.75f, type, damage, knockback, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
+                                }
+                            }
+                            if(type == 502)
+                            {
+                                for(int i = 0; i < Main.rand.Next(0, 1 + player.Entropy().WeaponBoost); i++)
+                                {
+                                    Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.2f), type, damage, knockback, player.whoAmI);
+                                }
+                            }
+                            if(item.type == ModContent.ItemType<Disseminator>())
+                            {
+                                int num = 2 * player.Entropy().WeaponBoost;
+                                for (int i = 0; i < num; i++)
+                                {
+                                    velocity.X += (float)Main.rand.Next(-15, 16) * 0.05f;
+                                    velocity.Y += (float)Main.rand.Next(-15, 16) * 0.05f;
+                                    int num2 = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+                                    Main.projectile[num2].extraUpdates += 2;
+                                }
+
+                                int num3 = 3 * player.Entropy().WeaponBoost;
+                                int[] array = new int[num3];
+                                int num4 = 0;
+                                Rectangle value = new Rectangle((int)player.Center.X - 960, (int)player.Center.Y - 540, 1920, 1080);
+                                ActiveEntityIterator<NPC>.Enumerator enumerator = Main.ActiveNPCs.GetEnumerator();
+                                while (enumerator.MoveNext())
+                                {
+                                    NPC current = enumerator.Current;
+                                    if (current.chaseable && current.lifeMax > 5 && !current.dontTakeDamage && !current.friendly && !current.immortal && current.Hitbox.Intersects(value))
+                                    {
+                                        if (num4 >= num3)
+                                        {
+                                            break;
+                                        }
+
+                                        array[num4] = current.whoAmI;
+                                        num4++;
+                                    }
+                                }
+
+                                if (num4 == 0)
+                                {
+                                    return false;
+                                }
+
+                                int damage2 = (int)((double)damage * 0.7);
+                                for (int j = 0; j < num4; j++)
+                                {
+                                    Vector2 vector = new Vector2(player.position.X + (float)player.width * 0.5f + (float)Main.rand.Next(201) * (0f - (float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y - 600f);
+                                    vector.X = (vector.X + player.Center.X) / 2f + (float)Main.rand.Next(-200, 201);
+                                    vector.Y -= 100 * j;
+                                    Vector2 velocity2 = Vector2.Normalize(Main.npc[array[j]].Center - vector) * item.shootSpeed;
+                                    int num5 = Projectile.NewProjectile(source, vector, velocity2, type, damage2, knockback, player.whoAmI);
+                                    Main.projectile[num5].extraUpdates += 14;
+                                    Main.projectile[num5].tileCollide = false;
+                                    Main.projectile[num5].timeLeft /= 2;
+                                    vector = new Vector2(player.position.X + (float)player.width * 0.5f + (float)Main.rand.Next(201) * (0f - (float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y + 600f);
+                                    vector.X = (vector.X + player.Center.X) / 2f + (float)Main.rand.Next(-200, 201);
+                                    vector.Y += 100 * j;
+                                    velocity2 = Vector2.Normalize(Main.npc[array[j]].Center - vector) * item.shootSpeed;
+                                    num5 = Projectile.NewProjectile(source, vector, velocity2, type, damage2, knockback, player.whoAmI);
+                                    Main.projectile[num5].extraUpdates += 14;
+                                    Main.projectile[num5].tileCollide = false;
+                                    Main.projectile[num5].timeLeft /= 2;
+                                }
+
+                                if (num4 == num3)
+                                {
+                                    return false;
+                                }
+
+                                for (int k = 0; k < num3 - num4; k++)
+                                {
+                                    int num6 = Main.rand.Next(num4);
+                                    Vector2 vector = new Vector2(player.position.X + (float)player.width * 0.5f + (float)Main.rand.Next(201) * (0f - (float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y - 600f);
+                                    vector.X = (vector.X + player.Center.X) / 2f + (float)Main.rand.Next(-200, 201);
+                                    vector.Y -= 100 * num6;
+                                    Vector2 velocity3 = Vector2.Normalize(Main.npc[array[num6]].Center - vector) * item.shootSpeed;
+                                    int num7 = Projectile.NewProjectile(source, vector, velocity3, type, damage2, knockback, player.whoAmI);
+                                    Main.projectile[num7].extraUpdates += 14;
+                                    Main.projectile[num7].tileCollide = false;
+                                    Main.projectile[num7].timeLeft /= 2;
+                                    vector = new Vector2(player.position.X + (float)player.width * 0.5f + (float)Main.rand.Next(201) * (0f - (float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y + 600f);
+                                    vector.X = (vector.X + player.Center.X) / 2f + (float)Main.rand.Next(-200, 201);
+                                    vector.Y += 100 * num6;
+                                    velocity3 = Vector2.Normalize(Main.npc[array[num6]].Center - vector) * item.shootSpeed;
+                                    num7 = Projectile.NewProjectile(source, vector, velocity3, type, damage2, knockback, player.whoAmI);
+                                    Main.projectile[num7].extraUpdates += 14;
+                                    Main.projectile[num7].tileCollide = false;
+                                    Main.projectile[num7].timeLeft /= 2;
+                                }
+                            }
+                        }
                         if (player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()] > 0)
                         {
                             if ((item.useAmmo == AmmoID.Arrow && type == ProjectileID.WoodenArrowFriendly) || (item.useAmmo == AmmoID.Bullet && type == ProjectileID.Bullet))
@@ -318,6 +523,30 @@ namespace CalamityEntropy.Common
                 }
             }
             return true;
+        }
+
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if(item.type == ModContent.ItemType<StellarStriker>())
+            {
+                IEntitySource source_ItemUse = player.GetSource_ItemUse(item);
+                SoundEngine.PlaySound(in SoundID.Item88, player.Center);
+                int myPlayer = Main.myPlayer;
+                float shootSpeed = item.shootSpeed;
+                Vector2 vector = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true);
+                for (int i = 0; i < player.Entropy().WeaponBoost; i++)
+                {
+                    vector = new Vector2(player.Center.X + (float)Main.rand.Next(201) * (0f - (float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y - 600f);
+                    vector.X = (vector.X + player.Center.X) / 2f + (float)Main.rand.Next(-200, 201);
+                    vector.Y -= 100 * i;
+                    Vector2 velocity = CalamityUtils.CalculatePredictiveAimToTargetMaxUpdates(vector, target, shootSpeed, 6);
+                    int num = Projectile.NewProjectile(source_ItemUse, vector, velocity, 645, damageDone, player.GetWeaponKnockback(item), myPlayer, 0f, Main.rand.Next(3));
+                    if (num.WithinBounds(Main.maxProjectiles))
+                    {
+                        Main.projectile[num].DamageType = DamageClass.Melee;
+                    }
+                }
+            }
         }
 
         public override bool PreDrawTooltipLine(Item item, DrawableTooltipLine line, ref int yOffset)
@@ -441,7 +670,7 @@ namespace CalamityEntropy.Common
                     }
                     return false;
                 }
-                if (item.rare == ModContent.RarityType<GlowGreen>())
+                if (item.rare == ModContent.RarityType<GlowGreen>() || item.rare == ModContent.RarityType<GlowPurple>())
                 {
                     float xa = 0;
                     for (int i = 0; i < line.Text.Length; i++)
@@ -451,8 +680,16 @@ namespace CalamityEntropy.Common
                         Vector2 size = font.MeasureString(text);
                         float yofs;
                         Color color = new Color(60, 255, 60);
+                        if(item.rare == ModContent.RarityType<GlowPurple>())
+                        {
+                            color = new Color(120, 0, 180);
+                        }
                         yofs = 0;
                         Color strokeColord = new Color(210, 255, 210);
+                        if (item.rare == ModContent.RarityType<GlowPurple>())
+                        {
+                            color = new Color(255, 140, 255);
+                        }
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
@@ -467,7 +704,7 @@ namespace CalamityEntropy.Common
 
 
 
-                        xa += size.X;
+                        xa += size.X + 1;
 
                     }
                     return false;
@@ -706,6 +943,14 @@ namespace CalamityEntropy.Common
                     return playerName.ToLower().Contains("dream") || playerName.ToLower().Contains("梦");
                 };
                 itemLoot.AddIf(getsDD, ModContent.ItemType<DreamCatcher>());
+
+                static bool getsDM(DropAttemptInfo info)
+                {
+                    string playerName = info.player.name;
+                    return playerName.ToLower().Contains("puslin");
+                };
+                itemLoot.AddIf(getsDM, ModContent.ItemType<SilverFramedGlasses>());
+
 
                 static bool getsCHA(DropAttemptInfo info)
                 {
