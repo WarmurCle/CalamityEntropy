@@ -563,12 +563,13 @@ namespace CalamityEntropy.Common
 
         public override void OnKill(NPC npc)
         {
-            if(npc.type == -3 || npc.type == 1 || npc.type == -8 || npc.type == -7 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10)
+            if (npc.type == -3 || npc.type == 1 || npc.type == -8 || npc.type == -7 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10)
             {
                 if (Main.rand.NextBool(120))
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CarlosIceCream>()));
                 }
+            }
             if(!npc.friendly && npc.lifeMax > 20)
             {
                 Player n = null;
