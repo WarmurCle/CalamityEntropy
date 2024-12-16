@@ -29,13 +29,13 @@ namespace CalamityEntropy.Content.Tiles
             TileObjectData.newTile.UsesCustomCanPlace = true;
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop, 4, 0);
             TileObjectData.addTile(Type);
-
+            TileID.Sets.HasOutlines[Type] = true;
             AddMapEntry(new Color(63, 72, 200));
-
+            TileID.Sets.DisableSmartCursor[Type] = false;
             DustType = (int)CalamityDusts.PurpleCosmilite;
             AnimationFrameHeight = 52;
         }
-
+        
         public override void NearbyEffects(int i, int j, bool closer)
         {
             if (Main.tile[i, j].TileFrameY < 56)
@@ -76,7 +76,10 @@ namespace CalamityEntropy.Content.Tiles
             player.cursorItemIconID = ModContent.ItemType<VoidMonolith>();
         }
 
-        public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
+        public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
+        {
+            return true;
+        }
 
         public override bool RightClick(int i, int j)
         {

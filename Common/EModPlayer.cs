@@ -77,6 +77,7 @@ namespace CalamityEntropy.Common
         public bool HolyShield = false;
         public Vector2 screenPos = Vector2.Zero;
         public int WeaponBoost = 0;
+        public bool CrPlush = false;
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge 
         { 
@@ -180,6 +181,7 @@ namespace CalamityEntropy.Common
             auraCard = false;
             LastStand = false;
             holyMantle = false;
+            CrPlush = false;
             if (brillianceCard > 0)
             {
                 brillianceCard -= 1;
@@ -218,6 +220,13 @@ namespace CalamityEntropy.Common
         public int llSky = 0;
         public int magiShieldCd = 0;
         public int sJudgeCd = 30 * 60;
+        public override void FrameEffects()
+        {
+            if (CrPlush)
+            {
+                Player.head = EquipLoader.GetEquipSlot(base.Mod, "CruiserPlush", EquipType.Head);
+            }
+        }
         public override void PreUpdate()
         {
             if (HolyShield)

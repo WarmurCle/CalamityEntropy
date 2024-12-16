@@ -754,6 +754,21 @@ Items: {
 			“我还没有忘记你上一次吃冰激凌的时候，并且我很确定你也没有忘记我上次的暴走...”
 			'''
 	}
+
+	CruiserPlush: {
+		DisplayName: 巡游者玩偶
+		Tooltip: ""
+	}
+
+	AbyssalWraithPlush: {
+		Tooltip: ""
+		DisplayName: 祟界虚灵玩偶
+	}
+
+	GumgumGun: {
+		DisplayName: 胶胶枪
+		Tooltip: ""
+	}
 }
 
 DeathMode: 死亡模式
@@ -896,6 +911,7 @@ Projectiles: {
 	VPVoidLightBall.DisplayName: 虚光球
 	VPRot.DisplayName: 虚空教主
 	WuppoPet.DisplayName: 乌姆
+	// GumProj.DisplayName: Gum Proj
 }
 
 LegendTooltip: - 传奇物品 -

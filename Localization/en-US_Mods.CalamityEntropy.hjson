@@ -722,6 +722,21 @@ Items: {
 		DisplayName: Carlo's Ice Cream
 		Tooltip: Summon a Wum
 	}
+
+	CruiserPlush: {
+		DisplayName: Cruiser Plush
+		Tooltip: ""
+	}
+
+	AbyssalWraithPlush: {
+		Tooltip: ""
+		DisplayName: Abyssal Wraith Plush
+	}
+
+	GumgumGun: {
+		DisplayName: Gumgum Gun
+		Tooltip: ""
+	}
 }
 
 DeathMode: Death Mode
@@ -864,6 +879,7 @@ Projectiles: {
 	VPVoidLightBall.DisplayName: Void Light Ball
 	VPRot.DisplayName: Void Pope Hand
 	WuppoPet.DisplayName: Wuppo Pet
+	GumProj.DisplayName: Gum Proj
 }
 
 LegendTooltip: - Legend -
