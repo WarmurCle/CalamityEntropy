@@ -62,6 +62,7 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             color = new Color(c[0], c[1], c[2]);
             Projectile.velocity = Projectile.velocity.RotatedByRandom(0.16f);
         }
+        float grv = 0;
         public override void AI(){
             if (hited)
             {
@@ -79,8 +80,12 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             }
             else
             {
-                Projectile.rotation += 0.1f;
-                Projectile.velocity.Y += 0.8f;
+                if(grv < 0.8f)
+                {
+                    grv += 0.1f;
+                }
+                Projectile.rotation += 0.1f * (Projectile.velocity.X > 0 ? 1 : -1);
+                Projectile.velocity.Y += grv;
             }
         }
        

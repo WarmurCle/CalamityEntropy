@@ -32,8 +32,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 				MaxInstances = 8,
 			};*/
 
-			Item.DamageType = DamageClass.Default;
-			Item.damage = 20;
+			Item.DamageType = DamageClass.Generic;
+			Item.damage = 26;
 			Item.knockBack = 5f;
 			Item.noMelee = true;
 			Item.Calamity().devItem = true;
