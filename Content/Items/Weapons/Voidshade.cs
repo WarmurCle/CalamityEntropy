@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.crit = 6;
 			Item.shoot = ModContent.ProjectileType<VoidshadeHeld>();
 			Item.shootSpeed = 16;
-			Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
+			Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
 			Item.rare = ModContent.RarityType<VoidPurple>();
             Item.Calamity().devItem = true;
 		}

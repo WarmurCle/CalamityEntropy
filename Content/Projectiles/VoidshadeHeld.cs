@@ -54,8 +54,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if(dash > 0 && attackType == 3)
             {
-                dash = 0;
-                Projectile.owner.ToPlayer().velocity *= 0;
+                dash = -32;
+
+                Projectile.owner.ToPlayer().velocity *= -0.2f;
                 Projectile.owner.ToPlayer().Entropy().voidshadeBoostTime = 90;
             }
         }
@@ -66,16 +67,20 @@ namespace CalamityEntropy.Content.Projectiles
 			Player player = Projectile.owner.ToPlayer();
             if (attackType == 3)
             {
-                dash--;
-                if (dash > 0)
+                if (counter > 9)
                 {
-                    player.velocity = Projectile.velocity * 2;
-                }
-                else
-                {
-                    if(dash > -30)
+                    dash--;
+
+                    if (dash > 0)
                     {
-                        player.velocity *= 0.88f;
+                        player.velocity = Projectile.velocity * 2;
+                    }
+                    else
+                    {
+                        if (dash > -30)
+                        {
+                            player.velocity *= 0.88f;
+                        }
                     }
                 }
                 if (counter == 20)
