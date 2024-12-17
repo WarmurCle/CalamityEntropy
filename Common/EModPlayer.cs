@@ -164,6 +164,7 @@ namespace CalamityEntropy.Common
         public float shootSpeed = 1;
         public float enhancedMana = 0;
         public bool sacrMask = false;
+        public int voidshadeBoostTime = 0;
         public override void ResetEffects()
         {
             sacrMask = false;
@@ -229,6 +230,10 @@ namespace CalamityEntropy.Common
         }
         public override void PreUpdate()
         {
+            if(voidshadeBoostTime > 0)
+            {
+                voidshadeBoostTime--;
+            }
             if (HolyShield)
             {
                 mantleCd = HolyMantle.Cooldown;

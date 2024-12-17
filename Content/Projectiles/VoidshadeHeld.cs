@@ -30,6 +30,7 @@ namespace CalamityEntropy.Content.Projectiles
 			Projectile.localNPCHitCooldown = 55;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
         }
 		public int attackType { get { return (int)Projectile.ai[0]; } }
         public List<Vector2> oldPos = new List<Vector2>();
@@ -40,6 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
 		public int counter = 0;
         public float cspeed = 0;
         public float c = 0;
+        public int dash = 30;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
 			if(counter > 6 && counter < 60)
@@ -48,13 +50,34 @@ namespace CalamityEntropy.Content.Projectiles
 			}
 			return false;
         }
-        
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if(dash > 0 && attackType == 3)
+            {
+                dash = 0;
+                Projectile.owner.ToPlayer().velocity *= 0;
+                Projectile.owner.ToPlayer().Entropy().voidshadeBoostTime = 90;
+            }
+        }
+        public bool vsboost = false;
         public override void AI()
         {
-
+            
 			Player player = Projectile.owner.ToPlayer();
             if (attackType == 3)
             {
+                dash--;
+                if (dash > 0)
+                {
+                    player.velocity = Projectile.velocity * 2;
+                }
+                else
+                {
+                    if(dash > -30)
+                    {
+                        player.velocity *= 0.88f;
+                    }
+                }
                 if (counter == 20)
                 {
                     if (Main.myPlayer == Projectile.owner)
@@ -102,6 +125,12 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
+                if(counter == 1 && player.Entropy().voidshadeBoostTime > 0)
+                {
+                    player.Entropy().voidshadeBoostTime = 0;
+                    vsboost = true;
+                    Projectile.damage *= 2;
+                }
                 if(counter == 16)
                 {
                     if(Main.myPlayer == Projectile.owner)
@@ -206,7 +235,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return 2;
             }
-            return 1.2f + Math.Abs(rotSpeed) * 6;
+            return 1.2f + Math.Abs(rotSpeed) * 6 * (vsboost ? 1.5f : 1);
 		}
         public override bool ShouldUpdatePosition()
         {
