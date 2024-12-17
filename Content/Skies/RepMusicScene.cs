@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.NPCs.Cruiser;
+using CalamityMod;
 using CalamityMod.Events;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Skies
             {
                 foreach (NPC npc in Main.npc)
                 {
-                    if (npc.active && npc.boss && Util.Util.getDistance(npc.Center, player.Center) < 8000 && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod) && !BossRushEvent.BossRushActive)
+                    if (npc.active && npc.IsABoss() && Util.Util.getDistance(npc.Center, player.Center) < 8000 && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod) && !BossRushEvent.BossRushActive)
                     {
                         return true;
                     }

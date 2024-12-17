@@ -29,12 +29,12 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.mana = 110;
 			Item.useStyle = -1;
 			Item.noMelee = true;
-            Item.Entropy().stroke = true;
+           /* Item.Entropy().stroke = true;
             Item.Entropy().strokeColor = new Color(66, 7, 20);
             Item.Entropy().tooltipStyle = 4;
             Item.Entropy().NameColor = new Color(255, 0, 70);
             Item.Entropy().HasCustomStrokeColor = true;
-            Item.Entropy().HasCustomNameColor = true;
+            Item.Entropy().HasCustomNameColor = true;*/
         }
         public override bool CanUseItem(Player player)
         {

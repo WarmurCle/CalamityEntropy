@@ -261,7 +261,8 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage *= 1 + (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
+            modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
+
             if (projectile.owner >= 0)
             {
                 if (projectile.owner.ToPlayer().Entropy().VFSet)
@@ -299,7 +300,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage *= 1 + (npc.Entropy().VoidTouchLevel) * 0.05f * (1 - npc.Entropy().VoidTouchDR);
+            modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.05f * (1 - npc.Entropy().VoidTouchDR);
             if (player.Entropy().VFSet)
             {
                 player.Entropy().VoidCharge += 0.008f;

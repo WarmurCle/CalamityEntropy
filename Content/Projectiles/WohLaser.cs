@@ -84,7 +84,14 @@ namespace CalamityEntropy.Content.Projectiles
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
             }
-            EGlobalNPC.AddVoidTouch(target, 50, 2);
+            if (Projectile.ai[2] > 0)
+            {
+                EGlobalNPC.AddVoidTouch(target, 50, 2, 600, (int)Projectile.ai[2]);
+            }
+            else
+            {
+                EGlobalNPC.AddVoidTouch(target, 50, 2);
+            }
             Projectile.damage = (int)(Projectile.damage * 0.8f);
         }
         public override bool PreDraw(ref Color lightColor)

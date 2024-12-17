@@ -32,9 +32,9 @@ namespace CalamityEntropy.Content.Items.Weapons
 				MaxInstances = 8,
 			};*/
 
-			Item.DamageType = DamageClass.Generic;
-			Item.damage = 26;
-			Item.knockBack = 5f;
+			Item.DamageType = ModContent.GetInstance<NoneTypeDamageClass>();
+			Item.damage = 32;
+			Item.knockBack = 0.2f;
 			Item.noMelee = true;
 			Item.Calamity().devItem = true;
 			Item.shoot = ModContent.ProjectileType<GumProj>();

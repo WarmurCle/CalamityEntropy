@@ -183,9 +183,29 @@ namespace CalamityEntropy
             On_NPC.TargetClosestUpgraded += targetClostUpgraded;
             On_NPC.FindFrame += findFrame;
             On_NPC.VanillaAI += vAi;
+            On_NPC.StrikeNPC_HitInfo_bool_bool += StrikeNpc;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
+        }
+
+        private int StrikeNpc(On_NPC.orig_StrikeNPC_HitInfo_bool_bool orig, NPC self, NPC.HitInfo hit, bool fromNet, bool noPlayerInteraction)
+        {
+            if (!hit.InstantKill)
+            {
+                if (self.ModNPC is AbyssalWraith aw)
+                {
+                    if (aw.getMaxDamageCanTake() > 0)
+                    {
+                        if (hit.Damage > aw.getMaxDamageCanTake())
+                        {
+                            hit.Damage = aw.getMaxDamageCanTake();
+                        }
+                    }
+                    hit.Damage = (int)(hit.Damage * aw.getDR());
+                }
+            }
+            return orig(self, hit, fromNet, noPlayerInteraction);
         }
 
         private void vAi(On_NPC.orig_VanillaAI orig, NPC self)
@@ -1233,6 +1253,7 @@ namespace CalamityEntropy
             return Main.ScreenSize.ToVector2() / 2 + (v - Main.ScreenSize.ToVector2() / 2) * z;
         }
         public bool beegameInited = false;
+
         public override void Unload()
         {
             WallpaperHelper.wallpaper = null;
@@ -1257,6 +1278,7 @@ namespace CalamityEntropy
             On_NPC.TargetClosestUpgraded -= targetClostUpgraded;
             On_NPC.FindFrame -= findFrame;
             On_NPC.VanillaAI -= vAi;
+            On_NPC.StrikeNPC_HitInfo_bool_bool -= StrikeNpc;
         }
 
     }

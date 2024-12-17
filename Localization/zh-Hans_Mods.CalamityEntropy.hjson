@@ -769,6 +769,11 @@ Items: {
 		DisplayName: 胶胶枪
 		Tooltip: ""
 	}
+
+	Voidshade: {
+		Tooltip: ""
+		DisplayName: 虚影薄锋
+	}
 }
 
 DeathMode: 死亡模式
@@ -911,7 +916,9 @@ Projectiles: {
 	VPVoidLightBall.DisplayName: 虚光球
 	VPRot.DisplayName: 虚空教主
 	WuppoPet.DisplayName: 乌姆
-	// GumProj.DisplayName: Gum Proj
+	GumProj.DisplayName: 胶胶弹
+	VoidshadeHeld.DisplayName: 虚影薄锋
+	VoidImpact.DisplayName: 虚影剑气
 }
 
 LegendTooltip: - 传奇物品 -

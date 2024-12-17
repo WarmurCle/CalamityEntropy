@@ -34,6 +34,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.scale = 1f;
             Projectile.timeLeft = 460;
         }
+        public bool projSpawn = true;
         public bool sp = true;
         public override void AI(){
             foreach (Player p in Main.player)
@@ -64,9 +65,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (Projectile.timeLeft == 99)
+                    if (projSpawn)
                     {
-                        for (int i = 0; i < 54; i++)
+                        projSpawn = false;
+                        for (int i = 0; i < 40 + (Main.expertMode ? 16 : 0) + (Main.masterMode ? 16 : 0); i++)
                         {
 
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(Main.rand.Next(0, 35), 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<VoidStar>(), Projectile.damage, 4, 0, 0, 0, 1);

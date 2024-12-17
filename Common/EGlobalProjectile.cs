@@ -154,6 +154,7 @@ namespace CalamityEntropy.Common
                     if (projectile.owner.ToPlayer().Entropy().VFHelmRanged)
                     {
                         maxDmgUps = 10;
+                        dmgupcount = 16 * projectile.extraUpdates;
                     }
                 }
                 if (source is EntitySource_ItemUse && checkHoldOut && projectile.friendly && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<HB>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>() || projectile.type == ModContent.ProjectileType<SamsaraCasketProj>()))
@@ -332,7 +333,7 @@ namespace CalamityEntropy.Common
             dmgupcount--;
             if (maxDmgUps > 0 && dmgupcount <= 0 && projectile.DamageType == DamageClass.Ranged)
             {
-                dmgupcount = 24;
+                dmgupcount = 24 * projectile.extraUpdates;
                 maxDmgUps--;
                 projectile.damage = (int)(Math.Ceiling(projectile.damage * dmgUp)) + (projectile.damage);
             }

@@ -5,6 +5,7 @@ using CalamityEntropy.Common;
 using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
 using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.Particles;
@@ -36,7 +37,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         }
         public override void BossHeadSlot(ref int index)
         {
-
+            
             if (gatherWing > 0.5f)
             {
                 index = iconGather;
@@ -1108,21 +1109,46 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPosition, Color drawColor)
         {
-
-
             if (NPC.IsABestiaryIconDummy)
                 return true;
             return false;
         }
-
+        public int lastLife = 0;
+        public bool checkLife = false;
+        public int maxDmgCanTake = 0;
+        public float getDR()
+        {
+            return (NPC.life < lifeCounter ? (1 / (1 + (lifeCounter - NPC.life) * 0.000004f)) : 1);
+        }
+        public int getMaxDamageCanTake() {
+            if (deathAnm) {
+                return -1;
+            }
+            return Math.Min(NPC.life - 1, (int)(20000 * getDR()));
+        }
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            if (!deathAnm)
+            lastLife = NPC.life;
+            checkLife = true;
+            maxDmgCanTake = getMaxDamageCanTake();
+            if (maxDmgCanTake > 0)
             {
-                modifiers.SetMaxDamage(Math.Min(NPC.life - 1, (int)(16000 * (NPC.life < lifeCounter ? (1 / (1 + (lifeCounter - NPC.life) * 0.00001f)) : 1))));
+                modifiers.SetMaxDamage(maxDmgCanTake);
+            }
+
+
+        }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (false)
+            {
+                if(lastLife - NPC.life > maxDmgCanTake)
+                {
+                    NPC.life = lastLife - maxDmgCanTake;
+                }
+                checkLife = false;
             }
         }
-
         public bool deathAnm = false;
 
         public override void BossLoot(ref string name, ref int potionType)

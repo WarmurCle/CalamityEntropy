@@ -26,10 +26,16 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             Projectile.penetrate = 2;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 180;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 0;
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return !hited;
+            if (hited)
+            {
+                return false;
+            }
+            return null;
         }
         public override bool CanHitPlayer(Player target)
         {
@@ -108,22 +114,26 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D pt = tx;
-            Vector2 lu = new Vector2(-1, -1) * pt.Width / 2 * Projectile.scale * 1.2f;
-            Vector2 ru = new Vector2(1, -1) * pt.Width / 2 * Projectile.scale * 1.2f;
-            Vector2 ld = new Vector2(-1, 1) * pt.Width / 2 * Projectile.scale * 1.2f;
-            Vector2 rd = new Vector2(1, 1) * pt.Width / 2 * Projectile.scale * 1.2f;
+            Vector2 lu = new Vector2(-1, -1) * pt.Width / 2 * Projectile.scale * 1f;
+            Vector2 ru = new Vector2(1, -1) * pt.Width / 2 * Projectile.scale * 1f;
+            Vector2 ld = new Vector2(-1, 1) * pt.Width / 2 * Projectile.scale * 1f;
+            Vector2 rd = new Vector2(1, 1) * pt.Width / 2 * Projectile.scale * 1f;
             lu = lu.RotatedBy(Projectile.rotation - Projectile.velocity.ToRotation());
             ru = ru.RotatedBy(Projectile.rotation - Projectile.velocity.ToRotation());
             ld = ld.RotatedBy(Projectile.rotation - Projectile.velocity.ToRotation());
             rd = rd.RotatedBy(Projectile.rotation - Projectile.velocity.ToRotation());
 
-            float decayFactor = 0.036f;
+            float decayFactor = 0.028f;
 
             float yo = 1.0f / (1.0f + decayFactor * Projectile.velocity.Length());
             lu.Y *= yo;
             ru.Y *= yo;
             ld.Y *= yo;
             rd.Y *= yo;
+            lu.X /= yo;
+            ru.X /= yo;
+            ld.X /= yo;
+            rd.X /= yo;
             lu = lu.RotatedBy(Projectile.velocity.ToRotation());
             ru = ru.RotatedBy(Projectile.velocity.ToRotation());
             ld = ld.RotatedBy(Projectile.velocity.ToRotation());

@@ -737,6 +737,11 @@ Items: {
 		DisplayName: Gumgum Gun
 		Tooltip: ""
 	}
+
+	Voidshade: {
+		Tooltip: ""
+		DisplayName: Voidshade
+	}
 }
 
 DeathMode: Death Mode
@@ -880,6 +885,8 @@ Projectiles: {
 	VPRot.DisplayName: Void Pope Hand
 	WuppoPet.DisplayName: Wuppo Pet
 	GumProj.DisplayName: Gum Proj
+	VoidshadeHeld.DisplayName: Voidshade Held
+	VoidImpact.DisplayName: Void Impact
 }
 
 LegendTooltip: - Legend -

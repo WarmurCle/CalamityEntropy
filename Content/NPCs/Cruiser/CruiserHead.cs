@@ -1109,6 +1109,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 int spacing = 54;
                 bodies[i] = oPos - rot.ToRotationVector2() * spacing * NPC.scale;
             }
+            NPC.Calamity().CurrentlyIncreasingDefenseOrDR = aitype == 2;
         }
         public override bool ModifyCollisionData(Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox)
         {
