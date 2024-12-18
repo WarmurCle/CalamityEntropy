@@ -237,11 +237,11 @@ namespace CalamityEntropy.Common
                 {
                     if (npc.boss)
                     {
-                        npc.velocity *= 0.96f;
+                        npc.velocity *= 0.98f;
                     }
                     else
                     {
-                        npc.velocity *= 0.88f;
+                        npc.velocity *= 0.96f;
                     }
                 }
                 var r = Main.rand;

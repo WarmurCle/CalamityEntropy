@@ -1,5 +1,5 @@
 displayName = Calamity Entropy
 author = Polaris
-version = 0.953
+version = 0.954
 modReferences = CalamityMod, SubworldLibrary
 loadAfter = CalamityMod
