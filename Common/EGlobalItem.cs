@@ -909,6 +909,10 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<SlimeYoyo>(), new Fraction(4, 10));
             }
+            if (item.type == ItemID.DeerclopsBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<Antler>(), new Fraction(4, 10));
+            }
             if (item.type == ModContent.ItemType<HydrothermalCrate>())
             {
                 itemLoot.Add(ModContent.ItemType<EnduranceCard>(), new Fraction(1, 5));
@@ -958,6 +962,13 @@ namespace CalamityEntropy.Common
                     return playerName.ToLower().Contains("cha") || playerName.ToLower().Contains("lost");
                 };
                 itemLoot.AddIf(getsCHA, ModContent.ItemType<ToyKnife>());
+
+                static bool getsAN(DropAttemptInfo info)
+                {
+                    string playerName = info.player.name;
+                    return playerName.ToLower().Contains("rat") || playerName.ToLower().Contains("ant");
+                };
+                itemLoot.AddIf(getsAN, ModContent.ItemType<Antler>());
             }
         }
         public class IsDeathMode : IItemDropRuleCondition, IProvideItemConditionDescription

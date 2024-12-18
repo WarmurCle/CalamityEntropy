@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.autoReuse = true;
             Item.UseSound = SoundID.Item15;
             Item.noMelee = true;
-			Item.mana = 80;
+			Item.mana = 10;
 			Item.buffType = ModContent.BuffType<PlanetDestroyer>();
             Item.rare = ModContent.RarityType<VoidPurple>();
         }

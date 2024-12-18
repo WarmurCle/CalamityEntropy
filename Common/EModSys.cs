@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -41,7 +42,9 @@ namespace CalamityEntropy.Common
         public bool mi = false;
         public bool escLast = true;
         public bool rCtrlLast = false;
-        
+        public bool eowLast = false;
+        public int eowMaxLife = 0;
+
         public override void PostUpdatePlayers()
         {
             if (ModContent.GetInstance<RepMusicScene>().IsSceneEffectActive(Main.LocalPlayer))
@@ -163,6 +166,25 @@ namespace CalamityEntropy.Common
             }
         }
 
+        public override void PostUpdateNPCs()
+        {
+            bool eow = false;
+            int maxlifeEows = 0;
+            foreach(NPC n in Main.ActiveNPCs)
+            {
+                if (n.type == NPCID.EaterofWorldsHead || n.type == NPCID.EaterofWorldsBody || n.type == NPCID.EaterofWorldsTail)
+                {
+                    eow = true;
+                    maxlifeEows += n.lifeMax;
+                }
+
+            }
+            if (eow && !eowLast)
+            {
+                eowMaxLife = maxlifeEows;
+            }
+            eowLast = eow;
+        }
         public override void PostAddRecipes()
         {
             foreach(var recipe in Main.recipe)

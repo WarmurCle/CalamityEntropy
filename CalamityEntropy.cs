@@ -59,6 +59,37 @@ using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using Microsoft.Build.Evaluation;
 using Terraria.Audio;
+using CalamityMod.NPCs.SunkenSea;
+using CalamityMod.NPCs.Crabulon;
+using CalamityMod.NPCs.HiveMind;
+using CalamityMod.NPCs.Perforator;
+using CalamityMod.NPCs.NormalNPCs;
+using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.NPCs.Cryogen;
+using CalamityMod.NPCs.AquaticScourge;
+using CalamityMod.NPCs.CalClone;
+using CalamityMod.NPCs.BrimstoneElemental;
+using CalamityMod.NPCs.GreatSandShark;
+using CalamityMod.NPCs.Leviathan;
+using CalamityMod.NPCs.AstrumAureus;
+using CalamityMod.NPCs.PlaguebringerGoliath;
+using CalamityMod.NPCs.Ravager;
+using CalamityMod.NPCs.AstrumDeus;
+using CalamityMod.NPCs.ProfanedGuardians;
+using CalamityMod.NPCs.Bumblebirb;
+using CalamityMod.NPCs.Providence;
+using CalamityMod.NPCs.CeaselessVoid;
+using CalamityMod.NPCs.StormWeaver;
+using CalamityMod.NPCs.Signus;
+using CalamityMod.NPCs.Polterghast;
+using CalamityMod.NPCs.OldDuke;
+using CalamityMod.NPCs.DevourerofGods;
+using CalamityMod.NPCs.Yharon;
+using CalamityMod.NPCs.ExoMechs.Ares;
+using CalamityMod.NPCs.ExoMechs.Apollo;
+using CalamityMod.NPCs.ExoMechs.Artemis;
+using CalamityMod.NPCs.ExoMechs.Thanatos;
+using CalamityMod.NPCs.SupremeCalamitas;
 namespace CalamityEntropy
 {
     
@@ -69,7 +100,8 @@ namespace CalamityEntropy
             LotteryMachineRightClicked,
             TurnFriendly,
             Text,
-            BossKilled
+            BossKilled,
+            PlayerSetRB
         }
 		public static List<int> calDebuffIconDisplayList = new List<int>();
 		public static CalamityEntropy Instance;
@@ -137,6 +169,42 @@ namespace CalamityEntropy
                 {
                     CalamityEntropy.noMusTime = 300;
                     SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
+                }
+            }
+            if(type == (byte)NetPackages.PlayerSetRB)
+            {
+                int playerIndex = reader.ReadInt32();
+                bool active = reader.ReadBoolean();
+                playerIndex.ToPlayer().Entropy().rBadgeActive = active;
+                
+                if (Main.dedServ)
+                {
+                    if (!active)
+                    {
+                        playerIndex.ToPlayer().velocity *= 0.2f;
+                    }
+                    ModPacket pack = Instance.GetPacket();
+                    pack.Write(playerIndex);
+                    pack.Write(active);
+                    pack.Send();
+                }
+                else
+                {
+                    if (playerIndex != Main.myPlayer)
+                    {
+                        if (!active)
+                        {
+                            playerIndex.ToPlayer().velocity *= 0.2f;
+                        }
+                        if (active)
+                        {
+                            SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/AscendantActivate"), playerIndex.ToPlayer().Center);
+                        }
+                        else
+                        {
+                            SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/AscendantOff"), playerIndex.ToPlayer().Center);
+                        }
+                    }
                 }
             }
         }
@@ -487,6 +555,77 @@ namespace CalamityEntropy
 
                 }
             }
+            EntropyBossbar.bossbarColor[NPCID.KingSlime] = new Color(90, 160, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<DesertScourgeHead>()] = new Color(216, 210, 175);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<GiantClam>()] = new Color(128, 255, 255);
+            EntropyBossbar.bossbarColor[NPCID.EyeofCthulhu] = new Color(255, 40, 40);
+            EntropyBossbar.bossbarColor[NPCID.EaterofWorldsBody] = new Color(80, 40, 255);
+            EntropyBossbar.bossbarColor[NPCID.EaterofWorldsHead] = new Color(80, 40, 255);
+            EntropyBossbar.bossbarColor[NPCID.EaterofWorldsHead] = new Color(80, 40, 255);
+            EntropyBossbar.bossbarColor[NPCID.BrainofCthulhu] = new Color(255, 40, 40);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Crabulon>()] = new Color(133, 255, 237);
+            EntropyBossbar.bossbarColor[NPCID.DD2DarkMageT1] = new Color(180, 230, 255);
+            EntropyBossbar.bossbarColor[NPCID.DD2DarkMageT3] = new Color(180, 230, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<HiveMind>()] = new Color(140, 60, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<PerforatorHive>()] = new Color(155, 60, 60);
+            EntropyBossbar.bossbarColor[NPCID.Skeleton] = new Color(221, 221, 188);
+            EntropyBossbar.bossbarColor[NPCID.Deerclops] = new Color(220, 200, 200);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<CrimulanPaladin>()] = new Color(255, 60, 75);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<SplitCrimulanPaladin>()] = new Color(255, 60, 75);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<EbonianPaladin>()] = new Color(160, 170, 220);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<SplitEbonianPaladin>()] = new Color(160, 170, 220);
+            EntropyBossbar.bossbarColor[NPCID.WallofFlesh] = new Color(255, 40, 40);
+            EntropyBossbar.bossbarColor[491] = new Color(180, 120, 80);
+            EntropyBossbar.bossbarColor[NPCID.QueenSlimeBoss] = new Color(200, 160, 240);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Cryogen>()] = new Color(140, 255, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<AquaticScourgeHead>()] = new Color(215, 195, 155);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<BrimstoneElemental>()] = new Color(255, 145, 115);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<CalamitasClone>()] = new Color(255, 145, 115);
+            EntropyBossbar.bossbarColor[NPCID.Plantera] = new Color(255, 170, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<GreatSandShark>()] = new Color(225, 190, 130);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Anahita>()] = new Color(180, 180, 230);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Leviathan>()] = new Color(80, 235, 140);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<AstrumAureus>()] = new Color(90, 80, 107);
+            EntropyBossbar.bossbarColor[NPCID.Golem] = new Color(225, 106, 9);
+            EntropyBossbar.bossbarColor[NPCID.GolemHead] = new Color(225, 106, 9);
+            EntropyBossbar.bossbarColor[325] = new Color(255, 206, 106);
+            EntropyBossbar.bossbarColor[327] = new Color(244, 184, 106);
+            EntropyBossbar.bossbarColor[344] = new Color(0, 255, 172);
+            EntropyBossbar.bossbarColor[344] = new Color(240, 28, 28);
+            EntropyBossbar.bossbarColor[345] = new Color(200, 244, 246);
+            EntropyBossbar.bossbarColor[392] = new Color(150, 250, 255);
+            EntropyBossbar.bossbarColor[NPCID.DukeFishron] = new Color(80, 146, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<PlaguebringerGoliath>()] = new Color(60, 160, 30);
+            EntropyBossbar.bossbarColor[636] = Color.White;
+            EntropyBossbar.bossbarColor[551] = new Color(180, 75, 80);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<RavagerBody>()] = new Color(190, 180, 155);
+            EntropyBossbar.bossbarColor[NPCID.CultistBoss] = new Color(0, 60, 255);
+            EntropyBossbar.bossbarColor[422] = new Color(208, 255, 235);
+            EntropyBossbar.bossbarColor[493] = new Color(14, 155, 230);
+            EntropyBossbar.bossbarColor[507] = new Color(255, 30, 170);
+            EntropyBossbar.bossbarColor[517] = new Color(255, 100, 46);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<AstrumDeusHead>()] = new Color(96, 230, 190);
+            EntropyBossbar.bossbarColor[NPCID.MoonLordCore] = new Color(213, 194, 156);
+            EntropyBossbar.bossbarColor[NPCID.MoonLordCore] = new Color(213, 194, 156);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianCommander>()] = new Color(255, 255, 120);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianDefender>()] = new Color(255, 255, 120);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianHealer>()] = new Color(255, 255, 120);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Providence>()] = new Color(255, 255, 120);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Bumblefuck>()] = new Color(200, 180, 100);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<CeaselessVoid>()] = new Color(180, 210, 220);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<StormWeaverHead>()] = new Color(120, 145, 180);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Signus>()] = new Color(223, 75, 170);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Polterghast>()] = new Color(223, 255, 150);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<OldDuke>()] = new Color(190, 170, 130);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<DevourerofGodsHead>()] = new Color(121, 230, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<CruiserHead>()] = new Color(150, 190, 233);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Yharon>()] = new Color(255, 220, 100);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<AresBody>()] = new Color(242, 112, 73);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Apollo>()] = new Color(146, 200, 130);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Artemis>()] = new Color(146, 200, 130);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<ThanatosHead>()] = new Color(135, 220, 240);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<SupremeCalamitas>()] = new Color(255, 145, 115);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<AbyssalWraith>()] = new Color(200, 40, 255);
         }
         public static List<Projectile> checkProj = new List<Projectile>();
         public static List<NPC> checkNPC = new List<NPC>();

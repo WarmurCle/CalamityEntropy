@@ -779,6 +779,122 @@ Items: {
 			'''
 		DisplayName: 虚影薄锋
 	}
+
+	Barren: {
+		DisplayName: 『荒芜』
+		Tooltip:
+			'''
+			盗贼伤害+12%
+			盗贼弹幕获得微追踪
+			'''
+	}
+
+	Confuse: {
+		DisplayName: 『迷惑』
+		Tooltip: 攻击使敌人中蒙蔽debuff，减少其移动速度
+	}
+
+	Fool: {
+		DisplayName: 『弄臣』
+		Tooltip:
+			'''
+			+20%魔力消耗
+			+20%魔法伤害
+			'''
+	}
+
+	Frail: {
+		DisplayName: 『孱弱』
+		Tooltip:
+			'''
+			+15%伤害
+			受到的伤害增加10% 
+			'''
+	}
+
+	Nothing: {
+		DisplayName: 『虚无』
+		Tooltip: 攻击附带虚空之触减益
+	}
+
+	Perplexed: {
+		DisplayName: 『迷茫』
+		Tooltip:
+			'''
+			-5% 暴击率
+			+16% 攻击速度
+			'''
+	}
+
+	Sacrifice: {
+		DisplayName: 『献祭』
+		Tooltip:
+			'''
+			-60%再生速度
+			+20%伤害
+			'''
+	}
+
+	Tarnish: {
+		DisplayName: 『晦暗』
+		Tooltip: 攻击时发射暗隐火焰
+	}
+
+	TaintedDesk: {
+		DisplayName: 堕化卡组
+		Tooltip:
+			'''
+			盗贼弹幕获得微追踪
+			攻击使敌人中蒙蔽debuff，减少其移动速度
+			攻击附带虚空之触减益
+			攻击时发射暗隐火焰
+			受到的伤害增加8% 
+			每有一个召唤栏，+3%伤害
+			+18% 攻击速度
+			+60% 伤害
+			+16% 魔力消耗
+			-50% 再生速度
+			-4% 暴击率
+			'''
+	}
+
+	ThreadOfAbyss: {
+		DisplayName: 深渊之绳
+		Tooltip:
+			'''
+			用于制作堕化卡组
+			需要以下卡牌
+			迷茫:双子魔眼掉落
+			晦暗:哥布林巫士掉落
+			虚无:3任意邪恶组织+5任意邪恶锭合成
+			迷惑:售卖于树妖
+			荒芜:售卖于强盗
+			愚者:幻妖灵巫掉落
+			献祭:6混乱核心+2永恒锭合成
+			贪婪:星辉地钓鱼获得
+			孱弱:史莱姆之神掉落
+			'''
+	}
+
+	VoidCandle: {
+		DisplayName: 虚空蜡烛
+		Tooltip: 放置后右键使你的攻击附带虚空之触减益
+	}
+
+	Antler: {
+		DisplayName: 鹿角
+		Tooltip: ""
+	}
+
+	ReincarnationBadge: {
+		DisplayName: 轮回证章
+		Tooltip: 
+		'''
+		按下[KEY]键启用协调状态
+		该状态下，你不受重力影响
+		并推开周围射弹
+		'''
+	}
 }
 
 DeathMode: 死亡模式
@@ -924,6 +1040,8 @@ Projectiles: {
 	GumProj.DisplayName: 胶胶弹
 	VoidshadeHeld.DisplayName: 虚影薄锋
 	VoidImpact.DisplayName: 虚影剑气
+	BlackFire.DisplayName: 暗影火焰
+	// RbCircle.DisplayName: Rb Circle
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1053,6 +1171,16 @@ Buffs: {
 	WumBuff: {
 		DisplayName: 乌姆
 		Description: 这只传奇乌姆会跟着你
+	}
+
+	Deceive: {
+		Description: 减伤移动速度
+		DisplayName: 蒙蔽
+	}
+
+	VoidCandleBuff: {
+		DisplayName: 虚空蜡烛
+		Description: 攻击附带虚空之触
 	}
 }
 
@@ -1306,3 +1434,4 @@ hkLevel: 当前解锁进度
 ZoneGraveyard: 当在墓地环境时
 DownedBoss2: 击败 克苏鲁之脑 / 世界吞噬怪 后
 HaveOracleDesk: 持有神谕卡组时
+HaveTaintedDesk: 持有堕化卡组时

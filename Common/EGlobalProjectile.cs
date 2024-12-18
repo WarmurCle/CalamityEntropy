@@ -53,6 +53,8 @@ namespace CalamityEntropy.Common
         public int dmgupcount = 10;
         public int vddirection = 1;
         public bool ToFriendly = false;
+        public bool BarrenHoming = false;
+
         public override GlobalProjectile Clone(Projectile from, Projectile to)
         {
             var p = to.Entropy();
@@ -115,11 +117,22 @@ namespace CalamityEntropy.Common
             {
                 return;
             }
+            if (projectile.friendly)
+            {
+                if (projectile.owner.ToPlayer().Entropy().BarrenCard)
+                {
+                    if (projectile.DamageType == Util.CUtil.rougeDC)
+                    {
+                        BarrenHoming = true;
+                    }
+                }
+            }
             if (source is EntitySource_Parent s)
             {
                 if (s.Entity is Player player)
                 {
                     projectile.velocity *= player.Entropy().shootSpeed;
+                    
                 }
                 if (s.Entity is NPC np)
                 {
@@ -275,6 +288,16 @@ namespace CalamityEntropy.Common
                 else
                 {
                     projectile.extraUpdates -= projectile.owner.ToPlayer().Entropy().WeaponBoost;
+                }
+            }
+            if (BarrenHoming)
+            {
+                NPC target = projectile.FindTargetWithinRange(Math.Max(projectile.width, projectile.height) + 800, projectile.tileCollide);
+                if (target != null)
+                {
+                    float homingSpeed = 0.46f;
+                    projectile.velocity += (target.Center - projectile.Center).SafeNormalize(Vector2.Zero) * homingSpeed;
+                    projectile.velocity *= 1 - homingSpeed * (projectile.tileCollide ? 0.05f : 0.02f);
                 }
             }
             if (ToFriendly)
@@ -658,6 +681,7 @@ namespace CalamityEntropy.Common
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            BarrenHoming = false;
             if (projectile.ModProjectile is MagnusBeam || projectile.ModProjectile is LunicBeam)
             {
                 if (projectile.owner.ToPlayer().Entropy().WeaponBoost > 0)

@@ -14,7 +14,7 @@ using CalamityEntropy.Common;
 namespace CalamityEntropy.Util
 {
     //Most of these code is stupid, I wrote them very early on, but But I'm too lazy to modify them
-    public static class Util{
+    public static class Util {
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
 
         public static Rectangle getRectCentered(this Vector2 center, float w, float h)
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Util
         }
         public static void DrawLines(List<Vector2> points, Color color, float width)
         {
-            for(int i = 1; i < points.Count; i++)
+            for (int i = 1; i < points.Count; i++)
             {
                 drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, points[i - 1], points[i], color, width, 2, true);
             }
@@ -65,7 +65,11 @@ namespace CalamityEntropy.Util
         }
         public static Projectile ToProj_Identity(this int id)
         {
-            return Main.projectile.FirstOrDefault(x => x.identity==id);
+            return Main.projectile.FirstOrDefault(x => x.identity == id);
+        }
+        public static bool isAir(int i, int j, bool plat = false)
+        {
+            return isAir(new Vector2(i * 16, j * 16), plat);
         }
         public static bool isAir(Vector2 dp, bool plat = false)
         {

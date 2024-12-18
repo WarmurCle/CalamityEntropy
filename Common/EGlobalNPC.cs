@@ -7,6 +7,7 @@ using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
+using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
@@ -16,13 +17,16 @@ using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Events;
+using CalamityMod.Items.TreasureBags;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
 using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.DevourerofGods;
+using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.NPCs.Ravager;
+using CalamityMod.NPCs.SlimeGod;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.UI;
@@ -505,6 +509,10 @@ namespace CalamityEntropy.Common
                         buffTextureList.Add(TextureAssets.Buff[BuffID.GelBalloonBuff].Value);
                     if (npc.markedByScytheWhip) // Dark Harvest whip, the only Whip debuff that has an NPC bool
                         buffTextureList.Add(TextureAssets.Buff[BuffID.ScytheWhipEnemyDebuff].Value);
+                    if (npc.HasBuff(ModContent.BuffType<Deceive>()))
+                    {
+                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);
+                    }
                     bool voidTouchDraw = false;
                     int voidTouchIndex = 0;
                     if (npc.HasBuff(ModContent.BuffType<VoidTouch>()) || npc.Entropy().VoidTouchTime > 0)
@@ -513,6 +521,7 @@ namespace CalamityEntropy.Common
                         voidTouchDraw = true;
                         voidTouchIndex = buffTextureList.Count - 1;
                     }
+
                     // Total amount of elements in the buff list
                     int buffTextureListLength = buffTextureList.Count;
 
@@ -642,6 +651,29 @@ namespace CalamityEntropy.Common
             if (npc.type == NPCID.SkeletronPrime)
             {
                 Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<TemperanceCard>()));
+            }
+
+            if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
+            {
+                Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<Perplexed>()));
+            }
+            if (npc.type == NPCID.GoblinSorcerer)
+            {
+                if (Main.rand.NextBool(4))
+                {
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<Tarnish>()));
+                }
+            }
+            if (npc.type == ModContent.NPCType<Eidolist>())
+            {
+                if (Main.rand.NextBool(3))
+                {
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<Fool>()));
+                }
+            }
+            if (npc.type == ModContent.NPCType<SlimeGodCore>())
+            {
+                Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<Frail>()));
 
             }
             if (npc.type == NPCID.GiantWormHead)
@@ -731,7 +763,25 @@ namespace CalamityEntropy.Common
         }
         public int f_owner = -1;
         public bool lostSoulDrop = true;
+        public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            if (player.Entropy().ConfuseCard)
+            {
+                npc.AddBuff(ModContent.BuffType<Deceive>(), 420);
+            }
+        }
 
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            if (projectile.friendly)
+            {
+                Player player = projectile.owner.ToPlayer();
+                if (player.Entropy().ConfuseCard)
+                {
+                    npc.AddBuff(ModContent.BuffType<Deceive>(), 420);
+                }
+            }
+        }
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
             if(source is EntitySource_Parent esource)
@@ -781,13 +831,33 @@ namespace CalamityEntropy.Common
                 shop.Add(ModContent.ItemType<TemperanceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
                 shop.Add(ModContent.ItemType<WisdomCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
 
+                shop.Add(ModContent.ItemType<Barren>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+                shop.Add(ModContent.ItemType<Confuse>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+                shop.Add(ModContent.ItemType<Fool>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+                shop.Add(ModContent.ItemType<Frail>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+                shop.Add(ModContent.ItemType<GreedCard>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+                shop.Add(ModContent.ItemType<Nothing>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+                shop.Add(ModContent.ItemType<Perplexed>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+                shop.Add(ModContent.ItemType<Sacrifice>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+                shop.Add(ModContent.ItemType<Tarnish>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+
             }
-            if(shop.NpcType == 663)
+            if (shop.NpcType == 663)
             {
                 shop.Add(ModContent.ItemType<CarlosIceCream>());
-
             }
-
+            if (shop.NpcType == 20)
+            {
+                shop.Add(ModContent.ItemType<Confuse>());
+            }
+            if (shop.NpcType == ModContent.NPCType<THIEF>())
+            {
+                shop.Add(ModContent.ItemType<Barren>());
+            }
+            if (shop.NpcType == ModContent.NPCType<FAP>())
+            {
+                shop.Add(ModContent.ItemType<VoidCandle>());
+            }
         }
     }
 }

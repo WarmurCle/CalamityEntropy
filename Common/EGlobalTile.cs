@@ -36,7 +36,6 @@ namespace CalamityEntropy.Common
 
             }
         }
-
         public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             Tile tile = Main.tile[i, j];

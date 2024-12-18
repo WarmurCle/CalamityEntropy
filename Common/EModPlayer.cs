@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
@@ -13,6 +15,7 @@ using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.Items.Weapons.Rogue;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Terraria;
@@ -45,6 +48,7 @@ namespace CalamityEntropy.Common
         public int pot_time = 0;
         public int pot_amp = 0;
         public bool oracleDeskInInv = false;
+        public bool taintedDeskInInv = false;
         public bool hasSM = false;
         public bool summonerVF;
         public bool magiVF;
@@ -78,6 +82,7 @@ namespace CalamityEntropy.Common
         public Vector2 screenPos = Vector2.Zero;
         public int WeaponBoost = 0;
         public bool CrPlush = false;
+        public bool reincarnationBadge = false;
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge 
         { 
@@ -154,8 +159,18 @@ namespace CalamityEntropy.Common
         public bool SCrown;
 
         public int VoidInspire = 0;
-
+        
         public bool GreedCard = false;
+        public bool FrailCard = false;
+        public bool BarrenCard = false;
+        public bool TarnishCard = false;
+        public bool ConfuseCard = false;
+        public bool PerplexedCard = false;
+        public bool SacrificeCard = false;
+        public bool NothingCard = false;
+        public bool FoolCard = false;
+        public bool EvilDesk = false;
+
         public int lifeRegenPerSec = 0;
         public int lifeRegenCD = 60;
         public float light = 0;
@@ -195,8 +210,19 @@ namespace CalamityEntropy.Common
             temperanceCard = false;
             wisdomCard = false;
             oracleDeck = false;
+            GreedCard = false;
+            FrailCard = false;
+            BarrenCard = false;
+            TarnishCard = false;
+            ConfuseCard = false;
+            PerplexedCard = false;
+            SacrificeCard = false;
+            NothingCard = false;
+            FoolCard = false;
+            EvilDesk = false;
             holyMoonlight = false;
             oracleDeskInInv = false;
+            taintedDeskInInv = false;
             summonerVF = false;
             magiVF = false;
             rougeVF = false;
@@ -216,11 +242,13 @@ namespace CalamityEntropy.Common
             damageReduce = 1;
             moveSpeed = 0;
             DebuffImmuneChance = 0;
+            reincarnationBadge = false;
         }
         public int crSky = 0;
         public int llSky = 0;
         public int magiShieldCd = 0;
         public int sJudgeCd = 30 * 60;
+        public float rBadgeCharge = 12;
         public override void FrameEffects()
         {
             if (CrPlush)
@@ -228,8 +256,79 @@ namespace CalamityEntropy.Common
                 Player.head = EquipLoader.GetEquipSlot(base.Mod, "CruiserPlush", EquipType.Head);
             }
         }
+        public int BlackFlameCd = 0;
+        public bool rBadgeActive = false;
+        public bool[] tileSolid = null;
+        public bool[] solidTop = null;
+        public bool[] tilePlatform = null;
+        public bool cUp = false;
+        public bool cDown = false;
+        public bool cLeft = false;
+        public bool cRight = false;
+        public float rbDotDist = 0;
         public override void PreUpdate()
         {
+            if (rBadgeActive)
+            {
+                rbDotDist += (1 - rbDotDist) * 0.06f;
+                Player.velocity *= 0f;
+                float speed = 20f;
+                if (cUp)
+                {
+                    Player.velocity.Y -= speed;
+                }
+                if (cDown)
+                {
+                    Player.velocity.Y += speed;
+                }
+                if (cLeft)
+                {
+                    Player.direction = -1;
+                    Player.velocity.X -= speed;
+                }
+                if (cRight)
+                {
+                    Player.direction = 1;
+                    Player.velocity.X += speed;
+                }
+                Player.velocity.Y += 0.0001f;
+                resetTileSets = true;
+                tileSolid = (bool[])Main.tileSolid.Clone();
+                solidTop = (bool[])Main.tileSolidTop.Clone();
+                tilePlatform = (bool[])TileID.Sets.Platforms.Clone();
+                for (int type = 0; type < TileID.Sets.Platforms.Length; type++)
+                {
+                    if (TileID.Sets.Platforms[type])
+                    {
+                        Main.tileSolid[type] = false;
+                        Main.tileSolidTop[type] = false;
+                        TileID.Sets.Platforms[type] = false;
+                    }
+                }
+            }
+            else
+            {
+                rbDotDist += (-rbDotDist) * 0.06f;
+            }
+            if(BlackFlameCd > 0)
+            {
+                BlackFlameCd--;
+            }
+            if (TarnishCard && Main.myPlayer == Player.whoAmI)
+            {
+                if((Player.channel || Player.itemTime > 0) && Player.HeldItem.damage > 0)
+                {
+                    if(BlackFlameCd <= 0)
+                    {
+                        BlackFlameCd = Math.Max(4, Player.itemTimeMax);
+                        if (Player.channel)
+                        {
+                            BlackFlameCd = 30;
+                        }
+                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), Player.HeldItem.damage / 3, 2, Player.whoAmI);
+                    }
+                }
+            }
             if(voidshadeBoostTime > 0)
             {
                 voidshadeBoostTime--;
@@ -336,6 +435,11 @@ namespace CalamityEntropy.Common
         public int scHealCD = 60;
         public override void PostUpdateMiscEffects()
         {
+            if (rBadgeActive)
+            {
+                Player.gravity = 0;
+                
+            }
             Player.manaCost *= ManaCost;
             if (Player.Entropy().SCrown)
             {
@@ -359,7 +463,8 @@ namespace CalamityEntropy.Common
             }
             if (GreedCard)
             {
-                Player.GetDamage(DamageClass.Generic) += Player.maxMinions * 0.02f;
+
+                Player.GetDamage(DamageClass.Generic) += Player.maxMinions * (EvilDesk ? 0.03f : 0.02f);
             }
             if (VoidInspire > 0)
             {
@@ -498,6 +603,80 @@ namespace CalamityEntropy.Common
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
+            if (resetTileSets)
+            {
+                resetTileSets = false;
+                Main.tileSolid = tileSolid;
+                Main.tileSolidTop = solidTop;
+                TileID.Sets.Platforms = tilePlatform;
+                tileSolid = null;
+                solidTop = null;
+                tilePlatform = null;
+            }
+            if (reincarnationBadge)
+            {
+                if(!Player.HasBuff<NOU>() && Player.ownedProjectileCounts[ModContent.ProjectileType<RbCircle>()] < 1)
+                {
+                    if(Main.myPlayer == Player.whoAmI)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<RbCircle>(), 0, 0, Player.whoAmI);
+                    }
+                }
+                if (CalamityKeybinds.AscendantInsigniaHotKey.JustPressed || (rBadgeActive && (Player.controlJump || rBadgeCharge <= 0)))
+                {
+                    rBadgeActive = !rBadgeActive;
+                    if (rBadgeActive)
+                    {
+                        Player.mount.Dismount(Player);
+                        SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/AscendantActivate"), Player.Center);
+                    }
+                    else
+                    {
+                        SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/AscendantOff"), Player.Center);
+                        Player.velocity *= 0.2f;
+                    }
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        ModPacket pack = Mod.GetPacket();
+                        pack.Write(Player.whoAmI);
+                        pack.Write(rBadgeActive);
+                        pack.Send();
+                    }
+                }
+                if (Player.controlMount)
+                {
+                    if (rBadgeActive)
+                    {
+                        rBadgeActive = false;
+                        SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/AscendantOff"), Player.Center);
+                        Player.velocity *= 0.2f;
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            ModPacket pack = Mod.GetPacket();
+                            pack.Write(Player.whoAmI);
+                            pack.Write(rBadgeActive);
+                            pack.Send();
+                        }
+                    }
+                }
+                if (rBadgeActive)
+                {
+                    rBadgeCharge -= 0.025f;
+                }
+                else
+                {
+                    rBadgeCharge += 0.01f;
+                    if (rBadgeCharge > 12)
+                    {
+                        rBadgeCharge = 12;
+                    }
+                }
+            }
+            else
+            {
+                rBadgeActive = false;
+            }
+
             if (AWraith)
             {
                 Player.ManageSpecialBiomeVisuals("HeatDistortion", true);
@@ -862,9 +1041,20 @@ namespace CalamityEntropy.Common
             }
             return base.CanBeHitByProjectile(proj);
         }
-
+        public bool resetTileSets = false;
         public override void SetControls()
         {
+            if (rBadgeActive)
+            {
+                cDown = Player.controlDown;
+                cLeft = Player.controlLeft;
+                cRight = Player.controlRight;
+                cUp = Player.controlUp;
+                Player.controlDown = false;
+                Player.controlLeft = false;
+                Player.controlRight = false;
+                Player.controlUp = false;
+            }
             if (BeeGame.Active)
             {
                 Player.controlDown = false;
@@ -874,12 +1064,22 @@ namespace CalamityEntropy.Common
                 Player.controlUp = false;
             }
         }
+        
+        public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
+        {
+            if (Player.Calamity().ZoneAstral)
+            {
+                if (Main.rand.NextBool(10))
+                {
+                    itemDrop = ModContent.ItemType<GreedCard>();
+                }
+            }
+        }
 
         public override void Initialize()
         {
             CruiserLoreUsed = false;
         }
-
 
         public override void SaveData(TagCompound tag)
         {

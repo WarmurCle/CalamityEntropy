@@ -251,17 +251,17 @@ Items: {
 
 	WisdomCard: {
 		Tooltip: -40% Mana Cost
-		DisplayName: Wisdom Card
+		DisplayName: 『Wisdom』
 	}
 
 	TemperanceCard: {
 		Tooltip: +2 Minion Slot
-		DisplayName: Temperance Card
+		DisplayName: 『Temperance』
 	}
 
 	RadianceCard: {
 		Tooltip: +20% Life Regen
-		DisplayName: Radiance Card
+		DisplayName: 『Radiance』
 	}
 
 	OracleDeck: {
@@ -283,32 +283,32 @@ Items: {
 
 	MetropolisCard: {
 		Tooltip: +15 Max Stealth
-		DisplayName: Metropolis Card
+		DisplayName: 『Metropolis』
 	}
 
 	InspirationCard: {
 		Tooltip: +20% Move Speed
-		DisplayName: Inspiration Card
+		DisplayName: 『Inspiration』
 	}
 
 	EntityCard: {
 		Tooltip: + 10% Attack Speed
-		DisplayName: Entity Card
+		DisplayName: 『Entity』
 	}
 
 	EnduranceCard: {
 		Tooltip: -12% Damage Taken
-		DisplayName: Endurance Card
+		DisplayName: 『Endurance』
 	}
 
 	BrillianceCard: {
 		Tooltip: +20% Life Regen
-		DisplayName: Brilliance Card
+		DisplayName: 『Brilliance』
 	}
 
 	AuraCard: {
 		Tooltip: +5% Crit Chance
-		DisplayName: Aura Card
+		DisplayName: 『Aura』
 	}
 
 	ThreadOfFate: {
@@ -508,7 +508,7 @@ Items: {
 	}
 
 	GreedCard: {
-		DisplayName: Greed Card
+		DisplayName: 『Greed』
 		Tooltip: +2% damage for each summon slots
 	}
 
@@ -742,6 +742,122 @@ Items: {
 		Tooltip: ""
 		DisplayName: Voidshade
 	}
+
+	Barren: {
+		DisplayName: 『Barren』
+		Tooltip:
+			'''
+			+12% Rouge Damage
+			Rouge Projectile obtain micro tracking
+			'''
+	}
+
+	Confuse: {
+		DisplayName: 『Confuse』
+		Tooltip: Attack to exert deceive debuff in enemies that Reduce their movement speed
+	}
+
+	Fool: {
+		DisplayName: 『Fool』
+		Tooltip:
+			'''
+			+20% Mana Cost
+			+20% Magic Damage
+			'''
+	}
+
+	Frail: {
+		DisplayName: 『Frail』
+		Tooltip:
+			'''
+			+15% Damage
+			+10% Damage taken 
+			'''
+	}
+
+	Nothing: {
+		DisplayName: 『Nothing』
+		Tooltip: +6 Void Touch
+	}
+
+	Perplexed: {
+		DisplayName: 『Perplexed』
+		Tooltip:
+			'''
+			-5% Crit
+			+16% Attack Speed
+			'''
+	}
+
+	Sacrifice: {
+		DisplayName: 『Sacrifice』
+		Tooltip:
+			'''
+			-60% Life Regen
+			+20% Damage
+			'''
+	}
+
+	Tarnish: {
+		DisplayName: 『Tarnish』
+		Tooltip: Launch shadow flames during attack
+	}
+
+	TaintedDesk: {
+		DisplayName: Tainted Desk
+		Tooltip:
+			'''
+			Rouge Projectile obtain micro tracking
+			Attack to exert deceive debuff in enemies that Reduce their movement speed
+			Launch shadow flames during attack
+			+3% damage for each summon slots
+			+18% Attack Speed
+			+60% Damage
+			+8 Void Touch
+			+8% Damage taken
+			-50% Life Regen
+			+16% Mana Cost
+			-4% Crit
+			'''
+	}
+
+	ThreadOfAbyss: {
+		DisplayName: Thread Of Abyss
+		Tooltip:
+			'''
+			Used for making Tainted Desk
+			The following cards are required
+			Perplexed: the Twins Drop
+			Tarnish: goblin sorcerer drops
+			Nothing: 3 arbitrary evil organizations+5 arbitrary evil ingots synthesized
+			Confuse: sold by Dryad
+			Desolation: sold by Thief
+			Fool: Loot from Eidolist
+			Sacrifice: 6 Core of Chaos + 2 Perennial Bar
+			Greed: Fishing in Astral Infection Biome
+			Weakness: Loot from Slime God
+			'''
+	}
+
+	VoidCandle: {
+		DisplayName: Mods.CalamityEntropy.Items.VoidCandle.DisplayName
+		Tooltip: ""
+	}
+
+	Antler: {
+		DisplayName: Antler
+		Tooltip: ""
+	}
+
+	ReincarnationBadge: {
+		DisplayName: Reincarnation Badge
+		Tooltip: 
+		'''
+		Press [KEY] to activate the coordinated state
+		In this state, you are not affected by gravity
+		And push away the surrounding projectiles
+		'''
+	}
 }
 
 DeathMode: Death Mode
@@ -887,6 +1003,8 @@ Projectiles: {
 	GumProj.DisplayName: Gum Proj
 	VoidshadeHeld.DisplayName: Voidshade Held
 	VoidImpact.DisplayName: Void Impact
+	BlackFire.DisplayName: Black Fire
+	RbCircle.DisplayName: Rb Circle
 }
 
 LegendTooltip: - Legend -
@@ -1016,6 +1134,16 @@ Buffs: {
 	WumBuff: {
 		DisplayName: Wum Buff
 		Description: Wum will follow you
+	}
+
+	Deceive: {
+		Description: Speed down
+		DisplayName: Deceive
+	}
+
+	VoidCandleBuff: {
+		DisplayName: Void Candle Buff
+		Description: Mods.CalamityEntropy.Buffs.VoidCandleBuff.Description
 	}
 }
 
@@ -1270,3 +1398,4 @@ hkLevel: Level
 ZoneGraveyard: Zone Graveyard
 DownedBoss2: After Defeat Eater of World / Brain of cthulhu
 HaveOracleDesk: When Oracle Desk is in inventory
+HaveTaintedDesk: When Tainted Desk is in inventory
