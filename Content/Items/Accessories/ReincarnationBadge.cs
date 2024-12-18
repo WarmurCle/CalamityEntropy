@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<AscendantInsignia>())
                 .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 4)
-                .AddTile(ModContent.TileType<CosmicAnvil>());
+                .AddTile(ModContent.TileType<CosmicAnvil>()).Register();
         }
     }
 }
