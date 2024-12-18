@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Util;
 using CalamityMod.Items.Placeables.FurnitureAuric;
+using CalamityMod.NPCs.SlimeGod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -44,7 +45,8 @@ namespace CalamityEntropy.Common
         public bool rCtrlLast = false;
         public bool eowLast = false;
         public int eowMaxLife = 0;
-
+        public bool slimeGodLast = false;
+        public int slimeGodMaxLife = 0;
         public override void PostUpdatePlayers()
         {
             if (ModContent.GetInstance<RepMusicScene>().IsSceneEffectActive(Main.LocalPlayer))
@@ -170,20 +172,34 @@ namespace CalamityEntropy.Common
         {
             bool eow = false;
             int maxlifeEows = 0;
-            foreach(NPC n in Main.ActiveNPCs)
+            bool sg = false;
+            int maxlifeSg = 0;
+            foreach (NPC n in Main.ActiveNPCs)
             {
                 if (n.type == NPCID.EaterofWorldsHead || n.type == NPCID.EaterofWorldsBody || n.type == NPCID.EaterofWorldsTail)
                 {
                     eow = true;
                     maxlifeEows += n.lifeMax;
                 }
-
+                if(ModContent.NPCType<CrimulanPaladin>() == n.type || ModContent.NPCType<SplitCrimulanPaladin>() == n.type || ModContent.NPCType<EbonianPaladin>() == n.type || ModContent.NPCType<SplitEbonianPaladin>() == n.type)
+                {
+                    sg = true;
+                    maxlifeSg += n.lifeMax;
+                }
             }
             if (eow && !eowLast)
             {
                 eowMaxLife = maxlifeEows;
             }
             eowLast = eow;
+
+            if(sg && !slimeGodLast)
+            {
+                slimeGodMaxLife = maxlifeSg;
+            }
+
+            slimeGodLast = sg;
+            
         }
         public override void PostAddRecipes()
         {

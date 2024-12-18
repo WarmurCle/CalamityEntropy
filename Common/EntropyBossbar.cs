@@ -2,6 +2,7 @@
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Events;
+using CalamityMod.NPCs.SlimeGod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -73,7 +74,7 @@ namespace CalamityEntropy.Common
                 }
                 buttomColor = Color.Lerp(buttomColor, turnColorBtm, 0.1f);
 
-                if (npc.dontTakeDamage)
+                if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
                 {
                     barColor = Color.Lerp(barColor, new Color(200, 106, 205), 0.1f);
                 }
@@ -99,9 +100,23 @@ namespace CalamityEntropy.Common
                     }
                     prog = (float)eowLifes / (float)ModContent.GetInstance<EModSys>().eowMaxLife;
                 }
+                if (info.npcIndexToAimAt.ToNPC().type == ModContent.NPCType<SlimeGodCore>())
+                {
+                    int sgLifes = 0;
+                    foreach (NPC n in Main.ActiveNPCs)
+                    {
+                        if (ModContent.NPCType<CrimulanPaladin>() == n.type || ModContent.NPCType<SplitCrimulanPaladin>() == n.type || ModContent.NPCType<EbonianPaladin>() == n.type || ModContent.NPCType<SplitEbonianPaladin>() == n.type)
+                        {
+                            sgLifes += n.life;
+                        }
+
+                    }
+                    prog = (float)sgLifes / (float)ModContent.GetInstance<EModSys>().slimeGodMaxLife;
+
+                }
                 if (prog == 0)
                 {
-                    if (!npc.dontTakeDamage)
+                    if (!npc.dontTakeDamage || npc.ModNPC is SlimeGodCore)
                     {
                         barColor = getNpcBarColor(npc);
                     }
@@ -132,7 +147,7 @@ namespace CalamityEntropy.Common
 
 
                 spriteBatch.Draw(barWhite, center, new Rectangle(0, 0, 18 + (int)(500 * comboProg), bar1.Height), Color.White, 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
-                if (npc.dontTakeDamage)
+                if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
                 {
                     spriteBatch.Draw(barWhite2, center, new Rectangle(0, 0, 18 + (int)(500 * prog) + 2, bar1.Height), Color.Lerp(barColor, Color.White, 0.5f), 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
                 }
@@ -143,7 +158,7 @@ namespace CalamityEntropy.Common
                 
                 spriteBatch.Draw(barc, center + new Vector2(0, 8), new Rectangle(0, 0, (int)(500 * prog), bar2.Height), barColor, 0, barc.Size() / 2, 1, SpriteEffects.None, 0);
 
-                if (npc.dontTakeDamage)
+                if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
                 {
                     spriteBatch.Draw(barLocked, center, new Rectangle(0, 0, 18 + (int)(500 * prog), bar1.Height), Color.Lerp(barColor, Color.White, 0.36f), 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
 

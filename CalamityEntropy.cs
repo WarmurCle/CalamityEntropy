@@ -90,6 +90,8 @@ using CalamityMod.NPCs.ExoMechs.Apollo;
 using CalamityMod.NPCs.ExoMechs.Artemis;
 using CalamityMod.NPCs.ExoMechs.Thanatos;
 using CalamityMod.NPCs.SupremeCalamitas;
+using CalamityMod.NPCs.PrimordialWyrm;
+using CalamityEntropy.Content.NPCs.VoidInvasion;
 namespace CalamityEntropy
 {
     
@@ -606,7 +608,8 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[517] = new Color(255, 100, 46);
             EntropyBossbar.bossbarColor[ModContent.NPCType<AstrumDeusHead>()] = new Color(96, 230, 190);
             EntropyBossbar.bossbarColor[NPCID.MoonLordCore] = new Color(213, 194, 156);
-            EntropyBossbar.bossbarColor[NPCID.MoonLordCore] = new Color(213, 194, 156);
+            EntropyBossbar.bossbarColor[NPCID.MoonLordLeechBlob] = new Color(213, 194, 156);
+            EntropyBossbar.bossbarColor[NPCID.MoonLordHead] = new Color(213, 194, 156);
             EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianCommander>()] = new Color(255, 255, 120);
             EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianDefender>()] = new Color(255, 255, 120);
             EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianHealer>()] = new Color(255, 255, 120);
@@ -615,7 +618,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<CeaselessVoid>()] = new Color(180, 210, 220);
             EntropyBossbar.bossbarColor[ModContent.NPCType<StormWeaverHead>()] = new Color(120, 145, 180);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Signus>()] = new Color(223, 75, 170);
-            EntropyBossbar.bossbarColor[ModContent.NPCType<Polterghast>()] = new Color(223, 255, 150);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Polterghast>()] = new Color(100, 255, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<OldDuke>()] = new Color(190, 170, 130);
             EntropyBossbar.bossbarColor[ModContent.NPCType<DevourerofGodsHead>()] = new Color(121, 230, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<CruiserHead>()] = new Color(150, 190, 233);
@@ -626,6 +629,8 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<ThanatosHead>()] = new Color(135, 220, 240);
             EntropyBossbar.bossbarColor[ModContent.NPCType<SupremeCalamitas>()] = new Color(255, 145, 115);
             EntropyBossbar.bossbarColor[ModContent.NPCType<AbyssalWraith>()] = new Color(200, 40, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<VoidPope>()] = new Color(200, 40, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<PrimordialWyrmHead>()] = new Color(255, 255, 80);
         }
         public static List<Projectile> checkProj = new List<Projectile>();
         public static List<NPC> checkNPC = new List<NPC>();
