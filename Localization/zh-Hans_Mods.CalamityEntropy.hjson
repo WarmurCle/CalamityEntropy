@@ -878,7 +878,11 @@ Items: {
 
 	VoidCandle: {
 		DisplayName: 虚空蜡烛
-		Tooltip: 放置后右键使你的攻击附带虚空之触减益
+		Tooltip:
+			'''
+			放置后右键使你的攻击附带虚空之触减益
+			"它的顶部跃动着虚无的火焰"
+			'''
 	}
 
 	Antler: {
@@ -888,12 +892,12 @@ Items: {
 
 	ReincarnationBadge: {
 		DisplayName: 轮回证章
-		Tooltip: 
-		'''
-		按下[KEY]键启用协调状态
-		该状态下，你不受重力影响
-		并推开周围射弹
-		'''
+		Tooltip:
+			'''
+			按下[KEY]键启用协调状态
+			该状态下，你不受重力影响
+			并推开周围射弹
+			'''
 	}
 }
 
@@ -1179,7 +1183,7 @@ Buffs: {
 	}
 
 	VoidCandleBuff: {
-		DisplayName: 虚空蜡烛
+		DisplayName: 虚无化身
 		Description: 攻击附带虚空之触
 	}
 }

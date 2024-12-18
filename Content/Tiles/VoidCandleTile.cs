@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items;
 using CalamityMod;
 using CalamityMod.Buffs.Placeables;
 using CalamityMod.Items.Placeables.Furniture;
@@ -35,7 +36,7 @@ namespace CalamityEntropy.Content.Tiles
         {
             Player p = Main.LocalPlayer;
 
-            p.AddBuff(ModContent.BuffType<CirrusYellowCandleBuff>(), 108000);
+            p.AddBuff(ModContent.BuffType<VoidCandleBuff>(), 108000);
 
             SoundEngine.PlaySound(ActivationSound, new Vector2(i * 16, j * 16));
 

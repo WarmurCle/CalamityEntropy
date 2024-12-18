@@ -840,8 +840,12 @@ Items: {
 	}
 
 	VoidCandle: {
-		DisplayName: Mods.CalamityEntropy.Items.VoidCandle.DisplayName
-		Tooltip: ""
+		DisplayName: VoidCandle
+		Tooltip:
+			'''
+			Right click after placing to make your attack apply Void Touch
+			“there were flames of void leaping at its top”
+			'''
 	}
 
 	Antler: {
@@ -851,12 +855,12 @@ Items: {
 
 	ReincarnationBadge: {
 		DisplayName: Reincarnation Badge
-		Tooltip: 
-		'''
-		Press [KEY] to activate the coordinated state
-		In this state, you are not affected by gravity
-		And push away the surrounding projectiles
-		'''
+		Tooltip:
+			'''
+			Press [KEY] to activate the coordinated state
+			In this state, you are not affected by gravity
+			And push away the surrounding projectiles
+			'''
 	}
 }
 
