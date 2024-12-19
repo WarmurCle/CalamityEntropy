@@ -840,7 +840,7 @@ Items: {
 		Tooltip: 攻击时发射暗隐火焰
 	}
 
-	TaintedDesk: {
+	TaintedDeck: {
 		DisplayName: 堕化卡组
 		Tooltip:
 			'''
@@ -898,6 +898,11 @@ Items: {
 			该状态下，你不受重力影响
 			并推开周围射弹
 			'''
+	}
+
+	CrimsonNight: {
+		Tooltip: ""
+		DisplayName: 绯夜
 	}
 }
 
@@ -1437,5 +1442,5 @@ DamageClasses.NoneTypeDamageClass.DisplayName: 伤害
 hkLevel: 当前解锁进度
 ZoneGraveyard: 当在墓地环境时
 DownedBoss2: 击败 克苏鲁之脑 / 世界吞噬怪 后
-HaveOracleDesk: 持有神谕卡组时
-HaveTaintedDesk: 持有堕化卡组时
+HaveOracleDeck: 持有神谕卡组时
+HaveTaintedDeck: 持有堕化卡组时

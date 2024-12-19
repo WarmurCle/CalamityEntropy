@@ -582,6 +582,13 @@ namespace CalamityEntropy.Common
             }
             if(!npc.friendly && npc.lifeMax > 20)
             {
+                if (Main.bloodMoon)
+                {
+                    if (Main.rand.NextBool(64))
+                    {
+                        Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CrimsonNight>()));
+                    }
+                }
                 Player n = null;
                 foreach (Player plr in Main.player)
                 {
@@ -821,25 +828,25 @@ namespace CalamityEntropy.Common
             }
             if (shop.NpcType == 108)
             {
-                shop.Add(ModContent.ItemType<AuraCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<BrillianceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<EnduranceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<EntityCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<InspirationCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<MetropolisCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<RadianceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<TemperanceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
-                shop.Add(ModContent.ItemType<WisdomCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDesk"), () => Main.LocalPlayer.Entropy().oracleDeskInInv));
+                shop.Add(ModContent.ItemType<AuraCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<BrillianceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<EnduranceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<EntityCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<InspirationCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<MetropolisCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<RadianceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<TemperanceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<WisdomCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
 
-                shop.Add(ModContent.ItemType<Barren>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
-                shop.Add(ModContent.ItemType<Confuse>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
-                shop.Add(ModContent.ItemType<Fool>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
-                shop.Add(ModContent.ItemType<Frail>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
-                shop.Add(ModContent.ItemType<GreedCard>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
-                shop.Add(ModContent.ItemType<Nothing>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
-                shop.Add(ModContent.ItemType<Perplexed>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
-                shop.Add(ModContent.ItemType<Sacrifice>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
-                shop.Add(ModContent.ItemType<Tarnish>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDesk"), () => Main.LocalPlayer.Entropy().taintedDeskInInv));
+                shop.Add(ModContent.ItemType<Barren>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Confuse>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Fool>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Frail>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<GreedCard>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Nothing>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Perplexed>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Sacrifice>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Tarnish>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
 
             }
             if (shop.NpcType == 663)

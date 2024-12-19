@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories.EvilCards
 {
-	public class TaintedDesk : ModItem
+	public class TaintedDeck : ModItem
 	{
 
 		public override void SetDefaults() {
@@ -19,10 +19,13 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             Item.accessory = true;
 			
 		}
-
+        public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+        {
+            return incomingItem.ModItem is OracleDeck;
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<EModPlayer>().EvilDesk = true;
+            player.GetModPlayer<EModPlayer>().EvilDeck = true;
 
             player.GetModPlayer<EModPlayer>().BarrenCard = true;
 
@@ -51,12 +54,12 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
 
             player.GetModPlayer<EModPlayer>().TarnishCard = true;
 
-            player.Entropy().taintedDeskInInv = true;
+            player.Entropy().taintedDeckInInv = true;
 
         }
         public override void UpdateInventory(Player player)
         {
-            player.Entropy().taintedDeskInInv = true;
+            player.Entropy().taintedDeckInInv = true;
         }
         public override void AddRecipes()
         {

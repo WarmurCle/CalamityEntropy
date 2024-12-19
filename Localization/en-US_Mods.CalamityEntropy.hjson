@@ -314,7 +314,7 @@ Items: {
 	ThreadOfFate: {
 		Tooltip:
 			'''
-			Can be used to craft Oracle Desk
+			Can be used to craft Oracle Deck
 			Need those cards:
 			Aura: Golden Chest，Iron Crate: 10%
 			Brilliance: Selling at merchants' premises
@@ -803,8 +803,8 @@ Items: {
 		Tooltip: Launch shadow flames during attack
 	}
 
-	TaintedDesk: {
-		DisplayName: Tainted Desk
+	TaintedDeck: {
+		DisplayName: Tainted Deck
 		Tooltip:
 			'''
 			Rouge Projectile obtain micro tracking
@@ -825,7 +825,7 @@ Items: {
 		DisplayName: Thread Of Abyss
 		Tooltip:
 			'''
-			Used for making Tainted Desk
+			Used for making Tainted Deck
 			The following cards are required
 			Perplexed: the Twins Drop
 			Tarnish: goblin sorcerer drops
@@ -861,6 +861,11 @@ Items: {
 			In this state, you are not affected by gravity
 			And push away the surrounding projectiles
 			'''
+	}
+
+	CrimsonNight: {
+		Tooltip: ""
+		DisplayName: Crimson Night
 	}
 }
 
@@ -1401,5 +1406,5 @@ DamageClasses.NoneTypeDamageClass.DisplayName: Damage
 hkLevel: Level
 ZoneGraveyard: Zone Graveyard
 DownedBoss2: After Defeat Eater of World / Brain of cthulhu
-HaveOracleDesk: When Oracle Desk is in inventory
-HaveTaintedDesk: When Tainted Desk is in inventory
+HaveOracleDeck: When Oracle Deck is in inventory
+HaveTaintedDeck: When Tainted Deck is in inventory

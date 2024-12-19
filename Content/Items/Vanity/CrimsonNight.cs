@@ -5,15 +5,15 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class DreamCatcher : ModItem
+    public class CrimsonNight : ModItem
     {
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)
             {
-                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/dd_Head", EquipType.Head, this);
-                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/dd_Body", EquipType.Body, this);
-                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/dd_Legs", EquipType.Legs, this);
+                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/cr_Head", EquipType.Head, this);
+                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/cr_Body", EquipType.Body, this);
+                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/cr_Legs", EquipType.Legs, this);
             }
         }
 
@@ -42,32 +42,34 @@ namespace CalamityEntropy.Content.Items.Vanity
             Item.value = CalamityMod.Items.CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.vanity = true;
-            Item.Calamity().donorItem = true;
+            Item.Calamity().devItem = true;
         }
 
         public override void UpdateVanity(Player player)
         {
-            player.GetModPlayer<DreamCatcherPlayer>().vanityEquipped = true;
+            player.GetModPlayer<CrimsonNightPlayer>().vanityEquipped = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             if (!hideVisual)
             {
-                player.GetModPlayer<DreamCatcherPlayer>().vanityEquipped = true;
+                player.GetModPlayer<CrimsonNightPlayer>().vanityEquipped = true;
             }
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Cloud, 50)
-                .AddIngredient(ItemID.FallenStar, 1)
-                .AddTile(TileID.WorkBenches).Register();
+                .AddIngredient(4271)
+                .AddIngredient(ItemID.Silk, 4)
+                .AddTile(TileID.WorkBenches)
+                .Register();
         }
+
     }
 
-    public class DreamCatcherPlayer : ModPlayer
+    public class CrimsonNightPlayer : ModPlayer
     {
         public bool vanityEquipped = false;
 
@@ -80,9 +82,9 @@ namespace CalamityEntropy.Content.Items.Vanity
         {
             if (vanityEquipped)
             {
-                Player.legs = EquipLoader.GetEquipSlot(Mod, "DreamCatcher", EquipType.Legs);
-                Player.body = EquipLoader.GetEquipSlot(Mod, "DreamCatcher", EquipType.Body);
-                Player.head = EquipLoader.GetEquipSlot(Mod, "DreamCatcher", EquipType.Head);
+                Player.legs = EquipLoader.GetEquipSlot(Mod, "CrimsonNight", EquipType.Legs);
+                Player.body = EquipLoader.GetEquipSlot(Mod, "CrimsonNight", EquipType.Body);
+                Player.head = EquipLoader.GetEquipSlot(Mod, "CrimsonNight", EquipType.Head);
 
                 //Player.HideAccessories();
             }

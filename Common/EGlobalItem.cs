@@ -969,6 +969,13 @@ namespace CalamityEntropy.Common
                     return playerName.ToLower().Contains("rat") || playerName.ToLower().Contains("ant");
                 };
                 itemLoot.AddIf(getsAN, ModContent.ItemType<Antler>());
+
+                static bool getsSW(DropAttemptInfo info)
+                {
+                    string playerName = info.player.name;
+                    return playerName.ToLower().Contains("away") || playerName.ToLower().Contains("weaver");
+                };
+                itemLoot.AddIf(getsSW, ModContent.ItemType<CrimsonNight>());
             }
         }
         public class IsDeathMode : IItemDropRuleCondition, IProvideItemConditionDescription

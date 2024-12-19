@@ -1,4 +1,5 @@
 using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
@@ -22,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().oracleDeskInInv = true;
+            player.Entropy().oracleDeckInInv = true;
             player.GetCritChance(DamageClass.Generic) += 13;
             player.GetAttackSpeed(DamageClass.Generic) *= 1.15f;
             player.Calamity().rogueStealthMax += 0.2f;
@@ -34,7 +35,12 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 
         public override void UpdateInventory(Player player)
         {
-            player.Entropy().oracleDeskInInv = true;
+            player.Entropy().oracleDeckInInv = true;
+        }
+
+        public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+        {
+            return incomingItem.ModItem is TaintedDeck;
         }
         public override void AddRecipes()
         {

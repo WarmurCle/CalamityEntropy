@@ -24,6 +24,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.Net;
 
 namespace CalamityEntropy.Common
 {
@@ -47,8 +48,8 @@ namespace CalamityEntropy.Common
         public int HMRegenCd = 0;
         public int pot_time = 0;
         public int pot_amp = 0;
-        public bool oracleDeskInInv = false;
-        public bool taintedDeskInInv = false;
+        public bool oracleDeckInInv = false;
+        public bool taintedDeckInInv = false;
         public bool hasSM = false;
         public bool summonerVF;
         public bool magiVF;
@@ -169,7 +170,7 @@ namespace CalamityEntropy.Common
         public bool SacrificeCard = false;
         public bool NothingCard = false;
         public bool FoolCard = false;
-        public bool EvilDesk = false;
+        public bool EvilDeck = false;
 
         public int lifeRegenPerSec = 0;
         public int lifeRegenCD = 60;
@@ -219,10 +220,10 @@ namespace CalamityEntropy.Common
             SacrificeCard = false;
             NothingCard = false;
             FoolCard = false;
-            EvilDesk = false;
+            EvilDeck = false;
             holyMoonlight = false;
-            oracleDeskInInv = false;
-            taintedDeskInInv = false;
+            oracleDeckInInv = false;
+            taintedDeckInInv = false;
             summonerVF = false;
             magiVF = false;
             rougeVF = false;
@@ -291,6 +292,14 @@ namespace CalamityEntropy.Common
                     Player.direction = 1;
                     Player.velocity.X += speed;
                 }
+                if (!Player.velocity.Equals(Vector2.Zero) && Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    ModPacket pack = Mod.GetPacket();
+                    pack.Write((byte)CalamityEntropy.NetPackages.PlayerSetPos);
+                    pack.Write(Player.whoAmI);
+                    pack.WriteVector2(Player.Center);
+                    pack.Send();
+                }
                 Player.velocity.Y += 0.0001f;
                 resetTileSets = true;
                 tileSolid = (bool[])Main.tileSolid.Clone();
@@ -325,7 +334,7 @@ namespace CalamityEntropy.Common
                         {
                             BlackFlameCd = 30;
                         }
-                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), Player.HeldItem.damage / 3, 2, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 5, 2, Player.whoAmI);
                     }
                 }
             }
@@ -464,7 +473,7 @@ namespace CalamityEntropy.Common
             if (GreedCard)
             {
 
-                Player.GetDamage(DamageClass.Generic) += Player.maxMinions * (EvilDesk ? 0.03f : 0.02f);
+                Player.GetDamage(DamageClass.Generic) += Player.maxMinions * (EvilDeck ? 0.03f : 0.02f);
             }
             if (VoidInspire > 0)
             {
@@ -596,7 +605,7 @@ namespace CalamityEntropy.Common
             }
         }
 
-        public int OracleDeskHealCd = 0;
+        public int OracleDeckHealCd = 0;
         public int effectCount = 0;
         public int shielddamagecd = 0;
 
@@ -638,6 +647,7 @@ namespace CalamityEntropy.Common
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         ModPacket pack = Mod.GetPacket();
+                        pack.Write((byte)CalamityEntropy.NetPackages.PlayerSetRB);
                         pack.Write(Player.whoAmI);
                         pack.Write(rBadgeActive);
                         pack.Send();
@@ -653,6 +663,7 @@ namespace CalamityEntropy.Common
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
                             ModPacket pack = Mod.GetPacket();
+                            pack.Write((byte)CalamityEntropy.NetPackages.PlayerSetRB);
                             pack.Write(Player.whoAmI);
                             pack.Write(rBadgeActive);
                             pack.Send();
@@ -852,9 +863,9 @@ namespace CalamityEntropy.Common
             }
             VaMoving--;
             if (Player.Entropy().oracleDeck) {
-                if (OracleDeskHealCd <= 0)
+                if (OracleDeckHealCd <= 0)
                 {
-                    OracleDeskHealCd = 300;
+                    OracleDeckHealCd = 300;
                     if (Util.Util.getDistance(Main.LocalPlayer.Center, Player.Center) < 1600)
                     {
                         if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2)
@@ -864,9 +875,9 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if (OracleDeskHealCd > 0)
+            if (OracleDeckHealCd > 0)
             {
-                OracleDeskHealCd--;
+                OracleDeckHealCd--;
             }
             if (Player.whoAmI == Main.myPlayer && !Player.HasBuff(ModContent.BuffType<NOU>()))
             {

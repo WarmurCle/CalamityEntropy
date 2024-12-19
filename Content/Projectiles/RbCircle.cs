@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
             float rot = MathHelper.ToRadians(-30);
             for (int i = 0; i < dotCount; i++){
                 float scale = 1;
-                if (i == dotCount - 1 && i != 12)
+                if (i == dotCount - 1 && !(i == 11 && counts >= 12))
                 {
                     scale = counts - (int)counts;
                 }

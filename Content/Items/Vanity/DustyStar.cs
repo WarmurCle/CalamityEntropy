@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -57,7 +58,14 @@ namespace CalamityEntropy.Content.Items.Vanity
                 player.GetModPlayer<DustyStarPlayer>().vanityEquipped = true;
             }
         }
-        
+
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 1)
+                .AddIngredient(ItemID.FallenStar, 5)
+                .AddTile(TileID.WorkBenches).Register();
+        }
+
     }
 
     public class DustyStarPlayer : ModPlayer

@@ -103,7 +103,8 @@ namespace CalamityEntropy
             TurnFriendly,
             Text,
             BossKilled,
-            PlayerSetRB
+            PlayerSetRB,
+            PlayerSetPos
         }
 		public static List<int> calDebuffIconDisplayList = new List<int>();
 		public static CalamityEntropy Instance;
@@ -186,6 +187,7 @@ namespace CalamityEntropy
                         playerIndex.ToPlayer().velocity *= 0.2f;
                     }
                     ModPacket pack = Instance.GetPacket();
+                    pack.Write((byte)CalamityEntropy.NetPackages.PlayerSetRB);
                     pack.Write(playerIndex);
                     pack.Write(active);
                     pack.Send();
@@ -207,6 +209,23 @@ namespace CalamityEntropy
                             SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/AscendantOff"), playerIndex.ToPlayer().Center);
                         }
                     }
+                }
+            }
+            if(type == (byte)NetPackages.PlayerSetPos)
+            {
+                int id = reader.ReadInt32();
+                Vector2 pos = reader.ReadVector2();
+                if (id != Main.myPlayer)
+                {
+                    id.ToPlayer().Center = pos;
+                }
+                if (Main.dedServ)
+                {
+                    ModPacket p = Instance.GetPacket();
+                    p.Write((byte)NetPackages.PlayerSetPos);
+                    p.Write(id);
+                    p.WriteVector2(pos);
+                    p.Send();
                 }
             }
         }
@@ -448,8 +467,8 @@ namespace CalamityEntropy
             { if (Main.gameMenu) { return; } if (value) { Main.LocalPlayer.Entropy().brillianceCard = 3; } else { Main.LocalPlayer.Entropy().brillianceCard = 0; } }
         }
         public static float BrillianceCardValue = 1.5f;
-        public static float OracleDeskBrilValue = 2f;
-        public static float brillianceLightMulti { get { if (Main.gameMenu) { return 1; } if (Main.LocalPlayer.Entropy().oracleDeck) { return OracleDeskBrilValue; }  else if (BrilEnable) { return BrillianceCardValue; } else { return 1; } } }
+        public static float OracleDeckBrilValue = 2f;
+        public static float brillianceLightMulti { get { if (Main.gameMenu) { return 1; } if (Main.LocalPlayer.Entropy().oracleDeck) { return OracleDeckBrilValue; }  else if (BrilEnable) { return BrillianceCardValue; } else { return 1; } } }
 
         private void al_vv(On_Lighting.orig_AddLight_Vector2_Vector3 orig, Vector2 position, Vector3 rgb)
         {
