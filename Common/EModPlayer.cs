@@ -271,6 +271,7 @@ namespace CalamityEntropy.Common
         {
             if (rBadgeActive)
             {
+                Player.maxFallSpeed = 99;
                 rbDotDist += (1 - rbDotDist) * 0.06f;
                 Player.velocity *= 0f;
                 float speed = 20f;

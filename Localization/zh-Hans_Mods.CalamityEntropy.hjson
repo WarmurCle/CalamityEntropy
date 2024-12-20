@@ -32,6 +32,52 @@ Items: {
 					'''
 				DisplayName: 苍穹坠影
 			}
+
+			Aquashard: {
+				DisplayName: 蓝晶破浪
+				Tooltip:
+					'''
+					丢出一把击中敌人会分裂出追踪棱晶碎片的标枪
+					潜伏攻击会获得穿透并且击中后分裂出更多的棱晶碎片
+					'''
+			}
+
+			SpearOfRadiance: {
+				Tooltip:
+					'''
+					投出一把神圣标枪
+					潜伏攻击会获得更多穿透并且第一次击中会迸发出十字圣光
+					'''
+				DisplayName: 圣辉之枪
+			}
+
+			AbyssalPiercer: {
+				DisplayName: 冥海穿刺
+				Tooltip:
+					'''
+					丢出一把击中后迸发出追踪水流的标枪
+					潜伏攻击会在第一次命中后产生一个深渊漩涡并伸出裂礁刺
+					'''
+			}
+
+			AzureOfFirmament: {
+				Tooltip:
+					'''
+					丢出一把苍穹标枪
+					潜伏攻击会同时散射出羽毛
+					标枪击中目标后羽毛会飞向目标
+					'''
+				DisplayName: 天穹之澈
+			}
+
+			ArbitratorII: {
+				Tooltip:
+					'''
+					丢出一把会爆炸的标枪
+					潜伏攻击会插在目标身上并在一秒后产生更大的爆炸
+					'''
+				DisplayName: 仲裁者II
+			}
 		}
 	}
 
@@ -328,21 +374,7 @@ Items: {
 	}
 
 	ThreadOfFate: {
-		Tooltip:
-			'''
-			用于制作神谕卡组
-			需要以下卡牌
-			灵光:金箱子，铁匣，秘银匣10%概率获取
-			辉煌:商人5金币出售
-			实体:掉落自巨像蛤
-			启迪:砂岩箱，绿洲匣，幻象匣30%获取
-			都市:恶魔骨灰5，混乱精华3，书架处合成
-			智慧:掉落自骷髅王
-			光芒:凋星微尘5，日光精华5，光明之魂3，水晶球处合成
-			克己:掉落自机械骷髅王
-			坚忍:深渊宝藏箱33%概率获取
-			(如果你加了炼狱的话，坚忍卡牌不会正常生成，请尝试从渊泉匣获取)
-			'''
+		Tooltip: 用于制作神谕卡组
 		DisplayName: 命运之绳
 	}
 
@@ -860,20 +892,7 @@ Items: {
 
 	ThreadOfAbyss: {
 		DisplayName: 深渊之绳
-		Tooltip:
-			'''
-			用于制作堕化卡组
-			需要以下卡牌
-			迷茫:双子魔眼掉落
-			晦暗:哥布林巫士掉落
-			虚无:3任意邪恶组织+5任意邪恶锭合成
-			迷惑:售卖于树妖
-			荒芜:售卖于强盗
-			愚者:幻妖灵巫掉落
-			献祭:6混乱核心+2永恒锭合成
-			贪婪:星辉地钓鱼获得
-			孱弱:史莱姆之神掉落
-			'''
+		Tooltip: 用于制作堕化卡组
 	}
 
 	VoidCandle: {
@@ -1050,7 +1069,16 @@ Projectiles: {
 	VoidshadeHeld.DisplayName: 虚影薄锋
 	VoidImpact.DisplayName: 虚影剑气
 	BlackFire.DisplayName: 暗影火焰
-	// RbCircle.DisplayName: Rb Circle
+	RbCircle.DisplayName: Rb Circle
+	AquashardThrow.DisplayName: 晶蓝破浪
+	RadianceSpearThrow.DisplayName: 圣辉之枪
+	HolyBeam.DisplayName: 圣光
+	AbyssalPiercerThrow.DisplayName: 冥海穿刺
+	AbyssalVortex.DisplayName: 深渊漩涡
+	AbyssTentacle.DisplayName: 裂礁刺
+	AzureOfFirmamentThrow.DisplayName: 天穹之澈
+	WelkinFeather.DisplayName: 苍穹之羽
+	// ArbitratorIIThrow.DisplayName: Arbitrator I I Throw
 }
 
 LegendTooltip: - 传奇物品 -

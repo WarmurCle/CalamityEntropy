@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
 		}
         public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
         {
-            return incomingItem.ModItem is OracleDeck;
+            return incomingItem.ModItem is not OracleDeck;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

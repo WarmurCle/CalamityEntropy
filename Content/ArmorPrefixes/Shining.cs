@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.Entropy().light += 0.15f;
+            player.Entropy().light += 0.6f;
         }
         public override int getRollChance()
         {

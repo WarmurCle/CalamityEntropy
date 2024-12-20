@@ -2,9 +2,12 @@
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Events;
+using CalamityMod.NPCs.ProfanedGuardians;
+using CalamityMod.NPCs.Providence;
 using CalamityMod.NPCs.SlimeGod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +32,7 @@ namespace CalamityEntropy.Common
         public float lastProg = 1;
         public float comboTarget = 1;
         public static Dictionary<int, Color> bossbarColor;
+        public float whiteLerp = 0;
         public override void Load()
         {
             bossbarColor = new Dictionary<int, Color>();
@@ -46,6 +50,13 @@ namespace CalamityEntropy.Common
                 if (cr.phaseTrans >= 120)
                 {
                     return new Color(150, 60, 255);
+                }
+            }
+            if(npc.ModNPC is Providence || npc.ModNPC is ProfanedGuardianCommander || npc.ModNPC is ProfanedGuardianHealer || npc.ModNPC is ProfanedGuardianDefender)
+            {
+                if (!Main.dayTime)
+                {
+                    return new Color(102, 255, 255);
                 }
             }
             if (bossbarColor.ContainsKey(npc.type))
@@ -81,7 +92,7 @@ namespace CalamityEntropy.Common
                 else
                 {
                     barColor = Color.Lerp(barColor, getNpcBarColor(npc), 0.1f);
-                    drawOfs -= 5;
+                    drawOfs -= 9;
                 }
 
                 Vector2 center = new Vector2(Main.screenWidth / 2, Main.screenHeight - 100);
@@ -122,14 +133,14 @@ namespace CalamityEntropy.Common
                     }
                 }
                 comboTime--;
-                if (comboTime < 0 || comboTarget - prog > 0.1)
+                if (comboTime < 0 || comboTarget - prog > 0.25)
                 {
                     comboTime = 0;
                     comboTarget = prog;
                 }
                 if (prog < lastProg)
                 {
-                    if(prog < lastProg - 0.005f)
+                    if(prog < lastProg - 0.002f)
                     {
                         comboTime = 60;
                     }
@@ -137,14 +148,19 @@ namespace CalamityEntropy.Common
                     
                 }
                 comboProg = comboProg + (comboTarget - comboProg) * 0.1f;
-                Texture2D bar1 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/Ebar1").Value;
+                Texture2D bar1Norm = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/Ebar1").Value;
+                Texture2D bar1_ = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/Ebar1Alt").Value;
                 Texture2D bar2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/Ebar2").Value;
                 Texture2D bar3 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/Ebar3").Value;
                 Texture2D barLocked = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/EbarLock").Value;
                 Texture2D barWhite = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/EBarWhite").Value;
                 Texture2D barWhite2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/EBarWhite2").Value;
                 Texture2D barc = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/Ebarc").Value;
-
+                Texture2D bar1 = bar1Norm;
+                if(npc.GetBossHeadTextureIndex() < 0)
+                {
+                    bar1 = bar1_;
+                }
 
                 spriteBatch.Draw(barWhite, center, new Rectangle(0, 0, 18 + (int)(500 * comboProg), bar1.Height), Color.White, 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
                 if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
@@ -156,7 +172,7 @@ namespace CalamityEntropy.Common
                 spriteBatch.Draw(bar2, center + new Vector2(0, 8), new Rectangle(drawOfs, 0, (int)(500 * prog), bar2.Height), barColor, 0, bar2.Size() / 2, 1, SpriteEffects.None, 0);
                 spriteBatch.UseSampleState(SamplerState.AnisotropicClamp);
                 
-                spriteBatch.Draw(barc, center + new Vector2(0, 8), new Rectangle(0, 0, (int)(500 * prog), bar2.Height), barColor, 0, barc.Size() / 2, 1, SpriteEffects.None, 0);
+                //spriteBatch.Draw(barc, center + new Vector2(0, 8), new Rectangle(0, 0, (int)(500 * prog), bar2.Height), barColor, 0, barc.Size() / 2, 1, SpriteEffects.None, 0);
 
                 if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
                 {
@@ -171,6 +187,33 @@ namespace CalamityEntropy.Common
                     Texture2D headBoss = TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()].Value;
                     spriteBatch.Draw(headBoss, center + new Vector2(0, -14), null, Color.White, 0, headBoss.Size() / 2, 1, SpriteEffects.None, 0);
                 }
+                spriteBatch.UseSampleState(SamplerState.PointClamp);
+
+                string name = npc.FullName;
+                Color tColor = getNpcBarColor(npc);
+                for (int i = 0; i < 36; i++)
+                {
+                    Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 26) + new Vector2(2, 0).RotatedBy(MathHelper.ToRadians(i * 10)), new Color(tColor.R / 2, tColor.G / 2, tColor.B / 2), 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
+                }
+                
+                if((Math.Abs(tColor.R - buttomColor.R/2) + Math.Abs(tColor.G - buttomColor.G/2) + Math.Abs(tColor.B - buttomColor.B/2)) / 3 < 90)
+                {
+                    if(whiteLerp < 1)
+                    {
+                        whiteLerp += 0.05f;
+                    }
+                }
+                else
+                {
+                    if(whiteLerp > 0)
+                    {
+                        whiteLerp -= 0.05f;
+                    }
+                }
+                //tColor = Color.Lerp(tColor, Color.White, whiteLerp);
+                Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 26), tColor, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
+                spriteBatch.UseSampleState(SamplerState.AnisotropicClamp);
+
             }
 
         }

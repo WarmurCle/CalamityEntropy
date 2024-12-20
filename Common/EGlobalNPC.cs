@@ -10,6 +10,7 @@ using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Pets;
@@ -573,6 +574,22 @@ namespace CalamityEntropy.Common
 
         public override void OnKill(NPC npc)
         {
+            if (DownedBossSystem.downedAquaticScourge) {
+                if (npc.ModNPC is Viperfish)
+                {
+                    if (Main.rand.NextBool(5))
+                    {
+                        Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<AbyssalPiercer>()));
+                    }
+                }
+                if (npc.ModNPC is GiantSquid)
+                {
+                    if (Main.rand.NextBool(2))
+                    {
+                        Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<AbyssalPiercer>()));
+                    }
+                }
+            }
             if (npc.type == -3 || npc.type == 1 || npc.type == -8 || npc.type == -7 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10)
             {
                 if (Main.rand.NextBool(120))

@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         public override void updateEquip(Player player, Item item)
         {
             player.Entropy().damageReduce += 0.02f;
-            player.Entropy().light += 0.2f;
+            player.Entropy().light += 0.4f;
             player.GetDamage(DamageClass.Generic) += 0.05f;
         }
         public override float AddDefense()

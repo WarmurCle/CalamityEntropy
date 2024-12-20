@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 
         public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
         {
-            return incomingItem.ModItem is TaintedDeck;
+            return incomingItem.ModItem is not TaintedDeck;
         }
         public override void AddRecipes()
         {

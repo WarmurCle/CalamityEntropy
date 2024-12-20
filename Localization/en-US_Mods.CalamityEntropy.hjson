@@ -28,6 +28,31 @@ Items: {
 					'''
 				DisplayName: Shadewind Lance
 			}
+
+			Aquashard: {
+				DisplayName: Aquashard
+				Tooltip: ""
+			}
+
+			SpearOfRadiance: {
+				Tooltip: ""
+				DisplayName: Spear Of Radiance
+			}
+
+			AbyssalPiercer: {
+				DisplayName: Abyssal Piercer
+				Tooltip: ""
+			}
+
+			AzureOfFirmament: {
+				Tooltip: ""
+				DisplayName: Azure Of Firmament
+			}
+
+			ArbitratorII: {
+				Tooltip: ""
+				DisplayName: Arbitrator II
+			}
 		}
 	}
 
@@ -312,20 +337,7 @@ Items: {
 	}
 
 	ThreadOfFate: {
-		Tooltip:
-			'''
-			Can be used to craft Oracle Deck
-			Need those cards:
-			Aura: Golden Chest，Iron Crate: 10%
-			Brilliance: Selling at merchants' premises
-			Entity: Loot from Giant Clam
-			Inspiration:Desert Chest: 30%
-			Metropolics: Using bookshelf to create
-			Wisdom: Loot from Skeletron
-			Radiance: Using Crystal Ball to create
-			Temperance: Loot from Skeletron Prime
-			Endurance: Abyssal Chests : 33%(Conflict with Infernum Mode)
-			'''
+		Tooltip: Can be used to craft Oracle Deck
 		DisplayName: Thread Of Fate
 	}
 
@@ -823,20 +835,7 @@ Items: {
 
 	ThreadOfAbyss: {
 		DisplayName: Thread Of Abyss
-		Tooltip:
-			'''
-			Used for making Tainted Deck
-			The following cards are required
-			Perplexed: the Twins Drop
-			Tarnish: goblin sorcerer drops
-			Nothing: 3 arbitrary evil organizations+5 arbitrary evil ingots synthesized
-			Confuse: sold by Dryad
-			Desolation: sold by Thief
-			Fool: Loot from Eidolist
-			Sacrifice: 6 Core of Chaos + 2 Perennial Bar
-			Greed: Fishing in Astral Infection Biome
-			Weakness: Loot from Slime God
-			'''
+		Tooltip: Used for making Tainted Deck
 	}
 
 	VoidCandle: {
@@ -1014,6 +1013,15 @@ Projectiles: {
 	VoidImpact.DisplayName: Void Impact
 	BlackFire.DisplayName: Black Fire
 	RbCircle.DisplayName: Rb Circle
+	AquashardThrow.DisplayName: Aquashard Throw
+	RadianceSpearThrow.DisplayName: Radiance Spear Throw
+	HolyBeam.DisplayName: Holy Beam
+	AbyssalPiercerThrow.DisplayName: Abyssal Piercer Throw
+	AbyssalVortex.DisplayName: Abyssal Vortex
+	AbyssTentacle.DisplayName: Abyss Tentacle
+	AzureOfFirmamentThrow.DisplayName: Azure Of Firmament Throw
+	WelkinFeather.DisplayName: Welkin Feather
+	ArbitratorIIThrow.DisplayName: Arbitrator I I Throw
 }
 
 LegendTooltip: - Legend -

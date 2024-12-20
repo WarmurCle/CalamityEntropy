@@ -92,6 +92,7 @@ using CalamityMod.NPCs.ExoMechs.Thanatos;
 using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
+using ReLogic.Graphics;
 namespace CalamityEntropy
 {
     
@@ -123,7 +124,7 @@ namespace CalamityEntropy
         public static Texture2D pixel;
         public ArmorForgingStationUI armorForgingStationUI;
         public UserInterface userInterface;
-
+        public static DynamicSpriteFont efont1;
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             byte type = reader.ReadByte();
@@ -232,7 +233,7 @@ namespace CalamityEntropy
 
         public override void Load()
         {
-            
+            efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
             userInterface = new UserInterface();
@@ -584,6 +585,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[NPCID.EaterofWorldsHead] = new Color(80, 40, 255);
             EntropyBossbar.bossbarColor[NPCID.EaterofWorldsHead] = new Color(80, 40, 255);
             EntropyBossbar.bossbarColor[NPCID.BrainofCthulhu] = new Color(255, 40, 40);
+            EntropyBossbar.bossbarColor[NPCID.QueenBee] = new Color(242, 242, 145);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Crabulon>()] = new Color(133, 255, 237);
             EntropyBossbar.bossbarColor[NPCID.DD2DarkMageT1] = new Color(180, 230, 255);
             EntropyBossbar.bossbarColor[NPCID.DD2DarkMageT3] = new Color(180, 230, 255);
@@ -596,6 +598,10 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<EbonianPaladin>()] = new Color(160, 170, 220);
             EntropyBossbar.bossbarColor[ModContent.NPCType<SplitEbonianPaladin>()] = new Color(160, 170, 220);
             EntropyBossbar.bossbarColor[NPCID.WallofFlesh] = new Color(255, 40, 40);
+            EntropyBossbar.bossbarColor[NPCID.Retinazer] = new Color(190, 190, 190);
+            EntropyBossbar.bossbarColor[NPCID.Spazmatism] = new Color(190, 190, 190);
+            EntropyBossbar.bossbarColor[NPCID.TheDestroyer] = new Color(190, 190, 190);
+            EntropyBossbar.bossbarColor[NPCID.SkeletronPrime] = new Color(190, 190, 190);
             EntropyBossbar.bossbarColor[491] = new Color(180, 120, 80);
             EntropyBossbar.bossbarColor[NPCID.QueenSlimeBoss] = new Color(200, 160, 240);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Cryogen>()] = new Color(140, 255, 255);
@@ -606,7 +612,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<GreatSandShark>()] = new Color(225, 190, 130);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Anahita>()] = new Color(180, 180, 230);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Leviathan>()] = new Color(80, 235, 140);
-            EntropyBossbar.bossbarColor[ModContent.NPCType<AstrumAureus>()] = new Color(90, 80, 107);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<AstrumAureus>()] = new Color(130, 130, 160);
             EntropyBossbar.bossbarColor[NPCID.Golem] = new Color(225, 106, 9);
             EntropyBossbar.bossbarColor[NPCID.GolemHead] = new Color(225, 106, 9);
             EntropyBossbar.bossbarColor[325] = new Color(255, 206, 106);
@@ -629,6 +635,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[NPCID.MoonLordCore] = new Color(213, 194, 156);
             EntropyBossbar.bossbarColor[NPCID.MoonLordLeechBlob] = new Color(213, 194, 156);
             EntropyBossbar.bossbarColor[NPCID.MoonLordHead] = new Color(213, 194, 156);
+            EntropyBossbar.bossbarColor[NPCID.MoonLordHand] = new Color(213, 194, 156);
             EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianCommander>()] = new Color(255, 255, 120);
             EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianDefender>()] = new Color(255, 255, 120);
             EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianHealer>()] = new Color(255, 255, 120);
@@ -1420,6 +1427,7 @@ namespace CalamityEntropy
         public override void Unload()
         {
             WallpaperHelper.wallpaper = null;
+            efont1 = null;
             checkProj = null;
             checkNPC = null;
             kscreen = null;

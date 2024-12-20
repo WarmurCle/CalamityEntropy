@@ -10,14 +10,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using Particle = CalamityEntropy.Content.Particles.Particle;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class ShadewindLanceThrow : ModProjectile
+    public class ShadewindLanceThrow : ModProjectile, IJavelin
     {
+        public bool SetHandRot { get; set; }
         List<Vector2> odp = new List<Vector2>();
         List<float> odr = new List<float>();
         public override void SetStaticDefaults()
@@ -37,6 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 40;
             Projectile.ArmorPenetration = 86;
+            SetHandRot = true;
         }
         public float handrot = 0;
         public float handrotspeed = 0;
@@ -50,6 +53,19 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.rotation = reader.ReadSingle();
             handrot = reader.ReadSingle();
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            foreach (Projectile p in Main.projectile)
+            {
+                if (p.whoAmI != Projectile.whoAmI)
+                {
+                    if (p.ModProjectile is IJavelin jv)
+                    {
+                        jv.SetHandRot = false;
+                    }
+                }
+            }
         }
         public override void AI(){
             if(Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 && Projectile.ai[0] > 12)
@@ -89,16 +105,18 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
                     Projectile.netUpdate = true;
                 }
-
-                if (owner.direction == 1)
+                if (this.SetHandRot)
                 {
-                    Projectile.Center = owner.MountedCenter + new Vector2(26, 0).RotatedBy(Projectile.rotation - MathHelper.PiOver2 - handrot);
-                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - handrot - MathHelper.Pi);
-                }
-                else
-                {
-                    Projectile.Center = owner.MountedCenter + new Vector2(26, 0).RotatedBy(Projectile.rotation + MathHelper.PiOver2 + handrot);
-                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation + handrot);
+                    if (owner.direction == 1)
+                    {
+                        Projectile.Center = owner.MountedCenter + new Vector2(26, 0).RotatedBy(Projectile.rotation - MathHelper.PiOver2 - handrot);
+                        owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - handrot - MathHelper.Pi);
+                    }
+                    else
+                    {
+                        Projectile.Center = owner.MountedCenter + new Vector2(26, 0).RotatedBy(Projectile.rotation + MathHelper.PiOver2 + handrot);
+                        owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation + handrot);
+                    }
                 }
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
             }
@@ -106,14 +124,17 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 handrotspeed *= 0.84f;
                 var owner = Projectile.owner.ToPlayer();
-                if (owner.direction == 1)
+                if (this.SetHandRot)
                 {
-                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - handrot - MathHelper.Pi);
-                }
-                else
-                {
-                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation + handrot);
+                    if (owner.direction == 1)
+                    {
+                        owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - handrot - MathHelper.Pi);
+                    }
+                    else
+                    {
+                        owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation + handrot);
 
+                    }
                 }
                 Projectile.owner.ToPlayer().heldProj = -1;
             }
