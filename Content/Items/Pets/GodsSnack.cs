@@ -13,7 +13,6 @@ namespace CalamityEntropy.Content.Items.Pets
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.ZephyrFish);
-			Item.UseSound = DevourerofGodsHead.SpawnSound;
 			Item.shoot = ModContent.ProjectileType<DoG>();
 			Item.buffType = ModContent.BuffType<DoGBuff>();
 		}

@@ -11,6 +11,7 @@ using CalamityEntropy.Content.Items.Armor.VoidFaquir;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
@@ -79,6 +80,20 @@ namespace CalamityEntropy.Common
             
         }
 
+        public override bool? UseItem(Item item, Player player)
+        {
+            if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.axe > 0)
+            {
+                return true;
+            }
+            var mp = player.Entropy();
+            if (mp.BlackFlameCd <= 0)
+            {
+                mp.BlackFlameCd = 4;
+                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 5 + 1, 2, player.whoAmI);
+            }
+            return true;
+        }
         public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
             ascentWhenFalling *= 1 + player.Entropy().VoidCharge * 0.5f;
@@ -237,7 +252,7 @@ namespace CalamityEntropy.Common
                 
             }
         }
-
+        
         public override bool CanUseItem(Item item, Player player)
         {
             if (player.HasBuff(ModContent.BuffType<StealthState>()) || player.Entropy().DarkArtsTarget.Count > 0)

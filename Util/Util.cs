@@ -10,6 +10,7 @@ using System.Runtime.Intrinsics.Arm;
 using NATUPNPLib;
 using System.Linq;
 using CalamityEntropy.Common;
+using Terraria.Audio;
 
 namespace CalamityEntropy.Util
 {
@@ -27,6 +28,14 @@ namespace CalamityEntropy.Util
             {
                 drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, points[i - 1], points[i], color, width, 2, true);
             }
+        }
+
+        public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 4)
+        {
+            SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/" + name);
+            s.Pitch = pitch - 1;
+            s.MaxInstances = maxIns;
+            SoundEngine.PlaySound(in s, pos);
         }
         public static void UseSampleState(this SpriteBatch sb, SamplerState sampler)
         {

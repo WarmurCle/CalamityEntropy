@@ -147,15 +147,13 @@ namespace CalamityEntropy.Content.Projectiles
             handrot -= handrotspeed;
             if (Projectile.ai[0] == 10)
             {
-
-                SoundStyle SwingSound = SoundID.Item1;
-                SwingSound.Pitch = 0f;
+                float p = 1;
                 if (Projectile.Calamity().stealthStrike)
                 {
-                    SwingSound.Pitch = 1f;
+                    p = 2f;
                 }
                 
-                SoundEngine.PlaySound(SwingSound, Projectile.Center);
+                Util.Util.PlaySound("SarosDiskThrow1", p, Projectile.Center);
             }
 
             Projectile.ai[0]++;
@@ -164,7 +162,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool sp = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            SoundEngine.PlaySound(new("CalamityMod/Sounds/NPCKilled/DevourerSegmentBreak1") { Volume = 0.3f }, Projectile.Center);
+            Util.Util.PlaySound("VividClarityBeamAppear", 1, Projectile.Center);
             for (int i = 0; i < 2; i++) {
                 int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6f, 7f), ModContent.ProjectileType<AbyssBladeSplitProjectile>(), (int)(Projectile.damage * 0.36), Projectile.knockBack / 4, Projectile.owner);
                 p.ToProj().DamageType = Projectile.DamageType;

@@ -19,7 +19,10 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         {
             Main.projFrames[Projectile.type] = 1;
         }
-
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             Projectile.width = 10;
