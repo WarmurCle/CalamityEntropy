@@ -92,7 +92,7 @@ namespace CalamityEntropy.Common
                 mp.BlackFlameCd = 4;
                 Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 5 + 1, 2, player.whoAmI);
             }
-            return true;
+            return null;
         }
         public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {

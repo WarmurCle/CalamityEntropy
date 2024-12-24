@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int i = 0; i < 64; i++)
                 {
                     Vector2 dustVel = Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
-                    Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, dustType, dustVel.X, dustVel.Y);
+                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, dustVel.X, dustVel.Y);
                 }
                 Projectile.Kill();
                 return;
@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Projectiles
                     for (int i = 0; i < 16; i++)
                     {
                         Vector2 dustVel = Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
-                        Dust.NewDust(Projectile.Center, Projectile.width / 2, 1, dustType, dustVel.X, dustVel.Y);
+                        Dust.NewDust(Projectile.position + new Vector2(0, Projectile.height), Projectile.width, 1, dustType, dustVel.X, dustVel.Y);
                     }
                     canDamageEnemies = false;
                 }
@@ -185,6 +185,18 @@ namespace CalamityEntropy.Content.Projectiles
         public virtual bool damageNPCAfterLand => false;
         public virtual void DamageMe()
         {
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.ModProjectile is PoopWulfrumProjectile w && Util.Util.getDistance(Projectile.Center, p.Center) < PoopWulfrumProjectile.shieldDistance)
+                {
+                    if(w.shield > 0)
+                    {
+                        w.shield -= 8;
+                        p.netUpdate = true;
+                        return;
+                    }
+                }
+            }
             Util.Util.PlaySound("pop_impact_13", 1, Projectile.Center);
             if(Main.rand.Next(0, 101) <= damageChance)
             {
@@ -197,7 +209,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < 24; i++)
             {
                 Vector2 dustVel = Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
-                Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, dustType, dustVel.X, dustVel.Y);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, dustVel.X, dustVel.Y);
             }
             Projectile.netUpdate = true;
         }

@@ -601,30 +601,56 @@ namespace CalamityEntropy.Common
 
         private void EPHurtModifier(ref Player.HurtInfo info)
         {
-            if(SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            bool setToOne = false;
+            if (!setToOne)
+            {
+                foreach (Projectile p in Main.ActiveProjectiles)
+                {
+                    if (p.ModProjectile is PoopWulfrumProjectile w && Util.Util.getDistance(Player.Center, p.Center) < PoopWulfrumProjectile.shieldDistance)
+                    {
+                        if (w.shield > 0)
+                        {
+                            if(w.shield > info.Damage)
+                            {
+                                w.shield -= info.Damage;
+                                info.Damage = 0;
+                                setToOne = true;
+                                p.netUpdate = true;
+                            }
+                            else
+                            {
+                                info.Damage -= w.shield;
+                                w.shield = 0;
+                                p.netUpdate = true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(!setToOne && SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
             {
                 SacredJudgeShields--;
                 info.Damage -= 80;
                 Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
-
+                setToOne = true;
                 immune = 120;
             }
             if (SCrown)
             {
                 Player.Calamity().defenseDamageRatio = 0f;
             }
-            if (MagiShield > 0)
+            if (!setToOne && MagiShield > 0)
             {
                 if (MagiShield >= info.Damage)
                 {
                     MagiShield -= info.Damage;
                     info.Damage = 0;
+                    setToOne = true;
                 }
                 else
                 {
                     info.Damage -= MagiShield;
                     MagiShield = 0;
-                    
                 }
                 if (MagiShield == 0)
                 {

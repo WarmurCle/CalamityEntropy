@@ -1107,10 +1107,11 @@ Projectiles: {
 	FartCloud.DisplayName: 毒云
 	PoopStoneProjectile.DisplayName: 石头大便
 	PoopWhiteProjectile.DisplayName: 神圣大便
-	// PoopAuricProjectile.DisplayName: Poop Auric Projectile
-	// PoopRedProjectile.DisplayName: Poop Red Projectile
-	// PoopGoldenProjectile.DisplayName: Poop Golden Projectile
-	// PoopRainbowProjectile.DisplayName: Poop Rainbow Projectile
+	PoopAuricProjectile.DisplayName: 金源大便
+	PoopRedProjectile.DisplayName: 红大便
+	PoopGoldenProjectile.DisplayName: 金大便
+	PoopRainbowProjectile.DisplayName: 彩虹大便
+	PoopWulfrumProjectile.DisplayName: 钨钢大便
 }
 
 LegendTooltip: - 传奇物品 -
