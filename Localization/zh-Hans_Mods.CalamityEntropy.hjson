@@ -1108,6 +1108,9 @@ Projectiles: {
 	PoopStoneProjectile.DisplayName: 石头大便
 	PoopWhiteProjectile.DisplayName: 神圣大便
 	// PoopAuricProjectile.DisplayName: Poop Auric Projectile
+	// PoopRedProjectile.DisplayName: Poop Red Projectile
+	// PoopGoldenProjectile.DisplayName: Poop Golden Projectile
+	// PoopRainbowProjectile.DisplayName: Poop Rainbow Projectile
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1284,6 +1287,7 @@ loreCruiserEffect: 使用后永久增加60生命上限和100魔力上限
 Keybinds: {
 	RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
 	ThrowPoop.DisplayName: 丢出大便
+	KeepPoop.DisplayName: 保留大便
 }
 
 CdMoonlight: 月光护盾

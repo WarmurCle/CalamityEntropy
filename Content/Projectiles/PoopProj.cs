@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.Projectiles
             immute--;
             foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if (p.active && p.ModProjectile is not PoopProj && p.damage > 0 && p.ModProjectile is not BlueFlies && p.ModProjectile is not Flame)
+                if (p.active && p.ModProjectile is not PoopProj && p.damage > 0 && p.ModProjectile is not BlueFlies && p.ModProjectile is not Flame && p.type != ProjectileID.SilverCoin && p.type != ProjectileID.GoldCoin && p.type != ProjectileID.PlatinumCoin)
                 {
                     if (p.Colliding(p.getRect(), Projectile.getRect()))
                     {
@@ -162,7 +162,7 @@ namespace CalamityEntropy.Content.Projectiles
                                     if (immute <= 0)
                                     {
                                         DamageMe();
-                                        immute = 16;
+                                        immute = 10;
                                     }
                                 }
                             }
@@ -182,6 +182,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.owner.ToPlayer().Entropy().holdingPoop = false;
             }
         }
+        public virtual bool damageNPCAfterLand => false;
         public virtual void DamageMe()
         {
             Util.Util.PlaySound("pop_impact_13", 1, Projectile.Center);
@@ -224,7 +225,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if (!canDamageEnemies)
+            if (!canDamageEnemies && !damageNPCAfterLand)
             {
                 return false;
             }

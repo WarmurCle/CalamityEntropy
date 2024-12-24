@@ -1050,6 +1050,9 @@ Projectiles: {
 	PoopStoneProjectile.DisplayName: Poop Stone Projectile
 	PoopWhiteProjectile.DisplayName: Poop White Projectile
 	PoopAuricProjectile.DisplayName: Poop Auric Projectile
+	PoopRedProjectile.DisplayName: Poop Red Projectile
+	PoopGoldenProjectile.DisplayName: Poop Golden Projectile
+	PoopRainbowProjectile.DisplayName: Poop Rainbow Projectile
 }
 
 LegendTooltip: - Legend -
@@ -1226,6 +1229,7 @@ loreCruiserEffect: Permanently increase the max life by 60 and increase the max 
 Keybinds: {
 	RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
 	ThrowPoop.DisplayName: Throw Poop
+	KeepPoop.DisplayName: Hold Poop
 }
 
 CdMoonlight: Moonlight Shield

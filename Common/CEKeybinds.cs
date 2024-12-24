@@ -9,6 +9,7 @@ namespace CalamityEntropy.Common
     {
         public static ModKeybind RetrieveVoidAnnihilateHotKey { get; private set; }
         public static ModKeybind ThrowPoopHotKey { get; set; }
+        public static ModKeybind PoopHoldHotKey { get; set; }
         public override void Load()
         {
             //Register keybinds            
@@ -20,12 +21,14 @@ namespace CalamityEntropy.Common
             if (isaac)
             {
                 CEKeybinds.ThrowPoopHotKey = KeybindLoader.RegisterKeybind(Mod, "ThrowPoop", "LeftAlt");
+                CEKeybinds.PoopHoldHotKey = KeybindLoader.RegisterKeybind(Mod, "KeepPoop", "Q");
             }
         }
         public override void Unload()
         {
             RetrieveVoidAnnihilateHotKey = null;
             ThrowPoopHotKey = null;
+            PoopHoldHotKey = null;
         }
     }
 }

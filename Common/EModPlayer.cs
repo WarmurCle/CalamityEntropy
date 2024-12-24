@@ -89,6 +89,7 @@ namespace CalamityEntropy.Common
         public bool reincarnationBadge = false;
         public List<Poop> poops = new List<Poop>();
         public int MaxPoops = 19;
+        public Poop PoopHold = null;
         public bool _holdingPoop;
         public int holyGroundTime = 0;
         public float dodgeChance = 0;
@@ -662,6 +663,25 @@ namespace CalamityEntropy.Common
             if (brokenAnkh)
             {
                 if (Player.whoAmI == Main.myPlayer) {
+                    if (!holdingPoop && CEKeybinds.PoopHoldHotKey is not null && CEKeybinds.PoopHoldHotKey.JustPressed)
+                    {
+                        if (PoopHold is not null)
+                        {
+                            PoopsUI.holdAnmj = 0.2f;
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, new Vector2(0, 0), PoopHold.ProjectileType(), 80, 3, Player.whoAmI);
+                            holdingPoop = true;
+                            PoopHold = null;
+                            Util.Util.PlaySound("poop_itemthrow");
+                        }
+                        else
+                        {
+                            if(poops.Count > 0) {
+                                PoopsUI.holdAnmj = 0.44f;
+                                PoopHold = poops[0];
+                                poops.RemoveAt(0);
+                            }
+                        }
+                    }
                     if (!holdingPoop && CEKeybinds.ThrowPoopHotKey is not null && CEKeybinds.ThrowPoopHotKey.JustPressed)
                     {
                         if (poops.Count > 0)
