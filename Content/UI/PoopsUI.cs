@@ -38,19 +38,19 @@ namespace CalamityEntropy.Content.UI
                     drawPos.X += 48;
                 }
             }
-            float hrot = holdAnm * 0.1f;
+            float hrot = (float)holdAnm * 0.1f;
             float scale = 1 + holdAnm;
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
             if (Main.LocalPlayer.Entropy().PoopHold is not null)
             {
                 Texture2D texpoop = Main.LocalPlayer.Entropy().PoopHold.getTexture();
-                Main.spriteBatch.Draw(texpoop, pos + new Vector2(24 + maxShow * 48, 24), null, Color.White, hrot, texpoop.Size() / 2, 1 * scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(texpoop, pos + new Vector2(24 + maxShow * 48, 24) + new Vector2(0, 8).RotatedBy(hrot), null, Color.White, hrot, texpoop.Size() / 2, 1 * scale, SpriteEffects.None, 0);
             }
             Texture2D hold = ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/hold").Value;
             Main.spriteBatch.Draw(hold, pos + new Vector2(24 + maxShow * 48, 24), null, Color.White, hrot, hold.Size() / 2, 2 * scale, SpriteEffects.None, 0);
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             holdAnm += holdAnmj;
-            holdAnmj -= 0.1f;
+            holdAnmj -= 0.04f;
             if(holdAnm < 0)
             {
                 holdAnm = 0;

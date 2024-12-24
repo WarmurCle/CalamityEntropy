@@ -29,6 +29,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Util.Util.PlaySound("happy rainbow with giggle", 1);
             }
         }
+        public override int dustType => DustID.RainbowTorch;
     }
 
 }

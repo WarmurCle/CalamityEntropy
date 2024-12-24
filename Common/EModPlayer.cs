@@ -676,7 +676,7 @@ namespace CalamityEntropy.Common
                         else
                         {
                             if(poops.Count > 0) {
-                                PoopsUI.holdAnmj = 0.44f;
+                                PoopsUI.holdAnmj = 0.2f;
                                 PoopHold = poops[0];
                                 poops.RemoveAt(0);
                             }

@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             myCD--;
         }
-
+        public override int dustType => DustID.GoldCoin;
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
