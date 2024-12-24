@@ -12,6 +12,8 @@ using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Content.Tiles;
+using CalamityEntropy.Content.UI;
+using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
@@ -83,7 +85,14 @@ namespace CalamityEntropy.Common
         public Vector2 screenPos = Vector2.Zero;
         public int WeaponBoost = 0;
         public bool CrPlush = false;
+        public bool brokenAnkh = false;
         public bool reincarnationBadge = false;
+        public List<Poop> poops = new List<Poop>();
+        public int MaxPoops = 19;
+        public bool _holdingPoop;
+        public int holyGroundTime = 0;
+        public float dodgeChance = 0;
+        public bool holdingPoop { get { return _holdingPoop; }set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge 
         { 
@@ -96,7 +105,6 @@ namespace CalamityEntropy.Common
                 }
             }
         }
-
         public bool CRing = false;
         public bool LastStand = false;
         public int lastStandCd = 0;
@@ -183,6 +191,7 @@ namespace CalamityEntropy.Common
         public int voidshadeBoostTime = 0;
         public override void ResetEffects()
         {
+            dodgeChance = 0;
             sacrMask = false;
             GodHeadVisual = true;
             shootSpeed = 1;
@@ -197,6 +206,7 @@ namespace CalamityEntropy.Common
             ManaCost = 1;
             auraCard = false;
             LastStand = false;
+            brokenAnkh = false;
             holyMantle = false;
             CrPlush = false;
             if (brillianceCard > 0)
@@ -269,6 +279,24 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
+            if(holyGroundTime > 0)
+            {
+                holyGroundTime--;
+            }
+            
+            if (syncHoldingPoop)
+            {
+                syncHoldingPoop = false;
+                if(Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    ModPacket packet = Mod.GetPacket();
+                    packet.Write((byte)CalamityEntropy.NetPackages.PoopSync);
+                    packet.Write(Player.whoAmI);
+                    packet.Write(holdingPoop);
+                    packet.Send();
+                }
+            }
+            if(Player.dead) return;
             if (rBadgeActive)
             {
                 Player.maxFallSpeed = 99;
@@ -323,19 +351,15 @@ namespace CalamityEntropy.Common
             if(BlackFlameCd > 0)
             {
                 BlackFlameCd--;
-            }
+            }   
             if (TarnishCard && Main.myPlayer == Player.whoAmI)
             {
-                if(Player.channel && Player.HeldItem.damage > 0)
+                if(Player.channel)
                 {
-                    if(BlackFlameCd <= 0)
+                    if (BlackFlameCd < 1)
                     {
-                        BlackFlameCd = Math.Max(4, Player.itemTimeMax);
-                        if (Player.channel)
-                        {
-                            BlackFlameCd = 30;
-                        }
-                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 5, 2, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 5 + 1, 2, Player.whoAmI);
+                        BlackFlameCd = 30;
                     }
                 }
             }
@@ -443,12 +467,17 @@ namespace CalamityEntropy.Common
             Player.maxRunSpeed *= 1f + moveSpeed;
         }
         public int scHealCD = 60;
+
         public override void PostUpdateMiscEffects()
         {
             if (rBadgeActive)
             {
                 Player.gravity = 0;
-                
+            }
+            
+            if(holyGroundTime > 0)
+            {
+                dodgeChance += 0.5f;
             }
             Player.manaCost *= ManaCost;
             if (Player.Entropy().SCrown)
@@ -522,6 +551,11 @@ namespace CalamityEntropy.Common
                 return true;
             }
             
+            if(Main.rand.NextDouble() < dodgeChance)
+            {
+                immune = 60;
+                return true;
+            }
             if (HolyShield && info.Damage * (2 - damageReduce) - Player.statDefense > 16)
             {
                 immune = 120;
@@ -609,10 +643,48 @@ namespace CalamityEntropy.Common
         public int OracleDeckHealCd = 0;
         public int effectCount = 0;
         public int shielddamagecd = 0;
+        public int noItemTime = 0;
+        public bool syncHoldingPoop = false;
+        public int damageRecord = 0;
 
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
+            if (holdingPoop)
+            {
+                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi);
+                Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi);
+            }
+            if (noItemTime > 0)
+            {
+                noItemTime --;
+            }
+            if (brokenAnkh)
+            {
+                if (Player.whoAmI == Main.myPlayer) {
+                    if (!holdingPoop && CEKeybinds.ThrowPoopHotKey is not null && CEKeybinds.ThrowPoopHotKey.JustPressed)
+                    {
+                        if (poops.Count > 0)
+                        {
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, new Vector2(0, 0), poops[0].ProjectileType(), 80, 3, Player.whoAmI);
+                            holdingPoop = true;
+                            poops.RemoveAt(0);
+                            Util.Util.PlaySound("poop_itemthrow");
+                        }
+                    }
+                }
+            }
+            if (holdingPoop)
+            {
+                noItemTime = 12;
+                if (Player.whoAmI == Main.myPlayer)
+                {
+                    if (Main.mouseLeft)
+                    {
+                        holdingPoop = false;
+                    }
+                }
+            }
             if (resetTileSets)
             {
                 resetTileSets = false;
@@ -1004,6 +1076,14 @@ namespace CalamityEntropy.Common
         public int twinSpawnIndex = -1;
         private int MagiShieldMax = 1;
 
+        public override void PostUpdateEquips()
+        {
+            if (holyGroundTime > 0)
+            {
+                Player.GetAttackSpeed(DamageClass.Generic) += 1;
+                Player.GetDamage(DamageClass.Generic) += 1;
+            }
+        }
         public override void ModifyScreenPosition()
         {
             Main.screenPosition = Vector2.Lerp(Main.screenPosition, screenPos - Main.ScreenSize.ToVector2() / 2, screenShift);

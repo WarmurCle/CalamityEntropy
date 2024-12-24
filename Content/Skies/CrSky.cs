@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Skies
             else
             {
                 spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
                 ocolor = new Color((int)(12 * pc), (int)(62 * pc), (int)(96 * pc));
             }
             float c = 1f;
@@ -185,7 +185,7 @@ namespace CalamityEntropy.Content.Skies
                 spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White * opacity);
 
                 spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
                 Texture2D m = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightball").Value;
                 float size = ((AbyssalWraith)AWIndex.ToNPC().ModNPC).anmlerp;
@@ -195,7 +195,7 @@ namespace CalamityEntropy.Content.Skies
             spriteBatch.End();
 
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null);
             
             
 

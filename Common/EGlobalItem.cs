@@ -70,7 +70,7 @@ namespace CalamityEntropy.Common
         public bool HasCustomNameColor = false;
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
-
+        
         public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
         {
             speed *= player.Entropy().WingSpeed;
@@ -82,12 +82,12 @@ namespace CalamityEntropy.Common
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.axe > 0)
+            if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.axe > 0 || !player.Entropy().TarnishCard)
             {
-                return true;
+                return null;
             }
             var mp = player.Entropy();
-            if (mp.BlackFlameCd <= 0)
+            if (mp.BlackFlameCd <= 0 && player.whoAmI == Main.myPlayer)
             {
                 mp.BlackFlameCd = 4;
                 Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 5 + 1, 2, player.whoAmI);
@@ -255,7 +255,7 @@ namespace CalamityEntropy.Common
         
         public override bool CanUseItem(Item item, Player player)
         {
-            if (player.HasBuff(ModContent.BuffType<StealthState>()) || player.Entropy().DarkArtsTarget.Count > 0)
+            if (player.HasBuff(ModContent.BuffType<StealthState>()) || player.Entropy().DarkArtsTarget.Count > 0 || player.Entropy().noItemTime > 0)
             {
                 return false;
             }

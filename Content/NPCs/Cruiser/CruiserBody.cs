@@ -35,8 +35,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
 
-            NPC.width = 50;
-            NPC.height = 50;
+            NPC.width = 70;
+            NPC.height = 70;
             NPC.damage = 160;
             NPC.dontCountMe = true;
             NPC.dontCountMe = true;
@@ -46,12 +46,16 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.value = 50f;
             NPC.knockBackResist = 0f;
             NPC.noTileCollide = true;
-            NPC.defense = 40;
+            NPC.defense = 100;
             NPC.boss = true;
             NPC.noGravity = true;
             NPC.Entropy().VoidTouchDR = 0.7f;
             NPC.scale = 1.1f;
-            NPC.Calamity().DR = 0.3f;
+            NPC.Calamity().DR = 0.6f;
+            if (Main.getGoodWorld)
+            {
+                NPC.scale = 0.5f;
+            }
             if (!Main.dedServ)
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CruiserBoss");
@@ -78,7 +82,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 if (Main.npc[(int)NPC.ai[1]].active)
                 {
 
-                    int spacing = 54;
+                    int spacing = 80;
                     NPC follow = Main.npc[(int)NPC.ai[1]];
                     if (follow.active)
                     {

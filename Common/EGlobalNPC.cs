@@ -109,11 +109,18 @@ namespace CalamityEntropy.Common
         {
             binaryWriter.Write(ToFriendly);
             binaryWriter.Write(f_owner);
+            /*
+            binaryWriter.Write(VoidTouchLevel);
+            binaryWriter.Write(VoidTouchTime);
+            */
         }
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
         {
             ToFriendly = binaryReader.ReadBoolean();
             f_owner = binaryReader.ReadInt32();
+
+           /* VoidTouchLevel = binaryReader.ReadSingle();
+            VoidTouchTime = binaryReader.ReadInt32();*/
         }
         public static void setFriendly(int id, int owner = 0)
         {
@@ -131,6 +138,7 @@ namespace CalamityEntropy.Common
                 p.Write(owner);
                 p.Send();
             }
+            
         }
         public bool friendlyDecLife = true;
         public override bool PreAI(NPC npc)
@@ -234,9 +242,9 @@ namespace CalamityEntropy.Common
                     NPC.HitInfo hit = npc.CalculateHitInfo((int)(100 * npc.Entropy().VoidTouchLevel * (1 - npc.Entropy().VoidTouchDR)), 0, false, 0, DamageClass.Generic, false, 0);
                     hit.HideCombatText = true;
                     int damageDone = npc.StrikeNPC(hit, false, false);
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                        NetMessage.SendStrikeNPC(npc, hit);
                     CombatText.NewText(npc.getRect(), new Color(148, 148, 255), damageDone);
+
+
                 }
                 if (!(npc.ModNPC is VoidCultist))
                 {
@@ -291,17 +299,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if (projectile.owner != -1)
-            {
-                if (projectile.owner.ToPlayer().active)
-                {
-                    if (projectile.owner.ToPlayer().Entropy().AttackVoidTouch > 0)
-                    {
-                        float vt = projectile.owner.ToPlayer().Entropy().AttackVoidTouch;
-                        AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
-                    }
-                }
-            }
+            
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
@@ -319,11 +317,7 @@ namespace CalamityEntropy.Common
                     player.Entropy().VoidCharge = 1;
                 }
             }
-            if (player.Entropy().AttackVoidTouch > 0)
-            {
-                float vt = player.Entropy().AttackVoidTouch;
-                AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
-            }
+            
         }
 
         public static bool AddVoidTouch(NPC nPC, int time, float level, int maxTime = 600, int maxLevel = 10)
@@ -793,6 +787,34 @@ namespace CalamityEntropy.Common
             {
                 npc.AddBuff(ModContent.BuffType<Deceive>(), 420);
             }
+            if (player.Entropy().AttackVoidTouch > 0)
+            {
+                float vt = player.Entropy().AttackVoidTouch;
+                AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
+            }
+            player.Entropy().damageRecord += damageDone;
+            if (player.Entropy().brokenAnkh && player.Entropy().damageRecord > 360)
+            {
+                player.Entropy().damageRecord = 0;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    int i = Item.NewItem(player.GetSource_FromThis(), player.getRect(), new Item(ModContent.ItemType<PoopPickup>()), false, true);
+                    Main.item[i].noGrabDelay = 100;
+                    if (!Main.dedServ)
+                    {
+                        Util.Util.PlaySound("fart", 1, player.Center);
+                    }
+                }
+                else
+                {
+                    ModPacket packet = Mod.GetPacket();
+                    packet.Write((byte)CalamityEntropy.NetPackages.SpawnItem);
+                    packet.Write(player.whoAmI);
+                    packet.Write(ModContent.ItemType<PoopPickup>());
+                    packet.Write(1);
+                    packet.Send();
+                }
+            }
         }
 
         public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
@@ -804,7 +826,42 @@ namespace CalamityEntropy.Common
                 {
                     npc.AddBuff(ModContent.BuffType<Deceive>(), 420);
                 }
+                if (projectile.owner != -1)
+                {
+                    if (projectile.owner.ToPlayer().active)
+                    {
+                        if (projectile.owner.ToPlayer().Entropy().AttackVoidTouch > 0)
+                        {
+                            float vt = projectile.owner.ToPlayer().Entropy().AttackVoidTouch;
+                            AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
+                        }
+                    }
+                }
+                player.Entropy().damageRecord += damageDone;
+                if (player.Entropy().brokenAnkh && player.Entropy().damageRecord > 360)
+                {
+                    player.Entropy().damageRecord = 0;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int i = Item.NewItem(player.GetSource_FromThis(), player.getRect(), new Item(ModContent.ItemType<PoopPickup>()), false, true);
+                        Main.item[i].noGrabDelay = 100;
+                        if (!Main.dedServ)
+                        {
+                            Util.Util.PlaySound("fart", 1, player.Center);
+                        }
+                    }
+                    else
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)CalamityEntropy.NetPackages.SpawnItem);
+                        packet.Write(player.whoAmI);
+                        packet.Write(ModContent.ItemType<PoopPickup>());
+                        packet.Write(1);
+                        packet.Send();
+                    }
+                }
             }
+            
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
@@ -835,7 +892,7 @@ namespace CalamityEntropy.Common
         {
             if (shop.NpcType == 17)
             {
-                shop.Add(ModContent.ItemType<SoyMilk>(), new Condition(Mod.GetLocalizationKey("DownedBoss2"), () => NPC.downedBoss2));
+                shop.Add(ModContent.ItemType<SoyMilk>(), new Condition(Mod.GetLocalization("DownedBoss2").Value, () => NPC.downedBoss2));
                 shop.Add(ModContent.ItemType<BrillianceCard>());
             }
             if (shop.NpcType == ModContent.NPCType<DILF>())
@@ -845,25 +902,25 @@ namespace CalamityEntropy.Common
             }
             if (shop.NpcType == 108)
             {
-                shop.Add(ModContent.ItemType<AuraCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
-                shop.Add(ModContent.ItemType<BrillianceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
-                shop.Add(ModContent.ItemType<EnduranceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
-                shop.Add(ModContent.ItemType<EntityCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
-                shop.Add(ModContent.ItemType<InspirationCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
-                shop.Add(ModContent.ItemType<MetropolisCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
-                shop.Add(ModContent.ItemType<RadianceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
-                shop.Add(ModContent.ItemType<TemperanceCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
-                shop.Add(ModContent.ItemType<WisdomCard>(), new Condition(Mod.GetLocalizationKey("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<AuraCard>(), new Condition(Mod.GetLocalization("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<BrillianceCard>(), new Condition(Mod.GetLocalization("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<EnduranceCard>(), new Condition(Mod.GetLocalization("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<EntityCard>(), new Condition(Mod.GetLocalization("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<InspirationCard>(), new Condition(Mod.GetLocalization("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<MetropolisCard>(), new Condition(Mod.GetLocalization("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<RadianceCard>(), new Condition(Mod.GetLocalization("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<TemperanceCard>(), new Condition(Mod.GetLocalization("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
+                shop.Add(ModContent.ItemType<WisdomCard>(), new Condition(Mod.GetLocalization("HaveOracleDeck"), () => Main.LocalPlayer.Entropy().oracleDeckInInv));
 
-                shop.Add(ModContent.ItemType<Barren>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
-                shop.Add(ModContent.ItemType<Confuse>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
-                shop.Add(ModContent.ItemType<Fool>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
-                shop.Add(ModContent.ItemType<Frail>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
-                shop.Add(ModContent.ItemType<GreedCard>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
-                shop.Add(ModContent.ItemType<Nothing>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
-                shop.Add(ModContent.ItemType<Perplexed>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
-                shop.Add(ModContent.ItemType<Sacrifice>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
-                shop.Add(ModContent.ItemType<Tarnish>(), new Condition(Mod.GetLocalizationKey("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Barren>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Confuse>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Fool>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Frail>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<GreedCard>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Nothing>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Perplexed>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Sacrifice>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
+                shop.Add(ModContent.ItemType<Tarnish>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
 
             }
             if (shop.NpcType == 663)

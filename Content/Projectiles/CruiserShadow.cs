@@ -246,29 +246,31 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int d = 0; d < 9; d++)
             {
-                if (d == 0 || d == 2)
+                if (d < bodies.Count)
                 {
-                    continue;
+                    if (d == 0 || d == 2)
+                    {
+                        continue;
+                    }
+                    float rot = 0;
+                    if (bd == 0)
+                    {
+                        rot = (vtodraw - bodies[d]).ToRotation();
+                    }
+                    else
+                    {
+                        rot = (bodies[d - 1] - bodies[d]).ToRotation();
+                    }
+                    Vector2 pos = bodies[d];
+
+                    Texture2D tx;
+                    tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/P2b" + (bd + 1).ToString()).Value;
+
+                    spriteBatch.Draw(tx, pos - Main.screenPosition, null, Color.White * alpha, rot, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.None, 0f);
+
+                    bd += 1;
+
                 }
-                float rot = 0;
-                if (bd == 0)
-                {
-                    rot = (vtodraw - bodies[d]).ToRotation();
-                }
-                else
-                {
-                    rot = (bodies[d - 1] - bodies[d]).ToRotation();
-                }
-                Vector2 pos = bodies[d];
-
-                Texture2D tx;
-                tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/P2b" + (bd + 1).ToString()).Value;
-
-                spriteBatch.Draw(tx, pos - Main.screenPosition, null, Color.White * alpha, rot, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.None, 0f);
-
-                bd += 1;
-
-
             }
             Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/Head2").Value;
             Texture2D j2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserJawUp2").Value;

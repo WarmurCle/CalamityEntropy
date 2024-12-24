@@ -41,6 +41,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.dontCountMe = true;
             NPC.Entropy().VoidTouchDR = 0.76f;
             NPC.scale = 1.1f;
+            if (Main.getGoodWorld)
+            {
+                NPC.scale = 0.5f;
+            }
             if (!Main.dedServ)
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CruiserBoss");
@@ -86,7 +90,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }*/
             if (NPC.ai[1] < Main.maxNPCs && Main.npc[(int)NPC.ai[1]].active)
             {
-                int spacing = 54;
+                int spacing = 80;
                 NPC follow = Main.npc[(int)NPC.ai[1]];
                 if (follow.active)
                 {

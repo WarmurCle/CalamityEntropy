@@ -35,9 +35,20 @@ namespace CalamityEntropy.Common
         
         public override void PostUpdateDusts()
         {
+            CalamityEntropy.blackMaskTime--;
             PixelParticle.Update();
             VoidParticles.Update();
             FloatParticles.Update();
+            CalamityEntropy.cutScreen += CalamityEntropy.cutScreenVel;
+            if(CalamityEntropy.cutScreen > 0)
+            {
+                CalamityEntropy.cutScreenVel -= 1.16f;
+            }
+            if(CalamityEntropy.cutScreen < 0)
+            {
+                CalamityEntropy.cutScreen = 0;
+                CalamityEntropy.cutScreenVel = 0;
+            }
         }
         public bool prd = true;
         public bool mi = false;
@@ -122,6 +133,16 @@ namespace CalamityEntropy.Common
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Void Charge Bar", () =>
                 {
                     DrawVoidChargeBar(Main.spriteBatch);
+                    return true;
+                }, InterfaceScaleType.None));
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Poop UI", () =>
+                {
+                    if (Main.LocalPlayer.Entropy().brokenAnkh)
+                    {
+                        Main.spriteBatch.UseSampleState(SamplerState.PointClamp);
+                        PoopsUI.Draw();
+                        Main.spriteBatch.UseSampleState(SamplerState.AnisotropicClamp);
+                    }
                     return true;
                 }, InterfaceScaleType.None));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer(

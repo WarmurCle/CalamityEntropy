@@ -66,6 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
+            
         }
         public override void AI(){
             if(Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 && Projectile.ai[0] > 12)
@@ -155,7 +156,13 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 12)
             {
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f) * (Projectile.Calamity().stealthStrike ? 3 : 1.8f);
-
+                if (Projectile.Calamity().stealthStrike && Main.myPlayer == Projectile.owner)
+                {
+                    CalamityEntropy.cutScreen = 0;
+                    CalamityEntropy.cutScreenVel = 10;
+                    CalamityEntropy.cutScreenCenter = Projectile.Center;
+                    CalamityEntropy.cutScreenRot = Projectile.velocity.ToRotation();
+                }
 
                 Projectile.extraUpdates = (Projectile.extraUpdates + 1) * 2 - 1;
             }

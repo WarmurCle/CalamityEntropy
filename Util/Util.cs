@@ -42,6 +42,16 @@ namespace CalamityEntropy.Util
             sb.End();
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, sampler, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
         }
+        public static void UseBlendState(this SpriteBatch sb, BlendState blend)
+        {
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, blend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+        }
+        public static void UseState(this SpriteBatch sb, BlendState blend, SamplerState sampler)
+        {
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, blend, sampler, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+        }
         public static void DrawRectAlt(Rectangle rect, Color color, float width, int num = 16)
         {
             drawLine(new Vector2(rect.X + num, rect.Y), new Vector2(rect.X + rect.Width - num, rect.Y), color, width, 2);

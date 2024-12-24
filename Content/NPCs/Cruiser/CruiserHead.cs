@@ -72,7 +72,27 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             CalamityEntropy.checkNPC.Add(NPC);
         }
-        
+
+        public static int icon = ModContent.GetModBossHeadSlot("CalamityEntropy/Content/NPCs/Cruiser/CruiserHead_Head_Boss");
+        public static int iconP2;
+        public static void loadHead()
+        {
+            string path = "CalamityEntropy/Content/NPCs/Cruiser/p2head";
+            CalamityEntropy.Instance.AddBossHeadTexture(path, -1);
+            iconP2 = ModContent.GetModBossHeadSlot(path);
+
+        }
+        public override void BossHeadSlot(ref int index)
+        {
+            if(phaseTrans >= 120)
+            {
+                index = iconP2;
+            }
+            else
+            {
+                index = icon;
+            }
+        }
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 1;
@@ -103,14 +123,14 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 88;
             NPC.height = 88;
-            NPC.damage = 160;
+            NPC.damage = 178;
             if (Main.expertMode){
                 NPC.damage += 16;   
             }if (Main.masterMode){
                 NPC.damage += 16;
             }
-            NPC.defense = 40;
-            NPC.lifeMax = 1100000;
+            NPC.defense = 80;
+            NPC.lifeMax = 1600000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 22;
@@ -128,9 +148,14 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.knockBackResist = 0f;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
-            NPC.Entropy().VoidTouchDR = 0.95f;
+            NPC.Entropy().VoidTouchDR = 0.9f;
             NPC.dontCountMe = true;
             NPC.scale = 1.1f;
+            if (Main.getGoodWorld)
+            {
+                NPC.scale = 0.5f;
+                length += 46;
+            }
             NPC.netAlways = true;
             NPC.Entropy().damageMul = 0.1f;
             if (!Main.dedServ)
@@ -292,7 +317,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC.Entropy().damageMul = 1;
             }
             counterc++;
+            if(noaitime > 0)
+            {
+                NPC.dontTakeDamage = true;
+            }
             noaitime--;
+            if(noaitime == 0)
+            {
+                NPC.dontTakeDamage = false;
+            }
             if (phase == 1 && NPC.life < NPC.lifeMax / 2)
             {
                 NPC.dontTakeDamage = true;
@@ -341,18 +374,18 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     }
                     Particle p = new Particle();
                     p.position = NPC.Center - NPC.rotation.ToRotationVector2() * -14;
-                    p.alpha = 0.7f;
+                    p.alpha = 0.7f * NPC.scale;
                     var r = Main.rand;
                     p.velocity = NPC.rotation.ToRotationVector2() * -3;
                     VoidParticles.particles.Add(p);
                     p = new Particle();
                     p.position = NPC.Center - NPC.rotation.ToRotationVector2() * -14;
-                    p.alpha = 0.7f;
+                    p.alpha = 0.7f * NPC.scale;
                     p.velocity = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(70f * (float)Math.Cos(counterc * 0.4f))) * -3;
                     VoidParticles.particles.Add(p);
                     p = new Particle();
                     p.position = NPC.Center - NPC.rotation.ToRotationVector2() * -14;
-                    p.alpha = 0.7f;
+                    p.alpha = 0.7f * NPC.scale;
                     p.velocity = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-70f * (float)Math.Cos(counterc * 0.4f))) * -3;
                     VoidParticles.particles.Add(p);
                 }
@@ -361,18 +394,18 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 Particle p = new Particle();
                 p.position = NPC.Center - NPC.rotation.ToRotationVector2() * -14;
-                p.alpha = 0.7f;
+                p.alpha = 0.7f * NPC.scale;
                 var r = Main.rand;
                 p.velocity = NPC.rotation.ToRotationVector2() * -3;
                 VoidParticles.particles.Add(p);
                 p = new Particle();
                 p.position = NPC.Center - NPC.rotation.ToRotationVector2() * -14;
-                p.alpha = 0.7f;
+                p.alpha = 0.7f * NPC.scale;
                 p.velocity = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(70f * (float)Math.Cos(counterc * 0.4f))) * -3;
                 VoidParticles.particles.Add(p);
                 p = new Particle();
                 p.position = NPC.Center - NPC.rotation.ToRotationVector2() * -14;
-                p.alpha = 0.7f;
+                p.alpha = 0.7f * NPC.scale;
                 p.velocity = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-70f * (float)Math.Cos(counterc * 0.4f))) * -3;
                 VoidParticles.particles.Add(p);
             }
@@ -513,7 +546,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     Particle p = new Particle();
                     p.shape = 4;
                     p.position = NPC.Center - NPC.rotation.ToRotationVector2() * 60;
-                    p.alpha = 1.6f;
+                    p.alpha = 1.6f * NPC.scale;
                     p.ad = 0.013f;
                     var r = Main.rand;
                     p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
@@ -524,7 +557,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     Particle p = new Particle();
                     p.shape = 4;
                     p.position = NPC.Center - NPC.rotation.ToRotationVector2() * 60 - NPC.velocity * 0.5f; ;
-                    p.alpha = 1.6f;
+                    p.alpha = 1.6f * NPC.scale;
                     p.ad = 0.013f;
                     var r = Main.rand;
                     p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
@@ -690,7 +723,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 {
                                     Particle p = new Particle();
                                     p.position = NPC.Center;
-                                    p.alpha = 1.4f;
+                                    p.alpha = 1.4f * NPC.scale;
 
                                     var r = Main.rand;
                                     p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * 16), (float)((r.NextDouble() - 0.5) * 16));
@@ -1063,7 +1096,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 da = da + (ja - da) * 0.1f;
 
             }
-            if (aitype == 3 || aitype == 4) {
+            if (aitype == 4) {
                 if (alpha > 0.3)
                 {
                     alpha -= 0.05f;
@@ -1106,7 +1139,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     rot = Util.Util.rotatedToAngle(rot, oRot, 0.12f, false);
                 }
-                int spacing = 54;
+                int spacing = 80;
                 bodies[i] = oPos - rot.ToRotationVector2() * spacing * NPC.scale;
             }
             NPC.Calamity().CurrentlyIncreasingDefenseOrDR = aitype == 2;
@@ -1228,13 +1261,13 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/Head2").Value;
                 Texture2D j2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserJawUp2").Value;
                 Texture2D j1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserJawDown2").Value;
-                Vector2 joffset = new Vector2(60, 62);
+                Vector2 joffset = new Vector2(54, 54);
                 Vector2 ofs2 = joffset * new Vector2(1, -1);
                 float roth = mouthRot * 0.8f;
 
-                spriteBatch.Draw(j1, vtodraw - screenPosition + joffset.RotatedBy(NPC.rotation) * NPC.scale, null, Color.White * alpha, NPC.rotation + MathHelper.ToRadians(roth), new Vector2(40, 28), NPC.scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(j1, vtodraw - screenPosition + joffset.RotatedBy(NPC.rotation) * NPC.scale, null, Color.White * alpha, NPC.rotation + MathHelper.ToRadians(roth), new Vector2(28, 20), NPC.scale, SpriteEffects.None, 0);
 
-                spriteBatch.Draw(j2, vtodraw - screenPosition + ofs2.RotatedBy(NPC.rotation) * NPC.scale, null, Color.White * alpha, NPC.rotation - MathHelper.ToRadians(roth), new Vector2(40, j2.Height - 28), NPC.scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(j2, vtodraw - screenPosition + ofs2.RotatedBy(NPC.rotation) * NPC.scale, null, Color.White * alpha, NPC.rotation - MathHelper.ToRadians(roth), new Vector2(28, j2.Height - 20), NPC.scale, SpriteEffects.None, 0);
 
                 spriteBatch.Draw(txd, vtodraw - screenPosition, null, Color.White * alpha, NPC.rotation, new Vector2(txd.Width, txd.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
                 
@@ -1259,8 +1292,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         Texture2D f1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/Flagellum").Value;
                         Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserTail").Value;
                         spriteBatch.Draw(tx, pos - screenPosition, null, Color.White, rot, new Vector2(tx.Width, tx.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
-                        spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot), null, Color.White, rot + MathHelper.ToRadians(180 - da), new Vector2(0, f1.Height), NPC.scale, SpriteEffects.None, 0);
-                        spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot), null, Color.White, rot + MathHelper.ToRadians(180 + da), new Vector2(0, 0), NPC.scale, SpriteEffects.FlipVertically, 0);
+                        spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White, rot + MathHelper.ToRadians(180 - da), new Vector2(0, f1.Height), NPC.scale, SpriteEffects.None, 0);
+                        spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White, rot + MathHelper.ToRadians(180 + da), new Vector2(0, 0), NPC.scale, SpriteEffects.FlipVertically, 0);
 
                     }
                     else
@@ -1268,7 +1301,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         Texture2D tx;
                         if (d % 2 == 1)
                         {
-                            tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserTail").Value;
+                            tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserBodyAlt").Value;
                         }
                         else
                         {
@@ -1285,12 +1318,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserHead").Value;
                 Texture2D j2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserJawUp").Value;
                 Texture2D j1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserJawDown").Value;
-                Vector2 joffset = new Vector2(20, 26);
+                Vector2 joffset = new Vector2(42, 42);
                 Vector2 ofs2 = joffset * new Vector2(1, -1);
                 float roth = mouthRot;
-                spriteBatch.Draw(j1, vtodraw - screenPosition + joffset.RotatedBy(NPC.rotation) * NPC.scale, null, Color.White, NPC.rotation + MathHelper.ToRadians(roth), new Vector2(j2.Width, j2.Height) / 2, NPC.scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(j1, vtodraw - screenPosition + joffset.RotatedBy(NPC.rotation) * NPC.scale, null, Color.White, NPC.rotation + MathHelper.ToRadians(roth), new Vector2(58, j2.Height) / 2, NPC.scale, SpriteEffects.None, 0);
 
-                spriteBatch.Draw(j2, vtodraw - screenPosition + ofs2.RotatedBy(NPC.rotation) * NPC.scale, null, Color.White, NPC.rotation - MathHelper.ToRadians(roth), new Vector2(j1.Width, j1.Height) / 2, NPC.scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(j2, vtodraw - screenPosition + ofs2.RotatedBy(NPC.rotation) * NPC.scale, null, Color.White, NPC.rotation - MathHelper.ToRadians(roth), new Vector2(58, j1.Height) / 2, NPC.scale, SpriteEffects.None, 0);
 
                 spriteBatch.Draw(txd, vtodraw - screenPosition, null, Color.White, NPC.rotation, new Vector2(txd.Width, txd.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
 

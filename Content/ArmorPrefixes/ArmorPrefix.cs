@@ -10,9 +10,13 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 
     public abstract class ArmorPrefix : ModType
     {
-        public static List<ArmorPrefix> instances = new List<ArmorPrefix>();
+        public static List<ArmorPrefix> instances;
         protected sealed override void Register()
         {
+            if(instances == null)
+            {
+                instances = new List<ArmorPrefix>();
+            }
             instances.Add(this);
         }
 

@@ -866,6 +866,21 @@ Items: {
 		Tooltip: ""
 		DisplayName: Crimson Night
 	}
+
+	PoopPickup: {
+		Tooltip: ""
+		DisplayName: Poop Pickup
+	}
+
+	BrokenAnkh: {
+		Tooltip:
+			'''
+			Enable you to store some poops
+			Attack has a chance to obtain throwable poops
+			Press [KEY] to throw a poop
+			'''
+		DisplayName: Broken Ankh
+	}
 }
 
 DeathMode: Death Mode
@@ -1022,6 +1037,19 @@ Projectiles: {
 	AzureOfFirmamentThrow.DisplayName: Azure Of Firmament Throw
 	WelkinFeather.DisplayName: Welkin Feather
 	ArbitratorIIThrow.DisplayName: Arbitrator I I Throw
+	PoopNormalProjectile.DisplayName: Poop Normal Projectile
+	PoopBlackProjectile.DisplayName: Poop Black Projectile
+	BlueFlies.DisplayName: Blue Flies
+	PoopCornProjectile.DisplayName: Poop Corn Projectile
+	PoopFlamingProjectile.DisplayName: Poop Flaming Projectile
+	Flame.DisplayName: Flame
+	PoopBombProjectile.DisplayName: Poop Bomb Projectile
+	PoopGiantProjectile.DisplayName: Poop Giant Projectile
+	PoopStinkyProjectile.DisplayName: Poop Stinky Projectile
+	FartCloud.DisplayName: Fart Cloud
+	PoopStoneProjectile.DisplayName: Poop Stone Projectile
+	PoopWhiteProjectile.DisplayName: Poop White Projectile
+	PoopAuricProjectile.DisplayName: Poop Auric Projectile
 }
 
 LegendTooltip: - Legend -
@@ -1194,7 +1222,12 @@ loreCruiser:
 	It's not difficult to tear you apart
 	'''
 loreCruiserEffect: Permanently increase the max life by 60 and increase the max mana by 100
-Keybinds.RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
+
+Keybinds: {
+	RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
+	ThrowPoop.DisplayName: Throw Poop
+}
+
 CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
 CruiserBestiary: The worm like creature living in the void has been completely eroded by the void. When its scales shatter, you will see its true form.
@@ -1375,7 +1408,7 @@ ArmorPrefixSacrificalDescription:
 	-90% Defense
 	'''
 ArmorPrefixSilenceName: Silence
-ArmorPrefixSilenceDescription: +20% Max Stealth
+ArmorPrefixSilenceDescription: +6% Max Stealth
 ArmorPrefixMagicalName: Magical
 ArmorPrefixMagicalDescription:
 	'''
@@ -1416,3 +1449,5 @@ ZoneGraveyard: Zone Graveyard
 DownedBoss2: After Defeat Eater of World / Brain of cthulhu
 HaveOracleDeck: When Oracle Deck is in inventory
 HaveTaintedDeck: When Tainted Deck is in inventory
+DownloadBOI: Have played The Binding of Isaac: Repentance
+IsaacLock: You can't equip this before you played The Binding of Isaac Repentance LOL

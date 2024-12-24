@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 return;
             }
             var modPlayer = player.Entropy();
-            Projectile.Center = player.Center;
+            Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
             if(player.HeldItem.type == ModContent.ItemType<HorizonssKey>())
             {
                 Projectile.timeLeft = 3;

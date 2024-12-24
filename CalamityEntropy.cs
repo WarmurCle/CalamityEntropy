@@ -93,6 +93,8 @@ using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
 using ReLogic.Graphics;
+using CalamityEntropy.Content.UI.Poops;
+using CalamityEntropy.Content.ArmorPrefixes;
 namespace CalamityEntropy
 {
     
@@ -105,7 +107,11 @@ namespace CalamityEntropy
             Text,
             BossKilled,
             PlayerSetRB,
-            PlayerSetPos
+            PlayerSetPos,
+            VoidTouchDamageShow,
+            PoopSync,
+            SpawnItem,
+            PickUpPoop
         }
 		public static List<int> calDebuffIconDisplayList = new List<int>();
 		public static CalamityEntropy Instance;
@@ -125,6 +131,10 @@ namespace CalamityEntropy
         public ArmorForgingStationUI armorForgingStationUI;
         public UserInterface userInterface;
         public static DynamicSpriteFont efont1;
+        public static float cutScreenVel = 0;
+        public static float cutScreen = 0;
+        public static float cutScreenRot = 0;
+        public static Vector2 cutScreenCenter = Vector2.Zero;
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             byte type = reader.ReadByte();
@@ -162,11 +172,11 @@ namespace CalamityEntropy
                     p.Send();
                 }
             }
-            if(type == (byte)NetPackages.Text)
+            if (type == (byte)NetPackages.Text)
             {
                 Main.NewText(reader.ReadString());
             }
-            if(type == (byte)NetPackages.BossKilled)
+            if (type == (byte)NetPackages.BossKilled)
             {
                 bool flag = reader.ReadBoolean();
                 if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && CalamityEntropy.noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || flag))
@@ -175,12 +185,12 @@ namespace CalamityEntropy
                     SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
                 }
             }
-            if(type == (byte)NetPackages.PlayerSetRB)
+            if (type == (byte)NetPackages.PlayerSetRB)
             {
                 int playerIndex = reader.ReadInt32();
                 bool active = reader.ReadBoolean();
                 playerIndex.ToPlayer().Entropy().rBadgeActive = active;
-                
+
                 if (Main.dedServ)
                 {
                     if (!active)
@@ -212,7 +222,7 @@ namespace CalamityEntropy
                     }
                 }
             }
-            if(type == (byte)NetPackages.PlayerSetPos)
+            if (type == (byte)NetPackages.PlayerSetPos)
             {
                 int id = reader.ReadInt32();
                 Vector2 pos = reader.ReadVector2();
@@ -229,7 +239,71 @@ namespace CalamityEntropy
                     p.Send();
                 }
             }
-        }
+            if (type == (byte)NetPackages.VoidTouchDamageShow)
+            {
+                if (!Main.dedServ)
+                {
+                    NPC npc = reader.ReadInt32().ToNPC();
+                    int damageDone = reader.ReadInt32();
+                    CombatText.NewText(npc.getRect(), new Color(148, 148, 255), damageDone);
+                }
+            }
+            if (type == (byte)NetPackages.PoopSync)
+            {
+                Player player = reader.ReadInt32().ToPlayer();
+                bool holding = reader.ReadBoolean();
+                player.Entropy().holdingPoop = holding;
+                if (Main.dedServ)
+                {
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)NetPackages.PoopSync);
+                    packet.Write(player.whoAmI);
+                    packet.Write(holding);
+                    packet.Send();
+                }
+            }
+            if(type == (byte)NetPackages.SpawnItem)
+            {
+                int plr = reader.ReadInt32();
+                int itemtype = reader.ReadInt32();
+                int stack = reader.ReadInt32();
+                Player player = plr.ToPlayer();
+                
+                if (!Main.dedServ && itemtype == ModContent.ItemType<PoopPickup>())
+                {
+                    Util.Util.PlaySound("fart", 1, player.Center);
+                }
+                if (Main.dedServ)
+                {
+                    int i = Item.NewItem(player.GetSource_FromThis(), player.getRect(), new Item(itemtype, stack), false, true);
+                    if (i < Main.item.Length)
+                    {
+                        Main.item[i].noGrabDelay = 100;
+                    }
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)NetPackages.SpawnItem);
+                    packet.Write(player.whoAmI);
+                    packet.Write(itemtype);
+                    packet.Write(stack);
+                    packet.Send();
+                }
+            }
+            if (type == (byte)NetPackages.PickUpPoop)
+            {
+                int plr = reader.ReadInt32();
+                string name = reader.ReadString();
+                Player player = plr.ToPlayer();
+                Poop poop = new PoopNormal();
+                foreach (Poop p in Poop.instances)
+                {
+                    if (p.FullName == name)
+                    {
+                        poop = p;
+                    }
+                }
+                player.Entropy().poops.Add(poop);
+            }
+            }
 
         public override void Load()
         {
@@ -251,6 +325,7 @@ namespace CalamityEntropy
             }
             Instance = this;
             AbyssalWraith.loadHead();
+            CruiserHead.loadHead();
             CUtil.load();
 			foreach (int id in CalamityLists.needsDebuffIconDisplayList)
 			{
@@ -547,6 +622,11 @@ namespace CalamityEntropy
                 isaac.Call("HeldProj", ModContent.ProjectileType<GhostdomWhisperHoldout>());
                 isaac.Call("HeldProj", ModContent.ProjectileType<SamsaraCasketProj>());
             }
+            string MyGameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games");
+            string Isaac1 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance").Replace("/", "\\");
+            string Isaac2 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance+").Replace("/", "\\");
+            BrokenAnkh.isaac = Directory.Exists(Isaac1) || Directory.Exists(Isaac2);
+
             //TextureAssets.Projectile[ModContent.ProjectileType<MurasamaSlash>()] = ModContent.Request<Texture2D>("CalamityEntropy/Extra/Voidsama");
             Mod bossChecklist;
             if (ModLoader.TryGetMod("BossChecklist", out bossChecklist))
@@ -557,7 +637,7 @@ namespace CalamityEntropy
                     {
                         string entryName = "Cruiser";
                         List<int> segments = new List<int>() { ModContent.NPCType<CruiserHead>(), ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() };
-                        List<int> collection = new List<int>() { ModContent.ItemType<CruiserBag>(), ModContent.ItemType<CruiserTrophy>(), ModContent.ItemType<VoidScales>(), ModContent.ItemType<VoidMonolith>(), ModContent.ItemType<CruiserRelic>(), ModContent.ItemType<VoidRelics>(), ModContent.ItemType<PhantomPlanetKillerEngine>(), ModContent.ItemType<VoidAnnihilate>(), ModContent.ItemType<VoidElytra>(), ModContent.ItemType<VoidEcho>(), ModContent.ItemType<Silence>(), ModContent.ItemType<RuneSong>(), ModContent.ItemType<WingsOfHush>(), ModContent.ItemType<VoidToy>(), ModContent.ItemType<TheocracyPearlToy>(), ModContent.ItemType<CruiserPlush>() };
+                        List<int> collection = new List<int>() { ModContent.ItemType<CruiserBag>(), ModContent.ItemType<CruiserTrophy>(), ModContent.ItemType<VoidScales>(), ModContent.ItemType<VoidMonolith>(), ModContent.ItemType<CruiserRelic>(), ModContent.ItemType<VoidRelics>(), ModContent.ItemType<PhantomPlanetKillerEngine>(), ModContent.ItemType<VoidAnnihilate>(), ModContent.ItemType<VoidElytra>(), ModContent.ItemType<VoidEcho>(), ModContent.ItemType<Content.Items.Weapons.Silence>(), ModContent.ItemType<RuneSong>(), ModContent.ItemType<WingsOfHush>(), ModContent.ItemType<VoidToy>(), ModContent.ItemType<TheocracyPearlToy>(), ModContent.ItemType<CruiserPlush>() };
                         Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                         {
                             Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Cruiser").Value;
@@ -647,7 +727,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<Polterghast>()] = new Color(100, 255, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<OldDuke>()] = new Color(190, 170, 130);
             EntropyBossbar.bossbarColor[ModContent.NPCType<DevourerofGodsHead>()] = new Color(121, 230, 255);
-            EntropyBossbar.bossbarColor[ModContent.NPCType<CruiserHead>()] = new Color(150, 190, 233);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<CruiserHead>()] = new Color(150, 60, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Yharon>()] = new Color(255, 220, 100);
             EntropyBossbar.bossbarColor[ModContent.NPCType<AresBody>()] = new Color(242, 112, 73);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Apollo>()] = new Color(146, 200, 130);
@@ -657,6 +737,20 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<AbyssalWraith>()] = new Color(200, 40, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<VoidPope>()] = new Color(200, 40, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<PrimordialWyrmHead>()] = new Color(255, 255, 80);
+            if(ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
+            {
+                EntropyBossbar.bossbarColor[catalyst.Find<ModNPC>("Astrageldon").Type] = new Color(220, 94, 210);
+            }
+            if (ModLoader.TryGetMod("NoxusBoss", out Mod nxb))
+            {
+                EntropyBossbar.bossbarColor[nxb.Find<ModNPC>("NoxusEgg").Type] = new Color(123, 75, 230);
+                EntropyBossbar.bossbarColor[nxb.Find<ModNPC>("EntropicGod").Type] = new Color(123, 75, 230);
+                EntropyBossbar.bossbarColor[nxb.Find<ModNPC>("NamelessDeityBoss").Type] = new Color(255, 255, 255);
+            }
+            if (ModLoader.TryGetMod("CalamityHunt", out Mod calHunt))
+            {
+                EntropyBossbar.bossbarColor[calHunt.Find<ModNPC>("Goozma").Type] = new Color(94, 76, 99);
+            }
         }
         public static List<Projectile> checkProj = new List<Projectile>();
         public static List<NPC> checkNPC = new List<NPC>();
@@ -1384,6 +1478,41 @@ namespace CalamityEntropy
                 }
                 Main.spriteBatch.End();
             }
+
+            if(cutScreen > 0)
+            {
+                graphicsDevice.SetRenderTarget(screen);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                Util.Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 9000, Color.Black, 9000);
+                Main.spriteBatch.End();
+
+                graphicsDevice.SetRenderTarget(screen2);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                Util.Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -9000, Color.Black, 9000);
+
+                Main.spriteBatch.End();
+
+                graphicsDevice.SetRenderTarget(Main.screenTarget);
+                graphicsDevice.Clear(Color.Black);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+                Effect blur = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/blur", AssetRequestMode.ImmediateLoad).Value;
+                blur.CurrentTechnique = blur.Techniques["GaussianBlur"];
+                blur.Parameters["resolution"].SetValue(Main.ScreenSize.ToVector2());
+                blur.Parameters["blurAmount"].SetValue(cutScreen * 0.036f);
+                blur.CurrentTechnique.Passes[0].Apply();
+                Main.spriteBatch.Draw(screen, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(screen2, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+
+                Main.spriteBatch.End();
+            }
             if (BeeGame.Active)
             {
                 if (!beegameInited)
@@ -1416,8 +1545,27 @@ namespace CalamityEntropy
 
                 Main.spriteBatch.End();
             }
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            if (blackMaskTime > 0)
+            {
+                if (blackMaskAlpha < 1)
+                {
+                    blackMaskAlpha += 0.05f;
+                }
+            }
+            else
+            {
+               if(blackMaskAlpha > 0)
+               {
+                    blackMaskAlpha -= 0.025f;
+               }
+            }
+            Main.spriteBatch.Draw(Util.Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.7f * blackMaskAlpha);
+            Main.spriteBatch.End();
             orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
         }
+        public static float blackMaskAlpha = 0;
+        public static int blackMaskTime = 0;
         public static Vector2 vLToCenter(Vector2 v, float z)
         {
             return Main.ScreenSize.ToVector2() / 2 + (v - Main.ScreenSize.ToVector2() / 2) * z;
@@ -1426,6 +1574,8 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            ArmorPrefix.instances = null;
+            Poop.instances = null;
             WallpaperHelper.wallpaper = null;
             efont1 = null;
             checkProj = null;

@@ -12,8 +12,11 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
 	public class DeusCore : ModItem
 	{
-
-		public override void SetDefaults() {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+        public override void SetDefaults() {
 			Item.width = 52;
 			Item.height = 52;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;

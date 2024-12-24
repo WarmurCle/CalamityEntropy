@@ -27,8 +27,8 @@ namespace CalamityEntropy.Content.Items.Pets
 
         public override void AddRecipes()
         {
-            string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy"); // ��ȡģ���ļ���·��
-            string myDataFilePath = Path.Combine(modFolder, "DoGKilled.txt"); // �����ļ�·��
+            string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy");
+            string myDataFilePath = Path.Combine(modFolder, "DoGKilled.txt");
 
 				CreateRecipe().
 				AddIngredient(ItemID.Apple, 5).

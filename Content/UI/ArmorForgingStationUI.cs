@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.UI
         public static bool Visible = false;
         private void reforge(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.blockMouse = true;
+            Main.mouseLeft = false;
             if ((!item[0].active) || (!Util.Util.IsArmor(item[0])) || ReforgeCD > 0)
             {
                 return;

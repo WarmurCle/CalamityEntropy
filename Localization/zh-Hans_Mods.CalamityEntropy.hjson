@@ -923,6 +923,22 @@ Items: {
 		Tooltip: ""
 		DisplayName: 绯夜
 	}
+
+	PoopPickup: {
+		Tooltip: ""
+		DisplayName: 臭臭
+	}
+
+	BrokenAnkh: {
+		Tooltip:
+			'''
+			使你能存储一些大便
+			攻击有概率获得可投掷大便
+			按[KEY]投掷
+			“蓝门”
+			'''
+		DisplayName: 碎安卡十字
+	}
 }
 
 DeathMode: 死亡模式
@@ -1078,7 +1094,20 @@ Projectiles: {
 	AbyssTentacle.DisplayName: 裂礁刺
 	AzureOfFirmamentThrow.DisplayName: 天穹之澈
 	WelkinFeather.DisplayName: 苍穹之羽
-	// ArbitratorIIThrow.DisplayName: Arbitrator I I Throw
+	ArbitratorIIThrow.DisplayName: 仲裁者II
+	PoopNormalProjectile.DisplayName: 大便
+	PoopBlackProjectile.DisplayName: 黑大便
+	BlueFlies.DisplayName: 蓝苍蝇
+	PoopCornProjectile.DisplayName: 玉米大便
+	PoopFlamingProjectile.DisplayName: 着火大便
+	Flame.DisplayName: 火焰
+	PoopBombProjectile.DisplayName: 便便炸弹
+	PoopGiantProjectile.DisplayName: 巨型大便
+	PoopStinkyProjectile.DisplayName: 恶臭大便
+	FartCloud.DisplayName: 毒云
+	PoopStoneProjectile.DisplayName: 石头大便
+	PoopWhiteProjectile.DisplayName: 神圣大便
+	// PoopAuricProjectile.DisplayName: Poop Auric Projectile
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1251,7 +1280,12 @@ loreCruiser:
 	对于撕碎你来说并不是什么难事
 	'''
 loreCruiserEffect: 使用后永久增加60生命上限和100魔力上限
-Keybinds.RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
+
+Keybinds: {
+	RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
+	ThrowPoop.DisplayName: 丢出大便
+}
+
 CdMoonlight: 月光护盾
 CdDS: 神圣干预冷却
 CruiserBestiary: 生活在虚空中的蠕虫一样的生物，已完全被虚空侵蚀。当它鳞甲破碎时，你将见到它真正的样子。
@@ -1429,7 +1463,7 @@ ArmorPrefixSacrificalDescription:
 	-90% 防御
 	'''
 ArmorPrefixSilenceName: 寂静
-ArmorPrefixSilenceDescription: +20% 最大潜伏值
+ArmorPrefixSilenceDescription: +6% 最大潜伏值
 ArmorPrefixMagicalName: 注魔
 ArmorPrefixMagicalDescription:
 	'''
@@ -1472,3 +1506,5 @@ ZoneGraveyard: 当在墓地环境时
 DownedBoss2: 击败 克苏鲁之脑 / 世界吞噬怪 后
 HaveOracleDeck: 持有神谕卡组时
 HaveTaintedDeck: 持有堕化卡组时
+DownloadBOI: 玩过《以撒的结合：忏悔》
+IsaacLock: 你不能在没有玩过《以撒的结合：忏悔》的情况下佩戴该饰品

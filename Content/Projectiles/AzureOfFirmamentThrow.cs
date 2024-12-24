@@ -166,16 +166,16 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(new("CalamityMod/Sounds/NPCKilled/DevourerSegmentBreak1") { Volume = 0.3f }, Projectile.Center);
-            if (sp && Projectile.Calamity().stealthStrike)
+            if (sp)
             {
                 sp = false;
 
                 foreach (Projectile p in Main.ActiveProjectiles)
                 {
-                    if (p.ModProjectile is WelkinFeather)
+                    if (p.type == ModContent.ProjectileType<WelkinFeather>())
                     {
                         p.ai[1] = target.whoAmI;
-                        p.netUpdate = true;
+                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p.whoAmI);
                     }
                 }
             }

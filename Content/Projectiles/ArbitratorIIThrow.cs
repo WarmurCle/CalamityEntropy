@@ -50,11 +50,17 @@ namespace CalamityEntropy.Content.Projectiles
         {
             writer.Write(Projectile.rotation);
             writer.Write(handrot);
+            writer.Write(stick);
+            writer.Write(stickNpc);
+            writer.WriteVector2(offset);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             Projectile.rotation = reader.ReadSingle();
             handrot = reader.ReadSingle();
+            stick = reader.ReadBoolean();
+            stickNpc = reader.ReadInt32();
+            offset = reader.ReadVector2();
         }
         public override void OnSpawn(IEntitySource source)
         {
@@ -283,7 +289,7 @@ namespace CalamityEntropy.Content.Projectiles
                     exp = false;
                 }
             }
-            
+            Projectile.netUpdate = true;
         }
         public override bool ShouldUpdatePosition()
         {

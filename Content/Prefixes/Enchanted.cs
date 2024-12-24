@@ -30,14 +30,13 @@ namespace CalamityEntropy.Content.Prefixes
 
         // Modify the cost of items with this modifier with this function.
         public override void ModifyValue(ref float valueMult) {
-			valueMult *= 1.1f;
+			valueMult *= 1.6f;
 		}
 
 		// This is used to modify most other stats of items which have this modifier.
 		public override void Apply(Item item) {
 			//
 		}
-
 		// This prefix doesn't affect any non-standard stats, so these additional tooltiplines aren't actually necessary, but this pattern can be followed for a prefix that does affect other stats.
 		public override IEnumerable<TooltipLine> GetTooltipLines(Item item) {
 			// Due to inheritance, this code runs for ExamplePrefix and ExampleDerivedPrefix. We add 2 tooltip lines, the first is the typical prefix tooltip line showing the stats boost, while the other is just some additional flavor text.
