@@ -1112,6 +1112,7 @@ Projectiles: {
 	PoopGoldenProjectile.DisplayName: 金大便
 	PoopRainbowProjectile.DisplayName: 彩虹大便
 	PoopWulfrumProjectile.DisplayName: 钨钢大便
+	// PoopVoidProjectile.DisplayName: Poop Void Projectile
 }
 
 LegendTooltip: - 传奇物品 -

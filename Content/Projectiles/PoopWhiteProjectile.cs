@@ -19,6 +19,11 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class PoopWhiteProjectile : PoopProj
     {
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.light = 1f;
+        }
         public override void AI()
         {
             base.AI();

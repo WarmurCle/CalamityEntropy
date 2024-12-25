@@ -29,6 +29,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 180 * 60;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
+            
         }
         public override void AI(){
             Player player = Projectile.owner.ToPlayer();

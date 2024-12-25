@@ -1054,6 +1054,7 @@ Projectiles: {
 	PoopGoldenProjectile.DisplayName: Poop Golden Projectile
 	PoopRainbowProjectile.DisplayName: Poop Rainbow Projectile
 	PoopWulfrumProjectile.DisplayName: Poop Wulfrum Projectile
+	PoopVoidProjectile.DisplayName: Poop Void Projectile
 }
 
 LegendTooltip: - Legend -

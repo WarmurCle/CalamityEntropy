@@ -32,7 +32,9 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = true;
             Projectile.light = 0f;
-            Projectile.timeLeft = 180 * 60;
+            Projectile.timeLeft = 600 * 60;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 20;
         }
         public bool canDamageEnemies = true;
         public virtual bool BreakWhenHitNPC => true;
@@ -65,9 +67,16 @@ namespace CalamityEntropy.Content.Projectiles
         {
             overPlayers.Add(index);
         }
-        public override void AI(){
+        
+        public override void AI()
+        {
+            if(Projectile.timeLeft % 60 == 0)
+            {
+                Projectile.netUpdate = true;
+            }
             bool onPlat = false;
-            if(!Util.Util.isAir(Projectile.Center + new Vector2(0, Projectile.height / 2 + 1), true)){
+            if (!Util.Util.isAir(Projectile.Center + new Vector2(0, Projectile.height / 2 + 1), true))
+            {
                 onPlat = true;
                 if (Projectile.velocity.Y > 0)
                 {
@@ -114,13 +123,15 @@ namespace CalamityEntropy.Content.Projectiles
                     canDamageEnemies = false;
                 }
             }
-            if (!onPlat) {
+            if (!onPlat)
+            {
                 Projectile.velocity.Y += 0.82f;
-                if (Projectile.velocity.Y > 15) {
+                if (Projectile.velocity.Y > 15)
+                {
                     Projectile.velocity.Y = 15;
-                } 
+                }
             }
-            foreach(NPC npc in Main.ActiveNPCs)
+            foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.Hitbox.Intersects(Projectile.Hitbox))
                 {
@@ -128,41 +139,44 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             immute--;
-            foreach (Projectile p in Main.ActiveProjectiles)
+            if (Projectile.owner == Main.myPlayer)
             {
-                if (p.active && p.ModProjectile is not PoopProj && p.damage > 0 && p.ModProjectile is not BlueFlies && p.ModProjectile is not Flame && p.type != ProjectileID.SilverCoin && p.type != ProjectileID.GoldCoin && p.type != ProjectileID.PlatinumCoin)
+                foreach (Projectile p in Main.ActiveProjectiles)
                 {
-                    if (p.Colliding(p.getRect(), Projectile.getRect()))
+                    if (p.active && p.ModProjectile is not PoopProj && p.damage > 0 && p.ModProjectile is not BlueFlies && p.ModProjectile is not Flame && p.type != ProjectileID.SilverCoin && p.type != ProjectileID.GoldCoin && p.type != ProjectileID.PlatinumCoin)
                     {
-                        if (p.ModProjectile is PoopBombProjectile pb)
+                        if (p.Colliding(p.getRect(), Projectile.getRect()))
                         {
-                            if (pb.Exp)
+                            if (p.ModProjectile is PoopBombProjectile pb)
                             {
-                                kill = true;
-                            }
-                        }
-                        else
-                        {
-                            if (p.ModProjectile is FartCloud fc)
-                            {
-                                if (fc.Exp)
+                                if (pb.Exp)
                                 {
                                     kill = true;
                                 }
                             }
                             else
                             {
-                                if (p.hostile)
+                                if (p.ModProjectile is FartCloud fc)
                                 {
-                                    p.Kill();
-                                    DamageMe();
-                                }
-                                if (p.friendly)
-                                {
-                                    if (immute <= 0)
+                                    if (fc.Exp)
                                     {
+                                        kill = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (p.hostile)
+                                    {
+                                        p.Kill();
                                         DamageMe();
-                                        immute = 10;
+                                    }
+                                    if (p.friendly)
+                                    {
+                                        if (immute <= 0)
+                                        {
+                                            DamageMe();
+                                            immute = 10;
+                                        }
                                     }
                                 }
                             }
@@ -185,6 +199,7 @@ namespace CalamityEntropy.Content.Projectiles
         public virtual bool damageNPCAfterLand => false;
         public virtual void DamageMe()
         {
+            Projectile.netUpdate = true;
             foreach(Projectile p in Main.ActiveProjectiles)
             {
                 if(p.ModProjectile is PoopWulfrumProjectile w && Util.Util.getDistance(Projectile.Center, p.Center) < PoopWulfrumProjectile.shieldDistance)
@@ -237,6 +252,10 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
+            if(Projectile.owner.ToPlayer().Entropy().holdingPoop && !shooted)
+            {
+                return false;
+            }
             if (!canDamageEnemies && !damageNPCAfterLand)
             {
                 return false;

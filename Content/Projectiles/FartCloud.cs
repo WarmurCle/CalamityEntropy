@@ -35,6 +35,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
         }
         public bool Exp = false;
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
         public override void AI()
         {
             for (int i = 0; i < 5; i++)

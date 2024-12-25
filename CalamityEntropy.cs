@@ -1560,7 +1560,7 @@ namespace CalamityEntropy
                     blackMaskAlpha -= 0.025f;
                }
             }
-            Main.spriteBatch.Draw(Util.Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.7f * blackMaskAlpha);
+            Main.spriteBatch.Draw(Util.Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.5f * blackMaskAlpha);
             Main.spriteBatch.End();
             orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
         }

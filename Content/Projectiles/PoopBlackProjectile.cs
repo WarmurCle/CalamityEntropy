@@ -21,7 +21,10 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            CalamityEntropy.blackMaskTime = 4 * 60;
+            if (Projectile.owner == Main.myPlayer)
+            {
+                CalamityEntropy.blackMaskTime = 4 * 60;
+            }
             if (Projectile.owner == Main.myPlayer)
             {
                 foreach (NPC npc in Main.ActiveNPCs)

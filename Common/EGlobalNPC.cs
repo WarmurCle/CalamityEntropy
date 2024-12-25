@@ -793,7 +793,7 @@ namespace CalamityEntropy.Common
                 AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
             }
             player.Entropy().damageRecord += damageDone;
-            if (player.Entropy().brokenAnkh && player.Entropy().damageRecord > 360)
+            if (player.Entropy().brokenAnkh && player.Entropy().damageRecord > 420)
             {
                 player.Entropy().damageRecord = 0;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -838,7 +838,7 @@ namespace CalamityEntropy.Common
                     }
                 }
                 player.Entropy().damageRecord += damageDone;
-                if (player.Entropy().brokenAnkh && player.Entropy().damageRecord > 360)
+                if (player.Entropy().brokenAnkh && player.Entropy().damageRecord > 420)
                 {
                     player.Entropy().damageRecord = 0;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
