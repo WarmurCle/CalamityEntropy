@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using CalamityMod.Items.Materials;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +13,15 @@ namespace CalamityEntropy.Content.Items.Vanity
         {
             if (Main.netMode != NetmodeID.Server)
             {
-                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/polaris_Head", EquipType.Head, this);
+                if(DateTime.Now.Month == 12)
+                {
+                    EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/polaris_Head_s", EquipType.Head, this);
+                }
+                else
+                {
+                    EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/polaris_Head", EquipType.Head, this);
+                }
+                
                 EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/polaris_Body", EquipType.Body, this);
                 EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/polaris_Legs", EquipType.Legs, this);
             }

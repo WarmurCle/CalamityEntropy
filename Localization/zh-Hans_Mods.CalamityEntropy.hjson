@@ -939,6 +939,21 @@ Items: {
 			'''
 		DisplayName: 碎安卡十字
 	}
+
+	DustyWhistle: {
+		DisplayName: 尘沙口哨
+		Tooltip: ""
+	}
+
+	AquaticAmulet: {
+		DisplayName: 海洋护符
+		Tooltip: ""
+	}
+
+	NetherRift: {
+		DisplayName: 幽冥裂刃
+		Tooltip: ""
+	}
 }
 
 DeathMode: 死亡模式
@@ -1112,7 +1127,9 @@ Projectiles: {
 	PoopGoldenProjectile.DisplayName: 金大便
 	PoopRainbowProjectile.DisplayName: 彩虹大便
 	PoopWulfrumProjectile.DisplayName: 钨钢大便
-	// PoopVoidProjectile.DisplayName: Poop Void Projectile
+	PoopVoidProjectile.DisplayName: 虚渺大便
+	DSPet.DisplayName: 小荒灾
+	// NetherRiftBlade.DisplayName: Nether Rift Blade
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1252,6 +1269,16 @@ Buffs: {
 	VoidCandleBuff: {
 		DisplayName: 虚无化身
 		Description: 攻击附带虚空之触
+	}
+
+	DustyWhistleBuff: {
+		Description: ""
+		DisplayName: 尘沙口哨
+	}
+
+	AquaticAmuletBuff: {
+		Description: ""
+		DisplayName: 海洋护符
 	}
 }
 

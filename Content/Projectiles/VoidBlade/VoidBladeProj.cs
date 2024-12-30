@@ -1,5 +1,6 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -23,7 +24,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = DamageClass.Summon;
+            Projectile.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Projectile.width = 200;
             Projectile.height = 200;
             Projectile.friendly = true;

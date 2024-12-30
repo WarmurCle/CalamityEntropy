@@ -35,7 +35,7 @@ namespace CalamityEntropy.Common
         public static Dictionary<int, Color> bossbarColor;
         public float whiteLerp = 0;
         public int comboTimeCount = 0;
-        public override void Load()
+        public override void Load() 
         {
             bossbarColor = new Dictionary<int, Color>();
         }

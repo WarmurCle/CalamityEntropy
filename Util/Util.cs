@@ -14,10 +14,14 @@ using Terraria.Audio;
 
 namespace CalamityEntropy.Util
 {
-    //Most of these code is stupid, I wrote them very early on, but But I'm too lazy to modify them
     public static class Util {
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
 
+
+        public static Vector2 GetSymmetryPoint(this Vector2 point, Vector2 linePoint1, Vector2 linePoint2)
+        {
+            return point.ClosestPointOnLine(linePoint1, linePoint2) + point.ClosestPointOnLine(linePoint1, linePoint2) - point;
+        }
         public static Rectangle getRectCentered(this Vector2 center, float w, float h)
         {
             return new Rectangle((int)(center.X - w / 2), (int)(center.Y - h / 2), (int)w, (int)h);
@@ -173,6 +177,10 @@ namespace CalamityEntropy.Util
 
         public static EModPlayer Entropy(this Player player)
         {
+            if(player.GetModPlayer<EModPlayer>() == null)
+            {
+                return new EModPlayer();
+            }
             return player.GetModPlayer<EModPlayer>();
         }
         public static Player ToPlayer(this int ins)

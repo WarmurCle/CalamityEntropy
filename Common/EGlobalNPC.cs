@@ -595,7 +595,7 @@ namespace CalamityEntropy.Common
             {
                 if (Main.bloodMoon)
                 {
-                    if (Main.rand.NextBool(64))
+                    if (Main.rand.NextBool(220))
                     {
                         Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CrimsonNight>()));
                     }

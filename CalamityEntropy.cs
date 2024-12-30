@@ -135,6 +135,7 @@ namespace CalamityEntropy
         public static float cutScreen = 0;
         public static float cutScreenRot = 0;
         public static Vector2 cutScreenCenter = Vector2.Zero;
+        public bool ChristmasEvent = false;
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             byte type = reader.ReadByte();
@@ -574,6 +575,12 @@ namespace CalamityEntropy
             {
                 if (args[0] is string str)
                 {
+                    if (str.Equals("SetBarColor"))
+                    {
+                        int type = (int)args[1];
+                        Color color = (Color)args[2];
+                        EntropyBossbar.bossbarColor[type] = color;
+                    }
                     if (str.Equals("SetTTHoldoutCheck"))
                     {
                         EGlobalProjectile.checkHoldOut = (bool)args[1];
@@ -594,8 +601,7 @@ namespace CalamityEntropy
                                 int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
                                 Projectile ph = phd.ToProj();
                                 ph.scale *= 0.8f;
-                                ph.Entropy().OnProj = p.whoAmI;
-                                ph.Entropy().ttindex = p.whoAmI;
+                                ph.Entropy().ttindex = p.identity;
                                 ph.netUpdate = true;
                                 Projectile projts = ph;
                                 ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);

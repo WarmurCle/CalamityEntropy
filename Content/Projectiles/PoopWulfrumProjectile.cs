@@ -47,7 +47,10 @@ namespace CalamityEntropy.Content.Projectiles
                 shieldCd = 10 * 60;
                 if (Projectile.timeLeft % 16 == 0)
                 {
-                    shield += 1;
+                    if (shield < shieldMax)
+                    {
+                        shield += 1;
+                    }
                 }
                 if(opc < 1)
                 {

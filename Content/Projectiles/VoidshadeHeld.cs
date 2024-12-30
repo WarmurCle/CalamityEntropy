@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Util;
+using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -21,7 +22,7 @@ namespace CalamityEntropy.Content.Projectiles
 	{
         public override void SetDefaults()
         {
-			Projectile.DamageType = DamageClass.Melee;
+			Projectile.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Projectile.width = 26;
 			Projectile.height = 26;
 			Projectile.timeLeft = 120;

@@ -192,6 +192,7 @@ namespace CalamityEntropy.Common
         public int voidshadeBoostTime = 0;
         public override void ResetEffects()
         {
+            cHat = false;
             dodgeChance = 0;
             sacrMask = false;
             GodHeadVisual = true;
@@ -297,7 +298,7 @@ namespace CalamityEntropy.Common
                     packet.Send();
                 }
             }
-            if(Player.dead) return;
+            if (Player.dead) { return; }
             if (rBadgeActive)
             {
                 Player.maxFallSpeed = 99;
@@ -359,7 +360,7 @@ namespace CalamityEntropy.Common
                 {
                     if (BlackFlameCd < 1)
                     {
-                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 5 + 1, 2, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 5 + 1, 2, Player.whoAmI);
                         BlackFlameCd = 30;
                     }
                 }
@@ -544,7 +545,8 @@ namespace CalamityEntropy.Common
             modifiers.SourceDamage *= d;
         }
         public int immune = 0;
-
+        public bool cHat = false;
+        public bool PetsHat { get { return cHat || DateTime.Now.Month == 12; } }
         public override bool ConsumableDodge(Player.HurtInfo info)
         {
             if(immune > 0)

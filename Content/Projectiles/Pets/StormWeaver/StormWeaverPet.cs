@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.StormWeaver
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            
+            bool hat = Projectile.owner.ToPlayer().Entropy().PetsHat;
             if (Main.gameMenu) {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight1").Value;
                 Main.spriteBatch.Draw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
@@ -45,22 +45,46 @@ namespace CalamityEntropy.Content.Projectiles.Pets.StormWeaver
             }
             if (Projectile.ai[1] == 1)
             {
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight1").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight2").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight3").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight4").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight5").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight6").Value);
-            }
+                if (hat)
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/flight1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/flight2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/flight3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/flight4").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/flight5").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/flight6").Value);
+                }
+                else
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight4").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight5").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight6").Value);
+
+                }
+            } 
             else
             {
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk1").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk2").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk3").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk4").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk5").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk6").Value);
-
+                if (hat)
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/walk1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/walk2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/walk3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/walk4").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/walk5").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/s/walk6").Value);
+                }
+                else
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk4").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk5").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/walk6").Value);
+                }
             }
             Texture2D tx = list[(((int)counter / 6) % list.Count)];
             if (Projectile.velocity.X > -2 && Projectile.velocity.X < 2f)

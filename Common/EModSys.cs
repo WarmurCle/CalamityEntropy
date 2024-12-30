@@ -250,7 +250,7 @@ namespace CalamityEntropy.Common
         {
             if (!Main.dedServ)
             {
-                Main.LocalPlayer.Center = LastPlayerPos;
+                //Main.LocalPlayer.Center = LastPlayerPos;
             }
         }
     }

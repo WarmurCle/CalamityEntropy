@@ -655,7 +655,7 @@ namespace CalamityEntropy.Content.NPCs
                             textureSpecial = -1;
                             Say("给，这是你的奖励;)", Color.Yellow, 0.86f);
                             useCd = 160;
-                            SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerDoubles"), NPC.Center);
+                            Util.Util.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
                                 int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
@@ -692,7 +692,7 @@ namespace CalamityEntropy.Content.NPCs
                             rtype = ri.item;
                             stack = ri.stack;
                             useCd = 160;
-                            SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerDoubles"), NPC.Center);
+                            Util.Util.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
                                 int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
@@ -734,7 +734,7 @@ namespace CalamityEntropy.Content.NPCs
                             rtype = ri.item;
                             stack = ri.stack;
                             useCd = 160;
-                            SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerDoubles"), NPC.Center);
+                            Util.Util.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
                                 int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
@@ -793,7 +793,7 @@ namespace CalamityEntropy.Content.NPCs
                             rtype = ri.item;
                             stack = ri.stack;
                             useCd = 160;
-                            SoundEngine.PlaySound(new("CalamityMod/Sounds/Item/SevensStrikerDoubles"), NPC.Center);
+                            Util.Util.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
                                 int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CalamityEntropy.Content.Buffs.Pets;
+using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -29,6 +30,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.DoG
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            bool hat = Projectile.owner.ToPlayer().Entropy().PetsHat;
             if (Main.gameMenu)
             {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG").Value;
@@ -37,11 +39,22 @@ namespace CalamityEntropy.Content.Projectiles.Pets.DoG
                 return false;
             }
             List<Texture2D> list = new List<Texture2D>();
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG2").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG3").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG4").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG5").Value);
+            if (hat)
+            {
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/s/DoG1").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/s/DoG2").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/s/DoG3").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/s/DoG4").Value);
+                
+            }
+            else
+            {
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG2").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG3").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG4").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/DoG5").Value);
+            }
             Texture2D tx = list[(counter / 6) % list.Count];
             if (Projectile.velocity.X > -2 && Projectile.velocity.X < 2f)
             {

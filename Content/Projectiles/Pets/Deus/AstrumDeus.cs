@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CalamityEntropy.Content.Buffs.Pets;
+using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,6 +31,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            bool hat = Projectile.owner.ToPlayer().Entropy().PetsHat;
             if (Main.gameMenu) {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus").Value;
                 Main.spriteBatch.Draw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
@@ -37,11 +39,22 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
                 return false;
             }
             List<Texture2D> list = new List<Texture2D>();
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus2").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus3").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus4").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus5").Value);
+            if (hat)
+            {
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/s/AstrumDeus").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/s/AstrumDeus2").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/s/AstrumDeus3").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/s/AstrumDeus4").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/s/AstrumDeus5").Value);
+            }
+            else
+            {
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus2").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus3").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus4").Value);
+                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus5").Value);
+            }
             Texture2D tx = list[(counter / 6) % list.Count];
             if (Projectile.velocity.X > -2 && Projectile.velocity.X < 2f)
             {

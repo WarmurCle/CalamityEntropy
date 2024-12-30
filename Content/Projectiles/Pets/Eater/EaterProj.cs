@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Eater
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            
+            bool hat = Projectile.owner.ToPlayer().Entropy().PetsHat;
             if (Main.gameMenu) {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/fly1").Value;
                 Main.spriteBatch.Draw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
@@ -45,16 +45,33 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Eater
             }
             if (Projectile.ai[1] == 1)
             {
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/fly1").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/fly2").Value);
+                if (hat)
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/s/fly1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/s/fly2").Value);
+                }
+                else
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/fly1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/fly2").Value);
+                }
             }
             else
             {
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/walk1").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/walk2").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/walk3").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/walk4").Value);
-
+                if (hat)
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/s/walk1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/s/walk2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/s/walk3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/s/walk4").Value);
+                }
+                else
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/walk1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/walk2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/walk3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Eater/walk4").Value);
+                }
             }
             Texture2D tx = list[(((int)counter / 6) % list.Count)];
             if (Projectile.velocity.X > -2 && Projectile.velocity.X < 2f)

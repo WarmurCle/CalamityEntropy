@@ -67,10 +67,10 @@ namespace CalamityEntropy.Content.Projectiles
         {
             overPlayers.Add(index);
         }
-        
+
         public override void AI()
         {
-            if(Projectile.timeLeft % 60 == 0)
+            if (Projectile.timeLeft % 60 == 0)
             {
                 Projectile.netUpdate = true;
             }
@@ -139,50 +139,48 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             immute--;
-            if (Projectile.owner == Main.myPlayer)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                foreach (Projectile p in Main.ActiveProjectiles)
+                if (p.active && p.ModProjectile is not PoopProj && p.damage > 0 && p.ModProjectile is not BlueFlies && p.ModProjectile is not Flame && p.type != ProjectileID.SilverCoin && p.type != ProjectileID.GoldCoin && p.type != ProjectileID.PlatinumCoin)
                 {
-                    if (p.active && p.ModProjectile is not PoopProj && p.damage > 0 && p.ModProjectile is not BlueFlies && p.ModProjectile is not Flame && p.type != ProjectileID.SilverCoin && p.type != ProjectileID.GoldCoin && p.type != ProjectileID.PlatinumCoin)
+                    if (p.Colliding(p.getRect(), Projectile.getRect()))
                     {
-                        if (p.Colliding(p.getRect(), Projectile.getRect()))
+                        if (p.ModProjectile is PoopBombProjectile pb)
                         {
-                            if (p.ModProjectile is PoopBombProjectile pb)
+                            if (pb.Exp)
                             {
-                                if (pb.Exp)
+                                kill = true;
+                            }
+                        }
+                        else
+                        {
+                            if (p.ModProjectile is FartCloud fc)
+                            {
+                                if (fc.Exp)
                                 {
                                     kill = true;
                                 }
                             }
                             else
                             {
-                                if (p.ModProjectile is FartCloud fc)
+                                if (p.hostile)
                                 {
-                                    if (fc.Exp)
-                                    {
-                                        kill = true;
-                                    }
+                                    p.Kill();
+                                    DamageMe();
                                 }
-                                else
+                                if (p.friendly)
                                 {
-                                    if (p.hostile)
+                                    if (immute <= 0)
                                     {
-                                        p.Kill();
                                         DamageMe();
-                                    }
-                                    if (p.friendly)
-                                    {
-                                        if (immute <= 0)
-                                        {
-                                            DamageMe();
-                                            immute = 10;
-                                        }
+                                        immute = 10;
                                     }
                                 }
                             }
                         }
                     }
                 }
+
             }
         }
         public override bool ShouldUpdatePosition()

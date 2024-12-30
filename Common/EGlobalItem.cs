@@ -79,7 +79,13 @@ namespace CalamityEntropy.Common
             acceleration *= 1 + player.Entropy().VoidCharge * 0.25f;
             
         }
-
+        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        {
+            if(item.type == ItemID.SantaHat)
+            {
+                player.Entropy().cHat = true;
+            }
+        }
         public override bool? UseItem(Item item, Player player)
         {
             if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.axe > 0 || !player.Entropy().TarnishCard)
@@ -90,7 +96,7 @@ namespace CalamityEntropy.Common
             if (mp.BlackFlameCd <= 0 && player.whoAmI == Main.myPlayer)
             {
                 mp.BlackFlameCd = 4;
-                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 3, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 5 + 1, 2, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 5 + 1, 2, player.whoAmI);
             }
             return null;
         }
@@ -911,6 +917,10 @@ namespace CalamityEntropy.Common
             if (item.type == ModContent.ItemType<AquaticScourgeBag>())
             {
                 itemLoot.Add(ModContent.ItemType<AquaticFlute>(), new Fraction(1, 4));
+            }
+            if (item.type == ModContent.ItemType<DesertScourgeBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<DustyWhistle>(), new Fraction(1, 5));
             }
             if (item.type == ModContent.ItemType<CalamitasCloneBag>())
             {

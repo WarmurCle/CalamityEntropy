@@ -228,7 +228,7 @@ namespace CalamityEntropy.Common
                             if (projectile.type != ModContent.ProjectileType<TwistedTwinMinion>())
                             {
                                 projectile.scale *= 0.8f;
-                                projectile.Entropy().ttindex = plr.Entropy().twinSpawnIndex;
+                                ttindex = plr.Entropy().twinSpawnIndex;
                                 projectile.netUpdate = true;
 
                                 Projectile projts = projectile;
@@ -385,7 +385,7 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
-            if (projectile.Entropy().ttindex>= 0 && projectile.owner >= 0)
+            if (projectile.Entropy().ttindex >= 0)
             {
                 if (netsnc)
                 {
@@ -393,7 +393,7 @@ namespace CalamityEntropy.Common
                     netsnc = false;
                 }
                 playerPosL = projectile.owner.ToPlayer().Center;
-                projectile.owner.ToPlayer().Center = projectile.Entropy().ttindex.ToProj_Identity().Center;
+                projectile.owner.ToPlayer().Center = ttindex.ToProj_Identity().Center;
             }
             projectile.Entropy().counter++;
             projectile.Entropy().odp.Add(projectile.Center);
@@ -484,20 +484,14 @@ namespace CalamityEntropy.Common
                 Main.player[0].velocity = plrOldVel.Value;
                 plrOldVel = null;
             }
-            if(projectile.friendly && projectile.owner >= 0)
+            if (projectile.owner >= 0)
             {
                 if (projectile.Entropy().ttindex >= 0)
                 {
                     projectile.owner.ToPlayer().Center = playerPosL;
                 }
-                else
-                {
-                    if (projectile.owner == Main.myPlayer)
-                    {
-                        ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
-                    }
-                }
             }
+            
         }
         public static bool CircleIntersectsRectangle(Vector2 circleCenter, float radius, Rectangle rectangle)
         {
@@ -522,17 +516,17 @@ namespace CalamityEntropy.Common
             {
                 projectile.ModProjectile.PostDraw(lightColor);
             }
-            if (projectile.Entropy().OnProj >= 0 && projectile.owner >= 0)
+            if (ttindex >= 0 && projectile.owner >= 0 && lastCenter != Vector2.Zero)
             {
                 projectile.owner.ToPlayer().Center = lastCenter;
             }
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
-            if (projectile.Entropy().OnProj >= 0 && projectile.owner >= 0 && projectile.friendly)
+            if (ttindex >= 0 && projectile.friendly)
             {
                 lastCenter = projectile.owner.ToPlayer().Center;
-                projectile.owner.ToPlayer().Center = projectile.Entropy().OnProj.ToProj_Identity().Center;
+                projectile.owner.ToPlayer().Center = ttindex.ToProj_Identity().Center;
             }
             Texture2D tx;
             if (projectile.Entropy().DI)
@@ -639,30 +633,6 @@ namespace CalamityEntropy.Common
         {
             if (projectile.friendly)
             {
-                if (projectile.Entropy().OnProj >= 0)
-                {
-                    projectile.owner.ToPlayer().Center = playerPosL;
-                }
-                else
-                {
-                    if (projectile.friendly && projectile.owner >= 0)
-                    {
-                        if (projectile.owner == Main.myPlayer)
-                        {
-                            ModContent.GetInstance<EModSys>().LastPlayerPos = projectile.owner.ToPlayer().Center;
-                        }
-                    }
-                }
-                if (plrOldPos.HasValue)
-                {
-                    Main.player[0].position = plrOldPos.Value;
-                    plrOldPos = null;
-                }
-                if (plrOldVel.HasValue)
-                {
-                    Main.player[0].velocity = plrOldVel.Value;
-                    plrOldVel = null;
-                }
                 if (vdtype == 4)
                 {
                     for (int i = 0; i < 2; i++)

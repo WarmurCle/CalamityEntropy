@@ -881,6 +881,21 @@ Items: {
 			'''
 		DisplayName: Broken Ankh
 	}
+
+	DustyWhistle: {
+		DisplayName: Dusty Whistle
+		Tooltip: ""
+	}
+
+	AquaticAmulet: {
+		DisplayName: Aquatic Amulet
+		Tooltip: ""
+	}
+
+	NetherRift: {
+		DisplayName: Nether Rift
+		Tooltip: ""
+	}
 }
 
 DeathMode: Death Mode
@@ -1055,6 +1070,8 @@ Projectiles: {
 	PoopRainbowProjectile.DisplayName: Poop Rainbow Projectile
 	PoopWulfrumProjectile.DisplayName: Poop Wulfrum Projectile
 	PoopVoidProjectile.DisplayName: Poop Void Projectile
+	DSPet.DisplayName: D S Pet
+	NetherRiftBlade.DisplayName: Nether Rift Blade
 }
 
 LegendTooltip: - Legend -
@@ -1138,7 +1155,7 @@ Buffs: {
 
 	MelonCatBuff: {
 		Description: ""
-		DisplayName: Melon Cat Buff
+		DisplayName: Melon Cat
 	}
 
 	DevourersAssassin: {
@@ -1182,7 +1199,7 @@ Buffs: {
 	}
 
 	WumBuff: {
-		DisplayName: Wum Buff
+		DisplayName: Wum
 		Description: Wum will follow you
 	}
 
@@ -1192,8 +1209,18 @@ Buffs: {
 	}
 
 	VoidCandleBuff: {
-		DisplayName: Void Candle Buff
-		Description: Mods.CalamityEntropy.Buffs.VoidCandleBuff.Description
+		DisplayName: Void Candle
+		Description: ""
+	}
+
+	DustyWhistleBuff: {
+		Description: ""
+		DisplayName: Dusty Whistle
+	}
+
+	AquaticAmuletBuff: {
+		Description: ""
+		DisplayName: Aquatic Amulet
 	}
 }
 

@@ -5,6 +5,7 @@ using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -35,6 +36,10 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
         {
             if (Main.gameMenu) {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly1").Value;
+                if (Projectile.owner.ToPlayer().Entropy().PetsHat)
+                {
+                    txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/fly1").Value;
+                }
                 Main.spriteBatch.Draw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
                 return false;
@@ -47,23 +52,50 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
             }
             if (Projectile.ai[1] == 1)
             {
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly1").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly2").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly3").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly4").Value);
+                if (Projectile.owner.ToPlayer().Entropy().PetsHat)
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/fly1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/fly2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/fly3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/fly4").Value);
+                }
+                else
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly4").Value);
+                }
+                
             }
             else
             {
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/walk1").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/walk2").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/walk3").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/walk4").Value);
-
+                if (Projectile.owner.ToPlayer().Entropy().PetsHat)
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/walk1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/walk2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/walk3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/walk4").Value);
+                }
+                else
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/walk1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/walk2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/walk3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/walk4").Value);
+                }
             }
             Texture2D tx = list[(((int)counter / 6) % list.Count)];
             if(afkFrame > 0)
             {
-                tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/afk" + afkFrame.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                if (Projectile.owner.ToPlayer().Entropy().PetsHat)
+                {
+                    tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/s/afk" + afkFrame.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                }
+                else
+                {
+                    tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/afk" + afkFrame.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                }
             }
             if (Projectile.velocity.X > -2 && Projectile.velocity.X < 2f)
             {
@@ -178,9 +210,16 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
             player.zephyrfish = false;
             return true;
         }
-
         public override void AI()
         {
+            if (Projectile.owner.ToPlayer().Entropy().PetsHat)
+            {
+                Projectile.height = 54;
+            }
+            else
+            {
+                Projectile.height = 48;
+            }
             Player player = Main.player[Projectile.owner];
             MoveToTarget(player.Center + new Vector2(0, 0));
             if(Projectile.velocity.Length() < 1.2f && Projectile.ai[1] == 0)
@@ -209,7 +248,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
                 afkFrame = 0;
                 afkFrameAdd = 0;
             }
-            if (!player.dead && player.HasBuff(ModContent.BuffType<AquaticChan>()))
+            if (!player.dead && (player.HasBuff(ModContent.BuffType<AquaticChan>()) || player.HasBuff(ModContent.BuffType<AquaticAmuletBuff>())))
             {
                 Projectile.timeLeft = 2;
             }

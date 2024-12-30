@@ -30,6 +30,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.DarkFissure
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            bool hat = Projectile.owner.ToPlayer().Entropy().PetsHat;
             
             if (Main.gameMenu) {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure").Value;
@@ -45,21 +46,48 @@ namespace CalamityEntropy.Content.Projectiles.Pets.DarkFissure
             }
             if (Projectile.ai[1] == 1)
             {
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure2").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure3").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure4").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure5").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure6").Value);
+                if (hat)
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/DarkFissure").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/DarkFissure2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/DarkFissure3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/DarkFissure4").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/DarkFissure5").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/DarkFissure6").Value);
+
+                }
+                else
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure4").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure5").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/DarkFissure6").Value);
+
+                }
             }
             else
             {
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk1").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk2").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk3").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk4").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk5").Value);
-                list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk6").Value);
+                if (hat)
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/walk1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/walk2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/walk3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/walk4").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/walk5").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/s/walk6").Value);
+
+                }
+                else
+                {
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk1").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk2").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk3").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk4").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk5").Value);
+                    list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DarkFissure/walk6").Value);
+                }
             }
             Texture2D tx = list[(((int)counter / 6) % list.Count)];
             if (Projectile.velocity.X > -2 && Projectile.velocity.X < 2f)
@@ -158,7 +186,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.DarkFissure
                     Projectile.direction = -1;
                 }
 
-                if (Math.Abs(Projectile.velocity.X) > 0.3f && !Util.Util.isAir(Projectile.Center + (Projectile.velocity * new Vector2(1, 0)).SafeNormalize(Vector2.Zero) * 14 + new Vector2(0, 23)))
+                if (Math.Abs(Projectile.velocity.X) > 0.3f && !Util.Util.isAir(Projectile.Center + (Projectile.velocity * new Vector2(1, 0)).SafeNormalize(Vector2.Zero) * 14 + new Vector2(0, 18)))
                 {
                     Projectile.velocity.Y -= 1.5f;
                 }
