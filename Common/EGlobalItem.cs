@@ -79,13 +79,26 @@ namespace CalamityEntropy.Common
             acceleration *= 1 + player.Entropy().VoidCharge * 0.25f;
             
         }
-        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        public override void UpdateEquip(Item item, Player player)
         {
             if(item.type == ItemID.SantaHat)
             {
                 player.Entropy().cHat = true;
             }
+            if (armorPrefix != null)
+            {
+                armorPrefix.updateEquip(player, item);
+                player.statDefense += (int)(Math.Round(item.defense * armorPrefix.AddDefense()));
+            }
         }
+        public override void UpdateVanity(Item item, Player player)
+        {
+            if (item.type == ItemID.SantaHat)
+            {
+                player.Entropy().cHat = true;
+            }
+        }
+
         public override bool? UseItem(Item item, Player player)
         {
             if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.axe > 0 || !player.Entropy().TarnishCard)
@@ -130,14 +143,6 @@ namespace CalamityEntropy.Common
                 armorPrefixName = tag.Get<string>("ArmorPrefix");
                 ArmorPrefix result = ArmorPrefix.findByName(armorPrefixName);
                 armorPrefix = result;
-            }
-        }
-        public override void UpdateEquip(Item item, Player player)
-        {
-            if (armorPrefix != null)
-            {
-                armorPrefix.updateEquip(player, item);
-                player.statDefense += (int)(Math.Round(item.defense * armorPrefix.AddDefense()));
             }
         }
         public override void NetSend(Item item, BinaryWriter writer)

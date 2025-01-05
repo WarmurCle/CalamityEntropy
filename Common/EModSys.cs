@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
@@ -118,6 +119,12 @@ namespace CalamityEntropy.Common
                 Main.instance.IsMouseVisible = true;
             }
         }
+        public void drawChargeBar(Vector2 center, float prog, Color color)
+        {
+            Texture2D bar = ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/ui_chargebar").Value;
+            Main.spriteBatch.Draw(bar, center, new Rectangle(0, 0, 54, 12), Color.White, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bar, center, new Rectangle(0, 14, 4 + (int)Math.Round(46 * prog), 12), color, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
+        }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             foreach (GameInterfaceLayer layer in layers)
@@ -133,6 +140,21 @@ namespace CalamityEntropy.Common
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Void Charge Bar", () =>
                 {
                     DrawVoidChargeBar(Main.spriteBatch);
+                    return true;
+                }, InterfaceScaleType.None));
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Other Charge Bars", () =>
+                {
+                    int baroffsety = 84;
+                    if (Main.LocalPlayer.Entropy().mawOfVoidCharge > 0)
+                    {
+                        drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.Entropy().mawOfVoidCharge, Color.Red);
+                        baroffsety += 20;
+                    }
+                    if (Main.LocalPlayer.Entropy().revelationCharge > 0)
+                    {
+                        drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.Entropy().revelationCharge, new Color(255, 255, 190));
+                        baroffsety += 20;
+                    }
                     return true;
                 }, InterfaceScaleType.None));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Poop UI", () =>

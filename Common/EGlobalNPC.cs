@@ -66,6 +66,7 @@ namespace CalamityEntropy.Common
         public Vector2? plrOldPos3 = null;
         public Vector2? plrOldVel3 = null;
         public int applyMarkedOfDeath = 0;
+        
         public override void PostAI(NPC npc)
         {
             if(applyMarkedOfDeath > 0)
@@ -595,19 +596,24 @@ namespace CalamityEntropy.Common
             {
                 if (Main.bloodMoon)
                 {
-                    if (Main.rand.NextBool(220))
+                    if (Main.rand.NextBool(300))
                     {
                         Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CrimsonNight>()));
                     }
                 }
                 Player n = null;
+                Player h = null;
                 foreach (Player plr in Main.player)
                 {
                     if (plr.active && Util.Util.getDistance(plr.Center, npc.Center) < 4000)
                     {
                         if (plr.ZoneHallow)
                         {
-                            n = plr; break;
+                            n = plr;
+                        }
+                        if (plr.Center.Y / 16 > Main.UnderworldLayer)
+                        {
+                            h = plr;
                         }
                     }
                 }
@@ -616,6 +622,17 @@ namespace CalamityEntropy.Common
                     if (Main.rand.NextBool(70))
                     {
                         Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<HolyMantle>()));
+                    }
+                    if (Main.rand.NextBool(80) && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+                    {
+                        Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<TheRevelation>()));
+                    }
+                }
+                if(h != null)
+                {
+                    if (Main.rand.NextBool(30) && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+                    {
+                        Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<MawOfTheVoid>()));
                     }
                 }
             }

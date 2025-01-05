@@ -954,6 +954,26 @@ Items: {
 		DisplayName: 幽冥裂刃
 		Tooltip: ""
 	}
+
+	MawOfTheVoid: {
+		Tooltip:
+			'''
+			长按鼠标使用武器时蓄力，蓄力满时松开鼠标释放一个黑色激光圈，每3帧造成225点伤害
+			“吞噬汝敌！”
+			'''
+		DisplayName: 虚空之喉
+	}
+
+	TheRevelation: {
+		Tooltip:
+			'''
+			长按鼠标使用武器时蓄力，蓄力满时松开鼠标释放一道圣光，每3帧造成200点伤害
+			视为翅膀
+			飞行时按住下以悬停
+			“唤醒你的信仰”
+			'''
+		DisplayName: 终末天启
+	}
 }
 
 DeathMode: 死亡模式
@@ -1129,7 +1149,9 @@ Projectiles: {
 	PoopWulfrumProjectile.DisplayName: 钨钢大便
 	PoopVoidProjectile.DisplayName: 虚渺大便
 	DSPet.DisplayName: 小荒灾
-	// NetherRiftBlade.DisplayName: Nether Rift Blade
+	NetherRiftBlade.DisplayName: 虚空裂刃
+	BloodRing.DisplayName: 虚空黑圈
+	HolyBeamRevelation.DisplayName: 圣光
 }
 
 LegendTooltip: - 传奇物品 -

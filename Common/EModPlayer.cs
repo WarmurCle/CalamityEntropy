@@ -93,15 +93,16 @@ namespace CalamityEntropy.Common
         public bool _holdingPoop;
         public int holyGroundTime = 0;
         public float dodgeChance = 0;
-        public bool holdingPoop { get { return _holdingPoop; }set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
+        public bool mawOfVoid = false;
+        public bool holdingPoop { get { return _holdingPoop; } set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
-        public float VoidCharge 
-        { 
-            get { return voidcharge; } 
-            set { 
-                if (value < voidcharge) { 
+        public float VoidCharge
+        {
+            get { return voidcharge; }
+            set {
+                if (value < voidcharge) {
                     voidcharge = value;
-                } else if (vfcd <= 0) { 
+                } else if (vfcd <= 0) {
                     voidcharge = value; vfcd = 8;
                 }
             }
@@ -110,19 +111,19 @@ namespace CalamityEntropy.Common
         public bool LastStand = false;
         public int lastStandCd = 0;
 
-        
+
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
-            if(immune > 0)
+            if (immune > 0)
             {
-                if(Player.statLife < 6)
+                if (Player.statLife < 6)
                 {
                     Player.statLife = 6;
                 }
                 return false;
             }
-            if(SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            if (SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
             {
                 SacredJudgeShields -= 1;
                 if (Player.statLife < 6)
@@ -141,12 +142,12 @@ namespace CalamityEntropy.Common
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/holyshield_shatter") { Volume = 0.6f }, Player.Center);
                 return false;
             }
-            
+
             return true;
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            voidcharge = 0;VoidInspire = 0;lastStandCd = 0;mantleCd = 0;magiShieldCd = 0;sJudgeCd = 2;
+            voidcharge = 0; VoidInspire = 0; lastStandCd = 0; mantleCd = 0; magiShieldCd = 0; sJudgeCd = 2;
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -169,7 +170,7 @@ namespace CalamityEntropy.Common
         public bool SCrown;
 
         public int VoidInspire = 0;
-        
+
         public bool GreedCard = false;
         public bool FrailCard = false;
         public bool BarrenCard = false;
@@ -190,8 +191,21 @@ namespace CalamityEntropy.Common
         public float enhancedMana = 0;
         public bool sacrMask = false;
         public int voidshadeBoostTime = 0;
+        public float mawOfVoidCharge = 0;
+        public bool mawOfVoidUsing = false;
+
+        public bool revelation = false;
+        public float revelationCharge = 0;
+        public bool revelationUsing = false;
+        public bool isUsingItem()
+        {
+            return Main.mouseLeft && !EModSys.noItemUse && !Main.isMouseLeftConsumedByUI && Player.HeldItem.damage > 0 && Player.HeldItem.active;
+        }
+
         public override void ResetEffects()
         {
+            mawOfVoid = false;
+            revelation = false;
             cHat = false;
             dodgeChance = 0;
             sacrMask = false;
@@ -281,6 +295,109 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<BloodRing>()] > 0)
+            {
+                Player.headRotation = MathHelper.ToRadians(45);
+            }
+            if (Main.myPlayer == Player.whoAmI)
+            {
+                if (mawOfVoid)
+                {
+                    if (mawOfVoidUsing)
+                    {
+                        mawOfVoidCharge -= 1f / 60f;
+                        if (mawOfVoidCharge <= 0)
+                        {
+                            mawOfVoidCharge = 0;
+                            mawOfVoidUsing = false;
+                        }
+                    }
+                    else
+                    {
+                        if (isUsingItem())
+                        {
+                            mawOfVoidCharge += 0.01f;
+                            if (mawOfVoidCharge >= 1)
+                            {
+                                mawOfVoidCharge = 1;
+                                if (Main.mouseRight)
+                                {
+                                    mawOfVoidUsing = true;
+                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(225), 0, Player.whoAmI);
+                                }   
+                            }
+                        }
+                        else
+                        {
+                            if (mawOfVoidCharge == 1)
+                            {
+                                mawOfVoidUsing = true;
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(225), 0, Player.whoAmI);
+                            }
+                            else
+                            {
+                                mawOfVoidCharge -= 0.01f;
+                                if (mawOfVoidCharge <= 0)
+                                {
+                                    mawOfVoidCharge = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    mawOfVoidCharge = 0;
+                }
+                if (revelation)
+                {
+                    if (revelationUsing)
+                    {
+                        revelationCharge -= 1f / 60f;
+                        if (revelationCharge <= 0)
+                        {
+                            revelationCharge = 0;
+                            revelationUsing = false;
+                        }
+                    }
+                    else
+                    {
+                        if (isUsingItem())
+                        {
+                            revelationCharge += 0.01f;
+                            if (revelationCharge >= 1)
+                            {
+                                revelationCharge = 1;
+                                if (Main.mouseRight)
+                                {
+                                    revelationUsing = true;
+                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(200), 0, Player.whoAmI);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (revelationCharge == 1)
+                            {
+                                revelationUsing = true;
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(200), 0, Player.whoAmI);
+                            }
+                            else
+                            {
+                                revelationCharge -= 0.01f;
+                                if (revelationCharge <= 0)
+                                {
+                                    revelationCharge = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    revelationCharge = 0;
+                }
+            }
             if(holyGroundTime > 0)
             {
                 holyGroundTime--;

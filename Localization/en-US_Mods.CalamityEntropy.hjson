@@ -296,7 +296,7 @@ Items: {
 			+15% Attack Speed
 			+30% Move Speed
 			+20 Max Stealth
-			-60% Mana COsr
+			-60% Mana Cost
 			-20% Damage Taken
 			+10 Armor Penetration
 			+3 Minion Slot
@@ -896,6 +896,30 @@ Items: {
 		DisplayName: Nether Rift
 		Tooltip: ""
 	}
+
+	MawOfTheVoid: {
+		Tooltip:
+			'''
+			Charging when using weapons,
+			when it is fully charged, release the mouse button to release a black laser ring
+			deals 225 damage every 3 frames
+			"Consume thy enemy!"
+			'''
+		DisplayName: Maw Of The Void
+	}
+
+	TheRevelation: {
+		Tooltip:
+			'''
+			Charging when using weapons,
+			when it is fully charged, release the mouse button to release a holy beam
+			deals 200 damage every 3 frames
+			Regarded as wing
+			hold [down] when flying to hover
+			"Awaken your faith"
+			'''
+		DisplayName: The Revelation
+	}
 }
 
 DeathMode: Death Mode
@@ -1072,6 +1096,8 @@ Projectiles: {
 	PoopVoidProjectile.DisplayName: Poop Void Projectile
 	DSPet.DisplayName: D S Pet
 	NetherRiftBlade.DisplayName: Nether Rift Blade
+	BloodRing.DisplayName: Blood Ring
+	HolyBeamRevelation.DisplayName: Holy Beam Revelation
 }
 
 LegendTooltip: - Legend -
