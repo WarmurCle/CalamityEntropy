@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.ArmorPrefixes;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +13,7 @@ namespace CalamityEntropy.Content.UI
 {
     public class ArmorForgingStationUI : UIState
     {
+        public UIImageButton reforgeButton;
         public int ReforgeCD = 0;
         Terraria.Item[] item;
         UIText text;
@@ -43,7 +45,7 @@ namespace CalamityEntropy.Content.UI
             panel.Append(text);
 
             //用tr原版图片实例化一个图片按钮
-            UIImageButton reforgeButton = new UIImageButton(ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/reforge1"));
+            reforgeButton = new UIImageButton(ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/reforge1"));
             //设置按钮距宽度
             reforgeButton.Width.Set(30f, 0f);
             //设置按钮高度
@@ -51,7 +53,7 @@ namespace CalamityEntropy.Content.UI
             reforgeButton.Left.Set(2f, 0f);
             reforgeButton.Top.Set(20f, 0f);
             reforgeButton.OnLeftMouseDown += reforge;
-            
+
             reforgeButton.SetHoverImage(ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/reforge2"));
             //将按钮注册入面板中，这个按钮的坐标将以面板的坐标为基础计算
             panel.Append(reforgeButton);
@@ -83,12 +85,20 @@ namespace CalamityEntropy.Content.UI
                 text.SetText("");
             }
             ReforgeCD--;
+            if (reforgeButton.IsMouseHovering)
+            {
+                Main.isMouseLeftConsumedByUI = true;
+                Main.mouseLeft = false;
+                EModSys.noItemUse = true;
+            }
             base.Update(gameTime);
         }
         public static bool Visible = false;
         private void reforge(UIMouseEvent evt, UIElement listeningElement)
         {
+            Main.isMouseLeftConsumedByUI = true;
             Main.mouseLeft = false;
+            EModSys.noItemUse = true;
             if ((!item[0].active) || (!Util.Util.IsArmor(item[0])) || ReforgeCD > 0)
             {
                 return;

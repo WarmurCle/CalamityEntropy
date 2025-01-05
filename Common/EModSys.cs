@@ -24,15 +24,15 @@ namespace CalamityEntropy.Common
         }
         public override void UpdateUI(GameTime gameTime)
         {
+            noItemUse = false;
             counter += 1f;
             if (ArmorForgingStationUI.Visible)
             {
                 CalamityEntropy.Instance.userInterface?.Update(gameTime);
-
             }
-            base.UpdateUI(gameTime);
+            
         }
-        
+        public static bool noItemUse = false;
         public override void PostUpdateDusts()
         {
             CalamityEntropy.blackMaskTime--;

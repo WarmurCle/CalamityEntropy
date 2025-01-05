@@ -1085,7 +1085,12 @@ namespace CalamityEntropy.Common
                                     n.defense = 0;
                                     float or = n.Calamity().DR;
                                     n.Calamity().DR = 0;
-                                    Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(Util.CUtil.rougeDC).ApplyTo(460 + 50 * (2 + daCount)), 0, 0, false, Util.CUtil.rougeDC);
+                                    int dmg = 0;
+                                    for (int i = daCount; i > 0; i--)
+                                    {
+                                        dmg += 460 + 50 * i;
+                                    }
+                                    Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(Util.CUtil.rougeDC).ApplyTo(dmg), 0, 0, false, Util.CUtil.rougeDC);
                                     n.defense = od;
                                     n.Calamity().DR = or;
                                 }

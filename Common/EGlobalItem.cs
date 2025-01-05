@@ -261,6 +261,10 @@ namespace CalamityEntropy.Common
         
         public override bool CanUseItem(Item item, Player player)
         {
+            if (EModSys.noItemUse)
+            {
+                return false;
+            }
             if (player.HasBuff(ModContent.BuffType<StealthState>()) || player.Entropy().DarkArtsTarget.Count > 0 || player.Entropy().noItemTime > 0)
             {
                 return false;
