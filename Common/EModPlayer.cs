@@ -295,10 +295,6 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<BloodRing>()] > 0)
-            {
-                Player.headRotation = MathHelper.ToRadians(45);
-            }
             if (Main.myPlayer == Player.whoAmI)
             {
                 if (mawOfVoid)
@@ -1270,6 +1266,13 @@ namespace CalamityEntropy.Common
                 r = 0.2f;
                 g = 0.2f;
                 b = 0.2f;
+            }
+        }
+        public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<BloodRing>()] > 0)
+            {
+                Player.headRotation = MathHelper.ToRadians(Player.direction * -(45 + 16f * (float)(Math.Cos(Main.GameUpdateCount * 0.1f))));
             }
         }
         public override void HideDrawLayers(PlayerDrawSet drawInfo)
