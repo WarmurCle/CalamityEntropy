@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float back = -36;
         public int up = 0;
-        
+        bool shooted = false;
         public override void AI()
         {
             back *= 0.9f;
@@ -78,11 +78,16 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (frame == 8 && Projectile.owner == Main.myPlayer)
             {
-                int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 120, Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<MercyShoot>(), Projectile.damage, 0, Projectile.owner, 0, 0, Projectile.whoAmI);
-                p.ToProj().rotation = Projectile.rotation;
-                p.ToProj().scale = Projectile.scale;
-                p.ToProj().netUpdate = true;
+                if (!shooted || true)
+                {
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 120, Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<MercyShoot>(), Projectile.damage, 0, Projectile.owner, 0, 0, Projectile.whoAmI);
+                    //int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 120, Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<Brimstone>(), Projectile.damage, 0, Projectile.owner, 0, 1.2f, Projectile.whoAmI);
 
+                    p.ToProj().rotation = Projectile.rotation;
+                    p.ToProj().scale = Projectile.scale;
+                    p.ToProj().netUpdate = true;
+                    shooted = true;
+                }
             }
             if (Projectile.ai[0] != 13 || !Projectile.owner.ToPlayer().channel)
             {
@@ -95,7 +100,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.owner == Main.myPlayer)
             {
-                Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
+                Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseWorld - Projectile.Center).ToRotation(), 0.2f, false);
                 Projectile.netUpdate = true;
                 rp = Projectile.rotation;
 

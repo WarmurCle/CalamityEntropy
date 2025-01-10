@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (playSound)
             {
                 playSound = false;
-                Util.Util.PlaySound("angel_blast1", 1, Projectile.Center, 8);
+                Util.Util.PlaySound("angel_blast1", 1, Projectile.Center, 8, 0.6f);
             }
             Projectile.Center = Projectile.owner.ToPlayer().Center + Projectile.owner.ToPlayer().gfxOffY * Vector2.UnitY;
             Projectile.rotation = Projectile.velocity.ToRotation();

@@ -974,6 +974,16 @@ Items: {
 			'''
 		DisplayName: 终末天启
 	}
+
+	MosHat: {
+		Tooltip: ""
+		DisplayName: Mo的帽子
+	}
+
+	AnimaSola: {
+		// Tooltip: ""
+		// DisplayName: Anima Sola
+	}
 }
 
 DeathMode: 死亡模式
@@ -1152,6 +1162,8 @@ Projectiles: {
 	NetherRiftBlade.DisplayName: 虚空裂刃
 	BloodRing.DisplayName: 虚空黑圈
 	HolyBeamRevelation.DisplayName: 圣光
+	// PsyFlyProj.DisplayName: Psy Fly Proj
+	// AnimaChain.DisplayName: Anima Chain
 }
 
 LegendTooltip: - 传奇物品 -

@@ -1,3 +1,5 @@
+using Terraria;
+
 namespace CalamityEntropy.Content.ILEditing
 {
     public static class EModILEdit

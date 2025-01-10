@@ -14,6 +14,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             Main.npcFrameCount[NPC.type] = 1;
             this.HideFromBestiary();
+            NPCID.Sets.MPAllowedEnemies[Type] = true;
         }
         public Vector2 lastPos;
         public Vector2 vel = new Vector2();

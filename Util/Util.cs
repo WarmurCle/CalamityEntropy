@@ -17,7 +17,21 @@ namespace CalamityEntropy.Util
     public static class Util {
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
 
+        public static float GetAngleBetweenVectors(Vector2 vector1, Vector2 vector2)
+        {
+            // ¼ÆËãµã»ý
+            float dotProduct = Vector2.Dot(vector1, vector2);
 
+            float magnitude1 = vector1.Length();
+            float magnitude2 = vector2.Length();
+
+            float cosTheta = dotProduct / (magnitude1 * magnitude2);
+
+            float angleInRadians = (float)Math.Acos(cosTheta);
+
+
+            return angleInRadians;
+        }
         public static Vector2 GetSymmetryPoint(this Vector2 point, Vector2 linePoint1, Vector2 linePoint2)
         {
             return point.ClosestPointOnLine(linePoint1, linePoint2) + point.ClosestPointOnLine(linePoint1, linePoint2) - point;
@@ -34,10 +48,11 @@ namespace CalamityEntropy.Util
             }
         }
 
-        public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 4)
+        public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 4, float volume = 1)
         {
             SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/" + name);
             s.Pitch = pitch - 1;
+            s.Volume = volume;
             s.MaxInstances = maxIns;
             SoundEngine.PlaySound(in s, pos);
         }
@@ -195,6 +210,73 @@ namespace CalamityEntropy.Util
         {
             return Main.projectile[ins];
         }
+        public static float getRotateAngle(float rNow, float rTo, float rotateSpeed, bool sameSpeed = true)
+        {
+            float angleNow = MathHelper.ToDegrees(rNow);
+            float angleTo = MathHelper.ToDegrees(rTo);
+            if (angleNow > 180)
+            {
+                while (angleNow > 180)
+                {
+                    angleNow -= 360;
+                }
+            }
+            if (angleNow < -180)
+            {
+                while (angleNow < -180)
+                {
+                    angleNow += 360;
+                }
+            }
+            if (angleTo > 180)
+            {
+                while (angleTo > 180)
+                {
+                    angleTo -= 360;
+                }
+            }
+            if (angleTo < -180)
+            {
+                while (angleTo < -180)
+                {
+                    angleTo += 360;
+                }
+            }
+            //Main.NewText(angleNow.ToString() + "  " + angleTo.ToString(), 255, 255, 0);
+            float tz = 0;
+            if (Math.Abs(angleNow + 360 - angleTo) < Math.Abs(angleTo - angleNow))
+            {
+                tz = angleTo - angleNow - 360;
+            }
+            else
+            {
+                if (Math.Abs(angleTo + 360 - angleNow) < Math.Abs(angleTo - angleNow))
+                {
+                    tz = angleTo + 360 - angleNow;
+                }
+                else
+                {
+                    tz = angleTo - angleNow;
+                }
+            }
+            if (sameSpeed)
+            {
+                if (tz > rotateSpeed)
+                {
+                    tz = rotateSpeed;
+                }
+                if (tz < (rotateSpeed * -1))
+                {
+                    tz = rotateSpeed * -1;
+                }
+            }
+            else
+            {
+                tz *= rotateSpeed;
+            }
+            return MathHelper.ToRadians(tz);
+
+        }
         public static float rotatedToAngle(float rNow, float rTo, float rotateSpeed, bool sameSpeed=true){
             float angleNow = MathHelper.ToDegrees(rNow);
             float angleTo = MathHelper.ToDegrees(rTo);
@@ -337,7 +419,7 @@ namespace CalamityEntropy.Util
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
         }
         public static Vector2 getTxP(List<Vector2> points, float p)

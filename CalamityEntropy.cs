@@ -349,10 +349,34 @@ namespace CalamityEntropy
             On_NPC.TargetClosestUpgraded += targetClostUpgraded;
             On_NPC.FindFrame += findFrame;
             On_NPC.VanillaAI += vAi;
+            On_NPC.UpdateNPC += npcupdate;
             On_NPC.StrikeNPC_HitInfo_bool_bool += StrikeNpc;
+            On_Player.getRect += modifyRect;
+            
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
+        }
+
+        private void npcupdate(On_NPC.orig_UpdateNPC orig, NPC self, int i)
+        {
+            if (self.active && self.Entropy().AnimaTrapped > 0)
+            {
+                self.Entropy().AnimaTrapped--;
+                self.position += self.velocity;
+                self.velocity *= 0.9f;
+            }
+            else
+            {
+                orig(self, i);
+            }
+        }
+
+        private Rectangle modifyRect(On_Player.orig_getRect orig, Player self)
+        {
+            return orig(self);
+            //Rectangle or = orig(self);
+            //return new Rectangle(or.Left - 600, or.Top - 400, or.Width, or.Height);
         }
 
         private int StrikeNpc(On_NPC.orig_StrikeNPC_HitInfo_bool_bool orig, NPC self, NPC.HitInfo hit, bool fromNet, bool noPlayerInteraction)
@@ -1606,6 +1630,8 @@ namespace CalamityEntropy
             On_NPC.FindFrame -= findFrame;
             On_NPC.VanillaAI -= vAi;
             On_NPC.StrikeNPC_HitInfo_bool_bool -= StrikeNpc;
+            On_Player.getRect -= modifyRect;
+            On_NPC.UpdateNPC -= npcupdate;
         }
 
     }

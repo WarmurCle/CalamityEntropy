@@ -920,6 +920,16 @@ Items: {
 			'''
 		DisplayName: The Revelation
 	}
+
+	MosHat: {
+		Tooltip: ""
+		DisplayName: Mo's Hat
+	}
+
+	AnimaSola: {
+		Tooltip: ""
+		DisplayName: Anima Sola
+	}
 }
 
 DeathMode: Death Mode
@@ -1098,6 +1108,8 @@ Projectiles: {
 	NetherRiftBlade.DisplayName: Nether Rift Blade
 	BloodRing.DisplayName: Blood Ring
 	HolyBeamRevelation.DisplayName: Holy Beam Revelation
+	PsyFlyProj.DisplayName: Psy Fly Proj
+	AnimaChain.DisplayName: Anima Chain
 }
 
 LegendTooltip: - Legend -

@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Wyrm
         {
             if (Main.gameMenu) {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Wyrm/WyrmChan").Value;
-                Main.spriteBatch.Draw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
+                Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
                 return false;
             }
@@ -58,20 +58,20 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Wyrm
             }
             if (Projectile.direction == 1)
             {
-                Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
+                Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
                 if (lightColor.R + lightColor.G + lightColor.B < 255)
                 {
                     int gr = (255 - (lightColor.R + lightColor.G + lightColor.B));
-                    Main.spriteBatch.Draw(tx2, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255) * ((float)gr / 255), Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
+                    Main.EntitySpriteDraw(tx2, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255) * ((float)gr / 255), Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
                 }
             }
             else
             {
-                Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
                 if (lightColor.R + lightColor.G + lightColor.B < 255)
                 {
                     int gr = (255 - (lightColor.R + lightColor.G + lightColor.B));
-                    Main.spriteBatch.Draw(tx2, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255) * ((float)gr / 255), Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(tx2, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255) * ((float)gr / 255), Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
                 }
             }
 

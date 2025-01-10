@@ -52,6 +52,12 @@ namespace CalamityEntropy.Content.Projectiles
             kill = reader.ReadBoolean();
         }
         public bool kill = false;
+
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            fallThrough = false;
+            return true;
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (BreakWhenHitNPC)
@@ -73,15 +79,6 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.timeLeft % 60 == 0)
             {
                 Projectile.netUpdate = true;
-            }
-            bool onPlat = false;
-            if (!Util.Util.isAir(Projectile.Center + new Vector2(0, Projectile.height / 2 + 1), true))
-            {
-                onPlat = true;
-                if (Projectile.velocity.Y > 0)
-                {
-                    Projectile.velocity.Y = 0;
-                }
             }
             if (kill)
             {
@@ -123,14 +120,12 @@ namespace CalamityEntropy.Content.Projectiles
                     canDamageEnemies = false;
                 }
             }
-            if (!onPlat)
+            Projectile.velocity.Y += 0.82f;
+            if (Projectile.velocity.Y > 15)
             {
-                Projectile.velocity.Y += 0.82f;
-                if (Projectile.velocity.Y > 15)
-                {
-                    Projectile.velocity.Y = 15;
-                }
+                Projectile.velocity.Y = 15;
             }
+            
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.Hitbox.Intersects(Projectile.Hitbox))

@@ -4,6 +4,7 @@ This mod is an expansion of CalamityMod.
 a new boss
 weapons
 Accessories
+new bossbar style
 Armor Prefixes
 some new pet
 Auric toilet that can sit

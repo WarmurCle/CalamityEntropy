@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Main.spriteBatch.End();
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             List<Vertex> ve = new List<Vertex>();
             List<Vector2> points = getPointsRelative(-40);
             List<Vector2> pointsOutside = getPointsRelative(40);

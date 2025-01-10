@@ -14,6 +14,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             Main.npcFrameCount[NPC.type] = 1;
             this.HideFromBestiary();
+            NPCID.Sets.MPAllowedEnemies[Type] = true;
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {

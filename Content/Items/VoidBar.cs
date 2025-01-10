@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items
             ItemID.Sets.SortingPriorityMaterials[Type] = 120;
             ItemID.Sets.AnimatesAsSoul[Type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(5, 13));
+            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(5, 8));
         }
 
 

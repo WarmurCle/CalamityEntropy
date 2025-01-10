@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
@@ -9,6 +10,7 @@ using CalamityMod.NPCs.SlimeGod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SubworldLibrary;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -22,6 +24,12 @@ namespace CalamityEntropy.Common
         public float counter = 0;
         public override void Load()
         {
+        }
+        public override void PostDrawTiles()
+        {
+            /*Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            Util.Util.DrawRectAlt(Main.LocalPlayer.getRect(), Color.Blue, 4, 0);
+            Main.spriteBatch.End();*/
         }
         public override void UpdateUI(GameTime gameTime)
         {

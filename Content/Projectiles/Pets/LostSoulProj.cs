@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             if (Main.gameMenu)
             {
                 
-                Main.spriteBatch.Draw(txd, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(txd, 4, 0), lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
+                Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(txd, 4, 0), lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
                 return false;
             }
@@ -49,12 +49,12 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             if (spawnAnm)
             {
                 txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/LostSoulSpawn").Value;
-                Main.spriteBatch.Draw(txd, Projectile.Center - Main.screenPosition + new Vector2((spawnAnmFrame == 1 ? Main.rand.Next(-4, 5) : 0), (float)Math.Cos((float)dc * 0.06f) * 20), Util.Util.GetCutTexRect(txd, 6, spawnAnmFrame), lightColor * alpha, Projectile.rotation, new Vector2(32, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition + new Vector2((spawnAnmFrame == 1 ? Main.rand.Next(-4, 5) : 0), (float)Math.Cos((float)dc * 0.06f) * 20), Util.Util.GetCutTexRect(txd, 6, spawnAnmFrame), lightColor * alpha, Projectile.rotation, new Vector2(32, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
 
 
                 return false;
             }
-            Main.spriteBatch.Draw(txd, Projectile.Center - Main.screenPosition + new Vector2(0, (float)Math.Cos((float)dc * 0.06f) * 20), Util.Util.GetCutTexRect(txd, 4, (counter / 4) % 4), lightColor * alpha, Projectile.rotation, new Vector2(32, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition + new Vector2(0, (float)Math.Cos((float)dc * 0.06f) * 20), Util.Util.GetCutTexRect(txd, 4, (counter / 4) % 4), lightColor * alpha, Projectile.rotation, new Vector2(32, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
             
 
 

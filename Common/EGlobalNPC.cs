@@ -53,6 +53,7 @@ namespace CalamityEntropy.Common
         public float VoidTouchDR = 0;
         public int vtnoparticle = 0;
         public float damageMul = 1;
+        public int AnimaTrapped = 0;
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;
@@ -114,6 +115,22 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(VoidTouchLevel);
             binaryWriter.Write(VoidTouchTime);
             */
+        }
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            if(AnimaTrapped > 0)
+            {
+                return false;
+            }
+            return base.CanHitPlayer(npc, target, ref cooldownSlot);
+        }
+        public override bool CanHitNPC(NPC npc, NPC target)
+        {
+            if (AnimaTrapped > 0)
+            {
+                return false;
+            }
+            return base.CanHitNPC(npc, target);
         }
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
         {

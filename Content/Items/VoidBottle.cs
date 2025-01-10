@@ -1,7 +1,9 @@
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.Projectiles;
+using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.Items.Materials;
+using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
@@ -42,10 +44,11 @@ namespace CalamityEntropy.Content.Items
 
         public override bool? UseItem(Player player)
         {
+            int type = ModContent.NPCType<CruiserHead>();
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<CruiserHead>());
+                NPC.SpawnOnPlayer(player.whoAmI, type);
             else
-                NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, -1, -1, null, player.whoAmI, ModContent.NPCType<CruiserHead>());
+                NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: type);
             if (player.whoAmI == Main.myPlayer) {
                 Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 5.5f, ModContent.ProjectileType<VoidBottleThrow>(), 0, 0, player.whoAmI);
             }

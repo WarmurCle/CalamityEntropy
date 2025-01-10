@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D light = Util.Util.getExtraTex("lightball");
             Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f * (0.5f + (float)(Math.Cos(Projectile.ai[0] * 0.5f) * 0.5f)), Projectile.rotation, light.Size() / 2, Projectile.scale * 0.8f, SpriteEffects.None, 0);
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D tx = Util.Util.getExtraTex("runes/rune" + ((int)Projectile.ai[1]).ToString());
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * (0.5f + (float)(Math.Cos(Projectile.ai[0] * 0.5f) * 0.5f)), 0, tx.Size() / 2, Projectile.scale, SpriteEffects.None, 0);

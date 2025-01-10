@@ -17,6 +17,7 @@ namespace CalamityEntropy.Content.Projectiles
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 6000;
             base.SetStaticDefaults();
         }
+        public float laserScale = 1f;
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;
@@ -36,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] == 0)
             {
-                Projectile.scale = Projectile.ai[1];
+                laserScale = Projectile.ai[1];
                 
             }
             
@@ -49,9 +50,11 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.scale = 0;
             }
-            Projectile.Center = ((int)Projectile.ai[2]).ToProj().Center + Projectile.rotation.ToRotationVector2() * 16;
             Projectile.rotation = Projectile.velocity.ToRotation();
+            Projectile.Center = ((int)Projectile.ai[2]).ToProj().Center + Projectile.rotation.ToRotationVector2() * 16;
+            
             target = null;
+            velP *= 0.9f;
             if (((int)Projectile.ai[2]).ToProj().type == ModContent.ProjectileType<LilBrimstone>())
             {
                 Projectile opj = ((int)Projectile.ai[2]).ToProj();
@@ -73,13 +76,30 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         target = Main.npc[t];
                     }
-                }
+                }   
                 if (target != null)
                 {
-                    Projectile.velocity = (Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 2, true)).ToRotationVector2();
+                    Vector2 lasstVel = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).SafeNormalize(Vector2.Zero);
+                    float ra = Util.Util.getRotateAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.1f, false);
+                    Vector2 nowVel = (Projectile.velocity.ToRotation() + ra).ToRotationVector2();
+
+                    Projectile.velocity = nowVel;
+                    float rot = Projectile.velocity.ToRotation();
+                    velP = nowVel.RotatedBy(-MathHelper.PiOver2) * ra * 34;// - Projectile.velocity * 6f;
                 }
             }
-            if (ssd)
+            if (((int)Projectile.ai[2]).ToProj().type == ModContent.ProjectileType<HelhieimBlaster>())
+            {
+                Projectile opj = ((int)Projectile.ai[2]).ToProj();
+                Vector2 lasstVel = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).SafeNormalize(Vector2.Zero);
+                Vector2 nowVel = (((int)Projectile.ai[2]).ToProj().rotation).ToRotationVector2();
+
+                Projectile.velocity = nowVel;
+                float rot = Projectile.velocity.ToRotation();
+                velP = nowVel.RotatedBy(-MathHelper.PiOver2) * Util.Util.getRotateAngle(lasstVel.ToRotation(), nowVel.ToRotation(), 1, false) * 54;// - Projectile.velocity * 6f;
+
+            }
+            /*if (ssd)
             {
                 for (int s = 0; s < 60; s++)
                 {
@@ -89,25 +109,31 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 ssd = false;
             }
-            Projectile.ai[0]++;
+            
             points.Insert(0, Projectile.Center);
             prs.Insert(0, Projectile.rotation);
 
             updatePoints();
             points.RemoveAt(points.Count - 1);
-            prs.RemoveAt(points.Count - 1);
+            prs.RemoveAt(points.Count - 1);*/
 
-
+            updatePoints();
+            Projectile.ai[0]++;
         }
+        Vector2 velP = Vector2.Zero;
         public void updatePoints()
         {
-            float speed = 42;
+            /*float speed = 42;
             
             for (int i = points.Count - 1; i >= 0; i--) {
 
                 points[i] += speed * prs[i].ToRotationVector2();
+            }*/
+            points.Clear();
+            for(int i = 0; i < 100; i++)
+            {
+                points.Add(Projectile.Center + new Vector2(i * 20, 0).RotatedBy(Projectile.velocity.ToRotation()) + velP * i * i * 0.08f);
             }
-            
         }
         public override bool ShouldUpdatePosition()
         {
@@ -199,10 +225,10 @@ namespace CalamityEntropy.Content.Projectiles
             
             if (point.Count > 2)
             {
-                Main.spriteBatch.Draw(start, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 5, null, Color.Red, Projectile.rotation, start.Size() / 2, new Vector2(2, Projectile.scale * 2), SpriteEffects.None, 0);
-                Main.spriteBatch.Draw(lend, point[point.Count - 2] - Main.screenPosition + (point[point.Count - 1] - point[point.Count - 2]).ToRotation().ToRotationVector2() * -16, Util.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.Red, (point[point.Count - 1] - point[point.Count - 2]).ToRotation() + (float)Math.PI / 2f, new Vector2(64, 104) / 2, new Vector2(Projectile.scale * 2, 2), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(start, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 5, null, Color.Red, Projectile.rotation, start.Size() / 2, new Vector2(2, Projectile.scale * 2 * laserScale), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(lend, point[point.Count - 2] - Main.screenPosition + (point[point.Count - 1] - point[point.Count - 2]).ToRotation().ToRotationVector2() * -42, Util.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.Red, (point[point.Count - 1] - point[point.Count - 2]).ToRotation() + (float)Math.PI / 2f, new Vector2(64, 104) / 2, new Vector2(Projectile.scale * 2 * (float)(Math.Max(1, laserScale)), 2 * (float)(Math.Max(1, laserScale))), SpriteEffects.None, 0);
 
-                Util.Util.drawLaser(Main.spriteBatch, txl, point, 64, Color.Red, (int)(128 * Projectile.scale), (int)(counter / 3f), Projectile.rotation);
+                Util.Util.drawLaser(Main.spriteBatch, txl, point, (int)(64f / (float)(Math.Max(1, laserScale))), Color.Red, (int)(128 * Projectile.scale * laserScale), (int)(counter / 3f), Projectile.rotation);
                 
             }
             else
