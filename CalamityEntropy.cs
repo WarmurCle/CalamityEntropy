@@ -1149,10 +1149,10 @@ namespace CalamityEntropy
                                 {
                                     float size = 10;
                                     float sizej = size / mp.odp.Count;
-                                    Color cl = new Color(100, 200, 255);
+                                    Color cl = new Color(200, 235, 255);
                                     for (int i = mp.odp.Count - 1; i >= 1; i--)
                                     {
-                                        Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((float)i / (float)mp.odp.Count) * (((float)(255 - p.alpha)) / 255f), size);
+                                        Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * (((float)(255 - p.alpha)) / 255f), size * 0.7f);
                                         size -= sizej;
                                     }
                                 }
@@ -1168,10 +1168,10 @@ namespace CalamityEntropy
                             {
                                 float size = 10;
                                 float sizej = size / mp.odp.Count;
-                                Color cl = new Color(100, 200, 255);
+                                Color cl = new Color(200, 235, 255);
                                 for (int i = mp.odp.Count - 1; i >= 1; i--)
                                 {
-                                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((float)i / (float)mp.odp.Count) * (((float)(255 - p.alpha)) / 255f), size);
+                                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * (((float)(255 - p.alpha)) / 255f), size * 0.7f);
                                     size -= sizej;
                                 }
                             }
