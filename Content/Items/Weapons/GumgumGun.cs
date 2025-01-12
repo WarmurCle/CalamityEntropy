@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 			};*/
 
 			Item.DamageType = ModContent.GetInstance<NoneTypeDamageClass>();
-			Item.damage = 32;
+			Item.damage = 25;
 			Item.knockBack = 0.2f;
 			Item.noMelee = true;
 			Item.Calamity().devItem = true;

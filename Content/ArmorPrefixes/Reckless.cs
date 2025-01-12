@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.GetDamage(DamageClass.Generic) += 0.3f;
+            player.GetDamage(DamageClass.Generic) += 0.07f;
         }
         public override Color getColor()
         {
@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         }
         public override float AddDefense()
         {
-            return -0.5f;
+            return -0.4f;
         }
     }
 }

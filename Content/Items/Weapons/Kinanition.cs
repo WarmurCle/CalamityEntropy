@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 50;
+            Item.damage = 32;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 36;
             Item.height = 110;
@@ -125,10 +125,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                     else
                     {
                         int arrow;
-                        arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage, knockback);
+                        arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback);
                         Main.projectile[arrow].Entropy().Lightning = true;
                         Main.projectile[arrow].penetrate = 5;
-                        arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage, knockback);
+                        arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback);
                         Main.projectile[arrow].Entropy().Lightning = true;
                         Main.projectile[arrow].penetrate = 5;
                     }

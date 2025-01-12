@@ -9,10 +9,10 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.GetDamage(DamageClass.Generic) += 0.3f;
-            player.GetCritChance(DamageClass.Generic) += 15;
-            player.GetKnockback(DamageClass.Generic) += 0.3f;
-            player.Entropy().Thorn += 2f;
+            player.GetDamage(DamageClass.Generic) += 0.1f;
+            player.GetCritChance(DamageClass.Generic) += 6;
+            player.GetKnockback(DamageClass.Generic) += 0.2f;
+            player.Entropy().Thorn += 1f;
             player.Entropy().AttackVoidTouch += 0.1f;
         }
         public override float AddDefense()

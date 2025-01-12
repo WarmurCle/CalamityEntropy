@@ -633,7 +633,11 @@ namespace CalamityEntropy.Common
             Player.statManaMax2 += (int)(Player.statManaMax2 * enhancedMana);
             if (Player.statMana > manaNorm)
             {
-                Player.GetDamage(DamageClass.Magic) += 0.25f;
+                Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.002f;
+            }
+            if (EvilDeck)
+            {
+                lifeRegenPerSec = (int)(lifeRegenPerSec * 0.3f);
             }
 
         }
@@ -1104,7 +1108,7 @@ namespace CalamityEntropy.Common
                     {
                         if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2)
                         {
-                            Main.LocalPlayer.Heal(30);
+                            Main.LocalPlayer.Heal(20);
                         }
                     }
                 }

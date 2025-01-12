@@ -10,7 +10,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Weapons
 {	
 	public class VoidRelics : ModItem
 	{
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items
 		
 		public override void SetDefaults()
 		{
-			Item.damage = 86;
+			Item.damage = 116;
 			Item.crit = 0;
 			Item.DamageType = DamageClass.Summon;
 			Item.width = 64;

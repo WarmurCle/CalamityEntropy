@@ -329,16 +329,15 @@ Items: {
 	OracleDeck: {
 		Tooltip:
 			'''
-			+13%暴击率
-			+15%攻速
+			+11%暴击率
 			+30%移速
-			+20潜伏值
+			+16潜伏值
 			-60%魔力消耗
 			受到伤害降低20%
 			+10护甲穿透
-			+3召唤栏
+			+2召唤栏
 			+100%光照
-			装备后每隔五秒附近所有玩家受到30点治疗
+			装备后每隔五秒附近所有玩家受到20点治疗
 			'''
 		DisplayName: 神谕卡组
 	}
@@ -652,13 +651,12 @@ Items: {
 	CelestialRing: {
 		Tooltip:
 			'''
-			+18% 伤害
-			+5HP/s 生命再生
-			+3 召唤栏
+			+15% 伤害
+			+2HP/s 生命再生
+			+2 召唤栏
 			+75% 仆从击退
 			+5% 暴击率
 			+5% 移动速度和加速度
-			+20% 挖掘速度
 			'''
 		DisplayName: 天界指环
 	}
@@ -880,12 +878,12 @@ Items: {
 			攻击使敌人中蒙蔽debuff，减少其移动速度
 			攻击附带虚空之触减益
 			攻击时发射暗隐火焰
-			受到的伤害增加8% 
+			受到的伤害增加24% 
 			每有一个召唤栏，+3%伤害
 			+18% 攻击速度
-			+60% 伤害
+			+32% 伤害
 			+16% 魔力消耗
-			-50% 再生速度
+			-70% 再生速度
 			-4% 暴击率
 			'''
 	}
@@ -981,8 +979,8 @@ Items: {
 	}
 
 	AnimaSola: {
-		// Tooltip: ""
-		// DisplayName: Anima Sola
+		Tooltip: ""
+		DisplayName: 孤魂铁锁
 	}
 }
 
@@ -1480,16 +1478,16 @@ ArmorPrefixWaterWalkerDescription: 使你能够在水面上行走
 ArmorPrefixMiracleName: 奇迹
 ArmorPrefixMiracleDescription:
 	'''
-	+25% 防御
+	+20% 防御
 	+2% 伤害减免
 	+20% 盔甲光照
-	+5% 伤害
+	+4% 伤害
 	'''
 ArmorPrefixGreatName: 杰出
 ArmorPrefixGreatDescription:
 	'''
-	+10% 防御
-	+15% 伤害
+	+12% 防御
+	+4% 伤害
 	'''
 ArmorPrefixMassiveName: 厚重
 ArmorPrefixMassiveDescription:
@@ -1500,37 +1498,37 @@ ArmorPrefixMassiveDescription:
 ArmorPrefixDestinedGreatnessName: 注定伟大
 ArmorPrefixDestinedGreatnessDescription:
 	'''
-	+8% 暴击率
+	+4% 暴击率
 	+10% 防御
 	+1 幸运
 	'''
 ArmorPrefixRegenName: 再生
-ArmorPrefixRegenDescription: +3/s 每秒生命再生
+ArmorPrefixRegenDescription: +2/s 每秒生命再生
 ArmorPrefixVoidTouchedName: 虚空之触
-ArmorPrefixVoidTouchedDescription: +4 虚空之触
+ArmorPrefixVoidTouchedDescription: +3 虚空之触
 ArmorPrefixBiochemistryName: 生化
 ArmorPrefixBiochemistryDescription: +35% 减益免疫概率
 ArmorPrefixVoidName: 虚空
 ArmorPrefixVoidDescription:
 	'''
-	+1 虚空之触
-	+40% 接触伤害反伤
+	+0.5 虚空之触
+	+20% 接触伤害反伤
 	+50% 弹速
 	'''
 ArmorPrefixRecklessName: 鲁莽
 ArmorPrefixRecklessDescription:
 	'''
-	+30% 伤害
-	-50% 防御
+	+7% 伤害
+	-40% 防御
 	'''
 ArmorPrefixSacrificalName: 牺牲
 ArmorPrefixSacrificalDescription:
 	'''
-	+60% 伤害
+	+20% 伤害
 	-90% 防御
 	'''
 ArmorPrefixSilenceName: 寂静
-ArmorPrefixSilenceDescription: +6% 最大潜伏值
+ArmorPrefixSilenceDescription: +4% 最大潜伏值
 ArmorPrefixMagicalName: 注魔
 ArmorPrefixMagicalDescription:
 	'''
@@ -1539,28 +1537,28 @@ ArmorPrefixMagicalDescription:
 	+10% 强化魔力
 	'''
 ArmorPrefixEvokerName: 唤灵
-ArmorPrefixEvokerDescription: +2 召唤栏
+ArmorPrefixEvokerDescription: +1 召唤栏
 ArmorPrefixEndName: 末日
 ArmorPrefixEndDescription:
 	'''
 	+20% 防御
-	+30% 伤害
-	+30% 击退
-	+15% 暴击
-	+200% 接触伤害反伤
+	+10% 伤害
+	+20% 击退
+	+6% 暴击
+	+100% 接触伤害反伤
 	+1 虚空之触
 	'''
 ArmorPrefixWizardName: 巫祝
 ArmorPrefixWizardDescription:
 	'''
 	+1 召唤栏
-	+5% 召唤伤害
+	+2% 召唤伤害
 	'''
 ArmorPrefixLastStandName: 屹立不倒
 ArmorPrefixLastStandDescription:
 	'''
 	+30% 防御
-	+10% 伤害减免
+	+5% 伤害减免
 	增加一次复活机会
 	该复活不可叠加
 	'''

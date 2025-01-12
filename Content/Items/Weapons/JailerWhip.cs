@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(JailerWhipDebuff.TagDamage);
 
 		public override void SetDefaults() {
-			Item.DefaultToWhip(ModContent.ProjectileType<JailerWhipProjectile>(), 18, 2, 4);
+			Item.DefaultToWhip(ModContent.ProjectileType<JailerWhipProjectile>(), 17, 2, 4);
 			Item.rare = ItemRarityID.Orange;
 		}
 

@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.Entropy().damageReduce += 0.1f;
+            player.Entropy().damageReduce += 0.05f;
             player.Entropy().LastStand = true;
         }
         public override float AddDefense()

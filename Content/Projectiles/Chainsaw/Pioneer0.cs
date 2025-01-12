@@ -76,11 +76,11 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 Projectile.timeLeft = 1;
             }
-            foreach (NPC n in Main.npc)
+            foreach (NPC n in Main.ActiveNPCs)
             {
-                if (!n.friendly)
+                if (!n.friendly && !n.dontTakeDamage)
                 {
-                    if (Colliding(Projectile.Hitbox, n.Hitbox) != null && (bool)(Colliding(Projectile.Hitbox, n.Hitbox)) && n.active)
+                    if (Colliding(Projectile.Hitbox, n.Hitbox) != null && (bool)(Colliding(Projectile.Hitbox, n.Hitbox)))
                     {
                         SoundEngine.PlaySound(n.HitSound, n.Center);
                         OnHitNPC(n, new NPC.HitInfo(), 60);

@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 3;
             Projectile.extraUpdates = 3;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 3;
+            Projectile.localNPCHitCooldown = 5;
             Projectile.ArmorPenetration = 1000;
         }
         public int counter1 = 0;
@@ -33,9 +33,18 @@ namespace CalamityEntropy.Content.Projectiles
         float rotspeed = 0;
         float l = 0;
         bool soundplay = false;
+        int counter = 0;
+        public override bool? CanHitNPC(NPC target)
+        {
+            if(counter < 30)
+            {
+                return false;
+            }
+            return null;
+        }
         public override void AI()
         {
-
+            counter++;
             counter1++;
             if (rope == null)
             {

@@ -32,4 +32,8 @@ public class UhrwerkHammer: ModItem
     {
         return player.ownedProjectileCounts[Item.shoot] < 1;
     }
+    public override bool IsLoadingEnabled(Mod mod)
+    {
+        return false;
+    }
 }

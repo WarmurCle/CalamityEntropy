@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         public override void updateEquip(Player player, Item item)
         {
             player.luck += 1f;
-            player.GetCritChance(DamageClass.Generic) += 8;
+            player.GetCritChance(DamageClass.Generic) += 4;
         }
         public override float AddDefense()
         {

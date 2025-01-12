@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         public override void updateEquip(Player player, Item item)
         {
             player.Calamity().wearingRogueArmor = true;
-            player.Calamity().rogueStealthMax += 0.06f;
+            player.Calamity().rogueStealthMax += 0.04f;
         }
         public override Color getColor()
         {
@@ -18,6 +18,11 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         public override int getRollChance()
         {
             return 4;
+        }
+
+        public override bool Precious()
+        {
+            return true;
         }
     }
 }

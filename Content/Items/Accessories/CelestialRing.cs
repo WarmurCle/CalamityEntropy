@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
 		public override void SetDefaults() {
 			Item.width = 26;
-            Item.defense = 30;
+            Item.defense = 12;
 			Item.height = 26;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
@@ -25,14 +25,13 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetDamage(DamageClass.Generic) += 0.18f;
-            player.GetAttackSpeed(DamageClass.Generic) += 0.18f;
+            player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetKnockback(DamageClass.Summon) += 0.75f;
             player.GetCritChance(DamageClass.Generic) += 5;
             player.pickSpeed *= 1.2f;
             player.Entropy().CRing = true;
-            player.Entropy().lifeRegenPerSec += 5;
-            player.maxMinions += 3;
+            player.Entropy().lifeRegenPerSec += 2;
+            player.maxMinions += 2;
             player.accMerman = true;
             player.hideMerman = hideVisual;
         }

@@ -86,11 +86,11 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[2] > 0)
             {
-                EGlobalNPC.AddVoidTouch(target, 50, 2, 600, (int)Projectile.ai[2]);
+                EGlobalNPC.AddVoidTouch(target, 50, 5, 600, (int)Projectile.ai[2]);
             }
             else
             {
-                EGlobalNPC.AddVoidTouch(target, 50, 2);
+                EGlobalNPC.AddVoidTouch(target, 50, 5);
             }
             Projectile.damage = (int)(Projectile.damage * 0.8f);
         }

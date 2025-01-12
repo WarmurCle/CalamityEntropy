@@ -436,7 +436,7 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.owner == Main.myPlayer)
                 {
-                    foreach (NPC n in Main.npc)
+                    foreach (NPC n in Main.ActiveNPCs)
                     {
                         if (!n.friendly && !n.dontTakeDamage)
                         {
@@ -456,7 +456,7 @@ namespace CalamityEntropy.Common
                                 {
                                     int ydf = n.defense;
                                     n.defense =(int)MathHelper.Min(projectile.damage / 5 / 2, n.defense);
-                                    Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage / 5, 0, 0, false, DamageClass.Generic, false);
+                                    Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage / 8, 0, 0, false, DamageClass.Generic, false);
                                     n.defense = ydf;
                                 }
                                 projectile.Entropy().ghcounter++;

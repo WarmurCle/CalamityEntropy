@@ -24,10 +24,9 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().oracleDeckInInv = true;
-            player.GetCritChance(DamageClass.Generic) += 13;
-            player.GetAttackSpeed(DamageClass.Generic) *= 1.15f;
-            player.Calamity().rogueStealthMax += 0.2f;
-            player.maxMinions += 3;
+            player.GetCritChance(DamageClass.Generic) += 11;
+            player.Calamity().rogueStealthMax += 0.16f;
+            player.maxMinions += 2;
             player.GetArmorPenetration(DamageClass.Generic) += 10;
             player.GetModPlayer<EModPlayer>().oracleDeck = true;
             player.Calamity().defenseDamageRatio *= 0.5;

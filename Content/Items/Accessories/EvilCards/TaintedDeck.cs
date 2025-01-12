@@ -35,22 +35,21 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.Entropy().ManaCost += 0.16f;
 
             player.Entropy().FrailCard = true;
-            player.Entropy().damageReduce -= 0.08f;
+            player.Entropy().damageReduce -= 0.24f;
 
             player.GetModPlayer<EModPlayer>().GreedCard = true;
 
             player.GetModPlayer<EModPlayer>().NothingCard = true;
-            player.Entropy().AttackVoidTouch += 0.8f;
+            player.Entropy().AttackVoidTouch += 0.4f;
 
             player.GetModPlayer<EModPlayer>().PerplexedCard = true;
             player.GetCritChance(DamageClass.Generic) -= 4;
-            player.GetAttackSpeed(DamageClass.Generic) += 0.18f;
 
             player.GetModPlayer<EModPlayer>().SacrificeCard = true;
-            player.lifeRegen = (int)(player.lifeRegen * 0.5f);
-            player.Entropy().lifeRegenPerSec = (int)(player.Entropy().lifeRegenPerSec * 0.5f);
+            player.lifeRegen = (int)(player.lifeRegen * 0.3f);
+            
 
-            player.GetDamage(DamageClass.Generic) += 0.6f;
+            player.GetDamage(DamageClass.Generic) += 0.32f;
 
             player.GetModPlayer<EModPlayer>().TarnishCard = true;
 

@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public float yOffset = 0;
         public override void AI()
         {
-            setDamage(2);
+            setDamage(1.2f);
             Projectile.timeLeft = 5;
             Player player = Projectile.owner.ToPlayer();
             var modPlayer = player.Entropy();

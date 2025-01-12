@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.maxMinions += 2;
+            player.maxMinions += 1;
         }
         public override Color getColor()
         {

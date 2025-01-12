@@ -292,16 +292,15 @@ Items: {
 	OracleDeck: {
 		Tooltip:
 			'''
-			+13% Crit Chance
-			+15% Attack Speed
+			+11% Crit Chance
 			+30% Move Speed
-			+20 Max Stealth
+			+16 Max Stealth
 			-60% Mana Cost
 			-20% Damage Taken
 			+10 Armor Penetration
-			+3 Minion Slot
+			+2 Minion Slot
 			+100% Light
-			Heal players nearby 30 per 5 sec
+			Heal players nearby 20 per 5 sec
 			'''
 		DisplayName: Oracle Deck
 	}
@@ -606,13 +605,12 @@ Items: {
 	CelestialRing: {
 		Tooltip:
 			'''
-			+18% damage
-			+5HP/s Life Regen
-			+3 Max Minions
+			+15% damage
+			+2HP/s Life Regen
+			+2 Max Minions
 			+75% Minions Knockback
 			+5% Crit Chance
 			+5% Move Speed
-			+20% Pick Speed
 			'''
 		DisplayName: Celestial Ring
 	}
@@ -823,11 +821,10 @@ Items: {
 			Attack to exert deceive debuff in enemies that Reduce their movement speed
 			Launch shadow flames during attack
 			+3% damage for each summon slots
-			+18% Attack Speed
-			+60% Damage
-			+8 Void Touch
-			+8% Damage taken
-			-50% Life Regen
+			+32% Damage
+			+4 Void Touch
+			+24% Damage taken
+			-70% Life Regen
 			+16% Mana Cost
 			-4% Crit
 			'''
@@ -1429,16 +1426,16 @@ ArmorPrefixWaterWalkerDescription: Enable you to walk on the water surface
 ArmorPrefixMiracleName: Miracle
 ArmorPrefixMiracleDescription:
 	'''
-	+25% Defense
+	+20% Defense
 	+2% Damage Reduce
 	+20% Light
-	+5% Damage
+	+4% Damage
 	'''
 ArmorPrefixGreatName: Great
 ArmorPrefixGreatDescription:
 	'''
-	+10% Defense
-	+15% Damage
+	+12% Defense
+	+4% Damage
 	'''
 ArmorPrefixMassiveName: Massive
 ArmorPrefixMassiveDescription:
@@ -1449,37 +1446,37 @@ ArmorPrefixMassiveDescription:
 ArmorPrefixDestinedGreatnessName: Destined Greatness
 ArmorPrefixDestinedGreatnessDescription:
 	'''
-	+8% Crit
+	+4% Crit
 	+10% Defense
 	+1 Luck
 	'''
 ArmorPrefixRegenName: Regen
-ArmorPrefixRegenDescription: +3/s Life Regen
+ArmorPrefixRegenDescription: +2/s Life Regen
 ArmorPrefixVoidTouchedName: Void Touched
-ArmorPrefixVoidTouchedDescription: +4 Void Touch
+ArmorPrefixVoidTouchedDescription: +3 Void Touch
 ArmorPrefixBiochemistryName: Biochemistry
 ArmorPrefixBiochemistryDescription: +35% Debuff immunity probability
 ArmorPrefixVoidName: Void
 ArmorPrefixVoidDescription:
 	'''
-	+1 Void Touch
-	+40% Reverse injury
+	+0.5 Void Touch
+	+20% Reverse injury
 	+50% Shoot Speed
 	'''
 ArmorPrefixRecklessName: Reckless
 ArmorPrefixRecklessDescription:
 	'''
-	+30% Damage
-	-50% Defense
+	+7% Damage
+	-40% Defense
 	'''
 ArmorPrefixSacrificalName: Sacrifical
 ArmorPrefixSacrificalDescription:
 	'''
-	+60% Damage
+	+20% Damage
 	-90% Defense
 	'''
 ArmorPrefixSilenceName: Silence
-ArmorPrefixSilenceDescription: +6% Max Stealth
+ArmorPrefixSilenceDescription: +4% Max Stealth
 ArmorPrefixMagicalName: Magical
 ArmorPrefixMagicalDescription:
 	'''
@@ -1488,28 +1485,28 @@ ArmorPrefixMagicalDescription:
 	+10% Enhanced Mana
 	'''
 ArmorPrefixEvokerName: Evoker
-ArmorPrefixEvokerDescription: +2 Max Minion
+ArmorPrefixEvokerDescription: +1 Max Minion
 ArmorPrefixEndName: End
 ArmorPrefixEndDescription:
 	'''
 	+20% Defense
-	+30% Damage
-	+30% Knockback
-	+15% Crit
-	+200% Reverse injury
+	+10% Damage
+	+20% Knockback
+	+6% Crit
+	+100% Reverse injury
 	+1 Void Touch
 	'''
 ArmorPrefixWizardName: Wizard
 ArmorPrefixWizardDescription:
 	'''
 	+1 Max Minions
-	+5% Summon Damage
+	+2% Summon Damage
 	'''
 ArmorPrefixLastStandName: Last Stand
 ArmorPrefixLastStandDescription:
 	'''
 	+30% Defense
-	+10% Damage Reduce
+	+5% Damage Reduce
 	'''
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +12% Enhanced Mana

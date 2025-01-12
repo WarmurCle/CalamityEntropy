@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.GetDamage(DamageClass.Summon) += 0.1f;
+            player.GetDamage(DamageClass.Summon) += 0.02f;
             player.maxMinions += 1;
         }
         public override int getRollChance()
