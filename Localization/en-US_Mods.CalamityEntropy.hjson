@@ -591,8 +591,8 @@ Items: {
 	ArchmagesHandmirror: {
 		Tooltip:
 			'''
-			Gives you 25% extra mana
-			magic damage increased by 25% when using these mana
+			Gives you 30% extra mana
+			Every 1 extra mana provides 0.3% magic damage bonus
 			'''
 		DisplayName: Archmage's Handmirror
 	}

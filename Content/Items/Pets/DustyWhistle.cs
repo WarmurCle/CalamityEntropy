@@ -18,6 +18,8 @@ namespace CalamityEntropy.Content.Items.Pets
 			Item.shoot = ModContent.ProjectileType<DSPet>();
 			Item.buffType = ModContent.BuffType<DustyWhistleBuff>();
             Item.UseSound = null;
+			Item.noUseGraphic = true;
+			Item.useStyle = -1;
             
         }
 		

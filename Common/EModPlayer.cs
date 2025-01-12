@@ -628,12 +628,12 @@ namespace CalamityEntropy.Common
             manaNorm = Player.statManaMax2;
             if (ArchmagesMirror)
             {
-                enhancedMana += 0.25f;
+                enhancedMana += 0.3f;
             }
             Player.statManaMax2 += (int)(Player.statManaMax2 * enhancedMana);
             if (Player.statMana > manaNorm)
             {
-                Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.002f;
+                Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.003f;
             }
             if (EvilDeck)
             {

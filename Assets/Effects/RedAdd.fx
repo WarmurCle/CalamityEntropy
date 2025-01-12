@@ -5,7 +5,7 @@ float4 EnchantedFunction(float2 coords : TEXCOORD0) : COLOR0
 {
     float4 colory = tex2D(uImage, coords);
 
-    return clamp(colory * lerp(float4(1, 1, 1, 1), float4(3.75, 1.367, 0, 1), strength), 0, 1) * alpha;
+    return clamp(colory * lerp(float4(1, 1, 1, 1), float4(4.6, 1.7, 0, 1), strength), 0, 1) * alpha;
 }
 
 technique Technique1

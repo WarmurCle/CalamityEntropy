@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (Projectile.timeLeft < 180)
             {
-                int value = Projectile.timeLeft + 240;
+                int value = Projectile.timeLeft + 320;
                 double frequency = 1.0 / (value + 1);
                 double time = Projectile.timeLeft * 110;
                 double phase = time * frequency;
@@ -135,7 +135,14 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 drawPos = new Vector2(px, py);
                 for (int i = 0; i <= num; i++)
                 {
-                    shader.Parameters["alpha"].SetValue(((float)i / (float)num));
+                    if (((float)i / (float)num) < 0.3f)
+                    {
+                        shader.Parameters["alpha"].SetValue((float)i / ((float)num * 0.3f));
+                    }
+                    else
+                    {
+                        shader.Parameters["alpha"].SetValue(1);
+                    }
                     Main.EntitySpriteDraw(tx, drawPos - Main.screenPosition, null, Color.White, rot, new Vector2(tx.Width / 2, tx.Height / 2), (new Vector2(1, 1)), SpriteEffects.None, 0);
 
                     drawPos.X += addVec.X * spacing;

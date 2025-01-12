@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 				PitchVariance = 0.2f,
 				MaxInstances = 8,
 			};*/
-
+			Item.value = Item.buyPrice(gold: 2);
 			Item.DamageType = ModContent.GetInstance<NoneTypeDamageClass>();
 			Item.damage = 25;
 			Item.knockBack = 0.2f;

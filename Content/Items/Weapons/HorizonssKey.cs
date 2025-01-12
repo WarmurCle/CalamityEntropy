@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.crit = 5;
             Item.DamageType = NoneTypeDamageClass.Instance;
             Item.noMelee = true;
-            Item.value = CalamityGlobalItem.RarityRedBuyPrice;
+            Item.value = Item.buyPrice(silver: 1);
             Item.rare = ItemRarityID.Red;
             Item.Entropy().Legend = true;
 		}
