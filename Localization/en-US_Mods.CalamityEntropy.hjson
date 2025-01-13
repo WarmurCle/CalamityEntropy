@@ -336,7 +336,20 @@ Items: {
 	}
 
 	ThreadOfFate: {
-		Tooltip: Can be used to craft Oracle Deck
+		Tooltip: 
+		'''
+		Can be used to craft Oracle Deck
+		Need those cards:
+		Aura: Golden Chest，Iron Crate: 10%
+		Brilliance: Selling at merchants' premises
+		Entity: Loot from Giant Clam
+		Inspiration:Desert Chest: 30%
+		Metropolics: Using bookshelf to create
+		Wisdom: Loot from Skeletron
+		Radiance: Using Crystal Ball to create
+		Temperance: Loot from Skeletron Prime
+		Endurance: Abyssal Chests : 33%(Conflict with Infernum Mode)
+		'''
 		DisplayName: Thread Of Fate
 	}
 
@@ -832,7 +845,20 @@ Items: {
 
 	ThreadOfAbyss: {
 		DisplayName: Thread Of Abyss
-		Tooltip: Used for making Tainted Deck
+		Tooltip: 
+		'''
+		Used for making Tainted Deck
+		The following cards are required
+		Perplexed: the Twins Drop
+		Tarnish: goblin sorcerer drops
+		Nothing: 3 arbitrary evil organizations+5 arbitrary evil ingots synthesized
+		Confuse: sold by Dryad
+		Desolation: sold by Thief
+		Fool: Loot from Eidolist
+		Sacrifice: 6 Core of Chaos + 2 Perennial Bar
+		Greed: Fishing in Astral Infection Biome
+		Weakness: Loot from Slime God
+		'''
 	}
 
 	VoidCandle: {

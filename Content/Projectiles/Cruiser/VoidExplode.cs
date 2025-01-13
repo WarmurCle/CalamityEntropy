@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CalamityEntropy.Content.Buffs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -14,6 +15,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         {
             Main.projFrames[Projectile.type] = 1;
 
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<VoidTouch>(), 160);
         }
         public override void OnSpawn(IEntitySource source)
         {

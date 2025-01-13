@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         {
             Main.projFrames[Projectile.type] = 1;
 
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<VoidTouch>(), 160);
         }
         public override void SetDefaults()
         {

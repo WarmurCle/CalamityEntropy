@@ -45,6 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 0;
             Projectile.ArmorPenetration = 12;
             Projectile.extraUpdates = 1;
+            Projectile.arrow = true;
             Projectile.ArmorPenetration = 120;
         }
         public int counter = 0;

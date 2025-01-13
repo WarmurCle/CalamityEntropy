@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
@@ -12,6 +13,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
     
     public class CruiserLaser2: ModProjectile
     {
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<VoidTouch>(), 160);
+        }
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
