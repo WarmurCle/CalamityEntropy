@@ -23,9 +23,9 @@ float4 PSFunction(float2 coords : TEXCOORD0) : COLOR0
 {
     float4 color0 = tex2D(uImage0, coords);
     float4 color = tex2D(uImage1, coords);
-    float4 color2 = tex2D(uImage2, float2(frac(coords.x - offset.x * 1.25), frac(coords.y - offset.y * 1.25)));
-    float4 color3 = tex2D(uImage2, float2(frac(coords.x + offset.x * 1.25), frac(coords.y + offset.y * 1.25)));
-    if (!any(color))
+    float4 color2 = tex2D(uImage2, float2(frac(coords.x - offset.x * 1), frac(coords.y - offset.y * 1)));
+    float4 color3 = tex2D(uImage2, float2(frac(coords.x + offset.x * 1), frac(coords.y + offset.y * 1)));
+    if (!any(color) || (color.r == 0 && color.g == 0 && color.b == 0))
         return color0;
     else
     {

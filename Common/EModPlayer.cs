@@ -1147,6 +1147,13 @@ namespace CalamityEntropy.Common
                         Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<RailPulseBowProjectile>(), Player.HeldItem.damage, 0, Player.whoAmI);
                     }
                 }
+                if (!Player.HeldItem.IsAir && Player.HeldItem.type == ModContent.ItemType<Oblivion>())
+                {
+                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<OblivionHoldout>()] <= 0)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<OblivionHoldout>(), Player.HeldItem.damage, 0, Player.whoAmI);
+                    }
+                }
             }
             if (Player.HasBuff(ModContent.BuffType<StealthState>()))
             {

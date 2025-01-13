@@ -982,6 +982,26 @@ Items: {
 		Tooltip: ""
 		DisplayName: 孤魂铁锁
 	}
+
+	TestItem: {
+		// DisplayName: Test Item
+		// Tooltip: ""
+	}
+
+	LightWisper: {
+		Tooltip:
+			'''
+			喷射出虚空火焰
+			不消耗弹药
+			"湮灭"
+			'''
+		DisplayName: 渺光
+	}
+
+	Oblivion: {
+		Tooltip: 射出追踪的噬虚矢
+		DisplayName: 虚噬
+	}
 }
 
 DeathMode: 死亡模式
@@ -1160,8 +1180,11 @@ Projectiles: {
 	NetherRiftBlade.DisplayName: 虚空裂刃
 	BloodRing.DisplayName: 虚空黑圈
 	HolyBeamRevelation.DisplayName: 圣光
-	// PsyFlyProj.DisplayName: Psy Fly Proj
-	// AnimaChain.DisplayName: Anima Chain
+	PsyFlyProj.DisplayName: 灵能苍蝇
+	AnimaChain.DisplayName: 孤魂铁索
+	LightWisperFlame.DisplayName: 虚渺焰
+	OblivionArrow.DisplayName: 噬虚矢
+	OblivionHoldout.DisplayName: 虚噬
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1573,3 +1596,4 @@ HaveOracleDeck: 持有神谕卡组时
 HaveTaintedDeck: 持有堕化卡组时
 DownloadBOI: 玩过《以撒的结合：忏悔》
 IsaacLock: 你不能在没有玩过《以撒的结合：忏悔》的情况下佩戴该饰品
+PWSpawnInfo: 带有混沌减益时进入深渊

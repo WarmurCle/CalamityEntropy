@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             SpriteBatch sb = Main.spriteBatch;
             Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/RedAdd", AssetRequestMode.ImmediateLoad).Value;
-            float redAlpha = r;
+            float redAlpha = 0;
 
             if (Projectile.timeLeft < 180)
             {

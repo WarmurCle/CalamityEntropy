@@ -586,6 +586,8 @@ namespace CalamityEntropy.Common
 
         public override void OnKill(NPC npc)
         {
+            DownedBossSystem.downedPrimordialWyrm = true;
+
             if (DownedBossSystem.downedAquaticScourge) {
                 if (npc.ModNPC is Viperfish)
                 {

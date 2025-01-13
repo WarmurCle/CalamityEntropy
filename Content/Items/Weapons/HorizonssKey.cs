@@ -280,7 +280,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (NPC.downedMoonlord)
             {
-                ad += 3f;
+                ad += 2f;
             }
             if (DownedBossSystem.downedProvidence)
             {
@@ -288,7 +288,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedDragonfolly)
             {
-                ad += 0.5f;
+                ad += 0.4f;
             }
             if (DownedBossSystem.downedSignus)
             {

@@ -70,7 +70,10 @@ namespace CalamityEntropy.Common
         public bool HasCustomNameColor = false;
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
-        
+
+        public override void SetDefaults(Item entity)
+        {
+        }
         public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
         {
             speed *= player.Entropy().WingSpeed;

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Util;
 using CalamityMod.Particles;

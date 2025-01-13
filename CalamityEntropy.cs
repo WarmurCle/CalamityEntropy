@@ -95,6 +95,12 @@ using CalamityEntropy.Content.NPCs.VoidInvasion;
 using ReLogic.Graphics;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Content.ArmorPrefixes;
+using CalamityMod.Items.Weapons.Magic;
+using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Items.Weapons.Ranged;
+using CalamityMod.Items.Pets;
+using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Materials;
 namespace CalamityEntropy
 {
     
@@ -683,6 +689,24 @@ namespace CalamityEntropy
                             ["collectibles"] = collection,
                             ["customPortrait"] = portrait
                         });
+
+                        List<int> segments2 = new List<int>() { ModContent.NPCType<PrimordialWyrmHead>(), ModContent.NPCType<PrimordialWyrmBody>(), ModContent.NPCType<PrimordialWyrmBodyAlt>(), ModContent.NPCType<PrimordialWyrmTail>() };
+
+                        List<int> collection2 = new List<int>() { ModContent.ItemType<EidolicWail>(), ModContent.ItemType<VoidEdge>(), ModContent.ItemType<HalibutCannon>(), ModContent.ItemType<AbyssShellFossil>(), ModContent.ItemType<Voidstone>(), ModContent.ItemType<Lumenyl>(), ModContent.ItemType<EidolicWail>(), 1508};
+                        Func<bool> wyd = () => DownedBossSystem.downedPrimordialWyrm;
+                        Action<SpriteBatch, Rectangle, Color> portrait2 = (SpriteBatch sb, Rectangle rect, Color color) =>
+                        {
+                            Texture2D texture = ModContent.Request<Texture2D>("CalamityMod/NPCs/PrimordialWyrm/PrimordialWyrm_BossChecklist").Value;
+                            sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 1.3f, SpriteEffects.None, 0);
+                        };
+                        entryName = "PrimordialWyrm";
+                        AddBoss(bossChecklist, ModContent.GetInstance<CalamityMod.CalamityMod>(), entryName, 23.5f, wyd, segments2, new Dictionary<string, object>()
+                        {
+                            ["displayName"] = Language.GetText("Mods.CalamityMod.NPCs.PrimordialWyrmHead.DisplayName"),
+                            ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.PWSpawnInfo"),
+                            ["collectibles"] = collection2,
+                            ["customPortrait"] = portrait2
+                        });
                     }
 
                 }
@@ -826,40 +850,7 @@ namespace CalamityEntropy
             {
                 checkNPC.Add(n);
             }
-            /*for (int i = checkNPC.Count - 1; i >= 0; i--)
-            {
-                if (!checkNPC[i].active)
-                {
-                    checkNPC.RemoveAt(i);
-                }
-            }
-            for (int i = checkProj.Count - 1; i >= 0; i--)
-            {
-                if (!checkProj[i].active)
-                {
-                    checkProj.RemoveAt(i);
-                }
-            }*/
-            /*foreach (Projectile proj in Main.projectile)
-            {
-                if (proj.active)
-                {
-                    if (proj.ModProjectile is Slash || proj.ModProjectile is Slash2 || proj.ModProjectile is VoidBottleThrow || proj.ModProjectile is VoidExplode || proj.ModProjectile is CruiserSlash || proj.ModProjectile is SilenceHook || proj.ModProjectile is CruiserBlackholeBullet || proj.ModProjectile is WohLaser || proj.ModProjectile is WohShot || proj.ModProjectile is VoidStar || proj.ModProjectile is VoidStarF)
-                    {
-                        checkProj.Add(proj);
-                    }
-                }
-            }*/
-            /*foreach (NPC npc in Main.npc)
-            {
-                if (npc.active)
-                {
-                    if (npc.type == ModContent.NPCType<CruiserHead>())
-                    {
-                        checkNPC.Add(npc);
-                    }
-                }
-            }*/
+
             GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
             
             if (true)
@@ -1049,7 +1040,7 @@ namespace CalamityEntropy
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 //����
-                
+
                 foreach (Projectile p in checkProj)
                 {
                     if (!p.active)
@@ -1092,7 +1083,7 @@ namespace CalamityEntropy
                                 gd.Textures[0] = tx;
                                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                             }
-                            
+
 
                         }
                     }
@@ -1137,32 +1128,11 @@ namespace CalamityEntropy
                             opos += p.velocity.SafeNormalize(Vector2.One) * tx.Width;
                         }
                     }
-                    if (p.active)
+                    if (p.ModProjectile is VoidStar)
                     {
-                        if (p.ModProjectile is VoidStar)
+                        if (p.ai[0] >= 60 || p.ai[2] == 0)
                         {
-                            if (p.ai[0] >= 60 || p.ai[2] == 0)
-                            {
-                                VoidStar mp = (VoidStar)p.ModProjectile;
-                                mp.odp.Add(p.Center);
-                                if (mp.odp.Count > 2)
-                                {
-                                    float size = 10;
-                                    float sizej = size / mp.odp.Count;
-                                    Color cl = new Color(200, 235, 255);
-                                    for (int i = mp.odp.Count - 1; i >= 1; i--)
-                                    {
-                                        Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * (((float)(255 - p.alpha)) / 255f), size * 0.7f);
-                                        size -= sizej;
-                                    }
-                                }
-                                mp.odp.RemoveAt(mp.odp.Count - 1);
-                            }
-
-                        }
-                        if (p.ModProjectile is VoidStarF)
-                        {
-                            VoidStarF mp = (VoidStarF)p.ModProjectile;
+                            VoidStar mp = (VoidStar)p.ModProjectile;
                             mp.odp.Add(p.Center);
                             if (mp.odp.Count > 2)
                             {
@@ -1177,13 +1147,32 @@ namespace CalamityEntropy
                             }
                             mp.odp.RemoveAt(mp.odp.Count - 1);
                         }
+
+                    }
+                    if (p.ModProjectile is VoidStarF)
+                    {
+                        VoidStarF mp = (VoidStarF)p.ModProjectile;
+                        mp.odp.Add(p.Center);
+                        if (mp.odp.Count > 2)
+                        {
+                            float size = 10;
+                            float sizej = size / mp.odp.Count;
+                            Color cl = new Color(200, 235, 255);
+                            for (int i = mp.odp.Count - 1; i >= 1; i--)
+                            {
+                                Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * (((float)(255 - p.alpha)) / 255f), size * 0.7f);
+                                size -= sizej;
+                            }
+                        }
+                        mp.odp.RemoveAt(mp.odp.Count - 1);
+
+                    }
+
+                    if(p.ModProjectile is LightWisperFlame lwf)
+                    {
+                        lwf.draw();
                     }
                 }
-                /*                Main.spriteBatch.Draw(lb, new Vector2(400, 200), null, new Color(45, 75, 170), 0, Vector2.Zero, 6, SpriteEffects.None, 0);
-                                Main.spriteBatch.Draw(lb, new Vector2(400, 200), null, new Color(45, 75, 170), 0, Vector2.Zero, 6, SpriteEffects.None, 0);
-                                Main.spriteBatch.Draw(lb, new Vector2(400, 200), null, new Color(45, 75, 170), 0, Vector2.Zero, 6, SpriteEffects.None, 0);
-                                Main.spriteBatch.Draw(lb, new Vector2(400, 200), null, new Color(45, 75, 170), 0, Vector2.Zero, 6, SpriteEffects.None, 0);
-                */
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

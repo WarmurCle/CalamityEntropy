@@ -14,7 +14,5 @@ namespace CalamityEntropy.Common
         [Increment(0.01f)]
         public float CraftArmorWithPrefixChance { get; set; }
 
-        
-
     }
 }

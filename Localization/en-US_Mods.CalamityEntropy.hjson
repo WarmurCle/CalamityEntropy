@@ -927,6 +927,21 @@ Items: {
 		Tooltip: ""
 		DisplayName: Anima Sola
 	}
+
+	TestItem: {
+		DisplayName: Test Item
+		Tooltip: ""
+	}
+
+	LightWisper: {
+		Tooltip: ""
+		DisplayName: Light Wisper
+	}
+
+	Oblivion: {
+		Tooltip: ""
+		DisplayName: Oblivion
+	}
 }
 
 DeathMode: Death Mode
@@ -1107,6 +1122,9 @@ Projectiles: {
 	HolyBeamRevelation.DisplayName: Holy Beam Revelation
 	PsyFlyProj.DisplayName: Psy Fly Proj
 	AnimaChain.DisplayName: Anima Chain
+	LightWisperFlame.DisplayName: Light Wisper Flame
+	OblivionArrow.DisplayName: Oblivion Arrow
+	OblivionHoldout.DisplayName: Oblivion Holdout
 }
 
 LegendTooltip: - Legend -
@@ -1519,3 +1537,4 @@ HaveOracleDeck: When Oracle Deck is in inventory
 HaveTaintedDeck: When Tainted Deck is in inventory
 DownloadBOI: Have played The Binding of Isaac: Repentance
 IsaacLock: You can't equip this before you played The Binding of Isaac Repentance LOL
+PWSpawnInfo: Enter the Abyss with Chaos State debuff
