@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
                 HandleChannelMovement(player, playerRotatedPoint);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.Center = player.Center + Projectile.rotation.ToRotationVector2() * 36 * Projectile.scale + new Vector2(0, -26);
+            Projectile.Center = player.Center + player.gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 36 * Projectile.scale + new Vector2(0, -26);
             if (Projectile.Entropy().OnProj != -1)
             {
                 Projectile.Center = Projectile.Entropy().OnProj.ToProj().Center + Projectile.rotation.ToRotationVector2() * 36 * Projectile.scale + new Vector2(0, -26);

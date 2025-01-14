@@ -926,13 +926,17 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<EvilFriend>(), new Fraction(4, 9));
             }
+            if (item.type == ModContent.ItemType<PolterghastBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<AnimaSola>(), new Fraction(1, 2));
+            }
             if (item.type == ModContent.ItemType<AquaticScourgeBag>())
             {
-                itemLoot.Add(ModContent.ItemType<AquaticFlute>(), new Fraction(1, 4));
+                itemLoot.Add(ModContent.ItemType<AquaticFlute>(), new Fraction(1, 3));
             }
             if (item.type == ModContent.ItemType<DesertScourgeBag>())
             {
-                itemLoot.Add(ModContent.ItemType<DustyWhistle>(), new Fraction(1, 5));
+                itemLoot.Add(ModContent.ItemType<DustyWhistle>(), new Fraction(1, 4));
             }
             if (item.type == ModContent.ItemType<CalamitasCloneBag>())
             {

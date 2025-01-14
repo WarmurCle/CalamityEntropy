@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             counter++;
-            counter1++;
+            counter1++; 
             if (rope == null)
             {
                 rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 25, 0, new Vector2(0, 0.6f), 0.1f, 26, false);
@@ -133,10 +133,11 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
+            Player player = Projectile.owner.ToPlayer();
             List<Vector2> points = new List<Vector2>();
             points = rope.GetPoints();
             Texture2D handle = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/NetherRiftHandle").Value;
-            Main.spriteBatch.Draw(handle, Projectile.owner.ToPlayer().Center - Main.screenPosition, null, Color.White, (points[1] - points[0]).ToRotation(), new Vector2(28,  handle.Height / 2), Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(handle, Projectile.owner.ToPlayer().Center + player.gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White, (points[1] - points[0]).ToRotation(), new Vector2(28,  handle.Height / 2), Projectile.scale, SpriteEffects.None, 0);
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

@@ -21,6 +21,7 @@ namespace CalamityEntropy.Content.Menu
             Texture2D l1 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer1").Value;
             Texture2D l2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer2").Value;
             Texture2D l3 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer3").Value;
+            Texture2D l4 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer4").Value;
             Texture2D pixel = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
             drawColor = Color.White;
             counter++;
@@ -35,8 +36,14 @@ namespace CalamityEntropy.Content.Menu
             spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.12f), l1.Size() / 2, 1.4f, SpriteEffects.None, 0);
 
             spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+            
+            spriteBatch.Draw(l4, Main.ScreenSize.ToVector2() / 2, null, Color.Black, 0, l4.Size() / 2, 1, SpriteEffects.None, 0);
+
+            spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
 
+            
 
             spriteBatch.Draw(l2, new Rectangle(0, (int)((float)Math.Cos(counter * 0.01f) * 42), Main.screenWidth, Main.screenHeight), Color.White * (0.7f + (float)Math.Cos(counter * 0.01f) * 0.1f));
 

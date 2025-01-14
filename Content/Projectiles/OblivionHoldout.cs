@@ -108,12 +108,12 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.Center = player.MountedCenter;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.Center += new Vector2(12, 6 * Projectile.direction).RotatedBy(Projectile.rotation);
+            Projectile.Center += new Vector2(12, 6 * Projectile.direction).RotatedBy(Projectile.rotation) + player.gfxOffY * Vector2.UnitY;
             if (Projectile.velocity.X >= 0)
             {
                 player.direction = 1;
                 Projectile.direction = 1;
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation + MathHelper.PiOver2);
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
             }
             else
             {
@@ -150,6 +150,10 @@ namespace CalamityEntropy.Content.Projectiles
 
         public float TrailWidth(float completionRatio)
         {
+            if (completionRatio > 0.95f)
+            {
+                return 42 * Projectile.scale * MathHelper.SmoothStep(0, 1, (1 - (completionRatio - 0.95f) / 0.05f));
+            }
             return MathHelper.Lerp(16, 42 * Projectile.scale, completionRatio);
         }
         public override bool PreDraw(ref Color lightColor)

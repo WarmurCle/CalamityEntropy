@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 80;
             Item.height = 80;
-            Item.damage = 29;
+            Item.damage = 64;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 2;
             Item.useAnimation = 6;
@@ -32,9 +32,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<OblivionArrow>();
             Item.UseSound = new Terraria.Audio.SoundStyle("CalamityEntropy/Assets/Sounds/feathershot") { MaxInstances = 10, Volume = 0.4f };
-            Item.autoReuse = false;
             Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Arrow;
+            Item.autoReuse = true;
             Item.ArmorPenetration = 120;
             Item.noUseGraphic = true;
             Item.crit = 8;

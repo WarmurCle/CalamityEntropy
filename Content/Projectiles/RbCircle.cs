@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            Projectile.Center = player.Center + new Vector2(0, -80);
+            Projectile.Center = player.Center + new Vector2(0, -80) + player.gfxOffY * Vector2.UnitY;
             if(player.Entropy().rBadgeCharge >= 12 && !player.Entropy().rBadgeActive)
             {
                 if(alpha > 0)

@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 HandleChannelMovement(player, playerRotatedPoint);
             }
-            Projectile.Center = player.MountedCenter;
+            Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.Center += new Vector2(12, 6 * Projectile.direction).RotatedBy(Projectile.rotation);
             if (Projectile.velocity.X >= 0)

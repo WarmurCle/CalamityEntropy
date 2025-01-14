@@ -44,11 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
             Player player = Main.player[Projectile.owner];
             Projectile.netImportant = true;
             player.manaRegenDelay = 80;
-            Projectile.Center = player.Center;
-            if (Projectile.Entropy().OnProj != -1)
-            {
-                Projectile.Center = Projectile.Entropy().OnProj.ToProj().Center;
-            }
+            Projectile.Center = player.Center + player.gfxOffY * Vector2.UnitY;
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (player.channel && !player.HeldItem.IsAir && player.HeldItem.type == ModContent.ItemType<PrisonOfPermafrost>())
             {

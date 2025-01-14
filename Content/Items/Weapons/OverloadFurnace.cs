@@ -15,8 +15,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.height = 24;
             Item.damage = 5;
             Item.DamageType = DamageClass.Magic;
-            Item.useTime = 5;
-            Item.useAnimation = 5;
+            Item.useTime = 3;
+            Item.useAnimation = 3;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<OverloadFurnaceHoldout>();

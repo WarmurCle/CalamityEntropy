@@ -1,6 +1,7 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -29,7 +30,7 @@ namespace CalamityEntropy.Content.Items
 		}
         public override bool CanUseItem(Player player)
         {
-            return true;
+            return !player.HasCooldown("AnimasolaCd");
         }
 
         public override bool? UseItem(Player player)
@@ -47,6 +48,16 @@ namespace CalamityEntropy.Content.Items
             if (target != null)
             {
                 Projectile.NewProjectile(player.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<AnimaChain>(), 0, 0, player.whoAmI, target.whoAmI);
+                int time = 25 * 60;
+                foreach(NPC n in Main.ActiveNPCs)
+                {
+                    if (n.IsABoss())
+                    {
+                        time = 60 * 60;
+                        break;
+                    }
+                }
+                player.AddCooldown("AnimasolaCd", time);
             }
             return true;
         }

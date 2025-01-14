@@ -43,9 +43,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool AltFunctionUse(Player player) => true;
         public override void SetDefaults() {
 			Item.width = 20;
-			Item.height = 16;
-            Item.useTime = 16;
-            Item.useAnimation = 16;
+			Item.height = 20;
+            Item.useTime = 64;
+            Item.useAnimation = 64;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
             Item.damage = 15;
             Item.crit = 5;

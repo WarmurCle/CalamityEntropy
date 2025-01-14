@@ -649,7 +649,7 @@ namespace CalamityEntropy.Common
                 }
                 if(h != null)
                 {
-                    if (Main.rand.NextBool(30) && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+                    if (Main.rand.NextBool(60) && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
                     {
                         Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<MawOfTheVoid>()));
                     }

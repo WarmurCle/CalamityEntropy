@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidEchoProj
         public bool right = true;
         public override void AI(){
             Player player = Projectile.owner.ToPlayer();
-            Projectile.Center = player.Center;
+            Projectile.Center = player.Center + player.gfxOffY * Vector2.UnitY;
             right = player.direction == 1;
             if (!player.HeldItem.IsAir && player.HeldItem.type == ModContent.ItemType<VoidEcho>())
             {
@@ -46,7 +46,8 @@ namespace CalamityEntropy.Content.Projectiles.VoidEchoProj
         public override bool PreDraw(ref Color lightColor)
         {
             counter++;
-            Vector2 drawpos = Projectile.owner.ToPlayer().Center + new Vector2(0, -32);
+            Player player = Projectile.owner.ToPlayer();
+            Vector2 drawpos = Projectile.owner.ToPlayer().Center + player.gfxOffY * Vector2.UnitY + new Vector2(0, -32);
             Vector2 ep = new Vector2(-10, 0) * Projectile.owner.ToPlayer().direction;
             float fs = (float)(1 + Math.Cos(counter / 3) * 0.1);
             SpriteBatch sb = Main.spriteBatch;

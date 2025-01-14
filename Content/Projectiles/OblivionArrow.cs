@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float exps = 0;
         public Vector2 dscp = Vector2.Zero;
         float particlea = 1;
-
+        float alpha = 1f;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -52,6 +52,14 @@ namespace CalamityEntropy.Content.Projectiles
         public bool std = false;
         public int homingTime = 60;
         public override void AI(){
+            if(Projectile.timeLeft < 50)
+            {
+                alpha -= 0.02f;
+                if(alpha < 0)
+                {
+                    alpha = 0;
+                }
+            }
             particlea *= 0.9f;
             counter++;
             Projectile.ai[0]++;
@@ -73,7 +81,7 @@ namespace CalamityEntropy.Content.Projectiles
             else
             {
                 odp.Add(Projectile.Center);
-                odr.Add(Projectile.rotation);
+                odr.Add(Projectile.rotation - MathHelper.PiOver2);
                 if (odp.Count > 64)
                 {
                     odp.RemoveAt(0);
@@ -92,9 +100,12 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             exps *= 0.9f;
-            Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.velocity *= 0.99f - homing * 0.06f;
-            if(counter > 10)
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            if (Projectile.velocity.Length() > 3)
+            {
+                Projectile.velocity *= 0.995f - homing * 0.06f;
+            }
+            if(counter > 40 && !htd)
             {
                 if(homing < 4)
                 {
@@ -104,6 +115,10 @@ namespace CalamityEntropy.Content.Projectiles
                 
                 if(target != null)
                 {
+                    if(Projectile.timeLeft < 60)
+                    {
+                        Projectile.timeLeft = 60;
+                    }
                     Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * homing;
                 }
             }
@@ -125,16 +140,16 @@ namespace CalamityEntropy.Content.Projectiles
                 htd = true;
                 exps = 1;
                 odp.Add(Projectile.Center);
-                odr.Add(Projectile.rotation);
+                odr.Add(Projectile.rotation - MathHelper.PiOver2);
                 odp.Add(Projectile.Center);
-                odr.Add(Projectile.rotation);
+                odr.Add(Projectile.rotation - MathHelper.PiOver2);
             }
         }
         public int tofs;
         public Color TrailColor(float completionRatio)
         {
             Color result = new Color(30, 60, 160);   
-            return result * completionRatio;
+            return result * completionRatio * alpha;
         }
 
         public float TrailWidth(float completionRatio)
@@ -214,7 +229,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.ExitShaderRegion();
             if (!htd)
             {
-                Main.EntitySpriteDraw(value, position, null, base.Projectile.GetAlpha(Color.White), base.Projectile.rotation + MathHelper.PiOver2, origin, base.Projectile.scale, SpriteEffects.None);
+                Main.EntitySpriteDraw(value, position, null, base.Projectile.GetAlpha(Color.White) * alpha, Projectile.rotation, origin, base.Projectile.scale, SpriteEffects.None);
             }
         }
 

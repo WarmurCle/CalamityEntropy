@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 return;
             }
             var modPlayer = player.Entropy();
-            Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
+            Projectile.Center = player.Center + player.gfxOffY * Vector2.UnitY;
             if(player.HeldItem.type == ModContent.ItemType<HorizonssKey>())
             {
                 Projectile.timeLeft = 3;
@@ -265,7 +265,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 tex = (MathHelper.Min(modPlayer.sCasketLevel + 1, 6)).ToString();
                 maxDrawSwords = modPlayer.sCasketLevel + 1;
             }
-            Vector2 pos = player.MountedCenter - new Vector2(0, 20);
+            Vector2 pos = Projectile.Center - new Vector2(0, 20);
             if (spawnAnm > 0) {
                 
                 if(spawnAnm == 1) {
