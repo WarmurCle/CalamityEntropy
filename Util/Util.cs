@@ -47,7 +47,14 @@ namespace CalamityEntropy.Util
                 drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, points[i - 1], points[i], color, width, 2, true);
             }
         }
-
+        public static SoundStyle GetSound(string name, float pitch = 1, int maxIns = 4, float volume = 1)
+        {
+            SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/" + name);
+            s.Pitch = pitch - 1;
+            s.Volume = volume;
+            s.MaxInstances = maxIns;
+            return s;
+        }
         public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 4, float volume = 1)
         {
             SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/" + name);

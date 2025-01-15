@@ -1,4 +1,6 @@
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
@@ -18,8 +20,6 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.useTime = 120;
 			Item.useAnimation = 120;
 			Item.knockBack = 4;
-			Item.value = 145000;
-			Item.rare = ModContent.RarityType<HotPink>();
 			Item.UseSound = new("CalamityMod/Sounds/NPCKilled/DevourerDeathImpact"){ Volume = 0.4f, Pitch = 0.1f };
 			Item.shoot = ModContent.ProjectileType <CruiserShadow>();
 			Item.shootSpeed = 6f;
@@ -28,7 +28,9 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.noMelee = true;
             Item.autoReuse = true;
             Item.useTurn = false;
-		}
+            Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
+            Item.rare = ModContent.RarityType<VoidPurple>();
+        }
 
         public override void AddRecipes()
 		{

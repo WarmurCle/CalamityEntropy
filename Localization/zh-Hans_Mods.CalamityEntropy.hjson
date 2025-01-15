@@ -1006,11 +1006,11 @@ Items: {
 	}
 
 	AnimaSola: {
-		Tooltip: 
-		'''
-		锁住最近的目标，持续5秒
-		冷却为25秒，当有boss存在时冷却为60秒
-		'''
+		Tooltip:
+			'''
+			锁住最近的目标，持续3秒
+			冷却为25秒，当有boss存在时冷却为60秒
+			'''
 		DisplayName: 孤魂铁锁
 	}
 
@@ -1032,6 +1032,45 @@ Items: {
 	Oblivion: {
 		Tooltip: 射出追踪的噬虚矢
 		DisplayName: 虚噬
+	}
+
+	EyeOfIlmeris: {
+		DisplayName: 伊尔梅里斯之眼
+		Tooltip: 快速并持续射出追踪水弹
+	}
+
+	GravityGaze: {
+		DisplayName: 重力凝视
+		Tooltip: 发射天蓝射线
+	}
+
+	DivineRadience: {
+		Tooltip: 发射追踪能量球
+		DisplayName: 圣辉灵珠
+	}
+
+	NightProjection: {
+		DisplayName: 星光幻象
+		Tooltip: 射出会分裂追踪的幻星
+	}
+
+	OverloadLunar: {
+		DisplayName: 夜明星陨
+		Tooltip: 快速射出大量的夜明光球
+	}
+
+	EyeOfOtherside: {
+		Tooltip: 射出追踪鬼火弹
+		DisplayName: 彼岸之眼
+	}
+
+	EndlessAbyss: {
+		Tooltip:
+			'''
+			发射深渊死光和虚空新星
+			"涌出深渊"
+			'''
+		DisplayName: 无底深渊
 	}
 }
 
@@ -1216,6 +1255,21 @@ Projectiles: {
 	LightWisperFlame.DisplayName: 虚渺焰
 	OblivionArrow.DisplayName: 噬虚矢
 	OblivionHoldout.DisplayName: 虚噬
+	EyeOfIlmerisHoldout.DisplayName: 伊尔梅里斯之眼
+	IlmerisWaterBullet.DisplayName: 水弹
+	GravityGazeBullet.DisplayName: 天蓝射线
+	GravityGazeHoldout.DisplayName: 重力凝视
+	DivineRadienceBullet.DisplayName: 圣辉光球
+	DivineRadienceHoldout.DisplayName: 圣辉灵珠
+	NightProjectionHoldout.DisplayName: Night Projection Holdout
+	ProjectionStar.DisplayName: 幻象之星
+	ProjectionStarSplit.DisplayName: 幻象之星
+	ProjectionStarSplitAlt.DisplayName: 幻象之星
+	LunarLightball.DisplayName: 夜明光球
+	OverloadLunarHoldout.DisplayName: 夜明星陨
+	EyeOfOthersideHoldout.DisplayName: 彼岸之眼
+	// EndlessAbyssHoldout.DisplayName: Endless Abyss Holdout
+	// EndlessAbyssLaser.DisplayName: Endless Abyss Laser
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1582,7 +1636,7 @@ ArmorPrefixSacrificalDescription:
 	-90% 防御
 	'''
 ArmorPrefixSilenceName: 寂静
-ArmorPrefixSilenceDescription: +4% 最大潜伏值
+ArmorPrefixSilenceDescription: +2% 最大潜伏值
 ArmorPrefixMagicalName: 注魔
 ArmorPrefixMagicalDescription:
 	'''

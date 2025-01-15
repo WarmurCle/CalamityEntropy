@@ -2,11 +2,12 @@ sampler uImage : register(s0); // SpriteBatch.Draw 的内容会自动绑定到 s
 sampler uTransformImage : register(s1); // 用于获取颜色的调色板
 float uTime; // 实现调色板的滚动效果
 float4 color;
+float4 baseColor = float4(1, 1, 1, 1);
 float strength = 0.6;
 // 给附魔效果专门配置的
 float4 EnchantedFunction(float2 coords : TEXCOORD0) : COLOR0
 {
-    float4 colory = tex2D(uImage, coords);
+    float4 colory = tex2D(uImage, coords) * baseColor;
 
 	// any 为 false 即透明色，不能改
     if (!any(colory))

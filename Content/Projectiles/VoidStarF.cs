@@ -41,6 +41,10 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public bool setv = true;
         public override void AI(){
+            if (Projectile.ai[2] > 0)
+            {
+                Projectile.DamageType = DamageClass.Magic;
+            }
             if (setv)
             {
                 setv = false;
@@ -74,15 +78,15 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.rotation += 0.1f;
             Lighting.AddLight(Projectile.Center, 0.75f, 1f, 0.24f);
-
+            Projectile p = Projectile;
             if (Main.rand.NextBool(2))
             {
-                Particle smoke = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Color.Lerp(Color.DodgerBlue, Color.MediumVioletRed, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 20, Main.rand.NextFloat(0.6f, 1.2f) * Projectile.scale, 0.28f, 0, false, 0, true);
+                Particle smoke = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Color.Lerp(Color.DodgerBlue.MultiplyRGB(p.ai[2] > 0 ? new Color(255, 80, 80) : Color.White), Color.MediumVioletRed.MultiplyRGB(Projectile.DamageType == DamageClass.Magic ? new Color(255, 140, 140) : Color.White), (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 20, Main.rand.NextFloat(0.6f, 1.2f) * Projectile.scale, 0.28f, 0, false, 0, true);
                 GeneralParticleHandler.SpawnParticle(smoke);
 
                 if (Main.rand.NextBool(3))
                 {
-                    Particle smokeGlow = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Main.hslToRgb(Hue, 1, 0.7f), 15, Main.rand.NextFloat(0.4f, 0.7f) * Projectile.scale, 0.8f, 0, true, 0.05f, true);
+                    Particle smokeGlow = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Main.hslToRgb(Hue, 1, 0.7f).MultiplyRGB(p.ai[2] > 0 ? new Color(255, 80, 80) : Color.White), 15, Main.rand.NextFloat(0.4f, 0.7f) * Projectile.scale, 0.8f, 0, true, 0.05f, true);
                     GeneralParticleHandler.SpawnParticle(smokeGlow);
                 }
             }

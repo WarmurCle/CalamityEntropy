@@ -950,10 +950,7 @@ Items: {
 	}
 
 	AnimaSola: {
-		Tooltip: 
-		'''
-		Lock the nearest target for 5 seconds
-		'''
+		Tooltip: Lock the nearest target for 3 seconds
 		DisplayName: Anima Sola
 	}
 
@@ -970,6 +967,41 @@ Items: {
 	Oblivion: {
 		Tooltip: ""
 		DisplayName: Oblivion
+	}
+
+	EyeOfIlmeris: {
+		DisplayName: Eye Of Ilmeris
+		Tooltip: ""
+	}
+
+	GravityGaze: {
+		DisplayName: Gravity Gaze
+		Tooltip: ""
+	}
+
+	DivineRadience: {
+		Tooltip: ""
+		DisplayName: Divine Radience
+	}
+
+	NightProjection: {
+		DisplayName: Night Projection
+		Tooltip: ""
+	}
+
+	OverloadLunar: {
+		DisplayName: Overload Lunar
+		Tooltip: ""
+	}
+
+	EyeOfOtherside: {
+		Tooltip: ""
+		DisplayName: Eye Of Otherside
+	}
+
+	EndlessAbyss: {
+		Tooltip: ""
+		DisplayName: Endless Abyss
 	}
 }
 
@@ -1154,6 +1186,21 @@ Projectiles: {
 	LightWisperFlame.DisplayName: Light Wisper Flame
 	OblivionArrow.DisplayName: Oblivion Arrow
 	OblivionHoldout.DisplayName: Oblivion Holdout
+	EyeOfIlmerisHoldout.DisplayName: Eye Of Ilmeris Holdout
+	IlmerisWaterBullet.DisplayName: Ilmeris Water Bullet
+	GravityGazeBullet.DisplayName: Gravity Gaze Bullet
+	GravityGazeHoldout.DisplayName: Gravity Gaze Holdout
+	DivineRadienceBullet.DisplayName: Divine Radience Bullet
+	DivineRadienceHoldout.DisplayName: Divine Radience Holdout
+	NightProjectionHoldout.DisplayName: Night Projection Holdout
+	ProjectionStar.DisplayName: Projection Star
+	ProjectionStarSplit.DisplayName: Projection Star Split
+	ProjectionStarSplitAlt.DisplayName: Projection Star Split Alt
+	LunarLightball.DisplayName: Lunar Lightball
+	OverloadLunarHoldout.DisplayName: Overload Lunar Holdout
+	EyeOfOthersideHoldout.DisplayName: Eye Of Otherside Holdout
+	EndlessAbyssHoldout.DisplayName: Endless Abyss Holdout
+	EndlessAbyssLaser.DisplayName: Endless Abyss Laser
 }
 
 LegendTooltip: - Legend -
@@ -1523,7 +1570,7 @@ ArmorPrefixSacrificalDescription:
 	-90% Defense
 	'''
 ArmorPrefixSilenceName: Silence
-ArmorPrefixSilenceDescription: +4% Max Stealth
+ArmorPrefixSilenceDescription: +2% Max Stealth
 ArmorPrefixMagicalName: Magical
 ArmorPrefixMagicalDescription:
 	'''

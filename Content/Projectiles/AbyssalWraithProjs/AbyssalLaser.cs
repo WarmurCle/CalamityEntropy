@@ -33,16 +33,17 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             Projectile.scale = 1f;
             Projectile.timeLeft = 200;
         }
-        public override void OnSpawn(IEntitySource source)
-        {
-            targetPosLaser = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 800;
-            
-        }
+        public bool ss = true;
         Vector2 targetPosLaser { get { return new Vector2(Projectile.ai[0], Projectile.ai[1]); } set { Projectile.ai[0] = value.X; Projectile.ai[1] = value.Y; }}
         Vector2 targetPosLaserVel = Vector2.Zero;
         public int soundcounter = 0;
         public override void AI()
         {
+            if (ss)
+            {
+                ss = false;
+                targetPosLaser = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 800;
+            }
             if (((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().ModNPC is AbyssalWraith aw)
             {
                 if (aw.deathAnm)

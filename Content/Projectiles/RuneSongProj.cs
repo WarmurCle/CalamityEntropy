@@ -202,7 +202,7 @@ namespace CalamityEntropy.Content.Projectiles
             owner.itemTime = 2;
             owner.heldProj = Projectile.whoAmI;
             Projectile.ai[0]++;
-            Projectile.Center = owner.MountedCenter;
+            Projectile.Center = owner.MountedCenter + owner.gfxOffY * Vector2.UnitY;
             if (Projectile.velocity.X > 0)
             {
                 owner.direction = 1;

@@ -51,7 +51,13 @@ namespace CalamityEntropy.Content.Projectiles
         public int counter = 0;
         public bool std = false;
         public int homingTime = 60;
+        public bool s = true;
         public override void AI(){
+            if (s)
+            {
+                s = false;
+                spawnrot = Projectile.velocity.ToRotation();
+            }
             if(Projectile.timeLeft < 50)
             {
                 alpha -= 0.02f;
@@ -157,10 +163,6 @@ namespace CalamityEntropy.Content.Projectiles
             return MathHelper.Lerp(0, 46 * Projectile.scale, completionRatio);
         }
         float spawnrot = 0;
-        public override void OnSpawn(IEntitySource source)
-        {
-            spawnrot = Projectile.velocity.ToRotation();
-        }
         public override bool PreDraw(ref Color lightColor)
         {
             if (particlea > 0.02f)

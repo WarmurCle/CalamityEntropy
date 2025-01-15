@@ -1158,6 +1158,10 @@ namespace CalamityEntropy
                             float size = 10;
                             float sizej = size / mp.odp.Count;
                             Color cl = new Color(200, 235, 255);
+                            if(p.ai[2] > 0)
+                            {
+                                cl = new Color(255, 160, 160);
+                            }
                             for (int i = mp.odp.Count - 1; i >= 1; i--)
                             {
                                 Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * (((float)(255 - p.alpha)) / 255f), size * 0.7f);
@@ -1324,8 +1328,12 @@ namespace CalamityEntropy
                     if (p.ModProjectile is VoidStar || p.ModProjectile is VoidStarF)
                     {
                         Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar").Value;
-
-                        Main.spriteBatch.Draw(t, p.Center - Main.screenPosition, null, Color.White * (((float)(255 - p.alpha)) / 255f), p.rotation, t.Size() / 2, p.scale, SpriteEffects.None, 0);
+                        Color c = Color.White;
+                        if (p.ai[2] > 0)
+                        {
+                            c = new Color(255, 100, 100);
+                        }
+                        Main.spriteBatch.Draw(t, p.Center - Main.screenPosition, null, c * (((float)(255 - p.alpha)) / 255f), p.rotation, t.Size() / 2, p.scale, SpriteEffects.None, 0);
 
                     }
                     

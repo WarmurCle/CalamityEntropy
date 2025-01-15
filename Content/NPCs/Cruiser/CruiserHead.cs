@@ -129,7 +129,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }if (Main.masterMode){
                 NPC.damage += 18;
             }
-            NPC.defense = 80;
+            NPC.defense = 70;
             NPC.lifeMax = 1800000;
             if (CalamityWorld.death)
             {

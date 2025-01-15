@@ -53,14 +53,6 @@ namespace CalamityEntropy.Content.Projectiles
         List<Vpoint> v1 = new List<Vpoint>();
         List<Vpoint> v2 = new List<Vpoint>();
 
-        public override void OnSpawn(IEntitySource source)
-        {
-            for(int i = 0; i < 16; i++)
-            {
-                v1.Add(new Vpoint() { pos = Projectile.Center });
-                v2.Add(new Vpoint() { pos = Projectile.Center });
-            }
-        }
         public void updatePoints()
         {
             for(int i = 0; i < v1.Count; i++)
@@ -88,9 +80,18 @@ namespace CalamityEntropy.Content.Projectiles
 
             }
         }
-
+        bool sp = true;
         public override void AI()
         {
+            if (sp)
+            {
+                sp = false;
+                for (int i = 0; i < 16; i++)
+                {
+                    v1.Add(new Vpoint() { pos = Projectile.Center });
+                    v2.Add(new Vpoint() { pos = Projectile.Center });
+                }
+            }
             updatePoints();
             Player player = Projectile.owner.ToPlayer();
             if (player.dead)
