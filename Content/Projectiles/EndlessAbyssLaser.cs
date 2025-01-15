@@ -139,7 +139,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.Center = Projectile.owner.ToPlayer().MountedCenter + Projectile.owner.ToPlayer().gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 30;
+            Projectile.Center = Projectile.owner.ToPlayer().MountedCenter + Projectile.owner.ToPlayer().gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 14;
             if (Projectile.timeLeft < 6)
             {
                 width -= 1f / 7f;
