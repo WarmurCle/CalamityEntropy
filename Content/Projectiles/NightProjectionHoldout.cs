@@ -102,7 +102,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                Vector2 nv = (Main.MouseWorld - owner.MountedCenter).SafeNormalize(Vector2.One) * 8;
+                Vector2 nv = (Main.MouseWorld - owner.MountedCenter).SafeNormalize(Vector2.One) * 12;
                 if (nv != Projectile.velocity)
                 {
                     Projectile.netUpdate = true;
@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Projectiles
                 owner.direction = -1;
             }
             Player player = Projectile.owner.ToPlayer();
-            Projectile.Center = owner.MountedCenter + player.gfxOffY * Vector2.UnitY + Projectile.velocity.SafeNormalize(Vector2.Zero) * 36;
+            Projectile.Center = owner.MountedCenter + player.gfxOffY * Vector2.UnitY + Projectile.velocity.SafeNormalize(Vector2.Zero) * 28;
             owner.itemRotation = Projectile.rotation * Projectile.direction;
             Projectile.rotation = Projectile.velocity.ToRotation();
             owner.heldProj = Projectile.whoAmI;

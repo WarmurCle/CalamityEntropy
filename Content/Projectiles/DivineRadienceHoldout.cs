@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
                 owner.direction = -1;
             }
             Player player = Projectile.owner.ToPlayer();
-            Projectile.Center = owner.MountedCenter + player.gfxOffY * Vector2.UnitY + Projectile.velocity.SafeNormalize(Vector2.Zero) * 36;
+            Projectile.Center = owner.MountedCenter + player.gfxOffY * Vector2.UnitY + Projectile.velocity.SafeNormalize(Vector2.Zero) * 24;
             owner.itemRotation = Projectile.rotation * Projectile.direction;
             Projectile.rotation = Projectile.velocity.ToRotation();
             owner.heldProj = Projectile.whoAmI;
