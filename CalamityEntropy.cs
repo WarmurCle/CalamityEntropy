@@ -101,6 +101,7 @@ using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Pets;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Materials;
+using Microsoft.Xna.Framework.Audio;
 namespace CalamityEntropy
 {
     
@@ -311,9 +312,13 @@ namespace CalamityEntropy
                 player.Entropy().poops.Add(poop);
             }
             }
-
+        public static SoundEffect ealaserSound = null;
+        public static SoundEffect ealaserSound2 = null;
         public override void Load()
         {
+            ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/corruptedBeaconLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
@@ -1601,6 +1606,8 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            ealaserSound = null;
+            ealaserSound2 = null;
             ArmorPrefix.instances = null;
             Poop.instances = null;
             WallpaperHelper.wallpaper = null;

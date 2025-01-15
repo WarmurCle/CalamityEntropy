@@ -3,7 +3,9 @@ using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using CalamityMod;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -50,9 +52,27 @@ namespace CalamityEntropy.Content.Projectiles
         {
             behindNPCs.Add(index);
         }
+        public override void OnKill(int timeLeft)
+        {
+            if (sound != null)
+            {
+                sound.Stop();
+                sound2.Stop();
+            }
+        }
+        public SoundEffectInstance sound = null;
+        public SoundEffectInstance sound2 = null;
         public override void AI(){
             if (st)
             {
+                SoundEffect sf = CalamityEntropy.ealaserSound;
+                SoundEffect sf2 = CalamityEntropy.ealaserSound2;
+                sound = sf.CreateInstance();
+                sound.IsLooped = true;
+                sound.Play();
+                sound2 = sf2.CreateInstance();
+                sound2.IsLooped = true;
+                sound2.Play();
                 st = false;
                 for (int ii = 0; ii < 100; ii++)
                 {
@@ -93,6 +113,19 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
+            if(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 600)
+            {
+                if(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 2000){
+                    sound.Volume = 0;
+                }
+                else{
+                    sound.Volume = 1 - (float)(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) - 600) / 1400f;
+                }
+            }
+            else
+            {
+                sound.Volume = 1;
+            }
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f) * 1;
             if (Main.myPlayer == Projectile.owner)
             {
@@ -106,7 +139,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.Center = Projectile.owner.ToPlayer().Center + Projectile.rotation.ToRotationVector2() * 30;
+            Projectile.Center = Projectile.owner.ToPlayer().MountedCenter + Projectile.owner.ToPlayer().gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 30;
             if (Projectile.timeLeft < 6)
             {
                 width -= 1f / 7f;
@@ -170,7 +203,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tl2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cllight2").Value;
             Main.spriteBatch.Draw(tb, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(0, tb.Height / 2), new Vector2(length, width), SpriteEffects.None, 0);
             foreach (Vector2 ps in p) {
-                Util.Util.drawLine(Main.spriteBatch, px, Projectile.Center + (ps * new Vector2(1, width)).RotatedBy(Projectile.rotation), Projectile.Center + ((ps * new Vector2(1, width)) + new Vector2(40, 0)).RotatedBy(Projectile.rotation), Color.White, 2 * width);
+                Util.Util.drawLine(Main.spriteBatch, px, Projectile.Center + (ps * new Vector2(1, width)).RotatedBy(Projectile.rotation), Projectile.Center + ((ps * new Vector2(1, width)) + new Vector2(26, 0)).RotatedBy(Projectile.rotation), Color.White, 4 * width);
             }
             SpriteBatch sb = Main.spriteBatch;
             sb.End();
