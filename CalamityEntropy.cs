@@ -1329,7 +1329,7 @@ namespace CalamityEntropy
                     {
                         Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar").Value;
                         Color c = Color.White;
-                        if (p.ai[2] > 0)
+                        if (p.ai[2] > 0 && p.ModProjectile is VoidStarF)
                         {
                             c = new Color(255, 100, 100);
                         }
