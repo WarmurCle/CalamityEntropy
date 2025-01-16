@@ -316,6 +316,7 @@ namespace CalamityEntropy
         public static SoundEffect ealaserSound2 = null;
         public override void Load()
         {
+            LoopSoundManager.init();
             ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/corruptedBeaconLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
@@ -363,10 +364,22 @@ namespace CalamityEntropy
             On_NPC.UpdateNPC += npcupdate;
             On_NPC.StrikeNPC_HitInfo_bool_bool += StrikeNpc;
             On_Player.getRect += modifyRect;
-            
+            On_Main.DrawMenu += drawmenu;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
+        }
+
+        private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
+        {
+            orig(self, gameTime);
+            if (LoopSoundManager.sounds.Count > 0)
+            {
+                foreach (var sound in LoopSoundManager.sounds) {
+                    sound.stop();
+                }
+                LoopSoundManager.sounds.Clear();
+            }
         }
 
         private void npcupdate(On_NPC.orig_UpdateNPC orig, NPC self, int i)
@@ -1606,6 +1619,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            LoopSoundManager.unload();
             ealaserSound = null;
             ealaserSound2 = null;
             ArmorPrefix.instances = null;

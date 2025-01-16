@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         {
             player.Entropy().ManaCost -= 0.1f;
             player.statManaMax2 += 10;
-            player.Entropy().enhancedMana += 0.1f;
+            player.Entropy().enhancedMana += 0.14f;
         }
         public override Color getColor()
         {
@@ -19,6 +19,10 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         public override int getRollChance()
         {
             return 1;
+        }
+        public override bool Dramatic()
+        {
+            return true;
         }
     }
 }

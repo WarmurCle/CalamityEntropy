@@ -60,9 +60,9 @@ namespace CalamityEntropy.Content.Projectiles
         
         public override void AI(){
             Player owner = Projectile.owner.ToPlayer();
-            if (Projectile.ai[0]++ > 16 && Projectile.ai[0] % 20 == 0)
+            if (Projectile.ai[0]++ > 16 && Projectile.ai[0] % 17 == 0)
             {
-                if (owner.CheckMana(10, true))
+                if (owner.CheckMana(22, true))
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {

@@ -329,21 +329,21 @@ Items: {
 	OracleDeck: {
 		Tooltip:
 			'''
-			+11%暴击率
-			+30%移速
-			+16潜伏值
-			-60%魔力消耗
+			+11% 暴击率
+			+30% 移速
+			+16 最大潜伏值
+			-60% 魔力消耗
 			受到伤害降低20%
-			+10护甲穿透
-			+2召唤栏
-			+100%光照
+			+10 护甲穿透
+			+2 召唤栏
+			+100% 光照
 			装备后每隔五秒附近所有玩家受到20点治疗
 			'''
 		DisplayName: 神谕卡组
 	}
 
 	MetropolisCard: {
-		Tooltip: +15潜伏值上限
+		Tooltip: +15 最大潜伏值
 		DisplayName: 『都市』
 	}
 
@@ -1635,13 +1635,13 @@ ArmorPrefixSacrificalDescription:
 	-90% 防御
 	'''
 ArmorPrefixSilenceName: 寂静
-ArmorPrefixSilenceDescription: +2% 最大潜伏值
+ArmorPrefixSilenceDescription: +2 最大潜伏值
 ArmorPrefixMagicalName: 注魔
 ArmorPrefixMagicalDescription:
 	'''
 	+10 最大魔力值
 	-10% 魔力消耗
-	+10% 强化魔力
+	+14% 强化魔力
 	'''
 ArmorPrefixEvokerName: 唤灵
 ArmorPrefixEvokerDescription: +1 召唤栏
@@ -1670,7 +1670,7 @@ ArmorPrefixLastStandDescription:
 	该复活不可叠加
 	'''
 PrefixEnchanted: 注魔
-PrefixEnchantedDesc: +12% 强化魔力
+PrefixEnchantedDesc: +8% 强化魔力
 Prefixes.Enchanted.DisplayName: 注魔
 DamageClasses.NoneTypeDamageClass.DisplayName: 伤害
 hkLevel: 当前解锁进度

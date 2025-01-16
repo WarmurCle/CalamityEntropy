@@ -52,27 +52,17 @@ namespace CalamityEntropy.Content.Projectiles
         {
             behindNPCs.Add(index);
         }
-        public override void OnKill(int timeLeft)
-        {
-            if (sound != null)
-            {
-                sound.Stop();
-                sound2.Stop();
-            }
-        }
-        public SoundEffectInstance sound = null;
-        public SoundEffectInstance sound2 = null;
+        public LoopSound sound = null;
+        public LoopSound sound2 = null;
         public override void AI(){
             if (st)
             {
                 SoundEffect sf = CalamityEntropy.ealaserSound;
                 SoundEffect sf2 = CalamityEntropy.ealaserSound2;
-                sound = sf.CreateInstance();
-                sound.IsLooped = true;
-                sound.Play();
-                sound2 = sf2.CreateInstance();
-                sound2.IsLooped = true;
-                sound2.Play();
+                sound = new LoopSound(sf);
+                sound.play();
+                sound2 = new LoopSound(sf2);
+                sound2.play();
                 st = false;
                 for (int ii = 0; ii < 100; ii++)
                 {
@@ -113,18 +103,20 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
+            sound.timeleft = 2;
+            sound2.timeleft = 2;
             if(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 600)
             {
                 if(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 2000){
-                    sound.Volume = 0;
+                    sound.instance.Volume = 0;
                 }
                 else{
-                    sound.Volume = 1 - (float)(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) - 600) / 1400f;
+                    sound.instance.Volume = 1 - (float)(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) - 600) / 1400f;
                 }
             }
             else
             {
-                sound.Volume = 1;
+                sound.instance.Volume = 1;
             }
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f) * 1;
             if (Main.myPlayer == Projectile.owner)

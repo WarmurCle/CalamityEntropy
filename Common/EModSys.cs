@@ -126,6 +126,8 @@ namespace CalamityEntropy.Common
             {
                 Main.instance.IsMouseVisible = true;
             }
+
+            LoopSoundManager.update();
         }
         public void drawChargeBar(Vector2 center, float prog, Color color)
         {

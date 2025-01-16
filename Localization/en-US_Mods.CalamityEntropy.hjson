@@ -1576,7 +1576,7 @@ ArmorPrefixMagicalDescription:
 	'''
 	+10 Max Mana
 	-10% Mana Cost
-	+10% Enhanced Mana
+	+14% Enhanced Mana
 	'''
 ArmorPrefixEvokerName: Evoker
 ArmorPrefixEvokerDescription: +1 Max Minion
@@ -1603,7 +1603,7 @@ ArmorPrefixLastStandDescription:
 	+5% Damage Reduce
 	'''
 PrefixEnchanted: Enchanted
-PrefixEnchantedDesc: +12% Enhanced Mana
+PrefixEnchantedDesc: +8% Enhanced Mana
 Prefixes.Enchanted.DisplayName: Enchanted
 DamageClasses.NoneTypeDamageClass.DisplayName: Damage
 hkLevel: Level
