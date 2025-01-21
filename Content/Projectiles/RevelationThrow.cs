@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = CUtil.rougeDC;
+            Projectile.DamageType = CUtil.rogueDC;
             Projectile.width = 114;
             Projectile.height = 114;
             Projectile.friendly = true;

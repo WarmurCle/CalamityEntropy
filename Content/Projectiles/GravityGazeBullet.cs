@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI(){
             if (s)
             {
-                tail = Projectile.Center;
+                tail = Projectile.Center - Projectile.velocity;
                 Projectile.ai[1] = Main.rand.Next(0, 1024);
                 s = false;
             }
@@ -50,6 +50,10 @@ namespace CalamityEntropy.Content.Projectiles
         public bool s = true;
         public override bool PreDraw(ref Color lightColor)
         {
+            if (s)
+            {
+                return false;
+            }
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
             Asset<Texture2D> texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Enchanted", AssetRequestMode.ImmediateLoad);
             Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Transform", AssetRequestMode.ImmediateLoad).Value;

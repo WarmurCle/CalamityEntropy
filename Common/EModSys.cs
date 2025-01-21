@@ -73,10 +73,6 @@ namespace CalamityEntropy.Common
             {
                 Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/RepBossTrack")] = 1;
             }
-            else
-            {
-                Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/RepBossTrack")] = 0;
-            }
             if(CalamityEntropy.noMusTime > 0)
             {
                 CalamityEntropy.noMusTime--;
@@ -171,9 +167,9 @@ namespace CalamityEntropy.Common
                 {
                     if (Main.LocalPlayer.Entropy().brokenAnkh)
                     {
-                        Main.spriteBatch.UseSampleState(SamplerState.PointClamp);
+                        Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
                         PoopsUI.Draw();
-                        Main.spriteBatch.UseSampleState(SamplerState.AnisotropicClamp);
+                        Main.spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
                     }
                     return true;
                 }, InterfaceScaleType.None));

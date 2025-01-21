@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
         public override void UpdateEquip(Player player)
         {
             player.Entropy().meleeVF = true;
-            player.GetAttackSpeed(DamageClass.Generic) += 0.3f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.3f;
             player.GetDamage(DamageClass.Melee) += 0.3f;
             player.GetCritChance(DamageClass.Melee) += 25;
         }

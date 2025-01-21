@@ -15,5 +15,10 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         {
             return 3;
         }
+        public override bool? canApplyTo(Item item)
+        {
+            if (!Main.hardMode) return false;
+            return base.canApplyTo(item);
+        }
     }
 }

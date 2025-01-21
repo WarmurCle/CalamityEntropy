@@ -455,7 +455,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             }
                             if (t == 8)
                             {
-                                NPC.ai[2] = 260;
+                                NPC.ai[2] = 1;
                             }
                         }
                     }
@@ -675,7 +675,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                         }
                         if (NPC.ai[1] == 8)
                         {
-
+/*
                             if (NPC.ai[2] > 220)
                             {
                                 if (addlight < 1)
@@ -706,7 +706,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             if (NPC.ai[2] == 2)
                             {
                                 animation = 0;
-                            }
+                            }*/
                         }
                         NPC.ai[2]--;
                     }

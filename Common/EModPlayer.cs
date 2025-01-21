@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
@@ -18,6 +19,7 @@ using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.Weapons.Rogue;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Terraria;
@@ -55,7 +57,7 @@ namespace CalamityEntropy.Common
         public bool hasSM = false;
         public bool summonerVF;
         public bool magiVF;
-        public bool rougeVF;
+        public bool rogueVF;
         public bool meleeVF;
         public bool rangerVF;
         public bool VFSet;
@@ -63,7 +65,7 @@ namespace CalamityEntropy.Common
         public bool VFHelmRanged;
         public bool VFHelmMagic;
         public bool VFHelmSummoner;
-        public bool VFHelmRouge;
+        public bool VFHelmRogue;
         public bool VFHelmMelee;
         public int vfcd = 0;
         public float voidcharge = 0;
@@ -87,6 +89,7 @@ namespace CalamityEntropy.Common
         public bool CrPlush = false;
         public bool brokenAnkh = false;
         public bool reincarnationBadge = false;
+        public bool nihShell = false;
         public List<Poop> poops = new List<Poop>();
         public int MaxPoops = 19;
         public Poop PoopHold = null;
@@ -224,6 +227,7 @@ namespace CalamityEntropy.Common
             LastStand = false;
             brokenAnkh = false;
             holyMantle = false;
+            nihShell = false;
             CrPlush = false;
             if (brillianceCard > 0)
             {
@@ -252,7 +256,7 @@ namespace CalamityEntropy.Common
             taintedDeckInInv = false;
             summonerVF = false;
             magiVF = false;
-            rougeVF = false;
+            rogueVF = false;
             meleeVF = false;
             rangerVF = false;
             VFSet = false;
@@ -260,7 +264,7 @@ namespace CalamityEntropy.Common
             VFHelmRanged = false;
             VFHelmMagic = false;
             VFHelmSummoner = false;
-            VFHelmRouge = false;
+            VFHelmRogue = false;
             VFHelmMelee = false;
             SCrown = false;
             GreedCard = false;
@@ -272,10 +276,13 @@ namespace CalamityEntropy.Common
             reincarnationBadge = false;
         }
         public int crSky = 0;
+        public int NihSky = 0;
         public int llSky = 0;
         public int magiShieldCd = 0;
         public int sJudgeCd = 30 * 60;
         public float rBadgeCharge = 12;
+        public int nihShellCount = 0;
+        public int nihShellCd = 0;
         public override void FrameEffects()
         {
             if (CrPlush)
@@ -295,6 +302,10 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
+            if(nihShellCd > 0)
+            {
+                nihShellCd--;
+            }
             if (Main.myPlayer == Player.whoAmI)
             {
                 if (mawOfVoid)
@@ -531,6 +542,10 @@ namespace CalamityEntropy.Common
             {
                 crSky--;
             }
+            if(NihSky > 0)
+            {
+                NihSky--;
+            }
             if (llSky > 0)
             {
                 llSky--;
@@ -566,7 +581,7 @@ namespace CalamityEntropy.Common
                 Player.runAcceleration *= 1.2f;
                 Player.maxRunSpeed *= 1.2f;
             }
-            if (VFHelmRouge)
+            if (VFHelmRogue)
             {
                 Player.runAcceleration *= 1.15f;
                 Player.maxRunSpeed *= 1.15f;
@@ -784,6 +799,22 @@ namespace CalamityEntropy.Common
                     Player.statMana = Player.statManaMax2;
                 }
             }
+            if (!setToOne)
+            {
+                if (info.Damage > 30)
+                {
+                    if (nihShellCount > 0)
+                    {
+                        nihShellCount--;
+                        info.Damage /= 2;
+                        Util.Util.PlaySound("shielddown", 1, Player.Center);
+                        for (int i = 0; i < 24; i++)
+                        {
+                            GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 9), Main.rand.NextFloat(0.8f, 2.4f), new Color(165, 58, 222), 40));
+                        }
+                    }
+                }
+            }
         }
 
         public int OracleDeckHealCd = 0;
@@ -796,6 +827,10 @@ namespace CalamityEntropy.Common
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
+            if (!nihShell)
+            {
+                nihShellCount = 0;
+            }
             if (holdingPoop)
             {
                 Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi);
@@ -1092,7 +1127,7 @@ namespace CalamityEntropy.Common
                 {
                     if (n.Hitbox.Intersects(Player.Hitbox) && n.active)
                     {
-                        Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(DamageClass.Melee).ApplyTo(1200), 0, 0, false, Util.CUtil.rougeDC);
+                        Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(DamageClass.Melee).ApplyTo(1200), 0, 0, false, Util.CUtil.rogueDC);
 
                     }
                 }
@@ -1175,7 +1210,7 @@ namespace CalamityEntropy.Common
                             npc.defense = 0;
                             float or = npc.Calamity().DR;
                             npc.Calamity().DR = 0;
-                            Player.ApplyDamageToNPC(npc, (int)Player.GetTotalDamage(Util.CUtil.rougeDC).ApplyTo(460 + 50 * daCount), 0, 0, false, Util.CUtil.rougeDC);
+                            Player.ApplyDamageToNPC(npc, (int)Player.GetTotalDamage(Util.CUtil.rogueDC).ApplyTo(460 + 50 * daCount), 0, 0, false, Util.CUtil.rogueDC);
                             npc.defense = od;
                             npc.Calamity().DR = or;
                             daLastP = npc.Center;
@@ -1214,7 +1249,7 @@ namespace CalamityEntropy.Common
                                     {
                                         dmg += 460 + 50 * i;
                                     }
-                                    Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(Util.CUtil.rougeDC).ApplyTo(dmg), 0, 0, false, Util.CUtil.rougeDC);
+                                    Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(Util.CUtil.rogueDC).ApplyTo(dmg), 0, 0, false, Util.CUtil.rogueDC);
                                     n.defense = od;
                                     n.Calamity().DR = or;
                                 }

@@ -26,6 +26,7 @@ using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.DevourerofGods;
 using CalamityMod.NPCs.NormalNPCs;
+using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.SlimeGod;
 using CalamityMod.NPCs.SunkenSea;
@@ -268,7 +269,10 @@ namespace CalamityEntropy.Common
                 {
                     if (npc.boss)
                     {
-                        npc.velocity *= 0.98f;
+                        if (VoidTouchDR < 0.2f)
+                        {
+                            npc.velocity *= 0.98f;
+                        }
                     }
                     else
                     {
@@ -293,7 +297,13 @@ namespace CalamityEntropy.Common
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
-
+            if(projectile.owner >= 0)
+            {
+                if (projectile.owner.ToPlayer().Entropy().nihShell)
+                {
+                    modifiers.CritDamage += 1;
+                }
+            }
             if (projectile.owner >= 0)
             {
                 if (projectile.owner.ToPlayer().Entropy().VFSet)
@@ -321,6 +331,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
+            if (player.Entropy().nihShell)
+            {
+                modifiers.CritDamage += 1;
+            }
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.05f * (1 - npc.Entropy().VoidTouchDR);
             if (player.Entropy().VFSet)
             {
@@ -586,8 +600,10 @@ namespace CalamityEntropy.Common
 
         public override void OnKill(NPC npc)
         {
-            DownedBossSystem.downedPrimordialWyrm = true;
-
+            if (npc.type == ModContent.NPCType<PrimordialWyrmHead>())
+            {
+                DownedBossSystem.downedPrimordialWyrm = true;
+            }
             if (DownedBossSystem.downedAquaticScourge) {
                 if (npc.ModNPC is Viperfish)
                 {
@@ -819,6 +835,10 @@ namespace CalamityEntropy.Common
         public bool lostSoulDrop = true;
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
+            if (player.Entropy().nihShell)
+            {
+                NihilityShell.checkDamage(player, hit);
+            }
             if (player.Entropy().ConfuseCard)
             {
                 npc.AddBuff(ModContent.BuffType<Deceive>(), 420);
@@ -872,6 +892,10 @@ namespace CalamityEntropy.Common
                             AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
                         }
                     }
+                }
+                if (player.Entropy().nihShell)
+                {
+                    NihilityShell.checkDamage(player, hit);
                 }
                 player.Entropy().damageRecord += damageDone;
                 if (player.Entropy().brokenAnkh && player.Entropy().damageRecord > 420)

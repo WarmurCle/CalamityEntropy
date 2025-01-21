@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.UI
                         context.texture = ModContent.Request<Texture2D>($"{baseFolder}mantle");
                         context.scale = new Vector2(2, 2);
                         context.origin += new Vector2(0.5f, 0.5f);
-                        Main.spriteBatch.UseSampleState(SamplerState.PointClamp);
+                        Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
                         context.Draw();
                     }
                 }
@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.UI
                         context.texture = ModContent.Request<Texture2D>($"{baseFolder}mantle");
                         context.scale = new Vector2(2, 2);
                         context.origin += new Vector2(0.5f, 0.5f);
-                        Main.spriteBatch.UseSampleState(SamplerState.PointClamp);
+                        Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
                         context.Draw();
                     }
                 }

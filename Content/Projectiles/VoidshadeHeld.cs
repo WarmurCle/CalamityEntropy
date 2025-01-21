@@ -14,10 +14,6 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-	// ExampleCustomSwingSword is an example of a sword with a custom swing using a held projectile
-	// This is great if you want to make melee weapons with complex swing behavior
-	// Note that this projectile only covers 2 relatively simple swings, everything else is up to you
-	// Aside from the custom animation, the custom collision code in Colliding is very important to this weapon
 	public class VoidshadeHeld : ModProjectile
 	{
         public override void SetDefaults()

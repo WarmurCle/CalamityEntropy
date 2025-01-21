@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs;
+using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Util;
 using CalamityMod;
@@ -45,6 +46,10 @@ namespace CalamityEntropy.Common
         }
         public static Color getNpcBarColor(NPC npc)
         {
+            if (npc.GetGlobalNPC<DeliriumGlobalNPC>().delirium)
+            {
+                return Color.White;
+            }
             EntropyBossbar.bossbarColor[636] = Main.DiscoColor;
             int type = npc.type;
             /*if (npc.type == ModContent.NPCType<CruiserHead>() && npc.ModNPC is CruiserHead cr)
@@ -192,7 +197,11 @@ namespace CalamityEntropy.Common
             bool goozma = false;
             bool namelessDeity = false;
             bool abyssalWraith = false;
-            if(npc.ModNPC is AbyssalWraith)
+            if (npc.GetGlobalNPC<DeliriumGlobalNPC>().delirium)
+            {
+                namelessDeity = true;
+            }
+            if (npc.ModNPC is AbyssalWraith)
             {
                 abyssalWraith = true;
             }
@@ -221,7 +230,7 @@ namespace CalamityEntropy.Common
                 spriteBatch.Draw(barWhite2, center, new Rectangle(0, 0, 18 + (int)(500 * prog) + 2, bar1.Height), Color.Lerp(barColor, Color.White, 0.5f), 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
             }
 
-            spriteBatch.UseSampleState(SamplerState.LinearWrap);
+            spriteBatch.UseSampleState_UI(SamplerState.LinearWrap);
             if (abyssalWraith)
             {
                 spriteBatch.Draw(awBar, center + new Vector2(0, 8), new Rectangle(0, (int)(1.4f * -drawOfs), (int)(500 * prog), bar2.Height), barColor, 0, bar2.Size() / 2, 1, SpriteEffects.None, 0);
@@ -232,14 +241,14 @@ namespace CalamityEntropy.Common
             }
             if (goozma)
             {
-                Util.Util.UseState(spriteBatch, BlendState.Additive, SamplerState.LinearWrap);
+                Util.Util.UseState_UI(spriteBatch, BlendState.Additive, SamplerState.LinearWrap);
                 spriteBatch.Draw(gzmBar, center + new Vector2(0, 8), new Rectangle((int)(drawOfs * 5.6f), 0, (int)(500 * prog), bar2.Height), Color.White, 0, bar2.Size() / 2, 1, SpriteEffects.None, 0);
             }
             if (namelessDeity)
             {
                 spriteBatch.Draw(noise, center + new Vector2(0, 8), new Rectangle((int)(drawOfs * 1.6f), (int)(drawOfs * 0.4f), (int)(500 * prog), bar2.Height), Color.White, 0, bar2.Size() / 2, 1, SpriteEffects.None, 0);
             }
-            spriteBatch.UseSampleState(SamplerState.AnisotropicClamp);
+            spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
             //spriteBatch.Draw(barc, center + new Vector2(0, 8), new Rectangle(0, 0, (int)(500 * prog), bar2.Height), barColor, 0, barc.Size() / 2, 1, SpriteEffects.None, 0);
 
@@ -256,7 +265,7 @@ namespace CalamityEntropy.Common
                 Texture2D headBoss = TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()].Value;
                 spriteBatch.Draw(headBoss, center + new Vector2(0, -14), null, Color.White, 0, headBoss.Size() / 2, 1, SpriteEffects.None, 0);
             }
-            spriteBatch.UseSampleState(SamplerState.PointClamp);
+            spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
             
             string name = npc.FullName;
             Color tColor = getNpcBarColor(npc);
@@ -281,7 +290,7 @@ namespace CalamityEntropy.Common
             }
             //tColor = Color.Lerp(tColor, Color.White, whiteLerp);
             Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 26), tColor, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
-            spriteBatch.UseSampleState(SamplerState.AnisotropicClamp);
+            spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
 
 

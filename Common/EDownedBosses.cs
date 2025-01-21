@@ -9,10 +9,12 @@ namespace CalamityEntropy.Common
     {
         public static bool downedCruiser = false;
         public static bool downedAbyssalWraith = false;
+        public static bool downedNihilityTwin = false;
         public override void ClearWorld()
         {
             downedCruiser = false;
             downedAbyssalWraith = false;
+            downedNihilityTwin = false;
         }
 
         public override void SaveWorldData(TagCompound tag)
@@ -20,7 +22,14 @@ namespace CalamityEntropy.Common
             if (downedCruiser)
             {
                 tag["downedCruiser"] = true;
+            }
+            if (downedAbyssalWraith)
+            {
                 tag["downedAbyssalWraith"] = true;
+            }
+            if (downedNihilityTwin)
+            {
+                tag["downedNihilityTwin"] = true;
             }
         }
 
@@ -28,6 +37,7 @@ namespace CalamityEntropy.Common
         {
             downedCruiser = tag.ContainsKey("downedCruiser");
             downedAbyssalWraith = tag.ContainsKey("downedAbyssalWraith");
+            downedNihilityTwin = tag.ContainsKey("downedNihilityTwin");
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -36,6 +46,7 @@ namespace CalamityEntropy.Common
             var flags = new BitsByte();
             flags[0] = downedCruiser;
             flags[1] = downedAbyssalWraith;
+            flags[2] = downedNihilityTwin;
             writer.Write(flags);
             
         }
@@ -45,6 +56,7 @@ namespace CalamityEntropy.Common
             BitsByte flags = reader.ReadByte();
             downedCruiser = flags[0];
             downedAbyssalWraith = flags[1];
+            downedNihilityTwin = flags[2];
         }
     }
 }

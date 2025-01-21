@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles
             Player owner = Projectile.owner.ToPlayer();
             if (Projectile.ai[0]++ > 16 && (Projectile.ai[0] % 30 == 4 || Projectile.ai[0] % 30 == 8))
             {
-                if (owner.CheckMana(7, true))
+                if (owner.CheckMana(12, true))
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {

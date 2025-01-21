@@ -105,7 +105,7 @@ namespace CalamityEntropy.Common
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.axe > 0 || !player.Entropy().TarnishCard)
+            if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.damage <= 0 || item.axe > 0 || !player.Entropy().TarnishCard)
             {
                 return null;
             }
@@ -213,7 +213,7 @@ namespace CalamityEntropy.Common
                     TooltipLine t = new TooltipLine(CalamityEntropy.Instance, "Armor Bonus", Language.GetOrRegister("Mods.CalamityEntropy.helmvfs").Value);
                     tooltips.Add(t);
                 }
-                if (Main.LocalPlayer.Entropy().VFHelmRouge)
+                if (Main.LocalPlayer.Entropy().VFHelmRogue)
                 {
                     TooltipLine t = new TooltipLine(CalamityEntropy.Instance, "Armor Bonus", Language.GetOrRegister("Mods.CalamityEntropy.helmvfl").Value);
                     tooltips.Add(t);

@@ -53,6 +53,11 @@ Items: {
 				Tooltip: ""
 				DisplayName: Arbitrator II
 			}
+
+			Voidseeker: {
+				Tooltip: Stealth Strike will teleport you to your cursor and deal significant damage
+				DisplayName: Voidseeker
+			}
 		}
 	}
 
@@ -130,7 +135,10 @@ Items: {
 		Tooltip: ""
 	}
 
-	Lore.CruiserLore.DisplayName: Cruiser
+	Lore: {
+		CruiserLore.DisplayName: Cruiser
+		NihilityTwinLore.DisplayName: Nihility Twin
+	}
 
 	BrokenChainsaw: {
 		DisplayName: Broken Chainsaw
@@ -516,8 +524,8 @@ Items: {
 		DisplayName: Void Faquir Lurker Mask
 		Tooltip:
 			'''
-			+30% Rouge Damage
-			+30% Rouge Crit Chance
+			+30% Rogue Damage
+			+30% Rogue Crit Chance
 			+150 Max Stealth
 			'''
 	}
@@ -770,8 +778,8 @@ Items: {
 		DisplayName: 『Barren』
 		Tooltip:
 			'''
-			+12% Rouge Damage
-			Rouge Projectile obtain micro tracking
+			+12% Rogue Damage
+			Rogue Projectile obtain micro tracking
 			'''
 	}
 
@@ -830,7 +838,7 @@ Items: {
 		DisplayName: Tainted Deck
 		Tooltip:
 			'''
-			Rouge Projectile obtain micro tracking
+			Rogue Projectile obtain micro tracking
 			Attack to exert deceive debuff in enemies that Reduce their movement speed
 			Launch shadow flames during attack
 			+3% damage for each summon slots
@@ -1003,6 +1011,36 @@ Items: {
 		Tooltip: ""
 		DisplayName: Endless Abyss
 	}
+
+	NihilityHorn: {
+		DisplayName: Nihility Horn
+		Tooltip: Summon Nihility Twin
+	}
+
+	NihilityTwinBag: {
+		DisplayName: Nihility Twin Bag
+		Tooltip: ""
+	}
+
+	NihilityTwinRelic: {
+		DisplayName: Nihility Twin Relic
+		Tooltip: ""
+	}
+
+	NihilityTwinTrophy: {
+		DisplayName: Nihility Twin Trophy
+		Tooltip: ""
+	}
+
+	NihilityShell: {
+		Tooltip:
+			'''
+			Critical hits will deal 300% damage.
+			Probability of obtaining an energy shell during critical strike.
+			The energy shell can reduce the damage you receive by half once.
+			'''
+		DisplayName: Nihility Shell
+	}
 }
 
 DeathMode: Death Mode
@@ -1032,7 +1070,7 @@ Projectiles: {
 	LMSpawner.DisplayName: Spawner
 	WyrmChan.DisplayName: Wyrm Chan
 	VoidStar.DisplayName: Void Star
-	CruiserLaserMouth.DisplayName: Cruiser Laser Mouth
+	CruiserLaserMouth.DisplayName: Nihility Laser
 	VoidExplode.DisplayName: Void Explode
 	VoidMonumentProj.DisplayName: Void Monument Proj
 	Vmwave.DisplayName: Vmwave
@@ -1185,22 +1223,27 @@ Projectiles: {
 	AnimaChain.DisplayName: Anima Chain
 	LightWisperFlame.DisplayName: Light Wisper Flame
 	OblivionArrow.DisplayName: Oblivion Arrow
-	OblivionHoldout.DisplayName: Oblivion Holdout
-	EyeOfIlmerisHoldout.DisplayName: Eye Of Ilmeris Holdout
-	IlmerisWaterBullet.DisplayName: Ilmeris Water Bullet
-	GravityGazeBullet.DisplayName: Gravity Gaze Bullet
-	GravityGazeHoldout.DisplayName: Gravity Gaze Holdout
-	DivineRadienceBullet.DisplayName: Divine Radience Bullet
-	DivineRadienceHoldout.DisplayName: Divine Radience Holdout
-	NightProjectionHoldout.DisplayName: Night Projection Holdout
+	OblivionHoldout.DisplayName: Oblivion
+	EyeOfIlmerisHoldout.DisplayName: Eye Of Ilmeris
+	IlmerisWaterBullet.DisplayName: Ilmeris Water
+	GravityGazeBullet.DisplayName: Gravity Gaze
+	GravityGazeHoldout.DisplayName: Gravity Gaze
+	DivineRadienceBullet.DisplayName: Divine Radience
+	DivineRadienceHoldout.DisplayName: Divine Radience
+	NightProjectionHoldout.DisplayName: Night Projection
 	ProjectionStar.DisplayName: Projection Star
 	ProjectionStarSplit.DisplayName: Projection Star Split
-	ProjectionStarSplitAlt.DisplayName: Projection Star Split Alt
+	ProjectionStarSplitAlt.DisplayName: Projection Star Split
 	LunarLightball.DisplayName: Lunar Lightball
-	OverloadLunarHoldout.DisplayName: Overload Lunar Holdout
-	EyeOfOthersideHoldout.DisplayName: Eye Of Otherside Holdout
-	EndlessAbyssHoldout.DisplayName: Endless Abyss Holdout
+	OverloadLunarHoldout.DisplayName: Overload Lunar
+	EyeOfOthersideHoldout.DisplayName: Eye Of Otherside
+	EndlessAbyssHoldout.DisplayName: Endless Abyss
 	EndlessAbyssLaser.DisplayName: Endless Abyss Laser
+	Tail.DisplayName: Tail
+	CellBullet.DisplayName: Cell Bullet
+	CellSpike.DisplayName: Cell Spike
+	VoidseekerProj.DisplayName: Voidseeker
+	NihilityFire.DisplayName: Nihility Fire
 }
 
 LegendTooltip: - Legend -
@@ -1374,8 +1417,49 @@ NPCs: {
 	VoidCultistAssassin.DisplayName: Void Cultist Assassin
 	VoidPope.DisplayName: Void Pope
 	VoidPopeHand.DisplayName: Void Pope Hand
+	Delirium.DisplayName: Delirium
+
+	PrimordialWyrmNPC: {
+		TownNPCMood: {
+			NoHome: Have a pleasant battle, you have won. Now please give me a place to live.
+			Content: Thank you, I have a great time here.
+			FarFromHome: Where is this?
+			LoveSpace: This place is very spacious, I really like it.
+			DislikeCrowded: This place is too lively.
+			HateCrowded: There are many people here.
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
+		}
+
+		DisplayName: Primordial Wyrm
+	}
+
+	NihilityActeriophage: {
+		DisplayName: Nihility Acteriophage
+
+		BossChecklistIntegration: {
+			EntryName: Nihility Twin
+			SpawnInfo: Use [i:CalamityEntropy/NihilityHorn] to summon
+			DespawnMessage: Nihility Twin has been defeated
+		}
+	}
+
+	ChaoticCell.DisplayName: Chaotic Cell
+	ChaoticCellSmall.DisplayName: Chaotic Cell Small
 }
 
+WyrmChatNoHome: Where are we going now?
+WyrmChat1: Sometimes I get stuck when I enter the door, and then I break the door frame!
+WyrmChat2: I have never slept on my side before.
+WyrmChat3: You are very powerful, I will follow you.
+WyrmChat4: The Terminus? I never knew what that thing was for, but please keep it safe.
+WyrmChat5: You said there is a group of my followers? That sounds quite interesting.
+WyrmChat6: The abyss is really oppressive, sometimes it's good to come out and get some fresh air.
+WyrmChat7: Why should I follow you In order to prevent the thief who usurped the light from succeeding.
+WyrmChat8: Life in the abyss is just too boring.
+WyrmChat9: Do you think who is stronger between me and that Witch.
+WyrmChat10: You asked me why I attacked you at that time? My mission is to protect that sacred object.
+WyrmChat11: Chaos always makes me feel uncomfortable.
 loreCruiser:
 	'''
 	This worm like giant creature once lived in the void,
@@ -1383,6 +1467,12 @@ loreCruiser:
 	It's not difficult to tear you apart
 	'''
 loreCruiserEffect: Permanently increase the max life by 60 and increase the max mana by 100
+loreNihTwin:
+	'''
+	Creatures living in the void parasitize on large floating creatures in some kind of void.
+	Although they resemble bacteriophages and cells, they are actually completely different from the organisms we are familiar with.
+	This creature can escape from its original dimension through the cracks in the void and come into our world.
+	'''
 
 Keybinds: {
 	RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
@@ -1394,6 +1484,7 @@ CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
 CruiserBestiary: The worm like creature living in the void has been completely eroded by the void. When its scales shatter, you will see its true form.
 AbyssalWraithBestiary: The false gods generated under distorted beliefs can burst out infinite void energy, but even such ultimate creatures are just the tip of the iceberg in the void.
+NihilityTwinBestiary: A pair of creatures born in the void.
 WorldGen.VoidOreSpawn: Void energy is emanating from the sky
 
 Tiles: {
@@ -1422,11 +1513,6 @@ Configs: {
 
 		VoidChargeBarY: {
 			Label: Void Charge Bar Y
-			Tooltip: ""
-		}
-
-		CraftArmorWithPrefixChance: {
-			Label: Craft Armor With Prefix Chance
 			Tooltip: ""
 		}
 
@@ -1603,7 +1689,7 @@ ArmorPrefixLastStandDescription:
 	+5% Damage Reduce
 	'''
 PrefixEnchanted: Enchanted
-PrefixEnchantedDesc: +8% Enhanced Mana
+PrefixEnchantedDesc: +4% Enhanced Mana
 Prefixes.Enchanted.DisplayName: Enchanted
 DamageClasses.NoneTypeDamageClass.DisplayName: Damage
 hkLevel: Level

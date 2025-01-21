@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = CUtil.rougeDC;
+            Projectile.DamageType = CUtil.rogueDC;
             Projectile.width = 58;
             Projectile.height = 58;
             Projectile.friendly = true;
@@ -217,7 +217,7 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int i = 0; i < 4; i++)
                 {
                     Vector2 velocity = MathHelper.ToRadians(i * 90).ToRotationVector2() * 16;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<HolyBeam>(), (int)(Projectile.damage * 0.36f), 0f, Projectile.owner).ToProj().DamageType = Util.CUtil.rougeDC;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<HolyBeam>(), (int)(Projectile.damage * 0.36f), 0f, Projectile.owner).ToProj().DamageType = Util.CUtil.rogueDC;
                 }
             }
         }

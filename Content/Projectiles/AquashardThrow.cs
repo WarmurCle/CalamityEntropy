@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = CUtil.rougeDC;
+            Projectile.DamageType = CUtil.rogueDC;
             Projectile.width = 46;
             Projectile.height = 46;
             Projectile.friendly = true;
@@ -167,7 +167,7 @@ namespace CalamityEntropy.Content.Projectiles
                     for (int i = 0; i < 2 + (Projectile.Calamity().stealthStrike ? 3 : 0); i++)
                     {
                         Vector2 velocity = CalamityUtils.RandomVelocity(100f, 70f, 100f);
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.6), 0f, Projectile.owner).ToProj().DamageType = Util.CUtil.rougeDC;
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.6), 0f, Projectile.owner).ToProj().DamageType = Util.CUtil.rogueDC;
                     }
                 }
             }

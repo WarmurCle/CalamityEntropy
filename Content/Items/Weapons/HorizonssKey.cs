@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
         {
-            if(damageClass == Util.CUtil.rougeDC)
+            if(damageClass == Util.CUtil.rogueDC)
             {
                 return new StatInheritanceData(0.35f, 0.35f, 0.35f, 0.35f, 0.35f);
             }
@@ -245,22 +245,22 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public float damageMul()
         {
-            float ad = 1.1f;
+            float ad = 1f;
             if (NPC.downedSlimeKing)
             {
-                ad += 0.15f;
+                ad += 0.14f;
             }
             if (NPC.downedBoss1)
             {
-                ad += 0.26f;
+                ad += 0.25f;
             }
             if (NPC.downedBoss2)
             {
-                ad += 0.16f;
+                ad += 0.15f;
             }
             if (NPC.downedBoss3)
             {
-                ad += 0.7f;
+                ad += 0.6f;
             }
             if (Main.hardMode)
             {
@@ -276,7 +276,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (NPC.downedAncientCultist)
             {
-                ad += 0.15f;
+                ad += 0.1f;
             }
             if (NPC.downedMoonlord)
             {
@@ -300,11 +300,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedDoG)
             {
-                ad += 0.8f;
+                ad += 0.5f;
             }
             if (DownedBossSystem.downedYharon)
             {
-                ad += 3;
+                ad += 1.6f;
             }
             if (DownedBossSystem.downedExoMechs)
             {
@@ -312,7 +312,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedCalamitas)
             {
-                ad += 10;
+                ad += 1;
             }
             return ad;
         }

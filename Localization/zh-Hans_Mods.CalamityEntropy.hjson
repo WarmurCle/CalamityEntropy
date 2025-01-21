@@ -78,6 +78,16 @@ Items: {
 					'''
 				DisplayName: 仲裁者II
 			}
+
+			Voidseeker: {
+				Tooltip:
+					'''
+					从下往上挥砍的镰刀
+					潜伏攻击会传送到光标位置并从上往下进行一次更大的挥砍
+					传送后获得短暂无敌时间
+					'''
+				DisplayName: 苍茫长镰
+			}
 		}
 	}
 
@@ -157,7 +167,10 @@ Items: {
 		Tooltip: ""
 	}
 
-	Lore.CruiserLore.DisplayName: 巡游者
+	Lore: {
+		CruiserLore.DisplayName: 巡游者
+		NihilityTwinLore.DisplayName: 虚无双子
+	}
 
 	BrokenChainsaw: {
 		DisplayName: 破损链锯
@@ -1010,7 +1023,7 @@ Items: {
 			锁住最近的目标，持续3秒
 			冷却为25秒，当有boss存在时冷却为60秒
 			'''
-		DisplayName: 孤魂铁锁
+		DisplayName: 孤魂铁索
 	}
 
 	TestItem: {
@@ -1071,6 +1084,41 @@ Items: {
 			'''
 		DisplayName: 无底深渊
 	}
+
+	NihilityHorn: {
+		DisplayName: 虚无号角
+		Tooltip:
+			'''
+			召唤虚无双子
+			"吹响它能打开通往虚空的通道"
+			'''
+	}
+
+	NihilityTwinBag: {
+		DisplayName: 宝藏袋 (虚无双子)
+		Tooltip: ""
+	}
+
+	NihilityTwinRelic: {
+		DisplayName: 虚无双子圣物
+		Tooltip: ""
+	}
+
+	NihilityTwinTrophy: {
+		DisplayName: 虚无双子纪念章
+		Tooltip: ""
+	}
+
+	NihilityShell: {
+		Tooltip:
+			'''
+			暴击将造成300%的伤害
+			暴击时概率获得一块能量甲壳
+			能量甲壳能减半一次你受到的伤害
+			最多同时拥有3块能量甲壳
+			'''
+		DisplayName: 噬虚魔壳
+	}
 }
 
 DeathMode: 死亡模式
@@ -1100,7 +1148,7 @@ Projectiles: {
 	LMSpawner.DisplayName: 生成
 	WyrmChan.DisplayName: 妖龙酱
 	VoidStar.DisplayName: 虚空新星
-	CruiserLaserMouth.DisplayName: 巡游者激光
+	CruiserLaserMouth.DisplayName: 虚无激光
 	VoidExplode.DisplayName: 虚空爆炸
 	VoidMonumentProj.DisplayName: 虚空符石
 	Vmwave.DisplayName: 震荡波
@@ -1267,8 +1315,13 @@ Projectiles: {
 	LunarLightball.DisplayName: 夜明光球
 	OverloadLunarHoldout.DisplayName: 夜明星陨
 	EyeOfOthersideHoldout.DisplayName: 彼岸之眼
-	// EndlessAbyssHoldout.DisplayName: Endless Abyss Holdout
-	// EndlessAbyssLaser.DisplayName: Endless Abyss Laser
+	EndlessAbyssHoldout.DisplayName: 无底深渊
+	EndlessAbyssLaser.DisplayName: 深渊死光
+	Tail.DisplayName: 尾巴
+	CellBullet.DisplayName: 虚空细胞
+	CellSpike.DisplayName: 虚无尖刺
+	VoidseekerProj.DisplayName: 苍茫长镰
+	NihilityFire.DisplayName: 虚无烈焰
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1442,8 +1495,49 @@ NPCs: {
 	VoidCultistAssassin.DisplayName: 虚空邪教徒
 	VoidPope.DisplayName: 虚空教主
 	VoidPopeHand.DisplayName: 虚空教主
+	Delirium.DisplayName: 精神错乱
+
+	PrimordialWyrmNPC: {
+		TownNPCMood: {
+			NoHome: 战斗愉快，你赢了。现在请给我个住所吧。
+			Content: 谢谢你，在这里我很愉快。
+			FarFromHome: 这是哪？
+			LoveSpace: 这里很宽广，我很喜欢。
+			DislikeCrowded: 这里太热闹了...
+			HateCrowded: 这里的人好多...
+			LikeNPC_Princess: 我喜欢 {NPCName}，他人很好。
+			Princess_LovesNPC: 我喜欢 {NPCName}。
+		}
+
+		DisplayName: 始源妖龙
+	}
+
+	NihilityActeriophage: {
+		DisplayName: 虚无噬菌体
+
+		BossChecklistIntegration: {
+			EntryName: 虚无双子
+			SpawnInfo: 使用[i:CalamityEntropy/NihilityHorn]召唤
+			DespawnMessage: 虚无双子已被击败！
+		}
+	}
+
+	ChaoticCell.DisplayName: 混沌细胞
+	ChaoticCellSmall.DisplayName: 混沌细胞分裂体
 }
 
+WyrmChatNoHome: 我们现在要去哪？
+WyrmChat1: 有时候我进门时会卡住，然后我就把门框撞烂了！
+WyrmChat2: 我睡觉从来没有侧躺过...
+WyrmChat3: 你很强大，我会跟随你。
+WyrmChat4: 终末石？我从来不知道那玩意有什么用，但是请保管好它。
+WyrmChat5: 你说有一群我的信徒？听起来挺有趣。
+WyrmChat6: 深渊实在是太压抑了，有时候出来透透气也挺好。
+WyrmChat7: 为什么我要跟着你......为了不然那个篡夺了光明的小偷得逞。
+WyrmChat8: 在深渊的生活实在是太无聊了...
+WyrmChat9: 你说我和那位硫火女巫谁更强大
+WyrmChat10: 你问我当时为什么要袭击你...我的使命是保护那件圣物。
+WyrmChat11: 混沌能量总是让我感到不适。
 loreCruiser:
 	'''
 	这种蠕虫一样的巨型生物曾生活在虚无中，
@@ -1451,6 +1545,12 @@ loreCruiser:
 	对于撕碎你来说并不是什么难事
 	'''
 loreCruiserEffect: 使用后永久增加60生命上限和100魔力上限
+loreNihTwin:
+	'''
+	虚空中生存的生物，寄生在某种虚空中漂浮的大型生物身上。
+	虽然形似噬菌体和细胞，但它们其实与我们所熟知的生物完全不同。
+	这种生物能从虚空裂缝中逃离原本的维度，并来到我们的世界里。
+	'''
 
 Keybinds: {
 	RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
@@ -1462,7 +1562,8 @@ CdMoonlight: 月光护盾
 CdDS: 神圣干预冷却
 CruiserBestiary: 生活在虚空中的蠕虫一样的生物，已完全被虚空侵蚀。当它鳞甲破碎时，你将见到它真正的样子。
 AbyssalWraithBestiary: 扭曲信仰下产生的伪神，能爆发出无限的虚空能量，可即使是这样究极生物，也只不过是虚空的冰山一角而已。
-WorldGen.VoidOreSpawn: 天空中散发着虚空能量
+NihilityTwinBestiary: 一对诞生于虚空的生物
+WorldGen.VoidOreSpawn: 天空中散发出虚空能量
 
 Tiles: {
 	AuricBoulder.MapEntry: 圣金源巨石
@@ -1491,11 +1592,6 @@ Configs: {
 		VoidChargeBarY: {
 			Label: 虚空充能条位置Y
 			Tooltip: ""
-		}
-
-		CraftArmorWithPrefixChance: {
-			// Label: Craft Armor With Prefix Chance
-			// Tooltip: ""
 		}
 
 		ChainsawShakeScreen: {
@@ -1670,7 +1766,7 @@ ArmorPrefixLastStandDescription:
 	该复活不可叠加
 	'''
 PrefixEnchanted: 注魔
-PrefixEnchantedDesc: +8% 强化魔力
+PrefixEnchantedDesc: +4% 强化魔力
 Prefixes.Enchanted.DisplayName: 注魔
 DamageClasses.NoneTypeDamageClass.DisplayName: 伤害
 hkLevel: 当前解锁进度

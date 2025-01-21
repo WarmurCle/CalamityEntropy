@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<DarkBlue>();
             Item.shoot = ModContent.ProjectileType<SilenceThrow>();
             Item.shootSpeed = 18f;
-            Item.DamageType = CUtil.rougeDC;
+            Item.DamageType = CUtil.rogueDC;
             Item.rare = ItemRarityID.Red;
             Item.Entropy().stroke = true;
             Item.Entropy().strokeColor = new Color(20, 26, 92);

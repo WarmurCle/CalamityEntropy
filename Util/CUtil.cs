@@ -12,10 +12,10 @@ namespace CalamityEntropy.Util
 {
     public static class CUtil
     {
-        public static DamageClass rougeDC;
+        public static DamageClass rogueDC;
         public static void load()
         {
-            rougeDC = ModContent.GetInstance<RogueDamageClass>();
+            rogueDC = ModContent.GetInstance<RogueDamageClass>();
         }
     }
 }

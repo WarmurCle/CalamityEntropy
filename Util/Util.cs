@@ -11,12 +11,38 @@ using NATUPNPLib;
 using System.Linq;
 using CalamityEntropy.Common;
 using Terraria.Audio;
+using Terraria.GameContent;
 
 namespace CalamityEntropy.Util
 {
     public static class Util {
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
 
+        public static Vector2 Bezier(List<Vector2> points, float lerp)
+        {
+            if(points.Count == 1)
+            {
+                return points[0];
+            }
+            if(points.Count == 2)
+            {
+                return Vector2.Lerp(points[0], points[1], lerp);
+            }
+            else
+            {
+                List<Vector2> newPoints = new List<Vector2>();
+                for(int i = 1; i < points.Count; i++)
+                {
+                    newPoints.Add(Vector2.Lerp(points[i - 1], points[i], lerp));
+                }
+                return Bezier(newPoints, lerp);
+            }
+        } 
+
+        public static Texture2D getTexture(this NPC npc)
+        {
+            return TextureAssets.Npc[npc.type].Value;
+        }
         public static float GetAngleBetweenVectors(Vector2 vector1, Vector2 vector2)
         {
             // ¼ÆËãµã»ý
@@ -63,20 +89,24 @@ namespace CalamityEntropy.Util
             s.MaxInstances = maxIns;
             SoundEngine.PlaySound(in s, pos);
         }
-        public static void UseSampleState(this SpriteBatch sb, SamplerState sampler)
+        public static void UseSampleState_UI(this SpriteBatch sb, SamplerState sampler)
         {
             sb.End();
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, sampler, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
         }
-        public static void UseBlendState(this SpriteBatch sb, BlendState blend)
+        public static void UseBlendState_UI(this SpriteBatch sb, BlendState blend)
         {
             sb.End();
             sb.Begin(SpriteSortMode.Deferred, blend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
         }
-        public static void UseState(this SpriteBatch sb, BlendState blend, SamplerState sampler)
+        public static void UseState_UI(this SpriteBatch sb, BlendState blend, SamplerState sampler)
         {
             sb.End();
             sb.Begin(SpriteSortMode.Deferred, blend, sampler, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+        }
+        public static void begin_(this SpriteBatch sb)
+        {
+            sb.Begin(0, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void DrawRectAlt(Rectangle rect, Color color, float width, int num = 16)
         {

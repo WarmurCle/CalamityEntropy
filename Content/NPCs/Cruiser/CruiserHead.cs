@@ -100,8 +100,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPCID.Sets.BossBestiaryPriority.Add(Type);
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
-                Scale = 0.65f,
-                PortraitScale = 0.7f,
+                Scale = 0.48f,
+                PortraitScale = 0.56f,
                 CustomTexturePath = "CalamityEntropy/Assets/Extra/CruiserBes",
                 PortraitPositionXOverride = 0,
                 PortraitPositionYOverride = 0
@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC.damage += 18;
             }
             NPC.defense = 70;
-            NPC.lifeMax = 1800000;
+            NPC.lifeMax = 1600000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
@@ -970,6 +970,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     if (phaseTrans < 120)
                     {
                         aitype = -1;
+                        changeCounter = -4;
                     }
                     else if (aitype < 2 && aitype > -1)
                     {

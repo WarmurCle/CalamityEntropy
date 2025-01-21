@@ -30,7 +30,6 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             Projectile.tileCollide = false;
             Projectile.width = 16;
             Projectile.height = 24;
-            Projectile.scale = 2;
         }
         int dc = 0;
         public bool mantle = true;
@@ -41,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             if (Main.gameMenu)
             {
                 
-                Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(txd, 4, 0), lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
+                Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(txd, 4, 0), lightColor, Projectile.rotation, new Vector2(30, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
                 return false;
             }
@@ -54,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
 
                 return false;
             }
-            Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition + new Vector2(0, (float)Math.Cos((float)dc * 0.06f) * 20), Util.Util.GetCutTexRect(txd, 4, (counter / 4) % 4), lightColor * alpha, Projectile.rotation, new Vector2(32, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition + new Vector2(0, (float)Math.Cos((float)dc * 0.06f) * 20), Util.Util.GetCutTexRect(txd, 4, (counter / 4) % 4), lightColor * alpha, Projectile.rotation, new Vector2(30, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
             
 
 
@@ -307,7 +306,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                 bosses.Clear();
                 hideVisualTime = 180;
                 SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/isaacdies");
-                SoundEngine.PlaySound(s);
+                SoundEngine.PlaySound(s, Projectile.Center);
                 CombatText.NewText(Projectile.getRect(), Color.White, Mod.GetLocalization("Uh").Value);
             } 
         }

@@ -102,6 +102,8 @@ using CalamityMod.Items.Pets;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Audio;
+using System.Diagnostics.Metrics;
+using CalamityEntropy.Content.NPCs.NihilityTwin;
 namespace CalamityEntropy
 {
     
@@ -347,10 +349,7 @@ namespace CalamityEntropy
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserBody>());
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
             On_FilterManager.EndCapture += ec;
-            Terraria.Graphics.Effects.Filters.Scene["CalamityEntropy:Cruiser"] = new Filter(new CrScreenShaderData("FilterMiniTower").UseColor(Color.Transparent).UseOpacity(0f), EffectPriority.VeryHigh);
-            SkyManager.Instance["CalamityEntropy:Cruiser"] = new CrSky();
-            Terraria.Graphics.Effects.Filters.Scene["CalamityEntropy:DimensionLens"] = new Filter(new TransScreenShaderData("FilterMiniTower").UseColor(Color.Transparent).UseOpacity(0f), EffectPriority.VeryHigh);
-            SkyManager.Instance["CalamityEntropy:DimensionLens"] = new LlSky();
+            EntropySkies.setUpSkies();
             On_Lighting.AddLight_int_int_int_float += al_iiif;
             On_Lighting.AddLight_int_int_float_float_float += al_iifff;
             On_Lighting.AddLight_Vector2_float_float_float += al_vfff;
@@ -364,10 +363,65 @@ namespace CalamityEntropy
             On_NPC.UpdateNPC += npcupdate;
             On_NPC.StrikeNPC_HitInfo_bool_bool += StrikeNpc;
             On_Player.getRect += modifyRect;
+            On_Main.DrawInfernoRings += drawIr;
+            On_Main.DrawProjectiles += drawShellBack;
             On_Main.DrawMenu += drawmenu;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
+        }
+
+        private void drawShellBack(On_Main.orig_DrawProjectiles orig, Main self)
+        {
+            orig(self);
+            Main.spriteBatch.begin_();
+            Texture2D shell = Util.Util.getExtraTex("shell");
+            foreach (Player player in Main.ActivePlayers)
+            {
+                if (player.Entropy().nihShellCount <= 0)
+                {
+                    continue;
+                }
+                float rot = player.Entropy().CasketSwordRot * 0.2f;
+                int count = player.Entropy().nihShellCount;
+                for (int i = 0; i < count; i++)
+                {
+                    if (rot.ToRotationVector2().Y < 0)
+                    {
+                        Vector2 center = new Vector2(36, 0).RotatedBy(rot);
+                        center.Y = 0;
+                        float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
+                        Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                    }
+                    rot += MathHelper.TwoPi / (float)count;
+                }
+            }
+            Main.spriteBatch.End();
+        }
+
+        private void drawIr(On_Main.orig_DrawInfernoRings orig, Main self)
+        {
+            Texture2D shell = Util.Util.getExtraTex("shell");
+            foreach(Player player in Main.ActivePlayers)
+            {
+                if(player.Entropy().nihShellCount <= 0) {
+                    continue;
+                }
+                float rot = player.Entropy().CasketSwordRot * 0.2f;
+                int count = player.Entropy().nihShellCount;
+                for(int i = 0; i < count; i++)
+                {
+                    if(rot.ToRotationVector2().Y > 0)
+                    {
+                        Vector2 center = new Vector2(36, 0).RotatedBy(rot);
+                        center.Y = 0;
+                        float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
+                        Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                    }
+                    rot += MathHelper.TwoPi / (float)count;
+                }
+            }
+            orig(self);
         }
 
         private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
@@ -392,6 +446,46 @@ namespace CalamityEntropy
             }
             else
             {
+                if (self.active)
+                {
+                    var mn = self.GetGlobalNPC<DeliriumGlobalNPC>();
+                    if (mn.delirium)
+                    {
+                        NPC npc = self;
+                        npc.damage = mn.damage;
+                        mn.counter--;
+                        if (mn.counter <= 0)
+                        {
+                            if (!Main.dedServ)
+                            {
+                                Util.Util.PlaySound("clicker_static", 1, npc.Center);
+                            }
+                            mn.counter = Main.rand.Next(60, 360);
+                            npc.netUpdate = true;
+                            npc.netSpam = 0;
+                            int npc_ = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, Delirium.npcTurns[Main.rand.Next(Delirium.npcTurns.Count)]);
+                            NPC spawn = npc_.ToNPC();
+                            spawn.Center = npc.Center;
+                            spawn.lifeMax = npc.lifeMax;
+                            spawn.life = npc.life;
+                            spawn.damage = npc.damage;
+                            spawn.GetGlobalNPC<DeliriumGlobalNPC>().delirium = true;
+                            spawn.GetGlobalNPC<DeliriumGlobalNPC>().damage = mn.damage;
+                            spawn.GetGlobalNPC<DeliriumGlobalNPC>().counter = mn.counter;
+                            spawn.netUpdate = true;
+                            spawn.netSpam = 0;
+                            npc.active = false;
+                        }
+                        if (npc.type != NPCID.DukeFishron && npc.type != ModContent.NPCType<OldDuke>() && npc.type != NPCID.Golem && npc.type != ModContent.NPCType<Bumblefuck>() && npc.type != NPCID.SkeletronHead)
+                        {
+                            orig(self, i);
+                            if (npc.type != NPCID.EyeofCthulhu && npc.type != NPCID.QueenBee && npc.type != NPCID.Retinazer && npc.type != NPCID.Spazmatism && npc.type != ModContent.NPCType<Yharon>() && npc.type != NPCID.MoonLordCore && npc.type != ModContent.NPCType<PrimordialWyrmHead>())
+                            {
+                                orig(self, i);
+                            }
+                        }
+                    }
+                }
                 orig(self, i);
             }
         }
@@ -689,42 +783,65 @@ namespace CalamityEntropy
                 if (bossChecklist != null)
                 {
                     {
-                        string entryName = "Cruiser";
-                        List<int> segments = new List<int>() { ModContent.NPCType<CruiserHead>(), ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() };
-                        List<int> collection = new List<int>() { ModContent.ItemType<CruiserBag>(), ModContent.ItemType<CruiserTrophy>(), ModContent.ItemType<VoidScales>(), ModContent.ItemType<VoidMonolith>(), ModContent.ItemType<CruiserRelic>(), ModContent.ItemType<VoidRelics>(), ModContent.ItemType<PhantomPlanetKillerEngine>(), ModContent.ItemType<VoidAnnihilate>(), ModContent.ItemType<VoidElytra>(), ModContent.ItemType<VoidEcho>(), ModContent.ItemType<Content.Items.Weapons.Silence>(), ModContent.ItemType<RuneSong>(), ModContent.ItemType<WingsOfHush>(), ModContent.ItemType<VoidToy>(), ModContent.ItemType<TheocracyPearlToy>(), ModContent.ItemType<CruiserPlush>() };
-                        Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                         {
-                            Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Cruiser").Value;
-                            sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.7f, SpriteEffects.None, 0);
-                        };
-                        Func<bool> cruiser = () => EDownedBosses.downedCruiser;
-                        AddBoss(bossChecklist, CalamityEntropy.Instance, entryName, 21.7f, cruiser, segments, new Dictionary<string, object>()
+                            string entryName = "NihilityTwin";
+                            List<int> segments = new List<int>() { ModContent.NPCType<NihilityActeriophage>(), ModContent.NPCType<ChaoticCell>()};
+                            List<int> collection = new List<int>() { ModContent.ItemType<NihilityTwinBag>(), ModContent.ItemType<NihilityTwinTrophy>(), ModContent.ItemType<NihilityTwinRelic>(), ModContent.ItemType<NihilityShell>(), ModContent.ItemType<Voidseeker>() };
+                            Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
+                            {
+                                Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/NihilityTwin").Value;
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.7f, SpriteEffects.None, 0);
+                            };
+                            Func<bool> cruiser = () => EDownedBosses.downedCruiser;
+                            AddBoss(bossChecklist, CalamityEntropy.Instance, entryName, 19.3f, cruiser, segments, new Dictionary<string, object>()
+                            {
+                                ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.DespawnMessage"),
+                                ["spawnItems"] = ModContent.ItemType<NihilityHorn>(),
+                                ["collectibles"] = collection,
+                                ["customPortrait"] = portrait
+                            });
+                        }
                         {
-                            ["displayName"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.EntryName"),
-                            ["spawnInfo"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.SpawnInfo"),
-                            ["despawnMessage"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.DespawnMessage"),
-                            ["spawnItems"] = ModContent.ItemType<VoidBottle>(),
-                            ["collectibles"] = collection,
-                            ["customPortrait"] = portrait
-                        });
+                            string entryName = "Cruiser";
+                            List<int> segments = new List<int>() { ModContent.NPCType<CruiserHead>(), ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() };
+                            List<int> collection = new List<int>() { ModContent.ItemType<CruiserBag>(), ModContent.ItemType<CruiserTrophy>(), ModContent.ItemType<VoidScales>(), ModContent.ItemType<VoidMonolith>(), ModContent.ItemType<CruiserRelic>(), ModContent.ItemType<VoidRelics>(), ModContent.ItemType<PhantomPlanetKillerEngine>(), ModContent.ItemType<VoidAnnihilate>(), ModContent.ItemType<VoidElytra>(), ModContent.ItemType<VoidEcho>(), ModContent.ItemType<Content.Items.Weapons.Silence>(), ModContent.ItemType<RuneSong>(), ModContent.ItemType<WingsOfHush>(), ModContent.ItemType<VoidToy>(), ModContent.ItemType<TheocracyPearlToy>(), ModContent.ItemType<CruiserPlush>() };
+                            Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
+                            {
+                                Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Cruiser").Value;
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.7f, SpriteEffects.None, 0);
+                            };
+                            Func<bool> cruiser = () => EDownedBosses.downedCruiser;
+                            AddBoss(bossChecklist, CalamityEntropy.Instance, entryName, 21.7f, cruiser, segments, new Dictionary<string, object>()
+                            {
+                                ["displayName"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.DespawnMessage"),
+                                ["spawnItems"] = ModContent.ItemType<VoidBottle>(),
+                                ["collectibles"] = collection,
+                                ["customPortrait"] = portrait
+                            });
+                        }
+                        {
+                            List<int> segments2 = new List<int>() { ModContent.NPCType<PrimordialWyrmHead>(), ModContent.NPCType<PrimordialWyrmBody>(), ModContent.NPCType<PrimordialWyrmBodyAlt>(), ModContent.NPCType<PrimordialWyrmTail>() };
 
-                        List<int> segments2 = new List<int>() { ModContent.NPCType<PrimordialWyrmHead>(), ModContent.NPCType<PrimordialWyrmBody>(), ModContent.NPCType<PrimordialWyrmBodyAlt>(), ModContent.NPCType<PrimordialWyrmTail>() };
-
-                        List<int> collection2 = new List<int>() { ModContent.ItemType<EidolicWail>(), ModContent.ItemType<VoidEdge>(), ModContent.ItemType<HalibutCannon>(), ModContent.ItemType<AbyssShellFossil>(), ModContent.ItemType<Voidstone>(), ModContent.ItemType<Lumenyl>(), ModContent.ItemType<EidolicWail>(), 1508};
-                        Func<bool> wyd = () => DownedBossSystem.downedPrimordialWyrm;
-                        Action<SpriteBatch, Rectangle, Color> portrait2 = (SpriteBatch sb, Rectangle rect, Color color) =>
-                        {
-                            Texture2D texture = ModContent.Request<Texture2D>("CalamityMod/NPCs/PrimordialWyrm/PrimordialWyrm_BossChecklist").Value;
-                            sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 1.3f, SpriteEffects.None, 0);
-                        };
-                        entryName = "PrimordialWyrm";
-                        AddBoss(bossChecklist, ModContent.GetInstance<CalamityMod.CalamityMod>(), entryName, 23.5f, wyd, segments2, new Dictionary<string, object>()
-                        {
-                            ["displayName"] = Language.GetText("Mods.CalamityMod.NPCs.PrimordialWyrmHead.DisplayName"),
-                            ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.PWSpawnInfo"),
-                            ["collectibles"] = collection2,
-                            ["customPortrait"] = portrait2
-                        });
+                            List<int> collection2 = new List<int>() { ModContent.ItemType<EidolicWail>(), ModContent.ItemType<VoidEdge>(), ModContent.ItemType<HalibutCannon>(), ModContent.ItemType<AbyssShellFossil>(), ModContent.ItemType<Voidstone>(), ModContent.ItemType<Lumenyl>(), ModContent.ItemType<EidolicWail>(), 1508 };
+                            Func<bool> wyd = () => DownedBossSystem.downedPrimordialWyrm;
+                            Action<SpriteBatch, Rectangle, Color> portrait2 = (SpriteBatch sb, Rectangle rect, Color color) =>
+                            {
+                                Texture2D texture = ModContent.Request<Texture2D>("CalamityMod/NPCs/PrimordialWyrm/PrimordialWyrm_BossChecklist").Value;
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 1.3f, SpriteEffects.None, 0);
+                            };
+                            string entryName = "PrimordialWyrm";
+                            AddBoss(bossChecklist, ModContent.GetInstance<CalamityMod.CalamityMod>(), entryName, 23.5f, wyd, segments2, new Dictionary<string, object>()
+                            {
+                                ["displayName"] = Language.GetText("Mods.CalamityMod.NPCs.PrimordialWyrmHead.DisplayName"),
+                                ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.PWSpawnInfo"),
+                                ["collectibles"] = collection2,
+                                ["customPortrait"] = portrait2
+                            });
+                        }
                     }
 
                 }
@@ -809,7 +926,9 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<AbyssalWraith>()] = new Color(200, 40, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<VoidPope>()] = new Color(200, 40, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<PrimordialWyrmHead>()] = new Color(255, 255, 80);
-            if(ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
+            EntropyBossbar.bossbarColor[ModContent.NPCType<NihilityActeriophage>()] = new Color(255, 155, 248);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<ChaoticCell>()] = new Color(255, 155, 248);
+            if (ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
             {
                 EntropyBossbar.bossbarColor[catalyst.Find<ModNPC>("Astrageldon").Type] = new Color(220, 94, 210);
             }
@@ -1650,6 +1769,8 @@ namespace CalamityEntropy
             On_NPC.StrikeNPC_HitInfo_bool_bool -= StrikeNpc;
             On_Player.getRect -= modifyRect;
             On_NPC.UpdateNPC -= npcupdate;
+            On_Main.DrawInfernoRings -= drawIr;
+            On_Main.DrawProjectiles -= drawShellBack;
         }
 
     }

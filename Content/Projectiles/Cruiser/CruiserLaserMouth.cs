@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
@@ -47,12 +48,19 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             behindNPCs.Add(index);
         }
         public override void AI(){
+            if(aicounter == 0)
+            {
+                if (Projectile.ai[1] > 0)
+                {
+                    Projectile.timeLeft = (int)Projectile.ai[1];
+                }
+            }
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f) * 2;
             if (Projectile.ai[0] >= 0)
             {
                 if (ownern == null) { ownern = ((int)(Projectile.ai[0])).ToNPC(); }
                 if (ownern != null && ownern.active) {
-                    Projectile.Center = ownern.Center;
+                    Projectile.Center = ownern.Center + (ownern.ModNPC is NihilityActeriophage ? ownern.rotation.ToRotationVector2() * 30 : Vector2.Zero);
                     Projectile.rotation = ownern.rotation;
                 }
                 else
@@ -77,16 +85,20 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             }
             else
             {
-                if (width < 1)
+                if (width < (ownern.ModNPC is NihilityActeriophage ? 0.8f : 1))
                 {
                     width += 1f / 60f;
                 }
+            }
+            if (width < 0)
+            {
+                width = 0;
             }
             aicounter++;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return width >= 1 && Util.Util.LineThroughRect(Projectile.Center,  Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, 30, 24);
+            return width >= 0.7f && Util.Util.LineThroughRect(Projectile.Center,  Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, (int)(38), 24);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -132,7 +144,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Texture2D th = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/clinghth").Value;
             Main.spriteBatch.Draw(tb, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(0, tb.Height / 2), new Vector2(length, width), SpriteEffects.None, 0);
             foreach (Vector2 ps in p) {
-                Util.Util.drawLine(Main.spriteBatch, px, Projectile.Center + (ps * new Vector2(1, width)).RotatedBy(Projectile.rotation), Projectile.Center + ((ps * new Vector2(1, width)) + new Vector2(40, 0)).RotatedBy(Projectile.rotation), Color.White, 2 * width);
+                Util.Util.drawLine(Main.spriteBatch, px, Projectile.Center + (ps * new Vector2(1, width)).RotatedBy(Projectile.rotation), Projectile.Center + ((ps * new Vector2(1, width)) + new Vector2(26, 0)).RotatedBy(Projectile.rotation), Color.White * 0.6f, 2 * width);
             }
             SpriteBatch sb = Main.spriteBatch;
             sb.End();

@@ -21,10 +21,10 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.rocketBoots += 35;
+            player.rocketBoots += 20;
             player.noFallDmg = true;
-            player.jumpSpeedBoost += 4f;
-            player.maxRunSpeed *= 1.4f;
+            player.jumpSpeedBoost += 2f;
+            player.maxRunSpeed *= 1.3f;
         }
 
         public override void AddRecipes()

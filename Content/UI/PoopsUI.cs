@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.UI
             }
             float hrot = (float)holdAnm * 0.1f;
             float scale = 1 + holdAnm;
-            Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
+            Main.spriteBatch.UseBlendState_UI(BlendState.NonPremultiplied);
             if (Main.LocalPlayer.Entropy().PoopHold is not null)
             {
                 Texture2D texpoop = Main.LocalPlayer.Entropy().PoopHold.getTexture();
@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.UI
             }
             Texture2D hold = ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/hold").Value;
             Main.spriteBatch.Draw(hold, pos + new Vector2(24 + maxShow * 48, 24), null, Color.White, hrot, hold.Size() / 2, 2 * scale, SpriteEffects.None, 0);
-            Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
+            Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
             holdAnm += holdAnmj;
             holdAnmj -= 0.04f;
             if(holdAnm < 0)

@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ItemRarityID.Pink;
             Item.shoot = ModContent.ProjectileType<ArbitratorIIThrow>();
             Item.shootSpeed = 36f;
-            Item.DamageType = CUtil.rougeDC;
+            Item.DamageType = CUtil.rogueDC;
         }
 
        

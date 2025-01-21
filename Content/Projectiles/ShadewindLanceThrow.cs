@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = CUtil.rougeDC;
+            Projectile.DamageType = CUtil.rogueDC;
             Projectile.width = 82;
             Projectile.height = 82;
             Projectile.friendly = true;
@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
                     if(Projectile.timeLeft % Math.Max(((int)(10 / boost)), 1) == 0)
                     {
                         Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 0.4f, ModContent.ProjectileType<VoidStarF>(), (int)(Projectile.damage * 0.1f), 5, Projectile.owner)];
-                        p.DamageType = CUtil.rougeDC;
+                        p.DamageType = CUtil.rogueDC;
                     }
                 }
             }
