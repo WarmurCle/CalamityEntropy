@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Skies
             return false;
 
         }
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/RepBossTrack");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/vtfight");
 
        
     }

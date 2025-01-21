@@ -852,7 +852,7 @@ Items: {
 	}
 
 	Fool: {
-		DisplayName: 『弄臣』
+		DisplayName: 『愚者』
 		Tooltip:
 			'''
 			+20%魔力消耗
@@ -1112,12 +1112,32 @@ Items: {
 	NihilityShell: {
 		Tooltip:
 			'''
-			暴击将造成300%的伤害
+			暴击将造成250%的伤害
 			暴击时概率获得一块能量甲壳
 			能量甲壳能减半一次你受到的伤害
 			最多同时拥有3块能量甲壳
 			'''
 		DisplayName: 噬虚魔壳
+	}
+
+	EventideSniper: {
+		Tooltip:
+			'''
+			持有时显示敌人中心位置
+			子弹打的越准，伤害越高，最多增加1倍
+			打的足够准必定暴击并造成虚空之触减益并治疗你
+			'''
+		DisplayName: 苍穹
+	}
+
+	NihilityBacteriophageWand: {
+		DisplayName: 虚空噬菌体召唤杖
+		Tooltip:
+			'''
+			召唤一个小型虚空噬菌体为你而战
+			每个小型噬菌体消耗2栏位
+			必要时噬菌体会吸附在敌人身上为你回血
+			'''
 	}
 }
 
@@ -1322,6 +1342,7 @@ Projectiles: {
 	CellSpike.DisplayName: 虚无尖刺
 	VoidseekerProj.DisplayName: 苍茫长镰
 	NihilityFire.DisplayName: 虚无烈焰
+	NihilityMinion.DisplayName: 虚无噬菌体
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1471,6 +1492,11 @@ Buffs: {
 	AquaticAmuletBuff: {
 		Description: ""
 		DisplayName: 海洋护符
+	}
+
+	NihilityBacteriophageBuff: {
+		DisplayName: 虚无噬菌体
+		Description: 小型虚无噬菌体将为你战斗
 	}
 }
 

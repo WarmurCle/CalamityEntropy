@@ -112,6 +112,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 normalOnly.Add(ModContent.ItemType<NihilityShell>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<Voidseeker>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<EventideSniper>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<NihilityBacteriophageWand>(), new Fraction(4, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<NihilityTwinRelic>());
 

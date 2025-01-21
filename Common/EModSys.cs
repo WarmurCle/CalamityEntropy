@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CalamityEntropy.Content.DimDungeon;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
@@ -25,11 +26,21 @@ namespace CalamityEntropy.Common
         public override void Load()
         {
         }
+        Texture2D markTex { get { return Util.Util.getExtraTex("EvMark"); } }
         public override void PostDrawTiles()
         {
-            /*Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-            Util.Util.DrawRectAlt(Main.LocalPlayer.getRect(), Color.Blue, 4, 0);
-            Main.spriteBatch.End();*/
+            if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<EventideSniper>())
+            {
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                foreach (NPC npc in Main.ActiveNPCs)
+                {
+                    if(!npc.dontTakeDamage && !npc.friendly)
+                    {
+                        Main.spriteBatch.Draw(markTex, npc.Center - Main.screenPosition, null, Color.White, 0, markTex.Size() / 2, 1, SpriteEffects.None, 0f);
+                    }
+                }
+                Main.spriteBatch.End();
+            }
         }
         public override void UpdateUI(GameTime gameTime)
         {

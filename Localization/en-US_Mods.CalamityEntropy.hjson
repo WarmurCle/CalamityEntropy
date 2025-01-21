@@ -1035,11 +1035,31 @@ Items: {
 	NihilityShell: {
 		Tooltip:
 			'''
-			Critical hits will deal 300% damage.
+			Critical hits will deal 250% damage.
 			Probability of obtaining an energy shell during critical strike.
 			The energy shell can reduce the damage you receive by half once.
 			'''
 		DisplayName: Nihility Shell
+	}
+
+	EventideSniper: {
+		Tooltip:
+			'''
+			Display the center position of the enemy when held
+			The more accurate the bullet hits, the higher the damage, up to a maximum increase of 200%
+			If you hit accurately enough, you will definitely hit critically and cause damage to the Void Touch, reducing its benefits
+			'''
+		DisplayName: Eventide
+	}
+
+	NihilityBacteriophageWand: {
+		DisplayName: Nihility Bacteriophage Wand
+		Tooltip:
+			'''
+			Summon a tiny Nihility Bacteriophage.
+			Each Nihility Bacteriophage needs 2 summon slots.
+			Nihility Bacteriophage will stick to enemies and heal you when necessary
+			'''
 	}
 }
 
@@ -1244,6 +1264,7 @@ Projectiles: {
 	CellSpike.DisplayName: Cell Spike
 	VoidseekerProj.DisplayName: Voidseeker
 	NihilityFire.DisplayName: Nihility Fire
+	NihilityMinion.DisplayName: Nihility Minion
 }
 
 LegendTooltip: - Legend -
@@ -1393,6 +1414,11 @@ Buffs: {
 	AquaticAmuletBuff: {
 		Description: ""
 		DisplayName: Aquatic Amulet
+	}
+
+	NihilityBacteriophageBuff: {
+		DisplayName: Nihility Bacteriophage
+		Description: Tiny Nihility Bacteriophage will fight for you
 	}
 }
 

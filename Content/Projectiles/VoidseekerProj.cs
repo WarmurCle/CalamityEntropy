@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         Main.LocalPlayer.Entropy().screenPos = Projectile.Center;
                         Main.LocalPlayer.Entropy().screenShift = 1;
-                        Main.LocalPlayer.Entropy().immune = 100;
+                        Main.LocalPlayer.Entropy().immune = 46;
                         Main.LocalPlayer.Calamity().GeneralScreenShakePower = 24;
                         Main.LocalPlayer.Center = Main.MouseWorld;
 

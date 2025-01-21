@@ -6,6 +6,7 @@ using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
@@ -21,11 +22,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Common
 {
@@ -54,10 +57,12 @@ namespace CalamityEntropy.Common
         public int vddirection = 1;
         public bool ToFriendly = false;
         public bool BarrenHoming = false;
+        public bool EventideShot = false;
 
         public override GlobalProjectile Clone(Projectile from, Projectile to)
         {
             var p = to.Entropy();
+            p.EventideShot = EventideShot;
             p.DI = DI;
             p.gh = gh;
             p.ttindex = ttindex;
@@ -87,6 +92,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(vddirection);
             binaryWriter.Write(rpBow);
             binaryWriter.Write(ToFriendly);
+            binaryWriter.Write(EventideShot);
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
@@ -98,6 +104,7 @@ namespace CalamityEntropy.Common
             vddirection = binaryReader.ReadInt32();
             rpBow = binaryReader.ReadBoolean();
             ToFriendly = binaryReader.ReadBoolean();
+            EventideShot = binaryReader.ReadBoolean();
         }
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
@@ -470,10 +477,15 @@ namespace CalamityEntropy.Common
         }
 
 
-
+        public bool evRu = true;
 
         public override void PostAI(Projectile projectile)
         {
+            if (evRu && EventideShot)
+            {
+                evRu = false;
+                projectile.extraUpdates = (1 + projectile.extraUpdates) * 2 - 1;
+            }
             if (plrOldPos.HasValue)
             {
                 Main.player[0].position = plrOldPos.Value;
@@ -519,6 +531,34 @@ namespace CalamityEntropy.Common
             if (ttindex >= 0 && projectile.owner >= 0 && lastCenter != Vector2.Zero)
             {
                 projectile.owner.ToPlayer().Center = lastCenter;
+            }
+        }
+        public static float GetEventideDamageMultiplier(float radian, float maxR, float maxDmgMul)
+        {
+            if (radian >= maxR)
+            {
+                return 1f;
+            }
+
+            float ratio = radian / maxR;
+
+            ratio = Math.Max(ratio, 0.0001f); 
+
+            return Math.Min(maxDmgMul, (float)(1 / Math.Log(ratio + 1)));
+        }
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (EventideShot)
+            {
+                float maxR = MathHelper.ToRadians(60);
+                float maxDmgMul = 2;
+                
+                float r = Util.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
+                if(r < MathHelper.ToRadians(16))
+                {
+                    modifiers.SetCrit();
+                }
+                modifiers.SourceDamage *= GetEventideDamageMultiplier(r,  maxR, maxDmgMul);
             }
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
@@ -666,6 +706,17 @@ namespace CalamityEntropy.Common
             if (GWBow)
             {
                 EGlobalNPC.AddVoidTouch(target, 160, 6, 600, 20);
+            }
+            if (EventideShot)
+            {
+                float r = Util.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
+                if(r < MathHelper.ToRadians(15))
+                {
+                    Util.Util.PlaySound("voidseekercrit", 1, projectile.Center);
+                    EGlobalNPC.AddVoidTouch(target, 160, 10, 800, 10);
+                    projectile.owner.ToPlayer().Heal(16);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center , Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, projectile.owner);
+                }
             }
             if (projectile.Entropy().Lightning && projectile.penetrate >= 5)
             {

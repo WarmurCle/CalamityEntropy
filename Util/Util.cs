@@ -18,6 +18,16 @@ namespace CalamityEntropy.Util
     public static class Util {
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
 
+        public static void pushByOther(this Projectile proj, float strength)
+        {
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.type == proj.type && p.Colliding(p.getRect(), proj.getRect()))
+                {
+                    proj.velocity += (proj.Center - p.Center).SafeNormalize(randomRot().ToRotationVector2()) * strength;
+                }
+            }
+        }
         public static Vector2 Bezier(List<Vector2> points, float lerp)
         {
             if(points.Count == 1)
