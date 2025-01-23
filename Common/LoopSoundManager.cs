@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria;
 
 namespace CalamityEntropy.Common
 {
     public class LoopSound {
         public SoundEffectInstance instance;
         public int timeleft = 2;
+        public void setVolume(float v)
+        {
+            instance.Volume = v * Main.soundVolume;
+        }
         public LoopSound(SoundEffect sf)
         {
             instance = sf.CreateInstance();

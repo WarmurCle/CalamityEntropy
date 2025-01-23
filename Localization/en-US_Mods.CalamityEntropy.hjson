@@ -733,7 +733,7 @@ Items: {
 		Tooltip:
 			'''
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 30 second cooldown time
+			This effect has a 60 second cooldown time
 			Loot from hallow monsters
 			'''
 		DisplayName: Holy Mantle
@@ -1037,7 +1037,7 @@ Items: {
 			'''
 			Critical hits will deal 250% damage.
 			Probability of obtaining an energy shell during critical strike.
-			The energy shell can reduce the damage you receive by half once.
+			The energy shell can reduce the damage you receive by 40% once.
 			'''
 		DisplayName: Nihility Shell
 	}
@@ -1060,6 +1060,11 @@ Items: {
 			Each Nihility Bacteriophage needs 2 summon slots.
 			Nihility Bacteriophage will stick to enemies and heal you when necessary
 			'''
+	}
+
+	AntiVoid: {
+		Tooltip: ""
+		DisplayName: Anti Void
 	}
 }
 
@@ -1265,6 +1270,7 @@ Projectiles: {
 	VoidseekerProj.DisplayName: Voidseeker
 	NihilityFire.DisplayName: Nihility Fire
 	NihilityMinion.DisplayName: Nihility Minion
+	NihilityEnergyBall.DisplayName: Nihility Energy Ball
 }
 
 LegendTooltip: - Legend -
@@ -1632,8 +1638,8 @@ ArmorPrefixWaterWalkerDescription: Enable you to walk on the water surface
 ArmorPrefixMiracleName: Miracle
 ArmorPrefixMiracleDescription:
 	'''
-	+20% Defense
-	+2% Damage Reduce
+	+10% Defense
+	+1% Damage Reduce
 	+20% Light
 	+4% Damage
 	'''
@@ -1657,15 +1663,15 @@ ArmorPrefixDestinedGreatnessDescription:
 	+1 Luck
 	'''
 ArmorPrefixRegenName: Regen
-ArmorPrefixRegenDescription: +2/s Life Regen
+ArmorPrefixRegenDescription: +1/s Life Regen
 ArmorPrefixVoidTouchedName: Void Touched
-ArmorPrefixVoidTouchedDescription: +3 Void Touch
+ArmorPrefixVoidTouchedDescription: +0.3 Void Touch
 ArmorPrefixBiochemistryName: Biochemistry
-ArmorPrefixBiochemistryDescription: +35% Debuff immunity probability
+ArmorPrefixBiochemistryDescription: +15% Debuff immunity probability
 ArmorPrefixVoidName: Void
 ArmorPrefixVoidDescription:
 	'''
-	+0.5 Void Touch
+	+0.1 Void Touch
 	+20% Reverse injury
 	+50% Shoot Speed
 	'''
@@ -1678,29 +1684,29 @@ ArmorPrefixRecklessDescription:
 ArmorPrefixSacrificalName: Sacrifical
 ArmorPrefixSacrificalDescription:
 	'''
-	+20% Damage
-	-90% Defense
+	+16% Damage
+	-70% Defense
 	'''
 ArmorPrefixSilenceName: Silence
-ArmorPrefixSilenceDescription: +2% Max Stealth
+ArmorPrefixSilenceDescription: +1% Max Stealth
 ArmorPrefixMagicalName: Magical
 ArmorPrefixMagicalDescription:
 	'''
-	+10 Max Mana
+	+6 Max Mana
 	-10% Mana Cost
-	+14% Enhanced Mana
+	+10% Enhanced Mana
 	'''
 ArmorPrefixEvokerName: Evoker
 ArmorPrefixEvokerDescription: +1 Max Minion
 ArmorPrefixEndName: End
 ArmorPrefixEndDescription:
 	'''
-	+20% Defense
+	+12% Defense
 	+10% Damage
 	+20% Knockback
 	+6% Crit
 	+100% Reverse injury
-	+1 Void Touch
+	+0.1 Void Touch
 	'''
 ArmorPrefixWizardName: Wizard
 ArmorPrefixWizardDescription:

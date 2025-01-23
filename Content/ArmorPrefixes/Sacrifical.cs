@@ -8,11 +8,11 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.GetDamage(DamageClass.Generic) += 0.2f;
+            player.GetDamage(DamageClass.Generic) += 0.16f;
         }
         public override float AddDefense()
         {
-            return -0.9f;
+            return -0.7f;
         }
         public override int getRollChance()
         {

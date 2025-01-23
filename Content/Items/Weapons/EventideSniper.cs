@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 234;
             Item.height = 70;
-            Item.damage = 795;
+            Item.damage = 772;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 50;
             Item.reuseDelay = 10;
@@ -43,9 +43,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = null;
             Item.autoReuse = true;
             Item.shoot = ProjectileID.Bullet;
-            Item.shootSpeed = 19f;
+            Item.shootSpeed = 6f;
             Item.useAmmo = AmmoID.Bullet;
             Item.crit = 8;
+            Item.scale = 0.6f;
             Item.Calamity().canFirePointBlankShots = true;
         }
 
@@ -66,12 +67,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int p = Projectile.NewProjectile(source, position + velocity.SafeNormalize(Vector2.Zero) * 96, velocity, type, damage, knockback, player.whoAmI);
-            p.ToProj().netSpam = 9;
-            p.ToProj().netUpdate = true;
             p.ToProj().Entropy().EventideShot = true;
             p.ToProj().usesLocalNPCImmunity = true;
             p.ToProj().localNPCHitCooldown = 60;
             Util.Util.PlaySound("evshot", 1, player.Center);
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
+            }
             return false;
         }
         #endregion
@@ -84,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
             float itemRotation = player.compositeFrontArm.rotation + MathHelper.PiOver2 * player.gravDir;
 
-            Vector2 itemPosition = player.MountedCenter + itemRotation.ToRotationVector2() * 16f;
+            Vector2 itemPosition = player.MountedCenter + itemRotation.ToRotationVector2() * 76f;
             Vector2 itemSize = new Vector2(Item.width, Item.height);
             Vector2 itemOrigin = new Vector2(-24, 0);
 
@@ -102,7 +105,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             float animProgress = 1 - player.itemTime / (float)player.itemTimeMax;
             float rotation = (player.Center - player.Calamity().mouseWorld).ToRotation() * player.gravDir + MathHelper.PiOver2;
             if (animProgress < 0.5)
-                rotation += (player.altFunctionUse == 2 ? -1f : -0.45f) * (float)Math.Pow((0.5f - animProgress) / 0.5f, 2) * player.direction;
+                rotation += (-0.15f) * (float)Math.Pow((0.5f - animProgress) / 0.5f, 2) * player.direction;
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation); //must be here otherwise it will vibrate
 
 

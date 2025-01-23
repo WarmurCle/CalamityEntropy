@@ -947,7 +947,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 3));
             }
-            if (item.type == ItemID.WallOfFleshBossBag)
+            if (item.type == ItemID.MoonLordBossBag)
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<SilvasCrown>()));
             }

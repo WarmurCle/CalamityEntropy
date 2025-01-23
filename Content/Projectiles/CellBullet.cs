@@ -39,6 +39,10 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation = Util.Util.randomRot();
             }
             Projectile.rotation += 0.001f;
+            if(Projectile.velocity.Length() < 50)
+            {
+                Projectile.velocity *= 1.01f;
+            }
         }
         float trailAlpha = 0;
         public override bool PreDraw(ref Color lightColor)

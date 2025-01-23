@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.jumpSpeedBoost += 2f;
+            player.jumpSpeedBoost += 1f;
         }
         public override int getRollChance()
         {

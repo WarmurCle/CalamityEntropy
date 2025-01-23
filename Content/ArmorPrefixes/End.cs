@@ -13,11 +13,11 @@ namespace CalamityEntropy.Content.ArmorPrefixes
             player.GetCritChance(DamageClass.Generic) += 6;
             player.GetKnockback(DamageClass.Generic) += 0.2f;
             player.Entropy().Thorn += 1f;
-            player.Entropy().AttackVoidTouch += 0.1f;
+            player.Entropy().AttackVoidTouch += 0.01f;
         }
         public override float AddDefense()
         {
-            return 0.2f;
+            return 0.12f;
         }
         public override Color getColor()
         {

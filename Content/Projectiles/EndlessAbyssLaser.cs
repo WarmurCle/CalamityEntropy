@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
@@ -44,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.scale = 1f;
             Projectile.timeLeft = 12;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 4;
+            Projectile.localNPCHitCooldown = 5;
             
         }
         public bool st = true;
@@ -108,18 +109,18 @@ namespace CalamityEntropy.Content.Projectiles
             if(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 600)
             {
                 if(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 2000){
-                    sound.instance.Volume = 0;
-                    sound2.instance.Volume = 0;
+                    sound.setVolume(0);
+                    sound2.setVolume(0);
                 }
                 else{
-                    sound.instance.Volume = 1 - (float)(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) - 600) / 1400f;
-                    sound2.instance.Volume = 1 - (float)(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) - 600) / 1400f;
+                    sound.setVolume(1 - (float)(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) - 600) / 1400f);
+                    sound2.setVolume(1 - (float)(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) - 600) / 1400f);
                 }
             }
             else
             {
-                sound.instance.Volume = 1;
-                sound2.instance.Volume = 1;
+                sound.setVolume(1);
+                sound2.setVolume(1);
 
             }
             

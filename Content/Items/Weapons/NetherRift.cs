@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.noUseGraphic = true;
 			Item.UseSound = new SoundStyle("CalamityEntropy/Assets/Sounds/ballandchainhit1");
 
-			Item.damage = 1960;
+			Item.damage = 1950;
 			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.knockBack = 2.5f;
 			Item.crit = 26;

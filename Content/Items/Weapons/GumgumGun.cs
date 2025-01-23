@@ -25,15 +25,9 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.useAnimation = 5;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.autoReuse = true;
-
-			/*Item.UseSound = new SoundStyle($"{nameof(ExampleMod)}/Assets/Sounds/Items/Guns/ExampleGun") {
-				Volume = 0.9f,
-				PitchVariance = 0.2f,
-				MaxInstances = 8,
-			};*/
 			Item.value = Item.buyPrice(gold: 2);
 			Item.DamageType = ModContent.GetInstance<NoneTypeDamageClass>();
-			Item.damage = 25;
+			Item.damage = 24;
 			Item.knockBack = 0.2f;
 			Item.noMelee = true;
 			Item.Calamity().devItem = true;

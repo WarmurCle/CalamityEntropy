@@ -56,6 +56,8 @@ namespace CalamityEntropy.Content.Projectiles
             Dust.NewDust(center, 1, 1, DustID.MagicMirror, vel2.X, vel2.Y);*/
 
         }
+        public NPC target = null;
+        
         public override void AI()
         {
             Projectile.localAI[0]++;
@@ -69,10 +71,21 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.timeLeft = 3;
             }
 
-            NPC target = Util.Util.findTarget(player, Projectile, 1800, false);
+            if(target == null || !target.active)
+            {
+                target = Util.Util.findTarget(player, Projectile, 1800, false);
+            }
+            if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
+            {
+                target = player.MinionAttackTargetNPC.ToNPC();
+            }
+            if (Main.rand.NextBool(400))
+            {
+                Projectile.ai[2] = Main.rand.Next(0, 220);
+            }
             if (target != null)
             {
-                bool needHealOwner = player.statLife < player.statLifeMax - 80;
+                bool needHealOwner = player.statLife < player.statLifeMax - 50 - Projectile.ai[2];
                 if (needHealOwner)
                 {
                     Projectile.ai[1] = 0;
@@ -80,38 +93,34 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         Projectile.rotation = (Projectile.Center - target.Center).ToRotation();
                         Projectile.velocity *= 0.9f; 
-                        Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 9f;
-                        if (Projectile.Colliding(Projectile.getRect(), target.getRect()))
+                        Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 6f;
+                        if (Util.Util.getDistance(Projectile.Center, target.Center) < Projectile.velocity.Length() * 1.7f)
                         {
-                            if (!target.dontTakeDamage)
-                            {
-                                stickOnNPC = true;
-                                stickNPCIndex = target.whoAmI;
-                                offset = target.Center - Projectile.Center;
-                                offset *= -0.5f;
-                            }
+                            stickOnNPC = true;
+                            stickNPCIndex = target.whoAmI;
+                            offset = target.Center - Projectile.Center;
+                            offset *= -0.6f;
+                            Projectile.velocity *= 0;
+
                         }
                     }
                     else
                     {
-                        
-                        if(Util.Util.getDistance(Projectile.Center, stickNPCIndex.ToNPC().Center) > 200) {
-                            stickOnNPC = false;
-                        }
-                        if (stickNPCIndex.ToNPC().dontTakeDamage)
-                        {
-                            stickOnNPC = false;
-                        }
                         if (stickOnNPC)
                         {
                             Projectile.velocity *= 0;
                             Projectile.Center = stickNPCIndex.ToNPC().Center + offset;
                             Projectile.ai[0]++;
-                            if (Projectile.ai[0] % 5 == 0)
+                            if (Projectile.ai[0] % 14 == 0)
                             {
                                 player.Heal(1);
                             }
                         }
+                        if (!stickNPCIndex.ToNPC().active)
+                        {
+                            stickOnNPC = false;
+                        }
+                        
                         Projectile.rotation = (Projectile.Center - stickNPCIndex.ToNPC().Center).ToRotation();
                     }
                 }
@@ -119,7 +128,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     stickOnNPC = false;
                     Projectile.ai[1]--;
-                    if (Projectile.ai[1] < -24)
+                    if (Projectile.ai[1] < -12)
                     {
                         Projectile.ai[1] = 16 + Main.rand.Next(0, 8);
                     }
@@ -133,8 +142,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     else
                     {
-                        Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.34f, false);
-                        Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 1.4f);
+                        Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 70);
                     }
                     Projectile.velocity *= 0.92f;
                 }
@@ -153,13 +161,28 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.12f, false);
             }
-            Projectile.pushByOther(1);
+            Projectile.pushByOther(0.4f);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Projectile.ai[1] > 5)
+            Player player = Projectile.owner.ToPlayer();
+            if(player.statLife < player.statLifeMax - 80)
             {
-                Projectile.ai[1] = 5;
+                if (!stickOnNPC)
+                {
+                    stickOnNPC = true;
+                    stickNPCIndex = target.whoAmI;
+                    offset = target.Center - Projectile.Center;
+                    offset *= -0.6f;
+                    Projectile.velocity *= 0;
+                }
+            }
+            else
+            {
+                if (Projectile.ai[1] > 2)
+                {
+                    Projectile.ai[1] = 2;
+                }
             }
         }
 
@@ -167,7 +190,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (stickOnNPC)
             {
-                modifiers.SourceDamage /= 3;
+                modifiers.SourceDamage /= 6;
             }
         }
     }

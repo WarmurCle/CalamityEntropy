@@ -245,7 +245,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public float damageMul()
         {
-            float ad = 1f;
+            float ad = 0.8f;
             if (NPC.downedSlimeKing)
             {
                 ad += 0.14f;

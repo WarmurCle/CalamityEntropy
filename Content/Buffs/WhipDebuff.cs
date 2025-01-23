@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.Buffs
 {
 	public class JailerWhipDebuff : ModBuff
 	{
-		public static readonly int TagDamage = 8;
+		public static readonly int TagDamage = 7;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults() {
 			BuffID.Sets.IsATagBuff[Type] = true;

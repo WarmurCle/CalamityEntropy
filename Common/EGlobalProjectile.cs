@@ -12,6 +12,7 @@ using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
@@ -93,6 +94,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(rpBow);
             binaryWriter.Write(ToFriendly);
             binaryWriter.Write(EventideShot);
+            binaryWriter.Write(projectile.Calamity().stealthStrike);
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
@@ -105,6 +107,7 @@ namespace CalamityEntropy.Common
             rpBow = binaryReader.ReadBoolean();
             ToFriendly = binaryReader.ReadBoolean();
             EventideShot = binaryReader.ReadBoolean();
+            projectile.Calamity().stealthStrike = binaryReader.ReadBoolean();
         }
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
@@ -484,7 +487,7 @@ namespace CalamityEntropy.Common
             if (evRu && EventideShot)
             {
                 evRu = false;
-                projectile.extraUpdates = (1 + projectile.extraUpdates) * 2 - 1;
+                projectile.extraUpdates = (1 + projectile.extraUpdates) * 6 - 1;
             }
             if (plrOldPos.HasValue)
             {

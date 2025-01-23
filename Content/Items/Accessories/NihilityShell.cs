@@ -43,12 +43,12 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 if(player.Entropy().nihShellCd <= 0)
                 {
-                    if (Main.rand.NextBool(20))
+                    if (Main.rand.NextBool(6))
                     {
                         if(player.Entropy().nihShellCount < 3)
                         {
                             player.Entropy().nihShellCount++;
-                            player.Entropy().nihShellCd = 7 * 60;
+                            player.Entropy().nihShellCd = 10 * 60;
                         }
                     }
                 }

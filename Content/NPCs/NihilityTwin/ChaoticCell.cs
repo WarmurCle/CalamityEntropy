@@ -10,9 +10,11 @@ using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.Particles;
 using CalamityMod.World;
+using Humanizer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -93,6 +95,21 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         }
         public override void AI()
         {
+            if (NPC.ai[2] > 0)
+            {
+                if(al < 1)
+                {
+                    al += 0.02f;
+                }
+                NPC.ai[2] --;
+            }
+            else
+            {
+                if(al > 0)
+                {
+                    al -= 0.02f;
+                }
+            }
             NPC.netUpdate = true;
             NPC.velocity *= 0.965f;
             if(NPC.realLife < 0)
@@ -134,6 +151,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             return !owner.active;
         }
         public int frame = 1;
+        public float al = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if(NPC.realLife >= 0)
@@ -153,6 +171,19 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
             Texture2D tex = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/NihilityTwin/ChaoticCell" + frame.ToString()).Value;
             Color color = Color.White;
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + MathHelper.ToRadians(i * (360f / 8f)).ToRotationVector2() * 4, null, Color.White * al, NPC.rotation, tex.Size() / 2, NPC.scale, SpriteEffects.None);
+                }
+            }
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, color, NPC.rotation, tex.Size() / 2, NPC.scale, SpriteEffects.None);
             return false;
         }

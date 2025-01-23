@@ -69,9 +69,9 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<EndlessAbyssLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
                 }
             }
-            if (Projectile.ai[0]++ > 16 && (Projectile.ai[0] % 9 == 0))
+            if (Projectile.ai[0]++ > 16 && (Projectile.ai[0] % 14 == 0))
             {
-                if (owner.CheckMana(24, true))
+                if (owner.CheckMana(30, true))
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {

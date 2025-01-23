@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 164;
+			Item.damage = 156;
 			Item.DamageType = DamageClass.Magic;
 			Item.width = 96;
 			Item.noUseGraphic = true;

@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Util;
+using CalamityMod;
 using Microsoft.Xna.Framework;
 using Terraria;
 
@@ -33,6 +34,10 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         }
         public override bool? canApplyTo(Item item)
         {
+            if (!DownedBossSystem.downedCalamitas)
+            {
+                return false;
+            }
             return Main.rand.NextBool(3);
         }
     }

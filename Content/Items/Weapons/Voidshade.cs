@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.autoReuse = true;
 			Item.scale = 2f;
 			Item.DamageType = DamageClass.MeleeNoSpeed;
-			Item.damage = 100;
+			Item.damage = 78;
 			Item.knockBack = 4;
 			Item.crit = 6;
 			Item.shoot = ModContent.ProjectileType<VoidshadeHeld>();

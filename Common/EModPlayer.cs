@@ -604,7 +604,10 @@ namespace CalamityEntropy.Common
             {
                 Player.gravity = 0;
             }
-            
+            if(Player.HeldItem.ModItem is HorizonssKey)
+            {
+                Player.GetDamage(DamageClass.Summon) -= 1.00f;
+            }
             if(holyGroundTime > 0)
             {
                 dodgeChance += 0.5f;
@@ -806,7 +809,7 @@ namespace CalamityEntropy.Common
                     if (nihShellCount > 0)
                     {
                         nihShellCount--;
-                        info.Damage /= 2;
+                        info.Damage = (int)(info.Damage * 0.4f);
                         Util.Util.PlaySound("shielddown", 1, Player.Center);
                         for (int i = 0; i < 24; i++)
                         {

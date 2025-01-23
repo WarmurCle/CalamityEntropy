@@ -50,6 +50,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (p.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[p].Calamity().stealthStrike = true;
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
+                    }
                 }
                 return false;
             }

@@ -34,8 +34,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 16)
-				.AddIngredient(ModContent.ItemType<ShadowspecBar>(), 10)
+			CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 8)
+				.AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
 				.AddIngredient(ModContent.ItemType<VoidAnnihilate>())
 				.AddIngredient(ModContent.ItemType<Silence>())
 				.AddIngredient(ModContent.ItemType<VoidEcho>())

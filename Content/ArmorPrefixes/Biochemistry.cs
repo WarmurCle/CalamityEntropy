@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.Entropy().DebuffImmuneChance += 0.35f;
+            player.Entropy().DebuffImmuneChance += 0.15f;
         }
         public override int getRollChance()
         {

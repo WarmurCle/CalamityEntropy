@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            player.Entropy().lifeRegenPerSec += 2;
+            player.Entropy().lifeRegenPerSec += 1;
         }
         public override int getRollChance()
         {
