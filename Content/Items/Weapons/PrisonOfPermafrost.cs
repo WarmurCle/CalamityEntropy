@@ -8,6 +8,7 @@ using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
@@ -21,8 +22,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.width = 96;
 			Item.noUseGraphic = true;
 			Item.height = 96;
-			Item.useTime = 1;
-			Item.useAnimation = 0;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
 			Item.channel = true;
 			Item.knockBack = 4;
 			Item.value = 145000;

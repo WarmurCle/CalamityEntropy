@@ -114,7 +114,8 @@ namespace CalamityEntropy.Common
         public bool LastStand = false;
         public int lastStandCd = 0;
 
-        
+        public bool accWispLantern = false;
+        public bool visualWispLantern = false;
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
@@ -274,6 +275,8 @@ namespace CalamityEntropy.Common
             moveSpeed = 0;
             DebuffImmuneChance = 0;
             reincarnationBadge = false;
+            visualWispLantern = false;
+            accWispLantern = false;
         }
         public int crSky = 0;
         public int NihSky = 0;
@@ -600,6 +603,13 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateMiscEffects()
         {
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.ModProjectile is WispLanternProj wl)
+                {
+                    wl.applyEffects();
+                }
+            }
             if (rBadgeActive)
             {
                 Player.gravity = 0;
@@ -698,7 +708,7 @@ namespace CalamityEntropy.Common
                 immune = 60;
                 return true;
             }
-            if (HolyShield && info.Damage * (2 - damageReduce) - Player.statDefense > 16)
+            if (HolyShield && info.Damage > 20)
             {
                 immune = 120;
                 HolyShield = false;
@@ -834,6 +844,13 @@ namespace CalamityEntropy.Common
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
+            if(accWispLantern || visualWispLantern)
+            {
+                if(Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[ModContent.ProjectileType<WispLanternProj>()] < 1)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<WispLanternProj>(), 0, 0, Player.whoAmI);
+                }
+            }
             if (!nihShell)
             {
                 nihShellCount = 0;

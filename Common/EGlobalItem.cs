@@ -71,7 +71,7 @@ namespace CalamityEntropy.Common
         public bool HasCustomNameColor = false;
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
-
+        public float[] wispColor = null;
         public override void SetDefaults(Item entity)
         {
         }

@@ -47,8 +47,8 @@ namespace CalamityEntropy.Content.Projectiles.VoidEchoProj
         {
             counter++;
             Player player = Projectile.owner.ToPlayer();
-            Vector2 drawpos = Projectile.owner.ToPlayer().Center + player.gfxOffY * Vector2.UnitY + new Vector2(0, -32);
-            Vector2 ep = new Vector2(-10, 0) * Projectile.owner.ToPlayer().direction;
+            Vector2 drawpos = Projectile.owner.ToPlayer().Center + player.gfxOffY * Vector2.UnitY + new Vector2(0, -44);
+            Vector2 ep = Vector2.Zero;
             float fs = (float)(1 + Math.Cos(counter / 3) * 0.1);
             SpriteBatch sb = Main.spriteBatch;
 
@@ -71,21 +71,16 @@ namespace CalamityEntropy.Content.Projectiles.VoidEchoProj
 
             Texture2D part1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidEchoProj/part1").Value;
             Texture2D part2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidEchoProj/part2").Value;
-            Texture2D eye = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidEchoProj/VoidEye").Value;
-            Texture2D sym = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidEchoProj/VoidSymbol").Value;
-            Texture2D mark = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidEchoProj/mark").Value;
+            Texture2D mark = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidEchoProj/VoidEcho").Value;
 
-            sb.Draw(mark, Projectile.owner.ToPlayer().Center + new Vector2(0, 22) - Main.screenPosition, Util.Util.GetCutTexRect(mark, 4, (int)(counter / 4) % 4), Color.White, 0, new Vector2(26, 7), Projectile.scale / 1.2f, ef, 0);
-
+            
             int scl = (int)(230 + 25 * Math.Cos(counter / 6));
             sb.Draw(part1, drawpos + ep * 0.4f - Main.screenPosition, null, new Color(scl, scl, scl), 0, part1.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
             
             sb.Draw(part2, drawpos + ep * 0.4f - Main.screenPosition, null, Color.White, counter * 0.06f, part2.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
-            sb.Draw(eye, drawpos + ep * 0.4f - Main.screenPosition, Util.Util.GetCutTexRect(eye, 7, (int)(counter / 4) % 7), Color.White, 0, new Vector2(25, 30), Projectile.scale, ef, 0);
-            sb.Draw(sym, drawpos + ep - Main.screenPosition, Util.Util.GetCutTexRect(sym, 4, (int)(counter / 4) % 4), Color.White, 0, new Vector2(55, 59), Projectile.scale, ef, 0);
-
+            sb.Draw(mark, Projectile.owner.ToPlayer().Center - Main.screenPosition - new Vector2(0, 38), Util.Util.GetCutTexRect(mark, 8, (int)(counter / 4) % 8, false), Color.White, 0, new Vector2(57, 43), Projectile.scale, ef, 0);
             
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

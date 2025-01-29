@@ -7,6 +7,7 @@ using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -130,7 +131,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    usingTime -= 1;
+                    usingTime -= 3;
                     Projectile.timeLeft = usingTime;
                 }
             }
@@ -215,7 +216,22 @@ namespace CalamityEntropy.Content.Projectiles
             }
             player.itemTime = 2;
             player.itemAnimation = 2;
-            Projectile.netImportant = true;
+            if (Projectile.velocity.X > 0)
+            {
+                player.direction = 1;
+            }
+            else
+            {
+                player.direction = -1;
+            }
+            if (Projectile.velocity.X > 0)
+            {
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - (float)(Math.PI * 0.5f));
+            }
+            else
+            {
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - (float)(Math.PI * 0.5f));
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -326,11 +342,14 @@ namespace CalamityEntropy.Content.Projectiles
             rd = rd.RotatedBy(Projectile.rotation);
 
             Util.Util.drawTextureToPoint(Main.spriteBatch, circle, Color.White * alpha, dp + lu, dp + ru, dp + ld, dp + rd);
-
+            if (itemTex == null)
+            {
+                itemTex = TextureAssets.Item[ModContent.ItemType<PrisonOfPermafrost>()].Value;
+            }
             return false;
 
         }
-
+        public Texture2D itemTex = null;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return false;

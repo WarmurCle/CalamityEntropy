@@ -421,7 +421,7 @@ Items: {
 			Puts a shell around the owner when below 50% life that reduces damage taken
 			Absorbs 25% of damage done to players on your team when above 25% life
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 30 second cooldown time
+			This effect has a 60 second cooldown time
 			'''
 	}
 
@@ -1071,6 +1071,15 @@ Items: {
 		Tooltip: ""
 		DisplayName: Abyss Lantern
 	}
+
+	WispLantern: {
+		Tooltip:
+			'''
+			Randomly activate 1 to 3 accessories from your inventory
+			"Illuminate your future"
+			'''
+		DisplayName: Wisp Lantern
+	}
 }
 
 DeathMode: Death Mode
@@ -1276,6 +1285,7 @@ Projectiles: {
 	NihilityFire.DisplayName: Nihility Fire
 	NihilityMinion.DisplayName: Nihility Minion
 	NihilityEnergyBall.DisplayName: Nihility Energy Ball
+	WispLanternProj.DisplayName: Wisp Lantern Proj
 }
 
 LegendTooltip: - Legend -

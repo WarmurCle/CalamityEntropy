@@ -462,10 +462,10 @@ namespace CalamityEntropy.Common
                             if (CircleIntersectsRectangle(projectile.Center, rsize / 2, n.Hitbox))
                             {
                                 int c = projectile.Entropy().ghcounter;
-                                if (c % 3 == 0)
+                                if (c % 4 == 0)
                                 {
                                     int ydf = n.defense;
-                                    n.defense =(int)MathHelper.Min(projectile.damage / 5 / 2, n.defense);
+                                    n.defense =(int)MathHelper.Min(projectile.damage / 8 / 2 - 26, n.defense);
                                     Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage / 8, 0, 0, false, DamageClass.Generic, false);
                                     n.defense = ydf;
                                 }

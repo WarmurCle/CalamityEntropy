@@ -1,3 +1,4 @@
+using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Vanity;
 using Terraria;
@@ -6,9 +7,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common
 {
-public class ExtraLoot : ModSystem
+    public class ExtraLoot : ModSystem
     {
-public override void PostWorldGen()
+        public override void PostWorldGen()
         {
             int itemsPlaced = 0;
             // Loop over all the chests
@@ -79,11 +80,17 @@ public override void PostWorldGen()
 
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
-                            int type = ModContent.ItemType<EnduranceCard>();
+                            int type = ModContent.ItemType<WispLantern>();
+
                             if (WorldGen.genRand.NextBool(4))
                             {
                                 type = ModContent.ItemType<AbyssLantern>();
                             }
+                            if (WorldGen.genRand.NextBool(2))
+                            {
+                                type = ModContent.ItemType<EnduranceCard>();
+                            }
+
                             // Place the item
                             chest.item[inventoryIndex].SetDefaults(type);
                             // Alternate approach: var instead of cyclical: chest.item[inventoryIndex].SetDefaults(WorldGen.genRand.Next(itemsToPlaceInFrozenChests));

@@ -203,9 +203,13 @@ namespace CalamityEntropy.Util
         {
             return ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/" + name).Value;
         }
-        public static Rectangle GetCutTexRect(Texture2D tex, int count, int index)
+        public static Rectangle GetCutTexRect(Texture2D tex, int count, int index, bool hor = true)
         {
-            return new Rectangle(tex.Width / count * index, 0, tex.Width / count, tex.Height);
+            if (hor)
+            {
+                return new Rectangle(tex.Width / count * index, 0, tex.Width / count, tex.Height);
+            }
+            return new Rectangle(0, tex.Height / count * index, tex.Width, tex.Height / count);
         }
         public static void DrawAfterimage(Texture2D tx, List<Vector2> odp, List<float> odr)
         {

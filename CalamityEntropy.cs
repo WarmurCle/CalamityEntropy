@@ -404,26 +404,50 @@ namespace CalamityEntropy
             Texture2D shell = Util.Util.getExtraTex("shell");
             foreach(Player player in Main.ActivePlayers)
             {
-                if(player.Entropy().nihShellCount <= 0) {
-                    continue;
-                }
-                float rot = player.Entropy().CasketSwordRot * 0.2f;
-                int count = player.Entropy().nihShellCount;
-                for(int i = 0; i < count; i++)
+                if (player.Entropy().nihShellCount > 0)
                 {
-                    if(rot.ToRotationVector2().Y > 0)
+                    float rot = player.Entropy().CasketSwordRot * 0.2f;
+                    int count = player.Entropy().nihShellCount;
+                    for (int i = 0; i < count; i++)
                     {
-                        Vector2 center = new Vector2(36, 0).RotatedBy(rot);
-                        center.Y = 0;
-                        float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                        Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                        if (rot.ToRotationVector2().Y > 0)
+                        {
+                            Vector2 center = new Vector2(36, 0).RotatedBy(rot);
+                            center.Y = 0;
+                            float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
+                            Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                        }
+                        rot += MathHelper.TwoPi / (float)count;
                     }
-                    rot += MathHelper.TwoPi / (float)count;
+                }
+                if (pocType == -1)
+                {
+                    pocType = ModContent.ProjectileType<PrisonOfPermafrostCircle>();
+                }
+                if (player.ownedProjectileCounts[pocType] > 0) {
+                    
+                    foreach (Projectile p in Main.ActiveProjectiles)
+                    {
+                        if(p.type == pocType && p.owner == player.whoAmI)
+                        {
+                            if (p.ModProjectile is PrisonOfPermafrostCircle poc)
+                            {
+                                float alpha = (float)poc.usingTime / 60f;
+                                if (alpha > 1)
+                                {
+                                    alpha = 1;
+                                }
+                                Main.spriteBatch.Draw(poc.itemTex, p.Center + p.rotation.ToRotationVector2() * 28 - Main.screenPosition, null, Color.White * alpha, p.rotation + MathHelper.PiOver2, poc.itemTex.Size() / 2, p.scale * 0.5f, SpriteEffects.None, 0);
+
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             orig(self);
         }
-
+        public int pocType = -1;
         private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
         {
             orig(self, gameTime);

@@ -465,7 +465,7 @@ Items: {
 			生命低于50%时会在你的周围生成能够降低所受伤害的护盾
 			生命值高于25%时会将团队中其他玩家所受伤害的25%转移到佩戴者身上
 			额外给予你能抵挡一次伤害的圣盾
-			圣盾有30秒冷却时间
+			圣盾有60秒冷却时间
 			'''
 	}
 
@@ -1149,6 +1149,15 @@ Items: {
 		Tooltip: ""
 		DisplayName: 深渊提灯
 	}
+
+	WispLantern: {
+		Tooltip:
+			'''
+			随机生效1至3个你背包中的饰品
+			“照亮你的前途”
+			'''
+		DisplayName: 冥灵灯笼
+	}
 }
 
 DeathMode: 死亡模式
@@ -1284,7 +1293,7 @@ Projectiles: {
 	ZeratosBullet0.DisplayName: 龙魂火球
 	ZeratosFireball0.DisplayName: 龙魂爆炸
 	SacrificalDagger.DisplayName: 献祭匕首
-	TargetSetProj.DisplayName: 奴役你😡
+	TargetSetProj.DisplayName: 奴役
 	UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
 	AquaticPet.DisplayName: 海灾酱
 	VoidRitualCircle.DisplayName: 虚空邪教徒召唤法阵
@@ -1353,7 +1362,8 @@ Projectiles: {
 	VoidseekerProj.DisplayName: 苍茫长镰
 	NihilityFire.DisplayName: 虚无烈焰
 	NihilityMinion.DisplayName: 虚无噬菌体
-	// NihilityEnergyBall.DisplayName: Nihility Energy Ball
+	NihilityEnergyBall.DisplayName: 虚无能量球
+	WispLanternProj.DisplayName: 冥灵灯笼
 }
 
 LegendTooltip: - 传奇物品 -
