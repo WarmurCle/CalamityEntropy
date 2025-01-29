@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCHit1;
-            NPC.value = Item.buyPrice(1, 2, 60, 0);
+            NPC.value = Item.buyPrice(0, 0, 40, 0);
             NPC.knockBackResist = 0.7f;
             NPC.noTileCollide = true;
             NPC.noGravity = true;

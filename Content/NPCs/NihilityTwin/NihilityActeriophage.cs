@@ -584,6 +584,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         {
                             NPC.ai[2] = Util.Util.randomRot();
                         }
+                        NPC.ai[2] += MathHelper.ToRadians(0.5f);
                         aicounter++;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {

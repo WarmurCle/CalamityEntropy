@@ -1018,10 +1018,7 @@ namespace CalamityEntropy
                     }
                 }
                 
-                if (screenShakeAmp > 0)
-                {
-                    screenShakeAmp -= 1;
-                }
+                
             }
             
             
@@ -1607,7 +1604,7 @@ namespace CalamityEntropy
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-                foreach (NPC npc in checkNPC)
+                foreach (NPC npc in Main.ActiveNPCs)
                 {
                     if (npc.active)
                     {

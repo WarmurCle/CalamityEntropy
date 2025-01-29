@@ -1141,8 +1141,13 @@ Items: {
 	}
 
 	AntiVoid: {
-		// Tooltip: ""
-		// DisplayName: Anti Void
+		Tooltip: 未完成
+		DisplayName: 反虚之锋
+	}
+
+	AbyssLantern: {
+		Tooltip: ""
+		DisplayName: 深渊提灯
 	}
 }
 
@@ -1542,6 +1547,7 @@ NPCs: {
 		}
 
 		DisplayName: 始源妖龙
+		// Census.SpawnCondition: Conditions unknown
 	}
 
 	NihilityActeriophage: {
@@ -1565,7 +1571,7 @@ WyrmChat3: 你很强大，我会跟随你。
 WyrmChat4: 终末石？我从来不知道那玩意有什么用，但是请保管好它。
 WyrmChat5: 你说有一群我的信徒？听起来挺有趣。
 WyrmChat6: 深渊实在是太压抑了，有时候出来透透气也挺好。
-WyrmChat7: 为什么我要跟着你......为了不然那个篡夺了光明的小偷得逞。
+WyrmChat7: 为什么我要跟着你......为了不让那个篡夺了光明的小偷得逞。
 WyrmChat8: 在深渊的生活实在是太无聊了...
 WyrmChat9: 你说我和那位硫火女巫谁更强大
 WyrmChat10: 你问我当时为什么要袭击你...我的使命是保护那件圣物。

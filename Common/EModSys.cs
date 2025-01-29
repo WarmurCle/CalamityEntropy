@@ -230,6 +230,10 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateNPCs()
         {
+            if (CalamityEntropy.Instance.screenShakeAmp > 0)
+            {
+                CalamityEntropy.Instance.screenShakeAmp -= 1;
+            }
             bool eow = false;
             int maxlifeEows = 0;
             bool sg = false;

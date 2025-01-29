@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.Projectile.ignoreWater = true;
             base.Projectile.tileCollide = false;
             base.Projectile.DamageType = DamageClass.Ranged;
-            base.Projectile.penetrate = 7;
+            base.Projectile.penetrate = 16;
             base.Projectile.MaxUpdates = 4;
             base.Projectile.timeLeft = Lifetime;
             base.Projectile.usesIDStaticNPCImmunity = true;

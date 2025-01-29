@@ -68,10 +68,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public int circleDir = 1;
         public float alpha = 1;
         public bool candraw = false;
-        public override void OnSpawn(IEntitySource source)
-        {
-            CalamityEntropy.checkNPC.Add(NPC);
-        }
 
         public static int icon = ModContent.GetModBossHeadSlot("CalamityEntropy/Content/NPCs/Cruiser/CruiserHead_Head_Boss");
         public static int iconP2;
@@ -214,6 +210,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             writer.WriteVector2(rotPos);
             writer.Write(circleDir);
             writer.Write(flag);
+            writer.Write(noaitime);
+            writer.Write(phaseTrans);
+            writer.Write(phase);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
@@ -228,6 +227,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             rotPos = reader.ReadVector2();
             circleDir = reader.ReadInt32();
             flag = reader.ReadBoolean();
+            noaitime = reader.ReadInt32();
+            phaseTrans = reader.ReadInt32();
+            phase = reader.ReadInt32();
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {

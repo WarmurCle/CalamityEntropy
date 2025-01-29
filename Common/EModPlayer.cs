@@ -484,7 +484,7 @@ namespace CalamityEntropy.Common
                 {
                     if (BlackFlameCd < 1)
                     {
-                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 5 + 1, 2, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 6 + 1, 2, Player.whoAmI);
                         BlackFlameCd = 30;
                     }
                 }
@@ -606,7 +606,11 @@ namespace CalamityEntropy.Common
             }
             if(Player.HeldItem.ModItem is HorizonssKey)
             {
-                Player.GetDamage(DamageClass.Summon) -= 1.00f;
+                Player.maxMinions -= 6;
+                if(Player.maxMinions < 1)
+                {
+                    Player.maxMinions = 1;
+                }
             }
             if(holyGroundTime > 0)
             {

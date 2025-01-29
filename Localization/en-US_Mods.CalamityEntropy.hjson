@@ -1066,6 +1066,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: Anti Void
 	}
+
+	AbyssLantern: {
+		Tooltip: ""
+		DisplayName: Abyss Lantern
+	}
 }
 
 DeathMode: Death Mode
@@ -1464,6 +1469,7 @@ NPCs: {
 		}
 
 		DisplayName: Primordial Wyrm
+		Census.SpawnCondition: Conditions unknown
 	}
 
 	NihilityActeriophage: {

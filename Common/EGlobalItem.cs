@@ -112,8 +112,8 @@ namespace CalamityEntropy.Common
             var mp = player.Entropy();
             if (mp.BlackFlameCd <= 0 && player.whoAmI == Main.myPlayer)
             {
-                mp.BlackFlameCd = 4;
-                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 5 + 1, 2, player.whoAmI);
+                mp.BlackFlameCd = item.useAnimation - 1;
+                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 6 + 1, 2, player.whoAmI);
             }
             return null;
         }
@@ -978,8 +978,13 @@ namespace CalamityEntropy.Common
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("polaris");
                 };
+                static bool getsWyrm(DropAttemptInfo info)
+                {
+                    string playerName = info.player.name;
+                    return playerName.ToLower().Contains("polaris") || playerName.ToLower().Contains("妖龙") || playerName.ToLower().Contains("wyrm");
+                };
                 itemLoot.AddIf(getsDH, ModContent.ItemType<DustyStar>());
-
+                itemLoot.AddIf(getsWyrm, ModContent.ItemType<AbyssLantern>());
                 static bool getsAH(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
