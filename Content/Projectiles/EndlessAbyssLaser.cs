@@ -4,6 +4,7 @@ using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using CalamityMod;
+using CalamityMod.NPCs.ExoMechs.Ares;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -55,6 +56,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public LoopSound sound = null;
         public LoopSound sound2 = null;
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if(target.ModNPC is AresBody || target.ModNPC is AresGaussNuke || target.ModNPC is AresLaserCannon || target.ModNPC is AresPlasmaFlamethrower || target.ModNPC is AresTeslaCannon)
+            {
+                modifiers.SourceDamage += 0.28f;
+            }
+        }
         public override void AI(){
             if (st)
             {

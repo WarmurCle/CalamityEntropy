@@ -245,74 +245,74 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public float damageMul()
         {
-            float ad = 0.8f;  //初始
-            if (NPC.downedSlimeKing) //史莱姆王
+            float ad = 0.8f;  //  始
+            if (NPC.downedSlimeKing) //史  姆  
             {
                 ad += 0.2f;
             }
-            if (NPC.downedBoss1) //克眼
+            if (NPC.downedBoss1) //    
             {
                 ad += 0.25f;
             }
-            if (NPC.downedBoss2) //克脑或世吞
+            if (NPC.downedBoss2) //   曰     
             {
                 ad += 0.25f;
             }
-            if (NPC.downedBoss3) //骷髅王
+            if (NPC.downedBoss3) //      
             {
                 ad += 0.6f;
             }
-            if (Main.hardMode)  //肉山
+            if (Main.hardMode)  //  山
             {
-                ad += 0.6f;
+                ad += 0.4f;
             }
-            if (DownedBossSystem.downedCryogen) //冰灵
+            if (DownedBossSystem.downedCryogen) //    
             {
-                ad += 0.3f;
+                ad += 0.4f;
             }
-            if (NPC.downedGolemBoss)   //石巨人
-            {
-                ad += 0.3f;
-            }
-            if (NPC.downedAncientCultist)   //拜月邪教徒
+            if (NPC.downedGolemBoss)   //石    
             {
                 ad += 0.1f;
             }
-            if (NPC.downedMoonlord)  //月总
+            if (NPC.downedAncientCultist)   //    邪  徒
             {
-                ad += 2f;
+                ad += 0.2f;
             }
-            if (DownedBossSystem.downedProvidence)  //亵渎天神
-            {
-                ad += 0.5f;
-            }
-            if (DownedBossSystem.downedDragonfolly)  //吃鱼金龙
-            {
-                ad += 0.5f;
-            }
-            if (DownedBossSystem.downedSignus)   //西格
-            {
-                ad += 0.5f;
-            }
-            if (DownedBossSystem.downedPolterghast)  //幽花
-            {
-                ad += 0.5f;
-            }
-            if (DownedBossSystem.downedDoG) //神吞
-            {
-                ad += 0.5f;
-            }
-            if (DownedBossSystem.downedYharon)   //鸭绒
+            if (NPC.downedMoonlord)  //    
             {
                 ad += 1.5f;
             }
-            if (DownedBossSystem.downedExoMechs)  //巨械
+            if (DownedBossSystem.downedProvidence)  //        
+            {
+                ad += 0.8f;
+            }
+            if (DownedBossSystem.downedDragonfolly)  //       
+            {
+                ad += 0.5f;
+            }
+            if (DownedBossSystem.downedSignus)   //    
+            {
+                ad += 0.5f;
+            }
+            if (DownedBossSystem.downedPolterghast)  // 幕 
+            {
+                ad += 0.5f;
+            }
+            if (DownedBossSystem.downedDoG) //    
+            {
+                ad += 0.5f;
+            }
+            if (DownedBossSystem.downedYharon)   //鸭  
+            {
+                ad += 1.5f;
+            }
+            if (DownedBossSystem.downedExoMechs)  //  械
             {
                 ad += 2;
             }
-            if (DownedBossSystem.downedCalamitas)   //终灾
+            if (DownedBossSystem.downedCalamitas)   //    
             {
-                ad += 2;
+                ad += 1;
             }
             return ad;
         }

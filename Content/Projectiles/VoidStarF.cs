@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CalamityMod.NPCs.ExoMechs.Ares;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -89,6 +90,13 @@ namespace CalamityEntropy.Content.Projectiles
                     Particle smokeGlow = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Main.hslToRgb(Hue, 1, 0.7f).MultiplyRGB(p.ai[2] > 0 ? new Color(255, 80, 80) : Color.White), 15, Main.rand.NextFloat(0.4f, 0.7f) * Projectile.scale, 0.8f, 0, true, 0.05f, true);
                     GeneralParticleHandler.SpawnParticle(smokeGlow);
                 }
+            }
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (target.ModNPC is AresBody || target.ModNPC is AresGaussNuke || target.ModNPC is AresLaserCannon || target.ModNPC is AresPlasmaFlamethrower || target.ModNPC is AresTeslaCannon)
+            {
+                modifiers.SourceDamage += 0.28f;
             }
         }
         public override bool PreDraw(ref Color lightColor)
