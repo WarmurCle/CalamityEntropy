@@ -36,6 +36,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;
         }
+        public override bool MagicPrefix()
+        {
+            return true;
+        }
         public override bool CanUseItem(Player player)
         {
             return player.ownedProjectileCounts[ModContent.ProjectileType<VoidBlaster>()] <= 0;

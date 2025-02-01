@@ -35,9 +35,9 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.mana = 10;
             Item.DamageType = DamageClass.Magic;
         }
-        public override void AddRecipes()
+        public override bool MagicPrefix()
         {
-
+            return true;
         }
     }
 }

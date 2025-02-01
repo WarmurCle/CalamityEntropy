@@ -44,5 +44,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 AddTile(TileID.Anvils).
                 Register();
         }
+
+        public override bool MagicPrefix()
+        {
+            return true;
+        }
     }
 }

@@ -445,6 +445,7 @@ namespace CalamityEntropy
                     }
                 }
             }
+            EParticle.drawAll();
             orig(self);
         }
         public int pocType = -1;

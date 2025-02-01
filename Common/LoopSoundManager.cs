@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,24 @@ namespace CalamityEntropy.Common
         {
             instance.Volume = v * Main.soundVolume;
         }
+        public void setVolume_Dist(Vector2 center, float mindist, float maxdist, float volume = 1)
+        {
+            if (Util.Util.getDistance(center, Main.LocalPlayer.Center) > mindist)
+            {
+                if (Util.Util.getDistance(center, Main.LocalPlayer.Center) > maxdist)
+                {
+                    setVolume(0);
+                }
+                else
+                {
+                    setVolume((1 - (float)(Util.Util.getDistance(center, Main.LocalPlayer.Center) - mindist) / (maxdist - mindist)) * volume);
+                }
+            }
+            else
+            {
+                setVolume(volume);
+            }
+        }
         public LoopSound(SoundEffect sf)
         {
             instance = sf.CreateInstance();
@@ -22,7 +41,7 @@ namespace CalamityEntropy.Common
         }
         public void play()
         {
-            if (LoopSoundManager.sounds.Count < 4)
+            if (LoopSoundManager.sounds.Count < 5)
             {
                 instance.Play();
                 LoopSoundManager.sounds.Add(this);

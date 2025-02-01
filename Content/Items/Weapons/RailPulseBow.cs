@@ -45,7 +45,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             return false;
         }
-
+        public override bool RangedPrefix()
+        {
+            return true;
+        }
         public override void AddRecipes()
         {
             CreateRecipe().

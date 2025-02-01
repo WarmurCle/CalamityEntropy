@@ -32,6 +32,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<VoidPurple>();
         }
 
+        public override bool MagicPrefix()
+        {
+            return true;
+        }
         public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 8)

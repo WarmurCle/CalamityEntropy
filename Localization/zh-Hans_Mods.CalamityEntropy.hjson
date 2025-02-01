@@ -1158,6 +1158,38 @@ Items: {
 			'''
 		DisplayName: 冥灵灯笼
 	}
+
+	WyrmToothNecklace: {
+		DisplayName: 幻妖龙牙项链
+		Tooltip:
+			'''
+			+25% 伤害
+			+30 护甲穿透
+			'''
+	}
+
+	WyrmTooth: {
+		DisplayName: 幻妖龙牙
+		Tooltip: ""
+	}
+
+	Vitalfeather: {
+		DisplayName: 沐生之羽
+		Tooltip:
+			'''
+			被抽中敌人3秒内被召唤物击中将迸发出追踪龙焰辅助攻击
+			召唤物集中击打命中的敌人
+			'''
+	}
+
+	WindOfUndertaker: {
+		DisplayName: 唤死之风
+		Tooltip:
+			'''
+			拍击时发射一圈虚空新星
+			召唤物集中攻击命中的目标
+			'''
+	}
 }
 
 DeathMode: 死亡模式
@@ -1364,6 +1396,9 @@ Projectiles: {
 	NihilityMinion.DisplayName: 虚无噬菌体
 	NihilityEnergyBall.DisplayName: 虚无能量球
 	WispLanternProj.DisplayName: 冥灵灯笼
+	VitalfeatherProjectile.DisplayName: 沐生之羽
+	DragonGoldenFire.DisplayName: 金源龙焰
+	WindOfUndertakerProjectile.DisplayName: 唤死之风
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1518,6 +1553,16 @@ Buffs: {
 	NihilityBacteriophageBuff: {
 		DisplayName: 虚无噬菌体
 		Description: 小型虚无噬菌体将为你战斗
+	}
+
+	DragonWhipDebuff: {
+		// Description: Mods.CalamityEntropy.Buffs.DragonWhipDebuff.Description
+		// DisplayName: Dragon Whip Debuff
+	}
+
+	CruiserWhipDebuff: {
+		// DisplayName: Cruiser Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.CruiserWhipDebuff.Description
 	}
 }
 

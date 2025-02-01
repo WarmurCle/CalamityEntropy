@@ -42,6 +42,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.Entropy().HasCustomStrokeColor = true;
 			Item.Entropy().HasCustomNameColor = true;
 		}
+        public override bool MagicPrefix()
+        {
+            return true;
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 			

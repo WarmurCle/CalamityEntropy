@@ -40,5 +40,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             return player.ownedProjectileCounts[ModContent.ProjectileType<HelhieimBlaster>()] <= 0;
         }
+
+        public override bool MagicPrefix()
+        {
+            return true;
+        }
     }
 }

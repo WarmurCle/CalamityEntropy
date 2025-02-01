@@ -35,7 +35,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
 			CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 12).AddIngredient(ModContent.ItemType<ArmoredShell>(), 8).AddIngredient(ModContent.ItemType<CoreofCalamity>(), 6).AddIngredient(ItemID.Celeb2, 1).AddTile(ModContent.TileType<CosmicAnvil>()).Register();
         }
-
+        public override bool RangedPrefix()
+        {
+            return true;
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int shootCount = 1;

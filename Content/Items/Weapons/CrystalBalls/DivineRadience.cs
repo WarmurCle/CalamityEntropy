@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
         {
             Item.width = 44;
             Item.height = 44;
-            Item.damage = 34;
+            Item.damage = 40;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 20;
@@ -34,6 +34,10 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.shootSpeed = 16f;
             Item.mana = 10;
             Item.DamageType = DamageClass.Magic;
+        }
+        public override bool MagicPrefix()
+        {
+            return true;
         }
         public override void AddRecipes()
         {

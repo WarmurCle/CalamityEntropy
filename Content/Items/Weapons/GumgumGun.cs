@@ -33,13 +33,17 @@ namespace CalamityEntropy.Content.Items.Weapons
 			};*/
 			Item.value = Item.buyPrice(gold: 2);
 			Item.DamageType = ModContent.GetInstance<NoneTypeDamageClass>();
-			Item.damage = 25;
+			Item.damage = 26;
 			Item.knockBack = 0.2f;
 			Item.noMelee = true;
 			Item.Calamity().devItem = true;
 			Item.shoot = ModContent.ProjectileType<GumProj>();
 			Item.shootSpeed = 24f;
 		}
+        public override bool RangedPrefix()
+        {
+            return true;
+        }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

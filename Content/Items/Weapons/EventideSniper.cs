@@ -25,7 +25,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float SniperVelocityMult = 2f;
         public new string LocalizationCategory => "Items.Weapons.Ranged";
 
-
+        public override bool RangedPrefix()
+        {
+            return true;
+        }
         public override void SetDefaults()
         {
             Item.width = 234;

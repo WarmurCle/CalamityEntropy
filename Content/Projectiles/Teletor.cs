@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Projectiles
         public Vector2 weaponPos { get { return new Vector2(Projectile.ai[1], Projectile.ai[2]); } set { Projectile.ai[1] = value.X; Projectile.ai[2] = value.Y; } }
         public override void AI()
         {
-            
+            Main.instance.LoadItem(4);   
             if (Util.Util.getDistance(weaponPos, Projectile.Center) > 3000)
             {
                 weaponPos = Projectile.Center;

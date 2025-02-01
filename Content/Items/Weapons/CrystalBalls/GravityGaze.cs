@@ -43,5 +43,9 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }
+        public override bool MagicPrefix()
+        {
+            return true;
+        }
     }
 }

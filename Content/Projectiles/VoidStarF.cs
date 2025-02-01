@@ -39,6 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.localNPCHitCooldown = 16;
             Projectile.extraUpdates = 1;
+            Projectile.ArmorPenetration = 40;
         }
         public bool setv = true;
         public override void AI(){

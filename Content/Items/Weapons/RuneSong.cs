@@ -34,5 +34,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
         }
+
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
     }
 }

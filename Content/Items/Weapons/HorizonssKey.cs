@@ -44,8 +44,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults() {
 			Item.width = 20;
 			Item.height = 20;
-            Item.useTime = 64;
-            Item.useAnimation = 64;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
             Item.damage = 15;
             Item.crit = 5;
@@ -248,23 +248,23 @@ namespace CalamityEntropy.Content.Items.Weapons
             float ad = 0.8f;  //  ʼ
             if (NPC.downedSlimeKing) //ʷ  ķ  
             {
-                ad += 0.2f;
+                ad += 0.22f;
             }
             if (NPC.downedBoss1) //    
             {
-                ad += 0.25f;
+                ad += 0.26f;
             }
             if (NPC.downedBoss2) //   Ի     
             {
-                ad += 0.25f;
+                ad += 0.26f;
             }
             if (NPC.downedBoss3) //      
             {
-                ad += 0.6f;
+                ad += 0.62f;
             }
             if (Main.hardMode)  //  ɽ
             {
-                ad += 0.4f;
+                ad += 0.42f;
             }
             if (DownedBossSystem.downedCryogen) //    
             {

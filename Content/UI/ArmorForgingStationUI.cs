@@ -30,12 +30,14 @@ namespace CalamityEntropy.Content.UI
             //设置面板的高度
             panel.Height.Set(100f, 0f);
             //设置面板距离屏幕最左边的距离
-            panel.Left.Set(-160f, 0.5f);
+            panel.Left.Set(140f, 0f);
             //设置面板距离屏幕最上端的距离
             panel.Top.Set(-170f, 0.5f);
             //将这个面板注册到UIState
             Append(panel);
-            
+            panel.BackgroundColor = Color.Transparent;
+            panel.BorderColor = Color.Transparent;
+
             text = new UIText("", 1, false);
             text.Width.Set(10, 0);
             text.Height.Set(2, 0);
@@ -53,6 +55,7 @@ namespace CalamityEntropy.Content.UI
             reforgeButton.Left.Set(2f, 0f);
             reforgeButton.Top.Set(20f, 0f);
             reforgeButton.OnLeftMouseDown += reforge;
+            reforgeButton.SetVisibility(1, 1);
 
             reforgeButton.SetHoverImage(ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/reforge2"));
             //将按钮注册入面板中，这个按钮的坐标将以面板的坐标为基础计算
@@ -66,7 +69,6 @@ namespace CalamityEntropy.Content.UI
             itemSlot.Left.Set(30, 0f);
             itemSlot.Top.Set(12, 0f);
             panel.Append(itemSlot);
-            
 
             base.OnInitialize();
         }
@@ -87,9 +89,7 @@ namespace CalamityEntropy.Content.UI
             ReforgeCD--;
             if (reforgeButton.IsMouseHovering)
             {
-                Main.isMouseLeftConsumedByUI = true;
-                Main.mouseLeft = false;
-                EModSys.noItemUse = true;
+                Main.LocalPlayer.mouseInterface = true;
             }
             base.Update(gameTime);
         }

@@ -18,6 +18,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
+        public override bool RangedPrefix()
+        {
+            return true;
+        }
         public override void SetDefaults()
         {
             Item.damage = 30;

@@ -50,5 +50,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 AddTile(ModContent.TileType<VoidCondenser>()).
                 Register();
         }
+
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
     }
 }

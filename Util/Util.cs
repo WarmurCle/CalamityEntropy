@@ -28,26 +28,26 @@ namespace CalamityEntropy.Util
                 }
             }
         }
+        public static Vector2 randomVec(float max)
+        {
+            return new Vector2(Main.rand.NextFloat(-max, max), Main.rand.NextFloat(-max, max));
+        }
         public static Vector2 Bezier(List<Vector2> points, float lerp)
         {
-            if(points.Count == 1)
-            {
+            if (points == null || points.Count == 0)
+                return Vector2.Zero;
+
+            if (points.Count == 1)
                 return points[0];
-            }
-            if(points.Count == 2)
+
+            List<Vector2> newPoints = new List<Vector2>();
+            for (int i = 0; i < points.Count - 1; i++)
             {
-                return Vector2.Lerp(points[0], points[1], lerp);
+                newPoints.Add(Vector2.Lerp(points[i], points[i + 1], lerp));
             }
-            else
-            {
-                List<Vector2> newPoints = new List<Vector2>();
-                for(int i = 1; i < points.Count; i++)
-                {
-                    newPoints.Add(Vector2.Lerp(points[i - 1], points[i], lerp));
-                }
-                return Bezier(newPoints, lerp);
-            }
-        } 
+
+            return Bezier(newPoints, lerp);
+        }
 
         public static Texture2D getTexture(this NPC npc)
         {

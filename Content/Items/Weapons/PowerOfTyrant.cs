@@ -5,6 +5,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -44,6 +45,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 AddIngredient(ModContent.ItemType<VoidBar>(), 5).
                 AddIngredient(ModContent.ItemType<NightmareFuel>(), 10).
                 AddTile(ModContent.TileType<CosmicAnvil>()).Register();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
     }
 }

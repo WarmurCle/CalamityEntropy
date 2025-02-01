@@ -34,6 +34,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<LightWisperFlame>();
             Item.shootSpeed = 11f;
         }
+        public override bool RangedPrefix()
+        {
+            return true;
+        }
         public override Vector2? HoldoutOffset() => new Vector2(-28, 0);
 
         public override void AddRecipes()

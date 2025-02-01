@@ -45,5 +45,9 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
+        public override bool MagicPrefix()
+        {
+            return true;
+        }
     }
 }

@@ -41,5 +41,6 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
         }
+
     }
 }

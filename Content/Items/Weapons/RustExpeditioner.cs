@@ -35,6 +35,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 			CreateRecipe().AddIngredient(ModContent.ItemType<DubiousPlating>(), 5).AddIngredient(ItemID.IronBar, 15).AddTile(TileID.Anvils).Register();
         }
 
+        public override bool RangedPrefix()
+        {
+            return true;
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 			int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);

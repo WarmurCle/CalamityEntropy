@@ -50,5 +50,9 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
                 .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
         }
+        public override bool MagicPrefix()
+        {
+            return true;
+        }
     }
 }

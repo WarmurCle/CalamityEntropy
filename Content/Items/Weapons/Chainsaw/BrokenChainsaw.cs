@@ -33,8 +33,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
             return player.ownedProjectileCounts[Item.shoot] < 1;
         }
 
-        
-
         public override void AddRecipes()
         {
             CreateRecipe().

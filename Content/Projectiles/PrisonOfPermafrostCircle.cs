@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Steamworks;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -40,8 +44,16 @@ namespace CalamityEntropy.Content.Projectiles
         {
             return false;
         }
+        public float windVolume = 0;
+        LoopSound windsound = null;
         public override void AI(){
-            
+            if(windsound == null)
+            {
+                windsound = new LoopSound(ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/wind_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value);
+                windsound.play();
+            }
+            windsound.timeleft = 2;
+            windsound.setVolume_Dist(Projectile.Center, 200, 1200, windVolume);
             Player player = Main.player[Projectile.owner];
             Projectile.netImportant = true;
             player.manaRegenDelay = 80;
@@ -50,7 +62,9 @@ namespace CalamityEntropy.Content.Projectiles
             if (player.channel && !player.HeldItem.IsAir && player.HeldItem.type == ModContent.ItemType<PrisonOfPermafrost>())
             {
                 if (Projectile.owner == Main.myPlayer){
-                    Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition  - player.Center).ToRotation(), 0.1f, false);
+                    Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition  - player.Center).ToRotation(), 0.16f, false);
+                    Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 1.2f, true);
+
                     Projectile.velocity = Projectile.rotation.ToRotationVector2();
                     Projectile.netUpdate = true;
                 }
@@ -59,6 +73,10 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.timeLeft = 60;
                 if (usingTime > 60)
                 {
+                    for (int i = 0; i < 16; i++)
+                    {
+                        EParticle.spawnNew(new Smoke(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 + Util.Util.randomVec(6), (Projectile.rotation + Main.rand.NextFloat(-0.6f, 0.6f)).ToRotationVector2() * Main.rand.NextFloat(34, 54), new Color(190, 226, 255) * 0.2f, 0.4f, 1, true, BlendState.Additive);
+                    }
                     if (Projectile.owner == Main.myPlayer)
                     {
                         
@@ -232,6 +250,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - (float)(Math.PI * 0.5f));
             }
+            windVolume = MathHelper.Clamp(usingTime / 60f, 0, 1);
+            windsound.instance.Pitch = MathHelper.Clamp(usingTime / 60f, 0, 1) - 1;
         }
         public override bool PreDraw(ref Color lightColor)
         {

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using CalamityMod;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -31,11 +33,12 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 20;
             Projectile.timeLeft = 110;
         }
 
         public override void AI(){
-            
             Projectile.ai[0]++;
             if (htd)
             {
@@ -86,43 +89,39 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (!htd)
+            target.AddBuff(ModContent.BuffType<GlacialState>(), 600);
+            target.AddBuff(BuffID.Frostburn, 1080);
+            Main.player[Projectile.owner].AddBuff(ModContent.BuffType<CosmicFreeze>(), 600);
+            SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode);
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center + Projectile.velocity * 3, Vector2.Zero, new Color(170, 170, 255), new Vector2(2f, 2f), 0, 0.1f, 0.5f, 20);
+            GeneralParticleHandler.SpawnParticle(pulse);
+
+            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center + Projectile.velocity * 6, Vector2.Zero, new Color(140, 140, 255), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.36f, 16);
+            GeneralParticleHandler.SpawnParticle(explosion2);
+
+            float sparkCount = 14;
+            for (int i = 0; i < sparkCount; i++)
             {
-                target.AddBuff(ModContent.BuffType<GlacialState>(), 600);
-                target.AddBuff(BuffID.Frostburn, 1080);
-                Main.player[Projectile.owner].AddBuff(ModContent.BuffType<CosmicFreeze>(), 600);
-                target.immune[Projectile.owner] = 0;
-                SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode);
-                base.OnHitNPC(target, hit, damageDone);
-                Projectile.timeLeft = 15;
-                htd = true;
-                exps = 1;
+                Vector2 sparkVelocity2 = new Vector2(Main.rand.NextFloat(10, 20), 0).RotateRandom(1f).RotatedBy(Projectile.velocity.ToRotation());
+                int sparkLifetime2 = Main.rand.Next(26, 35);
+                float sparkScale2 = Main.rand.NextFloat(1.2f, 1.6f);
+                Color sparkColor2 = Color.Lerp(Color.SkyBlue, Color.LightSkyBlue, Main.rand.NextFloat(0, 1));
+                LineParticle spark = new LineParticle(Projectile.Center + Projectile.velocity * 3, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
+
             }
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (exps > 0)
+            Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/IceEdge").Value;
+            float x = 0f;
+            for (int i = 0; i < odp.Count; i++)
             {
-                if (htd)
-                {
-                    Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/POP/exp" + frame.ToString()).Value;
+                Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, Color.White * x * 0.4f, odr[i], new Vector2(tx.Width, tx.Height) / 2, 1, SpriteEffects.None, 0);
+                x += 1 / 10f;
+            }
 
 
-                    Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition + new Vector2(0, -50), null, Color.White, 0, new Vector2(tx.Height, tx.Width) / 2, 1, SpriteEffects.None, 0);
-                    return false;
-                }
-            }
-            else
-            {
-                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/IceEdge").Value;
-                float x = 0f;
-                for (int i = 0; i < odp.Count; i++)
-                {
-                    Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, Color.White * x * 0.6f, odr[i], new Vector2(tx.Width, tx.Height) / 2, 1, SpriteEffects.None, 0);
-                    x += 1 / 10f;
-                }
-                
-            }
             return true;
         }
 

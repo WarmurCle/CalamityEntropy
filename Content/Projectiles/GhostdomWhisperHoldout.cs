@@ -146,7 +146,7 @@ namespace CalamityEntropy.Content.Projectiles
                 float sparkCount = 4;
                 for (int i = 0; i < sparkCount; i++)
                 {
-                    Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedBy((float)Main.rand.NextDouble() * 3.14159f * 2) * Main.rand.NextFloat(0.5f, 1.8f);
+                    Vector2 sparkVelocity2 = new Vector2(5, 0).RotatedBy((float)Main.rand.NextDouble() * 3.14159f * 2) * Main.rand.NextFloat(0.5f, 1.8f);
                     int sparkLifetime2 = Main.rand.Next(20, 24);
                     float sparkScale2 = Main.rand.NextFloat(0.1f, 0.5f);
                     Color sparkColor2 = Color.DarkBlue;
@@ -154,12 +154,12 @@ namespace CalamityEntropy.Content.Projectiles
                     float velc = 0.4f;
                     if (Main.rand.NextBool())
                     {
-                        AltSparkParticle spark = new AltSparkParticle(Projectile.Center - sparkVelocity2 * 8, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
+                        AltSparkParticle spark = new AltSparkParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 39 - sparkVelocity2 * 8, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
                         GeneralParticleHandler.SpawnParticle(spark);
                     }
                     else
                     {
-                        LineParticle spark = new LineParticle(Projectile.Center - sparkVelocity2 * 8, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
+                        LineParticle spark = new LineParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 39 - sparkVelocity2 * 8, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
                         GeneralParticleHandler.SpawnParticle(spark);
                     }
                 }

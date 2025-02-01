@@ -52,5 +52,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             recipe.AddTile(TileID.DemonAltar);
             recipe.Register();
         }
+
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
     }
 }

@@ -1080,6 +1080,26 @@ Items: {
 			'''
 		DisplayName: Wisp Lantern
 	}
+
+	WyrmToothNecklace: {
+		DisplayName: Wyrm Tooth Necklace
+		Tooltip: ""
+	}
+
+	WyrmTooth: {
+		DisplayName: Wyrm Tooth
+		Tooltip: ""
+	}
+
+	Vitalfeather: {
+		DisplayName: Vitalfeather
+		Tooltip: ""
+	}
+
+	WindOfUndertaker: {
+		DisplayName: Wind Of Undertaker
+		Tooltip: ""
+	}
 }
 
 DeathMode: Death Mode
@@ -1286,6 +1306,9 @@ Projectiles: {
 	NihilityMinion.DisplayName: Nihility Minion
 	NihilityEnergyBall.DisplayName: Nihility Energy Ball
 	WispLanternProj.DisplayName: Wisp Lantern Proj
+	VitalfeatherProjectile.DisplayName: Vitalfeather Projectile
+	DragonGoldenFire.DisplayName: Dragon Golden Fire
+	WindOfUndertakerProjectile.DisplayName: Wind Of Undertaker Projectile
 }
 
 LegendTooltip: - Legend -
@@ -1440,6 +1463,16 @@ Buffs: {
 	NihilityBacteriophageBuff: {
 		DisplayName: Nihility Bacteriophage
 		Description: Tiny Nihility Bacteriophage will fight for you
+	}
+
+	DragonWhipDebuff: {
+		Description: Mods.CalamityEntropy.Buffs.DragonWhipDebuff.Description
+		DisplayName: Dragon Whip Debuff
+	}
+
+	CruiserWhipDebuff: {
+		DisplayName: Cruiser Whip Debuff
+		Description: Mods.CalamityEntropy.Buffs.CruiserWhipDebuff.Description
 	}
 }
 

@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.timeLeft = 30;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 0;
+            Projectile.localNPCHitCooldown = 1;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

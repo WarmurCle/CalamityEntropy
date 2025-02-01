@@ -40,6 +40,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.crit = 8;
         }
         public bool cs = false;
+        public override bool RangedPrefix()
+        {
+            return true;
+        }
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return Main.rand.NextBool(12);

@@ -65,7 +65,6 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ai[0]++;
             if (Projectile.ai[0] % 42 == 0 || Projectile.ai[0] % 42 == 10)
             {
-                SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
                 
                 int projID = ProjectileID.Bullet;
                 float shootSpeed = FalseGun.shootSpeed;
@@ -87,6 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
                     p.ToProj().usesLocalNPCImmunity = true;
                     p.ToProj().localNPCHitCooldown = 10;
                 }
+                p.ToProj().DamageType = Projectile.DamageType;
             }
             if (Projectile.ai[0] % (int)(210 / (1 + Projectile.owner.ToPlayer().Entropy().WeaponBoost)) == 0)
             {
