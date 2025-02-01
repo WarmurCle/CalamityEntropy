@@ -927,6 +927,10 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<EvilFriend>(), new Fraction(4, 9));
             }
+            if (item.type == ModContent.ItemType<YharonBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<Vitalfeather>(), new Fraction(3, 5));
+            }
             if (item.type == ModContent.ItemType<AstrumAureusBag>())
             {
                 itemLoot.Add(ModContent.ItemType<NightProjection>(), new Fraction(4, 9));

@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(CruiserWhipDebuff.TagDamage);
 
 		public override void SetDefaults() {
-			Item.DefaultToWhip(ModContent.ProjectileType<WindOfUndertakerProjectile>(), 157, 2, 8, 28);
+			Item.DefaultToWhip(ModContent.ProjectileType<WindOfUndertakerProjectile>(), 220, 2, 8, 28);
 			Item.rare = ModContent.RarityType<Violet>();
 			Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
 			Item.useStyle = ItemUseStyleID.Shoot;

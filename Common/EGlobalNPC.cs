@@ -31,7 +31,9 @@ using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.SlimeGod;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.TownNPCs;
+using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
+using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -40,7 +42,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static System.Net.Mime.MediaTypeNames;
@@ -386,6 +390,13 @@ namespace CalamityEntropy.Common
            if (npc.Entropy().daTarget)
             {
                 drawColor = Color.Black;
+            }
+        }
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            if(npc.type == ModContent.NPCType<Yharon>())
+            {
+                npcLoot.Add(ItemDropRule.ByCondition(new IsNormal(), ModContent.ItemType<Vitalfeather>(), 2));
             }
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -830,6 +841,12 @@ namespace CalamityEntropy.Common
                 }
             }
            
+        }
+        public class IsNormal : IItemDropRuleCondition, IProvideItemConditionDescription
+        {
+            public bool CanDrop(DropAttemptInfo info) => !Main.expertMode;
+            public bool CanShowItemDropInUI() => !Main.expertMode;
+            public string GetConditionDescription() => "Normal Only";
         }
         public int f_owner = -1;
         public bool lostSoulDrop = true;

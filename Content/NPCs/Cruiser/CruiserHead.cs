@@ -183,7 +183,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 normalOnly.Add(ModContent.ItemType<RuneSong>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<VoidAnnihilate>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<PhantomPlanetKillerEngine>(), new Fraction(3, 5));
-
+                normalOnly.Add(ModContent.ItemType<WindOfUndertaker>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<WingsOfHush>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<VoidMonolith>(), 3);
                 normalOnly.Add(ModContent.ItemType<VoidToy>(), 3);

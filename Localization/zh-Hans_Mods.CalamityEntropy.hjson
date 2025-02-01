@@ -1190,6 +1190,11 @@ Items: {
 			召唤物集中攻击命中的目标
 			'''
 	}
+
+	HadopelagicEchoII: {
+		// Tooltip: ""
+		// DisplayName: Hadopelagic Echo I I
+	}
 }
 
 DeathMode: 死亡模式
@@ -1399,6 +1404,7 @@ Projectiles: {
 	VitalfeatherProjectile.DisplayName: 沐生之羽
 	DragonGoldenFire.DisplayName: 金源龙焰
 	WindOfUndertakerProjectile.DisplayName: 唤死之风
+	// HadopelagicEchoIIProj.DisplayName: Hadopelagic Echo I I Proj
 }
 
 LegendTooltip: - 传奇物品 -

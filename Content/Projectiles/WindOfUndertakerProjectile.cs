@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Projectiles
 			Projectile.height = 4;
 			Projectile.timeLeft = 10000;
             Projectile.WhipSettings.Segments = 14;
-            Projectile.WhipSettings.RangeMultiplier = 1.6f;
+            Projectile.WhipSettings.RangeMultiplier = 2.4f;
 			Projectile.friendly = true;
 			Projectile.hostile = false;
 			Projectile.penetrate = -1;
@@ -74,10 +74,12 @@ namespace CalamityEntropy.Content.Projectiles
                         speed *= 0.7f;
                     }
                 }
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 270 * Projectile.WhipSettings.RangeMultiplier, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner, 0, -0.4f);
+
             }
-			player.heldProj = Projectile.whoAmI;
+            player.heldProj = Projectile.whoAmI;
 			Projectile.ai[0]++;
-			Projectile.Center = Projectile.owner.ToPlayer().MountedCenter + Vector2.UnitY * Projectile.owner.ToPlayer().gfxOffY;
+			Projectile.Center = Projectile.owner.ToPlayer().MountedCenter + Vector2.UnitY * Projectile.owner.ToPlayer().gfxOffY + Projectile.velocity.SafeNormalize(Vector2.Zero) * 10;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
 			target.AddBuff(ModContent.BuffType<CruiserWhipDebuff>(), 240);
@@ -153,10 +155,11 @@ namespace CalamityEntropy.Content.Projectiles
 			List<Vector2> p1 = getPoints((float)(player.itemAnimationMax - player.itemAnimation) / (float)player.itemAnimationMax, false);
             List<Vector2> p2 = getPoints((float)(player.itemAnimationMax - player.itemAnimation) / (float)player.itemAnimationMax, true);
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
+			DrawLine(p1);
+			DrawLine(p2); 
 			Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 38, 30), Color.White, Projectile.velocity.ToRotation(), new Vector2(20, 15), Projectile.scale * 1.6f, SpriteEffects.None);
-            DrawLine(p1);
-			DrawLine(p2);
-			drawSegs(p1, true);
+
+            drawSegs(p1, true);
 			drawSegs(p2, false);
             return false;
 		}

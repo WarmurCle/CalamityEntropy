@@ -1199,6 +1199,13 @@ namespace CalamityEntropy.Common
                         Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<GhostdomWhisperHoldout>(), Player.HeldItem.damage, 0, Player.whoAmI);
                     }
                 }
+                if (!Player.HeldItem.IsAir && Player.HeldItem.type == ModContent.ItemType<HadopelagicEchoII>())
+                {
+                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<HadopelagicEchoIIProj>()] <= 0)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<HadopelagicEchoIIProj>(), Player.HeldItem.damage, 0, Player.whoAmI);
+                    }
+                }
                 if (!Player.HeldItem.IsAir && Player.HeldItem.type == ModContent.ItemType<RailPulseBow>())
                 {
                     if (Player.ownedProjectileCounts[ModContent.ProjectileType<RailPulseBowProjectile>()] <= 0)

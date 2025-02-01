@@ -29,6 +29,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.timeLeft = 300;
             Projectile.usesLocalNPCImmunity = true;
+            Projectile.arrow = true;
         }
 
         public override void AI(){

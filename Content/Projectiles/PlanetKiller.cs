@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Player player = Main.player[Projectile.owner];
             Projectile.ai[0]++;
-            if (Projectile.ai[0] % 42 == 0 || Projectile.ai[0] % 42 == 10)
+            if (Projectile.ai[0] % 52 == 0 || Projectile.ai[0] % 52 == 16)
             {
                 
                 int projID = ProjectileID.Bullet;
@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.Projectiles
             Pk.SetDefaults(CVEID, true);
             FalseGun.damage = baseDamage;
             FalseGun.knockBack = Pk.knockBack;
-            FalseGun.shootSpeed = Pk.shootSpeed;
+            FalseGun.shootSpeed = Pk.shootSpeed * 1.25f;
             FalseGun.consumeAmmoOnFirstShotOnly = false;
             FalseGun.consumeAmmoOnLastShotOnly = false;
             FalseGun.ArmorPenetration = Projectile.ArmorPenetration;

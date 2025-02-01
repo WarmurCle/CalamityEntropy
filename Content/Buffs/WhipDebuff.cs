@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,14 +44,26 @@ namespace CalamityEntropy.Content.Buffs
 			var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
 			if (npc.HasBuff<JailerWhipDebuff>()) {
 				modifiers.FlatBonusDamage += JailerWhipDebuff.TagDamage * projTagMultiplier;
+                if (Main.rand.NextBool(10))
+                {
+                    modifiers.SetCrit();
+                }
 			}
             if (npc.HasBuff<DragonWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += DragonWhipDebuff.TagDamage * projTagMultiplier;
+                if (Main.rand.NextBool(24))
+                {
+                    modifiers.SetCrit();
+                }
             }
             if (npc.HasBuff<CruiserWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += CruiserWhipDebuff.TagDamage * projTagMultiplier;
+                if (Main.rand.NextBool(9))
+                {
+                    modifiers.SetCrit();
+                }
             }
         }
 
@@ -62,7 +75,14 @@ namespace CalamityEntropy.Content.Buffs
 
             if (npc.HasBuff<DragonWhipDebuff>())
             {
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Util.Util.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 5, 1, projectile.owner);
+                if (!Main.rand.NextBool(3))
+                {
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Util.Util.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 3, 1, projectile.owner);
+                }
+                if (projectile.TryGetOwner(out var owner))
+                {
+                    owner.Heal((int)MathHelper.Max(damageDone / 150, 1));
+                }
             }
         }
     }

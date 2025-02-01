@@ -1100,6 +1100,11 @@ Items: {
 		DisplayName: Wind Of Undertaker
 		Tooltip: ""
 	}
+
+	HadopelagicEchoII: {
+		Tooltip: ""
+		DisplayName: Hadopelagic Echo I I
+	}
 }
 
 DeathMode: Death Mode
@@ -1309,6 +1314,7 @@ Projectiles: {
 	VitalfeatherProjectile.DisplayName: Vitalfeather Projectile
 	DragonGoldenFire.DisplayName: Dragon Golden Fire
 	WindOfUndertakerProjectile.DisplayName: Wind Of Undertaker Projectile
+	HadopelagicEchoIIProj.DisplayName: Hadopelagic Echo I I Proj
 }
 
 LegendTooltip: - Legend -

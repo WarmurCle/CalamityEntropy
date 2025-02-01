@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Projectiles
 			// This method quickly sets the whip's properties.
 			Projectile.DefaultToWhip();
 			Projectile.MaxUpdates = 8;
-			Projectile.WhipSettings.Segments = 24;
-			Projectile.WhipSettings.RangeMultiplier = 4f;
+			Projectile.WhipSettings.Segments = 19;
+			Projectile.WhipSettings.RangeMultiplier = 3.1f;
 		}
 		public Vector2 lastTop = Vector2.Zero;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -50,9 +50,9 @@ namespace CalamityEntropy.Content.Projectiles
             List<Vector2> points = points_;
 			
             float swingProgress = Timer / swingTime;
-            if (swingProgress > 0.5f && swingProgress < 0.8f)
+            if (swingProgress > 0.5f && swingProgress < 0.85f)
             {
-                
+				Lighting.AddLight(lastTop, 1, 0.8f, 0.8f);
 				EParticle.spawnNew(new Smoke(),  points[points.Count - 1] + Util.Util.randomVec(2), Util.Util.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
 				
 				Vector2 top = points[points.Count - 1];
@@ -102,32 +102,31 @@ namespace CalamityEntropy.Content.Projectiles
             return true;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
 			target.AddBuff(ModContent.BuffType<DragonWhipDebuff>(), 240);
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(Projectile.damage * 0.9f);
 			target.AddBuff(ModContent.BuffType<Dragonfire>(), 180);
-            if (new Rectangle(((int)lastTop.X - 36), ((int)lastTop.Y - 36), 72, 72).Intersects(target.Hitbox))
+			SoundEngine.PlaySound(in SoundID.Item14, target.Center);
+			for (int i = 0; i < 40; i++)
 			{
-                SoundEngine.PlaySound(in SoundID.Item14, target.Center);
-                for (int i = 0; i < 40; i++)
-                {
-                    int num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 174, 0f, 0f, 200, default(Color), 2);
-                    Dust obj = Main.dust[num];
-                    obj.position = target.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * target.width / 2f;
-                    obj.noGravity = true;
-                    obj.velocity = Util.Util.randomVec(8);
-                    num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 174, 0f, 0f, 100, default(Color), 2);
-                    obj.position = target.Center;
-                    obj.velocity.Y -= 6f;
-                    obj.velocity *= 2f;
-                    obj.noGravity = true;
-                    obj.fadeIn = 1f;
-                    obj.color = Color.Crimson * 0.5f;
-                }
-            }
+				int num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 174, 0f, 0f, 200, default(Color), 2);
+				Dust obj = Main.dust[num];
+				obj.position = target.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * target.width / 2f;
+				obj.noGravity = true;
+				obj.velocity = Util.Util.randomVec(8);
+				num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 174, 0f, 0f, 100, default(Color), 2);
+				obj.position = target.Center;
+				obj.velocity.Y -= 6f;
+				obj.velocity *= 2f;
+				obj.noGravity = true;
+				obj.fadeIn = 1f;
+				obj.color = Color.Crimson * 0.5f;
+			}
 
-        }
+
+		}
 
 		// This method draws a line between all points of the whip, in case there's empty space between the sprites.
 		private void DrawLine(List<Vector2> list) {
