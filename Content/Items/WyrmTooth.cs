@@ -19,8 +19,8 @@ namespace CalamityEntropy.Content.Items
             Item.width = 40;
             Item.height = 60;
             Item.maxStack = 9999;
-            Item.value = Item.sellPrice(gold: 60);
-            Item.rare = ModContent.RarityType<Turquoise>();
+            Item.value = Item.sellPrice(gold: 26);
+            Item.rare = ModContent.RarityType<HotPink>();
         }
     }
 }

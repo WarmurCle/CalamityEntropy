@@ -929,7 +929,7 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<YharonBag>())
             {
-                itemLoot.Add(ModContent.ItemType<Vitalfeather>(), new Fraction(3, 5));
+                itemLoot.Add(ModContent.ItemType<Vitalfeather>(), new Fraction(1, 3));
             }
             if (item.type == ModContent.ItemType<AstrumAureusBag>())
             {

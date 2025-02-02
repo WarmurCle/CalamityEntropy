@@ -922,13 +922,13 @@ Items: {
 			需要以下卡牌
 			迷茫:双子魔眼掉落
 			晦暗:哥布林巫士掉落
-			虚无:3任意邪恶组织+5任意邪恶锭合成
 			迷惑:售卖于树妖
 			荒芜:售卖于强盗
 			愚者:幻妖灵巫掉落
 			献祭:6混乱核心+2永恒锭合成
 			贪婪:星辉地钓鱼获得
 			孱弱:史莱姆之神掉落
+			虚无:幻海妖龙掉落
 			'''
 	}
 
@@ -1192,8 +1192,8 @@ Items: {
 	}
 
 	HadopelagicEchoII: {
-		// Tooltip: ""
-		// DisplayName: Hadopelagic Echo I I
+		Tooltip: ""
+		DisplayName: 冥渊回音II
 	}
 }
 
@@ -1404,7 +1404,9 @@ Projectiles: {
 	VitalfeatherProjectile.DisplayName: 沐生之羽
 	DragonGoldenFire.DisplayName: 金源龙焰
 	WindOfUndertakerProjectile.DisplayName: 唤死之风
-	// HadopelagicEchoIIProj.DisplayName: Hadopelagic Echo I I Proj
+	HadopelagicEchoIIProj.DisplayName: 冥渊回音
+	HadopelagicLaser.DisplayName: 冥渊激光
+	HadopelagicWail.DisplayName: 冥渊尖啸
 }
 
 LegendTooltip: - 传奇物品 -

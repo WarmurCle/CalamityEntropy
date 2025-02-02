@@ -92,8 +92,11 @@ namespace CalamityEntropy.Content.Particles
             this.position += this.velocity;
             timeLeft--;
         }
+        public virtual void onSpawn()
+        {
 
-        public static void spawnNew(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs)
+        }
+        public static void spawnNew(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs, float rotation = 0)
         {
             particle.position = pos;
             particle.velocity = vel;
@@ -103,6 +106,7 @@ namespace CalamityEntropy.Content.Particles
             particle.alpha = a;
             particle.useAlphaBlend = false;
             particle.useAdditive = false;
+            particle.rotation = rotation;
             if(bs == BlendState.Additive)
             {
                 particle.useAdditive = true;
@@ -111,9 +115,13 @@ namespace CalamityEntropy.Content.Particles
             {
                 particle.useAlphaBlend = true;
             }
+            particle.onSpawn();
             particles.Add(particle);
         }
-
+        public virtual Vector2 getOrigin()
+        {
+            return this.texture.Size() / 2;
+        }
         public virtual void draw()
         {
             Color clr = this.color;
@@ -121,7 +129,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
             }
-            Main.spriteBatch.Draw(this.texture, this.position - Main.screenPosition, null, clr * alpha, rotation, this.texture.Size() / 2, scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(this.texture, this.position - Main.screenPosition, null, clr * alpha, rotation, getOrigin(), scale, SpriteEffects.None, 0);
         }
         public virtual Texture2D texture => null;
     }

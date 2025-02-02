@@ -109,6 +109,11 @@ namespace CalamityEntropy.Util
             sb.End();
             sb.Begin(SpriteSortMode.Deferred, blend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
         }
+        public static void UseBlendState(this SpriteBatch sb, BlendState blend)
+        {
+            sb.End();
+            sb.Begin(SpriteSortMode.Immediate, blend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+        }
         public static void UseState_UI(this SpriteBatch sb, BlendState blend, SamplerState sampler)
         {
             sb.End();

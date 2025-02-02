@@ -20,6 +20,7 @@ using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
 using CalamityMod.Items.Placeables.FurnitureAbyss;
+using CalamityEntropy.Content.Items;
 
 namespace CalamityEntropy.Content.NPCs
 {
@@ -127,6 +128,7 @@ namespace CalamityEntropy.Content.NPCs
                 .Add<AbyssalTreasure>()
                 .Add<AbyssTorch>()
                 .Add<AbyssShellFossil>()
+                .Add<WyrmTooth>()
                 .Add(ModLoader.GetMod("CalamityModMusic").Find<ModItem>("PrimordialWyrmMusicBox").Type);
 			npcShop.Register(); // Name of this shop tab
 		}

@@ -25,13 +25,5 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.Entropy().AttackVoidTouch += 0.6f;
         }
 
-        public override void AddRecipes()
-        {
-            CreateRecipe().AddIngredient(ItemID.TissueSample, 3)
-                .AddIngredient(ItemID.CrimtaneBar, 5).Register();
-
-            CreateRecipe().AddIngredient(ItemID.ShadowScale, 3)
-                .AddIngredient(ItemID.DemoniteBar, 5).Register();
-        }
     }
 }

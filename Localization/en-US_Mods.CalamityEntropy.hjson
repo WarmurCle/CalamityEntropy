@@ -859,13 +859,13 @@ Items: {
 			The following cards are required
 			Perplexed: the Twins Drop
 			Tarnish: goblin sorcerer drops
-			Nothing: 3 arbitrary evil organizations+5 arbitrary evil ingots synthesized
 			Confuse: sold by Dryad
 			Desolation: sold by Thief
 			Fool: Loot from Eidolist
 			Sacrifice: 6 Core of Chaos + 2 Perennial Bar
 			Greed: Fishing in Astral Infection Biome
 			Weakness: Loot from Slime God
+			Nothing: Loot from Eidolon Wyrm
 			'''
 	}
 
@@ -1103,7 +1103,7 @@ Items: {
 
 	HadopelagicEchoII: {
 		Tooltip: ""
-		DisplayName: Hadopelagic Echo I I
+		DisplayName: Hadopelagic Echo II
 	}
 }
 
@@ -1315,6 +1315,8 @@ Projectiles: {
 	DragonGoldenFire.DisplayName: Dragon Golden Fire
 	WindOfUndertakerProjectile.DisplayName: Wind Of Undertaker Projectile
 	HadopelagicEchoIIProj.DisplayName: Hadopelagic Echo I I Proj
+	HadopelagicLaser.DisplayName: Hadopelagic Laser
+	HadopelagicWail.DisplayName: Hadopelagic Wail
 }
 
 LegendTooltip: - Legend -

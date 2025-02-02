@@ -145,6 +145,7 @@ namespace CalamityEntropy
         public static float cutScreenRot = 0;
         public static Vector2 cutScreenCenter = Vector2.Zero;
         public bool ChristmasEvent = false;
+        public static float FlashEffectStrength = 0;
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             byte type = reader.ReadByte();
@@ -1589,7 +1590,30 @@ namespace CalamityEntropy
                 Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
 
+                if(CalamityEntropy.FlashEffectStrength > 0)
+                {
+                    graphicsDevice.SetRenderTarget(screen);
+                    graphicsDevice.Clear(Color.Transparent);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                    Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                    Main.spriteBatch.End();
 
+                    graphicsDevice.SetRenderTarget(Main.screenTarget);
+                    graphicsDevice.Clear(Color.Transparent);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                    Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+                    
+                    for(float i = 1; i <= 10; i++)
+                    {
+                        Main.spriteBatch.Draw(screen, screen.Size() / 2, null, Color.White * ((10f / i) * 0.2f * CalamityEntropy.FlashEffectStrength), 0, screen.Size() / 2, 1 + CalamityEntropy.FlashEffectStrength * 0.1f * i, SpriteEffects.None, 0);
+                    }
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                    Main.spriteBatch.End();
+
+                }
 
                 /*graphicsDevice.SetRenderTarget(screen);
                 graphicsDevice.Clear(Color.Transparent);

@@ -396,7 +396,15 @@ namespace CalamityEntropy.Common
         {
             if(npc.type == ModContent.NPCType<Yharon>())
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new IsNormal(), ModContent.ItemType<Vitalfeather>(), 2));
+                npcLoot.Add(ItemDropRule.ByCondition(new IsNormal(), ModContent.ItemType<Vitalfeather>(), 3));
+            }
+            if(npc.type == ModContent.NPCType<PrimordialWyrmHead>())
+            {
+                npcLoot.Add(ModContent.ItemType<WyrmTooth>(), 1, 28, 32);
+            }
+            if (npc.type == ModContent.NPCType<EidolonWyrmHead>())
+            {
+                npcLoot.Add(ModContent.ItemType<Nothing>(), 2, 1, 1);
             }
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
