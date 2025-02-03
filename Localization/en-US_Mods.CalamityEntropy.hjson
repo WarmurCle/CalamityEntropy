@@ -1105,6 +1105,20 @@ Items: {
 		Tooltip: ""
 		DisplayName: Hadopelagic Echo II
 	}
+
+	StarlessNight: {
+		Tooltip: ""
+		DisplayName: Starless Night
+	}
+
+	WhipOfService: {
+		DisplayName: Whip Of Service
+		Tooltip:
+			'''
+			Attacking other players temporarily increases their damage and crit chance.
+			"Turn your teammates into minions"
+			'''
+	}
 }
 
 DeathMode: Death Mode
@@ -1317,6 +1331,8 @@ Projectiles: {
 	HadopelagicEchoIIProj.DisplayName: Hadopelagic Echo I I Proj
 	HadopelagicLaser.DisplayName: Hadopelagic Laser
 	HadopelagicWail.DisplayName: Hadopelagic Wail
+	StarlessNightProj.DisplayName: Starless Night Proj
+	WhipOfServiceProjectile.DisplayName: Whip Of Service Projectile
 }
 
 LegendTooltip: - Legend -
@@ -1481,6 +1497,11 @@ Buffs: {
 	CruiserWhipDebuff: {
 		DisplayName: Cruiser Whip Debuff
 		Description: Mods.CalamityEntropy.Buffs.CruiserWhipDebuff.Description
+	}
+
+	ServiceBuff: {
+		Description: Mods.CalamityEntropy.Buffs.ServiceBuff.Description
+		DisplayName: Service Buff
 	}
 }
 

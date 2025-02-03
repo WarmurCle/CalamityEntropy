@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
             float distance = 1000;
             foreach(Projectile p in Main.ActiveProjectiles)
             {
-                if (p.hostile && !p.friendly && p.damage > 0 && Math.Max(p.width, p.height) < 80 && Util.Util.getDistance(Projectile.Center, p.Center) < distance && Util.Util.getDistance(player.Center, p.Center) < 256)
+                if (p.hostile && !p.friendly && p.damage > 0 && Math.Max(p.width, p.height) < 150 && Util.Util.getDistance(Projectile.Center, p.Center) < distance && Util.Util.getDistance(player.Center, p.Center) < 256)
                 {
                     if (p.Colliding(p.getRect(), Projectile.getRect()))
                     {

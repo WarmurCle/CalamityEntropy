@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Buffs
                 }
                 if (projectile.TryGetOwner(out var owner))
                 {
-                    owner.Heal((int)MathHelper.Max(damageDone / 150, 1));
+                    owner.Heal((int)MathHelper.Max(damageDone / 360, 1));
                 }
             }
         }

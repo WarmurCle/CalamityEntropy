@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Buffs
             player.GetAttackSpeed(DamageClass.Generic) *= 3;
             player.GetDamage(DamageClass.Generic) *= 0.35f;
             player.Calamity().rogueStealth = 0;
-            player.pickSpeed *= 3;
+            player.pickSpeed -= 0.6f;
         }
     }
 }

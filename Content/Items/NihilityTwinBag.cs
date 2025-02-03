@@ -60,6 +60,7 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<Voidseeker>(), new Fraction(4, 5));
             itemLoot.Add(ModContent.ItemType<EventideSniper>(), new Fraction(4, 5));
             itemLoot.Add(ModContent.ItemType<NihilityBacteriophageWand>(), new Fraction(4, 5));
+            itemLoot.Add(ModContent.ItemType<StarlessNight>(), new Fraction(4, 5));
         }
     }
 }

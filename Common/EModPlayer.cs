@@ -97,6 +97,7 @@ namespace CalamityEntropy.Common
         public int holyGroundTime = 0;
         public float dodgeChance = 0;
         public bool mawOfVoid = false;
+        public float serviceWhipDamageBonus = 0;
         public bool holdingPoop { get { return _holdingPoop; } set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge
@@ -305,6 +306,11 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
+            serviceWhipDamageBonus *= 0.994f;
+            if(serviceWhipDamageBonus > 0.009f)
+            {
+                Player.AddBuff(ModContent.BuffType<ServiceBuff>(), (int)(serviceWhipDamageBonus * 100));
+            }
             if(nihShellCd > 0)
             {
                 nihShellCd--;
@@ -610,6 +616,13 @@ namespace CalamityEntropy.Common
                     wl.applyEffects();
                 }
             }
+            Player.GetDamage(DamageClass.Generic) *= (1 + serviceWhipDamageBonus);
+            Player.GetCritChance(DamageClass.Generic) += (int)(serviceWhipDamageBonus * 200);
+            Player.pickSpeed -= serviceWhipDamageBonus * 4.6f;
+            if(Player.pickSpeed < 0)
+            {
+                Player.pickSpeed = 0;
+            }
             if (rBadgeActive)
             {
                 Player.gravity = 0;
@@ -840,10 +853,38 @@ namespace CalamityEntropy.Common
         public int noItemTime = 0;
         public bool syncHoldingPoop = false;
         public int damageRecord = 0;
+        
 
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.ModProjectile is WhipOfServiceProjectile wos)
+                {
+                    if (p.Colliding(p.getRect(), Player.getRect()) && p.owner != Player.whoAmI)
+                    {
+                        if (wos.hitCd[Player.whoAmI] <= 0)
+                        {
+                            float s = Player.Calamity().adrenaline;
+                            Player.Hurt(PlayerDeathReason.ByPlayerItem(p.owner, p.owner.ToPlayer().HeldItem), p.owner.ToPlayer().HeldItem.damage, 0, true, false);
+                            serviceWhipDamageBonus += 0.07f;
+                            wos.hitCd[Player.whoAmI] = 60;
+                            Player.Calamity().adrenaline = s + Player.Calamity().adrenalineMax / 20f;
+                            if(Player.Calamity().adrenaline > Player.Calamity().adrenalineMax)
+                            {
+                                Player.Calamity().adrenaline = Player.Calamity().adrenalineMax;
+                            }
+                            Player.Calamity().rage += Player.Calamity().rageMax / 20f;
+                            if (Player.Calamity().rage > Player.Calamity().rageMax)
+                            {
+                                Player.Calamity().rage = Player.Calamity().rageMax;
+                            }
+                        }
+                        
+                    }
+                }
+            }
             if(accWispLantern || visualWispLantern)
             {
                 if(Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[ModContent.ProjectileType<WispLanternProj>()] < 1)

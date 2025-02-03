@@ -1006,6 +1006,10 @@ Items: {
 			'''
 			长按鼠标使用武器时蓄力，蓄力满时松开鼠标释放一道圣光，每3帧造成200点伤害
 			视为翅膀
+			水平飞行速度： 12
+			加速倍率： 1.2
+			不错的垂直飞行速度
+			飞行时间：180
 			飞行时按住下以悬停
 			“唤醒你的信仰”
 			'''
@@ -1194,6 +1198,21 @@ Items: {
 	HadopelagicEchoII: {
 		Tooltip: ""
 		DisplayName: 冥渊回音II
+	}
+
+	StarlessNight: {
+		Tooltip: ""
+		DisplayName: 无星之夜
+	}
+
+	WhipOfService: {
+		DisplayName: 使役之鞭
+		Tooltip:
+			'''
+			攻击其他玩家以短暂提升其伤害、暴击率和挖掘速度
+			同时增加其少量肾上腺素和怒气值
+			“让你的朋友变成召唤物！”
+			'''
 	}
 }
 
@@ -1407,6 +1426,8 @@ Projectiles: {
 	HadopelagicEchoIIProj.DisplayName: 冥渊回音
 	HadopelagicLaser.DisplayName: 冥渊激光
 	HadopelagicWail.DisplayName: 冥渊尖啸
+	StarlessNightProj.DisplayName: 无星之夜
+	WhipOfServiceProjectile.DisplayName: 使役之鞭
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1571,6 +1592,11 @@ Buffs: {
 	CruiserWhipDebuff: {
 		// DisplayName: Cruiser Whip Debuff
 		// Description: Mods.CalamityEntropy.Buffs.CruiserWhipDebuff.Description
+	}
+
+	ServiceBuff: {
+		// Description: Mods.CalamityEntropy.Buffs.ServiceBuff.Description
+		// DisplayName: Service Buff
 	}
 }
 
