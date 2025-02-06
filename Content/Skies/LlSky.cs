@@ -51,8 +51,8 @@ namespace CalamityEntropy.Content.Skies
         }
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            Texture2D txd = Util.Util.pixelTex;WallpaperHelper.getWallpaper();
-            spriteBatch.Draw(txd, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Color(1, 1, 2));
+            Texture2D txd = WallpaperHelper.getWallpaper();
+            spriteBatch.Draw(txd, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * opacity);
 
         }
         public override void Update(GameTime gameTime)
