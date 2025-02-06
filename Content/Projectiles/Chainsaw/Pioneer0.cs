@@ -84,39 +84,39 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
                     {
                         SoundEngine.PlaySound(n.HitSound, n.Center);
                         OnHitNPC(n, new NPC.HitInfo(), 60);
-                        for (int i = 0; i <= 30; i++)
+                        int td = (int)(Projectile.damage * (1f - (n.Calamity().DR * 0.6f))) - n.defense / 2;
+                        if (n.life > td)
                         {
-                            if (n.life > 50) {
-                                int td = (int)(50 * (1f - n.Calamity().DR)) - n.defense;
-                                if (td < 10)
-                                {
-                                    td = 10;
-                                }
-                                if (n.realLife >= 0)
-                                {
-                                    n.realLife.ToNPC().life -= td;
-                                }
-                                else
-                                {
-                                    n.life -= td;
-                                }
-                                player.dpsDamage += td;
+                            
+                            if (td < Projectile.damage / 6)
+                            {
+                                td = Projectile.damage / 6;
+                            }
+                            if (n.realLife >= 0)
+                            {
+                                n.realLife.ToNPC().life -= td;
                             }
                             else
                             {
-                                if (n.life > 1) { n.life = 1; }
-                                player.ApplyDamageToNPC(n, 500, 0, 0, false, DamageClass.Melee, false);
+                                n.life -= td;
                             }
-                            if (i < 6)
-                            {
-                                Particle pt = new Particle();
-                                pt.position = n.Center;
-                                var rand = Main.rand;
-                                pt.velocity = new Vector2(rand.Next(-30, 31) * 0.06f, rand.Next(-30, 31) * 0.06f);
-                                pt.alpha = 0.4f;
-                                VoidParticles.particles.Add(pt);
-                            }
+                            player.dpsDamage += td;
                         }
+                        else
+                        {
+                            if (n.life > 1) { n.life = 1; }
+                            player.ApplyDamageToNPC(n, td * 3, 0, 0, false, DamageClass.Melee, false);
+                        }
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Particle pt = new Particle();
+                            pt.position = n.Center;
+                            var rand = Main.rand;
+                            pt.velocity = new Vector2(rand.Next(-30, 31) * 0.06f, rand.Next(-30, 31) * 0.06f);
+                            pt.alpha = 0.4f;
+                            VoidParticles.particles.Add(pt);
+                        }
+
                     }
                 }
             }

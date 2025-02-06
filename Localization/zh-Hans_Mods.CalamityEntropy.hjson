@@ -1201,7 +1201,7 @@ Items: {
 	}
 
 	StarlessNight: {
-		Tooltip: ""
+		Tooltip: 击中后释放虚空新星
 		DisplayName: 无星之夜
 	}
 
@@ -1210,8 +1210,18 @@ Items: {
 		Tooltip:
 			'''
 			攻击其他玩家以短暂提升其伤害、暴击率和挖掘速度
-			同时增加其少量肾上腺素和怒气值
+			同时增加其少量怒气值
 			“让你的朋友变成召唤物！”
+			'''
+	}
+
+	Xytheron: {
+		DisplayName: 始源遗歌
+		Tooltip:
+			'''
+			命中目标积攒充能
+			右键突进，根据充能对沿途敌怪造成伤害并留下深渊撕裂
+			突进时无敌
 			'''
 	}
 }
@@ -1428,6 +1438,9 @@ Projectiles: {
 	HadopelagicWail.DisplayName: 冥渊尖啸
 	StarlessNightProj.DisplayName: 无星之夜
 	WhipOfServiceProjectile.DisplayName: 使役之鞭
+	// XytheronProj.DisplayName: Xytheron Proj
+	// WyrmDash.DisplayName: Wyrm Dash
+	// AbyssalCrack.DisplayName: Abyssal Crack
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1585,18 +1598,18 @@ Buffs: {
 	}
 
 	DragonWhipDebuff: {
-		// Description: Mods.CalamityEntropy.Buffs.DragonWhipDebuff.Description
-		// DisplayName: Dragon Whip Debuff
+		Description: ""
+		DisplayName: 沐生标记
 	}
 
 	CruiserWhipDebuff: {
-		// DisplayName: Cruiser Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.CruiserWhipDebuff.Description
+		DisplayName: 唤死标记
+		Description: ""
 	}
 
 	ServiceBuff: {
-		// Description: Mods.CalamityEntropy.Buffs.ServiceBuff.Description
-		// DisplayName: Service Buff
+		Description: 提升伤害、攻速和暴击
+		DisplayName: 使役
 	}
 }
 

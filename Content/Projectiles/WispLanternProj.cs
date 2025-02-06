@@ -62,6 +62,11 @@ namespace CalamityEntropy.Content.Projectiles
             
             Player player = Projectile.owner.ToPlayer();
             Vector2 targetPos = player.Center + new Vector2(100 * player.direction, -100);
+            if (player.dead)
+            {
+                Projectile.Kill();
+                return;
+            }
             Projectile.velocity = (targetPos - Projectile.Center) * 0.14f;
             if (player.Entropy().visualWispLantern)
             {

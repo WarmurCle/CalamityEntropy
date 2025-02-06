@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
                 owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
             }
             Vector2 topPos = Projectile.Center + new Vector2(52, 0).RotatedBy(Projectile.rotation);
-            shootCd -= owner.GetAttackSpeed(Projectile.DamageType); ;
+            shootCd -= 1 * owner.GetTotalAttackSpeed(Projectile.DamageType);
             if (active)
             {
                 owner.manaRegenDelay = 16;

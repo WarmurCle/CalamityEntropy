@@ -1,3 +1,4 @@
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
@@ -26,10 +27,11 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.Entropy().visualWispLantern = !hideVisual;
             player.Entropy().accWispLantern = true;
+            
         }
         public override void UpdateVanity(Player player)
         {
-            player.Entropy().visualWispLantern = true;
+            player.Entropy().visualWispLantern = true; 
         }
         public override void AddRecipes()
         {

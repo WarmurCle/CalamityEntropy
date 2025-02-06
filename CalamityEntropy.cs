@@ -129,6 +129,7 @@ namespace CalamityEntropy
         public static Effect kscreen2;
         public static Effect cve;
         public static Effect cve2;
+        public static Effect cab;
         public RenderTarget2D screen = null;
         public RenderTarget2D screen2 = null;
         public RenderTarget2D screen3 = null;
@@ -333,6 +334,7 @@ namespace CalamityEntropy
             kscreen = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/kscreen", AssetRequestMode.ImmediateLoad).Value;
             kscreen2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/kscreen2", AssetRequestMode.ImmediateLoad).Value;
             cve = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid", AssetRequestMode.ImmediateLoad).Value;
+            cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
             cve2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid2", AssetRequestMode.ImmediateLoad).Value;
             pixel = Util.Util.getExtraTex("white");
             for (int i = 0; i < 10; i++)
@@ -1171,7 +1173,7 @@ namespace CalamityEntropy
                 cve.CurrentTechnique = cve.Techniques["Technique1"];
                 cve.CurrentTechnique.Passes[0].Apply();
                 cve.Parameters["tex0"].SetValue(screen3);
-                Texture2D backg = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_blue_base").Value;//ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg").Value;
+                Texture2D backg = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_blue_base", AssetRequestMode.ImmediateLoad).Value;//ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg").Value;
                 /*cve.Parameters["tex1"].SetValue(backg);
                 cve.Parameters["tex2"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg1").Value);
                 cve.Parameters["tex3"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg2").Value);*/
@@ -1188,7 +1190,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.End();
 
 
-                //2��shader
+                //2号shader
                 graphicsDevice.SetRenderTarget(screen);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -1413,6 +1415,42 @@ namespace CalamityEntropy
                 cve2.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/VoidBack").Value);
                 cve2.Parameters["time"].SetValue((float)cvcount / 50f);
                 cve2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(cvcount * 1.4f, cvcount * 1.4f)) / new Vector2(1920, 1080));
+                Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+                Main.spriteBatch.End();
+
+
+                //3号shader
+                graphicsDevice.SetRenderTarget(screen);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+
+
+                graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+                graphicsDevice.Clear(Color.Transparent);
+
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                
+                foreach(Projectile proj in Main.ActiveProjectiles)
+                {
+                    if(proj.ModProjectile is AbyssalCrack ac)
+                    {
+                        ac.draw();
+                    }
+                }
+                
+                Main.spriteBatch.End();
+                graphicsDevice.SetRenderTarget(Main.screenTarget);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
+                cab.CurrentTechnique = cab.Techniques["Technique1"];
+                cab.CurrentTechnique.Passes[0].Apply();
+                cab.Parameters["clr"].SetValue(new Color(12, 50, 160).ToVector4());
+                cab.Parameters["tex0"].SetValue(Main.screenTargetSwap);
+                cab.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1").Value);
+                cab.Parameters["time"].SetValue((float)cvcount / 50f);
+                cab.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(cvcount * 1.4f, cvcount * 1.4f)) / new Vector2(1920, 1080));
                 Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
                 Main.spriteBatch.End();
 

@@ -177,7 +177,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             {
                 lifeCounter = NPC.lifeMax;
             }
-            lifeCounter -= (int)(((float)NPC.lifeMax) / (4.5f * 60f * 60f));
+            lifeCounter -= (int)(((float)NPC.lifeMax) / (3f * 60f * 60f));
             if(lifeCounter < 0)
             {
                 lifeCounter = 0;

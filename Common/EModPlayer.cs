@@ -204,7 +204,7 @@ namespace CalamityEntropy.Common
         public bool revelationUsing = false;
         public bool isUsingItem()
         {
-            return Main.mouseLeft && !EModSys.noItemUse && !Main.isMouseLeftConsumedByUI && Player.HeldItem.damage > 0 && Player.HeldItem.active;
+            return Main.mouseLeft && !Player.mouseInterface && Player.HeldItem.damage > 0 && Player.HeldItem.active;
         }
 
         public override void ResetEffects()
@@ -306,118 +306,7 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
-            serviceWhipDamageBonus *= 0.994f;
-            if(serviceWhipDamageBonus > 0.009f)
-            {
-                Player.AddBuff(ModContent.BuffType<ServiceBuff>(), (int)(serviceWhipDamageBonus * 100));
-            }
-            if(nihShellCd > 0)
-            {
-                nihShellCd--;
-            }
-            if (Main.myPlayer == Player.whoAmI)
-            {
-                if (mawOfVoid)
-                {
-                    if (mawOfVoidUsing)
-                    {
-                        mawOfVoidCharge -= 1f / 60f;
-                        if (mawOfVoidCharge <= 0)
-                        {
-                            mawOfVoidCharge = 0;
-                            mawOfVoidUsing = false;
-                        }
-                    }
-                    else
-                    {
-                        if (isUsingItem())
-                        {
-                            mawOfVoidCharge += 0.01f;
-                            if (mawOfVoidCharge >= 1)
-                            {
-                                mawOfVoidCharge = 1;
-                                if (Main.mouseRight)
-                                {
-                                    mawOfVoidUsing = true;
-                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(225), 0, Player.whoAmI);
-                                }   
-                            }
-                        }
-                        else
-                        {
-                            if (mawOfVoidCharge == 1)
-                            {
-                                mawOfVoidUsing = true;
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(225), 0, Player.whoAmI);
-                            }
-                            else
-                            {
-                                mawOfVoidCharge -= 0.01f;
-                                if (mawOfVoidCharge <= 0)
-                                {
-                                    mawOfVoidCharge = 0;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    mawOfVoidCharge = 0;
-                }
-                if (revelation)
-                {
-                    if (revelationUsing)
-                    {
-                        revelationCharge -= 1f / 60f;
-                        if (revelationCharge <= 0)
-                        {
-                            revelationCharge = 0;
-                            revelationUsing = false;
-                        }
-                    }
-                    else
-                    {
-                        if (isUsingItem())
-                        {
-                            revelationCharge += 0.01f;
-                            if (revelationCharge >= 1)
-                            {
-                                revelationCharge = 1;
-                                if (Main.mouseRight)
-                                {
-                                    revelationUsing = true;
-                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(200), 0, Player.whoAmI);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (revelationCharge == 1)
-                            {
-                                revelationUsing = true;
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(200), 0, Player.whoAmI);
-                            }
-                            else
-                            {
-                                revelationCharge -= 0.01f;
-                                if (revelationCharge <= 0)
-                                {
-                                    revelationCharge = 0;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    revelationCharge = 0;
-                }
-            }
-            if(holyGroundTime > 0)
-            {
-                holyGroundTime--;
-            }
+            
             
             if (syncHoldingPoop)
             {
@@ -570,6 +459,10 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateRunSpeeds()
         {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<WyrmDash>()] > 0)
+            {
+                Player.maxFallSpeed = 9999;
+            }
             if (Player.Entropy().inspirationCard)
             {
                 Player.runAcceleration *= 1.2f;
@@ -609,81 +502,19 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateMiscEffects()
         {
-            foreach(Projectile p in Main.ActiveProjectiles)
-            {
-                if(p.ModProjectile is WispLanternProj wl)
-                {
-                    wl.applyEffects();
-                }
-            }
-            Player.GetDamage(DamageClass.Generic) *= (1 + serviceWhipDamageBonus);
-            Player.GetCritChance(DamageClass.Generic) += (int)(serviceWhipDamageBonus * 200);
-            Player.pickSpeed -= serviceWhipDamageBonus * 4.6f;
-            if(Player.pickSpeed < 0)
-            {
-                Player.pickSpeed = 0;
-            }
+            
             if (rBadgeActive)
             {
                 Player.gravity = 0;
             }
-            if(Player.HeldItem.ModItem is HorizonssKey)
-            {
-                Player.maxMinions -= 6;
-                if(Player.maxMinions < 1)
-                {
-                    Player.maxMinions = 1;
-                }
-            }
-            if(holyGroundTime > 0)
-            {
-                dodgeChance += 0.5f;
-            }
-            Player.manaCost *= ManaCost;
-            if (Player.Entropy().SCrown)
-            {
-                Player.Calamity().defenseDamageRatio = 0;
-            }
-            if (Player.Entropy().wisdomCard)
-            {
-                Player.manaCost *= 0.6f;
-            }
-            if (Player.Entropy().oracleDeck)
-            {
-                Player.manaCost *= 0.4f;
-            }
-            if (MagiShield > 0)
-            {
-                Player.manaCost *= 0.9f;
-            }
-            if (VFHelmMagic)
-            {
-                Player.manaCost *= 0.75f;
-            }
-            if (GreedCard)
-            {
 
-                Player.GetDamage(DamageClass.Generic) += Player.maxMinions * (EvilDeck ? 0.03f : 0.02f);
-            }
-            if (VoidInspire > 0)
-            {
-                Player.GetDamage(DamageClass.Generic) += 0.5f;
-                Player.Calamity().infiniteFlight = true;
-            }
             manaNorm = Player.statManaMax2;
-            if (ArchmagesMirror)
-            {
-                enhancedMana += 0.3f;
-            }
             Player.statManaMax2 += (int)(Player.statManaMax2 * enhancedMana);
             if (Player.statMana > manaNorm)
             {
                 Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.003f;
             }
-            if (EvilDeck)
-            {
-                lifeRegenPerSec = (int)(lifeRegenPerSec * 0.3f);
-            }
+            
 
         }
         public int manaNorm = 0;
@@ -858,40 +689,150 @@ namespace CalamityEntropy.Common
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
-            foreach(Projectile p in Main.ActiveProjectiles)
+            serviceWhipDamageBonus *= 0.995f;
+            if (serviceWhipDamageBonus > 0.009f)
             {
-                if(p.ModProjectile is WhipOfServiceProjectile wos)
+                Player.AddBuff(ModContent.BuffType<ServiceBuff>(), (int)(serviceWhipDamageBonus * 10000));
+            }
+            if (nihShellCd > 0)
+            {
+                nihShellCd--;
+            }
+            if (Main.myPlayer == Player.whoAmI)
+            {
+                if (mawOfVoid)
                 {
-                    if (p.Colliding(p.getRect(), Player.getRect()) && p.owner != Player.whoAmI)
+                    if (mawOfVoidUsing)
                     {
-                        if (wos.hitCd[Player.whoAmI] <= 0)
+                        mawOfVoidCharge -= 1f / 60f;
+                        if (mawOfVoidCharge <= 0)
                         {
-                            float s = Player.Calamity().adrenaline;
-                            Player.Hurt(PlayerDeathReason.ByPlayerItem(p.owner, p.owner.ToPlayer().HeldItem), p.owner.ToPlayer().HeldItem.damage, 0, true, false);
-                            serviceWhipDamageBonus += 0.07f;
-                            wos.hitCd[Player.whoAmI] = 60;
-                            Player.Calamity().adrenaline = s + Player.Calamity().adrenalineMax / 20f;
-                            if(Player.Calamity().adrenaline > Player.Calamity().adrenalineMax)
+                            mawOfVoidCharge = 0;
+                            mawOfVoidUsing = false;
+                        }
+                    }
+                    else
+                    {
+                        if (isUsingItem())
+                        {
+                            mawOfVoidCharge += 0.01f;
+                            if (mawOfVoidCharge >= 1)
                             {
-                                Player.Calamity().adrenaline = Player.Calamity().adrenalineMax;
-                            }
-                            Player.Calamity().rage += Player.Calamity().rageMax / 20f;
-                            if (Player.Calamity().rage > Player.Calamity().rageMax)
-                            {
-                                Player.Calamity().rage = Player.Calamity().rageMax;
+                                mawOfVoidCharge = 1;
+                                if (Main.mouseRight)
+                                {
+                                    mawOfVoidUsing = true;
+                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(225), 0, Player.whoAmI);
+                                }
                             }
                         }
-                        
+                        else
+                        {
+                            if (mawOfVoidCharge == 1)
+                            {
+                                mawOfVoidUsing = true;
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(225), 0, Player.whoAmI);
+                            }
+                            else
+                            {
+                                mawOfVoidCharge -= 0.01f;
+                                if (mawOfVoidCharge <= 0)
+                                {
+                                    mawOfVoidCharge = 0;
+                                }
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    mawOfVoidCharge = 0;
+                }
+                if (revelation)
+                {
+                    if (revelationUsing)
+                    {
+                        revelationCharge -= 1f / 60f;
+                        if (revelationCharge <= 0)
+                        {
+                            revelationCharge = 0;
+                            revelationUsing = false;
+                        }
+                    }
+                    else
+                    {
+                        if (isUsingItem())
+                        {
+                            revelationCharge += 0.01f;
+                            if (revelationCharge >= 1)
+                            {
+                                revelationCharge = 1;
+                                if (Main.mouseRight)
+                                {
+                                    revelationUsing = true;
+                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(200), 0, Player.whoAmI);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (revelationCharge == 1)
+                            {
+                                revelationUsing = true;
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(200), 0, Player.whoAmI);
+                            }
+                            else
+                            {
+                                revelationCharge -= 0.01f;
+                                if (revelationCharge <= 0)
+                                {
+                                    revelationCharge = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    revelationCharge = 0;
+                }
             }
-            if(accWispLantern || visualWispLantern)
+            if (holyGroundTime > 0)
             {
-                if(Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[ModContent.ProjectileType<WispLanternProj>()] < 1)
+                holyGroundTime--;
+            }
+            if (Player.whoAmI == Main.myPlayer) {
+                foreach (Projectile p in Main.ActiveProjectiles)
+                {
+                    if (p.ModProjectile is WhipOfServiceProjectile wos)
+                    {
+                        if (p.Colliding(p.getRect(), Player.getRect()) && p.owner != Player.whoAmI)
+                        {
+                            if (wos.hitCd[Player.whoAmI] <= 0)
+                            {
+                                float s = Player.Calamity().adrenaline;
+                                Player.Hurt(PlayerDeathReason.ByPlayerItem(p.owner, p.owner.ToPlayer().HeldItem), p.owner.ToPlayer().HeldItem.damage, 0, true, false);
+                                serviceWhipDamageBonus += 0.07f;
+                                wos.hitCd[Player.whoAmI] = 1000;
+                                Player.Calamity().rage += Player.Calamity().rageMax / 20f;
+                                if (Player.Calamity().rage > Player.Calamity().rageMax)
+                                {
+                                    Player.Calamity().rage = Player.Calamity().rageMax;
+                                }
+                            }
+
+                        }
+                    }
+                } 
+            }
+            if (accWispLantern || visualWispLantern)
+            {
+                if (Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[ModContent.ProjectileType<WispLanternProj>()] < 1)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<WispLanternProj>(), 0, 0, Player.whoAmI);
                 }
             }
+            
             if (!nihShell)
             {
                 nihShellCount = 0;
@@ -1359,13 +1300,79 @@ namespace CalamityEntropy.Common
         public int VaMoving = 0;
         public int twinSpawnIndex = -1;
         private int MagiShieldMax = 1;
-
+        public float attackSpeed = 0;
         public override void PostUpdateEquips()
         {
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (p.ModProjectile is WispLanternProj wl)
+                {
+                    wl.applyEffects();
+                }
+            }
             if (holyGroundTime > 0)
             {
                 Player.GetAttackSpeed(DamageClass.Generic) += 1;
                 Player.GetDamage(DamageClass.Generic) += 1;
+            }
+            
+            Player.GetDamage(DamageClass.Generic) += serviceWhipDamageBonus;
+            Player.GetCritChance(DamageClass.Generic) += (int)(serviceWhipDamageBonus * 180);
+            Player.pickSpeed -= serviceWhipDamageBonus * 4.3f;
+            Player.GetAttackSpeed(DamageClass.Generic) += serviceWhipDamageBonus * 2.2f;
+            if (Player.pickSpeed < 0)
+            {
+                Player.pickSpeed = 0;
+            }
+            if (Player.HeldItem.ModItem is HorizonssKey)
+            {
+                Player.maxMinions -= 6;
+                if (Player.maxMinions < 1)
+                {
+                    Player.maxMinions = 1;
+                }
+            }
+            if (holyGroundTime > 0)
+            {
+                dodgeChance += 0.5f;
+            }
+            Player.manaCost *= ManaCost;
+            if (Player.Entropy().SCrown)
+            {
+                Player.Calamity().defenseDamageRatio = 0;
+            }
+            if (Player.Entropy().wisdomCard)
+            {
+                Player.manaCost *= 0.6f;
+            }
+            if (Player.Entropy().oracleDeck)
+            {
+                Player.manaCost *= 0.4f;
+            }
+            if (MagiShield > 0)
+            {
+                Player.manaCost *= 0.9f;
+            }
+            if (VFHelmMagic)
+            {
+                Player.manaCost *= 0.75f;
+            }
+            if (GreedCard)
+            {
+                Player.GetDamage(DamageClass.Generic) += Player.maxMinions * (EvilDeck ? 0.03f : 0.02f);
+            }
+            if (VoidInspire > 0)
+            {
+                Player.GetDamage(DamageClass.Generic) += 0.5f;
+                Player.Calamity().infiniteFlight = true;
+            }
+            if (ArchmagesMirror)
+            {
+                enhancedMana += 0.3f;
+            }
+            if (EvilDeck)
+            {
+                lifeRegenPerSec = (int)(lifeRegenPerSec * 0.3f);
             }
         }
         public override void ModifyScreenPosition()

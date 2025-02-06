@@ -148,6 +148,18 @@ namespace CalamityEntropy.Common
         {
             EParticle.updateAll();
         }
+        public void drawXythBar()
+        {
+            if(Main.LocalPlayer.HeldItem.ModItem is Xytheron xr)
+            {
+                float prog = xr.charge / 20f;
+                Vector2 Center = Main.LocalPlayer.Center - Main.screenPosition + new Vector2(0, 56);
+                Texture2D bar = Util.Util.getExtraTex("XythBar");
+                Main.spriteBatch.Draw(bar, Center, new Rectangle(0, 0, 64, 26), Color.White, 0, new Vector2(32, 13), 1, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(bar, Center, new Rectangle(0, 26, (int)(8 + 48 * prog), 6), Color.White, 0, new Vector2(32, 1), 1, SpriteEffects.None, 0);
+
+            }
+        }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             foreach (GameInterfaceLayer layer in layers)
@@ -188,6 +200,11 @@ namespace CalamityEntropy.Common
                         PoopsUI.Draw();
                         Main.spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
                     }
+                    return true;
+                }, InterfaceScaleType.None));
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Xyth Bar", () =>
+                {
+                    drawXythBar();
                     return true;
                 }, InterfaceScaleType.None));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer(
@@ -238,7 +255,7 @@ namespace CalamityEntropy.Common
         {
             if (CalamityEntropy.Instance.screenShakeAmp > 0)
             {
-                CalamityEntropy.Instance.screenShakeAmp -= 1;
+                CalamityEntropy.Instance.screenShakeAmp -= 0.5f;
             }
             bool eow = false;
             int maxlifeEows = 0;

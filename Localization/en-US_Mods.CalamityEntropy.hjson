@@ -1119,6 +1119,15 @@ Items: {
 			"Turn your teammates into minions"
 			'''
 	}
+
+	Xytheron: {
+		DisplayName: Xytheron
+		Tooltip:
+			'''
+			Hit the target and accumulate energy for charging
+			Right click to advance and deal damage to enemies along the way based on charging and leaving abyssal crack
+			'''
+	}
 }
 
 DeathMode: Death Mode
@@ -1333,6 +1342,9 @@ Projectiles: {
 	HadopelagicWail.DisplayName: Hadopelagic Wail
 	StarlessNightProj.DisplayName: Starless Night Proj
 	WhipOfServiceProjectile.DisplayName: Whip Of Service Projectile
+	XytheronProj.DisplayName: Xytheron Proj
+	WyrmDash.DisplayName: Wyrm Dash
+	AbyssalCrack.DisplayName: Abyssal Crack
 }
 
 LegendTooltip: - Legend -
@@ -1490,18 +1502,18 @@ Buffs: {
 	}
 
 	DragonWhipDebuff: {
-		Description: Mods.CalamityEntropy.Buffs.DragonWhipDebuff.Description
-		DisplayName: Dragon Whip Debuff
+		Description: ""
+		DisplayName: Dragon Whip Tag
 	}
 
 	CruiserWhipDebuff: {
-		DisplayName: Cruiser Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.CruiserWhipDebuff.Description
+		DisplayName: Cruiser Whip Tag
+		Description: ""
 	}
 
 	ServiceBuff: {
-		Description: Mods.CalamityEntropy.Buffs.ServiceBuff.Description
-		DisplayName: Service Buff
+		Description: Become a minion
+		DisplayName: Service
 	}
 }
 

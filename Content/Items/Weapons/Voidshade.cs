@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.useAnimation = 30;
 			Item.autoReuse = true;
 			Item.scale = 2f;
-			Item.DamageType = DamageClass.MeleeNoSpeed;
+			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Item.damage = 100;
 			Item.knockBack = 4;
 			Item.crit = 6;

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -133,9 +134,11 @@ namespace CalamityEntropy.Content.UI
         }
         public void close()
         {
-            
-            Main.LocalPlayer.QuickSpawnItem(Player.GetSource_None(), item[0]);
-            item[0].TurnToAir();
+            if (item[0].type != ItemID.None)
+            {
+                Main.LocalPlayer.QuickSpawnItem(Player.GetSource_None(), item[0]);
+                item[0].TurnToAir();
+            }
         }
     }
 }

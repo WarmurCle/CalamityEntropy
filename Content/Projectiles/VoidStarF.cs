@@ -41,12 +41,22 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.extraUpdates = 1;
             Projectile.ArmorPenetration = 40;
         }
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (counter < 16)
+            {
+                return false;
+            }
+            return null;
+        }
         public bool setv = true;
+        public int counter = 0;
         public override void AI(){
             if (Projectile.ai[2] > 0)
             {
                 Projectile.DamageType = DamageClass.Magic;
             }
+            counter++;
             if (setv)
             {
                 setv = false;
@@ -58,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
                 odp.RemoveAt(0);
             }
             Projectile.velocity *= 0.999f;
-            if (Projectile.timeLeft < 380)
+            if (Projectile.timeLeft < 360)
             {
                 NPC target = Projectile.FindTargetWithinRange(4000, false);
                 if (target != null)

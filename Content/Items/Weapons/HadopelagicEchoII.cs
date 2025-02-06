@@ -29,13 +29,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.knockBack = 1f;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityHotPinkBuyPrice;
-            Item.rare = ModContent.RarityType<HotPink>();
+            Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.shoot = ModContent.ProjectileType<HadopelagicEchoIIProj>();
             Item.shootSpeed = 16f;
             Item.mana = 46;
             Item.DamageType = DamageClass.Magic;
             Item.ArmorPenetration = 64;
         }
+        
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             return false;

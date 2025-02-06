@@ -1,0 +1,111 @@
+using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Util;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.Projectiles
+{
+    public class WyrmDash : ModProjectile {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Projectile.type] = 1;
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AbyssalCrack>(), Projectile.damage / 4, 0, Projectile.owner);
+        }
+        public override void SetDefaults()
+        {
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.width = 60;
+            Projectile.height = 60;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = true;
+            Projectile.light = 2f;
+            Projectile.timeLeft = 16;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+        }
+        public float alpha = 0;
+        public bool playSound = true;
+        public override void AI(){
+            if (playSound)
+            {
+                playSound = false;
+                Util.Util.PlaySound("beast_ghostdash1", 0.6f, Projectile.Center, 2, 1);
+            }
+            if(Projectile.timeLeft < 6)
+            {
+                alpha -= 1f / 6f;
+            }
+            else
+            {
+                if (alpha < 1)
+                {
+                    alpha += 1f / 6f;
+                }
+            }
+            var player = Projectile.owner.ToPlayer();
+            
+            player.velocity = Projectile.velocity;
+            player.Center = Projectile.Center;
+            if(Projectile.timeLeft > 12)
+            {
+                Projectile.rotation = Projectile.velocity.ToRotation();
+            }
+            player.Entropy().immune = 20;
+            player.itemTime = 36;
+            player.itemAnimation = 36;
+            if(Projectile.timeLeft < 2)
+            {
+                player.velocity *= 0.2f;
+            }
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.velocity *= 0f;
+            if(Projectile.timeLeft > 8)
+            {
+                Projectile.timeLeft = 8;
+            }
+            return false;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return projHitbox.Center().getRectCentered(400 * Projectile.scale, 400 * Projectile.scale).Intersects(targetHitbox);
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Util.Util.PlaySound("xhit", Main.rand.NextFloat(0.6f, 1.1f), Projectile.Center, 8, volume: 0.7f);
+            Util.Util.PlaySound("DevourerDeathImpact", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, 8, volume: 0.7f);
+            CalamityEntropy.Instance.screenShakeAmp = (Projectile.ai[0] * 0.7f);
+            for (int i = 0; i < 1 + (int)(Projectile.ai[0] * 0.34f); i++)
+            {
+                EParticle.spawnNew(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
+            }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = Util.Util.getExtraTex("wyrmdash");
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White * alpha, Projectile.rotation, new Vector2(tex.Size().X / 5f * 4f, tex.Size().Y / 2), Projectile.scale, SpriteEffects.None, 0);
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+
+            return false;
+        }
+
+    }
+
+}

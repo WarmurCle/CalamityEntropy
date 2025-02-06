@@ -870,7 +870,7 @@ namespace CalamityEntropy.Common
             }
             if (player.Entropy().AttackVoidTouch > 0)
             {
-                float vt = player.Entropy().AttackVoidTouch;
+                float vt = player.Entropy().AttackVoidTouch * 10;
                 AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
             }
             player.Entropy().damageRecord += damageDone;
@@ -913,7 +913,7 @@ namespace CalamityEntropy.Common
                     {
                         if (projectile.owner.ToPlayer().Entropy().AttackVoidTouch > 0)
                         {
-                            float vt = projectile.owner.ToPlayer().Entropy().AttackVoidTouch;
+                            float vt = projectile.owner.ToPlayer().Entropy().AttackVoidTouch * 10;
                             AddVoidTouch(npc, (int)(vt * 120), vt, 600, (int)Math.Round(vt * 8));
                         }
                     }

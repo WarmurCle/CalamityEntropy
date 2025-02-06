@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Util;
@@ -17,9 +18,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class StarlessNightProj : ModProjectile
+    public class XytheronProj : ModProjectile
     {
-        public override string Texture => "CalamityEntropy/Content/Items/Weapons/StarlessNight";
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Xytheron";
         List<float> odr = new List<float>();
         List<float> ods = new List<float>();
         public override void SetStaticDefaults()
@@ -39,30 +40,37 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 36;
+            Projectile.localNPCHitCooldown = -1;
             Projectile.ArmorPenetration = 80;
             Projectile.timeLeft = 100000;
-            Projectile.extraUpdates = 3;
+            Projectile.extraUpdates = 7;
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(rotSpeed);
 
         }
-        public int spawnVoidStarCount = 5;
+        public int addcharge = 3;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Util.Util.PlaySound("xhit", Main.rand.NextFloat(0.6f, 1.1f), Projectile.Center, 8, volume: 0.36f);
+            Util.Util.PlaySound("DevourerDeathImpact", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, 8, volume: 0.36f);
             CalamityEntropy.Instance.screenShakeAmp = 6;
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner);
-            Util.Util.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, volume:0.7f);
-            if (spawnVoidStarCount > 0)
+            for (int i = 0; i < 3; i++)
             {
-                for (int i = 0; i < 6; i++)
+                EParticle.spawnNew(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
+            }
+            if(Projectile.owner.ToPlayer().HeldItem.ModItem is Xytheron xr)
+            {
+                if (addcharge > 0)
                 {
-                    Vector2 vel = Util.Util.randomRot().ToRotationVector2() * 16;
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, vel, ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 5, 1, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
+                    xr.charge += 1;
+                    if (xr.charge > 20)
+                    {
+                        xr.charge = 20;
+                    }
+                    addcharge--;
                 }
-                spawnVoidStarCount--;
             }
         }
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -73,6 +81,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float rotSpeed = 0f;
         public float rotSpeedJ = 0;
         float glowalpha = 0;
+        public bool playsound = true;
         public override void AI()
         {
             
@@ -84,10 +93,15 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation -= 2.42f * Projectile.direction;
             }
             Player owner = Projectile.owner.ToPlayer();
-            float meleeSpeed = owner.GetTotalAttackSpeed(Projectile.DamageType);
+            float meleeSpeed = owner.GetTotalAttackSpeed(Projectile.DamageType) * 1.56f;
             
             Projectile.Center = owner.MountedCenter + owner.gfxOffY * Vector2.UnitY;
-            Projectile.rotation += rotSpeed * meleeSpeed;
+            Projectile.rotation += rotSpeed * meleeSpeed * 0.32f;
+            if (Projectile.ai[0] >= 74 && playsound)
+            {
+                Util.Util.PlaySound("xswing", Main.rand.NextFloat(0.65f, 1.35f), Projectile.Center, 8, 0.8f);
+                playsound = false;
+            }
             if (Projectile.ai[0] < 60 * updates)
             {
                 Projectile.ai[0] = 60 * updates;
@@ -96,20 +110,26 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Projectile.ai[0] < 86 * updates)
                 {
-                    rotSpeed += 0.00121f * Projectile.direction * meleeSpeed;
+                    rotSpeed += 0.0006f * Projectile.direction * meleeSpeed;
                 }
                 else
                 {
                     rotSpeed *= (float)Math.Pow(0.94, 1.0 / meleeSpeed);
-                    if (Projectile.ai[0] > 90 * updates)
+                    if (Projectile.ai[0] > 86 * updates)
                     {
+                        rotSpeed *= 0.6f;
                         if (Projectile.owner == Main.myPlayer) {
                             Projectile.direction = (Main.MouseWorld - owner.Center).X > 0 ? 1 : -1;
                             float targetrot = (Main.MouseWorld - owner.Center).ToRotation() - 2.42f * Projectile.direction;
-                            Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, targetrot, 0.07f * meleeSpeed, false);
+                            Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, targetrot, 0.05f * meleeSpeed, false);
+                        }
+                        if (odr.Count > 0)
+                        {
+                            odr.RemoveAt(0);
+                            ods.RemoveAt(0);
                         }
                     }
-                    if (Projectile.ai[0] > 100 * updates)
+                    if (Projectile.ai[0] > 94 * updates)
                     {
                         owner.itemTime = 0;
                         owner.itemAnimation = 0;
@@ -121,7 +141,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ai[0]+=meleeSpeed;
             odr.Add(Projectile.rotation);
             ods.Add(scaleD);
-            if (odr.Count > 38)
+            if (odr.Count > 60)
             {
                 odr.RemoveAt(0);
                 ods.RemoveAt(0);
@@ -166,7 +186,7 @@ namespace CalamityEntropy.Content.Projectiles
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Main.EntitySpriteDraw(TextureAssets.Projectile[Projectile.type].Value, Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, Color.White, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(0, TextureAssets.Projectile[Projectile.type].Value.Height), Projectile.scale * 3f * scaleD, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(TextureAssets.Projectile[Projectile.type].Value, Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition - Projectile.rotation.ToRotationVector2() * 8, null, Color.White, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(0, TextureAssets.Projectile[Projectile.type].Value.Height), Projectile.scale * 3f * scaleD, SpriteEffects.None, 0);
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
@@ -187,7 +207,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = new Color(255, 255, 255);
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(574 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(720 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3(i / (float)odr.Count, 1, 1),
                       b));
                 ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
@@ -197,8 +217,8 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
             {
-                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SlashTrans", AssetRequestMode.ImmediateLoad).Value;
-                Main.instance.GraphicsDevice.Textures[1] = Util.Util.getExtraTex("sn_colormap");
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SlashTrans2", AssetRequestMode.ImmediateLoad).Value;
+                Main.instance.GraphicsDevice.Textures[1] = Util.Util.getExtraTex("xt_colormap");
                 shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
 
                 sb.End();
@@ -216,12 +236,12 @@ namespace CalamityEntropy.Content.Projectiles
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
+            drawSword();
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 554 * Projectile.scale * scaleD, targetHitbox, 64);
+            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 702 * Projectile.scale * scaleD, targetHitbox, 64);
         }
     }
 

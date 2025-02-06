@@ -35,10 +35,10 @@ namespace CalamityEntropy.Content.Projectiles
 		public List<float> oldScale = new List<float>();
         public bool init = false;
 		public float rotSpeed = 0;
-		public int counter = 0;
+		public float counter = 0;
         public float cspeed = 0;
         public float c = 0;
-        public int dash = 30;
+        public float dash = 30;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
 			if(counter > 6 && counter < 60)
@@ -57,20 +57,28 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.owner.ToPlayer().Entropy().voidshadeBoostTime = 90;
             }
         }
+        public bool st = true;
         public bool vsboost = false;
+        public bool spawnProj = true;
         public override void AI()
         {
             
 			Player player = Projectile.owner.ToPlayer();
+            if (counter < 60)
+            {
+                player.itemTime = 2;
+                player.itemAnimation = 2;
+            }
+            float speed = player.GetTotalAttackSpeed(Projectile.DamageType);
             if (attackType == 3)
             {
                 if (counter > 9)
                 {
-                    dash--;
+                    dash-=speed;
 
                     if (dash > 0)
                     {
-                        player.velocity = Projectile.velocity * 2;
+                        player.velocity = Projectile.velocity * 2 * speed;
                     }
                     else
                     {
@@ -80,8 +88,9 @@ namespace CalamityEntropy.Content.Projectiles
                         }
                     }
                 }
-                if (counter == 20)
+                if (counter >= 20 && spawnProj)
                 {
+                    spawnProj = false;
                     if (Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<WohLaser>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner, 0, 0, 2).ToProj().DamageType = Projectile.DamageType;
@@ -96,45 +105,40 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if (counter < 20)
                 {
-                    cspeed += 0.01f;
+                    cspeed += 0.01f * speed;
                 }
                 else
                 {
-                    cspeed -= 0.014f;
+                    cspeed -= 0.014f * speed;
                 }
                 Projectile.Center = player.Center + Projectile.rotation.ToRotationVector2() * c * 18 * getScale() - Projectile.rotation.ToRotationVector2() * 60 * getScale();
-                c += cspeed;
-                Projectile.rotation += -0.003f * c * Projectile.direction;
-                counter++;
+                c += cspeed * speed;
+                Projectile.rotation += -0.003f * c * Projectile.direction * speed;
+                counter+=speed;
                 if(counter > 60)
                 {
                     Projectile.Kill();
                 }
                 if (counter < 36)
                 {
-                    if (counter % 2 == 1)
-                    {
-                        oldPos.Add(Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-10) * Projectile.direction) * 130 * getScale() * Projectile.scale);
-                    }
-                    else
-                    {
-                        oldPos.Add(Projectile.Center + player.velocity / 2 + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-10) * Projectile.direction) * 130 * getScale() * Projectile.scale);
+                    oldPos.Add(Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-10) * Projectile.direction) * 130 * getScale() * Projectile.scale);
 
-                    }
                     oldRots.Add(Projectile.rotation);
                     oldScale.Add(1);
                 }
             }
             else
             {
-                if(counter == 1 && player.Entropy().voidshadeBoostTime > 0)
+                if(counter >= 1 && sb && player.Entropy().voidshadeBoostTime > 0)
                 {
+                    sb = false;
                     player.Entropy().voidshadeBoostTime = 0;
                     vsboost = true;
                     Projectile.damage *= 2;
                 }
-                if(counter == 16)
+                if(counter >= 16 && st)
                 {
+                    st = false;
                     if(Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity * 0.8f, ModContent.ProjectileType<VoidImpact>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
@@ -167,17 +171,17 @@ namespace CalamityEntropy.Content.Projectiles
                         }
                     }
                 }
-                counter++;
-                rotSpeed *= 0.9f;
+                counter+=speed;
+                rotSpeed *= (float)Math.Pow(0.9f, 1.0 / speed);
                 if (counter < 30)
                 {
                     if (attackType == 0)
                     {
-                        rotSpeed += -0.02f * Projectile.direction;
+                        rotSpeed += -0.02f * Projectile.direction * speed;
                     }
                     else
                     {
-                        rotSpeed += 0.02f * Projectile.direction;
+                        rotSpeed += 0.02f * Projectile.direction * speed;
                     }
                 }
                 if (counter > 90)
@@ -201,6 +205,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 Projectile.Center = player.RotatedRelativePoint(player.MountedCenter);
                 player.heldProj = Projectile.whoAmI;
+                
                 if (counter < 49)
                 {
                     if (counter % 2 == 1)
@@ -216,6 +221,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 
             }
+            
             if (oldPos.Count > 24 || (counter >= 49 && oldPos.Count > 0))
             {
                 oldPos.RemoveAt(0);
@@ -237,8 +243,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return 2;
             }
-            return 1.2f + Math.Abs(rotSpeed) * 6 * (vsboost ? 1.5f : 1);
+            return 1.2f + Math.Abs(rotSpeed / Projectile.owner.ToPlayer().GetTotalAttackSpeed(Projectile.DamageType) * 6 * (vsboost ? 1.5f : 1));
 		}
+        public bool sb = true;
         public override bool ShouldUpdatePosition()
         {
             return false;

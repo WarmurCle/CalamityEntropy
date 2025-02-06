@@ -20,6 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.DefaultToWhip(ModContent.ProjectileType<WhipOfServiceProjectile>(), 24, 2, 4, 36);
 			Item.rare = ModContent.RarityType<Violet>();
 			Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+			
 		}
 
 

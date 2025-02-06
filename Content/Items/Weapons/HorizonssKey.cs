@@ -54,6 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = Item.buyPrice(silver: 1);
             Item.rare = ItemRarityID.Red;
             Item.Entropy().Legend = true;
+            Item.Calamity().CannotBeEnchanted = true;
 		}
 
         public override void UpdateInventory(Player player)

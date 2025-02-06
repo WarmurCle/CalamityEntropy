@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 1;
+			Item.damage = 1200;
 			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 			Item.width = 42;
             Item.height = 42;
