@@ -801,30 +801,33 @@ namespace CalamityEntropy.Common
             {
                 holyGroundTime--;
             }
-            if (Player.whoAmI == Main.myPlayer) {
-                foreach (Projectile p in Main.ActiveProjectiles)
-                {
-                    if (p.ModProjectile is WhipOfServiceProjectile wos)
-                    {
-                        if (p.Colliding(p.getRect(), Player.getRect()) && p.owner != Player.whoAmI)
-                        {
-                            if (wos.hitCd[Player.whoAmI] <= 0)
-                            {
-                                float s = Player.Calamity().adrenaline;
-                                Player.Hurt(PlayerDeathReason.ByPlayerItem(p.owner, p.owner.ToPlayer().HeldItem), p.owner.ToPlayer().HeldItem.damage, 0, true, false);
-                                serviceWhipDamageBonus += 0.07f;
-                                wos.hitCd[Player.whoAmI] = 1000;
-                                Player.Calamity().rage += Player.Calamity().rageMax / 20f;
-                                if (Player.Calamity().rage > Player.Calamity().rageMax)
-                                {
-                                    Player.Calamity().rage = Player.Calamity().rageMax;
-                                }
-                            }
 
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (p.ModProjectile is WhipOfServiceProjectile wos)
+                {
+                    if (p.Colliding(p.getRect(), Player.getRect()) && p.owner != Player.whoAmI)
+                    {
+                        if (wos.hitCd[Player.whoAmI] <= 0)
+                        {
+                            float s = Player.Calamity().adrenaline;
+                            if (Player.whoAmI == Main.myPlayer)
+                            {
+                                Player.Hurt(PlayerDeathReason.ByPlayerItem(p.owner, p.owner.ToPlayer().HeldItem), p.owner.ToPlayer().HeldItem.damage, 0, true, false);
+                            }
+                            serviceWhipDamageBonus += 0.07f;
+                            wos.hitCd[Player.whoAmI] = 1000;
+                            Player.Calamity().rage += Player.Calamity().rageMax / 20f;
+                            if (Player.Calamity().rage > Player.Calamity().rageMax)
+                            {
+                                Player.Calamity().rage = Player.Calamity().rageMax;
+                            }
                         }
+
                     }
-                } 
+                }
             }
+        
             if (accWispLantern || visualWispLantern)
             {
                 if (Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[ModContent.ProjectileType<WispLanternProj>()] < 1)

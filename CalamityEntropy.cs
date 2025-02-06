@@ -370,6 +370,8 @@ namespace CalamityEntropy
             On_Main.DrawProjectiles += drawShellBack;
             On_Main.DrawMenu += drawmenu;
             EModSys.timer = 0;
+            BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
+
             BossRushEvent.Bosses.Insert(41, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
         }

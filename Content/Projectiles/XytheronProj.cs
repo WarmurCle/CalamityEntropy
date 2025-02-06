@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Util.Util.PlaySound("xhit", Main.rand.NextFloat(0.6f, 1.1f), Projectile.Center, 8, volume: 0.36f);
             Util.Util.PlaySound("DevourerDeathImpact", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, 8, volume: 0.36f);
-            CalamityEntropy.Instance.screenShakeAmp = 6;
+            CalamityEntropy.Instance.screenShakeAmp = 5;
             for (int i = 0; i < 3; i++)
             {
                 EParticle.spawnNew(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
@@ -207,7 +207,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = new Color(255, 255, 255);
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(720 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(714 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3(i / (float)odr.Count, 1, 1),
                       b));
                 ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
@@ -241,7 +241,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 702 * Projectile.scale * scaleD, targetHitbox, 64);
+            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 720 * Projectile.scale * scaleD, targetHitbox, 64);
         }
     }
 

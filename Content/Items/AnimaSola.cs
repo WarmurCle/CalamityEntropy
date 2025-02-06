@@ -35,29 +35,32 @@ namespace CalamityEntropy.Content.Items
 
         public override bool? UseItem(Player player)
         {
-            NPC target = null;
-            float dist = 3400;
-            foreach(NPC n in Main.ActiveNPCs)
+            if (Main.myPlayer == player.whoAmI)
             {
-                if(Util.Util.getDistance(n.Center, player.Center) < dist && !n.friendly && n.chaseable && n.realLife < 0 && n.Entropy().AnimaTrapped <= 0)
+                NPC target = null;
+                float dist = 3400;
+                foreach (NPC n in Main.ActiveNPCs)
                 {
-                    target = n;
-                    dist = Util.Util.getDistance(n.Center, player.Center);
-                }
-            }
-            if (target != null)
-            {
-                Projectile.NewProjectile(player.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<AnimaChain>(), 0, 0, player.whoAmI, target.whoAmI);
-                int time = 25 * 60;
-                foreach(NPC n in Main.ActiveNPCs)
-                {
-                    if (n.IsABoss())
+                    if (Util.Util.getDistance(n.Center, player.Center) < dist && !n.friendly && n.chaseable && n.realLife < 0 && n.Entropy().AnimaTrapped <= 0)
                     {
-                        time = 60 * 60;
-                        break;
+                        target = n;
+                        dist = Util.Util.getDistance(n.Center, player.Center);
                     }
                 }
-                player.AddCooldown("AnimasolaCd", time);
+                if (target != null)
+                {
+                    Projectile.NewProjectile(player.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<AnimaChain>(), 0, 0, player.whoAmI, target.whoAmI);
+                    int time = 25 * 60;
+                    foreach (NPC n in Main.ActiveNPCs)
+                    {
+                        if (n.IsABoss())
+                        {
+                            time = 60 * 60;
+                            break;
+                        }
+                    }
+                    player.AddCooldown("AnimasolaCd", time);
+                }
             }
             return true;
         }

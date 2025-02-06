@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                player.Entropy().llSky = 12;
+                player.Entropy().llSky = 3;
             }
         }
 
