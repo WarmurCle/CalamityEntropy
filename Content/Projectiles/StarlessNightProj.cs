@@ -73,6 +73,8 @@ namespace CalamityEntropy.Content.Projectiles
         public float rotSpeed = 0f;
         public float rotSpeedJ = 0;
         float glowalpha = 0;
+        public bool playsound1 = true;
+        public bool playsound2 = true;
         public override void AI()
         {
             
@@ -85,7 +87,16 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Player owner = Projectile.owner.ToPlayer();
             float meleeSpeed = owner.GetTotalAttackSpeed(Projectile.DamageType);
-            
+            if (Projectile.ai[0] >= 64 * updates && playsound1)
+            {
+                playsound1 = false;
+                Util.Util.PlaySound("sn_swing", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center);
+            }
+            if (Projectile.ai[0] >= 74 * updates && playsound2)
+            {
+                playsound2 = false;
+                Util.Util.PlaySound("sn_swing", Main.rand.NextFloat(0.8f, 1f), Projectile.Center);
+            }
             Projectile.Center = owner.MountedCenter + owner.gfxOffY * Vector2.UnitY;
             Projectile.rotation += rotSpeed * meleeSpeed;
             if (Projectile.ai[0] < 60 * updates)
@@ -221,7 +232,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 554 * Projectile.scale * scaleD, targetHitbox, 64);
+            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 580 * Projectile.scale * scaleD, targetHitbox, 64);
         }
     }
 

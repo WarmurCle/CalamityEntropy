@@ -14,24 +14,30 @@ namespace CalamityEntropy.Common
         public int timeleft = 2;
         public void setVolume(float v)
         {
-            instance.Volume = v * Main.soundVolume;
+            if (!Main.dedServ)
+            {
+                instance.Volume = v * Main.soundVolume;
+            }
         }
         public void setVolume_Dist(Vector2 center, float mindist, float maxdist, float volume = 1)
         {
-            if (Util.Util.getDistance(center, Main.LocalPlayer.Center) > mindist)
+            if (!Main.dedServ)
             {
-                if (Util.Util.getDistance(center, Main.LocalPlayer.Center) > maxdist)
+                if (Util.Util.getDistance(center, Main.LocalPlayer.Center) > mindist)
                 {
-                    setVolume(0);
+                    if (Util.Util.getDistance(center, Main.LocalPlayer.Center) > maxdist)
+                    {
+                        setVolume(0);
+                    }
+                    else
+                    {
+                        setVolume((1 - (float)(Util.Util.getDistance(center, Main.LocalPlayer.Center) - mindist) / (maxdist - mindist)) * volume);
+                    }
                 }
                 else
                 {
-                    setVolume((1 - (float)(Util.Util.getDistance(center, Main.LocalPlayer.Center) - mindist) / (maxdist - mindist)) * volume);
+                    setVolume(volume);
                 }
-            }
-            else
-            {
-                setVolume(volume);
             }
         }
         public LoopSound(SoundEffect sf)
@@ -41,15 +47,21 @@ namespace CalamityEntropy.Common
         }
         public void play()
         {
-            if (LoopSoundManager.sounds.Count < 5)
+            if (!Main.dedServ)
             {
-                instance.Play();
-                LoopSoundManager.sounds.Add(this);
+                if (LoopSoundManager.sounds.Count < 5)
+                {
+                    instance.Play();
+                    LoopSoundManager.sounds.Add(this);
+                }
             }
         }
         public void stop()
         {
-            instance.Stop();
+            if (!Main.dedServ)
+            {
+                instance.Stop();
+            }
         }
     }
     public static class LoopSoundManager

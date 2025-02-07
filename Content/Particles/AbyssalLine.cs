@@ -17,9 +17,9 @@ namespace CalamityEntropy.Content.Particles
         public Color spawnColor = new Color(190, 190, 255);
         public Color endColor = Color.Blue;
         public float xscale = 0;
-        public float xdec = 0.9f;
-        public float xadd = 2f;
-        public float lx = 2;
+        public float xdec = 0.87f;
+        public float xadd = 3.2f;
+        public float lx = 3;
         public override void onSpawn()
         {
             this.timeLeft = 50;
@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Particles
         public override void update()
         {
             base.update();
-            lx *= 0.86f;
+            lx *= 0.88f;
             xscale += xadd;
             xadd *= xdec;
         }

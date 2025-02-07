@@ -88,6 +88,11 @@ Items: {
 					'''
 				DisplayName: 苍茫长镰
 			}
+
+			TheBeginingAndTheEnd: {
+				// DisplayName: The Begining And The End
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -1441,6 +1446,12 @@ Projectiles: {
 	// XytheronProj.DisplayName: Xytheron Proj
 	// WyrmDash.DisplayName: Wyrm Dash
 	// AbyssalCrack.DisplayName: Abyssal Crack
+	// TheBegining.DisplayName: The Begining
+	// TheEnd.DisplayName: The End
+	// TheBeginning.DisplayName: The Beginning
+	// SoulOfEcho.DisplayName: Soul Of Echo
+	// Echo.DisplayName: Echo
+	// SoulOfEclipse.DisplayName: Soul Of Eclipse
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1610,6 +1621,16 @@ Buffs: {
 	ServiceBuff: {
 		Description: 提升伤害、攻速和暴击
 		DisplayName: 使役
+	}
+
+	EclipsedImprint: {
+		// DisplayName: Eclipsed Imprint
+		// Description: Mods.CalamityEntropy.Buffs.EclipsedImprint.Description
+	}
+
+	StareOfTheAbyss: {
+		// DisplayName: Stare Of The Abyss
+		// Description: Mods.CalamityEntropy.Buffs.StareOfTheAbyss.Description
 	}
 }
 

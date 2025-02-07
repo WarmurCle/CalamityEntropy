@@ -58,6 +58,11 @@ Items: {
 				Tooltip: Stealth Strike will teleport you to your cursor and deal significant damage
 				DisplayName: Voidseeker
 			}
+
+			TheBeginingAndTheEnd: {
+				DisplayName: The Begining And The End
+				Tooltip: ""
+			}
 		}
 	}
 
@@ -1345,6 +1350,12 @@ Projectiles: {
 	XytheronProj.DisplayName: Xytheron Proj
 	WyrmDash.DisplayName: Wyrm Dash
 	AbyssalCrack.DisplayName: Abyssal Crack
+	TheBegining.DisplayName: The Begining
+	TheEnd.DisplayName: The End
+	TheBeginning.DisplayName: The Beginning
+	SoulOfEcho.DisplayName: Soul Of Echo
+	Echo.DisplayName: Echo
+	SoulOfEclipse.DisplayName: Soul Of Eclipse
 }
 
 LegendTooltip: - Legend -
@@ -1514,6 +1525,16 @@ Buffs: {
 	ServiceBuff: {
 		Description: Become a minion
 		DisplayName: Service
+	}
+
+	EclipsedImprint: {
+		DisplayName: Eclipsed Imprint
+		Description: Mods.CalamityEntropy.Buffs.EclipsedImprint.Description
+	}
+
+	StareOfTheAbyss: {
+		DisplayName: Stare Of The Abyss
+		Description: Mods.CalamityEntropy.Buffs.StareOfTheAbyss.Description
 	}
 }
 

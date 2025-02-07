@@ -4,13 +4,18 @@ using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {	
 	public class Mercy : ModItem
 	{
-		public override void SetDefaults()
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<VoidEcho>();
+        }
+        public override void SetDefaults()
 		{
 			Item.damage = 110;
 			Item.DamageType = DamageClass.Magic;

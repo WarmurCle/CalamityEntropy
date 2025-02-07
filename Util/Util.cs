@@ -22,7 +22,7 @@ namespace CalamityEntropy.Util
         {
             foreach(Projectile p in Main.ActiveProjectiles)
             {
-                if(p.type == proj.type && p.Colliding(p.getRect(), proj.getRect()))
+                if(p.type == proj.type && p.Colliding(p.getRect(), proj.getRect()) && !(p.whoAmI == proj.whoAmI))
                 {
                     proj.velocity += (proj.Center - p.Center).SafeNormalize(randomRot().ToRotationVector2()) * strength;
                 }

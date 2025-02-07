@@ -20,8 +20,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.width = 86;
             Item.noUseGraphic = true;
             Item.height = 86;
-            Item.useTime = 80;
-            Item.useAnimation = 80;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 6;
             Item.value = 12000;

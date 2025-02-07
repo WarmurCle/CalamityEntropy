@@ -72,9 +72,101 @@ namespace CalamityEntropy.Common
         public Vector2? plrOldPos3 = null;
         public Vector2? plrOldVel3 = null;
         public int applyMarkedOfDeath = 0;
-        
+        public int StareOfAbyssLevel = 0;
+        public int EclipsedImprintLevel = 0;
+        public int StareOfAbyssTime = 0;
+        public int EclipsedImprintTime = 0;
+        public List<Vector2> getAbyssalCirclePointsRelative(NPC npc, float distAdd = 0, float c = 1)
+        {
+            float dist = (npc.width + npc.height) / 2f + 30 - (float)Math.Cos(Main.GlobalTimeWrappedHourly) * 12 + distAdd;
+            List<Vector2> points = new List<Vector2>();
+            for (int i = 0; i <= 60; i++)
+            {
+                points.Add(new Vector2(dist, 0).RotatedBy(MathHelper.ToRadians(i * 6 - 80 * c * Main.GlobalTimeWrappedHourly)));
+            }
+            return points;
+        }
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (npc.Entropy().StareOfAbyssLevel > 0)
+            {
+
+                float alpha = npc.Entropy().StareOfAbyssLevel / 12f;
+                Main.spriteBatch.End();
+
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                {
+                    List<Vertex> ve = new List<Vertex>();
+                    List<Vector2> points = npc.Entropy().getAbyssalCirclePointsRelative(npc, -50);
+                    List<Vector2> pointsOutside = npc.Entropy().getAbyssalCirclePointsRelative(npc, 50);
+                    int i;
+                    for (i = 0; i < points.Count; i++)
+                    {
+                        ve.Add(new Vertex(npc.Center - Main.screenPosition + points[i],
+                              new Vector3((float)i / points.Count, 1, 1),
+                              Color.SkyBlue * 0.66f * alpha));
+                        ve.Add(new Vertex(npc.Center - Main.screenPosition + pointsOutside[i],
+                              new Vector3((float)i / points.Count, 0, 1),
+                              Color.SkyBlue * 0.66f * alpha));
+
+                    }
+                    SpriteBatch sb = Main.spriteBatch;
+                    GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                    if (ve.Count >= 3)
+                    {
+                        Texture2D tx = Util.Util.getExtraTex("AbyssalCircle");
+                        gd.Textures[0] = tx;
+                        gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    }
+                }
+                {
+                    List<Vertex> ve = new List<Vertex>();
+                    List<Vector2> points = npc.Entropy().getAbyssalCirclePointsRelative(npc, -50, -1);
+                    List<Vector2> pointsOutside = npc.Entropy().getAbyssalCirclePointsRelative(npc, 50, -1);
+                    int i;
+                    for (i = 0; i < points.Count; i++)
+                    {
+                        ve.Add(new Vertex(npc.Center - Main.screenPosition + points[i],
+                              new Vector3((float)i / points.Count, 1, 1),
+                              Color.SkyBlue * 0.66f * alpha));
+                        ve.Add(new Vertex(npc.Center - Main.screenPosition + pointsOutside[i],
+                              new Vector3((float)i / points.Count, 0, 1),
+                              Color.SkyBlue * 0.66f * alpha));
+
+                    }
+                    SpriteBatch sb = Main.spriteBatch;
+                    GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                    if (ve.Count >= 3)
+                    {
+                        Texture2D tx = Util.Util.getExtraTex("AbyssalCircle");
+                        gd.Textures[0] = tx;
+                        gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    }
+                }
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            }
+        }
         public override void PostAI(NPC npc)
         {
+            if (StareOfAbyssTime > 0)
+            {
+                StareOfAbyssTime--;
+            }
+            if (StareOfAbyssTime <= 0)
+            {
+                StareOfAbyssLevel = 0;
+            }
+            if (EclipsedImprintTime > 0)
+            {
+                EclipsedImprintTime--;
+            }
+            if(EclipsedImprintTime <= 0)
+            {
+                EclipsedImprintLevel = 0;
+            }
+
             if(applyMarkedOfDeath > 0)
             {
                 npc.AddBuff(ModContent.BuffType<MarkedforDeath>(), applyMarkedOfDeath);
@@ -116,6 +208,10 @@ namespace CalamityEntropy.Common
         {
             binaryWriter.Write(ToFriendly);
             binaryWriter.Write(f_owner);
+            binaryWriter.Write(StareOfAbyssLevel);
+            binaryWriter.Write(StareOfAbyssTime);
+            binaryWriter.Write(EclipsedImprintLevel);
+            binaryWriter.Write(EclipsedImprintTime);
             /*
             binaryWriter.Write(VoidTouchLevel);
             binaryWriter.Write(VoidTouchTime);
@@ -141,7 +237,10 @@ namespace CalamityEntropy.Common
         {
             ToFriendly = binaryReader.ReadBoolean();
             f_owner = binaryReader.ReadInt32();
-
+            StareOfAbyssLevel = binaryReader.ReadInt32();
+            StareOfAbyssTime = binaryReader.ReadInt32();
+            EclipsedImprintLevel = binaryReader.ReadInt32();
+            EclipsedImprintTime = binaryReader.ReadInt32();
            /* VoidTouchLevel = binaryReader.ReadSingle();
             VoidTouchTime = binaryReader.ReadInt32();*/
         }
@@ -164,8 +263,22 @@ namespace CalamityEntropy.Common
             
         }
         public bool friendlyDecLife = true;
+        public int counter = 0;
         public override bool PreAI(NPC npc)
         {
+            counter++;
+            if(npc.Entropy().EclipsedImprintLevel > 0)
+            {
+                int c = 16 - npc.Entropy().EclipsedImprintLevel;
+                if (counter % c == 0)
+                {
+                    AbyssalLine p = new AbyssalLine() { lx = 1.2f, xadd = 0.32f };
+                    p.spawnColor = Color.Gold;
+                    p.endColor = Color.DarkGoldenrod;
+                    EParticle.spawnNew(p, npc.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
+
+                }
+            }
             if (ToFriendly)
             {
                 if (friendlyDecLife)
@@ -561,13 +674,28 @@ namespace CalamityEntropy.Common
                     }
                     bool voidTouchDraw = false;
                     int voidTouchIndex = 0;
-                    if (npc.HasBuff(ModContent.BuffType<VoidTouch>()) || npc.Entropy().VoidTouchTime > 0)
+                    if (npc.Entropy().VoidTouchTime > 0)
                     {
                         buffTextureList.Add(Request("CalamityEntropy/Content/Buffs/VoidTouch").Value);
                         voidTouchDraw = true;
                         voidTouchIndex = buffTextureList.Count - 1;
                     }
-
+                    bool abyssMarkDraw = false;
+                    int abyssMarkIndex = 0;
+                    if (npc.Entropy().StareOfAbyssLevel > 0)
+                    {
+                        buffTextureList.Add(Request("CalamityEntropy/Content/Buffs/Wyrm/StareOfTheAbyss").Value);
+                        abyssMarkDraw = true;
+                        abyssMarkIndex = buffTextureList.Count - 1;
+                    }
+                    bool eclipseMarkDraw = false;
+                    int eclipseMarkIndex = 0;
+                    if (npc.Entropy().EclipsedImprintLevel > 0)
+                    {
+                        buffTextureList.Add(Request("CalamityEntropy/Content/Buffs/Wyrm/EclipsedImprint").Value);
+                        eclipseMarkDraw = true;
+                        eclipseMarkIndex = buffTextureList.Count - 1;
+                    }
                     // Total amount of elements in the buff list
                     int buffTextureListLength = buffTextureList.Count;
 
@@ -608,7 +736,14 @@ namespace CalamityEntropy.Common
                         if (voidTouchDraw && i == voidTouchIndex)
                         {
                             spriteBatch.DrawString(FontAssets.MouseText.Value, ((int)npc.Entropy().VoidTouchLevel).ToString(), npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
-
+                        }
+                        if (abyssMarkDraw && i == abyssMarkIndex)
+                        {
+                            spriteBatch.DrawString(FontAssets.MouseText.Value, ((int)npc.Entropy().StareOfAbyssLevel).ToString(), npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
+                        }
+                        if (eclipseMarkDraw && i == eclipseMarkIndex)
+                        {
+                            spriteBatch.DrawString(FontAssets.MouseText.Value, ((int)npc.Entropy().EclipsedImprintLevel).ToString(), npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
                         }
                         // TODO -- Show number of Shred stacks (how?)
                     }
