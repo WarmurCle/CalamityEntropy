@@ -110,6 +110,32 @@ namespace CalamityEntropy.Content.Projectiles
                     targets.Add(target);
                 }
             }
+            if(targets.Count == 0)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    float dist = 540;
+                    NPC target = null;
+                    foreach (NPC npc in activenpcs)
+                    {
+                        if (!targets.Contains(npc))
+                        {
+                            if (!npc.friendly && !npc.dontTakeDamage)
+                            {
+                                if (Util.Util.getDistance(npc.Center, Projectile.Center) < dist)
+                                {
+                                    target = npc;
+                                    dist = Util.Util.getDistance(npc.Center, Projectile.Center);
+                                }
+                            }
+                        }
+                    }
+                    if (target != null)
+                    {
+                        targets.Add(target);
+                    }
+                }
+            }
         }
         public static void drawlightning(Vector2 start, Vector2 end, float width = 1, float lightSize = 1)
         {
