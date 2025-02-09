@@ -116,6 +116,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 AttackTarget(target);
             }
+            if(player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
+            {
+                target = player.MinionAttackTargetNPC.ToNPC();
+            }
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
         internal ref float Time => ref base.Projectile.ai[0];

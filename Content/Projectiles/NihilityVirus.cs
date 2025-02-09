@@ -53,6 +53,16 @@ namespace CalamityEntropy.Content.Projectiles
         public LoopSound sound = null;
         public override void AI()
         {
+            Projectile.frameCounter++;
+            if(Projectile.frameCounter > 3)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if(Projectile.frame >= 4)
+                {
+                    Projectile.frame = 0;
+                }
+            }
             if(sound == null)
             {
                 sound = new LoopSound(CalamityEntropy.ealaserSound2);
@@ -83,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity = (Main.MouseWorld - Projectile.Center) * 0.12f;
             }
-            Projectile.rotation += 0.12f;
+            Projectile.rotation += 0.16f * player.direction;
             Util.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 12);
             targets.Clear();
             var activenpcs = Main.ActiveNPCs;
