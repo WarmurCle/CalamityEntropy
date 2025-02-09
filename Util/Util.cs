@@ -17,7 +17,10 @@ namespace CalamityEntropy.Util
 {
     public static class Util {
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
-
+        public static Texture2D getTexture(this Projectile p)
+        {
+            return TextureAssets.Projectile[p.type].Value;
+        }
         public static void pushByOther(this Projectile proj, float strength)
         {
             foreach(Projectile p in Main.ActiveProjectiles)
@@ -109,10 +112,10 @@ namespace CalamityEntropy.Util
             sb.End();
             sb.Begin(SpriteSortMode.Deferred, blend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
         }
-        public static void UseBlendState(this SpriteBatch sb, BlendState blend)
+        public static void UseBlendState(this SpriteBatch sb, BlendState blend, SamplerState s = null)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, blend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void UseState_UI(this SpriteBatch sb, BlendState blend, SamplerState sampler)
         {

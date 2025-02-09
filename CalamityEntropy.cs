@@ -104,6 +104,7 @@ using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Audio;
 using System.Diagnostics.Metrics;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
+using CalamityEntropy.Content.Buffs;
 namespace CalamityEntropy
 {
     
@@ -369,10 +370,19 @@ namespace CalamityEntropy
             On_Main.DrawInfernoRings += drawIr;
             On_Main.DrawProjectiles += drawShellBack;
             On_Main.DrawMenu += drawmenu;
+            On_Player.Heal += player_heal;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>()}));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
+        }
+
+        private void player_heal(On_Player.orig_Heal orig, Player self, int amount)
+        {
+            if (!self.HasBuff<VoidVirus>())
+            {
+                orig(self, amount);
+            }
         }
 
         private void drawShellBack(On_Main.orig_DrawProjectiles orig, Main self)
@@ -815,7 +825,7 @@ namespace CalamityEntropy
                         {
                             string entryName = "NihilityTwin";
                             List<int> segments = new List<int>() { ModContent.NPCType<NihilityActeriophage>(), ModContent.NPCType<ChaoticCell>()};
-                            List<int> collection = new List<int>() { ModContent.ItemType<NihilityTwinBag>(), ModContent.ItemType<NihilityTwinTrophy>(), ModContent.ItemType<NihilityTwinRelic>(), ModContent.ItemType<NihilityShell>(), ModContent.ItemType<Voidseeker>(), ModContent.ItemType<EventideSniper>(), ModContent.ItemType<NihilityBacteriophageWand>(), ModContent.ItemType<StarlessNight>() };
+                            List<int> collection = new List<int>() { ModContent.ItemType<NihilityTwinBag>(), ModContent.ItemType<NihilityTwinTrophy>(), ModContent.ItemType<NihilityTwinRelic>(), ModContent.ItemType<NihilityShell>(), ModContent.ItemType<Voidseeker>(), ModContent.ItemType<EventideSniper>(), ModContent.ItemType<NihilityBacteriophageWand>(), ModContent.ItemType<StarlessNight>(), ModContent.ItemType<VoidPathology>() };
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                             {
                                 Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/NihilityTwin").Value;
@@ -1871,6 +1881,7 @@ namespace CalamityEntropy
             On_NPC.UpdateNPC -= npcupdate;
             On_Main.DrawInfernoRings -= drawIr;
             On_Main.DrawProjectiles -= drawShellBack;
+            On_Player.Heal -= player_heal;
         }
 
     }

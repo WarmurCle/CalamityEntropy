@@ -31,12 +31,17 @@ using Terraria.Utilities.Terraria.Utilities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Events;
 using CalamityEntropy.Content.Projectiles.Cruiser;
+using CalamityEntropy.Content.Buffs;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin
 {
     [AutoloadBossHead]
     public class NihilityActeriophage : ModNPC
     {
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<VoidVirus>(), 360);
+        }
 
         public override void SetStaticDefaults()
         {
@@ -51,8 +56,13 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 PortraitPositionXOverride = 0,
                 PortraitPositionYOverride = 0
             };
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Burning] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<VoidVirus>()] = true;
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
+
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -115,6 +125,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 normalOnly.Add(ModContent.ItemType<EventideSniper>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<StarlessNight>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<NihilityBacteriophageWand>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<VoidPathology>(), new Fraction(4, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<NihilityTwinRelic>());
 

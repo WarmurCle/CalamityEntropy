@@ -99,7 +99,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            if (target == null || !target.active)
+            if (target == null || !target.active || !target.CanBeChasedBy(Projectile))
             {
                 target = Util.Util.findTarget(player, Projectile, 3600, false);
             }

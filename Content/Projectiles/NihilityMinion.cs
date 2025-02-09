@@ -20,6 +20,7 @@ namespace CalamityEntropy.Content.Projectiles
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
             base.SetStaticDefaults();
         }
+        
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;
@@ -165,6 +166,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(ModContent.BuffType<VoidVirus>(), 180);
             Player player = Projectile.owner.ToPlayer();
             if(player.statLife < player.statLifeMax - 80)
             {

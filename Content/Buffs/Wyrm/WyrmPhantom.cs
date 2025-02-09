@@ -1,6 +1,7 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -20,13 +21,7 @@ namespace CalamityEntropy.Content.Buffs.Wyrm
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<PhantomWyrm>()] <= 0)
-            {
-                if(Main.myPlayer == player.whoAmI)
-                {
-                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Util.Util.randomVec(14), ModContent.ProjectileType<PhantomWyrm>(), (int)(player.GetTotalDamage(DamageClass.Summon).ApplyTo(800)), 1, player.whoAmI);
-                }
-            }
+            player.Entropy().wyrmPhantom = true;
         }
     }
 }

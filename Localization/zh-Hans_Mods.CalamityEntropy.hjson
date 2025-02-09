@@ -213,7 +213,7 @@ Items: {
 
 	GodsSnack: {
 		DisplayName: 神明点心
-		Tooltip: 召唤一个狗狗宠物
+		Tooltip: 召唤一位弑神者
 	}
 
 	CruiserBag: {
@@ -228,7 +228,7 @@ Items: {
 
 	DivineRemnants: {
 		DisplayName: 神瘟残枝
-		Tooltip: ""
+		Tooltip: 召唤一位星神
 	}
 
 	VoidElytra: {
@@ -262,7 +262,11 @@ Items: {
 
 	Godhead: {
 		DisplayName: 神性
-		Tooltip: 你的射弹会带有一个光环，对光环内的敌人持续造成伤害
+		Tooltip:
+			'''
+			你的射弹会带有一个光环，对光环内的敌人持续造成伤害
+			关闭饰品可见性时无法看见光环，但正常造成伤害
+			'''
 	}
 
 	VoidEcho: {
@@ -420,7 +424,7 @@ Items: {
 
 	RuneSong: {
 		DisplayName: 符文之歌
-		Tooltip: ""
+		Tooltip: 挥舞时发射符文之矢
 	}
 
 	GalaxyGrapeSoda: {
@@ -435,6 +439,7 @@ Items: {
 			扔出一把飞刀
 			按下[KEY]收回所有飞刀
 			右键飞刀位移到该位置
+			传送后获得混沌debuff
 			最多存在4把
 			'''
 	}
@@ -445,7 +450,7 @@ Items: {
 	}
 
 	DustyStar: {
-		Tooltip: ""
+		Tooltip: 所有者：Polaris
 		DisplayName: 尘封之星
 	}
 
@@ -607,6 +612,7 @@ Items: {
 			'''
 			可以蓄力射击
 			蓄满力射出一发被虚空强化的箭
+			"贯穿星辰"
 			'''
 		DisplayName: 冥星低语
 	}
@@ -627,7 +633,11 @@ Items: {
 	}
 
 	RustExpeditioner: {
-		Tooltip: 使用火箭类弹药
+		Tooltip:
+			'''
+			使用火箭类弹药
+			子弹会下坠
+			'''
 		DisplayName: 锈蚀远征者
 	}
 
@@ -637,6 +647,7 @@ Items: {
 			'''
 			使用火箭类弹药，不会对友方造成伤害
 			发射附带不同效果的火箭
+			"向虚空开炮！"
 			'''
 	}
 
@@ -646,16 +657,21 @@ Items: {
 			'''
 			视为火箭，不会对友方造成伤害
 			命中时产生大爆炸并给予附近敌怪虚空之触减益
+			"将神明炸的四分五裂！"
 			'''
 	}
 
 	RailPulseBow: {
-		Tooltip: 射出带有电流的箭
+		Tooltip:
+			'''
+			射出带有电流的箭
+			"呼~ 嗞！"
+			'''
 		DisplayName: 磁轨脉冲弓
 	}
 
 	JailerWhip: {
-		Tooltip: +8 召唤物伤害
+		Tooltip: '''"冥界之刑"'''
 		DisplayName: 狱卒长鞭
 	}
 
@@ -672,7 +688,7 @@ Items: {
 
 	AbyssalDragon: {
 		DisplayName: 幽渊魔龙杖
-		Tooltip: ""
+		Tooltip: 发射幽渊魔龙和深渊之星
 	}
 
 	ArchmagesHandmirror: {
@@ -686,7 +702,12 @@ Items: {
 
 	SlimeYoyo: {
 		DisplayName: 凝胶悠悠球
-		Tooltip: ""
+		Tooltip:
+			'''
+			一只超级灵活，富有弹性的悠悠球
+			刚抛出时造成3倍伤害
+			"又粘又弹"
+			'''
 	}
 
 	CelestialRing: {
@@ -704,11 +725,15 @@ Items: {
 
 	ArmorReforgStation: {
 		DisplayName: 盔甲锻造站
-		Tooltip: ""
+		Tooltip: 用于重铸盔甲
 	}
 
 	OverloadFurnace: {
-		Tooltip: 蓄力射出闪电球，击中后迸发出闪电
+		Tooltip:
+			'''
+			蓄力射出闪电球，击中后迸发出闪电
+			"嗞！"
+			'''
 		DisplayName: 过载熔炉
 	}
 
@@ -719,6 +744,7 @@ Items: {
 			提升你的跳跃速度
 			给予你略微的推进
 			增加部分移速
+			"虽然已经生锈，但还是能提供一些帮助"
 			'''
 	}
 
@@ -728,12 +754,16 @@ Items: {
 	}
 
 	Mercy: {
-		Tooltip: 使用虚空与黑魔法焚毁一切
+		Tooltip:
+			'''
+			使用虚空与黑魔法焚毁一切
+			"忏悔汝罪"
+			'''
 		DisplayName: 怜悯
 	}
 
 	CannedCarrion: {
-		Tooltip: 召唤一只小吞噬者
+		Tooltip: 召唤小吞噬者
 		DisplayName: 腐肉罐头
 	}
 
@@ -743,7 +773,7 @@ Items: {
 	}
 
 	ShadowOfVoid: {
-		Tooltip: ""
+		Tooltip: 召唤虚空中游荡的猎手追击敌人并持续发射虚空新星
 		DisplayName: 虚渺之像
 	}
 
@@ -768,7 +798,7 @@ Items: {
 	}
 
 	SilverFramedGlasses: {
-		Tooltip: ""
+		Tooltip: 所有者：30000 puslin
 		DisplayName: 银框眼镜
 	}
 
@@ -784,12 +814,12 @@ Items: {
 
 	DreamCatcher: {
 		DisplayName: 捕梦网
-		Tooltip: ""
+		Tooltip: 所有者：梦龙
 	}
 
 	UhrwerkHammer: {
 		DisplayName: 核心熔解
-		Tooltip: 哪个傻波一画的这玩意啊
+		Tooltip: ""
 	}
 
 	AquaticFlute: {
@@ -809,7 +839,7 @@ Items: {
 
 	ToyKnife: {
 		DisplayName: 玩具刀
-		Tooltip: ""
+		Tooltip: 所有者：Chalost
 	}
 
 	DeusCore: {
@@ -823,6 +853,7 @@ Items: {
 			'''
 			召唤一只乌姆
 			“我还没有忘记你上一次吃冰激凌的时候，并且我很确定你也没有忘记我上次的暴走...”
+			所有者：30000 puslin
 			'''
 	}
 
@@ -838,7 +869,7 @@ Items: {
 
 	GumgumGun: {
 		DisplayName: 胶胶枪
-		Tooltip: ""
+		Tooltip: 所有者：30000 Puslin
 	}
 
 	Voidshade: {
@@ -847,6 +878,7 @@ Items: {
 			左键挥砍，释放能量波
 			右键突刺，释放虚光射线，
 			刺中目标短时间内给予一次挥砍强化
+			"切裂空间！"
 			'''
 		DisplayName: 虚影薄锋
 	}
@@ -957,7 +989,7 @@ Items: {
 
 	Antler: {
 		DisplayName: 鹿角
-		Tooltip: ""
+		Tooltip: 所有者：锯角
 	}
 
 	ReincarnationBadge: {
@@ -971,7 +1003,7 @@ Items: {
 	}
 
 	CrimsonNight: {
-		Tooltip: ""
+		Tooltip: 所有者：Away Astral
 		DisplayName: 绯夜
 	}
 
@@ -993,17 +1025,26 @@ Items: {
 
 	DustyWhistle: {
 		DisplayName: 尘沙口哨
-		Tooltip: ""
+		Tooltip: 召唤荒灾酱
 	}
 
 	AquaticAmulet: {
 		DisplayName: 海洋护符
-		Tooltip: ""
+		Tooltip:
+			'''
+			召唤两只灾虫
+			"重逢"
+			'''
 	}
 
 	NetherRift: {
 		DisplayName: 幽冥裂刃
-		Tooltip: ""
+		Tooltip:
+			'''
+			高速旋转挥舞
+			旋转速度随着裂刃与你的距离增加而减少
+			裂刃离你的距离取决于鼠标位置
+			'''
 	}
 
 	MawOfTheVoid: {
@@ -1252,6 +1293,15 @@ Items: {
 			召唤物集中攻击目标
 			'''
 	}
+
+	VoidPathology: {
+		Tooltip:
+			'''
+			召唤一个可操控的，持续电击敌人的病毒
+			最多同时电击8个敌人，电击的敌人越少，造成的伤害越高
+			'''
+		DisplayName: 虚空病变
+	}
 }
 
 DeathMode: 死亡模式
@@ -1476,6 +1526,7 @@ Projectiles: {
 	SoulOfEclipse.DisplayName: 冥煌之魂
 	// YstralynProj.DisplayName: Ystralyn Proj
 	// PhantomWyrm.DisplayName: Phantom Wyrm
+	// NihilityVirus.DisplayName: Nihility Virus
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1665,6 +1716,11 @@ Buffs: {
 	WyrmPhantom: {
 		DisplayName: 虚无幻象
 		Description: 妖龙幻影将为你而战
+	}
+
+	VoidVirus: {
+		DisplayName: 虚空病毒
+		Description: 你感染了虚空病毒
 	}
 }
 
@@ -1974,3 +2030,5 @@ IsaacLock: 你不能在没有玩过《以撒的结合：忏悔》的情况下佩
 PWSpawnInfo: 带有混沌减益时进入深渊
 CdAS: 孤魂铁索冷却
 XythCharge: 始源遗歌充能
+KilledByVoidVirus1: ""
+KilledByVoidVirus2: 血液里只剩下虚无

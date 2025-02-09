@@ -715,6 +715,7 @@ namespace CalamityEntropy.Common
                 float r = Util.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
                 if(r < MathHelper.ToRadians(15))
                 {
+                    target.AddBuff(ModContent.BuffType<VoidVirus>(), 320);
                     Util.Util.PlaySound("voidseekercrit", 1, projectile.Center);
                     EGlobalNPC.AddVoidTouch(target, 160, 10, 800, 10);
                     projectile.owner.ToPlayer().Heal(16);

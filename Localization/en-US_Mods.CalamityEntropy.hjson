@@ -1022,7 +1022,7 @@ Items: {
 	}
 
 	EndlessAbyss: {
-		Tooltip: ""
+		Tooltip: Launch abyssal death laser and abyssal stars
 		DisplayName: Endless Abyss
 	}
 
@@ -1032,7 +1032,7 @@ Items: {
 	}
 
 	NihilityTwinBag: {
-		DisplayName: Nihility Twin Bag
+		DisplayName: Nihility Twin Treasure Bag
 		Tooltip: ""
 	}
 
@@ -1097,7 +1097,11 @@ Items: {
 
 	WyrmToothNecklace: {
 		DisplayName: Wyrm Tooth Necklace
-		Tooltip: ""
+		Tooltip:
+			'''
+			+25% Damage
+			+30 Armor penetration
+			'''
 	}
 
 	WyrmTooth: {
@@ -1107,7 +1111,7 @@ Items: {
 
 	Vitalfeather: {
 		DisplayName: Vitalfeather
-		Tooltip: ""
+		Tooltip: The enemy hited by your minion will launch tracking dragon flames
 	}
 
 	WindOfUndertaker: {
@@ -1116,7 +1120,7 @@ Items: {
 	}
 
 	HadopelagicEchoII: {
-		Tooltip: ""
+		Tooltip: Shoot abyss laser and hadopelagic echo
 		DisplayName: Hadopelagic Echo II
 	}
 
@@ -1151,6 +1155,11 @@ Items: {
 	Ystralyn: {
 		DisplayName: Ystralyn
 		Tooltip: Summon an Eidolon Wyrm phantom when hit enemies
+	}
+
+	VoidPathology: {
+		Tooltip: Summon a controllable, continuous electric shock to the enemy's nihility virus
+		DisplayName: Void Pathology
 	}
 }
 
@@ -1376,6 +1385,7 @@ Projectiles: {
 	SoulOfEclipse.DisplayName: Soul Of Eclipse
 	YstralynProj.DisplayName: Ystralyn Proj
 	PhantomWyrm.DisplayName: Phantom Wyrm
+	NihilityVirus.DisplayName: Nihility Virus
 }
 
 LegendTooltip: - Legend -
@@ -1565,6 +1575,11 @@ Buffs: {
 	WyrmPhantom: {
 		DisplayName: Wyrm Phantom
 		Description: ""
+	}
+
+	VoidVirus: {
+		DisplayName: Void Virus
+		Description: Mods.CalamityEntropy.Buffs.VoidVirus.Description
 	}
 }
 
@@ -1875,3 +1890,5 @@ IsaacLock: You can't equip this before you played The Binding of Isaac Repentanc
 PWSpawnInfo: Enter the Abyss with Chaos State debuff
 CdAS: Amima Sola Cooldown
 XythCharge: Xytheron Charge
+KilledByVoidVirus1: Only Nihility remains in
+KilledByVoidVirus2: "'s blood"

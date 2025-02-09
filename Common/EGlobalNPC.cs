@@ -666,8 +666,12 @@ namespace CalamityEntropy.Common
                         buffTextureList.Add(TextureAssets.Buff[BuffID.Slimed].Value);
                     if (npc.drippingSparkleSlime)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.GelBalloonBuff].Value);
-                    if (npc.markedByScytheWhip) // Dark Harvest whip, the only Whip debuff that has an NPC bool
+                    if (npc.markedByScytheWhip)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.ScytheWhipEnemyDebuff].Value);
+                    if (npc.HasBuff<VoidVirus>())
+                    {
+                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<VoidVirus>()].Value);
+                    }
                     if (npc.HasBuff(ModContent.BuffType<Deceive>()))
                     {
                         buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);

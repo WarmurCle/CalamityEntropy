@@ -276,6 +276,10 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
+            if(player.HasBuff<VoidVirus>() && item.healLife > 0)
+            {
+                return false;
+            }
             if (player.HasBuff(ModContent.BuffType<StealthState>()) || player.Entropy().DarkArtsTarget.Count > 0 || player.Entropy().noItemTime > 0)
             {
                 return false;

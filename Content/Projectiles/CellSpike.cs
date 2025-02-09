@@ -1,3 +1,4 @@
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Dusts;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
@@ -57,7 +58,15 @@ namespace CalamityEntropy.Content.Projectiles
 
             return false;
         }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<VoidVirus>(), 160);
+        }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<VoidVirus>(), 160);
+        }
     }
     
 

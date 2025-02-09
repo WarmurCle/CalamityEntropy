@@ -211,6 +211,7 @@ namespace CalamityEntropy.Common
         {
             mawOfVoid = false;
             revelation = false;
+            wyrmPhantom = false;
             cHat = false;
             dodgeChance = 0;
             sacrMask = false;
@@ -689,6 +690,12 @@ namespace CalamityEntropy.Common
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
+            if (Player.HasBuff<VoidVirus>())
+            {
+                Player.statDefense -= 38;
+                Player.lifeRegen = 0;
+                lifeRegenPerSec = 0;
+            }
             serviceWhipDamageBonus *= 0.995f;
             if (serviceWhipDamageBonus > 0.009f)
             {
@@ -802,7 +809,13 @@ namespace CalamityEntropy.Common
             {
                 holyGroundTime--;
             }
-
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<PhantomWyrm>()] <= 0 && wyrmPhantom)
+            {
+                if (Main.myPlayer == Player.whoAmI)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Util.Util.randomVec(14), ModContent.ProjectileType<PhantomWyrm>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(1300)), 1, Player.whoAmI);
+                }
+            }
             foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.ModProjectile is WhipOfServiceProjectile wos)
@@ -1378,6 +1391,7 @@ namespace CalamityEntropy.Common
             {
                 lifeRegenPerSec = (int)(lifeRegenPerSec * 0.3f);
             }
+            
         }
         public override void ModifyScreenPosition()
         {
@@ -1436,6 +1450,8 @@ namespace CalamityEntropy.Common
             return base.CanBeHitByProjectile(proj);
         }
         public bool resetTileSets = false;
+        public bool wyrmPhantom = false;
+
         public override void SetControls()
         {
             if (rBadgeActive)
