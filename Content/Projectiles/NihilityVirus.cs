@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles
             var activenpcs = Main.ActiveNPCs;
             for (int i = 0; i < 8; i++)
             {
-                float dist = 540;
+                float dist = 640 + player.Entropy().WeaponBoost * 200;
                 NPC target = null;
                 foreach (NPC npc in activenpcs)
                 {
@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    float dist = 540;
+                    float dist = 640 + player.Entropy().WeaponBoost * 200;
                     NPC target = null;
                     foreach (NPC npc in activenpcs)
                     {
