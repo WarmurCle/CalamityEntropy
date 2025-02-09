@@ -9,6 +9,10 @@ namespace CalamityEntropy.Content.Items
 {
     public class TargetingWand : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             Item.staff[Item.type] = true;

@@ -24,6 +24,16 @@ namespace CalamityEntropy.Content.Buffs
             BuffID.Sets.IsATagBuff[Type] = true;
         }
     }
+    public class WyrmWhipDebuff : ModBuff
+    {
+        public static readonly float TagDamageMul = 0.24f; 
+        public static readonly int TagDamage = 104;
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
     public class CruiserWhipDebuff : ModBuff
     {
         public static readonly int TagDamage = 52;
@@ -61,6 +71,15 @@ namespace CalamityEntropy.Content.Buffs
             {
                 modifiers.FlatBonusDamage += CruiserWhipDebuff.TagDamage * projTagMultiplier;
                 if (Main.rand.NextBool(9))
+                {
+                    modifiers.SetCrit();
+                }
+            }
+            if (npc.HasBuff<WyrmWhipDebuff>())
+            {
+                modifiers.FlatBonusDamage += WyrmWhipDebuff.TagDamage * projTagMultiplier;
+                modifiers.SourceDamage += WyrmWhipDebuff.TagDamageMul * projTagMultiplier;
+                if (Main.rand.NextBool(6))
                 {
                     modifiers.SetCrit();
                 }

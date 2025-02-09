@@ -22,7 +22,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 			Item.rare = ModContent.RarityType<Violet>();
 			Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
 			Item.useStyle = ItemUseStyleID.Shoot;
-		}
+            Item.autoReuse = true;
+        }
         public override void AddRecipes() {
 		}
 

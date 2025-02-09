@@ -14,7 +14,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 		public override void SetDefaults() {
 			Item.DefaultToWhip(ModContent.ProjectileType<JailerWhipProjectile>(), 17, 2, 4);
 			Item.rare = ItemRarityID.Orange;
-		}
+            Item.autoReuse = true;
+        }
 
 		public override void AddRecipes() {
 			CreateRecipe().AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 2)

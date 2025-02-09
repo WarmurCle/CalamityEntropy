@@ -91,7 +91,7 @@ namespace CalamityEntropy.Util
             s.MaxInstances = maxIns;
             return s;
         }
-        public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 4, float volume = 1)
+        public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 2, float volume = 1)
         {
             SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/" + name);
             s.Pitch = pitch - 1;
@@ -253,6 +253,11 @@ namespace CalamityEntropy.Util
                 return new EModPlayer();
             }
             return player.GetModPlayer<EModPlayer>();
+        }
+
+        public static Player getOwner(this Projectile proj)
+        {
+            return proj.owner.ToPlayer();
         }
         public static Player ToPlayer(this int ins)
         {

@@ -60,8 +60,17 @@ Items: {
 			}
 
 			TheBeginingAndTheEnd: {
-				DisplayName: The Begining And The End
-				Tooltip: ""
+				DisplayName: The Beginning And The End
+				Tooltip:
+					'''
+					Throw The Beginning or The End using left or right button
+					The End will apply Stare of Abyss debuff
+					The Beginning will apply Eclipsed Imprint debuff
+					When another type of knife hits, clear the debuff and generate Echo Soul or Eclipsed Soul based on the number of debuff layers
+					Echo Soul will continue to attack enemy monsters and disappear after a few seconds
+					Eclipsed soul will fly towards you and heal you, while temporarily increasing attack speed, attack damage, and crit chance
+					Stealth attack will simultaneously throw two knives and track the target, unleashing a large number of two types of souls upon impact
+					'''
 			}
 		}
 	}
@@ -1133,6 +1142,16 @@ Items: {
 			Right click to advance and deal damage to enemies along the way based on charging and leaving abyssal crack
 			'''
 	}
+
+	AbyssalAltar: {
+		DisplayName: Abyssal Altar
+		Tooltip: ""
+	}
+
+	Ystralyn: {
+		DisplayName: Ystralyn
+		Tooltip: Summon an Eidolon Wyrm phantom when hit enemies
+	}
 }
 
 DeathMode: Death Mode
@@ -1268,7 +1287,7 @@ Projectiles: {
 	ZeratosBullet0.DisplayName: Zeratos Bullet
 	ZeratosFireball0.DisplayName: Zeratos Explode
 	SacrificalDagger.DisplayName: Sacrifical Dagger
-	TargetSetProj.DisplayName: Target Set Proj
+	TargetSetProj.DisplayName: Target Set
 	UhrwerkHammerCallout.DisplayName: Uhrwerk Hammer Callout
 	AquaticPet.DisplayName: Aquatic Pet
 	VoidRitualCircle.DisplayName: Void Ritual Circle
@@ -1338,24 +1357,25 @@ Projectiles: {
 	NihilityFire.DisplayName: Nihility Fire
 	NihilityMinion.DisplayName: Nihility Minion
 	NihilityEnergyBall.DisplayName: Nihility Energy Ball
-	WispLanternProj.DisplayName: Wisp Lantern Proj
+	WispLanternProj.DisplayName: Wisp Lantern
 	VitalfeatherProjectile.DisplayName: Vitalfeather Projectile
 	DragonGoldenFire.DisplayName: Dragon Golden Fire
 	WindOfUndertakerProjectile.DisplayName: Wind Of Undertaker Projectile
-	HadopelagicEchoIIProj.DisplayName: Hadopelagic Echo I I Proj
+	HadopelagicEchoIIProj.DisplayName: Hadopelagic Echo II
 	HadopelagicLaser.DisplayName: Hadopelagic Laser
 	HadopelagicWail.DisplayName: Hadopelagic Wail
-	StarlessNightProj.DisplayName: Starless Night Proj
+	StarlessNightProj.DisplayName: Starless Night
 	WhipOfServiceProjectile.DisplayName: Whip Of Service Projectile
-	XytheronProj.DisplayName: Xytheron Proj
+	XytheronProj.DisplayName: Xytheron
 	WyrmDash.DisplayName: Wyrm Dash
 	AbyssalCrack.DisplayName: Abyssal Crack
-	TheBegining.DisplayName: The Begining
 	TheEnd.DisplayName: The End
 	TheBeginning.DisplayName: The Beginning
 	SoulOfEcho.DisplayName: Soul Of Echo
 	Echo.DisplayName: Echo
 	SoulOfEclipse.DisplayName: Soul Of Eclipse
+	YstralynProj.DisplayName: Ystralyn Proj
+	PhantomWyrm.DisplayName: Phantom Wyrm
 }
 
 LegendTooltip: - Legend -
@@ -1523,18 +1543,28 @@ Buffs: {
 	}
 
 	ServiceBuff: {
-		Description: Become a minion
+		Description: increase damage, attack speed and crit chance
 		DisplayName: Service
 	}
 
 	EclipsedImprint: {
 		DisplayName: Eclipsed Imprint
-		Description: Mods.CalamityEntropy.Buffs.EclipsedImprint.Description
+		Description: ""
 	}
 
 	StareOfTheAbyss: {
 		DisplayName: Stare Of The Abyss
-		Description: Mods.CalamityEntropy.Buffs.StareOfTheAbyss.Description
+		Description: ""
+	}
+
+	WyrmWhipDebuff: {
+		Description: Mods.CalamityEntropy.Buffs.WyrmWhipDebuff.Description
+		DisplayName: Wyrm Whip Debuff
+	}
+
+	WyrmPhantom: {
+		DisplayName: Wyrm Phantom
+		Description: ""
 	}
 }
 
@@ -1844,3 +1874,4 @@ DownloadBOI: Have played The Binding of Isaac: Repentance
 IsaacLock: You can't equip this before you played The Binding of Isaac Repentance LOL
 PWSpawnInfo: Enter the Abyss with Chaos State debuff
 CdAS: Amima Sola Cooldown
+XythCharge: Xytheron Charge

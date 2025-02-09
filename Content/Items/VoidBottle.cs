@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items
             CreateRecipe().
                 AddIngredient(ModContent.ItemType<DarkPlasma>(), 3).
                 AddIngredient(ItemID.Bottle, 1).
-                AddTile(ModContent.TileType<CosmicAnvil>()).
+                AddTile(TileID.WorkBenches).
                 Register();
         }
     }

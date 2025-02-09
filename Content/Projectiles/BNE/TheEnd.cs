@@ -78,16 +78,16 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         {
             for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 6 : 1); i++)
             {
-                EParticle.spawnNew(new AbyssalLine() { lx = 1.6f, xadd = 1.6f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
+                EParticle.spawnNew(new AbyssalLine() { lx = (Projectile.Calamity().stealthStrike ? 3 : 1.6f), xadd = (Projectile.Calamity().stealthStrike ? 3 : 1.6f) }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
             }
             target.Entropy().StareOfAbyssTime = 12 * 60;
-            target.Entropy().StareOfAbyssLevel = (int)MathHelper.Min(target.Entropy().StareOfAbyssLevel + (Projectile.Calamity().stealthStrike ? 6 : 1), 12);
-            Util.Util.PlaySound("bne_hit", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 6);
+            target.Entropy().StareOfAbyssLevel = (int)MathHelper.Min(target.Entropy().StareOfAbyssLevel + (Projectile.Calamity().stealthStrike ? 6 : 1), 8);
+            Util.Util.PlaySound("ystn_hit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 3, 0.9f);
             if (Projectile.Calamity().stealthStrike)
             {
-                for(int i = 0; i < 8 + target.Entropy().StareOfAbyssLevel; i++)
+                for(int i = 0; i < 4 + target.Entropy().StareOfAbyssLevel; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + Util.Util.randomRot().ToRotationVector2() * 26, Util.Util.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<SoulOfEcho>(), Projectile.damage / 4, Projectile.knockBack / 2, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + Util.Util.randomRot().ToRotationVector2() * 26, Util.Util.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<SoulOfEcho>(), Projectile.damage / 8, Projectile.knockBack / 2, Projectile.owner);
                 }
                 target.Entropy().StareOfAbyssTime = 0;
                 Util.Util.PlaySound("bne_hit2", 1, Projectile.Center);
@@ -111,7 +111,13 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale, SpriteEffects.None);
             return false;
         }
-
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (Projectile.Calamity().stealthStrike)
+            {
+                modifiers.SourceDamage += 0.3f;
+            }
+        }
 
     }
 

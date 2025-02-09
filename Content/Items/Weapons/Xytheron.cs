@@ -1,6 +1,8 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
+using CalamityMod.Items.Weapons.Magic;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -14,8 +16,8 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 7160;
-            Item.crit = 36;
+            Item.damage = 7500;
+            Item.crit = 10;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 86;
             Item.noUseGraphic = true;
@@ -62,6 +64,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AddRecipes()
         {
+            CreateRecipe().AddIngredient(ModContent.ItemType<StarlessNight>())
+                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 4)
+                .AddTile(ModContent.TileType<AbyssalAltarTile>())
+                .Register();
         }
 
         public override bool MeleePrefix()

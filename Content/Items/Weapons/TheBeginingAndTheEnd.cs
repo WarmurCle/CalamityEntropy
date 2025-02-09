@@ -1,10 +1,13 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.BNE;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Weapons.Magic;
+using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
@@ -25,11 +28,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 50;
             Item.height = 38;
-            Item.damage = 3260;
+            Item.damage = 2000;
             Item.ArmorPenetration = 80;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 24;
+            Item.useAnimation = Item.useTime = 20;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.ArmorPenetration = 86;
             Item.knockBack = 1f;
@@ -49,14 +52,15 @@ namespace CalamityEntropy.Content.Items.Weapons
             int p2 = ModContent.ProjectileType<TheEnd>();
             if (player.Calamity().StealthStrikeAvailable())
             {
-                int p = Projectile.NewProjectile(source, position, velocity.RotatedBy(0.2f), p1, damage, knockback, player.whoAmI);
+                int r = (Main.rand.NextBool() ? -1 : 1);
+                int p = Projectile.NewProjectile(source, position, velocity.RotatedBy(0.2f * r), p1, (int)(damage), knockback, player.whoAmI);
                 Main.projectile[p].Calamity().stealthStrike = true;
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 }
-                p = Projectile.NewProjectile(source, position, velocity.RotatedBy(-0.2f), p2, damage, knockback, player.whoAmI);
+                p = Projectile.NewProjectile(source, position, velocity.RotatedBy(-0.2f * r), p2, (int)(damage), knockback, player.whoAmI);
                 Main.projectile[p].Calamity().stealthStrike = true;
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -83,12 +87,16 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Util.Util.PlaySound("bne" + Main.rand.Next(0, 3).ToString(), 1, c);
         }
-        public override float StealthDamageMultiplier => 1.2f;
+        public override float StealthDamageMultiplier => 1f;
         public override float StealthVelocityMultiplier => 0.8f;
         public override float StealthKnockbackMultiplier => 3f;
 
         public override void AddRecipes()
         {
+            CreateRecipe().AddIngredient(ModContent.ItemType<JawsOfOblivion>())
+                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 4)
+                .AddTile(ModContent.TileType<AbyssalAltarTile>())
+                .Register();
         }
     }
 }

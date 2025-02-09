@@ -692,6 +692,7 @@ namespace CalamityEntropy.Common
             serviceWhipDamageBonus *= 0.995f;
             if (serviceWhipDamageBonus > 0.009f)
             {
+                Player.ClearBuff(ModContent.BuffType<ServiceBuff>());
                 Player.AddBuff(ModContent.BuffType<ServiceBuff>(), (int)(serviceWhipDamageBonus * 10000));
             }
             if (nihShellCd > 0)

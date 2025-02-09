@@ -325,7 +325,7 @@ namespace CalamityEntropy.Common
             }
             if (ToFriendly)
             {
-                NPC t = null;
+                /*NPC t = null;
                 float dist = 4600;
                 foreach (NPC n in Main.npc)
                 {
@@ -347,7 +347,7 @@ namespace CalamityEntropy.Common
                     plrOldVel = Main.player[0].velocity;
                     Main.player[0].Center = t.Center;
                     Main.player[0].velocity = t.velocity;
-                }
+                }*/
             }
             if (projectile.Entropy().vdtype >= 0 || projectile.ModProjectile is GodSlayerRocketProjectile)
             {

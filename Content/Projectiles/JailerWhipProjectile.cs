@@ -151,20 +151,25 @@ namespace CalamityEntropy.Content.Projectiles
 					// Offset for where the player's hand will start measured from the top left of the image.
 
                 }
-                else if (i % 2 == 0) {
-					// Third segment
-					frame.Y = 32;
-					frame.Height = 18;
-                    origin = new Vector2(9, 0);
-                }
-				else{
-					// Second Segment
-					frame.Y = 50;
-					frame.Height = 18;
-                    origin = new Vector2(9, 0);
-                }
+                else if(i > 0)
+				{
+                    if (i % 2 == 0)
+                    {
+                        // Third segment
+                        frame.Y = 32;
+                        frame.Height = 18;
+                        origin = new Vector2(9, 0);
+                    }
+                    else
+                    {
+                        // Second Segment
+                        frame.Y = 50;
+                        frame.Height = 18;
+                        origin = new Vector2(9, 0);
+                    }
 
-				Vector2 element = list[i];
+                }
+                Vector2 element = list[i];
 				Vector2 diff = list[i + 1] - element;
 
 				float rotation = diff.ToRotation() - MathHelper.PiOver2; // This projectile's sprite faces down, so PiOver2 is used to correct rotation.

@@ -90,8 +90,17 @@ Items: {
 			}
 
 			TheBeginingAndTheEnd: {
-				// DisplayName: The Begining And The End
-				// Tooltip: ""
+				DisplayName: 终与始
+				Tooltip:
+					'''
+					使用左右键射出不同的飞刀
+					终会造成虚渊凝视减益
+					始会造成冥煌烙印减益
+					当另一种飞刀击中后清除该减益并根据减益的层数生成回音之魂或冥煌之魂
+					回音之魂会持续攻击敌怪，数秒后消失
+					冥煌之魂会飞向你并治疗你，同时暂时提升攻击速度、攻击伤害和暴击率
+					潜伏攻击同时丢出两把飞刀并追踪目标，击中后迸发出大量两种灵魂
+					'''
 			}
 		}
 	}
@@ -1201,7 +1210,7 @@ Items: {
 	}
 
 	HadopelagicEchoII: {
-		Tooltip: ""
+		Tooltip: 发射冥渊镭射和幻渊回音
 		DisplayName: 冥渊回音II
 	}
 
@@ -1227,6 +1236,20 @@ Items: {
 			命中目标积攒充能
 			右键突进，根据充能对沿途敌怪造成伤害并留下深渊撕裂
 			突进时无敌
+			'''
+	}
+
+	AbyssalAltar: {
+		DisplayName: 深渊祭坛
+		Tooltip: ""
+	}
+
+	Ystralyn: {
+		DisplayName: 噬渊鞭挞
+		Tooltip:
+			'''
+			攻击时召唤幻海妖龙幻影攻击敌人
+			召唤物集中攻击目标
 			'''
 	}
 }
@@ -1438,20 +1461,21 @@ Projectiles: {
 	VitalfeatherProjectile.DisplayName: 沐生之羽
 	DragonGoldenFire.DisplayName: 金源龙焰
 	WindOfUndertakerProjectile.DisplayName: 唤死之风
-	HadopelagicEchoIIProj.DisplayName: 冥渊回音
-	HadopelagicLaser.DisplayName: 冥渊激光
+	HadopelagicEchoIIProj.DisplayName: 幻渊回音
+	HadopelagicLaser.DisplayName: 冥渊镭射
 	HadopelagicWail.DisplayName: 冥渊尖啸
 	StarlessNightProj.DisplayName: 无星之夜
 	WhipOfServiceProjectile.DisplayName: 使役之鞭
-	// XytheronProj.DisplayName: Xytheron Proj
-	// WyrmDash.DisplayName: Wyrm Dash
-	// AbyssalCrack.DisplayName: Abyssal Crack
-	// TheBegining.DisplayName: The Begining
-	// TheEnd.DisplayName: The End
-	// TheBeginning.DisplayName: The Beginning
-	// SoulOfEcho.DisplayName: Soul Of Echo
-	// Echo.DisplayName: Echo
-	// SoulOfEclipse.DisplayName: Soul Of Eclipse
+	XytheronProj.DisplayName: 始源遗歌
+	WyrmDash.DisplayName: 幻妖突刺
+	AbyssalCrack.DisplayName: 深渊裂隙
+	TheEnd.DisplayName: 终
+	TheBeginning.DisplayName: 始
+	SoulOfEcho.DisplayName: 回音之魂
+	Echo.DisplayName: 回音
+	SoulOfEclipse.DisplayName: 冥煌之魂
+	// YstralynProj.DisplayName: Ystralyn Proj
+	// PhantomWyrm.DisplayName: Phantom Wyrm
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1624,13 +1648,23 @@ Buffs: {
 	}
 
 	EclipsedImprint: {
-		// DisplayName: Eclipsed Imprint
-		// Description: Mods.CalamityEntropy.Buffs.EclipsedImprint.Description
+		DisplayName: 冥煌烙印
+		Description: ""
 	}
 
 	StareOfTheAbyss: {
-		// DisplayName: Stare Of The Abyss
-		// Description: Mods.CalamityEntropy.Buffs.StareOfTheAbyss.Description
+		DisplayName: 虚渊凝视
+		Description: ""
+	}
+
+	WyrmWhipDebuff: {
+		Description: ""
+		DisplayName: 噬渊标记
+	}
+
+	WyrmPhantom: {
+		DisplayName: 虚无幻象
+		Description: 妖龙幻影将为你而战
 	}
 }
 
@@ -1939,3 +1973,4 @@ DownloadBOI: 玩过《以撒的结合：忏悔》
 IsaacLock: 你不能在没有玩过《以撒的结合：忏悔》的情况下佩戴该饰品
 PWSpawnInfo: 带有混沌减益时进入深渊
 CdAS: 孤魂铁索冷却
+XythCharge: 始源遗歌充能

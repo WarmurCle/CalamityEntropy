@@ -39,8 +39,8 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                 Projectile.velocity *= 0.94f;
                 if (Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < 64)
                 {
-                    Projectile.owner.ToPlayer().Entropy().serviceWhipDamageBonus += 0.016f;
-                    Projectile.owner.ToPlayer().Heal(3);
+                    Projectile.owner.ToPlayer().Entropy().serviceWhipDamageBonus += 0.022f;
+                    Projectile.owner.ToPlayer().Heal(4);
                     Util.Util.PlaySound("soulshine", 1, Projectile.Center, volume: 0.4f);
                     for(int i = 0; i < 32; i++)
                     {

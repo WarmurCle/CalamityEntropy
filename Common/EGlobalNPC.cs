@@ -208,10 +208,10 @@ namespace CalamityEntropy.Common
         {
             binaryWriter.Write(ToFriendly);
             binaryWriter.Write(f_owner);
-            binaryWriter.Write(StareOfAbyssLevel);
+            /*binaryWriter.Write(StareOfAbyssLevel);
             binaryWriter.Write(StareOfAbyssTime);
             binaryWriter.Write(EclipsedImprintLevel);
-            binaryWriter.Write(EclipsedImprintTime);
+            binaryWriter.Write(EclipsedImprintTime);*/
             /*
             binaryWriter.Write(VoidTouchLevel);
             binaryWriter.Write(VoidTouchTime);
@@ -237,10 +237,10 @@ namespace CalamityEntropy.Common
         {
             ToFriendly = binaryReader.ReadBoolean();
             f_owner = binaryReader.ReadInt32();
-            StareOfAbyssLevel = binaryReader.ReadInt32();
+            /*StareOfAbyssLevel = binaryReader.ReadInt32();
             StareOfAbyssTime = binaryReader.ReadInt32();
             EclipsedImprintLevel = binaryReader.ReadInt32();
-            EclipsedImprintTime = binaryReader.ReadInt32();
+            EclipsedImprintTime = binaryReader.ReadInt32();*/
            /* VoidTouchLevel = binaryReader.ReadSingle();
             VoidTouchTime = binaryReader.ReadInt32();*/
         }

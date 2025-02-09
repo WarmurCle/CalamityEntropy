@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
             if (!owner.active)
             {
-                NPC.active = false;
+                NPC.StrikeInstantKill();
             }
             else
             {

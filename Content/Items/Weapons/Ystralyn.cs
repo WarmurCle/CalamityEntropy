@@ -1,5 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -13,25 +15,23 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-	public class Vitalfeather : ModItem
+	public class Ystralyn : ModItem
 	{
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(DragonWhipDebuff.TagDamage);
 
 		public override void SetDefaults() {
-			Item.DefaultToWhip(ModContent.ProjectileType<VitalfeatherProjectile>(), 160, 2, 4);
-			Item.rare = ModContent.RarityType<Violet>();
-			Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-			Item.autoReuse = true;
-		}
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-			int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
-
-            return false;
+			Item.DefaultToWhip(ModContent.ProjectileType<YstralynProj>(), 460, 2, 4, 24);
+			Item.rare = ModContent.RarityType<AbyssalBlue>();
+			Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
+            Item.autoReuse = true;
         }
 
+
         public override void AddRecipes() {
+			CreateRecipe().AddIngredient(ItemID.RainbowWhip)
+				.AddIngredient(ModContent.ItemType<WyrmTooth>(), 5)
+				.AddTile(ModContent.TileType<AbyssalAltarTile>())
+				.Register();
 		}
 
 		public override bool MeleePrefix() {

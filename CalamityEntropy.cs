@@ -370,7 +370,7 @@ namespace CalamityEntropy
             On_Main.DrawProjectiles += drawShellBack;
             On_Main.DrawMenu += drawmenu;
             EModSys.timer = 0;
-            BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<NihilityActeriophage>(), ModContent.NPCType<CruiserTail>() }));
+            BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>()}));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
         }
@@ -821,8 +821,8 @@ namespace CalamityEntropy
                                 Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/NihilityTwin").Value;
                                 sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.7f, SpriteEffects.None, 0);
                             };
-                            Func<bool> cruiser = () => EDownedBosses.downedCruiser;
-                            AddBoss(bossChecklist, CalamityEntropy.Instance, entryName, 19.3f, cruiser, segments, new Dictionary<string, object>()
+                            Func<bool> nihtwin = () => EDownedBosses.downedNihilityTwin;
+                            AddBoss(bossChecklist, CalamityEntropy.Instance, entryName, 19.3f, nihtwin, segments, new Dictionary<string, object>()
                             {
                                 ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.EntryName"),
                                 ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.SpawnInfo"),
@@ -1438,6 +1438,10 @@ namespace CalamityEntropy
                     if(proj.ModProjectile is AbyssalCrack ac)
                     {
                         ac.draw();
+                    }
+                    if (proj.ModProjectile is YstralynProj yst)
+                    {
+                        yst.draw_crack();
                     }
                 }
                 

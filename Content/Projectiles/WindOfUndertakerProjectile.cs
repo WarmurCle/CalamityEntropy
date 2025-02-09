@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Projectiles
 			Player player = Projectile.owner.ToPlayer();
 			if (Projectile.ai[0] == 0)
 			{
-				Projectile.timeLeft = Projectile.owner.ToPlayer().itemAnimationMax;
+				Projectile.timeLeft = (Projectile.owner.ToPlayer().itemAnimation + 4) * (Projectile.MaxUpdates);
 			}
 			if (st && (float)(player.itemAnimationMax - player.itemAnimation) / (float)player.itemAnimationMax >= 0.66f)
 			{

@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
 					// Offset for where the player's hand will start measured from the top left of the image.
 
                 }
-				else{
+				else if(i > 0){
 					// Second Segment
 					frame.Y = 14;
 					frame.Height = 14;

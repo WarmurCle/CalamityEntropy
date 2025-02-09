@@ -62,7 +62,11 @@ namespace CalamityEntropy.Content.Projectiles
             if (target != null && !thrownHook && Projectile.ai[0] > 4)
             {
                 thrownHook = true;
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/chain1"), Projectile.Center);
+                if (pls)
+                {
+                    SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/chain1"), Projectile.Center);
+                    pls = false;
+                }
                 if (Projectile.owner == Main.myPlayer)
                 {
                     int speed = 14;
@@ -74,7 +78,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
         }
-
+        public bool pls = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 60, 3.6f, 800, 12);

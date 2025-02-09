@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                 {
                     Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.09f, false);
  
-                    Projectile.velocity = ((target.Center + (Projectile.Center - target.Center).SafeNormalize(Vector2.UnitX) * ((target.width + target.height) / 2f + 56)) - Projectile.Center) * 0.01f;
+                    Projectile.velocity = ((target.Center + (Projectile.Center - target.Center).SafeNormalize(Vector2.UnitX) * ((target.width + target.height) / 2f + 90)) - Projectile.Center) * 0.086f;
                     
                     if (++Projectile.ai[0] % 40 == 0)
                     {

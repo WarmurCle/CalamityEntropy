@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -50,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<EidolicWail>())
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 4)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }
     }
