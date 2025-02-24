@@ -1,0 +1,497 @@
+﻿using System;
+using CalamityMod;
+using CalamityMod.BiomeManagers;
+using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Dusts;
+using CalamityMod.Items.Materials;
+using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Placeables.Banners;
+using CalamityMod.NPCs.CalamityAIs.CalamityRegularEnemyAIs;
+using CalamityMod.NPCs.Crags;
+using CalamityMod.NPCs.NormalNPCs;
+using CalamityMod.NPCs.SulphurousSea;
+using CalamityMod.Particles;
+using CalamityMod.World;
+using Microsoft.Xna.Framework;
+using ReLogic.Utilities;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
+{
+    public class DespairStoneFriendly : ModNPC
+    {
+        public SlotId ChainsawSoundSlot;
+
+        public static readonly SoundStyle ChainsawStartSound = new("CalamityMod/Sounds/Custom/ChainsawStart") { Volume = 0.15f };
+
+        public static readonly SoundStyle ChainsawEndSound = new("CalamityMod/Sounds/Custom/ChainsawEnd") { Volume = 0.15f };
+        public override void SetStaticDefaults()
+        {
+            this.HideFromBestiary();
+        }
+        public override void SetDefaults()
+        {
+            NPC.aiStyle = -1;
+            AIType = -1;
+            NPC.damage = 100;
+            NPC.width = 72;
+            NPC.height = 72;
+            NPC.defense = 38;
+            NPC.lifeMax = 800;
+            NPC.knockBackResist = 0.1f;
+            NPC.value = Item.buyPrice(0, 0, 5, 0);
+            NPC.HitSound = SoundID.NPCHit41;
+            NPC.DeathSound = SoundID.NPCDeath14;
+            NPC.behindTiles = true;
+            NPC.lavaImmune = true;
+            NPC.Calamity().VulnerableToHeat = false;
+            NPC.Calamity().VulnerableToCold = true;
+            NPC.Calamity().VulnerableToWater = true;
+            NPC.friendly = true;
+        }
+
+        public override void AI()
+        {
+            this.applyCollisionDamage();
+            float buzzsawStartTime = 480f;
+            if (this.FindTarget() is NPC)
+            {
+                NPC.ai[1]++;
+            }
+            if (NPC.ai[2] != 0f) BuzzsawMode();
+            if (NPC.ai[1] > buzzsawStartTime) //time needed for buzzsaw mode to be able to be started
+            {
+                if (NPC.ai[2] == 0f)
+                {
+                    NPC.ai[1] = buzzsawStartTime + 1f; //freeze buzzsaw timer until buzzsaw mode is initiated.
+                    NPC.rotation += NPC.velocity.X * 0.01f;
+                    NPC.spriteDirection = -NPC.direction;
+                    if (NPC.velocity.Y == 0f || NPC.lavaWet) BuzzsawMode(); //initiate Buzzsaw mode once the npc hits the ground
+                }
+            }
+            else //run regular ai if buzzsaw mode isn't available
+            {
+                NPC.ai[2] = 0f;
+                UnicornAI_DSF(NPC, Mod, true, CalamityWorld.death ? 8f : CalamityWorld.revenge ? 6f : 4f, 5f, 0.2f);
+            }
+            if (NPC.lavaWet) //float on lava 
+                NPC.velocity.Y += -0.8f;
+        }
+        public override bool CheckActive()
+        {
+            return false;
+        }
+        public void BuzzsawMode()
+        {
+            Entity target = this.FindTarget();
+            float distance;
+            float speedCap = 10f;
+            //Choose Direction
+            if (NPC.ai[2] == 0f)
+            {
+                ChainsawSoundSlot = SoundEngine.PlaySound(ChainsawStartSound, NPC.Center);
+                if (NPC.velocity.X < 0f) //left
+                {
+                    NPC.ai[2] = -1f;
+                }
+                else if (NPC.velocity.X > 0f) //right
+                {
+                    NPC.ai[2] = 1f;
+                }
+                else //if npc is stationary when selecting direction, go towards target.
+                {
+                    distance = target.Center.X - NPC.Center.X;
+                    if (distance != 0f)
+                    {
+                        NPC.ai[2] = distance / Math.Abs(distance);
+                    }
+                    else NPC.ai[2] = 1f;
+                }
+            }
+            if (SoundEngine.TryGetActiveSound(ChainsawSoundSlot, out var chainsawSound) && chainsawSound.IsPlaying)
+            {
+                chainsawSound.Position = NPC.Center;
+                chainsawSound.Update();
+            }
+            if (NPC.velocity.X == 0f) //go up if against wall
+            {
+                if (NPC.velocity.Y > -speedCap) //Accelerate to top speed
+                    NPC.velocity.Y += -1.66f;
+                if (NPC.velocity.Y < -speedCap) //Cap top speed
+                    NPC.velocity.Y = -speedCap;
+            }
+
+            if (NPC.velocity.X == 0f || NPC.velocity.Y == 0f) //check if on solid ground
+                SpawnSparks();
+            else if (target.Center.Y - NPC.Center.Y < 0f && NPC.velocity.Y < 0f && !NPC.lavaWet) //if not on solid ground and target player is above the NPC, reduce gravity
+                NPC.velocity.Y += -0.03f;
+
+            if (Math.Abs(NPC.velocity.X) < speedCap) //Accelerate to top speed
+                NPC.velocity.X += 1.66f * NPC.ai[2];
+            if (Math.Abs(NPC.velocity.X) > speedCap) //Cap top speed
+                NPC.velocity.X = speedCap * NPC.ai[2];
+
+            NPC.rotation += speedCap * 0.03f * NPC.ai[2]; //rotate sprite in chosen direction
+            NPC.spriteDirection = -NPC.direction;
+            //stop buzzsaw mode
+            if (NPC.ai[1] > Main.rand.Next(540, 600))
+            {
+                NPC.ai[1] = 0f;
+                NPC.velocity.Y += -3f;
+                chainsawSound?.Stop();
+                SoundEngine.PlaySound(ChainsawEndSound, NPC.Center);
+            }
+        }
+
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            for (int k = 0; k < 5; k++)
+            {
+                Dust.NewDust(NPC.position, NPC.width, NPC.height, (int)CalamityDusts.Brimstone, hit.HitDirection, -1f, 0, default, 1f);
+            }
+            if (NPC.life <= 0)
+            {
+                for (int k = 0; k < 40; k++)
+                {
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, (int)CalamityDusts.Brimstone, hit.HitDirection, -1f, 0, default, 1f);
+                }
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.GetInstance<CalamityMod.CalamityMod>().Find<ModGore>("DespairStone").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.GetInstance<CalamityMod.CalamityMod>().Find<ModGore>("DespairStone2").Type, NPC.scale);
+                }
+            }
+        }
+
+        public override bool PreKill()
+        {
+            if (SoundEngine.TryGetActiveSound(ChainsawSoundSlot, out var chainsawSound) && chainsawSound.IsPlaying)
+                chainsawSound?.Stop();
+            return true;
+        }
+        public void SpawnSparks()
+        {
+            Vector2 particleSpawnDisplacement;
+            Vector2 splatterDirection;
+            if (NPC.velocity.X == 0f)
+            {
+                particleSpawnDisplacement = new Vector2(24f * NPC.ai[2], 20f);
+                splatterDirection = new Vector2(0f, 1f);
+            }
+            else
+            {
+                particleSpawnDisplacement = new Vector2(20f * -NPC.ai[2], 24f);
+                splatterDirection = new Vector2(-NPC.ai[2], 0f);
+            }
+
+            //Color impactColor = Color.Lerp(Color.Silver, Color.Gold, Main.rand.NextFloat(0.5f));
+            Vector2 bloodSpawnPosition = NPC.Center + particleSpawnDisplacement;
+
+            if (NPC.ai[1] % 4 == 0)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    int sparkLifetime = Main.rand.Next(14, 21);
+                    float sparkScale = Main.rand.NextFloat(0.8f, 1f) + 1f * 0.05f;
+                    Color sparkColor = Color.Lerp(Color.DarkGray, Color.DarkRed, Main.rand.NextFloat(0.7f));
+                    sparkColor = Color.Lerp(sparkColor, Color.OrangeRed, Main.rand.NextFloat());
+
+                    if (Main.rand.NextBool(10))
+                        sparkScale *= 1.4f;
+
+                    Vector2 sparkVelocity = splatterDirection.RotatedByRandom(0.45f) * Main.rand.NextFloat(6f, 13f);
+                    sparkVelocity.Y -= 6f;
+                    SparkParticle spark = new SparkParticle(bloodSpawnPosition, sparkVelocity, true, sparkLifetime, sparkScale, sparkColor);
+                    GeneralParticleHandler.SpawnParticle(spark);
+                }
+            }
+        }
+        public static void UnicornAI_DSF(NPC npc, Mod mod, bool spin, float bounciness, float speedDetect, float speedAdditive, float bouncy1 = -8.5f, float bouncy2 = -7.5f, float bouncy3 = -7f, float bouncy4 = -6f, float bouncy5 = -8f)
+        {
+            bool flag = false;
+            bool flag2 = false;
+            Entity target = npc.ModNPC.FindTarget();
+            npc.direction = target.Center.X > npc.Center.X ? 1 : -1;
+            int num = 30;
+            bool flag3 = false;
+            bool flag4 = false;
+            if (npc.velocity.Y == 0f && ((npc.velocity.X > 0f && npc.direction < 0) || (npc.velocity.X < 0f && npc.direction > 0)))
+            {
+                flag3 = true;
+                npc.ai[3] += 1f;
+            }
+
+            int num2 = (flag ? 10 : 4);
+            if (!flag)
+            {
+                bool flag5 = npc.velocity.Y == 0f;
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (i != npc.whoAmI && Main.npc[i].active && Main.npc[i].type == npc.type && Math.Abs(npc.position.X - Main.npc[i].position.X) + Math.Abs(npc.position.Y - Main.npc[i].position.Y) < (float)npc.width)
+                    {
+                        if (npc.position.X < Main.npc[i].position.X)
+                        {
+                            npc.velocity.X -= 0.05f;
+                        }
+                        else
+                        {
+                            npc.velocity.X += 0.05f;
+                        }
+
+                        if (npc.position.Y < Main.npc[i].position.Y)
+                        {
+                            npc.velocity.Y -= 0.05f;
+                        }
+                        else
+                        {
+                            npc.velocity.Y += 0.05f;
+                        }
+                    }
+                }
+
+                if (flag5)
+                {
+                    npc.velocity.Y = 0f;
+                }
+            }
+
+            if (npc.position.X == npc.oldPosition.X || npc.ai[3] >= (float)num || flag3)
+            {
+                npc.ai[3] += 1f;
+                flag4 = true;
+            }
+            else if (npc.ai[3] > 0f)
+            {
+                npc.ai[3] -= 1f;
+            }
+
+            if (npc.ai[3] > (float)(num * num2))
+            {
+                npc.ai[3] = 0f;
+            }
+
+            if (npc.justHit)
+            {
+                npc.ai[3] = 0f;
+            }
+
+            if (npc.ai[3] == (float)num)
+            {
+                npc.netUpdate = true;
+            }
+
+            Vector2 vector = new Vector2(npc.Center.X, npc.Center.Y);
+            float num3 = target.Center.X - vector.X;
+            float num4 = target.Center.Y - vector.Y;
+            if ((float)Math.Sqrt(num3 * num3 + num4 * num4) < 200f && !flag4)
+            {
+                npc.ai[3] = 0f;
+            }
+
+            if (!flag && npc.velocity.Y == 0f && Math.Abs(npc.velocity.X) > 3f && ((npc.Center.X < target.Center.X && npc.velocity.X > 0f) || (npc.Center.X > target.Center.X && npc.velocity.X < 0f)))
+            {
+                npc.velocity.Y -= bounciness;
+                if (npc.type == ModContent.NPCType<DespairStone>())
+                {
+                    SoundEngine.PlaySound(in SoundID.Item14, npc.Center);
+                    for (int j = 0; j < 10; j++)
+                    {
+                        Dust.NewDust(npc.position, npc.width, npc.height, 235, 0f, -1f);
+                    }
+
+                    if (Main.zenithWorld)
+                    {
+                        float num5 = 2f * Utils.GetLerpValue(1300f, 0f, npc.Distance(Main.LocalPlayer.Center), clamped: true);
+                        if (Main.LocalPlayer.Calamity().GeneralScreenShakePower < num5)
+                        {
+                            Main.LocalPlayer.Calamity().GeneralScreenShakePower = num5;
+                        }
+                    }
+                }
+
+
+                if (flag2)
+                {
+                    for (int k = 0; k < 5; k++)
+                    {
+                        Dust.NewDust(npc.position, npc.width, npc.height, 33, 0f, -1f);
+                    }
+                }
+            }
+
+            {
+                if (npc.velocity.X == 0f)
+                {
+                    if (npc.velocity.Y == 0f)
+                    {
+                        npc.ai[0] += 1f;
+                        if (npc.ai[0] >= 2f)
+                        {
+                            npc.direction *= -1;
+                            npc.spriteDirection = npc.direction;
+                            npc.ai[0] = 0f;
+                        }
+                    }
+                }
+                else
+                {
+                    npc.ai[0] = 0f;
+                }
+
+                npc.directionY = -1;
+                if (npc.direction == 0)
+                {
+                    npc.direction = 1;
+                }
+            }
+
+            if (npc.velocity.Y == 0f || npc.wet || (npc.velocity.X <= 0f && npc.direction < 0) || (npc.velocity.X >= 0f && npc.direction > 0))
+            {
+                if (Math.Sign(npc.velocity.X) != npc.direction && !flag)
+                {
+                    npc.velocity.X *= 0.92f;
+                }
+
+                MathHelper.Lerp(0.6f, 1f, Math.Abs(Main.windSpeedCurrent));
+                Math.Sign(Main.windSpeedCurrent);
+                _ = false;
+                if (npc.velocity.X < 0f - speedDetect || npc.velocity.X > speedDetect)
+                {
+                    if (npc.velocity.Y == 0f)
+                    {
+                        npc.velocity *= 0.8f;
+                    }
+                }
+                else if (npc.velocity.X < speedDetect && npc.direction == 1)
+                {
+                    npc.velocity.X += speedAdditive;
+                    if (npc.velocity.X > speedDetect)
+                    {
+                        npc.velocity.X = speedDetect;
+                    }
+                }
+                else if (npc.velocity.X > 0f - speedDetect && npc.direction == -1)
+                {
+                    npc.velocity.X -= speedAdditive;
+                    if (npc.velocity.X < 0f - speedDetect)
+                    {
+                        npc.velocity.X = 0f - speedDetect;
+                    }
+                }
+            }
+
+            if (npc.velocity.Y >= 0f)
+            {
+                int num6 = 0;
+                if (npc.velocity.X < 0f)
+                {
+                    num6 = -1;
+                }
+
+                if (npc.velocity.X > 0f)
+                {
+                    num6 = 1;
+                }
+
+                Vector2 position = npc.position;
+                position.X += npc.velocity.X;
+                int num7 = (int)((position.X + (float)(npc.width / 2) + (float)((npc.width / 2 + 1) * num6)) / 16f);
+                int num8 = (int)((position.Y + (float)npc.height - 1f) / 16f);
+                Tile tile = CalamityUtils.ParanoidTileRetrieval(num7, num8);
+                Tile tile2 = CalamityUtils.ParanoidTileRetrieval(num7, num8 - 1);
+                Tile tile3 = CalamityUtils.ParanoidTileRetrieval(num7, num8 - 2);
+                Tile tile4 = CalamityUtils.ParanoidTileRetrieval(num7, num8 - 3);
+                Tile tile5 = CalamityUtils.ParanoidTileRetrieval(num7 - num6, num8 - 3);
+                Tile tile6 = CalamityUtils.ParanoidTileRetrieval(num7, num8 - 4);
+                bool num9 = (float)(num7 * 16) < position.X + (float)npc.width && (float)(num7 * 16 + 16) > position.X;
+                bool flag6 = tile.HasUnactuatedTile && !tile.TopSlope && !tile2.TopSlope && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
+                bool flag7 = tile2.IsHalfBlock && tile2.HasUnactuatedTile;
+                bool flag8 = !tile2.HasUnactuatedTile || !Main.tileSolid[tile2.TileType] || Main.tileSolidTop[tile2.TileType] || (tile2.IsHalfBlock && (!tile6.HasUnactuatedTile || !Main.tileSolid[tile6.TileType] || Main.tileSolidTop[tile6.TileType]));
+                bool flag9 = !tile3.HasUnactuatedTile || !Main.tileSolid[tile3.TileType] || Main.tileSolidTop[tile3.TileType];
+                bool flag10 = !tile4.HasUnactuatedTile || !Main.tileSolid[tile4.TileType] || Main.tileSolidTop[tile4.TileType];
+                bool flag11 = !tile5.HasUnactuatedTile || !Main.tileSolid[tile5.TileType];
+                if (num9 && (flag6 || flag7) && flag8 && flag9 && flag10 && flag11)
+                {
+                    float num10 = num8 * 16;
+                    if (Main.tile[num7, num8].IsHalfBlock)
+                    {
+                        num10 += 8f;
+                    }
+
+                    if (Main.tile[num7, num8 - 1].IsHalfBlock)
+                    {
+                        num10 -= 8f;
+                    }
+
+                    if (num10 < position.Y + (float)npc.height)
+                    {
+                        float num11 = position.Y + (float)npc.height - num10;
+                        if ((double)num11 <= 16.1)
+                        {
+                            npc.gfxOffY += npc.position.Y + (float)npc.height - num10;
+                            npc.position.Y = num10 - (float)npc.height;
+                            if (num11 < 9f)
+                            {
+                                npc.stepSpeed = 1f;
+                            }
+                            else
+                            {
+                                npc.stepSpeed = 2f;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (npc.velocity.Y == 0f)
+            {
+                int num12 = (int)((npc.position.X + (float)(npc.width / 2) + (float)((npc.width / 2 + 2) * npc.direction) + npc.velocity.X * 5f) / 16f);
+                int num13 = (int)((npc.position.Y + (float)npc.height - 15f) / 16f);
+                int spriteDirection = npc.spriteDirection;
+                spriteDirection *= -1;
+                if ((npc.velocity.X < 0f && spriteDirection == -1) || (npc.velocity.X > 0f && spriteDirection == 1))
+                {
+                    if (Main.tile[num12, num13 - 2].HasUnactuatedTile && Main.tileSolid[Main.tile[num12, num13 - 2].TileType])
+                    {
+                        if (Main.tile[num12, num13 - 3].HasUnactuatedTile && Main.tileSolid[Main.tile[num12, num13 - 3].TileType])
+                        {
+                            npc.velocity.Y = bouncy1;
+                            npc.netUpdate = true;
+                        }
+                        else
+                        {
+                            npc.velocity.Y = bouncy2;
+                            npc.netUpdate = true;
+                        }
+                    }
+                    else if (Main.tile[num12, num13 - 1].HasUnactuatedTile && !Main.tile[num12, num13 - 1].TopSlope && Main.tileSolid[Main.tile[num12, num13 - 1].TileType])
+                    {
+                        npc.velocity.Y = bouncy3;
+                        npc.netUpdate = true;
+                    }
+                    else if (npc.position.Y + (float)npc.height - (float)(num13 * 16) > 20f && Main.tile[num12, num13].HasUnactuatedTile && !Main.tile[num12, num13].TopSlope && Main.tileSolid[Main.tile[num12, num13].TileType])
+                    {
+                        npc.velocity.Y = bouncy4;
+                        npc.netUpdate = true;
+                    }
+                    else if ((npc.directionY < 0 || Math.Abs(npc.velocity.X) > 3f) && (!Main.tile[num12, num13 + 1].HasUnactuatedTile || !Main.tileSolid[Main.tile[num12, num13 + 1].TileType]) && (!Main.tile[num12, num13 + 2].HasUnactuatedTile || !Main.tileSolid[Main.tile[num12, num13 + 2].TileType]) && (!Main.tile[num12 + npc.direction, num13 + 3].HasUnactuatedTile || !Main.tileSolid[Main.tile[num12 + npc.direction, num13 + 3].TileType]))
+                    {
+                        npc.velocity.Y = bouncy5;
+                        npc.netUpdate = true;
+                    }
+                }
+            }
+
+            if (spin)
+            {
+                npc.rotation += npc.velocity.X * 0.05f;
+                npc.spriteDirection = -npc.direction;
+            }
+        }
+    }
+}

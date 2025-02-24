@@ -29,8 +29,8 @@ float4 PSFunction(float2 coords : TEXCOORD0) : COLOR0
     else
     {
         float2 vec = float2(0, 0);
-        float rot = color3.r * 6.28;
-        vec = float2(cos(rot), sin(rot)) * (color3.g - 0.5) * i * color2.b;
+        float rot = color3.r * 6.283;
+        vec = float2(cos(rot), sin(rot)) * (color3.r - 0.5) * i * 0.7;
         return tex2D(uImage0, coords + vec);
 
     }

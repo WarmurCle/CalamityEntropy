@@ -23,15 +23,15 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             Item.width = 38;
             Item.height = 34;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.defense = 45;
+            Item.defense = 44;
             Item.rare = ModContent.RarityType<VoidPurple>();
         }
 
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Generic) += 0.05f;
-            player.GetCritChance(DamageClass.Magic) += 2;
-            player.GetArmorPenetration(DamageClass.Generic) += 20;
+            player.GetCritChance(DamageClass.Magic) += 5;
+            player.GetArmorPenetration(DamageClass.Generic) += 5;
 
         }
 
@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 18)
                 .AddIngredient(ModContent.ItemType<RuinousSoul>(), 8)
-                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 8)
+                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 4)
                 .AddIngredient(ModContent.ItemType<TwistingNether>(), 10).Register();
         }
     }

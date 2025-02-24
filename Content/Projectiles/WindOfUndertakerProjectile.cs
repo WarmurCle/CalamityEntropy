@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
 			Projectile.localNPCHitCooldown = -1;
         }
 		bool st = true;
-
+		
         public override void AI()
         {
 			Player player = Projectile.owner.ToPlayer();
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                         for (int j = 0; j < num; j++)
                         {
-							Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 270 * Projectile.WhipSettings.RangeMultiplier, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStarF>(), (int)(Projectile.damage / 6f), 1).ToProj().DamageType = Projectile.DamageType;
+							Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 270 * Projectile.WhipSettings.RangeMultiplier * Projectile.getOwner().whipRangeMultiplier, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStarF>(), (int)(Projectile.damage / 6f), 1).ToProj().DamageType = Projectile.DamageType;
                             angle += ((float)Math.PI * 2 / (float)num);
                         }
                         angle += ((float)Math.PI * 2 / (float)num) / (float)counts;
@@ -175,9 +175,9 @@ namespace CalamityEntropy.Content.Projectiles
 				float pc = p / 0.66f;
 				pc *= pc;
 				Vector2 start = Projectile.Center;
-				Vector2 mid = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * pc * 30 * Projectile.WhipSettings.RangeMultiplier;
-				Vector2 end = mid + (Projectile.velocity.SafeNormalize(Vector2.UnitX) * pc * 240 * Projectile.WhipSettings.RangeMultiplier).RotatedBy((1 - pc) * MathHelper.PiOver2 * (flip ? -1 : 1));
-                mid = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * pc * 180 * Projectile.WhipSettings.RangeMultiplier;
+				Vector2 mid = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * pc * 30 * Projectile.WhipSettings.RangeMultiplier * Projectile.getOwner().whipRangeMultiplier;
+				Vector2 end = mid + (Projectile.velocity.SafeNormalize(Vector2.UnitX) * pc * 240 * Projectile.WhipSettings.RangeMultiplier * Projectile.getOwner().whipRangeMultiplier).RotatedBy((1 - pc) * MathHelper.PiOver2 * (flip ? -1 : 1));
+                mid = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * pc * 180 * Projectile.WhipSettings.RangeMultiplier * Projectile.getOwner().whipRangeMultiplier;
 
                 for (int i = 0; i <= Projectile.WhipSettings.Segments; i++)
 				{
@@ -189,8 +189,8 @@ namespace CalamityEntropy.Content.Projectiles
 			{
 				float c = 1 - (p - 0.66f) / 0.34f;
                 Vector2 start = Projectile.Center;
-                Vector2 mid = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 30 * c * Projectile.WhipSettings.RangeMultiplier;
-                Vector2 end = mid + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 240 * c * Projectile.WhipSettings.RangeMultiplier;
+                Vector2 mid = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 30 * c * Projectile.WhipSettings.RangeMultiplier * Projectile.getOwner().whipRangeMultiplier;
+                Vector2 end = mid + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 240 * c * Projectile.WhipSettings.RangeMultiplier * Projectile.getOwner().whipRangeMultiplier;
                 
 				for (int i = 0; i <= Projectile.WhipSettings.Segments; i++)
                 {

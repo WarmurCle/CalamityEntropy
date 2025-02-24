@@ -21,6 +21,14 @@ namespace CalamityEntropy.Util
         {
             return TextureAssets.Projectile[p.type].Value;
         }
+
+        public static void SyncProj(int proj)
+        {
+            if (Main.netMode != NetmodeID.SinglePlayer)
+            {
+                NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
+            }
+        }
         public static void pushByOther(this Projectile proj, float strength)
         {
             foreach(Projectile p in Main.ActiveProjectiles)
@@ -115,7 +123,7 @@ namespace CalamityEntropy.Util
         public static void UseBlendState(this SpriteBatch sb, BlendState blend, SamplerState s = null)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void UseState_UI(this SpriteBatch sb, BlendState blend, SamplerState sampler)
         {

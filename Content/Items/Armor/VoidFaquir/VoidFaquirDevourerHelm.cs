@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             Item.width = 18;
             Item.height = 18;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.defense = 52;
+            Item.defense = 50;
             Item.rare = ModContent.RarityType<VoidPurple>();
         }
 
@@ -32,21 +32,19 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
 
         public override void UpdateArmorSet(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.2f;
+            player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetCritChance(DamageClass.Generic) += 10;
             player.GetArmorPenetration(DamageClass.Generic) += 20;
+	        player.GetAttackSpeed(DamageClass.Melee) += 0.30f;
             player.Entropy().VFSet = true;
-
-            
             player.Entropy().VFHelmMelee = true;
         }
 
         public override void UpdateEquip(Player player)
         {
             player.Entropy().meleeVF = true;
-            player.GetAttackSpeed(DamageClass.Melee) += 0.3f;
-            player.GetDamage(DamageClass.Melee) += 0.3f;
-            player.GetCritChance(DamageClass.Melee) += 25;
+            player.GetDamage(DamageClass.Melee) += 0.25f;
+            player.GetCritChance(DamageClass.Melee) += 12;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -59,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 14)
                 .AddIngredient(ModContent.ItemType<RuinousSoul>(), 6)
-                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 6)
+                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 3)
                 .AddIngredient(ModContent.ItemType<TwistingNether>(), 8).Register();
         }
     }

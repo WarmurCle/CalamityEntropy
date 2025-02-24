@@ -175,7 +175,10 @@ namespace CalamityEntropy.Content.Projectiles
                     if (p.type == ModContent.ProjectileType<WelkinFeather>())
                     {
                         p.ai[1] = target.whoAmI;
-                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p.whoAmI);
+                        if (Main.netMode != NetmodeID.SinglePlayer)
+                        {
+                            NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p.whoAmI);
+                        }
                     }
                 }
             }

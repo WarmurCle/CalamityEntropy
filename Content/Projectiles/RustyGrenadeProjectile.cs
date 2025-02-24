@@ -1,6 +1,8 @@
 using System;
+using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -157,7 +159,10 @@ namespace CalamityEntropy.Content.Projectiles
 				smokeGore.velocity *= speedMulti;
 				smokeGore.velocity -= Vector2.One;
 			}
-
+			if (CalamityEntropy.AprilFool)
+			{
+				EParticle.spawnNew(new EXPLOSION(), Projectile.Center + new Vector2(0, -26), Vector2.Zero, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0);
+			}
 			// Rocket II explosion that damages tiles.
 			//if (Projectile.owner == Main.myPlayer) {
 			//	int blastRadius = 3; // Rocket IV: 5, Mini Nuke Rocket II: 7

@@ -173,7 +173,7 @@ Items: {
 
 	VoidBottle: {
 		DisplayName: 虚空瓶
-		Tooltip: 召唤寻游者
+		Tooltip: 召唤巡游者
 	}
 
 	VoidMonument: {
@@ -360,11 +360,11 @@ Items: {
 	OracleDeck: {
 		Tooltip:
 			'''
-			+11% 暴击率
+			+8% 暴击率
 			+30% 移速
-			+16 最大潜伏值
+			+12 最大潜伏值
 			-60% 魔力消耗
-			受到伤害降低20%
+			受到伤害降低12%
 			+10 护甲穿透
 			+2 召唤栏
 			+100% 光照
@@ -374,7 +374,7 @@ Items: {
 	}
 
 	MetropolisCard: {
-		Tooltip: +15 最大潜伏值
+		Tooltip: +10 最大潜伏值
 		DisplayName: 『都市』
 	}
 
@@ -384,7 +384,7 @@ Items: {
 	}
 
 	EntityCard: {
-		Tooltip: +10%攻击速度
+		Tooltip: +10% 近战攻击速度
 		DisplayName: 『实体』
 	}
 
@@ -484,7 +484,7 @@ Items: {
 			生命低于50%时会在你的周围生成能够降低所受伤害的护盾
 			生命值高于25%时会将团队中其他玩家所受伤害的25%转移到佩戴者身上
 			额外给予你能抵挡一次伤害的圣盾
-			圣盾有60秒冷却时间
+			圣盾有90秒冷却时间
 			'''
 	}
 
@@ -548,8 +548,8 @@ Items: {
 		Tooltip:
 			'''
 			+5% 伤害
-			+2% 暴击率
-			+20 护甲穿透
+			+5% 暴击率
+			+5 护甲穿透
 			'''
 		DisplayName: 虚空行者胸甲
 	}
@@ -557,9 +557,8 @@ Items: {
 	VoidFaquirDevourerHelm: {
 		Tooltip:
 			'''
-			+30% 攻击速度
-			+30% 近战伤害
-			+25% 近战暴击率
+			+25% 近战伤害
+			+12% 近战暴击率
 			'''
 		DisplayName: 虚湮吞天盔
 	}
@@ -567,8 +566,8 @@ Items: {
 	VoidFaquirCosmosHood: {
 		Tooltip:
 			'''
-			+40% 魔法伤害
-			+30% 魔法暴击率
+			+35% 魔法伤害
+			+25% 魔法暴击率
 			+150 最大魔力值
 			'''
 		DisplayName: 虚灵宙法盔
@@ -576,20 +575,15 @@ Items: {
 
 	VoidFaquirEvokerHelm: {
 		DisplayName: 虚空唤灵盔
-		Tooltip:
-			'''
-			+90% 召唤伤害
-			+8 召唤栏
-			'''
+		Tooltip: +25% 召唤伤害
 	}
 
 	VoidFaquirLurkerMask: {
 		DisplayName: 虚影潜袭盔
 		Tooltip:
 			'''
-			+30% 盗贼伤害
-			+30% 盗贼暴击率
-			+150 最大潜伏值
+			+25% 盗贼伤害
+			+25% 盗贼暴击率
 			'''
 	}
 
@@ -679,8 +673,8 @@ Items: {
 		DisplayName: 始源冠冕
 		Tooltip:
 			'''
-			+8/s 每秒生命再生
-			+50 最大生命值
+			+ 8/s 每秒生命再生
+			-8 暴击率
 			移除防御损伤
 			-死亡模式专属-
 			'''
@@ -714,11 +708,12 @@ Items: {
 		Tooltip:
 			'''
 			+15% 伤害
-			+2HP/s 生命再生
+			+4HP/s 生命再生
 			+2 召唤栏
 			+75% 仆从击退
 			+5% 暴击率
 			+5% 移动速度和加速度
+			+5% 近战速度
 			'''
 		DisplayName: 天界指环
 	}
@@ -831,7 +826,7 @@ Items: {
 		Tooltip:
 			'''
 			给予你能抵挡一次伤害的圣盾
-			该效果有60秒冷却时间
+			该效果有90秒冷却时间
 			由神圣之地小怪掉落
 			'''
 		DisplayName: 神圣屏障
@@ -844,7 +839,12 @@ Items: {
 
 	DeusCore: {
 		DisplayName: 星神龙核
-		Tooltip: ""
+		Tooltip:
+			'''
+			将受到的伤害转化为星辉侵蚀，在一段时间内减少对应生命值
+			攻击可将部分星辉侵蚀转移至目标，造成更高的伤害
+			- 死亡模式专属 -
+			'''
 	}
 
 	CarlosIceCream: {
@@ -885,11 +885,7 @@ Items: {
 
 	Barren: {
 		DisplayName: 『荒芜』
-		Tooltip:
-			'''
-			盗贼伤害+12%
-			盗贼弹幕获得微追踪
-			'''
+		Tooltip: 盗贼弹幕获得微追踪
 	}
 
 	Confuse: {
@@ -1059,12 +1055,12 @@ Items: {
 	TheRevelation: {
 		Tooltip:
 			'''
-			长按鼠标使用武器时蓄力，蓄力满时松开鼠标释放一道圣光，每3帧造成200点伤害
+			长按鼠标使用武器时蓄力，蓄力满时松开鼠标释放一道圣光，每3帧造成50点伤害
 			视为翅膀
-			水平飞行速度： 12
+			水平飞行速度： 7
 			加速倍率： 1.2
 			不错的垂直飞行速度
-			飞行时间：180
+			飞行时间：150
 			飞行时按住下以悬停
 			“唤醒你的信仰”
 			'''
@@ -1174,7 +1170,7 @@ Items: {
 			暴击将造成250%的伤害
 			暴击时概率获得一块能量甲壳
 			每块能量甲壳能抵挡你受到伤害的40%一次
-			最多同时拥有3块能量甲壳
+			最多同时拥有2块能量甲壳
 			'''
 		DisplayName: 噬虚魔壳
 	}
@@ -1223,7 +1219,8 @@ Items: {
 		Tooltip:
 			'''
 			+25% 伤害
-			+30 护甲穿透
+			+45 护甲穿透
+			+8% 暴击率
 			'''
 	}
 
@@ -1302,8 +1299,104 @@ Items: {
 			'''
 		DisplayName: 虚空病变
 	}
+
+	AnnihilateArrow: {
+		Tooltip: 靠近目标时重定向并分裂出虚湮裂片
+		DisplayName: 虚湮箭
+	}
+
+	NegentropyBullet: {
+		DisplayName: 逆熵弹
+		Tooltip: 击中后传送到目标周围并反复穿透目标
+	}
+
+	Zyphros: {
+		Tooltip:
+			'''
+			射出追踪的水晶箭
+			攻击时概率生成能够协同攻击的水晶
+			'''
+		DisplayName: 逝怨晶辉
+	}
+
+	FriendFinder: {
+		Tooltip: 召唤一个友方小怪
+		DisplayName: 寻友护符
+	}
+
+	HeartOfStorm: {
+		Tooltip:
+			'''
+			击中敌人迸发出可连锁的闪电，造成25%伤害
+			- 死亡模式专属 -
+			'''
+		DisplayName: 风暴之心
+	}
+
+	Nyxolithraken: {
+		Tooltip:
+			'''
+			召唤一条沧溟渊龙，冲撞敌人并撕裂空间
+			消耗5召唤栏
+			'''
+		DisplayName: 沧溟龙契
+	}
+
+	MariviniumBodyArmor: {
+		DisplayName: 渊洋神迹胸甲
+		Tooltip:
+			'''
+			+15% 伤害减免
+			+15% 伤害
+			+15% 暴击
+			+250 最大魔力
+			使你能在深渊正常呼吸
+			'''
+	}
+
+	MariviniumHelmet: {
+		DisplayName: 渊洋神迹头盔
+		Tooltip:
+			'''
+			+20% 伤害
+			+20% 暴击率
+			+25% 近战攻速
+			+300 最大生命值
+			'''
+	}
+
+	MariviniumLeggings: {
+		DisplayName: 渊洋神迹护腿
+		Tooltip:
+			'''
+			+12% 移动速度
+			减少20%魔力消耗
+			+20% 伤害
+			+5% 暴击
+			'''
+	}
 }
 
+MariviniumSet:
+	'''
+	套装奖励：
+	增加30%接触伤害减免
+	+10 召唤栏
+	+100% 召唤伤害
+	+40% 鞭子攻击距离
+	+5% 召唤暴击率
+	+15% 伤害减免
+	+100 护甲穿透
+	将溢出的暴击率转化为伤害加成
+	+140 潜伏值。
+	站立不动回复大量生命值
+	免疫绝大多数的减益
+	使用真近战武器时增加15%伤害减免和25防御
+	盗贼潜伏攻击有几率产生100%面板伤害的水爆炸
+	获得2层可以抵挡伤害的护盾，恢复一层护盾需要10秒的时间
+	护盾破损会让玩家回复140点生命值，同时获得5秒“深渊狂怒”增益，增加100%伤害
+	护盾不会抵御造成伤害低于5%最大生命值的攻击
+	'''
 DeathMode: 死亡模式
 CdMantle: 神圣屏障冷却
 
@@ -1524,9 +1617,18 @@ Projectiles: {
 	SoulOfEcho.DisplayName: 回音之魂
 	Echo.DisplayName: 回音
 	SoulOfEclipse.DisplayName: 冥煌之魂
-	// YstralynProj.DisplayName: Ystralyn Proj
-	// PhantomWyrm.DisplayName: Phantom Wyrm
-	// NihilityVirus.DisplayName: Nihility Virus
+	YstralynProj.DisplayName: 噬渊鞭挞
+	PhantomWyrm.DisplayName: 妖龙幻影
+	NihilityVirus.DisplayName: 虚无病毒
+	AnnihilateArrowProjectile.DisplayName: 虚湮之矢
+	AnnihilateArrowSplit.DisplayName: 虚湮裂片
+	NegentropyBulletProjectile.DisplayName: 逆熵弹
+	ZyphrosCrystal.DisplayName: 逝怨水晶
+	ElectricLaser.DisplayName: 电弧
+	Pioneer1.DisplayName: 虚空撕裂
+	NyxolithrakenDragon.DisplayName: 沧溟渊龙
+	NxCrack.DisplayName: 深渊撕裂
+	WaterExplosion.DisplayName: 水爆炸
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1722,6 +1824,20 @@ Buffs: {
 		DisplayName: 虚空病毒
 		Description: 你感染了虚空病毒
 	}
+
+	NyxolithrakenBuff: {
+		DisplayName: 沧溟渊龙
+		Description:
+			'''
+			沧溟渊龙将为你战斗
+			“来自深渊”
+			'''
+	}
+
+	AbyssalWrath: {
+		Description: 伤害翻倍
+		DisplayName: 深渊狂怒
+	}
 }
 
 Uh: 呃啊~
@@ -1775,6 +1891,10 @@ NPCs: {
 
 	ChaoticCell.DisplayName: 混沌细胞
 	ChaoticCellSmall.DisplayName: 混沌细胞分裂体
+	// WulfrumHovercraftFriendly.DisplayName: Wulfrum Hovercraft Friendly
+	// DespairStoneFriendly.DisplayName: Despair Stone Friendly
+	// ScryllarFriendly.DisplayName: Scryllar Friendly
+	// AeroSlimeFriendly.DisplayName: Aero Slime Friendly
 }
 
 WyrmChatNoHome: 我们现在要去哪？
@@ -1795,7 +1915,7 @@ loreCruiser:
 	一旦链接现实与虚无的通道被打开，
 	对于撕碎你来说并不是什么难事
 	'''
-loreCruiserEffect: 使用后永久增加60生命上限和100魔力上限
+loreCruiserEffect: 使用后永久增加20生命上限和50魔力上限
 loreNihTwin:
 	'''
 	虚空中生存的生物，寄生在某种虚空中漂浮的大型生物身上。
@@ -1887,16 +2007,23 @@ vfb:
 helmvfc: 魔法弹幕击中敌人减少自身魔力病减益0.5s
 helmvfd:
 	'''
-	+10%减伤
+	+30% 攻击速度
+	+10% 伤害减免
 	击中敌人获取更多的虚空能量
 	'''
 helmvfs: 远程射弹伤害随时间增加
 helmvfl:
 	'''
 	+15% 移动速度
+	+150 最大潜伏值
 	潜伏攻击获得更多虚空能量
 	'''
-helmvfe: 召唤一只虚空共生体协助战斗
+helmvfe:
+	'''
+	+7 召唤栏
+	+95% 召唤伤害
+	召唤一只虚空共生体协助战斗
+	'''
 Reforge: 重铸
 ArmorPrefixHardName: 坚硬
 ArmorPrefixHardDescription: +10% 防御
@@ -2032,3 +2159,4 @@ CdAS: 孤魂铁索冷却
 XythCharge: 始源遗歌充能
 KilledByVoidVirus1: ""
 KilledByVoidVirus2: 血液里只剩下虚无
+KilledByAstral: 被星辉残蚀殆尽

@@ -1,7 +1,10 @@
 ﻿using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.NPCs.Cruiser;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Dusts;
+using CalamityMod.NPCs.PrimordialWyrm;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -32,5 +35,24 @@ namespace CalamityEntropy.Content.Tiles
             DustType = (int)CalamityDusts.PurpleCosmilite;
         }
 
+        public override bool RightClick(int i, int j)
+        {
+            if(Main.LocalPlayer.HeldItem.type == ModContent.ItemType<WyrmTooth>())
+            {
+                Player player = Main.LocalPlayer;
+                int type = ModContent.NPCType<PrimordialWyrmHead>();
+                if (NPC.AnyNPCs(type))
+                {
+                    return false;
+                }
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                    NPC.SpawnOnPlayer(player.whoAmI, type);
+                else
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: type);
+
+                return true;
+            }
+            return false;
+        }
     }
 }

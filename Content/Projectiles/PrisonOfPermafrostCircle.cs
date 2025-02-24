@@ -362,14 +362,10 @@ namespace CalamityEntropy.Content.Projectiles
             rd = rd.RotatedBy(Projectile.rotation);
 
             Util.Util.drawTextureToPoint(Main.spriteBatch, circle, Color.White * alpha, dp + lu, dp + ru, dp + ld, dp + rd);
-            if (itemTex == null)
-            {
-                itemTex = TextureAssets.Item[ModContent.ItemType<PrisonOfPermafrost>()].Value;
-            }
             return false;
 
         }
-        public Texture2D itemTex = null;
+        public Texture2D itemTex => TextureAssets.Item[ModContent.ItemType<PrisonOfPermafrost>()].Value;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return false;

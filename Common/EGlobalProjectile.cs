@@ -14,18 +14,21 @@ using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -95,6 +98,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(ToFriendly);
             binaryWriter.Write(EventideShot);
             binaryWriter.Write(projectile.Calamity().stealthStrike);
+            binaryWriter.Write(zypArrow);
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
@@ -108,6 +112,7 @@ namespace CalamityEntropy.Common
             ToFriendly = binaryReader.ReadBoolean();
             EventideShot = binaryReader.ReadBoolean();
             projectile.Calamity().stealthStrike = binaryReader.ReadBoolean();
+            zypArrow = binaryReader.ReadBoolean();
         }
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
@@ -289,6 +294,15 @@ namespace CalamityEntropy.Common
         
         public override bool PreAI(Projectile projectile)
         {
+            if (zypArrow)
+            {
+                NPC target = projectile.FindTargetWithinRange(360, false);
+                if(target != null && counter > 12)
+                {
+                    projectile.velocity += (target.Center - projectile.Center).SafeNormalize(Vector2.Zero) * 1.6f;
+                    projectile.velocity *= 0.92f;
+                }
+            }
             if((projectile.ModProjectile is ExobladeProj || projectile.type == ProjectileID.LastPrismLaser || projectile.type == ProjectileID.LastPrism) && projectile.owner.ToPlayer().Entropy().WeaponBoost > 0)
             {
                 if(counter % 2 == 0)
@@ -385,10 +399,12 @@ namespace CalamityEntropy.Common
                         GeneralParticleHandler.SpawnParticle(smokeGlow);
                     }
                 }
+                
                 NPC target = projectile.FindTargetWithinRange(1000, false);
                 if (target != null && counter > 15)
                 {
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), 0.12f * projectile.velocity.Length(), true));
+                    gwHoming += (6 - gwHoming) * 0.0004f;
+                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), gwHoming * projectile.velocity.Length(), true));
                 }
             }
             if (projectile.Entropy().daTarget)
@@ -409,7 +425,7 @@ namespace CalamityEntropy.Common
             projectile.Entropy().odp.Add(projectile.Center);
             projectile.Entropy().odp2.Add(projectile.Center);
             projectile.Entropy().odr.Add(projectile.rotation);
-            if (projectile.Entropy().odp.Count > 7)
+            if (projectile.Entropy().odp.Count > (zypArrow ? 24 : 7))
             {
                 projectile.Entropy().odp.RemoveAt(0);
                 projectile.Entropy().odr.RemoveAt(0);
@@ -524,6 +540,7 @@ namespace CalamityEntropy.Common
         public bool withGrav = false;
         public int vdtype = -1;
         public bool rpBow = false;
+        public float gwHoming = 0.06f;
 
         public override void PostDraw(Projectile projectile, Color lightColor)
         {
@@ -566,6 +583,7 @@ namespace CalamityEntropy.Common
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
+            this.projectile = projectile;
             if (ttindex >= 0 && projectile.friendly)
             {
                 lastCenter = projectile.owner.ToPlayer().Center;
@@ -659,19 +677,50 @@ namespace CalamityEntropy.Common
                 float rot = 0;
                 for (int i = 0; i < 8; i++)
                 {
-                    Main.spriteBatch.Draw(txx, projectile.position + rot.ToRotationVector2() * 2 - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), projectile.scale, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(txx, projectile.Center + rot.ToRotationVector2() * 2 - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), projectile.scale, SpriteEffects.None, 0);
                     rot += MathHelper.Pi * 2f / 8f;
                 }
 
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Main.spriteBatch.Draw(txx, projectile.position - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), projectile.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(txx, projectile.Center - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), projectile.scale, SpriteEffects.None, 0);
+
+                return false;
+            }
+            if (zypArrow)
+            {
+                odp.Add(projectile.Center);
+                odp.Reverse();
+                GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/ScarletDevilStreak"));
+                PrimitiveRenderer.RenderTrail(odp, new(WidthFunction_Zyp, ColorFunction_Zyp, (_) => projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
+                odp.Reverse();
+                odp.RemoveAt(odp.Count - 1);
+                Texture2D txx = Util.Util.getExtraTex("WyrmArrow");
+                
+                Main.spriteBatch.Draw(txx, projectile.Center + new Vector2(0, 8) - Main.screenPosition + projectile.velocity.SafeNormalize(Vector2.UnitX) * 18, null, lightColor, projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(txx.Width / 2, 0), projectile.scale, (projectile.velocity.X < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);
 
                 return false;
             }
             return true;
         }
+        public Projectile projectile;
+        internal Color ColorFunction_Zyp(float completionRatio)
+        {
+            float fadeToEnd = MathHelper.Lerp(0.65f, 1f, (float)Math.Cos(-Main.GlobalTimeWrappedHourly * 3f) * 0.5f + 0.5f);
+            float fadeOpacity = Utils.GetLerpValue(1f, 0.64f, completionRatio, true) * projectile.Opacity;
+            Color colorHue = Color.LightSkyBlue;
 
+            Color endColor = Color.Lerp(colorHue, Color.Turquoise, (float)Math.Sin(completionRatio * MathHelper.Pi * 1.6f - Main.GlobalTimeWrappedHourly * 4f) * 0.5f + 0.5f);
+            return Color.Lerp(Color.White, endColor, fadeToEnd) * fadeOpacity;
+        }
+
+        internal float WidthFunction_Zyp(float completionRatio)
+        {
+            float expansionCompletion = (float)Math.Pow(1 - completionRatio, 3);
+            return MathHelper.Lerp(0f, 12 * projectile.scale * projectile.Opacity, expansionCompletion);
+        }
+
+        public bool zypArrow = false;
         public override void OnKill(Projectile projectile, int timeLeft)
         {
             if (projectile.friendly)
@@ -694,6 +743,19 @@ namespace CalamityEntropy.Common
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (projectile.DamageType.CountsAsClass(DamageClass.Throwing) && projectile.Calamity().stealthStrike)
+            {
+                if (projectile.TryGetOwner(out var owner))
+                {
+                    if (owner.Entropy().MariviniumSet)
+                    {
+                        if (Main.rand.NextBool(3))
+                        {
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<WaterExplosion>(), projectile.damage, projectile.knockBack, projectile.owner);
+                        }
+                    }
+                }
+            }
             BarrenHoming = false;
             if (projectile.ModProjectile is MagnusBeam || projectile.ModProjectile is LunicBeam)
             {

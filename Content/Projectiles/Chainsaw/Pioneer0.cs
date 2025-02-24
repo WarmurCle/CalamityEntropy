@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             Projectile.light = 0f;
             Projectile.scale = 1.6f;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 0;
+            Projectile.localNPCHitCooldown = 2;
             Projectile.ArmorPenetration = 1024;
         }
         int frame = 2;
@@ -49,7 +49,13 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 SoundEngine.PlaySound(SoundID.Item22, Projectile.Center);
             }
-            
+            if (Projectile.ai[0] % 14 == 0)
+            {
+                if(Main.myPlayer == Projectile.owner)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity * 160, Projectile.velocity, ModContent.ProjectileType<Pioneer1>(), Projectile.damage / 2, 0, Projectile.owner);
+                }
+            }
             Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
             if (Main.myPlayer == Projectile.owner)
             {
@@ -76,50 +82,6 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 Projectile.timeLeft = 1;
             }
-            foreach (NPC n in Main.ActiveNPCs)
-            {
-                if (!n.friendly && !n.dontTakeDamage)
-                {
-                    if (Colliding(Projectile.Hitbox, n.Hitbox) != null && (bool)(Colliding(Projectile.Hitbox, n.Hitbox)))
-                    {
-                        SoundEngine.PlaySound(n.HitSound, n.Center);
-                        OnHitNPC(n, new NPC.HitInfo(), 60);
-                        int td = (int)(Projectile.damage * (1f - (n.Calamity().DR * 0.6f))) - n.defense / 2;
-                        if (n.life > td)
-                        {
-                            
-                            if (td < Projectile.damage / 6)
-                            {
-                                td = Projectile.damage / 6;
-                            }
-                            if (n.realLife >= 0)
-                            {
-                                n.realLife.ToNPC().life -= td;
-                            }
-                            else
-                            {
-                                n.life -= td;
-                            }
-                            player.dpsDamage += td;
-                        }
-                        else
-                        {
-                            if (n.life > 1) { n.life = 1; }
-                            player.ApplyDamageToNPC(n, td * 3, 0, 0, false, DamageClass.Melee, false);
-                        }
-                        for (int i = 0; i < 6; i++)
-                        {
-                            Particle pt = new Particle();
-                            pt.position = n.Center;
-                            var rand = Main.rand;
-                            pt.velocity = new Vector2(rand.Next(-30, 31) * 0.06f, rand.Next(-30, 31) * 0.06f);
-                            pt.alpha = 0.4f;
-                            VoidParticles.particles.Add(pt);
-                        }
-
-                    }
-                }
-            }
             soundCd--;
         }
 
@@ -127,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player Owner = Main.player[Projectile.owner];
-            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient);
+            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient) { Volume = 0.3f };
             if (soundCd <= 0)
             {
                 SoundEngine.PlaySound(hitSound, Projectile.Center);
@@ -141,7 +103,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             for (int i = 0; i < sparkCount; i++)
             {
                 Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
-                int sparkLifetime2 = Main.rand.Next(23, 35);
+                int sparkLifetime2 = Main.rand.Next(7, 10);
                 float sparkScale2 = Main.rand.NextFloat(0.95f, 1.8f);
                 Color sparkColor2 = Color.DarkBlue;
 

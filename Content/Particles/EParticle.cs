@@ -9,6 +9,7 @@ namespace CalamityEntropy.Content.Particles
 {
     public abstract class EParticle
     {
+        public Effect useEffect = null;
         public Vector2 position { get; set; }
         public Vector2 velocity { get; set; }
         public int timeLeft = 200;
@@ -26,19 +27,34 @@ namespace CalamityEntropy.Content.Particles
             List<EParticle> additiveDraw = new List<EParticle>();
             List<EParticle> alphaBlendDraw = new List<EParticle>();
             List<EParticle> other = new List<EParticle>();
+            Dictionary<Effect, List<EParticle>> useEffectParticle = new Dictionary<Effect, List<EParticle>>();
             foreach (EParticle p in particles)
             {
-                if (p.useAdditive)
+                if (p.useEffect == null)
                 {
-                    additiveDraw.Add(p);
-                }
-                else if (p.useAlphaBlend)
-                {
-                    alphaBlendDraw.Add(p);
+                    if (p.useAdditive)
+                    {
+                        additiveDraw.Add(p);
+                    }
+                    else if (p.useAlphaBlend)
+                    {
+                        alphaBlendDraw.Add(p);
+                    }
+                    else
+                    {
+                        other.Add(p);
+                    }
                 }
                 else
                 {
-                    other.Add(p);
+                    if (useEffectParticle.ContainsKey(p.useEffect))
+                    {
+                        useEffectParticle[p.useEffect].Add(p);
+                    }
+                    else
+                    {
+                        useEffectParticle[p.useEffect] = new List<EParticle>() { p };
+                    }
                 }
             }
             Main.spriteBatch.End();
@@ -70,6 +86,20 @@ namespace CalamityEntropy.Content.Particles
                 Main.spriteBatch.End();
             }
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+            foreach(Effect effect in useEffectParticle.Keys)
+            {
+                foreach (EParticle p in useEffectParticle[effect])
+                {
+                    p.prepareShader();
+                    effect.CurrentTechnique.Passes[0].Apply();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, (p.useAdditive ? BlendState.Additive : (p.useAlphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied)), SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+                    p.draw();
+                    Main.spriteBatch.End();
+                }
+            }
+        }
+        public virtual void prepareShader()
+        {
 
         }
 

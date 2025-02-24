@@ -28,11 +28,13 @@ namespace CalamityEntropy.Content.Projectiles
         public float rot { get; set; }
         public Vector2 Center { get; set; }
         public iWyrmSeg follow;
+        public int spacing = 40;
+        public float rotC = 0.14f;
         public void update()
         {
             this.rot = (follow.Center - this.Center).ToRotation();
-            this.rot = Util.Util.rotatedToAngle(this.rot, follow.rot, 0.14f, false);
-            this.Center = follow.Center - this.rot.ToRotationVector2() * 40;
+            this.rot = Util.Util.rotatedToAngle(this.rot, follow.rot, rotC, false);
+            this.Center = follow.Center - this.rot.ToRotationVector2() * spacing;
 
         }
     }

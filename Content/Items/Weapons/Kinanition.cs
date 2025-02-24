@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         }
 
-        public override void ModifyWeaponCrit(Player player, ref float crit) => crit += 36;
+        public override void ModifyWeaponCrit(Player player, ref float crit) => crit += 16;
 
         public override Vector2? HoldoutOffset() => new Vector2(-42, 0);
 
@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             
             if (player.altFunctionUse == 2) {
-                Projectile.NewProjectile(source, position, velocity, type, damage * 12, knockback);
+                Projectile.NewProjectile(source, position, velocity, type, damage * 12, knockback, player.whoAmI);
             }
             else
             {
@@ -129,10 +129,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                     else
                     {
                         int arrow;
-                        arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback);
+                        arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback, player.whoAmI);
                         Main.projectile[arrow].Entropy().Lightning = true;
                         Main.projectile[arrow].penetrate = 5;
-                        arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback);
+                        arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback, player.whoAmI);
                         Main.projectile[arrow].Entropy().Lightning = true;
                         Main.projectile[arrow].penetrate = 5;
                     }

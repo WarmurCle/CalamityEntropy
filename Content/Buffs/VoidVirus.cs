@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (npc.HasBuff<VoidVirus>())
             {
-                modifiers.ArmorPenetration += 26;
+                modifiers.ArmorPenetration += 48;
             }
         }
     }

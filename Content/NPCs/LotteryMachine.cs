@@ -300,6 +300,10 @@ namespace CalamityEntropy.Content.NPCs
                 s1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));
                 s1.Add(new RewardPoolItem(296, 1));
                 s1.Add(new RewardPoolItem(0, 1));
+                s1.Add(new RewardPoolItem(ItemID.Heart, 10));
+                s1.Add(new RewardPoolItem(ItemID.LesserHealingPotion, 10));
+                s1.Add(new RewardPoolItem(ItemID.LesserManaPotion, 10));
+                s1.Add(new RewardPoolItem(ItemID.Ruby, 8));
 
                 g1 = new RewardPool();
                 g1.Add(new RewardPoolItem(ModContent.ItemType<SeaPrism>(), 10)); g1.Add(new RewardPoolItem(ModContent.ItemType<PearlShard>(), 3));
@@ -311,6 +315,11 @@ namespace CalamityEntropy.Content.NPCs
                 g1.Add(new RewardPoolItem(ModContent.ItemType<RottenDogtooth>(), 1));
                 g1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));
                 g1.Add(new RewardPoolItem(0, 1));
+                g1.Add(new RewardPoolItem(ItemID.HealingPotion, 10));
+                g1.Add(new RewardPoolItem(ItemID.HeartLantern, 1));
+                g1.Add(new RewardPoolItem(ItemID.ManaPotion, 10));
+                g1.Add(new RewardPoolItem(ItemID.Ruby, 60));
+                g1.Add(new RewardPoolItem(ItemID.LifeCrystal, 4));
 
                 p1 = new RewardPool();
                 p1.Add(new RewardPoolItem(2341, 1));
@@ -320,7 +329,10 @@ namespace CalamityEntropy.Content.NPCs
                 p1.Add(new RewardPoolItem(ItemID.FallenStar, 300)); p1.Add(new RewardPoolItem(ModContent.ItemType<AeroStone>(), 1));
                 p1.Add(new RewardPoolItem(2430, 1));
                 p1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
-                p1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));
+                p1.Add(new RewardPoolItem(ItemID.HealingPotion, 120));
+                p1.Add(new RewardPoolItem(ItemID.ManaPotion, 120));
+                p1.Add(new RewardPoolItem(ModContent.ItemType<YharimsStimulants>(), 10));
+                g1.Add(new RewardPoolItem(ItemID.LifeCrystal, 10));
 
                 g2 = new RewardPool();
                 g2.Add(new RewardPoolItem(ModContent.ItemType<TitanHeart>(), 3));
@@ -340,7 +352,7 @@ namespace CalamityEntropy.Content.NPCs
                 g2.Add(new RewardPoolItem(ModContent.ItemType<MomentumCapacitor>(), 1));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<Abaddon>(), 1));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<PerennialBar>(), 5));
-                g2.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));
+                g2.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
 
                 p2 = new RewardPool();
                 p2.Add(new RewardPoolItem(3456, 10));
@@ -363,7 +375,7 @@ namespace CalamityEntropy.Content.NPCs
                 p2.Add(new RewardPoolItem(ModContent.ItemType<OccultSkullCrown>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<FabsolsVodka>(), 2));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<Fabsoup>(), 1));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));
+                p2.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
                 p3 = new RewardPool();
 
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Necroplasm>(), 30));
@@ -391,7 +403,7 @@ namespace CalamityEntropy.Content.NPCs
                 p3.Add(new RewardPoolItem(ModContent.ItemType<PristineFury>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Norfleet>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<PrisonOfPermafrost>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));
+                p3.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
 
                 p4 = new RewardPool();
                 p4.Add(new RewardPoolItem(ModContent.ItemType<AuricBar>(), 100));
@@ -399,7 +411,7 @@ namespace CalamityEntropy.Content.NPCs
                 p4.Add(new RewardPoolItem(ModContent.ItemType<ExoPrism>(), 55));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<DraedonsHeart>(), 1));
                 p4.Add(new RewardPoolItem(ItemID.Zenith, 1));
-                p4.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));
+                p4.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
 
                 #endregion
             }
@@ -462,7 +474,10 @@ namespace CalamityEntropy.Content.NPCs
                 nucTime = 0;
                 Vector2 spawnPos = Main.LocalPlayer.position + new Vector2(0, -600);
                 int p = Projectile.NewProjectile(NPC.GetSource_FromAI(), spawnPos, new Vector2(0, 10), ModContent.ProjectileType<AtlasNuc>(), 0, 0, Main.myPlayer);
-                NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
+                }
                 if (sameItemCount > 6)
                 {
                     for (int i = 0; i < sameItemCount - 6; i++)

@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(DragonWhipDebuff.TagDamage);
 
 		public override void SetDefaults() {
-			Item.DefaultToWhip(ModContent.ProjectileType<YstralynProj>(), 460, 2, 4, 24);
+			Item.DefaultToWhip(ModContent.ProjectileType<YstralynProj>(), 360, 2, 4, 27);
 			Item.rare = ModContent.RarityType<AbyssalBlue>();
 			Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.autoReuse = true;
@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes() {
 			CreateRecipe().AddIngredient(ItemID.RainbowWhip)
-				.AddIngredient(ModContent.ItemType<WyrmTooth>(), 5)
+				.AddIngredient(ModContent.ItemType<WyrmTooth>(), 12)
 				.AddTile(ModContent.TileType<AbyssalAltarTile>())
 				.Register();
 		}

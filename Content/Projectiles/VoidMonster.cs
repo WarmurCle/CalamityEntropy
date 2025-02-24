@@ -189,7 +189,7 @@ namespace CalamityEntropy.Content.Projectiles
                     target = t;
                 }
             }
-            if (target != null && Projectile.ai[0] % 5 == 0 && Main.myPlayer == Projectile.owner)
+            if (target != null && Projectile.ai[0] % 10 == 0 && Main.myPlayer == Projectile.owner)
             {
                 float rot = (float)(target.Center - Projectile.Center).RotatedBy(0.7f * Math.Cos(Projectile.ai[0] * 0.08f)).ToRotation();
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, rot.ToRotationVector2() * 46, ModContent.ProjectileType<VoidMonsterShoot>(), Projectile.damage, 5, Projectile.owner);

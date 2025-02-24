@@ -107,7 +107,7 @@ namespace CalamityEntropy.Common
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.damage <= 0 || item.axe > 0 || !player.Entropy().TarnishCard)
+            if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.damage <= 0 || item.ammo != AmmoID.None || item.axe > 0 || !player.Entropy().TarnishCard)
             {
                 return null;
             }
@@ -972,6 +972,14 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
+            if(item.type == ModContent.ItemType<StormWeaverBag>())
+            {
+                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<HeartOfStorm>()));
+            }
+            if (item.type == ModContent.ItemType<AstrumDeusBag>())
+            {
+                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<DeusCore>()));
+            }
             if (item.type == ModContent.ItemType<BrimstoneWaifuBag>())
             {
                 itemLoot.Add(ModContent.ItemType<EvilFriend>(), new Fraction(4, 9));

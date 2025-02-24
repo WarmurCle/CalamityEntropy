@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetAttackSpeed(DamageClass.Generic) *= 1.1f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.10f;
             player.GetModPlayer<EModPlayer>().entityCard = true;
         }
 

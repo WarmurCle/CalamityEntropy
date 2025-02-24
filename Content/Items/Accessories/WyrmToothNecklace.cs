@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Tiles;
+using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables;
@@ -23,15 +24,16 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage<GenericDamageClass>() += 0.25f;
-            player.GetArmorPenetration<GenericDamageClass>() += 30;
+            player.GetArmorPenetration<GenericDamageClass>() += 45;
+	        player.GetCritChance(DamageClass.Generic) += 8;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe().
                 AddIngredient<ReaperToothNecklace>().
-                AddIngredient<WyrmTooth>(4).
-                AddTile(TileID.TinkerersWorkbench).
+                AddIngredient<WyrmTooth>(9).
+                 AddTile(ModContent.TileType<AbyssalAltarTile>()).
                 Register();
         }
     }

@@ -67,8 +67,7 @@ namespace CalamityEntropy.Content.Tiles
 					ChatHelper.BroadcastChatMessage(BlessedWithVoidOreMessage.ToNetworkText(), new Color(50, 255, 130));
 				}
 
-				// 100 controls how many splotches of ore are spawned into the world, scaled by world size. For comparison, the first 3 times altars are smashed about 275, 190, or 120 splotches of the respective hardmode ores are spawned. 
-				int splotches = (int)(9 * (Main.maxTilesX / 4200f));
+				int splotches = (int)(16 * (Main.maxTilesX / 4200f));
 				int highestY = 80;
 				int downY = 180;
 				for (int iteration = 0; iteration < splotches; iteration++) {

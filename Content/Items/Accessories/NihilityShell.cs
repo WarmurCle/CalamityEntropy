@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
 	public class NihilityShell : ModItem
 	{
-
+        public static int MaxCount = 2; //×î´ó¼×¿ÇÊý
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 {
                     if (Main.rand.NextBool(6))
                     {
-                        if(player.Entropy().nihShellCount < 3)
+                        if(player.Entropy().nihShellCount < MaxCount)
                         {
                             player.Entropy().nihShellCount++;
                             player.Entropy().nihShellCd = 10 * 60;

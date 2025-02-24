@@ -12,10 +12,6 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
 	public class DeusCore : ModItem
 	{
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }
         public override void SetDefaults() {
 			Item.width = 52;
 			Item.height = 52;
@@ -27,17 +23,11 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().WeaponBoost += 1;
+            player.Entropy().deusCore = true;
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe().
-                AddIngredient(ModContent.ItemType<DivineGeode>(), 3).
-                AddIngredient(ModContent.ItemType<BloodstoneCore>(), 3).
-                AddIngredient(ItemID.Ectoplasm, 3).
-                AddTile(TileID.LunarCraftingStation).
-                Register();
         }
     }
 }

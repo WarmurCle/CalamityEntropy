@@ -77,6 +77,14 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
                 Projectile.timeLeft = 1;
             }
             soundCd--;
+
+            Projectile.ai[2]++;
+            if(Projectile.ai[2] > 280 * Projectile.MaxUpdates)
+            {
+                Util.Util.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f);
+                player.itemTime = 120;
+                Projectile.Kill();
+            }
         }
         public void HandleChannelMovement(Player player, Vector2 playerRotatedPoint)
         {
@@ -106,7 +114,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player Owner = Main.player[Projectile.owner];
-            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient);
+            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient) { Volume = 0.3f };
             if (soundCd <= 0)
             {
                 SoundEngine.PlaySound(hitSound, Projectile.Center);

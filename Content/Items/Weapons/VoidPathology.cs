@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 104;
             Item.height = 104;
-            Item.damage = 106;
+            Item.damage = 220;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 26;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<Violet>();
             Item.shoot = ModContent.ProjectileType<NihilityVirus>();
             Item.shootSpeed = 16f;
-            Item.mana = 38;
+            Item.mana = 12  ;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
             Item.useTurn = false;
@@ -44,16 +44,6 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool MagicPrefix()
         {
             return true;
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
-                .AddIngredient(ModContent.ItemType<ReaperTooth>(), 4)
-                .AddIngredient(ModContent.ItemType<DeathhailStaff>())
-                .AddIngredient(ModContent.ItemType<ClamorNoctus>())
-                .AddTile(ModContent.TileType<CosmicAnvil>())
-                .Register();
         }
     }
 }

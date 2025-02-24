@@ -2,6 +2,7 @@ using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
+using CalamityMod.Items.Materials;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ModLoader;
@@ -34,6 +35,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 AddIngredient(ModContent.ItemType<ManaPolarizer>(), 1).
                 AddIngredient(ModContent.ItemType<CryoStone>(), 1).
                 AddIngredient(ModContent.ItemType<VoidBar>(), 6).
+		        AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 4).
                 AddTile(ModContent.TileType<CosmicAnvil>()).
                 Register();
         }

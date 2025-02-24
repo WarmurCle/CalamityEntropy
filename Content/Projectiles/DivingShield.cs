@@ -56,18 +56,18 @@ namespace CalamityEntropy.Content.Projectiles
                         p.velocity *= -1.4f;
                         p.rotation += 3.1415f;
                         p.owner = Projectile.owner;
-                        p.damage *= 12;
+                        p.damage *= 16;
                         if (p.type == ModContent.ProjectileType<AresGaussNukeProjectile>())
                         {
-                            p.damage /= 4;
+                            p.damage /= 8;
                         }
                         lsj = 0.36f;
                         SoundStyle sd = new SoundStyle("CalamityEntropy/Assets/Sounds/shield");
                         sd.Volume = 0.4f;
                         SoundEngine.PlaySound(sd, Projectile.Center);
-                        if (Projectile.timeLeft < 150)
+                        if (Projectile.timeLeft < 100)
                         {
-                            Projectile.timeLeft += 40;
+                            Projectile.timeLeft += 20;
                         }
                     }
                 }
@@ -91,9 +91,9 @@ namespace CalamityEntropy.Content.Projectiles
                                 n.rotation += 3.1415f;
                             }
                             SoundEngine.PlaySound(sd, Projectile.Center);
-                            if (Projectile.timeLeft < 150)
+                            if (Projectile.timeLeft < 100)
                             {
-                                Projectile.timeLeft += 40;
+                                Projectile.timeLeft += 20;
                             }
                         }
                     }

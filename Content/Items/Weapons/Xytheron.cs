@@ -17,10 +17,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Item.damage = 7500;
-            Item.crit = 10;
+            Item.crit = 16;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 86;
-            Item.noUseGraphic = true;
             Item.height = 86;
             Item.useTime = 24;
             Item.useAnimation = 24;
@@ -30,6 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.UseSound = null;
             Item.noMelee = true;
+            Item.noUseGraphic = true;
             Item.shoot = ModContent.ProjectileType<XytheronProj>();
             Item.shootSpeed = 16f;
         }
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<StarlessNight>())
-                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 4)
+                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 14)
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }

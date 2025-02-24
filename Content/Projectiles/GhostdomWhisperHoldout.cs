@@ -18,6 +18,7 @@ namespace CalamityEntropy.Content.Projectiles
     {
         public float back = 0;
         public float backspeed = 0;
+        public float bamp = 0;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -39,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
         int ammoID = -1;
         public override void AI()
         {
-            
+            bamp *= 0.87f;
             Player player = Projectile.owner.ToPlayer();
             if (player.dead)
             {
@@ -66,14 +67,14 @@ namespace CalamityEntropy.Content.Projectiles
                 player.direction = 1;
                 Projectile.direction = 1;
                 player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation + MathHelper.ToRadians(12 + Projectile.ai[1]));
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation + MathHelper.ToRadians(16 + Projectile.ai[1]));
             }
             else
             {
                 player.direction = -1;
                 Projectile.direction = -1;
                 player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.Pi - MathHelper.ToRadians(12 + Projectile.ai[1]));
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.Pi - MathHelper.ToRadians(16 + Projectile.ai[1]));
             }
             if (player.HeldItem.type == ModContent.ItemType<GhostdomWhisper>())
             {
@@ -81,6 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (player.channel && !(Projectile.ai[1] >= maxCharge && player.HasBuff<SoyMilkBuff>()))
             {
+                bamp = 0;
                 player.itemAnimation = 3;
                 player.itemTime = 3;
                 if (Projectile.ai[1] < maxCharge)
@@ -97,6 +99,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Projectile.ai[1] > 16 && player.HasAmmo(player.HeldItem))
                 {
+                    bamp = 24 * (Projectile.ai[1] / (float)maxCharge);
                     if (Main.myPlayer == Projectile.owner)
                     {
                         if (player.HeldItem.ModItem is GhostdomWhisper gw)
@@ -190,11 +193,11 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
-            Vector2 up = Projectile.Center + new Vector2(-20, -44).RotatedBy(Projectile.rotation) + new Vector2(-back, 0).RotatedBy(Projectile.rotation);
-            Vector2 down = Projectile.Center + new Vector2(-20, 44).RotatedBy(Projectile.rotation) + new Vector2(-back, 0).RotatedBy(Projectile.rotation);
-            Vector2 middle = Projectile.Center + new Vector2(-21 - Projectile.ai[1] * 0.35f, 0).RotatedBy(Projectile.rotation) + new Vector2(-back, 0).RotatedBy(Projectile.rotation);
-            Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, up, middle, Color.Purple, 2, 2);
-            Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, down, middle, Color.Purple, 2, 2);
+            Vector2 up = Projectile.Center + new Vector2(-27, -64).RotatedBy(Projectile.rotation) + new Vector2(-back, 0).RotatedBy(Projectile.rotation);
+            Vector2 down = Projectile.Center + new Vector2(-27, 64).RotatedBy(Projectile.rotation) + new Vector2(-back, 0).RotatedBy(Projectile.rotation);
+            Vector2 middle = Projectile.Center + new Vector2(-27 - Projectile.ai[1] * 0.64f + Main.rand.NextFloat(-bamp, bamp), 0).RotatedBy(Projectile.rotation) + new Vector2(-back, 0).RotatedBy(Projectile.rotation);
+            Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, middle, up, Color.Purple, 2, 2);
+            Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, middle, down, Color.Purple, 2, 2);
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -226,7 +229,7 @@ namespace CalamityEntropy.Content.Projectiles
                     List<Vector2> v2s = new List<Vector2>() { new Vector2(-2, -2), new Vector2(-2, 2), new Vector2(2, -2), new Vector2(2, 2) };
                     for (int i = 0; i < 6 * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1f : 0.8f); i++) {
                         foreach (Vector2 v in v2s) {
-                            Main.EntitySpriteDraw(TextureAssets.Item[ammoID].Value, Projectile.Center + v + new Vector2(-back, 0).RotatedBy(Projectile.rotation) + new Vector2(-Projectile.ai[1] * 0.35f - 20, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, null, Color.White * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1f : 0.95f), Projectile.rotation - MathHelper.PiOver2, TextureAssets.Item[ammoID].Value.Size() / 2 * new Vector2(1, 0), Projectile.scale * 1.6f * new Vector2(1f, 1.5f), (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
+                            Main.EntitySpriteDraw(TextureAssets.Item[ammoID].Value, Projectile.Center + v + new Vector2(-back, 0).RotatedBy(Projectile.rotation) + new Vector2(-Projectile.ai[1] * 0.64f - 32, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, null, Color.White * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1f : 0.95f), Projectile.rotation - MathHelper.PiOver2, TextureAssets.Item[ammoID].Value.Size() / 2 * new Vector2(1, 0), Projectile.scale * 1.5f * new Vector2(1f, 2.7f), (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
                         }
                     }
                     
@@ -235,7 +238,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
                 }
-                Main.EntitySpriteDraw(TextureAssets.Item[ammoID].Value, Projectile.Center + new Vector2(-back, 0).RotatedBy(Projectile.rotation) + new Vector2(-Projectile.ai[1] * 0.35f - 20, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, null, Color.White, Projectile.rotation - MathHelper.PiOver2, TextureAssets.Item[ammoID].Value.Size() / 2 * new Vector2(1, 0), Projectile.scale * 1.6f * new Vector2(1, 1.5f), (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
+                Main.EntitySpriteDraw(TextureAssets.Item[ammoID].Value, Projectile.Center + new Vector2(-back, 0).RotatedBy(Projectile.rotation) + new Vector2(-Projectile.ai[1] * 0.64f - 32, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, null, Color.White, Projectile.rotation - MathHelper.PiOver2, TextureAssets.Item[ammoID].Value.Size() / 2 * new Vector2(1, 0), Projectile.scale * 1.5f * new Vector2(1, 2.7f), (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
             
             }
 

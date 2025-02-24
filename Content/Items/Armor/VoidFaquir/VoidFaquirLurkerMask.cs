@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             Item.width = 18;
             Item.height = 18;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.defense = 30;
+            Item.defense =30 ;
             Item.rare = ModContent.RarityType<VoidPurple>();
         }
 
@@ -36,9 +36,10 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             
             player.Calamity().wearingRogueArmor = true;
             
-            player.GetDamage(DamageClass.Generic) += 0.2f;
-            player.GetCritChance(DamageClass.Generic) += 15;
+            player.GetDamage(DamageClass.Generic) += 0.15f;
+            player.GetCritChance(DamageClass.Generic) += 10;
             player.GetArmorPenetration(DamageClass.Generic) += 20;
+	    player.Calamity().rogueStealthMax += 1.45f;
             player.Entropy().VFSet = true;
             player.Entropy().VFHelmRogue = true;
         }
@@ -46,10 +47,8 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
         public override void UpdateEquip(Player player)
         {
             player.Entropy().rogueVF = true;
-            player.GetDamage(Util.CUtil.rogueDC) += 0.30f;
-            player.GetCritChance(Util.CUtil.rogueDC) += 30;
-            player.Calamity().rogueStealthMax += 1.5f;
-
+            player.GetDamage(Util.CUtil.rogueDC) += 0.25f;
+            player.GetCritChance(Util.CUtil.rogueDC) += 25;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -62,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 14)
                 .AddIngredient(ModContent.ItemType<RuinousSoul>(), 6)
-                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 6)
+                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 3)
                 .AddIngredient(ModContent.ItemType<TwistingNether>(), 8).Register();
         }
     }

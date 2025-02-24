@@ -57,6 +57,14 @@ namespace CalamityEntropy.Content.UI
                         
                         context.Draw();
                     }
+                    if (Main.LocalPlayer.Entropy().deusCoreBloodOut > 0)
+                    {
+                        if (context.resourceNumber > (Main.LocalPlayer.ConsumedLifeCrystals + 5f) * ((((float)Main.LocalPlayer.statLife) / ((float)Main.LocalPlayer.statLifeMax2)) - ((float)Main.LocalPlayer.Entropy().deusCoreBloodOut / (float)Main.LocalPlayer.statLifeMax2)))
+                        {
+                            context.texture = ModContent.Request<Texture2D>($"{baseFolder}Astr" + "Heart");
+                            context.Draw();
+                        }
+                    }
                     if (context.resourceNumber == 0 && Main.LocalPlayer.Entropy().HolyShield)
                     {
                         context.texture = ModContent.Request<Texture2D>($"{baseFolder}mantle");
@@ -65,6 +73,7 @@ namespace CalamityEntropy.Content.UI
                         Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
                         context.Draw();
                     }
+                    
                 }
                 // Draw health bars
                 else if (CompareAssets(asset, barsFolder + "HP_Fill") || CompareAssets(asset, barsFolder + "HP_Fill_Honey"))
@@ -74,7 +83,15 @@ namespace CalamityEntropy.Content.UI
                         context.texture = ModContent.Request<Texture2D>(LifeTexturePath() + "Bar");
                         context.Draw();
                     }
-                    if (context.resourceNumber == 0 && Main.LocalPlayer.Entropy().HolyShield)
+                    if (Main.LocalPlayer.Entropy().deusCoreBloodOut > 0)
+                    {
+                        if (context.resourceNumber > (Main.LocalPlayer.ConsumedLifeCrystals + 5f) * ((((float)Main.LocalPlayer.statLife) / ((float)Main.LocalPlayer.statLifeMax2)) - ((float)Main.LocalPlayer.Entropy().deusCoreBloodOut / (float)Main.LocalPlayer.statLifeMax2)))
+                        {
+                            context.texture = ModContent.Request<Texture2D>($"{baseFolder}Astr" + "Bar");
+                            context.Draw();
+                        }
+                    }
+                    if (context.resourceNumber == 2 && Main.LocalPlayer.Entropy().HolyShield)
                     {
                         context.texture = ModContent.Request<Texture2D>($"{baseFolder}mantle");
                         context.scale = new Vector2(2, 2);
@@ -82,6 +99,7 @@ namespace CalamityEntropy.Content.UI
                         Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
                         context.Draw();
                     }
+                    
                 }
             }
             if (ManaTexturePath() != string.Empty && Main.LocalPlayer.Entropy().enhancedMana > 0)

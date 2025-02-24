@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 16;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
-            Projectile.ArmorPenetration = 128;
+            Projectile.ArmorPenetration = 36;
         }
         public float width = 0;
         public int length = 3000;

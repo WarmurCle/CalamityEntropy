@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using CalamityEntropy.Content.Buffs;
@@ -13,6 +14,7 @@ using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityEntropy.Util;
 using CalamityMod;
@@ -29,6 +31,7 @@ using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.NPCs.StormWeaver;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
@@ -59,6 +62,7 @@ namespace CalamityEntropy.Common
         public int vtnoparticle = 0;
         public float damageMul = 1;
         public int AnimaTrapped = 0;
+        public int[] tfriendlyNPCHitCooldown = new int[201];
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;
@@ -76,6 +80,7 @@ namespace CalamityEntropy.Common
         public int EclipsedImprintLevel = 0;
         public int StareOfAbyssTime = 0;
         public int EclipsedImprintTime = 0;
+        public int friendFinderOwner = 0;
         public List<Vector2> getAbyssalCirclePointsRelative(NPC npc, float distAdd = 0, float c = 1)
         {
             float dist = (npc.width + npc.height) / 2f + 30 - (float)Math.Cos(Main.GlobalTimeWrappedHourly) * 12 + distAdd;
@@ -150,6 +155,25 @@ namespace CalamityEntropy.Common
         }
         public override void PostAI(NPC npc)
         {
+            noelctime--;
+            if (deusBloodOut > 0 && !npc.dontTakeDamage)
+            {
+                int dmgApply = (int)(deusBloodOut * 0.02f + 1);
+                if (dmgApply > deusBloodOut)
+                {
+                    dmgApply = deusBloodOut;
+                }
+                deusBloodOut -= dmgApply;
+                dmgApply *= 800;
+                (npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life -= dmgApply;
+            }
+            for (int i = 0; i < tfriendlyNPCHitCooldown.Length; i++)
+            {
+                if (tfriendlyNPCHitCooldown[i] > 0)
+                {
+                    tfriendlyNPCHitCooldown[i]--;
+                }
+            }
             if (StareOfAbyssTime > 0)
             {
                 StareOfAbyssTime--;
@@ -266,6 +290,7 @@ namespace CalamityEntropy.Common
         public int counter = 0;
         public override bool PreAI(NPC npc)
         {
+            
             counter++;
             if(npc.Entropy().EclipsedImprintLevel > 0)
             {
@@ -411,6 +436,7 @@ namespace CalamityEntropy.Common
 
             return base.PreAI(npc);
         }
+        
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
@@ -780,7 +806,7 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == -3 || npc.type == 1 || npc.type == -8 || npc.type == -7 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10)
             {
-                if (Main.rand.NextBool(120))
+                if (Main.rand.NextBool(420))
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CarlosIceCream>()));
                 }
@@ -997,8 +1023,54 @@ namespace CalamityEntropy.Common
         }
         public int f_owner = -1;
         public bool lostSoulDrop = true;
+        public int deusBloodOut = 0;
+        public int noelctime = 0;
+        public void onHurt(NPC npc, int damage, Player player, Entity source, NPC.HitInfo hit)
+        {
+            if(player != null)
+            {
+                if (player.Entropy().heartOfStorm)
+                {
+                    int lasertype = ModContent.ProjectileType<ElectricLaser>();
+                    if (source == null || ((source is Projectile pj) && ((!(pj.type == lasertype)) || pj.ai[2] < Main.rand.Next(1, 6))))
+                    {
+                        if ((source is Projectile j && j.type == lasertype) || Main.rand.NextBool(3))
+                        {
+                            NPC target = null;
+                            float dist = 500;
+                            foreach (NPC npcf in Main.ActiveNPCs)
+                            {
+                                float d = Util.Util.getDistance(npcf.Center, npc.Center);
+                                if (npcf.whoAmI != npc.whoAmI && !npcf.friendly && d < dist && npcf.Entropy().noelctime <= 0)
+                                {
+                                    target = npcf;
+                                    dist = d;
+                                }
+                            }
+                            if (target != null)
+                            {
+                                noelctime = 4;
+                                Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, Vector2.Zero, lasertype, damage / 4, 0, player.whoAmI, target.Center.X, target.Center.Y, (source is Projectile p && p.type == lasertype) ? p.ai[2] + 1 : 0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
+            onHurt(npc, damageDone, player, null, hit);
+            if(player.Entropy().deusCoreBloodOut > 0 && player.Entropy().bloodTrCD <= 0)
+            {
+                int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, damageDone / 80 + 1);
+                if (btransfer > 60)
+                {
+                    btransfer = 60;
+                }
+                player.Entropy().bloodTrCD = 4;
+                player.Entropy().deusCoreBloodOut -= btransfer;
+                deusBloodOut += btransfer;
+            }
             if (player.Entropy().nihShell)
             {
                 NihilityShell.checkDamage(player, hit);
@@ -1039,9 +1111,22 @@ namespace CalamityEntropy.Common
 
         public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
+            Player sourcePlr = null;
             if (projectile.friendly)
             {
                 Player player = projectile.owner.ToPlayer();
+                sourcePlr = player;
+                if (player.Entropy().deusCoreBloodOut > 0 && player.Entropy().bloodTrCD <= 0)
+                {
+                    int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, damageDone / 80 + 1);
+                    if (btransfer > 60)
+                    {
+                        btransfer = 60;
+                    }
+                    player.Entropy().bloodTrCD = 4;
+                    player.Entropy().deusCoreBloodOut -= btransfer;
+                    deusBloodOut += btransfer;
+                }
                 if (player.Entropy().ConfuseCard)
                 {
                     npc.AddBuff(ModContent.BuffType<Deceive>(), 420);
@@ -1085,7 +1170,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            
+            onHurt(npc, damageDone, sourcePlr, projectile, hit);
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
         {

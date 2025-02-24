@@ -109,13 +109,13 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             if (Projectile.velocity.Length() > 3)
             {
-                Projectile.velocity *= 0.995f - homing * 0.06f;
+                Projectile.velocity *= 0.995f - homing * 0.018f;
             }
             if(counter > 40 && !htd)
             {
-                if(homing < 4)
+                if(homing < 6)
                 {
-                    homing += 0.01f;
+                    homing += 0.014f;
                 }
                 NPC target = Projectile.FindTargetWithinRange(2600);
                 

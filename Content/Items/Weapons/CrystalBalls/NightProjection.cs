@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.rare = ItemRarityID.Cyan;
             Item.shoot = ModContent.ProjectileType<NightProjectionHoldout>();
             Item.shootSpeed = 16f;
-            Item.mana = 10;
+            Item.mana = 6;
             Item.DamageType = DamageClass.Magic;
         }
         public override bool MagicPrefix()

@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.width = 40;
             Projectile.height = 40;
             Projectile.friendly = true;
-            Projectile.penetrate = 10;
+            Projectile.penetrate = 6;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 120;

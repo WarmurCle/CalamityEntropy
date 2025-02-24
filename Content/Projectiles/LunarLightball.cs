@@ -44,36 +44,32 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
             Projectile.ArmorPenetration = 12;
-            Projectile.extraUpdates = 3;
+            Projectile.extraUpdates = 1;
             Projectile.ArmorPenetration = 120;
         }
         public int counter = 0;
         public bool std = false;
         public int homingTime = 60;
-        public override void AI(){
-            if(Projectile.timeLeft < 50)
+        public override bool? CanHitNPC(NPC target)
+        {
+            if(counter < 16)
             {
-                alpha -= 0.02f;
-                if(alpha < 0)
-                {
-                    alpha = 0;
-                }
+                return false;
             }
+            return base.CanHitNPC(target);
+        }
+        public override void AI(){
             particlea *= 0.9f;
             counter++;
             Projectile.ai[0]++;
             if (htd)
             {
+                alpha_ = (float)Projectile.timeLeft / 34f;
                 if (odp.Count > 0)
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
                     
-                }
-                if (odp.Count > 0)
-                {
-                    odp.RemoveAt(0);
-                    odr.RemoveAt(0);
                 }
                 Projectile.velocity = Vector2.Zero;
             }
@@ -81,7 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 odp.Add(Projectile.Center);
                 odr.Add(Projectile.rotation - MathHelper.PiOver2);
-                if (odp.Count > 64)
+                if (odp.Count > 34)
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
@@ -97,12 +93,13 @@ namespace CalamityEntropy.Content.Projectiles
                     
                     Projectile.velocity += v * 1.5f;
                 }
+                Projectile.rotation = Projectile.velocity.ToRotation();
             }
             exps *= 0.9f;
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            
             if (Projectile.velocity.Length() > 3)
             {
-                Projectile.velocity *= 0.995f - homing * 0.06f;
+                Projectile.velocity *= 0.995f - homing * 0.018f;
             }
             if(counter > 2 && !htd)
             {
@@ -118,7 +115,7 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         Projectile.timeLeft = 60;
                     }
-                    Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * homing;
+                    Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * homing * 2;
                 }
             }
         }
@@ -135,7 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (!htd)
             {
-                Projectile.timeLeft = 20;
+                Projectile.timeLeft = 34;
                 htd = true;
                 exps = 1;
                 odp.Add(Projectile.Center);
@@ -145,18 +142,27 @@ namespace CalamityEntropy.Content.Projectiles
             }
         }
         public int tofs;
+        float alpha_ = 1;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
+            Texture2D tx = TextureAssets.Projectile[Projectile.type].Value;
             if (htd)
             {
-                tex = Util.Util.getExtraTex("LunarSpark");
+                tx = Util.Util.getExtraTex("LunarSpark");
             }
             Main.spriteBatch.End();
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(106, 255, 180), Projectile.velocity.ToRotation(), tex.Size() / 2, new Vector2(1 + (Projectile.velocity.Length() * 0.06f), (1f / (1 + (Projectile.velocity.Length() * 0.06f)))), SpriteEffects.None);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            if (!htd)
+            {
+                float ap = 1f / (float)odp.Count;
+                for (int i = 0; i < odp.Count; i++)
+                {
+                    Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, new Color(106, 255, 180) * ap * 0.5f, odr[i] + MathHelper.PiOver2, tx.Size() / 2, new Vector2(1 + (Projectile.velocity.Length() * 0.03f), (1f / (1 + (Projectile.velocity.Length() * 0.03f)))) * 1.2f, SpriteEffects.None, 0);
+                    ap += 1f / (float)odp.Count;
+                }
+            }
+            Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition, null, new Color(106, 255, 180) * (htd ? 1.2f : 0.5f) * alpha_, Projectile.rotation, tx.Size() / 2, new Vector2(1 + (Projectile.velocity.Length() * 0.03f), (1f / (1 + (Projectile.velocity.Length() * 0.03f)))) * 1.2f, SpriteEffects.None);
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

@@ -2,6 +2,7 @@ using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
+using CalamityMod.Projectiles.Rogue;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -75,7 +76,9 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
                 Projectile.timeLeft = 1;
             }
             soundCd--;
+            beeCd--;
         }
+        public int beeCd = 0;
         public void HandleChannelMovement(Player player, Vector2 playerRotatedPoint)
         {
             float speed = 1f;
@@ -117,13 +120,18 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if(beeCd <= 0)
+            {
+                beeCd = 20;
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(2) * 8, ModContent.ProjectileType<PlaguenadeBee>(), Projectile.damage / 4, 0.2f, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
+            }
             var rand = Main.rand;
             for (int i = 0; i < 3; i++)
             {
                 Dust.NewDust(target.Center, 16, 16, DustID.Firework_Green, rand.Next(-3, 4), rand.Next(-3, 4));
             }
             Player Owner = Main.player[Projectile.owner];
-            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient);
+            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient) { Volume = 0.3f };
             if (soundCd <= 0)
             {
                 SoundEngine.PlaySound(hitSound, Projectile.Center);
@@ -137,7 +145,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             for (int i = 0; i < sparkCount; i++)
             {
                 Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
-                int sparkLifetime2 = Main.rand.Next(23, 35);
+                int sparkLifetime2 = Main.rand.Next(7, 10);
                 float sparkScale2 = Main.rand.NextFloat(0.95f, 1.8f);
                 Color sparkColor2 = Color.DarkGreen;
 

@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
         {
             Item.width = 44;
             Item.height = 44;
-            Item.damage = 400;
+            Item.damage = 320;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 20;
@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.rare = ModContent.RarityType<PureGreen>();
             Item.shoot = ModContent.ProjectileType<EyeOfOthersideHoldout>();
             Item.shootSpeed = 16f;
-            Item.mana = 10;
+            Item.mana = 5;
             Item.DamageType = DamageClass.Magic;
         }
         public override void AddRecipes()

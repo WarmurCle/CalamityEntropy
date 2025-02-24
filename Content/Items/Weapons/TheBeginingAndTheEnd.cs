@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 50;
             Item.height = 38;
-            Item.damage = 2000;
+            Item.damage = 1800;
             Item.ArmorPenetration = 80;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<JawsOfOblivion>())
-                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 4)
+                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 12)
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }

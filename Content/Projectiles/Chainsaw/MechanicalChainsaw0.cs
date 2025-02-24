@@ -75,12 +75,20 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
                 Projectile.timeLeft = 1;
             }
             soundCd--;
+
+            Projectile.ai[2]++;
+            if (Projectile.ai[2] > 400 * Projectile.MaxUpdates)
+            {
+                Util.Util.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f);
+                player.itemTime = 60;
+                Projectile.Kill();
+            }
         }
         public int soundCd = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player Owner = Main.player[Projectile.owner];
-            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient);
+            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient) { Volume = 0.3f };
             if (soundCd <= 0)
             {
                 SoundEngine.PlaySound(hitSound, Projectile.Center);
@@ -94,7 +102,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             for (int i = 0; i < sparkCount; i++)
             {
                 Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
-                int sparkLifetime2 = Main.rand.Next(23, 35);
+                int sparkLifetime2 = Main.rand.Next(7, 10);
                 float sparkScale2 = Main.rand.NextFloat(0.95f, 1.8f);
                 Color sparkColor2 = Color.DarkRed;
 

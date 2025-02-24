@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.rare = ItemRarityID.Red;
             Item.shoot = ModContent.ProjectileType<OverloadLunarHoldout>();
             Item.shootSpeed = 16f;
-            Item.mana = 26;
+            Item.mana = 14;
             Item.DamageType = DamageClass.Magic;
         }
         public override void AddRecipes()

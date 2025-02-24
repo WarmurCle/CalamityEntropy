@@ -7,6 +7,7 @@ using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
@@ -34,6 +35,7 @@ namespace CalamityEntropy.Common
 {
     public class EModPlayer : ModPlayer
     {
+        public int itemTime = 0;
         public bool CruiserLoreUsed = false;
         public bool Godhead = false;
         public bool auraCard = false;
@@ -67,6 +69,7 @@ namespace CalamityEntropy.Common
         public bool VFHelmSummoner;
         public bool VFHelmRogue;
         public bool VFHelmMelee;
+        public bool mariviniumBody = false;
         public int vfcd = 0;
         public float voidcharge = 0;
         public bool ArchmagesMirror = false;
@@ -98,6 +101,8 @@ namespace CalamityEntropy.Common
         public float dodgeChance = 0;
         public bool mawOfVoid = false;
         public float serviceWhipDamageBonus = 0;
+        public bool deusCore = false;
+        public bool heartOfStorm = false;
         public bool holdingPoop { get { return _holdingPoop; } set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge
@@ -120,6 +125,7 @@ namespace CalamityEntropy.Common
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
+            deusCoreBloodOut = 0;
             if (immune > 0)
             {
                 if (Player.statLife < 6)
@@ -202,13 +208,25 @@ namespace CalamityEntropy.Common
         public bool revelation = false;
         public float revelationCharge = 0;
         public bool revelationUsing = false;
+        public int deusCoreBloodOut = 0;
+        public int summonCrit = 0;
+        public float meleeDamageReduce = 0;
         public bool isUsingItem()
         {
             return Main.mouseLeft && !Player.mouseInterface && Player.HeldItem.damage > 0 && Player.HeldItem.active;
         }
-
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+        {
+            modifiers.SourceDamage *= (1 - meleeDamageReduce);
+        }
+        public bool MariviniumSet = false;
         public override void ResetEffects()
         {
+            MariviniumSet = false;
+            meleeDamageReduce = 0;
+            deusCore = false;
+            heartOfStorm = false;
+            summonCrit = 0;
             mawOfVoid = false;
             revelation = false;
             wyrmPhantom = false;
@@ -231,6 +249,7 @@ namespace CalamityEntropy.Common
             brokenAnkh = false;
             holyMantle = false;
             nihShell = false;
+            mariviniumBody = false;
             CrPlush = false;
             if (brillianceCard > 0)
             {
@@ -503,7 +522,20 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateMiscEffects()
         {
-            
+            float d = damageReduce - 1;
+            if (Player.Entropy().enduranceCard)
+            {
+                d += 0.18f;
+            }
+            if (Player.Entropy().oracleDeck)
+            {
+                d += 0.12f;
+            }
+            if (Player.Entropy().VFHelmMelee)
+            {
+                d += 0.1f;
+            }
+            Player.endurance += d;
             if (rBadgeActive)
             {
                 Player.gravity = 0;
@@ -519,38 +551,52 @@ namespace CalamityEntropy.Common
 
         }
         public int manaNorm = 0;
+        public int deusCoreAdd = 0;
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
-
+            deusCoreAdd = 0;
             modifiers.ModifyHurtInfo += EPHurtModifier;
-            float d = 2 - damageReduce;
-            if (Player.Entropy().enduranceCard)
-            {
-                d -= 0.18f;
-            }
-            if (Player.Entropy().oracleDeck)
-            {
-                d -= 0.2f;
-            }
-            if (Player.Entropy().VFHelmMelee)
-            {
-                d -= 0.1f;
-            }
-            modifiers.SourceDamage *= d;
         }
         public int immune = 0;
         public bool cHat = false;
+        public override bool FreeDodge(Player.HurtInfo info)
+        {
+            if (immune > 0)
+            {
+                deusCoreBloodOut -= deusCoreAdd;
+                return true;
+            }
+            if(dodgeChance > Main.rand.NextDouble())
+            {
+                deusCoreBloodOut -= deusCoreAdd;
+                return true;
+            }
+            return false;
+        }
         public bool PetsHat { get { return cHat || DateTime.Now.Month == 12; } }
         public override bool ConsumableDodge(Player.HurtInfo info)
         {
-            if(immune > 0)
+            if (noCsDodge)
             {
-                return true;
+                return false;
             }
-            
             if(Main.rand.NextDouble() < dodgeChance)
             {
+                deusCoreBloodOut -= deusCoreAdd;
                 immune = 60;
+                return true;
+            }
+            if(info.Damage > Player.statLifeMax2 / 20 && MariviniumShieldCount > 0)
+            {
+                immune = 90;
+                MariviniumShieldCount--;
+                Player.Heal(140);
+                Util.Util.PlaySound("crystalShieldBreak", 1, Player.Center, 1, 0.7f);
+                Player.AddBuff(ModContent.BuffType<AbyssalWrath>(), 300);
+                for(int i = 0; i < 42; i++)
+                {
+                    Dust.NewDust(Player.Center, 1, 1, DustID.BlueCrystalShard, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6), Scale: 2);
+                }
                 return true;
             }
             if (HolyShield && info.Damage > 20)
@@ -561,7 +607,7 @@ namespace CalamityEntropy.Common
                 Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
                 if (holyMantle)
                 {
-                    if (info.Damage * (2 - damageReduce) - Player.statDefense < 60)
+                    if ((info.Damage + deusCoreAdd) * (2 - damageReduce) - Player.statDefense < 60)
                     {
                         mantleCd = 6 * 60;
                         Player.AddCooldown("HolyMantleCooldown", mantleCd, true);
@@ -571,6 +617,7 @@ namespace CalamityEntropy.Common
                         Player.AddCooldown("HolyMantleCooldown", HolyMantle.Cooldown, true);
                     }
                 }
+                deusCoreBloodOut -= deusCoreAdd;
                 return true;
             }
             if (info.Damage * (2 - damageReduce) - Player.statDefense > 16)
@@ -580,6 +627,7 @@ namespace CalamityEntropy.Common
                     immune = 120;
                     SacredJudgeShields -= 1;
                     Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
+                    deusCoreBloodOut -= deusCoreAdd;
                     return true;
                 }
                 if (SacredJudgeShields > 1 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
@@ -587,16 +635,29 @@ namespace CalamityEntropy.Common
                     immune = 120;
                     SacredJudgeShields -= 2;
                     Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
-
+                    deusCoreBloodOut -= deusCoreAdd;
                     return true;
                 }
             }
             return false;
         }
 
-
+        public bool noCsDodge = false;
         private void EPHurtModifier(ref Player.HurtInfo info)
         {
+            noCsDodge = false;
+            if (SCrown)
+            {
+                Player.Calamity().defenseDamageRatio = 0f;
+            }
+            if (HolyShield)
+            {
+                return;
+            }
+            if (MariviniumShieldCount > 0)
+            {
+                return;
+            }
             bool setToOne = false;
             if (!setToOne)
             {
@@ -612,6 +673,7 @@ namespace CalamityEntropy.Common
                                 info.Damage = 0;
                                 setToOne = true;
                                 p.netUpdate = true;
+                                noCsDodge = true;
                             }
                             else
                             {
@@ -623,24 +685,21 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if(!setToOne && SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+            if(!setToOne && SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0 && SacredJudgeShields < 2)
             {
                 SacredJudgeShields--;
                 info.Damage -= 80;
                 Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
-                setToOne = true;
                 immune = 120;
             }
-            if (SCrown)
-            {
-                Player.Calamity().defenseDamageRatio = 0f;
-            }
+            
             if (!setToOne && MagiShield > 0)
             {
                 if (MagiShield >= info.Damage)
                 {
                     MagiShield -= info.Damage;
                     info.Damage = 0;
+                    noCsDodge = true;
                     setToOne = true;
                 }
                 else
@@ -677,6 +736,12 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
+            if (deusCore && info.Damage > 1)
+            {
+                deusCoreBloodOut += info.Damage;
+                deusCoreAdd = info.Damage;
+                info.Damage = 0;
+            }
         }
 
         public int OracleDeckHealCd = 0;
@@ -690,11 +755,59 @@ namespace CalamityEntropy.Common
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
+            if (MariviniumSet) 
+            {
+                if (MariviniumShieldCount < MariviniumHelmet.MaxShield)
+                {
+                    MariviniumShieldCd--;
+                    if(MariviniumShieldCd <= 0)
+                    {
+                        MariviniumShieldCd = MariviniumHelmet.ShieldCd;
+                        MariviniumShieldCount++;
+                    }
+                }
+                else
+                {
+                    MariviniumShieldCd = MariviniumHelmet.ShieldCd;
+                }
+            }
+            else
+            {
+                MariviniumShieldCount = 0;
+                MariviniumShieldCd = MariviniumHelmet.ShieldCd;
+                
+            }
+            if (bloodTrCD > 0)
+                bloodTrCD--;
+            if(deusCoreBloodOut < 0)
+                deusCoreBloodOut = 0;
+            if (deusCoreBloodOut > 0 && Main.GameUpdateCount % 2 == 0)
+            {
+                int dmgApply = (int)(deusCoreBloodOut * 0.01f + 1);
+                if (dmgApply > deusCoreBloodOut)
+                {
+                    dmgApply = deusCoreBloodOut;
+                }
+                Player.statLife -= dmgApply;
+                if (Player.statLife < 1)
+                {
+                    Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("KilledByAstral").Value), dmgApply, 0, false, true, 0, false, 0);
+                }
+                deusCoreBloodOut -= dmgApply;
+            }
+            itemTime--;
             if (Player.HasBuff<VoidVirus>())
             {
                 Player.statDefense -= 38;
                 Player.lifeRegen = 0;
                 lifeRegenPerSec = 0;
+            }
+            if (VFHelmSummoner)
+            {
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<VoidMonster>()] < 1)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<VoidMonster>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(4080)), 4, Player.whoAmI);
+                }
             }
             serviceWhipDamageBonus *= 0.995f;
             if (serviceWhipDamageBonus > 0.009f)
@@ -778,7 +891,7 @@ namespace CalamityEntropy.Common
                                 if (Main.mouseRight)
                                 {
                                     revelationUsing = true;
-                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(200), 0, Player.whoAmI);
+                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(50), 0, Player.whoAmI);
                                 }
                             }
                         }
@@ -787,7 +900,7 @@ namespace CalamityEntropy.Common
                             if (revelationCharge == 1)
                             {
                                 revelationUsing = true;
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(200), 0, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(50), 0, Player.whoAmI);
                             }
                             else
                             {
@@ -813,7 +926,7 @@ namespace CalamityEntropy.Common
             {
                 if (Main.myPlayer == Player.whoAmI)
                 {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Util.Util.randomVec(14), ModContent.ProjectileType<PhantomWyrm>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(1300)), 1, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Util.Util.randomVec(14), ModContent.ProjectileType<PhantomWyrm>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(900)), 1, Player.whoAmI);
                 }
             }
             foreach (Projectile p in Main.ActiveProjectiles)
@@ -1318,6 +1431,9 @@ namespace CalamityEntropy.Common
         public int twinSpawnIndex = -1;
         private int MagiShieldMax = 1;
         public float attackSpeed = 0;
+        public int bloodTrCD = 0;
+        public int MariviniumShieldCount = 0;
+        public int MariviniumShieldCd = 12 * 60;
         public override void PostUpdateEquips()
         {
             foreach (Projectile p in Main.ActiveProjectiles)
@@ -1332,7 +1448,18 @@ namespace CalamityEntropy.Common
                 Player.GetAttackSpeed(DamageClass.Generic) += 1;
                 Player.GetDamage(DamageClass.Generic) += 1;
             }
-            
+            if (MariviniumSet)
+            {
+                int crit = (int)(Player.GetTotalCritChance(DamageClass.Default) + 5E-06f); ;
+                if(Player.HeldItem.type != ItemID.None)
+                {
+                    crit = Player.GetWeaponCrit(Player.HeldItem);
+                }
+                if(crit > 100)
+                {
+                    Player.GetDamage(DamageClass.Default) += (crit - 100) * 0.01f;
+                }
+            }
             Player.GetDamage(DamageClass.Generic) += serviceWhipDamageBonus;
             Player.GetCritChance(DamageClass.Generic) += (int)(serviceWhipDamageBonus * 180);
             Player.pickSpeed -= serviceWhipDamageBonus * 4.3f;

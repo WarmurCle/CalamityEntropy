@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 	{
         public override void SetStaticDefaults()
         {
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 12f, 1.9f);
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(150, 7f, 1.9f);
         }
         public override void SetDefaults() {
 			Item.width = 52;

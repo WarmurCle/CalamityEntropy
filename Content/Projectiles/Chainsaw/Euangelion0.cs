@@ -75,6 +75,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
                 Projectile.timeLeft = 1;
             }
             soundCd--;
+            spawnCd--;
         }
         public int soundCd = 0;
         public void HandleChannelMovement(Player player, Vector2 playerRotatedPoint)
@@ -101,15 +102,21 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             return new Rectangle((int)c.X - bsize / 2, (int)c.Y - bsize / 2, bsize, bsize).Intersects(targetHitbox);
 
         }
+        public int spawnCd = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if(spawnCd <= 0)
+            {
+                spawnCd = 12;
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity * 2, Projectile.velocity.RotatedByRandom(1.6f) * 20, ModContent.ProjectileType<LunarLightball>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
+            }
             var rand = Main.rand;
             for (int i = 0; i < 6; i++)
             {
                 Dust.NewDust(target.Center, 16, 16, DustID.Firework_Yellow, rand.Next(-3, 4), rand.Next(-3, 4));
             }
             Player Owner = Main.player[Projectile.owner];
-            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient);
+            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient) { Volume = 0.3f };
             if (soundCd <= 0)
             {
                 SoundEngine.PlaySound(hitSound, Projectile.Center);
@@ -123,7 +130,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             for (int i = 0; i < sparkCount; i++)
             {
                 Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
-                int sparkLifetime2 = Main.rand.Next(23, 35);
+                int sparkLifetime2 = Main.rand.Next(7, 10);
                 float sparkScale2 = Main.rand.NextFloat(1.2f,2f);
                 Color sparkColor2 = new Color(125, 150, 135);
 

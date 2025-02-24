@@ -314,11 +314,11 @@ Items: {
 	OracleDeck: {
 		Tooltip:
 			'''
-			+11% Crit Chance
+			+8% Crit Chance
 			+30% Move Speed
-			+16 Max Stealth
+			+12 Max Stealth
 			-60% Mana Cost
-			-20% Damage Taken
+			-12% Damage Taken
 			+10 Armor Penetration
 			+2 Minion Slot
 			+100% Light
@@ -328,7 +328,7 @@ Items: {
 	}
 
 	MetropolisCard: {
-		Tooltip: +15 Max Stealth
+		Tooltip: +10 Max Stealth
 		DisplayName: 『Metropolis』
 	}
 
@@ -338,7 +338,7 @@ Items: {
 	}
 
 	EntityCard: {
-		Tooltip: + 10% Attack Speed
+		Tooltip: + 10% Melee Attack Speed
 		DisplayName: 『Entity』
 	}
 
@@ -435,7 +435,7 @@ Items: {
 			Puts a shell around the owner when below 50% life that reduces damage taken
 			Absorbs 25% of damage done to players on your team when above 25% life
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 60 second cooldown time
+			This effect has a 90 second cooldown time
 			'''
 	}
 
@@ -499,8 +499,8 @@ Items: {
 		Tooltip:
 			'''
 			+5% Damage
-			+2% Critical Strike Chance
-			+20 Armor Penetration
+			+5% Crit Chance
+			+5 Armor Penetration
 			'''
 		DisplayName: Void Faquir Body Armor
 	}
@@ -508,7 +508,6 @@ Items: {
 	VoidFaquirDevourerHelm: {
 		Tooltip:
 			'''
-			+30% Attack Speed
 			+30% Melee Damage
 			+25% Melee Crit Chance
 			'''
@@ -518,8 +517,8 @@ Items: {
 	VoidFaquirCosmosHood: {
 		Tooltip:
 			'''
-			+40% Magic Damage
-			+30% Magic Crit Chance
+			+35% Magic Damage
+			+25% Magic Crit Chance
 			+150 Max Mana
 			'''
 		DisplayName: Void Faquir Cosmos Hood
@@ -527,20 +526,15 @@ Items: {
 
 	VoidFaquirEvokerHelm: {
 		DisplayName: Void Faquir Evoker Helm
-		Tooltip:
-			'''
-			+90% Summon Damage
-			+8 Max Minions
-			'''
+		Tooltip: +25% Summon Damage
 	}
 
 	VoidFaquirLurkerMask: {
 		DisplayName: Void Faquir Lurker Mask
 		Tooltip:
 			'''
-			+30% Rogue Damage
-			+30% Rogue Crit Chance
-			+150 Max Stealth
+			+25% Rogue Damage
+			+25% Rogue Crit Chance
 			'''
 	}
 
@@ -611,8 +605,8 @@ Items: {
 		DisplayName: Silva's Crown
 		Tooltip:
 			'''
-			+8 Life Regen/s
-			+50 max life
+			+ 8 Life Regen/s
+			-8% Crit Chance
 			Remove defense damage.
 			-Death Mode-
 			'''
@@ -642,10 +636,11 @@ Items: {
 			'''
 			+15% damage
 			+2HP/s Life Regen
-			+2 Max Minions
+			+4 Max Minions
 			+75% Minions Knockback
 			+5% Crit Chance
 			+5% Move Speed
+			+5% Melee Speed
 			'''
 		DisplayName: Celestial Ring
 	}
@@ -747,7 +742,7 @@ Items: {
 		Tooltip:
 			'''
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 60 second cooldown time
+			This effect has a 90 second cooldown time
 			Loot from hallow monsters
 			'''
 		DisplayName: Holy Mantle
@@ -760,7 +755,12 @@ Items: {
 
 	DeusCore: {
 		DisplayName: Deus Core
-		Tooltip: ""
+		Tooltip:
+			'''
+			Transform the damage received into astral erosion, reducing the corresponding health for a period of time
+			The attack can erode and transfer astral erosion to the target, dealing more damage
+			- Death -
+			'''
 	}
 
 	CarlosIceCream: {
@@ -790,11 +790,7 @@ Items: {
 
 	Barren: {
 		DisplayName: 『Barren』
-		Tooltip:
-			'''
-			+12% Rogue Damage
-			Rogue Projectile obtain micro tracking
-			'''
+		Tooltip: Rogue Projectile obtain micro tracking
 	}
 
 	Confuse: {
@@ -958,7 +954,7 @@ Items: {
 			'''
 			Charging when using weapons,
 			when it is fully charged, release the mouse button to release a holy beam
-			deals 200 damage every 3 frames
+			deals 50 damage every 3 frames
 			Regarded as wing
 			hold [down] when flying to hover
 			"Awaken your faith"
@@ -1049,9 +1045,10 @@ Items: {
 	NihilityShell: {
 		Tooltip:
 			'''
-			Critical hits will deal 250% damage.
-			Probability of obtaining an energy shell during critical strike.
-			The energy shell can reduce the damage you receive by 40% once.
+			Critical hits will deal 250% damage
+			Probability of obtaining an energy shell during critical strike
+			The energy shell can reduce the damage you receive by 40% once
+			You can only get a maximum of two shells
 			'''
 		DisplayName: Nihility Shell
 	}
@@ -1100,7 +1097,8 @@ Items: {
 		Tooltip:
 			'''
 			+25% Damage
-			+30 Armor penetration
+			+45 Armor penetration
+			+8% Crit Chance
 			'''
 	}
 
@@ -1161,8 +1159,103 @@ Items: {
 		Tooltip: Summon a controllable, continuous electric shock to the enemy's nihility virus
 		DisplayName: Void Pathology
 	}
+
+	AnnihilateArrow: {
+		Tooltip: ""
+		DisplayName: Annihilate Arrow
+	}
+
+	NegentropyBullet: {
+		DisplayName: Negentropy Bullet
+		Tooltip: ""
+	}
+
+	Zyphros: {
+		Tooltip:
+			'''
+			Shoot tracking crystal arrows
+			Probability summoning crystals that can coordinate attacks during attacks
+			'''
+		DisplayName: Zyphros
+	}
+
+	FriendFinder: {
+		Tooltip: ""
+		DisplayName: Friend Finder
+	}
+
+	HeartOfStorm: {
+		Tooltip:
+			'''
+			Strike the enemy and unleash a chain of lightning that deals 25% damage
+			- Death -
+			'''
+		DisplayName: Heart Of Storm
+	}
+
+	Nyxolithraken: {
+		Tooltip:
+			'''
+			Summon a Nyxolith Dragon
+			Takes 5 minion slot
+			'''
+		DisplayName: Nyxolithraken
+	}
+
+	MariviniumBodyArmor: {
+		DisplayName: Marivinium Body Armor
+		Tooltip:
+			'''
+			+15% Damage Reduce
+			+15% Damage
+			+15 Crit Chance
+			+250 Max Mana
+			Now you can breath in the abyss
+			'''
+	}
+
+	MariviniumHelmet: {
+		DisplayName: Marivinium Helmet
+		Tooltip:
+			'''
+			+20% Damage
+			+20% Crit Chance
+			+25% Melee Speed
+			+300 Max Life
+			'''
+	}
+
+	MariviniumLeggings: {
+		DisplayName: Marivinium Leggings
+		Tooltip:
+			'''
+			+15% Speed
+			-20% Mana Cost
+			+20 Damage
+			+5 Crit Chance
+			'''
+	}
 }
 
+MariviniumSet:
+	'''
+	Armor Bonus:
+	-30% Melee Damage Taken
+	+10 Minion Slot
+	+100% Summon Damage
+	+40% Whip Range
+	+5% Summon Crit
+	+15% Damage Reduce
+	+100 Armor Penetration
+	if your crit chance is over 100%, convert excess crit chance into damage bonus
+	+140 Rogue Stealth
+	When standing, increase life regen
+	Immunity to most debuffs
+	When using true melee weapons, +15% Damage reduce and 25 defense
+	Stealth strike has a probability of causing an water explosion
+	Obtain 2 layers of shields, which will take 10 seconds to recover after being shattered
+	After shield shattered, treat 140 health points and increace your damage by 100% for 5 seconds
+	'''
 DeathMode: Death Mode
 CdMantle: Holy Mantle Cooldown
 
@@ -1386,6 +1479,15 @@ Projectiles: {
 	YstralynProj.DisplayName: Ystralyn Proj
 	PhantomWyrm.DisplayName: Phantom Wyrm
 	NihilityVirus.DisplayName: Nihility Virus
+	AnnihilateArrowProjectile.DisplayName: Annihilate Arrow Projectile
+	AnnihilateArrowSplit.DisplayName: Annihilate Arrow Split
+	NegentropyBulletProjectile.DisplayName: Negentropy Bullet Projectile
+	ZyphrosCrystal.DisplayName: Zyphros Crystal
+	ElectricLaser.DisplayName: Electric Laser
+	Pioneer1.DisplayName: Pioneer1
+	NyxolithrakenDragon.DisplayName: Nyxolith Dragon
+	NxCrack.DisplayName: Abyssal Crack
+	WaterExplosion.DisplayName: Water Explosion
 }
 
 LegendTooltip: - Legend -
@@ -1581,6 +1683,20 @@ Buffs: {
 		DisplayName: Void Virus
 		Description: Mods.CalamityEntropy.Buffs.VoidVirus.Description
 	}
+
+	NyxolithrakenBuff: {
+		DisplayName: Nyxolith Dragon
+		Description:
+			'''
+			Nyxolith Dragon will fight for you
+			"It's from the abyss"
+			'''
+	}
+
+	AbyssalWrath: {
+		Description: Increace your damage
+		DisplayName: Abyssal Wrath
+	}
 }
 
 Uh: ""
@@ -1634,6 +1750,10 @@ NPCs: {
 
 	ChaoticCell.DisplayName: Chaotic Cell
 	ChaoticCellSmall.DisplayName: Chaotic Cell Small
+	WulfrumHovercraftFriendly.DisplayName: Wulfrum Hovercraft Friendly
+	DespairStoneFriendly.DisplayName: Despair Stone Friendly
+	ScryllarFriendly.DisplayName: Scryllar Friendly
+	AeroSlimeFriendly.DisplayName: Aero Slime Friendly
 }
 
 WyrmChatNoHome: Where are we going now?
@@ -1654,7 +1774,7 @@ loreCruiser:
 	Once the channel linking reality and the void is opened,
 	It's not difficult to tear you apart
 	'''
-loreCruiserEffect: Permanently increase the max life by 60 and increase the max mana by 100
+loreCruiserEffect: Permanently increase the max life by 20 and increase the max mana by 50
 loreNihTwin:
 	'''
 	Creatures living in the void parasitize on large floating creatures in some kind of void.
@@ -1734,7 +1854,7 @@ Configs: {
 vfb:
 	'''
 	Armor Bonus:
-	+20% Damage
+	+15% Damage
 	+10% Crit
 	+20 Armor Penetration
 	Hitting the target will increase void energy
@@ -1749,6 +1869,7 @@ helmvfc:
 	'''
 helmvfd:
 	'''
+	+30% Attack Speed
 	+10% Damage Reduce
 	Accumulates more void energy when hitting targets.
 	'''
@@ -1756,9 +1877,15 @@ helmvfs: Projectile damage increases with time
 helmvfl:
 	'''
 	+15% movement speed
+	+150 Max Stealth
 	Stealth strikes will accumulate more void energy
 	'''
-helmvfe: Summon a Void Symbiont fight for you
+helmvfe:
+	'''
+	+8 Max Minions
+	+95% Summon Damage
+	Summon a Void Symbiont fight for you
+	'''
 Reforge: Reforge
 ArmorPrefixHardName: Hard
 ArmorPrefixHardDescription: +10 defense
@@ -1890,5 +2017,6 @@ IsaacLock: You can't equip this before you played The Binding of Isaac Repentanc
 PWSpawnInfo: Enter the Abyss with Chaos State debuff
 CdAS: Amima Sola Cooldown
 XythCharge: Xytheron Charge
-KilledByVoidVirus1: Only Nihility remains in
+KilledByVoidVirus1: "Only Nihility remains in "
 KilledByVoidVirus2: "'s blood"
+KilledByAstral: " completely eroded by starlight"

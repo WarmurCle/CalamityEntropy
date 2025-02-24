@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -148,6 +150,10 @@ namespace CalamityEntropy.Content.Projectiles
                     LineParticle spark = new LineParticle(Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.5f, Projectile.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
+            }
+            if (CalamityEntropy.AprilFool)
+            {
+                EParticle.spawnNew(new EXPLOSIONCOSMIC(), Projectile.Center + new Vector2(0, -38), Vector2.Zero, Color.White, 2, 1, true, BlendState.NonPremultiplied, 0);
             }
 
         }

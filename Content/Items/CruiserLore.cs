@@ -13,8 +13,8 @@ namespace CalamityEntropy.Content.Items
 {
    public class CruiserLore : LoreItem
     {
-        public const int LifeBoost = 60;
-        public const int ManaBoost = 100;
+        public const int LifeBoost = 20;
+        public const int ManaBoost = 50;
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();

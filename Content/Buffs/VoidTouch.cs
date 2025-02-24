@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Buffs
             Dust.NewDust(player.Center, player.width, player.height, DustID.CorruptSpray, (float)r.NextDouble() * 6 - 3, (float)r.NextDouble() * 6 - 3);
             if (!player.GetModPlayer<EPlayerDash>().velt)
             {
-                player.velocity *= 0.98f;
+                player.velocity *= 0.90f;
             }
             for (int i = 0; i < 1; i++)
             {

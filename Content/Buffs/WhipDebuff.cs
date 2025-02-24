@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Content.Buffs
 	}
     public class DragonWhipDebuff : ModBuff
     {
-        public static readonly int TagDamage = 46;
+        public static readonly int TagDamage = 20;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -26,8 +27,8 @@ namespace CalamityEntropy.Content.Buffs
     }
     public class WyrmWhipDebuff : ModBuff
     {
-        public static readonly float TagDamageMul = 0.24f; 
-        public static readonly int TagDamage = 104;
+        public static readonly float TagDamageMul = 0.25f; 
+        public static readonly int TagDamage = 130;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -36,7 +37,7 @@ namespace CalamityEntropy.Content.Buffs
     }
     public class CruiserWhipDebuff : ModBuff
     {
-        public static readonly int TagDamage = 52;
+        public static readonly int TagDamage = 40;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -50,6 +51,13 @@ namespace CalamityEntropy.Content.Buffs
 			if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
 				return;
 
+            if (projectile.TryGetOwner(out var owner))
+            {
+                if(Main.rand.Next(0, 100) < owner.Entropy().summonCrit)
+                {
+                    modifiers.SetCrit();
+                }
+            }
 
 			var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
 			if (npc.HasBuff<JailerWhipDebuff>()) {
@@ -62,7 +70,7 @@ namespace CalamityEntropy.Content.Buffs
             if (npc.HasBuff<DragonWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += DragonWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(24))
+                if (Main.rand.NextBool(24))  // 24分之1概率暴击
                 {
                     modifiers.SetCrit();
                 }
@@ -70,7 +78,7 @@ namespace CalamityEntropy.Content.Buffs
             if (npc.HasBuff<CruiserWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += CruiserWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(9))
+                if (Main.rand.NextBool(9))  // 9分之1概率暴击
                 {
                     modifiers.SetCrit();
                 }
@@ -100,7 +108,7 @@ namespace CalamityEntropy.Content.Buffs
                 }
                 if (projectile.TryGetOwner(out var owner))
                 {
-                    owner.Heal((int)MathHelper.Max(damageDone / 360, 1));
+                    owner.Heal((int)MathHelper.Max(damageDone / 3000, 1));
                 }
             }
         }

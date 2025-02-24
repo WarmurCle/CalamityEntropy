@@ -105,9 +105,9 @@ using Microsoft.Xna.Framework.Audio;
 using System.Diagnostics.Metrics;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Projectiles.Chainsaw;
 namespace CalamityEntropy
 {
-    
 	public class CalamityEntropy : Mod
 	{
         public enum NetPackages : byte
@@ -123,6 +123,8 @@ namespace CalamityEntropy
             SpawnItem,
             PickUpPoop
         }
+        
+        public static bool AprilFool = false;
 		public static List<int> calDebuffIconDisplayList = new List<int>();
 		public static CalamityEntropy Instance;
         public static int noMusTime = 0;
@@ -321,6 +323,9 @@ namespace CalamityEntropy
         public static SoundEffect ealaserSound2 = null;
         public override void Load()
         {
+            DateTime today = DateTime.Now;
+            AprilFool = today.Month == 4 && today.Day == 1;
+            
             LoopSoundManager.init();
             ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/corruptedBeaconLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -368,7 +373,7 @@ namespace CalamityEntropy
             On_NPC.StrikeNPC_HitInfo_bool_bool += StrikeNpc;
             On_Player.getRect += modifyRect;
             On_Main.DrawInfernoRings += drawIr;
-            On_Main.DrawProjectiles += drawShellBack;
+            On_Main.DrawProjectiles += DrawBehindPlayer;
             On_Main.DrawMenu += drawmenu;
             On_Player.Heal += player_heal;
             EModSys.timer = 0;
@@ -385,29 +390,50 @@ namespace CalamityEntropy
             }
         }
 
-        private void drawShellBack(On_Main.orig_DrawProjectiles orig, Main self)
+        private void DrawBehindPlayer(On_Main.orig_DrawProjectiles orig, Main self)
         {
             orig(self);
             Main.spriteBatch.begin_();
             Texture2D shell = Util.Util.getExtraTex("shell");
+            Texture2D crystalShield = Util.Util.getExtraTex("MariviniumShield");
             foreach (Player player in Main.ActivePlayers)
             {
-                if (player.Entropy().nihShellCount <= 0)
+                if (player.Entropy().nihShellCount > 0)
                 {
-                    continue;
-                }
-                float rot = player.Entropy().CasketSwordRot * 0.2f;
-                int count = player.Entropy().nihShellCount;
-                for (int i = 0; i < count; i++)
-                {
-                    if (rot.ToRotationVector2().Y < 0)
+                    float rot = player.Entropy().CasketSwordRot * 0.2f;
+                    int count = player.Entropy().nihShellCount;
+                    for (int i = 0; i < count; i++)
                     {
-                        Vector2 center = new Vector2(36, 0).RotatedBy(rot);
-                        center.Y = 0;
-                        float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                        Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                        if (rot.ToRotationVector2().Y < 0)
+                        {
+                            Vector2 center = new Vector2(36, 0).RotatedBy(rot);
+                            center.Y = 0;
+                            float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
+                            Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                        }
+                        rot += MathHelper.TwoPi / (float)count;
                     }
-                    rot += MathHelper.TwoPi / (float)count;
+                }
+                if (player.Entropy().MariviniumShieldCount > 0)
+                {
+                    float rot = player.Entropy().CasketSwordRot * -0.2f;
+                    int count = player.Entropy().MariviniumShieldCount;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (rot.ToRotationVector2().Y < 0)
+                        {
+                            Vector2 center = new Vector2(48, 0).RotatedBy(rot);
+                            center.Y = 0;
+                            float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
+                            Main.spriteBatch.Draw(crystalShield, player.Center - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                        }
+                        rot += MathHelper.TwoPi / (float)count;
+                    }
+                }
+                if (player.Entropy().mariviniumBody)
+                {
+                    Texture2D back = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Marivinium/Back").Value;
+                    Main.EntitySpriteDraw(back, player.MountedCenter + player.gfxOffY * Vector2.UnitY - Main.screenPosition, null, Lighting.GetColor((int)(player.Center.X / 16f), (int)(player.Center.Y / 16)), player.fullRotation, (new Vector2(player.direction > 0 ? 31 : 48 - 31, 20)), 1, (player.direction > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
                 }
             }
             Main.spriteBatch.End();
@@ -416,7 +442,8 @@ namespace CalamityEntropy
         private void drawIr(On_Main.orig_DrawInfernoRings orig, Main self)
         {
             Texture2D shell = Util.Util.getExtraTex("shell");
-            foreach(Player player in Main.ActivePlayers)
+            Texture2D crystalShield = Util.Util.getExtraTex("MariviniumShield");
+            foreach (Player player in Main.ActivePlayers)
             {
                 if (player.Entropy().nihShellCount > 0)
                 {
@@ -434,26 +461,45 @@ namespace CalamityEntropy
                         rot += MathHelper.TwoPi / (float)count;
                     }
                 }
+                if (player.Entropy().MariviniumShieldCount > 0)
+                {
+                    float rot = player.Entropy().CasketSwordRot * -0.2f;
+                    int count = player.Entropy().MariviniumShieldCount;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (rot.ToRotationVector2().Y > 0)
+                        {
+                            Vector2 center = new Vector2(48, 0).RotatedBy(rot);
+                            center.Y = 0;
+                            float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
+                            Main.spriteBatch.Draw(crystalShield, player.Center - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                        }
+                        rot += MathHelper.TwoPi / (float)count;
+                    }
+                }
                 if (pocType == -1)
                 {
                     pocType = ModContent.ProjectileType<PrisonOfPermafrostCircle>();
                 }
-                if (player.ownedProjectileCounts[pocType] > 0) {
-                    
-                    foreach (Projectile p in Main.ActiveProjectiles)
+                else
+                {
+                    if (player.ownedProjectileCounts[pocType] > 0)
                     {
-                        if(p.type == pocType && p.owner == player.whoAmI)
+                        foreach (Projectile p in Main.ActiveProjectiles)
                         {
-                            if (p.ModProjectile is PrisonOfPermafrostCircle poc)
+                            if (p.type == pocType && p.owner == player.whoAmI)
                             {
-                                float alpha = (float)poc.usingTime / 60f;
-                                if (alpha > 1)
+                                if (p.ModProjectile is PrisonOfPermafrostCircle poc)
                                 {
-                                    alpha = 1;
-                                }
-                                Main.spriteBatch.Draw(poc.itemTex, p.Center + p.rotation.ToRotationVector2() * 28 - Main.screenPosition, null, Color.White * alpha, p.rotation + MathHelper.PiOver2, poc.itemTex.Size() / 2, p.scale * 0.5f, SpriteEffects.None, 0);
+                                    float alpha = (float)poc.usingTime / 60f;
+                                    if (alpha > 1)
+                                    {
+                                        alpha = 1;
+                                    }
+                                    Main.spriteBatch.Draw(poc.itemTex, p.Center + p.rotation.ToRotationVector2() * 28 - Main.screenPosition, null, Color.White * alpha, p.rotation + MathHelper.PiOver2, poc.itemTex.Size() / 2, p.scale * 0.5f, SpriteEffects.None, 0);
 
-                                break;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -973,8 +1019,8 @@ namespace CalamityEntropy
             }
             if (ModLoader.TryGetMod("NoxusBoss", out Mod nxb))
             {
-                EntropyBossbar.bossbarColor[nxb.Find<ModNPC>("NoxusEgg").Type] = new Color(123, 75, 230);
-                EntropyBossbar.bossbarColor[nxb.Find<ModNPC>("EntropicGod").Type] = new Color(123, 75, 230);
+                EntropyBossbar.bossbarColor[nxb.Find<ModNPC>("AvatarRift").Type] = new Color(194, 60, 50);
+                EntropyBossbar.bossbarColor[nxb.Find<ModNPC>("AvatarOfEmptiness").Type] = new Color(194, 60, 50);
                 EntropyBossbar.bossbarColor[nxb.Find<ModNPC>("NamelessDeityBoss").Type] = new Color(255, 255, 255);
             }
             if (ModLoader.TryGetMod("CalamityHunt", out Mod calHunt))
@@ -1074,7 +1120,7 @@ namespace CalamityEntropy
 
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                 graphicsDevice.Clear(Color.Transparent);
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
                 
 
                 foreach (Projectile p in checkProj)
@@ -1134,22 +1180,22 @@ namespace CalamityEntropy
                 {
                     Texture2D draw = dt;
                     float sc = 1;
-                    Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White * 0.06f, pt.rotation, dt.Size() / 2, 5.4f * pt.alpha * sc + 0.6f, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White * 0.06f, pt.rotation, dt.Size() / 2, (5.4f * pt.alpha * sc) * 0.05f, SpriteEffects.None, 0);
 
                 }
-                foreach (Particle pt in VoidParticles.particles)
+                foreach(Projectile p in Main.ActiveProjectiles)
                 {
-                    Texture2D draw = dt;
-                    float sc = 1;
-                    Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White, pt.rotation, dt.Size() / 2, 5.4f * pt.alpha * sc, SpriteEffects.None, 0);
-
+                    if (p.ModProjectile is Pioneer1 p1)
+                    {
+                        p1.drawVoid();
+                    }
                 }
                 Main.spriteBatch.End();
 
 
                 graphicsDevice.SetRenderTarget(screen2);
                 graphicsDevice.Clear(Color.Transparent);
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
                 foreach (Particle pt in VoidParticles.particles)
                 {
@@ -1160,7 +1206,7 @@ namespace CalamityEntropy
                     Texture2D draw = Util.Util.getExtraTex("cvdt");
                     float sc = 1;
 
-                    Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White, pt.rotation, draw.Size() / 2, 5.4f * pt.alpha * sc * 0.16f, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White, pt.rotation, draw.Size() / 2, 2.2f * pt.alpha * sc, SpriteEffects.None, 0);
 
                 }
                 Main.spriteBatch.End();
@@ -1180,10 +1226,12 @@ namespace CalamityEntropy
 
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
                 graphicsDevice.Clear(Color.Transparent);
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
+                Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
                 cve.CurrentTechnique = cve.Techniques["Technique1"];
                 cve.CurrentTechnique.Passes[0].Apply();
-                cve.Parameters["tex0"].SetValue(screen3);
                 Texture2D backg = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_blue_base", AssetRequestMode.ImmediateLoad).Value;//ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg").Value;
                 /*cve.Parameters["tex1"].SetValue(backg);
                 cve.Parameters["tex2"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg1").Value);
@@ -1196,8 +1244,8 @@ namespace CalamityEntropy
                 cve.Parameters["tex6"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_starfield_5").Value);
                 cve.Parameters["time"].SetValue((float)cvcount / 50f);
                 cve.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
-                cve.Parameters["offset"].SetValue((Main.screenPosition * Main.GameViewMatrix.Zoom + new Vector2(-cvcount / 6f, cvcount / 6f)) / Main.ScreenSize.ToVector2());
-                Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+                cve.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-cvcount / 6f, cvcount / 6f)) / Main.ScreenSize.ToVector2());
+                Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
 
 
@@ -1449,6 +1497,10 @@ namespace CalamityEntropy
                     {
                         ac.draw();
                     }
+                    if(proj.ModProjectile is NxCrack nc)
+                    {
+                        nc.drawCrack();
+                    }
                     if (proj.ModProjectile is YstralynProj yst)
                     {
                         yst.draw_crack();
@@ -1458,15 +1510,20 @@ namespace CalamityEntropy
                 Main.spriteBatch.End();
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
                 graphicsDevice.Clear(Color.Transparent);
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+                Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
                 cab.CurrentTechnique = cab.Techniques["Technique1"];
                 cab.CurrentTechnique.Passes[0].Apply();
                 cab.Parameters["clr"].SetValue(new Color(12, 50, 160).ToVector4());
-                cab.Parameters["tex0"].SetValue(Main.screenTargetSwap);
                 cab.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1").Value);
                 cab.Parameters["time"].SetValue((float)cvcount / 50f);
+                cab.Parameters["scrsize"].SetValue(screen.Size());
                 cab.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(cvcount * 1.4f, cvcount * 1.4f)) / new Vector2(1920, 1080));
-                Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+
                 Main.spriteBatch.End();
 
             }
@@ -1880,7 +1937,7 @@ namespace CalamityEntropy
             On_Player.getRect -= modifyRect;
             On_NPC.UpdateNPC -= npcupdate;
             On_Main.DrawInfernoRings -= drawIr;
-            On_Main.DrawProjectiles -= drawShellBack;
+            On_Main.DrawProjectiles -= DrawBehindPlayer;
             On_Player.Heal -= player_heal;
         }
 

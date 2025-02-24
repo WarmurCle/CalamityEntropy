@@ -36,7 +36,11 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return Projectile.timeLeft < 2300;
+            if(Projectile.timeLeft >= 2300)
+            {
+                return false;
+            }
+            return null;
         }
         public override void AI()
         {

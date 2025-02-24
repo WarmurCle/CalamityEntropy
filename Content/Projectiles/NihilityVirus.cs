@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-            Projectile.ArmorPenetration = 16;
+            Projectile.ArmorPenetration = 64;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -73,11 +73,15 @@ namespace CalamityEntropy.Content.Projectiles
             var player = Projectile.getOwner();
             if (player.channel)
             {
-                Projectile.timeLeft = 3;
+                Projectile.timeLeft = 4;
             }
-            player.direction = Projectile.Center.X > player.Center.X ? 1 : -1;
-            player.itemTime = 6;
-            player.itemAnimation = 6;
+            if (Main.myPlayer == Projectile.owner)
+            {
+                Projectile.velocity = (Main.MouseWorld - Projectile.Center) * 0.12f;
+            }
+            player.direction = Projectile.Center.X + Projectile.velocity.X > player.Center.X ? 1 : -1;
+            player.itemTime = 9;
+            player.itemAnimation = 9;
             player.itemRotation = ((Projectile.Center - player.Center) * player.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
             if(Main.GameUpdateCount % 12 == 0)
@@ -89,10 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             Projectile.netUpdate = true;
-            if(Main.myPlayer == Projectile.owner)
-            {
-                Projectile.velocity = (Main.MouseWorld - Projectile.Center) * 0.12f;
-            }
+            
             Projectile.rotation += 0.16f * player.direction;
             Util.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 12);
             targets.Clear();
@@ -161,7 +162,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.SourceDamage *= 8f / targets.Count;
+            modifiers.SourceDamage *= 1 + (8 - targets.Count) / 8f;
         }
         public override bool PreDraw(ref Color lightColor)
         {

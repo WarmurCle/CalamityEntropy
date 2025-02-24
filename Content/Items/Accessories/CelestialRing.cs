@@ -29,8 +29,9 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.GetKnockback(DamageClass.Summon) += 0.75f;
             player.GetCritChance(DamageClass.Generic) += 5;
             player.pickSpeed *= 1.2f;
+	    player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
             player.Entropy().CRing = true;
-            player.Entropy().lifeRegenPerSec += 2;
+            player.Entropy().lifeRegenPerSec += 4;
             player.maxMinions += 2;
             player.accMerman = true;
             player.hideMerman = hideVisual;

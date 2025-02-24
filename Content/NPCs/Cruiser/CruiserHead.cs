@@ -16,6 +16,7 @@ using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.Items.Potions;
 using CalamityMod.NPCs;
+using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -104,6 +105,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             };
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
+            NPCID.Sets.MPAllowedEnemies[ModContent.NPCType<PrimordialWyrmHead>()] = true;
         }
         int tdamage = 0;
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -182,7 +184,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 normalOnly.Add(ModContent.ItemType<Silence>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<RuneSong>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<VoidAnnihilate>(), new Fraction(3, 5));
-                normalOnly.Add(ModContent.ItemType<PhantomPlanetKillerEngine>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<WindOfUndertaker>(), new Fraction(2, 5));
                 normalOnly.Add(ModContent.ItemType<WingsOfHush>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<VoidMonolith>(), 3);

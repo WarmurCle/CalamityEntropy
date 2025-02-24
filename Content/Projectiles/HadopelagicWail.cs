@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
             Projectile.extraUpdates = 1;
-            Projectile.ArmorPenetration = 128;
+            Projectile.ArmorPenetration = 36;
         }
 
         public override void AI()

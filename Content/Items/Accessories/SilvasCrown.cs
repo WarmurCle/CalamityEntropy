@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Calamity().nextHitDealsDefenseDamage = false;
             
             player.Entropy().SCrown = true;
-            player.statLifeMax2 += 50;
+            player.GetCritChance(DamageClass.Generic) -= 8;
         }
 
     }
