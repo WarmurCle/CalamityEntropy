@@ -13,8 +13,11 @@ using Steamworks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using Terraria.UI;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -59,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 EParticle.spawnNew(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
             }
-            if(Projectile.owner.ToPlayer().HeldItem.ModItem is Xytheron xr)
+            if (Projectile.owner.ToPlayer().HeldItem.ModItem is Xytheron xr)
             {
                 if (addcharge > 0)
                 {
@@ -83,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool playsound = true;
         public override void AI()
         {
-            
+
             float updates = Projectile.MaxUpdates + 1;
             if (Projectile.ai[0] == 0)
             {
@@ -93,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Player owner = Projectile.owner.ToPlayer();
             float meleeSpeed = owner.GetTotalAttackSpeed(Projectile.DamageType) * 1.56f;
-            
+
             Projectile.Center = owner.MountedCenter + owner.gfxOffY * Vector2.UnitY;
             Projectile.rotation += rotSpeed * meleeSpeed * 0.32f;
             if (Projectile.ai[0] >= 74 && playsound)
@@ -117,7 +120,8 @@ namespace CalamityEntropy.Content.Projectiles
                     if (Projectile.ai[0] > 86 * updates)
                     {
                         rotSpeed *= 0.6f;
-                        if (Projectile.owner == Main.myPlayer) {
+                        if (Projectile.owner == Main.myPlayer)
+                        {
                             Projectile.direction = (Main.MouseWorld - owner.Center).X > 0 ? 1 : -1;
                             float targetrot = (Main.MouseWorld - owner.Center).ToRotation() - 2.42f * Projectile.direction;
                             Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, targetrot, 0.05f * meleeSpeed, false);
@@ -137,7 +141,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            Projectile.ai[0]+=meleeSpeed;
+            Projectile.ai[0] += meleeSpeed;
             odr.Add(Projectile.rotation);
             ods.Add(scaleD);
             if (odr.Count > 60)
@@ -179,7 +183,7 @@ namespace CalamityEntropy.Content.Projectiles
             Player player = Main.player[Projectile.owner];
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            
+
             Main.EntitySpriteDraw(Util.Util.getExtraTex("StarlessNightGlow"), Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, new Color(180, 180, 255) * glowalpha * 0.8f, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(32, 168), Projectile.scale * 3f * scaleD, SpriteEffects.None, 0);
 
             sb.End();
@@ -197,35 +201,52 @@ namespace CalamityEntropy.Content.Projectiles
             Player player = Main.player[Projectile.owner];
 
             Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Extra_201").Value;
-            Texture2D tail2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/SwordSlashTexture").Value;
+            Texture2D tail2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/CrSky").Value;
+            Texture2D tail3 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Noise_10").Value;
             var r = Main.rand;
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             List<Vertex> ve = new List<Vertex>();
 
             for (int i = 0; i < odr.Count; i++)
             {
-                Color b = new Color(255, 255, 255);
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(714 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
-                      new Vector3(i / (float)odr.Count, 1, 1),
+                Color b = new Color(100, 100, 100);
+                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(708 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                      new Vector3((float)i / (float)odr.Count, 1, 1),
                       b));
                 ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
-                      new Vector3(i / (float)odr.Count, 0, 1),
+                      new Vector3((float)i / (float)odr.Count, 0, 1),
                       b));
             }
 
             if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
             {
-                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SlashTrans2", AssetRequestMode.ImmediateLoad).Value;
-                Main.instance.GraphicsDevice.Textures[1] = Util.Util.getExtraTex("xt_colormap");
-                shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
-
-                sb.End();
-                sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
-
                 gd.Textures[0] = tail;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                ve.Clear();
+                for (int i = 0; i < odr.Count; i++)
+                {
+                    Color b = new Color(255, 255, 255);
+                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(708 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                          new Vector3((float)i / (float)odr.Count, 1, 1),
+                          b));
+                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                          new Vector3((float)i / (float)odr.Count, 0, 1),
+                          b));
+                }
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SlashTrans2", AssetRequestMode.ImmediateLoad).Value;
+                
+                sb.End();
+                sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
+                shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
+                gd.Textures[1] = Util.Util.getExtraTex("xt_colormap");
+
+                shader.Parameters["ofs"].SetValue(Main.GlobalTimeWrappedHourly * 1.6f);
                 gd.Textures[0] = tail2;
+                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+
+                shader.Parameters["ofs"].SetValue(Main.GlobalTimeWrappedHourly * 3);
+                gd.Textures[0] = tail3;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
                 sb.End();

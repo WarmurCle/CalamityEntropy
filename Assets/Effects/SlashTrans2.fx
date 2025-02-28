@@ -1,11 +1,12 @@
 sampler uImage : register(s0);
 sampler uTransformImage : register(s1);
+float ofs;
 float4 EnchantedFunction(float2 coords : TEXCOORD0) : COLOR0
 {
-    float4 colory = tex2D(uImage, coords);
-    float4 barColor = tex2D(uTransformImage, coords);
+    float4 colory = tex2D(uImage, frac(coords + float2(ofs, 0)));
+    float4 barColor = tex2D(uTransformImage, float2(0.5, coords.y));
 	
-    return (colory * (barColor + float4(0.24 * barColor.a, 0.24 * barColor.a, 0.24 * barColor.a, 0)) * ((colory.r + colory.g + colory.b) / 3)) * (coords.x * coords.y);
+    return (lerp(float4(0.2, 0.2, 0.5, 0.46), float4(0.7, 0.7, 1, 1), colory.r) * barColor) * (coords.x * coords.y);
 }
 
 technique Technique1

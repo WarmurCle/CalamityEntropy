@@ -323,6 +323,7 @@ namespace CalamityEntropy
         public static SoundEffect ealaserSound2 = null;
         public override void Load()
         {
+            rainbowmasterFixed = false;
             DateTime today = DateTime.Now;
             AprilFool = today.Month == 4 && today.Day == 1;
             
@@ -376,10 +377,16 @@ namespace CalamityEntropy
             On_Main.DrawProjectiles += DrawBehindPlayer;
             On_Main.DrawMenu += drawmenu;
             On_Player.Heal += player_heal;
+            On_Main.DrawTiles += drawtile;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>()}));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
+        }
+        public static bool rainbowmasterFixed = false;
+        public void drawtile(On_Main.orig_DrawTiles orig, Main self, bool solidLayer, bool forRenderTargets, bool intoRenderTargets, int waterStyleOverride)
+        {
+            orig(self, solidLayer, forRenderTargets, intoRenderTargets, waterStyleOverride);
         }
 
         private void player_heal(On_Player.orig_Heal orig, Player self, int amount)
@@ -523,56 +530,69 @@ namespace CalamityEntropy
 
         private void npcupdate(On_NPC.orig_UpdateNPC orig, NPC self, int i)
         {
-            if (self.active && self.Entropy().AnimaTrapped > 0)
-            {
-                self.Entropy().AnimaTrapped--;
-                self.position += self.velocity;
-                self.velocity *= 0.9f;
-            }
-            else
-            {
-                if (self.active)
+            if (self.TryGetGlobalNPC<EGlobalNPC>(out var en)) {
+                if (self.active && self.Entropy().AnimaTrapped > 0)
                 {
-                    var mn = self.GetGlobalNPC<DeliriumGlobalNPC>();
-                    if (mn.delirium)
+                    en.AnimaTrapped--;
+                    self.position += self.velocity;
+                    self.velocity *= 0.9f;
+                    for(int ii = 0; ii < self.immune.Length; ii++)
                     {
-                        NPC npc = self;
-                        npc.damage = mn.damage;
-                        mn.counter--;
-                        if (mn.counter <= 0)
+                        if (self.immune[ii] > 0)
                         {
-                            if (!Main.dedServ)
-                            {
-                                Util.Util.PlaySound("clicker_static", 1, npc.Center);
-                            }
-                            mn.counter = Main.rand.Next(60, 360);
-                            npc.netUpdate = true;
-                            npc.netSpam = 0;
-                            int npc_ = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, Delirium.npcTurns[Main.rand.Next(Delirium.npcTurns.Count)]);
-                            NPC spawn = npc_.ToNPC();
-                            spawn.Center = npc.Center;
-                            spawn.lifeMax = npc.lifeMax;
-                            spawn.life = npc.life;
-                            spawn.damage = npc.damage;
-                            spawn.GetGlobalNPC<DeliriumGlobalNPC>().delirium = true;
-                            spawn.GetGlobalNPC<DeliriumGlobalNPC>().damage = mn.damage;
-                            spawn.GetGlobalNPC<DeliriumGlobalNPC>().counter = mn.counter;
-                            spawn.netUpdate = true;
-                            spawn.netSpam = 0;
-                            npc.active = false;
+                            self.immune[ii]--;
                         }
-                        if (npc.type != NPCID.DukeFishron && npc.type != ModContent.NPCType<OldDuke>() && npc.type != NPCID.Golem && npc.type != ModContent.NPCType<Bumblefuck>() && npc.type != NPCID.SkeletronHead)
+
+                    }
+                }
+                else
+                {
+                    if (self.active)
+                    {
+                        if (self.TryGetGlobalNPC<DeliriumGlobalNPC>(out var mn))
                         {
-                            orig(self, i);
-                            if (npc.type != NPCID.EyeofCthulhu && npc.type != NPCID.QueenBee && npc.type != NPCID.Retinazer && npc.type != NPCID.Spazmatism && npc.type != ModContent.NPCType<Yharon>() && npc.type != NPCID.MoonLordCore && npc.type != ModContent.NPCType<PrimordialWyrmHead>())
+                            if (mn.delirium)
                             {
-                                orig(self, i);
+                                NPC npc = self;
+                                npc.damage = mn.damage;
+                                mn.counter--;
+                                if (mn.counter <= 0)
+                                {
+                                    if (!Main.dedServ)
+                                    {
+                                        Util.Util.PlaySound("clicker_static", 1, npc.Center);
+                                    }
+                                    mn.counter = Main.rand.Next(60, 360);
+                                    npc.netUpdate = true;
+                                    npc.netSpam = 0;
+                                    int npc_ = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, Delirium.npcTurns[Main.rand.Next(Delirium.npcTurns.Count)]);
+                                    NPC spawn = npc_.ToNPC();
+                                    spawn.Center = npc.Center;
+                                    spawn.lifeMax = npc.lifeMax;
+                                    spawn.life = npc.life;
+                                    spawn.damage = npc.damage;
+                                    spawn.GetGlobalNPC<DeliriumGlobalNPC>().delirium = true;
+                                    spawn.GetGlobalNPC<DeliriumGlobalNPC>().damage = mn.damage;
+                                    spawn.GetGlobalNPC<DeliriumGlobalNPC>().counter = mn.counter;
+                                    spawn.netUpdate = true;
+                                    spawn.netSpam = 0;
+                                    npc.active = false;
+                                }
+                                if (npc.type != NPCID.DukeFishron && npc.type != ModContent.NPCType<OldDuke>() && npc.type != NPCID.Golem && npc.type != ModContent.NPCType<Bumblefuck>() && npc.type != NPCID.SkeletronHead)
+                                {
+                                    orig(self, i);
+                                    if (npc.type != NPCID.EyeofCthulhu && npc.type != NPCID.QueenBee && npc.type != NPCID.Retinazer && npc.type != NPCID.Spazmatism && npc.type != ModContent.NPCType<Yharon>() && npc.type != NPCID.MoonLordCore && npc.type != ModContent.NPCType<PrimordialWyrmHead>())
+                                    {
+                                        orig(self, i);
+                                    }
+                                }
                             }
                         }
                     }
-                }
-                orig(self, i);
+                    orig(self, i);
+                } 
             }
+            else { orig(self, i); }
         }
 
         private Rectangle modifyRect(On_Player.orig_getRect orig, Player self)
@@ -1939,6 +1959,7 @@ namespace CalamityEntropy
             On_Main.DrawInfernoRings -= drawIr;
             On_Main.DrawProjectiles -= DrawBehindPlayer;
             On_Player.Heal -= player_heal;
+            On_Main.DrawTiles -= drawtile;
         }
 
     }

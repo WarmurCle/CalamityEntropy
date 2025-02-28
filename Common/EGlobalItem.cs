@@ -272,10 +272,6 @@ namespace CalamityEntropy.Common
         
         public override bool CanUseItem(Item item, Player player)
         {
-            if (EModSys.noItemUse)
-            {
-                return false;
-            }
             if(player.HasBuff<VoidVirus>() && item.healLife > 0)
             {
                 return false;
@@ -972,7 +968,11 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
-            if(item.type == ModContent.ItemType<StormWeaverBag>())
+            if (item.type == ItemID.PlanteraBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<ToyGuitar>(), new Fraction(1, 3));
+            }
+            if (item.type == ModContent.ItemType<StormWeaverBag>())
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<HeartOfStorm>()));
             }

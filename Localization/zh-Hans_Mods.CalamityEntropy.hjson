@@ -674,7 +674,7 @@ Items: {
 		Tooltip:
 			'''
 			+ 8/s 每秒生命再生
-			-8 暴击率
+			-8% 暴击率
 			移除防御损伤
 			-死亡模式专属-
 			'''
@@ -1375,6 +1375,11 @@ Items: {
 			+5% 暴击
 			'''
 	}
+
+	ToyGuitar: {
+		DisplayName: 玩具吉他
+		Tooltip: 召唤世花酱跟随你
+	}
 }
 
 MariviniumSet:
@@ -1629,6 +1634,8 @@ Projectiles: {
 	NyxolithrakenDragon.DisplayName: 沧溟渊龙
 	NxCrack.DisplayName: 深渊撕裂
 	WaterExplosion.DisplayName: 水爆炸
+	BrimstoneBarrageFriendly.DisplayName: 硫火飞弹
+	PlanteraChan.DisplayName: 世花酱
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1838,6 +1845,11 @@ Buffs: {
 		Description: 伤害翻倍
 		DisplayName: 深渊狂怒
 	}
+
+	PlanteraChanBuff: {
+		DisplayName: 世花酱
+		Description: ~
+	}
 }
 
 Uh: 呃啊~
@@ -1892,9 +1904,13 @@ NPCs: {
 	ChaoticCell.DisplayName: 混沌细胞
 	ChaoticCellSmall.DisplayName: 混沌细胞分裂体
 	// WulfrumHovercraftFriendly.DisplayName: Wulfrum Hovercraft Friendly
-	// DespairStoneFriendly.DisplayName: Despair Stone Friendly
-	// ScryllarFriendly.DisplayName: Scryllar Friendly
-	// AeroSlimeFriendly.DisplayName: Aero Slime Friendly
+	DespairStoneFriendly.DisplayName: 友好的绝望之石
+	ScryllarFriendly.DisplayName: 友好的殒命妖灵
+	AeroSlimeFriendly.DisplayName: 友好的天蓝史莱姆
+	SoulSlurperFriendly.DisplayName: 友好的灵魂饮食者
+	// TrasherFriendly.DisplayName: Trasher Friendly
+	SkyfinFriendly.DisplayName: 友好的天鳍鱼
+	IceClasperFriendly.DisplayName: 友好的食魂冰虫
 }
 
 WyrmChatNoHome: 我们现在要去哪？
@@ -2160,3 +2176,4 @@ XythCharge: 始源遗歌充能
 KilledByVoidVirus1: ""
 KilledByVoidVirus2: 血液里只剩下虚无
 KilledByAstral: 被星辉残蚀殆尽
+CdFF: 寻友护符冷却

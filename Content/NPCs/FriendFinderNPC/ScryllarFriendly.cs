@@ -15,13 +15,16 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 {
-    public class ScryllarFriendly : ModNPC
+    public class ScryllarFriendly : FriendFindNPC
     {
         public override void SetStaticDefaults()
         {
             this.HideFromBestiary();
         }
-
+        public override bool CheckActive()
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;

@@ -41,6 +41,9 @@
 	  <Reference Include="CalamityMod">
 	    <HintPath>..\ModAssemblies\CalamityMod.dll</HintPath>
 	  </Reference>
+	  <Reference Include="ColouredModsRelics">
+	    <HintPath>..\ModAssemblies\ColouredModsRelics.dll</HintPath>
+	  </Reference>
 	  <Reference Include="SubworldLibrary">
 	    <HintPath>..\ModAssemblies\SubworldLibrary.dll</HintPath>
 	  </Reference>

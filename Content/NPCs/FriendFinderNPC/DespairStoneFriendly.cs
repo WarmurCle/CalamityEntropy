@@ -23,7 +23,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 {
-    public class DespairStoneFriendly : ModNPC
+    public class DespairStoneFriendly : FriendFindNPC
     {
         public SlotId ChainsawSoundSlot;
 

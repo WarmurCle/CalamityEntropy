@@ -12,6 +12,7 @@ using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -290,7 +291,11 @@ namespace CalamityEntropy.Common
         public int counter = 0;
         public override bool PreAI(NPC npc)
         {
-            
+            if (npc.ModNPC is FriendFindNPC && npc.localAI[3] > 0)
+            {
+                friendFinderOwner = (int)npc.localAI[3] - 1;
+                npc.localAI[3] = 0;
+            }
             counter++;
             if(npc.Entropy().EclipsedImprintLevel > 0)
             {
@@ -304,7 +309,7 @@ namespace CalamityEntropy.Common
 
                 }
             }
-            if (ToFriendly)
+            /*if (ToFriendly)
             {
                 if (friendlyDecLife)
                 {
@@ -376,7 +381,7 @@ namespace CalamityEntropy.Common
                         }
                     } 
                 }
-            }
+            }*/
             if (npc.Entropy().daTarget && npc.realLife == -1) {
                 npc.velocity *= 0;
                 return false;
@@ -1174,7 +1179,7 @@ namespace CalamityEntropy.Common
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
-            if(source is EntitySource_Parent esource)
+            /*if(source is EntitySource_Parent esource)
             {
                 if(esource.Entity is NPC np)
                 {
@@ -1192,7 +1197,7 @@ namespace CalamityEntropy.Common
                 {
                     npc.friendly = true;
                 }
-            }
+            }*/
         }
 
 

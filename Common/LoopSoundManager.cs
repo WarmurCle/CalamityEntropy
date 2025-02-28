@@ -74,9 +74,11 @@ namespace CalamityEntropy.Common
 
         public static void unload()
         {
-            foreach (var sound in sounds)
-            {
-                sound.stop();
+            if(sounds is not null){
+                foreach (var sound in sounds)
+                {
+                    sound.stop();
+                }
             }
             sounds = null;
         }

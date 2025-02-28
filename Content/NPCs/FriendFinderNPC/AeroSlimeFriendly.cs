@@ -12,14 +12,17 @@ using Terraria.ModLoader.Utilities;
 
 namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 {
-    public class AeroSlimeFriendly : ModNPC
+    public class AeroSlimeFriendly : FriendFindNPC
     {
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 4;
             this.HideFromBestiary();
         }
-
+        public override bool CheckActive()
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             NPC.noTileCollide = true;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
@@ -16,6 +17,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.UI;
 using Terraria.UI;
 
 namespace CalamityEntropy.Common
@@ -27,6 +29,18 @@ namespace CalamityEntropy.Common
         {
         }
         Texture2D markTex { get { return Util.Util.getExtraTex("EvMark"); } }
+        public override void PreUpdateWorld()
+        {
+            if (!CalamityEntropy.rainbowmasterFixed)
+            {
+                RMWeakRef.init();
+                if (RMWeakRef.mod != null)
+                {
+                    RMWeakRef.CMRWeakRef.setTexs();
+                }
+            }
+            CalamityEntropy.rainbowmasterFixed = true;
+        }
         public override void PostDrawTiles()
         {
             if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<EventideSniper>())
@@ -165,13 +179,6 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            foreach (GameInterfaceLayer layer in layers)
-            {
-                if (layer.Name == "Vanilla: Cursor" && mi)
-                {
-                    layer.Active = false;
-                }
-            }
             int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
             if (mouseIndex != -1)
             {
@@ -211,22 +218,17 @@ namespace CalamityEntropy.Common
                     return true;
                 }, InterfaceScaleType.None));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer(
-           //这里是绘制层的名字
-           "CalamityEntropy: Armor Reforging Station",
-           //这里是匿名方法
-           delegate
-           {
-               //当Visible开启时（当UI开启时）
-               if (ArmorForgingStationUI.Visible)
-                   //绘制UI（运行exampleUI的Draw方法）
-                    CalamityEntropy.Instance.armorForgingStationUI.Draw(Main.spriteBatch);
-               return true;
-           },
-           //这里是绘制层的类型
-           InterfaceScaleType.UI)
-       );
+                "CalamityEntropy: Armor Reforging Station",
+                delegate
+                {
+                    if (ArmorForgingStationUI.Visible)
+                        CalamityEntropy.Instance.armorForgingStationUI.Draw(Main.spriteBatch);
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
             }
-            }
+        }
 
         public void DrawVoidChargeBar(SpriteBatch spriteBatch)
         {
@@ -317,6 +319,14 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateProjectiles()
         {
+            foreach(NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.ModNPC is FriendFindNPC)
+                {
+                    npc.Entropy().friendFinderOwner.ToPlayer().slotsMinions += 1;
+                    npc.Entropy().friendFinderOwner.ToPlayer().numMinions += 1;
+                }
+            }
             if (!Main.dedServ)
             {
                 //Main.LocalPlayer.Center = LastPlayerPos;

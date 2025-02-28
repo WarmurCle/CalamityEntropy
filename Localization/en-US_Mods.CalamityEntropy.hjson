@@ -1180,7 +1180,7 @@ Items: {
 	}
 
 	FriendFinder: {
-		Tooltip: ""
+		Tooltip: Summon a friendly monster
 		DisplayName: Friend Finder
 	}
 
@@ -1234,6 +1234,11 @@ Items: {
 			+20 Damage
 			+5 Crit Chance
 			'''
+	}
+
+	ToyGuitar: {
+		DisplayName: Toy Guitar
+		Tooltip: ""
 	}
 }
 
@@ -1488,6 +1493,8 @@ Projectiles: {
 	NyxolithrakenDragon.DisplayName: Nyxolith Dragon
 	NxCrack.DisplayName: Abyssal Crack
 	WaterExplosion.DisplayName: Water Explosion
+	BrimstoneBarrageFriendly.DisplayName: Brimstone Barrage Friendly
+	PlanteraChan.DisplayName: Plantera Chan
 }
 
 LegendTooltip: - Legend -
@@ -1697,6 +1704,11 @@ Buffs: {
 		Description: Increace your damage
 		DisplayName: Abyssal Wrath
 	}
+
+	PlanteraChanBuff: {
+		DisplayName: Plantera Chan
+		Description: ""
+	}
 }
 
 Uh: ""
@@ -1754,6 +1766,10 @@ NPCs: {
 	DespairStoneFriendly.DisplayName: Despair Stone Friendly
 	ScryllarFriendly.DisplayName: Scryllar Friendly
 	AeroSlimeFriendly.DisplayName: Aero Slime Friendly
+	SoulSlurperFriendly.DisplayName: Soul Slurper Friendly
+	TrasherFriendly.DisplayName: Trasher Friendly
+	SkyfinFriendly.DisplayName: Skyfin Friendly
+	IceClasperFriendly.DisplayName: Ice Clasper Friendly
 }
 
 WyrmChatNoHome: Where are we going now?
@@ -2020,3 +2036,4 @@ XythCharge: Xytheron Charge
 KilledByVoidVirus1: "Only Nihility remains in "
 KilledByVoidVirus2: "'s blood"
 KilledByAstral: " completely eroded by starlight"
+CdFF: Friend Finder Cooldown

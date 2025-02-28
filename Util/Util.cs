@@ -21,7 +21,11 @@ namespace CalamityEntropy.Util
         {
             return TextureAssets.Projectile[p.type].Value;
         }
-
+        public static void showItemTooltip(Item item)
+        {
+            Main.HoverItem = item.Clone();
+            Main.hoverItemName = item.HoverName;
+        }
         public static void SyncProj(int proj)
         {
             if (Main.netMode != NetmodeID.SinglePlayer)

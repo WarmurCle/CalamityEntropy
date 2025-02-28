@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
                     for (int i = 0; i < 4; i++)
 					{
 						float a = rot + MathHelper.ToRadians(i * 90);
-						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, a.ToRotationVector2() * Projectile.velocity.Length() * 0.36f, ModContent.ProjectileType<AnnihilateArrowSplit>(), Projectile.damage / 4, Projectile.knockBack / 4, Projectile.owner);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, a.ToRotationVector2() * Projectile.velocity.Length() * 0.36f, ModContent.ProjectileType<AnnihilateArrowSplit>(), Projectile.damage / 3, Projectile.knockBack / 4, Projectile.owner);
 					}
 					Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((target.Center - Projectile.Center).ToRotation());
 					homing = false;

@@ -9,6 +9,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
@@ -103,6 +104,7 @@ namespace CalamityEntropy.Common
         public float serviceWhipDamageBonus = 0;
         public bool deusCore = false;
         public bool heartOfStorm = false;
+        public int ffinderCd = 0;
         public bool holdingPoop { get { return _holdingPoop; } set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge
@@ -326,8 +328,8 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
-            
-            
+
+            ffinderCd--;
             if (syncHoldingPoop)
             {
                 syncHoldingPoop = false;

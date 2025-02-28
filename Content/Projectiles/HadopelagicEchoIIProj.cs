@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles
                             gfxXAdd = 4f;
                             if (Main.myPlayer == Projectile.owner)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), topPos, Projectile.velocity * 40, ModContent.ProjectileType<HadopelagicWail>(), (int)owner.GetDamage(Projectile.DamageType).ApplyTo((int)(Projectile.damage * 1.16f)), Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), topPos, Projectile.velocity * 40, ModContent.ProjectileType<HadopelagicWail>(), (int)owner.GetTotalDamage(Projectile.DamageType).ApplyTo((int)(Projectile.damage * 1.16f)), Projectile.knockBack, Projectile.owner);
                             }
                             shootCd = 50;
                             Util.Util.PlaySound("he2", 1, Projectile.Center);
@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Projectiles
                             Util.Util.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), 1, Projectile.Center);
                             if (Main.myPlayer == Projectile.owner)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), topPos, Projectile.velocity * 30, ModContent.ProjectileType<HadopelagicLaser>(), (int)owner.GetDamage(Projectile.DamageType).ApplyTo((int)(Projectile.damage)), Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), topPos, Projectile.velocity * 30, ModContent.ProjectileType<HadopelagicLaser>(), (int)owner.GetTotalDamage(Projectile.DamageType).ApplyTo((int)(Projectile.damage)), Projectile.knockBack, Projectile.owner);
                             }
                             CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(topPos + Projectile.velocity * 3, Vector2.Zero, new Color(170, 170, 255), new Vector2(2f, 2f), 0, 0.1f, 0.3f, 20);
                             GeneralParticleHandler.SpawnParticle(pulse);

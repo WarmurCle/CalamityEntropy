@@ -29,6 +29,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace CalamityEntropy.Content.NPCs
 {
@@ -877,11 +878,6 @@ namespace CalamityEntropy.Content.NPCs
                         Say("把它拿开", Color.Red);
                         Say("把它拿开", Color.Red);
                     }
-                    else if (nxb != null && itemType == nxb.Find<ModItem>("Genesis").Type)
-                    {
-                        Say("是的，快使用它", Color.Red);
-                    }
-                    
                     else if (itemType == ItemID.DirtBlock || itemType == ItemID.StoneBlock || itemType == ItemID.Wood || itemType == ItemID.Mushroom || itemType == ItemID.Gel || itemType == 52)
                     {
                         Say("我不收垃圾，谢谢", Color.Red);
