@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items
                     {
                         if (n.IsABoss())
                         {
-                            time = 60 * 60;
+                            time = 90 * 60;
                             break;
                         }
                     }

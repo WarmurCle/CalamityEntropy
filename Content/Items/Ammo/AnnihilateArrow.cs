@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Ammo
 			Item.width = 14;
 			Item.height = 36;
 
-			Item.damage = 25; // Keep in mind that the arrow's final damage is combined with the bow weapon damage.
+			Item.damage = 5; // Keep in mind that the arrow's final damage is combined with the bow weapon damage.
 			Item.DamageType = DamageClass.Ranged;
 			Item.rare = ModContent.RarityType<VoidPurple>();
 			Item.maxStack = Item.CommonMaxStack;

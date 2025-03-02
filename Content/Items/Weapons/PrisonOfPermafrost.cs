@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 340;
+			Item.damage = 270;
 			Item.DamageType = DamageClass.Magic;
 			Item.width = 96;
 			Item.noUseGraphic = true;
@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             recipe.AddIngredient(ModContent.ItemType<GlacialEmbrace>(), 1);
             recipe.AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 5);
             recipe.AddIngredient(ModContent.ItemType<IceBarrage>(), 1);
-            recipe.AddIngredient(ModContent.ItemType<AuricBar>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<AuricBar>(), 10);
             recipe.AddTile(ModContent.TileType<CosmicAnvil>());
             recipe.Register();
         }

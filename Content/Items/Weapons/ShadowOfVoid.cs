@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 				.AddIngredient(ModContent.ItemType<VoidEcho>())
 				.AddIngredient(ModContent.ItemType<WingsOfHush>())
 				.AddIngredient(ModContent.ItemType<VoidRelics>())
-				.AddTile(ModContent.TileType<CosmicAnvil>())
+				.AddTile(ModContent.TileType<DraedonsForge>())
 				.Register();
                 
         }

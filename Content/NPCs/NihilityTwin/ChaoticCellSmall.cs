@@ -44,13 +44,13 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         {
             NPC.width = 64;
             NPC.height = 64;
-            NPC.damage = 77;
+            NPC.damage = 75;
             if (Main.expertMode) {
                 NPC.damage += 6;
             } if (Main.masterMode) {
                 NPC.damage += 6;
             }
-            NPC.lifeMax = 5000;
+            NPC.lifeMax = 2200;
             if (CalamityWorld.death)
             {
                 NPC.damage += 10;

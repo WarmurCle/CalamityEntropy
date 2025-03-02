@@ -106,8 +106,8 @@ namespace CalamityEntropy.Content.Items.Accessories
                 AddIngredient(ModContent.ItemType<AsgardianAegis>(), 1).
                 AddIngredient(ModContent.ItemType<RampartofDeities>(), 1).
                 AddIngredient(ModContent.ItemType<HolyMantle>(), 1).
-                AddIngredient(ModContent.ItemType<AuricBar>(), 5).
-                AddTile(ModContent.TileType<CosmicAnvil>()).
+                AddIngredient(ModContent.ItemType<VoidBar>(), 10).
+                AddTile(ModContent.TileType<DraedonsForge>()).
                 Register();
         }
     }

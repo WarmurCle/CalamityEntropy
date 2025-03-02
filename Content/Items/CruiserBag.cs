@@ -56,17 +56,17 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<CruiserHead>()));
 
             // Materials
-            itemLoot.Add(ModContent.ItemType<VoidRelics>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<VoidElytra>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<VoidEcho>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<Silence>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<RuneSong>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<WingsOfHush>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<VoidAnnihilate>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<WindOfUndertaker>(), new Fraction(2, 5));
-            itemLoot.Add(ModContent.ItemType<VoidToy>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<CruiserPlush>(), new Fraction(2, 7));
-            itemLoot.Add(ModContent.ItemType<VoidScales>(), new Fraction(1, 1), 58, 68);
+            itemLoot.Add(ModContent.ItemType<VoidRelics>(), new Fraction(1, 5));
+            itemLoot.Add(ModContent.ItemType<VoidElytra>(), new Fraction(5, 5));
+            itemLoot.Add(ModContent.ItemType<VoidEcho>(), new Fraction(1, 5));
+            itemLoot.Add(ModContent.ItemType<Silence>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<RuneSong>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<WingsOfHush>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<VoidAnnihilate>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<WindOfUndertaker>(), new Fraction(1, 5));
+            itemLoot.Add(ModContent.ItemType<VoidToy>(), new Fraction(1, 5));
+            itemLoot.Add(ModContent.ItemType<CruiserPlush>(), new Fraction(1, 6));
+            itemLoot.Add(ModContent.ItemType<VoidScales>(), new Fraction(1, 1), 24, 32);
             itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<TheocracyPearlToy>(), 5));
 
             itemLoot.Add(ModContent.ItemType<VoidMonolith>(), new Fraction(2, 5));

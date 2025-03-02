@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 486;
+            Item.damage = 470;
             Item.crit = 22;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 142;

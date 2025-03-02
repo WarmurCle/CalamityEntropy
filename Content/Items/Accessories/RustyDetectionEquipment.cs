@@ -23,15 +23,15 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.rocketBoots += 20;
             player.noFallDmg = true;
-            player.jumpSpeedBoost += 2f;
-            player.maxRunSpeed *= 1.3f;
+            player.jumpSpeedBoost += 1.6f;
+            player.maxRunSpeed *= 1.1f;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient(ModContent.ItemType<DubiousPlating>(), 6).
-                AddIngredient(ModContent.ItemType<MysteriousCircuitry>(), 4).
+                AddIngredient(ModContent.ItemType<DubiousPlating>(), 20).
+                AddIngredient(ModContent.ItemType<MysteriousCircuitry>(), 15).
                 AddTile(TileID.Anvils).
                 Register();
         }

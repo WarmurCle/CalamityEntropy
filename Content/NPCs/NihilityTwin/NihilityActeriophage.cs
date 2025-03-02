@@ -77,21 +77,21 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.boss = true;
             NPC.width = 140;
             NPC.height = 140;
-            NPC.damage = 100;
+            NPC.damage = 128;
             if (Main.expertMode) {
                 NPC.damage += 5;
             } if (Main.masterMode) {
                 NPC.damage += 5;
             }
-            NPC.defense = 80;
-            NPC.lifeMax = 250000;
+            NPC.defense = 90;
+            NPC.lifeMax = 360000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 4;
+                NPC.damage += 5;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 4;
+                NPC.damage += 5;
             }
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCHit4;

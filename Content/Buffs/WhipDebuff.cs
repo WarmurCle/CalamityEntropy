@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Buffs
 {
 	public class JailerWhipDebuff : ModBuff
 	{
-		public static readonly int TagDamage = 7;
+		public static readonly int TagDamage = 5;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults() {
 			BuffID.Sets.IsATagBuff[Type] = true;
@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Buffs
 	}
     public class DragonWhipDebuff : ModBuff
     {
-        public static readonly int TagDamage = 20;
+        public static readonly int TagDamage = 15;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -27,8 +27,8 @@ namespace CalamityEntropy.Content.Buffs
     }
     public class WyrmWhipDebuff : ModBuff
     {
-        public static readonly float TagDamageMul = 0.25f; 
-        public static readonly int TagDamage = 130;
+        public static readonly float TagDamageMul = 0.15f; 
+        public static readonly int TagDamage = 90;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Buffs
     }
     public class CruiserWhipDebuff : ModBuff
     {
-        public static readonly int TagDamage = 40;
+        public static readonly int TagDamage = 30;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Buffs
             if (npc.HasBuff<DragonWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += DragonWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(24))  // 24分之1概率暴击
+                if (Main.rand.NextBool(50))  // 50分之1概率暴击
                 {
                     modifiers.SetCrit();
                 }
@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.Buffs
             if (npc.HasBuff<CruiserWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += CruiserWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(9))  // 9分之1概率暴击
+                if (Main.rand.NextBool(10))  // 10分之1概率暴击
                 {
                     modifiers.SetCrit();
                 }

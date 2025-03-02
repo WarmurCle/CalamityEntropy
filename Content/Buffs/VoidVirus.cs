@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Buffs
         {
             if(Main.GameUpdateCount % 20 == 0)
             {
-                npc.SimpleStrikeNPC(200, 0, false, 0, DamageClass.Default);
+                npc.SimpleStrikeNPC(120, 0, false, 0, DamageClass.Default);
             }
         }
 
@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (npc.HasBuff<VoidVirus>())
             {
-                modifiers.ArmorPenetration += 48;
+                modifiers.ArmorPenetration += 20;
             }
         }
     }

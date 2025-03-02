@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class TheRevelation : ModItem
 	{
-        public static int Damage = 52; // •π‚…À∫¶
+        public static int Damage = 50; // •π‚…À∫¶
         public override void SetStaticDefaults()
         {
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(150, 7f, 1.9f);

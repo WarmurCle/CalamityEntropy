@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Tiles;
+using CalamityMod.Items.Materials;
 using CalamityEntropy.Util;
 using CalamityMod.CalPlayer;
 using CalamityMod;
@@ -32,6 +33,7 @@ namespace CalamityEntropy.Content.Items
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AltarOfTheAccursedItem>())
                 .AddIngredient(ModContent.ItemType<WyrmTooth>())
+		.AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

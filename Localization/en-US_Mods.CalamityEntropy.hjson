@@ -1917,8 +1917,8 @@ ArmorPrefixGodForgedName: God Forged
 ArmorPrefixGodForgedDescription:
 	'''
 	+15%Defense
-	+5% Damage Reduce
-	+5% Damage
+	+2% Damage Reduce
+	+4% Damage
 	'''
 ArmorPrefixGuardedName: Guarded
 ArmorPrefixGuardedDescription: +20% Defense

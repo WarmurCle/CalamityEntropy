@@ -273,7 +273,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (NPC.downedGolemBoss)   //ʯ    
             {
-                ad += 0.1f;
+                ad += 0.2f;
             }
             if (NPC.downedAncientCultist)   //    а  ͽ
             {
@@ -285,7 +285,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedProvidence)  //        
             {
-                ad += 0.8f;
+                ad += 1.0f;
             }
             if (DownedBossSystem.downedDragonfolly)  //       
             {
@@ -309,11 +309,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedExoMechs)  //  е
             {
-                ad += 2;
+                ad += 2.5f;
             }
             if (DownedBossSystem.downedCalamitas)   //    
             {
-                ad += 1;
+                ad += 2.5f;
             }
             return ad;
         }
@@ -338,7 +338,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.FallenStar, 2)
+                .AddIngredient(ItemID.FallenStar, 5)
                 .AddIngredient(ItemID.WoodenSword)
                 .AddIngredient(ModContent.ItemType<LoreAwakening>())
                 .AddTile(TileID.WorkBenches).Register();

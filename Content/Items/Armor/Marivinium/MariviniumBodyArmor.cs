@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
         {
             player.Entropy().mariviniumBody = true;
             player.Entropy().damageReduce += 0.15f;
-            player.GetDamage(DamageClass.Generic) += 1.15f;
+            player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetCritChance(DamageClass.Generic) += 15;
             player.statManaMax2 += 250;
             player.breath = player.breathMax + 91;

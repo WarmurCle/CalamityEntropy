@@ -492,8 +492,8 @@ namespace CalamityEntropy.Common
             }
             if (Player.Entropy().oracleDeck)
             {
-                Player.runAcceleration *= 1.3f;
-                Player.maxRunSpeed *= 1.3f;
+                Player.runAcceleration *= 1.15f;
+                Player.maxRunSpeed *= 1.15f;
             }
             if (MagiShield > 0)
             {
@@ -502,21 +502,20 @@ namespace CalamityEntropy.Common
             }
             if (VFSet)
             {
-                Player.runAcceleration *= 1.2f;
-                Player.maxRunSpeed *= 1.2f;
+                Player.maxRunSpeed *= 1.05f;
             }
             if (VFHelmRogue)
             {
-                Player.runAcceleration *= 1.15f;
-                Player.maxRunSpeed *= 1.15f;
+                Player.runAcceleration *= 0.50f;
+                Player.maxRunSpeed *= 1.14f;
             }
             if (CRing)
             {
-                Player.runAcceleration *= 1.05f;
+		Player.runAcceleration *= 1.05f;
                 Player.maxRunSpeed *= 1.05f;
             }
-            Player.runAcceleration *= 1f + VoidCharge;
-            Player.maxRunSpeed *= 1f + VoidCharge;
+            Player.runAcceleration *= 1f + 0.1f*VoidCharge;
+            Player.maxRunSpeed *= 1f + 0.4f*VoidCharge;
             Player.runAcceleration *= 1f + moveSpeed;
             Player.maxRunSpeed *= 1f + moveSpeed;
         }

@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] == 2)
             {
-                Projectile.getOwner().Heal(24);
+                Projectile.getOwner().Heal(5);
             }
             if (Projectile.ai[0] == 4)
             {

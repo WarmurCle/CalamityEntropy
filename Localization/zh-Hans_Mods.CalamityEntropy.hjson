@@ -1076,7 +1076,7 @@ Items: {
 		Tooltip:
 			'''
 			锁住最近的目标，持续3秒
-			冷却为25秒，当有boss存在时冷却为60秒
+			冷却为25秒，当有boss存在时冷却为90秒
 			'''
 		DisplayName: 孤魂铁索
 	}
@@ -2055,8 +2055,8 @@ ArmorPrefixGodForgedName: 神铸
 ArmorPrefixGodForgedDescription:
 	'''
 	+15% 防御
-	+5% 伤害减免
-	+5% 伤害
+	+2% 伤害减免
+	+4% 伤害
 	'''
 ArmorPrefixGuardedName: 守护
 ArmorPrefixGuardedDescription: +20% 防御
