@@ -470,9 +470,9 @@ namespace CalamityEntropy.Common
             {
                 llSky--;
             }
-            if(VFSet && !Player.controlLeft && !Player.controlRight)
+            if(VFLeg && !Player.controlLeft && !Player.controlRight)
             {
-                Player.velocity.X *= 0.92f;
+                Player.velocity.X *= 0.96f;
             }
 
         }
@@ -514,8 +514,8 @@ namespace CalamityEntropy.Common
 		Player.runAcceleration *= 1.05f;
                 Player.maxRunSpeed *= 1.05f;
             }
-            Player.runAcceleration *= 1f + 0.1f*VoidCharge;
-            Player.maxRunSpeed *= 1f + 0.4f*VoidCharge;
+            Player.runAcceleration *= 1f + 0.14f * VoidCharge;
+            Player.maxRunSpeed *= 1f + 0.5f * VoidCharge;
             Player.runAcceleration *= 1f + moveSpeed;
             Player.maxRunSpeed *= 1f + moveSpeed;
         }
