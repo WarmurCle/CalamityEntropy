@@ -144,6 +144,7 @@ namespace CalamityEntropy
         public ArmorForgingStationUI armorForgingStationUI;
         public UserInterface userInterface;
         public static DynamicSpriteFont efont1;
+        public static DynamicSpriteFont efont2;
         public static float cutScreenVel = 0;
         public static float cutScreen = 0;
         public static float cutScreenRot = 0;
@@ -332,6 +333,8 @@ namespace CalamityEntropy
             ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
+            efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
+
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
             userInterface = new UserInterface();
@@ -1932,6 +1935,7 @@ namespace CalamityEntropy
             Poop.instances = null;
             WallpaperHelper.wallpaper = null;
             efont1 = null;
+            efont2 = null;
             checkProj = null;
             checkNPC = null;
             kscreen = null;

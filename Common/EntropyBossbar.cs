@@ -124,7 +124,7 @@ namespace CalamityEntropy.Common
                 drawOfs -= 9;
             }
 
-            Vector2 center = new Vector2(Main.screenWidth / 2, Main.screenHeight - 102);
+            Vector2 center = new Vector2(Main.screenWidth / 2, Main.screenHeight - 70);
 
             float prog = (float)npc.life / (float)npc.lifeMax;
             if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
@@ -269,27 +269,27 @@ namespace CalamityEntropy.Common
             Texture2D hl = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/hl").Value;
             Texture2D df = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/df").Value;
             Texture2D atk = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/atk").Value;
-            Vector2 statDrawPos = center + new Vector2(-180, 46);
+            Vector2 statDrawPos = center + new Vector2(-170, -30);
             Main.spriteBatch.Draw(hl, statDrawPos, null, Color.White, 0, hl.Size() / 2, 1, SpriteEffects.None, 0);
-            string dstring = npc.life.ToString() + " / " + npc.lifeMax.ToString();
-            Main.spriteBatch.DrawString(FontAssets.DeathText.Value, dstring, statDrawPos + new Vector2(6, 2), Color.Yellow, 0, FontAssets.DeathText.Value.MeasureString(dstring) / 2, 0.24f, SpriteEffects.None, 0);
-            statDrawPos.X += 80 + 33 + 4;
+            string dstring = npc.life.ToString() + "/" + npc.lifeMax.ToString() + "(" + ((int)(((float)npc.life / (float)npc.lifeMax) * 100)).ToString() + "%)";
+            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.42f, SpriteEffects.None, 0);
+            statDrawPos.X += 105 + 45 + 4 + 146;
 
             Main.spriteBatch.Draw(df, statDrawPos, null, Color.White, 0, df.Size() / 2, 1, SpriteEffects.None, 0);
-            dstring = npc.defense.ToString();
-            Main.spriteBatch.DrawString(FontAssets.DeathText.Value, dstring, statDrawPos + new Vector2(6, 2), Color.Yellow, 0, FontAssets.DeathText.Value.MeasureString(dstring) / 2, 0.24f, SpriteEffects.None, 0);
+            dstring = npc.defense.ToString() + "(-" + (int)(npc.Calamity().DR * 100f) + "%)";
+            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.44f, SpriteEffects.None, 0);
 
-            statDrawPos.X += 66 + 4;
+            statDrawPos.X += 70 + 33;
 
             Main.spriteBatch.Draw(atk, statDrawPos, null, Color.White, 0, atk.Size() / 2, 1, SpriteEffects.None, 0);
             dstring = npc.damage.ToString();
-            Main.spriteBatch.DrawString(FontAssets.DeathText.Value, dstring, statDrawPos + new Vector2(6, 2), Color.Yellow, 0, FontAssets.DeathText.Value.MeasureString(dstring) / 2, 0.24f, SpriteEffects.None, 0);
+            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.44f, SpriteEffects.None, 0);
 
             string name = npc.FullName;
             Color tColor = getNpcBarColor(npc);
             for (int i = 0; i < 36; i++)
             {
-                Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 50) + new Vector2(2, 0).RotatedBy(MathHelper.ToRadians(i * 10)), new Color(tColor.R / 2, tColor.G / 2, tColor.B / 2), 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
+                Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 28) + new Vector2(2, 0).RotatedBy(MathHelper.ToRadians(i * 10)), new Color(tColor.R / 2, tColor.G / 2, tColor.B / 2), 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
             }
 
             if ((Math.Abs(tColor.R - buttomColor.R / 2) + Math.Abs(tColor.G - buttomColor.G / 2) + Math.Abs(tColor.B - buttomColor.B / 2)) / 3 < 90)
@@ -307,7 +307,7 @@ namespace CalamityEntropy.Common
                 }
             }
             //tColor = Color.Lerp(tColor, Color.White, whiteLerp);
-            Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 50), tColor, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
+            Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 28), tColor, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
             spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
 

@@ -845,7 +845,7 @@ namespace CalamityEntropy.Common
                                 if (Main.mouseRight)
                                 {
                                     mawOfVoidUsing = true;
-                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(225), 0, Player.whoAmI);
+                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(MawOfTheVoid.Damage), 0, Player.whoAmI);
                                 }
                             }
                         }
@@ -854,7 +854,7 @@ namespace CalamityEntropy.Common
                             if (mawOfVoidCharge == 1)
                             {
                                 mawOfVoidUsing = true;
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(225), 0, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(MawOfTheVoid.Damage), 0, Player.whoAmI);
                             }
                             else
                             {
@@ -893,7 +893,7 @@ namespace CalamityEntropy.Common
                                 if (Main.mouseRight)
                                 {
                                     revelationUsing = true;
-                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(50), 0, Player.whoAmI);
+                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(TheRevelation.Damage), 0, Player.whoAmI);
                                 }
                             }
                         }
@@ -902,7 +902,7 @@ namespace CalamityEntropy.Common
                             if (revelationCharge == 1)
                             {
                                 revelationUsing = true;
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(50), 0, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), (int)Player.GetDamage(Player.GetBestClass()).ApplyTo(TheRevelation.Damage), 0, Player.whoAmI);
                             }
                             else
                             {
@@ -928,7 +928,7 @@ namespace CalamityEntropy.Common
             {
                 if (Main.myPlayer == Player.whoAmI)
                 {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Util.Util.randomVec(14), ModContent.ProjectileType<PhantomWyrm>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(900)), 1, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Util.Util.randomVec(14), ModContent.ProjectileType<PhantomWyrm>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(Ystralyn.PhantomDamage)), 1, Player.whoAmI);
                 }
             }
             foreach (Projectile p in Main.ActiveProjectiles)
