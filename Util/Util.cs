@@ -21,6 +21,15 @@ namespace CalamityEntropy.Util
         {
             return TextureAssets.Projectile[p.type].Value;
         }
+        public static Vector2 normalize(this Vector2 v)
+        {
+            return v.SafeNormalize(Vector2.Zero);
+        }
+        public static Terraria.DataStructures.DrawData getDrawData(this Projectile projectile, Color color)
+        {
+            Texture2D tx = projectile.getTexture();
+            return new Terraria.DataStructures.DrawData(tx, projectile.Center + projectile.gfxOffY * Vector2.UnitY - Main.screenPosition, null, color, projectile.rotation, tx.Size() / 2, projectile.scale, SpriteEffects.None);
+        }
         public static void showItemTooltip(Item item)
         {
             Main.HoverItem = item.Clone();

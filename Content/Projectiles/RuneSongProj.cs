@@ -272,7 +272,7 @@ namespace CalamityEntropy.Content.Projectiles
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             Player player = Main.player[Projectile.owner];
             
-            Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Extra_201").Value;  //SwordSlashTexture
+            Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/SplitTrail").Value;  //SwordSlashTexture
 
             var r = Main.rand;
             sb.End();

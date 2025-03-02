@@ -102,6 +102,16 @@ Items: {
 					潜伏攻击同时丢出两把飞刀并追踪目标，击中后迸发出大量两种灵魂
 					'''
 			}
+
+			AmethystFrisbee: {
+				Tooltip:
+					'''
+					扔出一个击中会自动返回的飞盘
+					返回的瞬间再次投出无视重力并造成高频伤害
+					潜伏攻击会在命中敌人后产生冲击，对附近敌怪造成伤害
+					'''
+				DisplayName: 紫晶飞盘
+			}
 		}
 	}
 
@@ -1636,6 +1646,8 @@ Projectiles: {
 	WaterExplosion.DisplayName: 水爆炸
 	BrimstoneBarrageFriendly.DisplayName: 硫火飞弹
 	PlanteraChan.DisplayName: 世花酱
+	AmethystFrisbeeProjectile.DisplayName: 紫水晶飞盘
+	AmethystExplosion.DisplayName: 紫晶冲击
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1903,12 +1915,10 @@ NPCs: {
 
 	ChaoticCell.DisplayName: 混沌细胞
 	ChaoticCellSmall.DisplayName: 混沌细胞分裂体
-	// WulfrumHovercraftFriendly.DisplayName: Wulfrum Hovercraft Friendly
 	DespairStoneFriendly.DisplayName: 友好的绝望之石
 	ScryllarFriendly.DisplayName: 友好的殒命妖灵
 	AeroSlimeFriendly.DisplayName: 友好的天蓝史莱姆
 	SoulSlurperFriendly.DisplayName: 友好的灵魂饮食者
-	// TrasherFriendly.DisplayName: Trasher Friendly
 	SkyfinFriendly.DisplayName: 友好的天鳍鱼
 	IceClasperFriendly.DisplayName: 友好的食魂冰虫
 }

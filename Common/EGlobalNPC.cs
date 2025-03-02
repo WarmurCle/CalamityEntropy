@@ -167,6 +167,13 @@ namespace CalamityEntropy.Common
                 deusBloodOut -= dmgApply;
                 dmgApply *= 800;
                 (npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life -= dmgApply;
+                if((npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life < 1)
+                {
+                    (npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life = 1;
+                }
+                if((npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life <= 10) {
+                    deusBloodOut = 0;
+                }
             }
             for (int i = 0; i < tfriendlyNPCHitCooldown.Length; i++)
             {
@@ -820,7 +827,7 @@ namespace CalamityEntropy.Common
             {
                 if (Main.bloodMoon)
                 {
-                    if (Main.rand.NextBool(300))
+                    if (Main.rand.NextBool(500))
                     {
                         Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CrimsonNight>()));
                     }

@@ -72,6 +72,11 @@ Items: {
 					Stealth attack will simultaneously throw two knives and track the target, unleashing a large number of two types of souls upon impact
 					'''
 			}
+
+			AmethystFrisbee: {
+				Tooltip: ""
+				DisplayName: Amethyst Frisbee
+			}
 		}
 	}
 
@@ -1495,6 +1500,8 @@ Projectiles: {
 	WaterExplosion.DisplayName: Water Explosion
 	BrimstoneBarrageFriendly.DisplayName: Brimstone Barrage Friendly
 	PlanteraChan.DisplayName: Plantera Chan
+	AmethystFrisbeeProjectile.DisplayName: Amethyst Frisbee Projectile
+	AmethystExplosion.DisplayName: Amethyst Explosion
 }
 
 LegendTooltip: - Legend -
@@ -1762,12 +1769,10 @@ NPCs: {
 
 	ChaoticCell.DisplayName: Chaotic Cell
 	ChaoticCellSmall.DisplayName: Chaotic Cell Small
-	WulfrumHovercraftFriendly.DisplayName: Wulfrum Hovercraft Friendly
 	DespairStoneFriendly.DisplayName: Despair Stone Friendly
 	ScryllarFriendly.DisplayName: Scryllar Friendly
 	AeroSlimeFriendly.DisplayName: Aero Slime Friendly
 	SoulSlurperFriendly.DisplayName: Soul Slurper Friendly
-	TrasherFriendly.DisplayName: Trasher Friendly
 	SkyfinFriendly.DisplayName: Skyfin Friendly
 	IceClasperFriendly.DisplayName: Ice Clasper Friendly
 }
