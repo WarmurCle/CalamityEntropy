@@ -219,7 +219,7 @@ namespace CalamityEntropy.Content.Projectiles
                       b));
             }
 
-            if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
+            if (ve.Count >= 3)
             {
                 gd.Textures[0] = tail;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);

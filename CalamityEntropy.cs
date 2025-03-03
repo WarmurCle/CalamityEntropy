@@ -1106,6 +1106,10 @@ namespace CalamityEntropy
                 {
                     //try
                     {
+                        screen?.Dispose();
+                        screen = null;
+                        screen3?.Dispose();
+                        screen3 = null;
                         screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
                         screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
                         screensz = new Vector2(Main.screenWidth, Main.screenHeight);
@@ -1118,6 +1122,8 @@ namespace CalamityEntropy
                 {
                     //try
                     {
+                        screen2?.Dispose();
+                        screen2 = null;
                         screen2 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
                         screensz = new Vector2(Main.screenWidth, Main.screenHeight);
                     }

@@ -44,6 +44,8 @@ namespace CalamityEntropy.Content.Skies
         public int counter = 0;
         public int awtime = 0;
         public Effect skyEffect = null;
+        RenderTarget2D screen;
+        RenderTarget2D screen2;
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
             if(this.skyEffect == null)
@@ -139,8 +141,12 @@ namespace CalamityEntropy.Content.Skies
             {
                 spriteBatch.End();
                 GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-                RenderTarget2D screen = ModContent.GetInstance<CalamityEntropy>().screen;
-                RenderTarget2D screen2 = ModContent.GetInstance<CalamityEntropy>().screen2;
+                screen?.Dispose();
+                screen = null;
+                screen2?.Dispose();
+                screen2 = null;
+                screen = ModContent.GetInstance<CalamityEntropy>().screen;
+                screen2 = ModContent.GetInstance<CalamityEntropy>().screen2;
                 graphicsDevice.SetRenderTarget(screen2);
                 graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
