@@ -34,6 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 16f;
         }
         public float charge = 0; 
+
         public override bool AltFunctionUse(Player player) => true;
 
         public override bool CanUseItem(Player player)
