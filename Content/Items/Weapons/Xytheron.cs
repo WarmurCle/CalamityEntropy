@@ -33,7 +33,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<XytheronProj>();
             Item.shootSpeed = 16f;
         }
-        public float charge = 0; 
+
+        public float charge = 0;
 
         public override bool AltFunctionUse(Player player) => true;
 
