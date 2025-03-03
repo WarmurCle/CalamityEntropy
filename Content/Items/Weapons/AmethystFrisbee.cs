@@ -34,14 +34,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<AmethystFrisbeeProjectile>();
-            Item.shootSpeed = 36f;
+            Item.shootSpeed = 26f;
             Item.DamageType = CUtil.rogueDC;
         }
         public int altShotCount = 0;
        
          
-        public override float StealthDamageMultiplier => 1.2f;
-        public override float StealthVelocityMultiplier => 1.5f;
+        public override float StealthDamageMultiplier => 1.6f;
+        public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 3f;
         public override void UpdateInventory(Player player)
         {
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if(altShotCount > 0)
             {
-                velocity *= 0.34f;
+                velocity *= 0.54f;
             }
             Util.Util.PlaySound("throw", 1, player.Center);
             if (player.Calamity().StealthStrikeAvailable())

@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 7500;
+            Item.damage = 8400;
             Item.crit = 16;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 86;
@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (player.altFunctionUse == 2)
             {
-                Projectile.NewProjectile(source, position, velocity.SafeNormalize(Vector2.UnitX) * (42 + charge * 2.4f), type, (int)(damage / 2.8f * (charge + 1)), knockback, player.whoAmI, charge);
+                Projectile.NewProjectile(source, position, velocity.SafeNormalize(Vector2.UnitX) * (42 + charge * 2f), type, (int)(damage / 2.8f * (charge + 1)), knockback, player.whoAmI, charge);
                 charge = 0;
             }
             else

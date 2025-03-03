@@ -1245,6 +1245,11 @@ Items: {
 		DisplayName: Toy Guitar
 		Tooltip: ""
 	}
+
+	AncientScriptures: {
+		DisplayName: Ancient Scriptures
+		Tooltip: ""
+	}
 }
 
 MariviniumSet:
@@ -1502,6 +1507,7 @@ Projectiles: {
 	PlanteraChan.DisplayName: Plantera Chan
 	AmethystFrisbeeProjectile.DisplayName: Amethyst Frisbee Projectile
 	AmethystExplosion.DisplayName: Amethyst Explosion
+	AncientScripturesHeld.DisplayName: Ancient Scriptures Held
 }
 
 LegendTooltip: - Legend -

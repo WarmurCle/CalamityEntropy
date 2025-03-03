@@ -1390,6 +1390,11 @@ Items: {
 		DisplayName: 玩具吉他
 		Tooltip: 召唤世花酱跟随你
 	}
+
+	AncientScriptures: {
+		// DisplayName: Ancient Scriptures
+		// Tooltip: ""
+	}
 }
 
 MariviniumSet:
@@ -1648,6 +1653,7 @@ Projectiles: {
 	PlanteraChan.DisplayName: 世花酱
 	AmethystFrisbeeProjectile.DisplayName: 紫水晶飞盘
 	AmethystExplosion.DisplayName: 紫晶冲击
+	// AncientScripturesHeld.DisplayName: Ancient Scriptures Held
 }
 
 LegendTooltip: - 传奇物品 -

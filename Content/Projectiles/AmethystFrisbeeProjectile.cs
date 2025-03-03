@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
@@ -22,8 +23,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = CUtil.rogueDC;
-            Projectile.width = 28;
-            Projectile.height = 28;
+            Projectile.width = 42;
+            Projectile.height = 42;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.light = 0.1f;
@@ -34,11 +35,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float counter { get { return Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
         public float grav { get { return Projectile.localAI[2]; } set { Projectile.localAI[2] = value; } }
+        public float gravity = 2.2f;
         public bool hited { 
             get { return Projectile.ai[1] > 0; }
             set { Projectile.ai[1] = 1; }
         }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/AmethystFrisbee";
+        public bool homing = false;
         public override void AI()
         {
             Projectile.rotation += Projectile.velocity.X * 0.1f;
@@ -48,28 +51,62 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.localNPCHitCooldown = 20;
                 if(hited && Projectile.ai[2] == 0) {
                     Projectile.ai[2]++;
-                    Projectile.velocity = new Vector2(0, -14);
+                    Vector2 targetPosition = Projectile.getOwner().Center;
+                    float speed = 0;
+                    int jspeed = 38;
+                    float js;
+                    int mct = 0;
+                    float basej = 0.01f;
+                    float bspeed = jspeed;
+                    int count = 0;
+                    while (basej > 0)
+                    {
+                        basej += bspeed;
+                        bspeed -= gravity;
+                        count++;
+                    }
+                    mct = count;
+                    speed = Util.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) / count;
+                    js = jspeed;
+                    Vector2 jv = (Projectile.getOwner().Center - Projectile.Center).ToRotation().ToRotationVector2() * speed;
+                    jv.Y -= js;
+                    Projectile.velocity = jv;
+
                     Projectile.netUpdate = true;
                 }
                 if (hited)
                 {
-                    if (Projectile.localAI[1] < 0.06f)
+                    if (Projectile.Distance(Projectile.getOwner().Center) < Projectile.velocity.Length() + 54)
                     {
-                        Projectile.localAI[1] += 0.001f;
-                    }
-                    Projectile.velocity *= 1f - Projectile.localAI[1];
-                    Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * (Projectile.localAI[1] * 28);
-                    if (Projectile.Distance(Projectile.getOwner().Center) < Projectile.velocity.Length() + 40)
-                    {
-                        if(Projectile.getOwner().HeldItem.ModItem is AmethystFrisbee af)
+                        if (Projectile.getOwner().HeldItem.ModItem is AmethystFrisbee af)
                         {
                             af.altShotCount = 16;
                         }
                         Projectile.Kill();
                     }
+                    if (homing)
+                    {
+                        if (Projectile.localAI[1] < 0.12f)
+                        {
+                            Projectile.localAI[1] += 0.0025f;
+                        }
+                        Projectile.velocity *= 1f - Projectile.localAI[1];
+                        Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * (Projectile.localAI[1] * 56);
+                        
+                    }
+                    else
+                    {
+                        Projectile.velocity.Y += gravity;
+                        Projectile.velocity *= 0.997f;
+                        Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * 0.3f;
+
+                    }
                 }
                 else
                 {
+                    if(Projectile.Distance(Projectile.owner.ToPlayer().Center) > 1400) {
+                        hited = true;
+                    }
                     Projectile.velocity.Y += grav;
                     if(grav < 1f)
                     {
@@ -86,8 +123,8 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.localNPCHitCooldown = 5;
                 if (counter > 46)
                 {
-                    Projectile.velocity *= 0.974f;
-                    Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * 0.8f;
+                    Projectile.velocity *= 0.92f;
+                    Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * 3f;
                     if (Projectile.Distance(Projectile.getOwner().Center) < Projectile.velocity.Length() + 40)
                     {
                         Projectile.Kill();
@@ -115,6 +152,10 @@ namespace CalamityEntropy.Content.Projectiles
                 Util.Util.PlaySound("shield", pos: Projectile.Center);
                 Util.Util.PlaySound("SarosDiskThrow1", pos: Projectile.Center);
             }
+            else
+            {
+                homing = true;
+            }
             Util.Util.PlaySound("bne_hit2", pos: Projectile.Center);
             if (!hited && Projectile.Calamity().stealthStrike)
             {
@@ -129,6 +170,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Util.Util.PlaySound("shield", pos: Projectile.Center);
             }
+            else
+            {
+                homing = true;
+            }
             hited = true;
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -137,12 +182,25 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Util.Util.PlaySound("shield", pos: Projectile.Center);
             }
+            else
+            {
+                homing = true;
+                if (Projectile.velocity.Y == 0 && oldVelocity.Y != 0)
+                {
+                    Projectile.velocity.Y = oldVelocity.Y * -0.8f;
+                }
+                if (Projectile.velocity.X == 0 && oldVelocity.X != 0)
+                {
+                    Projectile.velocity.X = oldVelocity.X * -0.8f;
+                }
+                Projectile.tileCollide = false;
+            }
             hited = true;
             if (Projectile.ai[0] == 1)
             {
                 counter = 41;
             }
-            Projectile.tileCollide = false;
+            
             return false;
         }
         public override bool PreDraw(ref Color lightColor)
