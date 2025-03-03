@@ -37,6 +37,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
         }
     }
+
     public class EBookStatModifer
     {
         public float Damage = 1;
@@ -48,6 +49,7 @@ namespace CalamityEntropy.Content.Items.Books
         public float HomingRange = 1;
         public int PenetrateAddition = 0;
     }
+
     public abstract class EntropyBookHeldProjectile : ModProjectile
     {
         public int ItemType => (int)Projectile.ai[0];
