@@ -16,6 +16,7 @@ using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
+using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Util;
 using CalamityMod;
@@ -1624,12 +1625,32 @@ namespace CalamityEntropy.Common
             var boost = new List<string>();
             boost.AddWithCondition("CruiserLore", CruiserLoreUsed);
             tag["EntropyBoosts"] = boost;
+            
+            int BookMarks = EBookUI.stackItems.Count;
+
+            tag["EntropyBookMarks"] = BookMarks;
+            for (int i = 0; i < BookMarks; i++)
+            {
+                tag["EntropyBookMark" + i.ToString()] = ItemIO.Save(EBookUI.stackItems[i]);
+            }
         }
 
         public override void LoadData(TagCompound tag)
         {
             var boost = tag.GetList<string>("EntropyBoosts");
             CruiserLoreUsed = boost.Contains("CruiserLore");
+            
+            if (tag.ContainsKey("EntropyBookMarks"))
+            {
+                EBookUI.stackItems = new List<Item>();
+                int BookMarks = (int)tag["EntropyBookMarks"];
+                for (int i = 0; i < BookMarks; i++)
+                {
+                    var item = ItemIO.Load((TagCompound)tag["EntropyBookMark" + i.ToString()]);
+                    EBookUI.stackItems.Add(item);
+                }
+
+            }
         }
     }
 }

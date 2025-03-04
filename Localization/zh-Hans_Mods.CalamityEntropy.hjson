@@ -1392,8 +1392,41 @@ Items: {
 	}
 
 	AncientScriptures: {
-		// DisplayName: Ancient Scriptures
+		DisplayName: 远古典籍
+		Tooltip: ""
+	}
+
+	BookMarkBrimstone: {
+		DisplayName: 书签-硫磺火
+		Tooltip: 攻击时在附近召唤硫磺火漩涡，向鼠标位置发射鲜血激光柱
+	}
+
+	BookMarkAerialite: {
+		Tooltip:
+			'''
+			射弹击中敌人后从天上降下羽毛
+			+50% 弹速
+			'''
+		DisplayName: 书签-天蓝
+	}
+
+	BookMarkFlesh: {
+		DisplayName: 书签-血肉
+		Tooltip:
+			'''
+			射弹击中敌人后爆发出伤害性血液
+			+1 穿透
+			'''
+	}
+
+	BookMarkIce: {
+		DisplayName: 书签-凌冽
+		Tooltip: 攻击时同时从身后发射凌冽神剑
+	}
+
+	InfiniteBook: {
 		// Tooltip: ""
+		// DisplayName: Infinite Book
 	}
 }
 
@@ -1654,6 +1687,11 @@ Projectiles: {
 	AmethystFrisbeeProjectile.DisplayName: 紫水晶飞盘
 	AmethystExplosion.DisplayName: 紫晶冲击
 	// AncientScripturesHeld.DisplayName: Ancient Scriptures Held
+	// RuneBullet.DisplayName: Rune Bullet
+	// WelkinFeather2.DisplayName: Welkin Feather2
+	// IceEdge2.DisplayName: Ice Edge2
+	// BrimstoneVortex.DisplayName: Brimstone Vortex
+	// InfiniteBookHeld.DisplayName: Infinite Book Held
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2193,3 +2231,11 @@ KilledByVoidVirus1: ""
 KilledByVoidVirus2: 血液里只剩下虚无
 KilledByAstral: 被星辉残蚀殆尽
 CdFF: 寻友护符冷却
+TooltipBookMark: 需放入熵语之书系列武器以生效
+SlotInfo: 放入书签
+EBookTooltip:
+	'''
+	右键打开书签UI
+	放入书签以对其进行强化
+	- 熵语之书 -
+	'''

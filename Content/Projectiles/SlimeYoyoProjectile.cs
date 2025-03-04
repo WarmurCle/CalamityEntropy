@@ -54,8 +54,8 @@ namespace CalamityEntropy.Content.Projectiles
                 rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 25, 0, new Vector2(0, 0.6f), 0.06f, 15, true);
             }
             rope.segmentLength = Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 25f;
-            rope.StartPos = Projectile.owner.ToPlayer().Center;
-            rope.EndPos = Projectile.Center;
+            rope.Start = Projectile.owner.ToPlayer().Center;
+            rope.End = Projectile.Center;
             rope.Update();
             Projectile.rotation += 0.5f;
             Projectile.timeLeft = 3;

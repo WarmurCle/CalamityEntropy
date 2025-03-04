@@ -1250,6 +1250,39 @@ Items: {
 		DisplayName: Ancient Scriptures
 		Tooltip: ""
 	}
+
+	BookMarkBrimstone: {
+		DisplayName: Bookmark - Brimstone
+		Tooltip: Summon a sulfur fire vortex that will fire a blood laser column towards the enemy during shooting
+	}
+
+	BookMarkAerialite: {
+		Tooltip:
+			'''
+			Falling feathers from the sky after hitting the enemy
+			+50% Shot Speed
+			'''
+		DisplayName: Bookmark - Aerialite
+	}
+
+	BookMarkFlesh: {
+		DisplayName: Bookmark - Flesh
+		Tooltip:
+			'''
+			Split blood beam when your projectile hit enemies
+			+1 Penetration
+			'''
+	}
+
+	BookMarkIce: {
+		DisplayName: Bookmark - Ice
+		Tooltip: When shooting, shoot an ice sword from behind and pierce the enemy
+	}
+
+	InfiniteBook: {
+		Tooltip: ""
+		DisplayName: Infinite Book
+	}
 }
 
 MariviniumSet:
@@ -1508,6 +1541,11 @@ Projectiles: {
 	AmethystFrisbeeProjectile.DisplayName: Amethyst Frisbee Projectile
 	AmethystExplosion.DisplayName: Amethyst Explosion
 	AncientScripturesHeld.DisplayName: Ancient Scriptures Held
+	RuneBullet.DisplayName: Rune Bullet
+	WelkinFeather2.DisplayName: Welkin Feather2
+	IceEdge2.DisplayName: Ice Edge2
+	BrimstoneVortex.DisplayName: Brimstone Vortex
+	InfiniteBookHeld.DisplayName: Infinite Book Held
 }
 
 LegendTooltip: - Legend -
@@ -1915,7 +1953,7 @@ helmvfe:
 	'''
 Reforge: Reforge
 ArmorPrefixHardName: Hard
-ArmorPrefixHardDescription: +10 defense
+ArmorPrefixHardDescription: +10% defense
 ArmorPrefixLightName: Light
 ArmorPrefixLightDescription:
 	'''
@@ -2048,3 +2086,11 @@ KilledByVoidVirus1: "Only Nihility remains in "
 KilledByVoidVirus2: "'s blood"
 KilledByAstral: " completely eroded by starlight"
 CdFF: Friend Finder Cooldown
+TooltipBookMark: Can insert in Entropy Books weapons
+SlotInfo: Insert Bookmark
+EBookTooltip:
+	'''
+	Right click to open UI
+	Put Bookmarks in to enhance your attack
+	- Entropy Book -
+	'''

@@ -99,8 +99,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
             Vector2 rend = owner.Center;
             rope.segmentLength = Util.Util.getDistance(NPC.Center, rend) / 35f;
-            rope.StartPos = NPC.Center;
-            rope.EndPos = rend;
+            rope.Start = NPC.Center;
+            rope.End = rend;
             rope.Update();
             foreach(NPC n in Main.ActiveNPCs)
             {

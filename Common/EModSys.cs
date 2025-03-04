@@ -6,6 +6,7 @@ using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
+using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Util;
 using CalamityMod.Items.Placeables.FurnitureAuric;
 using CalamityMod.NPCs.SlimeGod;
@@ -56,6 +57,12 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.End();
             }
         }
+
+        public override void PostSetupRecipes()
+        {
+            
+        }
+
         public override void UpdateUI(GameTime gameTime)
         {
             noItemUse = false;
@@ -96,6 +103,7 @@ namespace CalamityEntropy.Common
         public int slimeGodMaxLife = 0;
         public override void PostUpdatePlayers()
         {
+            EBookUI.update();
             if (ModContent.GetInstance<RepMusicScene>().IsSceneEffectActive(Main.LocalPlayer))
             {
                 Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/RepBossTrack")] = 1;
@@ -227,6 +235,16 @@ namespace CalamityEntropy.Common
                 },
                 InterfaceScaleType.UI)
             );
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer(
+                "CalamityEntropy: EntropyBookItemUI",
+                delegate
+                {
+                    EBookUI.draw();
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+               
             }
         }
 

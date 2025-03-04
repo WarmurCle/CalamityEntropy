@@ -33,13 +33,13 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 rope = new Rope(Projectile.Center, 6, 8, new Vector2(0, 0.26f), 0.25f, 26, true);
             }
-            rope.StartPos = Projectile.Center - player.velocity / 4 * 3;
+            rope.Start = Projectile.Center - player.velocity / 4 * 3;
             rope.Update();
-            rope.StartPos = Projectile.Center - player.velocity / 4 * 2;
+            rope.Start = Projectile.Center - player.velocity / 4 * 2;
             rope.Update();
-            rope.StartPos = Projectile.Center - player.velocity / 4 * 1;
+            rope.Start = Projectile.Center - player.velocity / 4 * 1;
             rope.Update();
-            rope.StartPos = Projectile.Center;
+            rope.Start = Projectile.Center;
             rope.Update();  
             var points = rope.GetPoints();
             odp.Clear();

@@ -7,19 +7,19 @@ namespace CalamityEntropy.Util
 {
     public class Rope
     {
-        public Vector2 StartPos { get; set; }
+        public Vector2 Start { get; set; }
 
-        public Vector2 EndPos { get; set; }
+        public Vector2 End { get; set; }
 
-        public Rope(Vector2 startPoint, int segmentCount, float segmentLength, Vector2 gravity, float damping = 0f, int accuracy = 15, bool tileCollide = false)
+        public Rope(Vector2 startPos, int segmentCount, float segmentLength, Vector2 gravity, float damping = 0f, int accuracy = 15, bool tileCollide = false)
         {
             this.segments = new List<Rope.RopeSegment>();
             for (int i = 0; i < segmentCount; i++)
             {
-                this.segments.Add(new Rope.RopeSegment(startPoint + Utils.SafeNormalize(gravity, Vector2.Zero) * (float)i));
+                this.segments.Add(new Rope.RopeSegment(startPos + Utils.SafeNormalize(gravity, Vector2.Zero) * (float)i));
             }
-            this.StartPos = startPoint;
-            this.EndPos = startPoint;
+            this.Start = startPos;
+            this.End = startPos;
             this.segmentLength = segmentLength;
             this.gravity = gravity;
             this.damping = damping;
@@ -35,8 +35,8 @@ namespace CalamityEntropy.Util
             {
                 this.segments.Add(new Rope.RopeSegment(Vector2.Lerp(startPoint, endPoint, (float)i / (float)(segmentCount - 1))));
             }
-            this.StartPos = startPoint;
-            this.EndPos = endPoint;
+            this.Start = startPoint;
+            this.End = endPoint;
             this.segmentLength = segmentLength;
             this.gravity = gravity;
             this.damping = damping;
@@ -57,11 +57,11 @@ namespace CalamityEntropy.Util
 
         public void Update()
         {
-            this.segments[0].position = this.StartPos;
+            this.segments[0].position = this.Start;
             bool flag = this.twoPoint;
             if (flag)
             {
-                this.segments[this.segments.Count - 1].position = this.EndPos;
+                this.segments[this.segments.Count - 1].position = this.End;
             }
             for (int i = 0; i < this.segments.Count; i++)
             {
@@ -116,7 +116,7 @@ namespace CalamityEntropy.Util
             bool flag4 = !this.twoPoint;
             if (flag4)
             {
-                this.EndPos = this.segments[this.segments.Count - 1].position;
+                this.End = this.segments[this.segments.Count - 1].position;
             }
         }
 

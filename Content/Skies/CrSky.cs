@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Skies
     {
         private bool skyActive;
         private float opacity;
-        
+
 
         public override void Deactivate(params object[] args)
         {
@@ -44,11 +44,9 @@ namespace CalamityEntropy.Content.Skies
         public int counter = 0;
         public int awtime = 0;
         public Effect skyEffect = null;
-        RenderTarget2D screen;
-        RenderTarget2D screen2;
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            if(this.skyEffect == null)
+            if (this.skyEffect == null)
             {
                 this.skyEffect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/AWSkyEffect", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             }
@@ -90,7 +88,7 @@ namespace CalamityEntropy.Content.Skies
 
             if (awtime > 0)
             {
-                
+
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
                 ocolor = new Color((int)(36 * pc), (int)(36 * pc), (int)(36 * pc));
@@ -125,7 +123,7 @@ namespace CalamityEntropy.Content.Skies
                 ocolor = new Color((int)(12 * pc), (int)(62 * pc), (int)(96 * pc));
             }
             float c = 1f;
-            
+
             dp = new Vector2((Main.screenPosition.X * -0.5f * c + counter * -0.3f * c) % txd.Width, (Main.screenPosition.Y * -0.5f * c + counter * 0.1f * c) % txd.Height);
             spriteBatch.Draw(txd, dp + new Vector2(0, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(txd, dp - txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
@@ -141,12 +139,8 @@ namespace CalamityEntropy.Content.Skies
             {
                 spriteBatch.End();
                 GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-                screen?.Dispose();
-                screen = null;
-                screen2?.Dispose();
-                screen2 = null;
-                screen = ModContent.GetInstance<CalamityEntropy>().screen;
-                screen2 = ModContent.GetInstance<CalamityEntropy>().screen2;
+                RenderTarget2D screen = ModContent.GetInstance<CalamityEntropy>().screen;
+                RenderTarget2D screen2 = ModContent.GetInstance<CalamityEntropy>().screen2;
                 graphicsDevice.SetRenderTarget(screen2);
                 graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -202,8 +196,8 @@ namespace CalamityEntropy.Content.Skies
 
 
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null);
-            
-            
+
+
 
         }
         public class LightningParticle

@@ -1066,8 +1066,8 @@ namespace CalamityEntropy
             {
                 rope = new Rope(player.Center, Main.MouseWorld, 30, 5, new Vector2(0, 1f), 0.02f, 15, false);
             }
-            rope.StartPos = player.Center;
-            rope.EndPos = Main.MouseWorld;
+            rope.Start = player.Center;
+            rope.End = Main.MouseWorld;
             rope.Update();
             List<Vector2> points = rope.GetPoints();
             points.Add(Main.MouseWorld);

@@ -971,8 +971,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 Vector2 rend = Vector2.Lerp(buttom, cell.Center, ropeLerp);
                 rope.segmentLength = Util.Util.getDistance(buttom, rend) / 35f;
-                rope.StartPos = buttom;
-                rope.EndPos = rend;
+                rope.Start = buttom;
+                rope.End = rend;
                 rope.Update();
             }
         }

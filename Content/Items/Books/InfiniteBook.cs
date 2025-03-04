@@ -15,16 +15,23 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books
 {
-    public class AncientScriptures : EntropyBook
+    public class InfiniteBook : EntropyBook
     {
-        public override int HeldProjectileType => ModContent.ProjectileType<AncientScripturesHeld>();
-        public override int SlotCount => 2;
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Item.useTime = Item.useAnimation = 6;
+            Item.damage = 1600;
+        }
+        public override int HeldProjectileType => ModContent.ProjectileType<InfiniteBookHeld>();
+        public override int SlotCount => 24;
     }
 
-    public class AncientScripturesHeld : EntropyBookHeldProjectile
+    public class InfiniteBookHeld : EntropyBookHeldProjectile
     {
         public override string OpenAnimationPath => "CalamityEntropy/Content/Items/Books/Textures/AncientScriptures/AncientScripturesOpen";
         public override string PageAnimationPath => "CalamityEntropy/Content/Items/Books/Textures/AncientScriptures/AncientScripturesPage";
         public override string UIOpenAnimationPath => "CalamityEntropy/Content/Items/Books/Textures/AncientScriptures/AncientScripturesUI";
+        public override int frameChange => UIOpen ? 4 : 2;
     }
 }
