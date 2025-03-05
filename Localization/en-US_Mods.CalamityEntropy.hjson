@@ -1303,6 +1303,11 @@ Items: {
 			+10% Damage
 			'''
 	}
+
+	BookMarkMechanical: {
+		DisplayName: Book Mark Mechanical
+		Tooltip: ""
+	}
 }
 
 MariviniumSet:

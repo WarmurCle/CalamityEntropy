@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             EParticle.spawnNew(new GlowSpark(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.White, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
                         }
-                        Util.Util.PlaySound("soulexplode", 1, Projectile.Center, maxIns: 2);
+                        Util.Util.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 2, volume: 0.6f);
                         Projectile.timeLeft = 2;
                         Projectile.Resize(256, 256);
                         Main.LocalPlayer.Calamity().GeneralScreenShakePower = 6;

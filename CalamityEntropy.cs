@@ -1444,11 +1444,11 @@ namespace CalamityEntropy
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                foreach (Player p in Main.player)
+                foreach (Player p in Main.ActivePlayers)
                 {
                     //try
                     {
-                        if (p.active && !p.dead && p.Entropy().MagiShield > 0)
+                        if (!p.dead && p.Entropy().MagiShield > 0 && p.Entropy().visualMagiShield)
                         {
                             Texture2D shieldTexture = Util.Util.getExtraTex("shield");
                             Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255), 0, shieldTexture.Size() / 2, 0.47f, SpriteEffects.None, 0);

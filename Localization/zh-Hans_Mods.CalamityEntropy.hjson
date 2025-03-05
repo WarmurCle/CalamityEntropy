@@ -1449,6 +1449,11 @@ Items: {
 			+10% 伤害
 			'''
 	}
+
+	BookMarkMechanical: {
+		// DisplayName: Book Mark Mechanical
+		// Tooltip: ""
+	}
 }
 
 MariviniumSet:
@@ -1707,14 +1712,14 @@ Projectiles: {
 	PlanteraChan.DisplayName: 世花酱
 	AmethystFrisbeeProjectile.DisplayName: 紫水晶飞盘
 	AmethystExplosion.DisplayName: 紫晶冲击
-	// AncientScripturesHeld.DisplayName: Ancient Scriptures Held
-	// RuneBullet.DisplayName: Rune Bullet
-	// WelkinFeather2.DisplayName: Welkin Feather2
-	// IceEdge2.DisplayName: Ice Edge2
-	// BrimstoneVortex.DisplayName: Brimstone Vortex
-	// InfiniteBookHeld.DisplayName: Infinite Book Held
-	// DarkSoul.DisplayName: Dark Soul
-	// LightSoul.DisplayName: Light Soul
+	AncientScripturesHeld.DisplayName: 远古典籍
+	RuneBullet.DisplayName: 符文弹
+	WelkinFeather2.DisplayName: 天空之羽
+	IceEdge2.DisplayName: 凛冽神剑
+	BrimstoneVortex.DisplayName: 硫火漩涡
+	InfiniteBookHeld.DisplayName: 无限之书
+	DarkSoul.DisplayName: 黑暗之魂
+	LightSoul.DisplayName: 光明之魂
 }
 
 LegendTooltip: - 传奇物品 -

@@ -26,6 +26,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.statManaMax2 += 100;
             player.GetDamage(DamageClass.Magic) += 0.1f;
             player.Entropy().holyMoonlight = true;
+            player.Entropy().visualMagiShield = !hideVisual;
         }
 
         public override void AddRecipes()

@@ -227,6 +227,7 @@ namespace CalamityEntropy.Common
         public bool MariviniumSet = false;
         public override void ResetEffects()
         {
+            visualMagiShield = false;
             MariviniumSet = false;
             meleeDamageReduce = 0;
             deusCore = false;
@@ -1438,6 +1439,7 @@ namespace CalamityEntropy.Common
         public int bloodTrCD = 0;
         public int MariviniumShieldCount = 0;
         public int MariviniumShieldCd = 12 * 60;
+        public bool visualMagiShield = false;
         public override void PostUpdateEquips()
         {
             foreach (Projectile p in Main.ActiveProjectiles)
