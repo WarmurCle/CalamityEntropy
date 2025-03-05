@@ -35,33 +35,10 @@ namespace CalamityEntropy.Content.Menu
             
             spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.12f), l1.Size() / 2, 1.4f, SpriteEffects.None, 0);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
             
-            spriteBatch.Draw(l4, Main.ScreenSize.ToVector2() / 2, null, Color.Black, 0, l4.Size() / 2, 1, SpriteEffects.None, 0);
-
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
 
-            
-
-            spriteBatch.Draw(l2, new Rectangle(0, (int)((float)Math.Cos(counter * 0.01f) * 42), Main.screenWidth, Main.screenHeight), Color.White * (0.7f + (float)Math.Cos(counter * 0.01f) * 0.1f));
-
-            spriteBatch.Draw(l3, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * (0.7f + (float)Math.Cos(counter * 0.01f) * 0.1f));
-
-            Texture2D logo = Logo.Value;
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
-
-            for (int i = 1; i < 10; i++)
-            {
-                float rot = 0;
-                for (int j = 0; j < 8; j++)
-                {
-                    spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logool").Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i * 0.5f), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
-                    rot += MathHelper.ToRadians(45);
-                }
-            }
             if (counter % 15 == 0)
             {
                 MenuParticle particle = new MenuParticle(new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), Util.Util.randomRot().ToRotationVector2() * 1, new Vector2(1.5f, 1), 460);
@@ -70,7 +47,7 @@ namespace CalamityEntropy.Content.Menu
             }
             if (Main.rand.NextBool(120))
             {
-                
+
                 LightningParticle.lightningParticles.Add(new LightningParticle());
             }
             foreach (MenuParticle p in MenuParticle.particles)
@@ -96,6 +73,31 @@ namespace CalamityEntropy.Content.Menu
                     LightningParticle.lightningParticles.RemoveAt(i);
                 }
             }
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+
+            spriteBatch.Draw(l4, Main.ScreenSize.ToVector2() / 2 + new Vector2(0, 64), null, Color.Black, 0, l4.Size() / 2, 1, SpriteEffects.None, 0);
+
+
+            spriteBatch.Draw(l2, new Rectangle(0, (int)((float)Math.Cos(counter * 0.01f) * 42), Main.screenWidth, Main.screenHeight), Color.White * (0.7f + (float)Math.Cos(counter * 0.01f) * 0.1f));
+
+            spriteBatch.Draw(l3, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * (0.7f + (float)Math.Cos(counter * 0.01f) * 0.1f));
+
+            Texture2D logo = Logo.Value;
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+
+            for (int i = 1; i < 10; i++)
+            {
+                float rot = 0;
+                for (int j = 0; j < 8; j++)
+                {
+                    spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logool").Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i * 0.5f), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
+                    rot += MathHelper.ToRadians(45);
+                }
+            }
+            
+            
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 

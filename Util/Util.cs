@@ -298,6 +298,10 @@ namespace CalamityEntropy.Util
 
         public static Player getOwner(this Projectile proj)
         {
+            if(proj.owner < 0)
+            {
+                return null;
+            }
             return proj.owner.ToPlayer();
         }
         public static Player ToPlayer(this int ins)

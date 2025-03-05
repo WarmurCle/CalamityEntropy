@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Prefixes
 		}
         public override void ApplyAccessoryEffects(Player player)
         {
-			player.Entropy().enhancedMana += 0.04f;
+			player.Entropy().enhancedMana += 0.02f;
         }
 
         // Modify the cost of items with this modifier with this function.

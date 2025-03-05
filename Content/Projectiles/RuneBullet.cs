@@ -42,8 +42,6 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 200;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 0;
             Projectile.ArmorPenetration = 12;
         }
         public int counter = 0;
@@ -92,6 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
                 EParticle.spawnNew(new GlowSpark(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
+        public override Color baseColor => new Color(188, 149, 255);
         public void drawT() {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -100,8 +99,8 @@ namespace CalamityEntropy.Content.Projectiles
             if (mp.odp.Count > 1)
             {
                 List<Vertex> ve = new List<Vertex>();
-                Color b = new Color(148, 109, 234);
-
+                Color b = this.color * 0.66f;
+                b.A = 255;
                 float a = 0;
                 float lr = 0;
                 for (int i = 1; i < mp.odp.Count; i++)
@@ -125,7 +124,7 @@ namespace CalamityEntropy.Content.Projectiles
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
                     ve = new List<Vertex>();
-                    b = new Color(188, 149, 255);
+                    b = this.color;
 
                     a = 0;
                     lr = 0;
@@ -167,7 +166,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Vector2 position = odp[odp.Count - 1] - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
                 Vector2 origin = texture.Size() * 0.5f;
-                Util.Util.DrawGlow(position + Main.screenPosition, Color.Lerp(Color.White, new Color(230, 180, 255), (float)(Math.Cos(Main.GlobalTimeWrappedHourly) * 0.5 + 0.5)), Projectile.scale * 0.6f);
+                Util.Util.DrawGlow(position + Main.screenPosition, Color.Lerp(Color.White, baseColor * 1.1f, (float)(Math.Cos(Main.GlobalTimeWrappedHourly) * 0.5 + 0.5)), Projectile.scale * 0.6f);
 
                 Main.EntitySpriteDraw(texture, position, null, base.Projectile.GetAlpha(Color.White), 0, origin, base.Projectile.scale * 0.5f, SpriteEffects.None);
 

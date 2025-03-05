@@ -4,6 +4,7 @@ using System.IO;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
@@ -185,7 +186,7 @@ namespace CalamityEntropy.Common
                         dmgupcount = 16 * projectile.extraUpdates;
                     }
                 }
-                if (source is EntitySource_ItemUse && checkHoldOut && projectile.friendly && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<HB>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>() || projectile.type == ModContent.ProjectileType<SamsaraCasketProj>() || projectile.type == ModContent.ProjectileType<OblivionHoldout>() || projectile.type == ModContent.ProjectileType<HadopelagicEchoIIProj>()))
+                if ((source is EntitySource_ItemUse && checkHoldOut && projectile.owner == Main.myPlayer && (projectile.ModProjectile is BaseIdleHoldoutProjectile || projectile.type == ModContent.ProjectileType<VoidEchoProj>() || projectile.type == ModContent.ProjectileType<HB>() || projectile.type == ModContent.ProjectileType<GhostdomWhisperHoldout>() || projectile.type == ModContent.ProjectileType<RailPulseBowProjectile>() || projectile.type == ModContent.ProjectileType<SamsaraCasketProj>() || projectile.type == ModContent.ProjectileType<OblivionHoldout>() || projectile.type == ModContent.ProjectileType<HadopelagicEchoIIProj>())))
                 {
                     checkHoldOut = false;
                     foreach (Projectile p in Main.projectile)
@@ -384,7 +385,7 @@ namespace CalamityEntropy.Common
                 maxDmgUps--;
                 projectile.damage = (int)(Math.Ceiling(projectile.damage * dmgUp)) + (projectile.damage);
             }
-            if (GWBow)
+            if (GWBow && projectile.arrow)
             {
                 if (Main.rand.NextBool(2))
                 {

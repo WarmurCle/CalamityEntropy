@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization.Formatters;
 using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
@@ -106,6 +107,7 @@ namespace CalamityEntropy.Common
         public bool deusCore = false;
         public bool heartOfStorm = false;
         public int ffinderCd = 0;
+        public IEnumerable<KeyValuePair<string, Vector2>> homes = new Dictionary<string, Vector2>();
         public bool holdingPoop { get { return _holdingPoop; } set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge
@@ -1203,7 +1205,7 @@ namespace CalamityEntropy.Common
                 }
                 else
                 {
-                    int magiShieldAddCount = (int)(Player.statManaMax2 * 0.75f);
+                    int magiShieldAddCount = (int)(Player.statManaMax2 * 0.6f);
                     magiShieldCd = 30 * 60;
                     if (MagiShield < magiShieldAddCount)
                     {
@@ -1489,11 +1491,11 @@ namespace CalamityEntropy.Common
             }
             if (Player.Entropy().wisdomCard)
             {
-                Player.manaCost *= 0.6f;
+                Player.manaCost *= 0.8f;
             }
             if (Player.Entropy().oracleDeck)
             {
-                Player.manaCost *= 0.4f;
+                Player.manaCost *= 0.7f;
             }
             if (MagiShield > 0)
             {
@@ -1619,38 +1621,50 @@ namespace CalamityEntropy.Common
         {
             CruiserLoreUsed = false;
         }
-
         public override void SaveData(TagCompound tag)
         {
             var boost = new List<string>();
             boost.AddWithCondition("CruiserLore", CruiserLoreUsed);
             tag["EntropyBoosts"] = boost;
-            
-            int BookMarks = EBookUI.stackItems.Count;
-
-            tag["EntropyBookMarks"] = BookMarks;
-            for (int i = 0; i < BookMarks; i++)
+            if (EBookStackItems != null)
             {
-                tag["EntropyBookMark" + i.ToString()] = ItemIO.Save(EBookUI.stackItems[i]);
+                int BookMarks = EBookStackItems.Count;
+                foreach (var item in EBookStackItems)
+                {
+                    if (item.type != ItemID.None)
+                    {
+                        tag["EntropyBookMarks"] = BookMarks;
+                        Mod.Logger.Info("Saved book marks:" + BookMarks.ToString());
+                        for (int i = 0; i < BookMarks; i++)
+                        {
+                            tag["EntropyBookMark" + i.ToString()] = ItemIO.Save(EBookStackItems[i]);
+                        }
+                        break;
+                    }
+                }
             }
         }
-
+        public List<Item> EBookStackItems = null;
         public override void LoadData(TagCompound tag)
         {
             var boost = tag.GetList<string>("EntropyBoosts");
             CruiserLoreUsed = boost.Contains("CruiserLore");
+            EBookStackItems = new List<Item>();
             
             if (tag.ContainsKey("EntropyBookMarks"))
             {
-                EBookUI.stackItems = new List<Item>();
                 int BookMarks = (int)tag["EntropyBookMarks"];
                 for (int i = 0; i < BookMarks; i++)
                 {
                     var item = ItemIO.Load((TagCompound)tag["EntropyBookMark" + i.ToString()]);
-                    EBookUI.stackItems.Add(item);
+                    if (item.type != ItemID.None)
+                    {
+                        Mod.Logger.Info("Loaded mark:" + item.Name);
+                        EBookStackItems.Add(item);
+                    }
                 }
-
             }
+            
         }
     }
 }

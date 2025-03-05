@@ -1,3 +1,5 @@
+using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework;
@@ -8,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
-    public class BookMarkFlesh : BookMark
+    public class BookMarkOfLight : BookMark
     {
         public override void SetDefaults()
         {
@@ -16,25 +18,24 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Item.rare = ItemRarityID.Pink;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
         }
-        public override Texture2D UITexture => BookMark.GetUITexture("Flesh");
+        public override Texture2D UITexture => BookMark.GetUITexture("Light");
         public override void ModiferStat(EBookStatModifer modifer)
         {
-            modifer.PenetrateAddition += 1;
-            modifer.lifeSteal += 1;
+            modifer.armorPenetration += 8;
         }
-        public override Color tooltipColor => Color.Red;
+        public override Color tooltipColor => Color.GreenYellow;
         public override EBookProjectileEffect getEffect()
         {
-            return new FleshBMEffect();
+            return new LightSoulBMEffect();
         }
     }
-    public class FleshBMEffect : EBookProjectileEffect
+    public class LightSoulBMEffect : EBookProjectileEffect
     {
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            for (int i = 0; i < 4; i++)
+            if (Main.rand.NextBool(2))
             {
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Util.Util.randomRot().ToRotationVector2() * 4, ModContent.ProjectileType<BloodBeam>(), damageDone / 6, projectile.knockBack / 3, projectile.owner);
+                (Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(30, 34), ModContent.ProjectileType<LightSoul>(), damageDone / 2, projectile.knockBack / 3, projectile.owner).ToProj().ModProjectile as EBookBaseProjectile).homing = 0;
             }
         }
     }

@@ -174,13 +174,6 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public bool looted = false;
         public override void AI()
         {
-            for(int i = 0; i < NPC.buffTime.Length; i++)
-            {
-                if (NPC.buffTime[i] > 0 && Main.debuff[NPC.buffType[i]])
-                {
-                    NPC.DelBuff(NPC.buffType[i]);
-                }
-            }
             NPC.Entropy().VoidTouchTime = 0;
             if (lifeCounter < 0)
             {

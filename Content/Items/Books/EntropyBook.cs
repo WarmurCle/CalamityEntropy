@@ -1,4 +1,5 @@
 
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Projectiles;
@@ -39,11 +40,29 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BookMark1").Value;
         public override void UpdateInventory(Player player)
         {
-            if(player.HeldItem == Item)
+            if (Main.myPlayer == player.whoAmI)
             {
-                if (player.ownedProjectileCounts[HeldProjectileType] <= 0)
+                if (player.HeldItem == Item)
                 {
-                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero, HeldProjectileType, 0, 0, player.whoAmI, Item.type);
+                    if (player.ownedProjectileCounts[HeldProjectileType] <= 0)
+                    {
+                        Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, Vector2.Zero, HeldProjectileType, 0, 0, player.whoAmI, Item.type);
+
+                        foreach (Projectile p in Main.projectile)
+                        {
+                            if (p.active && p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.owner == Main.myPlayer)
+                            {
+
+                                int phd = Projectile.NewProjectile(player.GetSource_ItemUse(Item), p.Center, Vector2.Zero, HeldProjectileType, 0, 0, player.whoAmI, Item.type);
+                                Projectile ph = phd.ToProj();
+                                ph.scale *= 0.8f;
+                                ph.Entropy().ttindex = p.identity;
+                                p.netUpdate = true;
+                                ph.netUpdate = true;
+                                ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -65,6 +84,7 @@ namespace CalamityEntropy.Content.Items.Books
         public int PenetrateAddition = 0;
         public float attackSpeed = 1;
         public int armorPenetration = 0;
+        public int lifeSteal = 0;
     }
 
     public abstract class EntropyBookHeldProjectile : ModProjectile
@@ -199,9 +219,9 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1)
         {
             EBookStatModifer modifer = getBaseModifer();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, Main.LocalPlayer.HeldItem), EBookUI.stackItems.Count); i++)
+            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, Main.LocalPlayer.HeldItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
             {
-                if (EBookUI.stackItems[i].ModItem is BookMark bm)
+                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
                 {
                     bm.ModiferStat(modifer);
                 }
@@ -216,9 +236,10 @@ namespace CalamityEntropy.Content.Items.Books
                 bp.homing += modifer.Homing;
                 bp.homingRange *= modifer.HomingRange;
                 bp.attackSpeed = modifer.attackSpeed;
-                for(int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, Main.LocalPlayer.HeldItem), EBookUI.stackItems.Count); i++)
+                bp.lifeSteal += modifer.lifeSteal;
+                for(int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, Main.LocalPlayer.HeldItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
                 {
-                    if (EBookUI.stackItems[i].ModItem is BookMark bm)
+                    if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
                     {
                         if(bm.getEffect() != null)
                         {
@@ -237,7 +258,11 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AI()
         {
             var player = Projectile.getOwner();
-            
+            if(Projectile.Entropy().ttindex >= 0 && !Projectile.Entropy().ttindex.ToProj().active)
+            {
+                Projectile.Kill();
+                return;
+            }
             
             if(player.HeldItem.type != ItemType && !UIOpen)
             {
@@ -327,9 +352,9 @@ namespace CalamityEntropy.Content.Items.Books
                             }
                             shotCooldown = Projectile.getOwner().HeldItem.useTime;
                             EBookStatModifer m = getBaseModifer();
-                            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, Main.LocalPlayer.HeldItem), EBookUI.stackItems.Count); i++)
+                            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, Main.LocalPlayer.HeldItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
                             {
-                                if (EBookUI.stackItems[i].ModItem is BookMark bm)
+                                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
                                 {
                                     bm.ModiferStat(m);
                                 }
@@ -405,6 +430,19 @@ namespace CalamityEntropy.Content.Items.Books
         public bool init = true;
         public bool sync = false;
         public bool EffectInit = true;
+        public int lifeSteal = 0;
+        public virtual Color baseColor => Color.White;
+        public Color color;
+        public bool initColor = true;
+        public override bool PreAI()
+        {
+            if (initColor)
+            {
+                initColor = false;
+                color = baseColor;
+            }
+            return true;
+        }
         public override void SetDefaults()
         {
             Projectile.usesLocalNPCImmunity = true;
@@ -419,6 +457,7 @@ namespace CalamityEntropy.Content.Items.Books
             writer.Write(Projectile.penetrate);
             writer.Write(Projectile.scale);
             writer.Write(Projectile.CritChance);
+            writer.Write(lifeSteal);
 
             writer.Write(ProjectileEffects.Count);
             foreach (var effect in ProjectileEffects)
@@ -433,6 +472,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.penetrate = reader.ReadInt32();
             Projectile.scale = reader.ReadSingle();
             Projectile.CritChance = reader.ReadInt32();
+            lifeSteal = reader.ReadInt32();
 
             this.ProjectileEffects.Clear();
             for(int i = 0; i < reader.ReadInt32(); i++)
@@ -501,6 +541,10 @@ namespace CalamityEntropy.Content.Items.Books
             foreach (var effect in this.ProjectileEffects)
             {
                 effect.modifyHitNPC(Projectile, target, ref modifiers);
+            }
+            if (lifeSteal > 0)
+            {
+                Projectile.getOwner()?.Heal(lifeSteal);
             }
         }
     }
@@ -596,9 +640,10 @@ namespace CalamityEntropy.Content.Items.Books
             }
             return false;
         }
+        public virtual int hitCd => 10;
         public override bool PreAI()
         {
-            Projectile.localNPCHitCooldown = (int)(10f / this.attackSpeed);
+            Projectile.localNPCHitCooldown = (int)((float)hitCd / this.attackSpeed);
             
             return base.PreAI();
         }

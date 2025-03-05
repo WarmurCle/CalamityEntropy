@@ -353,7 +353,7 @@ Items: {
 	}
 
 	WisdomCard: {
-		Tooltip: -40%魔力消耗
+		Tooltip: -20%魔力消耗
 		DisplayName: 『智慧』
 	}
 
@@ -373,7 +373,7 @@ Items: {
 			+8% 暴击率
 			+30% 移速
 			+12 最大潜伏值
-			-60% 魔力消耗
+			-30% 魔力消耗
 			受到伤害降低12%
 			+10 护甲穿透
 			+2 召唤栏
@@ -517,12 +517,14 @@ Items: {
 		DisplayName: 圣洁月光
 		Tooltip:
 			'''
-			每三十秒获得一个魔力护盾，数值等同于魔力上限的75%，
+			每三十秒获得一个魔力护盾，数值等同于魔力上限的60%，
 			魔力护盾存在期间增加10%移动速度并降低10%魔力消耗，
 			护盾会对触碰到的敌人造成伤害，
 			魔力护盾被击破时消除自身魔力病减益并回满魔力值，
 			没有护盾时魔法弹幕能够吸血，
 			你的当前魔力值越高，你的吸血量便越高
+
+			+10% 魔法伤害
 			'''
 	}
 
@@ -1398,7 +1400,7 @@ Items: {
 
 	BookMarkBrimstone: {
 		DisplayName: 书签-硫磺火
-		Tooltip: 攻击时在附近召唤硫磺火漩涡，向鼠标位置发射鲜血激光柱
+		Tooltip: 攻击时概率在附近召唤硫磺火漩涡，向鼠标位置发射鲜血激光柱
 	}
 
 	BookMarkAerialite: {
@@ -1416,6 +1418,7 @@ Items: {
 			'''
 			射弹击中敌人后爆发出伤害性血液
 			+1 穿透
+			+1 吸血
 			'''
 	}
 
@@ -1425,8 +1428,26 @@ Items: {
 	}
 
 	InfiniteBook: {
-		// Tooltip: ""
-		// DisplayName: Infinite Book
+		Tooltip: 测试用
+		DisplayName: 无限之书
+	}
+
+	BookMarkOfLight: {
+		DisplayName: 光明书签
+		Tooltip:
+			'''
+			击中概率召唤光明之魂
+			光明之魂会撞向并摧毁附近的子弹并为你恢复生命上限的1%血量
+			'''
+	}
+
+	BookMarkOfNight: {
+		DisplayName: 黑暗书签
+		Tooltip:
+			'''
+			击中敌人后概率召唤会追杀敌人并爆炸的黑暗之魂
+			+10% 伤害
+			'''
 	}
 }
 
@@ -1692,6 +1713,8 @@ Projectiles: {
 	// IceEdge2.DisplayName: Ice Edge2
 	// BrimstoneVortex.DisplayName: Brimstone Vortex
 	// InfiniteBookHeld.DisplayName: Infinite Book Held
+	// DarkSoul.DisplayName: Dark Soul
+	// LightSoul.DisplayName: Light Soul
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1944,7 +1967,7 @@ NPCs: {
 		}
 
 		DisplayName: 始源妖龙
-		// Census.SpawnCondition: Conditions unknown
+		Census.SpawnCondition: 击败始源妖龙后
 	}
 
 	NihilityActeriophage: {
@@ -2057,6 +2080,11 @@ Configs: {
 
 		CraftArmorWithPrefixChance: {
 			Label: 合成带有词缀的盔甲的概率
+			Tooltip: ""
+		}
+
+		EnableSethomeCommand: {
+			Label: 允许sethome和home指令
 			Tooltip: ""
 		}
 	}
@@ -2214,7 +2242,7 @@ ArmorPrefixLastStandDescription:
 	该复活不可叠加
 	'''
 PrefixEnchanted: 注魔
-PrefixEnchantedDesc: +4% 强化魔力
+PrefixEnchantedDesc: +2% 强化魔力
 Prefixes.Enchanted.DisplayName: 注魔
 DamageClasses.NoneTypeDamageClass.DisplayName: 伤害
 hkLevel: 当前解锁进度
@@ -2239,3 +2267,5 @@ EBookTooltip:
 	放入书签以对其进行强化
 	- 熵语之书 -
 	'''
+SetHomeCommandError: 错误: 无效参数
+HomeCommandError: 未找到

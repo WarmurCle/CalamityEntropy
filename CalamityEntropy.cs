@@ -369,6 +369,7 @@ namespace CalamityEntropy
             On_Lighting.AddLight_Vector2_Vector3 += al_vv;
             On_Lighting.AddLight_Vector2_int += al_torch;
             On_Player.AddBuff += add_buff;
+            On_NPC.AddBuff += add_buff_npc;
             On_NPC.TargetClosest += targetClost;
             On_NPC.TargetClosestUpgraded += targetClostUpgraded;
             On_NPC.FindFrame += findFrame;
@@ -386,6 +387,15 @@ namespace CalamityEntropy
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
         }
+
+        private void add_buff_npc(On_NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
+        {
+            if(!(Main.debuff[type] && self.ModNPC is AbyssalWraith))
+            {
+                orig(self, type, time, quiet);
+            }
+        }
+
         public static bool rainbowmasterFixed = false;
         public void drawtile(On_Main.orig_DrawTiles orig, Main self, bool solidLayer, bool forRenderTargets, bool intoRenderTargets, int waterStyleOverride)
         {
@@ -522,12 +532,16 @@ namespace CalamityEntropy
         private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
         {
             orig(self, gameTime);
-            if (LoopSoundManager.sounds.Count > 0)
+            if (LoopSoundManager.sounds != null)
             {
-                foreach (var sound in LoopSoundManager.sounds) {
-                    sound.stop();
+                if (LoopSoundManager.sounds.Count > 0)
+                {
+                    foreach (var sound in LoopSoundManager.sounds)
+                    {
+                        sound.stop();
+                    }
+                    LoopSoundManager.sounds.Clear();
                 }
-                LoopSoundManager.sounds.Clear();
             }
         }
 
@@ -1959,6 +1973,7 @@ namespace CalamityEntropy
             On_Lighting.AddLight_Vector2_Vector3 -= al_vv;
             On_Lighting.AddLight_Vector2_int -= al_torch;
             On_Player.AddBuff -= add_buff;
+            On_NPC.AddBuff -= add_buff_npc;
             On_NPC.TargetClosest -= targetClost;
             On_NPC.TargetClosestUpgraded -= targetClostUpgraded;
             On_NPC.FindFrame -= findFrame;

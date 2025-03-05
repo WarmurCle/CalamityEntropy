@@ -9,12 +9,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using CalamityEntropy.Content.Items.Books.BookMarks;
+using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.UI.EntropyBookUI
 {
     public static class EBookUI
     {
-        public static List<Item> stackItems = null;
         public static bool active = false;
         public static float slotRot = 3;
         public static float slotDist = 0;
@@ -33,16 +33,30 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
         }
         public static void checkStackItemList()
         {
-            if (stackItems == null)
+            if (Main.LocalPlayer.Entropy().EBookStackItems == null)
             {
-                stackItems = new List<Item>();
-            } 
-            while (stackItems.Count < getMaxSlots(Main.LocalPlayer, Main.LocalPlayer.HeldItem))
+                Main.LocalPlayer.Entropy().EBookStackItems = new List<Item>();
+            }
+            if (bookItem != null)
             {
-                stackItems.Add(new Item(ItemID.None));
+                while (Main.LocalPlayer.Entropy().EBookStackItems.Count < getMaxSlots(Main.LocalPlayer, bookItem))
+                {
+                    Main.LocalPlayer.Entropy().EBookStackItems.Add(new Item(ItemID.None));
+                }
+                if (Main.LocalPlayer.Entropy().EBookStackItems.Count > getMaxSlots(Main.LocalPlayer, bookItem))
+                {
+                    for (int i = getMaxSlots(Main.LocalPlayer, bookItem) - 1; i >= 0; i--)
+                    {
+                        if (Main.LocalPlayer.Entropy().EBookStackItems[i].type == ItemID.None)
+                        {
+                            Main.LocalPlayer.Entropy().EBookStackItems.RemoveAt(i);
+                        }
+                    }
+                }
             }
         }
         public static bool lastMouseLeft = false;
+        public static bool lastMouseRight = false;
         public static int closeAnm = 0;
         public static void update()
         {
@@ -75,6 +89,10 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
 
         public static void draw()
         {
+            if (Main.LocalPlayer.Entropy().EBookStackItems == null)
+            {
+                return;
+            }
             checkStackItemList();
             if (active || closeAnm > 0)
             {
@@ -87,34 +105,50 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         Main.spriteBatch.Draw(eb.BookMarkTexture, pos, null, Color.White * (closeAnm / 11f), 0, eb.BookMarkTexture.Size() / 2, 1, SpriteEffects.None, 0);
                     }
                     
-                    if (stackItems.Count > i && stackItems[i].type != ItemID.None)
+                    if (Main.LocalPlayer.Entropy().EBookStackItems.Count > i && Main.LocalPlayer.Entropy().EBookStackItems[i].type != ItemID.None)
                     {
-                        if (stackItems[i].ModItem is BookMark bm && bm.UITexture != null)
+                        if (Main.LocalPlayer.Entropy().EBookStackItems[i].ModItem is BookMark bm && bm.UITexture != null)
                         {
                             Main.spriteBatch.Draw(bm.UITexture, pos, null, Color.White * (closeAnm / 11f), 0, bm.UITexture.Size() / 2, 1, SpriteEffects.None, 0);
                         }
                         else
                         {
-                            ItemSlot.DrawItemIcon(stackItems[i], 1, Main.spriteBatch, pos, 0.6f, 256, Color.White * (closeAnm / 11f));
+                            ItemSlot.DrawItemIcon(Main.LocalPlayer.Entropy().EBookStackItems[i], 1, Main.spriteBatch, pos, 0.6f, 256, Color.White * (closeAnm / 11f));
                         }
                         
                     }
                     if (active && Main.MouseScreen.getRectCentered(2, 2).Intersects(pos.getRectCentered(36, 46)))
                     {
-                        if (!stackItems[i].IsAir)
+                        if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                         {
-                            Util.Util.showItemTooltip(stackItems[i]);
+                            Util.Util.showItemTooltip(Main.LocalPlayer.Entropy().EBookStackItems[i]);
                         }
                         Main.LocalPlayer.mouseInterface = true;
-                        if (Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || Main.mouseItem.ModItem is BookMark) && !(Main.mouseItem.IsAir && stackItems[i].IsAir))
+                        if (Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || Main.mouseItem.ModItem is BookMark) && !(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir))
                         {
                             lastMouseLeft = true;
                             Item mouseItem = Main.mouseItem.Clone();
-                            Main.mouseItem = stackItems[i];
-                            stackItems[i] = mouseItem;
+                            Main.mouseItem = Main.LocalPlayer.Entropy().EBookStackItems[i];
+                            Main.LocalPlayer.Entropy().EBookStackItems[i] = mouseItem;
                             Util.Util.PlaySound("turnPage");
                         }
-                        if(Main.mouseItem.IsAir && stackItems[i].IsAir)
+                        if (Main.mouseRight && !lastMouseRight)
+                        {
+                            if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
+                            {
+                                for(int ii = 10; ii < 50; ii++)
+                                {
+                                    if (Main.LocalPlayer.inventory[ii].IsAir)
+                                    {
+                                        ItemIO.Load(Main.LocalPlayer.inventory[ii], ItemIO.Save(Main.LocalPlayer.Entropy().EBookStackItems[i]));
+                                        Main.LocalPlayer.Entropy().EBookStackItems[i].TurnToAir();
+                                        Util.Util.PlaySound("turnPage");
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                         {
                             Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo").Value);
                         }
@@ -123,6 +157,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
 
                 }
                 lastMouseLeft = Main.mouseLeft;
+                lastMouseRight = Main.mouseRight;
             }
         }
     }

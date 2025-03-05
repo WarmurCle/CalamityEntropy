@@ -302,7 +302,7 @@ Items: {
 	}
 
 	WisdomCard: {
-		Tooltip: -40% Mana Cost
+		Tooltip: -20% Mana Cost
 		DisplayName: 『Wisdom』
 	}
 
@@ -322,7 +322,7 @@ Items: {
 			+8% Crit Chance
 			+30% Move Speed
 			+12 Max Stealth
-			-60% Mana Cost
+			-30% Mana Cost
 			-12% Damage Taken
 			+10 Armor Penetration
 			+2 Minion Slot
@@ -463,12 +463,13 @@ Items: {
 		DisplayName: Holy Moonlight
 		Tooltip:
 			'''
-			Get a magic shield every thirty seconds, which is equivalent to 75% of the magic limit,
+			Get a magic shield every thirty seconds, which is equivalent to 60% of the magic limit,
 			During the existence of the Magic Shield, increase movement speed by 10% and reduce magic consumption by 10%,
 			The shield will deal damage to the enemies it touches,
 			When the magic shield is broken, it eliminates its own magic sickness and benefits, and returns to its full magic value,
 			When there is no shield, magic barrage can suck blood,
 			The higher your current magic value, the higher your blood sucking ability
+			+10% Magic Damage
 			'''
 	}
 
@@ -1271,6 +1272,7 @@ Items: {
 			'''
 			Split blood beam when your projectile hit enemies
 			+1 Penetration
+			+1 Life steal
 			'''
 	}
 
@@ -1282,6 +1284,24 @@ Items: {
 	InfiniteBook: {
 		Tooltip: ""
 		DisplayName: Infinite Book
+	}
+
+	BookMarkOfLight: {
+		DisplayName: Bookmark Of Light
+		Tooltip:
+			'''
+			Hit probability summons the Soul of Light
+			The Soul will collide with and destroy nearby bullets and heal you 1% of your maximum health
+			'''
+	}
+
+	BookMarkOfNight: {
+		DisplayName: Bookmark Of Night
+		Tooltip:
+			'''
+			Summon Dark Souls that will chase and explode the enemy after hitting the enemy
+			+10% Damage
+			'''
 	}
 }
 
@@ -1546,6 +1566,8 @@ Projectiles: {
 	IceEdge2.DisplayName: Ice Edge2
 	BrimstoneVortex.DisplayName: Brimstone Vortex
 	InfiniteBookHeld.DisplayName: Infinite Book Held
+	DarkSoul.DisplayName: Dark Soul
+	LightSoul.DisplayName: Light Soul
 }
 
 LegendTooltip: - Legend -
@@ -1913,6 +1935,11 @@ Configs: {
 			Label: Craft Armor With Prefix Chance
 			Tooltip: ""
 		}
+
+		EnableSethomeCommand: {
+			Label: Enable Sethome Command
+			Tooltip: ""
+		}
 	}
 }
 
@@ -2069,7 +2096,7 @@ ArmorPrefixLastStandDescription:
 	+5% Damage Reduce
 	'''
 PrefixEnchanted: Enchanted
-PrefixEnchantedDesc: +4% Enhanced Mana
+PrefixEnchantedDesc: +2% Enhanced Mana
 Prefixes.Enchanted.DisplayName: Enchanted
 DamageClasses.NoneTypeDamageClass.DisplayName: Damage
 hkLevel: Level
@@ -2094,3 +2121,5 @@ EBookTooltip:
 	Put Bookmarks in to enhance your attack
 	- Entropy Book -
 	'''
+SetHomeCommandError: Error: invalid parameters
+HomeCommandError: Cannot find home
