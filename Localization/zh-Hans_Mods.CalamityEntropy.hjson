@@ -1399,7 +1399,7 @@ Items: {
 	}
 
 	BookMarkBrimstone: {
-		DisplayName: 书签-硫磺火
+		DisplayName: 硫磺火书签
 		Tooltip: 攻击时概率在附近召唤硫磺火漩涡，向鼠标位置发射鲜血激光柱
 	}
 
@@ -1409,11 +1409,11 @@ Items: {
 			射弹击中敌人后从天上降下羽毛
 			+50% 弹速
 			'''
-		DisplayName: 书签-天蓝
+		DisplayName: 天蓝书签
 	}
 
 	BookMarkFlesh: {
-		DisplayName: 书签-血肉
+		DisplayName: 血肉书签
 		Tooltip:
 			'''
 			射弹击中敌人后爆发出伤害性血液
@@ -1423,7 +1423,7 @@ Items: {
 	}
 
 	BookMarkIce: {
-		DisplayName: 书签-凌冽
+		DisplayName: 凌冽书签
 		Tooltip: 攻击时同时从身后发射凌冽神剑
 	}
 
@@ -1451,8 +1451,66 @@ Items: {
 	}
 
 	BookMarkMechanical: {
-		// DisplayName: Book Mark Mechanical
-		// Tooltip: ""
+		DisplayName: 机械书签
+		Tooltip:
+			'''
+			发射时概率召唤探测器攻击敌人
+			射弹追踪
+			+6 护甲穿透
+			'''
+	}
+
+	BookMarkAstral: {
+		Tooltip:
+			'''
+			发射会朝敌人发射射弹并爆炸的炫星
+			-66.6% 攻速
+			'''
+		DisplayName: 星辉书签
+	}
+
+	BookMarkTerra: {
+		Tooltip:
+			'''
+			发射巨石
+			+20% 伤害
+			+3 穿透
+			'''
+		DisplayName: 泰拉书签
+	}
+
+	BookMarkLunar: {
+		DisplayName: 夜明书签
+		Tooltip: 射弹会伤害靠近足够久的敌人
+	}
+
+	BookMarkAbyss: {
+		Tooltip: 击中时概率产生深渊撕裂
+		DisplayName: 深渊书签
+	}
+
+	BookMarkProfaned: {
+		DisplayName: 亵渎书签
+		Tooltip: 射弹朝附近敌人发射亵渎火焰
+	}
+
+	BookMarkVoid: {
+		DisplayName: 虚渺书签
+		Tooltip: 击中敌人造成虚空之触效果并概率产生虚空爆炸
+	}
+
+	BookMarkAuric: {
+		DisplayName: 金源书签
+		Tooltip: 射弹击中目标后爆发出龙焰和火球
+	}
+
+	BookMarkSilva: {
+		Tooltip:
+			'''
+			射弹击中后概率产生始源之魂，
+			始源之魂会飞回你，为你回血并提供少量临时护甲
+			'''
+		DisplayName: 始源临海书签
 	}
 }
 
@@ -1663,7 +1721,7 @@ Projectiles: {
 	GravityGazeHoldout.DisplayName: 重力凝视
 	DivineRadienceBullet.DisplayName: 圣辉光球
 	DivineRadienceHoldout.DisplayName: 圣辉灵珠
-	NightProjectionHoldout.DisplayName: Night Projection Holdout
+	NightProjectionHoldout.DisplayName: 星光幻象
 	ProjectionStar.DisplayName: 幻象之星
 	ProjectionStarSplit.DisplayName: 幻象之星
 	ProjectionStarSplitAlt.DisplayName: 幻象之星
@@ -1720,6 +1778,13 @@ Projectiles: {
 	InfiniteBookHeld.DisplayName: 无限之书
 	DarkSoul.DisplayName: 黑暗之魂
 	LightSoul.DisplayName: 光明之魂
+	AstralBullet.DisplayName: 炫星弹
+	AstralExplosion.DisplayName: 炫星爆炸
+	Detector.DisplayName: 探测器
+	TerraBoulder.DisplayName: 泰拉巨石
+	AbyssBookmarkCrack.DisplayName: 渊深之撕裂
+	// VoidBurst.DisplayName: Void Burst
+	// SilvaSoul.DisplayName: Silva Soul
 }
 
 LegendTooltip: - 传奇物品 -
@@ -1732,13 +1797,13 @@ Buffs: {
 	}
 
 	VoidTouch: {
-		Description: 你正在被虚空侵蚀
+		Description: 你正在被虚空残蚀
 		DisplayName: 虚空之触
 	}
 
 	WyrmChanBuff: {
 		DisplayName: 妖龙酱
-		Description: ""
+		Description: 喵呜~
 	}
 
 	YharimPower: {

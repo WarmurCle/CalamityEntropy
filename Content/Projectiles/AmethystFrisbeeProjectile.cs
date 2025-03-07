@@ -147,6 +147,7 @@ namespace CalamityEntropy.Content.Projectiles
         
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.damage = (int)(Projectile.damage * 0.9f);
             if (!hited)
             {
                 Util.Util.PlaySound("shield", pos: Projectile.Center);

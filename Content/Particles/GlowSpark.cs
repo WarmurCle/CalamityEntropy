@@ -25,4 +25,19 @@ namespace CalamityEntropy.Content.Particles
             this.rotation = this.velocity.ToRotation();
         }
     }
+    public class GlowSpark2 : EParticle
+    {
+        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/GlowSpark2").Value;
+        public override void onSpawn()
+        {
+            this.timeLeft = 26;
+        }
+        public override void update()
+        {
+            base.update();
+            this.alpha = this.timeLeft / 26f;
+            this.velocity = this.velocity + Vector2.UnitY * 0.2f;
+            this.rotation = this.velocity.ToRotation();
+        }
+    }
 }

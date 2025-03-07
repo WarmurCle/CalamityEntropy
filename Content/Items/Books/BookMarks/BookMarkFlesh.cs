@@ -32,9 +32,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            for (int i = 0; i < 4; i++)
+            if (((EBookBaseProjectile)projectile.ModProjectile).hitCount == 1)
             {
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Util.Util.randomRot().ToRotationVector2() * 4, ModContent.ProjectileType<BloodBeam>(), damageDone / 6, projectile.knockBack / 3, projectile.owner);
+                for (int i = 0; i < 4; i++)
+                {
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Util.Util.randomRot().ToRotationVector2() * 4, ModContent.ProjectileType<BloodBeam>(), damageDone / 6, projectile.knockBack / 3, projectile.owner);
+                }
             }
         }
     }

@@ -145,7 +145,7 @@ namespace CalamityEntropy.Content.Projectiles
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
-            Util.Util.DrawGlow(points[points.Count - 1], new Color(255, 100, 100), 1.6f * Projectile.scale);
+            Util.Util.DrawGlow(points[points.Count - 1], new Color(255, 60, 60), 1.6f * Projectile.scale, false);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return Projectile.ai[0] > 2;
+            return Projectile.ai[0] > 5;
         }
         int framecounter = 4;
         int frame = 0;

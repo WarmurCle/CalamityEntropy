@@ -42,8 +42,11 @@ namespace CalamityEntropy.Common
         }
         public LoopSound(SoundEffect sf)
         {
-            instance = sf.CreateInstance();
-            instance.IsLooped = true;
+            if (!Main.dedServ)
+            {
+                instance = sf.CreateInstance();
+                instance.IsLooped = true;
+            }
         }
         public void play()
         {

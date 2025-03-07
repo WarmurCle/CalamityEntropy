@@ -41,6 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
+            base.AI();
             if (Projectile.ai[0] == 0)
             {
                 Util.Util.PlaySound("bne_hit2", 1, Projectile.Center, 1, 0.36f);

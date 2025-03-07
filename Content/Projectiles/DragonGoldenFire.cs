@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CalamityEntropy.Util;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.NPCs.TownNPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -36,11 +37,15 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.timeLeft >= 2300)
+            if(Projectile.timeLeft >= 2180)
             {
                 return false;
             }
             return null;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<Dragonfire>(), 60 * 8);
         }
         public override void AI()
         {
@@ -69,6 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
                 v.Normalize();
 
                 Projectile.velocity += v * 0.09f;
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 3, true));
             }
 
             
@@ -110,10 +116,10 @@ namespace CalamityEntropy.Content.Projectiles
                     }
 
                     c += 1f / odp.Count;
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(40 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                    ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(46 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
                           new Vector3((float)i / ((float)odp.Count) + trailOffset, 1, 1),
                           b));
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(-40 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                    ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(-46 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
                           new Vector3((float)i / ((float)odp.Count) + trailOffset, 0, 1),
                           b));
                         
@@ -127,14 +133,48 @@ namespace CalamityEntropy.Content.Projectiles
                     shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
 
                     sb.End();
-                    sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.UIScaleMatrix);
+                    sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
 
                     Texture2D tx = TextureAssets.Projectile[Projectile.type].Value;
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     sb.End();
-                    sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
+                    sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
+                    ve = new List<Vertex>();
+                    b = Color.White;
 
+                    for (int i = 1; i < odp.Count; i++)
+                    {
+                        float width = 0;
+                        if (i > 270)
+                        {
+                            float x = (float)(i - 270) / 90f;
+                            if (1 - x * x < 0)
+                            {
+                                width = 0;
+                            }
+                            else
+                            {
+                                width = (float)Math.Sqrt(1 - x * x);
+                            }
+                        }
+                        else
+                        {
+                            width = 1f - ((float)(270 - i) / 270f);
+                        }
+
+                        c += 1f / odp.Count;
+                        ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(23 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                              new Vector3((float)i / ((float)odp.Count) + trailOffset, 1, 1),
+                              b));
+                        ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(-23 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                              new Vector3((float)i / ((float)odp.Count) + trailOffset, 0, 1),
+                              b));
+
+                    }
+                    tx = Util.Util.getExtraTex("StreakSolid");
+                    gd.Textures[0] = tx;
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
 
 

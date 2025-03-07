@@ -37,6 +37,18 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
 
         }
+        public virtual int modifyProjectile()
+        {
+            return -1;
+        }
+        public virtual int modifyBaseProjectile()
+        {
+            return -1;
+        }
+        public virtual void modifyShootCooldown(ref int shootCooldown)
+        {
+
+        }
         public virtual Color tooltipColor => Color.Green;
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

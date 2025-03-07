@@ -107,6 +107,7 @@ namespace CalamityEntropy.Common
         public bool deusCore = false;
         public bool heartOfStorm = false;
         public int ffinderCd = 0;
+        public float temporaryArmor = 0;
         public IEnumerable<KeyValuePair<string, Vector2>> homes = new Dictionary<string, Vector2>();
         public bool holdingPoop { get { return _holdingPoop; } set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
@@ -332,7 +333,15 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
-
+            temporaryArmor *= 0.994f;
+            if(temporaryArmor > 0)
+            {
+                temporaryArmor-=0.002f;
+            }
+            if(temporaryArmor < 0)
+            {
+                temporaryArmor = 0;
+            }
             ffinderCd--;
             if (syncHoldingPoop)
             {
@@ -552,7 +561,7 @@ namespace CalamityEntropy.Common
             {
                 Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.003f;
             }
-            
+            Player.statDefense += (int)temporaryArmor;
 
         }
         public int manaNorm = 0;

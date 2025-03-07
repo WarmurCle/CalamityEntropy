@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 340;
+            Projectile.timeLeft = 480;
             Projectile.ArmorPenetration = 12;
         }
         public int counter = 0;
@@ -60,11 +60,11 @@ namespace CalamityEntropy.Content.Projectiles
             else
             {
                 Projectile target = null;
-                float dist = 460;
-                foreach(Projectile p in Main.ActiveProjectiles)
+                float dist = 680;
+                foreach (Projectile p in Main.ActiveProjectiles)
                 {
                     float d = Util.Util.getDistance(p.Center, Projectile.Center);
-                    if(p.hostile && Math.Max(p.width, p.height) < 100 && d < dist)
+                    if (p.hostile && Math.Max(p.width, p.height) < 100 && d < dist)
                     {
                         target = p;
                         dist = d;
@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1.4f, 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
                     Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1f * l, true));
-                    if (Projectile.getRect().Intersects(target.getRect())) 
+                    if (Projectile.getRect().Intersects(target.getRect()))
                     {
                         for (int i = 0; i < 16; i++)
                         {
@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 0.7f, 0).RotatedBy(Projectile.velocity.ToRotation() + 0.08f);
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 0.7f, 0).RotatedBy(Projectile.velocity.ToRotation() + 0.05f);
                 }
                 Projectile.velocity *= 0.97f;
             }
@@ -143,8 +143,9 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
         }
         public override Color baseColor => new Color(255, 255, 255);
-        public void drawT() {
-            if(Projectile.timeLeft < 3)
+        public void drawT()
+        {
+            if (Projectile.timeLeft < 3)
             {
                 return;
             }

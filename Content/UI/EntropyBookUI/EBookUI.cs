@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                             Main.LocalPlayer.Entropy().EBookStackItems[i] = mouseItem;
                             Util.Util.PlaySound("turnPage");
                         }
-                        if (Main.mouseRight && !lastMouseRight)
+                        if (Main.mouseRight && !lastMouseRight && slotDist > 100)
                         {
                             if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                             {

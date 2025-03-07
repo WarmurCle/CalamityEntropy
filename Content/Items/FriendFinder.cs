@@ -35,7 +35,26 @@ namespace CalamityEntropy.Content.Items
 		}
         public override bool CanUseItem(Player player)
         {
-            return player.slotsMinions < player.maxMinions && !(player.Entropy().ffinderCd > 0);
+            float slots = 0;
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.minion && p.owner == player.whoAmI)
+                {
+                    slots += p.minionSlots;
+                }
+            }
+            foreach(NPC n in Main.ActiveNPCs)
+            {
+                if(n.ModNPC is FriendFindNPC)
+                {
+                    slots += 1;
+                }
+            }
+            if (slots > player.slotsMinions - 1)
+            {
+                return false;
+            }
+            return !(player.Entropy().ffinderCd > 0);
         }
 
         public override bool? UseItem(Player player)

@@ -26,16 +26,16 @@ namespace CalamityEntropy.Util
             return v.SafeNormalize(Vector2.Zero);
         }
 
-        public static void DrawGlow(Vector2 worldPos, Color color, float scale)
+        public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true)
         {
-            Texture2D glow = getExtraTex("Glow");
+            Texture2D glow = getExtraTex("Glow2");
             SpriteBatch sb = Main.spriteBatch;
             var blend = sb.GraphicsDevice.BlendState;
             var sample = sb.GraphicsDevice.SamplerStates[0];
             var depth = sb.GraphicsDevice.DepthStencilState;
             var rasterizer = sb.GraphicsDevice.RasterizerState;
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
             sb.Draw(glow, worldPos - Main.screenPosition, null, color, 0, glow.Size() * 0.5f, scale * 0.4f, SpriteEffects.None, 0);
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);

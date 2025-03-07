@@ -287,6 +287,10 @@ namespace CalamityEntropy.Common
 
             string name = npc.FullName;
             Color tColor = getNpcBarColor(npc);
+            if (!bossbarColor.ContainsKey(npc.type))
+            {
+                tColor = new Color(106, 0, 255);
+            }
             for (int i = 0; i < 36; i++)
             {
                 Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 28) + new Vector2(2, 0).RotatedBy(MathHelper.ToRadians(i * 10)), new Color(tColor.R / 2, tColor.G / 2, tColor.B / 2), 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
@@ -307,7 +311,7 @@ namespace CalamityEntropy.Common
                 }
             }
             //tColor = Color.Lerp(tColor, Color.White, whiteLerp);
-            Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 28), tColor, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
+            Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 28), tColor * 1.1f, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
             spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
 

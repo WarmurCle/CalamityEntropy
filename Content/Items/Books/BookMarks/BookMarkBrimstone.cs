@@ -28,12 +28,17 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnProjectileSpawn(Projectile projectile, bool ownerClient)
         {
-            if (ownerClient && Main.rand.NextBool(3))
+            if (!(projectile.ModProjectile is BrimstoneVortex))
             {
-                Vector2 pos = projectile.Center - projectile.velocity.normalize() * 190 + Util.Util.randomVec(128);
-                int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), pos, (Main.MouseWorld - pos).normalize() * 32, ModContent.ProjectileType<BrimstoneVortex>(), projectile.damage / 9, projectile.knockBack, projectile.owner);
-                (p.ToProj().ModProjectile as EBookBaseProjectile).homing = (projectile.ModProjectile as EBookBaseProjectile).homing;
-                p.ToProj().penetrate = projectile.penetrate;
+                if (ownerClient && Main.rand.NextBool(3))
+                {
+                    Vector2 pos = projectile.Center - projectile.velocity.normalize() * 190 + Util.Util.randomVec(128);
+                    int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), pos, (Main.MouseWorld - pos).normalize() * 32, ModContent.ProjectileType<BrimstoneVortex>(), projectile.damage / 9, projectile.knockBack, projectile.owner);
+                    (p.ToProj().ModProjectile as EBookBaseProjectile).homing = (projectile.ModProjectile as EBookBaseProjectile).homing;
+                    (p.ToProj().ModProjectile as EBookBaseProjectile).ProjectileEffects = (projectile.ModProjectile as EBookBaseProjectile).ProjectileEffects;
+
+                    p.ToProj().penetrate = projectile.penetrate;
+                }
             }
         }
     }

@@ -1305,8 +1305,62 @@ Items: {
 	}
 
 	BookMarkMechanical: {
-		DisplayName: Book Mark Mechanical
-		Tooltip: ""
+		DisplayName: Bookmark - Mechanical
+		Tooltip:
+			'''
+			Probability summoning detector to attack enemies during launch
+			Projectiles homing
+			+6 Armor Penetration
+			'''
+	}
+
+	BookMarkAstral: {
+		Tooltip: Launch a dazzling star that will shoot projectiles towards the enemy
+		DisplayName: Bookmark - Astral
+	}
+
+	BookMarkTerra: {
+		Tooltip:
+			'''
+			Launching boulders
+			+20% Damage
+			+3 Penetrate 
+			'''
+		DisplayName: Bookmark - Terra
+	}
+
+	BookMarkLunar: {
+		DisplayName: Bookmark - Lunar
+		Tooltip: Projectile can harm enemies around them
+	}
+
+	BookMarkAbyss: {
+		Tooltip: Probability of deep abyss tearing upon impact
+		DisplayName: Bookmark - Abyss
+	}
+
+	BookMarkProfaned: {
+		DisplayName: Bookmark - Profaned
+		Tooltip: Projectiles will shoot profaned fire to enemies
+	}
+
+	BookMarkVoid: {
+		DisplayName: Bookmark - Void
+		Tooltip: The projectile hitting the enemy has a probability of causing an void explosion
+	}
+
+	BookMarkAuric: {
+		DisplayName: Bookmark - Auric
+		Tooltip: Projectile will shoot dragon fire when hit enemies
+	}
+
+	BookMarkSilva: {
+		Tooltip:
+			'''
+			Projectiles have a chance to spawn a Soul of Origin upon hitting an enemy
+			The Soul of Origin will fly back to you, healing you and providing a small amount of temporary armor
+			'''
+		DisplayName: Bookmark - Silva
 	}
 }
 
@@ -1573,6 +1627,13 @@ Projectiles: {
 	InfiniteBookHeld.DisplayName: Infinite Book Held
 	DarkSoul.DisplayName: Dark Soul
 	LightSoul.DisplayName: Light Soul
+	AstralBullet.DisplayName: Astral Bullet
+	AstralExplosion.DisplayName: Astral Explosion
+	Detector.DisplayName: Detector
+	TerraBoulder.DisplayName: Terra Boulder
+	AbyssBookmarkCrack.DisplayName: Abyss Bookmark Crack
+	VoidBurst.DisplayName: Void Burst
+	SilvaSoul.DisplayName: Silva Soul
 }
 
 LegendTooltip: - Legend -

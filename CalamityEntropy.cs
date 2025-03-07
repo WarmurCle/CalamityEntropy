@@ -329,9 +329,11 @@ namespace CalamityEntropy
             AprilFool = today.Month == 4 && today.Day == 1;
             
             LoopSoundManager.init();
-            ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/corruptedBeaconLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-
+            if (!Main.dedServ)
+            {
+                ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/corruptedBeaconLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            }
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
 
@@ -387,6 +389,8 @@ namespace CalamityEntropy
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
         }
+        public static Effect whiteTrans => ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
+
 
         private void add_buff_npc(On_NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
         {
@@ -1539,6 +1543,10 @@ namespace CalamityEntropy
                     if(proj.ModProjectile is AbyssalCrack ac)
                     {
                         ac.draw();
+                    }
+                    if(proj.ModProjectile is AbyssBookmarkCrack ac2)
+                    {
+                        ac2.drawVoid();
                     }
                     if(proj.ModProjectile is NxCrack nc)
                     {

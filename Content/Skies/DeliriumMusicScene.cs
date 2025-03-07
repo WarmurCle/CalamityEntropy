@@ -23,9 +23,12 @@ namespace CalamityEntropy.Content.Skies
         {
             foreach (NPC npc in Main.ActiveNPCs)
             {
-                if (npc.GetGlobalNPC<DeliriumGlobalNPC>().delirium)
+                if (npc.TryGetGlobalNPC<DeliriumGlobalNPC>(out var d))
                 {
-                    return true;
+                    if (d.delirium)
+                    {
+                        return true;
+                    }
                 }
             }
             
