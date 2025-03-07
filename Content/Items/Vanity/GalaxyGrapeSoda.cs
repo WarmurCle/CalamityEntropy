@@ -88,8 +88,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "GalaxyGrapeSoda", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "GalaxyGrapeSoda", EquipType.Head);
 
-                //Player.HideAccessories();
-            }
+                             }
         }
     }
 }

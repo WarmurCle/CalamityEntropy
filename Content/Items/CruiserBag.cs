@@ -52,11 +52,9 @@ namespace CalamityEntropy.Content.Items
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            // Money
-            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<CruiserHead>()));
+                         itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<CruiserHead>()));
 
-            // Materials
-            itemLoot.Add(ModContent.ItemType<VoidRelics>(), new Fraction(1, 5));
+                         itemLoot.Add(ModContent.ItemType<VoidRelics>(), new Fraction(1, 5));
             itemLoot.Add(ModContent.ItemType<VoidElytra>(), new Fraction(5, 5));
             itemLoot.Add(ModContent.ItemType<VoidEcho>(), new Fraction(1, 5));
             itemLoot.Add(ModContent.ItemType<Silence>(), new Fraction(2, 5));

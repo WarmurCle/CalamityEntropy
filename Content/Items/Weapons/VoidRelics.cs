@@ -71,8 +71,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 			}
 			if (availableSummonSlots > 0)
 			{
-                //player.slotsMinions += availableSummonSlots;
-
+                 
                 player.AddBuff(Item.buffType, 3);
 				int projectile = Projectile.NewProjectile(source, Main.MouseWorld, velocity, type, (int)(Item.damage * availableSummonSlots), knockback, player.whoAmI, 0, 0, availableSummonSlots);
 				Main.projectile[projectile].originalDamage = (int)(Item.damage * availableSummonSlots);
@@ -83,12 +82,6 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            //CreateRecipe().
-              //  AddIngredient(ModContent.ItemType<DarkPlasma>(), 3).
-                //AddIngredient(ItemID.EmpressBlade, 1).
-                //AddIngredient(ModContent.ItemType<TomeofFates>(), 1).
-                //AddTile(ModContent.TileType<VoidCondenser>()).
-                //Register();
-        }
+                                                                                                        }
     }
 }

@@ -298,21 +298,13 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                         {
                             Color GetPixelColor(Texture2D texture, Color[] pixelData, int x, int y)
                             {
-                                // 获取纹理的宽度和高度
                                 int width = texture.Width;
                                 int height = texture.Height;
 
-                                // 确保x和y在纹理的有效范围内
                                 if (x < 0 || x >= width || y < 0 || y >= height || y * width + x >= pixelData.Length)
                                     throw new ArgumentOutOfRangeException("x or y is out of bounds of the texture:" + x.ToString() + "," + y.ToString() + "/" + pixelData.Length.ToString());
 
-                                // 创建一个颜色数组来存储纹理的所有像素
-
-
-                                // 计算指定像素的索引
                                 int index = y * width + x;
-
-                                // 返回指定位置的颜色
                                 return pixelData[index];
                             }
                             
@@ -609,7 +601,6 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
 
                                 SoundEffect se = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/feathershot").Value;
                                 if (se != null && NPC.ai[2] % 5 == 0) { se.Play(Main.soundVolume, 0, 0); }
-                                //SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Sounds/feathershot"), NPC.Center);
                             }
                         }
                         if (NPC.ai[1] == 5)

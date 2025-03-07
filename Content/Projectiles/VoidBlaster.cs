@@ -71,8 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] == 14)
             {
-                //fire
-                if (Projectile.owner == Main.myPlayer)
+                                 if (Projectile.owner == Main.myPlayer)
                 {
                     if (up == 0)
                     {

@@ -65,15 +65,13 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             this.applyCollisionDamage();
             switch ((int)AttackState)
             {
-                // Rise upward.
-                case 0:
+                                 case 0:
                     Vector2 flyDestination = Target.Center + new Vector2((Target.Center.X < NPC.Center.X).ToDirectionInt() * 400f, -240f);
                     Vector2 idealVelocity = NPC.SafeDirectionTo(flyDestination) * 10f;
                     NPC.velocity = (NPC.velocity * 29f + idealVelocity) / 29f;
                     NPC.velocity = NPC.velocity.MoveTowards(idealVelocity, 1.5f);
 
-                    // Decide rotation.
-                    NPC.rotation = NPC.velocity.ToRotation() + (NPC.spriteDirection > 0).ToInt() * MathHelper.Pi;
+                                         NPC.rotation = NPC.velocity.ToRotation() + (NPC.spriteDirection > 0).ToInt() * MathHelper.Pi;
 
                     if (NPC.WithinRange(flyDestination, 40f) || AttackTimer > 150f)
                     {
@@ -83,15 +81,13 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     }
                     break;
 
-                // Slow down and look at the target.
-                case 1:
+                                 case 1:
                     NPC.spriteDirection = (Target.Center.X > NPC.Center.X).ToDirectionInt();
                     NPC.velocity *= 0.97f;
                     NPC.velocity = NPC.velocity.MoveTowards(Vector2.Zero, 0.25f);
                     NPC.rotation = NPC.rotation.AngleTowards(NPC.AngleTo(Target.Center) + (NPC.spriteDirection > 0).ToInt() * MathHelper.Pi, 0.2f);
 
-                    // Charge once sufficiently slowed down.
-                    float chargeSpeed = 11.5f;
+                                         float chargeSpeed = 11.5f;
                     if (DownedBossSystem.downedAquaticScourge)
                         chargeSpeed += 4f;
                     if (DownedBossSystem.downedPolterghast)
@@ -114,8 +110,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     }
                     break;
 
-                // Charge and swoop.
-                case 2:
+                                 case 2:
                     float angularTurnSpeed = MathHelper.Pi / 300f;
                     idealVelocity = NPC.SafeDirectionTo(Target.Center);
                     Vector2 leftVelocity = NPC.velocity.RotatedBy(-angularTurnSpeed);
@@ -125,8 +120,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     else
                         NPC.velocity = rightVelocity;
 
-                    // Decide rotation.
-                    NPC.rotation = NPC.velocity.ToRotation() + (NPC.spriteDirection > 0).ToInt() * MathHelper.Pi;
+                                         NPC.rotation = NPC.velocity.ToRotation() + (NPC.spriteDirection > 0).ToInt() * MathHelper.Pi;
 
                     if (AttackTimer > 50f)
                     {

@@ -84,10 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity *= 0.8f;
             }
-            //if (Util.Util.getDistance(Projectile.Center, targetPos) < 64) {
-            //    Projectile.Center = Projectile.Center + (targetPos - Projectile.Center) * 0.3f;
-            //}
-            NPC target = null;
+                                                   NPC target = null;
             if (player.HasMinionAttackTargetNPC)
             {
                 target = Main.npc[player.MinionAttackTargetNPC];

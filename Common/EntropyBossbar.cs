@@ -250,8 +250,7 @@ namespace CalamityEntropy.Common
             }
             spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
-            //spriteBatch.Draw(barc, center + new Vector2(0, 8), new Rectangle(0, 0, (int)(500 * prog), bar2.Height), barColor, 0, barc.Size() / 2, 1, SpriteEffects.None, 0);
-
+             
             if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore) && !namelessDeity)
             {
                 spriteBatch.Draw(barLocked, center, new Rectangle(0, 0, 18 + (int)(500 * prog), bar1.Height), Color.Lerp(barColor, Color.White, 0.36f), 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
@@ -310,8 +309,7 @@ namespace CalamityEntropy.Common
                     whiteLerp -= 0.05f;
                 }
             }
-            //tColor = Color.Lerp(tColor, Color.White, whiteLerp);
-            Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 28), tColor * 1.1f, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
+                         Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 28), tColor * 1.1f, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
             spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
 

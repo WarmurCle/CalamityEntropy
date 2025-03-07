@@ -4,9 +4,7 @@ sampler2D TextureSampler = sampler_state
     Texture = <SpriteTexture>;
 };
 
-float2 resolution; // 屏幕或纹理分辨率
-float blurAmount;  // 模糊强度
-
+float2 resolution;  float blurAmount;   
 struct VertexShaderOutput
 {
     float4 Position : SV_POSITION;
@@ -16,8 +14,7 @@ struct VertexShaderOutput
 
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
-    //return tex2D(TextureSampler, input.TextureCoordinates);
-    float4 color = float4(0, 0, 0, 0);
+         float4 color = float4(0, 0, 0, 0);
     float total = 0.0;
     
     float weights[8] = { 0.153170, 0.144893, 0.122649, 0.092902, 0.123452, 0.134543, 0.145314, 0.143513};

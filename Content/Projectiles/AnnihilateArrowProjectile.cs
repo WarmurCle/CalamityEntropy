@@ -11,13 +11,12 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-	// This example is similar to the Wooden Arrow projectile
 	public class AnnihilateArrowProjectile : ModProjectile
 	{
 
 		public override void SetDefaults() {
-			Projectile.width = 10; // The width of projectile hitbox
-			Projectile.height = 10; // The height of projectile hitbox
+			Projectile.width = 10; 
+			Projectile.height = 10; 
 			Projectile.MaxUpdates = 5;
 			Projectile.arrow = true;
 			Projectile.friendly = true;
@@ -77,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Util.Util.PlaySound("bne_hit", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.4f);
             EParticle.spawnNew(new AbyssalLine() { lx = 1.9f, xadd = 1.9f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
-			//EGlobalNPC.AddVoidTouch(target, 120, 1, 800, 12);
+
 			if (homing)
 			{
                 float rot = Util.Util.randomRot();

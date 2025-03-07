@@ -22,8 +22,7 @@ namespace CalamityEntropy.Content.Items.Ammo
 			Item.width = 8;
 			Item.height = 8;
 			Item.maxStack = Item.CommonMaxStack;
-			Item.consumable = true; // This marks the item as consumable, making it automatically be consumed when it's used as ammunition, or something else, if possible.
-			Item.knockBack = 1f;
+			Item.consumable = true;  			Item.knockBack = 1f;
 			Item.value = 20000;
 			Item.rare = ModContent.RarityType<VoidPurple>();
 			Item.shoot = ModContent.ProjectileType<NegentropyBulletProjectile>();
@@ -31,8 +30,7 @@ namespace CalamityEntropy.Content.Items.Ammo
 			Item.ammo = AmmoID.Bullet;
 		}
 		
-		// Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
-		public override void AddRecipes() {
+		 		public override void AddRecipes() {
 			CreateRecipe(500)
 				.AddIngredient<VoidBar>()
 				.AddTile<CosmicAnvil>()

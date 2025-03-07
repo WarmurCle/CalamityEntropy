@@ -76,8 +76,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "Antler", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "Antler", EquipType.Head);
 
-                //Player.HideAccessories();
-            }
+                             }
         }
     }
 }

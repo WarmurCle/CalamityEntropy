@@ -22,6 +22,5 @@ JesterRomut: Sprite, Music (Title Theme), Code
 
 Special thanks to Hadrian (FRANCIUMKILLA) for making Cruiser's theme
 
-Bug Reports: https://github.com/WarmurCle/CalamityEntropy/issues
-
-Discord Server: https://discord.com/invite/Mnmzd34Fda
+Bug Reports: https: 
+Discord Server: https: 

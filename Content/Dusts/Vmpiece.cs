@@ -16,8 +16,7 @@ namespace CalamityEntropy.Content.Dusts
 
         public override bool MidUpdate(Dust dust)
         {
-            //dust.rotation += MathHelper.ToRadians(dust.velocity.X * 0.1f);
-            dust.velocity.Y += 0.065f;
+                         dust.velocity.Y += 0.065f;
             dust.rotation = 0;
             return true;
         }

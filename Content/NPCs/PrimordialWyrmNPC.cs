@@ -30,50 +30,29 @@ namespace CalamityEntropy.Content.NPCs
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = Main.npcFrameCount[NPCID.Clothier];
-            //NPC总共帧图数，一般为16+下面两种帧的帧数
-            NPCID.Sets.ExtraFramesCount[Type] = NPCID.Sets.ExtraFramesCount[NPCID.Clothier];
-            //额外活动帧，一般为5
-            //关于这个，一般来说是除了攻击帧以外的那几帧（包括坐下、谈话等动作），但实际上填写包含攻击帧在内的帧数也不影响（比如你写9），如果有知道的可以解释一下。
-            NPCID.Sets.AttackFrameCount[Type] = NPCID.Sets.AttackFrameCount[NPCID.Clothier];
-            //攻击帧，这个帧数取决于你的NPC攻击类型，射手填5，战士和投掷填4，法师填2，当然，也可以多填，就是不知效果如何（这里直接引用商人的）
-            NPCID.Sets.DangerDetectRange[Type] = 1000;
-            //巡敌范围，以像素为单位，这个似乎是半径
-            NPCID.Sets.AttackType[Type] = NPCID.Sets.AttackType[NPCID.Clothier];
-            //攻击类型，默认为0，想要模仿其他NPC就填他们的AttackType
-            NPCID.Sets.AttackTime[Type] = 50;
-            //单次攻击持续时间，越短，则该NPC攻击越快（可以用来模拟长时间施法的NPC）
-            NPCID.Sets.AttackAverageChance[Type] = 1;
-            //NPC遇敌的攻击优先度，该数值越大则NPC遇到敌怪时越会优先选择逃跑，反之则该NPC越好斗。
-            //最小一般为1，你可以试试0或负数LOL~
-            NPCID.Sets.MagicAuraColor[base.NPC.type] = Color.Purple;
+                         NPCID.Sets.ExtraFramesCount[Type] = NPCID.Sets.ExtraFramesCount[NPCID.Clothier];
+                                      NPCID.Sets.AttackFrameCount[Type] = NPCID.Sets.AttackFrameCount[NPCID.Clothier];
+                         NPCID.Sets.DangerDetectRange[Type] = 1000;
+                         NPCID.Sets.AttackType[Type] = NPCID.Sets.AttackType[NPCID.Clothier];
+                         NPCID.Sets.AttackTime[Type] = 50;
+                         NPCID.Sets.AttackAverageChance[Type] = 1;
+                                      NPCID.Sets.MagicAuraColor[base.NPC.type] = Color.Purple;
         }
         public override void SetDefaults()
         {
             NPC.townNPC = true;
-            //必带项，没有为什么
-            //加上这个后NPC就不会在退出地图后消失了，你可以灵活运用一下
-            NPC.friendly = true;
-            //如果你想写敌对NPC也行
-            NPC.width = 22;
-            //碰撞箱宽
-            NPC.height = 32;
-            //碰撞箱高            
-            NPC.aiStyle = 7;
-            //必带项，如果你能自己写出城镇NPC的AI可以不带
-            //PS:这个决定了NPC是否能入住房屋
-            NPC.damage = 10;
-            //碰撞伤害，由于城镇NPC没有碰撞伤害所以可以忽略
-            NPC.defense = 105;
-            //防御力
-            NPC.lifeMax = 7200000;
-            //生命值
-            NPC.HitSound = SoundID.NPCHit1;
+                                      NPC.friendly = true;
+                         NPC.width = 22;
+                         NPC.height = 32;
+                         NPC.aiStyle = 7;
+                                      NPC.damage = 10;
+                         NPC.defense = 105;
+                         NPC.lifeMax = 7200000;
+                         NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = PrimordialWyrmHead.DeathSound;
             NPC.knockBackResist = 0f;
-            //抗击退性，数字越小抗性越高，0就是完全抗击退
-            AnimationType = NPCID.Clothier;
-            //如果你的NPC属于除投掷类NPC以外的其他攻击类型，请带上，值可以填对应NPC的ID
-        }
+                         AnimationType = NPCID.Clothier;
+                     }
 
         public override bool CanTownNPCSpawn(int numTownNPCs)
         {
@@ -90,8 +69,7 @@ namespace CalamityEntropy.Content.NPCs
             {
                 if (!Main.bloodMoon && !Main.eclipse)
                 {
-                    //无家可归时
-                    if (NPC.homeless)
+                                         if (NPC.homeless)
                     {
                         chat.Add(Mod.GetLocalization("WyrmChatNoHome").Value);
                     }
@@ -130,14 +108,12 @@ namespace CalamityEntropy.Content.NPCs
                 .Add<AbyssShellFossil>()
                 .Add<WyrmTooth>()
                 .Add(ModLoader.GetMod("CalamityModMusic").Find<ModItem>("PrimordialWyrmMusicBox").Type);
-			npcShop.Register(); // Name of this shop tab
-		}
+			npcShop.Register();  		}
 
 		public override void ModifyActiveShop(string shopName, Item[] items) {
             foreach (Item item in items)
             {
-                // Skip 'air' items and null items.
-                if (item == null || item.type == ItemID.None)
+                                 if (item == null || item.type == ItemID.None)
                 {
                     continue;
                 }
@@ -168,8 +144,7 @@ namespace CalamityEntropy.Content.NPCs
         public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
         {
             multiplier = 14.5f;
-            //弹幕射速
-            gravityCorrection = 0f;
+                         gravityCorrection = 0f;
             randomOffset = 0f;
         }
         public override void TownNPCAttackMagic(ref float auraLightMultiplier)

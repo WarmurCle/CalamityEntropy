@@ -11,12 +11,10 @@ namespace CalamityEntropy.Content.UI
 {
     public class EResourceOverlay : ModResourceOverlay
     {
-        // Most of this is taken from ExampleMod. See that for additional explanations.
-        private Dictionary<string, Asset<Texture2D>> vanillaAssetCache = new();
+                 private Dictionary<string, Asset<Texture2D>> vanillaAssetCache = new();
         public string baseFolder = "CalamityEntropy/Content/UI/";
 
-        // Determines which health UI to draw based on player upgrades.
-        public string LifeTexturePath()
+                 public string LifeTexturePath()
         {
             string folder = $"{baseFolder}MoonShield";
             return folder;
@@ -35,8 +33,7 @@ namespace CalamityEntropy.Content.UI
         public override void PostDrawResource(ResourceOverlayDrawContext context)
         {
             Asset<Texture2D> asset = context.texture;
-            // Vanilla texture paths
-            string fancyFolder = "Images/UI/PlayerResourceSets/FancyClassic/";
+                         string fancyFolder = "Images/UI/PlayerResourceSets/FancyClassic/";
             string barsFolder = "Images/UI/PlayerResourceSets/HorizontalBars/";
 
             
@@ -44,8 +41,7 @@ namespace CalamityEntropy.Content.UI
             {
 
 
-                // Draw hearts for Classic and Fancy
-                if (asset == TextureAssets.Heart || asset == TextureAssets.Heart2 || CompareAssets(asset, fancyFolder + "Heart_Fill") || CompareAssets(asset, fancyFolder + "Heart_Fill_B"))
+                                 if (asset == TextureAssets.Heart || asset == TextureAssets.Heart2 || CompareAssets(asset, fancyFolder + "Heart_Fill") || CompareAssets(asset, fancyFolder + "Heart_Fill_B"))
                 {
                     if ((context.resourceNumber + 1) * 30 <= Main.LocalPlayer.Entropy().MagiShield)
                     {
@@ -75,8 +71,7 @@ namespace CalamityEntropy.Content.UI
                     }
                     
                 }
-                // Draw health bars
-                else if (CompareAssets(asset, barsFolder + "HP_Fill") || CompareAssets(asset, barsFolder + "HP_Fill_Honey"))
+                                 else if (CompareAssets(asset, barsFolder + "HP_Fill") || CompareAssets(asset, barsFolder + "HP_Fill_Honey"))
                 {
                     if ((context.resourceNumber + 1) * 30 <= Main.LocalPlayer.Entropy().MagiShield)
                     {
@@ -112,8 +107,7 @@ namespace CalamityEntropy.Content.UI
                         context.Draw();
                     }
                 }
-                // Draw mana bars
-                else if (CompareAssets(asset, barsFolder + "MP_Fill"))
+                                 else if (CompareAssets(asset, barsFolder + "MP_Fill"))
                 {
                     if ((context.resourceNumber + 1) * 20 > Main.LocalPlayer.Entropy().manaNorm)
                     {

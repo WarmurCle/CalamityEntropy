@@ -42,8 +42,7 @@ namespace CalamityEntropy.Common
 
         public override void NetSend(BinaryWriter writer)
         {
-            // Order of operations is important and has to match that of NetReceive
-            var flags = new BitsByte();
+                         var flags = new BitsByte();
             flags[0] = downedCruiser;
             flags[1] = downedAbyssalWraith;
             flags[2] = downedNihilityTwin;

@@ -52,8 +52,7 @@ namespace CalamityEntropy.Content.Skies
             }
             counter++;
             Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/CrSky").Value;
-            //float pc = 1 + ((float)(Math.Cos(counter * 0.01f))) * 0.12f;
-            float pc = 1f;
+                         float pc = 1f;
             Color ocolor = new Color((int)(12 * pc), (int)(65 * pc), (int)(100 * pc));
             bool drawAWMask = false;
             int AWIndex = -1;

@@ -6,8 +6,7 @@ namespace CalamityEntropy.Content.Rarities
 {
     public class VoidPurple : ModRarity
     {
-        // Dark Blue is Rarity 14
-        public override Color RarityColor => new Color(106, 40, 190);
+                 public override Color RarityColor => new Color(106, 40, 190);
 
         public override int GetPrefixedRarity(int offset, float valueMult) => offset switch
         {

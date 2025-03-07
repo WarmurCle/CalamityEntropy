@@ -64,8 +64,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
             {
                 if (Projectile.ai[0] % 3 == 0)
                 {
-                    //SoundEngine.PlaySound(hs, Projectile.Center);
-                }
+                                     }
             }
                 Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
             if (Main.myPlayer == Projectile.owner)
@@ -142,8 +141,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
         }
         
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone){
-            //SoundEngine.PlaySound(hitSound, target.Center);
-            target.immune[Projectile.owner] = 1;
+                         target.immune[Projectile.owner] = 1;
             if (Projectile.owner == Main.myPlayer)
             {
                 CalamityEntropy.Instance.screenShakeAmp = 2;

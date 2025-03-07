@@ -107,8 +107,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
                 }
                 a = 1;
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                if (ve.Count >= 3)//��Ϊ������ҪΧ��һ�������β��ܻ����� ������Ҫ�ж�����>=3 ���򱨴�
-                {
+                if (ve.Count >= 3)                 {
                     Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);

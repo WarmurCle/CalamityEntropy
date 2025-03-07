@@ -108,8 +108,7 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             }
             Color tileC = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
             Color cr = new Color(color.R * tileC.R / 255, color.G * tileC.G / 255, color.B * tileC.B / 255, 255); ;
-            //Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, cr, Projectile.rotation, tx.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-
+             
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

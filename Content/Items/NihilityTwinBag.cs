@@ -53,8 +53,7 @@ namespace CalamityEntropy.Content.Items
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            // Money
-            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NihilityActeriophage>()));
+                         itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NihilityActeriophage>()));
 
             itemLoot.Add(ModContent.ItemType<NihilityShell>(), new Fraction(1, 8));
             itemLoot.Add(ModContent.ItemType<Voidseeker>(), new Fraction(3, 5));

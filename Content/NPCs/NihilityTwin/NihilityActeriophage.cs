@@ -110,15 +110,12 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            // Boss bag
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NihilityTwinBag>()));
+                         npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NihilityTwinBag>()));
 
-            // Extraneous potions
-            npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ModContent.ItemType<SupremeHealingPotion>(), 1, 5, 15), hideLootReport: true);
+                         npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ModContent.ItemType<SupremeHealingPotion>(), 1, 5, 15), hideLootReport: true);
 
 
-            // Normal drops: Everything that would otherwise be in the bag
-            var normalOnly = npcLoot.DefineNormalOnlyDropSet();
+                         var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
                 normalOnly.Add(ModContent.ItemType<NihilityShell>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<Voidseeker>(), new Fraction(4, 5));
@@ -132,8 +129,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             npcLoot.Add(ModContent.ItemType<NihilityTwinTrophy>(), 10);
 
 
-            // Lore
-            npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedNihilityTwin, ModContent.ItemType<NihilityTwinLore>());
+                         npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedNihilityTwin, ModContent.ItemType<NihilityTwinLore>());
         }
         public override void OnKill()
         {

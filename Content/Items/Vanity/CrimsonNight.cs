@@ -86,8 +86,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "CrimsonNight", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "CrimsonNight", EquipType.Head);
 
-                //Player.HideAccessories();
-            }
+                             }
         }
     }
 }

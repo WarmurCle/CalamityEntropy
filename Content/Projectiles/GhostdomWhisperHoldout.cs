@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
                             NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
-                            /*p.ToProj().netUpdate = true;*/
+                             
                         }
 
                     }

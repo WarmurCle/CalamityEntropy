@@ -5,8 +5,7 @@ namespace CalamityEntropy.Content.Menu
 {
     public class MenuBack : ModSurfaceBackgroundStyle
     {
-        // Use this to keep far Backgrounds like the mountains.
-        public override void ModifyFarFades(float[] fades, float transitionSpeed)
+                 public override void ModifyFarFades(float[] fades, float transitionSpeed)
         {
             for (int i = 0; i < fades.Length; i++)
             {

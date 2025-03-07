@@ -27,8 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.maxStack = 1;
-            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice / 4; // This buy price is intentionally reduced due to how common this item is.
-            Item.rare = ItemRarityID.Orange;
+            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice / 4;              Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<RevelationThrow>();
             Item.shootSpeed = 45f;
             Item.DamageType = CUtil.rogueDC;

@@ -98,8 +98,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
             float rotation = (player.Center - player.Calamity().mouseWorld).ToRotation() * player.gravDir + MathHelper.PiOver2;
-            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation); //must be here otherwise it will vibrate
-
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);  
         }
     }
 }

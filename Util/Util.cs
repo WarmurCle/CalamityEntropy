@@ -96,8 +96,7 @@ namespace CalamityEntropy.Util
         }
         public static float GetAngleBetweenVectors(Vector2 vector1, Vector2 vector2)
         {
-            // ¼ÆËãµã»ý
-            float dotProduct = Vector2.Dot(vector1, vector2);
+                         float dotProduct = Vector2.Dot(vector1, vector2);
 
             float magnitude1 = vector1.Length();
             float magnitude2 = vector2.Length();
@@ -348,8 +347,7 @@ namespace CalamityEntropy.Util
                     angleTo += 360;
                 }
             }
-            //Main.NewText(angleNow.ToString() + "  " + angleTo.ToString(), 255, 255, 0);
-            float tz = 0;
+                         float tz = 0;
             if (Math.Abs(angleNow + 360 - angleTo) < Math.Abs(angleTo - angleNow))
             {
                 tz = angleTo - angleNow - 360;
@@ -406,8 +404,7 @@ namespace CalamityEntropy.Util
                     angleTo += 360;
                 }
             }
-            //Main.NewText(angleNow.ToString() + "  " + angleTo.ToString(), 255, 255, 0);
-            float tz = 0;
+                         float tz = 0;
             if (Math.Abs(angleNow + 360 - angleTo) < Math.Abs(angleTo - angleNow)){
                 tz = angleTo - angleNow - 360;
             }else{
@@ -559,8 +556,7 @@ namespace CalamityEntropy.Util
                 al += getDistance(points[i], points[i + 1]);
             }
             int txc = starttx;
-            float lr = startRot;//(points[1] - points[0]).ToRotation();
-            Vector2 tp = Vector2.Zero;
+            float lr = startRot;             Vector2 tp = Vector2.Zero;
             while (true)
             {
                 Texture2D tx = txs[txc % txs.Count];

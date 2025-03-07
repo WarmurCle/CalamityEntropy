@@ -12,11 +12,9 @@ namespace CalamityEntropy.Content.Items
     {
         public override void Load()
         {
-            // All code below runs only if we're not loading on a server
-            if (Main.netMode != NetmodeID.Server)
+                         if (Main.netMode != NetmodeID.Server)
             {
-                // Add equip textures
-                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/CruiserPlush_Head", EquipType.Head, this);
+                                 EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/CruiserPlush_Head", EquipType.Head, this);
             }
         }
         public override void SetStaticDefaults()

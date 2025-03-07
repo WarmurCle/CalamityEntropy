@@ -90,7 +90,6 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "AbyssLantern", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "AbyssLantern", EquipType.Head);
 
-                //Player.HideAccessories();
             }
         }
     }

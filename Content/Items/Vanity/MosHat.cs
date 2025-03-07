@@ -85,8 +85,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "MosHat", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "MosHat", EquipType.Head);
 
-                //Player.HideAccessories();
-            }
+                             }
         }
     }
 }

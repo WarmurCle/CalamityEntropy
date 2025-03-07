@@ -50,8 +50,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         }
         public override void attackAI()
         {
-            //Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (Target.Center - NPC.Center).SafeNormalize(Vector2.Zero) * 16, ProjectileID.WoodenArrowHostile, NPC.damage / 7, 6);
-            if(attackAnmStyle == 0 && attackFrame == 0)
+                         if(attackAnmStyle == 0 && attackFrame == 0)
             {
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/vbuse"), NPC.Center);
             }

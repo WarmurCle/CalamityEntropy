@@ -206,8 +206,7 @@ namespace CalamityEntropy.Content.Projectiles
                       b));
             }
 
-            if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
-            {
+            if (ve.Count >= 3)             {
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SlashTrans", AssetRequestMode.ImmediateLoad).Value;
                 Main.instance.GraphicsDevice.Textures[1] = Util.Util.getExtraTex("sn_colormap");
                 shader.CurrentTechnique.Passes["EnchantedPass"].Apply();

@@ -158,7 +158,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
 
             SpriteBatch sb = Main.spriteBatch;
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
-            if (ve.Count >= 3)//��Ϊ������ҪΧ��һ�������β��ܻ����� ������Ҫ�ж�����>=3 ���򱨴�
+            if (ve.Count >= 3)
             {
                 gd.Textures[0] = tex;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);

@@ -100,8 +100,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             base.UseStyle(player, heldItemFrame);
         }
 
-        // Recoil + Not having the gun aim downwards
-        public override void UseItemFrame(Player player)
+                 public override void UseItemFrame(Player player)
         {
             player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
 
@@ -109,11 +108,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             float rotation = (player.Center - player.Calamity().mouseWorld).ToRotation() * player.gravDir + MathHelper.PiOver2;
             if (animProgress < 0.5)
                 rotation += (-0.15f) * (float)Math.Pow((0.5f - animProgress) / 0.5f, 2) * player.direction;
-            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation); //must be here otherwise it will vibrate
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);  
 
-
-            //Reloads the gun 
-            if (animProgress > 0.5f)
+                         if (animProgress > 0.5f)
             {
                 float backArmRotation = rotation + 0.52f * player.direction;
 

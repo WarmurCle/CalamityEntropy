@@ -84,8 +84,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "SilverFramedGlasses", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "SilverFramedGlasses", EquipType.Head);
 
-                //Player.HideAccessories();
-            }
+                             }
         }
     }
 }

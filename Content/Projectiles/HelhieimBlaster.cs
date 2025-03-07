@@ -67,8 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] == 14)
             {
-                //fire
-                
+                                 
 
                 if (!Main.dedServ && Projectile.owner == Main.myPlayer)
                 {
@@ -81,8 +80,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (!shooted || true)
                 {
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 120, Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<MercyShoot>(), Projectile.damage, 0, Projectile.owner, 0, 0, Projectile.whoAmI);
-                    //int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 120, Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<Brimstone>(), Projectile.damage, 0, Projectile.owner, 0, 1.2f, Projectile.whoAmI);
-
+                     
                     p.ToProj().rotation = Projectile.rotation;
                     p.ToProj().scale = Projectile.scale;
                     p.ToProj().netUpdate = true;

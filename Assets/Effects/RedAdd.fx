@@ -1,5 +1,4 @@
-sampler uImage : register(s0); // SpriteBatch.Draw 的内容会自动绑定到 s0
-float strength;
+sampler uImage : register(s0);  float strength;
 float alpha = 1;
 float4 EnchantedFunction(float2 coords : TEXCOORD0) : COLOR0
 {

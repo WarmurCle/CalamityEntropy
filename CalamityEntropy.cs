@@ -619,9 +619,7 @@ namespace CalamityEntropy
         private Rectangle modifyRect(On_Player.orig_getRect orig, Player self)
         {
             return orig(self);
-            //Rectangle or = orig(self);
-            //return new Rectangle(or.Left - 600, or.Top - 400, or.Width, or.Height);
-        }
+                                  }
 
         private int StrikeNpc(On_NPC.orig_StrikeNPC_HitInfo_bool_bool orig, NPC self, NPC.HitInfo hit, bool fromNet, bool noPlayerInteraction)
         {
@@ -901,8 +899,7 @@ namespace CalamityEntropy
             string Isaac2 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance+").Replace("/", "\\");
             BrokenAnkh.isaac = Directory.Exists(Isaac1) || Directory.Exists(Isaac2);
 
-            //TextureAssets.Projectile[ModContent.ProjectileType<MurasamaSlash>()] = ModContent.Request<Texture2D>("CalamityEntropy/Extra/Voidsama");
-            Mod bossChecklist;
+                         Mod bossChecklist;
             if (ModLoader.TryGetMod("BossChecklist", out bossChecklist))
             {
                 
@@ -1122,8 +1119,7 @@ namespace CalamityEntropy
                 Vector2 sz = screensz;
                 if (screen == null || sz != new Vector2(Main.screenWidth, Main.screenHeight))
                 {
-                    //try
-                    {
+                                         {
                         screen?.Dispose();
                         screen = null;
                         screen3?.Dispose();
@@ -1132,21 +1128,18 @@ namespace CalamityEntropy
                         screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
                         screensz = new Vector2(Main.screenWidth, Main.screenHeight);
                     }
-                    //catch
-                    {
+                                         {
                     }
                 }
                 if (screen2 == null || sz != new Vector2(Main.screenWidth, Main.screenHeight))
                 {
-                    //try
-                    {
+                                         {
                         screen2?.Dispose();
                         screen2 = null;
                         screen2 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
                         screensz = new Vector2(Main.screenWidth, Main.screenHeight);
                     }
-                    //catch
-                    {
+                                         {
                     }
                 }
                 
@@ -1279,8 +1272,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
                 cve.CurrentTechnique = cve.Techniques["Technique1"];
                 cve.CurrentTechnique.Passes[0].Apply();
-                Texture2D backg = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_blue_base", AssetRequestMode.ImmediateLoad).Value;//ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg").Value;
-                /*cve.Parameters["tex1"].SetValue(backg);
+                Texture2D backg = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_blue_base", AssetRequestMode.ImmediateLoad).Value;                 /*cve.Parameters["tex1"].SetValue(backg);
                 cve.Parameters["tex2"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg1").Value);
                 cve.Parameters["tex3"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Extra/Backg2").Value);*/
                 cve.Parameters["tex1"].SetValue(backg);
@@ -1296,8 +1288,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.End();
 
 
-                //2号shader
-                graphicsDevice.SetRenderTarget(screen);
+                                 graphicsDevice.SetRenderTarget(screen);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
                 Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -1307,8 +1298,7 @@ namespace CalamityEntropy
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                //����
-
+                 
                 foreach (Projectile p in checkProj)
                 {
                     if (!p.active)
@@ -1345,8 +1335,7 @@ namespace CalamityEntropy
                                   new Vector3((float)0, 0, 1),
                                   b));*/
                             GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                            if (ve.Count >= 3)//��Ϊ������ҪΧ��һ�������β��ܻ����� ������Ҫ�ж�����>=3 ���򱨴�
-                            {
+                            if (ve.Count >= 3)                             {
                                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
                                 gd.Textures[0] = tx;
                                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
@@ -1450,8 +1439,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (Player p in Main.ActivePlayers)
                 {
-                    //try
-                    {
+                                         {
                         if (!p.dead && p.Entropy().MagiShield > 0 && p.Entropy().visualMagiShield)
                         {
                             Texture2D shieldTexture = Util.Util.getExtraTex("shield");
@@ -1459,8 +1447,7 @@ namespace CalamityEntropy
 
                         }
                     }
-                    //catch { }
-                }
+                                     }
                 foreach (Projectile p in checkProj)
                 {
                     if (p.active)
@@ -1525,8 +1512,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.End();
 
 
-                //3号shader
-                graphicsDevice.SetRenderTarget(screen);
+                                 graphicsDevice.SetRenderTarget(screen);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
                 Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -1590,8 +1576,7 @@ namespace CalamityEntropy
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                //try
-                {
+                                 {
                     foreach (Player player in Main.player)
                     {
                         if (player.active && !player.dead && player.Entropy().daPoints.Count > 2)
@@ -1614,8 +1599,7 @@ namespace CalamityEntropy
 
 
                 }
-                //catch
-                {
+                                 {
 
                 }
 
@@ -1660,8 +1644,7 @@ namespace CalamityEntropy
                     
                 }
 
-                //drawRope();
-
+                 
                 Main.spriteBatch.End();
 
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
@@ -1714,8 +1697,7 @@ namespace CalamityEntropy
                         if (p.ModProjectile is VoidBottleThrow)
                         {
                             Color color = Color.White;
-                            //p.ModProjectile.PreDraw(ref color);
-                        }
+                                                     }
                         if (p.ModProjectile is VoidExplode)
                         {
                             float ks = (float)p.timeLeft * 0.1f;
@@ -1741,8 +1723,7 @@ namespace CalamityEntropy
                     }
                 }
 
-                //Main.spriteBatch.Draw(Util.Util.getExtraTex("EternityStreak"), new Vector2(0, 0), new Rectangle((int)cvcount * 2, 0, Main.screenWidth, Main.screenHeight), new Color(100, 255, 255), 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-
+                 
                 Main.spriteBatch.End();
                 
                 graphicsDevice.SetRenderTarget(Main.screenTarget);

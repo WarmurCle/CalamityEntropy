@@ -11,21 +11,12 @@ namespace CalamityEntropy.Content.Items
     {
         public override void SetStaticDefaults()
         {
-            AmmoID.Sets.IsSpecialist[Type] = true; // This item will benefit from the Shroomite Helmet.
-
-            // This is where we tell the game which projectile to spawn when using this rocket as ammo with certain launchers.
-            // This specific rocket ammo is like Rocket I's.
-            AmmoID.Sets.SpecificLauncherAmmoProjectileMatches[ItemID.RocketLauncher].Add(Type, ModContent.ProjectileType<GodSlayerRocketProjectile>());
+            AmmoID.Sets.IsSpecialist[Type] = true;  
+                                      AmmoID.Sets.SpecificLauncherAmmoProjectileMatches[ItemID.RocketLauncher].Add(Type, ModContent.ProjectileType<GodSlayerRocketProjectile>());
             AmmoID.Sets.SpecificLauncherAmmoProjectileMatches[ItemID.GrenadeLauncher].Add(Type, ModContent.ProjectileType<GodSlayerRocketProjectile>());
             AmmoID.Sets.SpecificLauncherAmmoProjectileMatches[ItemID.ProximityMineLauncher].Add(Type, ModContent.ProjectileType<GodSlayerRocketProjectile>());
             AmmoID.Sets.SpecificLauncherAmmoProjectileMatches[ItemID.SnowmanCannon].Add(Type, ModContent.ProjectileType<GodSlayerRocketProjectile>());
-            // We also need to say which type of Celebration Mk2 rockets to use.
-            // The Celebration Mk 2 only has four types of rockets. Change the projectile to match your ammo type.
-            // Rocket I like   == ProjectileID.Celeb2Rocket
-            // Rocket II like  == ProjectileID.Celeb2RocketExplosive
-            // Rocket III like == ProjectileID.Celeb2RocketLarge
-            // Rocket IV like  == ProjectileID.Celeb2RocketExplosiveLarge
-            AmmoID.Sets.SpecificLauncherAmmoProjectileMatches[ItemID.Celeb2].Add(Type, ProjectileID.Celeb2Rocket);
+                                                                                          AmmoID.Sets.SpecificLauncherAmmoProjectileMatches[ItemID.Celeb2].Add(Type, ProjectileID.Celeb2Rocket);
         }
 
         public override void SetDefaults()

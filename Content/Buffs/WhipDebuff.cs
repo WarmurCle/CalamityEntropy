@@ -70,16 +70,14 @@ namespace CalamityEntropy.Content.Buffs
             if (npc.HasBuff<DragonWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += DragonWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(50))  // 50分之1概率暴击
-                {
+                if (Main.rand.NextBool(50))                   {
                     modifiers.SetCrit();
                 }
             }
             if (npc.HasBuff<CruiserWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += CruiserWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(10))  // 10分之1概率暴击
-                {
+                if (Main.rand.NextBool(10))                   {
                     modifiers.SetCrit();
                 }
             }

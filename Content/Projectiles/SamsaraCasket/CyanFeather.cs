@@ -15,8 +15,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
 			Projectile.width = 20;
 			Projectile.height = 20;
 			Projectile.friendly = true;
-			Projectile.penetrate = -1; // Infinite penetration so that the blast can hit all enemies within its radius.
-			Projectile.DamageType = NoneTypeDamageClass.Instance;
+			Projectile.penetrate = -1;  			Projectile.DamageType = NoneTypeDamageClass.Instance;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 12;
         }

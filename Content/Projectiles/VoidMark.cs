@@ -118,8 +118,7 @@ namespace CalamityEntropy.Content.Projectiles
             Player player = Main.player[Projectile.owner];
             if (odp.Count > 1)
             {
-                //Projectile.localNPCHitCooldown = 16 - (int)((odp[odp.Count - 1] - Projectile.Center).Length() / 16);
-            }
+                             }
             if (Projectile.localNPCHitCooldown < 0)
             {
                 Projectile.localNPCHitCooldown = 0;
@@ -146,8 +145,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Util.Util.getDistance(Projectile.Center, player.Center) > 3000)
                 {*/
                 Projectile.Center = Main.MouseWorld;
-                //}
-            }
+                             }
             Projectile.rotation += 0.07f;
             Projectile.ai[0] += 1;
         }

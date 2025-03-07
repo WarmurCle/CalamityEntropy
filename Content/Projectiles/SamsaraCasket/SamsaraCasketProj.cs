@@ -236,7 +236,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p.whoAmI);
-                        /*p.ToProj().netUpdate = true;*/
+                         
                     }
                 }
 

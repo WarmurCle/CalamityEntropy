@@ -567,8 +567,7 @@ namespace CalamityEntropy.Common
                     IList<Texture2D> buffTextureList = new List<Texture2D>();
                     CalamityGlobalNPC cn = npc.Calamity();
 
-                    // Damage over time debuffs
-                    if (cn.astralInfection > 0)
+                                         if (cn.astralInfection > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/AstralInfectionDebuff").Value);
                     if (cn.banishingFire > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/BanishingFire").Value);
@@ -609,8 +608,7 @@ namespace CalamityEntropy.Common
                     if (cn.vulnerabilityHex > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/VulnerabilityHex").Value);
 
-                    // Stat debuffs
-                    if (cn.aCrunch > 0)
+                                         if (cn.aCrunch > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/ArmorCrunch").Value);
                     if (cn.crumble > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/Crumbling").Value);
@@ -641,12 +639,10 @@ namespace CalamityEntropy.Common
                     if (cn.wither > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/WitherDebuff").Value);
 
-                    // Visual debuff
-                    if (cn.RancorBurnTime > 0)
+                                         if (cn.RancorBurnTime > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/RancorBurn").Value);
 
-                    // Vanilla damage over time debuffs
-                    if (cn.electrified > 0)
+                                         if (cn.electrified > 0)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.Electrified].Value);
                     if (npc.onFire)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.OnFire].Value);
@@ -674,15 +670,12 @@ namespace CalamityEntropy.Common
                         buffTextureList.Add(TextureAssets.Buff[BuffID.DryadsWard].Value);
                     if (npc.soulDrain && npc.realLife == -1)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.SoulDrain].Value);
-                    if (npc.onFire3) // Hellfire
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.OnFire3].Value);
-                    if (npc.onFrostBurn2) // Frostbite
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Frostburn2].Value);
+                    if (npc.onFire3)                          buffTextureList.Add(TextureAssets.Buff[BuffID.OnFire3].Value);
+                    if (npc.onFrostBurn2)                          buffTextureList.Add(TextureAssets.Buff[BuffID.Frostburn2].Value);
                     if (npc.tentacleSpiked)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.TentacleSpike].Value);
 
-                    // Vanilla stat debuffs
-                    if (npc.confused)
+                                         if (npc.confused)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.Confused].Value);
                     if (npc.ichor)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.Ichor].Value);
@@ -738,30 +731,21 @@ namespace CalamityEntropy.Common
                         eclipseMarkDraw = true;
                         eclipseMarkIndex = buffTextureList.Count - 1;
                     }
-                    // Total amount of elements in the buff list
-                    int buffTextureListLength = buffTextureList.Count;
+                                         int buffTextureListLength = buffTextureList.Count;
 
-                    // Total length of a single row in the buff display
-                    int totalLength = buffTextureListLength * 14;
+                                         int totalLength = buffTextureListLength * 14;
 
-                    // Max amount of buffs per row
-                    int buffDisplayRowLimit = 5;
+                                         int buffDisplayRowLimit = 5;
 
-                    // The maximum length of a single row in the buff display
-                    // Limited to 80 units, because every buff drawn here is half the size of a normal buff, 16 x 16, 16 * 5 = 80 units
-                    float drawPosX = totalLength >= 80f ? 40f : (float)(totalLength / 2);
+                                                              float drawPosX = totalLength >= 80f ? 40f : (float)(totalLength / 2);
 
-                    // The height of a single frame of the npc
-                    float npcHeight = (float)(TextureAssets.Npc[npc.type].Value.Height / Main.npcFrameCount[npc.type] / 2) * npc.scale;
+                                         float npcHeight = (float)(TextureAssets.Npc[npc.type].Value.Height / Main.npcFrameCount[npc.type] / 2) * npc.scale;
 
-                    // Offset the debuff display based on the npc's graphical offset, and 16 units, to create some space between the sprite and the display
-                    float drawPosY = npcHeight + npc.gfxOffY + 16f;
+                                         float drawPosY = npcHeight + npc.gfxOffY + 16f;
 
-                    // Iterate through the buff texture list
-                    for (int i = 0; i < buffTextureList.Count; i++)
+                                         for (int i = 0; i < buffTextureList.Count; i++)
                     {
-                        // Reset the X position of the display every 5th and non-zero iteration, otherwise decrease the X draw position by 16 units
-                        if (i != 0)
+                                                 if (i != 0)
                         {
                             if (i % buffDisplayRowLimit == 0)
                                 drawPosX = 40f;
@@ -769,11 +753,9 @@ namespace CalamityEntropy.Common
                                 drawPosX -= 14f;
                         }
 
-                        // Offset the Y position every row after 5 iterations to limit each displayed row to 5 debuffs
-                        float additionalYOffset = 14f * (float)Math.Floor(i * 0.2);
+                                                 float additionalYOffset = 14f * (float)Math.Floor(i * 0.2);
 
-                        // Draw the display
-                        var tex = buffTextureList.ElementAt(i);
+                                                 var tex = buffTextureList.ElementAt(i);
                         spriteBatch.Draw(tex, npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), null, Color.White, 0f, default, 0.5f, SpriteEffects.None, 0f);
                         if (voidTouchDraw && i == voidTouchIndex)
                         {
@@ -787,8 +769,7 @@ namespace CalamityEntropy.Common
                         {
                             spriteBatch.DrawString(FontAssets.MouseText.Value, ((int)npc.Entropy().EclipsedImprintLevel).ToString(), npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
                         }
-                        // TODO -- Show number of Shred stacks (how?)
-                    }
+                                             }
                 }
             }
             return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
@@ -995,32 +976,24 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == ModContent.NPCType<AstrumDeusHead>())
             {
-                string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy"); // 获取模组文件夹路径
-                string myDataFilePath = Path.Combine(modFolder, "DeusKilled.txt"); // 定义文件路径
-
+                string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy");                  string myDataFilePath = Path.Combine(modFolder, "DeusKilled.txt");  
                 if (!Directory.Exists(modFolder))
                 {
-                    Directory.CreateDirectory(modFolder); // 如果模组文件夹不存在，则创建
-                }
+                    Directory.CreateDirectory(modFolder);                  }
 
-                // 写入文件
-                using (StreamWriter sw = new StreamWriter(myDataFilePath))
+                                 using (StreamWriter sw = new StreamWriter(myDataFilePath))
                 {
                     sw.WriteLine("a");
                 }
             }
             if (npc.type == ModContent.NPCType<DevourerofGodsHead>())
             {
-                string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy"); // 获取模组文件夹路径
-                string myDataFilePath = Path.Combine(modFolder, "DoGKilled.txt"); // 定义文件路径
-
+                string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy");                  string myDataFilePath = Path.Combine(modFolder, "DoGKilled.txt");  
                 if (!Directory.Exists(modFolder))
                 {
-                    Directory.CreateDirectory(modFolder); // 如果模组文件夹不存在，则创建
-                }
+                    Directory.CreateDirectory(modFolder);                  }
 
-                // 写入文件
-                using (StreamWriter sw = new StreamWriter(myDataFilePath))
+                                 using (StreamWriter sw = new StreamWriter(myDataFilePath))
                 {
                     sw.WriteLine("a");
                 }

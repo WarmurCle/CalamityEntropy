@@ -17,8 +17,7 @@ public class DimDungeonGenPass : GenPass
         rooms = new List<Room>();
         corridors = new List<Corridor>();
         doors = new bool[Main.maxTilesX, Main.maxTilesY];
-        // 初始房间
-        WorldUtils.Gen(START_POINT, new Shapes.Rectangle(rootRoom.Width, rootRoom.Height), new Actions.Blank().Output(shapeData));
+                 WorldUtils.Gen(START_POINT, new Shapes.Rectangle(rootRoom.Width, rootRoom.Height), new Actions.Blank().Output(shapeData));
 
         rooms.Add(new RootRoom(
             new Rectangle(
@@ -28,14 +27,8 @@ public class DimDungeonGenPass : GenPass
                 rootRoom.Height
             ), rootRoom)
         { SpawnedEnemies = true });
-        // int lastWidth = 64;
-        // int lastHeight = 64;
-        //
-        // int lastRoomX = START_POINT.X;
-        // int lastRoomY = START_POINT.Y;
-        
-        // 生成一条线房间和走廊
-        foreach (RoomGenAction action in map)
+                                                     
+                 foreach (RoomGenAction action in map)
         {
 
             Direction direction = action.Direction;
@@ -108,9 +101,7 @@ public class DimDungeonGenPass : GenPass
                 new Modifiers.Offset(roomX - START_POINT.X, roomY - START_POINT.Y),
                 new Actions.Blank().Output(shapeData)
             }));
-            // lastWidth = roomMetadata.Width;
-            // lastHeight = roomMetadata.Height;
-
+                          
             rooms.Add(new Room(
                 new Rectangle(
                     roomX,
@@ -121,8 +112,7 @@ public class DimDungeonGenPass : GenPass
                 room).ConnectsWith(newCorridor, direction.Reverse(), lastRoom));
             corridors.Add(newCorridor);
         }
-        // 生成额外走廊
-        int corridorWidth = 4;
+                 int corridorWidth = 4;
         for (int i = 0; i < rooms.Count; i++)
         {
             Room currentRoom = rooms[i];
@@ -251,20 +241,15 @@ public class DimDungeonGenPass : GenPass
 
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
     {
-        progress.Message = "Generating terrain"; // Sets the text displayed for this pass
-        Main.worldSurface = Main.maxTilesY - 42; // Hides the underground layer just out of bounds
-        Main.rockLayer = Main.maxTilesY; // Hides the cavern layer way out of bounds
-            
-        // TODO 把这个byd map做成随机的
-        List<RoomGenAction> map = new List<RoomGenAction>()
+        progress.Message = "Generating terrain";          Main.worldSurface = Main.maxTilesY - 42;          Main.rockLayer = Main.maxTilesY;              
+                 List<RoomGenAction> map = new List<RoomGenAction>()
         {
             new(new CorridorMetadata(4, 64), Direction.Left, new RoomMetadata(64, 16)),
             new(new CorridorMetadata(4, 16), Direction.Up, new RoomMetadata(16, 64)),
             new(new CorridorMetadata(4, 16), Direction.Right, new RoomMetadata(64, 64))
         };
         RoomMetadata rootRoom = new RoomMetadata(16, 16);
-        // List<RoomGenAction> map = new();
-        
+                 
         START_POINT = new Point(Main.maxTilesX / 2 - rootRoom.Width / 2, Main.maxTilesY / 2 - rootRoom.Height / 2);
         
         CreateRooms(rootRoom, map, out ShapeData shapeData , out List<Room> rooms, out List<Corridor> corridors, out bool[,] Doors);

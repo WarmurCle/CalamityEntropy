@@ -85,8 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                     Projectile.velocity = nowVel;
                     float rot = Projectile.velocity.ToRotation();
-                    velP = nowVel.RotatedBy(-MathHelper.PiOver2) * ra * 34;// - Projectile.velocity * 6f;
-                }
+                    velP = nowVel.RotatedBy(-MathHelper.PiOver2) * ra * 34;                 }
             }
             if (((int)Projectile.ai[2]).ToProj().type == ModContent.ProjectileType<HelhieimBlaster>())
             {
@@ -96,8 +95,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 Projectile.velocity = nowVel;
                 float rot = Projectile.velocity.ToRotation();
-                velP = nowVel.RotatedBy(-MathHelper.PiOver2) * Util.Util.getRotateAngle(lasstVel.ToRotation(), nowVel.ToRotation(), 1, false) * 54;// - Projectile.velocity * 6f;
-
+                velP = nowVel.RotatedBy(-MathHelper.PiOver2) * Util.Util.getRotateAngle(lasstVel.ToRotation(), nowVel.ToRotation(), 1, false) * 54; 
             }
             /*if (ssd)
             {
@@ -137,8 +135,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool ShouldUpdatePosition()
         {
-            return true;//false;
-        }
+            return true;         }
         public float counter = 0;
         public List<Vector2> points = new List<Vector2>();
         public List<float> prs = new List<float>();

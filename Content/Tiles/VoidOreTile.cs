@@ -32,8 +32,7 @@ namespace CalamityEntropy.Content.Tiles
             base.HitSound = AuricOre.MineSound;
         }
 
-		// Example of how to enable the Biome Sight buff to highlight this tile. Biome Sight is technically intended to show "infected" tiles, so this example is purely for demonstration purposes.
-		public override bool IsTileBiomeSightable(int i, int j, ref Color sightColor) {
+		 		public override bool IsTileBiomeSightable(int i, int j, ref Color sightColor) {
 			sightColor = Color.Purple;
 			return true;
 		}
@@ -44,8 +43,7 @@ namespace CalamityEntropy.Content.Tiles
         }
     }
 
-	// ExampleOreSystem contains code related to spawning ExampleOre. It contains both spawning ore during world generation, seen in ModifyWorldGenTasks, and spawning ore after defeating a boss, seen in BlessWorldWithExampleOre and MinionBossBody.OnKill.
-	public class VoidOreSystem : ModSystem
+	 	public class VoidOreSystem : ModSystem
 	{
 		public static LocalizedText VoidOrePassMessage { get; private set; }
 		public static LocalizedText BlessedWithVoidOreMessage { get; private set; }
@@ -56,8 +54,7 @@ namespace CalamityEntropy.Content.Tiles
 
 		public static void BlessWorldWithOre() {
 			if (Main.netMode == NetmodeID.MultiplayerClient) {
-				return; // This should not happen, but just in case.
-			}
+				return;  			}
 
 			ThreadPool.QueueUserWorkItem(_ => {
 				if (Main.netMode == NetmodeID.SinglePlayer) {

@@ -543,11 +543,9 @@ namespace CalamityEntropy.Common
                                     }
                                     player.Entropy().twinSpawnIndex = -1;
                                     /*int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * 0.26f), knockback, Main.myPlayer);
-                                    *//*if (true || (item.DamageType == DamageClass.Melee && (velocity.Length() < 2.4f || velocity.Length() > 45)) || type == ModContent.ProjectileType<PrisonOfPermafrostCircle>() || type == ModContent.ProjectileType<VBSpawner>() || type == ModContent.ProjectileType<PrisonOfPermafrostCircle>() || type == ModContent.ProjectileType<ExobladeProj>())
-                                    {
+                                    *                                     {
                                         
-                                    }*//*
-                                    
+                                    }*                                     
                                     pj.ToProj().scale *= 0.8f;
                                     
                                     pj.ToProj().Entropy().ttindex = p.whoAmI;*/

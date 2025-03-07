@@ -86,8 +86,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "ToyKnife", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "ToyKnife", EquipType.Head);
 
-                //Player.HideAccessories();
-            }
+                             }
         }
     }
 }

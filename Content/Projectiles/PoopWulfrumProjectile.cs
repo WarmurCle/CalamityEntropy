@@ -88,47 +88,38 @@ namespace CalamityEntropy.Content.Projectiles
             bool shieldExists = shield > 0;
 
 
-            // The shield very gently grows and shrinks
-            float scale = 0.8f * opc;
+                         float scale = 0.8f * opc;
 
 
-            // If in vanity, the shield is always projected as if it's at full strength.
-            float shieldStrength = (0.1f + 0.5f * ((float)shield / 100f)) * opc;
+                         float shieldStrength = (0.1f + 0.5f * ((float)shield / 100f)) * opc;
 
 
-            // Noise scale also grows and shrinks, although out of sync with the shield
-            float noiseScale = MathHelper.Lerp(0.4f, 0.8f, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 0.3f) * 0.5f + 0.5f);
+                         float noiseScale = MathHelper.Lerp(0.4f, 0.8f, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 0.3f) * 0.5f + 0.5f);
 
-            // Define shader parameters
-            Effect shieldEffect = Filters.Scene["CalamityMod:RoverDriveShield"].GetShader().Shader;
+                         Effect shieldEffect = Filters.Scene["CalamityMod:RoverDriveShield"].GetShader().Shader;
             shieldEffect.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.24f);
             shieldEffect.Parameters["blowUpPower"].SetValue(2.5f);
             shieldEffect.Parameters["blowUpSize"].SetValue(0.5f);
             shieldEffect.Parameters["noiseScale"].SetValue(noiseScale);
 
-            // Shield opacity multiplier slightly changes, this is independent of current shield strength
-            float baseShieldOpacity = (0.2f + 0.8f * ((float)shield / 100f)) * opc;
+                         float baseShieldOpacity = (0.2f + 0.8f * ((float)shield / 100f)) * opc;
             shieldEffect.Parameters["shieldOpacity"].SetValue(baseShieldOpacity * (0.5f + 0.5f * shieldStrength));
             shieldEffect.Parameters["shieldEdgeBlendStrenght"].SetValue(2f);
 
-            // Get the shield color.
-            Color blueTint = new Color(51, 102, 255);
+                         Color blueTint = new Color(51, 102, 255);
             Color cyanTint = new Color(71, 202, 255);
             Color wulfGreen = new Color(194, 255, 67) * 0.8f;
             Color edgeColor = CalamityUtils.MulticolorLerp(Main.GlobalTimeWrappedHourly * 0.2f, blueTint, cyanTint, wulfGreen);
             Color shieldColor = blueTint;
 
 
-            // Define shader parameters for shield color
-            shieldEffect.Parameters["shieldColor"].SetValue(shieldColor.ToVector3());
+                         shieldEffect.Parameters["shieldColor"].SetValue(shieldColor.ToVector3());
             shieldEffect.Parameters["shieldEdgeColor"].SetValue(edgeColor.ToVector3());
 
-            // GOD I LOVE END BEGIN CAN THIS GAME PLEASE BE SWALLOWED BY THE FIRES OF HELL THANKS
-            spriteBatch.End();
+                         spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shieldEffect, Main.GameViewMatrix.TransformationMatrix);
 
-            // Fetch shield noise overlay texture (this is the techy overlay fed to the shader)
-            NoiseTex ??= ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/TechyNoise");
+                         NoiseTex ??= ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/TechyNoise");
             Vector2 pos = Projectile.Center - Main.screenPosition;
             Texture2D tex = NoiseTex.Value;
             spriteBatch.Draw(tex, pos, null, Color.White, 0, tex.Size() / 2f, scale, 0, 0);

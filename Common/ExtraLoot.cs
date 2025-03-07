@@ -12,8 +12,7 @@ namespace CalamityEntropy.Common
         public override void PostWorldGen()
         {
             int itemsPlaced = 0;
-            // Loop over all the chests
-            for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
+                         for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
             {
                 Chest chest = Main.chest[chestIndex];
                 if (chest == null)
@@ -21,25 +20,20 @@ namespace CalamityEntropy.Common
                     continue;
                 }
                 Tile chestTile = Main.tile[chest.x, chest.y];
-                // We need to check if the current chest is the Frozen Chest. We need to check that it exists and has the TileType and TileFrameX values corresponding to the Frozen Chest.
-                // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Frozen Chest. Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding. An alternate approach is to check the wiki and looking for the "Internal Tile ID" section in the infobox: https://terraria.wiki.gg/wiki/Frozen_Chest
-                if (chestTile.TileType == TileID.Containers)
+                                                  if (chestTile.TileType == TileID.Containers)
                 {
                     if (chestTile.TileFrameX == 1 * 36)
                     {
                         if (!WorldGen.genRand.NextBool(10))
                             continue;
-                        // Next we need to find the first empty slot for our item
-                        for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                                                 for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                         {
 
                             if (chest.item[inventoryIndex].type == ItemID.None)
                             {
 
-                                // Place the item
-                                chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<AuraCard>());
-                                // Alternate approach: var instead of cyclical: chest.item[inventoryIndex].SetDefaults(WorldGen.genRand.Next(itemsToPlaceInFrozenChests));
-                                itemsPlaced++;
+                                                                 chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<AuraCard>());
+                                                                 itemsPlaced++;
                                 break;
                             }
                         }
@@ -53,17 +47,14 @@ namespace CalamityEntropy.Common
                     {
                         if (!WorldGen.genRand.NextBool(3))
                             continue;
-                        // Next we need to find the first empty slot for our item
-                        for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                                                 for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                         {
 
                             if (chest.item[inventoryIndex].type == ItemID.None)
                             {
 
-                                // Place the item
-                                chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<InspirationCard>());
-                                // Alternate approach: var instead of cyclical: chest.item[inventoryIndex].SetDefaults(WorldGen.genRand.Next(itemsToPlaceInFrozenChests));
-                                itemsPlaced++;
+                                                                 chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<InspirationCard>());
+                                                                 itemsPlaced++;
                                 break;
                             }
                         }
@@ -74,8 +65,7 @@ namespace CalamityEntropy.Common
                 {
                     if (!WorldGen.genRand.NextBool(3))
                         continue;
-                    // Next we need to find the first empty slot for our item
-                    for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                                         for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                     {
 
                         if (chest.item[inventoryIndex].type == ItemID.None)
@@ -91,10 +81,8 @@ namespace CalamityEntropy.Common
                                 type = ModContent.ItemType<EnduranceCard>();
                             }
 
-                            // Place the item
-                            chest.item[inventoryIndex].SetDefaults(type);
-                            // Alternate approach: var instead of cyclical: chest.item[inventoryIndex].SetDefaults(WorldGen.genRand.Next(itemsToPlaceInFrozenChests));
-                            itemsPlaced++;
+                                                         chest.item[inventoryIndex].SetDefaults(type);
+                                                         itemsPlaced++;
                             break;
                         }
                     }

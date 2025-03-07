@@ -124,8 +124,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 player.Entropy().sCasketLevel = 6;
             }
-            //Main.NewText(player.GetWeaponDamage(Item).ToString());
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<SamsaraCasketProj>()] < 1 && !player.HasBuff(ModContent.BuffType<NOU>()))
+                         if (player.ownedProjectileCounts[ModContent.ProjectileType<SamsaraCasketProj>()] < 1 && !player.HasBuff(ModContent.BuffType<NOU>()))
             {
                 int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<SamsaraCasketProj>(), Item.damage, player.GetWeaponKnockback(Item), player.whoAmI);
      
@@ -246,73 +245,55 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public float damageMul()
         {
-            float ad = 0.8f;  //  ʼ
-            if (NPC.downedSlimeKing) //ʷ  ķ  
-            {
+            float ad = 0.8f;               if (NPC.downedSlimeKing)              {
                 ad += 0.22f;
             }
-            if (NPC.downedBoss1) //    
-            {
+            if (NPC.downedBoss1)              {
                 ad += 0.26f;
             }
-            if (NPC.downedBoss2) //   Ի     
-            {
+            if (NPC.downedBoss2)              {
                 ad += 0.26f;
             }
-            if (NPC.downedBoss3) //      
-            {
+            if (NPC.downedBoss3)              {
                 ad += 0.62f;
             }
-            if (Main.hardMode)  //  ɽ
-            {
+            if (Main.hardMode)               {
                 ad += 0.42f;
             }
-            if (DownedBossSystem.downedCryogen) //    
-            {
+            if (DownedBossSystem.downedCryogen)              {
                 ad += 0.4f;
             }
-            if (NPC.downedGolemBoss)   //ʯ    
-            {
+            if (NPC.downedGolemBoss)                {
                 ad += 0.2f;
             }
-            if (NPC.downedAncientCultist)   //    а  ͽ
-            {
+            if (NPC.downedAncientCultist)                {
                 ad += 0.2f;
             }
-            if (NPC.downedMoonlord)  //    
-            {
+            if (NPC.downedMoonlord)               {
                 ad += 1.5f;
             }
-            if (DownedBossSystem.downedProvidence)  //        
-            {
+            if (DownedBossSystem.downedProvidence)               {
                 ad += 1.0f;
             }
-            if (DownedBossSystem.downedDragonfolly)  //       
-            {
+            if (DownedBossSystem.downedDragonfolly)               {
                 ad += 0.5f;
             }
-            if (DownedBossSystem.downedSignus)   //    
-            {
+            if (DownedBossSystem.downedSignus)                {
                 ad += 0.5f;
             }
-            if (DownedBossSystem.downedPolterghast)  // Ļ 
-            {
+            if (DownedBossSystem.downedPolterghast)               {
                 ad += 0.5f;
             }
-            if (DownedBossSystem.downedDoG) //    
-            {
+            if (DownedBossSystem.downedDoG)              {
                 ad += 0.5f;
             }
-            if (DownedBossSystem.downedYharon)   //Ѽ  
-            {
+            if (DownedBossSystem.downedYharon)                {
                 ad += 1.5f;
             }
-            if (DownedBossSystem.downedExoMechs)  //  е
-            {
+            if (DownedBossSystem.downedExoMechs)               {
                 ad += 2.5f;
             }
-            if (DownedBossSystem.downedCalamitas)   //    
-            {
+            if (DownedBossSystem.downedCalamitas)                {
                 ad += 2.5f;
             }
             return ad;

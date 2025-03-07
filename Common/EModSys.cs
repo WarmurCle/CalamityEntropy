@@ -122,8 +122,7 @@ namespace CalamityEntropy.Common
             bool rCtrl = Keyboard.GetState().IsKeyDown(Keys.RightControl);
             if(!rCtrlLast && rCtrl)
             {
-                //BeeGame.Active = !BeeGame.Active;
-
+                 
             }
             rCtrlLast = rCtrl;
             
@@ -347,8 +346,7 @@ namespace CalamityEntropy.Common
             }
             if (!Main.dedServ)
             {
-                //Main.LocalPlayer.Center = LastPlayerPos;
-            }
+                             }
         }
     }
 }

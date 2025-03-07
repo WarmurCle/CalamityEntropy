@@ -16,10 +16,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 	{
 
 		public override void SetStaticDefaults() {
-			// Fly time: 
-			// Fly speed:
-			// Acceleration multiplier
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(290, 10f, 3f, false, 20, 3f);
+			 			 			 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(290, 10f, 3f, false, 20, 3f);
 		}
 
 		public override void SetDefaults() {
@@ -32,14 +29,12 @@ namespace CalamityEntropy.Content.Items.Accessories
 		}
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
 			ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend) {
-            ascentWhenRising = 0.15f; // Rising speed
-            maxCanAscendMultiplier = 1f;
+            ascentWhenRising = 0.15f;              maxCanAscendMultiplier = 1f;
             maxAscentMultiplier = 3f;
             constantAscend = 0.135f;
             if (!(player.GetModPlayer<EPlayerDash>().DashTimer > 0))
             {
-                ascentWhenFalling = 0.97f; // Falling glide speed
-                
+                ascentWhenFalling = 0.97f;                  
             }
             else
             {

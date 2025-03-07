@@ -27,8 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 		}
 
 		public override Vector2? HoldoutOffset() {
-			return new Vector2(-8f, 2f); // Moves the position of the weapon in the player's hand.
-		}
+			return new Vector2(-8f, 2f);  		}
 
         public override void AddRecipes()
         {

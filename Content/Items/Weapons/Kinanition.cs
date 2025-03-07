@@ -122,10 +122,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     if (i == 0)
                     {
-                        //int arrow = Projectile.NewProjectile(source, position, velocity, type, damage, knockback);
-                        //Main.projectile[arrow].Entropy().Lightning = true;
-                        //Main.projectile[arrow].penetrate = 5;
-                    }
+                                                                                               }
                     else
                     {
                         int arrow;

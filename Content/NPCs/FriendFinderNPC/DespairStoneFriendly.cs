@@ -64,23 +64,18 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                 NPC.ai[1]++;
             }
             if (NPC.ai[2] != 0f) BuzzsawMode();
-            if (NPC.ai[1] > buzzsawStartTime) //time needed for buzzsaw mode to be able to be started
-            {
+            if (NPC.ai[1] > buzzsawStartTime)              {
                 if (NPC.ai[2] == 0f)
                 {
-                    NPC.ai[1] = buzzsawStartTime + 1f; //freeze buzzsaw timer until buzzsaw mode is initiated.
-                    NPC.rotation += NPC.velocity.X * 0.01f;
+                    NPC.ai[1] = buzzsawStartTime + 1f;                      NPC.rotation += NPC.velocity.X * 0.01f;
                     NPC.spriteDirection = -NPC.direction;
-                    if (NPC.velocity.Y == 0f || NPC.lavaWet) BuzzsawMode(); //initiate Buzzsaw mode once the npc hits the ground
-                }
+                    if (NPC.velocity.Y == 0f || NPC.lavaWet) BuzzsawMode();                  }
             }
-            else //run regular ai if buzzsaw mode isn't available
-            {
+            else              {
                 NPC.ai[2] = 0f;
                 UnicornAI_DSF(NPC, Mod, true, CalamityWorld.death ? 8f : CalamityWorld.revenge ? 6f : 4f, 5f, 0.2f);
             }
-            if (NPC.lavaWet) //float on lava 
-                NPC.velocity.Y += -0.8f;
+            if (NPC.lavaWet)                  NPC.velocity.Y += -0.8f;
         }
         public override bool CheckActive()
         {
@@ -91,20 +86,16 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             Entity target = this.FindTarget();
             float distance;
             float speedCap = 10f;
-            //Choose Direction
-            if (NPC.ai[2] == 0f)
+                         if (NPC.ai[2] == 0f)
             {
                 ChainsawSoundSlot = SoundEngine.PlaySound(ChainsawStartSound, NPC.Center);
-                if (NPC.velocity.X < 0f) //left
-                {
+                if (NPC.velocity.X < 0f)                  {
                     NPC.ai[2] = -1f;
                 }
-                else if (NPC.velocity.X > 0f) //right
-                {
+                else if (NPC.velocity.X > 0f)                  {
                     NPC.ai[2] = 1f;
                 }
-                else //if npc is stationary when selecting direction, go towards target.
-                {
+                else                  {
                     distance = target.Center.X - NPC.Center.X;
                     if (distance != 0f)
                     {
@@ -118,28 +109,19 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                 chainsawSound.Position = NPC.Center;
                 chainsawSound.Update();
             }
-            if (NPC.velocity.X == 0f) //go up if against wall
-            {
-                if (NPC.velocity.Y > -speedCap) //Accelerate to top speed
-                    NPC.velocity.Y += -1.66f;
-                if (NPC.velocity.Y < -speedCap) //Cap top speed
-                    NPC.velocity.Y = -speedCap;
+            if (NPC.velocity.X == 0f)              {
+                if (NPC.velocity.Y > -speedCap)                      NPC.velocity.Y += -1.66f;
+                if (NPC.velocity.Y < -speedCap)                      NPC.velocity.Y = -speedCap;
             }
 
-            if (NPC.velocity.X == 0f || NPC.velocity.Y == 0f) //check if on solid ground
-                SpawnSparks();
-            else if (target.Center.Y - NPC.Center.Y < 0f && NPC.velocity.Y < 0f && !NPC.lavaWet) //if not on solid ground and target player is above the NPC, reduce gravity
-                NPC.velocity.Y += -0.03f;
+            if (NPC.velocity.X == 0f || NPC.velocity.Y == 0f)                  SpawnSparks();
+            else if (target.Center.Y - NPC.Center.Y < 0f && NPC.velocity.Y < 0f && !NPC.lavaWet)                  NPC.velocity.Y += -0.03f;
 
-            if (Math.Abs(NPC.velocity.X) < speedCap) //Accelerate to top speed
-                NPC.velocity.X += 1.66f * NPC.ai[2];
-            if (Math.Abs(NPC.velocity.X) > speedCap) //Cap top speed
-                NPC.velocity.X = speedCap * NPC.ai[2];
+            if (Math.Abs(NPC.velocity.X) < speedCap)                  NPC.velocity.X += 1.66f * NPC.ai[2];
+            if (Math.Abs(NPC.velocity.X) > speedCap)                  NPC.velocity.X = speedCap * NPC.ai[2];
 
-            NPC.rotation += speedCap * 0.03f * NPC.ai[2]; //rotate sprite in chosen direction
-            NPC.spriteDirection = -NPC.direction;
-            //stop buzzsaw mode
-            if (NPC.ai[1] > Main.rand.Next(540, 600))
+            NPC.rotation += speedCap * 0.03f * NPC.ai[2];              NPC.spriteDirection = -NPC.direction;
+                         if (NPC.ai[1] > Main.rand.Next(540, 600))
             {
                 NPC.ai[1] = 0f;
                 NPC.velocity.Y += -3f;
@@ -189,8 +171,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                 splatterDirection = new Vector2(-NPC.ai[2], 0f);
             }
 
-            //Color impactColor = Color.Lerp(Color.Silver, Color.Gold, Main.rand.NextFloat(0.5f));
-            Vector2 bloodSpawnPosition = NPC.Center + particleSpawnDisplacement;
+                         Vector2 bloodSpawnPosition = NPC.Center + particleSpawnDisplacement;
 
             if (NPC.ai[1] % 4 == 0)
             {

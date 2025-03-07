@@ -11,8 +11,7 @@ namespace CalamityEntropy.Common
         public static ModKeybind ThrowPoopHotKey { get; set; }
         public static ModKeybind PoopHoldHotKey { get; set; }
         public override void Load()
-        {
-            //Register keybinds            
+        {   
             RetrieveVoidAnnihilateHotKey = KeybindLoader.RegisterKeybind(Mod, "RetrieveVoidAnnihilate", "J");
             string MyGameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games");
             string Isaac1 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance").Replace("/", "\\");

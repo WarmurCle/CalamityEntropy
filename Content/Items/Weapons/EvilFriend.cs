@@ -49,12 +49,6 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            //CreateRecipe().
-              //  AddIngredient(ModContent.ItemType<DarkPlasma>(), 3).
-                //AddIngredient(ItemID.EmpressBlade, 1).
-                //AddIngredient(ModContent.ItemType<TomeofFates>(), 1).
-                //AddTile(ModContent.TileType<VoidCondenser>()).
-                //Register();
-        }
+                                                                                                        }
     }
 }

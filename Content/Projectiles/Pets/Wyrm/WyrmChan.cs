@@ -129,8 +129,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Wyrm
             {
                 Projectile.timeLeft = 2;
             }
-            //Lighting.AddLight(Projectile.Center, 1f, 1f, 1f);
-            if (Projectile.wet) {
+                         if (Projectile.wet) {
                 Projectile.extraUpdates = 1;
             }
             else

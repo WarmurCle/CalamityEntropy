@@ -15,9 +15,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
 	public class Voidshade : ModItem
 	{
-        public int attackType = 0; // keeps track of which attack it is
-        public int comboExpireTimer = 0; // we want the attack pattern to reset if the weapon is not used for certain period of time
-        public override void SetStaticDefaults()
+        public int attackType = 0;          public int comboExpireTimer = 0;          public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
@@ -61,28 +59,22 @@ namespace CalamityEntropy.Content.Items.Weapons
                 }
                 SoundEngine.PlaySound(SoundID.Item1, player.Center);
             }
-            // Using the shoot function, we override the swing projectile to set ai[0] (which attack it is)
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, Main.myPlayer, attackType);
-            attackType = (attackType + 1) % 2; // Increment attackType to make sure next swing is different
-            if (player.altFunctionUse == 2)
+                         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, Main.myPlayer, attackType);
+            attackType = (attackType + 1) % 2;              if (player.altFunctionUse == 2)
             {
                 attackType = (attackType + 1) % 2;
 
             }
-            comboExpireTimer = 0; // Every time the weapon is used, we reset this so the combo does not expire
-            return false; // return false to prevent original projectile from being shot
-        }
+            comboExpireTimer = 0;              return false;          }
 
         public override void UpdateInventory(Player player)
         {
-            if (comboExpireTimer++ >= 120) // after 120 ticks (== 2 seconds) in inventory, reset the attack pattern
-                attackType = 0;
+            if (comboExpireTimer++ >= 120)                  attackType = 0;
         }
 
         public override bool MeleePrefix()
         {
-            return true; // return true to allow weapon to have melee prefixes (e.g. Legendary)
-        }
+            return true;          }
 
         public override void AddRecipes()
         {

@@ -7,8 +7,7 @@ namespace CalamityEntropy.Content.ILEditing
 
         public static void load()
         {
-            //IL_Player.getDPS += HookGetDPS;
-        }
+                     }
 
         /*private static void HookGetDPS(ILContext il)
         {

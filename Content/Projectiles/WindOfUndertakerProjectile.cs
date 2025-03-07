@@ -22,9 +22,7 @@ namespace CalamityEntropy.Content.Projectiles
 	public class WindOfUndertakerProjectile : ModProjectile
 	{
 		public override void SetStaticDefaults() {
-			// This makes the projectile use whip collision detection and allows flasks to be applied to it.
-			//ProjectileID.Sets.IsAWhip[Type] = true;
-		}
+			 			 		}
 
 		public override void SetDefaults() {
 			Projectile.DamageType = DamageClass.Summon;

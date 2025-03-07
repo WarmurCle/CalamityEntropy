@@ -1259,8 +1259,7 @@ namespace CalamityEntropy.Common
                 float auricRejectionKB = Player.noKnockback ? 20f : 40f;
                 if (tile.TileType == ModContent.TileType<AuricBoulderTile>())
                 {
-                    // Cut grappling hooks so the player is surely thrown
-                    Player.RemoveAllGrapplingHooks();
+                                         Player.RemoveAllGrapplingHooks();
 
 
                     var yeetVec = Vector2.Normalize(Player.Center - touchedTile.ToWorldCoordinates());

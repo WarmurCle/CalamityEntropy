@@ -8,9 +8,7 @@ namespace CalamityEntropy.Content.Items;
 
 public class YharimsStimulants : ModItem
 {
-        //Yharim's Stimulants
-        //Gives decent buffs to ALL offensive and defensive stats
-
+                  
 
     public override void SetDefaults()
     {

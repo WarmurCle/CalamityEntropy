@@ -131,8 +131,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D fire = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Texture2D mist = ModContent.Request<Texture2D>("CalamityMod/Particles/MediumMist").Value;
 
-            // The conga line of colors to sift through
-            Color color1 = new Color(160, 100, 255, 200);
+                         Color color1 = new Color(160, 100, 255, 200);
             Color color2 = new Color(160, 50, 255, 70);
             Color color3 = new Color(120, 100, 255, 100);
             Color color4 = new Color(30, 50, 200, 100);
@@ -146,8 +145,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             for (float j = 1f; j >= 0f; j -= length)
             {
-                // Color
-                Color fireColor = ((timeRatio < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, timeRatio)) :
+                                 Color fireColor = ((timeRatio < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, timeRatio)) :
                 ((timeRatio < 0.2f) ? Color.Lerp(color1, color2, Utils.GetLerpValue(0.1f, 0.2f, timeRatio)) :
                 ((timeRatio < 0.35f) ? color2 :
                 ((timeRatio < 0.7f) ? Color.Lerp(color2, color3, Utils.GetLerpValue(0.35f, 0.7f, timeRatio)) :
@@ -155,20 +153,16 @@ namespace CalamityEntropy.Content.Projectiles
                 Color.Lerp(color4, Color.Transparent, Utils.GetLerpValue(0.85f, 1f, timeRatio)))))));
                 fireColor *= (1f - j) * Utils.GetLerpValue(0f, 0.2f, timeRatio, true);
 
-                // Positions and rotations
-                Vector2 firePos = Projectile.Center - Main.screenPosition - Projectile.velocity * vOffset * j;
+                                 Vector2 firePos = Projectile.Center - Main.screenPosition - Projectile.velocity * vOffset * j;
                 float mainRot = (-j * MathHelper.PiOver2 - Main.GlobalTimeWrappedHourly * (j + 1f) * 2f / length) * Math.Sign(Projectile.velocity.X);
                 float trailRot = MathHelper.PiOver4 - mainRot;
 
-                // Draw one backtrail
-                Vector2 trailOffset = Projectile.velocity * vOffset * length * 0.5f;
+                                 Vector2 trailOffset = Projectile.velocity * vOffset * length * 0.5f;
                 Main.EntitySpriteDraw(fire, firePos - trailOffset, null, fireColor * 0.25f, trailRot, fire.Size() * 0.5f, fireSize, SpriteEffects.None);
 
-                // Draw the main fire
-                Main.EntitySpriteDraw(fire, firePos, null, fireColor, mainRot, fire.Size() * 0.5f, fireSize, SpriteEffects.None);
+                                 Main.EntitySpriteDraw(fire, firePos, null, fireColor, mainRot, fire.Size() * 0.5f, fireSize, SpriteEffects.None);
 
-                // Draw the masking smoke
-                if (MistType > 2 || MistType < 0)
+                                 if (MistType > 2 || MistType < 0)
                     return false;
                 Main.spriteBatch.SetBlendState(BlendState.Additive);
                 Rectangle frame = mist.Frame(1, 3, 0, MistType);

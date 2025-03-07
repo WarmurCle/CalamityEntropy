@@ -83,10 +83,7 @@ namespace CalamityEntropy.Content.Projectiles.TwistedTwin
             }
             Projectile.netUpdate = true;
             Projectile.Center = Projectile.Center + (targetPos - Projectile.Center) * 0.24f;
-            //if (Util.Util.getDistance(Projectile.Center, targetPos) < 64) {
-            //    Projectile.Center = Projectile.Center + (targetPos - Projectile.Center) * 0.3f;
-            //}
-            Projectile.ai[0]--;
+                                                   Projectile.ai[0]--;
             if (Projectile.owner.ToPlayer().channel)
             {
                 Projectile.ai[0] = 6;

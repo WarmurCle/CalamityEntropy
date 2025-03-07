@@ -74,14 +74,11 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.netUpdate = true;
             }
 
-            // Undo squish effects.
-            SquishFactor = MathHelper.Lerp(SquishFactor, 1f, 0.08f);
+                         SquishFactor = MathHelper.Lerp(SquishFactor, 1f, 0.08f);
 
-            // Determine whether to collide with tiles.
-            Projectile.tileCollide = Projectile.Bottom.Y >= TileCollisionYThreshold;
+                         Projectile.tileCollide = Projectile.Bottom.Y >= TileCollisionYThreshold;
 
-            // Calculate frames.
-            Projectile.frameCounter++;
+                         Projectile.frameCounter++;
             if (!HasCollidedWithGround)
                 Projectile.frame = Projectile.frameCounter / 6 % 5;
             else
@@ -93,8 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Projectile.frame++;
 
-                    // Release the upper part of the pod into the air and spawn the cannon.
-                    if (Projectile.frame == 8)
+                                         if (Projectile.frame == 8)
                     {
                         SoundEngine.PlaySound(ThanatosHead.VentSound, Projectile.Top);
                         if (Main.rand.NextDouble() < 0.01f)
@@ -175,19 +171,16 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.frame = Main.projFrames[Projectile.type] - 1;
             }
 
-            // Fall downward.
-            Projectile.velocity.Y += Gravity;
+                         Projectile.velocity.Y += Gravity;
             if (Projectile.velocity.Y > MaxFallSpeed)
                 Projectile.velocity.Y = MaxFallSpeed;
         }
 
         public void PerformGroundCollisionEffects()
         {
-            // Become squished.
-            SquishFactor = 1.4f;
+                         SquishFactor = 1.4f;
 
-            // Mechanical Cart laser dust. Looks epic.
-            int dustID = 182;
+                         int dustID = 182;
             int dustCount = 54;
             for (int i = 0; i < dustCount; i += 2)
             {
@@ -208,8 +201,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f);
         }
 
-        // As a means of obscuring contents when they spawn (such as ensuring that the minigun doesn't seem to pop into existence), this projectile draws above most other projectiles.
-        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+                 public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             overPlayers.Add(index);
         }

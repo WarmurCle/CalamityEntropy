@@ -18,8 +18,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
 	public class NihilityShell : ModItem
 	{
-        public static int MaxCount = 2; //×î´ó¼×¿ÇÊý
-		public override void SetDefaults() {
+        public static int MaxCount = 2;  		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;

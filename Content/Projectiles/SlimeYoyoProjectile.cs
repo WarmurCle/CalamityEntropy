@@ -16,13 +16,9 @@ namespace CalamityEntropy.Content.Projectiles
             Main.projFrames[Projectile.type] = 1;
             ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 5f;
 
-            // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player. 
-            // Vanilla values range from 130f (Wood) to 400f (Terrarian), and defaults to 200f.
-            ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 400f;
+                                      ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 400f;
 
-            // YoyosTopSpeed is top speed of the yoyo Projectile.
-            // Vanilla values range from 9f (Wood) to 17.5f (Terrarian), and defaults to 10f.
-            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 12f;
+                                      ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 12f;
         }
         public override void SetDefaults()
         {

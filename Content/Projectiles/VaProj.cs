@@ -80,8 +80,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Dust.NewDust(Projectile.Center, 16, 16, DustID.MagicMirror, Projectile.velocity.X * -0.1f, Projectile.velocity.Y * -0.1f);
                 if (counter % 14 == 0)
                 {
-                    //Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity, Projectile.velocity * 0.86f, ModContent.ProjectileType<VoidStarF>(), (int)(Projectile.damage * 0.6f), 6, Projectile.owner);
-                }
+                                     }
             }
 
             Projectile.ai[0]++;
@@ -214,8 +213,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 SpriteBatch sb = Main.spriteBatch;
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                if (ve.Count >= 3)//��Ϊ������ҪΧ��һ�������β��ܻ����� ������Ҫ�ж�����>=3 ���򱨴�
-                {
+                if (ve.Count >= 3)                 {
                     Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/rvslash").Value;
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);

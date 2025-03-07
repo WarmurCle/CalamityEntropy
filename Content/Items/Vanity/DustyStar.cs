@@ -94,8 +94,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "DustyStar", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "DustyStar", EquipType.Head);
 
-                //Player.HideAccessories();
-            }
+                             }
         }
     }
 }
