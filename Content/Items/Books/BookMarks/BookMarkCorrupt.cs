@@ -21,12 +21,17 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookMarkCorrupt : BookMark
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BookMarkCrimson>();
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();
             Item.rare = ItemRarityID.Orange;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
         }
+        
         public override Texture2D UITexture => BookMark.GetUITexture("Corrupt");
         public override EBookProjectileEffect getEffect()
         {

@@ -562,6 +562,11 @@ namespace CalamityEntropy.Common
             if (npc.type == ModContent.NPCType<EidolonWyrmHead>())
             {
                 npcLoot.Add(ModContent.ItemType<Nothing>(), 2, 1, 1);
+                npcLoot.Add(ModContent.ItemType<BookMarkAbyss>(), 2, 1, 1);
+            }
+            if(npc.type == ModContent.NPCType<GiantClam>())
+            {
+                npcLoot.Add(ModContent.ItemType<BookMarkSulphurousSea>(), 1, 1, 1);
             }
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

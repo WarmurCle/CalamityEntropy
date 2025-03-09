@@ -8,6 +8,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Armor.VoidFaquir;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
@@ -966,6 +967,139 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
+            if(item.type == ModContent.ItemType<HiveMindBag>() || item.type == ModContent.ItemType<PerforatorBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkAerialite>(), new Fraction(1, 2));
+            }
+            if (item.Is<LeviathanBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkAquarius>(), new Fraction(1, 2));
+            }
+            if (item.type == ItemID.SkeletronBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkAries>(), new Fraction(1, 1));
+            }
+            if (item.Is<AstrumDeusBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkAstral>(), new Fraction(1, 2));
+            }
+            if (item.Is<YharonBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkAuric>(), new Fraction(1, 2));
+            }
+            if(item.type == ItemID.QueenBeeBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkBee>(), new Fraction(1, 1));
+            }
+            if (item.Is<BrimstoneWaifuBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkBrimstone>(), new Fraction(1, 2));
+            }
+            if (item.Is<CrabulonBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkCancer>(), new Fraction(1, 2));
+            }
+            if(item.Is<AquaticScourgeBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkCapricorn>(), new Fraction(1, 2));
+            }
+            if(item.type == ItemID.EaterOfWorldsBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkCorrupt>(), new Fraction(1, 2));
+            }
+            if(item.type == ItemID.BrainOfCthulhuBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkCrimson>(), new Fraction(1, 2));
+            }
+            if (item.type == ItemID.WallOfFleshBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkFlesh>(), new Fraction(1, 1));
+            }
+            if (item.Is<NihilityTwinBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkGemini>(), new Fraction(1, 1));
+            }
+            if(ModLoader.TryGetMod("CalamityHunt", out Mod ch) && (item.type == ch.Find<ModItem>("TreasureTrunk").Type || item.type == ch.Find<ModItem>("TreasureBucket").Type))
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkGoozma>(), new Fraction(1, 1));
+            }
+            if (ModLoader.TryGetMod("CatalystMod", out Mod cl) && item.type == cl.Find<ModItem>("AstrageldonBag").Type)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkIntergelactic>(), new Fraction(1, 2));
+            }
+            if (item.Is<CryogenBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkIce>(), new Fraction(1, 2));
+            }
+            if (item.Is<DesertScourgeBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkLeo>(), new Fraction(1, 2));
+            }
+            if (item.type == ItemID.FairyQueenBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkLibra>(), new Fraction(1, 1));
+            }
+            if (item.type == ItemID.MoonLordBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkGemini>(), new Fraction(1, 1));
+            }
+            if (item.type == ItemID.SkeletronPrimeBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkMechanical>(), new Fraction(1, 1));
+            }
+            if (item.type == ItemID.QueenSlimeBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkOfLight>(), new Fraction(1, 1));
+            }
+            if (item.Is<CalamitasCloneBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkOfNight>(), new Fraction(1, 1));
+            }
+            if (item.Is<CalamitasCoffer>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookmarkPactOfDecay>(), new Fraction(1, 1));
+            }
+            if (item.Is<DraedonBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookmarkPactOfWar>(), new Fraction(1, 1));
+            }
+            if(item.type == ItemID.FishronBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkPisces>(), new Fraction(1, 1));
+            }
+            if (item.Is<ProvidenceBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkProfaned>(), new Fraction(1, 1));
+            }
+            if (item.type == ItemID.EyeOfCthulhuBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkSagittarius>(), new Fraction(1, 2));
+            }
+            if (item.Is<AstrumAureusBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkScorpio>(), new Fraction(1, 2));
+            }
+            if (item.type == ItemID.PlanteraBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkSilva>(), new Fraction(1, 1));
+            }
+            if (item.Is<SlimeGodBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkTaurus>(), new Fraction(1, 2));
+            }
+            if(item.type == ItemID.GolemBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkTerra>(), new Fraction(1, 2));
+            }
+            if (item.type == ItemID.KingSlimeBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkVirgo>(), new Fraction(1, 2));
+            }
+            if(item.Is<CruiserBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookMarkVoid>(), new Fraction(1, 1));
+            }
+
             if (item.type == ItemID.PlanteraBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<ToyGuitar>(), new Fraction(1, 3));

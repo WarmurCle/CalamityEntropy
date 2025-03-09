@@ -25,6 +25,10 @@ namespace CalamityEntropy.Util
         {
             return v.SafeNormalize(Vector2.Zero);
         }
+        public static bool Is<T>(this Item item) where T : ModItem
+        {
+            return item.type == ModContent.ItemType<T>();
+        }
 
         public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true)
         {

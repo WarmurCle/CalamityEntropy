@@ -17,8 +17,14 @@ namespace CalamityEntropy.Content.Items.Books
 {
     public class AncientScriptures : EntropyBook
     {
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Item.damage = 52;
+            Item.crit = 2;
+        }
         public override int HeldProjectileType => ModContent.ProjectileType<AncientScripturesHeld>();
-        public override int SlotCount => 6;
+        public override int SlotCount => 1;
     }
 
     public class AncientScripturesHeld : EntropyBookHeldProjectile

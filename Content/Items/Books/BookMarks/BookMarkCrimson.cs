@@ -23,6 +23,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookMarkCrimson : BookMark
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BookMarkCorrupt>();
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();
