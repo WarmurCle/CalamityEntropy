@@ -524,7 +524,7 @@ namespace CalamityEntropy.Common
             }
             if (CRing)
             {
-		Player.runAcceleration *= 1.05f;
+		        Player.runAcceleration *= 1.05f;
                 Player.maxRunSpeed *= 1.05f;
             }
             Player.runAcceleration *= 1f + 0.14f * VoidCharge;
@@ -533,10 +533,10 @@ namespace CalamityEntropy.Common
             Player.maxRunSpeed *= 1f + moveSpeed;
             if (CalamityEntropy.EntropyMode)
             {
-                Player.maxRunSpeed *= 0.88f;
+                Player.maxRunSpeed *= 0.96f;
                 if(HitTCounter > 0)
                 {
-                    Player.maxRunSpeed *= 0.8f;
+                    Player.maxRunSpeed *= 0.96f;
                 }
             }
         }

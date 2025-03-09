@@ -2337,7 +2337,7 @@ EBookTooltip:
 SetHomeCommandError: Error: invalid parameters
 HomeCommandError: Cannot find home
 EntropyModeName: Entropy
-EntropyModeDescShort: More challenging than death mode
-EntropyModeDesc: More challenging than death mode, Less Health, Less Damage
+EntropyModeDescShort: "[c/aa12e1:More challenging than death mode]"
+EntropyModeDesc: "[c/aa12e1:More challenging than death mode, Less Health, Less Damage]"
 EntropyModeActive: YOU WILL BE FORGOTTEN
 EntropyModeDeactive: Why not crave abandonment

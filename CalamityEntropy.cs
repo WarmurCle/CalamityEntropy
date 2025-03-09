@@ -667,10 +667,17 @@ namespace CalamityEntropy
                     }
                     hit.Damage = (int)(hit.Damage * aw.getDR());
                 }
+                if(self.boss && EntropyMode)
+                {
+                    if(hit.Damage > self.lifeMax * 0.1f)
+                    {
+                        hit.Damage = (int)(self.lifeMax * 0.1f);
+                    }
+                    hit.Damage = (int)(hit.Damage * (self.life < ((float)self.Entropy().TDRCounter / (5f * 60 * 60) * self.lifeMax) ? (1 / (1 + (((float)self.Entropy().TDRCounter / (5f * 60 * 60) * self.lifeMax) - self.life) * (8f / self.lifeMax))) : 1));
+                }
             }
             return orig(self, hit, fromNet, noPlayerInteraction);
         }
-
         private void vAi(On_NPC.orig_VanillaAI orig, NPC self)
         {
             orig(self);

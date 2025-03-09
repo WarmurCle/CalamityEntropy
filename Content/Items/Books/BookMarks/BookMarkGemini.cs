@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void ModifyStat(EBookStatModifer modifer)
         {
             modifer.Homing += 1.2f;
-            modifer.HomingRange += 180;
+            modifer.HomingRange += 0.5f;
         }
     }
 }

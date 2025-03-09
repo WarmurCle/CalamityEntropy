@@ -2487,7 +2487,15 @@ EBookTooltip:
 SetHomeCommandError: 错误: 无效参数
 HomeCommandError: 未找到
 EntropyModeName: 熵变
-EntropyModeDescShort: 比死亡模式更具有挑战性
-EntropyModeDesc: 更加难的模式，更少的生命，伤害和生存能力
+EntropyModeDescShort:
+	'''
+	[c/aa12e1:比死亡模式更具有挑战性]
+	[c/ff0000:声明：此模式难度较难，如果你能轻松通关死亡模式那么可以尝试此难度]
+	'''
+EntropyModeDesc:
+	'''
+	[c/aa12e1:更加难的模式，更少的生命，伤害和生存能力。]
+	[c/aa12e1:准备好被遗忘吧!]
+	'''
 EntropyModeActive: 你将被遗忘
 EntropyModeDeactive: 为何不渴望遗弃

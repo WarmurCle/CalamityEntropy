@@ -64,6 +64,7 @@ namespace CalamityEntropy.Common
 
             ActivationSound = Util.Util.GetSound("soul");
             ChatTextColor = new Color(170, 18, 225);
+            
         }
 
         public override int FavoredDifficultyAtTier(int tier)
