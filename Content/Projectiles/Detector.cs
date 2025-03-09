@@ -57,7 +57,12 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity += (target.Center - Projectile.Center).normalize() * 0.7f;
                     if (Util.Util.getDistance(Projectile.Center, target.Center) < 500)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 12, 88, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        if (Main.myPlayer == Projectile.owner)
+                        {
+                            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 12, 88, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            p.ToProj().usesLocalNPCImmunity = true;
+                            p.ToProj().localNPCHitCooldown = 16;
+                        }
                         SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
                         back = true;
                     }

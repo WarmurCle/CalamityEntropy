@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             shootCooldown *= 3;
         }
 
-        public override int modifyProjectile()
+        public override int modifyProjectile(int pNow)
         {
             return ModContent.ProjectileType<AstralBullet>();
         }

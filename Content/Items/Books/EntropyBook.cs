@@ -234,7 +234,7 @@ namespace CalamityEntropy.Content.Items.Books
                 var bm = Projectile.owner.ToPlayer().Entropy().EBookStackItems[i];
                 if (bm.ModItem is BookMark bmmi)
                 {
-                    int pn = bmmi.modifyProjectile();
+                    int pn = bmmi.modifyProjectile(type);
                     if(pn >= 0)
                     {
                         type = pn;
@@ -245,20 +245,20 @@ namespace CalamityEntropy.Content.Items.Books
             return true;
         }
         public Item bookItem;
-        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1)
+        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1)
         {
             EBookStatModifer modifer = getBaseModifer();
             for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
             {
                 if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
                 {
-                    bm.ModiferStat(modifer);
+                    bm.ModifyStat(modifer);
                 }
             }
             Projectile proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed, type, (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().ttindex < 0 ? 1 : TwistedTwinMinion.damageMul))), Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback), Projectile.owner).ToProj();
             proj.penetrate += modifer.PenetrateAddition;
             proj.CritChance = bookItem.crit + (int)modifer.Crit;
-            proj.Size *= modifer.Size;
+            proj.scale *= modifer.Size * scaleMul;
             proj.ArmorPenetration += (int)(Projectile.getOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration);
             if(proj.ModProjectile is EBookBaseProjectile bp)
             {
@@ -388,8 +388,13 @@ namespace CalamityEntropy.Content.Items.Books
                             {
                                 if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
                                 {
-                                    bm.ModiferStat(m);
+                                    var e = bm.getEffect();
+                                    bm.ModifyStat(m);
                                     bm.modifyShootCooldown(ref shotCooldown);
+                                    if(e != null)
+                                    {
+                                        e.OnShoot(this);
+                                    }
                                 }
                             }
                             shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
@@ -465,6 +470,10 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual Color baseColor => Color.White;
         public Color color;
         public bool initColor = true;
+        public override void ModifyDamageHitbox(ref Rectangle hitbox)
+        {
+            hitbox = Projectile.Center.getRectCentered(hitbox.Width * Projectile.scale, hitbox.Height * Projectile.scale);
+        }
         public override bool PreAI()
         {
             if (initColor)
@@ -590,6 +599,7 @@ namespace CalamityEntropy.Content.Items.Books
         public int segLength = 30;
         public int segCounts = 100;
         public int penetrate = 1;
+        public int quickTime = -1;
         public float width => 32 * Projectile.scale;
         public override bool ShouldUpdatePosition()
         {
@@ -600,6 +610,13 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual List<Vector2> getSamplePoints()
         {
             return _points;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Main.rand.NextBool(4))
+            {
+                base.OnHitNPC(target, hit, damageDone);
+            }
         }
         public List<Vector2> cauculatePoints()
         {
@@ -681,7 +698,15 @@ namespace CalamityEntropy.Content.Items.Books
         public override bool PreAI()
         {
             Projectile.localNPCHitCooldown = (int)((float)hitCd / this.attackSpeed);
-            
+            if(quickTime > 0)
+            {
+                quickTime--;
+                if(quickTime == 0)
+                {
+                    Projectile.Kill();
+                    return false;
+                }
+            }
             return base.PreAI();
         }
         public override void AI()
@@ -732,6 +757,11 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual string RegisterName()
         {
             return this.Name;
+        }
+
+        public virtual void OnShoot(EntropyBookHeldProjectile book)
+        {
+
         }
         public virtual void OnProjectileSpawn(Projectile projectile, bool ownerClient)
         {

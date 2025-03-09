@@ -272,7 +272,7 @@ namespace CalamityEntropy.Common
         
         public override bool CanUseItem(Item item, Player player)
         {
-            if(player.HasBuff<VoidVirus>() && item.healLife > 0)
+            if((player.HasBuff<VoidVirus>() || (CalamityEntropy.EntropyMode && player.Entropy().HitTCounter > 0)) && item.healLife > 0)
             {
                 return false;
             }

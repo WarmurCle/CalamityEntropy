@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Item.value = CalamityGlobalItem.RarityCyanBuyPrice;
         }
         public override Texture2D UITexture => BookMark.GetUITexture("Terra");
-        public override void ModiferStat(EBookStatModifer modifer)
+        public override void ModifyStat(EBookStatModifer modifer)
         {
             modifer.Damage += 0.2f;
             modifer.PenetrateAddition += 3;
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = this.color;
-            Util.Util.DrawAfterimage(Projectile.getTexture(), Projectile.Entropy().odp, Projectile.Entropy().odr);
+            Util.Util.DrawAfterimage(Projectile.getTexture(), Projectile.Entropy().odp, Projectile.Entropy().odr, Projectile.scale);
             return base.PreDraw(ref lightColor);
         }
     }

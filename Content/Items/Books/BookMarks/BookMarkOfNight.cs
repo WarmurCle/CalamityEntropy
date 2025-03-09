@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
         }
         public override Texture2D UITexture => BookMark.GetUITexture("Night");
-        public override void ModiferStat(EBookStatModifer modifer)
+        public override void ModifyStat(EBookStatModifer modifer)
         {
             modifer.Damage += 0.1f;
         }

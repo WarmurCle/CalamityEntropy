@@ -33,11 +33,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             return ModContent.Request<Texture2D>("CalamityEntropy/Assets/UI/BookMarks/" + name).Value;
         }
-        public virtual void ModiferStat(EBookStatModifer modifer)
+        public virtual void ModifyStat(EBookStatModifer modifer)
         {
 
         }
-        public virtual int modifyProjectile()
+        public virtual int modifyProjectile(int pNow)
         {
             return -1;
         }

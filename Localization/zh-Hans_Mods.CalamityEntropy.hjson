@@ -1512,6 +1512,149 @@ Items: {
 			'''
 		DisplayName: 始源临海书签
 	}
+
+	BookMarkBee: {
+		Tooltip: 击中敌人后生成追踪蜜蜂
+		DisplayName: 蜜蜂书签
+	}
+
+	BookMarkSulphurousSea: {
+		DisplayName: 沉沦海书签
+		Tooltip: 击中敌人后生成追踪棱晶碎片
+	}
+
+	BookMarkCorrupt: {
+		Tooltip:
+			'''
+			击中敌人概率召唤暗影触手
+			+12% 攻速
+			+6 护甲穿透
+			'''
+		DisplayName: 腐化书签
+	}
+
+	BookMarkCrimson: {
+		DisplayName: 猩红书签
+		Tooltip:
+			'''
+			击中敌人概率从下方召唤血之涌泉
+			+2 吸血
+			+8 暴击率
+			'''
+	}
+
+	BookMarkGoozma: {
+		DisplayName: 虹蚀书签
+		Tooltip: 快速发射炫彩之星
+	}
+
+	BookMarkIntergelactic: {
+		DisplayName: 异宇星凝书签
+		Tooltip: 射击时概率生成新星史莱姆
+	}
+
+	BookMarkAquarius: {
+		DisplayName: 宝瓶座书签
+		Tooltip: 击中敌人散射水弹
+	}
+
+	BookMarkAries: {
+		DisplayName: 白羊座书签
+		Tooltip:
+			'''
+			攻击附带小范围爆炸
+			+14% 伤害
+			'''
+	}
+
+	BookMarkTaurus: {
+		DisplayName: 金牛座书签
+		Tooltip: 增加射弹尺寸，射弹击中后分裂成3个更小的射弹
+	}
+
+	BookMarkCancer: {
+		DisplayName: 巨蟹座书签
+		Tooltip:
+			'''
+			射弹会降低碰到的敌方射弹的速度和伤害
+			+160% 射弹尺寸
+			'''
+	}
+
+	BookMarkCapricorn: {
+		Tooltip: 持续使用增加射速，最多+40%
+		DisplayName: 摩羯座书签
+	}
+
+	BookMarkLeo: {
+		Tooltip:
+			'''
+			+20%伤害
+			+40% 射弹尺寸
+			'''
+		DisplayName: 狮子座书签
+	}
+
+	BookMarkSagittarius: {
+		DisplayName: 人马座书签
+		Tooltip:
+			'''
+			+6%伤害
+			+4 穿透
+			+26% 弹速
+			'''
+	}
+
+	BookMarkPisces: {
+		DisplayName: 双鱼座书签
+		Tooltip:
+			'''
+			攻击时额外发射一个较小射弹
+			+6 护甲穿透
+			'''
+	}
+
+	BookMarkVirgo: {
+		DisplayName: 室女座书签
+		Tooltip:
+			'''
+			+14% 伤害
+			+3 穿透
+			'''
+	}
+
+	BookMarkLibra: {
+		DisplayName: 天秤座书签
+		Tooltip:
+			'''
+			+4% 伤害
+			+4% 射速
+			+4% 暴击率
+			+5% 弹速
+			+1 穿透
+			+4 护甲穿透
+			为伤害和射速的倍率最低的其一再增加4%
+			'''
+	}
+
+	BookMarkGemini: {
+		DisplayName: 双子座书签
+		Tooltip: 射弹强追踪
+	}
+
+	BookMarkScorpio: {
+		DisplayName: 天蝎座书签
+		Tooltip: 攻击附带可叠加的星蝎剧毒减益，造成持续伤害
+	}
+
+	BookmarkPactOfDecay: {
+		DisplayName: 堕落契约
+		Tooltip:
+			'''
+			释放一个持续的喑哑魔涡
+			攻击附带孱弱巫咒减益
+			'''
+	}
 }
 
 MariviniumSet:
@@ -1783,8 +1926,12 @@ Projectiles: {
 	Detector.DisplayName: 探测器
 	TerraBoulder.DisplayName: 泰拉巨石
 	AbyssBookmarkCrack.DisplayName: 渊深之撕裂
-	// VoidBurst.DisplayName: Void Burst
-	// SilvaSoul.DisplayName: Silva Soul
+	VoidBurst.DisplayName: 虚湮爆炸
+	SilvaSoul.DisplayName: 始源之魂
+	GoozmaStarShot.DisplayName: 虹蚀之星
+	NovaSlimerProj.DisplayName: 新星史莱姆
+	AriesExplosion.DisplayName: 白羊座爆炸
+	DecayPactMaelstrom.DisplayName: 喑哑魔涡
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2339,3 +2486,8 @@ EBookTooltip:
 	'''
 SetHomeCommandError: 错误: 无效参数
 HomeCommandError: 未找到
+EntropyModeName: 熵变
+EntropyModeDescShort: 比死亡模式更具有挑战性
+EntropyModeDesc: 更加难的模式，更少的生命，伤害和生存能力
+EntropyModeActive: 你将被遗忘
+EntropyModeDeactive: 为何不渴望遗弃

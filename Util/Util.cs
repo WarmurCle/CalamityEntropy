@@ -256,12 +256,12 @@ namespace CalamityEntropy.Util
             }
             return new Rectangle(0, tex.Height / count * index, tex.Width, tex.Height / count);
         }
-        public static void DrawAfterimage(Texture2D tx, List<Vector2> odp, List<float> odr)
+        public static void DrawAfterimage(Texture2D tx, List<Vector2> odp, List<float> odr, float scale = 1)
         {
             float ap = 1f / (float)odp.Count;
             for (int i = 0; i < odp.Count; i++)
             {
-                Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, Color.White * ap * 0.5f, odr[i], tx.Size() / 2, 1, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, Color.White * ap * 0.5f, odr[i], tx.Size() / 2, scale, SpriteEffects.None, 0);
                 ap += 1f / (float)odp.Count;
             }
         }

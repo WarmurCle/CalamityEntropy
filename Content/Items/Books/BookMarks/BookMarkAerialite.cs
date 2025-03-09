@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             return new AerialiteBMEffect();
         }
-        public override void ModiferStat(EBookStatModifer modifer)
+        public override void ModifyStat(EBookStatModifer modifer)
         {
             modifer.shotSpeed += 0.4f;
         }

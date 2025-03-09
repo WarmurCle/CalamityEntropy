@@ -1362,6 +1362,149 @@ Items: {
 			'''
 		DisplayName: Bookmark - Silva
 	}
+
+	BookMarkBee: {
+		Tooltip: Spawns bees upon hitting an enemy
+		DisplayName: Bookmark - Bee
+	}
+
+	BookMarkSulphurousSea: {
+		DisplayName: Bookmark - SulphurousSea
+		Tooltip: Spawns aquashard upon hitting an enemy
+	}
+
+	BookMarkCorrupt: {
+		Tooltip:
+			'''
+			Chance to summon Shadow Tentacles upon hitting an enemy
+			+12% Attack Speed
+			+6 Armor Penetration
+			'''
+		DisplayName: Bookmark - Corrupt
+	}
+
+	BookMarkCrimson: {
+		DisplayName: Bookmark - Crimson
+		Tooltip:
+			'''
+			Chance to summon a Fountain of Blood from below upon hitting an enemy
+			+2 Life steal
+			+8 Crit Chance
+			'''
+	}
+
+	BookMarkGoozma: {
+		DisplayName: Rainbow Erosion Bookmark
+		Tooltip: Rapidly fires colorful stars
+	}
+
+	BookMarkIntergelactic: {
+		DisplayName: Bookmark - Intergelactic
+		Tooltip: Chance to summon nova slime when shooting
+	}
+
+	BookMarkAquarius: {
+		DisplayName: Bookmark - Aquarius
+		Tooltip: Scatters water projectiles upon hitting an enemy
+	}
+
+	BookMarkAries: {
+		DisplayName: Bookmark - Aries
+		Tooltip:
+			'''
+			Attacks cause a small area-of-effect explosion
+			+14% Damage
+			'''
+	}
+
+	BookMarkTaurus: {
+		DisplayName: Bookmark - Taurus
+		Tooltip: Your projectiles will split to 3 small projectile after on hit
+	}
+
+	BookMarkCancer: {
+		DisplayName: Bookmark - Cancer
+		Tooltip:
+			'''
+			Projectiles reduce the speed and damage of enemy projectiles they collide with
+			+160% Projectile Size
+			'''
+	}
+
+	BookMarkCapricorn: {
+		Tooltip: Continuous use increases firing speed, up to +40%
+		DisplayName: Bookmark - Capricorn
+	}
+
+	BookMarkLeo: {
+		Tooltip:
+			'''
+			+20% Damage
+			+40% Projectile Size
+			'''
+		DisplayName: Bookmark - Leo
+	}
+
+	BookMarkSagittarius: {
+		DisplayName: Bookmark - Sagittarius
+		Tooltip:
+			'''
+			+6% Damage
+			+4 Penetrate
+			+26% Shot Speed
+			'''
+	}
+
+	BookMarkPisces: {
+		DisplayName: Bookmark - Pisces
+		Tooltip:
+			'''
+			Fires an additional smaller projectile when attacking
+			+6 Armor Penetration
+			'''
+	}
+
+	BookMarkVirgo: {
+		DisplayName: Bookmark - Virgo
+		Tooltip:
+			'''
+			+14% Damage
+			+3 Penetrate
+			'''
+	}
+
+	BookMarkLibra: {
+		DisplayName: Bookmark - Libra
+		Tooltip:
+			'''
+			+4% Damage
+			+4% Attack Speed
+			+4% Crit Chance
+			+5% Projectile Speed
+			+1 Penetration
+			+4 Armor Penetration
+			Additionally increases the lower of either Damage or Attack Speed by 4%
+			'''
+	}
+
+	BookMarkGemini: {
+		DisplayName: Bookmark - Gemini
+		Tooltip: Projectile homing
+	}
+
+	BookMarkScorpio: {
+		DisplayName: Bookmark - Scorpio
+		Tooltip: Attacks inflict a stacking Astral Scorpion Poison debuff, dealing damage over time
+	}
+
+	BookmarkPactOfDecay: {
+		DisplayName: Pact Of Decay
+		Tooltip:
+			'''
+			Spawns a Whispering Maelstrom during shooting
+			Projectiles will apply Vulnerability Hex debuff
+			'''
+	}
 }
 
 MariviniumSet:
@@ -1621,8 +1764,8 @@ Projectiles: {
 	AmethystExplosion.DisplayName: Amethyst Explosion
 	AncientScripturesHeld.DisplayName: Ancient Scriptures Held
 	RuneBullet.DisplayName: Rune Bullet
-	WelkinFeather2.DisplayName: Welkin Feather2
-	IceEdge2.DisplayName: Ice Edge2
+	WelkinFeather2.DisplayName: Welkin Feather
+	IceEdge2.DisplayName: Ice Edge
 	BrimstoneVortex.DisplayName: Brimstone Vortex
 	InfiniteBookHeld.DisplayName: Infinite Book Held
 	DarkSoul.DisplayName: Dark Soul
@@ -1634,6 +1777,10 @@ Projectiles: {
 	AbyssBookmarkCrack.DisplayName: Abyss Bookmark Crack
 	VoidBurst.DisplayName: Void Burst
 	SilvaSoul.DisplayName: Silva Soul
+	GoozmaStarShot.DisplayName: Goozma Star
+	NovaSlimerProj.DisplayName: Nova Slime
+	AriesExplosion.DisplayName: Aries Explosion
+	DecayPactMaelstrom.DisplayName: Decay Pact Maelstrom
 }
 
 LegendTooltip: - Legend -
@@ -2189,3 +2336,8 @@ EBookTooltip:
 	'''
 SetHomeCommandError: Error: invalid parameters
 HomeCommandError: Cannot find home
+EntropyModeName: Entropy
+EntropyModeDescShort: More challenging than death mode
+EntropyModeDesc: More challenging than death mode, Less Health, Less Damage
+EntropyModeActive: YOU WILL BE FORGOTTEN
+EntropyModeDeactive: Why not crave abandonment

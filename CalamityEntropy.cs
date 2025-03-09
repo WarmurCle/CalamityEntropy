@@ -106,6 +106,9 @@ using System.Diagnostics.Metrics;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles.Chainsaw;
+using CalamityMod.Systems;
+using CalamityMod.World;
+using Newtonsoft.Json.Linq;
 namespace CalamityEntropy
 {
 	public class CalamityEntropy : Mod
@@ -121,9 +124,10 @@ namespace CalamityEntropy
             VoidTouchDamageShow,
             PoopSync,
             SpawnItem,
-            PickUpPoop
+            PickUpPoop,
+            SyncEntropyMode
         }
-        
+        public static bool EntropyMode { get { return EDownedBosses.EntropyMode; } set { EDownedBosses.EntropyMode = value; } }
         public static bool AprilFool = false;
 		public static List<int> calDebuffIconDisplayList = new List<int>();
 		public static CalamityEntropy Instance;
@@ -278,13 +282,13 @@ namespace CalamityEntropy
                     packet.Send();
                 }
             }
-            if(type == (byte)NetPackages.SpawnItem)
+            if (type == (byte)NetPackages.SpawnItem)
             {
                 int plr = reader.ReadInt32();
                 int itemtype = reader.ReadInt32();
                 int stack = reader.ReadInt32();
                 Player player = plr.ToPlayer();
-                
+
                 if (!Main.dedServ && itemtype == ModContent.ItemType<PoopPickup>())
                 {
                     Util.Util.PlaySound("fart", 1, player.Center);
@@ -319,11 +323,31 @@ namespace CalamityEntropy
                 }
                 player.Entropy().poops.Add(poop);
             }
+            if(type == (byte)NetPackages.SyncEntropyMode)
+            {
+                bool enabled = reader.ReadBoolean();
+                EntropyMode = enabled;
+                if (enabled)
+                {
+                    CalamityWorld.revenge = true;
+                    CalamityWorld.death = true;
+                }
+                if (Main.dedServ)
+                {
+                    ModPacket packet = this.GetPacket();
+                    packet.Write((byte)NetPackages.SyncEntropyMode);
+                    packet.Write(enabled);
+                    packet.Send();
+                }
             }
+        }
         public static SoundEffect ealaserSound = null;
+        public EntropyDifficulty EDifficulty;
         public static SoundEffect ealaserSound2 = null;
         public override void Load()
         {
+            Instance = this;
+
             rainbowmasterFixed = false;
             DateTime today = DateTime.Now;
             AprilFool = today.Month == 4 && today.Day == 1;
@@ -336,6 +360,8 @@ namespace CalamityEntropy
             }
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
+
+            
 
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
@@ -353,11 +379,16 @@ namespace CalamityEntropy
 			{
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidBlade/f" + i.ToString()).Value;
             }
-            Instance = this;
+            
             AbyssalWraith.loadHead();
             CruiserHead.loadHead();
             CUtil.load();
-			foreach (int id in CalamityLists.needsDebuffIconDisplayList)
+
+            EDifficulty = new EntropyDifficulty();
+            DifficultyModeSystem.Difficulties.Add(EDifficulty);
+            DifficultyModeSystem.CalculateDifficultyData();
+
+            foreach (int id in CalamityLists.needsDebuffIconDisplayList)
 			{
 				calDebuffIconDisplayList.Add(id);
 			}
@@ -408,7 +439,7 @@ namespace CalamityEntropy
 
         private void player_heal(On_Player.orig_Heal orig, Player self, int amount)
         {
-            if (!self.HasBuff<VoidVirus>())
+            if (!self.HasBuff<VoidVirus>() && !(EntropyMode && self.Entropy().HitTCounter > 0))
             {
                 orig(self, amount);
             }
@@ -1937,6 +1968,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            EDifficulty = null;
             LoopSoundManager.unload();
             ealaserSound = null;
             ealaserSound2 = null;

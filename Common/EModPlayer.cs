@@ -531,8 +531,17 @@ namespace CalamityEntropy.Common
             Player.maxRunSpeed *= 1f + 0.5f * VoidCharge;
             Player.runAcceleration *= 1f + moveSpeed;
             Player.maxRunSpeed *= 1f + moveSpeed;
+            if (CalamityEntropy.EntropyMode)
+            {
+                Player.maxRunSpeed *= 0.88f;
+                if(HitTCounter > 0)
+                {
+                    Player.maxRunSpeed *= 0.8f;
+                }
+            }
         }
         public int scHealCD = 60;
+        public int HitTCounter = 0;
 
         public override void PostUpdateMiscEffects()
         {
@@ -561,8 +570,34 @@ namespace CalamityEntropy.Common
             {
                 Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.003f;
             }
+            if (CalamityEntropy.EntropyMode)
+            {
+                Player.statLifeMax2 = (int)(Player.statLifeMax2 * 0.8f);
+                Player.statDefense *= 0.7f;
+                Player.lifeRegen /= 2;
+                lifeRegenPerSec /= 2;
+                if (HitTCounter > 0)
+                {
+                    Player.lifeRegen = 0;
+                    lifeRegenPerSec = 0;
+                }
+                List<DamageClass> dmgClasses = new List<DamageClass>() { ModContent.GetInstance<AverageDamageClass>(), ModContent.GetInstance<DefaultDamageClass>(), ModContent.GetInstance<GenericDamageClass>(), ModContent.GetInstance<MagicDamageClass>(), ModContent.GetInstance<MagicSummonHybridDamageClass>(), ModContent.GetInstance<MeleeDamageClass>(), ModContent.GetInstance<MeleeNoSpeedDamageClass>(), ModContent.GetInstance<MeleeRangedHybridDamageClass>(), ModContent.GetInstance<NoneTypeDamageClass>(), ModContent.GetInstance<RangedDamageClass>(), ModContent.GetInstance<RogueDamageClass>(), ModContent.GetInstance<StealthDamageClass>(), ModContent.GetInstance<SummonDamageClass>(), ModContent.GetInstance<SummonMeleeSpeedDamageClass>(), ModContent.GetInstance<ThrowingDamageClass>(), ModContent.GetInstance<TrueMeleeDamageClass>(), ModContent.GetInstance<TrueMeleeNoSpeedDamageClass>() };
+                for (int i = 0; i < dmgClasses.Count; i++)
+                {
+                    DamageClass dc = dmgClasses[i];
+                    if (Player.GetDamage(dc).Additive > 1)
+                    {
+                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive, 0.8f);
+                        Player.GetDamage(dc) -= (Player.GetDamage(dc).Additive - tv);
+                    }
+                    if (Player.GetCritChance(dc) > 50)
+                    {
+                        Player.GetCritChance(dc) = 50;
+                    }
+                }
+            }
             Player.statDefense += (int)temporaryArmor;
-
+            HitTCounter--; 
         }
         public int manaNorm = 0;
         public int deusCoreAdd = 0;
@@ -573,6 +608,11 @@ namespace CalamityEntropy.Common
         }
         public int immune = 0;
         public bool cHat = false;
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            HitTCounter = 300;
+            Player.immuneTime = (int)(Player.immuneTime * 0.5f);
+        }
         public override bool FreeDodge(Player.HurtInfo info)
         {
             if (immune > 0)
@@ -1448,6 +1488,7 @@ namespace CalamityEntropy.Common
         public int MariviniumShieldCount = 0;
         public int MariviniumShieldCd = 12 * 60;
         public bool visualMagiShield = false;
+        
         public override void PostUpdateEquips()
         {
             foreach (Projectile p in Main.ActiveProjectiles)

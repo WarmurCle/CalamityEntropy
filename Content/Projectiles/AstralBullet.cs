@@ -1,5 +1,6 @@
 using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Util;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
@@ -22,7 +23,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.friendly = true;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 60;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 60;
             Projectile.light = 1;
@@ -30,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI(){
             base.AI();
-            if (Projectile.timeLeft < 21)
+            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft < 21)
             {
                 if (Projectile.timeLeft > 5)
                 {
@@ -39,12 +40,20 @@ namespace CalamityEntropy.Content.Projectiles
                         if (this.ShooterModProjectile is EntropyBookHeldProjectile mp)
                         {
                             NPC target = Projectile.FindTargetWithinRange(1400);
-                            mp.ShootSingleProjectile(mp.getShootProjectileType(), Projectile.Center, (target == null ? Projectile.velocity : (target.Center - Projectile.Center)));
+                            int type = mp.getShootProjectileType();
+                            foreach(var e in this.ProjectileEffects)
+                            {
+                                if(e is GZMBMEffect)
+                                {
+                                    type = new BookMarkGoozma().modifyProjectile(type);
+                                }
+                            }
+                            mp.ShootSingleProjectile(type, Projectile.Center, (target == null ? Projectile.velocity : (target.Center - Projectile.Center)), scaleMul: Projectile.scale);
                         }
                     }
                 }
             }
-            Projectile.velocity *= 0.96f;
+            Projectile.velocity *= 0.97f;
         }
         public override void ApplyHoming()
         {

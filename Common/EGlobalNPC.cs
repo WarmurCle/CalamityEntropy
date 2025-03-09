@@ -9,6 +9,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
@@ -82,6 +83,7 @@ namespace CalamityEntropy.Common
         public int StareOfAbyssTime = 0;
         public int EclipsedImprintTime = 0;
         public int friendFinderOwner = 0;
+        public int TDRCounter = 5 * 60 * 60;
         public List<Vector2> getAbyssalCirclePointsRelative(NPC npc, float distAdd = 0, float c = 1)
         {
             float dist = (npc.width + npc.height) / 2f + 30 - (float)Math.Cos(Main.GlobalTimeWrappedHourly) * 12 + distAdd;
@@ -156,6 +158,10 @@ namespace CalamityEntropy.Common
         }
         public override void PostAI(NPC npc)
         {
+            if(TDRCounter > 0)
+            {
+                TDRCounter--;
+            }
             noelctime--;
             if (deusBloodOut > 0 && !npc.dontTakeDamage)
             {
@@ -704,6 +710,13 @@ namespace CalamityEntropy.Common
                         buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<VoidVirus>()].Value);
                     }
                     if (npc.HasBuff(ModContent.BuffType<Deceive>()))
+                    {
+                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);
+                    }
+                    if (npc.GetGlobalNPC<ScorpioEffectNPC>().effectLevel > 0)
+                    {
+                        buffTextureList.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Buffs/AstralScorpionPoisonous").Value);
+                    }
                     {
                         buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);
                     }

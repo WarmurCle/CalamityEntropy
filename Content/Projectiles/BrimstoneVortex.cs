@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int counter = 0;
         public override List<Vector2> getSamplePoints()
         {
-            if(counter < 40)
+            if(counter < 40 && quickTime < 0)
             {
                 return new List<Vector2>() { Projectile.Center };
             }
@@ -42,26 +42,35 @@ namespace CalamityEntropy.Content.Projectiles
             scale += (1.3f - scale) * 0.1f;
             base.AI();
             counter++;
-            if (counter == 10 || counter == 25 || counter == 37)
+            if (quickTime < 0)
             {
-                if (Main.myPlayer == Projectile.owner)
+                if (counter == 10 || counter == 25 || counter == 37)
                 {
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((Main.MouseWorld - Projectile.Center).ToRotation());
-                    Projectile.netUpdate = true;
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((Main.MouseWorld - Projectile.Center).ToRotation());
+                        Projectile.netUpdate = true;
+                    }
+
                 }
 
-            }
-            if(counter == 40)
-            {
-                Util.Util.PlaySound("brimstonevortexshoot", 1, Projectile.Center, 1, 0.7f);
-            }
-            if(counter > 60)
-            {
-                scale2 -= 0.05f;
-                if(scale2 <= 0)
+                if (counter == 40)
                 {
-                    Projectile.Kill();
+                    Util.Util.PlaySound("brimstonevortexshoot", 1, Projectile.Center, 1, 0.7f);
                 }
+                if (counter > 60)
+                {
+                    scale2 -= 0.05f;
+                    if (scale2 <= 0)
+                    {
+                        Projectile.Kill();
+                    }
+                }
+            }
+            if(quickTime > 0)
+            {
+                scale = 1.3f;
+                scale2 = (float)quickTime / 20f;
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -80,11 +89,14 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 drawLaser(points);
             }
-            Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Main.GameUpdateCount * 0.2f, tex.Size() / 2f, Projectile.scale * 0.6f * scale * scale2, SpriteEffects.None, 0);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Main.GameUpdateCount * 0.4f, tex.Size() / 2f, Projectile.scale * 0.4f * scale * scale2, SpriteEffects.FlipHorizontally, 0);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Main.GameUpdateCount * 0.6f, tex.Size() / 2f, Projectile.scale * 0.2f * scale * scale2, SpriteEffects.None, 0);
-            Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
+            if (quickTime < 0)
+            {
+                Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
+                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Main.GameUpdateCount * 0.2f, tex.Size() / 2f, Projectile.scale * 0.6f * scale * scale2, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Main.GameUpdateCount * 0.4f, tex.Size() / 2f, Projectile.scale * 0.4f * scale * scale2, SpriteEffects.FlipHorizontally, 0);
+                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Main.GameUpdateCount * 0.6f, tex.Size() / 2f, Projectile.scale * 0.2f * scale * scale2, SpriteEffects.None, 0);
+                Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
+            }
             return false;
         }
         public override Color baseColor => new Color(220, 6, 6);

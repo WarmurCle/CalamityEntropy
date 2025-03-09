@@ -1,0 +1,63 @@
+
+using CalamityEntropy.Content.ArmorPrefixes;
+using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.TwistedTwin;
+using CalamityEntropy.Content.UI.EntropyBookUI;
+using CalamityEntropy.Util;
+using CalamityMod.Items;
+using CalamityMod.Items.Weapons.Magic;
+using CalamityMod.Projectiles.Magic;
+using CalamityMod.Projectiles.Ranged;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography.Pkcs;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.Items.Books.BookMarks
+{
+    public class BookMarkCrimson : BookMark
+    {
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Item.rare = ItemRarityID.Orange;
+            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
+        }
+        public override Texture2D UITexture => BookMark.GetUITexture("Crimson");
+        public override EBookProjectileEffect getEffect()
+        {
+            return new CrimsonBMEffect();
+        }
+        public override void ModifyStat(EBookStatModifer modifer)
+        {
+            modifer.lifeSteal += 2;
+            modifer.Crit += 8;
+        }
+        public override Color tooltipColor => Color.Crimson;
+    }
+
+    public class CrimsonBMEffect : EBookProjectileEffect
+    {
+        public override void OnProjectileSpawn(Projectile projectile, bool ownerClient)
+        {
+            (projectile.ModProjectile as EBookBaseProjectile).color = Color.Crimson;
+        }
+        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        {
+            if (Main.rand.NextBool(5))
+            {
+                for (int i = 0; i < 16; i++)
+                {
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center + new Vector2(Main.rand.NextFloat(-80, 80), 400), new Vector2(0, -18), ModContent.ProjectileType<BloodBlast>(), damageDone / 8, projectile.knockBack / 3, projectile.owner, 0, Main.rand.NextFloat(-0.1f, 0.1f)).ToProj().DamageType = projectile.DamageType;
+                }
+            }
+
+        }
+    }
+}

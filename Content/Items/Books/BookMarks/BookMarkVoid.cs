@@ -49,13 +49,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             EGlobalNPC.AddVoidTouch(target, 80, 1.5f, 800, 18);
             if (Main.rand.NextBool(5))
             {
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidBurst>(), projectile.damage * 8, 1, projectile.owner);
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 1, projectile.owner);
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidBurst>(), projectile.damage * 8, 1, projectile.owner);
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 1, projectile.owner);
                 
                 for(int i = 0; i < 74; i++)
                 {
-                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), new Color(140, 140, 255), 0.3f, 1, true, BlendState.Additive);
-                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), Color.LightGoldenrodYellow, 0.3f, 1, true, BlendState.Additive);
+                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), new Color(140, 140, 255), 0.3f, 1, true, BlendState.Additive);
+                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), Color.LightGoldenrodYellow, 0.3f, 1, true, BlendState.Additive);
                 }
             }
         }
