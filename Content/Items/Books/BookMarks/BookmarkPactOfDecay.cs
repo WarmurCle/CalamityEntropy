@@ -60,6 +60,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.localNPCHitCooldown = 3;
             Projectile.Opacity = 0;
             Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
         }
         public override void SendExtraAI(BinaryWriter writer)
         {

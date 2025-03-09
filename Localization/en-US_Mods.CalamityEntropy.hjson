@@ -1498,12 +1498,21 @@ Items: {
 	}
 
 	BookmarkPactOfDecay: {
-		DisplayName: Pact Of Decay
+		DisplayName: Pact of Decay
 		Tooltip:
 			'''
 			Spawns a Whispering Maelstrom during shooting
 			Projectiles will apply Vulnerability Hex debuff
 			'''
+	}
+
+	BookmarkPactOfWar: {
+		Tooltip:
+			'''
+			Summon Mini Exo Twins during shooting
+			Projectiles will apply Miracle Blight debuff
+			'''
+		DisplayName: Pact of War
 	}
 }
 
@@ -1781,6 +1790,10 @@ Projectiles: {
 	NovaSlimerProj.DisplayName: Nova Slime
 	AriesExplosion.DisplayName: Aries Explosion
 	DecayPactMaelstrom.DisplayName: Decay Pact Maelstrom
+	WarPactApollo.DisplayName: War Pact Apollo
+	WarPactArtemis.DisplayName: War Pact Artemis
+	ExoShot1.DisplayName: Exo Shot1
+	ArMinionLaser.DisplayName: Ar Minion Laser
 }
 
 LegendTooltip: - Legend -

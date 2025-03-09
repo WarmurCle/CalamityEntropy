@@ -1655,6 +1655,15 @@ Items: {
 			攻击附带孱弱巫咒减益
 			'''
 	}
+
+	BookmarkPactOfWar: {
+		Tooltip:
+			'''
+			攻击时召唤迷你星流双子攻击敌人
+			攻击造成超位崩解减益
+			'''
+		DisplayName: 战争契约
+	}
 }
 
 MariviniumSet:
@@ -1932,6 +1941,10 @@ Projectiles: {
 	NovaSlimerProj.DisplayName: 新星史莱姆
 	AriesExplosion.DisplayName: 白羊座爆炸
 	DecayPactMaelstrom.DisplayName: 喑哑魔涡
+	// WarPactApollo.DisplayName: War Pact Apollo
+	// WarPactArtemis.DisplayName: War Pact Artemis
+	// ExoShot1.DisplayName: Exo Shot1
+	// ArMinionLaser.DisplayName: Ar Minion Laser
 }
 
 LegendTooltip: - 传奇物品 -
