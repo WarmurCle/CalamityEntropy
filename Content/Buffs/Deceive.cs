@@ -19,9 +19,7 @@ namespace CalamityEntropy.Content.Buffs
             BuffID.Sets.LongerExpertDebuff[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            
         }
-
 
         public override void Update(Player player, ref int buffIndex)
         {
