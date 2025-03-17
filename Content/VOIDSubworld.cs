@@ -34,6 +34,7 @@ namespace CalamityEntropy.Content.DimDungeon
         {
             new GP()
         };
+        
         public class GP: GenPass
         {
             public GP() : base("G", 1) { }
