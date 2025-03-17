@@ -523,7 +523,6 @@ Items: {
 			魔力护盾被击破时消除自身魔力病减益并回满魔力值，
 			没有护盾时魔法弹幕能够吸血，
 			你的当前魔力值越高，你的吸血量便越高
-
 			+10% 魔法伤害
 			'''
 	}
@@ -533,10 +532,8 @@ Items: {
 		Tooltip:
 			'''
 			召唤一艘猎星战舰射击你的敌人
-			战舰会消耗你物品栏中的子弹
-			交替发射火箭和子弹
+			战舰会使用你物品栏中的子弹但不会消耗
 			不会消耗弹药
-			33%概率射出子弹翻倍
 			每20次射击发射一道镭射
 			'''
 	}
@@ -1395,7 +1392,7 @@ Items: {
 
 	AncientScriptures: {
 		DisplayName: 远古典籍
-		Tooltip: ""
+		Tooltip: 发射符文弹
 	}
 
 	BookMarkBrimstone: {
@@ -1437,7 +1434,7 @@ Items: {
 		Tooltip:
 			'''
 			击中概率召唤光明之魂
-			光明之魂会撞向并摧毁附近的子弹并为你恢复生命上限的1%血量
+			光明之魂会撞向并摧毁附近的子弹并为你恢复生命上限的0.5%血量
 			'''
 	}
 
@@ -1663,6 +1660,45 @@ Items: {
 			攻击造成超位崩解减益
 			'''
 		DisplayName: 战争契约
+	}
+
+	UpdraftTome: {
+		Tooltip: 发射强力击退的风弹
+		DisplayName: 升流古书
+	}
+
+	RedemptionBible: {
+		Tooltip:
+			'''
+			发射救赎之矛
+			召唤一把救赎之弓协同攻击
+			'''
+		DisplayName: 救赎圣经
+	}
+
+	NightEpic: {
+		DisplayName: 夜空史诗
+		Tooltip: 发射出两颗追踪陨星
+	}
+
+	AshTranscript: {
+		DisplayName: 灰烬笔录
+		Tooltip: 发射亵渎光束
+	}
+
+	VoidOde: {
+		Tooltip: 从下射出视域长枪
+		DisplayName: 虚空颂章
+	}
+
+	BookMarkNeutron: {
+		DisplayName: 中子星书签
+		Tooltip: 击中敌人概率产生中子星爆炸
+	}
+
+	ControlTerminal: {
+		DisplayName: 控制终端
+		Tooltip: 发射星流旋刃
 	}
 }
 
@@ -1941,10 +1977,25 @@ Projectiles: {
 	NovaSlimerProj.DisplayName: 新星史莱姆
 	AriesExplosion.DisplayName: 白羊座爆炸
 	DecayPactMaelstrom.DisplayName: 喑哑魔涡
-	// WarPactApollo.DisplayName: War Pact Apollo
-	// WarPactArtemis.DisplayName: War Pact Artemis
-	// ExoShot1.DisplayName: Exo Shot1
-	// ArMinionLaser.DisplayName: Ar Minion Laser
+	WarPactApollo.DisplayName: 迷你星流双子
+	WarPactArtemis.DisplayName: 迷你星流双子
+	ExoShot1.DisplayName: 星流射弹
+	ArMinionLaser.DisplayName: 星流激光
+	UpdraftBullet.DisplayName: 升流风弹
+	UpdraftTomeHeld.DisplayName: 升流古书
+	RedemptionSpear.DisplayName: 救赎之矛
+	RedemptionBibleHeld.DisplayName: 救赎圣经
+	RedemptionArrow.DisplayName: 救赎之矢
+	RedemptionBow.DisplayName: 救赎长弓
+	NightEpicHeld.DisplayName: 夜空史诗
+	NightStar.DisplayName: 史诗之星
+	AshTranscriptHeld.DisplayName: 灰烬笔录
+	ATLaser.DisplayName: 灰烬射线
+	VoidOdeHeld.DisplayName: 虚空颂章
+	SighterPinFriendly.DisplayName: 视域长枪
+	ControlTerminalHeld.DisplayName: 控制终端
+	ExoWhirl.DisplayName: 星流旋刃
+	WhirlExobeam.DisplayName: 星流旋刃射线
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2512,3 +2563,4 @@ EntropyModeDesc:
 	'''
 EntropyModeActive: 你将被遗忘
 EntropyModeDeactive: 为何不渴望遗弃
+MissedInVoid: 被遗忘了

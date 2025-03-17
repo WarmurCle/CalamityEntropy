@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float w = 1f;
         public override bool PreAI()
         {
-            if(w == 0.8f)
+            if(w == 1f)
             {
                 Projectile.penetrate += 4;
             }

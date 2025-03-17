@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Items
                     slots += 1;
                 }
             }
-            if (slots > player.slotsMinions - 1)
+            if (slots > player.maxMinions - 1)
             {
                 return false;
             }

@@ -25,6 +25,10 @@ namespace CalamityEntropy.Util
         {
             return v.SafeNormalize(Vector2.Zero);
         }
+        public static Vector2 randomPoint(this Rectangle rect)
+        {
+            return new Vector2(Main.rand.NextFloat(rect.X, rect.Width), Main.rand.NextFloat(rect.Y, rect.Height));
+        }
         public static bool Is<T>(this Item item) where T : ModItem
         {
             return item.type == ModContent.ItemType<T>();

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
@@ -13,6 +14,7 @@ using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.CrystalBalls;
+using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
@@ -30,6 +32,7 @@ using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
+using SubworldLibrary;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -108,6 +111,13 @@ namespace CalamityEntropy.Common
 
         public override bool? UseItem(Item item, Player player)
         {
+            if(item.type == ItemID.RodOfHarmony)
+            {
+                if (NPC.AnyNPCs(ModContent.NPCType<AbyssalWraith>()))
+                {
+                    SubworldSystem.Enter<VOIDSubworld>();
+                }
+            }
             if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.damage <= 0 || item.ammo != AmmoID.None || item.axe > 0 || !player.Entropy().TarnishCard)
             {
                 return null;

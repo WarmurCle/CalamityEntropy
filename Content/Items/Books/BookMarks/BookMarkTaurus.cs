@@ -55,25 +55,24 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 vel = (MathHelper.ToRadians(i * 120) + r).ToRotationVector2() * projectile.velocity.Length();
-                    int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, vel, projectile.type, projectile.damage / 9, projectile.knockBack / 3, projectile.owner);
+                    int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, vel, projectile.type, projectile.damage / 9 + 1, projectile.knockBack / 3, projectile.owner);
                     var m = (p.ToProj().ModProjectile as EBookBaseLaser);
                     bool rd = false;
                     foreach (var effect in (projectile.ModProjectile as EBookBaseProjectile).ProjectileEffects)
                     {
-                        if (!(effect is TaurusBMEffect) || rd)
+                        if (!(effect is TaurusBMEffect))
                         {
                             m.ProjectileEffects.Add(effect);
-                        }
-                        else
-                        {
-                            rd = true;
                         }
                     }
                     EBookBaseLaser esb = (projectile.ModProjectile as EBookBaseLaser);
                     m.homing = esb.homing;
-                    m.quickTime = 20;
-                    m.penetrate = esb.penetrate + 1;
-
+                    m.quickTime = 20; 
+                    m.ShooterModProjectile = esb.ShooterModProjectile;
+                    if (m.penetrate > 0)
+                    {
+                        m.penetrate = esb.penetrate + 1;
+                    }
                     p.ToProj().localNPCImmunity[target.whoAmI] = 1000;
                     p.ToProj().scale = projectile.scale * 0.4f;
                 }
@@ -86,23 +85,23 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     for (int i = 0; i < 3; i++)
                     {
                         Vector2 vel = (MathHelper.ToRadians(i * 120) + r).ToRotationVector2() * projectile.velocity.Length();
-                        int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, projectile.type, projectile.damage / 9, projectile.knockBack / 3, projectile.owner);
+                        int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, projectile.type, projectile.damage / 9 + 1, projectile.knockBack / 3, projectile.owner);
                         var m = (p.ToProj().ModProjectile as EBookBaseProjectile);
                         bool rd = false;
                         foreach (var effect in (projectile.ModProjectile as EBookBaseProjectile).ProjectileEffects)
                         {
-                            if (!(effect is TaurusBMEffect) || rd)
+                            if (!(effect is TaurusBMEffect))
                             {
                                 m.ProjectileEffects.Add(effect);
-                            }
-                            else
-                            {
-                                rd = true;
                             }
                         }
                         EBookBaseProjectile esb = (projectile.ModProjectile as EBookBaseProjectile);
                         p.ToProj().localNPCImmunity[target.whoAmI] = 1000;
-                        p.ToProj().penetrate = projectile.penetrate + 1;
+                        if (p.ToProj().penetrate > 0)
+                        {
+                            p.ToProj().penetrate = projectile.penetrate + 1;
+                        }
+                        m.ShooterModProjectile = esb.ShooterModProjectile;
                         m.homing = esb.homing;
                         p.ToProj().scale = projectile.scale * 0.4f;
                     }

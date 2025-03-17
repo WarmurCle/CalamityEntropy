@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
                                     type = new BookMarkGoozma().modifyProjectile(type);
                                 }
                             }
-                            mp.ShootSingleProjectile(type, Projectile.Center, (target == null ? Projectile.velocity : (target.Center - Projectile.Center)), scaleMul: Projectile.scale);
+                            mp.ShootSingleProjectile(type, Projectile.Center, (target == null ? Projectile.velocity : (target.Center - Projectile.Center)), 1);
                         }
                     }
                 }
@@ -59,7 +59,10 @@ namespace CalamityEntropy.Content.Projectiles
         {
             
         }
-
+        public override bool? CanHitNPC(NPC target)
+        {
+            return false;
+        }
         public override void OnKill(int timeLeft)
         {
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AstralExplosion>(), Projectile.damage * 3, 1, Projectile.owner);

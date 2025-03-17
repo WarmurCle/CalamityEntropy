@@ -5,10 +5,12 @@ using System.Runtime.Serialization.Formatters;
 using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
+using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Armor.Marivinium;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Projectiles;
@@ -26,6 +28,7 @@ using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using SubworldLibrary;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -333,6 +336,10 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
+            if(Player.HeldItem.ModItem is EntropyBook eb)
+            {
+                eb.CheckSpawn(Player);
+            }
             temporaryArmor *= 0.994f;
             if(temporaryArmor > 0)
             {
@@ -545,6 +552,10 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateMiscEffects()
         {
+            if (SubworldSystem.IsActive<VOIDSubworld>())
+            {
+                Player.gravity = 0;
+            }
             float d = damageReduce - 1;
             if (Player.Entropy().enduranceCard)
             {

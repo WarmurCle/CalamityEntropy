@@ -34,18 +34,21 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.width = 32;
-            Projectile.height = 32;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.width = 6;
+            Projectile.height = 6;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
-            Projectile.tileCollide = false;
-            Projectile.light = 1f;
+            Projectile.tileCollide = true;
+            Projectile.light = 0.2f;
             Projectile.timeLeft = 200;
-            Projectile.ArmorPenetration = 12;
         }
         public int counter = 0;
         public bool std = false;
+        public override void ModifyDamageHitbox(ref Rectangle hitbox)
+        {
+            hitbox = Projectile.Center.getRectCentered(38 * Projectile.scale, 38 * Projectile.scale);
+        }
         public override void AI()
         {
             base.AI();
@@ -81,6 +84,14 @@ namespace CalamityEntropy.Content.Projectiles
         {
             drawT();
             return false;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            base.OnKill(timeLeft);
+            for (int i = 0; i < 10; i++)
+            {
+                EParticle.spawnNew(new GlowSpark(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

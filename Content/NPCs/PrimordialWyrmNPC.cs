@@ -21,6 +21,7 @@ using CalamityMod.Items.Placeables;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
 using CalamityMod.Items.Placeables.FurnitureAbyss;
 using CalamityEntropy.Content.Items;
+using CalamityMod.Items;
 
 namespace CalamityEntropy.Content.NPCs
 {
@@ -107,6 +108,7 @@ namespace CalamityEntropy.Content.NPCs
                 .Add<AbyssTorch>()
                 .Add<AbyssShellFossil>()
                 .Add<WyrmTooth>()
+                .Add<Rock>()
                 .Add(ModLoader.GetMod("CalamityModMusic").Find<ModItem>("PrimordialWyrmMusicBox").Type);
 			npcShop.Register();  		}
 
@@ -120,7 +122,10 @@ namespace CalamityEntropy.Content.NPCs
 
                 int value = item.shopCustomPrice ?? item.value;
                 item.shopCustomPrice = value / 8;
-
+                if(item.type == ModContent.ItemType<Rock>())
+                {
+                    item.shopCustomPrice = 100000000;
+                }
             }
 		}
         public override void TownNPCAttackStrength(ref int damage, ref float knockback)

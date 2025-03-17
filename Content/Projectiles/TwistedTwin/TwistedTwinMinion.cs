@@ -34,6 +34,7 @@ namespace CalamityEntropy.Content.Projectiles.TwistedTwin
             Projectile.light = 0.5f;
             Projectile.minion = true;
             Projectile.minionSlots = 2;
+            Projectile.netImportant = true;
         }
         public override bool? CanCutTiles()
         {

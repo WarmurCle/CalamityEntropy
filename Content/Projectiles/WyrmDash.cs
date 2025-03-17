@@ -32,6 +32,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 16;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
+            Projectile.ignoreWater = true;
         }
         public float alpha = 0;
         public bool playSound = true;

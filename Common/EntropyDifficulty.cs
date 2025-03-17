@@ -55,7 +55,7 @@ namespace CalamityEntropy.Common
 
         public EntropyDifficulty()
         {
-            DifficultyScale = 0.8f;
+            DifficultyScale = float.MaxValue;
             Name = CalamityEntropy.Instance.GetLocalization("EntropyModeName");
             ShortDescription = CalamityEntropy.Instance.GetLocalization("EntropyModeDescShort");
 

@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 Projectile.velocity.Y = oldVelocity.Y * -1f;
             }
-            if (Main.rand.NextBool(2))
+            if (Main.rand.NextBool(5))
             {
                 Projectile.penetrate -= 1;
             }

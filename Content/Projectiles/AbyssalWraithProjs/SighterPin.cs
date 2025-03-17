@@ -71,13 +71,13 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
 
         public Color TrailColor(float completionRatio)
         {
-            Color result = Color.Lerp(new Color(100, 150, 255), Color.Gold, completionRatio);
-            return result * completionRatio;
+            Color result = Color.White;
+            return result;
         }
 
         public float TrailWidth(float completionRatio)
         {
-            return MathHelper.Lerp(0, 70 * Projectile.scale, completionRatio);
+            return MathHelper.Lerp(0, 22 * Projectile.scale, completionRatio);
         }
 
         public void drawT()
@@ -95,12 +95,13 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
                 float lr = 0;
                 for (int i = 1; i < mp.odp.Count; i++)
                 {
+                    b = Color.Gold;
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 22,
+                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 10,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 22,
+                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 10,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
@@ -122,8 +123,9 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             Texture2D value = TextureAssets.Projectile[base.Projectile.type].Value;
             Vector2 position = base.Projectile.Center - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
             Vector2 origin = value.Size() * 0.5f;
+            origin.X *= 0.5f;
             Main.spriteBatch.EnterShaderRegion();
-            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/FabstaffStreak"));
+            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak2"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();

@@ -89,10 +89,10 @@ namespace CalamityEntropy.Common
         }
         public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
-            binaryWriter.Write(projectile.Entropy().OnProj);
-            binaryWriter.Write(projectile.Entropy().ttindex);
-            binaryWriter.Write(projectile.Entropy().GWBow);
-            binaryWriter.Write(projectile.Entropy().withGrav);
+            binaryWriter.Write(OnProj);
+            binaryWriter.Write(ttindex);
+            binaryWriter.Write(GWBow);
+            binaryWriter.Write(withGrav);
             binaryWriter.Write(vdtype);
             binaryWriter.Write(vddirection);
             binaryWriter.Write(rpBow);
@@ -103,10 +103,10 @@ namespace CalamityEntropy.Common
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
-            projectile.Entropy().OnProj = binaryReader.ReadInt32();
-            projectile.Entropy().ttindex = binaryReader.ReadInt32();
-            projectile.Entropy().GWBow = binaryReader.ReadBoolean();
-            projectile.Entropy().withGrav = binaryReader.ReadBoolean();
+            OnProj = binaryReader.ReadInt32();
+            ttindex = binaryReader.ReadInt32();
+            GWBow = binaryReader.ReadBoolean();
+            withGrav = binaryReader.ReadBoolean();
             vdtype = binaryReader.ReadInt32();
             vddirection = binaryReader.ReadInt32();
             rpBow = binaryReader.ReadBoolean();
@@ -368,6 +368,10 @@ namespace CalamityEntropy.Common
             {
                 projectile.hostile = false;
                 projectile.friendly = true;
+            }
+            if(vdtype >= 0 && !ProjectileID.Sets.IsARocketThatDealsDoubleDamageToPrimaryEnemy[projectile.type])
+            {
+                vdtype = -1;
             }
             if (vdtype == 0)
             {

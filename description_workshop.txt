@@ -1,7 +1,7 @@
 This mod is an expansion of CalamityMod.
 
 -What we added-
-a new boss
+2 new boss
 weapons
 Accessories
 new bossbar style
@@ -19,8 +19,12 @@ Serrat Antler: Sprite, Concept
 Ahirith: Sprite, Concept (Pets)
 JesterRomut: Sprite, Music (Title Theme), Code
 30000Puslin: Sprite, Concept
-
 Special thanks to Hadrian (FRANCIUMKILLA) for making Cruiser's theme
 
-Bug Reports: https: 
-Discord Server: https: 
+Bug Reports: https://github.com/WarmurCle/CalamityEntropy/issues
+
+Discord Server: https://discord.com/invite/Mnmzd34Fda
+
+ChineseWiki：https://calentropy.miraheze.org
+
+EnglishWiki：https://terrariamods.wiki.gg/wiki/Calamity_Entropy

@@ -26,21 +26,21 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             Item.DamageType = DamageClass.Magic;
-            Item.damage = 64;
+            Item.damage = 44;
             Item.useTime = Item.useAnimation = 20;
             Item.shootSpeed = 26;
             Item.width = Item.height = 40;
             Item.knockBack = 1.4f;
             Item.crit = 4;
-            Item.mana = 8;
+            Item.mana = 4;
             Item.rare = ItemRarityID.Orange;
         }
         public virtual int HeldProjectileType => -1;
         public virtual int SlotCount => 6;
         public virtual Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BookMark1").Value;
-        public override void UpdateInventory(Player player)
+        public virtual void CheckSpawn(Player player)
         {
-            if (Main.myPlayer == player.whoAmI)
+            if (Main.myPlayer == player.whoAmI && !EBookUI.active)
             {
                 if (player.HeldItem == Item)
                 {
@@ -89,6 +89,7 @@ namespace CalamityEntropy.Content.Items.Books
 
     public abstract class EntropyBookHeldProjectile : ModProjectile
     {
+        
         public int ItemType => (int)Projectile.ai[0];
         public int openAnim = 0;
         public bool UIOpen = false;
@@ -104,6 +105,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
+            Projectile.netImportant = true;
         }
         public override bool? CanCutTiles()
         {
@@ -120,8 +122,13 @@ namespace CalamityEntropy.Content.Items.Books
 
         public virtual EBookStatModifer getBaseModifer()
         {
-            EBookStatModifer modifer = new EBookStatModifer() { Damage = 1, Knockback = 0, Crit = Projectile.getOwner().GetTotalCritChance(Projectile.DamageType)};
+            EBookStatModifer modifer = new EBookStatModifer() { Damage = 1, Knockback = Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack), Crit = Projectile.getOwner().GetTotalCritChance(Projectile.DamageType), attackSpeed = Projectile.getOwner().GetTotalAttackSpeed(Projectile.DamageType)};
             return modifer;
+        }
+
+        public virtual EBookProjectileEffect getEffect()
+        {
+            return null;
         }
 
         public virtual string OpenAnimationPath => "";
@@ -245,6 +252,8 @@ namespace CalamityEntropy.Content.Items.Books
             return true;
         }
         public Item bookItem;
+        public virtual float randomShootRotMax => 0.1f;
+        public virtual bool canApplyShootCDModifer => true;
         public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1)
         {
             EBookStatModifer modifer = getBaseModifer();
@@ -255,7 +264,7 @@ namespace CalamityEntropy.Content.Items.Books
                     bm.ModifyStat(modifer);
                 }
             }
-            Projectile proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul, type, (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().ttindex < 0 ? 1 : TwistedTwinMinion.damageMul))), Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback), Projectile.owner).ToProj();
+            Projectile proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax), type, (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().ttindex < 0 ? 1 : TwistedTwinMinion.damageMul))), Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback), Projectile.owner).ToProj();
             proj.penetrate += modifer.PenetrateAddition;
             proj.CritChance = bookItem.crit + (int)modifer.Crit;
             proj.scale *= modifer.Size * scaleMul;
@@ -276,6 +285,10 @@ namespace CalamityEntropy.Content.Items.Books
                             bp.ProjectileEffects.Add(bm.getEffect());
                         }
                     }
+                }
+                if (this.getEffect() != null)
+                {
+                    bp.ProjectileEffects.Add(this.getEffect());
                 }
             }
         }
@@ -390,12 +403,24 @@ namespace CalamityEntropy.Content.Items.Books
                                 {
                                     var e = bm.getEffect();
                                     bm.ModifyStat(m);
-                                    bm.modifyShootCooldown(ref shotCooldown);
+                                    if (this.canApplyShootCDModifer)
+                                    {
+                                        bm.modifyShootCooldown(ref shotCooldown);
+                                    }
                                     if(e != null)
                                     {
                                         e.OnShoot(this);
                                     }
                                 }
+                            }
+                            if(this.getEffect() != null)
+                            {
+                                var e = this.getEffect();
+                                if (e != null)
+                                {
+                                    e.OnShoot(this);
+                                }
+
                             }
                             shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
 
@@ -478,6 +503,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             if (initColor)
             {
+                Projectile.rotation = Projectile.velocity.ToRotation();
                 initColor = false;
                 color = baseColor;
             }
@@ -490,6 +516,8 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Magic;
+            Projectile.netImportant = true;
+            Projectile.tileCollide = false;
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
@@ -611,9 +639,10 @@ namespace CalamityEntropy.Content.Items.Books
         {
             return _points;
         }
+        public virtual int OnHitEffectProb => 4;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.rand.NextBool(4))
+            if (Main.rand.NextBool(OnHitEffectProb))
             {
                 base.OnHitNPC(target, hit, damageDone);
             }

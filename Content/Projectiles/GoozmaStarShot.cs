@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (this.ShooterModProjectile is EntropyBookHeldProjectile mp)
                 {
                     NPC target = Projectile.FindTargetWithinRange(2400);
-                    mp.ShootSingleProjectile(mp.getShootProjectileType(), Projectile.Center, (target == null ? Projectile.velocity : (target.Center - Projectile.Center)), scaleMul: Projectile.scale);
+                    mp.ShootSingleProjectile(mp.getShootProjectileType(), Projectile.Center, (target == null ? Projectile.velocity : (target.Center - Projectile.Center)), 1);
                 }
             }
 
@@ -49,6 +49,10 @@ namespace CalamityEntropy.Content.Projectiles
 
             Projectile.velocity *= 0.95f;
             Projectile.rotation = Projectile.velocity.ToRotation();
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return false;
         }
         public override void OnKill(int timeLeft)
         {

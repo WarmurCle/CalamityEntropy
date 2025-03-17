@@ -1514,6 +1514,41 @@ Items: {
 			'''
 		DisplayName: Pact of War
 	}
+
+	UpdraftTome: {
+		Tooltip: ""
+		DisplayName: Updraft Tome
+	}
+
+	RedemptionBible: {
+		Tooltip: ""
+		DisplayName: Redemption Bible
+	}
+
+	NightEpic: {
+		DisplayName: Night Epic
+		Tooltip: ""
+	}
+
+	AshTranscript: {
+		DisplayName: Ash Transcript
+		Tooltip: ""
+	}
+
+	VoidOde: {
+		Tooltip: ""
+		DisplayName: Void Ode
+	}
+
+	BookMarkNeutron: {
+		DisplayName: Bookmark - Neutron
+		Tooltip: Chance to cause a neutron explosion when projectiles hit enemies
+	}
+
+	ControlTerminal: {
+		DisplayName: Control Terminal
+		Tooltip: ""
+	}
 }
 
 MariviniumSet:
@@ -1792,8 +1827,23 @@ Projectiles: {
 	DecayPactMaelstrom.DisplayName: Decay Pact Maelstrom
 	WarPactApollo.DisplayName: War Pact Apollo
 	WarPactArtemis.DisplayName: War Pact Artemis
-	ExoShot1.DisplayName: Exo Shot1
-	ArMinionLaser.DisplayName: Ar Minion Laser
+	ExoShot1.DisplayName: Exo Shot
+	ArMinionLaser.DisplayName: Exo Laser
+	UpdraftBullet.DisplayName: Updraft Bullet
+	UpdraftTomeHeld.DisplayName: Updraft Tome
+	RedemptionSpear.DisplayName: Redemption Spear
+	RedemptionBibleHeld.DisplayName: Redemption Bible
+	RedemptionArrow.DisplayName: Redemption Arrow
+	RedemptionBow.DisplayName: Redemption Bow
+	NightEpicHeld.DisplayName: Night Epic
+	NightStar.DisplayName: Night Star
+	AshTranscriptHeld.DisplayName: Ash Transcript
+	ATLaser.DisplayName: Ash Laser
+	VoidOdeHeld.DisplayName: Void Ode
+	SighterPinFriendly.DisplayName: Sighter Pin Friendly
+	ControlTerminalHeld.DisplayName: Control Terminal
+	ExoWhirl.DisplayName: Exo Whirl
+	WhirlExobeam.DisplayName: Whirl Exobeam
 }
 
 LegendTooltip: - Legend -
@@ -2354,3 +2404,4 @@ EntropyModeDescShort: "[c/aa12e1:More challenging than death mode]"
 EntropyModeDesc: "[c/aa12e1:More challenging than death mode, Less Health, Less Damage]"
 EntropyModeActive: YOU WILL BE FORGOTTEN
 EntropyModeDeactive: Why not crave abandonment
+MissedInVoid: missed in the void

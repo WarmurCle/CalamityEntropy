@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,6 +28,17 @@ public class DimDungeonSystem : ModSystem
     public bool hasEnemyLast = false;
     public override void PostUpdatePlayers()
     {
+        if (SubworldSystem.IsActive<VOIDSubworld>())
+        {
+            Main.LocalPlayer.Entropy().crSky = 20;
+            Main.LocalPlayer.statLife -= 10;
+            if (Main.LocalPlayer.statLife <= 0)
+            {
+                Main.LocalPlayer.KillMe(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " " + Mod.GetLocalization("MissedInVoid").Value), double.MaxValue, 0);
+                SubworldSystem.Exit();
+            }
+            CalamityEntropy.noMusTime = 4;
+        }
         if (!SubworldSystem.IsActive<DimDungeonSubworld>())
         {
             return;

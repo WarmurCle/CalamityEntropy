@@ -714,16 +714,13 @@ namespace CalamityEntropy.Common
                     {
                         buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<VoidVirus>()].Value);
                     }
-                    if (npc.HasBuff(ModContent.BuffType<Deceive>()))
+                    if (npc.HasBuff<Deceive>())
                     {
                         buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);
                     }
                     if (npc.GetGlobalNPC<ScorpioEffectNPC>().effectLevel > 0)
                     {
                         buffTextureList.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Buffs/AstralScorpionPoisonous").Value);
-                    }
-                    {
-                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);
                     }
                     bool voidTouchDraw = false;
                     int voidTouchIndex = 0;

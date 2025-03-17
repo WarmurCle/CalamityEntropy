@@ -147,17 +147,17 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Color endColor = new Color(40, 160, 32);
             return Color.Lerp(startingColor, endColor, (float)Math.Pow(completionRatio, 1.5D)) * Projectile.Opacity;
         }
-        public static float RibbonTrailWidthFunction(float completionRatio)
+        public float RibbonTrailWidthFunction(float completionRatio)
         {
             float baseWidth = Utils.GetLerpValue(1f, 0.54f, completionRatio, true) * 5f;
             float endTipWidth = CalamityUtils.Convert01To010(Utils.GetLerpValue(0.96f, 0.89f, completionRatio, true)) * 2.4f;
-            return (baseWidth + endTipWidth) * 0.6f;
+            return (baseWidth + endTipWidth) * 0.6f * Projectile.scale;
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Vector2 uposu = Projectile.Center + new Vector2(-4, -18).RotatedBy(Projectile.rotation);
-            Vector2 uposd = Projectile.Center + new Vector2(-4, 18).RotatedBy(Projectile.rotation);
+            Vector2 uposu = Projectile.Center + new Vector2(-4, -18).RotatedBy(Projectile.rotation) * Projectile.scale;
+            Vector2 uposd = Projectile.Center + new Vector2(-4, 18).RotatedBy(Projectile.rotation) * Projectile.scale;
             List<Vector2> p1 = new List<Vector2>();
             List<Vector2> p2 = new List<Vector2>();
             p1.Add(uposu);
@@ -169,13 +169,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             PrimitiveRenderer.RenderTrail(p1, new(RibbonTrailWidthFunction, RibbonTrailColorFunction), 66);
             PrimitiveRenderer.RenderTrail(p2, new(RibbonTrailWidthFunction, RibbonTrailColorFunction), 66);
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.begin_();
             Texture2D tex = Util.Util.getExtraTex("ExoTwinsMinion/A" + ((Main.GameUpdateCount / 4) % 3).ToString());
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             return false;
-        }
-        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
-        {
-            behindNPCs.Add(index);
         }
 
 
@@ -188,8 +187,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 float urotu = Projectile.rotation;
                 float urotd = Projectile.rotation;
-                Vector2 uposu = Projectile.Center + new Vector2(-4, -18).RotatedBy(Projectile.rotation);
-                Vector2 uposd = Projectile.Center + new Vector2(-4, 18).RotatedBy(Projectile.rotation);
+                Vector2 uposu = Projectile.Center + new Vector2(-4, -18).RotatedBy(Projectile.rotation) * Projectile.scale;
+                Vector2 uposd = Projectile.Center + new Vector2(-4, 18).RotatedBy(Projectile.rotation) * Projectile.scale;
                 if (i > 0)
                 {
                     urotu = v1[i - 1].rot;
@@ -203,9 +202,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
                 v1[i].rot = Util.Util.rotatedToAngle(v1[i].rot, urotu, 0.76f, false);
-                v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12;
+                v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12 * Projectile.scale;
                 v2[i].rot = Util.Util.rotatedToAngle(v2[i].rot, urotd, 0.76f, false);
-                v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12;
+                v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12 * Projectile.scale;
 
                 if (i == 0)
                 {
@@ -306,7 +305,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             float baseWidth = Utils.GetLerpValue(1f, 0.54f, completionRatio, true) * 5f;
             float endTipWidth = CalamityUtils.Convert01To010(Utils.GetLerpValue(0.96f, 0.89f, completionRatio, true)) * 2.4f;
-            return (baseWidth + endTipWidth) * 0.6f;
+            return (baseWidth + endTipWidth) * 0.6f * Projectile.scale;
         }
         public Color RibbonTrailColorFunction(float completionRatio)
         {
@@ -318,8 +317,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Vector2 uposu = Projectile.Center + new Vector2(-4, -18).RotatedBy(Projectile.rotation);
-            Vector2 uposd = Projectile.Center + new Vector2(-4, 18).RotatedBy(Projectile.rotation);
+            Vector2 uposu = Projectile.Center + new Vector2(-4, -18).RotatedBy(Projectile.rotation) * Projectile.scale;
+            Vector2 uposd = Projectile.Center + new Vector2(-4, 18).RotatedBy(Projectile.rotation) * Projectile.scale;
             List<Vector2> p1 = new List<Vector2>();
             List<Vector2> p2 = new List<Vector2>();
             p1.Add(uposu);
@@ -332,15 +331,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             PrimitiveRenderer.RenderTrail(p1, new(RibbonTrailWidthFunction, RibbonTrailColorFunction), 66);
             PrimitiveRenderer.RenderTrail(p2, new(RibbonTrailWidthFunction, RibbonTrailColorFunction), 66);
 
+            Main.spriteBatch.End();
+            Main.spriteBatch.begin_();
             Texture2D tex = Util.Util.getExtraTex("ExoTwinsMinion/B" + ((Main.GameUpdateCount / 4) % 3).ToString());
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             return false;
         }
-        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
-        {
-            behindNPCs.Add(index);
-        }
-
 
         List<Vpoint> v1 = new List<Vpoint>();
         List<Vpoint> v2 = new List<Vpoint>();
@@ -351,8 +347,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 float urotu = Projectile.rotation;
                 float urotd = Projectile.rotation;
-                Vector2 uposu = Projectile.Center + new Vector2(-4, -18).RotatedBy(Projectile.rotation);
-                Vector2 uposd = Projectile.Center + new Vector2(-4, 18).RotatedBy(Projectile.rotation);
+                Vector2 uposu = Projectile.Center + new Vector2(-4, -18).RotatedBy(Projectile.rotation) * Projectile.scale;
+                Vector2 uposd = Projectile.Center + new Vector2(-4, 18).RotatedBy(Projectile.rotation) * Projectile.scale;
                 if (i > 0)
                 {
                     urotu = v1[i - 1].rot;
@@ -366,9 +362,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
                 v1[i].rot = Util.Util.rotatedToAngle(v1[i].rot, urotu, 0.76f, false);
-                v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12;
+                v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12 * Projectile.scale;
                 v2[i].rot = Util.Util.rotatedToAngle(v2[i].rot, urotd, 0.76f, false);
-                v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12;
+                v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12 * Projectile.scale;
 
                 if (i == 0)
                 {
