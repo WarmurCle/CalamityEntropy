@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<AriesExplosion>(), damageDone / 8, 1, projectile.owner);
+            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<AriesExplosion>(), damageDone / 9, 1, projectile.owner);
         }
     }
 }

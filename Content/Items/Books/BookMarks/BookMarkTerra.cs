@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Texture2D UITexture => BookMark.GetUITexture("Terra");
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.Damage += 0.2f;
+            modifer.Damage += 0.15f;
             modifer.PenetrateAddition += 3;
         }
         public override int modifyBaseProjectile()

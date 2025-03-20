@@ -292,6 +292,16 @@ namespace CalamityEntropy.Common
         
         public override bool PreAI(Projectile projectile)
         {
+            if (projectile.TryGetOwner(out var owner))
+            {
+                if (owner.Entropy().Godhead)
+                {
+                    if (!projectile.minion && projectile.damage > 0)
+                    {
+                        projectile.Entropy().gh = true;
+                    }
+                }
+            }
             if (zypArrow)
             {
                 NPC target = projectile.FindTargetWithinRange(360, false);
@@ -482,10 +492,22 @@ namespace CalamityEntropy.Common
                                 int c = projectile.Entropy().ghcounter;
                                 if (c % 6 == 0)
                                 {
-                                    int ydf = n.defense;
-                                    n.defense =(int)MathHelper.Min(projectile.damage / 8 / 2 - 26, n.defense);
-                                    Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage / 14, 0, 0, false, DamageClass.Generic, false);
-                                    n.defense = ydf;
+                                    bool canHit = true;
+                                    if (projectile.ModProjectile is ModProjectile mp)
+                                    {
+                                        bool? ch = mp.CanHitNPC(n);
+                                        if (ch.HasValue && !ch.Value)
+                                        {
+                                            canHit = false;
+                                        }
+                                    }
+                                    if (canHit)
+                                    {
+                                        int ydf = n.defense;
+                                        n.defense = (int)MathHelper.Min(projectile.damage / 8 / 2 - 26, n.defense);
+                                        Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage / 14, 0, 0, false, DamageClass.Generic, false);
+                                        n.defense = ydf;
+                                    }
                                 }
                                 projectile.Entropy().ghcounter++;
                             }

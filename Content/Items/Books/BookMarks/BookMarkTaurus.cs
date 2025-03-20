@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 vel = (MathHelper.ToRadians(i * 120) + r).ToRotationVector2() * projectile.velocity.Length();
-                    int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, vel, projectile.type, projectile.damage / 9 + 1, projectile.knockBack / 3, projectile.owner);
+                    int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, vel, projectile.type, projectile.damage / 12 + 1, projectile.knockBack / 3, projectile.owner);
                     var m = (p.ToProj().ModProjectile as EBookBaseLaser);
                     bool rd = false;
                     foreach (var effect in (projectile.ModProjectile as EBookBaseProjectile).ProjectileEffects)
@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     for (int i = 0; i < 3; i++)
                     {
                         Vector2 vel = (MathHelper.ToRadians(i * 120) + r).ToRotationVector2() * projectile.velocity.Length();
-                        int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, projectile.type, projectile.damage / 9 + 1, projectile.knockBack / 3, projectile.owner);
+                        int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, projectile.type, projectile.damage / 12 + 1, projectile.knockBack / 3, projectile.owner);
                         var m = (p.ToProj().ModProjectile as EBookBaseProjectile);
                         bool rd = false;
                         foreach (var effect in (projectile.ModProjectile as EBookBaseProjectile).ProjectileEffects)

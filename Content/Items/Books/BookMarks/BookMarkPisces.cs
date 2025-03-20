@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnShoot(EntropyBookHeldProjectile book)
         {
-            book.ShootSingleProjectile(book.baseProjectileType, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center).normalize().RotatedByRandom(0.8f), 0.22f, 0.4f);
+            book.ShootSingleProjectile(book.baseProjectileType, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center).normalize().RotatedByRandom(0.8f), 0.22f, 0.28f);
         }
     }
 }

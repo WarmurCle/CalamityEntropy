@@ -373,6 +373,7 @@ namespace CalamityEntropy.Content.Items.Books
                     player.heldProj = Projectile.whoAmI;
                     player.itemTime = 3;
                     player.itemAnimation = 3;
+                    player.channel = true;
                 }
                 if (!UIOpen)
                 {

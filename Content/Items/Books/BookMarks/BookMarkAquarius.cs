@@ -53,14 +53,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (npc != target && npc.Distance(target.Center) < 800 && !npc.friendly && !npc.dontTakeDamage)
                 {
                     rot = (target.Center - npc.Center).ToRotation();
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, rot.ToRotationVector2() * 8, ModContent.ProjectileType<WaterShot>(), projectile.damage / 15, projectile.knockBack + 0.5f, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, rot.ToRotationVector2() * 8, ModContent.ProjectileType<WaterShot>(), projectile.damage / 16, projectile.knockBack + 0.5f, projectile.owner);
                     shootCount--;
                 }
             }
             for (; shootCount > 0; shootCount--)
             {
                 float rot = Util.Util.randomRot();
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, rot.ToRotationVector2() * 8, ModContent.ProjectileType<WaterShot>(), projectile.damage / 15, projectile.knockBack + 0.5f, projectile.owner);
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, rot.ToRotationVector2() * 8, ModContent.ProjectileType<WaterShot>(), projectile.damage / 16, projectile.knockBack + 0.5f, projectile.owner);
             }
         }
     }

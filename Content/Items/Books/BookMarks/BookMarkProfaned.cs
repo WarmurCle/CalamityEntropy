@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 NPC target = projectile.FindTargetWithinRange(800);
                 if (target != null)
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, (target.Center - projectile.Center).normalize() * 9, ModContent.ProjectileType<HolyColliderHolyFire>(), projectile.damage / 5, projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, (target.Center - projectile.Center).normalize() * 9, ModContent.ProjectileType<HolyColliderHolyFire>(), projectile.damage / 10, projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
                 }
             }
         }

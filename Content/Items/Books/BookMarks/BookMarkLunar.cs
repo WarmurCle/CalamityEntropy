@@ -37,9 +37,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             n.GetGlobalNPC<LunarBMGlobalNPC>().decreaceCd = 40;
             if (n.GetGlobalNPC<LunarBMGlobalNPC>().progress >= 1)
             {
-                int dmg = (int)(projectile.damage * 3.6f);
+                int dmg = (int)(projectile.damage * 3f);
                 n.GetGlobalNPC<LunarBMGlobalNPC>().progress = 0;
-                n.SimpleStrikeNPC(dmg, 0, false, 0, projectile.DamageType);
+                projectile.getOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
                 Util.Util.PlaySound("light_bolt", 1, n.Center);
                 for (int i = 0; i < 80; i++)
                 {
@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             {
                                 if(Util.Util.getDistance(point, n.Center) < BookMarkLunar.distance)
                                 {
-                                    applyEffect(n, 1f / 80f, projectile);
+                                    applyEffect(n, 1f / 100f, projectile);
                                     break;
                                 }
                             }
@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         {
                             if (Util.Util.getDistance(projectile.Center, n.Center) < BookMarkLunar.distance)
                             {
-                                applyEffect(n, 1f / 80f, projectile);
+                                applyEffect(n, 1f / 100f, projectile);
                             }
                         }
                     }
