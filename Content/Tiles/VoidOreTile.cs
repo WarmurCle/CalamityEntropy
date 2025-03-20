@@ -63,7 +63,6 @@ namespace CalamityEntropy.Content.Tiles
 				else if (Main.netMode == NetmodeID.Server) {
 					ChatHelper.BroadcastChatMessage(BlessedWithVoidOreMessage.ToNetworkText(), new Color(50, 255, 130));
 				}
-
 				int splotches = (int)(16 * (Main.maxTilesX / 4200f));
 				int highestY = 80;
 				int downY = 180;

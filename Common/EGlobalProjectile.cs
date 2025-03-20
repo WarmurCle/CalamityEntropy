@@ -133,8 +133,19 @@ namespace CalamityEntropy.Common
             {
                 return;
             }
+
             if (projectile.friendly)
             {
+                if (projectile.TryGetOwner(out var owner))
+                {
+                    if (owner.Entropy().Godhead)
+                    {
+                        if (!projectile.minion && projectile.damage > 0)
+                        {
+                            projectile.Entropy().gh = true;
+                        }
+                    }
+                }
                 if (projectile.owner.ToPlayer().Entropy().BarrenCard)
                 {
                     if (projectile.DamageType == Util.CUtil.rogueDC)
@@ -221,13 +232,6 @@ namespace CalamityEntropy.Common
                             projectile.friendly = ((Projectile)ps.Entity).friendly;
                             projectile.hostile = ((Projectile)ps.Entity).hostile;
                         }
-                        if (((Projectile)ps.Entity).Entropy().gh)
-                        {
-                            if (!projectile.minion && projectile.damage > 0)
-                            {
-                                projectile.Entropy().gh = true;
-                            }
-                        }
                         if (pj.Entropy().ttindex != -1)
                         {
                             projectile.Entropy().ttindex = pj.Entropy().ttindex;
@@ -256,13 +260,6 @@ namespace CalamityEntropy.Common
                             }
                         }
 
-                        if (plr.GetModPlayer<EModPlayer>().Godhead)
-                        {
-                            if (!projectile.minion && projectile.damage > 0)
-                            {
-                                projectile.Entropy().gh = true;
-                            }
-                        }
                         if (plr.HasBuff(ModContent.BuffType<SoyMilkBuff>()))
                         {
                             projectile.extraUpdates = (projectile.extraUpdates + 1) * 3 - 1;

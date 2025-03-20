@@ -1549,6 +1549,11 @@ Items: {
 		DisplayName: Control Terminal
 		Tooltip: ""
 	}
+
+	TabooVolume: {
+		DisplayName: Taboo Volume
+		Tooltip: ""
+	}
 }
 
 MariviniumSet:
@@ -1844,6 +1849,8 @@ Projectiles: {
 	ControlTerminalHeld.DisplayName: Control Terminal
 	ExoWhirl.DisplayName: Exo Whirl
 	WhirlExobeam.DisplayName: Whirl Exobeam
+	TabooVolumeHeld.DisplayName: Taboo Volume Held
+	BrimstoneHellblastFriendly.DisplayName: Brimstone Hellblast Friendly
 }
 
 LegendTooltip: - Legend -
@@ -2057,6 +2064,11 @@ Buffs: {
 	PlanteraChanBuff: {
 		DisplayName: Plantera Chan
 		Description: ""
+	}
+
+	NoHeal: {
+		DisplayName: No Heal
+		Description: You cannot regen or use healing items
 	}
 }
 

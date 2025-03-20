@@ -1700,6 +1700,15 @@ Items: {
 		DisplayName: 控制终端
 		Tooltip: 发射星流旋刃
 	}
+
+	TabooVolume: {
+		DisplayName: 禁忌卷册
+		Tooltip:
+			'''
+			发射硫火飞弹
+			召唤三只至尊探魂眼协同攻击
+			'''
+	}
 }
 
 MariviniumSet:
@@ -1996,6 +2005,8 @@ Projectiles: {
 	ControlTerminalHeld.DisplayName: 控制终端
 	ExoWhirl.DisplayName: 星流旋刃
 	WhirlExobeam.DisplayName: 星流旋刃射线
+	// TabooVolumeHeld.DisplayName: Taboo Volume Held
+	// BrimstoneHellblastFriendly.DisplayName: Brimstone Hellblast Friendly
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2209,6 +2220,11 @@ Buffs: {
 	PlanteraChanBuff: {
 		DisplayName: 世花酱
 		Description: ~
+	}
+
+	NoHeal: {
+		DisplayName: 治疗失效
+		Description: 短时间不能以任何方式回血，无法使用回血物品
 	}
 }
 
@@ -2553,12 +2569,12 @@ HomeCommandError: 未找到
 EntropyModeName: 熵变
 EntropyModeDescShort:
 	'''
-	[c/aa12e1:比死亡模式更具有挑战性]
+	[c/aa12e1:比死亡模式更具有挑战性, 受击后一段时间不能回血，降低你的属性]
 	[c/ff0000:声明：此模式难度较难，如果你能轻松通关死亡模式那么可以尝试此难度]
 	'''
 EntropyModeDesc:
 	'''
-	[c/aa12e1:更加难的模式，更少的生命，伤害和生存能力。]
+	[c/aa12e1:更加难的模式，更少的生命，伤害和生存能力。Boss获得动态减伤和单次受伤最大伤害限制，百分比减少生命、护甲，暴击率最高只能达到50%，伤害增幅削减，降低部分机动]
 	[c/aa12e1:准备好被遗忘吧!]
 	'''
 EntropyModeActive: 你将被遗忘

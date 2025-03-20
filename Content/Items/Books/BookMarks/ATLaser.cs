@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
         }
         public override Color baseColor => new Color(255, 200, 60);
-        public override int OnHitEffectProb => 1;
+        public override int OnHitEffectProb => 3;
         public override bool PreDraw(ref Color lightColor)
         {
             List<Vector2> points = this.getSamplePoints();

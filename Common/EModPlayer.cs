@@ -820,6 +820,10 @@ namespace CalamityEntropy.Common
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
+            if(CalamityEntropy.EntropyMode && HitTCounter > 0)
+            {
+                Player.AddBuff(ModContent.BuffType<NoHeal>(), HitTCounter);
+            }
             if (MariviniumSet) 
             {
                 if (MariviniumShieldCount < MariviniumHelmet.MaxShield)

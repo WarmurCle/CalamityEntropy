@@ -31,6 +31,9 @@ namespace CalamityEntropy.Content.Items.Books
             Item.shootSpeed = 26;
             Item.width = Item.height = 40;
             Item.knockBack = 1.4f;
+            Item.useStyle = -1;
+            Item.channel = true;
+            Item.noMelee = true;
             Item.crit = 4;
             Item.mana = 4;
             Item.rare = ItemRarityID.Orange;

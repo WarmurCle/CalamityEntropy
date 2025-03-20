@@ -40,9 +40,11 @@ namespace CalamityEntropy.Content.Particles
             this.alpha = (this.timeLeft / 16f);
             this.scale = (16 - this.timeLeft) / 16f * 2.4f;
         }
+        public float scale2 = 1;
 
         public override void draw()
         {
+            this.scale *= this.scale2;
             base.draw();
             base.draw();
         }

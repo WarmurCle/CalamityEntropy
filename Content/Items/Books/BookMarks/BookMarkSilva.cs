@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(3))
+            if (Main.rand.NextBool(4))
             {
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Util.Util.randomRot().ToRotationVector2() * 12, ModContent.ProjectileType<SilvaSoul>(), 0, projectile.knockBack, projectile.owner);
             }

@@ -245,23 +245,24 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public float damageMul()
         {
-            float ad = 0.8f;               if (NPC.downedSlimeKing)              {
+            float ad = 0.8f;               
+            if (NPC.downedSlimeKing)              {
                 ad += 0.22f;
             }
             if (NPC.downedBoss1)              {
-                ad += 0.26f;
+                ad += 0.24f;
             }
             if (NPC.downedBoss2)              {
-                ad += 0.26f;
+                ad += 0.24f;
             }
             if (NPC.downedBoss3)              {
-                ad += 0.62f;
+                ad += 0.6f;
             }
             if (Main.hardMode)               {
-                ad += 0.42f;
+                ad += 0.4f;
             }
             if (DownedBossSystem.downedCryogen)              {
-                ad += 0.4f;
+                ad += 0.36f;
             }
             if (NPC.downedGolemBoss)                {
                 ad += 0.2f;
@@ -270,7 +271,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 ad += 0.2f;
             }
             if (NPC.downedMoonlord)               {
-                ad += 1.5f;
+                ad += 1.4f;
             }
             if (DownedBossSystem.downedProvidence)               {
                 ad += 1.0f;
@@ -285,16 +286,24 @@ namespace CalamityEntropy.Content.Items.Weapons
                 ad += 0.5f;
             }
             if (DownedBossSystem.downedDoG)              {
-                ad += 0.5f;
+                ad += 0.6f;
             }
             if (DownedBossSystem.downedYharon)                {
                 ad += 1.5f;
             }
             if (DownedBossSystem.downedExoMechs)               {
-                ad += 2.5f;
+                ad += 1f;
             }
             if (DownedBossSystem.downedCalamitas)                {
-                ad += 2.5f;
+                ad += 1f;
+            }
+            if(DownedBossSystem.downedExoMechs && DownedBossSystem.downedCalamitas)
+            {
+                ad += 1.6f;
+            }
+            if (DownedBossSystem.downedBossRush)
+            {
+                ad += 1.2f;
             }
             return ad;
         }
