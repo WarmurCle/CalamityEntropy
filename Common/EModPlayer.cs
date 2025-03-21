@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization.Formatters;
+using System.Security.Cryptography.X509Certificates;
 using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
@@ -11,6 +12,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Projectiles;
@@ -555,6 +557,19 @@ namespace CalamityEntropy.Common
             if (SubworldSystem.IsActive<VOIDSubworld>())
             {
                 Player.gravity = 0;
+            }
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.ModProjectile is JewelSapphire)
+                {
+                    if(p.Distance(Player.Center) <= 130)
+                    {
+                        Player.lifeRegen += 16;
+                        Player.endurance += 0.1f;
+                        Player.GetDamage(DamageClass.Generic) += 0.15f;
+                        Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
+                    }
+                }
             }
             float d = damageReduce - 1;
             if (Player.Entropy().enduranceCard)

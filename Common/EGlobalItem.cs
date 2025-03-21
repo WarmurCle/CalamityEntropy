@@ -1084,6 +1084,7 @@ namespace CalamityEntropy.Common
             if (item.type == ItemID.EyeOfCthulhuBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkSagittarius>(), new Fraction(1, 2));
+                itemLoot.Add(ModContent.ItemType<BookMarkVirgo>(), new Fraction(1, 2));
             }
             if (item.Is<AstrumAureusBag>())
             {
@@ -1103,7 +1104,7 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ItemID.KingSlimeBossBag)
             {
-                itemLoot.Add(ModContent.ItemType<BookMarkVirgo>(), new Fraction(1, 2));
+                itemLoot.Add(ModContent.ItemType<BookMarkRoyal>(), new Fraction(1, 2));
             }
             if(item.Is<CruiserBag>())
             {

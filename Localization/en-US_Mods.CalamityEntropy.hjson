@@ -1554,6 +1554,17 @@ Items: {
 		DisplayName: Taboo Volume
 		Tooltip: ""
 	}
+
+	BookMarkRoyal: {
+		DisplayName: Book Mark Royal
+		Tooltip:
+			'''
+			Summon 3 Jewels
+			Ruby Jewel will shot at enemies
+			Emerald Jewel will dash to enemies
+			Sapphire Jewel will give players nearby buffs
+			'''
+	}
 }
 
 MariviniumSet:
@@ -1851,6 +1862,10 @@ Projectiles: {
 	WhirlExobeam.DisplayName: Whirl Exobeam
 	TabooVolumeHeld.DisplayName: Taboo Volume Held
 	BrimstoneHellblastFriendly.DisplayName: Brimstone Hellblast Friendly
+	JewelRuby.DisplayName: Jewel Ruby
+	RubyProj.DisplayName: Ruby Proj
+	JewelEmerald.DisplayName: Jewel Emerald
+	JewelSapphire.DisplayName: Jewel Sapphire
 }
 
 LegendTooltip: - Legend -

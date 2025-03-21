@@ -36,6 +36,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.noMelee = true;
             Item.crit = 4;
             Item.mana = 4;
+            Item.noUseGraphic = true;
             Item.rare = ItemRarityID.Orange;
         }
         public virtual int HeldProjectileType => -1;
@@ -109,6 +110,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
             Projectile.netImportant = true;
+            
         }
         public override bool? CanCutTiles()
         {
@@ -300,6 +302,25 @@ namespace CalamityEntropy.Content.Items.Books
         {
             return true;
         }
+        public virtual int GetShootCd()
+        {
+            int _shotCooldown = bookItem.useTime;
+
+            EBookStatModifer m = getBaseModifer();
+            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+            {
+                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                {
+                    var e = bm.getEffect();
+                    bm.ModifyStat(m);
+                    if (this.canApplyShootCDModifer)
+                    {
+                        bm.modifyShootCooldown(ref _shotCooldown);
+                    }
+                }
+            }
+            return (int)((float)_shotCooldown / m.attackSpeed);
+        }
         public virtual int frameChange => 4;
         public override void AI()
         {
@@ -367,6 +388,20 @@ namespace CalamityEntropy.Content.Items.Books
                 {
                     active = flag;
                     Projectile.netUpdate = true;
+                    if (active)
+                    {
+                        for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+                        {
+                            if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                            {
+                                var e = bm.getEffect();
+                                if (e != null)
+                                {
+                                    e.OnActive(this);
+                                }
+                            }
+                        }
+                    }
                 }
                 if (active)
                 {
@@ -793,6 +828,10 @@ namespace CalamityEntropy.Content.Items.Books
         }
 
         public virtual void OnShoot(EntropyBookHeldProjectile book)
+        {
+
+        }
+        public virtual void OnActive(EntropyBookHeldProjectile book)
         {
 
         }

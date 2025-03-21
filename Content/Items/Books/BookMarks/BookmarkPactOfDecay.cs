@@ -35,13 +35,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
     public class DecayPactBMEffect : EBookProjectileEffect
     {
-        public override void OnShoot(EntropyBookHeldProjectile book)
+        public override void OnActive(EntropyBookHeldProjectile book)
         {
             int projtype = ModContent.ProjectileType<DecayPactMaelstrom>();
-            if (book.Projectile.getOwner().ownedProjectileCounts[projtype] < 1 + book.Projectile.getOwner().ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()])
-            {
-                book.ShootSingleProjectile(projtype, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.05f, 1);
-            }
+            book.ShootSingleProjectile(projtype, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.05f, 1);
         }
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
@@ -96,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 target = null;
                 Projectile.Center = Projectile.getOwner().Center;
             }
-            if(Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 1)
+            if(Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 1 && Projectile.timeLeft >= 19)
             {
                 Projectile.timeLeft = 20;
             }

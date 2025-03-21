@@ -1507,7 +1507,7 @@ Items: {
 			射弹击中后概率产生始源之魂，
 			始源之魂会飞回你，为你回血并提供少量临时护甲
 			'''
-		DisplayName: 始源临海书签
+		DisplayName: 始源林海书签
 	}
 
 	BookMarkBee: {
@@ -1707,6 +1707,17 @@ Items: {
 			'''
 			发射硫火飞弹
 			召唤三只至尊探魂眼协同攻击
+			'''
+	}
+
+	BookMarkRoyal: {
+		DisplayName: 皇家书签
+		Tooltip:
+			'''
+			生成3个王冠宝石
+			红宝石会朝敌人发射能量弹
+			绿宝石会撞向敌人
+			蓝宝石会给附近玩家增益，增加其生命恢复、伤害减免、伤害以及攻速
 			'''
 	}
 }
@@ -2007,6 +2018,10 @@ Projectiles: {
 	WhirlExobeam.DisplayName: 星流旋刃射线
 	// TabooVolumeHeld.DisplayName: Taboo Volume Held
 	// BrimstoneHellblastFriendly.DisplayName: Brimstone Hellblast Friendly
+	// JewelRuby.DisplayName: Jewel Ruby
+	// RubyProj.DisplayName: Ruby Proj
+	// JewelEmerald.DisplayName: Jewel Emerald
+	// JewelSapphire.DisplayName: Jewel Sapphire
 }
 
 LegendTooltip: - 传奇物品 -

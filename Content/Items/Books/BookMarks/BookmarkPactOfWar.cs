@@ -46,18 +46,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             target.AddBuff(ModContent.BuffType<MiracleBlight>(), 460);
         }
-        public override void OnShoot(EntropyBookHeldProjectile book)
+        public override void OnActive(EntropyBookHeldProjectile book)
         {
             int projtype1 = ModContent.ProjectileType<WarPactApollo>();
-            if (book.Projectile.getOwner().ownedProjectileCounts[projtype1] < 1 + book.Projectile.getOwner().ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()])
-            {
-                book.ShootSingleProjectile(projtype1, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.4f, 1);
-            }
+            book.ShootSingleProjectile(projtype1, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.4f, 1);
+
             int projtype2 = ModContent.ProjectileType<WarPactArtemis>();
-            if (book.Projectile.getOwner().ownedProjectileCounts[projtype2] < 1 + book.Projectile.getOwner().ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()])
-            {
-                book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.4f, 1);
-            }
+            book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.4f, 1);
+
         }
         
     }
