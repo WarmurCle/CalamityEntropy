@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Books
             CreateRecipe().AddIngredient<UpdraftTome>()
                 .AddIngredient(ItemID.HallowedBar, 6)
                 .AddIngredient(ItemID.SoulofLight, 4)
-                .AddIngredient(TileID.MythrilAnvil)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
     }

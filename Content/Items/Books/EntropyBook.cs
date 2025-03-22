@@ -344,6 +344,7 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 EBookUI.bookItem = player.HeldItem;
             }
+            Projectile.timeLeft++;
             if(UIOpen && player.HeldItem.ModItem is EntropyBook eb)
             {
                 if(player.HeldItem.type != ItemType)

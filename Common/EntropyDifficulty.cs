@@ -1,4 +1,4 @@
-﻿using CalamityMod.Systems;
+﻿/*using CalamityMod.Systems;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -13,6 +13,7 @@ using Terraria.ModLoader;
 using Terraria;
 using static CalamityMod.Systems.DifficultyModeSystem;
 using Microsoft.Xna.Framework;
+using CalamityMod;
 
 namespace CalamityEntropy.Common
 {
@@ -25,18 +26,6 @@ namespace CalamityEntropy.Common
             set
             {
                 CalamityEntropy.EntropyMode = value;
-                if (value)
-                {
-                    CalamityWorld.revenge = true;
-                    CalamityWorld.death = true;
-                    if(Main.netMode != NetmodeID.SinglePlayer)
-                    {
-                        ModPacket packet = CalamityEntropy.Instance.GetPacket();
-                        packet.Write((byte)CalamityEntropy.NetPackages.SyncEntropyMode);
-                        packet.Write(value);
-                        packet.Send();
-                    }
-                }
             }
         }
 
@@ -55,7 +44,7 @@ namespace CalamityEntropy.Common
 
         public EntropyDifficulty()
         {
-            DifficultyScale = float.MaxValue;
+            DifficultyScale = 0.75f;
             Name = CalamityEntropy.Instance.GetLocalization("EntropyModeName");
             ShortDescription = CalamityEntropy.Instance.GetLocalization("EntropyModeDescShort");
 
@@ -69,15 +58,16 @@ namespace CalamityEntropy.Common
 
         public override int FavoredDifficultyAtTier(int tier)
         {
-            DifficultyMode[] tierList = DifficultyTiers[tier];
-
+            DifficultyMode[] tierList = DifficultyModeSystem.DifficultyTiers[tier];
             for (int i = 0; i < tierList.Length; i++)
             {
-                if (tierList[i].Name.Value == "Death")
+                if (tierList[i].Name == CalamityUtils.GetText("UI.Death"))
+                {
                     return i;
+                }
             }
-
             return 0;
         }
     }
 }
+*/

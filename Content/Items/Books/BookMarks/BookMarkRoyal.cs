@@ -41,10 +41,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnActive(EntropyBookHeldProjectile book)
         {
-            book.ShootSingleProjectile(ModContent.ProjectileType<JewelRuby>(), book.Projectile.Center, Vector2.Zero);
-            book.ShootSingleProjectile(ModContent.ProjectileType<JewelEmerald>(), book.Projectile.Center, Vector2.Zero);
-            book.ShootSingleProjectile(ModContent.ProjectileType<JewelSapphire>(), book.Projectile.Center, Vector2.Zero);
+            if (book.Projectile.owner == Main.myPlayer)
+            {
+                book.ShootSingleProjectile(ModContent.ProjectileType<JewelRuby>(), book.Projectile.Center, Vector2.Zero);
+                book.ShootSingleProjectile(ModContent.ProjectileType<JewelEmerald>(), book.Projectile.Center, Vector2.Zero);
+                book.ShootSingleProjectile(ModContent.ProjectileType<JewelSapphire>(), book.Projectile.Center, Vector2.Zero);
+            }
         }
+        
     }
 
     public abstract class RoyalJewel : EBookBaseProjectile
@@ -74,10 +78,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.penetrate = -1;
             if (ShooterModProjectile is EntropyBookHeldProjectile eb)
             {
-                if (!eb.active)
+                if (!eb.active || !ShooterModProjectile.Projectile.active)
                 {
                     Projectile.Kill();
                     return;
+                }
+                else{
+                    Projectile.timeLeft = 4;
                 }
             }
             else

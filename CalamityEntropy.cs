@@ -327,11 +327,6 @@ namespace CalamityEntropy
             {
                 bool enabled = reader.ReadBoolean();
                 EntropyMode = enabled;
-                if (enabled)
-                {
-                    CalamityWorld.revenge = true;
-                    CalamityWorld.death = true;
-                }
                 if (Main.dedServ)
                 {
                     ModPacket packet = this.GetPacket();
@@ -339,10 +334,20 @@ namespace CalamityEntropy
                     packet.Write(enabled);
                     packet.Send();
                 }
+                else
+                {
+                    if (EntropyMode)
+                    {
+                        Main.NewText(this.GetLocalization("EntropyModeActive").Value, new Color(170, 18, 225));
+                    }
+                    else
+                    {
+                        Main.NewText(this.GetLocalization("EntropyModeDeactive").Value, new Color(170, 18, 225));
+                    }
+                }
             }
         }
         public static SoundEffect ealaserSound = null;
-        public EntropyDifficulty EDifficulty;
         public static SoundEffect ealaserSound2 = null;
         public override void Load()
         {
@@ -379,10 +384,6 @@ namespace CalamityEntropy
             AbyssalWraith.loadHead();
             CruiserHead.loadHead();
             CUtil.load();
-
-            EDifficulty = new EntropyDifficulty();
-            DifficultyModeSystem.Difficulties.Add(EDifficulty);
-            DifficultyModeSystem.CalculateDifficultyData();
 
             foreach (int id in CalamityLists.needsDebuffIconDisplayList)
 			{
@@ -1991,7 +1992,6 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
-            EDifficulty = null;
             LoopSoundManager.unload();
             ealaserSound = null;
             ealaserSound2 = null;

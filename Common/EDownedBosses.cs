@@ -49,22 +49,25 @@ namespace CalamityEntropy.Common
 
         public override void NetSend(BinaryWriter writer)
         {
-                         var flags = new BitsByte();
+            var flags = new BitsByte();
+            var flags2 = new BitsByte();
             flags[0] = downedCruiser;
             flags[1] = downedAbyssalWraith;
             flags[2] = downedNihilityTwin;
-            flags[3] = EntropyMode;
+            flags2[0] = EntropyMode;
             writer.Write(flags);
-            
+            writer.Write(flags2);
         }
 
         public override void NetReceive(BinaryReader reader)
         {
             BitsByte flags = reader.ReadByte();
+            BitsByte flags2 = reader.ReadByte();
+
             downedCruiser = flags[0];
             downedAbyssalWraith = flags[1];
             downedNihilityTwin = flags[2];
-            EntropyMode = flags[3];
+            EntropyMode = flags2[0];
         }
     }
 }

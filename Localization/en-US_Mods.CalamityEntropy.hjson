@@ -1565,6 +1565,15 @@ Items: {
 			Sapphire Jewel will give players nearby buffs
 			'''
 	}
+
+	EntropyModeToggle: {
+		Tooltip:
+			'''
+			Active/Deactive Entropy Mode
+			More challenging, Less Health, Less Damage
+			'''
+		DisplayName: Entropy Mode Toggle
+	}
 }
 
 MariviniumSet:
@@ -2429,6 +2438,6 @@ HomeCommandError: Cannot find home
 EntropyModeName: Entropy
 EntropyModeDescShort: "[c/aa12e1:More challenging than death mode]"
 EntropyModeDesc: "[c/aa12e1:More challenging than death mode, Less Health, Less Damage]"
-EntropyModeActive: YOU WILL BE FORGOTTEN
-EntropyModeDeactive: Why not crave abandonment
+EntropyModeActive: Entropy Mode is active. YOU WILL BE FORGOTTEN
+EntropyModeDeactive: Entropy Mode is Deactive. Why not crave abandonment
 MissedInVoid: missed in the void

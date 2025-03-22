@@ -1720,6 +1720,16 @@ Items: {
 			蓝宝石会给附近玩家增益，增加其生命恢复、伤害减免、伤害以及攻速
 			'''
 	}
+
+	EntropyModeToggle: {
+		Tooltip:
+			'''
+			增加挑战性，更少的生命，伤害和生存能力。
+			Boss获得动态减伤和单次受伤最大伤害限制，百分比减少生命、护甲，暴击率最高只能达到50%，伤害增幅削减，降低部分机动
+			暂时没有其他额外内容/新AI
+			'''
+		DisplayName: 熵变之核
+	}
 }
 
 MariviniumSet:
@@ -2592,6 +2602,6 @@ EntropyModeDesc:
 	[c/aa12e1:更加难的模式，更少的生命，伤害和生存能力。Boss获得动态减伤和单次受伤最大伤害限制，百分比减少生命、护甲，暴击率最高只能达到50%，伤害增幅削减，降低部分机动]
 	[c/aa12e1:准备好被遗忘吧!]
 	'''
-EntropyModeActive: 你将被遗忘
-EntropyModeDeactive: 为何不渴望遗弃
+EntropyModeActive: 熵变模式已开启！你将被遗忘
+EntropyModeDeactive: 熵变模式已关闭。为何不渴望遗弃
 MissedInVoid: 被遗忘了
