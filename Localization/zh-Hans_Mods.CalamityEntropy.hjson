@@ -1515,7 +1515,7 @@ Items: {
 		DisplayName: 蜜蜂书签
 	}
 
-	BookMarkSulphurousSea: {
+	BookMarkSunkenSea: {
 		DisplayName: 沉沦海书签
 		Tooltip: 击中敌人后生成追踪棱晶碎片
 	}

@@ -1368,8 +1368,8 @@ Items: {
 		DisplayName: Bookmark - Bee
 	}
 
-	BookMarkSulphurousSea: {
-		DisplayName: Bookmark - SulphurousSea
+	BookMarkSunkenSea: {
+		DisplayName: Bookmark - Sunken Sea
 		Tooltip: Spawns aquashard upon hitting an enemy
 	}
 

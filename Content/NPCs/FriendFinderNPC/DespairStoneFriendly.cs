@@ -9,7 +9,7 @@ using CalamityMod.Items.Placeables.Banners;
 using CalamityMod.NPCs.CalamityAIs.CalamityRegularEnemyAIs;
 using CalamityMod.NPCs.Crags;
 using CalamityMod.NPCs.NormalNPCs;
-using CalamityMod.NPCs.SulphurousSea;
+using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;

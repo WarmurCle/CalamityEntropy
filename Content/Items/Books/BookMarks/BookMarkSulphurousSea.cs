@@ -20,7 +20,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
-    public class BookMarkSulphurousSea : BookMark
+    public class BookMarkSunkenSea : BookMark
     {
         public override void SetDefaults()
         {
@@ -28,16 +28,16 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Item.rare = ItemRarityID.Orange;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
         }
-        public override Texture2D UITexture => BookMark.GetUITexture("SulphurousSea");
+        public override Texture2D UITexture => BookMark.GetUITexture("SunkenSea");
         public override EBookProjectileEffect getEffect()
         {
-            return new SulphurousSeaBMEffect();
+            return new SunkenSeaBMEffect();
         }
 
         public override Color tooltipColor => Color.SkyBlue;
     }
 
-    public class SulphurousSeaBMEffect : EBookProjectileEffect
+    public class SunkenSeaBMEffect : EBookProjectileEffect
     {
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
