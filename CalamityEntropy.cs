@@ -1,44 +1,8 @@
 ﻿global using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Terraria;
-using Microsoft.Xna.Framework.Graphics;
-using Humanizer;
-using System;
-using CalamityMod.Items.Weapons.Rogue;
-using CalamityEntropy.Util;
-using CalamityMod;
-using System.Collections.Generic;
-using Terraria.Graphics.Effects;
-using ReLogic.Content;
-using Terraria.DataStructures;
-using System.IO;
-using Microsoft.CodeAnalysis;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Armor.Vanity;
-using CalamityMod.Items.LoreItems;
-using CalamityMod.Items.Placeables.Furniture.DevPaintings;
-using CalamityMod.Items.Placeables.Furniture.Trophies;
-using CalamityMod.Items.SummonItems;
-using CalamityMod.NPCs.DesertScourge;
-using Terraria.Localization;
-using CalamityMod.UI;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using Terraria.GameContent.Bestiary;
-using CalamityMod.Items.TreasureBags;
-using CalamityMod.Skies;
-using System.Runtime.Intrinsics.Arm;
-using Microsoft.CodeAnalysis.FlowAnalysis;
-using Terraria.GameContent;
-using CalamityMod.Projectiles.Melee;
-using CalamityMod.Events;
-using Terraria.WorldBuilding;
-using System.Threading;
-using Steamworks;
-using Terraria.UI;
-using CalamityMod.UI.CalamitasEnchants;
 using CalamityEntropy.Common;
+using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.BeesGame;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -47,66 +11,76 @@ using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
+using CalamityEntropy.Content.NPCs.NihilityTwin;
+using CalamityEntropy.Content.NPCs.Prophet;
+using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
+using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
-using CalamityEntropy.Content.Skies;
-using CalamityEntropy.Content.UI;
-using CalamityMod.NPCs.TownNPCs;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using Microsoft.Build.Evaluation;
-using Terraria.Audio;
-using CalamityMod.NPCs.SunkenSea;
-using CalamityMod.NPCs.Crabulon;
-using CalamityMod.NPCs.HiveMind;
-using CalamityMod.NPCs.Perforator;
-using CalamityMod.NPCs.NormalNPCs;
-using CalamityMod.NPCs.SlimeGod;
-using CalamityMod.NPCs.Cryogen;
-using CalamityMod.NPCs.AquaticScourge;
-using CalamityMod.NPCs.CalClone;
-using CalamityMod.NPCs.BrimstoneElemental;
-using CalamityMod.NPCs.GreatSandShark;
-using CalamityMod.NPCs.Leviathan;
-using CalamityMod.NPCs.AstrumAureus;
-using CalamityMod.NPCs.PlaguebringerGoliath;
-using CalamityMod.NPCs.Ravager;
-using CalamityMod.NPCs.AstrumDeus;
-using CalamityMod.NPCs.ProfanedGuardians;
-using CalamityMod.NPCs.Bumblebirb;
-using CalamityMod.NPCs.Providence;
-using CalamityMod.NPCs.CeaselessVoid;
-using CalamityMod.NPCs.StormWeaver;
-using CalamityMod.NPCs.Signus;
-using CalamityMod.NPCs.Polterghast;
-using CalamityMod.NPCs.OldDuke;
-using CalamityMod.NPCs.DevourerofGods;
-using CalamityMod.NPCs.Yharon;
-using CalamityMod.NPCs.ExoMechs.Ares;
-using CalamityMod.NPCs.ExoMechs.Apollo;
-using CalamityMod.NPCs.ExoMechs.Artemis;
-using CalamityMod.NPCs.ExoMechs.Thanatos;
-using CalamityMod.NPCs.SupremeCalamitas;
-using CalamityMod.NPCs.PrimordialWyrm;
-using CalamityEntropy.Content.NPCs.VoidInvasion;
-using ReLogic.Graphics;
+using CalamityEntropy.Content.Skies;
+using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Content.ArmorPrefixes;
+using CalamityEntropy.Util;
+using CalamityMod;
+using CalamityMod.Events;
+using CalamityMod.Items.Materials;
+using CalamityMod.Items.Pets;
+using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Items.Pets;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Materials;
+using CalamityMod.NPCs.AquaticScourge;
+using CalamityMod.NPCs.AstrumAureus;
+using CalamityMod.NPCs.AstrumDeus;
+using CalamityMod.NPCs.BrimstoneElemental;
+using CalamityMod.NPCs.Bumblebirb;
+using CalamityMod.NPCs.CalClone;
+using CalamityMod.NPCs.CeaselessVoid;
+using CalamityMod.NPCs.Crabulon;
+using CalamityMod.NPCs.Cryogen;
+using CalamityMod.NPCs.DesertScourge;
+using CalamityMod.NPCs.DevourerofGods;
+using CalamityMod.NPCs.ExoMechs.Apollo;
+using CalamityMod.NPCs.ExoMechs.Ares;
+using CalamityMod.NPCs.ExoMechs.Artemis;
+using CalamityMod.NPCs.ExoMechs.Thanatos;
+using CalamityMod.NPCs.GreatSandShark;
+using CalamityMod.NPCs.HiveMind;
+using CalamityMod.NPCs.Leviathan;
+using CalamityMod.NPCs.OldDuke;
+using CalamityMod.NPCs.Perforator;
+using CalamityMod.NPCs.PlaguebringerGoliath;
+using CalamityMod.NPCs.Polterghast;
+using CalamityMod.NPCs.PrimordialWyrm;
+using CalamityMod.NPCs.ProfanedGuardians;
+using CalamityMod.NPCs.Providence;
+using CalamityMod.NPCs.Ravager;
+using CalamityMod.NPCs.Signus;
+using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.NPCs.StormWeaver;
+using CalamityMod.NPCs.SunkenSea;
+using CalamityMod.NPCs.SupremeCalamitas;
+using CalamityMod.NPCs.Yharon;
+using CalamityMod.UI;
+using CalamityMod.UI.CalamitasEnchants;
 using Microsoft.Xna.Framework.Audio;
-using System.Diagnostics.Metrics;
-using CalamityEntropy.Content.NPCs.NihilityTwin;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Projectiles.Chainsaw;
-using CalamityEntropy.Content.NPCs.Prophet;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using ReLogic.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.UI;
 namespace CalamityEntropy
 {
     public class CalamityEntropy : Mod
@@ -176,6 +150,7 @@ namespace CalamityEntropy
             {
                 calDebuffIconDisplayList.Add(id);
             }
+
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserBody>());
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
             On_FilterManager.EndCapture += ec;
@@ -203,6 +178,48 @@ namespace CalamityEntropy
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
+        }
+
+        public override void Unload()
+        {
+            LoopSoundManager.unload();
+            ealaserSound = null;
+            ealaserSound2 = null;
+            ArmorPrefix.instances = null;
+            Poop.instances = null;
+            WallpaperHelper.wallpaper = null;
+            efont1 = null;
+            efont2 = null;
+            checkProj = null;
+            checkNPC = null;
+            kscreen = null;
+            kscreen2 = null;
+            cve = null;
+            cve2 = null;
+            Instance = null;
+            pixel = null;
+            screen = null;
+            screen2 = null;
+            On_FilterManager.EndCapture -= ec;
+            On_Lighting.AddLight_int_int_int_float -= al_iiif;
+            On_Lighting.AddLight_int_int_float_float_float -= al_iifff;
+            On_Lighting.AddLight_Vector2_float_float_float -= al_vfff;
+            On_Lighting.AddLight_Vector2_Vector3 -= al_vv;
+            On_Lighting.AddLight_Vector2_int -= al_torch;
+            On_Player.AddBuff -= add_buff;
+            On_NPC.AddBuff -= add_buff_npc;
+            On_NPC.TargetClosest -= targetClost;
+            On_NPC.TargetClosestUpgraded -= targetClostUpgraded;
+            On_NPC.FindFrame -= findFrame;
+            On_NPC.VanillaAI -= vAi;
+            On_NPC.UpdateNPC -= npcupdate;
+            On_NPC.StrikeNPC_HitInfo_bool_bool -= StrikeNpc;
+            On_Player.getRect -= modifyRect;
+            On_Main.DrawInfernoRings -= drawIr;
+            On_Main.DrawProjectiles -= DrawBehindPlayer;
+            On_Main.DrawMenu -= drawmenu;
+            On_Player.Heal -= player_heal;
+            On_Main.DrawTiles -= drawtile;
         }
 
         public static Effect whiteTrans => ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
@@ -365,7 +382,7 @@ namespace CalamityEntropy
 
         private void npcupdate(On_NPC.orig_UpdateNPC orig, NPC self, int i)
         {
-            if (self == null || self.type <= NPCID.None) 
+            if (self == null || self.type <= NPCID.None)
             {
                 return;
             }
@@ -1782,47 +1799,5 @@ namespace CalamityEntropy
             return Main.ScreenSize.ToVector2() / 2 + (v - Main.ScreenSize.ToVector2() / 2) * z;
         }
         public bool beegameInited = false;
-
-        public override void Unload()
-        {
-            LoopSoundManager.unload();
-            ealaserSound = null;
-            ealaserSound2 = null;
-            ArmorPrefix.instances = null;
-            Poop.instances = null;
-            WallpaperHelper.wallpaper = null;
-            efont1 = null;
-            efont2 = null;
-            checkProj = null;
-            checkNPC = null;
-            kscreen = null;
-            kscreen2 = null;
-            cve = null;
-            cve2 = null;
-            Instance = null;
-            pixel = null;
-            screen = null;
-            screen2 = null;
-            On_FilterManager.EndCapture -= ec;
-            On_Lighting.AddLight_int_int_int_float -= al_iiif;
-            On_Lighting.AddLight_int_int_float_float_float -= al_iifff;
-            On_Lighting.AddLight_Vector2_float_float_float -= al_vfff;
-            On_Lighting.AddLight_Vector2_Vector3 -= al_vv;
-            On_Lighting.AddLight_Vector2_int -= al_torch;
-            On_Player.AddBuff -= add_buff;
-            On_NPC.AddBuff -= add_buff_npc;
-            On_NPC.TargetClosest -= targetClost;
-            On_NPC.TargetClosestUpgraded -= targetClostUpgraded;
-            On_NPC.FindFrame -= findFrame;
-            On_NPC.VanillaAI -= vAi;
-            On_NPC.StrikeNPC_HitInfo_bool_bool -= StrikeNpc;
-            On_Player.getRect -= modifyRect;
-            On_NPC.UpdateNPC -= npcupdate;
-            On_Main.DrawInfernoRings -= drawIr;
-            On_Main.DrawProjectiles -= DrawBehindPlayer;
-            On_Player.Heal -= player_heal;
-            On_Main.DrawTiles -= drawtile;
-        }
-
     }
 }
