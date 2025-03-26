@@ -1,4 +1,4 @@
-﻿
+﻿global using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria;
@@ -11,7 +11,6 @@ using CalamityMod;
 using System.Collections.Generic;
 using Terraria.Graphics.Effects;
 using ReLogic.Content;
-using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using System.IO;
 using Microsoft.CodeAnalysis;
