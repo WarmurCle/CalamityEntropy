@@ -12,10 +12,15 @@ using System.Linq;
 using CalamityEntropy.Common;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.Graphics.Shaders;
 
 namespace CalamityEntropy.Util
 {
     public static class Util {
+        public static void ApplyGameShaderForPlayer(int id, Player player)
+        {
+            GameShaders.Armor.Apply(id, player);
+        }
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
         public static Texture2D getTexture(this Projectile p)
         {

@@ -109,6 +109,7 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityMod.Systems;
 using CalamityMod.World;
 using Newtonsoft.Json.Linq;
+using Terraria.Graphics.Renderers;
 namespace CalamityEntropy
 {
 	public class CalamityEntropy : Mod

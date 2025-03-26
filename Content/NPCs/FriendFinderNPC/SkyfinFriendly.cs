@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                         SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, NPC.Center);
                         for (int i = 0; i < 36; i++)
                         {
-                            Dust acid = Dust.NewDustPerfect(NPC.Center, (int)CalamityDusts.SunkenSeaAcid);
+                            Dust acid = Dust.NewDustPerfect(NPC.Center, (int)CalamityDusts.SulphurousSeaAcid);
                             acid.velocity = (MathHelper.TwoPi * i / 36f).ToRotationVector2() * 6f;
                             acid.scale = 1.1f;
                             acid.noGravity = true;
@@ -156,11 +156,11 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
         public override void HitEffect(NPC.HitInfo hit)
         {
             for (int k = 0; k < 8; k++)
-                Dust.NewDust(NPC.position, NPC.width, NPC.height, (int)CalamityDusts.SunkenSeaAcid, hit.HitDirection, -1f, 0, default, 1f);
+                Dust.NewDust(NPC.position, NPC.width, NPC.height, (int)CalamityDusts.SulphurousSeaAcid, hit.HitDirection, -1f, 0, default, 1f);
             if (NPC.life <= 0)
             {
                 for (int k = 0; k < 20; k++)
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, (int)CalamityDusts.SunkenSeaAcid, hit.HitDirection, -1f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, (int)CalamityDusts.SulphurousSeaAcid, hit.HitDirection, -1f, 0, default, 1f);
             }
         }
 

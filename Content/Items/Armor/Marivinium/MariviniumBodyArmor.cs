@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.statManaMax2 += 250;
             player.breath = player.breathMax + 91;
         }
-
+        
         public override void AddRecipes()
         {
             CreateRecipe()
