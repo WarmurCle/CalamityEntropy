@@ -11,15 +11,14 @@ public class EPlayerDash : ModPlayer
     public const int DashUp = 1;
     public const int DashRight = 2;
     public const int DashLeft = 3;
-
     public const int DashCooldown = 50; public const int DashDuration = 28;
     public const float DashVelocity = 24f;
-
     public int DashDir = -1;
-
+    public int DashDirLast = -1;
     public bool DashAccessoryEquipped;
     public bool velt;
-    public int DashDelay = 0; public int DashTimer = 0;
+    public int DashDelay = 0;
+    public int DashTimer = 0;
     public override void ResetEffects()
     {
         DashAccessoryEquipped = false;
@@ -45,10 +44,10 @@ public class EPlayerDash : ModPlayer
             DashDir = -1;
         }
     }
-    public int DashDirLast = -1;
+    
     public override void PreUpdateMovement()
     {
-        if (CalamityKeybinds.DashHotkey.JustPressed)
+        if (!Main.dedServ && CalamityKeybinds.DashHotkey.JustPressed)
         {
             if (Player.direction == 1)
             {

@@ -75,7 +75,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
@@ -114,7 +113,7 @@ namespace CalamityEntropy
         public bool ChristmasEvent = false;
         public static float FlashEffectStrength = 0;
         public override void HandlePacket(BinaryReader reader, int whoAmI) => CENetWork.Handle(reader, whoAmI);
-        
+
         public static SoundEffect ealaserSound = null;
         public static SoundEffect ealaserSound2 = null;
         public override void Load()
@@ -129,8 +128,6 @@ namespace CalamityEntropy
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
 
-
-
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
             userInterface = new UserInterface();
@@ -143,10 +140,6 @@ namespace CalamityEntropy
             cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
             cve2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid2", AssetRequestMode.ImmediateLoad).Value;
             pixel = Util.Util.getExtraTex("white");
-            for (int i = 0; i < 10; i++)
-            {
-                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidBlade/f" + i.ToString()).Value;
-            }
 
             AbyssalWraith.loadHead();
             CruiserHead.loadHead();
@@ -184,8 +177,8 @@ namespace CalamityEntropy
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
         }
-        public static Effect whiteTrans => ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
 
+        public static Effect whiteTrans => ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
 
         private void add_buff_npc(On_NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
         {
@@ -227,9 +220,9 @@ namespace CalamityEntropy
                             Vector2 center = new Vector2(36, 0).RotatedBy(rot);
                             center.Y = 0;
                             float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                            Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
                         }
-                        rot += MathHelper.TwoPi / (float)count;
+                        rot += MathHelper.TwoPi / count;
                     }
                 }
                 if (player.Entropy().MariviniumShieldCount > 0)
@@ -243,9 +236,9 @@ namespace CalamityEntropy
                             Vector2 center = new Vector2(48, 0).RotatedBy(rot);
                             center.Y = 0;
                             float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                            Main.spriteBatch.Draw(crystalShield, player.Center - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(crystalShield, player.Center - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
                         }
-                        rot += MathHelper.TwoPi / (float)count;
+                        rot += MathHelper.TwoPi / count;
                     }
                 }
                 if (player.Entropy().mariviniumBody)
@@ -274,9 +267,9 @@ namespace CalamityEntropy
                             Vector2 center = new Vector2(36, 0).RotatedBy(rot);
                             center.Y = 0;
                             float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                            Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
                         }
-                        rot += MathHelper.TwoPi / (float)count;
+                        rot += MathHelper.TwoPi / count;
                     }
                 }
                 if (player.Entropy().MariviniumShieldCount > 0)
@@ -290,9 +283,9 @@ namespace CalamityEntropy
                             Vector2 center = new Vector2(48, 0).RotatedBy(rot);
                             center.Y = 0;
                             float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                            Main.spriteBatch.Draw(crystalShield, player.Center - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / (float)shell.Width, 1), SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(crystalShield, player.Center - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
                         }
-                        rot += MathHelper.TwoPi / (float)count;
+                        rot += MathHelper.TwoPi / count;
                     }
                 }
                 if (pocType == -1)
@@ -309,7 +302,7 @@ namespace CalamityEntropy
                             {
                                 if (p.ModProjectile is PrisonOfPermafrostCircle poc)
                                 {
-                                    float alpha = (float)poc.usingTime / 60f;
+                                    float alpha = poc.usingTime / 60f;
                                     if (alpha > 1)
                                     {
                                         alpha = 1;
@@ -345,70 +338,71 @@ namespace CalamityEntropy
 
         private void npcupdate(On_NPC.orig_UpdateNPC orig, NPC self, int i)
         {
-            if (self.TryGetGlobalNPC<EGlobalNPC>(out var en))
+            if (self == null || self.type <= NPCID.None) 
             {
-                if (self.active && self.Entropy().AnimaTrapped > 0)
-                {
-                    en.AnimaTrapped--;
-                    self.position += self.velocity;
-                    self.velocity *= 0.9f;
-                    for (int ii = 0; ii < self.immune.Length; ii++)
-                    {
-                        if (self.immune[ii] > 0)
-                        {
-                            self.immune[ii]--;
-                        }
+                return;
+            }
 
-                    }
-                }
-                else
+            //很显然不活跃的NPC不符合我们的期望
+            if (!self.active || !self.TryGetGlobalNPC<EGlobalNPC>(out var ceNPC))
+            {
+                orig(self, i);
+                return;
+            }
+
+            if (self.active && self.Entropy().AnimaTrapped > 0)
+            {
+                ceNPC.AnimaTrapped--;
+                self.position += self.velocity;
+                self.velocity *= 0.9f;
+                for (int ii = 0; ii < self.immune.Length; ii++)
                 {
-                    if (self.active)
+                    if (self.immune[ii] > 0)
                     {
-                        if (self.TryGetGlobalNPC<DeliriumGlobalNPC>(out var mn))
-                        {
-                            if (mn.delirium)
-                            {
-                                NPC npc = self;
-                                npc.damage = mn.damage;
-                                mn.counter--;
-                                if (mn.counter <= 0)
-                                {
-                                    if (!Main.dedServ)
-                                    {
-                                        Util.Util.PlaySound("clicker_static", 1, npc.Center);
-                                    }
-                                    mn.counter = Main.rand.Next(60, 360);
-                                    npc.netUpdate = true;
-                                    npc.netSpam = 0;
-                                    int npc_ = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, Delirium.npcTurns[Main.rand.Next(Delirium.npcTurns.Count)]);
-                                    NPC spawn = npc_.ToNPC();
-                                    spawn.Center = npc.Center;
-                                    spawn.lifeMax = npc.lifeMax;
-                                    spawn.life = npc.life;
-                                    spawn.damage = npc.damage;
-                                    spawn.GetGlobalNPC<DeliriumGlobalNPC>().delirium = true;
-                                    spawn.GetGlobalNPC<DeliriumGlobalNPC>().damage = mn.damage;
-                                    spawn.GetGlobalNPC<DeliriumGlobalNPC>().counter = mn.counter;
-                                    spawn.netUpdate = true;
-                                    spawn.netSpam = 0;
-                                    npc.active = false;
-                                }
-                                if (npc.type != NPCID.DukeFishron && npc.type != ModContent.NPCType<OldDuke>() && npc.type != NPCID.Golem && npc.type != ModContent.NPCType<Bumblefuck>() && npc.type != NPCID.SkeletronHead)
-                                {
-                                    orig(self, i);
-                                    if (npc.type != NPCID.EyeofCthulhu && npc.type != NPCID.QueenBee && npc.type != NPCID.Retinazer && npc.type != NPCID.Spazmatism && npc.type != ModContent.NPCType<Yharon>() && npc.type != NPCID.MoonLordCore && npc.type != ModContent.NPCType<PrimordialWyrmHead>())
-                                    {
-                                        orig(self, i);
-                                    }
-                                }
-                            }
-                        }
+                        self.immune[ii]--;
                     }
-                    orig(self, i);
                 }
             }
-            else { orig(self, i); }
+            else
+            {
+                if (self.active && self.TryGetGlobalNPC<DeliriumGlobalNPC>(out var deliriumNPC) && deliriumNPC.delirium)
+                {
+                    NPC npc = self;
+                    npc.damage = deliriumNPC.damage;
+                    deliriumNPC.counter--;
+                    if (deliriumNPC.counter <= 0)
+                    {
+                        if (!Main.dedServ)
+                        {
+                            Util.Util.PlaySound("clicker_static", 1, npc.Center);
+                        }
+                        deliriumNPC.counter = Main.rand.Next(60, 360);
+                        npc.netUpdate = true;
+                        npc.netSpam = 0;
+                        int npc_ = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, Delirium.npcTurns[Main.rand.Next(Delirium.npcTurns.Count)]);
+                        NPC spawn = npc_.ToNPC();
+                        spawn.Center = npc.Center;
+                        spawn.lifeMax = npc.lifeMax;
+                        spawn.life = npc.life;
+                        spawn.damage = npc.damage;
+                        spawn.GetGlobalNPC<DeliriumGlobalNPC>().delirium = true;
+                        spawn.GetGlobalNPC<DeliriumGlobalNPC>().damage = deliriumNPC.damage;
+                        spawn.GetGlobalNPC<DeliriumGlobalNPC>().counter = deliriumNPC.counter;
+                        spawn.netUpdate = true;
+                        spawn.netSpam = 0;
+                        npc.active = false;
+                    }
+                    if (npc.type != NPCID.DukeFishron && npc.type != ModContent.NPCType<OldDuke>() && npc.type != NPCID.Golem && npc.type != ModContent.NPCType<Bumblefuck>() && npc.type != NPCID.SkeletronHead)
+                    {
+                        orig(self, i);
+                        if (npc.type != NPCID.EyeofCthulhu && npc.type != NPCID.QueenBee && npc.type != NPCID.Retinazer && npc.type != NPCID.Spazmatism && npc.type != ModContent.NPCType<Yharon>() && npc.type != NPCID.MoonLordCore && npc.type != ModContent.NPCType<PrimordialWyrmHead>())
+                        {
+                            orig(self, i);
+                        }
+                    }
+                }
+                orig(self, i);
+            }
         }
 
         private Rectangle modifyRect(On_Player.orig_getRect orig, Player self)
@@ -437,11 +431,12 @@ namespace CalamityEntropy
                     {
                         hit.Damage = (int)(self.lifeMax * 0.1f);
                     }
-                    hit.Damage = (int)(hit.Damage * (self.life < ((float)self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) ? (1 / (1 + (((float)self.Entropy().TDRCounter / (5f * 60 * 60) * self.lifeMax) - self.life) * (8f / self.lifeMax))) : 1));
+                    hit.Damage = (int)(hit.Damage * (self.life < (self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) ? (1 / (1 + ((self.Entropy().TDRCounter / (5f * 60 * 60) * self.lifeMax) - self.life) * (8f / self.lifeMax))) : 1));
                 }
             }
             return orig(self, hit, fromNet, noPlayerInteraction);
         }
+
         private void vAi(On_NPC.orig_VanillaAI orig, NPC self)
         {
             orig(self);
@@ -520,11 +515,11 @@ namespace CalamityEntropy
             {
                 npc.targetRect = new Rectangle((int)Main.projectile[tankTarget].position.X, (int)Main.projectile[tankTarget].position.Y, Main.projectile[tankTarget].width, Main.projectile[tankTarget].height);
                 npc.direction = 1;
-                if ((float)(npc.targetRect.X + npc.targetRect.Width / 2) < npc.position.X + (float)(npc.width / 2))
+                if (npc.targetRect.X + npc.targetRect.Width / 2 < npc.position.X + npc.width / 2)
                     npc.direction = -1;
 
                 npc.directionY = 1;
-                if ((float)(npc.targetRect.Y + npc.targetRect.Height / 2) < npc.position.Y + (float)(npc.height / 2))
+                if (npc.targetRect.Y + npc.targetRect.Height / 2 < npc.position.Y + npc.height / 2)
                     npc.directionY = -1;
             }
             else
@@ -549,11 +544,11 @@ namespace CalamityEntropy
                     if (!(num && flag && flag2))
                     {
                         npc.direction = 1;
-                        if ((float)(npc.targetRect.X + npc.targetRect.Width / 2) < npc.position.X + (float)(npc.width / 2))
+                        if (npc.targetRect.X + npc.targetRect.Width / 2 < npc.position.X + npc.width / 2)
                             npc.direction = -1;
 
                         npc.directionY = 1;
-                        if ((float)(npc.targetRect.Y + npc.targetRect.Height / 2) < npc.position.Y + (float)(npc.height / 2))
+                        if (npc.targetRect.Y + npc.targetRect.Height / 2 < npc.position.Y + npc.height / 2)
                             npc.directionY = -1;
                     }
                 }
@@ -890,7 +885,7 @@ namespace CalamityEntropy
         }
         public static List<Projectile> checkProj = new List<Projectile>();
         public static List<NPC> checkNPC = new List<NPC>();
-        static void updateCheck()
+        private static void updateCheck()
         {
 
         }
@@ -1034,8 +1029,8 @@ namespace CalamityEntropy
                         {
                             ddp = ((CruiserHead)n.ModNPC).rotPos;
                         }
-                        Main.spriteBatch.Draw(disTex, ddp - Main.screenPosition, null, Color.White * 0.1f, 0, new Vector2(disTex.Width, disTex.Height) / 2, (float)((CruiserHead)n.ModNPC).maxDistance / 900f * 2 - 0.01f, SpriteEffects.None, 0);
-                        Main.spriteBatch.Draw(disTex, ddp - Main.screenPosition, null, Color.White, 0, new Vector2(disTex.Width, disTex.Height) / 2, (float)((CruiserHead)n.ModNPC).maxDistance / 900f * 2, SpriteEffects.None, 0);
+                        Main.spriteBatch.Draw(disTex, ddp - Main.screenPosition, null, Color.White * 0.1f, 0, new Vector2(disTex.Width, disTex.Height) / 2, ((CruiserHead)n.ModNPC).maxDistance / 900f * 2 - 0.01f, SpriteEffects.None, 0);
+                        Main.spriteBatch.Draw(disTex, ddp - Main.screenPosition, null, Color.White, 0, new Vector2(disTex.Width, disTex.Height) / 2, ((CruiserHead)n.ModNPC).maxDistance / 900f * 2, SpriteEffects.None, 0);
 
                     }
                 }
@@ -1104,7 +1099,7 @@ namespace CalamityEntropy
                 cve.Parameters["tex4"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_starfield_3").Value);
                 cve.Parameters["tex5"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_starfield_4").Value);
                 cve.Parameters["tex6"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/planetarium_starfield_5").Value);
-                cve.Parameters["time"].SetValue((float)cvcount / 50f);
+                cve.Parameters["time"].SetValue(cvcount / 50f);
                 cve.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
                 cve.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-cvcount / 6f, cvcount / 6f)) / Main.ScreenSize.ToVector2());
                 Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
@@ -1140,7 +1135,7 @@ namespace CalamityEntropy
                             float lr = 0;
                             for (int i = 1; i < mp.odp.Count; i++)
                             {
-                                a += 1f / (float)mp.odp.Count;
+                                a += 1f / mp.odp.Count;
 
                                 ve.Add(new Vertex(vLToCenter(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18, Main.GameViewMatrix.Zoom.X),
                                       new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
@@ -1222,7 +1217,7 @@ namespace CalamityEntropy
                                 Color cl = new Color(200, 235, 255);
                                 for (int i = mp.odp.Count - 1; i >= 1; i--)
                                 {
-                                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * (((float)(255 - p.alpha)) / 255f), size * 0.7f);
+                                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
                                     size -= sizej;
                                 }
                             }
@@ -1245,7 +1240,7 @@ namespace CalamityEntropy
                             }
                             for (int i = mp.odp.Count - 1; i >= 1; i--)
                             {
-                                Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * (((float)(255 - p.alpha)) / 255f), size * 0.7f);
+                                Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
                                 size -= sizej;
                             }
                         }
@@ -1330,7 +1325,7 @@ namespace CalamityEntropy
                 cve2.CurrentTechnique.Passes[0].Apply();
                 cve2.Parameters["tex0"].SetValue(Main.screenTargetSwap);
                 cve2.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/VoidBack").Value);
-                cve2.Parameters["time"].SetValue((float)cvcount / 50f);
+                cve2.Parameters["time"].SetValue(cvcount / 50f);
                 cve2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(cvcount * 1.4f, cvcount * 1.4f)) / new Vector2(1920, 1080));
                 Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
                 Main.spriteBatch.End();
@@ -1380,7 +1375,7 @@ namespace CalamityEntropy
                 cab.CurrentTechnique.Passes[0].Apply();
                 cab.Parameters["clr"].SetValue(new Color(12, 50, 160).ToVector4());
                 cab.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1").Value);
-                cab.Parameters["time"].SetValue((float)cvcount / 50f);
+                cab.Parameters["time"].SetValue(cvcount / 50f);
                 cab.Parameters["scrsize"].SetValue(screen.Size());
                 cab.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(cvcount * 1.4f, cvcount * 1.4f)) / new Vector2(1920, 1080));
                 Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
@@ -1405,7 +1400,7 @@ namespace CalamityEntropy
                     {
                         if (player.active && !player.dead && player.Entropy().daPoints.Count > 2)
                         {
-                            float scj = 1f / (float)player.Entropy().daPoints.Count;
+                            float scj = 1f / player.Entropy().daPoints.Count;
                             float sc = scj;
                             Color color = Color.Black;
                             if (player.Entropy().VaMoving > 0)
@@ -1462,7 +1457,7 @@ namespace CalamityEntropy
                         {
                             c = new Color(255, 100, 100);
                         }
-                        Main.spriteBatch.Draw(t, p.Center - Main.screenPosition, null, c * (((float)(255 - p.alpha)) / 255f), p.rotation, t.Size() / 2, p.scale, SpriteEffects.None, 0);
+                        Main.spriteBatch.Draw(t, p.Center - Main.screenPosition, null, c * ((255 - p.alpha) / 255f), p.rotation, t.Size() / 2, p.scale, SpriteEffects.None, 0);
 
                     }
 
@@ -1524,7 +1519,7 @@ namespace CalamityEntropy
                         }
                         if (p.ModProjectile is VoidExplode)
                         {
-                            float ks = (float)p.timeLeft * 0.1f;
+                            float ks = p.timeLeft * 0.1f;
                             if (p.timeLeft > 10)
                             {
                                 ks = (20 - (float)p.timeLeft) / 10f;
@@ -1535,7 +1530,7 @@ namespace CalamityEntropy
                         }
                         if (p.ModProjectile is VoidRExp)
                         {
-                            float ks = (90f - (float)p.timeLeft) * 0.4f;
+                            float ks = (90f - p.timeLeft) * 0.4f;
 
                             Main.spriteBatch.Draw(kt2, p.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kt2.Width, kt2.Height) / 2, ks, SpriteEffects.None, 0);
 
