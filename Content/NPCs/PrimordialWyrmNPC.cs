@@ -12,7 +12,6 @@ using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Sounds;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

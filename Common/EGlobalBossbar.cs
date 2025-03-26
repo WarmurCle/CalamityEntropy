@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.NPCs.Cruiser;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;

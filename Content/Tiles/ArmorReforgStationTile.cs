@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.UI;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

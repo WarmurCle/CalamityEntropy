@@ -1,5 +1,4 @@
 ﻿using CalamityMod.Cooldowns;
-using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using Terraria.Localization;
 

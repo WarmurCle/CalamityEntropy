@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items
                     if (Main.dedServ)
                     {
                         ModPacket mp = Mod.GetPacket();
-                        mp.Write((byte)CalamityEntropy.NetPackages.PickUpPoop);
+                        mp.Write((byte)CEMessageType.PickUpPoop);
                         mp.Write(player.whoAmI);
                         mp.Write(padd.FullName);
                         mp.Send();

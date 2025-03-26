@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace CalamityEntropy.Content.BeesGame
+﻿namespace CalamityEntropy.Content.BeesGame
 {
     public class BeeGameEnemy
     {

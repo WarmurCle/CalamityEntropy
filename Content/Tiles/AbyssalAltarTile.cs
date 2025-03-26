@@ -2,7 +2,6 @@
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.NPCs.PrimordialWyrm;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;

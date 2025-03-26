@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;

@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

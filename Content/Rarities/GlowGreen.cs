@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Rarities
 {

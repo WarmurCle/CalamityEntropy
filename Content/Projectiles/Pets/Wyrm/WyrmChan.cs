@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;

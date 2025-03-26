@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Magic;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;

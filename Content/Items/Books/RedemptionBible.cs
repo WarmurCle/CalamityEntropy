@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;

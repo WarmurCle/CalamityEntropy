@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs.Wyrm;
 using CalamityEntropy.Util;
 using CalamityMod;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;

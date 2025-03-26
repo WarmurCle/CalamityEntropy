@@ -3,7 +3,6 @@ using CalamityMod.Dusts;
 using CalamityMod.NPCs.Crags;
 using CalamityMod.Particles;
 using CalamityMod.World;
-using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
 using System;
 using Terraria;

@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;

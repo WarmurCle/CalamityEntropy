@@ -15,7 +15,6 @@ using CalamityMod.Items.Potions;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;

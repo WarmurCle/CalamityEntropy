@@ -2,7 +2,6 @@
 using CalamityMod;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.World;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;

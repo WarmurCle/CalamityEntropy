@@ -4,7 +4,6 @@ using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Placeables;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

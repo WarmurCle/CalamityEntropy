@@ -4,7 +4,6 @@ using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Ranged;
-using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.DataStructures;

@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;

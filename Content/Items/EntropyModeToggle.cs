@@ -1,9 +1,7 @@
 ﻿using CalamityMod.Items;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static CalamityEntropy.CalamityEntropy;
 
 namespace CalamityEntropy.Content.Items
 {
@@ -42,7 +40,7 @@ namespace CalamityEntropy.Content.Items
                 else
                 {
                     ModPacket packet = Mod.GetPacket();
-                    packet.Write((byte)NetPackages.SyncEntropyMode);
+                    packet.Write((byte)CEMessageType.SyncEntropyMode);
                     packet.Write(CalamityEntropy.EntropyMode);
                     packet.Send();
                 }

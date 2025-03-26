@@ -30,7 +30,6 @@ using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using SubworldLibrary;
@@ -287,7 +286,7 @@ namespace CalamityEntropy.Common
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 ModPacket p = CalamityEntropy.Instance.GetPacket();
-                p.Write((byte)CalamityEntropy.NetPackages.TurnFriendly);
+                p.Write((byte)CEMessageType.TurnFriendly);
                 p.Write(id);
                 p.Write(owner);
                 p.Send();
@@ -868,7 +867,7 @@ namespace CalamityEntropy.Common
                 if (Main.dedServ)
                 {
                     ModPacket pack = Mod.GetPacket();
-                    pack.Write((byte)CalamityEntropy.NetPackages.BossKilled);
+                    pack.Write((byte)CEMessageType.BossKilled);
                     pack.Write(npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod);
                     pack.Send();
                 }
@@ -1098,7 +1097,7 @@ namespace CalamityEntropy.Common
                 else
                 {
                     ModPacket packet = Mod.GetPacket();
-                    packet.Write((byte)CalamityEntropy.NetPackages.SpawnItem);
+                    packet.Write((byte)CEMessageType.SpawnItem);
                     packet.Write(player.whoAmI);
                     packet.Write(ModContent.ItemType<PoopPickup>());
                     packet.Write(1);
@@ -1160,7 +1159,7 @@ namespace CalamityEntropy.Common
                     else
                     {
                         ModPacket packet = Mod.GetPacket();
-                        packet.Write((byte)CalamityEntropy.NetPackages.SpawnItem);
+                        packet.Write((byte)CEMessageType.SpawnItem);
                         packet.Write(player.whoAmI);
                         packet.Write(ModContent.ItemType<PoopPickup>());
                         packet.Write(1);

@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace CalamityEntropy.Content.DimDungeon;
+﻿namespace CalamityEntropy.Content.DimDungeon;
 
 public class RoomMetadata
 {

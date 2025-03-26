@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityMod;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;

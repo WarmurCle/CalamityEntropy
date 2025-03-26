@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.World;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;

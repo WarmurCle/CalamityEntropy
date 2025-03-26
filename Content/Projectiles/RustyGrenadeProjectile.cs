@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.StatDebuffs;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;

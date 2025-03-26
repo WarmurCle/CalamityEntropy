@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria.Graphics.Shaders;
+﻿using Terraria.Graphics.Shaders;
 
 namespace CalamityEntropy.Content.Skies
 {

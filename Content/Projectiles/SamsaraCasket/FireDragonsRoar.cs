@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;

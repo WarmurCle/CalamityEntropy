@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 

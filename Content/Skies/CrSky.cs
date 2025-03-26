@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;

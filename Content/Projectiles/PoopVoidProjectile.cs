@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;

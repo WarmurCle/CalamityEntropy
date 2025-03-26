@@ -4,7 +4,6 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;

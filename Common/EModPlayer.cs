@@ -20,7 +20,6 @@ using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using SubworldLibrary;
 using System;
@@ -355,7 +354,7 @@ namespace CalamityEntropy.Common
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     ModPacket packet = Mod.GetPacket();
-                    packet.Write((byte)CalamityEntropy.NetPackages.PoopSync);
+                    packet.Write((byte)CEMessageType.PoopSync);
                     packet.Write(Player.whoAmI);
                     packet.Write(holdingPoop);
                     packet.Send();
@@ -389,7 +388,7 @@ namespace CalamityEntropy.Common
                 if (!Player.velocity.Equals(Vector2.Zero) && Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     ModPacket pack = Mod.GetPacket();
-                    pack.Write((byte)CalamityEntropy.NetPackages.PlayerSetPos);
+                    pack.Write((byte)CEMessageType.PlayerSetPos);
                     pack.Write(Player.whoAmI);
                     pack.WriteVector2(Player.Center);
                     pack.Send();
@@ -1140,7 +1139,7 @@ namespace CalamityEntropy.Common
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         ModPacket pack = Mod.GetPacket();
-                        pack.Write((byte)CalamityEntropy.NetPackages.PlayerSetRB);
+                        pack.Write((byte)CEMessageType.PlayerSetRB);
                         pack.Write(Player.whoAmI);
                         pack.Write(rBadgeActive);
                         pack.Send();
@@ -1156,7 +1155,7 @@ namespace CalamityEntropy.Common
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
                             ModPacket pack = Mod.GetPacket();
-                            pack.Write((byte)CalamityEntropy.NetPackages.PlayerSetRB);
+                            pack.Write((byte)CEMessageType.PlayerSetRB);
                             pack.Write(Player.whoAmI);
                             pack.Write(rBadgeActive);
                             pack.Send();

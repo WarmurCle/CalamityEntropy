@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

@@ -1,6 +1,5 @@
 ﻿using CalamityMod.NPCs.ExoMechs.Ares;
 using CalamityMod.Particles;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;

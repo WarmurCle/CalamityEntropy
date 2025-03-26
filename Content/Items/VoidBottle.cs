@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Events;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

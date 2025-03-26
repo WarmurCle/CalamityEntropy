@@ -3,7 +3,6 @@ using CalamityEntropy.Util;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

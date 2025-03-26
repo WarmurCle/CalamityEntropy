@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Buffs.Wyrm;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;

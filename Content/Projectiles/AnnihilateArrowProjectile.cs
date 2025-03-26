@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Util;
 using CalamityMod.Particles;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;

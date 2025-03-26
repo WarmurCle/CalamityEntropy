@@ -19,7 +19,6 @@ using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Items.Weapons.Summon;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -422,7 +421,7 @@ namespace CalamityEntropy.Content.NPCs
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     ModPacket packet = Mod.GetPacket();
-                    packet.Write((byte)CalamityEntropy.NetPackages.LotteryMachineRightClicked);
+                    packet.Write((byte)CEMessageType.LotteryMachineRightClicked);
                     packet.Write(Main.LocalPlayer.whoAmI);
                     packet.Write(NPC.whoAmI);
                     packet.Write(Main.myPlayer);

@@ -2,7 +2,6 @@
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

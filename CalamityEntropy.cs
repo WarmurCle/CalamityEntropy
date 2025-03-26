@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Common;
+﻿global using Microsoft.Xna.Framework;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
@@ -66,7 +67,6 @@ using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
 using CalamityMod.UI.CalamitasEnchants;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -85,20 +85,7 @@ namespace CalamityEntropy
 {
     public class CalamityEntropy : Mod
     {
-        public enum NetPackages : byte
-        {
-            LotteryMachineRightClicked,
-            TurnFriendly,
-            Text,
-            BossKilled,
-            PlayerSetRB,
-            PlayerSetPos,
-            VoidTouchDamageShow,
-            PoopSync,
-            SpawnItem,
-            PickUpPoop,
-            SyncEntropyMode
-        }
+
         public static bool EntropyMode { get { return EDownedBosses.EntropyMode; } set { EDownedBosses.EntropyMode = value; } }
         public static bool AprilFool = false;
         public static List<int> calDebuffIconDisplayList = new List<int>();
@@ -129,8 +116,8 @@ namespace CalamityEntropy
         public static float FlashEffectStrength = 0;
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
-            byte type = reader.ReadByte();
-            if (type == (byte)NetPackages.LotteryMachineRightClicked)
+            CEMessageType type = (CEMessageType)reader.ReadByte();
+            if (type == CEMessageType.LotteryMachineRightClicked)
             {
                 int plr = reader.ReadInt32();
                 int npc = reader.ReadInt32();
@@ -140,16 +127,16 @@ namespace CalamityEntropy
                     lm.RightClicked(Main.player[plr]);
                     if (Main.dedServ)
                     {
-                        ModPacket packet = CalamityEntropy.Instance.GetPacket();
-                        packet.Write((byte)CalamityEntropy.NetPackages.LotteryMachineRightClicked);
+                        ModPacket packet = Instance.GetPacket();
+                        packet.Write((byte)CEMessageType.LotteryMachineRightClicked);
                         packet.Write(plr);
                         packet.Write(npc);
                         packet.Write(wai);
-                        packet.Send();
+                        packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                     }
                 }
             }
-            if (type == (byte)NetPackages.TurnFriendly)
+            if (type == CEMessageType.TurnFriendly)
             {
                 int id = reader.ReadInt32();
                 int owner = reader.ReadInt32();
@@ -157,27 +144,27 @@ namespace CalamityEntropy
                 id.ToNPC().Entropy().f_owner = owner;
                 if (Main.dedServ)
                 {
-                    ModPacket p = this.GetPacket();
-                    p.Write((byte)CalamityEntropy.NetPackages.TurnFriendly);
-                    p.Write(id);
-                    p.Write(owner);
-                    p.Send();
+                    ModPacket packet = this.GetPacket();
+                    packet.Write((byte)CEMessageType.TurnFriendly);
+                    packet.Write(id);
+                    packet.Write(owner);
+                    packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
             }
-            if (type == (byte)NetPackages.Text)
+            if (type == CEMessageType.Text)
             {
                 Main.NewText(reader.ReadString());
             }
-            if (type == (byte)NetPackages.BossKilled)
+            if (type == CEMessageType.BossKilled)
             {
                 bool flag = reader.ReadBoolean();
-                if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && CalamityEntropy.noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || flag))
+                if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || flag))
                 {
-                    CalamityEntropy.noMusTime = 300;
+                    noMusTime = 300;
                     SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
                 }
             }
-            if (type == (byte)NetPackages.PlayerSetRB)
+            if (type == CEMessageType.PlayerSetRB)
             {
                 int playerIndex = reader.ReadInt32();
                 bool active = reader.ReadBoolean();
@@ -189,11 +176,11 @@ namespace CalamityEntropy
                     {
                         playerIndex.ToPlayer().velocity *= 0.2f;
                     }
-                    ModPacket pack = Instance.GetPacket();
-                    pack.Write((byte)CalamityEntropy.NetPackages.PlayerSetRB);
-                    pack.Write(playerIndex);
-                    pack.Write(active);
-                    pack.Send();
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)CEMessageType.PlayerSetRB);
+                    packet.Write(playerIndex);
+                    packet.Write(active);
+                    packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
                 else
                 {
@@ -214,7 +201,7 @@ namespace CalamityEntropy
                     }
                 }
             }
-            if (type == (byte)NetPackages.PlayerSetPos)
+            if (type == CEMessageType.PlayerSetPos)
             {
                 int id = reader.ReadInt32();
                 Vector2 pos = reader.ReadVector2();
@@ -224,14 +211,14 @@ namespace CalamityEntropy
                 }
                 if (Main.dedServ)
                 {
-                    ModPacket p = Instance.GetPacket();
-                    p.Write((byte)NetPackages.PlayerSetPos);
-                    p.Write(id);
-                    p.WriteVector2(pos);
-                    p.Send();
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)CEMessageType.PlayerSetPos);
+                    packet.Write(id);
+                    packet.WriteVector2(pos);
+                    packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
             }
-            if (type == (byte)NetPackages.VoidTouchDamageShow)
+            if (type == CEMessageType.VoidTouchDamageShow)
             {
                 if (!Main.dedServ)
                 {
@@ -240,7 +227,7 @@ namespace CalamityEntropy
                     CombatText.NewText(npc.getRect(), new Color(148, 148, 255), damageDone);
                 }
             }
-            if (type == (byte)NetPackages.PoopSync)
+            if (type == CEMessageType.PoopSync)
             {
                 Player player = reader.ReadInt32().ToPlayer();
                 bool holding = reader.ReadBoolean();
@@ -248,13 +235,13 @@ namespace CalamityEntropy
                 if (Main.dedServ)
                 {
                     ModPacket packet = Instance.GetPacket();
-                    packet.Write((byte)NetPackages.PoopSync);
+                    packet.Write((byte)CEMessageType.PoopSync);
                     packet.Write(player.whoAmI);
                     packet.Write(holding);
-                    packet.Send();
+                    packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
             }
-            if (type == (byte)NetPackages.SpawnItem)
+            if (type == CEMessageType.SpawnItem)
             {
                 int plr = reader.ReadInt32();
                 int itemtype = reader.ReadInt32();
@@ -273,14 +260,14 @@ namespace CalamityEntropy
                         Main.item[i].noGrabDelay = 100;
                     }
                     ModPacket packet = Instance.GetPacket();
-                    packet.Write((byte)NetPackages.SpawnItem);
+                    packet.Write((byte)CEMessageType.SpawnItem);
                     packet.Write(player.whoAmI);
                     packet.Write(itemtype);
                     packet.Write(stack);
-                    packet.Send();
+                    packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
             }
-            if (type == (byte)NetPackages.PickUpPoop)
+            if (type == CEMessageType.PickUpPoop)
             {
                 int plr = reader.ReadInt32();
                 string name = reader.ReadString();
@@ -295,16 +282,16 @@ namespace CalamityEntropy
                 }
                 player.Entropy().poops.Add(poop);
             }
-            if (type == (byte)NetPackages.SyncEntropyMode)
+            if (type == CEMessageType.SyncEntropyMode)
             {
                 bool enabled = reader.ReadBoolean();
                 EntropyMode = enabled;
                 if (Main.dedServ)
                 {
                     ModPacket packet = this.GetPacket();
-                    packet.Write((byte)NetPackages.SyncEntropyMode);
+                    packet.Write((byte)CEMessageType.SyncEntropyMode);
                     packet.Write(enabled);
-                    packet.Send();
+                    packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
                 else
                 {
@@ -937,11 +924,11 @@ namespace CalamityEntropy
                                 sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.7f, SpriteEffects.None, 0);
                             };
                             Func<bool> nihtwin = () => EDownedBosses.downedNihilityTwin;
-                            AddBoss(bossChecklist, CalamityEntropy.Instance, entryName, 19.3f, nihtwin, segments, new Dictionary<string, object>()
+                            AddBoss(bossChecklist, Instance, entryName, 19.3f, nihtwin, segments, new Dictionary<string, object>()
                             {
-                                ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.EntryName"),
-                                ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.SpawnInfo"),
-                                ["despawnMessage"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.DespawnMessage"),
+                                ["displayName"] = Language.GetText("Mods.NPCs.NihilityActeriophage.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetText("Mods.NPCs.NihilityActeriophage.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetText("Mods.NPCs.NihilityActeriophage.BossChecklistIntegration.DespawnMessage"),
                                 ["spawnItems"] = ModContent.ItemType<NihilityHorn>(),
                                 ["collectibles"] = collection,
                                 ["customPortrait"] = portrait
@@ -957,11 +944,11 @@ namespace CalamityEntropy
                                 sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.7f, SpriteEffects.None, 0);
                             };
                             Func<bool> cruiser = () => EDownedBosses.downedCruiser;
-                            AddBoss(bossChecklist, CalamityEntropy.Instance, entryName, 21.7f, cruiser, segments, new Dictionary<string, object>()
+                            AddBoss(bossChecklist, Instance, entryName, 21.7f, cruiser, segments, new Dictionary<string, object>()
                             {
-                                ["displayName"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.EntryName"),
-                                ["spawnInfo"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.SpawnInfo"),
-                                ["despawnMessage"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.DespawnMessage"),
+                                ["displayName"] = Language.GetTextValue("Mods.NPCs.Cruiser.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetTextValue("Mods.NPCs.Cruiser.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetTextValue("Mods.NPCs.Cruiser.BossChecklistIntegration.DespawnMessage"),
                                 ["spawnItems"] = ModContent.ItemType<VoidBottle>(),
                                 ["collectibles"] = collection,
                                 ["customPortrait"] = portrait
@@ -981,7 +968,7 @@ namespace CalamityEntropy
                             AddBoss(bossChecklist, ModContent.GetInstance<CalamityMod.CalamityMod>(), entryName, 23.5f, wyd, segments2, new Dictionary<string, object>()
                             {
                                 ["displayName"] = Language.GetText("Mods.CalamityMod.NPCs.PrimordialWyrmHead.DisplayName"),
-                                ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.PWSpawnInfo"),
+                                ["spawnInfo"] = Language.GetText("Mods.PWSpawnInfo"),
                                 ["collectibles"] = collection2,
                                 ["customPortrait"] = portrait2
                             });
@@ -1764,7 +1751,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
 
-                if (CalamityEntropy.FlashEffectStrength > 0)
+                if (FlashEffectStrength > 0)
                 {
                     graphicsDevice.SetRenderTarget(screen);
                     graphicsDevice.Clear(Color.Transparent);
@@ -1781,7 +1768,7 @@ namespace CalamityEntropy
 
                     for (float i = 1; i <= 10; i++)
                     {
-                        Main.spriteBatch.Draw(screen, screen.Size() / 2, null, Color.White * ((10f / i) * 0.2f * CalamityEntropy.FlashEffectStrength), 0, screen.Size() / 2, 1 + CalamityEntropy.FlashEffectStrength * 0.1f * i, SpriteEffects.None, 0);
+                        Main.spriteBatch.Draw(screen, screen.Size() / 2, null, Color.White * ((10f / i) * 0.2f * FlashEffectStrength), 0, screen.Size() / 2, 1 + FlashEffectStrength * 0.1f * i, SpriteEffects.None, 0);
                     }
                     Main.spriteBatch.End();
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);

@@ -3,7 +3,6 @@ using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Rogue;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;

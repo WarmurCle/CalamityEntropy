@@ -3,7 +3,6 @@ using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.NPCs.ExoMechs.Ares;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

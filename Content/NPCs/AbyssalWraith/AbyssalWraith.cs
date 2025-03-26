@@ -5,7 +5,6 @@ using CalamityEntropy.Util;
 using CalamityMod.Items.Potions;
 using CalamityMod.Particles;
 using CalamityMod.World;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
