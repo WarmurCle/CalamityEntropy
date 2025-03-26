@@ -2310,6 +2310,7 @@ NPCs: {
 	SoulSlurperFriendly.DisplayName: 友好的灵魂饮食者
 	SkyfinFriendly.DisplayName: 友好的天鳍鱼
 	IceClasperFriendly.DisplayName: 友好的食魂冰虫
+	// TheProphet.DisplayName: The Prophet
 }
 
 WyrmChatNoHome: 我们现在要去哪？

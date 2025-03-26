@@ -2153,6 +2153,7 @@ NPCs: {
 	SoulSlurperFriendly.DisplayName: Soul Slurper Friendly
 	SkyfinFriendly.DisplayName: Skyfin Friendly
 	IceClasperFriendly.DisplayName: Ice Clasper Friendly
+	TheProphet.DisplayName: The Prophet
 }
 
 WyrmChatNoHome: Where are we going now?
