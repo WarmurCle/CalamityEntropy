@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader;
+﻿
+using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria;
 using Microsoft.Xna.Framework.Graphics;
@@ -106,6 +107,7 @@ using System.Diagnostics.Metrics;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles.Chainsaw;
+using CalamityEntropy.Content.NPCs.Prophet;
 namespace CalamityEntropy
 {
     public class CalamityEntropy : Mod
