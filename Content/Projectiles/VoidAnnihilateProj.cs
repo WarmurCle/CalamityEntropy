@@ -147,7 +147,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                if (CEKeybinds.RetrieveVoidAnnihilateHotKey.JustPressed)
+                if (!Main.dedServ && CEKeybinds.RetrieveVoidAnnihilateHotKey.JustPressed)
                 {
                     if (!backing)
                     {

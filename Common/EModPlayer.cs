@@ -1059,8 +1059,7 @@ namespace CalamityEntropy.Common
             }
             if (brokenAnkh)
             {
-                if (Player.whoAmI == Main.myPlayer)
-                {
+                if (Player.whoAmI == Main.myPlayer && !Main.dedServ) {
                     if (!holdingPoop && CEKeybinds.PoopHoldHotKey is not null && CEKeybinds.PoopHoldHotKey.JustPressed)
                     {
                         if (PoopHold is not null)
@@ -1081,7 +1080,7 @@ namespace CalamityEntropy.Common
                             }
                         }
                     }
-                    if (!holdingPoop && CEKeybinds.ThrowPoopHotKey is not null && CEKeybinds.ThrowPoopHotKey.JustPressed)
+                    if (!Main.dedServ && !holdingPoop && CEKeybinds.ThrowPoopHotKey is not null && CEKeybinds.ThrowPoopHotKey.JustPressed)
                     {
                         if (poops.Count > 0)
                         {
@@ -1123,7 +1122,7 @@ namespace CalamityEntropy.Common
                         Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<RbCircle>(), 0, 0, Player.whoAmI);
                     }
                 }
-                if (CalamityKeybinds.AscendantInsigniaHotKey.JustPressed || (rBadgeActive && (Player.controlJump || rBadgeCharge <= 0)))
+                if (!Main.dedServ && CalamityKeybinds.AscendantInsigniaHotKey.JustPressed || (rBadgeActive && (Player.controlJump || rBadgeCharge <= 0)))
                 {
                     rBadgeActive = !rBadgeActive;
                     if (rBadgeActive)
@@ -1223,7 +1222,7 @@ namespace CalamityEntropy.Common
             {
                 VSoundsPlayed = false;
             }
-            if (VoidCharge >= 1 && CalamityKeybinds.ArmorSetBonusHotKey.JustPressed)
+            if (!Main.dedServ && VoidCharge >= 1 && CalamityKeybinds.ArmorSetBonusHotKey.JustPressed)
             {
                 if (VoidInspire <= 0)
                 {

@@ -71,15 +71,24 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Terraria;
-using Terraria.Graphics.Effects;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-using Terraria.UI;
+using CalamityEntropy.Content.UI.Poops;
+using CalamityEntropy.Content.ArmorPrefixes;
+using CalamityMod.Items.Weapons.Magic;
+using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Items.Weapons.Ranged;
+using CalamityMod.Items.Pets;
+using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Materials;
+using Microsoft.Xna.Framework.Audio;
+using System.Diagnostics.Metrics;
+using CalamityEntropy.Content.NPCs.NihilityTwin;
+using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Projectiles.Chainsaw;
+using CalamityMod.Systems;
+using CalamityMod.World;
+using Newtonsoft.Json.Linq;
+using Terraria.Graphics.Renderers;
+using CalamityEntropy.Content.NPCs.Prophet;
 namespace CalamityEntropy
 {
     public class CalamityEntropy : Mod
@@ -868,6 +877,8 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<PrimordialWyrmHead>()] = new Color(255, 255, 80);
             EntropyBossbar.bossbarColor[ModContent.NPCType<NihilityActeriophage>()] = new Color(255, 155, 248);
             EntropyBossbar.bossbarColor[ModContent.NPCType<ChaoticCell>()] = new Color(255, 155, 248);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<TheProphet>()] = new Color(180, 233, 255);
+
             if (ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
             {
                 EntropyBossbar.bossbarColor[catalyst.Find<ModNPC>("Astrageldon").Type] = new Color(220, 94, 210);

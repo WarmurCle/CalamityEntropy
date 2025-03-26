@@ -66,7 +66,7 @@ public class EPlayerDash : ModPlayer
                 DashDir = DashRight;
             }
         }
-        if (CanUseDash() && (DashDir != -1 || CalamityKeybinds.DashHotkey.JustPressed) && DashDelay == 0)
+        if (!Main.dedServ && CanUseDash() && (DashDir != -1 || CalamityKeybinds.DashHotkey.JustPressed) && DashDelay == 0)
         {
             DashDirLast = DashDir;
             Player.wingTime -= 20;

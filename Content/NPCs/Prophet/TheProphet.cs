@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             {
                 NPC.damage += 4;
             }
-            var snd = Util.Util.GetSound("prophet_hurt");
+            var snd = Util.Util.GetSound("prophet_hurt", maxIns:1);
             var snd2 = Util.Util.GetSound("prophet_death");
             NPC.HitSound = snd;
             NPC.DeathSound = snd2;
@@ -167,10 +167,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             DrawTail();
             DrawFins();
             Texture2D tex = TextureAssets.Npc[NPC.type].Value;
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, Color.White, NPC.rotation + MathHelper.PiOver2, tex.Size() / 2, NPC.scale, SpriteEffects.None);
+            Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             return false;
         }
         public void DrawFins()
