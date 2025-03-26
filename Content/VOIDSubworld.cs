@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.IO;
 using Terraria.Utilities;
 using Terraria.WorldBuilding;
+using Microsoft.Xna.Framework;
 
 namespace CalamityEntropy.Content.DimDungeon
 {

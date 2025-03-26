@@ -1,4 +1,6 @@
-﻿namespace CalamityEntropy.Content.DimDungeon;
+﻿using Microsoft.Xna.Framework;
+
+namespace CalamityEntropy.Content.DimDungeon;
 
 public class Corridor
 {

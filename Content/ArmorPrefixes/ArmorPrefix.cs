@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace CalamityEntropy.Content.ArmorPrefixes
 {
