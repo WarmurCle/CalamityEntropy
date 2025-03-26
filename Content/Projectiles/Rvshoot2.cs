@@ -12,8 +12,6 @@ namespace CalamityEntropy.Content.Projectiles
     {
         List<Vector2> odp = new List<Vector2>();
         List<float> odr = new List<float>();
-        float angle;
-        float speed = 30;
         bool htd = false;
         float exps = 0;
         public override void SetStaticDefaults()

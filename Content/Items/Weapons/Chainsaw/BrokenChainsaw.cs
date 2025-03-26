@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
                 Register();
             CreateRecipe().
                 AddIngredient<DubiousPlating>(5).
-                AddIngredient(704, 10).
+                AddIngredient(ItemID.LeadBar, 10).
                 AddIngredient(ItemID.Chain, 1).
                 AddTile(TileID.Anvils).
                 Register();

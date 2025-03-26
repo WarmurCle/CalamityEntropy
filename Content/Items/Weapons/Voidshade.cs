@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(426).AddIngredient(ModContent.ItemType<Voidstone>(), 12).AddTile(TileID.Anvils).Register();
+            CreateRecipe().AddIngredient(ItemID.BreakerBlade).AddIngredient(ModContent.ItemType<Voidstone>(), 12).AddTile(TileID.Anvils).Register();
         }
     }
 }

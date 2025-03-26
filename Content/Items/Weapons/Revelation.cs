@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             recipe.AddIngredient(ModContent.ItemType<MeldConstruct>(), 5);
             recipe.AddIngredient(ModContent.ItemType<ShardofAntumbra>(), 1);
             recipe.AddIngredient(ItemID.DeathSickle, 1);
-            recipe.AddTile(412);
+            recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
         }
     }

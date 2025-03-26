@@ -29,7 +29,6 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 8;
         }
-        float dLength = 0;
         public bool ssd = true;
         public NPC target = null;
         public override void AI()
@@ -201,10 +200,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             Texture2D start = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/brimstone/start").Value;
 
-
-
             List<Vector2> point = new List<Vector2>();
-            dLength = 0;
 
             point.Add(Projectile.Center + Projectile.rotation.ToRotationVector2() * 24);
             for (int i = 0; i < points.Count - 1; i++)

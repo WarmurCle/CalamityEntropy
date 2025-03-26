@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -53,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Main.rand.NextBool(16))
                 {
-                    Dust dust = Dust.NewDustDirect(base.Projectile.Center + Main.rand.NextVector2Circular(60f, 60f) * Utils.Remap(Time, 0f, Fadetime, 0.5f, 1f), 4, 4, 295, base.Projectile.velocity.X * 0.2f, base.Projectile.velocity.Y * 0.2f, 100);
+                    Dust dust = Dust.NewDustDirect(base.Projectile.Center + Main.rand.NextVector2Circular(60f, 60f) * Utils.Remap(Time, 0f, Fadetime, 0.5f, 1f), 4, 4, DustID.CorruptTorch, base.Projectile.velocity.X * 0.2f, base.Projectile.velocity.Y * 0.2f, 100);
                     if (Main.rand.NextBool(5))
                     {
                         dust.noGravity = true;

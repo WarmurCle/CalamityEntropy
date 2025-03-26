@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Items
 
         public override bool? UseItem(Player player)
         {
-            if (Main.netMode != 1)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int n = NPC.NewNPC(player.GetSource_FromAI(), (int)player.position.X, (int)player.position.Y, summonList[Main.rand.Next(0, summonList.Count)]);
                 n.ToNPC().localAI[3] = player.whoAmI + 1;

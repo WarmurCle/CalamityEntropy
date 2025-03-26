@@ -278,7 +278,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     SoundEngine.PlaySound(in SoundID.Item14, npc.Center);
                     for (int j = 0; j < 10; j++)
                     {
-                        Dust.NewDust(npc.position, npc.width, npc.height, 235, 0f, -1f);
+                        Dust.NewDust(npc.position, npc.width, npc.height, DustID.LifeDrain, 0f, -1f);
                     }
 
                     if (Main.zenithWorld)
@@ -296,7 +296,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                 {
                     for (int k = 0; k < 5; k++)
                     {
-                        Dust.NewDust(npc.position, npc.width, npc.height, 33, 0f, -1f);
+                        Dust.NewDust(npc.position, npc.width, npc.height, DustID.Water, 0f, -1f);
                     }
                 }
             }

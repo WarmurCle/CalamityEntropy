@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Vanity
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(4271)
+                .AddIngredient(ItemID.BloodMoonStarter)
                 .AddIngredient(ItemID.Silk, 4)
                 .AddTile(TileID.WorkBenches)
                 .Register();

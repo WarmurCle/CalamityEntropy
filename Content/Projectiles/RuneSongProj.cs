@@ -13,8 +13,6 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class RuneSongProj : ModProjectile
     {
-        float sr = 0;
-        float j = 0.01f;
         List<float> odr = new List<float>();
         List<float> ods = new List<float>();
         public int noSlowTime = 0;

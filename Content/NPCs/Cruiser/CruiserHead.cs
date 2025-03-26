@@ -39,8 +39,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public int noaitime = 280;
         public int notargettime = 0;
         public int tjv = 0;
-        private float lastHurt = 0;
-        private int ydmg = 0;
         public bool bite = false;
         public float mouthRot = 0;
         public int tail = -1;

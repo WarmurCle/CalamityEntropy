@@ -15,8 +15,6 @@ namespace CalamityEntropy.Content.Projectiles
         public bool htd = false;
         public float exps = 0;
         public Vector2 dscp = Vector2.Zero;
-        float particlea = 1;
-        float alpha = 1f;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -50,7 +48,6 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            particlea *= 0.9f;
             counter++;
             Projectile.ai[0]++;
             if (htd)

@@ -746,9 +746,9 @@ namespace CalamityEntropy.Common
 
                     int buffDisplayRowLimit = 5;
 
-                    float drawPosX = totalLength >= 80f ? 40f : (float)(totalLength / 2);
+                    float drawPosX = totalLength >= 80f ? 40f : totalLength / 2;
 
-                    float npcHeight = (float)(TextureAssets.Npc[npc.type].Value.Height / Main.npcFrameCount[npc.type] / 2) * npc.scale;
+                    float npcHeight = TextureAssets.Npc[npc.type].Value.Height / Main.npcFrameCount[npc.type] / 2 * npc.scale;
 
                     float drawPosY = npcHeight + npc.gfxOffY + 16f;
 
@@ -772,11 +772,11 @@ namespace CalamityEntropy.Common
                         }
                         if (abyssMarkDraw && i == abyssMarkIndex)
                         {
-                            spriteBatch.DrawString(FontAssets.MouseText.Value, ((int)npc.Entropy().StareOfAbyssLevel).ToString(), npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
+                            spriteBatch.DrawString(FontAssets.MouseText.Value, npc.Entropy().StareOfAbyssLevel.ToString(), npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
                         }
                         if (eclipseMarkDraw && i == eclipseMarkIndex)
                         {
-                            spriteBatch.DrawString(FontAssets.MouseText.Value, ((int)npc.Entropy().EclipsedImprintLevel).ToString(), npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
+                            spriteBatch.DrawString(FontAssets.MouseText.Value, npc.Entropy().EclipsedImprintLevel.ToString(), npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
                         }
                     }
                 }
@@ -807,7 +807,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if (npc.type == -3 || npc.type == 1 || npc.type == -8 || npc.type == -7 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10)
+            if (npc.type == -3 || npc.type == NPCID.BlueSlime || npc.type == -8 || npc.type == -7 || npc.type == -9 || npc.type == -6 || npc.type == NPCID.IceSlime || npc.type == -10)
             {
                 if (Main.rand.NextBool(420))
                 {

@@ -13,10 +13,7 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class PoTPhantom : ModProjectile
     {
-        float sr = 0;
-        float j = 0.01f;
         List<float> odr = new List<float>();
-        List<float> ods = new List<float>();
         public int noSlowTime = 0;
         public float timej = 1f;
         public override void SetStaticDefaults()

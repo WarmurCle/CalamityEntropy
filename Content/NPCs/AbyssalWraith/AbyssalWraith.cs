@@ -1138,14 +1138,14 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            if (false)
-            {
-                if (lastLife - NPC.life > maxDmgCanTake)
-                {
-                    NPC.life = lastLife - maxDmgCanTake;
-                }
-                checkLife = false;
-            }
+            //if (false)
+            //{
+            //    if (lastLife - NPC.life > maxDmgCanTake)
+            //    {
+            //        NPC.life = lastLife - maxDmgCanTake;
+            //    }
+            //    checkLife = false;
+            //}
         }
         public bool deathAnm = false;
 

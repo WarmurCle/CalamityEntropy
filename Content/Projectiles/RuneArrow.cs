@@ -11,10 +11,7 @@ namespace CalamityEntropy.Content.Projectiles
     {
         List<Vector2> odp = new List<Vector2>();
         List<float> odr = new List<float>();
-        float angle;
-        float speed = 30;
         bool htd = false;
-        float exps = 0;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -69,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity += v * 2f;
                 }
             }
-            exps *= 0.9f;
+
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

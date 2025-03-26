@@ -15,8 +15,6 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class PoTProj : ModProjectile
     {
-        float sr = 0;
-        float j = 0.01f;
         public List<float> odr = new List<float>();
         public List<float> ods = new List<float>();
         public int noSlowTime = 0;

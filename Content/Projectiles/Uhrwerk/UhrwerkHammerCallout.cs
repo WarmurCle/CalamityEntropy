@@ -32,7 +32,7 @@ public class UhrwerkHammerCallout : ModProjectile
         Projectile.localNPCHitCooldown = 4;
         Projectile.ArmorPenetration = 5;
     }
-    int frame = 3;
+
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];

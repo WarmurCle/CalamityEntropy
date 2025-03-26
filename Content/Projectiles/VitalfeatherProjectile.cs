@@ -105,12 +105,12 @@ namespace CalamityEntropy.Content.Projectiles
             SoundEngine.PlaySound(in SoundID.Item14, target.Center);
             for (int i = 0; i < 40; i++)
             {
-                int num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 174, 0f, 0f, 200, default(Color), 2);
+                int num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, DustID.InfernoFork, 0f, 0f, 200, default(Color), 2);
                 Dust obj = Main.dust[num];
                 obj.position = target.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * target.width / 2f;
                 obj.noGravity = true;
                 obj.velocity = Util.Util.randomVec(8);
-                num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 174, 0f, 0f, 100, default(Color), 2);
+                num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, DustID.InfernoFork, 0f, 0f, 100, default(Color), 2);
                 obj.position = target.Center;
                 obj.velocity.Y -= 6f;
                 obj.velocity *= 2f;

@@ -21,7 +21,6 @@ namespace CalamityEntropy.Content.Projectiles
         public int counter = 0;
         List<Vector2> l = new List<Vector2>();
         public int length = 2000;
-        NPC ownern = null;
         public float width = 0;
         public override void SetDefaults()
         {

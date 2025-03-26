@@ -33,8 +33,6 @@ namespace CalamityEntropy.Content.Menu
             return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Assets/Extra/white");
         }
 
-        private static int SurfaceFrameCounter;
-        private static int SurfaceFrame;
         public override int ChooseMiddleTexture()
         {
             return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Assets/Extra/white");
@@ -50,7 +48,5 @@ namespace CalamityEntropy.Content.Menu
 
             return false;
         }
-
-
     }
 }

@@ -18,7 +18,6 @@ namespace CalamityEntropy.Content.Projectiles
         public bool htd = false;
         public float exps = 0;
         public Vector2 dscp = Vector2.Zero;
-        float particlea = 1;
         float alpha = 1f;
         public override void SetStaticDefaults()
         {

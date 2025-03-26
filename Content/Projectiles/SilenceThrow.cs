@@ -14,8 +14,6 @@ namespace CalamityEntropy.Content.Projectiles
     {
         List<Vector2> odp = new List<Vector2>();
         List<float> odr = new List<float>();
-        float angle;
-        float speed = 30;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -39,10 +37,6 @@ namespace CalamityEntropy.Content.Projectiles
         bool thrownHook = false;
         public override void AI()
         {
-            if (Projectile.ai[0] == 0)
-            {
-                angle = Projectile.velocity.ToRotation();
-            }
             if (Projectile.owner.ToPlayer().ownedProjectileCounts[ModContent.ProjectileType<SilenceHook>()] < 1)
             {
                 thrownHook = false;

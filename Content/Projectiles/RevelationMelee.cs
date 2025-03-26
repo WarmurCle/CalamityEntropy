@@ -8,11 +8,8 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class RevelationMelee : ModProjectile
     {
-        List<Vector2> odp = new List<Vector2>();
-        List<float> odr = new List<float>();
         List<Texture2D> jtx = new List<Texture2D>();
         float angle;
-        float speed = 30;
         int frame = 0;
         int fc = 0;
         float ca;

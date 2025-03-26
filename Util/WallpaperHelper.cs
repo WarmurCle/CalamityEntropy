@@ -34,7 +34,7 @@ namespace CalamityEntropy.Util
                 File.Copy(originalPath, tempPath, true);
                 return tempPath;
             }
-            catch (UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException)
             {
                 return null;
             }

@@ -29,10 +29,10 @@ namespace CalamityEntropy
 
     internal class CENetWork
     {
-        public static void HandlePacket(BinaryReader reader, int whoAmI)
+        public static void Handle(BinaryReader reader, int whoAmI)
         {
-            CEMessageType type = (CEMessageType)reader.ReadByte();
-            if (type == CEMessageType.LotteryMachineRightClicked)
+            CEMessageType messageType = (CEMessageType)reader.ReadByte();
+            if (messageType == CEMessageType.LotteryMachineRightClicked)
             {
                 int plr = reader.ReadInt32();
                 int npc = reader.ReadInt32();
@@ -51,7 +51,7 @@ namespace CalamityEntropy
                     }
                 }
             }
-            if (type == CEMessageType.TurnFriendly)
+            else if (messageType == CEMessageType.TurnFriendly)
             {
                 int id = reader.ReadInt32();
                 int owner = reader.ReadInt32();
@@ -66,11 +66,11 @@ namespace CalamityEntropy
                     packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
             }
-            if (type == CEMessageType.Text)
+            else if (messageType == CEMessageType.Text)
             {
                 Main.NewText(reader.ReadString());
             }
-            if (type == CEMessageType.BossKilled)
+            else if (messageType == CEMessageType.BossKilled)
             {
                 bool flag = reader.ReadBoolean();
                 if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || flag))
@@ -79,7 +79,7 @@ namespace CalamityEntropy
                     SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
                 }
             }
-            if (type == CEMessageType.PlayerSetRB)
+            else if (messageType == CEMessageType.PlayerSetRB)
             {
                 int playerIndex = reader.ReadInt32();
                 bool active = reader.ReadBoolean();
@@ -116,7 +116,7 @@ namespace CalamityEntropy
                     }
                 }
             }
-            if (type == CEMessageType.PlayerSetPos)
+            else if (messageType == CEMessageType.PlayerSetPos)
             {
                 int id = reader.ReadInt32();
                 Vector2 pos = reader.ReadVector2();
@@ -133,7 +133,7 @@ namespace CalamityEntropy
                     packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
             }
-            if (type == CEMessageType.VoidTouchDamageShow)
+            else if (messageType == CEMessageType.VoidTouchDamageShow)
             {
                 if (!Main.dedServ)
                 {
@@ -142,7 +142,7 @@ namespace CalamityEntropy
                     CombatText.NewText(npc.getRect(), new Color(148, 148, 255), damageDone);
                 }
             }
-            if (type == CEMessageType.PoopSync)
+            else if (messageType == CEMessageType.PoopSync)
             {
                 Player player = reader.ReadInt32().ToPlayer();
                 bool holding = reader.ReadBoolean();
@@ -156,7 +156,7 @@ namespace CalamityEntropy
                     packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
             }
-            if (type == CEMessageType.SpawnItem)
+            else if (messageType == CEMessageType.SpawnItem)
             {
                 int plr = reader.ReadInt32();
                 int itemtype = reader.ReadInt32();
@@ -182,7 +182,7 @@ namespace CalamityEntropy
                     packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
                 }
             }
-            if (type == CEMessageType.PickUpPoop)
+            else if (messageType == CEMessageType.PickUpPoop)
             {
                 int plr = reader.ReadInt32();
                 string name = reader.ReadString();
@@ -197,7 +197,7 @@ namespace CalamityEntropy
                 }
                 player.Entropy().poops.Add(poop);
             }
-            if (type == CEMessageType.SyncEntropyMode)
+            else if (messageType == CEMessageType.SyncEntropyMode)
             {
                 bool enabled = reader.ReadBoolean();
                 EntropyMode = enabled;

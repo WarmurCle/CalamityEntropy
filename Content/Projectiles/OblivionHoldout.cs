@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 40;
             Projectile.ArmorPenetration = 86;
         }
-        int ammoID = -1;
+
         public override bool? CanCutTiles()
         {
             return false;
