@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -32,13 +32,14 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ai[1] = 1;
             Projectile.ArmorPenetration = 36;
         }
-        public override void AI(){
+        public override void AI()
+        {
             if (Projectile.ai[0] == 0)
             {
                 Projectile.ai[1] = 1;
-               
+
             }
-            
+
             if (Projectile.ai[0] > 10)
             {
                 Projectile.ai[1] *= 0.955f;

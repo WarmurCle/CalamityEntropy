@@ -1,23 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using Steamworks;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.UI;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -235,7 +229,7 @@ namespace CalamityEntropy.Content.Projectiles
                           b));
                 }
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SlashTrans2", AssetRequestMode.ImmediateLoad).Value;
-                
+
                 sb.End();
                 sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
                 shader.CurrentTechnique.Passes["EnchantedPass"].Apply();

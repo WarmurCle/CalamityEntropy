@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetCritChance(DamageClass.Generic) += 10;
             player.GetArmorPenetration(DamageClass.Generic) += 20;
-	        player.GetAttackSpeed(DamageClass.Melee) += 0.30f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.30f;
             player.Entropy().VFSet = true;
             player.Entropy().VFHelmMelee = true;
         }

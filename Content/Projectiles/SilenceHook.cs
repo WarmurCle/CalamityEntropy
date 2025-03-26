@@ -1,4 +1,4 @@
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -7,7 +7,8 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class SilenceHook : ModProjectile {
+    public class SilenceHook : ModProjectile
+    {
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -33,14 +34,15 @@ namespace CalamityEntropy.Content.Projectiles
         public int hNPC = -1;
         public Vector2 offset;
         public bool backing = false;
-        public override void AI(){
+        public override void AI()
+        {
             Projectile sl = ((int)Projectile.ai[1]).ToProj();
             if (Util.Util.getDistance(sl.Center, Projectile.Center) > 1100)
             {
                 Projectile.Kill();
             }
             if (hNPC != -1)
-            { 
+            {
                 if (hNPC.ToNPC().active == false)
                 {
                     hNPC = -1;
@@ -70,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            
+
             if (!sl.active)
             {
                 Projectile.Kill();
@@ -85,7 +87,7 @@ namespace CalamityEntropy.Content.Projectiles
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/chain2"), Projectile.Center);
                 hNPC = target.whoAmI;
                 offset = Projectile.Center - target.Center;
-            }    
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)

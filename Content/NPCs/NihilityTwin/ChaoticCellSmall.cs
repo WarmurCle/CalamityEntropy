@@ -1,29 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Dusts;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
 using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Items.Potions;
-using CalamityMod.NPCs.TownNPCs;
-using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities.Terraria.Utilities;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin
 {
@@ -45,9 +31,12 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.width = 64;
             NPC.height = 64;
             NPC.damage = 75;
-            if (Main.expertMode) {
+            if (Main.expertMode)
+            {
                 NPC.damage += 6;
-            } if (Main.masterMode) {
+            }
+            if (Main.masterMode)
+            {
                 NPC.damage += 6;
             }
             NPC.lifeMax = 2200;
@@ -79,7 +68,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 NPC.active = false;
             }
             NPC.rotation += NPC.velocity.X * 0.002f;
-            if (owner.HasValidTarget) {
+            if (owner.HasValidTarget)
+            {
                 NPC.velocity += (owner.target.ToPlayer().Center - NPC.Center).SafeNormalize(Vector2.Zero) * 0.36f;
             }
             NPC.velocity += (owner.Center - NPC.Center) * 0.0022f;
@@ -102,9 +92,9 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             rope.Start = NPC.Center;
             rope.End = rend;
             rope.Update();
-            foreach(NPC n in Main.ActiveNPCs)
+            foreach (NPC n in Main.ActiveNPCs)
             {
-                if(n.type == NPC.type && n.whoAmI != NPC.whoAmI)
+                if (n.type == NPC.type && n.whoAmI != NPC.whoAmI)
                 {
                     if (n.getRect().Intersects(NPC.getRect()))
                     {

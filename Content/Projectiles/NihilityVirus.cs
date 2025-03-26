@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -39,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(targets.Contains(target)) return null;
+            if (targets.Contains(target)) return null;
             return false;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -54,16 +50,16 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Projectile.frameCounter++;
-            if(Projectile.frameCounter > 3)
+            if (Projectile.frameCounter > 3)
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
-                if(Projectile.frame >= 4)
+                if (Projectile.frame >= 4)
                 {
                     Projectile.frame = 0;
                 }
             }
-            if(sound == null)
+            if (sound == null)
             {
                 sound = new LoopSound(CalamityEntropy.ealaserSound2);
                 sound.play();
@@ -84,16 +80,16 @@ namespace CalamityEntropy.Content.Projectiles
             player.itemAnimation = 9;
             player.itemRotation = ((Projectile.Center - player.Center) * player.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
-            if(Main.GameUpdateCount % 12 == 0)
+            if (Main.GameUpdateCount % 12 == 0)
             {
                 player.manaRegenDelay = 30;
-                if(!player.CheckMana(player.HeldItem.mana, true))
+                if (!player.CheckMana(player.HeldItem.mana, true))
                 {
                     Projectile.Kill();
                 }
             }
             Projectile.netUpdate = true;
-            
+
             Projectile.rotation += 0.16f * player.direction;
             Util.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 12);
             targets.Clear();
@@ -121,7 +117,7 @@ namespace CalamityEntropy.Content.Projectiles
                     targets.Add(target);
                 }
             }
-            if(targets.Count == 0)
+            if (targets.Count == 0)
             {
                 for (int i = 0; i < 8; i++)
                 {
@@ -170,7 +166,7 @@ namespace CalamityEntropy.Content.Projectiles
             Vector2 handPos = opos + (Projectile.Center - opos).SafeNormalize(Vector2.Zero) * 120 * Projectile.getOwner().HeldItem.scale;
             Vector2 end = Projectile.Center;
             drawlightning(handPos, end, 1.6f, 3);
-            foreach(NPC npc in targets)
+            foreach (NPC npc in targets)
             {
                 drawlightning(Projectile.Center, npc.Center, 2.6f - (targets.Count * 0.225f));
             }
@@ -188,6 +184,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

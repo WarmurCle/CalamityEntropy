@@ -1,21 +1,16 @@
+﻿using CalamityEntropy.Util;
+using CalamityMod;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Particles;
-using CalamityMod.Projectiles.Ranged;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Particle = CalamityEntropy.Content.Particles.Particle;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -45,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float handrot = 0;
         public float handrotspeed = 0;
         public Vector2 ownerMouse = Vector2.Zero;
-        
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(Projectile.rotation);
@@ -75,11 +70,12 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
         }
-        public override void AI(){
+        public override void AI()
+        {
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
             frameChange--;
-            if(frameChange <= 0)
+            if (frameChange <= 0)
             {
                 frame++;
                 frameChange = 4;
@@ -99,7 +95,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] < 12)
             {
-                
+
                 var owner = Projectile.owner.ToPlayer();
 
                 if (Main.myPlayer == Projectile.owner)
@@ -140,7 +136,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     Projectile.owner.ToPlayer().heldProj = -1;
                 }
-                
+
             }
             if (Projectile.ai[0] > 12)
             {
@@ -192,7 +188,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     SwingSound.Pitch = 1f;
                 }
-                
+
                 SoundEngine.PlaySound(SwingSound, Projectile.Center);
             }
             if (stick)
@@ -298,11 +294,11 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? CanHitNPC(NPC target)
         {
-            if(hitcd > 0)
+            if (hitcd > 0)
             {
                 return false;
             }
-            if(Projectile.ai[0] <= 10)
+            if (Projectile.ai[0] <= 10)
             {
                 return false;
             }
@@ -318,7 +314,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tx1 = Util.Util.getExtraTex("Arb2");
             Texture2D tx2 = Util.Util.getExtraTex("Arb3");
             Texture2D tx3 = Util.Util.getExtraTex("Arb4");
-            List<Texture2D> tx = new List<Texture2D>() { tx1, tx2, tx3};
+            List<Texture2D> tx = new List<Texture2D>() { tx1, tx2, tx3 };
             float rj = 0;
             if (Projectile.ai[0] < 12)
             {

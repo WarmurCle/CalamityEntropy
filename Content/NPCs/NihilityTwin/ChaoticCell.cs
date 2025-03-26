@@ -1,29 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Items.Potions;
-using CalamityMod.NPCs.TownNPCs;
-using CalamityMod.Particles;
 using CalamityMod.World;
-using Humanizer;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json.Linq;
+using System.IO;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities.Terraria.Utilities;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin
 {
@@ -67,9 +51,12 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.width = 110;
             NPC.height = 110;
             NPC.damage = 104;
-            if (Main.expertMode) {
+            if (Main.expertMode)
+            {
                 NPC.damage += 6;
-            } if (Main.masterMode) {
+            }
+            if (Main.masterMode)
+            {
                 NPC.damage += 6;
             }
             NPC.defense = 30;
@@ -95,7 +82,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         public bool init = true;
         public override void SendExtraAI(BinaryWriter writer)
         {
-           writer.Write(NPC.realLife);
+            writer.Write(NPC.realLife);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
@@ -105,36 +92,38 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         {
             if (NPC.ai[2] > 0)
             {
-                if(al < 1)
+                if (al < 1)
                 {
                     al += 0.02f;
                 }
-                NPC.ai[2] --;
+                NPC.ai[2]--;
             }
             else
             {
-                if(al > 0)
+                if (al > 0)
                 {
                     al -= 0.02f;
                 }
             }
             NPC.netUpdate = true;
             NPC.velocity *= 0.965f;
-            if(NPC.realLife < 0)
+            if (NPC.realLife < 0)
             {
                 return;
             }
             NPC.rotation += NPC.velocity.X * 0.006f;
-            if (init) {
+            if (init)
+            {
                 init = false;
                 for (int i = 1; i <= 4; i++)
                 {
                     ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/NihilityTwin/ChaoticCell" + i.ToString());
                 }
             }
-            if (Main.GameUpdateCount % 5 == 0) {
+            if (Main.GameUpdateCount % 5 == 0)
+            {
                 frame++;
-                if(frame > 4)
+                if (frame > 4)
                 {
                     frame = 1;
                 }
@@ -152,7 +141,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
 
         public override bool CheckActive()
         {
-            if(NPC.realLife < 0)
+            if (NPC.realLife < 0)
             {
                 return true;
             }
@@ -162,9 +151,9 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         public float al = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if(NPC.realLife >= 0)
+            if (NPC.realLife >= 0)
             {
-                if(owner.ModNPC is NihilityActeriophage na)
+                if (owner.ModNPC is NihilityActeriophage na)
                 {
                     if (na.spawnAnm > 0)
                     {

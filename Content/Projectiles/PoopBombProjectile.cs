@@ -1,14 +1,9 @@
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -64,10 +59,11 @@ namespace CalamityEntropy.Content.Projectiles
         public virtual int Damage => 80;
         public bool shooted = false;
         public int immute = 0;
-        public override void AI(){
+        public override void AI()
+        {
             bool onPlat = false;
             expCounter += 0.2f / 30f;
-            if(expCounter > 1)
+            if (expCounter > 1)
             {
                 if (!Exp)
                 {
@@ -117,7 +113,8 @@ namespace CalamityEntropy.Content.Projectiles
                 expCounter = 1;
                 Exp = true;
             }
-            if(!Util.Util.isAir(Projectile.Center + new Vector2(0, Projectile.height / 2 + 1), true)){
+            if (!Util.Util.isAir(Projectile.Center + new Vector2(0, Projectile.height / 2 + 1), true))
+            {
                 onPlat = true;
                 if (Projectile.velocity.Y > 0)
                 {
@@ -148,11 +145,13 @@ namespace CalamityEntropy.Content.Projectiles
                     canDamageEnemies = false;
                 }
             }
-            if (!onPlat) {
+            if (!onPlat)
+            {
                 Projectile.velocity.Y += 0.82f;
-                if (Projectile.velocity.Y > 15) {
+                if (Projectile.velocity.Y > 15)
+                {
                     Projectile.velocity.Y = 15;
-                } 
+                }
             }
         }
         public float expCounter = 0;
@@ -210,8 +209,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.velocity = Vector2.Zero;
             return false;
         }
-        
+
     }
-    
+
 
 }

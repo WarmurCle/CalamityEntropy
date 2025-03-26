@@ -1,5 +1,4 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
@@ -10,7 +9,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Particle = CalamityEntropy.Content.Particles.Particle;
 
 namespace CalamityEntropy.Content.Projectiles.Chainsaw
 {
@@ -51,7 +49,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             }
             if (Projectile.ai[0] % 14 == 0)
             {
-                if(Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity * 160, Projectile.velocity, ModContent.ProjectileType<Pioneer1>(), Projectile.damage / 2, 0, Projectile.owner);
                 }
@@ -71,8 +69,9 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 player.direction = 1;
             }
-            else { 
-                player.direction = -1; 
+            else
+            {
+                player.direction = -1;
             }
             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
@@ -131,7 +130,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             }
             Projectile.velocity = newVelocity;
         }
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
@@ -144,7 +143,8 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             return new Rectangle((int)c.X - bsize / 2, (int)c.Y - bsize / 2, bsize, bsize).Intersects(targetHitbox);
 
         }
-        public override bool PreDraw(ref Color dc){
+        public override bool PreDraw(ref Color dc)
+        {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Chainsaw/Pioneer" + (((int)(Projectile.ai[0] / 4)) % frame).ToString()).Value;
             var rand = Main.rand;
             SpriteEffects ef = SpriteEffects.None;
@@ -160,6 +160,6 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             return false;
         }
     }
-    
+
 
 }

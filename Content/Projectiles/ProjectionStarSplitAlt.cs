@@ -1,6 +1,4 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Util;
-using CalamityMod.Particles;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -28,8 +26,9 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 120;
             Projectile.extraUpdates = 2;
         }
-        public override void AI(){
-            Projectile.rotation+=0.16f;
+        public override void AI()
+        {
+            Projectile.rotation += 0.16f;
             NPC target = Projectile.FindTargetWithinRange(2000, false);
             if (target != null)
             {
@@ -56,6 +55,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

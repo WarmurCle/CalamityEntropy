@@ -1,5 +1,4 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
 using Terraria;
 using Terraria.ModLoader;
@@ -25,8 +24,9 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
         }
-        
-        public override void AI(){
+
+        public override void AI()
+        {
             Projectile.ArmorPenetration = HorizonssKey.getArmorPen();
             Projectile.alpha += 255 / 60;
             Projectile.rotation = Projectile.velocity.ToRotation();

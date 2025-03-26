@@ -1,31 +1,22 @@
-using System;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.CalPlayer;
-using CalamityMod.CalPlayer.Dashes;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-	public class MawOfTheVoid : ModItem
-	{
-        public static int Damage = 225;  		public override void SetDefaults() {
-			Item.width = 40;
-			Item.height = 40;
+    public class MawOfTheVoid : ModItem
+    {
+        public static int Damage = 225; public override void SetDefaults()
+        {
+            Item.width = 40;
+            Item.height = 40;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ItemRarityID.Red;
             Item.accessory = true;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

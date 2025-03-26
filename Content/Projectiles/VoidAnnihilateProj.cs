@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
         int select = -1;
 
 
-        
+
         public override void AI()
         {
             bool MouseRight = Mouse.GetState().RightButton == ButtonState.Pressed;
@@ -66,7 +66,8 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     if (Projectile.ai[0] > 0 && select == Projectile.whoAmI && !Main.LocalPlayer.HasBuff(BuffID.ChaosState))
                     {
-                        if (MouseRight && !mprdLast)                          {
+                        if (MouseRight && !mprdLast)
+                        {
                             Main.LocalPlayer.AddBuff(BuffID.ChaosState, 300);
                             playerComeimg = true;
                             SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/teleport"), Projectile.Center);
@@ -100,7 +101,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.ai[2] = Main.MouseWorld.Y;
 
                 }
-                
+
             }
 
             if (Projectile.ai[0] == 0)
@@ -113,7 +114,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity *= 0;
                     Projectile.ai[0]++;
                 }
-                
+
             }
             else
             {
@@ -169,7 +170,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.Kill();
                 }
             }
-            
+
         }
         public bool backing = false;
         public override void SendExtraAI(BinaryWriter writer)
@@ -201,7 +202,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             Main.spriteBatch.Draw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, TextureAssets.Projectile[Projectile.type].Value.Size() / 2, Projectile.scale, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
-            
+
             return false;
         }
     }

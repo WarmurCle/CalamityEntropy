@@ -1,23 +1,8 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Util;
-using CalamityMod;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
-using CalamityMod.Projectiles.Melee;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -38,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override int modifyProjectile(int pNow)
         {
-            if(pNow == ModContent.ProjectileType<AstralBullet>())
+            if (pNow == ModContent.ProjectileType<AstralBullet>())
             {
                 return -1;
             }

@@ -1,6 +1,6 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -25,7 +25,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 80;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             Vector2 ps = Projectile.Center + new Vector2(Main.rand.Next(-20, 21), Main.rand.Next(-20, 21));
             odp.Add(ps);
             if (odp.Count > 16)
@@ -45,7 +46,8 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (odp.Count > 1) {
+            if (odp.Count > 1)
+            {
                 for (int i = 1; i < odp.Count; i++)
                 {
                     Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.White * 0.4f, 20 * Projectile.scale);
@@ -57,6 +59,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

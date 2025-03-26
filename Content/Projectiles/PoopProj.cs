@@ -1,23 +1,16 @@
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public abstract class PoopProj: ModProjectile
+    public abstract class PoopProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -125,7 +118,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity.Y = 15;
             }
-            
+
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.Hitbox.Intersects(Projectile.Hitbox))
@@ -193,11 +186,11 @@ namespace CalamityEntropy.Content.Projectiles
         public virtual void DamageMe()
         {
             Projectile.netUpdate = true;
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.ModProjectile is PoopWulfrumProjectile w && Util.Util.getDistance(Projectile.Center, p.Center) < PoopWulfrumProjectile.shieldDistance)
+                if (p.ModProjectile is PoopWulfrumProjectile w && Util.Util.getDistance(Projectile.Center, p.Center) < PoopWulfrumProjectile.shieldDistance)
                 {
-                    if(w.shield > 0)
+                    if (w.shield > 0)
                     {
                         w.shield -= 8;
                         p.netUpdate = true;
@@ -206,7 +199,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             Util.Util.PlaySound("pop_impact_13", 1, Projectile.Center);
-            if(Main.rand.Next(0, 101) <= damageChance)
+            if (Main.rand.Next(0, 101) <= damageChance)
             {
                 life--;
                 if (life <= 0)
@@ -245,7 +238,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.owner.ToPlayer().Entropy().holdingPoop && !shooted)
+            if (Projectile.owner.ToPlayer().Entropy().holdingPoop && !shooted)
             {
                 return false;
             }
@@ -267,8 +260,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.velocity = Vector2.Zero;
             return false;
         }
-        
+
     }
-    
+
 
 }

@@ -1,11 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -34,7 +33,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Main.gameMenu) {
+            if (Main.gameMenu)
+            {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly1").Value;
                 if (Projectile.owner.ToPlayer().Entropy().PetsHat)
                 {
@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
                     list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly3").Value);
                     list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Aquatic/fly4").Value);
                 }
-                
+
             }
             else
             {
@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
                 }
             }
             Texture2D tx = list[(((int)counter / 6) % list.Count)];
-            if(afkFrame > 0)
+            if (afkFrame > 0)
             {
                 if (Projectile.owner.ToPlayer().Entropy().PetsHat)
                 {
@@ -162,7 +162,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
                 Projectile.tileCollide = true;
                 Projectile.rotation = 0;
                 Projectile.velocity.Y += 0.5f;
-                if (Util.Util.getDistance(targetPos, Projectile.Center) > 340 || (Math.Abs(targetPos.Y - Projectile.Center.Y) > 60 && Projectile.owner.ToPlayer().velocity.Y == 0)) {
+                if (Util.Util.getDistance(targetPos, Projectile.Center) > 340 || (Math.Abs(targetPos.Y - Projectile.Center.Y) > 60 && Projectile.owner.ToPlayer().velocity.Y == 0))
+                {
                     Projectile.ai[1] = 1;
                 }
                 else if (Util.Util.getDistance(targetPos * new Vector2(1, 0), Projectile.Center * new Vector2(1, 0)) > 80)
@@ -201,7 +202,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
                     Projectile.velocity.Y -= 1.5f;
                 }
             }
-            
+
         }
         public override bool PreAI()
         {
@@ -222,19 +223,19 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Aquatic
             }
             Player player = Main.player[Projectile.owner];
             MoveToTarget(player.Center + new Vector2(0, 0));
-            if(Projectile.velocity.Length() < 1.2f && Projectile.ai[1] == 0)
+            if (Projectile.velocity.Length() < 1.2f && Projectile.ai[1] == 0)
             {
                 counter = 7;
                 afkCounter++;
-                if(afkCounter > 6 * 60)
+                if (afkCounter > 6 * 60)
                 {
                     afkFrameAdd++;
-                    if(afkFrameAdd > 4)
+                    if (afkFrameAdd > 4)
                     {
                         afkFrameAdd = 0;
                         afkFrame++;
                     }
-                    if(afkFrame > 11)
+                    if (afkFrame > 11)
                     {
                         afkFrameAdd = 0;
                         afkFrame = 0;

@@ -1,23 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Intrinsics.Arm;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Items;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Steamworks;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -40,7 +31,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.AI();
             Projectile.rotation = Projectile.velocity.ToRotation();
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++)
+            {
                 GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + Util.Util.randomVec(2), color, 40, 0.6f, 1, 0.2f, true, 0, true));
             }
         }
@@ -48,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.PostAI();
             odp.Add(Projectile.Center);
-            if(odp.Count > 20)
+            if (odp.Count > 20)
             {
                 odp.RemoveAt(0);
             }
@@ -63,15 +55,15 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             odp.Add(Projectile.Center);
-            Texture2D tex =Util.Util.getExtraTex("StarTexture");
-            
+            Texture2D tex = Util.Util.getExtraTex("StarTexture");
+
             Main.spriteBatch.UseBlendState(BlendState.Additive);
 
             Main.spriteBatch.EnterShaderRegion(BlendState.Additive);
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StreakSolid"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth1, TrailColor1, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
-            
+
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak2"));
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth2, TrailColor2, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
 
@@ -94,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            for(int i = 0; i < 12; i++)
+            for (int i = 0; i < 12; i++)
             {
                 GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + Util.Util.randomVec(6), color, 40, 0.8f, 1, 0.2f, true, 0, true));
             }

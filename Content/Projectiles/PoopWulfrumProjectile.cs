@@ -1,20 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.CalPlayer;
+﻿using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -52,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
                         shield += 1;
                     }
                 }
-                if(opc < 1)
+                if (opc < 1)
                 {
                     opc += 0.05f;
                 }
@@ -65,12 +56,12 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     shield = shieldMax;
                 }
-                if(opc > 0)
+                if (opc > 0)
                 {
                     opc -= 0.05f;
                 }
             }
-            if(shield < lastTickShield)
+            if (shield < lastTickShield)
             {
                 SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/RoverDriveHit") { PitchVariance = 0.6f, Volume = 0.6f, MaxInstances = 0 }, Projectile.Center);
             }
@@ -80,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
         float opc = 1;
         public override void PostDraw(Color lightColor)
         {
-            if(shield <= 0)
+            if (shield <= 0)
             {
                 return;
             }
@@ -88,45 +79,45 @@ namespace CalamityEntropy.Content.Projectiles
             bool shieldExists = shield > 0;
 
 
-                         float scale = 0.8f * opc;
+            float scale = 0.8f * opc;
 
 
-                         float shieldStrength = (0.1f + 0.5f * ((float)shield / 100f)) * opc;
+            float shieldStrength = (0.1f + 0.5f * ((float)shield / 100f)) * opc;
 
 
-                         float noiseScale = MathHelper.Lerp(0.4f, 0.8f, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 0.3f) * 0.5f + 0.5f);
+            float noiseScale = MathHelper.Lerp(0.4f, 0.8f, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 0.3f) * 0.5f + 0.5f);
 
-                         Effect shieldEffect = Filters.Scene["CalamityMod:RoverDriveShield"].GetShader().Shader;
+            Effect shieldEffect = Filters.Scene["CalamityMod:RoverDriveShield"].GetShader().Shader;
             shieldEffect.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.24f);
             shieldEffect.Parameters["blowUpPower"].SetValue(2.5f);
             shieldEffect.Parameters["blowUpSize"].SetValue(0.5f);
             shieldEffect.Parameters["noiseScale"].SetValue(noiseScale);
 
-                         float baseShieldOpacity = (0.2f + 0.8f * ((float)shield / 100f)) * opc;
+            float baseShieldOpacity = (0.2f + 0.8f * ((float)shield / 100f)) * opc;
             shieldEffect.Parameters["shieldOpacity"].SetValue(baseShieldOpacity * (0.5f + 0.5f * shieldStrength));
             shieldEffect.Parameters["shieldEdgeBlendStrenght"].SetValue(2f);
 
-                         Color blueTint = new Color(51, 102, 255);
+            Color blueTint = new Color(51, 102, 255);
             Color cyanTint = new Color(71, 202, 255);
             Color wulfGreen = new Color(194, 255, 67) * 0.8f;
             Color edgeColor = CalamityUtils.MulticolorLerp(Main.GlobalTimeWrappedHourly * 0.2f, blueTint, cyanTint, wulfGreen);
             Color shieldColor = blueTint;
 
 
-                         shieldEffect.Parameters["shieldColor"].SetValue(shieldColor.ToVector3());
+            shieldEffect.Parameters["shieldColor"].SetValue(shieldColor.ToVector3());
             shieldEffect.Parameters["shieldEdgeColor"].SetValue(edgeColor.ToVector3());
 
-                         spriteBatch.End();
+            spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shieldEffect, Main.GameViewMatrix.TransformationMatrix);
 
-                         NoiseTex ??= ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/TechyNoise");
+            NoiseTex ??= ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/TechyNoise");
             Vector2 pos = Projectile.Center - Main.screenPosition;
             Texture2D tex = NoiseTex.Value;
             spriteBatch.Draw(tex, pos, null, Color.White, 0, tex.Size() / 2f, scale, 0, 0);
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-        
+
         }
         public static Asset<Texture2D> NoiseTex;
         public override int dustType => DustID.Poop;

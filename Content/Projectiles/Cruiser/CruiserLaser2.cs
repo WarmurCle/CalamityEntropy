@@ -1,17 +1,17 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser
 {
-    
-    public class CruiserLaser2: ModProjectile
+
+    public class CruiserLaser2 : ModProjectile
     {
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
@@ -40,14 +40,15 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.light = 0f;
             Projectile.scale = 1f;
             Projectile.timeLeft = 12;
-            
+
         }
         public bool st = true;
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             behindNPCs.Add(index);
         }
-        public override void AI(){
+        public override void AI()
+        {
             if (st)
             {
                 st = false;
@@ -94,7 +95,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             if (Projectile.ai[0] >= 0)
             {
                 if (ownern == null) { ownern = ((int)(Projectile.ai[0])).ToNPC(); }
-                if (ownern != null && ownern.active) {
+                if (ownern != null && ownern.active)
+                {
                     Projectile.Center = ownern.Center;
                     Projectile.rotation = ownern.rotation;
                 }
@@ -121,13 +123,13 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             else
             {
                 width += 1f / 3f;
-                
+
             }
             aicounter++;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return width >= 0.3f && Util.Util.LineThroughRect(Projectile.Center,  Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, 30, 24);
+            return width >= 0.3f && Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, 30, 24);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -172,7 +174,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Texture2D th = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/clinghth").Value;
             Texture2D tl2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cllight2").Value;
             Main.spriteBatch.Draw(tb, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(0, tb.Height / 2), new Vector2(length, width), SpriteEffects.None, 0);
-            foreach (Vector2 ps in p) {
+            foreach (Vector2 ps in p)
+            {
                 Util.Util.drawLine(Main.spriteBatch, px, Projectile.Center + (ps * new Vector2(1, width)).RotatedBy(Projectile.rotation), Projectile.Center + ((ps * new Vector2(1, width)) + new Vector2(40, 0)).RotatedBy(Projectile.rotation), Color.White, 2 * width);
             }
             SpriteBatch sb = Main.spriteBatch;
@@ -188,7 +191,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            
+
             return false;
         }
     }

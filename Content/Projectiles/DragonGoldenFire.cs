@@ -1,11 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.NPCs.TownNPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -37,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.timeLeft >= 2180)
+            if (Projectile.timeLeft >= 2180)
             {
                 return false;
             }
@@ -53,9 +52,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity *= 0.2f;
             }
-            Projectile.ai[0]+= 0.1f;
+            Projectile.ai[0] += 0.1f;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 odp.Add(Projectile.Center + Projectile.velocity / 4f * i);
                 odr.Add(Projectile.rotation);
@@ -77,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 3, true));
             }
 
-            
+
         }
         float trailOffset = 0;
 
@@ -86,9 +85,10 @@ namespace CalamityEntropy.Content.Projectiles
             Color cl = Color.Lerp(Color.Black, Color.White, Projectile.ai[0] / 30f);
             float c = 0;
             trailOffset += 0.04f;
-            
+
             c = 0;
-            if (odp.Count > 1) {
+            if (odp.Count > 1)
+            {
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int i = 1; i < odp.Count; i++)
                 {
                     float width = 0;
-                    if(i > 270)
+                    if (i > 270)
                     {
                         float x = (float)(i - 270) / 90f;
                         if (1 - x * x < 0)
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
                     ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(-46 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
                           new Vector3((float)i / ((float)odp.Count) + trailOffset, 0, 1),
                           b));
-                        
+
                 }
                 SpriteBatch sb = Main.spriteBatch;
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
@@ -180,7 +180,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                
+
             }
             return false;
         }

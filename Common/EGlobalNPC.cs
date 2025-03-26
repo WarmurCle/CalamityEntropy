@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -22,10 +17,8 @@ using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Events;
-using CalamityMod.Items.TreasureBags;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
-using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.DevourerofGods;
@@ -33,26 +26,26 @@ using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.SlimeGod;
-using CalamityMod.NPCs.StormWeaver;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
-using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using SubworldLibrary;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Common
 {
@@ -158,7 +151,7 @@ namespace CalamityEntropy.Common
         }
         public override void PostAI(NPC npc)
         {
-            if(TDRCounter > 0)
+            if (TDRCounter > 0)
             {
                 TDRCounter--;
             }
@@ -173,11 +166,12 @@ namespace CalamityEntropy.Common
                 deusBloodOut -= dmgApply;
                 dmgApply *= 800;
                 (npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life -= dmgApply;
-                if((npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life < 1)
+                if ((npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life < 1)
                 {
                     (npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life = 1;
                 }
-                if((npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life <= 10) {
+                if ((npc.realLife >= 0 ? npc.realLife.ToNPC() : npc).life <= 10)
+                {
                     deusBloodOut = 0;
                 }
             }
@@ -200,12 +194,12 @@ namespace CalamityEntropy.Common
             {
                 EclipsedImprintTime--;
             }
-            if(EclipsedImprintTime <= 0)
+            if (EclipsedImprintTime <= 0)
             {
                 EclipsedImprintLevel = 0;
             }
 
-            if(applyMarkedOfDeath > 0)
+            if (applyMarkedOfDeath > 0)
             {
                 npc.AddBuff(ModContent.BuffType<MarkedforDeath>(), applyMarkedOfDeath);
                 applyMarkedOfDeath = 0;
@@ -257,7 +251,7 @@ namespace CalamityEntropy.Common
         }
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
         {
-            if(AnimaTrapped > 0)
+            if (AnimaTrapped > 0)
             {
                 return false;
             }
@@ -279,8 +273,8 @@ namespace CalamityEntropy.Common
             StareOfAbyssTime = binaryReader.ReadInt32();
             EclipsedImprintLevel = binaryReader.ReadInt32();
             EclipsedImprintTime = binaryReader.ReadInt32();*/
-           /* VoidTouchLevel = binaryReader.ReadSingle();
-            VoidTouchTime = binaryReader.ReadInt32();*/
+            /* VoidTouchLevel = binaryReader.ReadSingle();
+             VoidTouchTime = binaryReader.ReadInt32();*/
         }
         public static void setFriendly(int id, int owner = 0)
         {
@@ -290,7 +284,7 @@ namespace CalamityEntropy.Common
             }
             id.ToNPC().Entropy().ToFriendly = true;
             id.ToNPC().Entropy().f_owner = owner;
-            if(Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 ModPacket p = CalamityEntropy.Instance.GetPacket();
                 p.Write((byte)CalamityEntropy.NetPackages.TurnFriendly);
@@ -298,7 +292,7 @@ namespace CalamityEntropy.Common
                 p.Write(owner);
                 p.Send();
             }
-            
+
         }
         public bool friendlyDecLife = true;
         public int counter = 0;
@@ -310,7 +304,7 @@ namespace CalamityEntropy.Common
                 npc.localAI[3] = 0;
             }
             counter++;
-            if(npc.Entropy().EclipsedImprintLevel > 0)
+            if (npc.Entropy().EclipsedImprintLevel > 0)
             {
                 int c = 16 - npc.Entropy().EclipsedImprintLevel;
                 if (counter % c == 0)
@@ -395,7 +389,8 @@ namespace CalamityEntropy.Common
                     } 
                 }
             }*/
-            if (npc.Entropy().daTarget && npc.realLife == -1) {
+            if (npc.Entropy().daTarget && npc.realLife == -1)
+            {
                 npc.velocity *= 0;
                 return false;
             }
@@ -454,11 +449,11 @@ namespace CalamityEntropy.Common
 
             return base.PreAI(npc);
         }
-        
+
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
-            if(projectile.owner >= 0)
+            if (projectile.owner >= 0)
             {
                 if (projectile.owner.ToPlayer().Entropy().nihShell)
                 {
@@ -469,7 +464,7 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.owner.ToPlayer().Entropy().VFSet)
                 {
-                    
+
                     if (projectile.owner.ToPlayer().Entropy().VFHelmMelee)
                     {
                         projectile.owner.ToPlayer().Entropy().VoidCharge += 0.005f;
@@ -488,7 +483,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            
+
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
@@ -504,13 +499,13 @@ namespace CalamityEntropy.Common
                 {
                     player.Entropy().VoidCharge += 0.005f;
                 }
-                
+
                 if (player.Entropy().VoidCharge > 1)
                 {
                     player.Entropy().VoidCharge = 1;
                 }
             }
-            
+
         }
 
         public static bool AddVoidTouch(NPC nPC, int time, float level, int maxTime = 600, int maxLevel = 10)
@@ -544,18 +539,18 @@ namespace CalamityEntropy.Common
         }
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
-           if (npc.Entropy().daTarget)
+            if (npc.Entropy().daTarget)
             {
                 drawColor = Color.Black;
             }
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if(npc.type == ModContent.NPCType<Yharon>())
+            if (npc.type == ModContent.NPCType<Yharon>())
             {
                 npcLoot.Add(ItemDropRule.ByCondition(new IsNormal(), ModContent.ItemType<Vitalfeather>(), 3));
             }
-            if(npc.type == ModContent.NPCType<PrimordialWyrmHead>())
+            if (npc.type == ModContent.NPCType<PrimordialWyrmHead>())
             {
                 npcLoot.Add(ModContent.ItemType<WyrmTooth>(), 1, 28, 32);
             }
@@ -564,7 +559,7 @@ namespace CalamityEntropy.Common
                 npcLoot.Add(ModContent.ItemType<Nothing>(), 2, 1, 1);
                 npcLoot.Add(ModContent.ItemType<BookMarkAbyss>(), 2, 1, 1);
             }
-            if(npc.type == ModContent.NPCType<GiantClam>())
+            if (npc.type == ModContent.NPCType<GiantClam>())
             {
                 npcLoot.Add(ModContent.ItemType<BookMarkSunkenSea>(), 1, 1, 1);
             }
@@ -578,7 +573,7 @@ namespace CalamityEntropy.Common
                     IList<Texture2D> buffTextureList = new List<Texture2D>();
                     CalamityGlobalNPC cn = npc.Calamity();
 
-                                         if (cn.astralInfection > 0)
+                    if (cn.astralInfection > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/AstralInfectionDebuff").Value);
                     if (cn.banishingFire > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/BanishingFire").Value);
@@ -619,7 +614,7 @@ namespace CalamityEntropy.Common
                     if (cn.vulnerabilityHex > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/VulnerabilityHex").Value);
 
-                                         if (cn.aCrunch > 0)
+                    if (cn.aCrunch > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/ArmorCrunch").Value);
                     if (cn.crumble > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/Crumbling").Value);
@@ -650,10 +645,10 @@ namespace CalamityEntropy.Common
                     if (cn.wither > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/WitherDebuff").Value);
 
-                                         if (cn.RancorBurnTime > 0)
+                    if (cn.RancorBurnTime > 0)
                         buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/RancorBurn").Value);
 
-                                         if (cn.electrified > 0)
+                    if (cn.electrified > 0)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.Electrified].Value);
                     if (npc.onFire)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.OnFire].Value);
@@ -681,12 +676,12 @@ namespace CalamityEntropy.Common
                         buffTextureList.Add(TextureAssets.Buff[BuffID.DryadsWard].Value);
                     if (npc.soulDrain && npc.realLife == -1)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.SoulDrain].Value);
-                    if (npc.onFire3)                          buffTextureList.Add(TextureAssets.Buff[BuffID.OnFire3].Value);
-                    if (npc.onFrostBurn2)                          buffTextureList.Add(TextureAssets.Buff[BuffID.Frostburn2].Value);
+                    if (npc.onFire3) buffTextureList.Add(TextureAssets.Buff[BuffID.OnFire3].Value);
+                    if (npc.onFrostBurn2) buffTextureList.Add(TextureAssets.Buff[BuffID.Frostburn2].Value);
                     if (npc.tentacleSpiked)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.TentacleSpike].Value);
 
-                                         if (npc.confused)
+                    if (npc.confused)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.Confused].Value);
                     if (npc.ichor)
                         buffTextureList.Add(TextureAssets.Buff[BuffID.Ichor].Value);
@@ -746,21 +741,21 @@ namespace CalamityEntropy.Common
                         eclipseMarkDraw = true;
                         eclipseMarkIndex = buffTextureList.Count - 1;
                     }
-                                         int buffTextureListLength = buffTextureList.Count;
+                    int buffTextureListLength = buffTextureList.Count;
 
-                                         int totalLength = buffTextureListLength * 14;
+                    int totalLength = buffTextureListLength * 14;
 
-                                         int buffDisplayRowLimit = 5;
+                    int buffDisplayRowLimit = 5;
 
-                                                              float drawPosX = totalLength >= 80f ? 40f : (float)(totalLength / 2);
+                    float drawPosX = totalLength >= 80f ? 40f : (float)(totalLength / 2);
 
-                                         float npcHeight = (float)(TextureAssets.Npc[npc.type].Value.Height / Main.npcFrameCount[npc.type] / 2) * npc.scale;
+                    float npcHeight = (float)(TextureAssets.Npc[npc.type].Value.Height / Main.npcFrameCount[npc.type] / 2) * npc.scale;
 
-                                         float drawPosY = npcHeight + npc.gfxOffY + 16f;
+                    float drawPosY = npcHeight + npc.gfxOffY + 16f;
 
-                                         for (int i = 0; i < buffTextureList.Count; i++)
+                    for (int i = 0; i < buffTextureList.Count; i++)
                     {
-                                                 if (i != 0)
+                        if (i != 0)
                         {
                             if (i % buffDisplayRowLimit == 0)
                                 drawPosX = 40f;
@@ -768,9 +763,9 @@ namespace CalamityEntropy.Common
                                 drawPosX -= 14f;
                         }
 
-                                                 float additionalYOffset = 14f * (float)Math.Floor(i * 0.2);
+                        float additionalYOffset = 14f * (float)Math.Floor(i * 0.2);
 
-                                                 var tex = buffTextureList.ElementAt(i);
+                        var tex = buffTextureList.ElementAt(i);
                         spriteBatch.Draw(tex, npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), null, Color.White, 0f, default, 0.5f, SpriteEffects.None, 0f);
                         if (voidTouchDraw && i == voidTouchIndex)
                         {
@@ -784,7 +779,7 @@ namespace CalamityEntropy.Common
                         {
                             spriteBatch.DrawString(FontAssets.MouseText.Value, ((int)npc.Entropy().EclipsedImprintLevel).ToString(), npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
                         }
-                                             }
+                    }
                 }
             }
             return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
@@ -796,7 +791,8 @@ namespace CalamityEntropy.Common
             {
                 DownedBossSystem.downedPrimordialWyrm = true;
             }
-            if (DownedBossSystem.downedAquaticScourge) {
+            if (DownedBossSystem.downedAquaticScourge)
+            {
                 if (npc.ModNPC is Viperfish)
                 {
                     if (Main.rand.NextBool(5))
@@ -819,7 +815,7 @@ namespace CalamityEntropy.Common
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CarlosIceCream>()));
                 }
             }
-            if(!npc.friendly && npc.lifeMax > 20)
+            if (!npc.friendly && npc.lifeMax > 20)
             {
                 if (Main.bloodMoon)
                 {
@@ -855,7 +851,7 @@ namespace CalamityEntropy.Common
                         Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<TheRevelation>()));
                     }
                 }
-                if(h != null)
+                if (h != null)
                 {
                     if (Main.rand.NextBool(60) && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
                     {
@@ -991,29 +987,31 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == ModContent.NPCType<AstrumDeusHead>())
             {
-                string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy");                  string myDataFilePath = Path.Combine(modFolder, "DeusKilled.txt");  
+                string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy"); string myDataFilePath = Path.Combine(modFolder, "DeusKilled.txt");
                 if (!Directory.Exists(modFolder))
                 {
-                    Directory.CreateDirectory(modFolder);                  }
+                    Directory.CreateDirectory(modFolder);
+                }
 
-                                 using (StreamWriter sw = new StreamWriter(myDataFilePath))
+                using (StreamWriter sw = new StreamWriter(myDataFilePath))
                 {
                     sw.WriteLine("a");
                 }
             }
             if (npc.type == ModContent.NPCType<DevourerofGodsHead>())
             {
-                string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy");                  string myDataFilePath = Path.Combine(modFolder, "DoGKilled.txt");  
+                string modFolder = Path.Combine(Main.SavePath, "CalamityEntropy"); string myDataFilePath = Path.Combine(modFolder, "DoGKilled.txt");
                 if (!Directory.Exists(modFolder))
                 {
-                    Directory.CreateDirectory(modFolder);                  }
+                    Directory.CreateDirectory(modFolder);
+                }
 
-                                 using (StreamWriter sw = new StreamWriter(myDataFilePath))
+                using (StreamWriter sw = new StreamWriter(myDataFilePath))
                 {
                     sw.WriteLine("a");
                 }
             }
-           
+
         }
         public class IsNormal : IItemDropRuleCondition, IProvideItemConditionDescription
         {
@@ -1027,7 +1025,7 @@ namespace CalamityEntropy.Common
         public int noelctime = 0;
         public void onHurt(NPC npc, int damage, Player player, Entity source, NPC.HitInfo hit)
         {
-            if(player != null)
+            if (player != null)
             {
                 if (player.Entropy().heartOfStorm)
                 {
@@ -1060,7 +1058,7 @@ namespace CalamityEntropy.Common
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
             onHurt(npc, damageDone, player, null, hit);
-            if(player.Entropy().deusCoreBloodOut > 0 && player.Entropy().bloodTrCD <= 0)
+            if (player.Entropy().deusCoreBloodOut > 0 && player.Entropy().bloodTrCD <= 0)
             {
                 int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, damageDone / 80 + 1);
                 if (btransfer > 60)

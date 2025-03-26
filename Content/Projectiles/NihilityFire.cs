@@ -1,11 +1,5 @@
-using CalamityEntropy.Content.Dusts;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -44,6 +38,6 @@ namespace CalamityEntropy.Content.Projectiles
         }
 
     }
-    
+
 
 }

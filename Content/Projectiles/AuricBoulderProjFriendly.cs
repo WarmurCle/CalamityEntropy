@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -91,11 +91,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/AuricMine", 3), Projectile.Center);
+        {
+            SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/AuricMine", 3), Projectile.Center);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/AuricMine", 3), Projectile.Center);
+        {
+            SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/AuricMine", 3), Projectile.Center);
         }
     }
 }

@@ -1,19 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Util;
-using CalamityMod;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.Audio;
+﻿using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -23,7 +9,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.SetDefaults();
             Projectile.width = Projectile.height = 64;
-            
+
         }
         public override void OnSpawn(IEntitySource source)
         {

@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.GameContent.Drawing;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -24,7 +21,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 size += addSize;
                 addSize -= 0.12f;
-                if(size < 0)
+                if (size < 0)
                 {
                     kill = true;
                 }
@@ -44,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.DamageType = DamageClass.Magic;
             Projectile.width = 1;
-            Projectile.height = 1; 
+            Projectile.height = 1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -57,8 +54,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             return false;
         }
-        
-        public override void AI(){
+
+        public override void AI()
+        {
             Player owner = Projectile.owner.ToPlayer();
             if (Projectile.ai[0]++ > 0 && (Projectile.ai[0] % 40 == 6 || Projectile.ai[0] % 40 == 12 || Projectile.ai[0] % 40 == 18))
             {
@@ -88,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            foreach(SparkleParticle particle in particles)
+            foreach (SparkleParticle particle in particles)
             {
                 particle.update();
             }
@@ -107,7 +105,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.netUpdate = true;
                 }
                 Projectile.velocity = nv;
-                
+
             }
             if (Projectile.velocity.X > 0)
             {
@@ -158,7 +156,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow").Value;
             Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition * Projectile.scale, null, Color.Lerp(new Color(104, 127, 255), new Color(238, 244, 213), (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)) * 0.7f, 0, light.Size() / 2, 0.5f * Projectile.scale * (1 + (float)Math.Cos((counter) * 0.02f) * 0.2f), SpriteEffects.None, 0);
             Texture2D spark = Util.Util.getExtraTex("Sparkle");
-            foreach(SparkleParticle p in particles)
+            foreach (SparkleParticle p in particles)
             {
                 Main.spriteBatch.Draw(spark, Projectile.Center - Main.screenPosition * Projectile.scale, null, Color.LightBlue * 0.6f, p.rot, spark.Size() / 2, 0.06f * Projectile.scale * p.size, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(spark, Projectile.Center - Main.screenPosition * Projectile.scale, null, Color.LightGreen * 0.6f, p.rot + MathHelper.PiOver2, spark.Size() / 2, 0.06f * Projectile.scale * p.size, SpriteEffects.None, 0);

@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
 {
-    
+
     public class HugeLightBall : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             SpriteBatch sb = Main.spriteBatch;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            
+
             if (Projectile.timeLeft > 20)
             {
                 if (op < 1)

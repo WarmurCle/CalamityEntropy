@@ -1,7 +1,7 @@
-using System.IO;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -67,20 +67,20 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] == 14)
             {
-                                 
+
 
                 if (!Main.dedServ && Projectile.owner == Main.myPlayer)
                 {
                     SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/hblaser"), Projectile.Center);
                 }
-                
+
             }
             if (frame == 8 && Projectile.owner == Main.myPlayer)
             {
                 if (!shooted || true)
                 {
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 120, Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<MercyShoot>(), Projectile.damage, 0, Projectile.owner, 0, 0, Projectile.whoAmI);
-                     
+
                     p.ToProj().rotation = Projectile.rotation;
                     p.ToProj().scale = Projectile.scale;
                     p.ToProj().netUpdate = true;
@@ -128,7 +128,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int ct = 0;
         public override bool PreDraw(ref Color lightColor)
         {
-            
+
             if (frame >= 18)
             {
                 return false;

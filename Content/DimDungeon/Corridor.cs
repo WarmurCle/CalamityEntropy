@@ -7,7 +7,7 @@ public class Corridor
     public CorridorMetadata Metadata { get; set; }
     public Rectangle Bounds { get; set; }
     public Direction Direction { get; set; }
-    
+
     public Room RoomA { get; set; }
     public Room RoomB { get; set; }
 

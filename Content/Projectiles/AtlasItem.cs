@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items.DraedonMisc;
 using CalamityMod.NPCs.ExoMechs.Thanatos;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -74,11 +74,11 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.netUpdate = true;
             }
 
-                         SquishFactor = MathHelper.Lerp(SquishFactor, 1f, 0.08f);
+            SquishFactor = MathHelper.Lerp(SquishFactor, 1f, 0.08f);
 
-                         Projectile.tileCollide = Projectile.Bottom.Y >= TileCollisionYThreshold;
+            Projectile.tileCollide = Projectile.Bottom.Y >= TileCollisionYThreshold;
 
-                         Projectile.frameCounter++;
+            Projectile.frameCounter++;
             if (!HasCollidedWithGround)
                 Projectile.frame = Projectile.frameCounter / 6 % 5;
             else
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Projectile.frame++;
 
-                                         if (Projectile.frame == 8)
+                    if (Projectile.frame == 8)
                     {
                         SoundEngine.PlaySound(ThanatosHead.VentSound, Projectile.Top);
                         if (Main.rand.NextDouble() < 0.01f)
@@ -171,16 +171,16 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.frame = Main.projFrames[Projectile.type] - 1;
             }
 
-                         Projectile.velocity.Y += Gravity;
+            Projectile.velocity.Y += Gravity;
             if (Projectile.velocity.Y > MaxFallSpeed)
                 Projectile.velocity.Y = MaxFallSpeed;
         }
 
         public void PerformGroundCollisionEffects()
         {
-                         SquishFactor = 1.4f;
+            SquishFactor = 1.4f;
 
-                         int dustID = 182;
+            int dustID = 182;
             int dustCount = 54;
             for (int i = 0; i < dustCount; i += 2)
             {
@@ -197,11 +197,11 @@ namespace CalamityEntropy.Content.Projectiles
             }
 
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
-            
+
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f);
         }
 
-                 public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             overPlayers.Add(index);
         }

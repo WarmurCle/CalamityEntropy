@@ -1,23 +1,9 @@
-
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
-using CalamityMod.Projectiles.Ranged;
-using CalamityMod.Projectiles.Turret;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -49,9 +35,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void UpdateProjectile(Projectile projectile, bool ownerClient)
         {
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.hostile && projectile.Colliding(projectile.getRect(), p.getRect()))
+                if (p.hostile && projectile.Colliding(projectile.getRect(), p.getRect()))
                 {
                     p.velocity *= 0.76f;
                     p.damage = (int)(p.damage * 0.94f);

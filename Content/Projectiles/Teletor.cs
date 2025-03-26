@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.SetStaticDefaults();
         }
         public override void SetDefaults()
-        {   
+        {
             Projectile.DamageType = DamageClass.Summon;
             Projectile.width = 32;
             Projectile.height = 30;
@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Projectiles
         public Vector2 weaponPos { get { return new Vector2(Projectile.ai[1], Projectile.ai[2]); } set { Projectile.ai[1] = value.X; Projectile.ai[2] = value.Y; } }
         public override void AI()
         {
-            Main.instance.LoadItem(4);   
+            Main.instance.LoadItem(4);
             if (Util.Util.getDistance(weaponPos, Projectile.Center) > 3000)
             {
                 weaponPos = Projectile.Center;
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.Center = player.Center;
             }
-                if (player.HasBuff(ModContent.BuffType<TeletorBuff>()))
+            if (player.HasBuff(ModContent.BuffType<TeletorBuff>()))
             {
                 Projectile.timeLeft = 3;
             }
@@ -115,12 +115,12 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 weaponVel += (Projectile.Center + new Vector2(0, -60) - weaponPos).SafeNormalize(Vector2.Zero) * 5f;
                 Projectile.direction = (Projectile.velocity.X > 0 ? 1 : -1);
-                
+
             }
             weaponVel *= 0.9f;
-            
+
             Projectile.rotation = MathHelper.ToRadians(Projectile.velocity.X * 1.4f);
-            
+
             weaponPos += weaponVel;
             if (Projectile.owner == Main.myPlayer)
             {

@@ -1,23 +1,13 @@
-﻿using System;
-using CalamityMod;
-using CalamityMod.BiomeManagers;
-using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityMod;
 using CalamityMod.Dusts;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Placeables.Banners;
-using CalamityMod.NPCs.CalamityAIs.CalamityRegularEnemyAIs;
 using CalamityMod.NPCs.Crags;
-using CalamityMod.NPCs.NormalNPCs;
-using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
+using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -64,18 +54,21 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                 NPC.ai[1]++;
             }
             if (NPC.ai[2] != 0f) BuzzsawMode();
-            if (NPC.ai[1] > buzzsawStartTime)              {
+            if (NPC.ai[1] > buzzsawStartTime)
+            {
                 if (NPC.ai[2] == 0f)
                 {
-                    NPC.ai[1] = buzzsawStartTime + 1f;                      NPC.rotation += NPC.velocity.X * 0.01f;
+                    NPC.ai[1] = buzzsawStartTime + 1f; NPC.rotation += NPC.velocity.X * 0.01f;
                     NPC.spriteDirection = -NPC.direction;
-                    if (NPC.velocity.Y == 0f || NPC.lavaWet) BuzzsawMode();                  }
+                    if (NPC.velocity.Y == 0f || NPC.lavaWet) BuzzsawMode();
+                }
             }
-            else              {
+            else
+            {
                 NPC.ai[2] = 0f;
                 UnicornAI_DSF(NPC, Mod, true, CalamityWorld.death ? 8f : CalamityWorld.revenge ? 6f : 4f, 5f, 0.2f);
             }
-            if (NPC.lavaWet)                  NPC.velocity.Y += -0.8f;
+            if (NPC.lavaWet) NPC.velocity.Y += -0.8f;
         }
         public override bool CheckActive()
         {
@@ -86,16 +79,19 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             Entity target = this.FindTarget();
             float distance;
             float speedCap = 10f;
-                         if (NPC.ai[2] == 0f)
+            if (NPC.ai[2] == 0f)
             {
                 ChainsawSoundSlot = SoundEngine.PlaySound(ChainsawStartSound, NPC.Center);
-                if (NPC.velocity.X < 0f)                  {
+                if (NPC.velocity.X < 0f)
+                {
                     NPC.ai[2] = -1f;
                 }
-                else if (NPC.velocity.X > 0f)                  {
+                else if (NPC.velocity.X > 0f)
+                {
                     NPC.ai[2] = 1f;
                 }
-                else                  {
+                else
+                {
                     distance = target.Center.X - NPC.Center.X;
                     if (distance != 0f)
                     {
@@ -109,19 +105,20 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                 chainsawSound.Position = NPC.Center;
                 chainsawSound.Update();
             }
-            if (NPC.velocity.X == 0f)              {
-                if (NPC.velocity.Y > -speedCap)                      NPC.velocity.Y += -1.66f;
-                if (NPC.velocity.Y < -speedCap)                      NPC.velocity.Y = -speedCap;
+            if (NPC.velocity.X == 0f)
+            {
+                if (NPC.velocity.Y > -speedCap) NPC.velocity.Y += -1.66f;
+                if (NPC.velocity.Y < -speedCap) NPC.velocity.Y = -speedCap;
             }
 
-            if (NPC.velocity.X == 0f || NPC.velocity.Y == 0f)                  SpawnSparks();
-            else if (target.Center.Y - NPC.Center.Y < 0f && NPC.velocity.Y < 0f && !NPC.lavaWet)                  NPC.velocity.Y += -0.03f;
+            if (NPC.velocity.X == 0f || NPC.velocity.Y == 0f) SpawnSparks();
+            else if (target.Center.Y - NPC.Center.Y < 0f && NPC.velocity.Y < 0f && !NPC.lavaWet) NPC.velocity.Y += -0.03f;
 
-            if (Math.Abs(NPC.velocity.X) < speedCap)                  NPC.velocity.X += 1.66f * NPC.ai[2];
-            if (Math.Abs(NPC.velocity.X) > speedCap)                  NPC.velocity.X = speedCap * NPC.ai[2];
+            if (Math.Abs(NPC.velocity.X) < speedCap) NPC.velocity.X += 1.66f * NPC.ai[2];
+            if (Math.Abs(NPC.velocity.X) > speedCap) NPC.velocity.X = speedCap * NPC.ai[2];
 
-            NPC.rotation += speedCap * 0.03f * NPC.ai[2];              NPC.spriteDirection = -NPC.direction;
-                         if (NPC.ai[1] > Main.rand.Next(540, 600))
+            NPC.rotation += speedCap * 0.03f * NPC.ai[2]; NPC.spriteDirection = -NPC.direction;
+            if (NPC.ai[1] > Main.rand.Next(540, 600))
             {
                 NPC.ai[1] = 0f;
                 NPC.velocity.Y += -3f;
@@ -171,7 +168,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                 splatterDirection = new Vector2(-NPC.ai[2], 0f);
             }
 
-                         Vector2 bloodSpawnPosition = NPC.Center + particleSpawnDisplacement;
+            Vector2 bloodSpawnPosition = NPC.Center + particleSpawnDisplacement;
 
             if (NPC.ai[1] % 4 == 0)
             {

@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Dusts;
+﻿using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -40,7 +40,8 @@ namespace CalamityEntropy.Content.Projectiles.monument
                 SoundEngine.PlaySound(SoundID.DD2_GoblinBomb, Projectile.Center);
             }
         }
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.timeLeft--;
             if (Projectile.timeLeft == 25)
             {
@@ -52,9 +53,9 @@ namespace CalamityEntropy.Content.Projectiles.monument
                     pj.ToProj().netUpdate = true;
                 }
             }
-            
+
         }
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (Util.Util.isAir(Projectile.Center))

@@ -1,31 +1,24 @@
-using CalamityEntropy.Content.NPCs.Cruiser;
-using CalamityEntropy.Content.NPCs.NihilityTwin;
-using CalamityEntropy.Content.Projectiles;
-using CalamityMod;
+﻿using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityMod.Events;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Placeables.Ores;
-using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items
-{	
-	public class NihilityHorn : ModItem
-	{
+{
+    public class NihilityHorn : ModItem
+    {
         public override void SetStaticDefaults()
         {
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 15;
         }
         public override void SetDefaults()
-		{
-			Item.width = 56;
-			Item.height = 56;
+        {
+            Item.width = 56;
+            Item.height = 56;
             Item.useAnimation = 20;
             Item.useTime = 20;
             Item.noUseGraphic = true;
@@ -33,7 +26,7 @@ namespace CalamityEntropy.Content.Items
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.consumable = false;
             Item.rare = ModContent.RarityType<Turquoise>();
-            
+
         }
         public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
         {
@@ -41,7 +34,7 @@ namespace CalamityEntropy.Content.Items
         }
 
         public override bool CanUseItem(Player player)
-        {   
+        {
             return !NPC.AnyNPCs(ModContent.NPCType<NihilityActeriophage>()) && !BossRushEvent.BossRushActive;
         }
 

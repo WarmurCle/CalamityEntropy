@@ -1,15 +1,7 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Util;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Magic;
-using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -36,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<Violet>();
             Item.shoot = ModContent.ProjectileType<NihilityVirus>();
             Item.shootSpeed = 16f;
-            Item.mana = 12  ;
+            Item.mana = 12;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
             Item.useTurn = false;

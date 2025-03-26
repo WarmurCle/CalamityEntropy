@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -33,21 +33,22 @@ namespace CalamityEntropy.Content.Projectiles
                 return;
             }
             int id = target.whoAmI;
-            if(target.realLife >= 0)
+            if (target.realLife >= 0)
             {
                 id = target.realLife;
             }
             EGlobalNPC.setFriendly(id, Projectile.owner);
-            foreach(NPC n in Main.npc)
+            foreach (NPC n in Main.npc)
             {
-                if(n.active && n.realLife == id)
+                if (n.active && n.realLife == id)
                 {
                     EGlobalNPC.setFriendly(n.whoAmI, Projectile.owner);
                 }
             }
         }
-        public override void AI(){
-            Projectile.rotation+=0.16f;
+        public override void AI()
+        {
+            Projectile.rotation += 0.16f;
         }
 
 
@@ -65,6 +66,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

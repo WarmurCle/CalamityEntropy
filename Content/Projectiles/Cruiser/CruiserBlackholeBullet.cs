@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,8 +9,8 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser
 {
-    
-    public class CruiserBlackholeBullet: ModProjectile
+
+    public class CruiserBlackholeBullet : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -40,7 +40,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.extraUpdates = 1;
         }
         public float ap = 0;
-        public override void AI(){
+        public override void AI()
+        {
             Particle p = new Particle();
             p.alpha = 0.5f;
             p.position = Projectile.Center;

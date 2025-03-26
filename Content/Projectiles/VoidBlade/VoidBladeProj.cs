@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.VoidBlade
 {
-    public class VoidBladeProj: ModProjectile
+    public class VoidBladeProj : ModProjectile
     {
         SoundStyle hitSound = new("CalamityEntropy/Assets/Sounds/vb_hit");
         SoundStyle hs = new("CalamityEntropy/Assets/Sounds/vbuse");
@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
                     SoundEngine.PlaySound(hs, Projectile.Center);
                 }
             }
-                Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
+            Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
             if (Main.myPlayer == Projectile.owner)
             {
                 if (Projectile.ai[0] % 3 == 0)
@@ -104,8 +104,9 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             {
                 player.direction = 1;
             }
-            else { 
-                player.direction = 0; 
+            else
+            {
+                player.direction = 0;
             }
             player.itemRotation = (Projectile.velocity * Projectile.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
@@ -124,7 +125,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             }
             Projectile.velocity = newVelocity;
         }
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (Projectile.ai[0] % 3 == 0)
@@ -154,7 +155,8 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             return false;
         }
         int soundCd = 0;
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone){
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
             if (soundCd <= 0)
             {
                 soundCd = 2;
@@ -194,7 +196,8 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             }
         }
 
-        public override bool PreDraw(ref Color dc){
+        public override bool PreDraw(ref Color dc)
+        {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidBlade/f" + ((int)Projectile.ai[1]).ToString()).Value;
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(200, 200), new Vector2(Projectile.scale, Projectile.scale), SpriteEffects.None, 0);
             return false;
@@ -204,6 +207,6 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             return false;
         }
     }
-    
+
 
 }

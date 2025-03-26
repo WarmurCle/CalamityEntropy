@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
@@ -39,13 +35,14 @@ namespace CalamityEntropy.Content.Projectiles
         {
             return false;
         }
-        public override void AI(){
+        public override void AI()
+        {
             framecounter++;
-            if(framecounter % 2 == 0) { frame++; }
+            if (framecounter % 2 == 0) { frame++; }
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.timeLeft < 15)
+            if (Projectile.timeLeft < 15)
             {
                 return false;
             }

@@ -1,19 +1,16 @@
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
-    public class BookMarkLunar : BookMark 
+    public class BookMarkLunar : BookMark
     {
         public static int distance = 340;
         public override Texture2D UITexture => BookMark.GetUITexture("Lunar");
@@ -33,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public void applyEffect(NPC n, float p, Projectile projectile)
         {
-            n.GetGlobalNPC<LunarBMGlobalNPC>().progress+=p;
+            n.GetGlobalNPC<LunarBMGlobalNPC>().progress += p;
             n.GetGlobalNPC<LunarBMGlobalNPC>().decreaceCd = 40;
             if (n.GetGlobalNPC<LunarBMGlobalNPC>().progress >= 1)
             {
@@ -53,16 +50,16 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             (projectile.ModProjectile as EBookBaseProjectile).color = Color.YellowGreen;
             if (ownerClient)
             {
-                foreach(NPC n in Main.ActiveNPCs)
+                foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if(!n.friendly && !n.dontTakeDamage)
+                    if (!n.friendly && !n.dontTakeDamage)
                     {
-                        if(projectile.ModProjectile is EBookBaseLaser el)
+                        if (projectile.ModProjectile is EBookBaseLaser el)
                         {
                             List<Vector2> points = el.getSamplePoints();
                             foreach (Vector2 point in points)
                             {
-                                if(Util.Util.getDistance(point, n.Center) < BookMarkLunar.distance)
+                                if (Util.Util.getDistance(point, n.Center) < BookMarkLunar.distance)
                                 {
                                     applyEffect(n, 1f / 100f, projectile);
                                     break;
@@ -88,7 +85,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public int decreaceCd = 0;
         public override void AI(NPC npc)
         {
-            if(decreaceCd > 0)
+            if (decreaceCd > 0)
             {
                 decreaceCd--;
             }

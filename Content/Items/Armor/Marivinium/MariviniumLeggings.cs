@@ -1,16 +1,11 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Armor.OmegaBlue;
 using CalamityMod.Items.Materials;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Armor.Marivinium
@@ -33,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.Entropy().ManaCost -= 0.2f;
             player.GetDamage(DamageClass.Generic) += 0.2f;
             player.GetCritChance(DamageClass.Generic) += 5;
-            
+
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -52,5 +47,5 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
                 .Register();
         }
     }
-    
+
 }

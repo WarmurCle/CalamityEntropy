@@ -1,12 +1,5 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
+﻿using CalamityEntropy.Util;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Buffs.Wyrm

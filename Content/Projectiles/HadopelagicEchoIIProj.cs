@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Util;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.GameContent.Drawing;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -20,7 +15,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.DamageType = DamageClass.Magic;
             Projectile.width = 1;
-            Projectile.height = 1; 
+            Projectile.height = 1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -35,7 +30,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float shootCd = 0;
         public bool altShoot = false;
-        public override void AI(){
+        public override void AI()
+        {
             Player owner = Projectile.owner.ToPlayer();
             if (owner.HeldItem.type == ModContent.ItemType<HadopelagicEchoII>())
             {
@@ -55,10 +51,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.Center = owner.MountedCenter + owner.gfxOffY * Vector2.UnitY - new Vector2(22, 0).RotatedBy(Projectile.rotation) + new Vector2(0, -12);
 
             Projectile.frameCounter++;
-            if(Projectile.frameCounter % 2 == 0)
+            if (Projectile.frameCounter % 2 == 0)
             {
                 Projectile.frame++;
-                if(Projectile.frame > 4)
+                if (Projectile.frame > 4)
                 {
                     Projectile.frame = 0;
                 }
@@ -139,7 +135,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             return false;
         }
-        public bool active {  get { return Projectile.owner.ToPlayer().channel; } }
+        public bool active { get { return Projectile.owner.ToPlayer().channel; } }
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;

@@ -1,18 +1,7 @@
-
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Item.rare = ItemRarityID.Orange;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
         }
-        
+
         public override Texture2D UITexture => BookMark.GetUITexture("Corrupt");
         public override EBookProjectileEffect getEffect()
         {

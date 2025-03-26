@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            
+
             if (playSound)
             {
                 playSound = false;
@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             float dist = 200f - (float)Math.Cos(Projectile.timeLeft * 0.1f) * 32;
             List<Vector2> points = new List<Vector2>();
-            for(int i = 0; i <= 60; i++)
+            for (int i = 0; i <= 60; i++)
             {
                 points.Add(Projectile.Center + new Vector2(dist, 0).RotatedBy(MathHelper.ToRadians(i * 6 - 5 * Projectile.timeLeft)));
             }
@@ -69,9 +69,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             int width = 64;
             List<Vector2> points = getPoints();
-            for(int i = 0; i < points.Count; i++)
+            for (int i = 0; i < points.Count; i++)
             {
-                if(i == 0)
+                if (i == 0)
                 {
                     if (Util.Util.LineThroughRect(points[0], points[points.Count - 1], targetHitbox, width))
                     {
@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             float alpha = 1;
-            if(Projectile.timeLeft < 20)
+            if (Projectile.timeLeft < 20)
             {
                 alpha = (float)Projectile.timeLeft / 20f;
             }

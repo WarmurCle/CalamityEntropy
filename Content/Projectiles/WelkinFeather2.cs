@@ -1,5 +1,4 @@
-using CalamityEntropy.Content.Items.Books;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Items.Books;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class WelkinFeather2 : EBookBaseProjectile
     {
         public override void SetDefaults()

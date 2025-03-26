@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -36,17 +34,17 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
         {
             player.GetDamage(DamageClass.Generic) += 0.9f;
             player.GetArmorPenetration(DamageClass.Generic) += 20;
-	        player.maxMinions += 7;
+            player.maxMinions += 7;
             player.Entropy().VFSet = true;
             player.Entropy().VFHelmSummoner = true;
-            
+
         }
 
         public override void UpdateEquip(Player player)
         {
             player.Entropy().summonerVF = true;
             player.GetDamage(DamageClass.Summon) += 0.25f;
-            
+
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

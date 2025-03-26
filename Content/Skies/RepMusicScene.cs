@@ -1,13 +1,6 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityMod;
 using CalamityMod.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -15,12 +8,12 @@ namespace CalamityEntropy.Content.Skies
 {
     public class RepMusicScene : ModSceneEffect
     {
-        
+
         public override SceneEffectPriority Priority => (SceneEffectPriority)16;
 
         public override bool IsSceneEffectActive(Player player)
         {
-            if(ModContent.GetInstance<Config>() == null)
+            if (ModContent.GetInstance<Config>() == null)
             {
                 return false;
             }
@@ -39,6 +32,6 @@ namespace CalamityEntropy.Content.Skies
         }
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/RepBossTrack");
 
-       
+
     }
 }

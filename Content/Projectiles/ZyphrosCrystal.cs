@@ -1,24 +1,19 @@
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
 using System;
-using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class ZyphrosCrystal : ModProjectile
     {
         public override string Texture => "CalamityEntropy/Assets/Extra/white";
@@ -48,20 +43,20 @@ namespace CalamityEntropy.Content.Projectiles
         public int rotdir = 0;
         public override void AI()
         {
-            if(Projectile.timeLeft < 40)
+            if (Projectile.timeLeft < 40)
             {
                 alpha -= 1f / 40f;
             }
-            if(rotdir == 0)
+            if (rotdir == 0)
             {
                 rotdir = Main.rand.NextBool() ? 1 : -1;
             }
             var player = Projectile.getOwner();
             Projectile.ai[1]--;
-            
+
             if (Projectile.ai[1] == -20)
             {
-                if(Main.myPlayer == Projectile.owner && player.Entropy().itemTime > 0)
+                if (Main.myPlayer == Projectile.owner && player.Entropy().itemTime > 0)
                 {
                     Projectile.velocity = (Main.MouseWorld - Projectile.Center).SafeNormalize(Vector2.UnitX) * 16;
                     Projectile.netUpdate = true;
@@ -128,10 +123,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 target.AddBuff(ModContent.BuffType<GlacialState>(), 360);
             }
-            if(Projectile.ai[0] == 1)
+            if (Projectile.ai[0] == 1)
             {
                 Projectile.timeLeft -= 160 * 4;
-                if(Projectile.timeLeft < 1)
+                if (Projectile.timeLeft < 1)
                 {
                     Projectile.timeLeft = 1;
                 }

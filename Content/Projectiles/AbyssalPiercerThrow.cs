@@ -1,24 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
 using CalamityMod.Projectiles.Melee;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Particle = CalamityEntropy.Content.Particles.Particle;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -48,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float handrot = 0;
         public float handrotspeed = 0;
         public Vector2 ownerMouse = Vector2.Zero;
-        
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(Projectile.rotation);
@@ -85,8 +77,9 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
         }
-        public override void AI(){
-            
+        public override void AI()
+        {
+
             if (Projectile.ai[0] == 0)
             {
                 handrotspeed = -0.3f;
@@ -97,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] < 12)
             {
-                
+
                 var owner = Projectile.owner.ToPlayer();
 
                 if (Main.myPlayer == Projectile.owner)
@@ -138,7 +131,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     Projectile.owner.ToPlayer().heldProj = -1;
                 }
-                
+
             }
             if (Projectile.ai[0] > 12)
             {
@@ -152,18 +145,19 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     p = 2f;
                 }
-                
+
                 Util.Util.PlaySound("SarosDiskThrow1", p, Projectile.Center);
             }
 
             Projectile.ai[0]++;
-            
+
         }
         public bool sp = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Util.Util.PlaySound("VividClarityBeamAppear", 1, Projectile.Center);
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 2; i++)
+            {
                 int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6f, 7f), ModContent.ProjectileType<AbyssBladeSplitProjectile>(), (int)(Projectile.damage * 0.36), Projectile.knockBack / 4, Projectile.owner);
                 p.ToProj().DamageType = Projectile.DamageType;
                 p.ToProj().Center += p.ToProj().velocity * 6;
@@ -195,7 +189,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.ai[0] <= 10)
+            if (Projectile.ai[0] <= 10)
             {
                 return false;
             }

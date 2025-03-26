@@ -1,21 +1,19 @@
-
-using System.Collections.Generic;
+﻿
 using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.NPCs.ExoMechs.Ares;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class EndlessAbyssLaser : ModProjectile
     {
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -47,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 12;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 5;
-            
+
         }
         public bool st = true;
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -58,12 +56,13 @@ namespace CalamityEntropy.Content.Projectiles
         public LoopSound sound2 = null;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if(target.ModNPC is AresBody || target.ModNPC is AresGaussNuke || target.ModNPC is AresLaserCannon || target.ModNPC is AresPlasmaFlamethrower || target.ModNPC is AresTeslaCannon)
+            if (target.ModNPC is AresBody || target.ModNPC is AresGaussNuke || target.ModNPC is AresLaserCannon || target.ModNPC is AresPlasmaFlamethrower || target.ModNPC is AresTeslaCannon)
             {
                 modifiers.SourceDamage += 0.28f;
             }
         }
-        public override void AI(){
+        public override void AI()
+        {
             if (st)
             {
                 SoundEffect sf = CalamityEntropy.ealaserSound;
@@ -114,13 +113,15 @@ namespace CalamityEntropy.Content.Projectiles
             }
             sound.timeleft = 2;
             sound2.timeleft = 2;
-            if(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 600)
+            if (Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 600)
             {
-                if(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 2000){
+                if (Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) > 2000)
+                {
                     sound.setVolume(0);
                     sound2.setVolume(0);
                 }
-                else{
+                else
+                {
                     sound.setVolume(1 - (float)(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) - 600) / 1400f);
                     sound2.setVolume(1 - (float)(Util.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) - 600) / 1400f);
                 }
@@ -131,7 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
                 sound2.setVolume(1);
 
             }
-            
+
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f) * 1;
             if (Main.myPlayer == Projectile.owner)
             {
@@ -150,10 +151,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 width -= 1f / 7f;
             }
-            else if(Projectile.timeLeft > 6)
+            else if (Projectile.timeLeft > 6)
             {
                 width += 1f / 7f;
-                
+
             }
             if (Projectile.timeLeft == 6 && Projectile.owner.ToPlayer().channel)
             {
@@ -163,7 +164,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return width >= 0.3f && Util.Util.LineThroughRect(Projectile.Center,  Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, 30, 24);
+            return width >= 0.3f && Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, 30, 24);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -200,7 +201,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     l.RemoveAt(i);
                     break;
-                }   
+                }
             }
             Texture2D tb = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/clback2").Value;
             Texture2D px = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
@@ -208,7 +209,8 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D th = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/clinghth").Value;
             Texture2D tl2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cllight2").Value;
             Main.spriteBatch.Draw(tb, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(0, tb.Height / 2), new Vector2(length, width), SpriteEffects.None, 0);
-            foreach (Vector2 ps in p) {
+            foreach (Vector2 ps in p)
+            {
                 Util.Util.drawLine(Main.spriteBatch, px, Projectile.Center + (ps * new Vector2(1, width)).RotatedBy(Projectile.rotation), Projectile.Center + ((ps * new Vector2(1, width)) + new Vector2(16, 0)).RotatedBy(Projectile.rotation), Color.White * 0.4f, 4 * width);
             }
             SpriteBatch sb = Main.spriteBatch;
@@ -224,7 +226,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            
+
             return false;
         }
     }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DimDungeon;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
@@ -14,26 +9,24 @@ using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
-using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Common
 {
@@ -80,7 +73,7 @@ namespace CalamityEntropy.Common
             p.counter = counter;
             p.withGrav = withGrav;
             p.ToFriendly = ToFriendly;
-            
+
             return p;
         }
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
@@ -159,7 +152,7 @@ namespace CalamityEntropy.Common
                 if (s.Entity is Player player)
                 {
                     projectile.velocity *= player.Entropy().shootSpeed;
-                    
+
                 }
                 if (s.Entity is NPC np)
                 {
@@ -289,7 +282,7 @@ namespace CalamityEntropy.Common
         }
         public Vector2? plrOldPos = null;
         public Vector2? plrOldVel = null;
-        
+
         public override bool PreAI(Projectile projectile)
         {
             if (projectile.TryGetOwner(out var owner))
@@ -305,15 +298,15 @@ namespace CalamityEntropy.Common
             if (zypArrow)
             {
                 NPC target = projectile.FindTargetWithinRange(360, false);
-                if(target != null && counter > 12)
+                if (target != null && counter > 12)
                 {
                     projectile.velocity += (target.Center - projectile.Center).SafeNormalize(Vector2.Zero) * 1.6f;
                     projectile.velocity *= 0.92f;
                 }
             }
-            if((projectile.ModProjectile is ExobladeProj || projectile.type == ProjectileID.LastPrismLaser || projectile.type == ProjectileID.LastPrism) && projectile.owner.ToPlayer().Entropy().WeaponBoost > 0)
+            if ((projectile.ModProjectile is ExobladeProj || projectile.type == ProjectileID.LastPrismLaser || projectile.type == ProjectileID.LastPrism) && projectile.owner.ToPlayer().Entropy().WeaponBoost > 0)
             {
-                if(counter % 2 == 0)
+                if (counter % 2 == 0)
                 {
                     projectile.extraUpdates += projectile.owner.ToPlayer().Entropy().WeaponBoost;
                 }
@@ -376,7 +369,7 @@ namespace CalamityEntropy.Common
                 projectile.hostile = false;
                 projectile.friendly = true;
             }
-            if(vdtype >= 0 && !ProjectileID.Sets.IsARocketThatDealsDoubleDamageToPrimaryEnemy[projectile.type])
+            if (vdtype >= 0 && !ProjectileID.Sets.IsARocketThatDealsDoubleDamageToPrimaryEnemy[projectile.type])
             {
                 vdtype = -1;
             }
@@ -411,7 +404,7 @@ namespace CalamityEntropy.Common
                         GeneralParticleHandler.SpawnParticle(smokeGlow);
                     }
                 }
-                
+
                 NPC target = projectile.FindTargetWithinRange(1000, false);
                 if (target != null && counter > 15)
                 {
@@ -455,7 +448,8 @@ namespace CalamityEntropy.Common
             }
             if (projectile.Entropy().Lightning && projectile.owner >= 0)
             {
-                if (projectile.Entropy().counter % 18 == 0 && projectile.owner == Main.myPlayer) {
+                if (projectile.Entropy().counter % 18 == 0 && projectile.owner == Main.myPlayer)
+                {
                     int p = Projectile.NewProjectile(projectile.owner.ToPlayer().GetSource_FromAI(), projectile.Center + projectile.velocity * 1.4f, Vector2.Zero, ModContent.ProjectileType<Lcircle>(), 0, 0, projectile.owner);
                     p.ToProj().rotation = projectile.velocity.ToRotation();
                 }
@@ -515,7 +509,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            
+
             return true;
         }
 
@@ -546,7 +540,7 @@ namespace CalamityEntropy.Common
                     projectile.owner.ToPlayer().Center = playerPosL;
                 }
             }
-            
+
         }
         public static bool CircleIntersectsRectangle(Vector2 circleCenter, float radius, Rectangle rectangle)
         {
@@ -586,7 +580,7 @@ namespace CalamityEntropy.Common
 
             float ratio = radian / maxR;
 
-            ratio = Math.Max(ratio, 0.0001f); 
+            ratio = Math.Max(ratio, 0.0001f);
 
             return Math.Min(maxDmgMul, (float)(1 / Math.Log(ratio + 1)));
         }
@@ -596,13 +590,13 @@ namespace CalamityEntropy.Common
             {
                 float maxR = MathHelper.ToRadians(60);
                 float maxDmgMul = 2;
-                
+
                 float r = Util.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
-                if(r < MathHelper.ToRadians(16))
+                if (r < MathHelper.ToRadians(16))
                 {
                     modifiers.SetCrit();
                 }
-                modifiers.SourceDamage *= GetEventideDamageMultiplier(r,  maxR, maxDmgMul);
+                modifiers.SourceDamage *= GetEventideDamageMultiplier(r, maxR, maxDmgMul);
             }
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
@@ -641,9 +635,10 @@ namespace CalamityEntropy.Common
                 sb.End();
                 sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-                
+
             }
-            if (projectile.Entropy().Lightning) {
+            if (projectile.Entropy().Lightning)
+            {
                 float size = 4;
                 float sizej = size / odp2.Count;
                 Color cl = new Color(250, 250, 255);
@@ -720,7 +715,7 @@ namespace CalamityEntropy.Common
                 odp.Reverse();
                 odp.RemoveAt(odp.Count - 1);
                 Texture2D txx = Util.Util.getExtraTex("WyrmArrow");
-                
+
                 Main.spriteBatch.Draw(txx, projectile.Center + new Vector2(0, 8) - Main.screenPosition + projectile.velocity.SafeNormalize(Vector2.UnitX) * 18, null, lightColor, projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(txx.Width / 2, 0), projectile.scale, (projectile.velocity.X < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);
 
                 return false;
@@ -799,13 +794,13 @@ namespace CalamityEntropy.Common
             if (EventideShot)
             {
                 float r = Util.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
-                if(r < MathHelper.ToRadians(15))
+                if (r < MathHelper.ToRadians(15))
                 {
                     target.AddBuff(ModContent.BuffType<VoidVirus>(), 320);
                     Util.Util.PlaySound("voidseekercrit", 1, projectile.Center);
                     EGlobalNPC.AddVoidTouch(target, 160, 10, 800, 10);
                     projectile.owner.ToPlayer().Heal(16);
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center , Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, projectile.owner);
                 }
             }
             if (projectile.Entropy().Lightning && projectile.penetrate >= 5)

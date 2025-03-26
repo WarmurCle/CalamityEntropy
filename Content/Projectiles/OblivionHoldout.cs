@@ -1,20 +1,13 @@
-using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Util;
-using CalamityMod.Graphics.Primitives;
 using CalamityMod;
-using CalamityMod.Particles;
+using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -55,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public void updatePoints()
         {
-            for(int i = 0; i < v1.Count; i++)
+            for (int i = 0; i < v1.Count; i++)
             {
                 float urotu = Projectile.rotation;
                 float urotd = Projectile.rotation;
@@ -176,7 +169,7 @@ namespace CalamityEntropy.Content.Projectiles
             drawT(l2);
 
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + new Vector2(0, 0).RotatedBy(Projectile.rotation), null, Color.White, Projectile.rotation, texture.Size() / 2, Projectile.scale, (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically));
-            
+
             return false;
         }
         float tofs = 0;

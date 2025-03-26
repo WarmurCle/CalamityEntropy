@@ -1,37 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Pets;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
+using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items.Potions;
-using CalamityMod.NPCs.TownNPCs;
-using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities.Terraria.Utilities;
-using CalamityEntropy.Content.Tiles;
-using CalamityMod.Events;
-using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityEntropy.Content.Buffs;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin
 {
@@ -78,9 +66,12 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.width = 140;
             NPC.height = 140;
             NPC.damage = 128;
-            if (Main.expertMode) {
+            if (Main.expertMode)
+            {
                 NPC.damage += 5;
-            } if (Main.masterMode) {
+            }
+            if (Main.masterMode)
+            {
                 NPC.damage += 5;
             }
             NPC.defense = 90;
@@ -110,12 +101,12 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-                         npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NihilityTwinBag>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NihilityTwinBag>()));
 
-                         npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ModContent.ItemType<SupremeHealingPotion>(), 1, 5, 15), hideLootReport: true);
+            npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ModContent.ItemType<SupremeHealingPotion>(), 1, 5, 15), hideLootReport: true);
 
 
-                         var normalOnly = npcLoot.DefineNormalOnlyDropSet();
+            var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
                 normalOnly.Add(ModContent.ItemType<NihilityShell>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<Voidseeker>(), new Fraction(4, 5));
@@ -129,7 +120,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             npcLoot.Add(ModContent.ItemType<NihilityTwinTrophy>(), 10);
 
 
-                         npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedNihilityTwin, ModContent.ItemType<NihilityTwinLore>());
+            npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedNihilityTwin, ModContent.ItemType<NihilityTwinLore>());
         }
         public override void OnKill()
         {
@@ -214,11 +205,11 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         float shake = 0;
         public override void AI()
         {
-            if(spawnAnm > 0)
+            if (spawnAnm > 0)
             {
                 spawnAnm--;
                 shake += 5f / 120f;
-                if(cell != null)
+                if (cell != null)
                 {
                     cell.Center = NPC.Center;
                     cell.velocity *= 0;
@@ -228,9 +219,9 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 }
                 return;
             }
-            if(Main.GameUpdateCount % 5 == 0 && !(Main.netMode == NetmodeID.MultiplayerClient))
+            if (Main.GameUpdateCount % 5 == 0 && !(Main.netMode == NetmodeID.MultiplayerClient))
             {
-                if(cell == null || !cell.active)
+                if (cell == null || !cell.active)
                 {
                     int n = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<ChaoticCell>());
                     n.ToNPC().realLife = NPC.whoAmI;
@@ -241,15 +232,15 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     NPC.netSpam = 9;
                 }
             }
-            if(NPC.netSpam > 10)
+            if (NPC.netSpam > 10)
             {
                 NPC.netSpam = 9;
                 NPC.netUpdate = true;
             }
             counter++;
-            if(cell == null)
+            if (cell == null)
             {
-                if(cellIndex >= 0)
+                if (cellIndex >= 0)
                 {
                     cell = cellIndex.ToNPC();
                 }
@@ -260,8 +251,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 {
                     rope = new Rope(NPC.Center, cell.Center, 30, 0, new Vector2(0, 0f), 0.006f, 15, false);
                 }
-                
-                
+
+
             }
             if (!Main.dedServ)
             {
@@ -272,7 +263,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 NPC.TargetClosest(false);
             }
-            
+
             if (NPC.HasValidTarget)
             {
                 Player target = NPC.target.ToPlayer();
@@ -280,7 +271,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
 
                 escapeCounter = 0;
 
-                if(aitype == -1)
+                if (aitype == -1)
                 {
                     aicounter++;
                     NPC.velocity *= 0.98f;
@@ -299,16 +290,16 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     NPC.velocity += (targetPos - NPC.Center).SafeNormalize(Vector2.Zero) * 0.6f;
                     NPC.rotation = NPC.velocity.ToRotation();
                     spawnParticle(buttom);
-                    if(aicounter > 80)
+                    if (aicounter > 80)
                     {
                         randomAI();
                     }
                 }
-                if(phase == 1)
+                if (phase == 1)
                 {
-                    if(NPC.life < NPC.lifeMax / 2)
+                    if (NPC.life < NPC.lifeMax / 2)
                     {
-                        foreach(Player plr in Main.ActivePlayers)
+                        foreach (Player plr in Main.ActivePlayers)
                         {
                             plr.Entropy().immune = 120;
                         }
@@ -319,7 +310,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     {
                         if (NPC.ai[0]-- > 0)
                         {
-                            if(Util.Util.getDistance(targetPos, NPC.Center) > 1400)
+                            if (Util.Util.getDistance(targetPos, NPC.Center) > 1400)
                             {
                                 NPC.ai[0] = 36;
                             }
@@ -368,13 +359,13 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             cell.velocity += (NPC.Center - cell.Center) * 0.0022f;
                         }
                         aicounter++;
-                        if(aicounter > 360 && NPC.ai[0] > 0)
+                        if (aicounter > 360 && NPC.ai[0] > 0)
                         {
                             NPC.ai[0] = 0;
                             prepareAiChange();
                         }
                     }
-                    if(aitype == 1)
+                    if (aitype == 1)
                     {
                         cell.rotation = NPC.rotation;
                         NPC.velocity *= 0.98f;
@@ -384,7 +375,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         rotSpeed *= 0.62f;
                         cell.velocity *= 0.98f;
                         cell.velocity += (NPC.Center + NPC.rotation.ToRotationVector2() * -120 - cell.Center) * 0.14f;
-                        if(aicounter > 60 && counter % 1 == 0 && Main.netMode != NetmodeID.MultiplayerClient && Util.Util.getDistance(cell.Center, NPC.Center) < 720)
+                        if (aicounter > 60 && counter % 1 == 0 && Main.netMode != NetmodeID.MultiplayerClient && Util.Util.getDistance(cell.Center, NPC.Center) < 720)
                         {
                             Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, NPC.rotation.ToRotationVector2() * -14, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
                         }
@@ -403,7 +394,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             rotSpeed = 0;
                         }
                     }
-                    if(aitype == 2)
+                    if (aitype == 2)
                     {
                         if (aicounter > 0 || Util.Util.getDistance(targetPos, NPC.Center) < 1200)
                         {
@@ -430,7 +421,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                 {
                                     Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, (cell.velocity.ToRotation() + MathHelper.PiOver2).ToRotationVector2() * 12, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
                                     Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, (cell.velocity.ToRotation() - MathHelper.PiOver2).ToRotationVector2() * 12, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
-                                
+
                                 }
                             }
                             else
@@ -441,7 +432,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             }
                         }
                         NPC.rotation = (NPC.Center - cell.Center).ToRotation();
-                        
+
                         if (aicounter > 220)
                         {
                             prepareAiChange();
@@ -453,19 +444,19 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         {
                             spawnParticle(NPC.Center + NPC.velocity * ((float)i / 10f));
                         }
-                        
+
                         if (aicounter > 0 || Util.Util.getDistance(targetPos, NPC.Center) < 800)
                         {
                             aicounter++;
                         }
                         else
                         {
-                            if(NPC.velocity.Length() > 30)
+                            if (NPC.velocity.Length() > 30)
                             {
                                 NPC.velocity = NPC.velocity.SafeNormalize(Vector2.Zero) * 30;
                             }
                             NPC.velocity = (targetPos - new Vector2(0, 200) - NPC.Center) * 0.08f;
-                            if(Util.Util.getDistance(targetPos, NPC.Center + NPC.velocity * 2) < 800)
+                            if (Util.Util.getDistance(targetPos, NPC.Center + NPC.velocity * 2) < 800)
                             {
                                 NPC.velocity *= 0.36f;
                             }
@@ -477,7 +468,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         if (aicounter > 0)
                         {
                             NPC.velocity *= 0.995f;
-                            
+
                             NPC.velocity += (targetPos - NPC.Center).SafeNormalize(Vector2.Zero) * 0.2f;
 
                             cell.velocity = ((NPC.Center + (targetPos - NPC.Center).SafeNormalize(Vector2.UnitX) * 200) - cell.Center) * 0.1f;
@@ -534,14 +525,14 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             prepareAiChange();
                         }
                     }
-                    if(aitype == 5)
+                    if (aitype == 5)
                     {
-                        if(aicounter == 0)
+                        if (aicounter == 0)
                         {
                             Util.Util.PlaySound("charge", 1, NPC.Center);
                             Util.Util.PlaySound("charge", 1, NPC.Center);
                             NPC.rotation = (NPC.Center - targetPos).ToRotation();
-                            foreach(Player player in Main.ActivePlayers)
+                            foreach (Player player in Main.ActivePlayers)
                             {
                                 player.Entropy().immune = 60;
                             }
@@ -549,8 +540,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         aicounter++;
                         Vector2 t = NPC.rotation.ToRotationVector2() * 840;
 
-                        
-                        if(aicounter < 460)
+
+                        if (aicounter < 460)
                         {
                             NPC.velocity = (targetPos + t - NPC.Center) * 0.04f;
                             cell.velocity = (targetPos - t - cell.Center) * 0.04f;
@@ -574,7 +565,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                 }
                             }
                         }
-                        if(aicounter > 500)
+                        if (aicounter > 500)
                         {
                             prepareAiChange();
                         }
@@ -620,25 +611,25 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                         Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center + new Vector2(Main.rand.Next(-44, 44), Main.rand.Next(-44, 44)), (NPC.ai[2] + MathHelper.ToRadians(i)).ToRotationVector2() * 26, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
                                     }
                                 }
-                                
+
                             }
                         }
-                        if(aicounter > 360)
+                        if (aicounter > 360)
                         {
                             prepareAiChange();
                         }
                     }
                 }
-                if(phase == 2)
+                if (phase == 2)
                 {
-                    if(ropeLerp > 0)
+                    if (ropeLerp > 0)
                     {
                         ropeLerp -= 1f;
                     }
 
                     if (aitype == 0)
                     {
-                        if(aicounter > 5)
+                        if (aicounter > 5)
                         {
                             NPC.ai[2] = 0;
                             prepareAiChange();
@@ -684,14 +675,14 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + new Vector2(Main.rand.NextFloat(-16, 16), Main.rand.NextFloat(-16, 16)), (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 20, ModContent.ProjectileType<CellSpike>(), NPC.damage / 6, 2);
                                 }
                             }
-                            
+
                             NPC.velocity *= 0.96f;
                         }
                     }
-                    if(aitype == 1)
+                    if (aitype == 1)
                     {
-                        
-                        if(aicounter > 0 || Util.Util.getDistance(cell.Center, NPC.Center) < 90)
+
+                        if (aicounter > 0 || Util.Util.getDistance(cell.Center, NPC.Center) < 90)
                         {
                             aicounter++;
                         }
@@ -700,7 +691,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             NPC.velocity *= 0.9f;
                             cell.velocity += (NPC.Center - cell.Center).SafeNormalize(Vector2.Zero) * 2f;
                         }
-                        if(aicounter > 0 && aicounter < 100)
+                        if (aicounter > 0 && aicounter < 100)
                         {
                             NPC.velocity *= 0.98f;
                             NPC.velocity = (targetPos - NPC.Center) * 0.007f;
@@ -714,7 +705,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                 aicounter++;
                             }
                         }
-                        if(aicounter == 100)
+                        if (aicounter == 100)
                         {
                             NPC.rotation = (targetPos - NPC.Center).ToRotation();
                             cell.velocity = NPC.rotation.ToRotationVector2() * 60;
@@ -722,7 +713,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             cell.Center = NPC.Center + new Vector2(-100, 0).RotatedBy(NPC.rotation);
                             NPC.ai[3] = NPC.rotation;
                         }
-                        if(aicounter > 100 && aicounter < 130)
+                        if (aicounter > 100 && aicounter < 130)
                         {
                             rotSpeed *= 0.96f;
                             NPC.rotation += rotSpeed;
@@ -733,13 +724,13 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                 Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, (cell.velocity.ToRotation() - MathHelper.PiOver2).ToRotationVector2() * 18, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
                             }
                         }
-                        if(aicounter > 150)
+                        if (aicounter > 150)
                         {
-                            
+
                             cell.velocity *= 0.98f;
                             cell.velocity += (targetPos - cell.Center).SafeNormalize(Vector2.Zero) * 0.6f;
                         }
-                        if(aicounter > 160)
+                        if (aicounter > 160)
                         {
                             prepareAiChange();
                         }
@@ -748,7 +739,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     {
                         rotSpeed = 0;
                     }
-                    if(aitype == 2)
+                    if (aitype == 2)
                     {
                         if (aicounter > 2)
                         {
@@ -801,7 +792,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     }
                     if (aitype == 3)
                     {
-                        if(aicounter == 1)
+                        if (aicounter == 1)
                         {
                             Util.Util.PlaySound("beast_lavaball_rise1", 1);
                         }
@@ -826,7 +817,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                     {
                                         Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, (rot + MathHelper.ToRadians(i)).ToRotationVector2() * 16, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
                                     }
-                                    
+
                                 }
                                 Util.Util.PlaySound("flashback", 1, NPC.Center);
                                 prepareAiChange();
@@ -844,9 +835,9 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     }
                     if (aitype == 4)
                     {
-                        if(aicounter == 2)
+                        if (aicounter == 2)
                         {
-                            for(int i = 0; i < 3; i++)
+                            for (int i = 0; i < 3; i++)
                             {
                                 NPC.NewNPC(NPC.GetSource_FromAI(), (int)cell.Center.X, (int)cell.Center.Y, ModContent.NPCType<ChaoticCellSmall>(), 0, cell.whoAmI);
                             }
@@ -871,14 +862,14 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             prepareAiChange();
                         }
                     }
-                    if(aitype == 5)
+                    if (aitype == 5)
                     {
-                        if(aicounter == 2)
+                        if (aicounter == 2)
                         {
                             Util.Util.PlaySound("charge", 1, NPC.Center);
                             Util.Util.PlaySound("charge", 1, NPC.Center);
                         }
-                        if(aicounter < 40)
+                        if (aicounter < 40)
                         {
                             NPC.velocity = (targetPos - NPC.Center) * 0.009f;
                             NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (NPC.Center - targetPos).ToRotation(), 4f, true);
@@ -891,7 +882,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             }
                             NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.01f, false);
                         }
-                        if(aicounter == 40)
+                        if (aicounter == 40)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -909,17 +900,17 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         cell.velocity += (targetPos - cell.Center).SafeNormalize(Vector2.Zero) * 0.62f;
                         NPC.velocity = (targetPos - NPC.Center) * 0.007f;
                         aicounter++;
-                        if(aicounter > 460)
+                        if (aicounter > 460)
                         {
                             prepareAiChange();
                         }
                     }
-                    if(aitype == 6)
+                    if (aitype == 6)
                     {
-                        if(aicounter == 2 || aicounter == 62 || aicounter == 122)
+                        if (aicounter == 2 || aicounter == 62 || aicounter == 122)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {   
+                            {
                                 float rot = Util.Util.randomRot();
                                 for (int i = 0; i < 360; i += 40)
                                 {
@@ -993,20 +984,20 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         public Vector2 buttom { get { return NPC.Center + new Vector2(0, 64).RotatedBy(NPC.rotation + MathHelper.PiOver2); } }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if(spawnAnm > 0)
+            if (spawnAnm > 0)
             {
                 return false;
             }
             float rot = NPC.rotation + MathHelper.PiOver2;
-            
+
             Texture2D tex = NPC.getTexture();
-            if(phase == 2 && aitype == 5)
+            if (phase == 2 && aitype == 5)
             {
                 tex = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/NihilityTwin/BodyAlt").Value;
             }
             Color color = Color.White;
 
-            
+
 
             float erot = 0;
             erot += (1f - (1f / (1f + NPC.velocity.Length()))) * 0.12f;
@@ -1019,7 +1010,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             Main.EntitySpriteDraw(l1, buttom - Main.screenPosition, null, color, rot + erot, new Vector2(0, 46), NPC.scale, SpriteEffects.FlipHorizontally);
             Main.EntitySpriteDraw(l2, buttom - Main.screenPosition, null, color, rot - erot * 5, new Vector2(76, 34), NPC.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(l2, buttom - Main.screenPosition, null, color, rot + erot * 5, new Vector2(84 - 76, 46), NPC.scale, SpriteEffects.FlipHorizontally);
-            
+
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, color, rot, tex.Size() / 2, NPC.scale, SpriteEffects.None);
 
             Main.EntitySpriteDraw(l3, buttom - Main.screenPosition, null, color, rot - erot, new Vector2(50, 6), NPC.scale, SpriteEffects.None);
@@ -1030,11 +1021,11 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
 
         public void drawRope()
         {
-            if(rope == null)
+            if (rope == null)
             {
                 return;
             }
-            if(ropeLerp <= 0)
+            if (ropeLerp <= 0)
             {
                 return;
             }

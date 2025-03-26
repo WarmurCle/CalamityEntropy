@@ -1,19 +1,11 @@
-
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Items.Books.BookMarks;
+﻿using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Util;
-using CalamityMod.Items.LoreItems;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -86,7 +78,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.AI();
             Player player = Projectile.getOwner();
 
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 int rb = ModContent.ProjectileType<RedemptionBow>();
                 if (player.ownedProjectileCounts[rb] < player.ownedProjectileCounts[Projectile.type])
@@ -170,7 +162,7 @@ namespace CalamityEntropy.Content.Items.Books
                 else
                 {
                     Projectile.netUpdate = true;
-                    if(Projectile.netSpam >= 10)
+                    if (Projectile.netSpam >= 10)
                     {
                         Projectile.netSpam = 9;
                     }
@@ -183,9 +175,10 @@ namespace CalamityEntropy.Content.Items.Books
                     if (Projectile.ai[0] > shootCd)
                     {
                         Projectile.ai[0] -= shootCd;
-                        if (Main.myPlayer == Projectile.owner) {
+                        if (Main.myPlayer == Projectile.owner)
+                        {
                             eb.ShootSingleProjectile(ModContent.ProjectileType<RedemptionArrow>(), Projectile.Center, Projectile.rotation.ToRotationVector2(), 0.18f, 1, 1.6f);
-                        } 
+                        }
                     }
                 }
                 else
@@ -198,7 +191,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.timeLeft = 3;
             }
         }
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             Vector2 top = Projectile.Center + new Vector2(-13, -28).RotatedBy(Projectile.rotation) * Projectile.scale;

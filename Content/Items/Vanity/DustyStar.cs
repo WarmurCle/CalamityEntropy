@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Vanity
         {
             if (Main.netMode != NetmodeID.Server)
             {
-                if(DateTime.Now.Month == 12)
+                if (DateTime.Now.Month == 12)
                 {
                     EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/polaris_Head_s", EquipType.Head, this);
                 }
@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 {
                     EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/polaris_Head", EquipType.Head, this);
                 }
-                
+
                 EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/polaris_Body", EquipType.Body, this);
                 EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/polaris_Legs", EquipType.Legs, this);
             }
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "DustyStar", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "DustyStar", EquipType.Head);
 
-                             }
+            }
         }
     }
 }

@@ -1,9 +1,8 @@
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -12,8 +11,8 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
-    public class VPVoidLightBall: ModProjectile
+
+    public class VPVoidLightBall : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -34,28 +33,29 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.scale = 1f;
             Projectile.timeLeft = 170;
-            
+
         }
         public List<Vector2> odp = new List<Vector2>();
         public int counter1 = 60;
-        public override void AI(){
-            if(((int)(Projectile.ai[2])).ToNPC().active == false)
+        public override void AI()
+        {
+            if (((int)(Projectile.ai[2])).ToNPC().active == false)
             {
                 Projectile.Kill();
                 return;
             }
             counter1--;
-            if(counter == 0)
+            if (counter == 0)
             {
                 Projectile.velocity = ((int)(Projectile.ai[2])).ToNPC().velocity * 2;
             }
-            if(counter1 > 0)
+            if (counter1 > 0)
             {
                 Projectile.Center = ((int)(Projectile.ai[2])).ToNPC().Center + ((int)(Projectile.ai[2])).ToNPC().rotation.ToRotationVector2() * 90;
                 return;
             }
             odp.Add(Projectile.Center);
-            if(odp.Count > 36)
+            if (odp.Count > 36)
             {
                 odp.RemoveAt(0);
             }
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/light_bolt"));
             }
-            
+
             Projectile.velocity *= 0.94f;
             Projectile.ai[0] += (Projectile.ai[1] == 2 ? 1f : 1);
             counter += (Projectile.ai[1] == 2 ? 1f : 1);
@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             Texture2D warn = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/vlbw").Value;
             Texture2D t = TextureAssets.Projectile[Projectile.type].Value;
-            for(int i = 0; i < odp.Count; i++)
+            for (int i = 0; i < odp.Count; i++)
             {
                 float alpha = (float)i / (float)odp.Count;
                 spriteBatch.Draw(t, odp[i] - Main.screenPosition, null, Color.White * opc * alpha, 0, t.Size() / 2, new Vector2(1, 1) * Projectile.scale, SpriteEffects.None, 0);

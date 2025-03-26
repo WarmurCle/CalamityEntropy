@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -29,14 +28,14 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public int counter1 = 0;
         public int counter2 = 0;
-        public float length { get { return Projectile.ai[1];} set { Projectile.ai[1] = value; } }
+        public float length { get { return Projectile.ai[1]; } set { Projectile.ai[1] = value; } }
         float rotspeed = 0;
         float l = 0;
         bool soundplay = false;
         int counter = 0;
         public override bool? CanHitNPC(NPC target)
         {
-            if(counter < 30)
+            if (counter < 30)
             {
                 return false;
             }
@@ -45,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             counter++;
-            counter1++; 
+            counter1++;
             if (rope == null)
             {
                 rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 25, 0, new Vector2(0, 0.6f), 0.1f, 26, false);
@@ -60,7 +59,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 3;
             if (player.channel)
             {
-                
+
             }
             else
             {
@@ -93,7 +92,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity = targetpos - Projectile.Center;
                 }
                 float a = (Projectile.Center - player.Center).ToRotation();
-                if(a < 0)
+                if (a < 0)
                 {
                     soundplay = true;
                 }
@@ -113,13 +112,13 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 length = Math.Max(256, Math.Abs(Util.Util.getDistance(Main.MouseWorld, player.Center)));
             }
             player.itemTime = 2;
             player.itemAnimation = 2;
-            if(Projectile.Center.X > player.Center.X)
+            if (Projectile.Center.X > player.Center.X)
             {
                 player.direction = 1;
             }
@@ -137,7 +136,7 @@ namespace CalamityEntropy.Content.Projectiles
             List<Vector2> points = new List<Vector2>();
             points = rope.GetPoints();
             Texture2D handle = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/NetherRiftHandle").Value;
-            Main.spriteBatch.Draw(handle, Projectile.owner.ToPlayer().Center + player.gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White, (points[1] - points[0]).ToRotation(), new Vector2(28,  handle.Height / 2), Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(handle, Projectile.owner.ToPlayer().Center + player.gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White, (points[1] - points[0]).ToRotation(), new Vector2(28, handle.Height / 2), Projectile.scale, SpriteEffects.None, 0);
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -149,7 +148,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             float lc = 1;
             float jn = 0;
-            
+
             for (int i = 1; i < points.Count - 1; i++)
             {
                 jn += Util.Util.getDistance(points[i - 1], points[i]) / (float)70 * lc;
@@ -160,7 +159,7 @@ namespace CalamityEntropy.Content.Projectiles
                 ve.Add(new Vertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 30 * lc,
                       new Vector3(jn, 0, 1),
                       Color.White));
-                
+
             }
 
             SpriteBatch sb = Main.spriteBatch;
@@ -196,6 +195,6 @@ namespace CalamityEntropy.Content.Projectiles
             EGlobalNPC.AddVoidTouch(target, 60, 2, 600, 16);
         }
     }
-    
+
 
 }

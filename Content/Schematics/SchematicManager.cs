@@ -2,6 +2,6 @@
 
 namespace CalamityEntropy.Content.Schematics;
 
-public class SchematicManager: ModSystem
+public class SchematicManager : ModSystem
 {
-          }
+}

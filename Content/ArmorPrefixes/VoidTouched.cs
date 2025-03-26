@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         }
         public override bool? canApplyTo(Item item)
         {
-            if(!Main.hardMode) return false;
+            if (!Main.hardMode) return false;
             return Main.rand.NextBool(2);
         }
         public override Color getColor()

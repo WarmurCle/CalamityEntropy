@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.IO;
 using Terraria.Utilities;
@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.DimDungeon
 
         public override bool ShouldSave => false;
         public override bool NoPlayerSaving => false;
-        
+
         public override void OnEnter()
         {
             SubworldSystem.noReturn = true;
@@ -29,13 +29,13 @@ namespace CalamityEntropy.Content.DimDungeon
             color = new Vector3(180, 180, 255);
             return true;
         }
-        
+
         public override List<GenPass> Tasks => new List<GenPass>()
         {
             new GP()
         };
-        
-        public class GP: GenPass
+
+        public class GP : GenPass
         {
             public GP() : base("G", 1) { }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)

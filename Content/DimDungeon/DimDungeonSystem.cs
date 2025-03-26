@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -17,8 +17,10 @@ public class DimDungeonSystem : ModSystem
     public override void PostDrawTiles()
     {
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-        if (rooms != null && SubworldSystem.IsActive<DimDungeonSubworld>()) {
-            foreach (Room room in rooms) {
+        if (rooms != null && SubworldSystem.IsActive<DimDungeonSubworld>())
+        {
+            foreach (Room room in rooms)
+            {
                 Rectangle r = room.getRect();
                 Util.Util.DrawRectAlt(r, Color.Blue, 4, 0);
             }
@@ -63,7 +65,7 @@ public class DimDungeonSystem : ModSystem
         bool hasEnemy = false;
         foreach (NPC n in Main.npc)
         {
-            
+
             if (n.active)
             {
                 if (!n.friendly)

@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 
 namespace CalamityEntropy.Content.DimDungeon;
 
 public class Room
 {
     public Rectangle Bounds { get; set; }
-    
+
     public RoomMetadata Metadata { get; set; }
-    
+
     public List<Corridor> CorridorUp { get; set; }
     public List<Corridor> CorridorDown { get; set; }
     public List<Corridor> CorridorLeft { get; set; }
@@ -41,14 +41,14 @@ public class Room
         CorridorLeft = new();
         CorridorRight = new();
     }
-    
+
     public Room(Rectangle bounds, RoomMetadata metadata)
     {
         CorridorUp = new();
         CorridorDown = new();
         CorridorLeft = new();
         CorridorRight = new();
-        
+
         Bounds = bounds;
         Metadata = metadata;
     }
@@ -70,7 +70,7 @@ public class Room
                 CorridorRight.Add(corridor);
                 break;
         }
-        
+
         return this;
     }
 
@@ -83,9 +83,9 @@ public class Room
         {
             room.AddCorridor(ref corridor, direction.Reverse());
         }
-        
+
         AddCorridor(ref corridor, direction);
-        
+
         return this;
     }
 }

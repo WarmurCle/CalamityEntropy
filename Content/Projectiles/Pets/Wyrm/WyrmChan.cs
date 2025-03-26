@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,7 +27,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Wyrm
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Main.gameMenu) {
+            if (Main.gameMenu)
+            {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Wyrm/WyrmChan").Value;
                 Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
@@ -92,14 +93,14 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Wyrm
                 Vector2 px = targetPos - Projectile.Center;
                 px.Normalize();
                 Projectile.velocity += px * 0.6f;
-                
+
                 Projectile.velocity *= 0.98f;
 
             }
             else
             {
                 Projectile.velocity *= 0.8f;
-                
+
             }
             if (Projectile.velocity.X > 0)
             {
@@ -109,7 +110,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Wyrm
             {
                 Projectile.direction = -1;
             }
-            
+
         }
         public override bool PreAI()
         {
@@ -129,7 +130,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Wyrm
             {
                 Projectile.timeLeft = 2;
             }
-                         if (Projectile.wet) {
+            if (Projectile.wet)
+            {
                 Projectile.extraUpdates = 1;
             }
             else

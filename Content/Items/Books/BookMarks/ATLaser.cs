@@ -1,9 +1,8 @@
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
@@ -16,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             base.AI();
             w -= 0.034f;
-            if(w <= 0)
+            if (w <= 0)
             {
                 Projectile.Kill();
             }
@@ -68,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14 * Projectile.scale * w,
                           new Vector3(p, 1, 1),
-                          b));  
+                          b));
                     ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * Projectile.scale * w,
                           new Vector3(p, 0, 1),
                           b));

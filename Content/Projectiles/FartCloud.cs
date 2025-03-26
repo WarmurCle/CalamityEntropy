@@ -1,17 +1,6 @@
-using CalamityEntropy.Content.DimDungeon;
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Particles;
-using Humanizer;
+﻿using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -44,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < 5; i++)
             {
                 Vector2 smokeSpeed = Vector2.Zero;
-                CalamityMod.Particles.Particle smoke = new MediumMistParticle(Projectile.Center + new Vector2(Main.rand.Next(-120, 121)).RotatedBy(Util.Util.randomRot()),Vector2.Zero, Color.Green, Color.Green, Main.rand.NextFloat(0.8f, 1.2f), 255f * 0.6f, Main.rand.NextFloat(-0.1f, 0.1f));
+                CalamityMod.Particles.Particle smoke = new MediumMistParticle(Projectile.Center + new Vector2(Main.rand.Next(-120, 121)).RotatedBy(Util.Util.randomRot()), Vector2.Zero, Color.Green, Color.Green, Main.rand.NextFloat(0.8f, 1.2f), 255f * 0.6f, Main.rand.NextFloat(-0.1f, 0.1f));
                 GeneralParticleHandler.SpawnParticle(smoke);
             }
             if (!Exp)
@@ -67,7 +56,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.damage *= 14 * 6;
                     Projectile.timeLeft = 3;
                     Projectile.hostile = true;
-                    for(int i = 0; i < Projectile.localNPCImmunity.Length; i++)
+                    for (int i = 0; i < Projectile.localNPCImmunity.Length; i++)
                     {
                         Projectile.localNPCImmunity[i] = 0;
                     }
@@ -121,6 +110,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

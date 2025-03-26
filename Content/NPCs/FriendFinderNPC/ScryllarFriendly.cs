@@ -1,15 +1,8 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using CalamityMod.BiomeManagers;
-using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Dusts;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables.Banners;
-using CalamityMod.Items.Weapons.Summon;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -50,9 +43,9 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 
         public override void AI()
         {
-            foreach(NPC npc in Main.ActiveNPCs)
+            foreach (NPC npc in Main.ActiveNPCs)
             {
-                if(npc.type == NPC.type && npc.whoAmI != NPC.whoAmI && npc.getRect().Intersects(NPC.getRect()))
+                if (npc.type == NPC.type && npc.whoAmI != NPC.whoAmI && npc.getRect().Intersects(NPC.getRect()))
                 {
                     NPC.velocity += (NPC.Center - npc.Center).SafeNormalize(Vector2.UnitX) * 0.2f;
                 }
@@ -62,8 +55,8 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             Entity target = this.FindTarget();
             NPC.direction = target.Center.X > NPC.Center.X ? 1 : -1;
             NPC.damage = 50;
-            
-            if(target is NPC)
+
+            if (target is NPC)
             {
                 NPC.ai[1]--;
                 if (NPC.ai[1] < -160)
@@ -89,7 +82,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     {
                         for (int i = 0; i < 6; i++)
                         {
-                            EParticle.spawnNew(new Smoke() { timeleftmax = 30, timeLeft = 30}, NPC.Center + Util.Util.randomVec(8), Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 0.6f) + new Vector2(0, -1.2f), Color.OrangeRed, 0.16f, 0.14f, true, Microsoft.Xna.Framework.Graphics.BlendState.Additive);
+                            EParticle.spawnNew(new Smoke() { timeleftmax = 30, timeLeft = 30 }, NPC.Center + Util.Util.randomVec(8), Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 0.6f) + new Vector2(0, -1.2f), Color.OrangeRed, 0.16f, 0.14f, true, Microsoft.Xna.Framework.Graphics.BlendState.Additive);
                         }
                     }
                     if (NPC.ai[1] < 30)

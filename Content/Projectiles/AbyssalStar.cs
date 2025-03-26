@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -49,8 +49,9 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
         }
-        public override void AI(){
-            Projectile.rotation+=0.16f;
+        public override void AI()
+        {
+            Projectile.rotation += 0.16f;
             NPC target = Projectile.FindTargetWithinRange(600, false);
             if (target != null)
             {
@@ -77,6 +78,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

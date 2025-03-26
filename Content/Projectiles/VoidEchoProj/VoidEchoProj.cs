@@ -1,9 +1,8 @@
-using System;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -24,7 +23,8 @@ namespace CalamityEntropy.Content.Projectiles.VoidEchoProj
             Projectile.scale = 1.2f;
         }
         public bool right = true;
-        public override void AI(){
+        public override void AI()
+        {
             Player player = Projectile.owner.ToPlayer();
             Projectile.Center = player.Center + player.gfxOffY * Vector2.UnitY;
             right = player.direction == 1;
@@ -73,21 +73,21 @@ namespace CalamityEntropy.Content.Projectiles.VoidEchoProj
             Texture2D part2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidEchoProj/part2").Value;
             Texture2D mark = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidEchoProj/VoidEcho").Value;
 
-            
+
             int scl = (int)(230 + 25 * Math.Cos(counter / 6));
             sb.Draw(part1, drawpos + ep * 0.4f - Main.screenPosition, null, new Color(scl, scl, scl), 0, part1.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
-            
+
             sb.Draw(part2, drawpos + ep * 0.4f - Main.screenPosition, null, Color.White, counter * 0.06f, part2.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
             sb.Draw(mark, Projectile.owner.ToPlayer().Center - Main.screenPosition - new Vector2(0, 38), Util.Util.GetCutTexRect(mark, 8, (int)(counter / 4) % 8, false), Color.White, 0, new Vector2(57, 43), Projectile.scale, ef, 0);
-            
+
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             return false;
         }
     }
-    
+
 
 }

@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -20,15 +20,16 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.DamageType = DamageClass.Magic;
             Projectile.width = 1;
-            Projectile.height = 1; 
+            Projectile.height = 1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
         }
         int maxTime;
-        public override void AI(){
+        public override void AI()
+        {
             Player owner = Projectile.owner.ToPlayer();
-            
+
             if (!owner.channel)
             {
                 if (Projectile.ai[0] > 16)
@@ -43,14 +44,14 @@ namespace CalamityEntropy.Content.Projectiles
             }
 
             maxTime = 60;
-            
+
             if (Projectile.ai[0] < maxTime)
             {
                 Projectile.ai[0] += 1 * owner.GetAttackSpeed(DamageClass.Magic) * (1 + owner.Entropy().WeaponBoost * 0.6f);
                 if (Projectile.ai[0] >= maxTime)
                 {
                     float a = 0;
-                    for(int i = 0; i < 36; i++)
+                    for (int i = 0; i < 36; i++)
                     {
                         a += MathHelper.ToRadians(10);
                         SoundStyle s = SoundID.DD2_BetsyFireballShot;
@@ -67,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.netUpdate = true;
                 }
                 Projectile.velocity = nv;
-                
+
             }
             if (Projectile.velocity.X > 0)
             {
@@ -108,7 +109,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Main.EntitySpriteDraw(to, Projectile.Center - Main.screenPosition, null, lightColor * (Projectile.ai[0] / (float)maxTime) * (Projectile.ai[0] >= maxTime ? 1f : 0.95f), Projectile.rotation + MathHelper.ToRadians(45), new Vector2(0, texture.Height), Projectile.scale, SpriteEffects.None);
             }
-            
+
 
             Main.spriteBatch.End();
 

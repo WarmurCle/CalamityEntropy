@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SubworldLibrary;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Utilities;
 using Terraria.WorldBuilding;
@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.DimDungeon
 
         public override bool ShouldSave => false;
         public override bool NoPlayerSaving => true;
-        
+
         public override void OnEnter()
         {
             SubworldSystem.hideUnderworld = true;
@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.DimDungeon
             color = new Vector3(180, 180, 255);
             return true;
         }
-        
+
         public override List<GenPass> Tasks => new List<GenPass>()
         {
             new DimDungeonGenPass(),

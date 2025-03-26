@@ -9,7 +9,7 @@ namespace CalamityEntropy.Common
 {
     public class EGlobalBossbar : GlobalBossBar
     {
-        
+
         public override bool PreDraw(SpriteBatch spriteBatch, NPC npc, ref BossBarDrawParams drawParams)
         {
 
@@ -32,5 +32,5 @@ namespace CalamityEntropy.Common
             return true;
         }
     }
-    
+
 }

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -35,12 +35,13 @@ namespace CalamityEntropy.Content.Projectiles
         {
             EGlobalNPC.AddVoidTouch(target, 90, 3.6f, 1000, 16);
         }
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.rotation = Projectile.velocity.ToRotation();
             Util.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 12);
         }
 
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             if (Projectile.timeLeft < 30)
@@ -53,6 +54,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

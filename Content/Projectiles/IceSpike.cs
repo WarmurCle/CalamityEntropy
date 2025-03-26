@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Dusts;
+﻿using CalamityEntropy.Content.Dusts;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework;
@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class IceSpike: ModProjectile
+    public class IceSpike : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -43,7 +43,8 @@ namespace CalamityEntropy.Content.Projectiles
             target.AddBuff(BuffID.Frostburn, 1080);
             Main.player[Projectile.owner].AddBuff(ModContent.BuffType<CosmicFreeze>(), 600);
         }
-        public override void AI(){
+        public override void AI()
+        {
 
             Projectile.velocity.Y += 0f;
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -57,6 +58,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -20,9 +17,11 @@ using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -81,7 +80,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void BossHeadSlot(ref int index)
         {
-            if(phaseTrans >= 120)
+            if (phaseTrans >= 120)
             {
                 index = iconP2;
             }
@@ -122,9 +121,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.width = 90;
             NPC.height = 90;
             NPC.damage = 210;
-            if (Main.expertMode){
-                NPC.damage += 18;   
-            }if (Main.masterMode){
+            if (Main.expertMode)
+            {
+                NPC.damage += 18;
+            }
+            if (Main.masterMode)
+            {
                 NPC.damage += 18;
             }
             NPC.defense = 120;
@@ -168,12 +170,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-                         npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CruiserBag>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CruiserBag>()));
 
-                         npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ModContent.ItemType<OmegaHealingPotion>(), 1, 5, 15), hideLootReport: true);
+            npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ModContent.ItemType<OmegaHealingPotion>(), 1, 5, 15), hideLootReport: true);
 
 
-                         var normalOnly = npcLoot.DefineNormalOnlyDropSet();
+            var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
                 normalOnly.Add(ModContent.ItemType<VoidRelics>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<VoidElytra>(), new Fraction(3, 5));
@@ -191,8 +193,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
             npcLoot.Add(ModContent.ItemType<CruiserTrophy>(), 10);
 
-            
-                         npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedCruiser, ModContent.ItemType<CruiserLore>());
+
+            npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedCruiser, ModContent.ItemType<CruiserLore>());
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
@@ -245,11 +247,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 modifiers.SetMaxDamage(1);
             }
-            
+
         }
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            
+
             modifiers.SourceDamage *= NPC.Entropy().damageMul;
             NPC.Entropy().damageMul *= 0.98f;
             if (phase == 2)
@@ -265,7 +267,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 modifiers.SetMaxDamage(1);
             }
         }
-        
+
         public void changeAi()
         {
             if (aitype == 2)
@@ -316,12 +318,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC.Entropy().damageMul = 1;
             }
             counterc++;
-            if(noaitime > 0)
+            if (noaitime > 0)
             {
                 NPC.dontTakeDamage = true;
             }
             noaitime--;
-            if(noaitime == 0)
+            if (noaitime == 0)
             {
                 NPC.dontTakeDamage = false;
             }
@@ -468,7 +470,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<VoidTouch>(), 5);
                     }
                 }
-                
+
             }
             jaslowdown *= 0.8f;
             NPC.netUpdate = true;
@@ -489,7 +491,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 maxDistance = (int)(maxDistance + (maxDistanceTarget - maxDistance) * 0.002f);
             }
-            
+
             NPC.ai[0] += 1;
             int bodyIndex;
             for (int i = 0; i < NPC.buffTime.Length; i++)
@@ -530,13 +532,13 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, bodyIndex);
                             Main.npc[bodyIndex].netUpdate = true;
                         }
-                        
+
                     }
                     NPC.ai[3] = syg;
                     tail = syg;
                 }
 
-                
+
             }
             if (phaseTrans > 120)
             {
@@ -607,7 +609,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             changeCounter = 0;
                             nrc = 0;
                         }
-                        
+
                     }
                     if (NPC.ai[1] == 0)
                     {
@@ -713,7 +715,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if (changeCounter < 40)
                         {
-                            if (Util.Util.getDistance(NPC.Center, targetPlayerr.Center) < 200) {
+                            if (Util.Util.getDistance(NPC.Center, targetPlayerr.Center) < 200)
+                            {
                                 targetPlayerr.velocity = Vector2.Zero;
                                 targetPlayerr.Center = NPC.Center + NPC.rotation.ToRotationVector2() * 120;
                                 targetPlayerr.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(NPC.Center), 1800f, 1000f, 0f, 4.5f) * 4;
@@ -813,14 +816,14 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     if (changeCounter == 1)
                     {
                         rotPos = NPC.Center;
-                        
+
                         bite = true;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CruiserBlackhole>(), (int)(NPC.damage / 9f), 0);
                         }
                     }
-                    
+
                     if (changeCounter > 450)
                     {
                         changeCounter = 0;
@@ -846,7 +849,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     {
                         NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (targetPlayerr.Center - NPC.Center).ToRotation(), 0.01f, false);
                         NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (targetPlayerr.Center - NPC.Center).ToRotation(), 0.5f);
-                        
+
                         NPC.velocity = NPC.rotation.ToRotationVector2() * speed * speedMuti;
                         targetSpeed = 18;
                         nrc++;
@@ -873,7 +876,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         nrc++;
                         if (Util.Util.getDistance(NPC.Center, targetPlayerr.Center) > 1400 || nrc > 100)
                         {
-                            
+
                             NPC.ai[1] = 1;
                             changeCounter++;
                         }
@@ -962,7 +965,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         changeAi();
                         changeCounter = 0;
                     }
-                    
+
                 }
                 if (phase == 2)
                 {
@@ -973,9 +976,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     }
                     else if (aitype < 2 && aitype > -1)
                     {
-                        
+
                         aitype = Main.rand.Next(3, 3);
-                         
+
                         changeCounter = 0;
                         changeAi();
                     }
@@ -1072,8 +1075,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             speed *= 0.7f;
                         }
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), (int)(NPC.damage / 7f), 0);
-                                
-                        
+
+
                     }
                     if (Main.netMode != NetmodeID.Server)
                     {
@@ -1082,7 +1085,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         SoundEngine.PlaySound(sound);
                         SoundEngine.PlaySound(SoundID.Item9);
                     }
-                    
+
                 }
             }
             else
@@ -1096,7 +1099,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 da = da + (ja - da) * 0.1f;
 
             }
-            if (aitype == 4) {
+            if (aitype == 4)
+            {
                 if (alpha > 0.3)
                 {
                     alpha -= 0.05f;
@@ -1116,7 +1120,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 Vector2 oPos;
                 float oRot;
-                
+
                 if (i == 0)
                 {
                     oPos = NPC.Center;
@@ -1174,7 +1178,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
 
             NPC.SetEventFlagCleared(ref EDownedBosses.downedCruiser, -1);
-            
+
         }
 
         public override bool CheckActive()
@@ -1207,7 +1211,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, NPC.Center, NPC.Center + NPC.rotation.ToRotationVector2() * 6000, new Color(166, 111, 255) * ((float)changeCounter / 80f) * 0.7f, 2);
 
                         Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, NPC.Center, NPC.Center + NPC.rotation.ToRotationVector2() * 6000, new Color(166, 111, 255) * ((float)changeCounter / 80f) * 0.3f, 6);
-                    
+
                     }
                     if (changeCounter > 140 && changeCounter < 200)
                     {
@@ -1251,7 +1255,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
                     Texture2D tx;
                     tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/P2b" + (bd + 1).ToString()).Value;
-                        
+
                     spriteBatch.Draw(tx, pos - screenPosition, null, Color.White * alpha, rot, new Vector2(tx.Width, tx.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
 
                     bd += 1;
@@ -1270,7 +1274,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 spriteBatch.Draw(j2, vtodraw - screenPosition + ofs2.RotatedBy(NPC.rotation) * NPC.scale, null, Color.White * alpha, NPC.rotation - MathHelper.ToRadians(roth), new Vector2(28, j2.Height - 20), NPC.scale, SpriteEffects.None, 0);
 
                 spriteBatch.Draw(txd, vtodraw - screenPosition, null, Color.White * alpha, NPC.rotation, new Vector2(txd.Width, txd.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
-                
+
             }
             else
             {
@@ -1312,7 +1316,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     }
 
 
-                    
+
 
                 }
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserHead").Value;
@@ -1328,7 +1332,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 spriteBatch.Draw(txd, vtodraw - screenPosition, null, Color.White, NPC.rotation, new Vector2(txd.Width, txd.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
 
             }
-            
+
             return false;
         }
         public override void PostDraw(SpriteBatch sbb, Vector2 screenPos, Color drawColor)

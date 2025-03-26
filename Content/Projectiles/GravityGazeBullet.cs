@@ -1,11 +1,8 @@
-using CalamityEntropy.Common;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
@@ -31,7 +28,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 20;
         }
         float alpha = 0.7f;
-        public override void AI(){
+        public override void AI()
+        {
             if (s)
             {
                 tail = Projectile.Center - Projectile.velocity;
@@ -40,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.velocity *= 0.98f;
             tail = tail + (Projectile.Center - tail) * 0.05f;
-            if(Projectile.timeLeft < 30)
+            if (Projectile.timeLeft < 30)
             {
                 alpha -= 0.6f / 30f;
             }
@@ -73,6 +71,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

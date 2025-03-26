@@ -1,39 +1,28 @@
-using System;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.CalPlayer;
-using CalamityMod.CalPlayer.Dashes;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria.DataStructures;
-using CalamityMod.Dusts;
-using Terraria.Graphics.Shaders;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
     public class TheRevelation : ModItem
-	{
-        public static int Damage = 50;          public override void SetStaticDefaults()
+    {
+        public static int Damage = 50; public override void SetStaticDefaults()
         {
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(150, 7f, 1.9f);
         }
-        public override void SetDefaults() {
-			Item.width = 52;
-			Item.height = 52;
+        public override void SetDefaults()
+        {
+            Item.width = 52;
+            Item.height = 52;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.accessory = true;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

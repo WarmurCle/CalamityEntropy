@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 SoundEngine.PlaySound(SoundID.Item22, Projectile.Center);
             }
-            
+
             Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
             if (Main.myPlayer == Projectile.owner)
             {
@@ -64,8 +64,9 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 player.direction = 1;
             }
-            else { 
-                player.direction = -1; 
+            else
+            {
+                player.direction = -1;
             }
             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
@@ -90,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             }
             Projectile.velocity = newVelocity;
         }
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
@@ -105,7 +106,8 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
         }
 
 
-        public override bool PreDraw(ref Color dc){
+        public override bool PreDraw(ref Color dc)
+        {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Chainsaw/EnslavedStar" + (((int)(Projectile.ai[0] / 4)) % frame).ToString()).Value;
             var rand = Main.rand;
             SpriteEffects ef = SpriteEffects.None;
@@ -120,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(beeCd <= 0)
+            if (beeCd <= 0)
             {
                 beeCd = 20;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(2) * 8, ModContent.ProjectileType<PlaguenadeBee>(), Projectile.damage / 4, 0.2f, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
@@ -167,6 +169,6 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             return false;
         }
     }
-    
+
 
 }

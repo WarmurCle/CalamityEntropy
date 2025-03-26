@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser
 {
-    
-    public class VoidExplode: ModProjectile
+
+    public class VoidExplode : ModProjectile
     {
         List<Vector2> odp = new List<Vector2>();
         public override void SetStaticDefaults()
@@ -35,10 +35,11 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.light = 1f;
             Projectile.scale = 1f;
             Projectile.timeLeft = 20;
-            
+
         }
 
-        public override void AI(){
+        public override void AI()
+        {
 
         }
 

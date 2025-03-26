@@ -1,6 +1,6 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -28,7 +28,8 @@ namespace CalamityEntropy.Content.Projectiles
         public int frame = 0;
         public int frameAddCounter = 3;
         public bool playedSound = false;
-        public override void AI(){
+        public override void AI()
+        {
             if (!playedSound)
             {
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/holyshield_shatter") { Volume = 0.6f }, Projectile.Center);
@@ -39,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 frameAddCounter = 3;
                 frame++;
-                if(frame > 7)
+                if (frame > 7)
                 {
                     Projectile.Kill();
                 }
@@ -67,6 +68,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.DimDungeon;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
@@ -13,35 +10,33 @@ using CalamityMod.NPCs.SlimeGod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SubworldLibrary;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.UI;
 using Terraria.UI;
 
 namespace CalamityEntropy.Common
 {
     public class EModSys : ModSystem
     {
+        private static Texture2D markTex => Util.Util.getExtraTex("EvMark");
+        internal static int timer;
+        public static bool noItemUse = false;
         public float counter = 0;
-        public override void Load()
-        {
-        }
-        Texture2D markTex { get { return Util.Util.getExtraTex("EvMark"); } }
-        public override void PreUpdateWorld()
-        {
-            if (!CalamityEntropy.rainbowmasterFixed)
-            {
-                RMWeakRef.init();
-                if (RMWeakRef.mod != null)
-                {
-                    RMWeakRef.CMRWeakRef.setTexs();
-                }
-            }
-            CalamityEntropy.rainbowmasterFixed = true;
-        }
+        public bool prd = true;
+        public bool mi = false;
+        public bool escLast = true;
+        public bool rCtrlLast = false;
+        public bool eowLast = false;
+        public int eowMaxLife = 0;
+        public bool slimeGodLast = false;
+        public int slimeGodMaxLife = 0;
+        public Vector2 LastPlayerPos;
+        public Vector2 LastPlayerVel;
+
         public override void PostDrawTiles()
         {
             if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<EventideSniper>())
@@ -49,18 +44,13 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
                 foreach (NPC npc in Main.ActiveNPCs)
                 {
-                    if(!npc.dontTakeDamage && !npc.friendly)
+                    if (!npc.dontTakeDamage && !npc.friendly)
                     {
                         Main.spriteBatch.Draw(markTex, npc.Center - Main.screenPosition, null, Color.White, 0, markTex.Size() / 2, 1, SpriteEffects.None, 0f);
                     }
                 }
                 Main.spriteBatch.End();
             }
-        }
-
-        public override void PostSetupRecipes()
-        {
-            
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -71,36 +61,30 @@ namespace CalamityEntropy.Common
             {
                 CalamityEntropy.Instance.userInterface?.Update(gameTime);
             }
-            
+
         }
-        public static bool noItemUse = false;
+
         public override void PostUpdateDusts()
         {
-            if (CalamityEntropy.FlashEffectStrength > 0) {
+            if (CalamityEntropy.FlashEffectStrength > 0)
+            {
                 CalamityEntropy.FlashEffectStrength -= 0.0125f;
             }
             CalamityEntropy.blackMaskTime--;
             PixelParticle.Update();
             VoidParticles.Update();
             CalamityEntropy.cutScreen += CalamityEntropy.cutScreenVel;
-            if(CalamityEntropy.cutScreen > 0)
+            if (CalamityEntropy.cutScreen > 0)
             {
                 CalamityEntropy.cutScreenVel -= 1.16f;
             }
-            if(CalamityEntropy.cutScreen < 0)
+            if (CalamityEntropy.cutScreen < 0)
             {
                 CalamityEntropy.cutScreen = 0;
                 CalamityEntropy.cutScreenVel = 0;
             }
         }
-        public bool prd = true;
-        public bool mi = false;
-        public bool escLast = true;
-        public bool rCtrlLast = false;
-        public bool eowLast = false;
-        public int eowMaxLife = 0;
-        public bool slimeGodLast = false;
-        public int slimeGodMaxLife = 0;
+
         public override void PostUpdatePlayers()
         {
             EBookUI.update();
@@ -108,25 +92,25 @@ namespace CalamityEntropy.Common
             {
                 Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/RepBossTrack")] = 1;
             }
-            if(CalamityEntropy.noMusTime > 0)
+            if (CalamityEntropy.noMusTime > 0)
             {
                 CalamityEntropy.noMusTime--;
                 Main.curMusic = 0;
                 Main.newMusic = 0;
-                for(int i = 0; i < Main.musicFade.Length; i++)
+                for (int i = 0; i < Main.musicFade.Length; i++)
                 {
                     Main.musicFade[i] = 0;
                 }
             }
 
             bool rCtrl = Keyboard.GetState().IsKeyDown(Keys.RightControl);
-            if(!rCtrlLast && rCtrl)
+            if (!rCtrlLast && rCtrl)
             {
-                 
+
             }
             rCtrlLast = rCtrl;
-            
-            
+
+
             if (!Main.playerInventory)
             {
                 if (ArmorForgingStationUI.Visible)
@@ -171,14 +155,14 @@ namespace CalamityEntropy.Common
         }
         public void drawXythBar()
         {
-            if(Main.LocalPlayer.HeldItem.ModItem is Xytheron xr)
+            if (Main.LocalPlayer.HeldItem.ModItem is Xytheron xr)
             {
                 float prog = xr.charge / 20f;
                 Vector2 Center = Main.LocalPlayer.Center - Main.screenPosition + new Vector2(0, 56);
                 Texture2D bar = Util.Util.getExtraTex("XythBar");
                 Main.spriteBatch.Draw(bar, Center, new Rectangle(0, 0, 64, 26), Color.White, 0, new Vector2(32, 13), 1, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(bar, Center, new Rectangle(0, 26, (int)(8 + 48 * prog), 6), Color.White, 0, new Vector2(32, 1), 1, SpriteEffects.None, 0);
-                if(Main.MouseScreen.getRectCentered(2, 2).Intersects(Center.getRectCentered(64, 26)))
+                if (Main.MouseScreen.getRectCentered(2, 2).Intersects(Center.getRectCentered(64, 26)))
                 {
                     Main.instance.MouseText(Mod.GetLocalization("XythCharge").Value + ": " + xr.charge.ToString() + "/20");
                 }
@@ -243,7 +227,7 @@ namespace CalamityEntropy.Common
                 },
                 InterfaceScaleType.UI)
             );
-               
+
             }
         }
 
@@ -260,7 +244,7 @@ namespace CalamityEntropy.Common
             float p = Main.LocalPlayer.Entropy().VoidCharge;
             if (Main.LocalPlayer.Entropy().VoidInspire > 0)
             {
-                p = (float)Main.LocalPlayer.Entropy().VoidInspire / 600f;
+                p = Main.LocalPlayer.Entropy().VoidInspire / 600f;
                 offset += new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3));
             }
             spriteBatch.Draw(bar, offset, null, Color.White, 0, bar.Size() / 2, 1, SpriteEffects.None, 0);
@@ -290,7 +274,7 @@ namespace CalamityEntropy.Common
                     eow = true;
                     maxlifeEows += n.lifeMax;
                 }
-                if(ModContent.NPCType<CrimulanPaladin>() == n.type || ModContent.NPCType<SplitCrimulanPaladin>() == n.type || ModContent.NPCType<EbonianPaladin>() == n.type || ModContent.NPCType<SplitEbonianPaladin>() == n.type)
+                if (ModContent.NPCType<CrimulanPaladin>() == n.type || ModContent.NPCType<SplitCrimulanPaladin>() == n.type || ModContent.NPCType<EbonianPaladin>() == n.type || ModContent.NPCType<SplitEbonianPaladin>() == n.type)
                 {
                     sg = true;
                     maxlifeSg += n.lifeMax;
@@ -302,17 +286,17 @@ namespace CalamityEntropy.Common
             }
             eowLast = eow;
 
-            if(sg && !slimeGodLast)
+            if (sg && !slimeGodLast)
             {
                 slimeGodMaxLife = maxlifeSg;
             }
 
             slimeGodLast = sg;
-            
+
         }
         public override void PostAddRecipes()
         {
-            foreach(var recipe in Main.recipe)
+            foreach (var recipe in Main.recipe)
             {
                 if (recipe.createItem.type == ModContent.ItemType<AuricToilet>())
                 {
@@ -321,9 +305,6 @@ namespace CalamityEntropy.Common
             }
 
         }
-        public Vector2 LastPlayerPos;
-        public Vector2 LastPlayerVel;
-        internal static int timer;
 
         public override void PreUpdateProjectiles()
         {
@@ -336,7 +317,7 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateProjectiles()
         {
-            foreach(NPC npc in Main.ActiveNPCs)
+            foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.ModNPC is FriendFindNPC)
                 {
@@ -346,7 +327,7 @@ namespace CalamityEntropy.Common
             }
             if (!Main.dedServ)
             {
-                             }
+            }
         }
     }
 }

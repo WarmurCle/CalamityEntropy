@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -138,7 +138,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Signus
                 Projectile.timeLeft = 2;
             }
 
-            
+
 
         }
     }

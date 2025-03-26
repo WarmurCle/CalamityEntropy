@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.NPCs;
+﻿using CalamityEntropy.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -22,7 +22,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 10;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             if (Main.netMode == NetmodeID.Server || Main.netMode == NetmodeID.SinglePlayer)
             {
                 foreach (NPC nc in Main.npc)
@@ -39,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.Kill();
         }
-        
+
 
     }
 

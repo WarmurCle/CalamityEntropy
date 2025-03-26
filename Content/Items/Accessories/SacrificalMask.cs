@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
@@ -9,20 +9,21 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-	public class SacrificalMask : ModItem
-	{
+    public class SacrificalMask : ModItem
+    {
 
-		public override void SetDefaults() {
-			Item.width = 86;
-			Item.height = 86;
+        public override void SetDefaults()
+        {
+            Item.width = 86;
+            Item.height = 86;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
-            Item.rare =ItemRarityID.Red;
+            Item.rare = ItemRarityID.Red;
             Item.Entropy().stroke = true;
             Item.Entropy().strokeColor = Color.Red;
             Item.Entropy().NameColor = Color.Black;
             Item.accessory = true;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

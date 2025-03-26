@@ -1,31 +1,20 @@
-
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Items.Books.BookMarks;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
-using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Projectiles.Melee;
-using CalamityMod.Projectiles.Ranged;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -170,7 +159,7 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 ri = false;
                 r = Projectile.velocity.ToRotation();
-                for(int i = 0; i < Projectile.oldPos.Length; i++)
+                for (int i = 0; i < Projectile.oldPos.Length; i++)
                 {
                     Projectile.oldPos[i] = Projectile.Center;
                     Projectile.oldRot[i] = Projectile.rotation;
@@ -193,7 +182,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                     shootCd = book.getShootCd();
                 }
-                
+
             }
             if (++Projectile.localAI[0] > 18 && hitCount == 0)
             {
@@ -228,7 +217,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
             }
             Projectile.rotation = Main.GameUpdateCount * 0.4f;
-            if(Projectile.velocity.Length() < 2)
+            if (Projectile.velocity.Length() < 2)
             {
                 Projectile.velocity = r.ToRotationVector2() * 2;
             }
@@ -263,7 +252,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            if(hitCount == 1)
+            if (hitCount == 1)
             {
                 Projectile.ai[0] = 120;
             }
@@ -274,7 +263,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 float ra = i * MathHelper.PiOver2;
                 Main.spriteBatch.EnterShaderRegion();
@@ -292,7 +281,7 @@ namespace CalamityEntropy.Content.Items.Books
                 GameShaders.Misc["CalamityMod:ExobladePierce"].Apply();
                 GameShaders.Misc["CalamityMod:ExobladePierce"].Apply();
                 Vector2[] tpos = new Vector2[ProjectileID.Sets.TrailCacheLength[Type]];
-                for(int k = 0; k < ProjectileID.Sets.TrailCacheLength[Type]; k++)
+                for (int k = 0; k < ProjectileID.Sets.TrailCacheLength[Type]; k++)
                 {
                     tpos[k] = Projectile.oldPos[k] + (Projectile.oldRot[k] + ra).ToRotationVector2() * 37 * Projectile.scale;
                 }

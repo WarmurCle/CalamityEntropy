@@ -1,6 +1,4 @@
-using CalamityEntropy.Common;
-using CalamityMod.NPCs.AstrumDeus;
-using CalamityMod.Particles;
+﻿using CalamityMod.NPCs.AstrumDeus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -30,8 +28,9 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.scale = 1.5f;
             Projectile.timeLeft = 36;
         }
-        public override void AI(){
-            Projectile.rotation+=0.16f;
+        public override void AI()
+        {
+            Projectile.rotation += 0.16f;
             Projectile.velocity *= 0.96f;
             Dust.NewDust(Projectile.Center - new Vector2(4, 4), 8, 8, DustID.PinkStarfish, 0, 0);
             Dust.NewDust(Projectile.Center - new Vector2(4, 4), 8, 8, DustID.YellowStarDust, 0, 0);
@@ -46,11 +45,11 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, rot.ToRotationVector2() * -14, ModContent.ProjectileType<ProjectionStarSplitAlt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
             }
-            for(int i = 0; i < 36; i++)
+            for (int i = 0; i < 36; i++)
             {
                 Vector2 speed = Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
                 Dust.NewDust(Projectile.Center - new Vector2(4, 4), 8, 8, DustID.PinkStarfish, speed.X, speed.Y);
-                    speed = Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
+                speed = Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
                 Dust.NewDust(Projectile.Center - new Vector2(4, 4), 8, 8, DustID.YellowStarDust, speed.X, speed.Y);
 
             }
@@ -65,6 +64,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

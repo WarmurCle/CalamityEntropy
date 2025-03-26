@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -35,7 +35,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 0;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             if (Projectile.ai[0] == 0)
             {
                 angle = Projectile.velocity.ToRotation();
@@ -50,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
 
 
-            
+
             Projectile.ai[0]++;
             if (htd)
             {
@@ -58,7 +59,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
-                    
+
                 }
                 Projectile.velocity = Vector2.Zero;
             }
@@ -71,14 +72,14 @@ namespace CalamityEntropy.Content.Projectiles
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
                 }
-                
+
                 NPC target = Projectile.FindTargetWithinRange(1600, false);
                 if (target != null)
                 {
-                    Projectile.velocity *= 0.96f;   
+                    Projectile.velocity *= 0.96f;
                     Vector2 v = target.Center - Projectile.Center;
                     v.Normalize();
-                    
+
                     Projectile.velocity += v * 3f;
                 }
             }
@@ -109,20 +110,21 @@ namespace CalamityEntropy.Content.Projectiles
             Color cl = Color.Lerp(Color.Black, Color.White, Projectile.ai[0] / 30f);
             float c = 0;
 
-            
+
             if (odp.Count > 1)
             {
-                
+
                 Texture2D ht = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/sth").Value;
                 if (!htd)
                 {
                     Main.spriteBatch.Draw(ht, odp[odp.Count - 1] - Main.screenPosition, null, Color.White, Projectile.velocity.ToRotation(), new Vector2(ht.Width, ht.Height) / 2, 1, SpriteEffects.None, 0);
                 }
 
-                
+
             }
             c = 0;
-            if (odp.Count > 1) {
+            if (odp.Count > 1)
+            {
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -136,7 +138,7 @@ namespace CalamityEntropy.Content.Projectiles
                       b));
                 for (int i = 1; i < odp.Count; i++)
                 {
-                    
+
 
                     c += 1f / odp.Count;
                     ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 20,
@@ -145,12 +147,13 @@ namespace CalamityEntropy.Content.Projectiles
                     ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 20,
                           new Vector3((float)i / odp.Count, 0, 1),
                           b));
-                        
+
                 }
 
                 SpriteBatch sb = Main.spriteBatch;
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                if (ve.Count >= 3)                 {
+                if (ve.Count >= 3)
+                {
                     Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/rvslash").Value;
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
@@ -165,11 +168,11 @@ namespace CalamityEntropy.Content.Projectiles
                     Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.Black, 14 * c, 2);
 
 
-                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.White , 2 * c, 2);
+                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.White, 2 * c, 2);
 
 
                 }
-                
+
             }
             if (exps > 0)
             {
@@ -179,7 +182,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                     Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * exps, 0, new Vector2(tx.Height, tx.Width) / 2, new Vector2((1 - exps) * 2f, (1 - exps) * 2f), SpriteEffects.None, 0);
                 }
-            }  
+            }
             return true;
         }
 

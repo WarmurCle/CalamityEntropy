@@ -1,22 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
-using CalamityMod;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Particle = CalamityEntropy.Content.Particles.Particle;
 
 namespace CalamityEntropy.Content.Projectiles.BNE
 {
@@ -32,8 +21,9 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             Projectile.timeLeft = 360;
             Projectile.light = 0.25f;
         }
-        public override void AI(){
-            if(Projectile.timeLeft < 340 - Projectile.ai[0])
+        public override void AI()
+        {
+            if (Projectile.timeLeft < 340 - Projectile.ai[0])
             {
                 Projectile.velocity += (Projectile.owner.ToPlayer().Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 3.2f;
                 Projectile.velocity *= 0.94f;
@@ -42,7 +32,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                     Projectile.owner.ToPlayer().Entropy().serviceWhipDamageBonus += 0.022f;
                     Projectile.owner.ToPlayer().Heal(4);
                     Util.Util.PlaySound("soulshine", 1, Projectile.Center, volume: 0.4f);
-                    for(int i = 0; i < 32; i++)
+                    for (int i = 0; i < 32; i++)
                     {
                         Dust.NewDust(Projectile.owner.ToPlayer().Center, 1, 1, DustID.OrangeStainedGlass, Main.rand.NextFloat(-8, 8), Main.rand.NextFloat(-8, 8));
                     }

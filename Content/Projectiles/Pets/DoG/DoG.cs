@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.DoG
                 list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/s/DoG2").Value);
                 list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/s/DoG3").Value);
                 list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/DoG/s/DoG4").Value);
-                
+
             }
             else
             {
@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.DoG
                 Projectile.timeLeft = 2;
             }
 
-            
+
 
         }
     }

@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs.Wyrm;
+﻿using CalamityEntropy.Content.Buffs.Wyrm;
 using CalamityEntropy.Util;
-using CalamityMod.Items.Weapons.DraedonsArsenal;
 using CalamityMod;
-using CalamityMod.Items.Weapons.Magic;
-using CalamityMod.Particles;
-using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.Animations;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -94,7 +87,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (alpha > 0)
                 {
-                    alpha-=0.01f;
+                    alpha -= 0.01f;
                 }
             }
             if (alpha > 0)
@@ -105,7 +98,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 target = Util.Util.findTarget(player, Projectile, 3600, false);
             }
-            if(target == null)
+            if (target == null)
             {
                 Vector2 t = player.Center + new Vector2(0, -120);
                 if (Util.Util.getDistance(t, Projectile.Center) > 300)
@@ -118,7 +111,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 AttackTarget(target);
             }
-            if(player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
+            if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
             {
                 target = player.MinionAttackTargetNPC.ToNPC();
             }
@@ -181,12 +174,12 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D head = Util.Util.getExtraTex("pw_head");
             Texture2D tail = Util.Util.getExtraTex("pw_tail");
             Texture2D body1 = Util.Util.getExtraTex("pw_body");
-            Texture2D body2= Util.Util.getExtraTex("pw_bodyalt");
+            Texture2D body2 = Util.Util.getExtraTex("pw_bodyalt");
             Main.spriteBatch.Draw(head, Projectile.Center - Main.screenPosition, null, Color.White * 0.6f * alpha, Projectile.rotation, head.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-            for(int i = 0; i < segs.Count; i++)
+            for (int i = 0; i < segs.Count; i++)
             {
                 Texture2D draw = tail;
-                if(i < segs.Count - 1)
+                if (i < segs.Count - 1)
                 {
                     draw = (i % 2 == 0) ? body1 : body2;
                 }

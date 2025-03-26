@@ -1,17 +1,13 @@
-﻿using System;
+﻿using CalamityEntropy.Content.Items.Books;
+using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Dusts;
-using CalamityMod.NPCs;
-using CalamityMod.NPCs.SupremeCalamitas;
-using CalamityMod.World;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
-using CalamityMod.Particles;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityEntropy.Content.Items.Books;
-using CalamityMod;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -54,16 +50,16 @@ namespace CalamityEntropy.Content.Projectiles
 
             Lighting.AddLight(Projectile.Center, 0.9f * Projectile.Opacity, 0f, 0f);
 
-                float sine = (float)Math.Sin(Projectile.timeLeft * 0.575f / MathHelper.Pi);
+            float sine = (float)Math.Sin(Projectile.timeLeft * 0.575f / MathHelper.Pi);
 
-                Vector2 offset = Projectile.velocity.SafeNormalize(Vector2.UnitX).RotatedBy(MathHelper.PiOver2) * sine * 16f;
+            Vector2 offset = Projectile.velocity.SafeNormalize(Vector2.UnitX).RotatedBy(MathHelper.PiOver2) * sine * 16f;
 
-                SparkParticle orb = new(Projectile.Center + offset, -Projectile.velocity * 0.05f, false, 8, 0.8f, Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f));
-                GeneralParticleHandler.SpawnParticle(orb);
+            SparkParticle orb = new(Projectile.Center + offset, -Projectile.velocity * 0.05f, false, 8, 0.8f, Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f));
+            GeneralParticleHandler.SpawnParticle(orb);
 
-                SparkParticle orb2 = new(Projectile.Center - offset, -Projectile.velocity * 0.05f, false, 8, 0.8f, Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f));
-                GeneralParticleHandler.SpawnParticle(orb2);
-            
+            SparkParticle orb2 = new(Projectile.Center - offset, -Projectile.velocity * 0.05f, false, 8, 0.8f, Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f));
+            GeneralParticleHandler.SpawnParticle(orb2);
+
 
             if (Projectile.timeLeft < 21)
                 Projectile.Opacity -= 0.05f;

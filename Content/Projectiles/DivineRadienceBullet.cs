@@ -1,11 +1,7 @@
-using CalamityEntropy.Common;
-using CalamityMod.Particles;
+﻿using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -31,13 +27,14 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 120;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             odp.Add(Projectile.Center);
             if (odp.Count > 9)
             {
                 odp.RemoveAt(0);
             }
-            Projectile.rotation+=0.16f;
+            Projectile.rotation += 0.16f;
             NPC target = Projectile.FindTargetWithinRange(1600, false);
             if (target != null && drawcount > 8)
             {
@@ -102,6 +99,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

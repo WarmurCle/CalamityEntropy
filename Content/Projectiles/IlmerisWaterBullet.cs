@@ -1,11 +1,6 @@
-﻿using System;
-using CalamityMod.Balancing;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Projectiles.Healing;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 

@@ -1,5 +1,4 @@
-using System;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
@@ -7,26 +6,27 @@ using CalamityMod.CalPlayer;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-	public class OdinsRefuge : ModItem
-	{
+    public class OdinsRefuge : ModItem
+    {
 
-		public override void SetDefaults() {
-			Item.width = 86;
-			Item.height = 86;
+        public override void SetDefaults()
+        {
+            Item.width = 86;
+            Item.height = 86;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.accessory = true;
             Item.defense = 30;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

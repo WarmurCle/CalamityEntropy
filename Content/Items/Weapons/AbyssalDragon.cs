@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AbyssalDragon :ModItem
+    public class AbyssalDragon : ModItem
     {
         public override void SetStaticDefaults()
         {

@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -33,7 +33,8 @@ namespace CalamityEntropy.Content.Projectiles
 
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             if (Projectile.ai[0] == 0)
             {
                 angle = Projectile.velocity.ToRotation();
@@ -81,8 +82,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/RevelationThrow").Value;
             float c = 0;
-            for (int i = 0; i < odp.Count; i++) {
-                Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, Color.White * c* 0.6f, odr[i], new Vector2(tx.Width / 2, tx.Height / 2), new Vector2(1, 1), SpriteEffects.None, 0);
+            for (int i = 0; i < odp.Count; i++)
+            {
+                Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, Color.White * c * 0.6f, odr[i], new Vector2(tx.Width / 2, tx.Height / 2), new Vector2(1, 1), SpriteEffects.None, 0);
                 c += 1f / odp.Count;
             }
             return true;

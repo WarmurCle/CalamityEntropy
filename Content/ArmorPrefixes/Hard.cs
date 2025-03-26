@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void updateEquip(Player player, Item item)
         {
-            
+
         }
         public override float AddDefense()
         {

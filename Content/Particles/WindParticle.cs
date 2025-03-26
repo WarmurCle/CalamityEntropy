@@ -1,17 +1,12 @@
-﻿using CalamityMod.Graphics.Primitives;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
+using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Intrinsics.Arm;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
-using CalamityEntropy.Util;
 
 namespace CalamityEntropy.Content.Particles
 {
@@ -30,10 +25,10 @@ namespace CalamityEntropy.Content.Particles
         {
             base.update();
             this.alpha = this.timeLeft / 46f;
-            this.velocity = this.rotation.ToRotationVector2() * v1 + r.ToRotationVector2() * v2; 
+            this.velocity = this.rotation.ToRotationVector2() * v1 + r.ToRotationVector2() * v2;
             this.rotation = this.rotation + dir * rv;
             odp.Insert(0, this.position);
-            if(odp.Count > 16)
+            if (odp.Count > 16)
             {
                 odp.RemoveAt(odp.Count - 1);
             }

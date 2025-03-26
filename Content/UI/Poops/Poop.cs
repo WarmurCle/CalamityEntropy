@@ -1,14 +1,7 @@
-﻿using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace CalamityEntropy.Content.UI.Poops
 {
@@ -17,7 +10,7 @@ namespace CalamityEntropy.Content.UI.Poops
         public static List<Poop> instances;
         protected override void Register()
         {
-            if(instances == null) {  instances = new List<Poop>(); }
+            if (instances == null) { instances = new List<Poop>(); }
             instances.Add(this);
         }
         public virtual string texPath => (GetType().Namespace + "." + Name).Replace('.', '/');
@@ -50,7 +43,7 @@ namespace CalamityEntropy.Content.UI.Poops
 
             return new PoopNormal();
         }
-        
+
         public virtual float getRollChance()
         {
             return 1;

@@ -14,7 +14,7 @@ public class RoomMetadata
         Width = width;
         Height = height;
     }
-    
+
     public (int x, int y) GetOffset(int corridorX, int corridorY, int corridorWidth, int corridorLength, Direction direction)
     {
         int offsetX = corridorX;
@@ -27,9 +27,9 @@ public class RoomMetadata
         else
         {
             offsetX -= Width / 2;
-            
+
         }
-        
+
         switch (direction)
         {
             case Direction.Up:
@@ -45,7 +45,7 @@ public class RoomMetadata
                 offsetX += corridorLength;
                 break;
         }
-        
+
         return (offsetX, offsetY);
     }
 }

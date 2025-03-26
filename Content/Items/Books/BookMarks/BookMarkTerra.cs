@@ -1,18 +1,7 @@
-
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -50,11 +39,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.extraUpdates = 1;
             Projectile.width = Projectile.height = 32;
         }
-        
+
         public override void AI()
         {
             base.AI();
-            if(Projectile.velocity.X > 0)
+            if (Projectile.velocity.X > 0)
             {
                 Projectile.rotation += 0.1f;
             }
@@ -65,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if(oldVelocity.X != 0 && Projectile.velocity.X == 0)
+            if (oldVelocity.X != 0 && Projectile.velocity.X == 0)
             {
                 Projectile.velocity.X = oldVelocity.X * -1;
             }

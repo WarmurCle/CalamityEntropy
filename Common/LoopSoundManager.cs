@@ -1,15 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 
 namespace CalamityEntropy.Common
 {
-    public class LoopSound {
+    public class LoopSound
+    {
         public SoundEffectInstance instance;
         public int timeleft = 2;
         public void setVolume(float v)
@@ -77,7 +74,8 @@ namespace CalamityEntropy.Common
 
         public static void unload()
         {
-            if(sounds is not null){
+            if (sounds is not null)
+            {
                 foreach (var sound in sounds)
                 {
                     sound.stop();

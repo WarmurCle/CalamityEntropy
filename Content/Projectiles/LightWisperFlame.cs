@@ -1,16 +1,11 @@
-using System;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Common;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -121,7 +116,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            
+
 
             return false;
         }
@@ -131,7 +126,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D fire = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Texture2D mist = ModContent.Request<Texture2D>("CalamityMod/Particles/MediumMist").Value;
 
-                         Color color1 = new Color(160, 100, 255, 200);
+            Color color1 = new Color(160, 100, 255, 200);
             Color color2 = new Color(160, 50, 255, 70);
             Color color3 = new Color(120, 100, 255, 100);
             Color color4 = new Color(30, 50, 200, 100);
@@ -145,24 +140,24 @@ namespace CalamityEntropy.Content.Projectiles
 
             for (float j = 1f; j >= 0f; j -= length)
             {
-                                 Color fireColor = ((timeRatio < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, timeRatio)) :
-                ((timeRatio < 0.2f) ? Color.Lerp(color1, color2, Utils.GetLerpValue(0.1f, 0.2f, timeRatio)) :
-                ((timeRatio < 0.35f) ? color2 :
-                ((timeRatio < 0.7f) ? Color.Lerp(color2, color3, Utils.GetLerpValue(0.35f, 0.7f, timeRatio)) :
-                ((timeRatio < 0.85f) ? Color.Lerp(color3, color4, Utils.GetLerpValue(0.7f, 0.85f, timeRatio)) :
-                Color.Lerp(color4, Color.Transparent, Utils.GetLerpValue(0.85f, 1f, timeRatio)))))));
+                Color fireColor = ((timeRatio < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, timeRatio)) :
+((timeRatio < 0.2f) ? Color.Lerp(color1, color2, Utils.GetLerpValue(0.1f, 0.2f, timeRatio)) :
+((timeRatio < 0.35f) ? color2 :
+((timeRatio < 0.7f) ? Color.Lerp(color2, color3, Utils.GetLerpValue(0.35f, 0.7f, timeRatio)) :
+((timeRatio < 0.85f) ? Color.Lerp(color3, color4, Utils.GetLerpValue(0.7f, 0.85f, timeRatio)) :
+Color.Lerp(color4, Color.Transparent, Utils.GetLerpValue(0.85f, 1f, timeRatio)))))));
                 fireColor *= (1f - j) * Utils.GetLerpValue(0f, 0.2f, timeRatio, true);
 
-                                 Vector2 firePos = Projectile.Center - Main.screenPosition - Projectile.velocity * vOffset * j;
+                Vector2 firePos = Projectile.Center - Main.screenPosition - Projectile.velocity * vOffset * j;
                 float mainRot = (-j * MathHelper.PiOver2 - Main.GlobalTimeWrappedHourly * (j + 1f) * 2f / length) * Math.Sign(Projectile.velocity.X);
                 float trailRot = MathHelper.PiOver4 - mainRot;
 
-                                 Vector2 trailOffset = Projectile.velocity * vOffset * length * 0.5f;
+                Vector2 trailOffset = Projectile.velocity * vOffset * length * 0.5f;
                 Main.EntitySpriteDraw(fire, firePos - trailOffset, null, fireColor * 0.25f, trailRot, fire.Size() * 0.5f, fireSize, SpriteEffects.None);
 
-                                 Main.EntitySpriteDraw(fire, firePos, null, fireColor, mainRot, fire.Size() * 0.5f, fireSize, SpriteEffects.None);
+                Main.EntitySpriteDraw(fire, firePos, null, fireColor, mainRot, fire.Size() * 0.5f, fireSize, SpriteEffects.None);
 
-                                 if (MistType > 2 || MistType < 0)
+                if (MistType > 2 || MistType < 0)
                     return false;
                 Main.spriteBatch.SetBlendState(BlendState.Additive);
                 Rectangle frame = mist.Frame(1, 3, 0, MistType);
@@ -172,8 +167,8 @@ namespace CalamityEntropy.Content.Projectiles
             }
             return false;
         }
-        
+
     }
-    
+
 
 }

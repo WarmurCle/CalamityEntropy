@@ -38,8 +38,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = CUtil.rogueDC;
         }
 
-       
-         
+
+
         public override float StealthDamageMultiplier => 1.2f;
         public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 3f;
@@ -49,7 +49,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (player.Calamity().StealthStrikeAvailable())
             {
                 int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
-                if (p.WithinBounds(Main.maxProjectiles)) {
+                if (p.WithinBounds(Main.maxProjectiles))
+                {
                     Main.projectile[p].Calamity().stealthStrike = true;
                 }
                 p.ToProj().extraUpdates += 1;

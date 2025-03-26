@@ -1,10 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
@@ -18,7 +13,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public override void update()
         {
-            if(this.timeLeft > 8)
+            if (this.timeLeft > 8)
             {
                 this.timeLeft--;
             }

@@ -1,26 +1,11 @@
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
-using CalamityMod.Projectiles.Turret;
+﻿using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
-using System;
-using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class AstralExplosion : ModProjectile
     {
         public override string Texture => "CalamityEntropy/Assets/Extra/white";

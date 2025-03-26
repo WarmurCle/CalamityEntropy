@@ -1,19 +1,14 @@
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
-    public class BookMarkIntergelactic : BookMark 
+    public class BookMarkIntergelactic : BookMark
     {
         public override Texture2D UITexture => BookMark.GetUITexture("Intergelactic");
         public override void SetDefaults()
@@ -21,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             base.SetDefaults();
             Item.rare = ItemRarityID.Red;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
-            if(ModLoader.TryGetMod("CatalystMod", out Mod caly))
+            if (ModLoader.TryGetMod("CatalystMod", out Mod caly))
             {
                 if (caly.TryFind<ModRarity>("SuperbossRarity", out ModRarity rare))
                 {
@@ -39,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnProjectileSpawn(Projectile projectile, bool ownerClient)
         {
-            if(ownerClient && Main.rand.NextBool(6))
+            if (ownerClient && Main.rand.NextBool(6))
             {
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 0.6f, ModContent.ProjectileType<NovaSlimerProj>(), projectile.damage, projectile.knockBack, projectile.owner);
             }

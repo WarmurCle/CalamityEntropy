@@ -1,10 +1,6 @@
-using System;
-using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
@@ -33,11 +29,12 @@ namespace CalamityEntropy.Content.Projectiles
         }
         float scale = 0;
         float scalej = 0.25f;
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.rotation = Projectile.velocity.ToRotation();
             scale += scalej;
             scalej -= 0.03f;
-            if(scale < 0)
+            if (scale < 0)
             {
                 Projectile.Kill();
             }
@@ -56,12 +53,12 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D t1 = TextureAssets.Projectile[Projectile.type].Value;
             Main.spriteBatch.Draw(t1, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(0, t1.Height / 2), scale, SpriteEffects.None, 0);
- 
+
             return false;
         }
 
 
     }
-    
+
 
 }

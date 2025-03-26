@@ -1,46 +1,44 @@
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-	public class AntiVoid : ModItem
-	{
+    public class AntiVoid : ModItem
+    {
         public override void SetStaticDefaults()
         {
 
             ItemID.Sets.AnimatesAsSoul[Type] = true;
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(5, 5));
         }
-        public override void SetDefaults() {
-			Item.width = 80;
-			Item.height = 144;
-			Item.noMelee = true;
-			Item.noUseGraphic = true;
-			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.useTime = 30;
-			Item.useAnimation = 30;
-			Item.autoReuse = true;
-			Item.scale = 2f;
-			Item.DamageType = DamageClass.MeleeNoSpeed;
-			Item.damage = 100;
-			Item.knockBack = 4;
-			Item.crit = 6;
-			Item.shoot = ModContent.ProjectileType<VoidshadeHeld>();
-			Item.shootSpeed = 16;
-			Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-			Item.rare = ModContent.RarityType<VoidPurple>();
+        public override void SetDefaults()
+        {
+            Item.width = 80;
+            Item.height = 144;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.autoReuse = true;
+            Item.scale = 2f;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
+            Item.damage = 100;
+            Item.knockBack = 4;
+            Item.crit = 6;
+            Item.shoot = ModContent.ProjectileType<VoidshadeHeld>();
+            Item.shootSpeed = 16;
+            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
+            Item.rare = ModContent.RarityType<VoidPurple>();
             Item.Calamity().devItem = true;
-		}
+        }
         public override bool AltFunctionUse(Player player)
         {
             return true;

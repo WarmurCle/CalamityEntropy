@@ -1,23 +1,13 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Util;
-using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Projectiles.Melee;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
@@ -51,8 +41,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidBurst>(), projectile.damage * 8, 1, projectile.owner);
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 1, projectile.owner);
-                
-                for(int i = 0; i < 74; i++)
+
+                for (int i = 0; i < 74; i++)
                 {
                     EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), new Color(140, 140, 255), 0.3f, 1, true, BlendState.Additive);
                     EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), Color.LightGoldenrodYellow, 0.3f, 1, true, BlendState.Additive);

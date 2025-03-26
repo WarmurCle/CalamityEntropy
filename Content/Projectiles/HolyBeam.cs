@@ -1,19 +1,14 @@
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
-using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
-    public class HolyBeam: ModProjectile
+
+    public class HolyBeam : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -34,17 +29,18 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.scale = 1f;
             Projectile.timeLeft = 80;
-            
+
         }
         float opc = 1;
-        public override void AI(){
-            if(counter == 0)
+        public override void AI()
+        {
+            if (counter == 0)
             {
                 SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/angel_blast1"), Projectile.Center);
             }
             counter++;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if(counter > 60)
+            if (counter > 60)
             {
                 opc -= 1f / 20f;
             }

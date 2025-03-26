@@ -1,23 +1,17 @@
-
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Items.Books.BookMarks;
+﻿using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Util;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.Items.Books
 {
@@ -93,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Books
 
     public abstract class EntropyBookHeldProjectile : ModProjectile
     {
-        
+
         public int ItemType => (int)Projectile.ai[0];
         public int openAnim = 0;
         public bool UIOpen = false;
@@ -110,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
             Projectile.netImportant = true;
-            
+
         }
         public override bool? CanCutTiles()
         {
@@ -127,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Books
 
         public virtual EBookStatModifer getBaseModifer()
         {
-            EBookStatModifer modifer = new EBookStatModifer() { Damage = 1, Knockback = Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack), Crit = Projectile.getOwner().GetTotalCritChance(Projectile.DamageType), attackSpeed = Projectile.getOwner().GetTotalAttackSpeed(Projectile.DamageType)};
+            EBookStatModifer modifer = new EBookStatModifer() { Damage = 1, Knockback = Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack), Crit = Projectile.getOwner().GetTotalCritChance(Projectile.DamageType), attackSpeed = Projectile.getOwner().GetTotalAttackSpeed(Projectile.DamageType) };
             return modifer;
         }
 
@@ -210,7 +204,7 @@ namespace CalamityEntropy.Content.Items.Books
             if (Main.myPlayer != Projectile.owner)
                 return;
             Vector2 newVel = (Main.MouseWorld - Projectile.getOwner().Center).SafeNormalize(Vector2.UnitX);
-            if(Projectile.velocity != newVel)
+            if (Projectile.velocity != newVel)
             {
                 Projectile.velocity = newVel;
                 Projectile.netUpdate = true;
@@ -230,7 +224,7 @@ namespace CalamityEntropy.Content.Items.Books
                 if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
                 {
                     int b = bm.modifyBaseProjectile();
-                    if(b >= 0)
+                    if (b >= 0)
                     {
                         r = b; break;
                     }
@@ -247,7 +241,7 @@ namespace CalamityEntropy.Content.Items.Books
                 if (bm.ModItem is BookMark bmmi)
                 {
                     int pn = bmmi.modifyProjectile(type);
-                    if(pn >= 0)
+                    if (pn >= 0)
                     {
                         type = pn;
                     }
@@ -274,18 +268,18 @@ namespace CalamityEntropy.Content.Items.Books
             proj.CritChance = bookItem.crit + (int)modifer.Crit;
             proj.scale *= modifer.Size * scaleMul;
             proj.ArmorPenetration += (int)(Projectile.getOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration);
-            if(proj.ModProjectile is EBookBaseProjectile bp)
+            if (proj.ModProjectile is EBookBaseProjectile bp)
             {
                 bp.ShooterModProjectile = this;
                 bp.homing += modifer.Homing;
                 bp.homingRange *= modifer.HomingRange;
                 bp.attackSpeed = modifer.attackSpeed;
                 bp.lifeSteal += modifer.lifeSteal;
-                for(int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+                for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
                 {
                     if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
                     {
-                        if(bm.getEffect() != null)
+                        if (bm.getEffect() != null)
                         {
                             bp.ProjectileEffects.Add(bm.getEffect());
                         }
@@ -325,13 +319,13 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AI()
         {
             var player = Projectile.getOwner();
-            if(Projectile.Entropy().ttindex >= 0 && !Projectile.Entropy().ttindex.ToProj().active)
+            if (Projectile.Entropy().ttindex >= 0 && !Projectile.Entropy().ttindex.ToProj().active)
             {
                 Projectile.Kill();
                 return;
             }
-            
-            if(player.HeldItem.type != ItemType && !UIOpen)
+
+            if (player.HeldItem.type != ItemType && !UIOpen)
             {
                 Projectile.Kill();
                 return;
@@ -345,9 +339,9 @@ namespace CalamityEntropy.Content.Items.Books
                 EBookUI.bookItem = player.HeldItem;
             }
             Projectile.timeLeft++;
-            if(UIOpen && player.HeldItem.ModItem is EntropyBook eb)
+            if (UIOpen && player.HeldItem.ModItem is EntropyBook eb)
             {
-                if(player.HeldItem.type != ItemType)
+                if (player.HeldItem.type != ItemType)
                 {
                     Projectile.Kill();
                     UIOpen = false;
@@ -356,7 +350,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (!player.mouseInterface && Main.myPlayer == Projectile.owner)
             {
-                if(Main.mouseRight && !mouseRightLast)
+                if (Main.mouseRight && !mouseRightLast)
                 {
                     UIOpen = !UIOpen;
                     EBookUI.active = UIOpen;
@@ -367,7 +361,8 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
-            if (UIOpen && !Main.playerInventory) {
+            if (UIOpen && !Main.playerInventory)
+            {
                 UIOpen = false;
             }
             mouseRightLast = Main.mouseRight;
@@ -382,10 +377,10 @@ namespace CalamityEntropy.Content.Items.Books
             }
             shotCooldown--;
             Projectile.Center = Projectile.getOwner().Center + (UIOpen ? Vector2.UnitY * -52 : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 bool flag = Main.mouseLeft && !Main.LocalPlayer.mouseInterface && !UIOpen;
-                if(flag != active)
+                if (flag != active)
                 {
                     active = flag;
                     Projectile.netUpdate = true;
@@ -426,7 +421,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
                 if (active && openAnim >= 2)
                 {
-                    if(shotCooldown <= 0 && CanShoot())
+                    if (shotCooldown <= 0 && CanShoot())
                     {
                         if (Projectile.getOwner().CheckMana(bookItem.mana, true) && Shoot())
                         {
@@ -447,13 +442,13 @@ namespace CalamityEntropy.Content.Items.Books
                                     {
                                         bm.modifyShootCooldown(ref shotCooldown);
                                     }
-                                    if(e != null)
+                                    if (e != null)
                                     {
                                         e.OnShoot(this);
                                     }
                                 }
                             }
-                            if(this.getEffect() != null)
+                            if (this.getEffect() != null)
                             {
                                 var e = this.getEffect();
                                 if (e != null)
@@ -469,7 +464,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
             }
             Projectile.frameCounter++;
-            if(!active && !UIOpen && openAnim == 0)
+            if (!active && !UIOpen && openAnim == 0)
             {
                 Projectile.frameCounter = 0;
             }
@@ -505,7 +500,8 @@ namespace CalamityEntropy.Content.Items.Books
                             openAnim++;
                         }
                     }
-                    else {
+                    else
+                    {
                         if (openAnim > 0)
                         {
                             openAnim--;
@@ -586,7 +582,7 @@ namespace CalamityEntropy.Content.Items.Books
             gravity = reader.ReadSingle();
 
             this.ProjectileEffects.Clear();
-            for(int i = 0; i < reader.ReadInt32(); i++)
+            for (int i = 0; i < reader.ReadInt32(); i++)
             {
                 this.ProjectileEffects.Add(EBookProjectileEffect.findByName(reader.ReadString()));
             }
@@ -598,7 +594,7 @@ namespace CalamityEntropy.Content.Items.Books
 
         public virtual void ApplyHoming()
         {
-            if(homing <= 0)
+            if (homing <= 0)
             {
                 return;
             }
@@ -629,7 +625,7 @@ namespace CalamityEntropy.Content.Items.Books
                 if (EffectInit)
                 {
                     EffectInit = false;
-                    foreach(var effect in  ProjectileEffects)
+                    foreach (var effect in ProjectileEffects)
                     {
                         effect.OnProjectileSpawn(Projectile, Main.myPlayer == Projectile.owner);
                     }
@@ -645,7 +641,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             hitCount++;
-            foreach(var effect in this.ProjectileEffects)
+            foreach (var effect in this.ProjectileEffects)
             {
                 effect.onHitNPC(Projectile, target, damageDone);
             }
@@ -697,7 +693,7 @@ namespace CalamityEntropy.Content.Items.Books
             Vector2 addVel = Projectile.velocity.SafeNormalize(Vector2.UnitX) * segLength;
             Vector2 lastPos = startPos;
             var activenpcs = new List<NPC>();
-            foreach(var n in Main.ActiveNPCs)
+            foreach (var n in Main.ActiveNPCs)
             {
                 if (!n.friendly && !n.dontTakeDamage && n.CanBeChasedBy(Projectile))
                 {
@@ -754,7 +750,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             var points = this.getSamplePoints();
-            for(int i = 1; i < points.Count; i++)
+            for (int i = 1; i < points.Count; i++)
             {
                 if (Util.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, (int)width))
                 {
@@ -767,10 +763,10 @@ namespace CalamityEntropy.Content.Items.Books
         public override bool PreAI()
         {
             Projectile.localNPCHitCooldown = (int)((float)hitCd / this.attackSpeed);
-            if(quickTime > 0)
+            if (quickTime > 0)
             {
                 quickTime--;
-                if(quickTime == 0)
+                if (quickTime == 0)
                 {
                     Projectile.Kill();
                     return false;
@@ -785,7 +781,7 @@ namespace CalamityEntropy.Content.Items.Books
                 this.penetrate = Projectile.penetrate;
             }
             Projectile.penetrate = -1;
-            
+
             base.AI();
         }
         public override void PostAI()
@@ -810,7 +806,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public static EBookProjectileEffect findByName(string name)
         {
-            if(instances == null)
+            if (instances == null)
             {
                 return null;
             }

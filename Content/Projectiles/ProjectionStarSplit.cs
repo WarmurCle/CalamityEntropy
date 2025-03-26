@@ -1,13 +1,8 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Util;
-using CalamityMod.NPCs.AstrumDeus;
-using CalamityMod.Particles;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,8 +26,9 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 120;
             Projectile.extraUpdates = 2;
         }
-        public override void AI(){
-            Projectile.rotation+=0.16f;
+        public override void AI()
+        {
+            Projectile.rotation += 0.16f;
             NPC target = Projectile.FindTargetWithinRange(2000, false);
             if (target != null)
             {
@@ -45,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
             Dust.NewDust(Projectile.Center - new Vector2(3, 3), 6, 6, DustID.YellowStarDust, 0, 0);
         }
 
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             if (Projectile.timeLeft < 30)
@@ -58,6 +54,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

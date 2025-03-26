@@ -1,17 +1,12 @@
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using CalamityEntropy.Common;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -52,16 +47,17 @@ namespace CalamityEntropy.Content.Projectiles
         public bool std = false;
         public int homingTime = 60;
         public bool s = true;
-        public override void AI(){
+        public override void AI()
+        {
             if (s)
             {
                 s = false;
                 spawnrot = Projectile.velocity.ToRotation();
             }
-            if(Projectile.timeLeft < 50)
+            if (Projectile.timeLeft < 50)
             {
                 alpha -= 0.02f;
-                if(alpha < 0)
+                if (alpha < 0)
                 {
                     alpha = 0;
                 }
@@ -75,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
-                    
+
                 }
                 if (odp.Count > 0)
                 {
@@ -93,15 +89,15 @@ namespace CalamityEntropy.Content.Projectiles
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
                 }
-                
+
                 NPC target = Projectile.FindTargetWithinRange(1600, false);
                 if (target != null && Util.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
                 {
                     homingTime = 0;
-                    Projectile.velocity *= 0.9f;   
+                    Projectile.velocity *= 0.9f;
                     Vector2 v = target.Center - Projectile.Center;
                     v.Normalize();
-                    
+
                     Projectile.velocity += v * 1.5f;
                 }
             }
@@ -111,17 +107,17 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity *= 0.995f - homing * 0.018f;
             }
-            if(counter > 40 && !htd)
+            if (counter > 40 && !htd)
             {
-                if(homing < 6)
+                if (homing < 6)
                 {
                     homing += 0.014f;
                 }
                 NPC target = Projectile.FindTargetWithinRange(2600);
-                
-                if(target != null)
+
+                if (target != null)
                 {
-                    if(Projectile.timeLeft < 60)
+                    if (Projectile.timeLeft < 60)
                     {
                         Projectile.timeLeft = 60;
                     }
@@ -154,7 +150,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int tofs;
         public Color TrailColor(float completionRatio)
         {
-            Color result = new Color(30, 60, 160);   
+            Color result = new Color(30, 60, 160);
             return result * completionRatio * alpha;
         }
 
@@ -172,7 +168,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Texture2D tex = Util.Util.getExtraTex("obshot");
 
                 Main.spriteBatch.Draw(tex, Projectile.owner.ToPlayer().Center - Main.screenPosition, null, Color.Blue, spawnrot, new Vector2(0, tex.Height / 2), 0.44f * new Vector2(2f - 2 * particlea, particlea), SpriteEffects.None, 0);
-                
+
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
             }
@@ -180,7 +176,8 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
 
-        public void drawT() {
+        public void drawT()
+        {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

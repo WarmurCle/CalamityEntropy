@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using CalamityEntropy.Content.ArmorPrefixes;
+﻿using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
@@ -33,6 +29,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using SubworldLibrary;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -42,7 +42,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Common
 {
@@ -54,7 +53,7 @@ namespace CalamityEntropy.Common
         {
             this.position += this.velocity;
         }
-        
+
         public void draw(float alpha, Vector2 offset, Color color)
         {
             SpriteBatch sb = Main.spriteBatch;
@@ -65,7 +64,7 @@ namespace CalamityEntropy.Common
         }
     }
 
-    
+
     public class EGlobalItem : GlobalItem
     {
         public bool Legend = false;
@@ -77,7 +76,7 @@ namespace CalamityEntropy.Common
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
         public float[] wispColor = null;
-        
+
         public override void SetDefaults(Item entity)
         {
         }
@@ -87,11 +86,11 @@ namespace CalamityEntropy.Common
             acceleration *= player.Entropy().WingSpeed;
             speed *= 1 + player.Entropy().VoidCharge * 0.25f;
             acceleration *= 1 + player.Entropy().VoidCharge * 0.25f;
-            
+
         }
         public override void UpdateEquip(Item item, Player player)
         {
-            if(item.type == ItemID.SantaHat)
+            if (item.type == ItemID.SantaHat)
             {
                 player.Entropy().cHat = true;
             }
@@ -111,7 +110,7 @@ namespace CalamityEntropy.Common
 
         public override bool? UseItem(Item item, Player player)
         {
-            if(item.type == ItemID.RodOfHarmony)
+            if (item.type == ItemID.RodOfHarmony)
             {
                 if (NPC.AnyNPCs(ModContent.NPCType<AbyssalWraith>()))
                 {
@@ -142,7 +141,7 @@ namespace CalamityEntropy.Common
             maxAscentMultiplier *= player.Entropy().WingSpeed;
             maxCanAscendMultiplier *= player.Entropy().WingSpeed;
             constantAscend *= player.Entropy().WingSpeed;
-            
+
         }
 
         public override bool InstancePerEntity => true;
@@ -175,7 +174,8 @@ namespace CalamityEntropy.Common
 
         public override void OnCreated(Item item, ItemCreationContext context)
         {
-            if (Util.Util.IsArmor(item) && Main.rand.NextDouble() < ModContent.GetInstance<ServerConfig>().CraftArmorWithPrefixChance) {
+            if (Util.Util.IsArmor(item) && Main.rand.NextDouble() < ModContent.GetInstance<ServerConfig>().CraftArmorWithPrefixChance)
+            {
                 ArmorPrefix armorPrefix = ArmorPrefix.RollPrefixToItem(item);
                 if (armorPrefix != null)
                 {
@@ -263,27 +263,28 @@ namespace CalamityEntropy.Common
             obj.armorPrefixName = armorPrefixName;
             return obj;
         }
-        
+
         public override void UpdateInventory(Item item, Player player)
         {
             if (item.type == ModContent.ItemType<CalamityMod.Items.Placeables.FurnitureAuric.AuricToilet>())
             {
                 Item ai = new Item(ModContent.ItemType<AuricToilet>(), item.stack, 0);
                 item.stack = 0;
-                for (int i = 0; i < player.inventory.Count(); i++) {
+                for (int i = 0; i < player.inventory.Count(); i++)
+                {
                     if (player.inventory[i] == item)
                     {
                         player.inventory[i] = ai;
                         break;
                     }
                 }
-                
+
             }
         }
-        
+
         public override bool CanUseItem(Item item, Player player)
         {
-            if((player.HasBuff<VoidVirus>() || (CalamityEntropy.EntropyMode && player.Entropy().HitTCounter > 0)) && item.healLife > 0)
+            if ((player.HasBuff<VoidVirus>() || (CalamityEntropy.EntropyMode && player.Entropy().HitTCounter > 0)) && item.healLife > 0)
             {
                 return false;
             }
@@ -301,9 +302,9 @@ namespace CalamityEntropy.Common
                 {
                     if (player.whoAmI == Main.myPlayer)
                     {
-                        if(player.Entropy().WeaponBoost > 0)
+                        if (player.Entropy().WeaponBoost > 0)
                         {
-                            if(item.type == ModContent.ItemType<LunarKunai>())
+                            if (item.type == ModContent.ItemType<LunarKunai>())
                             {
                                 float shootSpeed = item.shootSpeed;
                                 Vector2 vector = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true);
@@ -409,14 +410,14 @@ namespace CalamityEntropy.Common
                                     Projectile.NewProjectile(source, vector.X, vector.Y, num5 * 0.75f, num6 * 0.75f, type, damage, knockback, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
                                 }
                             }
-                            if(type == 502)
+                            if (type == 502)
                             {
-                                for(int i = 0; i < Main.rand.Next(0, 1 + player.Entropy().WeaponBoost); i++)
+                                for (int i = 0; i < Main.rand.Next(0, 1 + player.Entropy().WeaponBoost); i++)
                                 {
                                     Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.2f), type, damage, knockback, player.whoAmI);
                                 }
                             }
-                            if(item.type == ModContent.ItemType<Disseminator>())
+                            if (item.type == ModContent.ItemType<Disseminator>())
                             {
                                 int num = 2 * player.Entropy().WeaponBoost;
                                 for (int i = 0; i < num; i++)
@@ -538,7 +539,7 @@ namespace CalamityEntropy.Common
                                     }
                                     else
                                     {
-                                        if(item.ModItem.Shoot(player, source, position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback))
+                                        if (item.ModItem.Shoot(player, source, position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback))
                                         {
                                             int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback, Main.myPlayer);
                                             pj.ToProj().scale *= 0.8f;
@@ -572,7 +573,7 @@ namespace CalamityEntropy.Common
 
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(item.type == ModContent.ItemType<StellarStriker>())
+            if (item.type == ModContent.ItemType<StellarStriker>())
             {
                 IEntitySource source_ItemUse = player.GetSource_ItemUse(item);
                 SoundEngine.PlaySound(in SoundID.Item88, player.Center);
@@ -604,7 +605,7 @@ namespace CalamityEntropy.Common
             }
             if (line.Name == "ItemName")
             {
-                
+
                 if (item.Entropy().tooltipStyle == 1 || item.Entropy().tooltipStyle == 4)
                 {
                     float xa = 0;
@@ -640,7 +641,7 @@ namespace CalamityEntropy.Common
                         {
                             color.B = 0;
                         }
-                        
+
                         yofs = 0;
                         if (item.Entropy().tooltipStyle == 1)
                         {
@@ -655,7 +656,7 @@ namespace CalamityEntropy.Common
                                 strokeColord.R = (byte)(strokeColord.R * 0.2f);
                                 strokeColord.G = (byte)(strokeColord.G * 0.2f);
                                 strokeColord.B = (byte)(strokeColord.B * 0.2f);
-                                
+
                             }
                             else
                             {
@@ -673,8 +674,8 @@ namespace CalamityEntropy.Common
 
                         }
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs), color);
-                        
-                        
+
+
 
                         xa += size.X;
                         if (item.Entropy().stroke)
@@ -696,22 +697,22 @@ namespace CalamityEntropy.Common
                         Color color = Color.Black;
                         yofs = 0;
                         Color strokeColord = new Color(106, 40, 190);
-                            Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
-                            Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
-                            Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
-                            Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
-                            Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
-                            Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
-                            Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
-                            Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
 
-                        
+
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs), color);
 
 
 
                         xa += size.X;
-                        
+
                     }
                     return false;
                 }
@@ -722,10 +723,10 @@ namespace CalamityEntropy.Common
                     for (int i = 0; i < line.Text.Length; i++)
                     {
                         string text = line.Text[i].ToString();
-                        
+
                         Vector2 size = font.MeasureString(text);
                         float yofs;
-                        if(size.Y > h)
+                        if (size.Y > h)
                         {
                             h = size.Y;
                         }
@@ -744,7 +745,7 @@ namespace CalamityEntropy.Common
 
 
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs), color);
-                        
+
                         xa += size.X + 2;
 
                     }
@@ -753,7 +754,7 @@ namespace CalamityEntropy.Common
                     sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
                     Texture2D glow = Util.Util.getExtraTex("Glow");
                     sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255) * 0.8f, 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.34f), SpriteEffects.None, 0);
-                        sb.End();
+                    sb.End();
                     sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
 
                     return false;
@@ -768,7 +769,7 @@ namespace CalamityEntropy.Common
                         Vector2 size = font.MeasureString(text);
                         float yofs;
                         Color color = new Color(60, 255, 60);
-                        if(item.rare == ModContent.RarityType<GlowPurple>())
+                        if (item.rare == ModContent.RarityType<GlowPurple>())
                         {
                             color = new Color(120, 0, 180);
                         }
@@ -935,9 +936,9 @@ namespace CalamityEntropy.Common
                     pt.velocity = new Vector2((float)r.Next(-2, 3) / 10, -(float)r.Next(4, 6) / 10);
                     pt.position = new Vector2(r.Next(0, (int)size.X), size.Y);
 
-                    particles1.Add(pt);   
+                    particles1.Add(pt);
                 }
-                
+
                 foreach (S3Particle p in particles1)
                 {
                     p.update();
@@ -949,7 +950,7 @@ namespace CalamityEntropy.Common
                         {
                             alpha = 1;
                         }
-                        
+
                     }
                     if (p.position.Y < 8)
                     {
@@ -960,7 +961,7 @@ namespace CalamityEntropy.Common
                         alpha = 1;
                     }
                     p.draw(alpha * 0.5f, new Vector2(line.X, line.Y), namecolor);
-                    
+
                 }
                 foreach (S3Particle p in particles1)
                 {
@@ -977,7 +978,7 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
-            if(item.type == ModContent.ItemType<HiveMindBag>() || item.type == ModContent.ItemType<PerforatorBag>())
+            if (item.type == ModContent.ItemType<HiveMindBag>() || item.type == ModContent.ItemType<PerforatorBag>())
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkAerialite>(), new Fraction(1, 2));
             }
@@ -997,7 +998,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkAuric>(), new Fraction(1, 2));
             }
-            if(item.type == ItemID.QueenBeeBossBag)
+            if (item.type == ItemID.QueenBeeBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkBee>(), new Fraction(1, 1));
             }
@@ -1009,15 +1010,15 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkCancer>(), new Fraction(1, 2));
             }
-            if(item.Is<AquaticScourgeBag>())
+            if (item.Is<AquaticScourgeBag>())
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkCapricorn>(), new Fraction(1, 2));
             }
-            if(item.type == ItemID.EaterOfWorldsBossBag)
+            if (item.type == ItemID.EaterOfWorldsBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkCorrupt>(), new Fraction(1, 2));
             }
-            if(item.type == ItemID.BrainOfCthulhuBossBag)
+            if (item.type == ItemID.BrainOfCthulhuBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkCrimson>(), new Fraction(1, 2));
             }
@@ -1029,7 +1030,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkGemini>(), new Fraction(1, 1));
             }
-            if(ModLoader.TryGetMod("CalamityHunt", out Mod ch) && (item.type == ch.Find<ModItem>("TreasureTrunk").Type || item.type == ch.Find<ModItem>("TreasureBucket").Type))
+            if (ModLoader.TryGetMod("CalamityHunt", out Mod ch) && (item.type == ch.Find<ModItem>("TreasureTrunk").Type || item.type == ch.Find<ModItem>("TreasureBucket").Type))
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkGoozma>(), new Fraction(1, 1));
             }
@@ -1073,7 +1074,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<BookmarkPactOfWar>(), new Fraction(1, 1));
             }
-            if(item.type == ItemID.FishronBossBag)
+            if (item.type == ItemID.FishronBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkPisces>(), new Fraction(1, 1));
             }
@@ -1098,7 +1099,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkTaurus>(), new Fraction(1, 2));
             }
-            if(item.type == ItemID.GolemBossBag)
+            if (item.type == ItemID.GolemBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkTerra>(), new Fraction(1, 2));
             }
@@ -1106,7 +1107,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkRoyal>(), new Fraction(1, 2));
             }
-            if(item.Is<CruiserBag>())
+            if (item.Is<CruiserBag>())
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkVoid>(), new Fraction(1, 1));
             }
@@ -1181,33 +1182,38 @@ namespace CalamityEntropy.Common
                 {
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("polaris");
-                };
+                }
+                ;
                 static bool getsWyrm(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("polaris") || playerName.ToLower().Contains("妖龙") || playerName.ToLower().Contains("wyrm");
-                };
+                }
+                ;
                 itemLoot.AddIf(getsDH, ModContent.ItemType<DustyStar>());
                 itemLoot.AddIf(getsWyrm, ModContent.ItemType<AbyssLantern>());
                 static bool getsAH(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("ahi") || playerName.ToLower().Contains("fr9");
-                };
+                }
+                ;
                 itemLoot.AddIf(getsAH, ModContent.ItemType<GalaxyGrapeSoda>());
 
                 static bool getsDD(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("dream") || playerName.ToLower().Contains("梦");
-                };
+                }
+                ;
                 itemLoot.AddIf(getsDD, ModContent.ItemType<DreamCatcher>());
 
                 static bool getsDM(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("puslin");
-                };
+                }
+                ;
                 itemLoot.AddIf(getsDM, ModContent.ItemType<SilverFramedGlasses>());
 
 
@@ -1215,28 +1221,32 @@ namespace CalamityEntropy.Common
                 {
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("cha") || playerName.ToLower().Contains("lost");
-                };
+                }
+                ;
                 itemLoot.AddIf(getsCHA, ModContent.ItemType<ToyKnife>());
 
                 static bool getsAN(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("rat") || playerName.ToLower().Contains("ant");
-                };
+                }
+                ;
                 itemLoot.AddIf(getsAN, ModContent.ItemType<Antler>());
 
                 static bool getsSW(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("away") || playerName.ToLower().Contains("weaver");
-                };
+                }
+                ;
                 itemLoot.AddIf(getsSW, ModContent.ItemType<CrimsonNight>());
 
                 static bool getsMO(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
                     return playerName.ToLower().Contains("mo");
-                };
+                }
+                ;
                 itemLoot.AddIf(getsMO, ModContent.ItemType<MosHat>());
             }
         }

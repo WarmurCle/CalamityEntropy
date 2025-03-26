@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles.Chainsaw;
-using CalamityEntropy.Content.Projectiles.Uhrwerk;
+﻿using CalamityEntropy.Content.Projectiles.Uhrwerk;
 using CalamityMod;
 using Terraria;
 using Terraria.ID;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.Uhrwerk;
 
-public class UhrwerkHammer: ModItem
+public class UhrwerkHammer : ModItem
 {
     public override void SetDefaults()
     {

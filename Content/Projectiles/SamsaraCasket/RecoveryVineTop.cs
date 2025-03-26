@@ -1,5 +1,4 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
 using Terraria;
 using Terraria.ModLoader;
@@ -27,12 +26,14 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         }
         public int uLeft = 5;
         public int uCount = 4;
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.ArmorPenetration = HorizonssKey.getArmorPen();
             uCount--;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if(uCount <= 0 && uLeft > 0)
-            {if (Main.myPlayer == Projectile.owner)
+            if (uCount <= 0 && uLeft > 0)
+            {
+                if (Main.myPlayer == Projectile.owner)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<RecoveryVine>(), Projectile.damage, Projectile.knockBack);
                 }

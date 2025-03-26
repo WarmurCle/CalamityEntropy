@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Util;
-using CalamityMod;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -38,19 +31,19 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.timeLeft = 3;
             }
             Projectile.Center = player.Center + new Vector2(0, -80) + player.gfxOffY * Vector2.UnitY;
-            if(player.Entropy().rBadgeCharge >= 12 && !player.Entropy().rBadgeActive)
+            if (player.Entropy().rBadgeCharge >= 12 && !player.Entropy().rBadgeActive)
             {
-                if(alpha > 0)
+                if (alpha > 0)
                 {
                     alpha -= 0.05f;
                 }
             }
             else
             {
-                if(alpha < 1)
+                if (alpha < 1)
                 {
                     alpha += 0.05f;
-                }            
+                }
             }
             if (player.Entropy().rBadgeActive)
             {
@@ -84,7 +77,8 @@ namespace CalamityEntropy.Content.Projectiles
             float counts = Projectile.owner.ToPlayer().Entropy().rBadgeCharge;
             int dotCount = (int)(Math.Ceiling(counts));
             float rot = MathHelper.ToRadians(-30);
-            for (int i = 0; i < dotCount; i++){
+            for (int i = 0; i < dotCount; i++)
+            {
                 float scale = 1;
                 if (i == dotCount - 1 && !(i == 11 && counts >= 12))
                 {

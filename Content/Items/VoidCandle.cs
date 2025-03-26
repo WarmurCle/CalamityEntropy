@@ -26,6 +26,6 @@ namespace CalamityEntropy.Content.Items
             Item.buffType = ModContent.BuffType<VoidCandleBuff>();
             Item.buffTime = CalamityUtils.SecondsToFrames(600);
         }
-        
+
     }
 }

@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Tiles
             frameCounter++;
             if (frameCounter % 5 == 0)
             {
-                frame ++;
+                frame++;
                 if (frame >= 5)
                 {
                     frame = 0;

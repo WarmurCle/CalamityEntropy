@@ -1,12 +1,12 @@
-using System;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class MercySpawner: ModProjectile
+    public class MercySpawner : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -36,7 +36,8 @@ namespace CalamityEntropy.Content.Projectiles
                 return 6;
             }
         }
-        public override void AI(){
+        public override void AI()
+        {
             if (setRot)
             {
                 setRot = false;
@@ -58,7 +59,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.owner.ToPlayer().itemAnimation = 2;
             Projectile.owner.ToPlayer().itemTime = 2;
             Projectile.ai[0]++;
-            
+
         }
 
 
@@ -67,6 +68,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

@@ -1,13 +1,10 @@
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityMod.Rarities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookMarkSilva : BookMark

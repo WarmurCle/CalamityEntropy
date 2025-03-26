@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace CalamityEntropy.Content.Particles
 {
@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Particles
         {
             foreach (Particle p in particles)
             {
-                
+
                 p.position += p.velocity;
                 p.alpha -= p.ad;
                 p.velocity *= p.vd;

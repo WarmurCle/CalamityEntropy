@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 Player.body = EquipLoader.GetEquipSlot(Mod, "DreamCatcher", EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, "DreamCatcher", EquipType.Head);
 
-                             }
+            }
         }
     }
 }

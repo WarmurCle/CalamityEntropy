@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Items;
@@ -11,36 +11,39 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-	[AutoloadEquip(EquipType.Wings)]
-	public class VoidElytra : ModItem
-	{
+    [AutoloadEquip(EquipType.Wings)]
+    public class VoidElytra : ModItem
+    {
 
-		public override void SetStaticDefaults() {
-			 			 			 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(290, 10f, 3f, false, 20, 3f);
-		}
+        public override void SetStaticDefaults()
+        {
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(290, 10f, 3f, false, 20, 3f);
+        }
 
-		public override void SetDefaults() {
-			Item.width = 22;
-			Item.height = 20;
+        public override void SetDefaults()
+        {
+            Item.width = 22;
+            Item.height = 20;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.accessory = true;
-			
-		}
-		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-			ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend) {
-            ascentWhenRising = 0.15f;              maxCanAscendMultiplier = 1f;
+
+        }
+        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
+            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+        {
+            ascentWhenRising = 0.15f; maxCanAscendMultiplier = 1f;
             maxAscentMultiplier = 3f;
             constantAscend = 0.135f;
             if (!(player.GetModPlayer<EPlayerDash>().DashTimer > 0))
             {
-                ascentWhenFalling = 0.97f;                  
+                ascentWhenFalling = 0.97f;
             }
             else
             {
                 ascentWhenFalling = 1f;
             }
-		}
+        }
         public override bool WingUpdate(Player player, bool inUse)
         {
             if (inUse && player.GetModPlayer<EPlayerDash>().DashTimer <= 0)
@@ -54,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                     p.position += p.velocity * ((float)i * 0.1f);
                     VoidParticles.particles.Add(p);
                 }
-                
+
             }
             if (player.wingTime < 2 && !(player.mount.Active) && inUse)
             {
@@ -67,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.GetModPlayer<EPlayerDash>().DashAccessoryEquipped = true;
             player.GetModPlayer<EPlayerDash>().velt = true;
-            
+
         }
 
     }

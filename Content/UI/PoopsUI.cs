@@ -1,13 +1,10 @@
-﻿using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.UI.Poops;
+﻿using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace CalamityEntropy.Content.UI
 {
@@ -51,12 +48,12 @@ namespace CalamityEntropy.Content.UI
             Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
             holdAnm += holdAnmj;
             holdAnmj -= 0.04f;
-            if(holdAnm < 0)
+            if (holdAnm < 0)
             {
                 holdAnm = 0;
                 holdAnmj = 0;
             }
         }
-        
+
     }
 }

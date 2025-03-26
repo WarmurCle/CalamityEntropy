@@ -1,9 +1,8 @@
-using System;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -24,7 +23,8 @@ namespace CalamityEntropy.Content.Projectiles.HBProj
             Projectile.scale = 1.2f;
         }
         public bool right = true;
-        public override void AI(){
+        public override void AI()
+        {
             Player player = Projectile.owner.ToPlayer();
             Projectile.Center = player.Center;
             right = player.direction == 1;
@@ -74,6 +74,6 @@ namespace CalamityEntropy.Content.Projectiles.HBProj
             return false;
         }
     }
-    
+
 
 }

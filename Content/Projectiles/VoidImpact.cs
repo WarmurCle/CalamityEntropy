@@ -1,6 +1,4 @@
-using CalamityEntropy.Common;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -32,7 +30,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.damage = (int)(Projectile.damage * 0.9f);
         }
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.rotation = Projectile.velocity.ToRotation();
             oldPos.Add(Projectile.Center);
             if (oldPos.Count > 12)
@@ -41,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
         }
 
-        public List<Vector2> oldPos = new List<Vector2>(); 
+        public List<Vector2> oldPos = new List<Vector2>();
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
@@ -51,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             float scale = 0;
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
-            for(int i = 0; i < oldPos.Count; i++)
+            for (int i = 0; i < oldPos.Count; i++)
             {
                 scale += 1f / oldPos.Count;
                 Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, lightColor * ((float)i / (float)oldPos.Count) * 0.6f, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale, SpriteEffects.None, 0);
@@ -61,6 +60,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

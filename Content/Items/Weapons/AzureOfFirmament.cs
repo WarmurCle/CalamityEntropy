@@ -1,12 +1,9 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -39,8 +36,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = CUtil.rogueDC;
         }
 
-       
-         
+
+
         public override float StealthDamageMultiplier => 1.2f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 3f;
@@ -49,12 +46,13 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (player.Calamity().StealthStrikeAvailable())
             {
-                for(int i = 0; i < 12; i++)
+                for (int i = 0; i < 12; i++)
                 {
                     Projectile.NewProjectile(source, position, Util.Util.randomRot().ToRotationVector2() * 6, ModContent.ProjectileType<WelkinFeather>(), damage / 4, knockback, player.whoAmI, 0f, -1f);
                 }
                 int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
-                if (p.WithinBounds(Main.maxProjectiles)) {
+                if (p.WithinBounds(Main.maxProjectiles))
+                {
                     Main.projectile[p].Calamity().stealthStrike = true;
                     p.ToProj().netUpdate = true;
                     p.ToProj().penetrate = 5;

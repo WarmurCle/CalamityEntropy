@@ -1,15 +1,10 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.BNE;
+﻿using CalamityEntropy.Content.Projectiles.BNE;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Magic;
-using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -69,7 +64,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 }
                 return false;
             }
-            if(player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2)
             {
                 Projectile.NewProjectile(source, position, velocity, p2, damage, knockback, player.whoAmI);
             }

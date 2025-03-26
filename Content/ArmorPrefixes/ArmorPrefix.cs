@@ -1,6 +1,6 @@
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         public static List<ArmorPrefix> instances;
         protected sealed override void Register()
         {
-            if(instances == null)
+            if (instances == null)
             {
                 instances = new List<ArmorPrefix>();
             }
@@ -35,14 +35,16 @@ namespace CalamityEntropy.Content.ArmorPrefixes
             return null;
         }
 
-        public virtual void ApplyTo(Item item) {
+        public virtual void ApplyTo(Item item)
+        {
             if (Util.Util.IsArmor(item) && canApplyTo(item) != false)
             {
                 item.Entropy().armorPrefixName = this.FullName;
             }
         }
 
-        public static ArmorPrefix RollPrefixToItem(Item item) {
+        public static ArmorPrefix RollPrefixToItem(Item item)
+        {
             if (!Util.Util.IsArmor(item))
             {
                 return null;
@@ -50,8 +52,10 @@ namespace CalamityEntropy.Content.ArmorPrefixes
             int WeightAll = 0;
             List<ArmorPrefix> canApplyList = new List<ArmorPrefix>();
 
-            foreach (ArmorPrefix ap in instances) {
-                if (ap.canApplyTo(item) != false) {
+            foreach (ArmorPrefix ap in instances)
+            {
+                if (ap.canApplyTo(item) != false)
+                {
                     WeightAll += ap.getRollChance();
                     canApplyList.Add(ap);
                 }
@@ -124,6 +128,6 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         {
             return GivenName;
         }
-        
+
     }
 }

@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Audio;
 using Terraria;
@@ -7,25 +7,27 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-	public class DarkArts : ModItem
-	{
-        public override void SetStaticDefaults() {
-		}
+    public class DarkArts : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+        }
 
-		public override void SetDefaults() {
-			Item.width = 26;
-			Item.height = 26;
+        public override void SetDefaults()
+        {
+            Item.width = 26;
+            Item.height = 26;
             Item.useTime = 1;
             Item.useAnimation = 1;
             Item.useStyle = -1;
             Item.damage = 460;
             Item.DamageType = Util.CUtil.rogueDC;
             Item.noMelee = true;
-            
+
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ItemRarityID.Red;
-			
-		}
+
+        }
         public override bool CanUseItem(Player player)
         {
             return !player.HasBuff(ModContent.BuffType<StealthState>());

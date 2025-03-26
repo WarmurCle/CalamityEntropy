@@ -1,5 +1,4 @@
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -43,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
             bool hasproj = false;
             Projectile target = null;
             float distance = 1000;
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.hostile && !p.friendly && p.damage > 0 && Math.Max(p.width, p.height) < 150 && Util.Util.getDistance(Projectile.Center, p.Center) < distance && Util.Util.getDistance(player.Center, p.Center) < 256)
                 {
@@ -51,7 +50,8 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         p.Kill();
                     }
-                    else {
+                    else
+                    {
                         target = p;
                         distance = Util.Util.getDistance(Projectile.Center, p.Center);
                         hasproj = true;
@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.Center = targetPosp;
                     Projectile.velocity *= 0f;
                 }
-                
+
             }
             oldPos.Insert(0, Projectile.Center);
             if (oldPos.Count > 26)
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Vector2 fpos = Projectile.Center;
-            for(int i = 0; i < oldPos.Count; i++)
+            for (int i = 0; i < oldPos.Count; i++)
             {
                 Util.Util.drawLine(fpos, oldPos[i], Color.Purple * (((float)oldPos.Count - (float)i) / (float)oldPos.Count), 6f * ((float)oldPos.Count - (float)i) / (float)oldPos.Count, 0, true);
                 fpos = oldPos[i];

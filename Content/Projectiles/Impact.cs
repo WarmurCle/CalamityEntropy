@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -23,8 +23,9 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
         }
 
-        public override void AI(){
-            if(Projectile.velocity.Length() > 0.1f)
+        public override void AI()
+        {
+            if (Projectile.velocity.Length() > 0.1f)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
             }
@@ -53,6 +54,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

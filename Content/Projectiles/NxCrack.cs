@@ -1,19 +1,10 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Particles;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Particle = CalamityEntropy.Content.Particles.Particle;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -36,7 +27,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 16;
             Projectile.ArmorPenetration = 100;
-            
+
         }
         float w = 0.1f;
         float wj = 0.3f;
@@ -44,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             w += wj;
             wj -= 0.065f;
-            if(w < 0)
+            if (w < 0)
             {
                 Projectile.Kill();
                 return;
@@ -62,13 +53,14 @@ namespace CalamityEntropy.Content.Projectiles
             Player player = Main.player[Projectile.owner];
             return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity * 600, targetHitbox, 60);
         }
-        public override bool PreDraw(ref Color dc){
+        public override bool PreDraw(ref Color dc)
+        {
             return false;
         }
         public void drawCrack()
         {
-            List<float> c = new List<float>() { 0, 1.2f, 0.8f, 1f, 1.27f, 0.9f, 1.2f, 1f, 0.8f, 0};
-            List<float> d = new List<float>() { 0, 0.3f, 0.56f, 0.8f, 0.94f, 0.94f, 0.8f, 0.56f, 0.3f, 0};
+            List<float> c = new List<float>() { 0, 1.2f, 0.8f, 1f, 1.27f, 0.9f, 1.2f, 1f, 0.8f, 0 };
+            List<float> d = new List<float>() { 0, 0.3f, 0.56f, 0.8f, 0.94f, 0.94f, 0.8f, 0.56f, 0.3f, 0 };
             List<Vertex> ve = new List<Vertex>();
             Color b = Color.White;
             for (int i = 0; i < c.Count; i++)
@@ -94,6 +86,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

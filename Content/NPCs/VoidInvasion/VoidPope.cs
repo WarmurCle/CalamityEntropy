@@ -1,20 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.DimDungeon;
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
-using CalamityEntropy.Util;
-using CalamityMod.Items.Potions;
-using CalamityMod.NPCs.TownNPCs;
-using CalamityMod.Particles;
+﻿using CalamityEntropy.Util;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
@@ -42,7 +32,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             Main.npcFrameCount[NPC.type] = 1;
             NPCID.Sets.MustAlwaysDraw[NPC.type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
-            
+
             NPCID.Sets.MPAllowedEnemies[Type] = true;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -59,9 +49,12 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             NPC.width = 110;
             NPC.height = 110;
             NPC.damage = 136;
-            if (Main.expertMode) {
+            if (Main.expertMode)
+            {
                 NPC.damage += 20;
-            } if (Main.masterMode) {
+            }
+            if (Main.masterMode)
+            {
                 NPC.damage += 20;
             }
             NPC.defense = 60;
@@ -93,7 +86,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(seed);
-            
+
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
@@ -118,22 +111,23 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             if (spawnHands)
             {
                 spawnHands = false;
-                if (Main.netMode != NetmodeID.MultiplayerClient) {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
                     NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<VoidPopeHand>(), 0, NPC.whoAmI, 1);
                     NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<VoidPopeHand>(), 0, NPC.whoAmI, -1);
 
                 }
             }
-            if(seed >= 0)
+            if (seed >= 0)
             {
-                if(random == null)
+                if (random == null)
                 {
                     random = new Random(seed);
                 }
             }
             if (aitype == AttackAIStyle.Circle)
             {
-                circleCounter+=circlespeed * 0.38f;
+                circleCounter += circlespeed * 0.38f;
                 if (aichange < 2.5f * 60)
                 {
                     circlespeed += 0.01f;
@@ -144,7 +138,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     circlespeed *= 0.99f;
                 }
             }
-            if(random != null)
+            if (random != null)
             {
                 if (!NPC.HasValidTarget)
                 {
@@ -184,7 +178,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             {
                 aitype = AttackAIStyle.Idle;
             }
-            
+
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

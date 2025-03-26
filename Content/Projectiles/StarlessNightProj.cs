@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.Cruiser;
+﻿using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using Steamworks;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -54,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             CalamityEntropy.Instance.screenShakeAmp = 6;
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner);
-            Util.Util.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, volume:0.7f);
+            Util.Util.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, volume: 0.7f);
             if (spawnVoidStarCount > 0)
             {
                 for (int i = 0; i < 6; i++)
@@ -77,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool playsound2 = true;
         public override void AI()
         {
-            
+
             float updates = Projectile.MaxUpdates + 1;
             if (Projectile.ai[0] == 0)
             {
@@ -114,7 +111,8 @@ namespace CalamityEntropy.Content.Projectiles
                     rotSpeed *= (float)Math.Pow(0.94, 1.0 / meleeSpeed);
                     if (Projectile.ai[0] > 90 * updates)
                     {
-                        if (Projectile.owner == Main.myPlayer) {
+                        if (Projectile.owner == Main.myPlayer)
+                        {
                             Projectile.direction = (Main.MouseWorld - owner.Center).X > 0 ? 1 : -1;
                             float targetrot = (Main.MouseWorld - owner.Center).ToRotation() - 2.42f * Projectile.direction;
                             Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, targetrot, 0.07f * meleeSpeed, false);
@@ -129,7 +127,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            Projectile.ai[0]+=meleeSpeed;
+            Projectile.ai[0] += meleeSpeed;
             odr.Add(Projectile.rotation);
             ods.Add(scaleD);
             if (odr.Count > 38)
@@ -171,7 +169,7 @@ namespace CalamityEntropy.Content.Projectiles
             Player player = Main.player[Projectile.owner];
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            
+
             Main.EntitySpriteDraw(Util.Util.getExtraTex("StarlessNightGlow"), Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, new Color(180, 180, 255) * glowalpha * 0.8f, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(32, 168), Projectile.scale * 3f * scaleD, SpriteEffects.None, 0);
 
             sb.End();
@@ -206,7 +204,8 @@ namespace CalamityEntropy.Content.Projectiles
                       b));
             }
 
-            if (ve.Count >= 3)             {
+            if (ve.Count >= 3)
+            {
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SlashTrans", AssetRequestMode.ImmediateLoad).Value;
                 Main.instance.GraphicsDevice.Textures[1] = Util.Util.getExtraTex("sn_colormap");
                 shader.CurrentTechnique.Passes["EnchantedPass"].Apply();

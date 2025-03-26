@@ -1,18 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
 using CalamityEntropy.Util;
-using CalamityMod;
 using CalamityMod.Items.Potions;
-using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -37,7 +35,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         }
         public override void BossHeadSlot(ref int index)
         {
-            
+
             if (gatherWing > 0.5f)
             {
                 index = iconGather;
@@ -100,9 +98,12 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             NPC.width = 140;
             NPC.height = 140;
             NPC.damage = 136;
-            if (Main.expertMode) {
+            if (Main.expertMode)
+            {
                 NPC.damage += 20;
-            } if (Main.masterMode) {
+            }
+            if (Main.masterMode)
+            {
                 NPC.damage += 20;
             }
             NPC.defense = 60;
@@ -147,7 +148,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             writer.Write(portalTime);
             writer.WriteVector2(portalPos);
             writer.WriteVector2(portalTarget);
-            
+
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
@@ -180,7 +181,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                 lifeCounter = NPC.lifeMax;
             }
             lifeCounter -= (int)(((float)NPC.lifeMax) / (3f * 60f * 60f));
-            if(lifeCounter < 0)
+            if (lifeCounter < 0)
             {
                 lifeCounter = 0;
             }
@@ -227,7 +228,8 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             if (!NPC.Entropy().ToFriendly && !Main.dedServ)
             {
                 Main.LocalPlayer.Entropy().crSky = 10;
-            } if (spawnAnm > 0)
+            }
+            if (spawnAnm > 0)
             {
                 NPC.dontTakeDamage = true;
                 spawnAnm -= 3;
@@ -307,7 +309,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                                 int index = y * width + x;
                                 return pixelData[index];
                             }
-                            
+
                             if (deathPer < 1)
                             {
                                 for (int i = 0; i < deathTex.Width; i += 6)
@@ -332,7 +334,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                     }
 
                 }
-                
+
                 Stand();
                 return;
             }
@@ -408,7 +410,8 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             NPC.ai[3]--;
                             stayAtPlayerUp();
                         }
-                        else {
+                        else
+                        {
                             int t = random.Next(0, 9);
                             NPC.ai[3] = random.Next(30, 100);
                             NPC.netUpdate = true;
@@ -462,7 +465,8 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             {
                                 animation = 1;
                             }
-                            if (NPC.ai[2] == 30) {
+                            if (NPC.ai[2] == 30)
+                            {
                                 animation = 0;
                             }
                             if (NPC.ai[2] == 4 || NPC.ai[2] == 18)
@@ -668,38 +672,38 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                         }
                         if (NPC.ai[1] == 8)
                         {
-/*
-                            if (NPC.ai[2] > 220)
-                            {
-                                if (addlight < 1)
-                                {
-                                    addlight += 0.05f;
-                                }
-                                animation = 1;
-                                Stand();
-                            }
-                            if (NPC.ai[2] == 220)
-                            {
-                                NPC.rotation = (target.Center - NPC.Center).ToRotation() + MathHelper.PiOver2;
-                                NPC.velocity *= 0;
+                            /*
+                                                        if (NPC.ai[2] > 220)
+                                                        {
+                                                            if (addlight < 1)
+                                                            {
+                                                                addlight += 0.05f;
+                                                            }
+                                                            animation = 1;
+                                                            Stand();
+                                                        }
+                                                        if (NPC.ai[2] == 220)
+                                                        {
+                                                            NPC.rotation = (target.Center - NPC.Center).ToRotation() + MathHelper.PiOver2;
+                                                            NPC.velocity *= 0;
 
-                            }
-                            if (NPC.ai[2] >= 220)
-                            {
-                                animation = 1;
-                            }
-                            if (NPC.ai[2] == 220)
-                            {
+                                                        }
+                                                        if (NPC.ai[2] >= 220)
+                                                        {
+                                                            animation = 1;
+                                                        }
+                                                        if (NPC.ai[2] == 220)
+                                                        {
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(0, 30), (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * MathHelper.Max(200, MathHelper.Min(Util.Util.getDistance(NPC.Center, target.Center), 660)), ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
-                                }
-                            }
-                            if (NPC.ai[2] == 2)
-                            {
-                                animation = 0;
-                            }*/
+                                                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                                            {
+                                                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(0, 30), (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * MathHelper.Max(200, MathHelper.Min(Util.Util.getDistance(NPC.Center, target.Center), 660)), ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
+                                                            }
+                                                        }
+                                                        if (NPC.ai[2] == 2)
+                                                        {
+                                                            animation = 0;
+                                                        }*/
                         }
                         NPC.ai[2]--;
                     }
@@ -1113,8 +1117,10 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         {
             return (NPC.life < lifeCounter ? (1 / (1 + (lifeCounter - NPC.life) * 0.000004f)) : 1);
         }
-        public int getMaxDamageCanTake() {
-            if (deathAnm) {
+        public int getMaxDamageCanTake()
+        {
+            if (deathAnm)
+            {
                 return -1;
             }
             return Math.Min(NPC.life - 1, (int)(20000 * getDR()));
@@ -1135,7 +1141,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         {
             if (false)
             {
-                if(lastLife - NPC.life > maxDmgCanTake)
+                if (lastLife - NPC.life > maxDmgCanTake)
                 {
                     NPC.life = lastLife - maxDmgCanTake;
                 }

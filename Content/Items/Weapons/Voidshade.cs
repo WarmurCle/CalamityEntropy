@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod;
@@ -13,32 +13,33 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-	public class Voidshade : ModItem
-	{
-        public int attackType = 0;          public int comboExpireTimer = 0;          public override void SetStaticDefaults()
+    public class Voidshade : ModItem
+    {
+        public int attackType = 0; public int comboExpireTimer = 0; public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
-        public override void SetDefaults() {
-			Item.width = 40;
-			Item.height = 40;
-			Item.noMelee = true;
-			Item.noUseGraphic = true;
-			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.useTime = 30;
-			Item.useAnimation = 30;
-			Item.autoReuse = true;
-			Item.scale = 2f;
-			Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-			Item.damage = 100;
-			Item.knockBack = 4;
-			Item.crit = 6;
-			Item.shoot = ModContent.ProjectileType<VoidshadeHeld>();
-			Item.shootSpeed = 16;
-			Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-			Item.rare = ModContent.RarityType<VoidPurple>();
+        public override void SetDefaults()
+        {
+            Item.width = 40;
+            Item.height = 40;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.autoReuse = true;
+            Item.scale = 2f;
+            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
+            Item.damage = 100;
+            Item.knockBack = 4;
+            Item.crit = 6;
+            Item.shoot = ModContent.ProjectileType<VoidshadeHeld>();
+            Item.shootSpeed = 16;
+            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
+            Item.rare = ModContent.RarityType<VoidPurple>();
             Item.Calamity().devItem = true;
-		}
+        }
         public override bool AltFunctionUse(Player player)
         {
             return true;
@@ -59,22 +60,24 @@ namespace CalamityEntropy.Content.Items.Weapons
                 }
                 SoundEngine.PlaySound(SoundID.Item1, player.Center);
             }
-                         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, Main.myPlayer, attackType);
-            attackType = (attackType + 1) % 2;              if (player.altFunctionUse == 2)
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, Main.myPlayer, attackType);
+            attackType = (attackType + 1) % 2; if (player.altFunctionUse == 2)
             {
                 attackType = (attackType + 1) % 2;
 
             }
-            comboExpireTimer = 0;              return false;          }
+            comboExpireTimer = 0; return false;
+        }
 
         public override void UpdateInventory(Player player)
         {
-            if (comboExpireTimer++ >= 120)                  attackType = 0;
+            if (comboExpireTimer++ >= 120) attackType = 0;
         }
 
         public override bool MeleePrefix()
         {
-            return true;          }
+            return true;
+        }
 
         public override void AddRecipes()
         {

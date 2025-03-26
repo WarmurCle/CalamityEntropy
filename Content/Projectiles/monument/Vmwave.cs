@@ -1,11 +1,11 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.monument
 {
-    public class Vmwave : ModProjectile 
+    public class Vmwave : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -23,7 +23,8 @@ namespace CalamityEntropy.Content.Projectiles.monument
             Projectile.penetrate = -1;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
         }
 
         public override bool ShouldUpdatePosition()
@@ -54,11 +55,11 @@ namespace CalamityEntropy.Content.Projectiles.monument
                 return false;
             }
 
-            Main.spriteBatch.Draw(draw, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(0, draw.Width)/2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(draw, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(0, draw.Width) / 2, 1, SpriteEffects.None, 0);
 
             return false;
         }
     }
-    
+
 
 }

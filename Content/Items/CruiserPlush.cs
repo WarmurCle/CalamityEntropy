@@ -1,7 +1,5 @@
 ﻿using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
-using CalamityMod.CalPlayer;
-using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,9 +10,9 @@ namespace CalamityEntropy.Content.Items
     {
         public override void Load()
         {
-                         if (Main.netMode != NetmodeID.Server)
+            if (Main.netMode != NetmodeID.Server)
             {
-                                 EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/CruiserPlush_Head", EquipType.Head, this);
+                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/CruiserPlush_Head", EquipType.Head, this);
             }
         }
         public override void SetStaticDefaults()

@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -55,14 +54,14 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             Summoning
         }
         public AIStyle aiStyle { get; set; }
-        public float drawAlpha {  get; set; }
+        public float drawAlpha { get; set; }
         public void findTarget()
         {
             NPC.target = NPC.FindClosestPlayer();
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            if(NPC.life > 0)
+            if (NPC.life > 0)
             {
                 return;
             }
@@ -78,11 +77,11 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         public virtual int maxAtkDist => 500;
         public virtual void tryToClose(Vector2 targetPos)
         {
-            if(tryCloseTime > 0)
+            if (tryCloseTime > 0)
             {
                 tryCloseTime--;
             }
-            if(NPC.velocity.X == 0 & NPC.velocity.Y == 0)
+            if (NPC.velocity.X == 0 & NPC.velocity.Y == 0)
             {
                 NPC.velocity.Y = -2f;
                 NPC.Center = NPC.Center - new Vector2(0, 16);
@@ -96,7 +95,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                 }
             }
             NPC.velocity.X *= 0.86f;
-            if(Math.Abs(targetPos.X - NPC.Center.X) > 40)
+            if (Math.Abs(targetPos.X - NPC.Center.X) > 40)
             {
                 if (targetPos.X > NPC.Center.X)
                 {
@@ -108,12 +107,12 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                 }
             }
 
-            if(Util.Util.getDistance(NPC.Center, targetPos) < maxAtkDist && tryCloseTime <= 0)
+            if (Util.Util.getDistance(NPC.Center, targetPos) < maxAtkDist && tryCloseTime <= 0)
             {
                 Vector2 v = NPC.Center;
                 int vcount = (int)(Util.Util.getDistance(v, targetPos) / 8);
                 Vector2 vj = (targetPos - v).SafeNormalize(Vector2.One) * 8;
-                for(int i = 1;i < vcount; i++)
+                for (int i = 1; i < vcount; i++)
                 {
                     if (!Util.Util.isAir(v))
                     {
@@ -122,7 +121,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     v += vj;
                 }
                 aiStyle = AIStyle.Attack;
-                
+
             }
         }
         public virtual void attackAI()
@@ -205,7 +204,8 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         public override void OnSpawn(IEntitySource source)
         {
             NPC.direction = -1;
-            if (Main.rand.NextBool()) {
+            if (Main.rand.NextBool())
+            {
                 NPC.direction = 1;
             }
         }
@@ -302,7 +302,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             }
 
         }
-        
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write((byte)aiStyle);
@@ -324,34 +324,35 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         }
         public override void AI()
         {
-            
+
             noSummon--;
-            if(aiStyle != AIStyle.Attack && aiStyle != AIStyle.Summoning && noSummon <= 0) {
+            if (aiStyle != AIStyle.Attack && aiStyle != AIStyle.Summoning && noSummon <= 0)
+            {
                 if (true)
                 {
                     int count = 0;
-                    foreach(NPC n in Main.npc)
+                    foreach (NPC n in Main.npc)
                     {
                         if (n.active)
                         {
-                            if(n.ModNPC is VoidCultist)
+                            if (n.ModNPC is VoidCultist)
                             {
                                 count++;
                             }
                         }
                     }
-                    if(count >= 4)
+                    if (count >= 4)
                     {
                         aiStyle = AIStyle.Summoning;
                         NPC.netUpdate = true;
                     }
                 }
             }
-            if(noSummon <= 0 && Main.rand.NextBool(60))
+            if (noSummon <= 0 && Main.rand.NextBool(60))
             {
-                foreach(Projectile p in Main.projectile)
+                foreach (Projectile p in Main.projectile)
                 {
-                    if(p.active && p.ModProjectile is VoidRitualCircle)
+                    if (p.active && p.ModProjectile is VoidRitualCircle)
                     {
                         aiStyle = AIStyle.Summoning;
                         NPC.netUpdate = true;
@@ -359,14 +360,14 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     }
                 }
             }
-            if(Math.Abs(NPC.velocity.Y) <= 1)
+            if (Math.Abs(NPC.velocity.Y) <= 1)
             {
                 walkingCount += Math.Abs(NPC.velocity.X * 0.05f);
-                if(walkingCount > 1)
+                if (walkingCount > 1)
                 {
                     walkingCount -= 1;
                     walkingFrame += 1;
-                    if(walkingFrame >= walking.Count)
+                    if (walkingFrame >= walking.Count)
                     {
                         walkingFrame = 0;
                     }
@@ -378,14 +379,14 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                 {
                     AvoidTime--;
                     aiStyle = AIStyle.Avoid;
-                    if(AvoidTime <= 0)
+                    if (AvoidTime <= 0)
                     {
                         tryCloseTime = CloseTime;
                         aiStyle = AIStyle.Closing;
                     }
                 }
-                    
-                
+
+
                 switch (aiStyle)
                 {
                     case AIStyle.Closing: tryToClose(Target.Center); break;
@@ -400,13 +401,13 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             {
                 aiStyle = AIStyle.Idle;
                 findTarget();
-                if(Target != null)
+                if (Target != null)
                 {
                     NPC.netUpdate = true;
                     aiStyle = AIStyle.Closing;
                 }
             }
-            if(NPC.velocity.X > 0)
+            if (NPC.velocity.X > 0)
             {
                 NPC.direction = 1;
             }
@@ -421,7 +422,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         public virtual Texture2D RightHandTex => null;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if(aiStyle == AIStyle.Summoning)
+            if (aiStyle == AIStyle.Summoning)
             {
                 float handRotL = (float)(Math.Cos(NPC.ai[0] * 0.06f) * 70) + NPC.direction * 26;
                 float handRotR = (float)(Math.Cos(NPC.ai[0] * 0.06f) * 66) + NPC.direction * 4;

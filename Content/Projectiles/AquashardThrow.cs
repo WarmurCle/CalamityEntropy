@@ -1,21 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Particles;
 using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Particle = CalamityEntropy.Content.Particles.Particle;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -45,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float handrot = 0;
         public float handrotspeed = 0;
         public Vector2 ownerMouse = Vector2.Zero;
-        
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(Projectile.rotation);
@@ -69,7 +64,8 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
         }
-        public override void AI(){
+        public override void AI()
+        {
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
             if (odp.Count > 16)
@@ -87,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] < 12)
             {
-                
+
                 var owner = Projectile.owner.ToPlayer();
 
                 if (Main.myPlayer == Projectile.owner)
@@ -128,7 +124,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     Projectile.owner.ToPlayer().heldProj = -1;
                 }
-                
+
             }
             if (Projectile.ai[0] > 12)
             {
@@ -149,12 +145,12 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     SwingSound.Pitch = 1f;
                 }
-                
+
                 SoundEngine.PlaySound(SwingSound, Projectile.Center);
             }
 
             Projectile.ai[0]++;
-            
+
         }
         public bool spawnShard = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -186,7 +182,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.ai[0] <= 10)
+            if (Projectile.ai[0] <= 10)
             {
                 return false;
             }

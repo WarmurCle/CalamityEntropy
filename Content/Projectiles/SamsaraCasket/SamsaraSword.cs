@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -73,8 +72,8 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             Vector2 vrec = Projectile.Center;
             Projectile.Center = player.Center;
             int range = getRange(player);
-            
-            
+
+
             if (target != null && !target.active)
             {
                 target = null;
@@ -98,7 +97,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             }
             if (spawnAnm > 0)
             {
-                
+
                 spawnAnm--;
                 if (spawnAnm == 52)
                 {
@@ -127,15 +126,15 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                     Projectile.velocity = (targetPos - Projectile.Center) * 0.2f;
                     Projectile.rotation = (player.Center + new Vector2(0, -140) - Projectile.Center).ToRotation();
                 }
-                
+
 
             }
             else
             {
 
-                
-                
-                
+
+
+
                 bool returnToCasket = !modPlayer.samsaraCasketOpened || (target == null && modPlayer.sCasketLevel < 6);
 
                 if (returnToCasket)
@@ -164,7 +163,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 {
                     if (target == null)
                     {
-                        
+
                         Vector2 targetPos = player.Center + new Vector2(0, -140) + new Vector2(90, 0).RotatedBy(modPlayer.CasketSwordRot + circleRot);
                         if (Util.Util.getDistance(Projectile.Center, targetPos) > 64)
                         {
@@ -185,7 +184,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             }
             oldPos.Add(Projectile.Center);
             oldRot.Add(Projectile.rotation);
-            if(oldPos.Count > 5)
+            if (oldPos.Count > 5)
             {
                 oldPos.RemoveAt(0);
                 oldRot.RemoveAt(0);
@@ -194,7 +193,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(HorizonssKey.getVoidTouchLevel() > 0)
+            if (HorizonssKey.getVoidTouchLevel() > 0)
             {
                 EGlobalNPC.AddVoidTouch(target, 80, HorizonssKey.getVoidTouchLevel(), 800, 16);
             }
@@ -204,7 +203,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             Vector2 targetPos = t.Center + new Vector2(-100 + index * 33, -100);
             Projectile.velocity = (targetPos - Projectile.Center) * 0.1f;
             Projectile.rotation = (t.Center - Projectile.Center).ToRotation();
-            
+
         }
 
         public virtual void backing()
@@ -218,13 +217,13 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             if (Projectile.owner.ToPlayer().HeldItem.ModItem is HorizonssKey hk)
             {
                 Projectile.damage = (int)(damageMul * Projectile.owner.ToPlayer().GetWeaponDamage(Projectile.owner.ToPlayer().HeldItem));
-                if(casket.ToProj().Entropy().ttindex != -1)
+                if (casket.ToProj().Entropy().ttindex != -1)
                 {
                     Projectile.damage = (int)((float)Projectile.damage * TwistedTwinMinion.damageMul);
                 }
                 Projectile.CritChance = (int)(Projectile.owner.ToPlayer().GetWeaponCrit(Projectile.owner.ToPlayer().HeldItem));
                 Projectile.knockBack = (int)(Projectile.owner.ToPlayer().GetWeaponKnockback(Projectile.owner.ToPlayer().HeldItem));
-                
+
             }
             Projectile.ArmorPenetration = HorizonssKey.getArmorPen();
         }

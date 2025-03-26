@@ -1,32 +1,15 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Items.Books.BookMarks;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Util;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
-using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables.Furniture.CraftingStations;
 using CalamityMod.Items.Weapons.Magic;
-using CalamityMod.NPCs.SupremeCalamitas;
-using CalamityMod.Projectiles.Ranged;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
-using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books
@@ -90,14 +73,14 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 seekerRotTarget += 0.04f;
             }
-            if(Main.GameUpdateCount % 15 == 0 && active)
+            if (Main.GameUpdateCount % 15 == 0 && active)
             {
                 base.playTurnPageAnimation();
             }
         }
         public override void playTurnPageAnimation()
         {
-            
+
         }
         public override bool Shoot()
         {
@@ -110,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
             Projectile.velocity = Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
             base.Shoot();
-            EParticle.spawnNew(new HadCircle2() { scale2 = 0.4f}, Projectile.Center, Vector2.Zero, Color.OrangeRed, 1, 1, true, BlendState.Additive, 0);
+            EParticle.spawnNew(new HadCircle2() { scale2 = 0.4f }, Projectile.Center, Vector2.Zero, Color.OrangeRed, 1, 1, true, BlendState.Additive, 0);
             Projectile.rotation = oRot;
             Projectile.Center = opos;
             Projectile.velocity = oVel;
@@ -131,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Books
             int dist = 120;
             List<Vector2> pos = new List<Vector2>();
             int count = 3;
-            for(int i = 0 ; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 float rot = MathHelper.ToRadians(360f / count) * i + seekerRot;
                 pos.Add(Projectile.Center + rot.ToRotationVector2() * dist);

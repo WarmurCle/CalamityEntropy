@@ -1,4 +1,4 @@
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
 {
-    
+
     public class VoidFeather : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             Projectile.extraUpdates = 1;
         }
         public bool setv = true;
-        
+
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();

@@ -1,17 +1,15 @@
-﻿using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items.LoreItems;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items
 {
-   public class NihilityTwinLore : LoreItem
+    public class NihilityTwinLore : LoreItem
     {
         public override void SetStaticDefaults()
         {

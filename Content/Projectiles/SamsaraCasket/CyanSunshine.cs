@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             }
             else
             {
-                
+
                 if (light > 0)
                 {
                     light -= 0.1f;
@@ -48,24 +48,24 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             base.AI();
 
         }
-        
+
         public override void attackAI(NPC t)
         {
-            if(impotence > 0)
+            if (impotence > 0)
             {
                 Vector2 targetpos = t.Center + new Vector2(-160 - (t.width + t.height) / 4, -160 - (t.width + t.height) / 4);
                 Projectile.velocity *= 0.92f;
                 Projectile.velocity += (targetpos - Projectile.Center).SafeNormalize(Vector2.Zero) * 2f;
                 return;
             }
-            if(charge == 50)
+            if (charge == 50)
             {
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/light_bolt_delayed"), Projectile.Center);
             }
-            if(charge > 0)
+            if (charge > 0)
             {
                 charge--;
-                if(charge == 0)
+                if (charge == 0)
                 {
 
                     SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/light_bolt"), Projectile.Center);
@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
                 setDamage(1);
-                if(Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner)
                 {
                     for (int i = 0; i < 10; i++)
                     {
@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(impotence > 0)
+            if (impotence > 0)
             {
                 return false;
             }
@@ -132,13 +132,13 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 return false;
             }
-            
-            for(int i = 1; i < lightningPoints.Count; i++)
+
+            for (int i = 1; i < lightningPoints.Count; i++)
             {
                 Util.Util.drawLine(lightningPoints[i - 1], lightningPoints[i], Color.White, (float)(Math.Cos(-MathHelper.PiOver2 + ((float)i / (float)lightningPoints.Count) * MathHelper.Pi) * lightningWidth * 6), 2);
             }
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
-            if(charge <= 0)
+            if (charge <= 0)
             {
                 for (int i = 0; i < oldPos.Count; i++)
                 {
@@ -146,7 +146,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 }
             }
             tex = TextureAssets.Projectile[Projectile.type].Value;
-            if(charge <= 0 || target == null)
+            if (charge <= 0 || target == null)
             {
                 for (int i = 0; i < oldPos.Count; i++)
                 {

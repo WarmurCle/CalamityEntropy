@@ -1,11 +1,7 @@
-﻿using CalamityEntropy.Common;
-using CalamityMod.Cooldowns;
+﻿using CalamityMod.Cooldowns;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.Localization;
-using static CalamityMod.CalamityUtils;
 
 namespace CalamityEntropy.Content.Cooldowns
 {
@@ -21,6 +17,6 @@ namespace CalamityEntropy.Content.Cooldowns
 
         public override SoundStyle? EndSound => null;
 
-        
+
     }
 }

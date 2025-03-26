@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 SoundStyle usd = new SoundStyle("CalamityMod/Sounds/Item/RealityRuptureStealth", SoundType.Sound);
                 usd.Volume = 0.4f;
                 Item.UseSound = usd;
-                
+
                 Item.shootSpeed = 60f;
                 Item.useAmmo = AmmoID.None;
                 Item.autoReuse = true;
@@ -94,15 +94,17 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
-            if (player.itemAnimation < 38) {
+            if (player.itemAnimation < 38)
+            {
                 return false;
             }
             return base.CanConsumeAmmo(ammo, player);
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
-            if (player.altFunctionUse == 2) {
+
+            if (player.altFunctionUse == 2)
+            {
                 Projectile.NewProjectile(source, position, velocity, type, damage * 12, knockback, player.whoAmI);
             }
             else
@@ -122,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     if (i == 0)
                     {
-                                                                                               }
+                    }
                     else
                     {
                         int arrow;
@@ -135,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                 }
             }
-            
+
             return false;
         }
 

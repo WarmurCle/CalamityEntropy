@@ -1,13 +1,9 @@
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.NPCs;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
-using CalamityMod.NPCs.NormalNPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -36,7 +32,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public int summonCount;
         public bool summoned = false;
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.light = alpha * 6;
             int count = 0;
             foreach (NPC n in Main.npc)
@@ -47,12 +44,12 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         summonCount -= 1;
                         count++;
-                        if(alpha < 0.02f)
+                        if (alpha < 0.02f)
                         {
                             alpha = 0.02f;
                         }
                         alpha += 0.98f / 15000f;
-                        if(alpha > 1)
+                        if (alpha > 1)
                         {
                             alpha = 1;
                         }
@@ -68,21 +65,21 @@ namespace CalamityEntropy.Content.Projectiles
                             }
                         }
                     }
-                    
+
                 }
             }
-            
+
             if (count == 0)
             {
                 summoned = true;
                 summonCount = 0;
             }
-            
-            if(summonCount <= 0)
+
+            if (summonCount <= 0)
             {
                 if (!summoned)
                 {
-                    Projectile.netUpdate = true;                    
+                    Projectile.netUpdate = true;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         int np = NPC.NewNPC(new EntitySource_WorldEvent(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 42, ModContent.NPCType<AbyssalWraith>());
@@ -91,7 +88,7 @@ namespace CalamityEntropy.Content.Projectiles
                     summoned = true;
                 }
                 alpha -= 0.025f;
-                if(alpha <= 0)
+                if (alpha <= 0)
                 {
                     Projectile.Kill();
                 }
@@ -120,6 +117,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Chainsaw
 {
-    public class BrokenChainsaw0: ModProjectile
+    public class BrokenChainsaw0 : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 SoundEngine.PlaySound(SoundID.Item22, Projectile.Center);
             }
-            
+
             Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
             if (Main.myPlayer == Projectile.owner)
             {
@@ -63,10 +63,11 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             if (Projectile.velocity.X > 0)
             {
                 player.direction = 1;
-                
+
             }
-            else { 
-                player.direction = -1; 
+            else
+            {
+                player.direction = -1;
             }
             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
@@ -79,7 +80,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             soundCd--;
 
             Projectile.ai[2]++;
-            if(Projectile.ai[2] > 280 * Projectile.MaxUpdates)
+            if (Projectile.ai[2] > 280 * Projectile.MaxUpdates)
             {
                 Util.Util.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f);
                 player.itemTime = 120;
@@ -97,7 +98,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             }
             Projectile.velocity = newVelocity;
         }
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
@@ -145,7 +146,8 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
                 }
             }
         }
-        public override bool PreDraw(ref Color dc){
+        public override bool PreDraw(ref Color dc)
+        {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Chainsaw/BrokenChainsaw" + (((int)(Projectile.ai[0] / 4)) % frame).ToString()).Value;
             var rand = Main.rand;
             SpriteEffects ef = SpriteEffects.None;
@@ -161,6 +163,6 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             return false;
         }
     }
-    
+
 
 }

@@ -1,10 +1,5 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Buffs.Wyrm
@@ -18,7 +13,7 @@ namespace CalamityEntropy.Content.Buffs.Wyrm
             BuffID.Sets.LongerExpertDebuff[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            
+
         }
     }
 }

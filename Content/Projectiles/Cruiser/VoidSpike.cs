@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser
 {
-    
-    public class VoidSpike: ModProjectile
+
+    public class VoidSpike : ModProjectile
     {
         List<Vector2> odp = new List<Vector2>();
         public override void SetStaticDefaults()

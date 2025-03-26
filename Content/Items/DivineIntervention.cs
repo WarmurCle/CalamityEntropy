@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
@@ -11,14 +11,16 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items
 {
-	public class DivineIntervention : ModItem
-	{
-        public override void SetStaticDefaults() {
-		}
+    public class DivineIntervention : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+        }
 
-		public override void SetDefaults() {
-			Item.width = 26;
-			Item.height = 26;
+        public override void SetDefaults()
+        {
+            Item.width = 26;
+            Item.height = 26;
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = -1;
@@ -27,8 +29,8 @@ namespace CalamityEntropy.Content.Items
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
             Item.rare = ItemRarityID.LightRed;
             Item.shootSpeed = 5;
-			
-		}
+
+        }
         public override bool CanUseItem(Player player)
         {
             return !player.HasBuff(ModContent.BuffType<DivingShieldCooldown>());

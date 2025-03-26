@@ -1,14 +1,6 @@
-
-using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.NPCs.ExoMechs.Ares;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Particles;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -16,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class HadopelagicLaser : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -41,10 +33,11 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float width = 0;
         public int length = 3000;
-        public override void AI() {
+        public override void AI()
+        {
             if (Projectile.ai[0] == 0)
             {
-                if(Projectile.Distance(Main.LocalPlayer.Center) < 1200)
+                if (Projectile.Distance(Main.LocalPlayer.Center) < 1200)
                 {
                     CalamityEntropy.FlashEffectStrength = 0.3f;
                 }
@@ -55,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
                 width += 0.33334f;
             }
             Projectile.ai[0]++;
-            if(Projectile.timeLeft < 12)
+            if (Projectile.timeLeft < 12)
             {
                 width -= 1f / 12f;
             }
@@ -87,7 +80,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center,  Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, 30, 24);
+            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, 30, 24);
         }
         public override bool PreDraw(ref Color lightColor)
         {

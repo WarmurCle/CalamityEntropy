@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class VoidWraith : ModProjectile
     {
         public List<Vector2> odp = new List<Vector2>();
@@ -36,7 +36,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 600;
             Projectile.scale = 1.2f;
         }
-        public override void AI(){
+        public override void AI()
+        {
             if (Main.GameUpdateCount % 5 == 0)
             {
                 Projectile.frame++;

@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class VoidMonster : ModProjectile
     {
         public List<Vector2> odp = new List<Vector2>();
@@ -44,8 +44,9 @@ namespace CalamityEntropy.Content.Projectiles
             tlegru = Projectile.Center + new Vector2(100, -100);
             tlegrd = Projectile.Center + new Vector2(100, 100);
         }
-        
-        public override void AI(){
+
+        public override void AI()
+        {
             if (Projectile.ai[0] < 3)
             {
                 leglu = Projectile.Center + new Vector2(-100, -100);
@@ -98,10 +99,11 @@ namespace CalamityEntropy.Content.Projectiles
                 tlegrd = trd;
                 legsmoving++;
             }
-            
-            if (Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 1200){ 
+
+            if (Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 1200)
+            {
                 Projectile.Center = Projectile.owner.ToPlayer().Center;
-                
+
             }
             if (Util.Util.getDistance(tleglu, leglu) > LegSpeed)
             {
@@ -242,7 +244,8 @@ namespace CalamityEntropy.Content.Projectiles
             int counts = 40;
             float p = 0;
             Vector2 lastp = root;
-            for (int i = 0; i < counts; i++) {
+            for (int i = 0; i < counts; i++)
+            {
                 Vector2 a = Vector2.Lerp(root, p1, p);
                 Vector2 b = Vector2.Lerp(p1, end, p);
                 Vector2 c = Vector2.Lerp(a, b, p);

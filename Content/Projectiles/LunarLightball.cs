@@ -1,17 +1,8 @@
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using CalamityEntropy.Common;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -52,13 +43,14 @@ namespace CalamityEntropy.Content.Projectiles
         public int homingTime = 60;
         public override bool? CanHitNPC(NPC target)
         {
-            if(counter < 16)
+            if (counter < 16)
             {
                 return false;
             }
             return base.CanHitNPC(target);
         }
-        public override void AI(){
+        public override void AI()
+        {
             particlea *= 0.9f;
             counter++;
             Projectile.ai[0]++;
@@ -69,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
-                    
+
                 }
                 Projectile.velocity = Vector2.Zero;
             }
@@ -82,36 +74,36 @@ namespace CalamityEntropy.Content.Projectiles
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
                 }
-                
+
                 NPC target = Projectile.FindTargetWithinRange(1600, false);
                 if (target != null && Util.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
                 {
                     homingTime = 0;
-                    Projectile.velocity *= 0.9f;   
+                    Projectile.velocity *= 0.9f;
                     Vector2 v = target.Center - Projectile.Center;
                     v.Normalize();
-                    
+
                     Projectile.velocity += v * 1.5f;
                 }
                 Projectile.rotation = Projectile.velocity.ToRotation();
             }
             exps *= 0.9f;
-            
+
             if (Projectile.velocity.Length() > 3)
             {
                 Projectile.velocity *= 0.995f - homing * 0.018f;
             }
-            if(counter > 2 && !htd)
+            if (counter > 2 && !htd)
             {
-                if(homing < 4)
+                if (homing < 4)
                 {
                     homing += 0.015f;
                 }
                 NPC target = Projectile.FindTargetWithinRange(2600);
-                
-                if(target != null)
+
+                if (target != null)
                 {
-                    if(Projectile.timeLeft < 60)
+                    if (Projectile.timeLeft < 60)
                     {
                         Projectile.timeLeft = 60;
                     }

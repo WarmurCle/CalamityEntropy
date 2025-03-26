@@ -1,31 +1,22 @@
-using System;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.CalPlayer;
-using CalamityMod.CalPlayer.Dashes;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-	public class NihilityShell : ModItem
-	{
-        public static int MaxCount = 2;  		public override void SetDefaults() {
-			Item.width = 40;
-			Item.height = 40;
+    public class NihilityShell : ModItem
+    {
+        public static int MaxCount = 2; public override void SetDefaults()
+        {
+            Item.width = 40;
+            Item.height = 40;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.accessory = true;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -40,11 +31,11 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             if (hitInfo.Crit)
             {
-                if(player.Entropy().nihShellCd <= 0)
+                if (player.Entropy().nihShellCd <= 0)
                 {
                     if (Main.rand.NextBool(6))
                     {
-                        if(player.Entropy().nihShellCount < MaxCount)
+                        if (player.Entropy().nihShellCount < MaxCount)
                         {
                             player.Entropy().nihShellCount++;
                             player.Entropy().nihShellCd = 10 * 60;

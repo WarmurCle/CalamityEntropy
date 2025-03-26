@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
@@ -24,12 +22,13 @@ using CalamityMod.Items.Weapons.Summon;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace CalamityEntropy.Content.NPCs
 {
@@ -37,7 +36,8 @@ namespace CalamityEntropy.Content.NPCs
     {
         public int item = 0;
         public int stack = 1;
-        public RewardPoolItem(int n, int s) {
+        public RewardPoolItem(int n, int s)
+        {
             this.item = n;
             this.stack = s;
         }
@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.NPCs
         public void Add(RewardPoolItem item)
         {
             this.items.Add(item);
-            
+
         }
         public RewardPoolItem RandomItem()
         {
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.NPCs
             writer.Write(say);
             writer.WriteRGB(sayColor);
             writer.Write(sayStr);
-                
+
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -149,23 +149,23 @@ namespace CalamityEntropy.Content.NPCs
         public override void SetDefaults()
         {
             NPC.width = 176;
-            NPC.height = 176; 
+            NPC.height = 176;
             NPC.damage = 0;
             NPC.defense = 16;
             NPC.lifeMax = 200;
 
-            NPC.value = 0f; 
-            NPC.knockBackResist = 1f; 
+            NPC.value = 0f;
+            NPC.knockBackResist = 1f;
             NPC.noTileCollide = false;
             NPC.noGravity = false;
             NPC.friendly = true;
 
             NPC.netAlways = true;
-            
+
         }
         public override void OnSpawn(IEntitySource source)
         {
-            
+
         }
         public override bool CanBeHitByNPC(NPC attacker)
         {
@@ -183,7 +183,7 @@ namespace CalamityEntropy.Content.NPCs
         {
             modifiers.FinalDamage *= 0;
         }
-        
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D tx;
@@ -249,7 +249,7 @@ namespace CalamityEntropy.Content.NPCs
                                 tx = warning2;
                             }
 
-                            
+
                         }
                     }
                     if (textureSpecial == 8)
@@ -497,7 +497,7 @@ namespace CalamityEntropy.Content.NPCs
                     {
                         openCouter = 0;
                         openFrame++;
-                        if(openFrame == 3)
+                        if (openFrame == 3)
                         {
                             Say("你好，如你所见，我是一台抽奖机", Color.Green);
                         }
@@ -512,7 +512,7 @@ namespace CalamityEntropy.Content.NPCs
                     }
                     else
                     {
-                        
+
                         specialTime--;
                         if (specialTime <= 0)
                         {
@@ -528,7 +528,7 @@ namespace CalamityEntropy.Content.NPCs
                     {
                         warnCounter = 0;
                     }
-                    if(SpawnTimer > 0)
+                    if (SpawnTimer > 0)
                     {
                         SpawnTimer--;
                         if (SpawnTimer == 0)
@@ -546,12 +546,12 @@ namespace CalamityEntropy.Content.NPCs
         {
             return false;
         }
-        
+
         public void RightClicked(Player player)
         {
             if (Main.dedServ)
             {
-                if(NPC.netSpam >= 10)
+                if (NPC.netSpam >= 10)
                 {
                     NPC.netSpam = 9;
                 }
@@ -570,7 +570,7 @@ namespace CalamityEntropy.Content.NPCs
                     ModLoader.TryGetMod("NoxusBoss", out nxb);
                     bool hasBoss = false;
                     string bossName = "";
-                    foreach(NPC n in Main.npc)
+                    foreach (NPC n in Main.npc)
                     {
                         if (n.boss && n.active)
                         {
@@ -837,7 +837,8 @@ namespace CalamityEntropy.Content.NPCs
                             Say("这个物品的设计是失败的...你不应该使用它", Color.Red);
                         }
                     }
-                    else if (hasBoss) {
+                    else if (hasBoss)
+                    {
                         Say("你难道没看到那个" + bossName + "吗？可真是不知死活", Color.Green, 0.7f);
                     }
                     else if (itemType == ItemID.StarCannon)
@@ -850,7 +851,7 @@ namespace CalamityEntropy.Content.NPCs
                         {
                             Say("对了，记得准备多一点的星星和粘鞍", Color.Yellow);
                         }
-                        else if(sameItemCount == 2)
+                        else if (sameItemCount == 2)
                         {
                             Say("不过真的有人会用这把武器来打boss吗", Color.Yellow);
                         }
@@ -870,7 +871,8 @@ namespace CalamityEntropy.Content.NPCs
                             Say("或许有人能用来击败超越神明的造物？我不知道", Color.Yellow);
                         }
                     }
-                    else if (nxb != null && itemType == nxb.Find<ModItem>("NoxusSprayer").Type) {
+                    else if (nxb != null && itemType == nxb.Find<ModItem>("NoxusSprayer").Type)
+                    {
                         Say("把它拿开", Color.Red);
                         Say("把它拿开", Color.Red);
                         Say("把它拿开", Color.Red);
@@ -898,7 +900,7 @@ namespace CalamityEntropy.Content.NPCs
                         Say("你塞的是什么东西？", Color.Green, 0.4f);
 
                     }
-                   
+
                 }
             }
         }

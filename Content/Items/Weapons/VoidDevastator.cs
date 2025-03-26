@@ -1,4 +1,4 @@
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items.Materials;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
@@ -9,30 +9,35 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-	public class VoidDevastator : ModItem {
-		public override void SetStaticDefaults() {
-			AmmoID.Sets.SpecificLauncherAmmoProjectileFallback[Type] = ItemID.RocketLauncher;
+    public class VoidDevastator : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            AmmoID.Sets.SpecificLauncherAmmoProjectileFallback[Type] = ItemID.RocketLauncher;
 
-		}
+        }
 
-		public override void SetDefaults() {
-			Item.DefaultToRangedWeapon(ProjectileID.RocketI, AmmoID.Rocket, singleShotTime: 20, shotVelocity: 28, hasAutoReuse: true);
-			Item.width = 152;
-			Item.height = 48;
-			Item.damage = 600;
-			Item.knockBack = 4f;
-			Item.crit = 15;
-			Item.UseSound = SoundID.Item11;
-			Item.value = Item.buyPrice(gold: 80);
-			Item.rare = ItemRarityID.Orange;
-		}
+        public override void SetDefaults()
+        {
+            Item.DefaultToRangedWeapon(ProjectileID.RocketI, AmmoID.Rocket, singleShotTime: 20, shotVelocity: 28, hasAutoReuse: true);
+            Item.width = 152;
+            Item.height = 48;
+            Item.damage = 600;
+            Item.knockBack = 4f;
+            Item.crit = 15;
+            Item.UseSound = SoundID.Item11;
+            Item.value = Item.buyPrice(gold: 80);
+            Item.rare = ItemRarityID.Orange;
+        }
 
-		public override Vector2? HoldoutOffset() {
-			return new Vector2(-34f, 2f);  		}
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-34f, 2f);
+        }
 
         public override void AddRecipes()
         {
-			CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 12).AddIngredient(ModContent.ItemType<ArmoredShell>(), 8).AddIngredient(ModContent.ItemType<CoreofCalamity>(), 6).AddIngredient(ItemID.Celeb2, 1).AddTile(ModContent.TileType<CosmicAnvil>()).Register();
+            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 12).AddIngredient(ModContent.ItemType<ArmoredShell>(), 8).AddIngredient(ModContent.ItemType<CoreofCalamity>(), 6).AddIngredient(ItemID.Celeb2, 1).AddTile(ModContent.TileType<CosmicAnvil>()).Register();
         }
         public override bool RangedPrefix()
         {

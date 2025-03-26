@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class VoidBullet : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -35,7 +35,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.extraUpdates = 1;
         }
         public float ap = 0;
-        public override void AI(){
+        public override void AI()
+        {
             Particle p = new Particle();
             p.alpha = 0.5f;
             p.position = Projectile.Center;
@@ -58,7 +59,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
 
         public override bool PreDraw(ref Color lightColor)
-        {return false;
+        {
+            return false;
         }
     }
 

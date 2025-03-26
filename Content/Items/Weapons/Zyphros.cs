@@ -3,12 +3,10 @@ using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -98,7 +96,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
             float rotation = (player.Center - player.Calamity().mouseWorld).ToRotation() * player.gravDir + MathHelper.PiOver2;
-            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);  
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
         }
     }
 }

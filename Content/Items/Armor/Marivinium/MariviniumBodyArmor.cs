@@ -1,13 +1,11 @@
 ﻿using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
-using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Armor.OmegaBlue;
 using CalamityMod.Items.Materials;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Armor.Marivinium
@@ -34,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.statManaMax2 += 250;
             player.breath = player.breathMax + 91;
         }
-        
+
         public override void AddRecipes()
         {
             CreateRecipe()

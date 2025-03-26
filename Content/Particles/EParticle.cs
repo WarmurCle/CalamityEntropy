@@ -1,9 +1,8 @@
-
+﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
 {
@@ -58,10 +57,10 @@ namespace CalamityEntropy.Content.Particles
                 }
             }
             Main.spriteBatch.End();
-            if (alphaBlendDraw.Count > 0) 
+            if (alphaBlendDraw.Count > 0)
             {
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-                foreach(EParticle p in alphaBlendDraw)
+                foreach (EParticle p in alphaBlendDraw)
                 {
                     p.draw();
                 }
@@ -86,7 +85,7 @@ namespace CalamityEntropy.Content.Particles
                 Main.spriteBatch.End();
             }
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-            foreach(Effect effect in useEffectParticle.Keys)
+            foreach (Effect effect in useEffectParticle.Keys)
             {
                 foreach (EParticle p in useEffectParticle[effect])
                 {
@@ -109,7 +108,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 particle.update();
             }
-            for(int i = particles.Count - 1; i >= 0; i--)
+            for (int i = particles.Count - 1; i >= 0; i--)
             {
                 if (particles[i].timeLeft <= 0)
                 {
@@ -137,11 +136,11 @@ namespace CalamityEntropy.Content.Particles
             particle.useAlphaBlend = false;
             particle.useAdditive = false;
             particle.rotation = rotation;
-            if(bs == BlendState.Additive)
+            if (bs == BlendState.Additive)
             {
                 particle.useAdditive = true;
             }
-            else if(bs == BlendState.AlphaBlend)
+            else if (bs == BlendState.AlphaBlend)
             {
                 particle.useAlphaBlend = true;
             }

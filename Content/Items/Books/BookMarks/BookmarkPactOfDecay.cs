@@ -1,20 +1,15 @@
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
-using CalamityMod.Items;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-using CalamityMod.Rarities;
-using System.Collections.Generic;
-using CalamityMod.NPCs.SupremeCalamitas;
-using CalamityMod.NPCs;
-using Terraria.Graphics.Effects;
-using ReLogic.Content;
-using System.IO;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Items;
+using CalamityMod.Rarities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.Graphics.Effects;
+using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookmarkPactOfDecay : BookMark
@@ -83,23 +78,23 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 targetPos = (target == null ? Main.MouseWorld : target.Center);
             }
-            if(Util.Util.getDistance(Projectile.Center, targetPos) > 120)
+            if (Util.Util.getDistance(Projectile.Center, targetPos) > 120)
             {
                 Projectile.velocity += (targetPos - Projectile.Center).normalize() * 2f;
                 Projectile.velocity *= 0.92f;
             }
-            if(Util.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) > 2600)
+            if (Util.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) > 2600)
             {
                 target = null;
                 Projectile.Center = Projectile.getOwner().Center;
             }
-            if(Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 1 && Projectile.timeLeft >= 19)
+            if (Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 1 && Projectile.timeLeft >= 19)
             {
                 Projectile.timeLeft = 20;
             }
-            if(Projectile.timeLeft == 20)
+            if (Projectile.timeLeft == 20)
             {
-                if(Projectile.Opacity < 1)
+                if (Projectile.Opacity < 1)
                 {
                     Projectile.Opacity += 0.05f;
                 }

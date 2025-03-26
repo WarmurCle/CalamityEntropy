@@ -1,24 +1,24 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items
 {
-	public class AnimaSola : ModItem
-	{
-        public override void SetStaticDefaults() {
-		}
+    public class AnimaSola : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+        }
 
-		public override void SetDefaults() {
-			Item.width = 52;
-			Item.height = 52;
+        public override void SetDefaults()
+        {
+            Item.width = 52;
+            Item.height = 52;
             Item.useTime = 16;
             Item.useAnimation = 16;
             Item.useStyle = -1;
@@ -26,8 +26,8 @@ namespace CalamityEntropy.Content.Items
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ItemRarityID.Red;
             Item.noUseGraphic = true;
-			
-		}
+
+        }
         public override bool CanUseItem(Player player)
         {
             return !player.HasCooldown("AnimasolaCd");

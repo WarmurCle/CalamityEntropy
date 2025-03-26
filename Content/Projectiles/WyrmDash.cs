@@ -1,17 +1,15 @@
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class WyrmDash : ModProjectile {
+    public class WyrmDash : ModProjectile
+    {
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -36,13 +34,14 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float alpha = 0;
         public bool playSound = true;
-        public override void AI(){
+        public override void AI()
+        {
             if (playSound)
             {
                 playSound = false;
                 Util.Util.PlaySound("beast_ghostdash1", 0.6f, Projectile.Center, 2, 1);
             }
-            if(Projectile.timeLeft < 6)
+            if (Projectile.timeLeft < 6)
             {
                 alpha -= 1f / 6f;
             }
@@ -54,17 +53,17 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             var player = Projectile.owner.ToPlayer();
-            
+
             player.velocity = Projectile.velocity;
             player.Center = Projectile.Center;
-            if(Projectile.timeLeft > 12)
+            if (Projectile.timeLeft > 12)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
             }
             player.Entropy().immune = 20;
             player.itemTime = 36;
             player.itemAnimation = 36;
-            if(Projectile.timeLeft < 2)
+            if (Projectile.timeLeft < 2)
             {
                 player.velocity *= 0.2f;
             }
@@ -72,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.velocity *= 0f;
-            if(Projectile.timeLeft > 8)
+            if (Projectile.timeLeft > 8)
             {
                 Projectile.timeLeft = 8;
             }

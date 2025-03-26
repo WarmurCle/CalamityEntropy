@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.IO;
@@ -17,7 +17,7 @@ public class DimDungeonGenPass : GenPass
         rooms = new List<Room>();
         corridors = new List<Corridor>();
         doors = new bool[Main.maxTilesX, Main.maxTilesY];
-                 WorldUtils.Gen(START_POINT, new Shapes.Rectangle(rootRoom.Width, rootRoom.Height), new Actions.Blank().Output(shapeData));
+        WorldUtils.Gen(START_POINT, new Shapes.Rectangle(rootRoom.Width, rootRoom.Height), new Actions.Blank().Output(shapeData));
 
         rooms.Add(new RootRoom(
             new Rectangle(
@@ -27,19 +27,19 @@ public class DimDungeonGenPass : GenPass
                 rootRoom.Height
             ), rootRoom)
         { SpawnedEnemies = true });
-                                                     
-                 foreach (RoomGenAction action in map)
+
+        foreach (RoomGenAction action in map)
         {
 
             Direction direction = action.Direction;
-                
+
             CorridorMetadata corridorMetadata = action.Corridor;
 
             Room lastRoom = rooms.Last();
 
             bool isHorizonal = direction.IsHorizontal();
-                
-                
+
+
             var (corridorX, corridorY) = corridorMetadata.GetOffset(lastRoom.Bounds, direction);
             WorldUtils.Gen(START_POINT, new Shapes.Rectangle(
                     isHorizonal ? corridorMetadata.Length : corridorMetadata.Width,
@@ -89,19 +89,19 @@ public class DimDungeonGenPass : GenPass
                 direction,
                 corridorMetadata
                 );
-            
-            
+
+
             RoomMetadata room = action.NextRoom;
             var (roomX, roomY) = room.GetOffset(corridorX, corridorY, corridorMetadata.Width, corridorMetadata.Length,
                 direction);
             room.genPos = new Point(roomX - START_POINT.X, roomY - START_POINT.Y);
-            
+
             WorldUtils.Gen(START_POINT, new Shapes.Rectangle(room.Width, room.Height), Actions.Chain(new GenAction[]
             {
                 new Modifiers.Offset(roomX - START_POINT.X, roomY - START_POINT.Y),
                 new Actions.Blank().Output(shapeData)
             }));
-                          
+
             rooms.Add(new Room(
                 new Rectangle(
                     roomX,
@@ -112,18 +112,18 @@ public class DimDungeonGenPass : GenPass
                 room).ConnectsWith(newCorridor, direction.Reverse(), lastRoom));
             corridors.Add(newCorridor);
         }
-                 int corridorWidth = 4;
+        int corridorWidth = 4;
         for (int i = 0; i < rooms.Count; i++)
         {
             Room currentRoom = rooms[i];
             int maxSearchDistance = 128;
-            
+
             Rectangle searchHorizonal = currentRoom.Bounds;
             searchHorizonal.Inflate(maxSearchDistance, 0);
             Rectangle searchVertical = currentRoom.Bounds;
             searchVertical.Inflate(0, maxSearchDistance);
 
-            foreach (Room room in rooms.Skip(i+1))
+            foreach (Room room in rooms.Skip(i + 1))
             {
                 CorridorMetadata corridorMetadata = null;
                 Direction direction = Direction.Up;
@@ -140,7 +140,7 @@ public class DimDungeonGenPass : GenPass
                     {
                         offsetAmount = room.Bounds.Y - currentRoom.Bounds.Y;
                     }
-                    
+
                     if (room.Bounds.X < currentRoom.Bounds.X)
                     {
                         corridorMetadata = new CorridorMetadata(corridorWidth, currentRoom.Bounds.X - room.Bounds.X);
@@ -163,7 +163,7 @@ public class DimDungeonGenPass : GenPass
                     {
                         offsetAmount = room.Bounds.X - currentRoom.Bounds.X;
                     }
-                    
+
                     if (room.Bounds.Y < currentRoom.Bounds.Y)
                     {
                         corridorMetadata = new CorridorMetadata(corridorWidth, currentRoom.Bounds.Y - room.Bounds.Y - room.Bounds.Height);
@@ -175,11 +175,11 @@ public class DimDungeonGenPass : GenPass
                         direction = Direction.Down;
                     }
                 }
-                
+
                 if (corridorMetadata == null) continue;
-                
+
                 var (corridorX, corridorY) = corridorMetadata.GetOffset(currentRoom.Bounds, direction, offsetAmount);
-                
+
                 WorldUtils.Gen(START_POINT, new Shapes.Rectangle(
                         direction.IsHorizontal() ? corridorMetadata.Length : corridorMetadata.Width,
                         direction.IsHorizontal() ? corridorMetadata.Width : corridorMetadata.Length
@@ -231,28 +231,28 @@ public class DimDungeonGenPass : GenPass
                 currentRoom.ConnectsWith(newCorridor, direction, room);
             }
         }
-            
-            
+
+
     }
-        
+
     public static Point START_POINT = new Point(500, 500);
-        
+
     public DimDungeonGenPass() : base("Terrain", 1) { }
 
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
     {
-        progress.Message = "Generating terrain";          Main.worldSurface = Main.maxTilesY - 42;          Main.rockLayer = Main.maxTilesY;              
-                 List<RoomGenAction> map = new List<RoomGenAction>()
+        progress.Message = "Generating terrain"; Main.worldSurface = Main.maxTilesY - 42; Main.rockLayer = Main.maxTilesY;
+        List<RoomGenAction> map = new List<RoomGenAction>()
         {
             new(new CorridorMetadata(4, 64), Direction.Left, new RoomMetadata(64, 16)),
             new(new CorridorMetadata(4, 16), Direction.Up, new RoomMetadata(16, 64)),
             new(new CorridorMetadata(4, 16), Direction.Right, new RoomMetadata(64, 64))
         };
         RoomMetadata rootRoom = new RoomMetadata(16, 16);
-                 
+
         START_POINT = new Point(Main.maxTilesX / 2 - rootRoom.Width / 2, Main.maxTilesY / 2 - rootRoom.Height / 2);
-        
-        CreateRooms(rootRoom, map, out ShapeData shapeData , out List<Room> rooms, out List<Corridor> corridors, out bool[,] Doors);
+
+        CreateRooms(rootRoom, map, out ShapeData shapeData, out List<Room> rooms, out List<Corridor> corridors, out bool[,] Doors);
         DimDungeonSystem.rooms = rooms;
         DimDungeonSystem.doors = Doors;
         WorldUtils.Gen(START_POINT, new ModShapes.OuterOutline(shapeData, true), new Actions.SetTile(TileID.AmethystGemspark, true));

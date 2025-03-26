@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items.LoreItems;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items
 {
-   public class CruiserLore : LoreItem
+    public class CruiserLore : LoreItem
     {
         public const int LifeBoost = 20;
         public const int ManaBoost = 50;

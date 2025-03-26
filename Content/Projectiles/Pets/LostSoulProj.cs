@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Util;
 using CalamityMod.Events;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/LostSoulProj").Value;
             if (Main.gameMenu)
             {
-                
+
                 Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(txd, 4, 0), lightColor, Projectile.rotation, new Vector2(30, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
                 return false;
@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                 return false;
             }
             Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition + new Vector2(0, (float)Math.Cos((float)dc * 0.06f) * 20), Util.Util.GetCutTexRect(txd, 4, (counter / 4) % 4), lightColor * alpha, Projectile.rotation, new Vector2(30, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
-            
+
 
 
             return false;
@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
         public List<int> bosses = new List<int>();
         public override void OnSpawn(IEntitySource source)
         {
-            foreach(NPC n in Main.npc)
+            foreach (NPC n in Main.npc)
             {
                 if (n.active && n.boss)
                 {
@@ -144,7 +144,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
 
             hideVisualTime--;
             bool hasBoss = false;
-            if(hideVisualTime > 0)
+            if (hideVisualTime > 0)
             {
                 bosses.Clear();
             }
@@ -169,7 +169,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                     mantleCd = 3600;
                     mantle = true;
                 }
-                for (int i = bosses.Count - 1; i >= 0; i--) {
+                for (int i = bosses.Count - 1; i >= 0; i--)
+                {
                     int b = bosses[i];
                     bosses.RemoveAt(i);
                     NPC npc = ((NPC)b.ToNPC().Clone());
@@ -177,8 +178,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                     needLoots.Add(npc);
                 }
             }
-            
-            if(Util.Util.getDistance(Projectile.Center, player.Center) < 300 && !spawnAnm && needLoots.Count > 0)
+
+            if (Util.Util.getDistance(Projectile.Center, player.Center) < 300 && !spawnAnm && needLoots.Count > 0)
             {
                 spawnAnm = true;
                 spawnAnmFrame = 0;
@@ -187,7 +188,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             }
             if (hasBoss)
             {
-                if(hideVisualTime > 0)
+                if (hideVisualTime > 0)
                 {
                     hideVisualTime = 20;
                 }
@@ -198,14 +199,14 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                 Projectile.Center = player.Center;
                 mantle = true;
             }
-            if(hideVisualTime == 0)
+            if (hideVisualTime == 0)
             {
                 Projectile.netUpdate = true;
             }
             hurtCd--;
             if (hideVisualTime < 0)
             {
-                
+
                 foreach (Projectile p in Main.projectile)
                 {
                     if (p.active && p.damage > 0 && p.hostile)
@@ -219,12 +220,13 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                             hurt();
                             return;
                         }
-                        if (Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < 1000 && Util.Util.getDistance(p.Center + p.velocity * 20, Projectile.Center + Projectile.velocity * 20) < 120 + Math.Max(p.width, p.height)) {
+                        if (Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < 1000 && Util.Util.getDistance(p.Center + p.velocity * 20, Projectile.Center + Projectile.velocity * 20) < 120 + Math.Max(p.width, p.height))
+                        {
                             Projectile.velocity += (Projectile.Center + Projectile.velocity * 6 - p.Center + p.velocity * 6).SafeNormalize(Vector2.One) * 1.6f;
                         }
                     }
                 }
-                
+
                 foreach (NPC n in Main.npc)
                 {
                     if (n.active && n.damage > 0 && !n.friendly)
@@ -249,11 +251,11 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                 {
                     spawnAnmCount = 4;
                     spawnAnmFrame++;
-                    if(spawnAnmFrame == 1)
+                    if (spawnAnmFrame == 1)
                     {
                         spawnAnmCount = 44;
                     }
-                    if(spawnAnmFrame > 5)
+                    if (spawnAnmFrame > 5)
                     {
                         Loots();
                         spawnAnm = false;
@@ -293,7 +295,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             }
             if (mantle)
             {
-                if(Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, -1);
                 }
@@ -301,14 +303,15 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                 mantle = false;
                 mantleCd = 3600;
             }
-            else {
+            else
+            {
                 needLoots.Clear();
                 bosses.Clear();
                 hideVisualTime = 180;
                 SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/isaacdies");
                 SoundEngine.PlaySound(s, Projectile.Center);
                 CombatText.NewText(Projectile.getRect(), Color.White, Mod.GetLocalization("Uh").Value);
-            } 
+            }
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -319,7 +322,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             writer.Write(spawnAnm);
             writer.Write(spawnAnmFrame);
             writer.Write(spawnAnmCount);
-            writer.Write(hideVisualTime); 
+            writer.Write(hideVisualTime);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {

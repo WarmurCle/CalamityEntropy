@@ -1,18 +1,18 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
-    public class VoidLaser: ModProjectile
+
+    public class VoidLaser : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -43,7 +43,8 @@ namespace CalamityEntropy.Content.Projectiles
         public int dmgLength = 0;
         public List<int> nlist = new List<int>();
         public bool nst = true;
-        public override void AI(){
+        public override void AI()
+        {
             if (nst)
             {
                 nst = false;
@@ -115,7 +116,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center,  Projectile.Center + Projectile.rotation.ToRotationVector2() * dmgLength, targetHitbox, (int)(26 * Projectile.scale), 46);
+            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * dmgLength, targetHitbox, (int)(26 * Projectile.scale), 46);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -126,7 +127,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 l[i] = l[i] + new Vector2(66, 0);
             }
- 
+
             for (int i = 0; i < l.Count; i++)
             {
                 if (l[i].X > 2000)
@@ -136,13 +137,13 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             Texture2D tl = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cllight").Value;
- 
+
             SpriteBatch sb = Main.spriteBatch;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             Texture2D ball = Util.Util.getExtraTex("vlball");
             Texture2D laser = Util.Util.getExtraTex("VoidLaser");
-            
+
             float dw = 1f + ((float)Math.Cos((float)counter / 5f) * 0.16f) * Projectile.scale;
             sb.Draw(laser, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, dmgLength, laser.Height), Color.Blue * 0.85f, Projectile.rotation, new Vector2(0, laser.Height / 2), new Vector2(1, dw * 1.1f * width), SpriteEffects.None, 0);
             sb.Draw(laser, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, dmgLength, laser.Height), Color.White, Projectile.rotation, new Vector2(0, laser.Height / 2), new Vector2(1, dw * width), SpriteEffects.None, 0);

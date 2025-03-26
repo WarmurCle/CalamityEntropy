@@ -1,26 +1,12 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Items.Books.BookMarks;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Util;
-using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
-using CalamityMod.Items.LoreItems;
-using CalamityMod.Projectiles.Ranged;
-using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books

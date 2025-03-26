@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Projectiles.monument;
+﻿using CalamityEntropy.Content.Projectiles.monument;
 using CalamityEntropy.Util;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.FurnitureVoid;
@@ -9,30 +9,30 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
-{	
-	public class VoidMonument : ModItem
-	{
-		public override void SetDefaults()
-		{
-			Item.damage = 580;
-			Item.DamageType = DamageClass.Melee;
-			Item.width = 100;
-			Item.noUseGraphic = true;
-			Item.height = 100;
-			Item.useTime = 16;
-			Item.useAnimation = 2;
-			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 6;
-			Item.value = 12000;
-			Item.rare = ItemRarityID.Gray;
+{
+    public class VoidMonument : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.damage = 580;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 100;
+            Item.noUseGraphic = true;
+            Item.height = 100;
+            Item.useTime = 16;
+            Item.useAnimation = 2;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.knockBack = 6;
+            Item.value = 12000;
+            Item.rare = ItemRarityID.Gray;
             Item.Entropy().stroke = true;
             Item.Entropy().strokeColor = new Color(20, 26, 92);
             Item.Entropy().tooltipStyle = 4;
             Item.UseSound = null;
-			Item.channel = true;
-			Item.noMelee = true;
-			Item.shoot = ModContent.ProjectileType<VoidMonumentProj>();
-			Item.shootSpeed = 1f;
+            Item.channel = true;
+            Item.noMelee = true;
+            Item.shoot = ModContent.ProjectileType<VoidMonumentProj>();
+            Item.shootSpeed = 1f;
             Item.Entropy().NameColor = new Color(60, 80, 140);
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;

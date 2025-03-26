@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 SoundEngine.PlaySound(SoundID.Item22, Projectile.Center);
             }
-            
+
             Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
             if (Main.myPlayer == Projectile.owner)
             {
@@ -63,8 +63,9 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 player.direction = 1;
             }
-            else { 
-                player.direction = -1; 
+            else
+            {
+                player.direction = -1;
             }
             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
@@ -89,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             }
             Projectile.velocity = newVelocity;
         }
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
@@ -105,7 +106,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
         public int spawnCd = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(spawnCd <= 0)
+            if (spawnCd <= 0)
             {
                 spawnCd = 12;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity * 2, Projectile.velocity.RotatedByRandom(1.6f) * 20, ModContent.ProjectileType<LunarLightball>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
@@ -131,7 +132,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
                 int sparkLifetime2 = Main.rand.Next(7, 10);
-                float sparkScale2 = Main.rand.NextFloat(1.2f,2f);
+                float sparkScale2 = Main.rand.NextFloat(1.2f, 2f);
                 Color sparkColor2 = new Color(125, 150, 135);
 
                 float velc = 1.6f;
@@ -148,7 +149,8 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             }
         }
 
-        public override bool PreDraw(ref Color dc){
+        public override bool PreDraw(ref Color dc)
+        {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Chainsaw/Euangelion" + (((int)(Projectile.ai[0] / 4)) % frame).ToString()).Value;
             var rand = Main.rand;
             SpriteEffects ef = SpriteEffects.None;
@@ -164,6 +166,6 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             return false;
         }
     }
-    
+
 
 }

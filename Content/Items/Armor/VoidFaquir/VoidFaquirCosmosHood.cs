@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -37,9 +37,9 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             player.GetArmorPenetration(DamageClass.Generic) += 20;
             player.Entropy().VFSet = true;
 
-            
+
             player.Entropy().VFHelmMagic = true;
-            
+
         }
 
         public override void UpdateEquip(Player player)

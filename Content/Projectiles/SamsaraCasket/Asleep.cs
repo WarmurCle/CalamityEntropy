@@ -13,12 +13,12 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
 
         public override void attackAI(NPC t)
         {
-            if(counter == 0 || counter == 20 || counter == 40)
+            if (counter == 0 || counter == 20 || counter == 40)
             {
                 Vector2 tPos = t.Center + (t.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * (120 + (t.width + t.height) / 2);
                 Projectile.velocity = (tPos - Projectile.Center) / 20;
             }
-            if(counter >= 60)
+            if (counter >= 60)
             {
                 Projectile.velocity *= 0.96f;
                 Projectile.velocity += ((t.Center + (Projectile.Center - t.Center).SafeNormalize(Vector2.Zero) * (140 + (t.width + t.height) / 2)) - Projectile.Center).SafeNormalize(Vector2.Zero) * 1f;
@@ -38,12 +38,12 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
 
             }
             counter++;
-            if(counter >= 120)
+            if (counter >= 120)
             {
                 counter = 0;
             }
-            
-            if(counter < 60)
+
+            if (counter < 60)
             {
                 setDamage(1.4f);
             }

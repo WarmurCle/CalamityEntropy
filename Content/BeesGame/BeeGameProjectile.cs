@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.BeesGame
             {
                 foreach (BeeGameEnemy e in BeeGame.enemies)
                 {
-                    if(this.collide(e.getRect()))
+                    if (this.collide(e.getRect()))
                     {
                         e.hurt(this.damage);
                         e.velocity += this.velocity * e.knockback;

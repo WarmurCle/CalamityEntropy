@@ -1,19 +1,12 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -112,12 +105,13 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            if (Projectile.timeLeft > 3) {
+            if (Projectile.timeLeft > 3)
+            {
                 for (int i = 0; i < 32; i++)
                 {
                     EParticle.spawnNew(new GlowSpark(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Red, Main.rand.NextFloat(0.1f, 0.16f), 1, true, BlendState.Additive, 0);
                 }
-                for(int i = 0; i < odp.Count; i++)
+                for (int i = 0; i < odp.Count; i++)
                 {
                     for (int i_ = 0; i_ < 6; i_++)
                     {
@@ -135,8 +129,9 @@ namespace CalamityEntropy.Content.Projectiles
             }
         }
         public override Color baseColor => new Color(255, 255, 255);
-        public void drawT() {
-            if(Projectile.timeLeft < 3)
+        public void drawT()
+        {
+            if (Projectile.timeLeft < 3)
             {
                 return;
             }

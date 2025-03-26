@@ -1,15 +1,9 @@
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -27,9 +21,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.timeLeft = 60;
             Projectile.light = 1;
-            
+
         }
-        public override void AI(){
+        public override void AI()
+        {
             base.AI();
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft < 21)
             {
@@ -41,9 +36,9 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             NPC target = Projectile.FindTargetWithinRange(1400);
                             int type = mp.getShootProjectileType();
-                            foreach(var e in this.ProjectileEffects)
+                            foreach (var e in this.ProjectileEffects)
                             {
-                                if(e is GZMBMEffect)
+                                if (e is GZMBMEffect)
                                 {
                                     type = new BookMarkGoozma().modifyProjectile(type);
                                 }
@@ -57,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void ApplyHoming()
         {
-            
+
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -79,6 +74,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

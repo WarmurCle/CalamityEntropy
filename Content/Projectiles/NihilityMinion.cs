@@ -1,11 +1,7 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,7 +16,7 @@ namespace CalamityEntropy.Content.Projectiles
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
             base.SetStaticDefaults();
         }
-        
+
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;
@@ -46,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool stickOnNPC = false;
         public int stickNPCIndex = -1;
         public int direction = 0;
-        public Vector2 offset = Vector2.Zero; 
+        public Vector2 offset = Vector2.Zero;
         public void spawnParticle(Vector2 center)
         {/*
             Vector2 vel = (Projectile.rotation + MathHelper.PiOver2).ToRotationVector2() * (float)Math.Cos(Projectile.localAI[0] * 0.3f) * 14;
@@ -58,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         }
         public NPC target = null;
-        
+
         public override void AI()
         {
             Projectile.localAI[0]++;
@@ -72,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.timeLeft = 3;
             }
 
-            if(target == null || !target.active)
+            if (target == null || !target.active)
             {
                 target = Util.Util.findTarget(player, Projectile, 1800, false);
             }
@@ -93,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles
                     if (!stickOnNPC)
                     {
                         Projectile.rotation = (Projectile.Center - target.Center).ToRotation();
-                        Projectile.velocity *= 0.9f; 
+                        Projectile.velocity *= 0.9f;
                         Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 6f;
                         if (Util.Util.getDistance(Projectile.Center, target.Center) < Projectile.velocity.Length() * 1.7f)
                         {
@@ -121,7 +117,7 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             stickOnNPC = false;
                         }
-                        
+
                         Projectile.rotation = (Projectile.Center - stickNPCIndex.ToNPC().Center).ToRotation();
                     }
                 }
@@ -168,7 +164,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             target.AddBuff(ModContent.BuffType<VoidVirus>(), 180);
             Player player = Projectile.owner.ToPlayer();
-            if(player.statLife < player.statLifeMax - 80)
+            if (player.statLife < player.statLifeMax - 80)
             {
                 if (!stickOnNPC)
                 {

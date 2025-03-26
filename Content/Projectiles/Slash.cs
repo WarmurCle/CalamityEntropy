@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -29,7 +29,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             CalamityEntropy.checkProj.Add(Projectile);
         }
-        public override void AI(){
+        public override void AI()
+        {
             if (!sPlayerd)
             {
                 sPlayerd = true;
@@ -69,6 +70,6 @@ namespace CalamityEntropy.Content.Projectiles
 
 
     }
-    
+
 
 }

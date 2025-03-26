@@ -1,15 +1,13 @@
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.UI;
-using CalamityEntropy.Content.Items.Books.BookMarks;
 using Terraria.ModLoader.IO;
+using Terraria.UI;
 
 namespace CalamityEntropy.Content.UI.EntropyBookUI
 {
@@ -21,11 +19,11 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
         public static Item bookItem = null;
         public static int getMaxSlots(Player player, Item item)
         {
-            if(item == null)
+            if (item == null)
             {
                 return 1;
             }
-            if(item.ModItem is EntropyBook eb)
+            if (item.ModItem is EntropyBook eb)
             {
                 return eb.SlotCount;
             }
@@ -61,7 +59,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
         public static void update()
         {
             checkStackItemList();
-            if(!(Main.playerInventory) || Main.mouseItem.ModItem is EntropyBook)
+            if (!(Main.playerInventory) || Main.mouseItem.ModItem is EntropyBook)
             {
                 active = false;
             }
@@ -73,7 +71,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
             }
             else
             {
-                if(closeAnm > 0)
+                if (closeAnm > 0)
                 {
                     closeAnm--;
                     slotDist *= 0.88f;
@@ -104,7 +102,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                     {
                         Main.spriteBatch.Draw(eb.BookMarkTexture, pos, null, Color.White * (closeAnm / 11f), 0, eb.BookMarkTexture.Size() / 2, 1, SpriteEffects.None, 0);
                     }
-                    
+
                     if (Main.LocalPlayer.Entropy().EBookStackItems.Count > i && Main.LocalPlayer.Entropy().EBookStackItems[i].type != ItemID.None)
                     {
                         if (Main.LocalPlayer.Entropy().EBookStackItems[i].ModItem is BookMark bm && bm.UITexture != null)
@@ -115,7 +113,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         {
                             ItemSlot.DrawItemIcon(Main.LocalPlayer.Entropy().EBookStackItems[i], 1, Main.spriteBatch, pos, 0.6f, 256, Color.White * (closeAnm / 11f));
                         }
-                        
+
                     }
                     if (active && Main.MouseScreen.getRectCentered(2, 2).Intersects(pos.getRectCentered(36, 46)))
                     {
@@ -136,7 +134,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         {
                             if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                             {
-                                for(int ii = 10; ii < 50; ii++)
+                                for (int ii = 10; ii < 50; ii++)
                                 {
                                     if (Main.LocalPlayer.inventory[ii].IsAir)
                                     {
@@ -148,12 +146,12 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                                 }
                             }
                         }
-                        if(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
+                        if (Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                         {
                             Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo").Value);
                         }
                     }
-                    
+
 
                 }
                 lastMouseLeft = Main.mouseLeft;

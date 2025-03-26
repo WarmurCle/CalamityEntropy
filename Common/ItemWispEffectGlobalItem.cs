@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
-using CalamityMod;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -60,19 +57,19 @@ namespace CalamityEntropy.Common
             shader.Parameters["min"].SetValue(item.Entropy().wispColor[0]);
             shader.Parameters["max"].SetValue(item.Entropy().wispColor[1]);
             shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
-            
+
             sb.End();
             sb.Begin(0, Main.spriteBatch.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], Main.spriteBatch.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
             return true;
         }
         public static void checkItemColor(Item item)
         {
-            if(item.Entropy().wispColor == null)
+            if (item.Entropy().wispColor == null)
             {
                 float min = 3;
                 float max = 0;
                 Texture2D tex = TextureAssets.Item[item.type].Value;
-                if(tex.Width <= 1 || tex.Height <= 1)
+                if (tex.Width <= 1 || tex.Height <= 1)
                 {
                     item.Entropy().wispColor = new float[2];
                     item.Entropy().wispColor[0] = 0;
@@ -81,22 +78,22 @@ namespace CalamityEntropy.Common
                 }
                 Color[] colors = new Color[tex.Width * tex.Height];
                 tex.GetData(colors);
-                foreach(Color cl in colors)
+                foreach (Color cl in colors)
                 {
-                    if(cl.A == 0)
+                    if (cl.A == 0)
                     {
                         continue;
                     }
                     float m = (float)(cl.R + cl.G + cl.B) / (255f);
-                    if(m < min) min = m;
-                    if(m > max) max = m;
+                    if (m < min) min = m;
+                    if (m > max) max = m;
                 }
                 item.Entropy().wispColor = new float[2];
                 item.Entropy().wispColor[0] = min;
                 item.Entropy().wispColor[1] = max;
             }
         }
-        
+
         public override void PostDrawInWorld(Item item, SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             if (!shouldApply())

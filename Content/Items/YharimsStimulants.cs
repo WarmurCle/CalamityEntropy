@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityMod;
 using Terraria;
 using Terraria.ID;
@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items;
 
 public class YharimsStimulants : ModItem
 {
-                  
+
 
     public override void SetDefaults()
     {

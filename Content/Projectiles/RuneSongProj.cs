@@ -1,9 +1,9 @@
+﻿using CalamityEntropy.Util;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class RuneSongProj: ModProjectile
+    public class RuneSongProj : ModProjectile
     {
         float sr = 0;
         float j = 0.01f;
@@ -51,9 +51,11 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float scaleD = 1f;
         public float rotSpeed = 0f;
-        public override void AI(){
+        public override void AI()
+        {
             Player owner = Projectile.owner.ToPlayer();
-            if (Projectile.owner == Main.myPlayer) {
+            if (Projectile.owner == Main.myPlayer)
+            {
                 if (Projectile.ai[0] == 0 || Projectile.ai[0] == 40)
                 {
                     odr.Clear();
@@ -89,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if (Projectile.ai[0] == 80)
                 {
-                    
+
                     odr.Clear();
                     ods.Clear();
                     rotSpeed = 0;
@@ -194,7 +196,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.Kill();
             }
-            if(Projectile.ai[0] == 116){
+            if (Projectile.ai[0] == 116)
+            {
                 Projectile.ai[0] = -1;
                 Projectile.damage /= 2;
             }
@@ -271,8 +274,8 @@ namespace CalamityEntropy.Content.Projectiles
             SpriteBatch sb = Main.spriteBatch;
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             Player player = Main.player[Projectile.owner];
-            
-            Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/SplitTrail").Value;   
+
+            Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/SplitTrail").Value;
             var r = Main.rand;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -288,13 +291,14 @@ namespace CalamityEntropy.Content.Projectiles
                       new Vector3(i / (float)odr.Count, 0, 1),
                       b));
             }
-            
-            if (ve.Count >= 3)             {
+
+            if (ve.Count >= 3)
+            {
                 gd.Textures[0] = tail;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             }
 
-                         sb.End();
+            sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             Main.EntitySpriteDraw(TextureAssets.Projectile[Projectile.type].Value, Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, Color.White, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(0, TextureAssets.Projectile[Projectile.type].Value.Height), Projectile.scale * 3f * scaleD, SpriteEffects.None, 0);
             sb.End();

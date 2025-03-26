@@ -1,17 +1,16 @@
-using System;
-using System.Collections.Generic;
-using CalamityMod.NPCs.ExoMechs.Ares;
+﻿using CalamityMod.NPCs.ExoMechs.Ares;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
-    public class VoidStarF: ModProjectile
+
+    public class VoidStarF : ModProjectile
     {
         public List<Vector2> odp = new List<Vector2>();
         public float Hue => 0.55f;
@@ -51,7 +50,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public bool setv = true;
         public int counter = 0;
-        public override void AI(){
+        public override void AI()
+        {
             if (Projectile.ai[2] > 0)
             {
                 Projectile.DamageType = DamageClass.Magic;
@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            
+
             return false;
         }
     }

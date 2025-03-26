@@ -1,9 +1,4 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatDebuffs;
-using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
@@ -20,12 +15,12 @@ namespace CalamityEntropy.Content.Buffs
             BuffID.Sets.LongerExpertDebuff[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            
+
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            if(Main.GameUpdateCount % 20 == 0)
+            if (Main.GameUpdateCount % 20 == 0)
             {
                 npc.SimpleStrikeNPC(120, 0, false, 0, DamageClass.Default);
             }
@@ -33,10 +28,10 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            
-            if(Main.GameUpdateCount % 12 == 0)
+
+            if (Main.GameUpdateCount % 12 == 0)
             {
-                if(player.statLife > 5)
+                if (player.statLife > 5)
                 {
                     player.statLife -= 5;
                 }

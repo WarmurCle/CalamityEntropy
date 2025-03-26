@@ -1,13 +1,12 @@
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityMod.Rarities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookMarkAuric : BookMark
@@ -34,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Util.Util.randomRot().ToRotationVector2() * 22, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 5, projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
             }
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 if (Main.rand.NextBool(2))
                 {

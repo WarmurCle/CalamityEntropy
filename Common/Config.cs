@@ -31,7 +31,7 @@ namespace CalamityEntropy.Common
         [DefaultValue(false)]
         public bool RepBossMusicReplaceCalamityMusic { get; set; }
 
-        
+
 
     }
 }

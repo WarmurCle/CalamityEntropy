@@ -1,13 +1,8 @@
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -29,9 +24,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 180 * 60;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
-            
+
         }
-        public override void AI(){
+        public override void AI()
+        {
             Player player = Projectile.owner.ToPlayer();
             NPC target = Util.Util.findTarget(player, Projectile, 800, false);
             if (target != null)
@@ -44,11 +40,11 @@ namespace CalamityEntropy.Content.Projectiles
                 int index = 0;
                 int maxFlies = 0;
                 bool flag = true;
-                foreach(Projectile proj in Main.ActiveProjectiles)
+                foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if(proj.type == Projectile.type)
+                    if (proj.type == Projectile.type)
                     {
-                        if(proj.whoAmI == Projectile.whoAmI)
+                        if (proj.whoAmI == Projectile.whoAmI)
                         {
                             flag = false;
                         }
@@ -57,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
                             index++;
                         }
                         maxFlies++;
-                        
+
                     }
                 }
                 targetPosp = player.Center + MathHelper.ToRadians(((float)(index + 1) / (float)(maxFlies)) * 360).ToRotationVector2().RotatedBy(player.Entropy().CasketSwordRot * 0.3f) * 48;
@@ -75,6 +71,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

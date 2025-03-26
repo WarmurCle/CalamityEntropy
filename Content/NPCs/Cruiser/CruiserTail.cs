@@ -1,4 +1,4 @@
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 modifiers.SourceDamage *= ((float)NPC.ai[0] / 500f);
             }
-        } 
+        }
         public override bool CheckActive()
         {
             if (((int)NPC.ai[1]).ToNPC().active)
@@ -84,11 +84,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 return;
             }
             Lighting.AddLight(NPC.Center, 1f, 1f, 1f);
-/*            if (((int)NPC.ai[3]).ToNPC().life < (((int)NPC.ai[3]).ToNPC().lifeMax / 2))
-            {
-                NPC.active = false;
-                NPC.netUpdate = true;
-            }*/
+            /*            if (((int)NPC.ai[3]).ToNPC().life < (((int)NPC.ai[3]).ToNPC().lifeMax / 2))
+                        {
+                            NPC.active = false;
+                            NPC.netUpdate = true;
+                        }*/
             if (NPC.ai[1] < Main.maxNPCs && Main.npc[(int)NPC.ai[1]].active)
             {
                 int spacing = 80;
@@ -111,41 +111,41 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC.active = false;
             }
         }
-            /*vel = NPC.Center - lastPos;
-            if (NPC.ai[3] == 1)
+        /*vel = NPC.Center - lastPos;
+        if (NPC.ai[3] == 1)
+        {
+            NPC.ai[3] = 0;
+            jv = true;
+            if (da < 0)
             {
-                NPC.ai[3] = 0;
-                jv = true;
-                if (da < 0)
-                {
-                    da = 1;
-                }
-                tail_vj = 20;
-            }*/
-/*            if (jv)
-            {
-                da += tail_vj;
-                tail_vj -= 1.5f;
-                if (da < 0)
-                {
-                    da = 0;
-                    tail_vj = 0;
-                    jv = false;
-                }
+                da = 1;
             }
-            else
-            {
-                ja -= (float)Math.Sqrt((float)vel.Length() / 120f);
-                if (ja < 0)
-                {
-                    ja = 0;
-                }
-                ja = Util.Util.rotatedToAngle(ja, 50, 0.22f, false);
-                ja = (100f / ((float)vel.Length() + 1f)) * 5;
-                da = da + (ja - da) * 0.1f;
-                lastPos = NPC.Center;
-            }*/
-        
+            tail_vj = 20;
+        }*/
+        /*            if (jv)
+                    {
+                        da += tail_vj;
+                        tail_vj -= 1.5f;
+                        if (da < 0)
+                        {
+                            da = 0;
+                            tail_vj = 0;
+                            jv = false;
+                        }
+                    }
+                    else
+                    {
+                        ja -= (float)Math.Sqrt((float)vel.Length() / 120f);
+                        if (ja < 0)
+                        {
+                            ja = 0;
+                        }
+                        ja = Util.Util.rotatedToAngle(ja, 50, 0.22f, false);
+                        ja = (100f / ((float)vel.Length() + 1f)) * 5;
+                        da = da + (ja - da) * 0.1f;
+                        lastPos = NPC.Center;
+                    }*/
+
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
             return false;
@@ -158,7 +158,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             return;
             Texture2D f1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/Flagellum").Value;
-            
+
             spriteBatch.Draw(f1, NPC.Center - Main.screenPosition - new Vector2(32, 0).RotatedBy(NPC.rotation), null, Color.White, NPC.rotation + MathHelper.ToRadians(190 - da), new Vector2(0, f1.Height), NPC.scale, SpriteEffects.None, 0);
             spriteBatch.Draw(f1, NPC.Center - Main.screenPosition - new Vector2(32, 0).RotatedBy(NPC.rotation), null, Color.White, NPC.rotation + MathHelper.ToRadians(170 + da), new Vector2(0, 0), NPC.scale, SpriteEffects.FlipVertically, 0);
         }

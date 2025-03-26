@@ -1,11 +1,8 @@
 ﻿using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Rarities;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
@@ -25,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.GetDamage<GenericDamageClass>() += 0.25f;
             player.GetArmorPenetration<GenericDamageClass>() += 45;
-	        player.GetCritChance(DamageClass.Generic) += 8;
+            player.GetCritChance(DamageClass.Generic) += 8;
         }
 
         public override void AddRecipes()

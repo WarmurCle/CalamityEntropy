@@ -1,8 +1,8 @@
-using System;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,8 +29,9 @@ namespace CalamityEntropy.Content.Projectiles.Pets.MelonCat
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            
-            if (Main.gameMenu) {
+
+            if (Main.gameMenu)
+            {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/MelonCat/MelonCatProj").Value;
                 Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
@@ -59,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.MelonCat
                     Projectile.direction = -1;
                 }
             }
-            
+
             if (Projectile.direction == -1)
             {
                 Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(tx, tc, (int)(counter / 2f % tc)), lightColor, Projectile.rotation, new Vector2(tx.Width / tc, tx.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
@@ -162,7 +163,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.MelonCat
 
         public override void AI()
         {
-            
+
             Player player = Main.player[Projectile.owner];
             MoveToTarget(player.Center + new Vector2(0, 0));
             if (!player.dead && player.HasBuff(ModContent.BuffType<MelonCatBuff>()))

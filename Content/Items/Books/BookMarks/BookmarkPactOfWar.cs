@@ -1,25 +1,17 @@
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
-using CalamityMod.Items;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-using CalamityMod.Rarities;
-using System.Collections.Generic;
-using CalamityMod.NPCs.SupremeCalamitas;
-using CalamityMod.NPCs;
-using Terraria.Graphics.Effects;
-using ReLogic.Content;
-using System.IO;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
+﻿using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
+using CalamityMod.Items;
+using CalamityMod.Rarities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
-using CalamityMod;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using static CalamityEntropy.Content.Projectiles.OblivionHoldout;
-using CalamityMod.Projectiles.Summon;
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookmarkPactOfWar : BookMark
@@ -55,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.4f, 1);
 
         }
-        
+
     }
 
     public class WarPactApollo : EBookBaseProjectile
@@ -281,7 +273,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             tpos.X += 400;
             Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Projectile.velocity.Length() > 4 && target == null ? Projectile.velocity.ToRotation() : (tpos - Projectile.Center).ToRotation()), 20, true);
-            if(target != null)
+            if (target != null)
             {
                 Projectile.rotation = (target.Center - Projectile.Center).ToRotation();
             }

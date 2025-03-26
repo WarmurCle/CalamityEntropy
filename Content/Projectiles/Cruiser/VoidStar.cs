@@ -1,18 +1,17 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser
 {
-    
-    public class VoidStar: ModProjectile
+
+    public class VoidStar : ModProjectile
     {
         public List<Vector2> odp = new List<Vector2>();
         public float Hue => 0.55f;
@@ -43,8 +42,9 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.extraUpdates = 1;
         }
         public bool setv = true;
-        
-        public override void AI(){
+
+        public override void AI()
+        {
             Projectile.ai[0]++;
             if (Projectile.ai[2] == 1 && Projectile.ai[0] < 60)
             {
@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 odp.RemoveAt(0);
             }
             Projectile.velocity *= 0.999f;
-            
+
             if (Projectile.timeLeft < 40)
             {
                 Projectile.alpha += 255 / 40;

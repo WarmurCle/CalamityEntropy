@@ -36,6 +36,6 @@ namespace CalamityEntropy.Content.Cooldowns
         }
         public override SoundStyle? EndSound => null;
 
-        
+
     }
 }

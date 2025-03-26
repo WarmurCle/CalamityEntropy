@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -16,9 +16,9 @@ namespace CalamityEntropy.Content.Projectiles
             Main.projFrames[Projectile.type] = 1;
             ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 5f;
 
-                                      ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 400f;
+            ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 400f;
 
-                                      ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 12f;
+            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 12f;
         }
         public override void SetDefaults()
         {
@@ -99,7 +99,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Util.Util.getDistance(Projectile.Center, targetPos) < ProjectileID.Sets.YoyosTopSpeed[Projectile.type] * 3.1f)
                 {
                     Projectile.velocity = targetPos - Projectile.Center;
-                    
+
                 }
 
                 if (Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > ProjectileID.Sets.YoyosMaximumRange[Projectile.type] + 60)
@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.owner.ToPlayer().itemRotation = (Projectile.Center - Projectile.owner.ToPlayer().Center).ToRotation() * Projectile.owner.ToPlayer().direction;
             Projectile.owner.ToPlayer().itemTime = 6;
             Projectile.owner.ToPlayer().itemAnimation = 6;
-            
+
         }
         Rope rope;
 
@@ -142,7 +142,7 @@ namespace CalamityEntropy.Content.Projectiles
                 ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 5 * lc,
                       new Vector3(jn, 0, 1),
                       Lighting.GetColor(new Point((int)(points[i].X / 16f), (int)(points[i].Y / 16f)))));
-                
+
             }
 
             SpriteBatch sb = Main.spriteBatch;
@@ -194,6 +194,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

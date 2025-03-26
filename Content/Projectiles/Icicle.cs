@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Dusts;
+﻿using CalamityEntropy.Content.Dusts;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class Icicle: ModProjectile
+    public class Icicle : ModProjectile
     {
         public bool d = false;
         public int j = 0;
@@ -40,7 +40,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 1;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
 
             int jspeed = 22;
             float gravity = 1f;
@@ -53,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (counter == 0)
             {
-                
+
                 float basej = 0.01f;
                 float bspeed = jspeed;
                 int count = 0;
@@ -95,8 +96,8 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity += (target.Center - Projectile.Center).ToRotation().ToRotationVector2() * 2f;
                 Projectile.velocity *= 0.9f;
             }
-            
-            Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false); 
+
+            Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
 
         }
         public override bool PreDraw(ref Color lightColor)
@@ -141,7 +142,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (ycount < mct)
             {
-                return; 
+                return;
             }
             if (Projectile.ai[2] == 1)
             {
@@ -161,16 +162,16 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Projectile.Center, new Vector2(r.Next(0, 16) - 8, r.Next(0, 16) - 8), ModContent.ProjectileType<IceSpikeSmall>(), (int)(Projectile.damage * 0.3f), 1);
             }
             for (int i = 0; i < 3; i++)
-                {
-                    var rd = Main.rand;
-                    int pj = Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), target.Center + new Vector2(0, 400) + new Vector2(rd.Next(-160, 161), rd.Next(-60, 161)), new Vector2(0, 20), ModContent.ProjectileType<IceEdge>(), Projectile.damage, 0);
-                    Main.projectile[pj].rotation = (target.Center - Main.projectile[pj].Center).ToRotation();
+            {
+                var rd = Main.rand;
+                int pj = Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), target.Center + new Vector2(0, 400) + new Vector2(rd.Next(-160, 161), rd.Next(-60, 161)), new Vector2(0, 20), ModContent.ProjectileType<IceEdge>(), Projectile.damage, 0);
+                Main.projectile[pj].rotation = (target.Center - Main.projectile[pj].Center).ToRotation();
 
-                }
-            
+            }
+
             SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/NPCHit/CryogenHit", 3), Projectile.Center);
         }
     }
-    
+
 
 }

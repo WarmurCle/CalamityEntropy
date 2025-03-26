@@ -1,12 +1,6 @@
-﻿using CalamityEntropy.Content.NPCs;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.UI.Poops;
+﻿using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Util;
-using CalamityMod.Items.Materials;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items
@@ -19,7 +13,7 @@ namespace CalamityEntropy.Content.Items
             Item.height = 14;
             Item.maxStack = 1;
         }
-        
+
         public override bool OnPickup(Player player)
         {
             if (player.Entropy().brokenAnkh)

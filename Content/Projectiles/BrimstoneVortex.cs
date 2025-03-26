@@ -1,20 +1,10 @@
-using CalamityEntropy.Content.DimDungeon;
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Particles;
-using Humanizer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -24,7 +14,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int counter = 0;
         public override List<Vector2> getSamplePoints()
         {
-            if(counter < 40 && quickTime < 0)
+            if (counter < 40 && quickTime < 0)
             {
                 return new List<Vector2>() { Projectile.Center };
             }
@@ -66,7 +56,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            if(quickTime > 0)
+            if (quickTime > 0)
             {
                 scale = 1.3f;
                 scale2 = (float)quickTime / 20f;
@@ -101,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override Color baseColor => new Color(220, 6, 6);
         public void drawLaser(List<Vector2> points)
         {
-             
+
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             {
@@ -151,7 +141,7 @@ namespace CalamityEntropy.Content.Projectiles
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    
+
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
@@ -162,6 +152,6 @@ namespace CalamityEntropy.Content.Projectiles
 
         }
     }
-    
+
 
 }

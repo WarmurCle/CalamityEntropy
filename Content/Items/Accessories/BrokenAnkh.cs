@@ -1,23 +1,17 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-	public class BrokenAnkh : ModItem
-	{
+    public class BrokenAnkh : ModItem
+    {
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             if (!isaac)
@@ -29,14 +23,15 @@ namespace CalamityEntropy.Content.Items.Accessories
                 list.IntegrateHotkey(CEKeybinds.ThrowPoopHotKey);
             }
         }
-        public override void SetDefaults() {
-			Item.width = 50;
-			Item.height = 50;
+        public override void SetDefaults()
+        {
+            Item.width = 50;
+            Item.height = 50;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -51,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             return isaac;
         }
-        
+
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.PoopBlock, 8)

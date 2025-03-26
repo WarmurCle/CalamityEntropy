@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Uhrwerk;
 
-public class UhrwerkHammerCallout: ModProjectile
+public class UhrwerkHammerCallout : ModProjectile
 {
     public override string Texture => "CalamityEntropy/Content/Projectiles/Uhrwerk/uhrwerkHammer_body";
 
@@ -43,7 +43,7 @@ public class UhrwerkHammerCallout: ModProjectile
         {
             SoundEngine.PlaySound(SoundID.Item22, Projectile.Center);
         }
-        
+
         Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
         if (Main.myPlayer == Projectile.owner)
         {
@@ -58,10 +58,11 @@ public class UhrwerkHammerCallout: ModProjectile
         if (Projectile.velocity.X > 0)
         {
             player.direction = 1;
-            
+
         }
-        else { 
-            player.direction = -1; 
+        else
+        {
+            player.direction = -1;
         }
         player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
         player.heldProj = Projectile.whoAmI;
@@ -84,7 +85,7 @@ public class UhrwerkHammerCallout: ModProjectile
         }
         Projectile.velocity = newVelocity;
     }
-    
+
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         Player player = Main.player[Projectile.owner];
@@ -128,7 +129,8 @@ public class UhrwerkHammerCallout: ModProjectile
             }
         }
     }
-    public override bool PreDraw(ref Color dc){
+    public override bool PreDraw(ref Color dc)
+    {
         Texture2D tx = ModContent.Request<Texture2D>(Texture).Value;
 
         SpriteEffects ef = SpriteEffects.None;

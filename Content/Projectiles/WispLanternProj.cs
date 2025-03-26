@@ -1,7 +1,6 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -9,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
@@ -54,12 +52,12 @@ namespace CalamityEntropy.Content.Projectiles
             maxAccs = reader.ReadInt32();
             for (int i = 0; i < maxAccs; i++)
             {
-                accs.Add(new ActiveAcc(reader.ReadInt32()) { timeleft = reader.ReadInt32()});
+                accs.Add(new ActiveAcc(reader.ReadInt32()) { timeleft = reader.ReadInt32() });
             }
         }
         public override void AI()
         {
-            
+
             Player player = Projectile.owner.ToPlayer();
             Vector2 targetPos = player.Center + new Vector2(100 * player.direction, -100);
             if (player.dead)
@@ -108,12 +106,12 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Item item = player.inventory[i];
 
-                    if(item.active && item.accessory)
+                    if (item.active && item.accessory)
                     {
                         bool skip = false;
-                        foreach(ActiveAcc acc in accs)
+                        foreach (ActiveAcc acc in accs)
                         {
-                            if(player.inventory[acc.index].type == item.type)
+                            if (player.inventory[acc.index].type == item.type)
                             {
                                 skip = true;
                                 break;
@@ -128,7 +126,7 @@ namespace CalamityEntropy.Content.Projectiles
                         CanApply.Add(item);
                     }
                 }
-                if(maxAccs > accCountInv)
+                if (maxAccs > accCountInv)
                 {
                     maxAccs = accCountInv;
                 }
@@ -136,7 +134,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     accs.RemoveAt(0);
                 }
-                while(accs.Count < maxAccs)
+                while (accs.Count < maxAccs)
                 {
                     int id = Main.rand.Next(0, CanApply.Count);
                     accs.Add(new ActiveAcc(index[id]));
@@ -145,7 +143,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.netUpdate = true;
                 }
             }
-            if(player.Entropy().accWispLantern || player.Entropy().visualWispLantern)
+            if (player.Entropy().accWispLantern || player.Entropy().visualWispLantern)
             {
                 Projectile.timeLeft = 2;
             }
@@ -175,7 +173,7 @@ namespace CalamityEntropy.Content.Projectiles
                     player.ApplyEquipVanity(player.inventory[ac.index]);
                 }
             }
-            
+
         }
         public override bool? CanCutTiles()
         {
@@ -193,7 +191,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
                 Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + Vector2.UnitY * yoffset, null, Color.White, Projectile.rotation, tex.Size() / 2, Projectile.scale, SpriteEffects.None);
                 List<Item> items = new List<Item>();
-                foreach(var ac in accs)
+                foreach (var ac in accs)
                 {
                     int i = ac.index;
                     Item item = Projectile.owner.ToPlayer().inventory[i];
@@ -213,14 +211,14 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Item item = items[i];
                     Vector2 pos = Projectile.Center - Main.screenPosition + rot.ToRotationVector2() * 56;
-                    
-                    
+
+
                     ItemWispEffectGlobalItem.checkItemColor(item);
-                   
+
                     shader.Parameters["min"].SetValue(item.Entropy().wispColor[0]);
                     shader.Parameters["max"].SetValue(item.Entropy().wispColor[1]);
-                    
-                    
+
+
                     Texture2D itex = TextureAssets.Item[item.type].Value;
                     Main.spriteBatch.Draw(itex, pos + Vector2.UnitY * yoffset, item.GetFrame(itex), Color.White, 0, new Vector2(item.GetFrame(itex).Width, item.GetFrame(itex).Height) / 2, (14f / item.GetFrame(itex).Width + 14f / item.GetFrame(itex).Height), SpriteEffects.None, 0);
 

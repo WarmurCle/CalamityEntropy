@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 3;
-			ItemID.Sets.BossBag[Item.type] = true;
+            ItemID.Sets.BossBag[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -30,20 +30,20 @@ namespace CalamityEntropy.Content.Items
             Item.rare = ItemRarityID.Cyan;
         }
 
-		public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
-		{
-			itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossBags;
-		}
+        public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
+        {
+            itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossBags;
+        }
 
         public override bool CanRightClick() => true;
 
-		public override Color? GetAlpha(Color lightColor) => Color.Lerp(lightColor, Color.White, 0.4f);
+        public override Color? GetAlpha(Color lightColor) => Color.Lerp(lightColor, Color.White, 0.4f);
 
         public override void PostUpdate()
-		{
-			CalamityMod.CalamityUtils.ForceItemIntoWorld(Item);
-			Item.TreasureBagLightAndDust();
-		}
+        {
+            CalamityMod.CalamityUtils.ForceItemIntoWorld(Item);
+            Item.TreasureBagLightAndDust();
+        }
 
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {
@@ -52,9 +52,9 @@ namespace CalamityEntropy.Content.Items
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-                         itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<CruiserHead>()));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<CruiserHead>()));
 
-                         itemLoot.Add(ModContent.ItemType<VoidRelics>(), new Fraction(1, 5));
+            itemLoot.Add(ModContent.ItemType<VoidRelics>(), new Fraction(1, 5));
             itemLoot.Add(ModContent.ItemType<VoidElytra>(), new Fraction(5, 5));
             itemLoot.Add(ModContent.ItemType<VoidEcho>(), new Fraction(1, 5));
             itemLoot.Add(ModContent.ItemType<Silence>(), new Fraction(2, 5));

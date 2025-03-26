@@ -1,22 +1,20 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using CalamityEntropy.Common;
 using Microsoft.Xna.Framework;
-using System;
 using Microsoft.Xna.Framework.Graphics;
-using CalamityEntropy;
+using System;
 using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
-using NATUPNPLib;
 using System.Linq;
-using CalamityEntropy.Common;
+using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Util
 {
-    public static class Util {
+    public static class Util
+    {
         public static void ApplyGameShaderForPlayer(int id, Player player)
         {
             GameShaders.Armor.Apply(id, player);
@@ -74,9 +72,9 @@ namespace CalamityEntropy.Util
         }
         public static void pushByOther(this Projectile proj, float strength)
         {
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.type == proj.type && p.Colliding(p.getRect(), proj.getRect()) && !(p.whoAmI == proj.whoAmI))
+                if (p.type == proj.type && p.Colliding(p.getRect(), proj.getRect()) && !(p.whoAmI == proj.whoAmI))
                 {
                     proj.velocity += (proj.Center - p.Center).SafeNormalize(randomRot().ToRotationVector2()) * strength;
                 }
@@ -109,7 +107,7 @@ namespace CalamityEntropy.Util
         }
         public static float GetAngleBetweenVectors(Vector2 vector1, Vector2 vector2)
         {
-                         float dotProduct = Vector2.Dot(vector1, vector2);
+            float dotProduct = Vector2.Dot(vector1, vector2);
 
             float magnitude1 = vector1.Length();
             float magnitude2 = vector2.Length();
@@ -301,7 +299,7 @@ namespace CalamityEntropy.Util
 
         public static EModPlayer Entropy(this Player player)
         {
-            if(player.GetModPlayer<EModPlayer>() == null)
+            if (player.GetModPlayer<EModPlayer>() == null)
             {
                 return new EModPlayer();
             }
@@ -310,7 +308,7 @@ namespace CalamityEntropy.Util
 
         public static Player getOwner(this Projectile proj)
         {
-            if(proj.owner < 0)
+            if (proj.owner < 0)
             {
                 return null;
             }
@@ -318,7 +316,7 @@ namespace CalamityEntropy.Util
         }
         public static Player ToPlayer(this int ins)
         {
-            if(ins < 0 || !Main.player[ins].active)
+            if (ins < 0 || !Main.player[ins].active)
             {
                 return Main.LocalPlayer;
             }
@@ -360,7 +358,7 @@ namespace CalamityEntropy.Util
                     angleTo += 360;
                 }
             }
-                         float tz = 0;
+            float tz = 0;
             if (Math.Abs(angleNow + 360 - angleTo) < Math.Abs(angleTo - angleNow))
             {
                 tz = angleTo - angleNow - 360;
@@ -394,53 +392,76 @@ namespace CalamityEntropy.Util
             return MathHelper.ToRadians(tz);
 
         }
-        public static float rotatedToAngle(float rNow, float rTo, float rotateSpeed, bool sameSpeed=true){
+        public static float rotatedToAngle(float rNow, float rTo, float rotateSpeed, bool sameSpeed = true)
+        {
             float angleNow = MathHelper.ToDegrees(rNow);
             float angleTo = MathHelper.ToDegrees(rTo);
-            if (angleNow > 180){
-                while(angleNow > 180){
+            if (angleNow > 180)
+            {
+                while (angleNow > 180)
+                {
                     angleNow -= 360;
                 }
             }
-            if (angleNow < -180){
-                while(angleNow < -180){
+            if (angleNow < -180)
+            {
+                while (angleNow < -180)
+                {
                     angleNow += 360;
                 }
             }
-            if (angleTo > 180){
-                while(angleTo > 180){
+            if (angleTo > 180)
+            {
+                while (angleTo > 180)
+                {
                     angleTo -= 360;
                 }
             }
-            if (angleTo < -180){
-                while(angleTo < -180){
+            if (angleTo < -180)
+            {
+                while (angleTo < -180)
+                {
                     angleTo += 360;
                 }
             }
-                         float tz = 0;
-            if (Math.Abs(angleNow + 360 - angleTo) < Math.Abs(angleTo - angleNow)){
+            float tz = 0;
+            if (Math.Abs(angleNow + 360 - angleTo) < Math.Abs(angleTo - angleNow))
+            {
                 tz = angleTo - angleNow - 360;
-            }else{
-                if (Math.Abs(angleTo + 360 - angleNow) < Math.Abs(angleTo - angleNow)){
+            }
+            else
+            {
+                if (Math.Abs(angleTo + 360 - angleNow) < Math.Abs(angleTo - angleNow))
+                {
                     tz = angleTo + 360 - angleNow;
-                }else{
+                }
+                else
+                {
                     tz = angleTo - angleNow;
                 }
             }
-            if(sameSpeed){
-                if(tz > rotateSpeed){
+            if (sameSpeed)
+            {
+                if (tz > rotateSpeed)
+                {
                     tz = rotateSpeed;
                 }
-                if(tz < (rotateSpeed * -1)){
+                if (tz < (rotateSpeed * -1))
+                {
                     tz = rotateSpeed * -1;
                 }
-            }else{
+            }
+            else
+            {
                 tz *= rotateSpeed;
-            }return MathHelper.ToRadians(angleNow + tz);
+            }
+            return MathHelper.ToRadians(angleNow + tz);
 
         }
-        public static void wormFollow(int npc1, int npc2, int spacing = 48, bool type2 = false, float t2speed = 0.2f, float jrot=0,float angleP = 0f){
-            if (type2){
+        public static void wormFollow(int npc1, int npc2, int spacing = 48, bool type2 = false, float t2speed = 0.2f, float jrot = 0, float angleP = 0f)
+        {
+            if (type2)
+            {
                 NPC npc = Main.npc[npc1];
                 NPC targetNPC = Main.npc[npc2];
                 float rot = npc.rotation - jrot;
@@ -448,7 +469,9 @@ namespace CalamityEntropy.Util
                 npc.Center = targetNPC.Center;
                 Vector2 displacement = (rotatedToAngle(rot, targetNPC.rotation + angleP - jrot, t2speed, false)).ToRotationVector2() * -1 * spacing;
                 npc.Center += displacement;
-            }else{
+            }
+            else
+            {
                 NPC npc = Main.npc[npc1];
                 NPC targetNPC = Main.npc[npc2];
                 float angle = (float)Math.Atan2(targetNPC.Center.Y - npc.Center.Y, targetNPC.Center.X - npc.Center.X);
@@ -456,41 +479,48 @@ namespace CalamityEntropy.Util
                 npc.Center = targetNPC.Center;
                 Vector2 displacement = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * -1 * spacing;
                 npc.Center += displacement;
-                
+
             }
         }
-        public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, Texture2D tx, Color color){
-            int distance = ((int) Math.Sqrt(Math.Pow(endPos.X - startPos.X, 2) + Math.Pow(endPos.Y - startPos.Y, 2)));
+        public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, Texture2D tx, Color color)
+        {
+            int distance = ((int)Math.Sqrt(Math.Pow(endPos.X - startPos.X, 2) + Math.Pow(endPos.Y - startPos.Y, 2)));
             float rot = (endPos - startPos).ToRotation();
             float px = startPos.X;
             float py = startPos.Y;
-            int num = ((int) (distance / spacing));
+            int num = ((int)(distance / spacing));
             Vector2 addVec = new Vector2((endPos.X - startPos.X) / num, (endPos.Y - startPos.Y) / num);
             addVec.Normalize();
             float adx = (endPos.X - startPos.X) / num;
             float ady = (endPos.Y - startPos.Y) / num;
             Vector2 drawPos = new Vector2(px, py);
-            for(int i = 0; i <= num; i++){
+            for (int i = 0; i <= num; i++)
+            {
                 Main.EntitySpriteDraw(tx, drawPos - Main.screenPosition, null, color, rot, new Vector2(tx.Width / 2, tx.Height / 2), (new Vector2(1, 1)), SpriteEffects.None, 0);
                 drawPos.X += addVec.X * spacing;
                 drawPos.Y += addVec.Y * spacing;
             }
         }
-        public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, string texturePath, Color color){
+        public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, string texturePath, Color color)
+        {
             drawChain(startPos, endPos, spacing, ModContent.Request<Texture2D>(texturePath).Value, color);
         }
-        public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, string texturePath){
+        public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, string texturePath)
+        {
             drawChain(startPos, endPos, spacing, ModContent.Request<Texture2D>(texturePath).Value, Color.White);
         }
-        public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, Texture2D texture){
+        public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, Texture2D texture)
+        {
             drawChain(startPos, endPos, spacing, texture, Color.White);
         }
-        public static float getDistance(Vector2 v1, Vector2 v2){
-            return ((float) Math.Sqrt(Math.Pow(v2.X - v1.X, 2) + Math.Pow(v2.Y - v1.Y, 2)));
+        public static float getDistance(Vector2 v1, Vector2 v2)
+        {
+            return ((float)Math.Sqrt(Math.Pow(v2.X - v1.X, 2) + Math.Pow(v2.Y - v1.Y, 2)));
         }
-        
 
-        public static void drawTexture(Texture2D tex, Vector2 pos, float rotation, Color color, Vector2 scale, SpriteEffects eff=SpriteEffects.None){
+
+        public static void drawTexture(Texture2D tex, Vector2 pos, float rotation, Color color, Vector2 scale, SpriteEffects eff = SpriteEffects.None)
+        {
             Rectangle rectangle = new Rectangle(0, 0, tex.Width, tex.Height);
             Vector2 origin = rectangle.Size() / 2f;
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle), color, rotation, origin, scale, eff, 0f);
@@ -509,7 +539,8 @@ namespace CalamityEntropy.Util
         {
             Main.spriteBatch.Draw(getExtraTex("white"), start - (worldpos ? Main.screenPosition : Vector2.Zero), null, color, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(getDistance(start, end) + wa, width), SpriteEffects.None, 0);
         }
-        public static void drawTextureToPoint(SpriteBatch sb, Texture2D texture, Color color, Vector2 lu, Vector2 ru, Vector2 ld, Vector2 rd) {
+        public static void drawTextureToPoint(SpriteBatch sb, Texture2D texture, Color color, Vector2 lu, Vector2 ru, Vector2 ld, Vector2 rd)
+        {
             sb.End();
 
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -531,8 +562,8 @@ namespace CalamityEntropy.Util
 
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             Texture2D tx = texture;
-                gd.Textures[0] = tx;
-                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+            gd.Textures[0] = tx;
+            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
@@ -559,7 +590,8 @@ namespace CalamityEntropy.Util
         }
         public static void drawLaser(SpriteBatch sb, List<Texture2D> txs, List<Vector2> points, int txLength, Color color, int width = 64, int starttx = 0, float startRot = 0)
         {
-            for (int j = 0; j < points.Count; j++) {
+            for (int j = 0; j < points.Count; j++)
+            {
                 points[j] -= Main.screenPosition;
             }
             float dl = 0;
@@ -569,7 +601,7 @@ namespace CalamityEntropy.Util
                 al += getDistance(points[i], points[i + 1]);
             }
             int txc = starttx;
-            float lr = startRot;             Vector2 tp = Vector2.Zero;
+            float lr = startRot; Vector2 tp = Vector2.Zero;
             while (true)
             {
                 Texture2D tx = txs[txc % txs.Count];

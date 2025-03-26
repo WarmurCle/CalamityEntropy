@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity *= 0.8f;
             }
-                                                   NPC target = null;
+            NPC target = null;
             if (player.HasMinionAttackTargetNPC)
             {
                 target = Main.npc[player.MinionAttackTargetNPC];
@@ -123,26 +123,26 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Projectile.ai[2] <= 0)
                 {
                     Projectile.ai[0]++;
-                    
+
                     if (Projectile.ai[0] > 10)
                     {
                         Projectile.ai[0] = 0;
                         Projectile.ai[1]++;
-                        
+
                         if (Projectile.ai[1] == 7)
                         {
                             Projectile.ai[2] = 120;
                             direction = 1;
-                            
+
                             if (Projectile.owner == Main.myPlayer)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + (target.Center + target.velocity * 20 - Projectile.Center).SafeNormalize(Vector2.UnitX) * 16, (target.Center + target.velocity * 20 - Projectile.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<Brimstone>(), (int)(Projectile.damage * (1 + player.Entropy().WeaponBoost * 0.35f)), 5, Projectile.owner, 0, Projectile.scale * 0.4f + player.Entropy().WeaponBoost * 0.4f, Projectile.whoAmI);
-                                
+
                             }
                             SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/blood laser weak 1"), Projectile.Center);
                         }
                     }
-                    
+
                 }
             }
             Projectile.ai[2]--;
@@ -151,9 +151,9 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.ai[1] = 0;
 
             }
-            
+
         }
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             SpriteEffects ef = SpriteEffects.None;

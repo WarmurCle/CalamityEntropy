@@ -1,14 +1,14 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.VoidBlade
 {
-    public class VoidBladeHit: ModProjectile
+    public class VoidBladeHit : ModProjectile
     {
         Texture2D vbh = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidBlade/VoidBladeHit").Value;
         Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/BasicCircle").Value;
@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             var r = Main.rand;
             Projectile.scale = (float)r.Next(80, 120) / 100f;
             Projectile.rotation = (float)(r.NextDouble() * Math.PI * 2);
-            
+
         }
 
         public override void AI()
@@ -67,7 +67,8 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             return false;
         }
 
-        public override bool PreDraw(ref Color dc){
+        public override bool PreDraw(ref Color dc)
+        {
             float s = 1f;
             for (int i = 0; i < points1.Count; i++)
             {
@@ -81,6 +82,6 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             return false;
         }
     }
-    
+
 
 }

@@ -1,21 +1,14 @@
-﻿using System;
-using System.IO;
-using CalamityEntropy.Content.NPCs.FriendFinderNPC;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables.Banners;
-using CalamityMod.Items.Weapons.Summon;
-using CalamityMod.Projectiles.Enemy;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -55,7 +48,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
         public float MaxVelocity = 10f;
         public float DistanceFromPlayer = 500f;
 
-                 public float AmountOfProjectiles = (CalamityWorld.death) ? 2f : (CalamityWorld.revenge) ? 4f : (Main.expertMode) ? 3f : 3f;
+        public float AmountOfProjectiles = (CalamityWorld.death) ? 2f : (CalamityWorld.revenge) ? 4f : (Main.expertMode) ? 3f : 3f;
         public float TimeBetweenProjectiles = (CalamityWorld.death) ? 50f : (CalamityWorld.revenge) ? 35f : (Main.expertMode) ? 40f : 45f;
         public float TimeBetweenBurst = (CalamityWorld.death) ? 240f : 180f;
         public float ProjectileSpeed = 26f;
@@ -114,7 +107,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             AIMovement(target);
             this.applyCollisionDamage();
             float distToTarget = NPC.Distance(target.Center) + .1f;
-                                      NPC.rotation = NPC.rotation.AngleTowards(NPC.AngleTo(target.Center), (isDashing) ? ((death) ? .0005f : (revenge) ? .0003f : (expert) ? .0002f : .0001f) * distToTarget : .3f);
+            NPC.rotation = NPC.rotation.AngleTowards(NPC.AngleTo(target.Center), (isDashing) ? ((death) ? .0005f : (revenge) ? .0003f : (expert) ? .0002f : .0001f) * distToTarget : .3f);
 
             Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
 
@@ -131,7 +124,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 
         public void AIMovement(Entity player)
         {
-                         if (!checkedRotationDir)
+            if (!checkedRotationDir)
             {
                 rotationDir = (Main.rand.NextBool()).ToDirectionInt();
                 checkedRotationDir = true;
@@ -149,7 +142,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 
         public void State_Shooting(Entity player)
         {
-                         if (NPC.Distance(player.Center) > 800f)
+            if (NPC.Distance(player.Center) > 800f)
                 return;
 
             AITimer++;
@@ -163,7 +156,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     int type = ModContent.ProjectileType<IceClasperSummonProjectile>();
                     int damage = NPC.damage;
 
-                                         if (Main.myPlayer == NPC.Entropy().friendFinderOwner && target is NPC)
+                    if (Main.myPlayer == NPC.Entropy().friendFinderOwner && target is NPC)
                     {
                         if (death)
                         {
@@ -198,15 +191,15 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                         SoundEngine.PlaySound(SoundID.Item28, NPC.Center);
                     }
 
-                                         NPC.velocity -= vecToPlayer * 3f;
+                    NPC.velocity -= vecToPlayer * 3f;
 
-                    
+
                     NPC.netUpdate = true;
                 }
-                
+
                 TimerForShooting++;
 
-                                 if (TimerForShooting >= TimeBetweenProjectiles * AmountOfProjectiles)
+                if (TimerForShooting >= TimeBetweenProjectiles * AmountOfProjectiles)
                 {
                     TimerForShooting = 0f;
                     AITimer = 0f;
@@ -214,7 +207,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     NPC.netUpdate = true;
                 }
             }
-                         else if (AITimer >= TimeBetweenBurst / 2f && AITimer < TimeBetweenBurst)
+            else if (AITimer >= TimeBetweenBurst / 2f && AITimer < TimeBetweenBurst)
             {
                 Vector2 randPos = Main.rand.NextVector2CircularEdge(100f, 100f);
                 Dust telegraphDust = Dust.NewDustPerfect(NPC.Center + randPos, 172, NPC.DirectionFrom(NPC.Center + NPC.velocity + randPos) * Main.rand.NextFloat(5f, 7f), 0, default, 1.5f);
@@ -227,17 +220,20 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
         {
             float distToTarget = NPC.Distance(player.Center) + .1f;
             AITimer++;
-            if (AITimer <= TimeBeforeDash)              {
-                                 NPC.velocity = Vector2.Lerp(NPC.velocity, -NPC.rotation.ToRotationVector2() * 2f, .1f);
+            if (AITimer <= TimeBeforeDash)
+            {
+                NPC.velocity = Vector2.Lerp(NPC.velocity, -NPC.rotation.ToRotationVector2() * 2f, .1f);
                 NPC.netUpdate = true;
             }
-            else if (AITimer > TimeBeforeDash && AITimer <= TimeBeforeDash + TimeDashing)              {
-                                                  NPC.velocity = NPC.rotation.ToRotationVector2() * (DashSpeed + (2f / (distToTarget * .1f)));
+            else if (AITimer > TimeBeforeDash && AITimer <= TimeBeforeDash + TimeDashing)
+            {
+                NPC.velocity = NPC.rotation.ToRotationVector2() * (DashSpeed + (2f / (distToTarget * .1f)));
                 NPC.netUpdate = true;
             }
-            else              {
+            else
+            {
                 AITimer = 0f;
-                checkedRotationDir = false;                  CurrentState = IceClasperAIState.Shooting;
+                checkedRotationDir = false; CurrentState = IceClasperAIState.Shooting;
                 NPC.netUpdate = true;
             }
         }
@@ -285,8 +281,8 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             position -= new Vector2(texture.Width, texture.Height / Main.npcFrameCount[NPC.type]) * NPC.scale / 2f;
             position += origin * NPC.scale + new Vector2(0f, NPC.gfxOffY);
 
-                                      float interpolant = (AITimer > TimeBeforeDash && AITimer <= TimeBeforeDash + TimeDashing) ? 1f - ((AITimer - TimeBeforeDash) / TimeDashing) :
-                (MathHelper.Clamp(AITimer, 0f, TimeBeforeDash) / TimeBeforeDash);
+            float interpolant = (AITimer > TimeBeforeDash && AITimer <= TimeBeforeDash + TimeDashing) ? 1f - ((AITimer - TimeBeforeDash) / TimeDashing) :
+(MathHelper.Clamp(AITimer, 0f, TimeBeforeDash) / TimeBeforeDash);
             float AfterimageFade = MathHelper.Lerp(0f, 1f, interpolant);
 
             if (CurrentState == IceClasperAIState.Dashing && CalamityMod.CalamityConfig.Instance.Afterimages)

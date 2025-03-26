@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
@@ -9,7 +6,8 @@ using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Steamworks;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -46,8 +44,9 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float windVolume = 0;
         LoopSound windsound = null;
-        public override void AI(){
-            if(windsound == null)
+        public override void AI()
+        {
+            if (windsound == null)
             {
                 windsound = new LoopSound(ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/wind_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value);
                 windsound.play();
@@ -61,14 +60,15 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (player.channel && !player.HeldItem.IsAir && player.HeldItem.type == ModContent.ItemType<PrisonOfPermafrost>())
             {
-                if (Projectile.owner == Main.myPlayer){
-                    Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition  - player.Center).ToRotation(), 0.16f, false);
+                if (Projectile.owner == Main.myPlayer)
+                {
+                    Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 0.16f, false);
                     Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 1.2f, true);
 
                     Projectile.velocity = Projectile.rotation.ToRotationVector2();
                     Projectile.netUpdate = true;
                 }
-                
+
                 usingTime++;
                 Projectile.timeLeft = 60;
                 if (usingTime > 60)
@@ -79,28 +79,34 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     if (Projectile.owner == Main.myPlayer)
                     {
-                        
-                        if (usingTime < 100){
+
+                        if (usingTime < 100)
+                        {
                             if (usingTime % 5 == 0)
                             {
                                 int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
                             }
                         }
-                        else{
-                            if (usingTime < 160){
+                        else
+                        {
+                            if (usingTime < 160)
+                            {
                                 if (usingTime % 4 == 0)
                                 {
-                                int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
+                                    int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
                                 }
                             }
-                            else{
-                                if (usingTime < 250){
+                            else
+                            {
+                                if (usingTime < 250)
+                                {
                                     if (usingTime % 3 == 0)
                                     {
                                         int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
                                     }
                                 }
-                                else{
+                                else
+                                {
                                     if (usingTime % 2 == 0)
                                     {
                                         int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
@@ -137,7 +143,7 @@ namespace CalamityEntropy.Content.Projectiles
                                 anglep += MathHelper.ToRadians(10);
                             }
                         }
-                        }
+                    }
                 }
             }
             else
@@ -155,14 +161,17 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (counter % 12 == 0)
             {
-                if(Projectile.damage < 1000){
-                    if(counter % 32 == 0){
+                if (Projectile.damage < 1000)
+                {
+                    if (counter % 32 == 0)
+                    {
                         Projectile.damage += 1;
-                    
+
                     }
                 }
                 int cost = 2 + usingTime / 300;
-                if (player.CheckMana(player.ActiveItem(), cost, true, false)) {
+                if (player.CheckMana(player.ActiveItem(), cost, true, false))
+                {
                     player.manaRegenDelay = 80;
                 }
                 else
@@ -215,7 +224,8 @@ namespace CalamityEntropy.Content.Projectiles
                     a3 = 0;
                 }
             }
-            else {
+            else
+            {
                 a1 -= 0.02f;
                 a2 -= 0.02f;
                 a3 -= 0.02f;
@@ -272,9 +282,9 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Texture2D flameDraw = flames[(counter / 3) % 4];
             Main.spriteBatch.Draw(flameDraw, Projectile.Center - Main.screenPosition - new Vector2(0, 20), null, Color.White * alpha * 0.7f, 0, new Vector2(flameDraw.Width, flameDraw.Height) / 2, 1.3f, SpriteEffects.None, 0);
-            int rg = (int)(220 + 35 * Math.Cos((float) counter / 10));
+            int rg = (int)(220 + 35 * Math.Cos((float)counter / 10));
             Color triC = new Color(rg, rg, 255);
-            
+
             Main.spriteBatch.Draw(triangle, Projectile.Center - Main.screenPosition + new Vector2(0, 12), null, triC * alpha, 0, new Vector2(triangle.Width, triangle.Height) / 2, 1, SpriteEffects.None, 0);
 
             Texture2D ice1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/POP/ice1").Value;
@@ -287,8 +297,9 @@ namespace CalamityEntropy.Content.Projectiles
             float angle = ((float)counter) / 180f * (float)Math.PI * 2f;
             int size = (int)((alpha * 8.3f) * (alpha * 8.3f));
             Vector2 ofs = Vector2.Zero;
-            
-            for (int i = 0; i < 6; i++) {
+
+            for (int i = 0; i < 6; i++)
+            {
                 Texture2D itx = ices[i % 3];
                 Main.spriteBatch.Draw(itx, Projectile.Center - Main.screenPosition + ofs + (new Vector2(size, 0).RotatedBy(angle + MathHelper.ToRadians(angle + i * 60))) * new Vector2(1, 0.8f), null, Color.White * alpha, 0, new Vector2(itx.Width, itx.Height) / 2, 1, SpriteEffects.None, 0);
             }
@@ -349,7 +360,7 @@ namespace CalamityEntropy.Content.Projectiles
             rd.X *= 0.3f;
 
             Vector2 dp = Projectile.Center - Main.screenPosition;
-            Vector2 offset = new Vector2(100, 0);   
+            Vector2 offset = new Vector2(100, 0);
 
             lu += offset;
             ru += offset;

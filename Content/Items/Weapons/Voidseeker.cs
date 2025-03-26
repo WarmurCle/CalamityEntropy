@@ -1,24 +1,22 @@
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-	public class Voidseeker : RogueWeapon
-	{
+    public class Voidseeker : RogueWeapon
+    {
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Item.width = 36;
             Item.height = 34;
             Item.damage = 700;

@@ -1,10 +1,8 @@
 ﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 
 namespace CalamityEntropy.Common
 {
@@ -24,7 +22,7 @@ namespace CalamityEntropy.Common
             {
                 (Main.LocalPlayer.Entropy().homes as Dictionary<string, Vector2>)[args[0]] = Main.LocalPlayer.Center;
             }
-            else if(args.Length == 0)
+            else if (args.Length == 0)
             {
                 (Main.LocalPlayer.Entropy().homes as Dictionary<string, Vector2>)["_default"] = Main.LocalPlayer.Center;
             }

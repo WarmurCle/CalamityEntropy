@@ -1,15 +1,15 @@
-using System;
-using System.Collections.Generic;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class Lightning: ModProjectile
+    public class Lightning : ModProjectile
     {
         public SoundStyle sound = new SoundStyle("CalamityEntropy/Assets/Sounds/spark");
         public bool drawEnd = false;
@@ -38,7 +38,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             return false;
         }
-        public override void AI(){
+        public override void AI()
+        {
             if (Projectile.ai[0] == 0)
             {
                 Random r = new Random();
@@ -47,12 +48,12 @@ namespace CalamityEntropy.Content.Projectiles
                 SoundEngine.PlaySound(sound, Projectile.Center);
                 Vector2 vc;
                 vc = Projectile.Center;
-                
+
                 Vector2 avc = Projectile.velocity;
                 avc.Normalize();
                 List<NPC> hited = new List<NPC>();
                 List<NPC> close = new List<NPC>();
-                foreach(NPC n in Main.npc)
+                foreach (NPC n in Main.npc)
                 {
                     if (n.active && !n.friendly && !n.dontTakeDamage && Util.Util.getDistance(n.Center, Projectile.Center) < 800)
                     {
@@ -89,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     Tile tile = Main.tile[(int)pv.X / 16, (int)pv.Y / 16];
                     points.Add(pv);
-                    
+
                     vc += avc * Projectile.velocity.Length();
                 }
             }
@@ -130,7 +131,7 @@ namespace CalamityEntropy.Content.Projectiles
                 target.AddBuff(ModContent.BuffType<GalvanicCorrosion>(), 240);
             }
         }
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             if (points.Count < 1)

@@ -1,17 +1,12 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Dusts;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Content.Buffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class CellBullet: ModProjectile
+    public class CellBullet : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -31,7 +26,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool setRot = true;
         public override void AI()
         {
-            if(trailAlpha < 1)
+            if (trailAlpha < 1)
             {
                 trailAlpha += 0.05f;
             }
@@ -40,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation = Util.Util.randomRot();
             }
             Projectile.rotation += 0.001f;
-            if(Projectile.velocity.Length() < 50)
+            if (Projectile.velocity.Length() < 50)
             {
                 Projectile.velocity *= 1.01f;
             }
@@ -69,6 +64,6 @@ namespace CalamityEntropy.Content.Projectiles
             target.AddBuff(ModContent.BuffType<VoidVirus>(), 160);
         }
     }
-    
+
 
 }

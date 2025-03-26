@@ -1,20 +1,8 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Common;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -35,9 +23,9 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             base.AI();
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.hostile && p.velocity != Vector2.Zero && Util.Util.getDistance(p.Center, Projectile.Center) < 640)
+                if (p.hostile && p.velocity != Vector2.Zero && Util.Util.getDistance(p.Center, Projectile.Center) < 640)
                 {
                     p.velocity += (Projectile.Center - p.Center).SafeNormalize(Vector2.Zero) * 1f;
                 }

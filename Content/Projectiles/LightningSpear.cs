@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -32,7 +32,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.arrow = true;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             if (!sd && Projectile.owner == Main.myPlayer)
             {
                 int p = Projectile.NewProjectile(Projectile.owner.ToPlayer().GetSource_FromAI(), Projectile.Center + Projectile.velocity * 1.4f, Vector2.Zero, ModContent.ProjectileType<Impact>(), 0, 0, Projectile.owner);
@@ -56,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
             }
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90); 
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
 
         }
         public override bool PreDraw(ref Color lightColor)
@@ -90,6 +91,6 @@ namespace CalamityEntropy.Content.Projectiles
 
         }
     }
-    
+
 
 }

@@ -1,5 +1,4 @@
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

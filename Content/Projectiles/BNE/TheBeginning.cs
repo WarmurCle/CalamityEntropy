@@ -1,22 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Particle = CalamityEntropy.Content.Particles.Particle;
 
 namespace CalamityEntropy.Content.Projectiles.BNE
 {
@@ -42,7 +33,8 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             Projectile.MaxUpdates = 7;
         }
         public bool playsound = true;
-        public override void AI(){
+        public override void AI()
+        {
             Vector2 top = Projectile.Center;
             Vector2 sparkVelocity2 = Projectile.velocity * -0.1f;
             int sparkLifetime2 = Main.rand.Next(8, 12);
@@ -60,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             if (Projectile.Calamity().stealthStrike)
             {
                 NPC target = Projectile.FindTargetWithinRange(3600);
-                if(target != null)
+                if (target != null)
                 {
                     Projectile.ai[0] = target.whoAmI;
                 }

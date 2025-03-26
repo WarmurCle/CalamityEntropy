@@ -1,9 +1,8 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -40,7 +39,8 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public List<Vector2> odp = new List<Vector2>();
         public List<float> odr = new List<float>();
         public bool pld = true;
-        public override void AI(){
+        public override void AI()
+        {
             if (pld)
             {
                 pld = false;
@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 frame++;
                 framecounter = 4;
-                if(frame > 4)
+                if (frame > 4)
                 {
                     frame = 0;
                 }
@@ -65,10 +65,10 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
 
         public override void OnKill(int timeLeft)
         {
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ZeratosFireball0>(), Projectile.damage, Projectile.knockBack * 2, Projectile.owner);
-            
+
             }
         }
 

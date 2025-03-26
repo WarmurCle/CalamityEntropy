@@ -1,5 +1,4 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,7 +6,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.GameContent.Animations.Actions.Sprites;
 namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
 {
     public class ZeratosFireball0 : ModProjectile
@@ -31,9 +29,11 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         }
         int framecounter = 3;
         int frame = 0;
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.ArmorPenetration = HorizonssKey.getArmorPen();
-            if (frame == 0 && framecounter == 3) {
+            if (frame == 0 && framecounter == 3)
+            {
                 SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
             }
             framecounter--;
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 frame++;
                 framecounter = 3;
-                if(frame > 4)
+                if (frame > 4)
                 {
                     Projectile.Kill();
                 }
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            
+
             return false;
         }
 

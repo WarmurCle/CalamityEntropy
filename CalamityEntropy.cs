@@ -1,44 +1,7 @@
-using Terraria.ModLoader;
-using Terraria.ID;
-using Terraria;
-using Microsoft.Xna.Framework.Graphics;
-using Humanizer;
-using System;
-using CalamityMod.Items.Weapons.Rogue;
-using CalamityEntropy.Util;
-using CalamityMod;
-using System.Collections.Generic;
-using Terraria.Graphics.Effects;
-using ReLogic.Content;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
-using System.IO;
-using Microsoft.CodeAnalysis;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Armor.Vanity;
-using CalamityMod.Items.LoreItems;
-using CalamityMod.Items.Placeables.Furniture.DevPaintings;
-using CalamityMod.Items.Placeables.Furniture.Trophies;
-using CalamityMod.Items.SummonItems;
-using CalamityMod.NPCs.DesertScourge;
-using Terraria.Localization;
-using CalamityMod.UI;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using Terraria.GameContent.Bestiary;
-using CalamityMod.Items.TreasureBags;
-using CalamityMod.Skies;
-using System.Runtime.Intrinsics.Arm;
-using Microsoft.CodeAnalysis.FlowAnalysis;
-using Terraria.GameContent;
-using CalamityMod.Projectiles.Melee;
-using CalamityMod.Events;
-using Terraria.WorldBuilding;
-using System.Threading;
-using Steamworks;
-using Terraria.UI;
-using CalamityMod.UI.CalamitasEnchants;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.BeesGame;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -47,73 +10,81 @@ using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
+using CalamityEntropy.Content.NPCs.NihilityTwin;
+using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
+using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
-using CalamityEntropy.Content.Skies;
-using CalamityEntropy.Content.UI;
-using CalamityMod.NPCs.TownNPCs;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using Microsoft.Build.Evaluation;
-using Terraria.Audio;
-using CalamityMod.NPCs.SunkenSea;
-using CalamityMod.NPCs.Crabulon;
-using CalamityMod.NPCs.HiveMind;
-using CalamityMod.NPCs.Perforator;
-using CalamityMod.NPCs.NormalNPCs;
-using CalamityMod.NPCs.SlimeGod;
-using CalamityMod.NPCs.Cryogen;
-using CalamityMod.NPCs.AquaticScourge;
-using CalamityMod.NPCs.CalClone;
-using CalamityMod.NPCs.BrimstoneElemental;
-using CalamityMod.NPCs.GreatSandShark;
-using CalamityMod.NPCs.Leviathan;
-using CalamityMod.NPCs.AstrumAureus;
-using CalamityMod.NPCs.PlaguebringerGoliath;
-using CalamityMod.NPCs.Ravager;
-using CalamityMod.NPCs.AstrumDeus;
-using CalamityMod.NPCs.ProfanedGuardians;
-using CalamityMod.NPCs.Bumblebirb;
-using CalamityMod.NPCs.Providence;
-using CalamityMod.NPCs.CeaselessVoid;
-using CalamityMod.NPCs.StormWeaver;
-using CalamityMod.NPCs.Signus;
-using CalamityMod.NPCs.Polterghast;
-using CalamityMod.NPCs.OldDuke;
-using CalamityMod.NPCs.DevourerofGods;
-using CalamityMod.NPCs.Yharon;
-using CalamityMod.NPCs.ExoMechs.Ares;
-using CalamityMod.NPCs.ExoMechs.Apollo;
-using CalamityMod.NPCs.ExoMechs.Artemis;
-using CalamityMod.NPCs.ExoMechs.Thanatos;
-using CalamityMod.NPCs.SupremeCalamitas;
-using CalamityMod.NPCs.PrimordialWyrm;
-using CalamityEntropy.Content.NPCs.VoidInvasion;
-using ReLogic.Graphics;
+using CalamityEntropy.Content.Skies;
+using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Content.ArmorPrefixes;
+using CalamityEntropy.Util;
+using CalamityMod;
+using CalamityMod.Events;
+using CalamityMod.Items.Materials;
+using CalamityMod.Items.Pets;
+using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Items.Pets;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Materials;
+using CalamityMod.NPCs.AquaticScourge;
+using CalamityMod.NPCs.AstrumAureus;
+using CalamityMod.NPCs.AstrumDeus;
+using CalamityMod.NPCs.BrimstoneElemental;
+using CalamityMod.NPCs.Bumblebirb;
+using CalamityMod.NPCs.CalClone;
+using CalamityMod.NPCs.CeaselessVoid;
+using CalamityMod.NPCs.Crabulon;
+using CalamityMod.NPCs.Cryogen;
+using CalamityMod.NPCs.DesertScourge;
+using CalamityMod.NPCs.DevourerofGods;
+using CalamityMod.NPCs.ExoMechs.Apollo;
+using CalamityMod.NPCs.ExoMechs.Ares;
+using CalamityMod.NPCs.ExoMechs.Artemis;
+using CalamityMod.NPCs.ExoMechs.Thanatos;
+using CalamityMod.NPCs.GreatSandShark;
+using CalamityMod.NPCs.HiveMind;
+using CalamityMod.NPCs.Leviathan;
+using CalamityMod.NPCs.OldDuke;
+using CalamityMod.NPCs.Perforator;
+using CalamityMod.NPCs.PlaguebringerGoliath;
+using CalamityMod.NPCs.Polterghast;
+using CalamityMod.NPCs.PrimordialWyrm;
+using CalamityMod.NPCs.ProfanedGuardians;
+using CalamityMod.NPCs.Providence;
+using CalamityMod.NPCs.Ravager;
+using CalamityMod.NPCs.Signus;
+using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.NPCs.StormWeaver;
+using CalamityMod.NPCs.SunkenSea;
+using CalamityMod.NPCs.SupremeCalamitas;
+using CalamityMod.NPCs.Yharon;
+using CalamityMod.UI;
+using CalamityMod.UI.CalamitasEnchants;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using System.Diagnostics.Metrics;
-using CalamityEntropy.Content.NPCs.NihilityTwin;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Projectiles.Chainsaw;
-using CalamityMod.Systems;
-using CalamityMod.World;
-using Newtonsoft.Json.Linq;
-using Terraria.Graphics.Renderers;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using ReLogic.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.Audio;
+using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.UI;
 namespace CalamityEntropy
 {
-	public class CalamityEntropy : Mod
-	{
+    public class CalamityEntropy : Mod
+    {
         public enum NetPackages : byte
         {
             LotteryMachineRightClicked,
@@ -130,8 +101,8 @@ namespace CalamityEntropy
         }
         public static bool EntropyMode { get { return EDownedBosses.EntropyMode; } set { EDownedBosses.EntropyMode = value; } }
         public static bool AprilFool = false;
-		public static List<int> calDebuffIconDisplayList = new List<int>();
-		public static CalamityEntropy Instance;
+        public static List<int> calDebuffIconDisplayList = new List<int>();
+        public static CalamityEntropy Instance;
         public static int noMusTime = 0;
         public static Effect kscreen;
         public static Effect kscreen2;
@@ -324,7 +295,7 @@ namespace CalamityEntropy
                 }
                 player.Entropy().poops.Add(poop);
             }
-            if(type == (byte)NetPackages.SyncEntropyMode)
+            if (type == (byte)NetPackages.SyncEntropyMode)
             {
                 bool enabled = reader.ReadBoolean();
                 EntropyMode = enabled;
@@ -354,16 +325,15 @@ namespace CalamityEntropy
         {
             Instance = this;
 
-            rainbowmasterFixed = false;
             DateTime today = DateTime.Now;
             AprilFool = today.Month == 4 && today.Day == 1;
-            
+
             LoopSoundManager.init();
-            
+
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
 
-            
+
 
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
@@ -378,18 +348,18 @@ namespace CalamityEntropy
             cve2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid2", AssetRequestMode.ImmediateLoad).Value;
             pixel = Util.Util.getExtraTex("white");
             for (int i = 0; i < 10; i++)
-			{
+            {
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidBlade/f" + i.ToString()).Value;
             }
-            
+
             AbyssalWraith.loadHead();
             CruiserHead.loadHead();
             CUtil.load();
 
             foreach (int id in CalamityLists.needsDebuffIconDisplayList)
-			{
-				calDebuffIconDisplayList.Add(id);
-			}
+            {
+                calDebuffIconDisplayList.Add(id);
+            }
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserBody>());
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
             On_FilterManager.EndCapture += ec;
@@ -414,7 +384,7 @@ namespace CalamityEntropy
             On_Player.Heal += player_heal;
             On_Main.DrawTiles += drawtile;
             EModSys.timer = 0;
-            BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>()}));
+            BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
         }
@@ -423,13 +393,12 @@ namespace CalamityEntropy
 
         private void add_buff_npc(On_NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
         {
-            if(!(Main.debuff[type] && self.ModNPC is AbyssalWraith))
+            if (!(Main.debuff[type] && self.ModNPC is AbyssalWraith))
             {
                 orig(self, type, time, quiet);
             }
         }
 
-        public static bool rainbowmasterFixed = false;
         public void drawtile(On_Main.orig_DrawTiles orig, Main self, bool solidLayer, bool forRenderTargets, bool intoRenderTargets, int waterStyleOverride)
         {
             orig(self, solidLayer, forRenderTargets, intoRenderTargets, waterStyleOverride);
@@ -580,13 +549,14 @@ namespace CalamityEntropy
 
         private void npcupdate(On_NPC.orig_UpdateNPC orig, NPC self, int i)
         {
-            if (self.TryGetGlobalNPC<EGlobalNPC>(out var en)) {
+            if (self.TryGetGlobalNPC<EGlobalNPC>(out var en))
+            {
                 if (self.active && self.Entropy().AnimaTrapped > 0)
                 {
                     en.AnimaTrapped--;
                     self.position += self.velocity;
                     self.velocity *= 0.9f;
-                    for(int ii = 0; ii < self.immune.Length; ii++)
+                    for (int ii = 0; ii < self.immune.Length; ii++)
                     {
                         if (self.immune[ii] > 0)
                         {
@@ -640,7 +610,7 @@ namespace CalamityEntropy
                         }
                     }
                     orig(self, i);
-                } 
+                }
             }
             else { orig(self, i); }
         }
@@ -648,7 +618,7 @@ namespace CalamityEntropy
         private Rectangle modifyRect(On_Player.orig_getRect orig, Player self)
         {
             return orig(self);
-                                  }
+        }
 
         private int StrikeNpc(On_NPC.orig_StrikeNPC_HitInfo_bool_bool orig, NPC self, NPC.HitInfo hit, bool fromNet, bool noPlayerInteraction)
         {
@@ -665,9 +635,9 @@ namespace CalamityEntropy
                     }
                     hit.Damage = (int)(hit.Damage * aw.getDR());
                 }
-                if(self.boss && EntropyMode)
+                if (self.boss && EntropyMode)
                 {
-                    if(hit.Damage > self.lifeMax * 0.1f)
+                    if (hit.Damage > self.lifeMax * 0.1f)
                     {
                         hit.Damage = (int)(self.lifeMax * 0.1f);
                     }
@@ -814,14 +784,14 @@ namespace CalamityEntropy
         }
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
-           if (Main.debuff[type])
+            if (Main.debuff[type])
             {
                 if (Main.rand.NextDouble() < self.Entropy().DebuffImmuneChance)
                 {
                     return;
                 }
             }
-           orig(self, type, timeToAdd, quiet, foodHack);
+            orig(self, type, timeToAdd, quiet, foodHack);
         }
 
         private void al_torch(On_Lighting.orig_AddLight_Vector2_int orig, Vector2 position, int torchID)
@@ -847,7 +817,7 @@ namespace CalamityEntropy
         }
         public static float BrillianceCardValue = 1.5f;
         public static float OracleDeckBrilValue = 2f;
-        public static float brillianceLightMulti { get { if (Main.gameMenu) { return 1; } if (Main.LocalPlayer.Entropy().oracleDeck) { return OracleDeckBrilValue; }  else if (BrilEnable) { return BrillianceCardValue; } else { return 1; } } }
+        public static float brillianceLightMulti { get { if (Main.gameMenu) { return 1; } if (Main.LocalPlayer.Entropy().oracleDeck) { return OracleDeckBrilValue; } else if (BrilEnable) { return BrillianceCardValue; } else { return 1; } } }
 
         private void al_vv(On_Lighting.orig_AddLight_Vector2_Vector3 orig, Vector2 position, Vector3 rgb)
         {
@@ -865,7 +835,7 @@ namespace CalamityEntropy
             orig(i, j, r * brillianceLightMulti, g * brillianceLightMulti, b * brillianceLightMulti);
         }
 
-        
+
         private void al_iiif(On_Lighting.orig_AddLight_int_int_int_float orig, int i, int j, int torchID, float lightAmount)
         {
             orig(i, j, torchID, lightAmount * brillianceLightMulti);
@@ -873,7 +843,7 @@ namespace CalamityEntropy
 
         public override object Call(params object[] args)
         {
-            if(args.Length > 0)
+            if (args.Length > 0)
             {
                 if (args[0] is string str)
                 {
@@ -924,15 +894,15 @@ namespace CalamityEntropy
             => bossChecklist.Call("LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
         public override void PostSetupContent()
         {
-            if(ModLoader.TryGetMod("IsaacMod", out Mod isaac))
+            if (ModLoader.TryGetMod("IsaacMod", out Mod isaac))
             {
                 isaac.Call("HeldProj", ModContent.ProjectileType<RailPulseBowProjectile>());
                 isaac.Call("HeldProj", ModContent.ProjectileType<GhostdomWhisperHoldout>());
                 isaac.Call("HeldProj", ModContent.ProjectileType<SamsaraCasketProj>());
             }
-            if(ModLoader.TryGetMod("CalamityOverhaul", out var co))
+            if (ModLoader.TryGetMod("CalamityOverhaul", out var co))
             {
-                co.Call(0, new string[] 
+                co.Call(0, new string[]
            {"0", "0", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "0", "0",
             "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
             "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
@@ -950,16 +920,16 @@ namespace CalamityEntropy
             string Isaac2 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance+").Replace("/", "\\");
             BrokenAnkh.isaac = Directory.Exists(Isaac1) || Directory.Exists(Isaac2);
 
-                         Mod bossChecklist;
+            Mod bossChecklist;
             if (ModLoader.TryGetMod("BossChecklist", out bossChecklist))
             {
-                
+
                 if (bossChecklist != null)
                 {
                     {
                         {
                             string entryName = "NihilityTwin";
-                            List<int> segments = new List<int>() { ModContent.NPCType<NihilityActeriophage>(), ModContent.NPCType<ChaoticCell>()};
+                            List<int> segments = new List<int>() { ModContent.NPCType<NihilityActeriophage>(), ModContent.NPCType<ChaoticCell>() };
                             List<int> collection = new List<int>() { ModContent.ItemType<NihilityTwinBag>(), ModContent.ItemType<NihilityTwinTrophy>(), ModContent.ItemType<NihilityTwinRelic>(), ModContent.ItemType<NihilityShell>(), ModContent.ItemType<Voidseeker>(), ModContent.ItemType<EventideSniper>(), ModContent.ItemType<NihilityBacteriophageWand>(), ModContent.ItemType<StarlessNight>(), ModContent.ItemType<VoidPathology>() };
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                             {
@@ -1020,7 +990,7 @@ namespace CalamityEntropy
 
                 }
             }
-	    if (!Main.dedServ)
+            if (!Main.dedServ)
             {
                 ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/corruptedBeaconLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -1126,7 +1096,7 @@ namespace CalamityEntropy
         public static List<NPC> checkNPC = new List<NPC>();
         static void updateCheck()
         {
-            
+
         }
 
         public Rope rope;
@@ -1142,7 +1112,8 @@ namespace CalamityEntropy
             rope.Update();
             List<Vector2> points = rope.GetPoints();
             points.Add(Main.MouseWorld);
-            for (int i = 1; i < points.Count; i++) {
+            for (int i = 1; i < points.Count; i++)
+            {
                 Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
                 Util.Util.drawLine(Main.spriteBatch, t, points[i - 1], points[i], Color.White, 8);
             }
@@ -1168,14 +1139,14 @@ namespace CalamityEntropy
             }
 
             GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-            
+
             if (true)
             {
-                
+
                 Vector2 sz = screensz;
                 if (screen == null || sz != new Vector2(Main.screenWidth, Main.screenHeight))
                 {
-                                         {
+                    {
                         screen?.Dispose();
                         screen = null;
                         screen3?.Dispose();
@@ -1184,26 +1155,26 @@ namespace CalamityEntropy
                         screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
                         screensz = new Vector2(Main.screenWidth, Main.screenHeight);
                     }
-                                         {
+                    {
                     }
                 }
                 if (screen2 == null || sz != new Vector2(Main.screenWidth, Main.screenHeight))
                 {
-                                         {
+                    {
                         screen2?.Dispose();
                         screen2 = null;
                         screen2 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
                         screensz = new Vector2(Main.screenWidth, Main.screenHeight);
                     }
-                                         {
+                    {
                     }
                 }
-                
-                
+
+
             }
-            
-            
-            
+
+
+
             if (screen != null)
             {
                 graphicsDevice.SetRenderTarget(screen);
@@ -1217,11 +1188,11 @@ namespace CalamityEntropy
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
-                
+
 
                 foreach (Projectile p in checkProj)
                 {
-                    
+
                     if (!p.active)
                     {
                         continue;
@@ -1258,7 +1229,7 @@ namespace CalamityEntropy
                     {
                         continue;
                     }
-                    
+
                     if (n.type == ModContent.NPCType<CruiserHead>() && n.active && ((CruiserHead)n.ModNPC).phaseTrans > 120 && n.ai[0] > 1)
                     {
                         Texture2D disTex = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cruiserSpace2").Value;
@@ -1279,7 +1250,7 @@ namespace CalamityEntropy
                     Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White * 0.06f, pt.rotation, dt.Size() / 2, (5.4f * pt.alpha * sc) * 0.05f, SpriteEffects.None, 0);
 
                 }
-                foreach(Projectile p in Main.ActiveProjectiles)
+                foreach (Projectile p in Main.ActiveProjectiles)
                 {
                     if (p.ModProjectile is Pioneer1 p1)
                     {
@@ -1344,7 +1315,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.End();
 
 
-                                 graphicsDevice.SetRenderTarget(screen);
+                graphicsDevice.SetRenderTarget(screen);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
                 Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -1354,7 +1325,7 @@ namespace CalamityEntropy
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                 
+
                 foreach (Projectile p in checkProj)
                 {
                     if (!p.active)
@@ -1391,7 +1362,8 @@ namespace CalamityEntropy
                                   new Vector3((float)0, 0, 1),
                                   b));*/
                             GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                            if (ve.Count >= 3)                             {
+                            if (ve.Count >= 3)
+                            {
                                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
                                 gd.Textures[0] = tx;
                                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
@@ -1471,7 +1443,7 @@ namespace CalamityEntropy
                             float size = 10;
                             float sizej = size / mp.odp.Count;
                             Color cl = new Color(200, 235, 255);
-                            if(p.ai[2] > 0)
+                            if (p.ai[2] > 0)
                             {
                                 cl = new Color(255, 160, 160);
                             }
@@ -1485,7 +1457,7 @@ namespace CalamityEntropy
 
                     }
 
-                    if(p.ModProjectile is LightWisperFlame lwf)
+                    if (p.ModProjectile is LightWisperFlame lwf)
                     {
                         lwf.draw();
                     }
@@ -1495,7 +1467,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (Player p in Main.ActivePlayers)
                 {
-                                         {
+                    {
                         if (!p.dead && p.Entropy().MagiShield > 0 && p.Entropy().visualMagiShield)
                         {
                             Texture2D shieldTexture = Util.Util.getExtraTex("shield");
@@ -1503,7 +1475,7 @@ namespace CalamityEntropy
 
                         }
                     }
-                                     }
+                }
                 foreach (Projectile p in checkProj)
                 {
                     if (p.active)
@@ -1568,7 +1540,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.End();
 
 
-                                 graphicsDevice.SetRenderTarget(screen);
+                graphicsDevice.SetRenderTarget(screen);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
                 Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -1579,18 +1551,18 @@ namespace CalamityEntropy
                 graphicsDevice.Clear(Color.Transparent);
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                
-                foreach(Projectile proj in Main.ActiveProjectiles)
+
+                foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if(proj.ModProjectile is AbyssalCrack ac)
+                    if (proj.ModProjectile is AbyssalCrack ac)
                     {
                         ac.draw();
                     }
-                    if(proj.ModProjectile is AbyssBookmarkCrack ac2)
+                    if (proj.ModProjectile is AbyssBookmarkCrack ac2)
                     {
                         ac2.drawVoid();
                     }
-                    if(proj.ModProjectile is NxCrack nc)
+                    if (proj.ModProjectile is NxCrack nc)
                     {
                         nc.drawCrack();
                     }
@@ -1599,7 +1571,7 @@ namespace CalamityEntropy
                         yst.draw_crack();
                     }
                 }
-                
+
                 Main.spriteBatch.End();
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
                 graphicsDevice.Clear(Color.Transparent);
@@ -1632,7 +1604,7 @@ namespace CalamityEntropy
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                                 {
+                {
                     foreach (Player player in Main.player)
                     {
                         if (player.active && !player.dead && player.Entropy().daPoints.Count > 2)
@@ -1655,7 +1627,7 @@ namespace CalamityEntropy
 
 
                 }
-                                 {
+                {
 
                 }
 
@@ -1697,16 +1669,16 @@ namespace CalamityEntropy
                         Main.spriteBatch.Draw(t, p.Center - Main.screenPosition, null, c * (((float)(255 - p.alpha)) / 255f), p.rotation, t.Size() / 2, p.scale, SpriteEffects.None, 0);
 
                     }
-                    
+
                 }
 
-                 
+
                 Main.spriteBatch.End();
 
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                
+
                 Main.spriteBatch.Draw(screen2, Vector2.Zero, Color.White);
                 Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
 
@@ -1753,7 +1725,7 @@ namespace CalamityEntropy
                         if (p.ModProjectile is VoidBottleThrow)
                         {
                             Color color = Color.White;
-                                                     }
+                        }
                         if (p.ModProjectile is VoidExplode)
                         {
                             float ks = (float)p.timeLeft * 0.1f;
@@ -1768,20 +1740,20 @@ namespace CalamityEntropy
                         if (p.ModProjectile is VoidRExp)
                         {
                             float ks = (90f - (float)p.timeLeft) * 0.4f;
-                            
+
                             Main.spriteBatch.Draw(kt2, p.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kt2.Width, kt2.Height) / 2, ks, SpriteEffects.None, 0);
 
                         }
-                        if(p.ModProjectile is StarlessNightProj sl)
+                        if (p.ModProjectile is StarlessNightProj sl)
                         {
                             sl.drawSlash();
                         }
                     }
                 }
 
-                 
+
                 Main.spriteBatch.End();
-                
+
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -1792,7 +1764,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
 
-                if(CalamityEntropy.FlashEffectStrength > 0)
+                if (CalamityEntropy.FlashEffectStrength > 0)
                 {
                     graphicsDevice.SetRenderTarget(screen);
                     graphicsDevice.Clear(Color.Transparent);
@@ -1806,8 +1778,8 @@ namespace CalamityEntropy
                     Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
                     Main.spriteBatch.End();
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-                    
-                    for(float i = 1; i <= 10; i++)
+
+                    for (float i = 1; i <= 10; i++)
                     {
                         Main.spriteBatch.Draw(screen, screen.Size() / 2, null, Color.White * ((10f / i) * 0.2f * CalamityEntropy.FlashEffectStrength), 0, screen.Size() / 2, 1 + CalamityEntropy.FlashEffectStrength * 0.1f * i, SpriteEffects.None, 0);
                     }
@@ -1888,9 +1860,9 @@ namespace CalamityEntropy
                         }
                     }
                 }
-                foreach(Projectile proj in Main.ActiveProjectiles)
+                foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if(proj.ModProjectile is StarlessNightProj sl)
+                    if (proj.ModProjectile is StarlessNightProj sl)
                     {
                         sl.drawSword();
                     }
@@ -1898,7 +1870,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.End();
             }
 
-            if(cutScreen > 0)
+            if (cutScreen > 0)
             {
                 graphicsDevice.SetRenderTarget(screen);
                 graphicsDevice.Clear(Color.Transparent);
@@ -1974,10 +1946,10 @@ namespace CalamityEntropy
             }
             else
             {
-               if(blackMaskAlpha > 0)
-               {
+                if (blackMaskAlpha > 0)
+                {
                     blackMaskAlpha -= 0.025f;
-               }
+                }
             }
             Main.spriteBatch.Draw(Util.Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.5f * blackMaskAlpha);
             Main.spriteBatch.End();

@@ -6,7 +6,7 @@ public class CorridorMetadata
 {
     public int Width { get; set; }
     public int Length { get; set; }
-    
+
     public CorridorMetadata(int width, int length)
     {
         Width = width;
@@ -17,7 +17,7 @@ public class CorridorMetadata
     {
         int offsetX = lastRoomX;
         int offsetY = lastRoomY;
-        
+
         if (direction.IsHorizontal())
         {
             offsetY += offsetAmount;
@@ -26,7 +26,7 @@ public class CorridorMetadata
         {
             offsetX += offsetAmount;
         }
-        
+
 
         switch (direction)
         {
@@ -43,7 +43,7 @@ public class CorridorMetadata
                 offsetX += lastRoomWidth;
                 break;
         }
-        
+
         return (offsetX, offsetY);
     }
 
@@ -55,14 +55,14 @@ public class CorridorMetadata
             return GetOffset(lastRoomX, lastRoomY, lastRoomWidth, lastRoomHeight, direction, lastRoomHeight / 2);
         }
         return GetOffset(lastRoomX, lastRoomY, lastRoomWidth, lastRoomHeight, direction, lastRoomWidth / 2);
-    
+
     }
 
     public (int x, int y) GetOffset(Rectangle roomBounds, Direction direction)
     {
         return GetOffset(roomBounds.X, roomBounds.Y, roomBounds.Width, roomBounds.Height, direction);
     }
-    
+
     public (int x, int y) GetOffset(Rectangle roomBounds, Direction direction, int offsetAmount)
     {
         return GetOffset(roomBounds.X, roomBounds.Y, roomBounds.Width, roomBounds.Height, direction, offsetAmount);

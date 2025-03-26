@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.DimDungeon;
 
-public class DimDungeonPlayer: ModPlayer
+public class DimDungeonPlayer : ModPlayer
 {
     public override void PreUpdate()
     {

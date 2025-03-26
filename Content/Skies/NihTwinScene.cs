@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.NPCs.Cruiser;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Terraria;
 using Terraria.ModLoader;
 

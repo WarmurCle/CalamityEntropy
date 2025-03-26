@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public override void AI()
         {
             base.AI();
-            
+
         }
         public override void attackAI(NPC t)
         {

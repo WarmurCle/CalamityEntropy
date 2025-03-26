@@ -1,6 +1,6 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -25,13 +25,14 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public int frame = 0;
         public int frameAddCounter = 3;
         public bool playedSound = false;
-        public override void AI(){
+        public override void AI()
+        {
             frameAddCounter--;
             if (frameAddCounter == 0)
             {
                 frameAddCounter = 3;
                 frame++;
-                if(frame > 3)
+                if (frame > 3)
                 {
                     Projectile.Kill();
                 }
@@ -59,6 +60,6 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             return false;
         }
     }
-    
+
 
 }

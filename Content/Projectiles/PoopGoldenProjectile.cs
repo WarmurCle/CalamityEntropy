@@ -1,17 +1,7 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Util;
-using CalamityMod;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -25,7 +15,7 @@ namespace CalamityEntropy.Content.Projectiles
             NPC target = Util.Util.findTarget(Projectile.owner.ToPlayer(), Projectile, 1000, false);
             if (target != null)
             {
-                if(myCD <= 0)
+                if (myCD <= 0)
                 {
                     myCD = ShootCd;
                     int type = Main.rand.Next(3);

@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Tiles
             DustType = (int)CalamityDusts.PurpleCosmilite;
             AnimationFrameHeight = 52;
         }
-        
+
         public override void NearbyEffects(int i, int j, bool closer)
         {
             if (Main.tile[i, j].TileFrameY < 56)

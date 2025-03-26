@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -64,14 +64,14 @@ namespace CalamityEntropy.Content.Projectiles.monument
             {
                 if (Projectile.ai[0] % 3 == 0)
                 {
-                                     }
+                }
             }
-                Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
+            Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
             if (Main.myPlayer == Projectile.owner)
             {
                 if (Projectile.ai[1] == 0 || Projectile.ai[1] == 6 || Projectile.ai[1] == 10 || Projectile.ai[1] == 14)
                 {
-                        HandleChannelMovement(player, playerRotatedPoint);
+                    HandleChannelMovement(player, playerRotatedPoint);
                 }
             }
             if (Projectile.ai[1] == 14 && Projectile.ai[0] % 3 == 0)
@@ -100,8 +100,9 @@ namespace CalamityEntropy.Content.Projectiles.monument
             {
                 player.direction = 1;
             }
-            else { 
-                player.direction = 0; 
+            else
+            {
+                player.direction = 0;
             }
             player.itemRotation = (Projectile.velocity * Projectile.direction).ToRotation();
             player.heldProj = Projectile.whoAmI;
@@ -124,7 +125,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
             }
             Projectile.velocity = newVelocity;
         }
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
@@ -139,9 +140,10 @@ namespace CalamityEntropy.Content.Projectiles.monument
             }
             return false;
         }
-        
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone){
-                         target.immune[Projectile.owner] = 1;
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.immune[Projectile.owner] = 1;
             if (Projectile.owner == Main.myPlayer)
             {
                 CalamityEntropy.Instance.screenShakeAmp = 2;
@@ -151,7 +153,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
             {
                 Dust.NewDust(Projectile.Center, 8, 8, ModContent.DustType<Vmpiece>());
             }
-            if (Projectile.owner == Main.myPlayer)  
+            if (Projectile.owner == Main.myPlayer)
             {
                 int pj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Vmwave>(), 0, 0, Projectile.owner);
                 if (Projectile.velocity.X < 0)
@@ -163,7 +165,8 @@ namespace CalamityEntropy.Content.Projectiles.monument
             EGlobalNPC.AddVoidTouch(target, 60, 1, 460, 10);
         }
 
-        public override bool PreDraw(ref Color dc){
+        public override bool PreDraw(ref Color dc)
+        {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/monument/f" + ((int)Projectile.ai[1] + 1).ToString()).Value;
             SpriteEffects se = SpriteEffects.None;
             if (Projectile.velocity.X < 0)
@@ -178,6 +181,6 @@ namespace CalamityEntropy.Content.Projectiles.monument
             return false;
         }
     }
-    
+
 
 }

@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -12,8 +12,8 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser
 {
-    
-    public class CruiserBlackhole: ModProjectile
+
+    public class CruiserBlackhole : ModProjectile
     {
         public List<Vector2> tp1 = new List<Vector2>();
         public List<Vector2> tp2 = new List<Vector2>();
@@ -37,7 +37,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         }
         public bool projSpawn = true;
         public bool sp = true;
-        public override void AI(){
+        public override void AI()
+        {
             foreach (Player p in Main.player)
             {
                 if (Util.Util.getDistance(Projectile.Center, p.Center) < 6000)
@@ -103,7 +104,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                         p.velocity = new Vector2(Main.rand.Next(0, 6), 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2);
                         VoidParticles.particles.Add(p);
                     }
-                    
+
                     Projectile.Kill();
                 }
             }

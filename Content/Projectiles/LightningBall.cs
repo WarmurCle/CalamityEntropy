@@ -1,7 +1,7 @@
-using System;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -27,12 +27,13 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.extraUpdates = 2;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
         }
 
         public override void OnKill(int timeLeft)
         {
-           if (Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 Projectile projectile = Projectile;
                 for (int i = 0; i < 3 + Projectile.owner.ToPlayer().Entropy().WeaponBoost; i++)
@@ -56,6 +57,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

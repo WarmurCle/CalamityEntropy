@@ -1,7 +1,7 @@
-using System.IO;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float back = -36;
         public int up = 0;
-        
+
         public override void AI()
         {
             back *= 0.9f;
@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] == 14)
             {
-                                 if (Projectile.owner == Main.myPlayer)
+                if (Projectile.owner == Main.myPlayer)
                 {
                     if (up == 0)
                     {
@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/laser"), Projectile.Center);
                 }
-                
+
             }
             if (Projectile.ai[0] != 13 || !Projectile.owner.ToPlayer().channel)
             {
@@ -129,7 +129,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int ct = 0;
         public override bool PreDraw(ref Color lightColor)
         {
-            
+
             if (frame >= 12)
             {
                 return false;

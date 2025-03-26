@@ -1,6 +1,6 @@
-using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -33,7 +33,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ArmorPenetration = 1024;
         }
         public int ct = 0;
-        public override void AI(){
+        public override void AI()
+        {
             ct++;
             if (ct > 60)
             {
@@ -57,7 +58,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (ct == 60)
             {
-                foreach(Player pl in Main.player)
+                foreach (Player pl in Main.player)
                 {
                     if (Util.Util.getDistance(Projectile.Center, pl.Center) < 3600)
                     {
@@ -84,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D t1 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightball").Value;
-            
+
             if (ct < 60)
             {
                 SpriteBatch sb = Main.spriteBatch;
@@ -101,6 +102,6 @@ namespace CalamityEntropy.Content.Projectiles
 
 
     }
-    
+
 
 }

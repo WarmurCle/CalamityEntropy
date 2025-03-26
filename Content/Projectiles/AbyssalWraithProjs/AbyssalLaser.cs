@@ -1,18 +1,17 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
 {
-    
-    public class AbyssalLaser: ModProjectile
+
+    public class AbyssalLaser : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -34,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             Projectile.timeLeft = 200;
         }
         public bool ss = true;
-        Vector2 targetPosLaser { get { return new Vector2(Projectile.ai[0], Projectile.ai[1]); } set { Projectile.ai[0] = value.X; Projectile.ai[1] = value.Y; }}
+        Vector2 targetPosLaser { get { return new Vector2(Projectile.ai[0], Projectile.ai[1]); } set { Projectile.ai[0] = value.X; Projectile.ai[1] = value.Y; } }
         Vector2 targetPosLaserVel = Vector2.Zero;
         public int soundcounter = 0;
         public override void AI()
@@ -69,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             if ((((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().HasValidTarget))
             {
                 target = ((int)Projectile.ai[2]).ToNPC().target.ToPlayer();
-                
+
             }
             float spc = 1;
             if (Projectile.timeLeft < 120)
@@ -83,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             {
                 opc -= 0.05f;
             }
-            
+
         }
         public override bool ShouldUpdatePosition()
         {
@@ -170,7 +169,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            
+
             return false;
         }
     }

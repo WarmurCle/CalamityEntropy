@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -38,12 +38,14 @@ namespace CalamityEntropy.Content.Projectiles
         NPC target = null;
         int hook = -1;
         bool thrownHook = false;
-        public override void AI(){
+        public override void AI()
+        {
             if (Projectile.ai[0] == 0)
             {
                 angle = Projectile.velocity.ToRotation();
             }
-            if (Projectile.owner.ToPlayer().ownedProjectileCounts[ModContent.ProjectileType<SilenceHook>()] < 1) {
+            if (Projectile.owner.ToPlayer().ownedProjectileCounts[ModContent.ProjectileType<SilenceHook>()] < 1)
+            {
                 thrownHook = false;
             }
             odp.Add(Projectile.Center);
@@ -82,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 60, 3.6f, 800, 12);
-            
+
             for (int i = 0; i < 36; i++)
             {
                 Particle p = new Particle();
@@ -91,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 var rd = Main.rand;
                 p.velocity = new Vector2((float)((rd.NextDouble() - 0.5) * 16), (float)((rd.NextDouble() - 0.5) * 16));
-                
+
                 VoidParticles.particles.Add(p);
             }
         }
@@ -100,8 +102,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/SilenceThrow").Value;
             float c = 0;
-            for (int i = 0; i < odp.Count; i++) {
-                Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, Color.White * c* 0.6f, odr[i], new Vector2(tx.Width / 2, tx.Height / 2), new Vector2(1, 1), SpriteEffects.None, 0);
+            for (int i = 0; i < odp.Count; i++)
+            {
+                Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, Color.White * c * 0.6f, odr[i], new Vector2(tx.Width / 2, tx.Height / 2), new Vector2(1, 1), SpriteEffects.None, 0);
                 c += 1f / odp.Count;
             }
             return true;

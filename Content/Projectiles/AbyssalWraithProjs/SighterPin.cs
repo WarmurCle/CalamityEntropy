@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
 {
-    
+
     public class SighterPin : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<SpImpact>(), 0, 0);
                 }
             }
-            
+
             Projectile.velocity = Projectile.velocity.RotatedBy(Math.Cos(Projectile.ai[0]++ * 0.2f) * 0.022f);
             if (Projectile.timeLeft < 450)
             {
@@ -108,7 +108,8 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
                 }
                 a = 1;
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                if (ve.Count >= 3)                 {
+                if (ve.Count >= 3)
+                {
                     Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);

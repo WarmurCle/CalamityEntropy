@@ -7,25 +7,28 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-	public class JailerWhip : ModItem
-	{
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(JailerWhipDebuff.TagDamage);
+    public class JailerWhip : ModItem
+    {
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(JailerWhipDebuff.TagDamage);
 
-		public override void SetDefaults() {
-			Item.DefaultToWhip(ModContent.ProjectileType<JailerWhipProjectile>(), 17, 2, 4);
-			Item.rare = ItemRarityID.Orange;
+        public override void SetDefaults()
+        {
+            Item.DefaultToWhip(ModContent.ProjectileType<JailerWhipProjectile>(), 17, 2, 4);
+            Item.rare = ItemRarityID.Orange;
             Item.autoReuse = true;
         }
 
-		public override void AddRecipes() {
-			CreateRecipe().AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 2)
-				.AddIngredient(ItemID.Chain, 6)
-				.AddIngredient(ItemID.Silk, 4)
-				.AddTile(TileID.Anvils).Register();
-		}
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 2)
+                .AddIngredient(ItemID.Chain, 6)
+                .AddIngredient(ItemID.Silk, 4)
+                .AddTile(TileID.Anvils).Register();
+        }
 
-		public override bool MeleePrefix() {
-			return true;
-		}
-	}
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+    }
 }

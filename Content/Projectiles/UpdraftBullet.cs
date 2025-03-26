@@ -1,19 +1,9 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -67,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.032f), target.Center + new Vector2(Main.rand.NextFloat(0, target.width) - (target.width / 2f), Main.rand.NextFloat(0, target.height) - (target.height / 2f)), new Vector2(0, -34), Color.Lerp(this.color, Color.LightBlue, 0.5f), 1, 1, true, BlendState.AlphaBlend, 0);
             }
@@ -82,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 EParticle.spawnNew(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Util.Util.randomRot());
             }

@@ -1,14 +1,9 @@
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -31,7 +26,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
         }
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.velocity *= 0.976f;
             if (Projectile.ai[1] >= 0)
             {
@@ -66,6 +62,6 @@ namespace CalamityEntropy.Content.Projectiles
             Util.Util.PlaySound("firedeath hiss", 1, Projectile.Center);
         }
     }
-    
+
 
 }

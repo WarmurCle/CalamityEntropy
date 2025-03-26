@@ -1,11 +1,10 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class MoonlightShieldBreak : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -24,14 +23,15 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.scale = 1f;
             Projectile.timeLeft = 200;
-            
+
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return Projectile.ai[0] < 2;
         }
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.ai[0]++;
             if (Projectile.ai[0] == 1)
             {

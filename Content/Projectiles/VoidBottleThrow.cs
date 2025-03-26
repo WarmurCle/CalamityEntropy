@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Dusts;
+﻿using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using Microsoft.Xna.Framework;
@@ -32,7 +32,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             CalamityEntropy.checkProj.Add(Projectile);
         }
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.ai[0]++;
             Projectile.rotation += MathHelper.ToRadians(Projectile.velocity.X * 0.5f);
             Projectile.velocity *= 0.99f;
@@ -68,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
 
             }
-            else if(Projectile.ai[0] > 120)
+            else if (Projectile.ai[0] > 120)
             {
                 Particle p = new Particle();
                 p.position = Projectile.Center;
@@ -118,9 +119,9 @@ namespace CalamityEntropy.Content.Projectiles
 
             return false;
         }
-          
+
 
     }
-    
+
 
 }

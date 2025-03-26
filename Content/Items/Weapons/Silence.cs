@@ -47,8 +47,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (player.Calamity().StealthStrikeAvailable())
                 type = ModContent.ProjectileType<SilenceThrow>();
         }
-       
-         
+
+
         public override float StealthDamageMultiplier => 1f;
         public override float StealthVelocityMultiplier => 1.5f;
         public override float StealthKnockbackMultiplier => 3f;
@@ -58,11 +58,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (player.Calamity().StealthStrikeAvailable())
             {
                 int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
-                if (p.WithinBounds(Main.maxProjectiles)) {
+                if (p.WithinBounds(Main.maxProjectiles))
+                {
                     Main.projectile[p].Calamity().stealthStrike = true;
                     p.ToProj().penetrate = 9 + player.Entropy().WeaponBoost * 4;
                 }
-                    
+
                 return false;
             }
             return true;

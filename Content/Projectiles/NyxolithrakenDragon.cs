@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
@@ -6,10 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -161,7 +158,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
-            if(CrackCd <= 0)
+            if (CrackCd <= 0)
             {
                 Projectile.ai[2] = 28;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center - Projectile.velocity.SafeNormalize(Vector2.UnitX) * 300, Projectile.velocity.SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<NxCrack>(), Projectile.damage / 2, 0, Projectile.owner);
@@ -169,9 +166,9 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            foreach(WyrmSeg seg in segs)
+            foreach (WyrmSeg seg in segs)
             {
-                if(seg.Center.getRectCentered(36, 36).Intersects(targetHitbox))
+                if (seg.Center.getRectCentered(36, 36).Intersects(targetHitbox))
                 {
                     return true;
                 }

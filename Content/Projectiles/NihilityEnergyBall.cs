@@ -1,17 +1,12 @@
-﻿using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -86,7 +81,7 @@ namespace CalamityEntropy.Content.Projectiles
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
             }
-            if(Projectile.timeLeft < 33)
+            if (Projectile.timeLeft < 33)
             {
                 if (odp.Count > 0)
                 {
@@ -147,7 +142,8 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 a = 1;
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                if (ve.Count >= 3)                 {
+                if (ve.Count >= 3)
+                {
                     Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Mail;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -9,7 +7,7 @@ namespace CalamityEntropy.Content.Particles
 {
     public class EXPLOSION : EParticle
     {
-        
+
         public override void onSpawn()
         {
             this.timeLeft = 96;

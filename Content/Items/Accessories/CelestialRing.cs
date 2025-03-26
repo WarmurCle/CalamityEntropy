@@ -1,4 +1,4 @@
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
@@ -10,18 +10,19 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-	public class CelestialRing : ModItem
-	{
+    public class CelestialRing : ModItem
+    {
 
-		public override void SetDefaults() {
-			Item.width = 26;
+        public override void SetDefaults()
+        {
+            Item.width = 26;
             Item.defense = 12;
-			Item.height = 26;
+            Item.height = 26;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.accessory = true;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -29,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.GetKnockback(DamageClass.Summon) += 0.75f;
             player.GetCritChance(DamageClass.Generic) += 5;
             player.pickSpeed *= 1.2f;
-	    player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
             player.Entropy().CRing = true;
             player.Entropy().lifeRegenPerSec += 4;
             player.maxMinions += 2;

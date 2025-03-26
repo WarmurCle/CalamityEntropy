@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -35,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             Projectile.alpha = 255;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 3;
-            
+
         }
         public bool lastPlayerCasketState = false;
         public int spawnAnm = 0;
@@ -56,11 +55,11 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 this.circleRot = circleRot;
                 this.hideTime = hideTime;
             }
-            
+
         }
         public override void OnSpawn(IEntitySource source)
         {
-            for(int i = 0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 swords[i] = true;
             }
@@ -76,7 +75,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             }
             var modPlayer = player.Entropy();
             Projectile.Center = player.Center + player.gfxOffY * Vector2.UnitY;
-            if(player.HeldItem.type == ModContent.ItemType<HorizonssKey>())
+            if (player.HeldItem.type == ModContent.ItemType<HorizonssKey>())
             {
                 Projectile.timeLeft = 3;
             }
@@ -85,12 +84,12 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 int count = 0;
                 foreach (Projectile p in Main.projectile)
                 {
-                    if(p.active && p.ModProjectile is SamsaraSword && p.owner == Projectile.owner)
+                    if (p.active && p.ModProjectile is SamsaraSword && p.owner == Projectile.owner)
                     {
                         count++;
                     }
                 }
-                if(count > 0)
+                if (count > 0)
                 {
                     Projectile.timeLeft = 3;
                 }
@@ -136,7 +135,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                     }
                     if (later.Count > 0)
                     {
-                        for(int i = later.Count - 1; i >= 0; i--)
+                        for (int i = later.Count - 1; i >= 0; i--)
                         {
                             if (later[i].hideTime-- <= 0)
                             {
@@ -157,7 +156,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                         }
                         int spawnIndex = 0;
                         int timeMul = 0;
-                        if(level >= 6)
+                        if (level >= 6)
                         {
                             timeMul = 1;
                         }
@@ -216,12 +215,14 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public List<SpawnLater> later = new List<SpawnLater>();
         public void spawnSword(int type, int index, float rot, float circleRot, int hideTime = 0)
         {
-            if (Projectile.owner.ToPlayer().HeldItem.ModItem is HorizonssKey && Main.myPlayer == Projectile.owner) {
-                if(hideTime > 0)
+            if (Projectile.owner.ToPlayer().HeldItem.ModItem is HorizonssKey && Main.myPlayer == Projectile.owner)
+            {
+                if (hideTime > 0)
                 {
                     later.Add(new SpawnLater(type, index, rot, circleRot, hideTime));
                 }
-                else {
+                else
+                {
                     Projectile p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner).ToProj();
                     p.Entropy().ttindex = Projectile.Entropy().ttindex;
                     SamsaraSword ss = ((SamsaraSword)p.ModProjectile);
@@ -236,11 +237,11 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p.whoAmI);
-                         
+
                     }
                 }
 
-            } 
+            }
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -266,18 +267,20 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 maxDrawSwords = modPlayer.sCasketLevel + 1;
             }
             Vector2 pos = Projectile.Center - new Vector2(0, 20);
-            if (spawnAnm > 0) {
-                
-                if(spawnAnm == 1) {
+            if (spawnAnm > 0)
+            {
+
+                if (spawnAnm == 1)
+                {
                     tex = "2";
                     maxDrawSwords = 2;
                 }
-                if(spawnAnm == 2)
+                if (spawnAnm == 2)
                 {
                     tex = "4";
                     maxDrawSwords = 4;
                 }
-                if(spawnAnm == 3)
+                if (spawnAnm == 3)
                 {
                     tex = "6";
                     maxDrawSwords = 6;
@@ -285,7 +288,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 Texture2D back_ = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/SamsaraCasket/a" + tex).Value;
                 Texture2D front_ = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/SamsaraCasket/c" + tex).Value;
                 Texture2D middleTex_;
-                
+
                 Main.spriteBatch.Draw(back_, pos - Main.screenPosition, null, lightColor, player.fullRotation, back_.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
                 for (int i = 0; i < 6; i++)
                 {
@@ -314,7 +317,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             Texture2D back = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/SamsaraCasket/a" + tex).Value;
             Texture2D front = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/SamsaraCasket/c" + tex).Value;
             Texture2D middleTex;
-            
+
             Main.spriteBatch.Draw(back, pos - Main.screenPosition, null, lightColor, player.fullRotation, back.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             for (int i = 0; i < 6; i++)
             {

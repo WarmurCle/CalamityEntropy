@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items
 
         public override void SetDefaults()
         {
-            
+
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTurn = true;
             Item.useAnimation = 15;
@@ -32,9 +32,9 @@ namespace CalamityEntropy.Content.Items
             Mod mbMod;
             if (ModLoader.TryGetMod("MoreBoulders", out mbMod))
             {
-                Item.shoot = ModContent.ProjectileType <AuricBoulderProjFriendly>();
+                Item.shoot = ModContent.ProjectileType<AuricBoulderProjFriendly>();
                 Item.shootSpeed = 14;
-                
+
                 Item.damage = 1800;
                 Item.ammo = 540;
                 Item.crit = 6;

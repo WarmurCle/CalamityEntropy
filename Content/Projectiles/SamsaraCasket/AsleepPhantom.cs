@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -31,7 +30,8 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             Projectile.localNPCHitCooldown = 12;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.rotation = Projectile.velocity.ToRotation();
             Util.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 5);
         }
@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public override bool PreDraw(ref Color lightColor)
         {
             float alpha = 1;
-            if(Projectile.timeLeft < 10)
+            if (Projectile.timeLeft < 10)
             {
                 alpha = (float)Projectile.timeLeft / 20;
             }

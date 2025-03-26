@@ -1,22 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Intrinsics.Arm;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.DimDungeon;
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
-using CalamityEntropy.Util;
-using CalamityMod.Items.Potions;
-using CalamityMod.NPCs.TownNPCs;
-using CalamityMod.Particles;
+﻿using CalamityEntropy.Util;
 using CalamityMod.World;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
@@ -126,7 +114,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -3f * 1.24f, 0.3f));
                 leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -2.8f * 1.24f, 0.2f));
                 leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -2.6f * 1.24f, 0.1f));
-                
+
                 rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 3.14f * 1.24f, 0.4f));
                 rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 3f * 1.24f, 0.3f));
                 rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 2.8f * 1.24f, 0.2f));
@@ -203,13 +191,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public void DrawTail()
         {
-            if(tail.Count < 3)
+            if (tail.Count < 3)
             {
                 return;
             }
             List<Vertex> ve = new List<Vertex>();
             Color b = Color.White;
-            
+
             for (int i = 0; i < tail.Count - 3; i++)
             {
                 ve.Add(new Vertex(tail[i].position - Main.screenPosition + (tail[i + 1].position - tail[i].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 19,

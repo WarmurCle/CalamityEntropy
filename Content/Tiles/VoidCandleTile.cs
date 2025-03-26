@@ -1,8 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityMod;
-using CalamityMod.Buffs.Placeables;
-using CalamityMod.Items.Placeables.Furniture;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

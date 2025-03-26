@@ -1,7 +1,4 @@
 ﻿using CalamityEntropy.Content.Tiles;
-using CalamityEntropy.Util;
-using CalamityMod.CalPlayer;
-using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

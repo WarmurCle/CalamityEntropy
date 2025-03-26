@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Items.Books;
-using CalamityMod;
-using CalamityMod.Buffs.StatBuffs;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -47,11 +45,11 @@ namespace CalamityEntropy.Content.Projectiles
                 Util.Util.PlaySound("bne_hit2", 1, Projectile.Center, 1, 0.36f);
                 Projectile.rotation = Util.Util.randomRot();
             }
-            if(op < 1)
+            if (op < 1)
             {
                 op += 0.1f;
             }
-            if(white > 0)
+            if (white > 0)
             {
                 white -= 0.025f;
             }

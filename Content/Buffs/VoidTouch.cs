@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Buffs
             BuffID.Sets.LongerExpertDebuff[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            
+
         }
 
 

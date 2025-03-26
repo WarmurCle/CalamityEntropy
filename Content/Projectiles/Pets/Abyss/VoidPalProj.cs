@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,8 +35,9 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
         public Vector2 tailP = Vector2.Zero;
         public override bool PreDraw(ref Color lightColor)
         {
-            
-            if (Main.gameMenu) {
+
+            if (Main.gameMenu)
+            {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Abyss/AbyssPet").Value;
                 Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
@@ -53,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
             Main.EntitySpriteDraw(tail, tailP - Main.screenPosition, null, lightColor, (bodyP - tailP).ToRotation(), new Vector2(body.Width, body.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
 
 
-            
+
 
             return false;
 
@@ -111,9 +112,9 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
                 Projectile.direction = -1;
             }
         }
-            
-            
-        
+
+
+
         public override bool PreAI()
         {
             Player player = Main.player[Projectile.owner];
@@ -124,7 +125,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
 
         public override void AI()
         {
-            
+
             Player player = Main.player[Projectile.owner];
             MoveToTarget(player.Center + new Vector2(0, 0));
             if (!player.dead && player.HasBuff(ModContent.BuffType<VoidPal>()))

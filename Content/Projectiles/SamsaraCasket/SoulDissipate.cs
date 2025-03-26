@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public override void attackAI(NPC t)
         {
             setDamage(2);
-            if(counter % 10 == 0)
+            if (counter % 10 == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
                 alpha = 1;
@@ -29,13 +29,13 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 alpha -= 1f / 3f;
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            
+
             counter++;
 
         }
         public override void backing()
         {
-            if(alpha < 1)
+            if (alpha < 1)
             {
                 alpha += 1f / 26f;
             }

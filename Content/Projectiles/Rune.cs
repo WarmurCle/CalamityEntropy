@@ -1,6 +1,6 @@
-using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -26,7 +26,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 0;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.velocity *= 0.8f;
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 60)

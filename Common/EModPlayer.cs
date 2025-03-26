@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization.Formatters;
-using System.Security.Cryptography.X509Certificates;
-using CalamityEntropy.Content.BeesGame;
+﻿using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.DimDungeon;
@@ -14,30 +9,28 @@ using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
-using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using SubworldLibrary;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.Net;
 
 namespace CalamityEntropy.Common
 {
@@ -119,10 +112,14 @@ namespace CalamityEntropy.Common
         public float VoidCharge
         {
             get { return voidcharge; }
-            set {
-                if (value < voidcharge) {
+            set
+            {
+                if (value < voidcharge)
+                {
                     voidcharge = value;
-                } else if (vfcd <= 0) {
+                }
+                else if (vfcd <= 0)
+                {
                     voidcharge = value; vfcd = 8;
                 }
             }
@@ -338,16 +335,16 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public override void PreUpdate()
         {
-            if(Player.HeldItem.ModItem is EntropyBook eb)
+            if (Player.HeldItem.ModItem is EntropyBook eb)
             {
                 eb.CheckSpawn(Player);
             }
             temporaryArmor *= 0.994f;
-            if(temporaryArmor > 0)
+            if (temporaryArmor > 0)
             {
-                temporaryArmor-=0.002f;
+                temporaryArmor -= 0.002f;
             }
-            if(temporaryArmor < 0)
+            if (temporaryArmor < 0)
             {
                 temporaryArmor = 0;
             }
@@ -355,7 +352,7 @@ namespace CalamityEntropy.Common
             if (syncHoldingPoop)
             {
                 syncHoldingPoop = false;
-                if(Main.netMode == NetmodeID.MultiplayerClient)
+                if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     ModPacket packet = Mod.GetPacket();
                     packet.Write((byte)CalamityEntropy.NetPackages.PoopSync);
@@ -416,13 +413,13 @@ namespace CalamityEntropy.Common
             {
                 rbDotDist += (-rbDotDist) * 0.06f;
             }
-            if(BlackFlameCd > 0)
+            if (BlackFlameCd > 0)
             {
                 BlackFlameCd--;
-            }   
+            }
             if (TarnishCard && Main.myPlayer == Player.whoAmI)
             {
-                if(Player.channel)
+                if (Player.channel)
                 {
                     if (BlackFlameCd < 1)
                     {
@@ -431,7 +428,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if(voidshadeBoostTime > 0)
+            if (voidshadeBoostTime > 0)
             {
                 voidshadeBoostTime--;
             }
@@ -443,9 +440,10 @@ namespace CalamityEntropy.Common
             {
                 mantleCd--;
             }
-            if(!HolyShield && holyMantle)
+            if (!HolyShield && holyMantle)
             {
-                if(mantleCd <= 0) {
+                if (mantleCd <= 0)
+                {
                     mantleCd = HolyMantle.Cooldown;
                     HolyShield = true;
                 }
@@ -457,10 +455,10 @@ namespace CalamityEntropy.Common
                 Player.immuneTime = immune;
                 immune--;
             }
-            if(SacredJudgeShields < 2)
+            if (SacredJudgeShields < 2)
             {
                 sJudgeCd -= 1;
-                if(sJudgeCd <= 0)
+                if (sJudgeCd <= 0)
                 {
                     sJudgeCd = 30 * 60;
                     SacredJudgeShields += 1;
@@ -471,7 +469,7 @@ namespace CalamityEntropy.Common
             bool sm = Player.HasBuff(ModContent.BuffType<SoyMilkBuff>());
             if (hasSM && !sm)
             {
-                foreach(Projectile p in Main.projectile)
+                foreach (Projectile p in Main.projectile)
                 {
                     if (p.active && p.owner == Player.whoAmI)
                     {
@@ -484,7 +482,7 @@ namespace CalamityEntropy.Common
             {
                 crSky--;
             }
-            if(NihSky > 0)
+            if (NihSky > 0)
             {
                 NihSky--;
             }
@@ -492,7 +490,7 @@ namespace CalamityEntropy.Common
             {
                 llSky--;
             }
-            if(VFLeg && !Player.controlLeft && !Player.controlRight)
+            if (VFLeg && !Player.controlLeft && !Player.controlRight)
             {
                 Player.velocity.X *= 0.96f;
             }
@@ -533,7 +531,7 @@ namespace CalamityEntropy.Common
             }
             if (CRing)
             {
-		        Player.runAcceleration *= 1.05f;
+                Player.runAcceleration *= 1.05f;
                 Player.maxRunSpeed *= 1.05f;
             }
             Player.runAcceleration *= 1f + 0.14f * VoidCharge;
@@ -543,7 +541,7 @@ namespace CalamityEntropy.Common
             if (CalamityEntropy.EntropyMode)
             {
                 Player.maxRunSpeed *= 0.96f;
-                if(HitTCounter > 0)
+                if (HitTCounter > 0)
                 {
                     Player.maxRunSpeed *= 0.96f;
                 }
@@ -558,11 +556,11 @@ namespace CalamityEntropy.Common
             {
                 Player.gravity = 0;
             }
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.ModProjectile is JewelSapphire)
+                if (p.ModProjectile is JewelSapphire)
                 {
-                    if(p.Distance(Player.Center) <= 130)
+                    if (p.Distance(Player.Center) <= 130)
                     {
                         Player.lifeRegen += 16;
                         Player.endurance += 0.1f;
@@ -623,7 +621,7 @@ namespace CalamityEntropy.Common
                 }
             }
             Player.statDefense += (int)temporaryArmor;
-            HitTCounter--; 
+            HitTCounter--;
         }
         public int manaNorm = 0;
         public int deusCoreAdd = 0;
@@ -646,7 +644,7 @@ namespace CalamityEntropy.Common
                 deusCoreBloodOut -= deusCoreAdd;
                 return true;
             }
-            if(dodgeChance > Main.rand.NextDouble())
+            if (dodgeChance > Main.rand.NextDouble())
             {
                 deusCoreBloodOut -= deusCoreAdd;
                 return true;
@@ -660,20 +658,20 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
-            if(Main.rand.NextDouble() < dodgeChance)
+            if (Main.rand.NextDouble() < dodgeChance)
             {
                 deusCoreBloodOut -= deusCoreAdd;
                 immune = 60;
                 return true;
             }
-            if(info.Damage > Player.statLifeMax2 / 20 && MariviniumShieldCount > 0)
+            if (info.Damage > Player.statLifeMax2 / 20 && MariviniumShieldCount > 0)
             {
                 immune = 90;
                 MariviniumShieldCount--;
                 Player.Heal(140);
                 Util.Util.PlaySound("crystalShieldBreak", 1, Player.Center, 1, 0.7f);
                 Player.AddBuff(ModContent.BuffType<AbyssalWrath>(), 300);
-                for(int i = 0; i < 42; i++)
+                for (int i = 0; i < 42; i++)
                 {
                     Dust.NewDust(Player.Center, 1, 1, DustID.BlueCrystalShard, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6), Scale: 2);
                 }
@@ -683,7 +681,7 @@ namespace CalamityEntropy.Common
             {
                 immune = 120;
                 HolyShield = false;
-                
+
                 Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
                 if (holyMantle)
                 {
@@ -747,7 +745,7 @@ namespace CalamityEntropy.Common
                     {
                         if (w.shield > 0)
                         {
-                            if(w.shield > info.Damage)
+                            if (w.shield > info.Damage)
                             {
                                 w.shield -= info.Damage;
                                 info.Damage = 0;
@@ -765,14 +763,14 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if(!setToOne && SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0 && SacredJudgeShields < 2)
+            if (!setToOne && SacredJudgeShields > 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0 && SacredJudgeShields < 2)
             {
                 SacredJudgeShields--;
                 info.Damage -= 80;
                 Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
                 immune = 120;
             }
-            
+
             if (!setToOne && MagiShield > 0)
             {
                 if (MagiShield >= info.Damage)
@@ -789,7 +787,7 @@ namespace CalamityEntropy.Common
                 }
                 if (MagiShield == 0)
                 {
-                    for(int i = 0; i < Player.buffType.Length; i++)
+                    for (int i = 0; i < Player.buffType.Length; i++)
                     {
                         if (Player.buffTime[i] > 0 && Main.debuff[Player.buffType[i]])
                         {
@@ -830,21 +828,21 @@ namespace CalamityEntropy.Common
         public int noItemTime = 0;
         public bool syncHoldingPoop = false;
         public int damageRecord = 0;
-        
+
 
         public bool VSoundsPlayed = false;
         public override void PostUpdate()
         {
-            if(CalamityEntropy.EntropyMode && HitTCounter > 0)
+            if (CalamityEntropy.EntropyMode && HitTCounter > 0)
             {
                 Player.AddBuff(ModContent.BuffType<NoHeal>(), HitTCounter);
             }
-            if (MariviniumSet) 
+            if (MariviniumSet)
             {
                 if (MariviniumShieldCount < MariviniumHelmet.MaxShield)
                 {
                     MariviniumShieldCd--;
-                    if(MariviniumShieldCd <= 0)
+                    if (MariviniumShieldCd <= 0)
                     {
                         MariviniumShieldCd = MariviniumHelmet.ShieldCd;
                         MariviniumShieldCount++;
@@ -859,11 +857,11 @@ namespace CalamityEntropy.Common
             {
                 MariviniumShieldCount = 0;
                 MariviniumShieldCd = MariviniumHelmet.ShieldCd;
-                
+
             }
             if (bloodTrCD > 0)
                 bloodTrCD--;
-            if(deusCoreBloodOut < 0)
+            if (deusCoreBloodOut < 0)
                 deusCoreBloodOut = 0;
             if (deusCoreBloodOut > 0 && Main.GameUpdateCount % 2 == 0)
             {
@@ -1038,7 +1036,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-        
+
             if (accWispLantern || visualWispLantern)
             {
                 if (Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[ModContent.ProjectileType<WispLanternProj>()] < 1)
@@ -1046,7 +1044,7 @@ namespace CalamityEntropy.Common
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<WispLanternProj>(), 0, 0, Player.whoAmI);
                 }
             }
-            
+
             if (!nihShell)
             {
                 nihShellCount = 0;
@@ -1058,11 +1056,12 @@ namespace CalamityEntropy.Common
             }
             if (noItemTime > 0)
             {
-                noItemTime --;
+                noItemTime--;
             }
             if (brokenAnkh)
             {
-                if (Player.whoAmI == Main.myPlayer) {
+                if (Player.whoAmI == Main.myPlayer)
+                {
                     if (!holdingPoop && CEKeybinds.PoopHoldHotKey is not null && CEKeybinds.PoopHoldHotKey.JustPressed)
                     {
                         if (PoopHold is not null)
@@ -1075,7 +1074,8 @@ namespace CalamityEntropy.Common
                         }
                         else
                         {
-                            if(poops.Count > 0) {
+                            if (poops.Count > 0)
+                            {
                                 PoopsUI.holdAnmj = 0.2f;
                                 PoopHold = poops[0];
                                 poops.RemoveAt(0);
@@ -1117,9 +1117,9 @@ namespace CalamityEntropy.Common
             }
             if (reincarnationBadge)
             {
-                if(!Player.HasBuff<NOU>() && Player.ownedProjectileCounts[ModContent.ProjectileType<RbCircle>()] < 1)
+                if (!Player.HasBuff<NOU>() && Player.ownedProjectileCounts[ModContent.ProjectileType<RbCircle>()] < 1)
                 {
-                    if(Main.myPlayer == Player.whoAmI)
+                    if (Main.myPlayer == Player.whoAmI)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<RbCircle>(), 0, 0, Player.whoAmI);
                     }
@@ -1202,7 +1202,7 @@ namespace CalamityEntropy.Common
                 }
             }
             vfcd--;
-            
+
             if (VoidInspire > 0)
             {
                 Main.LocalPlayer.wingTime = Main.LocalPlayer.wingTimeMax;
@@ -1214,7 +1214,8 @@ namespace CalamityEntropy.Common
             }
             else
             {
-                if (!VSoundsPlayed && voidcharge >= 1) {
+                if (!VSoundsPlayed && voidcharge >= 1)
+                {
                     VSoundsPlayed = true;
                     SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/PhantomHeartUse"));
                 }
@@ -1232,7 +1233,7 @@ namespace CalamityEntropy.Common
                     Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<VoidWraith>(), 2000, 0, Player.whoAmI);
                 }
             }
-            
+
             if (!VFSet)
             {
                 if (VoidCharge > 0)
@@ -1297,7 +1298,7 @@ namespace CalamityEntropy.Common
                 if (Player.Calamity().cooldowns.TryGetValue(MoonlightShield.ID, out var value4))
                 {
                     value4.timeLeft = MagiShieldMax - MagiShield;
-                    
+
                 }
                 else
                 {
@@ -1329,14 +1330,14 @@ namespace CalamityEntropy.Common
                 float auricRejectionKB = Player.noKnockback ? 20f : 40f;
                 if (tile.TileType == ModContent.TileType<AuricBoulderTile>())
                 {
-                                         Player.RemoveAllGrapplingHooks();
+                    Player.RemoveAllGrapplingHooks();
 
 
                     var yeetVec = Vector2.Normalize(Player.Center - touchedTile.ToWorldCoordinates());
                     Player.velocity += yeetVec * auricRejectionKB;
                     Player.Hurt(PlayerDeathReason.ByCustomReason(CalamityUtils.GetText("Status.Death.AuricRejection").Format(Player.name)), 460, 0);
                     Player.AddBuff(BuffID.Electrified, 300);
-                    
+
                     SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Custom/ExoMechs/TeslaShoot1"));
                 }
             }
@@ -1354,7 +1355,8 @@ namespace CalamityEntropy.Common
                 daPoints.Add(Player.Center);
             }
             VaMoving--;
-            if (Player.Entropy().oracleDeck) {
+            if (Player.Entropy().oracleDeck)
+            {
                 if (OracleDeckHealCd <= 0)
                 {
                     OracleDeckHealCd = 300;
@@ -1518,7 +1520,7 @@ namespace CalamityEntropy.Common
         public int MariviniumShieldCount = 0;
         public int MariviniumShieldCd = 12 * 60;
         public bool visualMagiShield = false;
-        
+
         public override void PostUpdateEquips()
         {
             foreach (Projectile p in Main.ActiveProjectiles)
@@ -1536,11 +1538,11 @@ namespace CalamityEntropy.Common
             if (MariviniumSet)
             {
                 int crit = (int)(Player.GetTotalCritChance(DamageClass.Default) + 5E-06f); ;
-                if(Player.HeldItem.type != ItemID.None)
+                if (Player.HeldItem.type != ItemID.None)
                 {
                     crit = Player.GetWeaponCrit(Player.HeldItem);
                 }
-                if(crit > 100)
+                if (crit > 100)
                 {
                     Player.GetDamage(DamageClass.Default) += (crit - 100) * 0.01f;
                 }
@@ -1603,7 +1605,7 @@ namespace CalamityEntropy.Common
             {
                 lifeRegenPerSec = (int)(lifeRegenPerSec * 0.3f);
             }
-            
+
         }
         public override void ModifyScreenPosition()
         {
@@ -1611,7 +1613,7 @@ namespace CalamityEntropy.Common
 
             var shaker = Main.rand;
             Main.screenPosition += new Vector2(shaker.Next((int)-CalamityEntropy.Instance.screenShakeAmp * 8, (int)CalamityEntropy.Instance.screenShakeAmp * 8 + 1), shaker.Next((int)-CalamityEntropy.Instance.screenShakeAmp, (int)CalamityEntropy.Instance.screenShakeAmp + 1));
-        
+
         }
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
@@ -1634,7 +1636,7 @@ namespace CalamityEntropy.Common
         {
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<RuneSongProj>()] > 0)
             {
-                
+
             }
         }
         public override void ModifyMaxStats(out StatModifier health, out StatModifier mana)
@@ -1686,7 +1688,7 @@ namespace CalamityEntropy.Common
                 Player.controlUp = false;
             }
         }
-        
+
         public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         {
             if (Player.Calamity().ZoneAstral)
@@ -1731,7 +1733,7 @@ namespace CalamityEntropy.Common
             var boost = tag.GetList<string>("EntropyBoosts");
             CruiserLoreUsed = boost.Contains("CruiserLore");
             EBookStackItems = new List<Item>();
-            
+
             if (tag.ContainsKey("EntropyBookMarks"))
             {
                 int BookMarks = (int)tag["EntropyBookMarks"];
@@ -1745,7 +1747,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            
+
         }
     }
 }

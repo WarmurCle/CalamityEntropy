@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -13,10 +13,12 @@ namespace CalamityEntropy.Content.Buffs
         }
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<VoidMark>()] > 0){
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<VoidMark>()] > 0)
+            {
                 player.buffTime[buffIndex] = 18000;
             }
-            else{
+            else
+            {
                 player.DelBuff(buffIndex);
                 buffIndex--;
             }

@@ -1,20 +1,8 @@
-
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -48,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 book.ShootSingleProjectile(ModContent.ProjectileType<JewelSapphire>(), book.Projectile.Center, Vector2.Zero);
             }
         }
-        
+
     }
 
     public abstract class RoyalJewel : EBookBaseProjectile
@@ -83,7 +71,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     Projectile.Kill();
                     return;
                 }
-                else{
+                else
+                {
                     Projectile.timeLeft = 4;
                 }
             }
@@ -101,7 +90,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     }
     public class RubyProj : EBookBaseProjectile
     {
-        
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -112,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             base.AI();
             Projectile.rotation += (Projectile.velocity.X > 0 ? 1 : -1) * 0.2f;
-            for(float i = 0; i < 1; i += 0.1f)
+            for (float i = 0; i < 1; i += 0.1f)
             {
                 int ruby = Dust.NewDust(Projectile.position - Projectile.velocity * i, Projectile.width, Projectile.height, DustID.GemRuby, Projectile.velocity.X, Projectile.velocity.Y, 90, new Color(), 1.2f);
                 Dust dust = Main.dust[ruby];
@@ -131,15 +120,15 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.6f;
             Projectile.velocity *= 0.98f;
             Projectile.rotation = Projectile.velocity.X * 0.06f;
-            if(target != null && Main.myPlayer == Projectile.owner)
+            if (target != null && Main.myPlayer == Projectile.owner)
             {
-                if(shootCooldown <= 0)
+                if (shootCooldown <= 0)
                 {
                     shootCooldown = ((EntropyBookHeldProjectile)ShooterModProjectile).GetShootCd() * 3;
                     ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<RubyProj>(), Projectile.Center, (target.Center - Projectile.Center), 0.2f, shotSpeedMul: 0.4f);
                 }
             }
-            if(shootCooldown > 0)
+            if (shootCooldown > 0)
             {
                 shootCooldown--;
             }

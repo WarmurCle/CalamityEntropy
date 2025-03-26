@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -28,7 +26,7 @@ namespace CalamityEntropy.Common
             shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
             shader.Parameters["color"].SetValue(enchantColor.ToVector4());
             shader.Parameters["strength"].SetValue(strength);
-            
+
             shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
             Main.instance.GraphicsDevice.Textures[1] = texture.Value;
             sb.End();
@@ -59,7 +57,7 @@ namespace CalamityEntropy.Common
             shader.Parameters["color"].SetValue(enchantColor.ToVector4());
             shader.Parameters["strength"].SetValue(strength);
             shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
-            
+
             Main.instance.GraphicsDevice.Textures[1] = texture.Value;
             sb.End();
             sb.Begin(0, Main.spriteBatch.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], Main.spriteBatch.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);

@@ -1,14 +1,7 @@
 ﻿using CalamityMod;
-using CalamityMod.Items.Placeables.Banners;
-using CalamityMod.Items.Placeables.Ores;
-using CalamityMod.NPCs;
-using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 
 namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 {

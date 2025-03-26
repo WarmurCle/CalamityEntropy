@@ -1,13 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Content.NPCs.NihilityTwin;
-using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
+﻿using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.AstrumAureus;
 using CalamityMod.NPCs.BrimstoneElemental;
 using CalamityMod.NPCs.Bumblebirb;
@@ -15,9 +7,7 @@ using CalamityMod.NPCs.CalClone;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Crabulon;
 using CalamityMod.NPCs.Cryogen;
-using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.HiveMind;
-using CalamityMod.NPCs.Leviathan;
 using CalamityMod.NPCs.OldDuke;
 using CalamityMod.NPCs.Perforator;
 using CalamityMod.NPCs.Polterghast;
@@ -27,25 +17,19 @@ using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.Signus;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.SupremeCalamitas;
-using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
-using CalamityMod.Particles;
-using CalamityMod.World;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.NPCs
 {
-    public class Delirium : ModNPC {
+    public class Delirium : ModNPC
+    {
         public static List<int> npcTurns = new List<int>()
         {
             NPCID.KingSlime,

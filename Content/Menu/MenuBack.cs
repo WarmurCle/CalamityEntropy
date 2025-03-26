@@ -5,7 +5,7 @@ namespace CalamityEntropy.Content.Menu
 {
     public class MenuBack : ModSurfaceBackgroundStyle
     {
-                 public override void ModifyFarFades(float[] fades, float transitionSpeed)
+        public override void ModifyFarFades(float[] fades, float transitionSpeed)
         {
             for (int i = 0; i < fades.Length; i++)
             {
@@ -47,10 +47,10 @@ namespace CalamityEntropy.Content.Menu
 
         public override bool PreDrawCloseBackground(SpriteBatch spriteBatch)
         {
-            
+
             return false;
         }
 
-        
+
     }
 }

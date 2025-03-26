@@ -1,13 +1,10 @@
-﻿using CalamityEntropy.Content.Tiles;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items.Materials;
-using CalamityEntropy.Util;
-using CalamityMod.CalPlayer;
-using CalamityMod;
+using CalamityMod.Items.Placeables.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityEntropy.Content.Rarities;
-using CalamityMod.Items.Placeables.Furniture.CraftingStations;
 
 namespace CalamityEntropy.Content.Items
 {
@@ -33,7 +30,7 @@ namespace CalamityEntropy.Content.Items
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AltarOfTheAccursedItem>())
                 .AddIngredient(ModContent.ItemType<WyrmTooth>())
-		.AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
+        .AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

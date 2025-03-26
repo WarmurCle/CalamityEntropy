@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class Tail : ModProjectile
     {
-        
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -25,11 +25,12 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.height = 2;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.timeLeft = 3;
             var player = Projectile.owner.ToPlayer();
             Projectile.Center = player.MountedCenter + Vector2.UnitY * player.gfxOffY + new Vector2(-8 * player.direction, 4).RotatedBy(player.fullRotation);
-            if(rope == null)
+            if (rope == null)
             {
                 rope = new Rope(Projectile.Center, 6, 8, new Vector2(0, 0.26f), 0.25f, 26, true);
             }
@@ -40,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
             rope.Start = Projectile.Center - player.velocity / 4 * 1;
             rope.Update();
             rope.Start = Projectile.Center;
-            rope.Update();  
+            rope.Update();
             var points = rope.GetPoints();
             odp.Clear();
             odp.Add(points[0]);
@@ -60,9 +61,10 @@ namespace CalamityEntropy.Content.Projectiles
             Color cl = Color.Lerp(Color.Black, Color.White, Projectile.ai[0] / 30f);
             float c = 0;
 
-            
+
             c = 0;
-            if (odp.Count > 1) {
+            if (odp.Count > 1)
+            {
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -76,7 +78,7 @@ namespace CalamityEntropy.Content.Projectiles
                       b));
                 for (int i = 1; i < odp.Count; i++)
                 {
-                    
+
 
                     c += 1f / odp.Count;
                     ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6,
@@ -85,7 +87,7 @@ namespace CalamityEntropy.Content.Projectiles
                     ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 6,
                           new Vector3((float)(i + 1) / odp.Count, 0, 1),
                           b));
-                        
+
                 }
 
                 SpriteBatch sb = Main.spriteBatch;

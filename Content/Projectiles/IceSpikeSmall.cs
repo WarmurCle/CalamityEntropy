@@ -1,9 +1,9 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class IceSpikeSmall: ModProjectile
+    public class IceSpikeSmall : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -23,7 +23,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 12;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
 
             Projectile.velocity.Y += 0.4f;
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -31,6 +32,6 @@ namespace CalamityEntropy.Content.Projectiles
         }
 
     }
-    
+
 
 }

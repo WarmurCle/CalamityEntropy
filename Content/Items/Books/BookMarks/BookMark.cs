@@ -1,16 +1,6 @@
-
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Util;
-using CalamityMod.Projectiles.Ranged;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -54,13 +44,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             foreach (TooltipLine tooltipLine in tooltips)
             {
-                if(tooltipLine.Name == "ItemName")
+                if (tooltipLine.Name == "ItemName")
                 {
                     continue;
                 }
                 tooltipLine.OverrideColor = tooltipColor;
             }
-            tooltips.Add(new TooltipLine(Mod, "BookMarkTooltip", Mod.GetLocalization("TooltipBookMark").Value) { OverrideColor = Color.Yellow});
+            tooltips.Add(new TooltipLine(Mod, "BookMarkTooltip", Mod.GetLocalization("TooltipBookMark").Value) { OverrideColor = Color.Yellow });
         }
     }
 }

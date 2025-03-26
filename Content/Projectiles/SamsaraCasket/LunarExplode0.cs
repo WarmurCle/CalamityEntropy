@@ -1,5 +1,4 @@
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -30,9 +29,11 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         }
         int framecounter = 4;
         int frame = 0;
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.ArmorPenetration = HorizonssKey.getArmorPen();
-            if (frame == 0 && framecounter == 4) {
+            if (frame == 0 && framecounter == 4)
+            {
                 SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
             }
             framecounter--;
@@ -40,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 frame++;
                 framecounter = 4;
-                if(frame > 6)
+                if (frame > 6)
                 {
                     Projectile.Kill();
                 }

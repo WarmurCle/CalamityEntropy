@@ -1,7 +1,5 @@
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
-using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

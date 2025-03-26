@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Net.Mail;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
 {
@@ -16,7 +14,7 @@ namespace CalamityEntropy.Content.Particles
         public float j = 0;
         public Color _startColor;
         public Color _endColor;
-        public PixelParticle(Vector2 start, Vector2 mid , Vector2 end, float lifeTime, Color startColor, Color endColor)
+        public PixelParticle(Vector2 start, Vector2 mid, Vector2 end, float lifeTime, Color startColor, Color endColor)
         {
             startPos = start;
             midPos = mid;
@@ -31,7 +29,7 @@ namespace CalamityEntropy.Content.Particles
             foreach (var p in particles)
             {
                 p.lifePercent += p.j;
-                if(p.lifePercent > 1)
+                if (p.lifePercent > 1)
                 {
                     p.lifePercent = 1;
                 }
@@ -57,7 +55,7 @@ namespace CalamityEntropy.Content.Particles
 
         public static void drawAll()
         {
-            foreach(var p in particles)
+            foreach (var p in particles)
             {
                 p.Draw();
             }

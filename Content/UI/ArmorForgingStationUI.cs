@@ -50,14 +50,14 @@ namespace CalamityEntropy.Content.UI
             reforgeButton.SetVisibility(1, 1);
 
             reforgeButton.SetHoverImage(ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/reforge2"));
-             
+
             panel.Append(reforgeButton);
 
             item = new Terraria.Item[1];
             item[0] = new Item();
             item[0].TurnToAir();
             UIItemSlot itemSlot = new UIItemSlot(item, 0, 0);
-            
+
             itemSlot.Left.Set(30, 0f);
             itemSlot.Top.Set(12, 0f);
             panel.Append(itemSlot);
@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.UI
                 return;
 
             }
-            if(!Main.LocalPlayer.BuyItem(item[0].value / 6))
+            if (!Main.LocalPlayer.BuyItem(item[0].value / 6))
             {
                 return;
             }
@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.UI
                 CombatText.NewText(Main.LocalPlayer.getRect(), Color.Blue, item[0].Name);
                 return;
             }
-            
+
             ArmorPrefix armorPrefix = ArmorPrefix.RollPrefixToItem(item[0]);
             if (armorPrefix != null)
             {

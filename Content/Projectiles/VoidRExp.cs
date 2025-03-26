@@ -1,11 +1,11 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class VoidRExp : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -28,10 +28,11 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.scale = 1f;
             Projectile.timeLeft = 90;
-            
+
         }
 
-        public override void AI(){
+        public override void AI()
+        {
 
         }
 

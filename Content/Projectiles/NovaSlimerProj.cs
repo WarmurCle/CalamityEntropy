@@ -1,18 +1,7 @@
-using CalamityEntropy.Content.DimDungeon;
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Particles;
-using Humanizer;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -71,7 +60,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (ModLoader.HasMod("CatalystMod")) {
+            if (ModLoader.HasMod("CatalystMod"))
+            {
                 Texture2D tex = ModContent.Request<Texture2D>("CatalystMod/NPCs/Boss/Astrageldon/NovaSlimer").Value;
                 Texture2D texGlow = ModContent.Request<Texture2D>("CatalystMod/NPCs/Boss/Astrageldon/NovaSlimer_Glow").Value;
                 Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
@@ -84,6 +74,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Util;
 using CalamityMod;
@@ -9,17 +9,18 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories.Cards
 {
-	public class OracleDeck : ModItem
-	{
+    public class OracleDeck : ModItem
+    {
 
-		public override void SetDefaults() {
-			Item.width = 22;
-			Item.height = 22;
+        public override void SetDefaults()
+        {
+            Item.width = 22;
+            Item.height = 22;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ItemRarityID.Red;
             Item.accessory = true;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

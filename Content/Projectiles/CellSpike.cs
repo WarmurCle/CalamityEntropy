@@ -1,13 +1,8 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Dusts;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Content.Buffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -32,7 +27,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            if(trailAlpha < 1)
+            if (trailAlpha < 1)
             {
                 trailAlpha += 0.05f;
             }
@@ -68,6 +63,6 @@ namespace CalamityEntropy.Content.Projectiles
             target.AddBuff(ModContent.BuffType<VoidVirus>(), 160);
         }
     }
-    
+
 
 }

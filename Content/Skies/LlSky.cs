@@ -1,8 +1,8 @@
 ﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Runtime.InteropServices;
 using System;
+using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Graphics.Effects;
 
@@ -16,8 +16,8 @@ namespace CalamityEntropy.Content.Skies
         static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern int GetWindowLong(IntPtr hWnd, int nIndex); 
-        
+        static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
         [DllImport("user32.dll")]
         static extern bool SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, uint dwFlags);
 

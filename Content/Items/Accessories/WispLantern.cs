@@ -1,37 +1,33 @@
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-	public class WispLantern : ModItem
-	{
+    public class WispLantern : ModItem
+    {
 
-		public override void SetDefaults() {
-			Item.width = 40;
-			Item.height = 54;
+        public override void SetDefaults()
+        {
+            Item.width = 40;
+            Item.height = 54;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().visualWispLantern = !hideVisual;
             player.Entropy().accWispLantern = true;
-            
+
         }
         public override void UpdateVanity(Player player)
         {
-            player.Entropy().visualWispLantern = true; 
+            player.Entropy().visualWispLantern = true;
         }
         public override void AddRecipes()
         {

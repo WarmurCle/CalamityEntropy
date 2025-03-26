@@ -1,10 +1,9 @@
-using System.Collections.Generic;
-using CalamityMod;
-using CalamityMod.Buffs.StatBuffs;
+﻿using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -38,7 +37,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 110;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.ai[0]++;
             if (htd)
             {
@@ -64,13 +64,14 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 exps++;
                 framejc++;
-                if (framejc > 2) {
+                if (framejc > 2)
+                {
                     framejc = 0;
                     frame++;
                     if (frame > 5)
                     {
                         frame = 5;
-                     
+
                     }
                     if (frame < 1)
                     {

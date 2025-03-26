@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Tiles
         {
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
-            
+
             player.cursorItemIconEnabled = true;
             player.cursorItemIconID = ModContent.ItemType<ArmorReforgStation>();
         }
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Tiles
             if (ArmorForgingStationUI.Visible)
             {
                 Main.playerInventory = false;
-                
+
             }
             else
             {

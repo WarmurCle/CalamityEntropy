@@ -39,11 +39,12 @@ namespace CalamityEntropy.Common
         public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             Tile tile = Main.tile[i, j];
-            if(!fail)
+            if (!fail)
             {
-                if(tile.TileType == TileID.CorruptThorns || tile.TileType == TileID.CrimsonThorns)
+                if (tile.TileType == TileID.CorruptThorns || tile.TileType == TileID.CrimsonThorns)
                 {
-                    if (Main.rand.NextBool(200)) {
+                    if (Main.rand.NextBool(200))
+                    {
                         Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ModContent.ItemType<VenomPiece>());
                     }
                 }

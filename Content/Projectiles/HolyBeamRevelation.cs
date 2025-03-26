@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            
+
             if (playSound)
             {
                 playSound = false;
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
         }
         public bool playSound = true;
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 1600, targetHitbox, 64);
@@ -68,11 +68,11 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             float alpha = 1;
-            if(Projectile.timeLeft > 74)
+            if (Projectile.timeLeft > 74)
             {
                 alpha = (float)(80 - Projectile.timeLeft) / 6f;
             }
-            if(Projectile.timeLeft < 20)
+            if (Projectile.timeLeft < 20)
             {
                 alpha = (float)Projectile.timeLeft / 20f;
             }

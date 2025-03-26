@@ -1,14 +1,6 @@
-﻿using System.IO;
-using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Dusts;
-using CalamityMod.Events;
-using CalamityMod.NPCs;
-using CalamityMod.NPCs.CalClone;
-using CalamityMod.NPCs.SupremeCalamitas;
-using CalamityMod.Particles;
-using CalamityMod.World;
+﻿using CalamityMod;
 using Microsoft.Xna.Framework;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

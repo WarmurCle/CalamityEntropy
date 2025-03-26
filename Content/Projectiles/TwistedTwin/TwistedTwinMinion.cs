@@ -1,8 +1,8 @@
-using System;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Projectiles.TwistedTwin
             base.SetStaticDefaults();
         }
         public override void SetDefaults()
-        {   
+        {
             Projectile.DamageType = DamageClass.Summon;
             Projectile.width = 42;
             Projectile.height = 42;
@@ -41,9 +41,11 @@ namespace CalamityEntropy.Content.Projectiles.TwistedTwin
             return false;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             Player player = Main.player[Projectile.owner];
-            if (player.HasBuff(ModContent.BuffType<TwistedTwinBuff>())){
+            if (player.HasBuff(ModContent.BuffType<TwistedTwinBuff>()))
+            {
                 Projectile.timeLeft = 3;
             }
             int index = -1;
@@ -66,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles.TwistedTwin
             {
                 rot = (Main.MouseWorld - Main.myPlayer.ToPlayer().Center).ToRotation();
                 Projectile.ai[2] = rot;
-                
+
             }
             else
             {
@@ -84,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles.TwistedTwin
             }
             Projectile.netUpdate = true;
             Projectile.Center = Projectile.Center + (targetPos - Projectile.Center) * 0.24f;
-                                                   Projectile.ai[0]--;
+            Projectile.ai[0]--;
             if (Projectile.owner.ToPlayer().channel)
             {
                 Projectile.ai[0] = 6;

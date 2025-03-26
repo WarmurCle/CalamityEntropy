@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -38,13 +38,13 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 0)
             {
                 laserScale = Projectile.ai[1];
-                
+
             }
-            
+
             if (Projectile.timeLeft < 30)
             {
                 Projectile.scale -= 1f / 30f;
-                
+
             }
             if (Projectile.scale < 0f)
             {
@@ -52,13 +52,13 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.Center = ((int)Projectile.ai[2]).ToProj().Center + Projectile.rotation.ToRotationVector2() * 16;
-            
+
             target = null;
             velP *= 0.9f;
             if (((int)Projectile.ai[2]).ToProj().type == ModContent.ProjectileType<LilBrimstone>())
             {
                 Projectile opj = ((int)Projectile.ai[2]).ToProj();
-                
+
                 if (Projectile.owner.ToPlayer().HasMinionAttackTargetNPC)
                 {
                     target = Main.npc[Projectile.owner.ToPlayer().MinionAttackTargetNPC];
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         target = Main.npc[t];
                     }
-                }   
+                }
                 if (target != null)
                 {
                     Vector2 lasstVel = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).SafeNormalize(Vector2.Zero);
@@ -85,7 +85,8 @@ namespace CalamityEntropy.Content.Projectiles
 
                     Projectile.velocity = nowVel;
                     float rot = Projectile.velocity.ToRotation();
-                    velP = nowVel.RotatedBy(-MathHelper.PiOver2) * ra * 34;                 }
+                    velP = nowVel.RotatedBy(-MathHelper.PiOver2) * ra * 34;
+                }
             }
             if (((int)Projectile.ai[2]).ToProj().type == ModContent.ProjectileType<HelhieimBlaster>())
             {
@@ -95,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 Projectile.velocity = nowVel;
                 float rot = Projectile.velocity.ToRotation();
-                velP = nowVel.RotatedBy(-MathHelper.PiOver2) * Util.Util.getRotateAngle(lasstVel.ToRotation(), nowVel.ToRotation(), 1, false) * 54; 
+                velP = nowVel.RotatedBy(-MathHelper.PiOver2) * Util.Util.getRotateAngle(lasstVel.ToRotation(), nowVel.ToRotation(), 1, false) * 54;
             }
             /*if (ssd)
             {
@@ -128,14 +129,15 @@ namespace CalamityEntropy.Content.Projectiles
                 points[i] += speed * prs[i].ToRotationVector2();
             }*/
             points.Clear();
-            for(int i = 0; i < 100; i++)
+            for (int i = 0; i < 100; i++)
             {
                 points.Add(Projectile.Center + new Vector2(i * 20, 0).RotatedBy(Projectile.velocity.ToRotation()) + velP * i * i * 0.08f);
             }
         }
         public override bool ShouldUpdatePosition()
         {
-            return true;         }
+            return true;
+        }
         public float counter = 0;
         public List<Vector2> points = new List<Vector2>();
         public List<float> prs = new List<float>();
@@ -178,7 +180,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return false;
             }
-            
+
             Texture2D tx1 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/brimstone/brimstone1").Value;
             Texture2D tx1b = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/brimstone/brimstone1b").Value;
             Texture2D tx2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/brimstone/brimstone2").Value;
@@ -188,7 +190,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tx4 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/brimstone/brimstone4").Value;
             Texture2D tx4b = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/brimstone/brimstone4b").Value;
             List<Texture2D> txl = new List<Texture2D>();
-            
+
             txl.Add(tx4b);
             txl.Add(tx4);
             txl.Add(tx3b);
@@ -200,7 +202,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             Texture2D start = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/brimstone/start").Value;
 
-            
+
 
             List<Vector2> point = new List<Vector2>();
             dLength = 0;
@@ -218,15 +220,15 @@ namespace CalamityEntropy.Content.Projectiles
                     break;
                 }
             }
-            
-            
+
+
             if (point.Count > 2)
             {
                 Main.spriteBatch.Draw(start, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 5, null, Color.Red, Projectile.rotation, start.Size() / 2, new Vector2(2, Projectile.scale * 2 * laserScale), SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(lend, point[point.Count - 2] - Main.screenPosition + (point[point.Count - 1] - point[point.Count - 2]).ToRotation().ToRotationVector2() * -42, Util.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.Red, (point[point.Count - 1] - point[point.Count - 2]).ToRotation() + (float)Math.PI / 2f, new Vector2(64, 104) / 2, new Vector2(Projectile.scale * 2 * (float)(Math.Max(1, laserScale)), 2 * (float)(Math.Max(1, laserScale))), SpriteEffects.None, 0);
 
                 Util.Util.drawLaser(Main.spriteBatch, txl, point, (int)(64f / (float)(Math.Max(1, laserScale))), Color.Red, (int)(128 * Projectile.scale * laserScale), (int)(counter / 3f), Projectile.rotation);
-                
+
             }
             else
             {
@@ -238,6 +240,6 @@ namespace CalamityEntropy.Content.Projectiles
 
 
     }
-    
+
 
 }

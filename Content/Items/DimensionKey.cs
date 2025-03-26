@@ -1,4 +1,4 @@
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
@@ -9,28 +9,28 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items
-{	
-	public class DimensionKey : ModItem
-	{
-       public override void SetStaticDefaults()
-	   {
-			ItemID.Sets.ItemNoGravity[Item.type] = true;
-	   }
-		
-		public override void SetDefaults()
-		{
-			
-			Item.width = 64;
-			Item.height = 64;
-			Item.useTime = 36;
-			Item.useAnimation = 36;
-			Item.useStyle = ItemUseStyleID.RaiseLamp;
-			Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
+{
+    public class DimensionKey : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+        }
+
+        public override void SetDefaults()
+        {
+
+            Item.width = 64;
+            Item.height = 64;
+            Item.useTime = 36;
+            Item.useAnimation = 36;
+            Item.useStyle = ItemUseStyleID.RaiseLamp;
+            Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
             SoundStyle s = new("CalamityEntropy/Assets/Sounds/vmspawn");
             s.Volume = 0.6f;
             s.Pitch = 1f;
-			Item.UseSound = s;
-			Item.noMelee = true;
+            Item.UseSound = s;
+            Item.noMelee = true;
             Item.rare = ModContent.RarityType<DarkBlue>();
             Item.Entropy().stroke = true;
             Item.Entropy().strokeColor = new Color(20, 26, 92);

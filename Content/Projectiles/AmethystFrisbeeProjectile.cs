@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -36,7 +32,8 @@ namespace CalamityEntropy.Content.Projectiles
         public float counter { get { return Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
         public float grav { get { return Projectile.localAI[2]; } set { Projectile.localAI[2] = value; } }
         public float gravity = 2.2f;
-        public bool hited { 
+        public bool hited
+        {
             get { return Projectile.ai[1] > 0; }
             set { Projectile.ai[1] = 1; }
         }
@@ -49,7 +46,8 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 0)
             {
                 Projectile.localNPCHitCooldown = 20;
-                if(hited && Projectile.ai[2] == 0) {
+                if (hited && Projectile.ai[2] == 0)
+                {
                     Projectile.ai[2]++;
                     Vector2 targetPosition = Projectile.getOwner().Center;
                     float speed = 0;
@@ -92,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
                         }
                         Projectile.velocity *= 1f - Projectile.localAI[1];
                         Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * (Projectile.localAI[1] * 56);
-                        
+
                     }
                     else
                     {
@@ -104,11 +102,12 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    if(Projectile.Distance(Projectile.owner.ToPlayer().Center) > 1400) {
+                    if (Projectile.Distance(Projectile.owner.ToPlayer().Center) > 1400)
+                    {
                         hited = true;
                     }
                     Projectile.velocity.Y += grav;
-                    if(grav < 1f)
+                    if (grav < 1f)
                     {
                         grav += 0.02f;
                     }
@@ -132,19 +131,19 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    if(counter % 6 == 0)
+                    if (counter % 6 == 0)
                     {
                         Util.Util.PlaySound("spin" + Main.rand.Next(1, 3).ToString(), 1, Projectile.Center);
                     }
                 }
             }
             odp.Add(Projectile.Center);
-            if(odp.Count > 18)
+            if (odp.Count > 18)
             {
                 odp.RemoveAt(0);
             }
         }
-        
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (int)(Projectile.damage * 0.9f);
@@ -201,12 +200,12 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 counter = 41;
             }
-            
+
             return false;
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            for(int i = 1; i < odp.Count; i++)
+            for (int i = 1; i < odp.Count; i++)
             {
                 Util.Util.drawLine(odp[i - 1], odp[i], Color.Purple * 0.36f, (float)i / odp.Count * 9);
             }

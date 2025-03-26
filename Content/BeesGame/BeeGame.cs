@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.BeesGame
         public static void update()
         {
             player.update();
-            for(int i = projectiles.Count - 1; i >= 0; i--)
+            for (int i = projectiles.Count - 1; i >= 0; i--)
             {
                 projectiles[i].update();
                 if (projectiles[i].timeLeft <= 0)
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.BeesGame
                     projectiles.RemoveAt(i);
                 }
             }
-            for(int i = enemies.Count - 1;i >= 0; i--)
+            for (int i = enemies.Count - 1; i >= 0; i--)
             {
                 enemies[i].update();
                 if (enemies[i].life <= 0)
@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.BeesGame
                 }
             }
             x += 5;
-            if(gameCounter % 180 == 40)
+            if (gameCounter % 180 == 40)
             {
                 Enemy1 e = new Enemy1();
                 e.spawnAt(new Vector2(2000, Main.rand.Next(50, 1030)), Vector2.Zero);
@@ -71,7 +71,8 @@ namespace CalamityEntropy.Content.BeesGame
 
             spriteBatch.Draw(b1, new Vector2(-x % b1.Width, 0), Color.White);
             spriteBatch.Draw(b1, new Vector2(-x % b1.Width + b1.Width, 0), Color.White);
-            foreach (BeeGameProjectile p in projectiles) {
+            foreach (BeeGameProjectile p in projectiles)
+            {
                 p.draw();
             }
             foreach (BeeGameEnemy enemy in enemies)
@@ -79,7 +80,7 @@ namespace CalamityEntropy.Content.BeesGame
                 enemy.draw();
             }
             player.Draw();
-            
+
         }
     }
 }

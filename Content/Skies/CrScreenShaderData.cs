@@ -1,6 +1,6 @@
-﻿using System;
-using CalamityEntropy.Content.NPCs.Cruiser;
+﻿using CalamityEntropy.Content.NPCs.Cruiser;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;

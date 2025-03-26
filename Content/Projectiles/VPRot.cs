@@ -1,19 +1,14 @@
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
-using CalamityEntropy.Content.NPCs.VoidInvasion;
+﻿using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class VPRot : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -33,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.scale = 1f;
             Projectile.timeLeft = 3;
-            
+
         }
         public List<Vector2> odp = new List<Vector2>();
         public override void AI()
@@ -49,10 +44,10 @@ namespace CalamityEntropy.Content.Projectiles
                 odp.RemoveAt(0);
             }
         }
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            for(int i = 1; i < odp.Count; i++)
+            for (int i = 1; i < odp.Count; i++)
             {
                 if (Util.Util.LineThroughRect(odp[i - 1], odp[i], targetHitbox, 90))
                 {
@@ -61,10 +56,10 @@ namespace CalamityEntropy.Content.Projectiles
             }
             return false;
         }
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
-            
+
             return false;
         }
     }

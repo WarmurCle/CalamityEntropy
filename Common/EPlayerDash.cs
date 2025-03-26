@@ -8,24 +8,24 @@ namespace CalamityEntropy.Common;
 
 public class EPlayerDash : ModPlayer
 {
-         public const int DashDown = 0;
+    public const int DashDown = 0;
     public const int DashUp = 1;
     public const int DashRight = 2;
     public const int DashLeft = 3;
 
-    public const int DashCooldown = 50;      public const int DashDuration = 28;  
+    public const int DashCooldown = 50; public const int DashDuration = 28;
     public const float DashVelocity = 24f;
 
-         public int DashDir = -1;
+    public int DashDir = -1;
 
-         public bool DashAccessoryEquipped;
+    public bool DashAccessoryEquipped;
     public bool velt;
-    public int DashDelay = 0;      public int DashTimer = 0;  
+    public int DashDelay = 0; public int DashTimer = 0;
     public override void ResetEffects()
     {
-                 DashAccessoryEquipped = false;
+        DashAccessoryEquipped = false;
 
-                                   if (Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[DashDown] < 15)
+        if (Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[DashDown] < 15)
         {
             DashDir = DashDown;
         }
@@ -47,11 +47,12 @@ public class EPlayerDash : ModPlayer
         }
     }
     public int DashDirLast = -1;
-              public override void PreUpdateMovement()
+    public override void PreUpdateMovement()
     {
-                 if (CalamityKeybinds.DashHotkey.JustPressed)
+        if (CalamityKeybinds.DashHotkey.JustPressed)
         {
-            if (Player.direction == 1) {
+            if (Player.direction == 1)
+            {
                 DashDir = DashRight;
             }
             else
@@ -71,29 +72,30 @@ public class EPlayerDash : ModPlayer
         {
             DashDirLast = DashDir;
             Player.wingTime -= 20;
-            
+
             Vector2 newVelocity = Player.velocity;
 
             switch (DashDir)
             {
-                                 case DashUp when Player.velocity.Y > -DashVelocity:
+                case DashUp when Player.velocity.Y > -DashVelocity:
                 case DashDown when Player.velocity.Y < DashVelocity:
-                {
-                                                                                   float dashDirection = DashDir == DashDown ? 1 : -1.3f;
-                    newVelocity.Y = dashDirection * DashVelocity;
-                    break;
-                }
+                    {
+                        float dashDirection = DashDir == DashDown ? 1 : -1.3f;
+                        newVelocity.Y = dashDirection * DashVelocity;
+                        break;
+                    }
                 case DashLeft when Player.velocity.X > -DashVelocity:
                 case DashRight when Player.velocity.X < DashVelocity:
-                {
-                                         float dashDirection = DashDir == DashRight ? 1 : -1;
-                    newVelocity.X = dashDirection * DashVelocity;
-                    break;
-                }
+                    {
+                        float dashDirection = DashDir == DashRight ? 1 : -1;
+                        newVelocity.X = dashDirection * DashVelocity;
+                        break;
+                    }
                 default:
-                    return;              }
+                    return;
+            }
 
-                         DashDelay = DashCooldown;
+            DashDelay = DashCooldown;
             DashTimer = DashDuration;
             Player.velocity = newVelocity;
             Player.immuneTime = 30;
@@ -113,7 +115,8 @@ public class EPlayerDash : ModPlayer
             DashDelay--;
 
         if (DashTimer > 0)
-        {                                                     Player.eocDash = DashTimer;
+        {
+            Player.eocDash = DashTimer;
             Player.armorEffectDrawShadowEOCShield = true;
             if (DashDirLast == DashDown)
             {
@@ -131,14 +134,14 @@ public class EPlayerDash : ModPlayer
             p.alpha = 0.34f;
             p.vd = 0.9f;
             VoidParticles.particles.Add(p);
-                         DashTimer--;
+            DashTimer--;
         }
     }
 
     private bool CanUseDash()
     {
         return DashAccessoryEquipped
-               && !Player.setSolar                 && !Player.mount.Active
-               && Player.wingTime > 20;              
+               && !Player.setSolar && !Player.mount.Active
+               && Player.wingTime > 20;
     }
 }

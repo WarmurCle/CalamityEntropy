@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Util;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -93,9 +93,9 @@ namespace CalamityEntropy.Content.Projectiles
                         SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/ArtAttackCast"), Projectile.Center);
                     }
                 }
-                
+
             }
-            if(!player.channel || (Projectile.ai[1] >= maxCharge && (player.HasBuff<SoyMilkBuff>() || player.Entropy().WeaponBoost > 0)))
+            if (!player.channel || (Projectile.ai[1] >= maxCharge && (player.HasBuff<SoyMilkBuff>() || player.Entropy().WeaponBoost > 0)))
             {
                 if (Projectile.ai[1] > 16 && player.HasAmmo(player.HeldItem))
                 {
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
                             NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
-                             
+
                         }
 
                     }
@@ -168,9 +168,9 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             player.heldProj = Projectile.whoAmI;
-            
+
             Projectile.ai[0]++;
-            
+
         }
         public void HandleChannelMovement(Player player, Vector2 playerRotatedPoint)
         {
@@ -209,14 +209,14 @@ namespace CalamityEntropy.Content.Projectiles
                     Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + v + new Vector2(-back, 0).RotatedBy(Projectile.rotation), null, Color.White * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1f : 0.95f), Projectile.rotation, texture.Size() / 2, Projectile.scale, (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically));
                 }
             }
-            
+
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
 
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + new Vector2(-back, 0).RotatedBy(Projectile.rotation), null, Color.White, Projectile.rotation, texture.Size() / 2, Projectile.scale, (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically));
-            
+
 
 
             if (Projectile.ai[1] > 0)
@@ -227,19 +227,21 @@ namespace CalamityEntropy.Content.Projectiles
 
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                     List<Vector2> v2s = new List<Vector2>() { new Vector2(-2, -2), new Vector2(-2, 2), new Vector2(2, -2), new Vector2(2, 2) };
-                    for (int i = 0; i < 6 * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1f : 0.8f); i++) {
-                        foreach (Vector2 v in v2s) {
+                    for (int i = 0; i < 6 * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1f : 0.8f); i++)
+                    {
+                        foreach (Vector2 v in v2s)
+                        {
                             Main.EntitySpriteDraw(TextureAssets.Item[ammoID].Value, Projectile.Center + v + new Vector2(-back, 0).RotatedBy(Projectile.rotation) + new Vector2(-Projectile.ai[1] * 0.64f - 32, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, null, Color.White * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1f : 0.95f), Projectile.rotation - MathHelper.PiOver2, TextureAssets.Item[ammoID].Value.Size() / 2 * new Vector2(1, 0), Projectile.scale * 1.5f * new Vector2(1f, 2.7f), (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
                         }
                     }
-                    
+
                     Main.spriteBatch.End();
 
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
                 }
                 Main.EntitySpriteDraw(TextureAssets.Item[ammoID].Value, Projectile.Center + new Vector2(-back, 0).RotatedBy(Projectile.rotation) + new Vector2(-Projectile.ai[1] * 0.64f - 32, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, null, Color.White, Projectile.rotation - MathHelper.PiOver2, TextureAssets.Item[ammoID].Value.Size() / 2 * new Vector2(1, 0), Projectile.scale * 1.5f * new Vector2(1, 2.7f), (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
-            
+
             }
 
             return false;

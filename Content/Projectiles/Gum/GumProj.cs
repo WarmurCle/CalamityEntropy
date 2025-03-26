@@ -1,12 +1,8 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Util;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Gum
@@ -60,7 +56,7 @@ namespace CalamityEntropy.Content.Projectiles.Gum
         {
             frameType = Main.rand.Next(0, 4);
             List<int> c = new List<int>() { 200, 200, 200 };
-            for(int i = 0; i < Main.rand.Next(1, 3); i++)
+            for (int i = 0; i < Main.rand.Next(1, 3); i++)
             {
                 c[Main.rand.Next(0, 3)] = 0;
             }
@@ -69,7 +65,8 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             Projectile.velocity = Projectile.velocity.RotatedByRandom(0.16f);
         }
         float grv = 0;
-        public override void AI(){
+        public override void AI()
+        {
             if (hited)
             {
                 Projectile.velocity *= 0;
@@ -86,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             }
             else
             {
-                if(grv < 0.8f)
+                if (grv < 0.8f)
                 {
                     grv += 0.1f;
                 }
@@ -94,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles.Gum
                 Projectile.velocity.Y += grv;
             }
         }
-       
+
         public bool hited = false;
         public int hitTex = 0;
         public int frameCounter = 3;
@@ -108,7 +105,7 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             }
             Color tileC = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
             Color cr = new Color(color.R * tileC.R / 255, color.G * tileC.G / 255, color.B * tileC.B / 255, 255); ;
-             
+
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
@@ -142,6 +139,6 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             return false;
         }
     }
-    
+
 
 }

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ModLoader;
-using static Terraria.GameContent.Animations.Actions.Sprites;
 
 namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
 {
@@ -36,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 phantom1--;
             }
-            if(modPlayer.SacredJudgeShields < 1)
+            if (modPlayer.SacredJudgeShields < 1)
             {
                 phantom0--;
             }
@@ -138,12 +137,12 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 }
                 else
                 {
-                    
+
                     if (target == null || modPlayer.SacredJudgeShields > 0)
                     {
                         cAlpha = 0;
                         Projectile.velocity *= 0;
-                        if(modPlayer.SacredJudgeShields > 0)
+                        if (modPlayer.SacredJudgeShields > 0)
                         {
                             phantom0 = 9;
                         }
@@ -200,7 +199,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             float yoffset2 = (float)Math.Cos((30 + Projectile.ai[2]) / 28f) * 10;
             if (phantom0 > 0)
             {
-                if(phantom0 < 9)
+                if (phantom0 < 9)
                 {
                     phantom = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/SamsaraCasket/SacredJudgePhantom0").Value;
                 }
@@ -224,12 +223,12 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 }
                 Main.spriteBatch.Draw(phantom, player.MountedCenter + new Vector2(80, -100 + yoffset2) - Main.screenPosition, null, Color.White * 0.7f, MathHelper.PiOver2 + MathHelper.PiOver4, phantom.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             }
-            
+
             if (modPlayer.SacredJudgeShields > 0)
             {
                 Texture2D shield = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/SamsaraCasket/SacredJudgeShield").Value;
                 Main.spriteBatch.Draw(shield, player.MountedCenter - Main.screenPosition, null, lightColor * (modPlayer.SacredJudgeShields > 1 ? 0.7f : 0.4f), 0, shield.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-                
+
             }
             else
             {
@@ -244,7 +243,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            
+
             tex = TextureAssets.Projectile[Projectile.type].Value;
             for (int i = 0; i < oldPos.Count; i++)
             {
@@ -259,7 +258,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public override void attackAI(NPC t)
         {
             Projectile.Resize(78, 78);
-            if(cAlpha < 1)
+            if (cAlpha < 1)
             {
                 cAlpha += 0.05f;
             }

@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using CalamityMod.Projectiles.Boss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -35,7 +35,8 @@ namespace CalamityEntropy.Content.Projectiles
             overPlayers.Add(index);
         }
         public bool pld = false;
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.velocity *= 0.99f;
             if (!pld)
             {
@@ -43,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
                 sd.Volume = 0.36f;
                 SoundEngine.PlaySound(sd, Projectile.Center);
                 pld = true;
-            }           
+            }
             if (Projectile.timeLeft > 14)
             {
                 foreach (Projectile p in Main.projectile)
@@ -97,11 +98,11 @@ namespace CalamityEntropy.Content.Projectiles
                             }
                         }
                     }
-                    
+
                 }
             }
             Projectile.ai[0]++;
-            if(frame < 6)
+            if (frame < 6)
             {
                 if (Projectile.ai[0] % 2 == 0)
                 {
@@ -151,10 +152,10 @@ namespace CalamityEntropy.Content.Projectiles
 
             tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/DivingShield").Value;
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, new Rectangle(48 * frame, 0, 48, 48), Color.White, Projectile.rotation, new Vector2(tx.Height, tx.Height) / 2, 2, SpriteEffects.None, 0);
-            
+
             return false;
         }
     }
-    
+
 
 }

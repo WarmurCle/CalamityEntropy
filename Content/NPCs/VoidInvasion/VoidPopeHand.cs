@@ -1,21 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Items.Potions;
-using CalamityMod.NPCs.TownNPCs;
-using CalamityMod.Particles;
-using CalamityMod.World;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -80,7 +70,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            if(handPlayerTime <= 0)
+            if (handPlayerTime <= 0)
             {
                 handPlayer = target;
                 handPlayerTime = 8;
@@ -118,7 +108,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             }
             if (modNpc.aitype == VoidPope.AttackAIStyle.Melee)
             {
-                if(attackCd <= 0)
+                if (attackCd <= 0)
                 {
                     NPC.velocity += (owner.target.ToPlayer().Center - NPC.Center).SafeNormalize(Vector2.Zero) * 44;
                     noHomingTime = 30;
@@ -137,7 +127,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             {
                 if (handUp >= 0)
                 {
-                    if(handUp == 0)
+                    if (handUp == 0)
                     {
                         NPC.velocity += (owner.target.ToPlayer().Center - NPC.Center).SafeNormalize(Vector2.Zero) * 32;
                         noHomingTime = 30;
@@ -163,7 +153,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                 handUp = 0;
             }
             circle = false;
-            if(modNpc.aitype == VoidPope.AttackAIStyle.Circle)
+            if (modNpc.aitype == VoidPope.AttackAIStyle.Circle)
             {
                 circle = true;
                 if (needSpawnRotProj)
@@ -174,9 +164,9 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<VPRot>(), NPC.damage / 7, 6, -1, 0, 0, NPC.whoAmI);
                     }
                 }
-                
+
                 circleDist = circleDist + (Util.Util.getDistance(owner.Center, owner.target.ToPlayer().Center) - circleDist) * 0.01f;
-                if(circleDist > 640)
+                if (circleDist > 640)
                 {
                     circleDist = 640;
                 }
@@ -219,7 +209,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     }
                 }
             }
-            if(Util.Util.getDistance(targetPos, NPC.Center) > 4600)
+            if (Util.Util.getDistance(targetPos, NPC.Center) > 4600)
             {
                 NPC.Center = targetPos;
             }
@@ -243,7 +233,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             {
                 return;
             }
-            
+
         }
         public float trailOffset = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -295,7 +285,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             }
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            
+
             Texture2D tex = TextureAssets.Npc[NPC.type].Value;
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, Color.White, NPC.rotation + (direction > 0 ? MathHelper.ToRadians(18) : MathHelper.ToRadians(-18 + 180)), (direction > 0 ? new Vector2(0, tex.Height) : new Vector2(tex.Width, tex.Height)), NPC.scale, (direction > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
 

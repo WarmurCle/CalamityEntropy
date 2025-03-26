@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Items
 {
     public class LotteryBox : ModItem
     {
-        
+
         public override void SetDefaults()
         {
             Item.width = 84;
@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
+
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 foreach (NPC npc in Main.npc)
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool? UseItem(Player player)
         {
-            
+
             if (Main.netMode == NetmodeID.Server)
             {
                 foreach (NPC npc in Main.npc)

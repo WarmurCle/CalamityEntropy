@@ -1,15 +1,10 @@
-using CalamityEntropy.Util;
-using CalamityMod.World;
+﻿using CalamityMod.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Formats.Tar;
 using System.IO;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.VoidInvasion
@@ -50,7 +45,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         }
         public override void attackAI()
         {
-                         if(attackAnmStyle == 0 && attackFrame == 0)
+            if (attackAnmStyle == 0 && attackFrame == 0)
             {
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/vbuse"), NPC.Center);
             }
@@ -64,7 +59,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             {
                 NPC.noGravity = true;
                 NPC.velocity *= 0;
-                if(Target.Center.X > NPC.Center.X)
+                if (Target.Center.X > NPC.Center.X)
                 {
                     NPC.direction = 1;
                 }
@@ -73,7 +68,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     NPC.direction = -1;
                 }
                 NPC.velocity.X = 0.01f * NPC.direction;
-                if(attackFrame >= 9)
+                if (attackFrame >= 9)
                 {
                     attackFrame = 0;
                     attackAnmStyle = 1;
@@ -87,15 +82,15 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     }
                 }
             }
-            if(attackAnmStyle == 1)
+            if (attackAnmStyle == 1)
             {
                 NPC.noGravity = true;
                 drawAlpha = 0.7f;
                 if (NPC.ai[1] > 0)
                 {
                     NPC.ai[1]--;
-                    
-                    if(NPC.velocity.X == 0)
+
+                    if (NPC.velocity.X == 0)
                     {
                         NPC.ai[1] = 0;
                     }
@@ -110,11 +105,11 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     NPC.Center = NPC.Center - new Vector2(0, 2);
                 }
             }
-            if(attackAnmStyle == 2)
+            if (attackAnmStyle == 2)
             {
                 NPC.noGravity = true;
                 NPC.velocity *= 0.1f;
-                if(attackFrame >= 8)
+                if (attackFrame >= 8)
                 {
                     aiStyle = AIStyle.Avoid;
                     AvoidTime = 80;
@@ -143,7 +138,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
         }
         public override int CloseTime => (Main.masterMode && CalamityWorld.death ? 20 : base.CloseTime);
         public override int maxAtkDist => (Main.masterMode && CalamityWorld.death ? 800 : base.maxAtkDist);
-        
+
         public override void PostAI()
         {
             base.PostAI();
@@ -151,7 +146,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             {
                 oldPos.Add(NPC.Center);
             }
-            if(oldPos.Count > 12 || (attackAnmStyle != 1 && oldPos.Count > 0))
+            if (oldPos.Count > 12 || (attackAnmStyle != 1 && oldPos.Count > 0))
             {
                 oldPos.RemoveAt(0);
             }
@@ -159,22 +154,22 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
 
         public override bool? CanFallThroughPlatforms()
         {
-            if(aiStyle == AIStyle.Attack && NPC.ai[1] > 0)
+            if (aiStyle == AIStyle.Attack && NPC.ai[1] > 0)
             {
                 return true;
             }
             return base.CanFallThroughPlatforms();
         }
-        
+
         public override Texture2D getTex()
         {
-            if(aiStyle == AIStyle.Attack)
+            if (aiStyle == AIStyle.Attack)
             {
-                if(attackAnmStyle == 0)
+                if (attackAnmStyle == 0)
                 {
                     return ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/VoidInvasion/Assassin/preatk" + (attackFrame + 1).ToString()).Value;
                 }
-                if(attackAnmStyle == 1)
+                if (attackAnmStyle == 1)
                 {
                     return ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/VoidInvasion/Assassin/atk").Value;
 
@@ -189,7 +184,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if(aiStyle == AIStyle.Attack && NPC.ai[1] > 0)
+            if (aiStyle == AIStyle.Attack && NPC.ai[1] > 0)
             {
                 float ap = 1f / (float)this.oldPos.Count;
                 for (int i = 0; i < this.oldPos.Count; i++)

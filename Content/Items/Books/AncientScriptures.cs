@@ -1,15 +1,4 @@
-
-using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Util;
-using CalamityMod.Items.LoreItems;
-using CalamityMod.Projectiles.Ranged;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.Pkcs;
+﻿using CalamityMod.Items.LoreItems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

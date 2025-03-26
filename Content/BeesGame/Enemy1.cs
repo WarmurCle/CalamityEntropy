@@ -16,14 +16,14 @@ namespace CalamityEntropy.Content.BeesGame
 
         public override void update()
         {
-            if(this.position.X > 1800)
+            if (this.position.X > 1800)
             {
                 this.velocity.X -= 0.6f;
             }
-            
+
             this.velocity *= 0.96f;
             base.update();
-            
+
         }
 
         public override void draw()

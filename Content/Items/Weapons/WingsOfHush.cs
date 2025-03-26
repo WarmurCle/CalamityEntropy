@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
             Projectile.NewProjectile(source, position, velocity.RotatedBy(MathHelper.ToRadians(16)), ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
             Projectile.NewProjectile(source, position, velocity.RotatedBy(MathHelper.ToRadians(-16)), ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
-            for(int i = 0; i < player.Entropy().WeaponBoost; i++)
+            for (int i = 0; i < player.Entropy().WeaponBoost; i++)
             {
                 Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(-9)), ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
 

@@ -7,7 +7,7 @@ namespace CalamityEntropy.Common
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
         [Header("Misc")]
-        
+
         [SliderColor(224, 165, 56, 128)]
         [Range(0f, 1f)]
         [DefaultValue(0f)]
@@ -16,6 +16,6 @@ namespace CalamityEntropy.Common
 
 
         [DefaultValue(true)]
-        public bool EnableSethomeCommand {  get; set; }
+        public bool EnableSethomeCommand { get; set; }
     }
 }

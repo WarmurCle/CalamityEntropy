@@ -1,12 +1,8 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -38,14 +34,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = CUtil.rogueDC;
         }
         public int altShotCount = 0;
-       
-         
+
+
         public override float StealthDamageMultiplier => 1.6f;
         public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 3f;
         public override void UpdateInventory(Player player)
         {
-            if(altShotCount > 0)
+            if (altShotCount > 0)
             {
                 altShotCount--;
             }
@@ -56,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if(altShotCount > 0)
+            if (altShotCount > 0)
             {
                 velocity *= 0.54f;
             }

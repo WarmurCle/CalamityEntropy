@@ -1,16 +1,16 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
 {
-    
-    public class HomingLightBall: ModProjectile
+
+    public class HomingLightBall : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             Projectile.light = 1f;
             Projectile.scale = 1f;
             Projectile.timeLeft = 600;
-            
+
         }
         public List<Vector2> odp = new List<Vector2>();
         public override void AI()

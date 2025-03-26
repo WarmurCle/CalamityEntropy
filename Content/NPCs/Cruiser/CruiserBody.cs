@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             Main.npcFrameCount[NPC.type] = 1;
             this.HideFromBestiary();
-            NPCID.Sets.MPAllowedEnemies[Type] = true; 
+            NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Burning] = true;
@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 modifiers.SourceDamage *= ((float)NPC.ai[0] / 500f);
             }
         }
-        
+
         public override void SetDefaults()
         {
 
@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.damage = 190;
             NPC.dontCountMe = true;
             NPC.dontCountMe = true;
-            NPC.lifeMax = 80000; 
+            NPC.lifeMax = 80000;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath4;
             NPC.value = 50f;
@@ -70,21 +70,23 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
         public override void AI()
         {
-            
+
             NPC.ai[0] += 1;
-            if (NPC.ai[0] < 5){
+            if (NPC.ai[0] < 5)
+            {
                 return;
             }
-/*            if (((int)NPC.ai[3]).ToNPC().life < (((int)NPC.ai[3]).ToNPC().lifeMax / 2) && NPC.ai[2] > 8)
-            {
-                NPC.active = false;
-                NPC.netUpdate = true;
-            }*/
+            /*            if (((int)NPC.ai[3]).ToNPC().life < (((int)NPC.ai[3]).ToNPC().lifeMax / 2) && NPC.ai[2] > 8)
+                        {
+                            NPC.active = false;
+                            NPC.netUpdate = true;
+                        }*/
             if (!Main.dedServ)
             {
                 Lighting.AddLight(NPC.Center, 1f, 1f, 1f);
             }
-            if (NPC.ai[1] < Main.maxNPCs){
+            if (NPC.ai[1] < Main.maxNPCs)
+            {
                 if (Main.npc[(int)NPC.ai[1]].active)
                 {
 
@@ -103,8 +105,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     NPC.active = false;
                 }
- 
-            }else{
+
+            }
+            else
+            {
                 NPC.active = false;
             }
         }
@@ -121,8 +125,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             return true;
         }
-        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position){
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
             return false;
         }
-}
+    }
 }

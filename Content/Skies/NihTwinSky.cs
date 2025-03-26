@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Graphics.Effects;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Skies
 {
@@ -15,7 +10,7 @@ namespace CalamityEntropy.Content.Skies
     {
         private bool skyActive;
         private float opacity;
-        
+
 
         public override void Deactivate(params object[] args)
         {

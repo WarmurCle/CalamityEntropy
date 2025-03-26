@@ -1,19 +1,8 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Util;
-using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -27,7 +16,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             base.AI();
-            foreach(Player p in Main.ActivePlayers)
+            foreach (Player p in Main.ActivePlayers)
             {
                 if (Util.Util.getDistance(Projectile.Center, p.Center) < 64 * Projectile.scale * 2f)
                 {

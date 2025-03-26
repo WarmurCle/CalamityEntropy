@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -32,7 +31,8 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         }
         public List<Vector2> odp = new List<Vector2>();
         public List<float> odr = new List<float>();
-        public override void AI(){
+        public override void AI()
+        {
             Projectile.ArmorPenetration = HorizonssKey.getArmorPen();
             Projectile.ai[0]++;
             for (int i = 0; i < 5; i++)

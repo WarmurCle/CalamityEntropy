@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -50,7 +50,8 @@ namespace CalamityEntropy.Content.Projectiles
         public int counter = 0;
         public bool std = false;
         public int homingTime = 60;
-        public override void AI(){
+        public override void AI()
+        {
             /*if (!std)
             {
                 std = true;
@@ -85,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Dust.NewDust(Projectile.Center, 16, 16, DustID.MagicMirror, Projectile.velocity.X * -0.1f, Projectile.velocity.Y * -0.1f);
                 if (counter % 14 == 0)
                 {
-                                     }
+                }
             }
 
             Projectile.ai[0]++;
@@ -95,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
-                    
+
                 }
                 if (odp.Count > 0)
                 {
@@ -113,21 +114,22 @@ namespace CalamityEntropy.Content.Projectiles
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
                 }
-                
+
                 NPC target = Projectile.FindTargetWithinRange(1600, false);
                 if (target != null && Util.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
                 {
                     homingTime = 0;
-                    Projectile.velocity *= 0.9f;   
+                    Projectile.velocity *= 0.9f;
                     Vector2 v = target.Center - Projectile.Center;
                     v.Normalize();
-                    
+
                     Projectile.velocity += v * 1.5f;
                 }
             }
             exps *= 0.9f;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (homingTime > 0) {
+            if (homingTime > 0)
+            {
                 Vector2 targetPos = new Vector2(Projectile.ai[1], Projectile.ai[2]);
                 if (Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > Util.Util.getDistance(targetPos, Projectile.owner.ToPlayer().Center))
                 {
@@ -143,7 +145,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(nr);
                 if (nr == Projectile.velocity.ToRotation())
                 {
-                                     }
+                }
 
             }
         }
@@ -190,7 +192,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int tofs;
         public Color TrailColor(float completionRatio)
         {
-            Color result = new Color(200, 200, 255);   
+            Color result = new Color(200, 200, 255);
             return result;
         }
 
@@ -209,7 +211,8 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
 
-        public void drawT() {
+        public void drawT()
+        {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
@@ -235,7 +238,8 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 a = 1;
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                if (ve.Count >= 3)                 {
+                if (ve.Count >= 3)
+                {
                     Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);

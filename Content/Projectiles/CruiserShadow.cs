@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
         float counter = 0;
         public void DrawPortal(Vector2 pos, Color color, float rot, float size, float xmul = 0.3f, float aj = 0)
         {
-            
+
             Texture2D tx = Util.Util.getExtraTex("SoulVortex");
             float angle = MathHelper.ToDegrees(counter * 0.2f + aj);
             Vector2 lu = new Vector2(size, 0).RotatedBy(MathHelper.ToRadians(angle - 135));
@@ -85,12 +85,13 @@ namespace CalamityEntropy.Content.Projectiles
 
             Util.Util.drawTextureToPoint(Main.spriteBatch, tx, color, dp + lu, dp + ru, dp + ld, dp + rd);
         }
-        public override void AI(){
+        public override void AI()
+        {
             alphaPor *= 0.88f;
             counter++;
-            if(counter % 20 == 0 && Main.myPlayer == Projectile.owner)
+            if (counter % 20 == 0 && Main.myPlayer == Projectile.owner)
             {
-                for(int i = 0; i < 6; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 0.6f + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11)), ModContent.ProjectileType<VoidStarF>(), (int)(Projectile.damage * 0.16f), 5, Projectile.owner)];
                     p.DamageType = Projectile.DamageType;
@@ -112,9 +113,9 @@ namespace CalamityEntropy.Content.Projectiles
                 mouthRot *= 0.9f;
             }
             spawnParticles();
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
-                if(targetPos != Main.MouseWorld)
+                if (targetPos != Main.MouseWorld)
                 {
                     Projectile.netUpdate = true;
                 }
@@ -126,8 +127,8 @@ namespace CalamityEntropy.Content.Projectiles
             NPC n = Projectile.FindTargetWithinRange(2400);
             Projectile.Center = c;
             noChase--;
-            
-            if(Projectile.timeLeft < 40)
+
+            if (Projectile.timeLeft < 40)
             {
                 Projectile.velocity.Y -= 1;
                 Projectile.velocity *= 0.98f;
@@ -136,7 +137,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (n != null)
             {
                 targetPos = n.Center;
-                if(Util.Util.getDistance(targetPos, Projectile.Center) > 60)
+                if (Util.Util.getDistance(targetPos, Projectile.Center) > 60)
                 {
                     Projectile.velocity *= 0.9f;
                     Projectile.rotation = Projectile.velocity.ToRotation();
@@ -144,7 +145,8 @@ namespace CalamityEntropy.Content.Projectiles
 
                     Projectile.velocity = new Vector2(Projectile.velocity.Length() + 10, 0).RotatedBy(Projectile.rotation);
                 }
-                else {
+                else
+                {
                     Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 20f;
                     Projectile.velocity *= 0.8f;
                 }
@@ -240,7 +242,7 @@ namespace CalamityEntropy.Content.Projectiles
             Vector2 vtodraw = Projectile.Center;
             SpriteBatch spriteBatch = Main.spriteBatch;
             float alpha = 1;
-            if(Projectile.timeLeft < 40)
+            if (Projectile.timeLeft < 40)
             {
                 alpha = (float)Projectile.timeLeft / 40f;
             }
@@ -288,6 +290,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,7 +31,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets.StormWeaver
         public override bool PreDraw(ref Color lightColor)
         {
             bool hat = Projectile.owner.ToPlayer().Entropy().PetsHat;
-            if (Main.gameMenu) {
+            if (Main.gameMenu)
+            {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight1").Value;
                 Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
@@ -64,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.StormWeaver
                     list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/StormWeaver/flight6").Value);
 
                 }
-            } 
+            }
             else
             {
                 if (hat)
@@ -200,7 +201,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.StormWeaver
 
         public override void AI()
         {
-            
+
             Player player = Main.player[Projectile.owner];
             MoveToTarget(player.Center + new Vector2(0, 0));
             if (!player.dead && (player.HasBuff(ModContent.BuffType<DevourerAndTheApostles>()) || player.HasBuff(ModContent.BuffType<Rainstorm>())))

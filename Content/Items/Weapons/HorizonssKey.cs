@@ -1,12 +1,11 @@
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Items;
 using CalamityMod.Items.LoreItems;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -31,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
         {
-            if(damageClass == Util.CUtil.rogueDC)
+            if (damageClass == Util.CUtil.rogueDC)
             {
                 return new StatInheritanceData(0.35f, 0.35f, 0.35f, 0.35f, 0.35f);
             }
@@ -39,11 +38,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
     }
     public class HorizonssKey : ModItem
-	{
+    {
         public override bool AltFunctionUse(Player player) => true;
-        public override void SetDefaults() {
-			Item.width = 20;
-			Item.height = 20;
+        public override void SetDefaults()
+        {
+            Item.width = 20;
+            Item.height = 20;
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ItemRarityID.Red;
             Item.Entropy().Legend = true;
             Item.Calamity().CannotBeEnchanted = true;
-		}
+        }
 
         public override void UpdateInventory(Player player)
         {
@@ -78,7 +78,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                             dist = Util.Util.getDistance(n.Center, Main.MouseWorld);
                         }
                     }
-                    if (npc >= 0) {
+                    if (npc >= 0)
+                    {
                         player.MinionAttackTargetNPC = npc;
                     }
                 }
@@ -91,8 +92,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                     int p = Projectile.NewProjectile(player.GetSource_FromAI(), player.Center - new Vector2(0, 60), Vector2.Zero, ModContent.ProjectileType<e0>(), 0, 0, -1);
                     SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/AscendantActivate"), player.Center);
                 }
-            } 
-            
+            }
+
             return true;
         }
 
@@ -124,10 +125,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 player.Entropy().sCasketLevel = 6;
             }
-                         if (player.ownedProjectileCounts[ModContent.ProjectileType<SamsaraCasketProj>()] < 1 && !player.HasBuff(ModContent.BuffType<NOU>()))
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SamsaraCasketProj>()] < 1 && !player.HasBuff(ModContent.BuffType<NOU>()))
             {
                 int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<SamsaraCasketProj>(), Item.damage, player.GetWeaponKnockback(Item), player.whoAmI);
-     
+
             }
 
 
@@ -245,59 +246,76 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public float damageMul()
         {
-            float ad = 0.8f;               
-            if (NPC.downedSlimeKing)              {
+            float ad = 0.8f;
+            if (NPC.downedSlimeKing)
+            {
                 ad += 0.22f;
             }
-            if (NPC.downedBoss1)              {
+            if (NPC.downedBoss1)
+            {
                 ad += 0.24f;
             }
-            if (NPC.downedBoss2)              {
+            if (NPC.downedBoss2)
+            {
                 ad += 0.24f;
             }
-            if (NPC.downedBoss3)              {
+            if (NPC.downedBoss3)
+            {
                 ad += 0.6f;
             }
-            if (Main.hardMode)               {
+            if (Main.hardMode)
+            {
                 ad += 0.4f;
             }
-            if (DownedBossSystem.downedCryogen)              {
+            if (DownedBossSystem.downedCryogen)
+            {
                 ad += 0.36f;
             }
-            if (NPC.downedGolemBoss)                {
+            if (NPC.downedGolemBoss)
+            {
                 ad += 0.2f;
             }
-            if (NPC.downedAncientCultist)                {
+            if (NPC.downedAncientCultist)
+            {
                 ad += 0.2f;
             }
-            if (NPC.downedMoonlord)               {
+            if (NPC.downedMoonlord)
+            {
                 ad += 1.4f;
             }
-            if (DownedBossSystem.downedProvidence)               {
+            if (DownedBossSystem.downedProvidence)
+            {
                 ad += 1.0f;
             }
-            if (DownedBossSystem.downedDragonfolly)               {
+            if (DownedBossSystem.downedDragonfolly)
+            {
                 ad += 0.5f;
             }
-            if (DownedBossSystem.downedSignus)                {
+            if (DownedBossSystem.downedSignus)
+            {
                 ad += 0.5f;
             }
-            if (DownedBossSystem.downedPolterghast)               {
+            if (DownedBossSystem.downedPolterghast)
+            {
                 ad += 0.5f;
             }
-            if (DownedBossSystem.downedDoG)              {
+            if (DownedBossSystem.downedDoG)
+            {
                 ad += 0.6f;
             }
-            if (DownedBossSystem.downedYharon)                {
+            if (DownedBossSystem.downedYharon)
+            {
                 ad += 1.5f;
             }
-            if (DownedBossSystem.downedExoMechs)               {
+            if (DownedBossSystem.downedExoMechs)
+            {
                 ad += 1f;
             }
-            if (DownedBossSystem.downedCalamitas)                {
+            if (DownedBossSystem.downedCalamitas)
+            {
                 ad += 1f;
             }
-            if(DownedBossSystem.downedExoMechs && DownedBossSystem.downedCalamitas)
+            if (DownedBossSystem.downedExoMechs && DownedBossSystem.downedCalamitas)
             {
                 ad += 1.6f;
             }

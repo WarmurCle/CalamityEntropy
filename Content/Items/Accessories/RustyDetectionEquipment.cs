@@ -1,4 +1,4 @@
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
@@ -6,18 +6,19 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-	public class RustyDetectionEquipment : ModItem
-	{
+    public class RustyDetectionEquipment : ModItem
+    {
 
-		public override void SetDefaults() {
-			Item.width = 36;
+        public override void SetDefaults()
+        {
+            Item.width = 36;
             Item.defense = 4;
-			Item.height = 46;
+            Item.height = 46;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
-			
-		}
+
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

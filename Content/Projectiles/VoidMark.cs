@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class VoidMark: ModProjectile
+    public class VoidMark : ModProjectile
     {
         List<Vector2> odp = new List<Vector2>();
         List<float> odr = new List<float>();
@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     EGlobalNPC.AddVoidTouch(target, 200, 2, 600, 16);
                     int p = Projectile.NewProjectile(Projectile.owner.ToPlayer().GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Slash2>(), Projectile.damage, 0, Projectile.owner);
-                    p.ToProj().rotation = (float)(Main.rand.NextDouble() - 0.5f) * (float)Math.PI * 0.4f + (float)Math.PI * 0.5f; 
+                    p.ToProj().rotation = (float)(Main.rand.NextDouble() - 0.5f) * (float)Math.PI * 0.4f + (float)Math.PI * 0.5f;
                     Projectile.ai[1] -= 1;
                     Main.projectile[p].netUpdate = true;
 
@@ -114,11 +114,12 @@ namespace CalamityEntropy.Content.Projectiles
         }
 
 
-        public override void AI(){
+        public override void AI()
+        {
             Player player = Main.player[Projectile.owner];
             if (odp.Count > 1)
             {
-                             }
+            }
             if (Projectile.localNPCHitCooldown < 0)
             {
                 Projectile.localNPCHitCooldown = 0;
@@ -132,9 +133,10 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
 
-            
 
-            if (player.HasBuff(ModContent.BuffType<VoidStorm>())){
+
+            if (player.HasBuff(ModContent.BuffType<VoidStorm>()))
+            {
                 Projectile.timeLeft = 3;
             }
             if (Projectile.owner == Main.myPlayer)
@@ -145,14 +147,14 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Util.Util.getDistance(Projectile.Center, player.Center) > 3000)
                 {*/
                 Projectile.Center = Main.MouseWorld;
-                             }
+            }
             Projectile.rotation += 0.07f;
             Projectile.ai[0] += 1;
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             behindNPCs.Add(index);
-            
+
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -205,7 +207,7 @@ namespace CalamityEntropy.Content.Projectiles
                 x += 0f / odp.Count;
                 sz += 1f / odp.Count;
             }
-            
+
 
             Main.spriteBatch.Draw(ft2, Projectile.Center - Main.screenPosition - new Vector2(0, 40), null, Color.White * 0.8f, 0, new Vector2(ft2.Width, ft2.Height) / 2, 2, SpriteEffects.None, 0);
 

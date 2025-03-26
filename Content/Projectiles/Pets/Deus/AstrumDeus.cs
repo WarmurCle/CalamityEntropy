@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,7 +32,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
         public override bool PreDraw(ref Color lightColor)
         {
             bool hat = Projectile.owner.ToPlayer().Entropy().PetsHat;
-            if (Main.gameMenu) {
+            if (Main.gameMenu)
+            {
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Deus/AstrumDeus").Value;
                 Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
@@ -118,7 +119,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
                 Projectile.tileCollide = true;
                 Projectile.rotation = 0;
                 Projectile.velocity.Y += 0.5f;
-                if (Util.Util.getDistance(targetPos, Projectile.Center) > 600) {
+                if (Util.Util.getDistance(targetPos, Projectile.Center) > 600)
+                {
                     Projectile.ai[1] = 1;
                 }
                 else if (Util.Util.getDistance(targetPos * new Vector2(1, 0), Projectile.Center * new Vector2(1, 0)) > 200)
@@ -142,7 +144,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
                 }
                 Projectile.velocity.X *= 0.96f;
             }
-            
+
         }
         public override bool PreAI()
         {
@@ -170,7 +172,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
                 if (Projectile.owner == Main.myPlayer && DownedBossSystem.downedAstrumDeus)
                 {
                     shotCd = 400;
-                    
+
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (n.Center - Projectile.Center).SafeNormalize(Vector2.Zero), ModContent.ProjectileType<AstralShot>(), 460, 2, Projectile.owner);
                 }
             }

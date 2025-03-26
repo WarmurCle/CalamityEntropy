@@ -1,18 +1,11 @@
-using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -60,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
             float r = Util.Util.randomRot();
             EParticle.spawnNew(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r);
             EParticle.spawnNew(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r + MathHelper.PiOver2);
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Util.Util.randomVec(24), ModContent.ProjectileType<RainbowRocket>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Util.Util.randomVec(24), ModContent.ProjectileType<PartySparkle>(), Projectile.damage / 16, Projectile.knockBack, Projectile.owner);
@@ -78,6 +71,6 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
     }
-    
+
 
 }

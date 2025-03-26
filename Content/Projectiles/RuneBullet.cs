@@ -1,17 +1,13 @@
-using System;
-using System.Collections.Generic;
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -54,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.AI();
             counter++;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            
+
             float j = (float)Math.Cos(Main.GlobalTimeWrappedHourly * 2) * 12 * Projectile.scale;
             Dust.NewDust(Projectile.Center + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * j, 1, 1, DustID.MagicMirror);
         }
@@ -71,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int tofs;
         public Color TrailColor(float completionRatio)
         {
-            Color result = new Color(255, 255, 255) * completionRatio;   
+            Color result = new Color(255, 255, 255) * completionRatio;
             return result;
         }
 
@@ -96,13 +92,14 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 EParticle.spawnNew(new GlowSpark(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
         public override Color baseColor => new Color(188, 149, 255);
-        public void drawT() {
+        public void drawT()
+        {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
@@ -166,7 +163,7 @@ namespace CalamityEntropy.Content.Projectiles
             tofs++;
             if (runetex == 0)
                 runetex = Main.rand.Next(1, 12);
-            
+
             Main.spriteBatch.EnterShaderRegion();
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak1"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();

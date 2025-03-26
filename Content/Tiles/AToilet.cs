@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Tiles
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
 
-                         AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
+            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
             TileID.Sets.DisableSmartCursor[Type] = true;
             AddMapEntry(new Color(191, 142, 111), Language.GetText("MapObject.Toilet"));
             TileID.Sets.CanBeSatOnForNPCs[Type] = true;
@@ -88,8 +88,9 @@ namespace CalamityEntropy.Content.Tiles
         {
             return settings.player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance);
         }
-        
-        public override void HitWire(int i, int j)          {
+
+        public override void HitWire(int i, int j)
+        {
             Tile tile = Main.tile[i, j];
 
             int spawnX = i;

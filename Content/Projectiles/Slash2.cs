@@ -1,4 +1,4 @@
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,7 +33,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ArmorPenetration = 1024;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
             if (!sPlayerd)
             {
                 sPlayerd = true;
@@ -81,6 +82,6 @@ namespace CalamityEntropy.Content.Projectiles
 
 
     }
-    
+
 
 }

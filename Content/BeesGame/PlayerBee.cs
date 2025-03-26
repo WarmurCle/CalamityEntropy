@@ -15,21 +15,21 @@ namespace CalamityEntropy.Content.BeesGame
         {
             float speed = 2f;
             counter++;
-            if(counter % this.getAttackSpeedTickRate() == 0)
+            if (counter % this.getAttackSpeedTickRate() == 0)
             {
                 this.Shoot();
             }
-            if(counter % 4 == 0)
+            if (counter % 4 == 0)
             {
                 frame++;
-                if(frame >= 3)
+                if (frame >= 3)
                 {
                     frame = 0;
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                velocity.X -= speed; 
+                velocity.X -= speed;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.BeesGame
                 velocity.Y += speed;
             }
             velocity *= 0.84f;
-            if(position.X < 16)
+            if (position.X < 16)
             {
                 position.X = 16;
                 velocity.X = 0;

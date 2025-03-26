@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.maxStack = 1;
-            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice / 4;              Item.rare = ItemRarityID.Orange;
+            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice / 4; Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<RevelationThrow>();
             Item.shootSpeed = 45f;
             Item.DamageType = CUtil.rogueDC;
@@ -45,8 +45,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (player.Calamity().StealthStrikeAvailable())
                 type = ModContent.ProjectileType<RevelationMelee>();
         }
-       
-         
+
+
         public override float StealthDamageMultiplier => 4f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 4f;

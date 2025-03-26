@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using CalamityMod.Buffs.StatDebuffs;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -27,7 +24,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public List<Vector2> points = new List<Vector2>();
         int d = 0;
-        public override void AI() {
+        public override void AI()
+        {
             d++;
             if (d > 16)
             {
@@ -37,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Vector2 o = (points.Count > 0 ? points[points.Count - 1] : Projectile.Center - Projectile.velocity);
                 Vector2 nv = Projectile.Center + Util.Util.randomVec(4);
-                for(float i = 0.1f; i <= 1; i += 0.1f)
+                for (float i = 0.1f; i <= 1; i += 0.1f)
                 {
                     points.Add(Vector2.Lerp(o, nv, i));
                 }
@@ -70,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (points.Count < 1)
             {
-                return ;
+                return;
             }
             Texture2D px = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
             float jd = 1;

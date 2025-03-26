@@ -1,9 +1,8 @@
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
@@ -13,14 +12,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
-            
+
         }
         public bool s = true;
         public override void AI()
         {
             base.AI();
             Projectile.frameCounter++;
-            if(Projectile.frameCounter % 4 == 0)
+            if (Projectile.frameCounter % 4 == 0)
             {
                 Projectile.frame++;
             }
@@ -57,7 +56,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float w = 1f;
         public override bool PreAI()
         {
-            if(w == 1f)
+            if (w == 1f)
             {
                 Projectile.penetrate += 4;
             }
@@ -67,7 +66,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             base.AI();
             w -= 0.1f;
-            if(w <= 0)
+            if (w <= 0)
             {
                 Projectile.Kill();
             }

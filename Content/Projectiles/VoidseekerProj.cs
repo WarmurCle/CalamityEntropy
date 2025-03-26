@@ -1,32 +1,27 @@
 ﻿using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-	public class VoidseekerProj : ModProjectile
-	{
+    public class VoidseekerProj : ModProjectile
+    {
         public override void SetDefaults()
         {
-			Projectile.DamageType = ModContent.GetInstance<RogueDamageClass>();
-			Projectile.width = 26;
-			Projectile.height = 26;
-			Projectile.timeLeft = 120;
-			Projectile.extraUpdates = 1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 55;
+            Projectile.DamageType = ModContent.GetInstance<RogueDamageClass>();
+            Projectile.width = 26;
+            Projectile.height = 26;
+            Projectile.timeLeft = 120;
+            Projectile.extraUpdates = 1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 55;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.scale = 2;
@@ -54,14 +49,15 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.ai[0]++;
             rotspeed *= 0.94f;
-            if (Projectile.ai[0] <= 26) {
-                scale += (1 + (stl ? 1 : 0) - scale) * 0.06f; 
+            if (Projectile.ai[0] <= 26)
+            {
+                scale += (1 + (stl ? 1 : 0) - scale) * 0.06f;
             }
             if (Projectile.ai[0] == 26)
             {
                 if (stl)
                 {
-                    
+
                     if (Main.myPlayer == Projectile.owner)
                     {
                         Main.LocalPlayer.Entropy().screenPos = Projectile.Center;
@@ -73,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
                 Util.Util.PlaySound("da3", 1, Projectile.Center);
-                
+
             }
             if (Projectile.ai[0] > 26 && Projectile.ai[0] < 38 + (stl ? 5 : 0))
             {
@@ -96,7 +92,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] >= 37 + (stl ? 0 : 0))
             {
-                
+
                 rotspeed *= 0.57f;
             }
             if (Projectile.ai[0] > 46 + (stl ? 0 : 0))
@@ -107,7 +103,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.Kill();
             }
-            
+
             Projectile.rotation += rotspeed * (Projectile.velocity.X > 0 ? 1 : -1) * (stl ? -1 : 1);
             Projectile.Center = Projectile.owner.ToPlayer().gfxOffY * Vector2.UnitY + Projectile.owner.ToPlayer().Center;
             Player owner = Projectile.owner.ToPlayer();
@@ -136,9 +132,9 @@ namespace CalamityEntropy.Content.Projectiles
                 Color impactColor = Main.rand.NextBool(3) ? Color.SkyBlue : Color.White;
                 float impactParticleScale = Main.rand.NextFloat(1f, 1.75f);
 
-                    SparkleParticle impactParticle2 = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, Color.White, Color.Blue, impactParticleScale * 1.2f, 8, 0, 4.5f);
-                    GeneralParticleHandler.SpawnParticle(impactParticle2);
-                
+                SparkleParticle impactParticle2 = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, Color.White, Color.Blue, impactParticleScale * 1.2f, 8, 0, 4.5f);
+                GeneralParticleHandler.SpawnParticle(impactParticle2);
+
                 SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, Color.Blue, impactParticleScale, 8, 0, 2.5f);
                 GeneralParticleHandler.SpawnParticle(impactParticle);
             }
@@ -181,7 +177,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if(Projectile.ai[0] > 26)
+            if (Projectile.ai[0] > 26)
             {
                 return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 240 * scale, targetHitbox, 100);
             }
@@ -196,7 +192,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
-            if(Projectile.velocity.X * (Projectile.Calamity().stealthStrike ? -1 : 1) > 0)
+            if (Projectile.velocity.X * (Projectile.Calamity().stealthStrike ? -1 : 1) > 0)
             {
                 Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation - MathHelper.Pi / 2f, new Vector2(0, 0), scale * Projectile.scale, SpriteEffects.FlipVertically, 0);
             }
@@ -207,7 +203,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.Calamity().stealthStrike)
             {
-                if(balpha < 1)
+                if (balpha < 1)
                 {
                     balpha += 0.05f;
                 }

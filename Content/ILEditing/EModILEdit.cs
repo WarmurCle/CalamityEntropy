@@ -1,13 +1,11 @@
-using Terraria;
-
-namespace CalamityEntropy.Content.ILEditing
+﻿namespace CalamityEntropy.Content.ILEditing
 {
     public static class EModILEdit
     {
 
         public static void load()
         {
-                     }
+        }
 
         /*private static void HookGetDPS(ILContext il)
         {

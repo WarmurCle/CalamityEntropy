@@ -1,10 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
@@ -22,7 +16,7 @@ namespace CalamityEntropy.Content.Particles
             this.alpha = timeLeft / 6f;
             this.scale = timeLeft / 6f * 0.22f;
             this.velocity *= 0.96f;
-            
+
         }
     }
 }

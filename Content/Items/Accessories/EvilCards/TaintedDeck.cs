@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
@@ -8,17 +8,18 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories.EvilCards
 {
-	public class TaintedDeck : ModItem
-	{
+    public class TaintedDeck : ModItem
+    {
 
-		public override void SetDefaults() {
-			Item.width = 22;
-			Item.height = 22;
+        public override void SetDefaults()
+        {
+            Item.width = 22;
+            Item.height = 22;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
-			
-		}
+
+        }
         public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
         {
             return incomingItem.ModItem is not OracleDeck;
@@ -47,7 +48,7 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
 
             player.GetModPlayer<EModPlayer>().SacrificeCard = true;
             player.lifeRegen = (int)(player.lifeRegen * 0.3f);
-            
+
 
             player.GetDamage(DamageClass.Generic) += 0.32f;
 

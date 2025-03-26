@@ -1,9 +1,7 @@
 ﻿using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
-using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Events;
 using CalamityMod.NPCs.ProfanedGuardians;
 using CalamityMod.NPCs.Providence;
 using CalamityMod.NPCs.SlimeGod;
@@ -12,12 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.GameContent.Events;
 using Terraria.GameContent.UI.BigProgressBar;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,7 +30,7 @@ namespace CalamityEntropy.Common
         public static Dictionary<int, Color> bossbarColor;
         public float whiteLerp = 0;
         public int comboTimeCount = 0;
-        public override void Load() 
+        public override void Load()
         {
             bossbarColor = new Dictionary<int, Color>();
         }
@@ -59,7 +53,7 @@ namespace CalamityEntropy.Common
                     return new Color(150, 60, 255);
                 }
             }*/
-            if(npc.ModNPC is Providence || npc.ModNPC is ProfanedGuardianCommander || npc.ModNPC is ProfanedGuardianHealer || npc.ModNPC is ProfanedGuardianDefender)
+            if (npc.ModNPC is Providence || npc.ModNPC is ProfanedGuardianCommander || npc.ModNPC is ProfanedGuardianHealer || npc.ModNPC is ProfanedGuardianDefender)
             {
                 if (!Main.dayTime)
                 {
@@ -161,7 +155,7 @@ namespace CalamityEntropy.Common
                     barColor = getNpcBarColor(npc);
                 }
             }
-            if(npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
+            if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
             {
                 comboTime = 0;
             }
@@ -172,7 +166,7 @@ namespace CalamityEntropy.Common
                 comboTarget = prog;
                 comboTimeCount = 0;
             }
-            if(comboTime > 0)
+            if (comboTime > 0)
             {
                 comboTimeCount++;
             }
@@ -207,14 +201,14 @@ namespace CalamityEntropy.Common
             }
             if (ModLoader.TryGetMod("CalamityHunt", out Mod calHunt))
             {
-                if(npc.type == calHunt.Find<ModNPC>("Goozma").Type)
+                if (npc.type == calHunt.Find<ModNPC>("Goozma").Type)
                 {
                     goozma = true;
                 }
             }
             if (ModLoader.TryGetMod("NoxusBoss", out Mod nxb))
             {
-                if(npc.type == nxb.Find<ModNPC>("NamelessDeityBoss").Type)
+                if (npc.type == nxb.Find<ModNPC>("NamelessDeityBoss").Type)
                 {
                     namelessDeity = true;
                 }
@@ -250,7 +244,7 @@ namespace CalamityEntropy.Common
             }
             spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
-             
+
             if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore) && !namelessDeity)
             {
                 spriteBatch.Draw(barLocked, center, new Rectangle(0, 0, 18 + (int)(500 * prog), bar1.Height), Color.Lerp(barColor, Color.White, 0.36f), 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
@@ -309,7 +303,7 @@ namespace CalamityEntropy.Common
                     whiteLerp -= 0.05f;
                 }
             }
-                         Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 28), tColor * 1.1f, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
+            Main.spriteBatch.DrawString(CalamityEntropy.efont1, name, center + new Vector2(0, 28), tColor * 1.1f, 0, CalamityEntropy.efont1.MeasureString(name) / 2 * new Vector2(1, 0), 1.4f, SpriteEffects.None, 0);
             spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
 

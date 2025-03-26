@@ -1,9 +1,6 @@
-using CalamityEntropy.Util;
-using CalamityMod.Buffs.Potions;
-using CalamityMod.Items.Potions.Alcohol;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json.Linq;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -14,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    
+
     public class AnimaChain : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -37,18 +34,18 @@ namespace CalamityEntropy.Content.Projectiles
         bool playsound = true;
         public override void AI()
         {
-            if(Projectile.timeLeft == 270)
+            if (Projectile.timeLeft == 270)
             {
                 Util.Util.PlaySound("chains_rattle", 1, Projectile.Center);
             }
-            if(trap < 1)
+            if (trap < 1)
             {
                 trap += 0.1f;
             }
-            if(trap >= 1)
+            if (trap >= 1)
             {
                 target.velocity += (Projectile.Center - target.Center).SafeNormalize(Vector2.Zero) * 2;
-                if(r > 0)
+                if (r > 0)
                 {
                     r -= 0.01f;
                 }
@@ -56,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     playsound = false;
                     Util.Util.PlaySound("chain2", 1, Projectile.Center);
-                    
+
                 }
                 if (target.active)
                 {
@@ -64,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    if(Projectile.timeLeft > 2)
+                    if (Projectile.timeLeft > 2)
                     {
                         Projectile.timeLeft = 2;
                     }
@@ -85,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             List<Vector2> points = new List<Vector2>();
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 points.Add(Projectile.Center + new Vector2(300, 0).RotatedBy(MathHelper.ToRadians(i * 120) + Projectile.rotation));
             }
@@ -105,7 +102,7 @@ namespace CalamityEntropy.Content.Projectiles
                     rtime = 5;
                 }
                 l = r;
-                if(rtime > 0)
+                if (rtime > 0)
                 {
                     rtime--;
                     redAlpha = 0.8f;
@@ -122,7 +119,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 endPos = Vector2.Lerp(startPos, target.Center, trap);
                 int spacing = 18;
                 Texture2D tx = Util.Util.getExtraTex("anima_chain");
-                
+
                 int distance = ((int)Math.Sqrt(Math.Pow(endPos.X - startPos.X, 2) + Math.Pow(endPos.Y - startPos.Y, 2)));
                 float rot = (endPos - startPos).ToRotation();
                 float px = startPos.X;
@@ -149,7 +146,7 @@ namespace CalamityEntropy.Content.Projectiles
                     drawPos.Y += addVec.Y * spacing;
                 }
             }
-            if(trap >= 1)
+            if (trap >= 1)
             {
                 shader.Parameters["alpha"].SetValue(1);
                 Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;

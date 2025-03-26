@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using rail;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
@@ -26,7 +20,8 @@ namespace CalamityEntropy.Content.Particles
         public float width = 2;
         public float c;
         public float r;
-        public ELineParticle(float width, float c = 0.96f, float r = 0.96f) { 
+        public ELineParticle(float width, float c = 0.96f, float r = 0.96f)
+        {
             this.width = width;
             this.c = c;
             this.r = r;

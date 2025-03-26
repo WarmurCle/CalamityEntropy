@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using CalamityEntropy.Util;
+﻿using CalamityEntropy.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -35,9 +35,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ArmorPenetration = 30;
         }
 
-        public override void AI(){
+        public override void AI()
+        {
 
-            
+
             Projectile.ai[0]++;
             if (htd)
             {
@@ -45,7 +46,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
-                    
+
                 }
                 Projectile.velocity = Vector2.Zero;
             }
@@ -58,14 +59,14 @@ namespace CalamityEntropy.Content.Projectiles
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
                 }
-                
+
                 NPC target = Projectile.FindTargetWithinRange(1100, false);
                 if (target != null)
                 {
-                    Projectile.velocity *= 0.9f;   
+                    Projectile.velocity *= 0.9f;
                     Vector2 v = target.Center - Projectile.Center;
                     v.Normalize();
-                    
+
                     Projectile.velocity += v * 2f;
                 }
             }
@@ -95,9 +96,10 @@ namespace CalamityEntropy.Content.Projectiles
             Color cl = Color.Lerp(Color.Black, Color.White, Projectile.ai[0] / 30f);
             float c = 0;
 
-            
+
             c = 0;
-            if (odp.Count > 1) {
+            if (odp.Count > 1)
+            {
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -111,7 +113,7 @@ namespace CalamityEntropy.Content.Projectiles
                       b));
                 for (int i = 1; i < odp.Count; i++)
                 {
-                    
+
 
                     c += 1f / odp.Count;
                     ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 20,
@@ -120,12 +122,13 @@ namespace CalamityEntropy.Content.Projectiles
                     ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 20,
                           new Vector3((float)i / odp.Count, 0, 1),
                           b));
-                        
+
                 }
 
                 SpriteBatch sb = Main.spriteBatch;
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                if (ve.Count >= 3)                 {
+                if (ve.Count >= 3)
+                {
                     Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/rvslash").Value;
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
@@ -143,8 +146,8 @@ namespace CalamityEntropy.Content.Projectiles
                     return false;
 
                 }
-                Main.spriteBatch.Draw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, TextureAssets.Projectile[Projectile.type].Value.Size()/2, Projectile.scale, SpriteEffects.None, 0);
-                
+                Main.spriteBatch.Draw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, TextureAssets.Projectile[Projectile.type].Value.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+
             }
             odp.RemoveAt(odp.Count - 1);
             odr.RemoveAt(odr.Count - 1);

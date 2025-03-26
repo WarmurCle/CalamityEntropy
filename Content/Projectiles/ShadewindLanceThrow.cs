@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -66,15 +66,16 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            
+
         }
-        public override void AI(){
-            if(Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 && Projectile.ai[0] > 12)
+        public override void AI()
+        {
+            if (Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 && Projectile.ai[0] > 12)
             {
                 int boost = Projectile.owner.ToPlayer().Entropy().WeaponBoost;
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    if(Projectile.timeLeft % Math.Max(((int)(10 / boost)), 1) == 0)
+                    if (Projectile.timeLeft % Math.Max(((int)(10 / boost)), 1) == 0)
                     {
                         Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 0.4f, ModContent.ProjectileType<VoidStarF>(), (int)(Projectile.damage * 0.1f), 5, Projectile.owner)];
                         p.DamageType = CUtil.rogueDC;
@@ -150,7 +151,7 @@ namespace CalamityEntropy.Content.Projectiles
                     SwingSound = new("CalamityMod/Sounds/NPCKilled/DevourerDeathImpact");
                     SwingSound.Pitch = 0.2f;
                 }
-                
+
                 SoundEngine.PlaySound(SwingSound, Projectile.Center);
             }
             if (Projectile.ai[0] == 12)
@@ -184,7 +185,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
 
             Projectile.ai[0]++;
-            
+
         }
         public override bool ShouldUpdatePosition()
         {

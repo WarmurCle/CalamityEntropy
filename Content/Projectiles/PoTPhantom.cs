@@ -1,9 +1,9 @@
+﻿using CalamityEntropy.Util;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using CalamityEntropy.Util;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -56,7 +56,8 @@ namespace CalamityEntropy.Content.Projectiles
         public float rotSpeed = 0f;
         public float scale2 = 1.2f;
         public bool live = true;
-        public override void AI(){
+        public override void AI()
+        {
             soundCd--;
             Player owner = Projectile.owner.ToPlayer();
             Projectile.netUpdate = true;
@@ -84,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
                     return;
                 }
             }
-            
+
             scaleD = ((PoTProj)((int)Projectile.ai[0]).ToProj().ModProjectile).scaleD;
             rotSpeed = ((PoTProj)((int)Projectile.ai[0]).ToProj().ModProjectile).rotSpeed;
             Projectile.rotation = ((int)Projectile.ai[0]).ToProj().rotation;
@@ -153,7 +154,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            
+
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/PoTYharimPhantom").Value;
 
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, 0, tx.Size() / 2, Projectile.scale * 3, (Projectile.velocity.X >= 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);

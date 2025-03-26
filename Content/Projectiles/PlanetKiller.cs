@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Ranged;
@@ -6,7 +6,6 @@ using CalamityMod.Items.Weapons.Summon;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +22,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.SetStaticDefaults();
         }
         public override void SetDefaults()
-        {   
+        {
             Projectile.DamageType = DamageClass.Summon;
             Projectile.width = 46;
             Projectile.height = 46;
@@ -65,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ai[0]++;
             if (Projectile.ai[0] % 52 == 0 || Projectile.ai[0] % 52 == 16)
             {
-                
+
                 int projID = ProjectileID.Bullet;
                 float shootSpeed = FalseGun.shootSpeed;
                 int damage = Projectile.originalDamage;
@@ -123,13 +122,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            foreach(Projectile p in Main.projectile)
+            foreach (Projectile p in Main.projectile)
             {
                 if (p.type == Projectile.type && p.active && p.whoAmI != Projectile.whoAmI)
                 {
                     if (p.owner == Projectile.owner && p.Hitbox.Intersects(Projectile.Hitbox))
                     {
-                        
+
                         for (int i = 0; i < 6; i++)
                         {
                             if (p.Hitbox.Intersects(Projectile.Hitbox))
