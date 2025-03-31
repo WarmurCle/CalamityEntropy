@@ -81,6 +81,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
+
 namespace CalamityEntropy
 {
     public class CalamityEntropy : Mod
