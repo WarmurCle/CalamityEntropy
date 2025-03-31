@@ -369,7 +369,7 @@ namespace CalamityEntropy.Content.NPCs
                 p3.Add(new RewardPoolItem(ModContent.ItemType<EidolonStaff>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ReaperTooth>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<TwistingNether>(), 1));
-		        p3.Add(new RewardPoolItem(ModContent.ItemType<DarkPlasma>(), 1));
+		p3.Add(new RewardPoolItem(ModContent.ItemType<DarkPlasma>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ArmoredShell>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<CosmicWorm>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<EidolicWail>(), 1));
@@ -381,14 +381,14 @@ namespace CalamityEntropy.Content.NPCs
                 p3.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 10));
 
                 p4 = new RewardPool();
-		        p4.Add(new RewardPoolItem(ModContent.ItemType<YharimsCrystal>(), 1));
-		        p4.Add(new RewardPoolItem(ModContent.ItemType<Murasama>(), 1));
+		p4.Add(new RewardPoolItem(ModContent.ItemType<YharimsCrystal>(), 1));
+		p4.Add(new RewardPoolItem(ModContent.ItemType<Murasama>(), 1));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<AuricOre>(), 100));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<TheWand>(), 1));
                 p4.Add(new RewardPoolItem(ItemID.Zenith, 1));
-		        p4.Add(new RewardPoolItem(ModContent.ItemType<Fabsoup>(), 1));
+		p4.Add(new RewardPoolItem(ModContent.ItemType<Fabsoup>(), 1));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<DragonRage>(), 1));
-		        p4.Add(new RewardPoolItem(ModContent.ItemType<TheBurningSky>(), 1));
+		p4.Add(new RewardPoolItem(ModContent.ItemType<TheBurningSky>(), 1));
 		
 
                 #endregion
