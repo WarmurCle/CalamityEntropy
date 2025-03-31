@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Tiles;
+using CalamityEntropy.Content.Items;
 using CalamityMod;
 using Terraria;
 using Terraria.ID;
@@ -26,6 +27,12 @@ namespace CalamityEntropy.Content.Items
             Item.buffType = ModContent.BuffType<VoidCandleBuff>();
             Item.buffTime = CalamityUtils.SecondsToFrames(600);
         }
-
+        public override void AddRecipes()
+        {
+            CreateRecipe().
+                AddIngredient(ModContent.ItemType<VoidBar>(), 10).
+                AddTile(TileID.Anvils).
+                Register();
+        }
     }
 }
