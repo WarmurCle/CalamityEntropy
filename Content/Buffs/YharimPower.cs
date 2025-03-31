@@ -1,21 +1,21 @@
-使用 CalamityMod;
-使用泰拉瑞亚;
-使用 Terraria.ID;
-使用 Terraria.ModLoader;
+using CalamityMod;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
-命名空间 CalamityEntropy.内容.增益
+namespace CalamityEntropy.Content.Buffs
 {
-    公共 类 YharimPower : ModBuff
+    public class YharimPower : ModBuff
     {
-        公共 覆盖 无返回值 SetStaticDefaults()
+        public override void SetStaticDefaults()
         {
-            Main.debuff[Type] = 假;
-            Main.pvpBuff[Type] = 真;
-            Main.buffNoSave[Type] =   假;
-            BuffID.Sets LongExpertDebuff[Type] = 假;
+            Main.debuff[Type] = false;
+            Main.pvpBuff[Type] = true;
+            Main.buffNoSave[Type] = false;
+            BuffID.Sets.LongerExpertDebuff[Type] = false;
         }
 
-        公共 覆盖 无返回值 更新(玩家 player, 引用 整数 buffIndex)
+        public override void Update(Player player, ref int buffIndex)
         {
             player.GetDamage(DamageClass.Generic) += 0.06f;
             player.GetCritChance(DamageClass.Generic) += 5;
@@ -27,4 +27,4 @@
             player.lifeRegen += 6;
         }
     }
-输入：}
+}
