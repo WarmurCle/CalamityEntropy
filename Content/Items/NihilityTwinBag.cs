@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items
         {
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NihilityActeriophage>()));
 
-            itemLoot.Add(ModContent.ItemType<NihilityShell>(), new Fraction(1, 8));
+            itemLoot.Add(ModContent.ItemType<NihilityShell>(), new Fraction(1, 1));
             itemLoot.Add(ModContent.ItemType<Voidseeker>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<EventideSniper>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<NihilityBacteriophageWand>(), new Fraction(3, 5));
