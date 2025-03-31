@@ -63,11 +63,11 @@ namespace CalamityEntropy.Content.Buffs
             如果 (角色有技能<监狱鞭打减益>())
             输入：            {
                 modifiersFlatBonusDamage += JailerWhipDebuffTagDamage * projTagMultiplier;
-                如果 (Main.rand.NextBool输入：(
+                如果 (Main.rand.NextBool(10))
                 {
                     modifiers.SetCrit();
-                输入：}
-            输入：}
+                }
+            }
             如果 (角色.有技能<龙鞭减益>())
             输入：
                 modifiersFlatBonusDamage += DragonWhipDebuffTagDamage * projTagMultiplier;
