@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
 using Terraria;
 using Terraria.ID;
@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Buffs
     }
     public class DragonWhipDebuff : ModBuff
     {
-        public static readonly int TagDamage = 15;
+        public static readonly int TagDamage = 5;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -36,82 +36,82 @@ namespace CalamityEntropy.Content.Buffs
     }
     public class CruiserWhipDebuff : ModBuff
     {
-        public static readonly int TagDamage = 30;
-        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
-        public override void SetStaticDefaults()
+        公共 静态 只读 int 标签伤害 = 30;
+        公共 覆盖字符串纹理 => "CalamityEntropy/Content/Buffs/鞭击减益"输入：;
+        公共 覆盖 无返回值 SetStaticDefaults()
         {
-            BuffID.Sets.IsATagBuff[Type] = true;
+            BuffID.Sets.IsATagBuff[Type] = 真;
         }
     }
 
-    public class WhipDebuffNPC : GlobalNPC
+    公共 类 鞭打减益NPC : 全局NPC
     {
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+        公共 覆盖 无 修改命中投射物(NPC npc, 投射物 projectile, 参考 NPC.命中修正符 modifiers)
         {
-            if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
-                return;
+            如果 (项目物是NPC投射物 || 项目物是陷阱 || 项目物的伤害类型不是召唤伤害 || 项目物是鞭子)
+                返回;
 
-            if (projectile.TryGetOwner(out var owner))
-            {
-                if (Main.rand.Next(0, 100) < owner.Entropy().summonCrit)
+            如果 (项目物.尝试获取所有者(输出 变量 所有者))
+            输入：
+                如果 (Main.rand.Next(0, 100) < owner.Entropy().summonCrit)
                 {
                     modifiers.SetCrit();
                 }
             }
 
             var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
-            if (npc.HasBuff<JailerWhipDebuff>())
-            {
-                modifiers.FlatBonusDamage += JailerWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(10))
+            如果 (角色有技能<监狱鞭打减益>())
+            输入：            {
+                modifiersFlatBonusDamage += JailerWhipDebuffTagDamage * projTagMultiplier;
+                如果 (Main.rand.NextBool输入：(
+                {
+                    modifiers.SetCrit();
+                输入：}
+            输入：}
+            如果 (角色.有技能<龙鞭减益>())
+            输入：
+                modifiersFlatBonusDamage += DragonWhipDebuffTagDamage * projTagMultiplier;
+                如果 (Main.rand.NextBool(50))
                 {
                     modifiers.SetCrit();
                 }
             }
-            if (npc.HasBuff<DragonWhipDebuff>())
-            {
-                modifiers.FlatBonusDamage += DragonWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(50))
+            如果 (角色技能.有技能<轻巡鞭打减益>())
+            输入：
+                modifiersFlatBonusDamage += 舰船鞭打减益标签伤害 * proj标签乘数;
+                如果 (Main.rand.NextBool(15))
                 {
                     modifiers.SetCrit();
                 }
             }
-            if (npc.HasBuff<CruiserWhipDebuff>())
-            {
-                modifiers.FlatBonusDamage += CruiserWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(10))
-                {
-                    modifiers.SetCrit();
-                }
-            }
-            if (npc.HasBuff<WyrmWhipDebuff>())
-            {
-                modifiers.FlatBonusDamage += WyrmWhipDebuff.TagDamage * projTagMultiplier;
+            如果 (角色.有技能<龙鞭诅咒>())
+            输入：
+                modifiersFlatBonusDamage += WyrmWhipDebuffTagDamage * projTagMultiplier;
                 modifiers.SourceDamage += WyrmWhipDebuff.TagDamageMul * projTagMultiplier;
-                if (Main.rand.NextBool(6))
+                如果 (Main.rand.NextBool(8))
                 {
                     modifiers.SetCrit();
                 }
             }
         }
 
-        public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
+        公共 覆盖 无返回值 OnHitByProjectile(NPC npc, Projectile projectile, NPC.打击信息 hit, int damageDone)
         {
-            if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
-                return;
+            如果 (项目物是NPC投射物 || 项目物是陷阱 || 项目物的伤害类型不是召唤伤害 || 项目物是鞭子)
+                返回;
 
 
-            if (npc.HasBuff<DragonWhipDebuff>())
-            {
-                if (!Main.rand.NextBool(3))
+            如果 (角色.有技能<龙鞭减益>())
+            输入：
+                如果 (!Main.rand.NextBool(10))
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Util.Util.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 3, 1, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Util.Util.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 8, 1, projectile.owner);
                 }
-                if (projectile.TryGetOwner(out var owner))
+                如果 (项目物.尝试获取所有者(输出 变量 所有者))
                 {
                     owner.Heal((int)MathHelper.Max(damageDone / 3000, 1));
                 }
             }
         }
     }
-}
+输入：}
