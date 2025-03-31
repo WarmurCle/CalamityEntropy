@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class MawOfTheVoid : ModItem
     {
-        public static int Damage = 225; public override void SetDefaults()
+        public static int Damage = 75; public override void SetDefaults()
         {
             Item.width = 40;
             Item.height = 40;
