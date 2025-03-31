@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
@@ -36,10 +36,8 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
 
             player.Calamity().wearingRogueArmor = true;
 
-            player.GetDamage(DamageClass.Generic) += 0.15f;
-            player.GetCritChance(DamageClass.Generic) += 10;
             player.GetArmorPenetration(DamageClass.Generic) += 20;
-            player.Calamity().rogueStealthMax += 1.45f;
+            player.Calamity().rogueStealthMax += 1.35f;
             player.Entropy().VFSet = true;
             player.Entropy().VFHelmRogue = true;
         }
