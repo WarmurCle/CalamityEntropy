@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
         {
             player.Entropy().VFLeg = true;
             player.GetDamage(DamageClass.Generic) += 0.1f;
-            player.GetCritChance(DamageClass.Generic) += 10;
+            player.GetCritChance(DamageClass.Generic) += 8;
         }
 
         public override void AddRecipes()
