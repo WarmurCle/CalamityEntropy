@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -456,7 +456,7 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.owner.ToPlayer().Entropy().nihShell)
                 {
-                    modifiers.CritDamage += 0.5f;
+                    modifiers.CritDamage += 0.10f;
                 }
             }
             if (projectile.owner >= 0)
@@ -488,7 +488,7 @@ namespace CalamityEntropy.Common
         {
             if (player.Entropy().nihShell)
             {
-                modifiers.CritDamage += 0.5f;
+                modifiers.CritDamage += 0.10f;
             }
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.05f * (1 - npc.Entropy().VoidTouchDR);
             if (player.Entropy().VFSet)
@@ -547,7 +547,7 @@ namespace CalamityEntropy.Common
         {
             if (npc.type == ModContent.NPCType<Yharon>())
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new IsNormal(), ModContent.ItemType<Vitalfeather>(), 3));
+                npcLoot.Add(ItemDropRule.ByCondition(new IsNormal(), ModContent.ItemType<Vitalfeather>(),10 ));
             }
             if (npc.type == ModContent.NPCType<PrimordialWyrmHead>())
             {
@@ -555,8 +555,8 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == ModContent.NPCType<EidolonWyrmHead>())
             {
-                npcLoot.Add(ModContent.ItemType<Nothing>(), 2, 1, 1);
-                npcLoot.Add(ModContent.ItemType<BookMarkAbyss>(), 2, 1, 1);
+                npcLoot.Add(ModContent.ItemType<Nothing>(), 4, 1, 1);
+                npcLoot.Add(ModContent.ItemType<BookMarkAbyss>(), 8, 1, 1);
             }
             if (npc.type == ModContent.NPCType<GiantClam>())
             {
@@ -937,32 +937,32 @@ namespace CalamityEntropy.Common
             {
                 if (Main.rand.NextDouble() < 0.1f)
                 {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CannedCarrion>(), 1));
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CannedCarrion>(), 10));
                 }
             }
             if (npc.type == NPCID.WyvernHead)
             {
                 if (Main.rand.NextDouble() < 0.06f)
                 {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<DreamCatcher>(), 1));
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<DreamCatcher>(), 10));
                 }
             }
             if (npc.type == NPCID.Harpy || npc.type == NPCID.WyvernHead)
             {
                 if (Main.rand.NextDouble() < 0.04f)
                 {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<LightningPendant>(), 1));
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<LightningPendant>(), 10));
                 }
             }
             if (npc.type == NPCID.Wraith || npc.type == NPCID.PossessedArmor)
             {
                 if (Main.rand.NextDouble() < 0.03f)
                 {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<SoulCandle>(), 1));
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<SoulCandle>(), 10));
                 }
                 if (Main.rand.NextDouble() < 0.03f)
                 {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<LostSoul>(), 1));
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<LostSoul>(), 10));
                 }
             }
             if (npc.type == ModContent.NPCType<CeaselessVoid>())
@@ -1240,10 +1240,6 @@ namespace CalamityEntropy.Common
             if (shop.NpcType == ModContent.NPCType<THIEF>())
             {
                 shop.Add(ModContent.ItemType<Barren>());
-            }
-            if (shop.NpcType == ModContent.NPCType<FAP>())
-            {
-                shop.Add(ModContent.ItemType<VoidCandle>());
             }
         }
     }
