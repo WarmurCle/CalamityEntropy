@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
@@ -44,9 +44,9 @@ namespace CalamityEntropy.Content.Items
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient(ItemID.HallowedBar, 10).
-                AddIngredient(ItemID.Ruby, 1).
-                AddIngredient(ItemID.HolyWater, 1).
+                AddIngredient(ItemID.HallowedBar, 100).
+                AddIngredient(ItemID.Ruby, 10).
+                AddIngredient(ItemID.HolyWater, 100).
                 AddTile(TileID.MythrilAnvil).
                 Register();
         }
