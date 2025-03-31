@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Util;
+using CalamityMod.Items.Materials;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod;
 using CalamityMod.Items;
 using Terraria;
@@ -26,9 +28,9 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         {
             player.Entropy().oracleDeckInInv = true;
             player.GetCritChance(DamageClass.Generic) += 8;
-            player.Calamity().rogueStealthMax += 0.12f;
-            player.maxMinions += 2;
-            player.GetArmorPenetration(DamageClass.Generic) += 10;
+            player.maxMinions += 1;
+	        player.Calamity().rogueStealthMax += 0.05f;
+            player.GetArmorPenetration(DamageClass.Generic) += 5;
             player.GetModPlayer<EModPlayer>().oracleDeck = true;
         }
 
@@ -54,6 +56,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
                 .AddIngredient(ModContent.ItemType<TemperanceCard>(), 1)
                 .AddIngredient(ModContent.ItemType<EnduranceCard>(), 1)
                 .AddIngredient(ModContent.ItemType<ThreadOfFate>(), 1)
+		        .AddIngredient(ModContent.ItemType<CoreofCalamity>(), 1)
                 .AddTile(TileID.Bookcases).Register();
         }
     }
