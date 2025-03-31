@@ -1129,7 +1129,7 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<YharonBag>())
             {
-                itemLoot.Add(ModContent.ItemType<Vitalfeather>(), new Fraction(1, 3));
+                itemLoot.Add(ModContent.ItemType<Vitalfeather>(), new Fraction(1, 10));
             }
             if (item.type == ModContent.ItemType<AstrumAureusBag>())
             {
@@ -1149,7 +1149,7 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<CalamitasCloneBag>())
             {
-                itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 3));
+                itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 1000));
             }
             if (item.type == ItemID.MoonLordBossBag)
             {
@@ -1157,7 +1157,7 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ItemID.KingSlimeBossBag)
             {
-                itemLoot.Add(ModContent.ItemType<SlimeYoyo>(), new Fraction(4, 10));
+                itemLoot.Add(ModContent.ItemType<SlimeYoyo>(), new Fraction(5, 10));
             }
             if (item.type == ItemID.DeerclopsBossBag)
             {
