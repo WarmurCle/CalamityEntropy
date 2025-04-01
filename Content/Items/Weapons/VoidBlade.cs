@@ -13,8 +13,8 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 60;
-            Item.crit = 22;
+            Item.damage = 25;
+            Item.crit = 4;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 100;
             Item.noUseGraphic = true;
@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             recipe.AddIngredient(ItemID.Katana, 1);
             recipe.AddIngredient(ModContent.ItemType<Voidstone>(), 5);
             recipe.AddIngredient(ItemID.Silk, 20);
-            recipe.AddIngredient(ModContent.ItemType<PurifiedGel>(), 6);
+            recipe.AddIngredient(ModContent.ItemType<PurifiedGel>(), 12);
             recipe.AddTile(TileID.DemonAltar);
             recipe.Register();
         }
