@@ -131,12 +131,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
-                length += 4;
+                length -= 4;
             }
             else if (CalamityWorld.revenge)
             {
                 NPC.damage += 18;
-                length += 2;
+                length -= 2;
             }
             tdamage = NPC.damage;
             NPC.HitSound = SoundID.NPCHit4;
