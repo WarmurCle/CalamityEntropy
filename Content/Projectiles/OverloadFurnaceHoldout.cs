@@ -68,9 +68,13 @@ namespace CalamityEntropy.Content.Projectiles
                         Util.Util.PlaySound("ofshoot", 1, Projectile.Center);
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 30, Projectile.velocity.SafeNormalize(Vector2.Zero) * 5f, ModContent.ProjectileType<LightningBall>(), (int)(Projectile.damage * (Projectile.ai[0] >= maxTime ? 5f : 1)), Projectile.knockBack, Projectile.owner, 0, (Projectile.ai[0] >= maxTime ? 1 : 0));
                     }
+                    eRotSpeed = owner.direction * -0.3f;
+                    EAnmTime = 32;
                 }
-                eRotSpeed = owner.direction * -0.25f;
-                EAnmTime = 32;
+                else
+                {
+                    EAnmTime = 1;
+                }
                 return;
             }
             Color lightColor = Color.White;
@@ -136,7 +140,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
             if (Projectile.ai[0] >= maxTime)
             {
-                lightColor = Color.Lerp(lightColor, Color.Red, 0.5f + (float)Math.Cos((++counter) * 0.1f) * 0.5f);
+                lightColor = Color.Lerp(lightColor, Color.Red, 0.5f + (float)Math.Cos((++counter) * 0.04f) * 0.5f);
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -149,8 +153,6 @@ namespace CalamityEntropy.Content.Projectiles
                     Main.EntitySpriteDraw(to, Projectile.Center - Main.screenPosition + v, null, lightColor * (Projectile.ai[0] / (float)maxTime) * (Projectile.ai[0] >= maxTime ? 1f : 0.95f), Projectile.rotation + MathHelper.ToRadians(45), new Vector2(0, texture.Height), Projectile.scale, SpriteEffects.None);
                 }
             }
-
-
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -159,12 +161,13 @@ namespace CalamityEntropy.Content.Projectiles
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-            Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow").Value;
-            Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition + Projectile.velocity.SafeNormalize(Vector2.Zero) * 34 * Projectile.scale, null, (Projectile.ai[0] >= maxTime ? Color.Lerp(Color.White, Color.Red, (0.5f + (float)Math.Cos((counter) * 0.1f) * 0.5f)) : Color.White) * (Projectile.ai[0] / (float)maxTime), 0, light.Size() / 2, 0.2f * Projectile.scale * (1 + (float)Math.Cos((counter) * 0.1f) * 0.2f), SpriteEffects.None, 0);
-
+            if (EAnmTime == -1)
+            {
+                Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow").Value;
+                Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition + Projectile.velocity.SafeNormalize(Vector2.Zero) * 34 * Projectile.scale, null, (Projectile.ai[0] >= maxTime ? Color.Lerp(Color.White, Color.Red, (0.5f + (float)Math.Cos((counter) * 0.1f) * 0.5f)) : Color.White) * (Projectile.ai[0] / (float)maxTime), 0, light.Size() / 2, 0.2f * Projectile.scale * (1 + (float)Math.Cos((counter) * 0.1f) * 0.2f), SpriteEffects.None, 0);
+                
+            }
             Main.spriteBatch.End();
-
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
 

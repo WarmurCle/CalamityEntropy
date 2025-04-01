@@ -83,7 +83,10 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/ExoTwinsEject"), Projectile.Center);
-            Projectile.getOwner().Calamity().GeneralScreenShakePower = 7;
+            if (Util.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) < 1200)
+            {
+                Projectile.getOwner().Calamity().GeneralScreenShakePower = 7;
+            }
         }
 
 
