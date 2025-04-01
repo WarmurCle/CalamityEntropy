@@ -1031,11 +1031,11 @@ namespace CalamityEntropy.Common
             }
             if (ModLoader.TryGetMod("CalamityHunt", out Mod ch) && (item.type == ch.Find<ModItem>("TreasureTrunk").Type || item.type == ch.Find<ModItem>("TreasureBucket").Type))
             {
-                itemLoot.Add(ModContent.ItemType<BookMarkGoozma>(), new Fraction(1, 1));
+                itemLoot.Add(ModContent.ItemType<BookMarkGoozma>(), new Fraction(1, 2));
             }
             if (ModLoader.TryGetMod("CatalystMod", out Mod cl) && item.type == cl.Find<ModItem>("AstrageldonBag").Type)
             {
-                itemLoot.Add(ModContent.ItemType<BookMarkIntergelactic>(), new Fraction(1, 2));
+                itemLoot.Add(ModContent.ItemType<BookMarkIntergelactic>(), new Fraction(1, 1));
             }
             if (item.Is<CryogenBag>())
             {
@@ -1113,15 +1113,15 @@ namespace CalamityEntropy.Common
 
             if (item.type == ItemID.PlanteraBossBag)
             {
-                itemLoot.Add(ModContent.ItemType<ToyGuitar>(), new Fraction(1, 3));
+                itemLoot.Add(ModContent.ItemType<ToyGuitar>(), new Fraction(1, 5));
             }
             if (item.type == ModContent.ItemType<StormWeaverBag>())
             {
-                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<HeartOfStorm>()));
+                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<HeartOfStorm>(), new Fraction(1, 10)));
             }
             if (item.type == ModContent.ItemType<AstrumDeusBag>())
             {
-                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<DeusCore>()));
+                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<DeusCore>(), new Fraction(1, 10)));
             }
             if (item.type == ModContent.ItemType<BrimstoneWaifuBag>())
             {
@@ -1149,11 +1149,11 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<CalamitasCloneBag>())
             {
-                itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 1000));
+                itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 2000));
             }
-            if (item.type == ItemID.MoonLordBossBag)
+            if (item.type == ItemID.PlanteraBossBag)
             {
-                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<SilvasCrown>()));
+                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<SilvasCrown>(), new Fraction(1, 2)));
             }
             if (item.type == ItemID.KingSlimeBossBag)
             {
