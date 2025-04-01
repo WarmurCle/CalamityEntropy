@@ -27,22 +27,50 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.tileCollide = false;
         }
         int maxTime;
+        public float eRotSpeed = 0;
+        public int EAnmTime = -1;
         public override void AI()
         {
             Player owner = Projectile.owner.ToPlayer();
-
+            owner.heldProj = Projectile.whoAmI;
+            if (Projectile.velocity.X > 0)
+            {
+                owner.direction = 1;
+                owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - (float)(Math.PI * 0.5f));
+            }
+            else
+            {
+                owner.direction = -1;
+                owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - (float)(Math.PI * 0.5f));
+            }
+            if (EAnmTime > 0)
+            {
+                EAnmTime--;
+                if (EAnmTime <= 0)
+                {
+                    Projectile.Kill();
+                }
+                Projectile.Center = owner.MountedCenter + owner.gfxOffY * Vector2.UnitY;
+                Projectile.rotation += eRotSpeed;
+                eRotSpeed *= 0.85f;
+                owner.itemTime = 2;
+                owner.itemAnimation = 2;
+                return;
+            }
             if (!owner.channel)
             {
                 if (Projectile.ai[0] > 16)
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {
+                        Projectile.getOwner().velocity += Projectile.velocity.normalize() * -6f;
                         Projectile.getOwner().Calamity().GeneralScreenShakePower = 4;
                         Util.Util.PlaySound("ofshoot", 1, Projectile.Center);
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 30, Projectile.velocity.SafeNormalize(Vector2.Zero) * 5f, ModContent.ProjectileType<LightningBall>(), (int)(Projectile.damage * (Projectile.ai[0] >= maxTime ? 5f : 1)), Projectile.knockBack, Projectile.owner, 0, (Projectile.ai[0] >= maxTime ? 1 : 0));
                     }
                 }
-                Projectile.Kill();
+                eRotSpeed = owner.direction * -0.25f;
+                EAnmTime = 32;
                 return;
             }
             Color lightColor = Color.White;
@@ -91,11 +119,10 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.direction = -1;
                 owner.direction = -1;
             }
-            Player player = Projectile.owner.ToPlayer();
+            Player player = owner;
             Projectile.Center = owner.MountedCenter + player.gfxOffY * Vector2.UnitY;
             owner.itemRotation = Projectile.rotation * Projectile.direction;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
         }
@@ -113,12 +140,14 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            List<Vector2> v2ss = new List<Vector2>() { new Vector2(-4, -4), new Vector2(-4, 4), new Vector2(4, -4), new Vector2(4, 4), new Vector2(4, 0), new Vector2(-4, 0), new Vector2(0, 4), new Vector2(0, -4) };
+            List<Vector2> v2ss = new List<Vector2>() { new Vector2(-2, -2), new Vector2(-2, 2), new Vector2(2, -2), new Vector2(2, 2), new Vector2(2, 0), new Vector2(-2, 0), new Vector2(0, 2), new Vector2(0, -2) };
             Texture2D to = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/OverloadFurnaceOutline").Value;
-
-            foreach (Vector2 v in v2ss)
+            if (EAnmTime == -1)
             {
-                Main.EntitySpriteDraw(to, Projectile.Center - Main.screenPosition, null, lightColor * (Projectile.ai[0] / (float)maxTime) * (Projectile.ai[0] >= maxTime ? 1f : 0.95f), Projectile.rotation + MathHelper.ToRadians(45), new Vector2(0, texture.Height), Projectile.scale, SpriteEffects.None);
+                foreach (Vector2 v in v2ss)
+                {
+                    Main.EntitySpriteDraw(to, Projectile.Center - Main.screenPosition + v, null, lightColor * (Projectile.ai[0] / (float)maxTime) * (Projectile.ai[0] >= maxTime ? 1f : 0.95f), Projectile.rotation + MathHelper.ToRadians(45), new Vector2(0, texture.Height), Projectile.scale, SpriteEffects.None);
+                }
             }
 
 
