@@ -1,6 +1,10 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Util;
+using CalamityMod;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -21,17 +25,52 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.light = 1f;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 1024;
             Projectile.penetrate = 1;
-            Projectile.extraUpdates = 2;
+            Projectile.extraUpdates = 9;
         }
-
+        public TrailParticle t1 = new TrailParticle();
+        public TrailParticle t2 = new TrailParticle();
+        public List<TrailParticle> ts = new List<TrailParticle>();
         public override void AI()
         {
+            if (Projectile.localAI[1] == 0)
+            {
+                for(int i = 0; i < 4; i++)
+                {
+                    var pt = new TrailParticle();
+                    pt.maxLength = 80;
+                    ts.Add(pt);
+                    EParticle.spawnNew(pt, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.2f, 1, true, BlendState.NonPremultiplied);
+                }
+                t1.maxLength *= 4;
+                t2.maxLength *= 4;
+                
+                EParticle.spawnNew(t1, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
+                EParticle.spawnNew(t2, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
+            }
+            ++Projectile.localAI[1];
+            t1.timeLeft = 13;
+            t2.timeLeft = 13;
+            foreach(var p in ts)
+            {
+                p.timeLeft = 13;
+                p.AddPoint(Projectile.Center + Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-26, 26) * Projectile.scale);
+            }
+            t1.AddPoint(Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * (float)(Math.Cos(Projectile.localAI[1] * 0.1f)) * (7 * Projectile.scale));
+            t2.AddPoint(Projectile.Center + Projectile.velocity.RotatedBy(-MathHelper.PiOver2).normalize() * (float)(Math.Cos(Projectile.localAI[1] * 0.1f)) * (7 * Projectile.scale));
         }
 
         public override void OnKill(int timeLeft)
         {
+            for(int i = 0; i < 20; i++)
+            {
+                EParticle.spawnNew(new TrailSparkParticle(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 14), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale, 1, true, BlendState.NonPremultiplied);
+            }
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), new Vector2(2f, 2f), 0, 0.1f, (false ? 2 : 1) * 0.85f * 0.4f, (false ? 46 : 36));
+            GeneralParticleHandler.SpawnParticle(pulse);
+            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, (false ? 2.2f : 1) * 0.65f * 0.4f, (false ? 30 : 26));
+            GeneralParticleHandler.SpawnParticle(explosion2);
             if (Main.myPlayer == Projectile.owner)
             {
                 Projectile projectile = Projectile;
@@ -41,16 +80,17 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/ExoTwinsEject"), Projectile.Center);
+            Projectile.getOwner().Calamity().GeneralScreenShakePower = 7;
         }
 
 
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow").Value;
-            Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, (Projectile.ai[1] == 1 ? Color.Red : Color.White), 0, light.Size() / 2, 0.2f * Projectile.scale, SpriteEffects.None, 0);
+            Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow2").Value;
+            Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, (Projectile.ai[1] == 1 ? Color.Red : Color.White), 0, light.Size() / 2, 0.44f * Projectile.scale, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             return false;

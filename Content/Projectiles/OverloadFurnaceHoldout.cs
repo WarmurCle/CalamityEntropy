@@ -1,4 +1,6 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Util;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -35,14 +37,21 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        CalamityEntropy.Instance.screenShakeAmp = 4;
-                        Util.Util.PlaySound("of_shoot", 1, Projectile.Center);
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 30, Projectile.velocity.SafeNormalize(Vector2.Zero) * 16, ModContent.ProjectileType<LightningBall>(), (int)(Projectile.damage * (Projectile.ai[0] >= maxTime ? 5f : 1)), Projectile.knockBack, Projectile.owner, 0, (Projectile.ai[0] >= maxTime ? 1 : 0));
+                        Projectile.getOwner().Calamity().GeneralScreenShakePower = 4;
+                        Util.Util.PlaySound("ofshoot", 1, Projectile.Center);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 30, Projectile.velocity.SafeNormalize(Vector2.Zero) * 5f, ModContent.ProjectileType<LightningBall>(), (int)(Projectile.damage * (Projectile.ai[0] >= maxTime ? 5f : 1)), Projectile.knockBack, Projectile.owner, 0, (Projectile.ai[0] >= maxTime ? 1 : 0));
                     }
                 }
                 Projectile.Kill();
                 return;
             }
+            Color lightColor = Color.White;
+            if (Projectile.ai[0] >= maxTime)
+            {
+                lightColor = Color.Lerp(Color.White, Color.Red, 0.5f + (float)Math.Cos((++counter) * 0.1f) * 0.5f);
+            }
+            Vector2 sPos = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 30 + Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(32, 64);
+            EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.032f), sPos, (Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 30 - sPos) * 0.18f, lightColor, 0.4f, 1, true, BlendState.AlphaBlend, 0);
 
             maxTime = 60;
 
@@ -58,6 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
                         SoundStyle s = SoundID.DD2_BetsyFireballShot;
                         SoundEngine.PlaySound(s, Projectile.Center);
                         Dust.NewDust(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 34 * Projectile.scale, 1, 1, DustID.Smoke, a.ToRotationVector2().X * 0.4f, a.ToRotationVector2().Y * 0.4f);
+                        EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.032f), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 30, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(7, 16), Color.Lerp(Color.White, Color.Red, Main.rand.NextFloat(0, 1)), 1, 1, true, BlendState.AlphaBlend, 0);
                     }
                 }
             }

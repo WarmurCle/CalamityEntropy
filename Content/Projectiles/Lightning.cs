@@ -141,8 +141,8 @@ namespace CalamityEntropy.Content.Projectiles
             Color color = CalamityUtils.MulticolorLerp(colorInterpolant, new Color(Main.rand.Next(20, 100), 204, 250), new Color(Main.rand.Next(20, 100), 204, 250));
             if (Projectile.ai[2] == 1)
             {
-                color.G = (byte)(color.G * 0.2f);
-                color.B = (byte)(color.B * 0.2f);
+                color.G = (byte)(color.G * 0.1f);
+                color.B = (byte)(color.B * 0.1f);
             }
             return color;
         }
@@ -152,7 +152,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return false;
             }
-            Texture2D lm = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightmask").Value;
+            Texture2D lm = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow2").Value;
             float lw = 0.7f * ((36f - Projectile.ai[0]) / 36f);
             Color color = Color.White;
             if (Projectile.ai[2] == 1)
