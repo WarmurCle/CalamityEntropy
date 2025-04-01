@@ -117,7 +117,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 90;
             NPC.height = 90;
-            NPC.damage = 230;
+            NPC.damage = 220;
             if (Main.expertMode)
             {
                 NPC.damage += 18;
