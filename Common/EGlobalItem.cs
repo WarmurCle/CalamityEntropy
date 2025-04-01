@@ -1137,7 +1137,7 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<PolterghastBag>())
             {
-                itemLoot.Add(ModContent.ItemType<AnimaSola>(), new Fraction(1, 2));
+                itemLoot.Add(ModContent.ItemType<AnimaSola>(), new Fraction(1, 10));
             }
             if (item.type == ModContent.ItemType<AquaticScourgeBag>())
             {
