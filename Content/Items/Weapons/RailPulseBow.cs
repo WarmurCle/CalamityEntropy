@@ -14,10 +14,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 50;
             Item.height = 50;
-            Item.damage = 23;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Ranged;
-            Item.useTime = 5;
-            Item.useAnimation = 5;
+            Item.useTime = 7;
+            Item.useAnimation = 7;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 5f;
