@@ -10,6 +10,7 @@ namespace CalamityEntropy.Util
 {
     class WallpaperHelper
     {
+        //获取壁纸，为了给维度透镜的场景使用
         private const int SPI_GETDESKWALLPAPER = 0x0073;
         private const int MAX_PATH = 260;
 
