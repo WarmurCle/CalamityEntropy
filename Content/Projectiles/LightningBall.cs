@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
                 for(int i = 0; i < 4; i++)
                 {
                     var pt = new TrailParticle();
-                    pt.maxLength = 80;
+                    pt.maxLength = 11;
                     ts.Add(pt);
                     EParticle.spawnNew(pt, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.56f, 1, true, BlendState.NonPremultiplied);
                 }
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow2").Value;
-            Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, (Projectile.ai[1] == 1 ? Color.Red : Color.White), 0, light.Size() / 2, 0.44f * Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, (Projectile.ai[1] == 1 ? Color.Red : Color.White), 0, light.Size() / 2, 0.6f * Projectile.scale, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             return false;
