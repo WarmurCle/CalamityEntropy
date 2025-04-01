@@ -133,12 +133,17 @@ namespace CalamityEntropy.Content.Projectiles
                 target.AddBuff(ModContent.BuffType<GalvanicCorrosion>(), 240);
             }
         }
-        public float PrimitiveWidthFunction(float completionRatio) => completionRatio * Projectile.scale * 16;
+        public float PrimitiveWidthFunction(float completionRatio) => (1 - completionRatio) * Projectile.scale * 12 * ((36f - Projectile.ai[0]) / 36f);
 
         public Color PrimitiveColorFunction(float completionRatio)
         {
             float colorInterpolant = (float)Math.Sin(Projectile.identity / 3f + completionRatio * 20f + Main.GlobalTimeWrappedHourly * 1.1f) * 0.5f + 0.5f;
             Color color = CalamityUtils.MulticolorLerp(colorInterpolant, new Color(Main.rand.Next(20, 100), 204, 250), new Color(Main.rand.Next(20, 100), 204, 250));
+            if (Projectile.ai[2] == 1)
+            {
+                color.G = (byte)(color.G * 0.2f);
+                color.B = (byte)(color.B * 0.2f);
+            }
             return color;
         }
         public override bool PreDraw(ref Color lightColor)
