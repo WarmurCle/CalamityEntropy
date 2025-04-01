@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
             if (Projectile.ai[0] >= maxTime)
             {
-                lightColor = Color.Lerp(lightColor, Color.Red, 0.5f + (float)Math.Cos((++counter) * 0.04f) * 0.5f);
+                lightColor = Color.Lerp(lightColor, Color.Red, 0.5f + ((float)Math.Sin((++counter) * 0.04f) * 0.5f));
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
