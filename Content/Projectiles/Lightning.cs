@@ -1,9 +1,12 @@
-﻿using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityMod;
+using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -130,38 +133,35 @@ namespace CalamityEntropy.Content.Projectiles
                 target.AddBuff(ModContent.BuffType<GalvanicCorrosion>(), 240);
             }
         }
+        public float PrimitiveWidthFunction(float completionRatio) => completionRatio * Projectile.scale * 16;
 
+        public Color PrimitiveColorFunction(float completionRatio)
+        {
+            float colorInterpolant = (float)Math.Sin(Projectile.identity / 3f + completionRatio * 20f + Main.GlobalTimeWrappedHourly * 1.1f) * 0.5f + 0.5f;
+            Color color = CalamityUtils.MulticolorLerp(colorInterpolant, new Color(Main.rand.Next(20, 100), 204, 250), new Color(Main.rand.Next(20, 100), 204, 250));
+            return color;
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             if (points.Count < 1)
             {
                 return false;
             }
-            Texture2D px = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
             Texture2D lm = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightmask").Value;
-            float jd = 1;
             float lw = 0.7f * ((36f - Projectile.ai[0]) / 36f);
             Color color = Color.White;
             if (Projectile.ai[2] == 1)
             {
                 color = Color.Red;
             }
-            for (int i = 1; i < points.Count; i++)
-            {
-                Vector2 jv = points[i] - points[i - 1];
-                jv.Normalize();
-                jv *= 2;
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * jd, 2f * lw);
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * 0.8f * jd, 4f * lw);
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * 0.6f * jd, 8f * lw);
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * 0.4f * jd, 12f * lw);
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * 0.2f * jd, 16f * lw);
-                lw -= 0.7f * ((36f - Projectile.ai[0]) / 36f) / ((float)points.Count + 1);
-            }
+            GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"].UseImage1("Images/Misc/Perlin");
+            GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"].Apply();
+
+            PrimitiveRenderer.RenderTrail(points, new(PrimitiveWidthFunction, PrimitiveColorFunction, (_) => Projectile.Size * 0.2f * lw, false,
+                shader: GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"]), 10);
             if (drawEnd && Projectile.ai[0] < 12)
             {
                 Util.Util.drawTexture(lm, endPos, 0, Color.White * ((12 - Projectile.ai[0]) / 12), new Vector2(1f, 1f));
-
             }
             return false;
         }
