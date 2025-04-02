@@ -2104,7 +2104,7 @@ Buffs: {
 	}
 
 	SoyMilkBuff: {
-		Description: 攻速翻倍，伤害减少40%
+		Description: 大幅增加攻速，伤害减少70%
 		DisplayName: 豆奶
 	}
 
