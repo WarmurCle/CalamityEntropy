@@ -35,17 +35,19 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (!Main.dedServ)
             {
-                if(chargeSnd == null)
+                if (chargeSnd == null)
                 {
                     chargeSnd = new LoopSound(CalamityEntropy.ofCharge);
                     chargeSnd.instance.Pitch = 0;
                     chargeSnd.instance.Volume = 0;
                     chargeSnd.play();
                 }
-                chargeSnd.setVolume_Dist(Projectile.Center, 100, 700, 0.7f);
+                chargeSnd.setVolume_Dist(Projectile.Center, 100, 700, (Projectile.ai[0] / maxTime) * 0.46f);
                 chargeSnd.instance.Pitch = Projectile.ai[0] / maxTime;
-                chargeSnd.instance.Volume = Projectile.ai[0] / maxTime;
-                chargeSnd.timeleft = 3;
+                if (EAnmTime == -1)
+                {
+                    chargeSnd.timeleft = 3;
+                }
             }
 
             Player owner = Projectile.owner.ToPlayer();
