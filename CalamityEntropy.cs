@@ -117,6 +117,7 @@ namespace CalamityEntropy
 
         public static SoundEffect ealaserSound = null;
         public static SoundEffect ealaserSound2 = null;
+        public static SoundEffect ofCharge = null;
         public override void Load()
         {
             Instance = this;
@@ -758,7 +759,6 @@ namespace CalamityEntropy
             Mod bossChecklist;
             if (ModLoader.TryGetMod("BossChecklist", out bossChecklist))
             {
-
                 if (bossChecklist != null)
                 {
                     {
@@ -829,6 +829,7 @@ namespace CalamityEntropy
             {
                 ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/corruptedBeaconLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                ofCharge = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ElectricLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             }
             EntropyBossbar.bossbarColor[NPCID.KingSlime] = new Color(90, 160, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<DesertScourgeHead>()] = new Color(216, 210, 175);

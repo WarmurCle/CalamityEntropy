@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 84;
             Item.height = 84;
-            Item.damage = 600;
+            Item.damage = 630;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 36;
             Item.useStyle = ItemUseStyleID.Shoot;

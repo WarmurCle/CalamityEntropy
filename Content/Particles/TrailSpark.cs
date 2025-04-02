@@ -23,9 +23,14 @@ namespace CalamityEntropy.Content.Particles
         {
             base.update();
             AddPoint(this.position);
-            this.velocity = this.velocity + gravity * Vector2.UnitY;
+            this.velocity = this.velocity + gravity * Vector2.UnitY * gA;
+            if(gA < 1)
+            {
+                gA += 0.025f;
+            }
         }
         public float gravity = 0.9f;
+        public float gA = 0;
         public void AddPoint(Vector2 pos) 
         {
             odp.Insert(0, pos);

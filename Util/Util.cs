@@ -143,11 +143,14 @@ namespace CalamityEntropy.Util
         }
         public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 2, float volume = 1)
         {
-            SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/" + name);
-            s.Pitch = pitch - 1;
-            s.Volume = volume;
-            s.MaxInstances = maxIns;
-            SoundEngine.PlaySound(in s, pos);
+            if (!Main.dedServ)
+            {
+                SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/" + name);
+                s.Pitch = pitch - 1;
+                s.Volume = volume;
+                s.MaxInstances = maxIns;
+                SoundEngine.PlaySound(in s, pos);
+            }
         }
         public static void UseSampleState_UI(this SpriteBatch sb, SamplerState sampler)
         {

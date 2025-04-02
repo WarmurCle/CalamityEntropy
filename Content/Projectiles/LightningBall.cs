@@ -66,6 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnKill(int timeLeft)
         {
+            Util.Util.PlaySound("ofhit", 1, Projectile.Center);
             for(int i = 0; i < 16; i++)
             {
                 EParticle.spawnNew(new TrailSparkParticle(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 14), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale, 1, true, BlendState.NonPremultiplied);
