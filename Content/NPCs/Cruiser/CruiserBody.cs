@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.value = 50f;
             NPC.knockBackResist = 0f;
             NPC.noTileCollide = true;
-            NPC.defense = 120;
+            NPC.defense = 200;
             NPC.boss = true;
             NPC.noGravity = true;
             NPC.Entropy().VoidTouchDR = 0.7f;
