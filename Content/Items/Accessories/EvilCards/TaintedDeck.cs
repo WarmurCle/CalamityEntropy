@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.lifeRegen = (int)(player.lifeRegen * 0.3f);
 
 
-            player.GetDamage(DamageClass.Generic) += 0.32f;
+            player.GetDamage(DamageClass.Generic) += 0.25f;
 
             player.GetModPlayer<EModPlayer>().TarnishCard = true;
 
