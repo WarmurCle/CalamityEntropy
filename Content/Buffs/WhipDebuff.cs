@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Buffs
             if (npc.HasBuff<JailerWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += JailerWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(10))
+                if (Main.rand.NextBool(20))
                 {
                     modifiers.SetCrit();
                 }
