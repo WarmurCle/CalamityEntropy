@@ -14,6 +14,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
     [AutoloadBossHead]
     public class TheProphet : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;//This boss is Work in progress
+        }
         public class Fin
         {
             public Vector2 pos;
