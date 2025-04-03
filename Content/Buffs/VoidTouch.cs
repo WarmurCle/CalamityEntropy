@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (Main.GameUpdateCount % 20 == 0)
             {
-                player.statLife -= 16;
+                player.statLife -= 25;
                 if (player.statLife <= 0)
                 {
                     player.KillMe(PlayerDeathReason.ByCustomReason($"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidTouch")), 16, 0);
