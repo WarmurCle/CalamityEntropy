@@ -23,14 +23,14 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             Item.width = 38;
             Item.height = 34;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.defense = 44;
+            Item.defense = 40;
             Item.rare = ModContent.RarityType<VoidPurple>();
         }
 
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Generic) += 0.05f;
-            player.GetCritChance(DamageClass.Magic) += 5;
+            player.GetCritChance(DamageClass.Generic) += 5;
             player.GetArmorPenetration(DamageClass.Generic) += 5;
 
         }
