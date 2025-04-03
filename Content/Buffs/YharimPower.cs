@@ -21,8 +21,7 @@ namespace CalamityEntropy.Content.Buffs
             player.GetCritChance(DamageClass.Generic) += 5;
             player.pickSpeed -= 0.3f;
             player.GetAttackSpeed(DamageClass.Melee) *= 1.1f;
-            player.GetKnockback(DamageClass.Summon) *= 2;
-            player.moveSpeed *= 1.2f;
+            player.moveSpeed *= 1.1f;
             player.statDefense += 10;
             player.lifeRegen += 3;
         }
