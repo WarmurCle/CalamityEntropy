@@ -28,6 +28,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
             player.GetCritChance(DamageClass.Generic) += 10;
             player.Calamity().rogueStealthMax += 0.05f;
             player.maxMinions += 1;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.5f;
             player.GetArmorPenetration(DamageClass.Generic) += 5;
             player.GetModPlayer<EModPlayer>().oracleDeck = true;
         }
