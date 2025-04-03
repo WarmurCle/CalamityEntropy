@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.Entropy().ManaCost += 0.16f;
 
             player.Entropy().FrailCard = true;
-            player.Entropy().damageReduce -= 0.24f;
+            player.Entropy().damageReduce -= 0.30f;
 
             player.GetModPlayer<EModPlayer>().GreedCard = true;
 
