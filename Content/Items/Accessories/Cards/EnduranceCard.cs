@@ -24,7 +24,6 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EModPlayer>().enduranceCard = true;
-            player.Calamity().defenseDamageRatio *= 0.65;
         }
 
         public override void AddRecipes()

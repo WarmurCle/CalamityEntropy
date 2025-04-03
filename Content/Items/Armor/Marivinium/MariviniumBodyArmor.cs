@@ -26,7 +26,6 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
         public override void UpdateEquip(Player player)
         {
             player.Entropy().mariviniumBody = true;
-            player.Entropy().damageReduce += 0.15f;
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetCritChance(DamageClass.Generic) += 15;
             player.statManaMax2 += 250;

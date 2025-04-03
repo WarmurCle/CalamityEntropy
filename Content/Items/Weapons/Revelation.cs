@@ -17,10 +17,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 110;
+            Item.damage = 210;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 20;
+            Item.useAnimation = Item.useTime = 16;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 1f;
             Item.UseSound = SoundID.Item1;
@@ -65,6 +65,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<MeldConstruct>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<TwistingNether>(), 2);
             recipe.AddIngredient(ModContent.ItemType<ShardofAntumbra>(), 1);
             recipe.AddIngredient(ItemID.DeathSickle, 1);
             recipe.AddTile(TileID.LunarCraftingStation);

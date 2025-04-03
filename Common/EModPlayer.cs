@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.BeesGame;
+using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.DimDungeon;
@@ -423,7 +423,7 @@ namespace CalamityEntropy.Common
                     if (BlackFlameCd < 1)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 6 + 1, 2, Player.whoAmI);
-                        BlackFlameCd = 30;
+                        BlackFlameCd = 60;
                     }
                 }
             }
@@ -506,17 +506,17 @@ namespace CalamityEntropy.Common
             }
             if (Player.Entropy().inspirationCard)
             {
-                Player.runAcceleration *= 1.2f;
+                Player.runAcceleration *= 1.10f;
                 Player.maxRunSpeed *= 1.2f;
             }
             if (Player.Entropy().oracleDeck)
             {
-                Player.runAcceleration *= 1.15f;
+                Player.runAcceleration *= 1.10f;
                 Player.maxRunSpeed *= 1.15f;
             }
             if (MagiShield > 0)
             {
-                Player.runAcceleration *= 1.1f;
+                Player.runAcceleration *= 1f;
                 Player.maxRunSpeed *= 1.1f;
             }
             if (VFSet)
@@ -526,15 +526,15 @@ namespace CalamityEntropy.Common
             if (VFHelmRogue)
             {
                 Player.runAcceleration *= 0.50f;
-                Player.maxRunSpeed *= 1.14f;
+                Player.maxRunSpeed *= 1.12f;
             }
             if (CRing)
             {
                 Player.runAcceleration *= 1.05f;
                 Player.maxRunSpeed *= 1.05f;
             }
-            Player.runAcceleration *= 1f + 0.14f * VoidCharge;
-            Player.maxRunSpeed *= 1f + 0.5f * VoidCharge;
+            Player.runAcceleration *= 1f + 0.10f * VoidCharge;
+            Player.maxRunSpeed *= 1f + 0.30f * VoidCharge;
             Player.runAcceleration *= 1f + moveSpeed;
             Player.maxRunSpeed *= 1f + moveSpeed;
             if (CalamityEntropy.EntropyMode)
@@ -571,15 +571,15 @@ namespace CalamityEntropy.Common
             float d = damageReduce - 1;
             if (Player.Entropy().enduranceCard)
             {
-                d += 0.18f;
+                d += 0.05f;
             }
             if (Player.Entropy().oracleDeck)
             {
-                d += 0.12f;
+                d += 0.10f;
             }
             if (Player.Entropy().VFHelmMelee)
             {
-                d += 0.1f;
+                d += 0.05f;
             }
             Player.endurance += d;
             if (rBadgeActive)
@@ -591,7 +591,7 @@ namespace CalamityEntropy.Common
             Player.statManaMax2 += (int)(Player.statManaMax2 * enhancedMana);
             if (Player.statMana > manaNorm)
             {
-                Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.003f;
+                Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.001f;
             }
             if (CalamityEntropy.EntropyMode)
             {
@@ -669,14 +669,14 @@ namespace CalamityEntropy.Common
                 MariviniumShieldCount--;
                 Player.Heal(140);
                 Util.Util.PlaySound("crystalShieldBreak", 1, Player.Center, 1, 0.7f);
-                Player.AddBuff(ModContent.BuffType<AbyssalWrath>(), 300);
+                Player.AddBuff(ModContent.BuffType<AbyssalWrath>(), 600);
                 for (int i = 0; i < 42; i++)
                 {
                     Dust.NewDust(Player.Center, 1, 1, DustID.BlueCrystalShard, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6), Scale: 2);
                 }
                 return true;
             }
-            if (HolyShield && info.Damage > 20)
+            if (HolyShield && info.Damage > 1)
             {
                 immune = 120;
                 HolyShield = false;
@@ -684,9 +684,9 @@ namespace CalamityEntropy.Common
                 Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
                 if (holyMantle)
                 {
-                    if ((info.Damage + deusCoreAdd) * (2 - damageReduce) - Player.statDefense < 60)
+                    if ((info.Damage + deusCoreAdd) * (2 - damageReduce) - Player.statDefense < 10)
                     {
-                        mantleCd = 6 * 60;
+                        mantleCd = 120* 60;
                         Player.AddCooldown("HolyMantleCooldown", mantleCd, true);
                     }
                     else
@@ -804,7 +804,7 @@ namespace CalamityEntropy.Common
                     if (nihShellCount > 0)
                     {
                         nihShellCount--;
-                        info.Damage = (int)(info.Damage * 0.4f);
+                        info.Damage = (int)(info.Damage * 0.85f);
                         Util.Util.PlaySound("shielddown", 1, Player.Center);
                         for (int i = 0; i < 24; i++)
                         {
@@ -879,7 +879,7 @@ namespace CalamityEntropy.Common
             itemTime--;
             if (Player.HasBuff<VoidVirus>())
             {
-                Player.statDefense -= 38;
+                Player.statDefense -= 30;
                 Player.lifeRegen = 0;
                 lifeRegenPerSec = 0;
             }
@@ -1284,7 +1284,7 @@ namespace CalamityEntropy.Common
                 }
                 else
                 {
-                    int magiShieldAddCount = (int)(Player.statManaMax2 * 0.6f);
+                    int magiShieldAddCount = (int)(Player.statManaMax2 * 0.5f);
                     magiShieldCd = 30 * 60;
                     if (MagiShield < magiShieldAddCount)
                     {
@@ -1358,11 +1358,11 @@ namespace CalamityEntropy.Common
                 if (OracleDeckHealCd <= 0)
                 {
                     OracleDeckHealCd = 300;
-                    if (Util.Util.getDistance(Main.LocalPlayer.Center, Player.Center) < 1600)
+                    if (Util.Util.getDistance(Main.LocalPlayer.Center, Player.Center) < 40)
                     {
                         if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2)
                         {
-                            Main.LocalPlayer.Heal(20);
+                            Main.LocalPlayer.Heal(10);
                         }
                     }
                 }
@@ -1555,7 +1555,7 @@ namespace CalamityEntropy.Common
             }
             if (Player.HeldItem.ModItem is HorizonssKey)
             {
-                Player.maxMinions -= 6;
+                Player.maxMinions -= 8;
                 if (Player.maxMinions < 1)
                 {
                     Player.maxMinions = 1;
@@ -1597,7 +1597,7 @@ namespace CalamityEntropy.Common
             }
             if (ArchmagesMirror)
             {
-                enhancedMana += 0.3f;
+                enhancedMana += 0.05f;
             }
             if (EvilDeck)
             {

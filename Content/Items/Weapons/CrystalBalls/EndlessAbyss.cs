@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
         {
             Item.width = 44;
             Item.height = 44;
-            Item.damage = 560;
+            Item.damage = 540;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 20;
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<EndlessAbyssHoldout>();
             Item.shootSpeed = 16f;
-            Item.mana = 10;
+            Item.mana = 7;
             Item.DamageType = DamageClass.Magic;
 
         }

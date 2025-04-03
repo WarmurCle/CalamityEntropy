@@ -32,10 +32,8 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
 
         public override void UpdateArmorSet(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.15f;
-            player.GetCritChance(DamageClass.Generic) += 10;
             player.GetArmorPenetration(DamageClass.Generic) += 20;
-            player.GetAttackSpeed(DamageClass.Melee) += 0.30f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.24f;
             player.Entropy().VFSet = true;
             player.Entropy().VFHelmMelee = true;
         }
@@ -43,8 +41,8 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
         public override void UpdateEquip(Player player)
         {
             player.Entropy().meleeVF = true;
-            player.GetDamage(DamageClass.Melee) += 0.25f;
-            player.GetCritChance(DamageClass.Melee) += 12;
+            player.GetDamage(DamageClass.Melee) += 0.20f;
+            player.GetCritChance(DamageClass.Melee) += 15;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
