@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Calamity().rogueStealthMax += 0.10f;
+            player.Calamity().rogueStealthMax += 0.08f;
             player.GetModPlayer<EModPlayer>().metropolisCard = true;
         }
 
