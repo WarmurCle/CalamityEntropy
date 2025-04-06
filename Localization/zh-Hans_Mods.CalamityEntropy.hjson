@@ -1047,8 +1047,8 @@ Items: {
 		Tooltip:
 			'''
 			高速旋转挥舞
-			旋转速度随着裂刃与你的距离增加而减少
-			裂刃离你的距离取决于鼠标位置
+			松手后向鼠标方向飞去，击中目标后生成空间裂缝，造成范围伤害
+			丢出后再次按下鼠标左键会让裂刃以鼠标为中心旋转
 			'''
 	}
 
@@ -2032,6 +2032,7 @@ Projectiles: {
 	// RubyProj.DisplayName: Ruby Proj
 	// JewelEmerald.DisplayName: Jewel Emerald
 	// JewelSapphire.DisplayName: Jewel Sapphire
+	// NetherRiftCrack.DisplayName: Nether Rift Crack
 }
 
 LegendTooltip: - 传奇物品 -

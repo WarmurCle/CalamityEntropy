@@ -1058,21 +1058,32 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     { num /= 4; speed *= 0.5f; counts -= 1; }
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-
-                        float angle = 0;
-                        for (int i = 0; i < counts; i++)
                         {
-
-                            for (int j = 0; j < num; j++)
+                            float angle = 0;
+                            for (int i = 0; i < counts; i++)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 7f), 1);
-                                angle += ((float)Math.PI * 2 / (float)num);
-                            }
-                            angle += ((float)Math.PI * 2 / (float)num) / (float)counts;
-                            speed *= 0.7f;
-                        }
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), (int)(NPC.damage / 7f), 0);
 
+                                for (int j = 0; j < num; j++)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 7f), 1);
+                                    angle += ((float)Math.PI * 2 / (float)num);
+                                }
+                                angle += ((float)Math.PI * 2 / (float)num) / (float)counts;
+                                speed *= 0.7f;
+                            }
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), (int)(NPC.damage / 7f), 0);
+                        }
+                        {
+                            if (Main.getGoodWorld)
+                            {
+                                for (int i = 1; i < bodies.Count; i++)
+                                {
+                                    for (int _ = 0; _ < Main.rand.Next(-3, 3); _++) {
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[i] - (bodies[i - 1] - bodies[i]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, Util.Util.randomRot().ToRotationVector2() * speed * 3f, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 7f), 1);
+                                    } 
+                                }
+                            }
+                        }
 
                     }
                     if (Main.netMode != NetmodeID.Server)
@@ -1288,13 +1299,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         rot = (bodies[d - 1] - bodies[d]).ToRotation();
                     }
                     Vector2 pos = bodies[d];
+                    Texture2D f1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/Flagellum").Value;
                     if (d == bodies.Count - 1)
                     {
-                        Texture2D f1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/Flagellum").Value;
                         Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserTail").Value;
                         spriteBatch.Draw(tx, pos - screenPosition, null, Color.White, rot, new Vector2(tx.Width, tx.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
-                        spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White, rot + MathHelper.ToRadians(180 - da), new Vector2(0, f1.Height), NPC.scale, SpriteEffects.None, 0);
-                        spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White, rot + MathHelper.ToRadians(180 + da), new Vector2(0, 0), NPC.scale, SpriteEffects.FlipVertically, 0);
 
                     }
                     else
@@ -1309,6 +1318,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserBody").Value;
                         }
                         spriteBatch.Draw(tx, pos - screenPosition, null, Color.White, rot, new Vector2(tx.Width, tx.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
+
+                    }
+                    if(d == bodies.Count - 1 || Main.getGoodWorld)
+                    {
+                        spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White, rot + MathHelper.ToRadians(180 - da), new Vector2(0, f1.Height), NPC.scale, SpriteEffects.None, 0);
+                        spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White, rot + MathHelper.ToRadians(180 + da), new Vector2(0, 0), NPC.scale, SpriteEffects.FlipVertically, 0);
 
                     }
 

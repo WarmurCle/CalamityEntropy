@@ -1875,6 +1875,7 @@ Projectiles: {
 	RubyProj.DisplayName: Ruby Proj
 	JewelEmerald.DisplayName: Jewel Emerald
 	JewelSapphire.DisplayName: Jewel Sapphire
+	NetherRiftCrack.DisplayName: Nether Rift Crack
 }
 
 LegendTooltip: - Legend -

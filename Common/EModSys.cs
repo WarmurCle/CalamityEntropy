@@ -65,10 +65,6 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateDusts()
         {
-            if (CalamityEntropy.FlashEffectStrength > 0)
-            {
-                CalamityEntropy.FlashEffectStrength -= 0.0125f;
-            }
             CalamityEntropy.blackMaskTime--;
             PixelParticle.Update();
             VoidParticles.Update();
