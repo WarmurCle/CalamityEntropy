@@ -429,7 +429,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (!chainToMouse && !channel)
             {
-                modifiers.SourceDamage *= 1.8f;
+                modifiers.SourceDamage *= 2.2f;
             }
         }
     }
