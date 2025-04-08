@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
@@ -22,8 +23,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.width = 100;
-            Projectile.height = 100;
+            Projectile.width = 136;
+            Projectile.height = 136;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -69,10 +70,15 @@ namespace CalamityEntropy.Content.Projectiles
         public bool chainToMouse = false;
         public override void AI()
         {
-            if (counter1 % 6 == 0 && (odp.Count < 2 || Util.Util.getDistance(odp[odp.Count - 1], Projectile.Center) > 36))
+            if (counter1 % 6 == 0)
             {
-                odp.Add(Projectile.Center);
-                if (odp.Count > 20)
+                bool flag = false;
+                if ((odp.Count < 2 || Util.Util.getDistance(odp[odp.Count - 1], Projectile.Center) > 46))
+                {
+                    flag = true;
+                    odp.Add(Projectile.Center);
+                }
+                if (odp.Count > 14 || (!flag && odp.Count > 0))
                 {
                     odp.RemoveAt(0);
                 }
@@ -146,6 +152,26 @@ namespace CalamityEntropy.Content.Projectiles
                     rotspeed += (0.1f - rotspeed) * 0.01f;
                     Vector2 targetpos = mousePos + new Vector2(l, 0).RotatedBy((Projectile.Center - mousePos).ToRotation() + rotspeed * player.direction * 0.76f);
                     Projectile.velocity = targetpos - Projectile.Center;
+                    float a = (Projectile.Center - player.Center).ToRotation();
+                    if (a < 0)
+                    {
+                        soundplay = true;
+                    }
+                    else
+                    {
+                        if (soundplay)
+                        {
+                            soundplay = false;
+                            if (Main.rand.NextBool(2))
+                            {
+                                Util.Util.PlaySound("spin1", 1f);
+                            }
+                            else
+                            {
+                                Util.Util.PlaySound("spin2", 1f);
+                            }
+                        }
+                    }
                     if (!chainToMouse)
                     {
                         chainToMouse = true;
@@ -233,7 +259,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                length = 180;
+                length = chainToMouse ? 240 : 180;
             }
             player.itemTime = 2;
             player.itemAnimation = 2;
@@ -255,9 +281,15 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.EnterShaderRegion();
-            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/FabstaffStreak"));
+            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak2"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
+            odp.Add(Projectile.Center);
+
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/FabstaffStreak"));
+            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor2, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+
+            odp.RemoveAt(odp.Count - 1);
             Main.spriteBatch.ExitShaderRegion();
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -327,7 +359,7 @@ namespace CalamityEntropy.Content.Projectiles
                 points = rope.GetPoints();
 
                 Texture2D handle = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/NetherRiftHandle").Value;
-                Main.spriteBatch.Draw(handle, (chainToMouse ? mousePos : Projectile.owner.ToPlayer().Center) + player.gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White, (points[1] - points[0]).ToRotation(), new Vector2(28, handle.Height / 2), Projectile.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(handle, (chainToMouse ? mousePos : Projectile.owner.ToPlayer().Center) + player.gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White, chainToMouse ? (Projectile.Center - mousePos).ToRotation() : (points[1] - points[0]).ToRotation(), new Vector2(28, handle.Height / 2), Projectile.scale, SpriteEffects.None, 0);
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -392,6 +424,8 @@ namespace CalamityEntropy.Content.Projectiles
 
                 Texture2D pt = TextureAssets.Projectile[Projectile.type].Value;
                 Main.spriteBatch.Draw(pt, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, pt.Size() / 2, Projectile.scale * 2, (Projectile.getOwner().direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically), 0);
+                Main.spriteBatch.End();
+                Main.spriteBatch.begin_();
                 return false;
             }
         }
@@ -402,13 +436,17 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public Color TrailColor(float completionRatio)
         {
-            Color result = new Color(200, 200, 255);
+            Color result = new Color(160, 160, 255);
             return result * completionRatio;
         }
-
+        public Color TrailColor2(float completionRatio)
+        {
+            Color result = new Color(255, 255, 255);
+            return result * completionRatio;
+        }
         public float TrailWidth(float completionRatio)
         {
-            return MathHelper.Lerp(0, 200 * Projectile.scale, completionRatio);
+            return MathHelper.Lerp(0, 122 * Projectile.scale, completionRatio);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -421,15 +459,20 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.netUpdate = true;
                 Util.Util.PlaySound("scatter", 1, Projectile.Center);
                 Projectile.ai[2] = 74;
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner, 0).ToProj().hostile = false;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<NetherRiftCrack>(), Projectile.damage, 1, Projectile.owner);
             }
 
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (!chainToMouse && !channel)
+            if (!chainToMouse && !channel && Projectile.ai[2] < 74)
             {
-                modifiers.SourceDamage *= 2.2f;
+                modifiers.SourceDamage *= 4f;
+            }
+            if (chainToMouse)
+            {
+                modifiers.SourceDamage *= 0.7f;
             }
         }
     }

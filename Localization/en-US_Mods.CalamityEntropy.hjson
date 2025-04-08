@@ -978,11 +978,6 @@ Items: {
 		DisplayName: Anima Sola
 	}
 
-	TestItem: {
-		DisplayName: Test Item
-		Tooltip: ""
-	}
-
 	LightWisper: {
 		Tooltip: ""
 		DisplayName: Light Wisper
@@ -1574,6 +1569,22 @@ Items: {
 			'''
 		DisplayName: Entropy Mode Toggle
 	}
+
+	BookMarkPerfection: {
+		DisplayName: Perfection
+		Tooltip: Increase the triggering probability of bookmarks triggered by all other probabilities
+	}
+
+	Crystedge: {
+		Tooltip:
+			'''
+			Quickly strike and deliver a final blow to your enemy
+			Minions have a 6% critical hit probability
+			Generate split floating retention crystals during critical strikes
+			Minions concentrate their attacks on the targets they hit
+			'''
+		DisplayName: Crystedge
+	}
 }
 
 MariviniumSet:
@@ -1876,6 +1887,12 @@ Projectiles: {
 	JewelEmerald.DisplayName: Jewel Emerald
 	JewelSapphire.DisplayName: Jewel Sapphire
 	NetherRiftCrack.DisplayName: Nether Rift Crack
+	WhipTest.DisplayName: Whip Test
+	CrystedgeWhipSpawner.DisplayName: Crystedge Whip Spawner
+	CrystedgeProj.DisplayName: Crystedge Proj
+	CrystedgeCrystalSmall.DisplayName: Crystedge Crystal Small
+	CrystedgeCrystalMid.DisplayName: Crystedge Crystal Mid
+	CrystedgeCrystalBig.DisplayName: Crystedge Crystal Big
 }
 
 LegendTooltip: - Legend -

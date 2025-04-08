@@ -175,11 +175,32 @@ namespace CalamityEntropy
             On_Main.DrawMenu += drawmenu;
             On_Player.Heal += player_heal;
             On_Main.DrawTiles += drawtile;
+            On_Projectile.FillWhipControlPoints += fill_whip_ctrl_points_hook;
+            On_Projectile.GetWhipSettings += get_whip_settings_hook;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
         }
+
+        private void get_whip_settings_hook(On_Projectile.orig_GetWhipSettings orig, Projectile proj, out float timeToFlyOut, out int segments, out float rangeMultiplier)
+        {
+            orig(proj, out timeToFlyOut, out segments, out rangeMultiplier);
+            if (proj.ModProjectile is BaseWhip bw)
+            {
+                bw.ModifyWhipSettings(ref timeToFlyOut, ref segments, ref rangeMultiplier);
+            }
+        }
+
+        private void fill_whip_ctrl_points_hook(On_Projectile.orig_FillWhipControlPoints orig, Projectile proj, List<Vector2> controlPoints)
+        {
+            orig(proj, controlPoints);
+            if(proj.ModProjectile is BaseWhip bw)
+            {
+                bw.ModifyControlPoints(controlPoints);
+            }
+        }
+
 
         public override void Unload()
         {
@@ -221,6 +242,8 @@ namespace CalamityEntropy
             On_Main.DrawMenu -= drawmenu;
             On_Player.Heal -= player_heal;
             On_Main.DrawTiles -= drawtile;
+            On_Projectile.FillWhipControlPoints -= fill_whip_ctrl_points_hook;
+            On_Projectile.GetWhipSettings -= get_whip_settings_hook;
         }
 
         public static Effect whiteTrans => ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;

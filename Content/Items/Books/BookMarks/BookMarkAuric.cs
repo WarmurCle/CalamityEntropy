@@ -28,11 +28,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(2))
+            if (projectile.hasEffect<APlusBMEffect>() ? true : Main.rand.NextBool(2))
             {
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Util.Util.randomRot().ToRotationVector2() * 22, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 5, projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < (projectile.hasEffect<APlusBMEffect>() ? 3 : 5); i++)
             {
                 if (Main.rand.NextBool(2))
                 {

@@ -545,6 +545,14 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            if (npc.boss)
+            {
+                npcLoot.Add(ModContent.ItemType<BookMarkPerfection>(), new Fraction(1, 24));
+            }
+            if (npc.type == NPCID.QueenSlimeBoss)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<Crystedge>(), 4, 1, 1);
+            }
             if (npc.type == ModContent.NPCType<Yharon>())
             {
                 npcLoot.Add(ItemDropRule.ByCondition(new IsNormal(), ModContent.ItemType<Vitalfeather>(), 3));

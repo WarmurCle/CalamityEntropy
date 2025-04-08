@@ -1090,11 +1090,6 @@ Items: {
 		DisplayName: 孤魂铁索
 	}
 
-	TestItem: {
-		// DisplayName: Test Item
-		// Tooltip: ""
-	}
-
 	LightWisper: {
 		Tooltip:
 			'''
@@ -1730,6 +1725,22 @@ Items: {
 			'''
 		DisplayName: 熵变之核
 	}
+
+	BookMarkPerfection: {
+		DisplayName: 满分考卷
+		Tooltip: 增加其他所有概率触发的书签的触发概率
+	}
+
+	Crystedge: {
+		Tooltip:
+			'''
+			快速抽击并在最后猛击你的敌人
+			召唤物获得6%的暴击概率
+			暴击时生成会分裂的浮空滞留水晶
+			召唤物集中攻击击中的目标
+			'''
+		DisplayName: 凝晶鞭刃
+	}
 }
 
 MariviniumSet:
@@ -2033,6 +2044,12 @@ Projectiles: {
 	// JewelEmerald.DisplayName: Jewel Emerald
 	// JewelSapphire.DisplayName: Jewel Sapphire
 	// NetherRiftCrack.DisplayName: Nether Rift Crack
+	// WhipTest.DisplayName: Whip Test
+	// CrystedgeWhipSpawner.DisplayName: Crystedge Whip Spawner
+	// CrystedgeProj.DisplayName: Crystedge Proj
+	// CrystedgeCrystalSmall.DisplayName: Crystedge Crystal Small
+	// CrystedgeCrystalMid.DisplayName: Crystedge Crystal Mid
+	// CrystedgeCrystalBig.DisplayName: Crystedge Crystal Big
 }
 
 LegendTooltip: - 传奇物品 -

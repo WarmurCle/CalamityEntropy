@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(5))
+            if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 3 : 5))
             {
                 for (int i = 0; i < 16; i++)
                 {

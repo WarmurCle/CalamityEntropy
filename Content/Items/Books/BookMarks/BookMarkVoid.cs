@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Util;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -36,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 80, 1.5f, 800, 18);
-            if (Main.rand.NextBool(5))
+            if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 4 : 5))
             {
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidBurst>(), projectile.damage * 8, 1, projectile.owner);
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 1, projectile.owner);
