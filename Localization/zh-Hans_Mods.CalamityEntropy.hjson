@@ -1743,10 +1743,7 @@ Items: {
 	}
 
 	VoidToilet: {
-		Tooltip: 
-		'''
-		“它并不安全”
-		'''
+		Tooltip: “它并不安全”
 		DisplayName: 虚空马桶
 	}
 }
