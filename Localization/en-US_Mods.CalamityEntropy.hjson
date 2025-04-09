@@ -1585,6 +1585,11 @@ Items: {
 			'''
 		DisplayName: Crystedge
 	}
+
+	VoidToilet: {
+		Tooltip: ""
+		DisplayName: Void Toilet
+	}
 }
 
 MariviniumSet:
@@ -1893,6 +1898,7 @@ Projectiles: {
 	CrystedgeCrystalSmall.DisplayName: Crystedge Crystal Small
 	CrystedgeCrystalMid.DisplayName: Crystedge Crystal Mid
 	CrystedgeCrystalBig.DisplayName: Crystedge Crystal Big
+	ToiletLaser.DisplayName: Toilet Laser
 }
 
 LegendTooltip: - Legend -

@@ -1741,6 +1741,11 @@ Items: {
 			'''
 		DisplayName: 凝晶鞭刃
 	}
+
+	VoidToilet: {
+		// Tooltip: ""
+		// DisplayName: Void Toilet
+	}
 }
 
 MariviniumSet:
@@ -2050,6 +2055,7 @@ Projectiles: {
 	// CrystedgeCrystalSmall.DisplayName: Crystedge Crystal Small
 	// CrystedgeCrystalMid.DisplayName: Crystedge Crystal Mid
 	// CrystedgeCrystalBig.DisplayName: Crystedge Crystal Big
+	// ToiletLaser.DisplayName: Toilet Laser
 }
 
 LegendTooltip: - 传奇物品 -

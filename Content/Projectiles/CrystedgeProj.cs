@@ -26,6 +26,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public static float segRangeMult = 1.7f;
         public bool playSound = true;
+        public Vector2 LastEnd = Vector2.Zero;
         public override string getTagEffectName => "Crystedge";
         public override SoundStyle? WhipSound => new SoundStyle("CalamityEntropy/Assets/Sounds/crystalsound" + Main.rand.Next(1, 3));
         public override void WhipAI()
@@ -39,12 +40,17 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Main.rand.Next(4) <= 1)
             {
-                Dust dust7 = Dust.NewDustDirect(EndPoint - new Vector2(4, 4), 8, 8, DustID.RainbowMk2, 0f, 0f, 0, Main.hslToRgb(Projectile.getOwner().miscCounterNormalized * 9f % 1f, 1f, 0.5f), 1.3f);
+                Dust dust7 = Dust.NewDustDirect(EndPoint - new Vector2(4, 4), 8, 8, DustID.RainbowMk2, 0f, 0f, 0, new Color(130, 70, 160), 1.3f);
+                if (LastEnd != Vector2.Zero)
+                {
+                    dust7.velocity = EndPoint - LastEnd;
+                }
                 dust7.velocity *= Main.rand.NextFloat() * 0.8f;
                 dust7.noGravity = true;
                 dust7.scale = 0.9f + Main.rand.NextFloat() * 0.9f;
                 dust7.fadeIn = Main.rand.NextFloat() * 0.9f;
             }
+            LastEnd = EndPoint;
         }
         public override void ModifyWhipSettings(ref float ttfo, ref int segs, ref float rangeMul)
         {
@@ -56,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override int getFlyTime()
         {
-            return (int)(base.getFlyTime() * (Projectile.ai[2] == 1 ? 0.4f : 0.16f));
+            return (int)(base.getFlyTime() * (Projectile.ai[2] == 1 ? 0.4f : 0.22f));
         }
         public override float getSegScale(int segCount, int segCounts)
         {
@@ -69,10 +75,10 @@ namespace CalamityEntropy.Content.Projectiles
             List<Vector2> points = new List<Vector2>();
             float pc = ((float)Math.Cos(p * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f;
             Vector2 start = Projectile.getOwner().HandPosition.Value;
-            Vector2 mid = start + Projectile.velocity * rangeMult * 48 * pc;
-            Vector2 end = start + Projectile.velocity * rangeMult * 48 * pc + (Projectile.velocity * pc * 82 * rangeMult).RotatedBy(p * MathHelper.TwoPi - MathHelper.Pi);
+            Vector2 mid = start + Projectile.velocity * rangeMult * 46 * pc;
+            Vector2 end = start + Projectile.velocity * rangeMult * 46 * pc + (Projectile.velocity * pc * 82 * rangeMult).RotatedBy(Projectile.localAI[0] > 0 ? p * -MathHelper.TwoPi + MathHelper.Pi : p * MathHelper.TwoPi - MathHelper.Pi);
             Vector2 c = end.ClosestPointOnLine(Projectile.getOwner().HandPosition.Value, Projectile.getOwner().HandPosition.Value + Projectile.velocity * 128);
-            end = c + (end - c) * (Projectile.localAI[0] * 0.6f);
+            end = c + (end - c) * (Math.Abs(Projectile.localAI[0]) * 0.54f);
             for (int i = 0; i <= segs; i++)
             {
                 points.Add(Util.Util.Bezier(new List<Vector2> { start, mid, end }, ((float)i / (float)segs)));
@@ -131,7 +137,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<CrystedgeCrystalMid>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
             }
-            for(int i = 0; i < 8; i++)
+            for(int i = 0; i < 14; i++)
             {
                 Dust.NewDust(Projectile.Center, 1, 1, DustID.PinkCrystalShard, Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(-4, 4));
             }
@@ -211,7 +217,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Dust.NewDust(Projectile.Center, 1, 1, DustID.PinkCrystalShard, Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(-4, 4));
             }
