@@ -603,11 +603,11 @@ Items: {
 	}
 
 	JailerWhip: {
-		Tooltip: 
-		'''
-		{$CommonItemTooltip.SummonTagDamage}
-		{$CommonItemTooltip.Whips}
-		'''
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			'''
 		DisplayName: Jailer Whip
 	}
 
@@ -1114,21 +1114,21 @@ Items: {
 
 	Vitalfeather: {
 		DisplayName: Vitalfeather
-		Tooltip: 
-		'''
-		The enemy hited by your minion will launch tracking dragon flames
-		{$CommonItemTooltip.SummonTagDamage}
-		{$CommonItemTooltip.Whips}
-		'''
+		Tooltip:
+			'''
+			The enemy hited by your minion will launch tracking dragon flames
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			'''
 	}
 
 	WindOfUndertaker: {
 		DisplayName: Wind Of Undertaker
-		Tooltip: 
-		'''
-		{$CommonItemTooltip.SummonTagDamage}
-		{$CommonItemTooltip.Whips}
-		'''
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			'''
 	}
 
 	HadopelagicEchoII: {
@@ -1604,6 +1604,22 @@ Items: {
 		Tooltip: ""
 		DisplayName: Void Toilet
 	}
+
+	Prominence: {
+		DisplayName: Prominence
+		Tooltip: ""
+	}
+
+	SinewLash: {
+		Tooltip:
+			'''
+			Throws forward and then retracts, tearing through enemies in its path.
+			Minions gain 2.5% increased critical strike chance
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			'''
+		DisplayName: Sinew Lash
+	}
 }
 
 MariviniumSet:
@@ -1913,6 +1929,8 @@ Projectiles: {
 	CrystedgeCrystalBig.DisplayName: Crystedge Crystal Big
 	ToiletLaser.DisplayName: Void Laser
 	ToiletVoidPoop.DisplayName: Toilet Void Poop
+	SinewLashProj.DisplayName: Sinew Lash Proj
+	ProminenceSplitShot.DisplayName: Prominence Split Shot
 }
 
 LegendTooltip: - Legend -

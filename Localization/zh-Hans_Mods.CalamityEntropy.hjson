@@ -674,11 +674,11 @@ Items: {
 	}
 
 	JailerWhip: {
-		Tooltip: 
-		'''
-		{$CommonItemTooltip.SummonTagDamage}
-		{$CommonItemTooltip.Whips}
-		'''
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			'''
 		DisplayName: 冥界之刑
 	}
 
@@ -1754,6 +1754,22 @@ Items: {
 		Tooltip: “它并不安全”
 		DisplayName: 虚空马桶
 	}
+
+	Prominence: {
+		DisplayName: 日珥
+		Tooltip: ""
+	}
+
+	SinewLash: {
+		Tooltip:
+			'''
+			向前方抛出，然后收回，同时撕扯沿途的敌人
+			召唤物获得2.5%的暴击率
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			'''
+		DisplayName: 撕裂之腱
+	}
 }
 
 MariviniumSet:
@@ -2064,6 +2080,8 @@ Projectiles: {
 	CrystedgeCrystalBig.DisplayName: 大型水晶碎片
 	ToiletLaser.DisplayName: 虚无激光
 	ToiletVoidPoop.DisplayName: 蚀虚神粪
+	// SinewLashProj.DisplayName: Sinew Lash Proj
+	// ProminenceSplitShot.DisplayName: Prominence Split Shot
 }
 
 LegendTooltip: - 传奇物品 -

@@ -181,7 +181,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 1; i < points.Count; i++)
             {
                 Vector2 lightPos = Vector2.Lerp(points[i - 1], points[i], 0.5f);
-                Color color = Color.Lerp(Lighting.GetColor((int)(lightPos.X / 16f), (int)(lightPos.Y / 16f)), this.StringColor, Projectile.light);
+                Color color = Color.Lerp(Lighting.GetColor((int)(lightPos.X / 16f), (int)(lightPos.Y / 16f), this.StringColor), this.StringColor, Projectile.light);
                 Util.Util.drawLine(points[i - 1], points[i], color, 2 * Projectile.scale);
             }
         }

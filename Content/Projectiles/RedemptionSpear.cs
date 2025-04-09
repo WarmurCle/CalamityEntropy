@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            EParticle.spawnNew(new StrikeParticle(), Projectile.Center - Projectile.velocity * 7, Projectile.velocity * 3, color, Projectile.scale * 0.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation()); ;
+            EParticle.spawnNew(new StrikeParticle(), Projectile.Center - Projectile.velocity * 7, Projectile.velocity * 3, color, Projectile.scale * 0.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
         }
 
         public override void OnKill(int timeLeft)

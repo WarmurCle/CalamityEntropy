@@ -13,7 +13,6 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class Crystedge : BaseWhipItem
     {
-        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(DragonWhipDebuff.TagDamage);
         public override int TagDamage => 12;
         public override float TagCritChance => 0.06f;
         public override void SetDefaults()

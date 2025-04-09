@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.HBProj;
@@ -9,6 +10,7 @@ using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Util;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
@@ -55,7 +57,8 @@ namespace CalamityEntropy.Common
         public bool ToFriendly = false;
         public bool BarrenHoming = false;
         public bool EventideShot = false;
-
+        public bool ProminenceArrow = false;
+        public float promineceDamageAddition = 0.25f;
         public override GlobalProjectile Clone(Projectile from, Projectile to)
         {
             var p = to.Entropy();
@@ -72,7 +75,7 @@ namespace CalamityEntropy.Common
             p.counter = counter;
             p.withGrav = withGrav;
             p.ToFriendly = ToFriendly;
-
+            p.ProminenceArrow = ProminenceArrow;
             return p;
         }
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
@@ -92,6 +95,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(EventideShot);
             binaryWriter.Write(projectile.Calamity().stealthStrike);
             binaryWriter.Write(zypArrow);
+            binaryWriter.Write(ProminenceArrow);
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
@@ -106,6 +110,7 @@ namespace CalamityEntropy.Common
             EventideShot = binaryReader.ReadBoolean();
             projectile.Calamity().stealthStrike = binaryReader.ReadBoolean();
             zypArrow = binaryReader.ReadBoolean();
+            ProminenceArrow = binaryReader.ReadBoolean();
         }
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
@@ -281,9 +286,21 @@ namespace CalamityEntropy.Common
         }
         public Vector2? plrOldPos = null;
         public Vector2? plrOldVel = null;
-
+        public ProminenceTrail trail_pmn = null;
         public override bool PreAI(Projectile projectile)
         {
+            if (ProminenceArrow)
+            {
+                if (trail_pmn == null)
+                {
+                    trail_pmn = new ProminenceTrail();
+                    EParticle.spawnNew(trail_pmn, projectile.Center + projectile.velocity * 2, Vector2.Zero, Color.White, projectile.scale, 1, true, BlendState.NonPremultiplied);
+                }
+                trail_pmn.AddPoint(projectile.Center + projectile.velocity * 1.5f);
+                trail_pmn.AddPoint(projectile.Center + projectile.velocity * 2);
+                trail_pmn.timeLeft = 11;
+            }
+            promineceDamageAddition -= 0.006f / projectile.MaxUpdates;
             if (projectile.TryGetOwner(out var owner))
             {
                 if (owner.Entropy().Godhead)
@@ -597,6 +614,10 @@ namespace CalamityEntropy.Common
                 }
                 modifiers.SourceDamage *= GetEventideDamageMultiplier(r, maxR, maxDmgMul);
             }
+            if (ProminenceArrow)
+            {
+                modifiers.SourceDamage *= 1 + promineceDamageAddition;
+            }
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
@@ -761,6 +782,12 @@ namespace CalamityEntropy.Common
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (ProminenceArrow || projectile.ModProjectile is ProminenceSplitShot)
+            {
+                target.AddBuff(BuffID.Daybreak, 300);
+                target.AddBuff(ModContent.BuffType<BanishingFire>(), 300);
+                target.AddBuff(ModContent.BuffType<HolyFlames>(), 300);
+            }
             if (projectile.DamageType.CountsAsClass(DamageClass.Throwing) && projectile.Calamity().stealthStrike)
             {
                 if (projectile.TryGetOwner(out var owner))

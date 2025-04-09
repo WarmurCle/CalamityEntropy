@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Buffs
                     modifiers.SetCrit();
                     if(t.EffectName == "Crystedge")
                     {
-                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Util.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Util.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
                     }
                 }
             }
