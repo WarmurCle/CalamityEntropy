@@ -1898,6 +1898,7 @@ Projectiles: {
 	CrystedgeCrystalMid.DisplayName: Crystedge Crystal Mid
 	CrystedgeCrystalBig.DisplayName: Crystedge Crystal Big
 	ToiletLaser.DisplayName: Void Laser
+	ToiletVoidPoop.DisplayName: Toilet Void Poop
 }
 
 LegendTooltip: - Legend -

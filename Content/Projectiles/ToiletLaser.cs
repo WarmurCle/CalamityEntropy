@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 0f;
             Projectile.scale = 1f;
             Projectile.timeLeft = 12;
-
+            Projectile.ArmorPenetration = 100;
         }
         public bool st = true;
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)

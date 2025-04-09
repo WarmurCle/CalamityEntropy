@@ -2055,6 +2055,7 @@ Projectiles: {
 	CrystedgeCrystalMid.DisplayName: 中型水晶碎片
 	CrystedgeCrystalBig.DisplayName: 大型水晶碎片
 	ToiletLaser.DisplayName: 虚无激光
+	ToiletVoidPoop.DisplayName: 蚀虚神粪
 }
 
 LegendTooltip: - 传奇物品 -
