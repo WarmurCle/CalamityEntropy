@@ -123,7 +123,7 @@ namespace CalamityEntropy.Common
             var mp = player.Entropy();
             if (mp.BlackFlameCd <= 0 && player.whoAmI == Main.myPlayer)
             {
-                mp.BlackFlameCd = item.useTime ;
+                mp.BlackFlameCd = item.useTime - 2;
                 Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 6 + 1, 2, player.whoAmI);
             }
             return null;
@@ -1133,7 +1133,7 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<YharonBag>())
             {
-                itemLoot.Add(ModContent.ItemType<Vitalfeather>(), new Fraction(1, 10));
+                itemLoot.Add(ModContent.ItemType<Vitalfeather>(), new Fraction(1, 3));
             }
             if (item.type == ModContent.ItemType<AstrumAureusBag>())
             {
@@ -1153,9 +1153,9 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<CalamitasCloneBag>())
             {
-                itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 300));
+                itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 3));
             }
-            if (item.type == ItemID.PlanteraBossBag)
+            if (item.type == ItemID.MoonLordBossBag)
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<SilvasCrown>()));
             }

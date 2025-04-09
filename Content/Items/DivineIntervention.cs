@@ -44,9 +44,9 @@ namespace CalamityEntropy.Content.Items
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient(ItemID.HallowedBar, 100).
-                AddIngredient(ItemID.Ruby, 100).
-                AddIngredient(ItemID.HolyWater, 100).
+                AddIngredient(ItemID.HallowedBar, 10).
+                AddIngredient(ItemID.Ruby, 1).
+                AddIngredient(ItemID.HolyWater, 1).
                 AddTile(TileID.MythrilAnvil).
                 Register();
         }

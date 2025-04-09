@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.maxMinions += 1;
+            player.maxMinions += 2;
             player.GetModPlayer<EModPlayer>().temperanceCard = true;
         }
 

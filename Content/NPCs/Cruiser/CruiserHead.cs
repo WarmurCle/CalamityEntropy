@@ -117,7 +117,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 90;
             NPC.height = 90;
-            NPC.damage = 220;
+            NPC.damage = 210;
             if (Main.expertMode)
             {
                 NPC.damage += 18;
@@ -127,16 +127,16 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC.damage += 18;
             }
             NPC.defense = 120;
-            NPC.lifeMax = 2100000;
+            NPC.lifeMax = 1800000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
-                length -= 4;
+                length += 4;
             }
             else if (CalamityWorld.revenge)
             {
                 NPC.damage += 18;
-                length -= 2;
+                length += 2;
             }
             tdamage = NPC.damage;
             NPC.HitSound = SoundID.NPCHit4;

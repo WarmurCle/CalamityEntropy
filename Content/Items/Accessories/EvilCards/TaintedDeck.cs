@@ -1,8 +1,6 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Util;
-using CalamityMod.Items.Materials;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Items;
 using Terraria;
 using Terraria.ID;
@@ -38,21 +36,21 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.Entropy().ManaCost += 0.16f;
 
             player.Entropy().FrailCard = true;
-            player.Entropy().damageReduce -= 0.30f;
+            player.Entropy().damageReduce -= 0.24f;
 
             player.GetModPlayer<EModPlayer>().GreedCard = true;
 
             player.GetModPlayer<EModPlayer>().NothingCard = true;
-            player.Entropy().AttackVoidTouch += 0.2f;
+            player.Entropy().AttackVoidTouch += 0.4f;
 
             player.GetModPlayer<EModPlayer>().PerplexedCard = true;
-            player.GetCritChance(DamageClass.Generic) -= 8;
+            player.GetCritChance(DamageClass.Generic) -= 4;
 
             player.GetModPlayer<EModPlayer>().SacrificeCard = true;
             player.lifeRegen = (int)(player.lifeRegen * 0.3f);
 
 
-            player.GetDamage(DamageClass.Generic) += 0.30f;
+            player.GetDamage(DamageClass.Generic) += 0.32f;
 
             player.GetModPlayer<EModPlayer>().TarnishCard = true;
 
@@ -76,7 +74,6 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
                 .AddIngredient(ModContent.ItemType<Sacrifice>())
                 .AddIngredient(ModContent.ItemType<Nothing>())
                 .AddIngredient(ModContent.ItemType<Fool>())
-		        .AddIngredient(ModContent.ItemType<CoreofCalamity>(), 1)
                 .AddTile(TileID.Bookcases)
                 .Register();
         }

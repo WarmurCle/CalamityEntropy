@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (Main.GameUpdateCount % 20 == 0)
             {
-                npc.SimpleStrikeNPC(80, 0, false, 0, DamageClass.Default);
+                npc.SimpleStrikeNPC(120, 0, false, 0, DamageClass.Default);
             }
         }
 
