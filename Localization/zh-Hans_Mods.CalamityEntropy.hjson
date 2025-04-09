@@ -1743,8 +1743,11 @@ Items: {
 	}
 
 	VoidToilet: {
-		// Tooltip: ""
-		// DisplayName: Void Toilet
+		Tooltip: 
+		'''
+		“它并不安全”
+		'''
+		DisplayName: 虚空马桶
 	}
 }
 
@@ -2042,20 +2045,19 @@ Projectiles: {
 	ControlTerminalHeld.DisplayName: 控制终端
 	ExoWhirl.DisplayName: 星流旋刃
 	WhirlExobeam.DisplayName: 星流旋刃射线
-	// TabooVolumeHeld.DisplayName: Taboo Volume Held
-	// BrimstoneHellblastFriendly.DisplayName: Brimstone Hellblast Friendly
-	// JewelRuby.DisplayName: Jewel Ruby
-	// RubyProj.DisplayName: Ruby Proj
-	// JewelEmerald.DisplayName: Jewel Emerald
-	// JewelSapphire.DisplayName: Jewel Sapphire
-	// NetherRiftCrack.DisplayName: Nether Rift Crack
-	// WhipTest.DisplayName: Whip Test
-	// CrystedgeWhipSpawner.DisplayName: Crystedge Whip Spawner
-	// CrystedgeProj.DisplayName: Crystedge Proj
-	// CrystedgeCrystalSmall.DisplayName: Crystedge Crystal Small
-	// CrystedgeCrystalMid.DisplayName: Crystedge Crystal Mid
-	// CrystedgeCrystalBig.DisplayName: Crystedge Crystal Big
-	// ToiletLaser.DisplayName: Toilet Laser
+	TabooVolumeHeld.DisplayName: 禁忌卷册
+	BrimstoneHellblastFriendly.DisplayName: 硫火飞弹
+	JewelRuby.DisplayName: 王冠红宝石
+	RubyProj.DisplayName: 红宝石射弹
+	JewelEmerald.DisplayName: 王冠绿宝石
+	JewelSapphire.DisplayName: 王冠蓝宝石
+	NetherRiftCrack.DisplayName: 幽冥裂缝
+	CrystedgeWhipSpawner.DisplayName: 凝晶鞭刃
+	CrystedgeProj.DisplayName: 凝晶鞭刃
+	CrystedgeCrystalSmall.DisplayName: 微型水晶碎片
+	CrystedgeCrystalMid.DisplayName: 中型水晶碎片
+	CrystedgeCrystalBig.DisplayName: 大型水晶碎片
+	ToiletLaser.DisplayName: 虚无激光
 }
 
 LegendTooltip: - 传奇物品 -

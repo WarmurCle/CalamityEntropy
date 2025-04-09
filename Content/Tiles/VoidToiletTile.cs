@@ -88,6 +88,7 @@ namespace CalamityEntropy.Content.Tiles
 
             if (Wiring.CheckMech(spawnX, spawnY, 60))
             {
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/void_laser"), new Vector2(spawnX * 16 + 8, spawnY * 16 + 12));
                 Projectile.NewProjectile(Wiring.GetProjectileSource(spawnX, spawnY), spawnX * 16 + 8, spawnY * 16 + 12, 0f, 0f, ProjectileID.ToiletEffect, 0, 0f, Main.myPlayer);
                 Projectile.NewProjectile(Wiring.GetProjectileSource(spawnX, spawnY), spawnX * 16 + 8, spawnY * 16 + 6 * 16, 0f, -8f, ModContent.ProjectileType<ToiletLaser>(), 940, 10f, Main.myPlayer);
             }
