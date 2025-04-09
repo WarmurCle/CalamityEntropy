@@ -978,11 +978,6 @@ Items: {
 		DisplayName: Anima Sola
 	}
 
-	TestItem: {
-		DisplayName: Test Item
-		Tooltip: ""
-	}
-
 	LightWisper: {
 		Tooltip: ""
 		DisplayName: Light Wisper
@@ -1574,6 +1569,27 @@ Items: {
 			'''
 		DisplayName: Entropy Mode Toggle
 	}
+
+	BookMarkPerfection: {
+		DisplayName: Perfection
+		Tooltip: Increase the triggering probability of bookmarks triggered by all other probabilities
+	}
+
+	Crystedge: {
+		Tooltip:
+			'''
+			Quickly strike and deliver a final blow to your enemy
+			Minions have a 6% critical hit probability
+			Generate split floating retention crystals during critical strikes
+			Minions concentrate their attacks on the targets they hit
+			'''
+		DisplayName: Crystedge
+	}
+
+	VoidToilet: {
+		Tooltip: ""
+		DisplayName: Void Toilet
+	}
 }
 
 MariviniumSet:
@@ -1736,7 +1752,7 @@ Projectiles: {
 	VPRot.DisplayName: Void Pope Hand
 	WuppoPet.DisplayName: Wuppo Pet
 	GumProj.DisplayName: Gum Proj
-	VoidshadeHeld.DisplayName: Voidshade Held
+	VoidshadeHeld.DisplayName: Voidshade
 	VoidImpact.DisplayName: Void Impact
 	BlackFire.DisplayName: Black Fire
 	RbCircle.DisplayName: Rb Circle
@@ -1831,12 +1847,12 @@ Projectiles: {
 	PlanteraChan.DisplayName: Plantera Chan
 	AmethystFrisbeeProjectile.DisplayName: Amethyst Frisbee Projectile
 	AmethystExplosion.DisplayName: Amethyst Explosion
-	AncientScripturesHeld.DisplayName: Ancient Scriptures Held
+	AncientScripturesHeld.DisplayName: Ancient Scriptures
 	RuneBullet.DisplayName: Rune Bullet
 	WelkinFeather2.DisplayName: Welkin Feather
 	IceEdge2.DisplayName: Ice Edge
 	BrimstoneVortex.DisplayName: Brimstone Vortex
-	InfiniteBookHeld.DisplayName: Infinite Book Held
+	InfiniteBookHeld.DisplayName: Infinite Book
 	DarkSoul.DisplayName: Dark Soul
 	LightSoul.DisplayName: Light Soul
 	AstralBullet.DisplayName: Astral Bullet
@@ -1869,12 +1885,20 @@ Projectiles: {
 	ControlTerminalHeld.DisplayName: Control Terminal
 	ExoWhirl.DisplayName: Exo Whirl
 	WhirlExobeam.DisplayName: Whirl Exobeam
-	TabooVolumeHeld.DisplayName: Taboo Volume Held
-	BrimstoneHellblastFriendly.DisplayName: Brimstone Hellblast Friendly
+	TabooVolumeHeld.DisplayName: Taboo Volume
+	BrimstoneHellblastFriendly.DisplayName: Brimstone Hellblast
 	JewelRuby.DisplayName: Jewel Ruby
 	RubyProj.DisplayName: Ruby Proj
 	JewelEmerald.DisplayName: Jewel Emerald
 	JewelSapphire.DisplayName: Jewel Sapphire
+	NetherRiftCrack.DisplayName: Nether Rift Crack
+	CrystedgeWhipSpawner.DisplayName: Crystedge Whip Spawner
+	CrystedgeProj.DisplayName: Crystedge Proj
+	CrystedgeCrystalSmall.DisplayName: Crystedge Crystal Small
+	CrystedgeCrystalMid.DisplayName: Crystedge Crystal Mid
+	CrystedgeCrystalBig.DisplayName: Crystedge Crystal Big
+	ToiletLaser.DisplayName: Void Laser
+	ToiletVoidPoop.DisplayName: Toilet Void Poop
 }
 
 LegendTooltip: - Legend -

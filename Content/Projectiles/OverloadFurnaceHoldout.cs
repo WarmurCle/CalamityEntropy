@@ -31,8 +31,10 @@ namespace CalamityEntropy.Content.Projectiles
         public float eRotSpeed = 0;
         public int EAnmTime = -1;
         public LoopSound chargeSnd = null;
+        
         public override void AI()
         {
+            
             if (!Main.dedServ)
             {
                 if (chargeSnd == null)
@@ -100,6 +102,10 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] >= maxTime)
             {
                 lightColor = Color.Lerp(Color.White, Color.Red, 0.5f + (float)Math.Cos((++counter) * 0.1f) * 0.5f);
+                if (Main.rand.NextBool(8))
+                {
+                    EParticle.spawnNew(new EMediumSmoke(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Util.Util.randomRot());
+                }
             }
             Vector2 sPos = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale + Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(64 * Projectile.scale, 64 * Projectile.scale);
             EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.064f), sPos, (Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale - sPos) * 0.18f, lightColor, 0.4f, 1, true, BlendState.AlphaBlend, 0);

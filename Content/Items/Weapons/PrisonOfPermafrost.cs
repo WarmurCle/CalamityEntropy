@@ -32,6 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.mana = 20;
             Item.useStyle = -1;
             Item.noMelee = true;
+            Item.crit = 7;
             Item.Entropy().Legend = true;
             Item.Entropy().tooltipStyle = 1;
             Item.Entropy().stroke = true;

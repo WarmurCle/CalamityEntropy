@@ -684,22 +684,14 @@ namespace CalamityEntropy.Common
                 Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
                 if (holyMantle)
                 {
-                    if ((info.Damage + deusCoreAdd) * (2 - damageReduce) - Player.statDefense < 10)
-                    {
-                        mantleCd = 120* 60;
-                        Player.AddCooldown("HolyMantleCooldown", mantleCd, true);
-                    }
-                    else
-                    {
-                        Player.AddCooldown("HolyMantleCooldown", HolyMantle.Cooldown, true);
-                    }
+                    Player.AddCooldown("HolyMantleCooldown", HolyMantle.Cooldown, true);
                 }
                 deusCoreBloodOut -= deusCoreAdd;
                 return true;
             }
             if (info.Damage * (2 - damageReduce) - Player.statDefense > 16)
             {
-                if (SacredJudgeShields > 0 && info.Damage * (2 - damageReduce) - Player.statDefense < 80 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
+                if (SacredJudgeShields > 0 && info.Damage < 80 && Player.ownedProjectileCounts[ModContent.ProjectileType<SacredJudge>()] > 0)
                 {
                     immune = 120;
                     SacredJudgeShields -= 1;

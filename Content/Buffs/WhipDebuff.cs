@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,9 +44,28 @@ namespace CalamityEntropy.Content.Buffs
             BuffID.Sets.IsATagBuff[Type] = true;
         }
     }
-
+    public class WhipTag
+    {
+        public int TagDamage;
+        public float TagDamageMult;
+        public float CritChance;
+        public int TimeLeft = 0;
+        public string ItemFullName;
+        public string EffectName;
+        public WhipTag(string name, int tick, int tagDamage, float tagDamageMult, float Crit = 0, string effectName = "")
+        {
+            ItemFullName = name;
+            TimeLeft = tick;
+            TagDamage = tagDamage;
+            TagDamageMult = tagDamageMult;
+            this.CritChance = Crit;
+            EffectName = effectName;
+        }
+    }
     public class WhipDebuffNPC : GlobalNPC
     {
+        public override bool InstancePerEntity => true;
+        public List<WhipTag> Tags = new List<WhipTag>();
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
@@ -68,6 +88,20 @@ namespace CalamityEntropy.Content.Buffs
                     modifiers.SetCrit();
                 }
             }
+            foreach(var t in Tags)
+            {
+                modifiers.FlatBonusDamage += t.TagDamage * projTagMultiplier;
+                modifiers.SourceDamage *= t.TagDamageMult;
+                if (Main.rand.NextFloat() < t.CritChance)
+                {
+                    modifiers.SetCrit();
+                    if(t.EffectName == "Crystedge")
+                    {
+                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Util.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage, projectile.knockBack, projectile.owner);
+                    }
+                }
+            }
+            
             if (npc.HasBuff<DragonWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += DragonWhipDebuff.TagDamage * projTagMultiplier;
@@ -94,7 +128,17 @@ namespace CalamityEntropy.Content.Buffs
                 }
             }
         }
-
+        public override bool PreAI(NPC npc)
+        {
+            for (int i = Tags.Count - 1; i >= 0; i--)
+            {
+                if (--Tags[i].TimeLeft <= 0)
+                {
+                    Tags.RemoveAt(i);
+                }
+            }
+            return base.PreAI(npc);
+        }
         public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
             if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])

@@ -985,6 +985,10 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkAquarius>(), new Fraction(1, 2));
             }
+            if(item.type == ItemID.QueenSlimeBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<Crystedge>(), new Fraction(1, 3));
+            }
             if (item.type == ItemID.SkeletronBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkAries>(), new Fraction(1, 1));

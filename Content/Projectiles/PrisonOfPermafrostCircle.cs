@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             if (usingTime % 5 == 0)
                             {
-                                int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
+                                int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
                             }
                         }
                         else
@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.Projectiles
                             {
                                 if (usingTime % 4 == 0)
                                 {
-                                    int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
+                                    int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
                                 }
                             }
                             else
@@ -101,14 +101,14 @@ namespace CalamityEntropy.Content.Projectiles
                                 {
                                     if (usingTime % 3 == 0)
                                     {
-                                        int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
+                                        int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
                                     }
                                 }
                                 else
                                 {
                                     if (usingTime % 2 == 0)
                                     {
-                                        int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
+                                        int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(12 + Main.rand.Next(-6, 7), 12 + Main.rand.Next(-60, 61)).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 40, ModContent.ProjectileType<IceSpike>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack * 0.3f, Projectile.owner);
                                     }
                                 }
                             }
@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Projectiles
                             for (int i = 0; i < projCount; i++)
                             {
                                 ofs = Main.screenPosition + Main.MouseScreen + ag.ToRotationVector2() * 450 + new Vector2(0, -40);
-                                int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(Main.rand.Next(-17, 18), Main.rand.Next(-17, 18)), Vector2.Zero, ModContent.ProjectileType<Icicle>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner, ofs.X, ofs.Y);
+                                int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80 + new Vector2(Main.rand.Next(-17, 18), Main.rand.Next(-17, 18)), Vector2.Zero, ModContent.ProjectileType<Icicle>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner, ofs.X, ofs.Y);
                                 if (i == 0)
                                 {
                                     Main.projectile[p].ai[2] = 1;
@@ -134,9 +134,9 @@ namespace CalamityEntropy.Content.Projectiles
                             float anglep = MathHelper.ToRadians(5);
                             for (int i = 0; i < 6; i++)
                             {
-                                int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceEdge>(), Projectile.damage, 6);
+                                int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceEdge>(), Projectile.damage, 6);
                                 Main.projectile[p].rotation = Projectile.rotation + anglep;
-                                p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceEdge>(), Projectile.damage, 6);
+                                p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceEdge>(), Projectile.damage, 6);
                                 Main.projectile[p].rotation = Projectile.rotation - anglep;
 
                                 anglep += MathHelper.ToRadians(10);

@@ -1046,8 +1046,8 @@ Items: {
 		Tooltip:
 			'''
 			高速旋转挥舞
-			旋转速度随着裂刃与你的距离增加而减少
-			裂刃离你的距离取决于鼠标位置
+			松手后向鼠标方向飞去，击中目标后生成空间裂缝，造成范围伤害
+			丢出后再次按下鼠标左键会让裂刃以鼠标为中心旋转
 			'''
 	}
 
@@ -1087,11 +1087,6 @@ Items: {
 			冷却为25秒，当有boss存在时冷却为90秒
 			'''
 		DisplayName: 孤魂铁索
-	}
-
-	TestItem: {
-		// DisplayName: Test Item
-		// Tooltip: ""
 	}
 
 	LightWisper: {
@@ -1728,6 +1723,27 @@ Items: {
 			'''
 		DisplayName: 熵变之核
 	}
+
+	BookMarkPerfection: {
+		DisplayName: 满分考卷
+		Tooltip: 增加其他所有概率触发的书签的触发概率
+	}
+
+	Crystedge: {
+		Tooltip:
+			'''
+			快速抽击并在最后猛击你的敌人
+			召唤物获得6%的暴击概率
+			暴击时生成会分裂的浮空滞留水晶
+			召唤物集中攻击击中的目标
+			'''
+		DisplayName: 凝晶鞭刃
+	}
+
+	VoidToilet: {
+		Tooltip: “它并不安全”
+		DisplayName: 虚空马桶
+	}
 }
 
 MariviniumSet:
@@ -2023,12 +2039,20 @@ Projectiles: {
 	ControlTerminalHeld.DisplayName: 控制终端
 	ExoWhirl.DisplayName: 星流旋刃
 	WhirlExobeam.DisplayName: 星流旋刃射线
-	// TabooVolumeHeld.DisplayName: Taboo Volume Held
-	// BrimstoneHellblastFriendly.DisplayName: Brimstone Hellblast Friendly
-	// JewelRuby.DisplayName: Jewel Ruby
-	// RubyProj.DisplayName: Ruby Proj
-	// JewelEmerald.DisplayName: Jewel Emerald
-	// JewelSapphire.DisplayName: Jewel Sapphire
+	TabooVolumeHeld.DisplayName: 禁忌卷册
+	BrimstoneHellblastFriendly.DisplayName: 硫火飞弹
+	JewelRuby.DisplayName: 王冠红宝石
+	RubyProj.DisplayName: 红宝石射弹
+	JewelEmerald.DisplayName: 王冠绿宝石
+	JewelSapphire.DisplayName: 王冠蓝宝石
+	NetherRiftCrack.DisplayName: 幽冥裂缝
+	CrystedgeWhipSpawner.DisplayName: 凝晶鞭刃
+	CrystedgeProj.DisplayName: 凝晶鞭刃
+	CrystedgeCrystalSmall.DisplayName: 微型水晶碎片
+	CrystedgeCrystalMid.DisplayName: 中型水晶碎片
+	CrystedgeCrystalBig.DisplayName: 大型水晶碎片
+	ToiletLaser.DisplayName: 虚无激光
+	ToiletVoidPoop.DisplayName: 蚀虚神粪
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2101,7 +2125,7 @@ Buffs: {
 	}
 
 	SoyMilkBuff: {
-		Description: 攻速翻倍，伤害减少65%
+		Description: 大幅增加攻速，伤害减少70%
 		DisplayName: 豆奶
 	}
 
