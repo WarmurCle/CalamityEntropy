@@ -603,7 +603,11 @@ Items: {
 	}
 
 	JailerWhip: {
-		Tooltip: +8 Minion Damage
+		Tooltip: 
+		'''
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		'''
 		DisplayName: Jailer Whip
 	}
 
@@ -1110,12 +1114,21 @@ Items: {
 
 	Vitalfeather: {
 		DisplayName: Vitalfeather
-		Tooltip: The enemy hited by your minion will launch tracking dragon flames
+		Tooltip: 
+		'''
+		The enemy hited by your minion will launch tracking dragon flames
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		'''
 	}
 
 	WindOfUndertaker: {
 		DisplayName: Wind Of Undertaker
-		Tooltip: ""
+		Tooltip: 
+		'''
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		'''
 	}
 
 	HadopelagicEchoII: {
@@ -1581,7 +1594,8 @@ Items: {
 			Quickly strike and deliver a final blow to your enemy
 			Minions have a 6% critical hit probability
 			Generate split floating retention crystals during critical strikes
-			Minions concentrate their attacks on the targets they hit
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
 			'''
 		DisplayName: Crystedge
 	}

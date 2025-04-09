@@ -674,8 +674,12 @@ Items: {
 	}
 
 	JailerWhip: {
-		Tooltip: '''"冥界之刑"'''
-		DisplayName: 狱卒长鞭
+		Tooltip: 
+		'''
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		'''
+		DisplayName: 冥界之刑
 	}
 
 	SilvasCrown: {
@@ -1239,6 +1243,8 @@ Items: {
 			'''
 			被抽中敌人3秒内被召唤物击中将迸发出追踪龙焰辅助攻击
 			召唤物集中击打命中的敌人
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
 			'''
 	}
 
@@ -1247,7 +1253,8 @@ Items: {
 		Tooltip:
 			'''
 			拍击时发射一圈虚空新星
-			召唤物集中攻击命中的目标
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
 			'''
 	}
 
@@ -1737,7 +1744,8 @@ Items: {
 			快速抽击并在最后猛击你的敌人
 			召唤物获得6%的暴击概率
 			暴击时生成会分裂的浮空滞留水晶
-			召唤物集中攻击击中的目标
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
 			'''
 		DisplayName: 凝晶鞭刃
 	}

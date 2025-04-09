@@ -1640,9 +1640,9 @@ namespace CalamityEntropy
                     Main.spriteBatch.End();
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
 
-                    for (float i = 1; i <= 10; i++)
+                    for (float i = 1; i <= 16; i++)
                     {
-                        Main.spriteBatch.Draw(screen, screen.Size() / 2, null, Color.White * ((10f / i) * 0.2f * FlashEffectStrength), 0, screen.Size() / 2, 1 + FlashEffectStrength * 0.1f * i, SpriteEffects.None, 0);
+                        Main.spriteBatch.Draw(screen, screen.Size() / 2, null, Color.White * ((16f / i) * 0.1f * FlashEffectStrength), 0, screen.Size() / 2, 1 + FlashEffectStrength * 0.08f * i, SpriteEffects.None, 0);
                     }
                     Main.spriteBatch.End();
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);

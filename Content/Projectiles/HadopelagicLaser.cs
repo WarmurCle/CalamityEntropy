@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Projectile.Distance(Main.LocalPlayer.Center) < 1200)
                 {
-                    CalamityEntropy.FlashEffectStrength = 0.3f;
+                    CalamityEntropy.FlashEffectStrength = 0.46f;
                 }
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
