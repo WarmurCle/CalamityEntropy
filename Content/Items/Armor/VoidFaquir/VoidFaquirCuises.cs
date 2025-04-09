@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             Item.width = 18;
             Item.height = 18;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.defense = 39;
+            Item.defense = 32;
             Item.rare = ModContent.RarityType<VoidPurple>();
         }
 
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
         {
             player.Entropy().VFLeg = true;
             player.GetDamage(DamageClass.Generic) += 0.1f;
-            player.GetCritChance(DamageClass.Generic) += 10;
+            player.GetCritChance(DamageClass.Generic) += 8;
         }
 
         public override void AddRecipes()

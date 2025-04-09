@@ -488,7 +488,7 @@ namespace CalamityEntropy.Common
         {
             if (player.Entropy().nihShell)
             {
-                modifiers.CritDamage += 0.5f;
+                modifiers.CritDamage += 0.10f;
             }
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.05f * (1 - npc.Entropy().VoidTouchDR);
             if (player.Entropy().VFSet)
@@ -1248,10 +1248,6 @@ namespace CalamityEntropy.Common
             if (shop.NpcType == ModContent.NPCType<THIEF>())
             {
                 shop.Add(ModContent.ItemType<Barren>());
-            }
-            if (shop.NpcType == ModContent.NPCType<FAP>())
-            {
-                shop.Add(ModContent.ItemType<VoidCandle>());
             }
         }
     }
