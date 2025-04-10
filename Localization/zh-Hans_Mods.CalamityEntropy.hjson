@@ -1757,7 +1757,11 @@ Items: {
 
 	Prominence: {
 		DisplayName: 日珥
-		Tooltip: ""
+		Tooltip:
+			'''
+			发射出三发附加日耀的箭矢，并同时发射大量短距离散弹
+			击中敌人造成神圣之火减益
+			'''
 	}
 
 	SinewLash: {
@@ -1769,6 +1773,15 @@ Items: {
 			{$CommonItemTooltip.Whips}
 			'''
 		DisplayName: 撕裂之腱
+	}
+
+	AzafureBatteringRam: {
+		DisplayName: 阿萨福勒破城矛
+		Tooltip:
+			'''
+			蓄力，然后朝前方突刺
+			刺中敌人并在敌人身体内发射威力巨大的霰弹，额外造成一次伤害，随后弹开
+			'''
 	}
 }
 
@@ -2082,6 +2095,8 @@ Projectiles: {
 	ToiletVoidPoop.DisplayName: 蚀虚神粪
 	// SinewLashProj.DisplayName: Sinew Lash Proj
 	// ProminenceSplitShot.DisplayName: Prominence Split Shot
+	// BatteringRamProj.DisplayName: Battering Ram Proj
+	// BatteringRamShell.DisplayName: Battering Ram Shell
 }
 
 LegendTooltip: - 传奇物品 -

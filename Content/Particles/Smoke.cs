@@ -7,9 +7,22 @@ namespace CalamityEntropy.Content.Particles
     {
         public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Smoke").Value;
         public int timeleftmax = 200;
+        public float scaleEnd = -1;
+        public float scaleStart = -1;
+        public float vc = 1;
+
         public override void update()
         {
+            if(scaleStart < 0)
+            {
+                scaleStart = scale;
+            }
+            if(scaleEnd > 0)
+            {
+                scale = float.Lerp(scaleStart, scaleEnd, 1 - (float)this.timeLeft / this.timeleftmax);
+            }
             base.update();
+            this.velocity *= vc;
             this.alpha = (float)this.timeLeft / (float)timeleftmax;
         }
     }

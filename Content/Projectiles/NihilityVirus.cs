@@ -10,6 +10,7 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class NihilityVirus : ModProjectile
     {
+        public List<LightningAdvanced> lightnings = new List<LightningAdvanced>();
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -46,6 +47,16 @@ namespace CalamityEntropy.Content.Projectiles
         List<float> odr = new List<float>();
         List<NPC> targets = new List<NPC>();
         public LoopSound sound = null;
+        public override bool PreAI()
+        {
+            if (lightnings.Count == 0) { 
+                for(int i = 0; i < 9; i++)
+                {
+                    lightnings.Add(new LightningAdvanced(Projectile.Center, Projectile.Center));
+                }
+            }
+            return base.PreAI();
+        }
         public override void AI()
         {
             Projectile.frameCounter++;
@@ -143,15 +154,38 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
         }
-        public static void drawlightning(Vector2 start, Vector2 end, float width = 1, float lightSize = 1)
+        public void drawlightning(int index, float width = 1, float lightSize = 1)
         {
+            var points = lightnings[index].GetPoints();
             Texture2D lightning = Util.Util.getExtraTex("Lightning");
-            Vector2 handPos = start;
-            Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.LinearWrap);
-            Main.spriteBatch.Draw(lightning, handPos - Main.screenPosition, new Rectangle((int)(Main.GameUpdateCount * -16), 0, (int)(Util.Util.getDistance(handPos, end) / 2f), lightning.Height), new Color(160, 160, 160), (end - handPos).ToRotation(), new Vector2(0, lightning.Height / 2), new Vector2(2, 0.12f * width), SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(lightning, handPos - Main.screenPosition, new Rectangle((int)(Main.GameUpdateCount * -36), 0, (int)(Util.Util.getDistance(handPos, end) / 2f), lightning.Height), new Color(120, 120, 176), (end - handPos).ToRotation(), new Vector2(0, lightning.Height / 2), new Vector2(2, 0.26f * width), SpriteEffects.FlipVertically, 0);
+            Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied, SamplerState.LinearWrap);
+            {
+                List<Vertex> ve = new List<Vertex>();
+                Color b = Color.White;
+                float p = -Main.GlobalTimeWrappedHourly * 2;
+                for (int i = 1; i < points.Count; i++)
+                {
+                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 16 * Projectile.scale * lightSize,
+                          new Vector3(p, 1, 1),
+                          b));
+                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 16 * Projectile.scale * lightSize,
+                          new Vector3(p, 0, 1),
+                          b));
+                    p += (Util.Util.getDistance(points[i], points[i - 1]) / lightning.Width) * 0.7f;
+                }
+
+                SpriteBatch sb = Main.spriteBatch;
+                GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                if (ve.Count >= 3)
+                {
+                    gd.Textures[0] = lightning;
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                }
+            }
             Texture2D light = Util.Util.getExtraTex("lightball");
-            Main.spriteBatch.Draw(light, end - Main.screenPosition, null, new Color(120, 120, 200), 0, light.Size() / 2, width * 0.14f * lightSize, SpriteEffects.None, 0);
+            
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            Main.spriteBatch.Draw(light, points[points.Count - 1] - Main.screenPosition, null, new Color(120, 120, 200), 0, light.Size() / 2, width * 0.14f * lightSize, SpriteEffects.None, 0);
 
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
         }
@@ -164,10 +198,22 @@ namespace CalamityEntropy.Content.Projectiles
             Vector2 opos = Projectile.getOwner().MountedCenter + Projectile.getOwner().gfxOffY * Vector2.UnitY;
             Vector2 handPos = opos + (Projectile.Center - opos).SafeNormalize(Vector2.Zero) * 120 * Projectile.getOwner().HeldItem.scale;
             Vector2 end = Projectile.Center;
-            drawlightning(handPos, end, 1.6f, 3);
+            lightnings[8].Update(handPos, Projectile.Center);
+            drawlightning(8, 1.6f, 2);
+
+            int lc = 0;
             foreach (NPC npc in targets)
             {
-                drawlightning(Projectile.Center, npc.Center, 2.6f - (targets.Count * 0.225f));
+                if (Util.Util.getDistance(lightnings[lc].Point2, npc.Center) > 24)
+                {
+                    for (int i = 0; i < 48; i++)
+                    {
+                        lightnings[lc].Update(Projectile.Center, npc.Center);
+                    }
+                }
+                lightnings[lc].Update(Projectile.Center, npc.Center);
+                drawlightning(lc, 2.6f - (targets.Count * 0.225f));
+                lc++;
             }
             Texture2D tex = Projectile.getTexture();
             Rectangle frame = Util.Util.GetCutTexRect(tex, 4, Projectile.frame, false);

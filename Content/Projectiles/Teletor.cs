@@ -12,6 +12,8 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class Teletor : ModProjectile
     {
+        public LightningAdvanced l1;
+        public LightningAdvanced l2;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -42,6 +44,19 @@ namespace CalamityEntropy.Content.Projectiles
         {
             return false;
         }
+        public override bool PreAI()
+        {
+            if (Projectile.localAI[1] == 0)
+            {
+                Vector2 L1 = Projectile.Center + new Vector2(-11 * Projectile.direction, -12).RotatedBy(Projectile.rotation);
+                Vector2 L2 = Projectile.Center + new Vector2(11 * Projectile.direction, -14).RotatedBy(Projectile.rotation);
+
+                l1 = new LightningAdvanced(L1, weaponPos);
+                l2 = new LightningAdvanced(L2, weaponPos);
+            }
+            ++Projectile.localAI[1];
+            return base.PreAI();
+        }
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.WriteVector2(weaponVel);
@@ -55,14 +70,21 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Main.instance.LoadItem(4);
-            if (Util.Util.getDistance(weaponPos, Projectile.Center) > 3000)
-            {
-                weaponPos = Projectile.Center;
-            }
             Player player = Main.player[Projectile.owner];
             if (Util.Util.getDistance(Projectile.Center, player.Center) > 3600)
             {
                 Projectile.Center = player.Center;
+                Vector2 L1 = Projectile.Center + new Vector2(-11 * Projectile.direction, -12).RotatedBy(Projectile.rotation);
+                Vector2 L2 = Projectile.Center + new Vector2(11 * Projectile.direction, -14).RotatedBy(Projectile.rotation);
+            }
+            if (Util.Util.getDistance(weaponPos, Projectile.Center) > 3000)
+            {
+                weaponPos = Projectile.Center;
+                Vector2 L1 = Projectile.Center + new Vector2(-11 * Projectile.direction, -12).RotatedBy(Projectile.rotation);
+                Vector2 L2 = Projectile.Center + new Vector2(11 * Projectile.direction, -14).RotatedBy(Projectile.rotation);
+
+                l1 = new LightningAdvanced(L1, weaponPos);
+                l2 = new LightningAdvanced(L2, weaponPos);
             }
             if (player.HasBuff(ModContent.BuffType<TeletorBuff>()))
             {
@@ -143,12 +165,12 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-
             Vector2 L1 = Projectile.Center + new Vector2(-11 * Projectile.direction, -12).RotatedBy(Projectile.rotation);
             Vector2 L2 = Projectile.Center + new Vector2(11 * Projectile.direction, -14).RotatedBy(Projectile.rotation);
-
-            List<Vector2> points1 = LightningGenerator.GenerateLightning(L1, weaponPos, 22, 6);
-            List<Vector2> points2 = LightningGenerator.GenerateLightning(L2, weaponPos, 22, 6);
+            l1.Update(L1, weaponPos);
+            l2.Update(L2, weaponPos);
+            List<Vector2> points1 = l1.GetPoints();
+            List<Vector2> points2 = l2.GetPoints();
             Util.Util.DrawLines(points1, Color.Red * 0.6f, 2);
             Util.Util.DrawLines(points2, Color.Blue * 0.6f, 2);
 

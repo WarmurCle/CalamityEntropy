@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Particles
         {
             this.timeLeft = 11;
         }
-        public int maxLength = 30;
+        public int maxLength = 14;
         public override void update()
         {
             if(this.timeLeft < 10)
@@ -66,10 +66,10 @@ namespace CalamityEntropy.Content.Particles
                 {
                     width = 1f;
                 }
-                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14 * width * this.scale,
+                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * width * this.scale,
                       new Vector3((((float)i) / odp.Count), 1, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
-                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * width * this.scale,
+                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * width * this.scale,
                       new Vector3((((float)i) / odp.Count), 0, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
             }

@@ -1607,7 +1607,11 @@ Items: {
 
 	Prominence: {
 		DisplayName: Prominence
-		Tooltip: ""
+		Tooltip:
+			'''
+			Launch three additional solar powered arrows and simultaneously launch a large number of short-range shots
+			Hit the enemy will cause holy fire debuff
+			'''
 	}
 
 	SinewLash: {
@@ -1619,6 +1623,11 @@ Items: {
 			{$CommonItemTooltip.Whips}
 			'''
 		DisplayName: Sinew Lash
+	}
+
+	AzafureBatteringRam: {
+		DisplayName: Azafure Battering Ram
+		Tooltip: ""
 	}
 }
 
@@ -1931,6 +1940,8 @@ Projectiles: {
 	ToiletVoidPoop.DisplayName: Toilet Void Poop
 	SinewLashProj.DisplayName: Sinew Lash Proj
 	ProminenceSplitShot.DisplayName: Prominence Split Shot
+	BatteringRamProj.DisplayName: Battering Ram Proj
+	BatteringRamShell.DisplayName: Battering Ram Shell
 }
 
 LegendTooltip: - Legend -

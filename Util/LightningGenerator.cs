@@ -39,4 +39,49 @@ namespace CalamityEntropy.Util
             Subdivide(points, displacement / 2, depth - 1);
         }
     }
+
+    public class LightningAdvanced
+    {
+        public Vector2 Point1;
+        public Vector2 Point2;
+        public int SegCount;
+        public float GravityMin;
+        public float GravityMax;
+        public Rope rope;
+        public LightningAdvanced(Vector2 point1, Vector2 point2, int segs = 40, float gravMin = 0.3f, float gravMax = 0.6f)
+        {
+            this.Point1 = point1;
+            this.Point2 = point2;
+            this.SegCount = segs;
+            this.GravityMin = gravMin;
+            this.GravityMax = gravMax;
+            rope = new Rope(point1, point2, SegCount, Util.getDistance(point1, point2) / (float)SegCount, randomGrav(), 0, 15, false);
+        }
+        public void Update()
+        {
+            this.rope.segmentLength = Util.getDistance(Point1, Point2) / (float)SegCount;
+            this.rope.gravity = Vector2.Lerp(this.rope.gravity, Vector2.Zero, 0.1f);
+            this.rope.Update();
+            if (Main.rand.NextBool(40))
+            {
+                rope = new Rope(Point1, Point2, SegCount, Util.getDistance(Point1, Point2) / (float)SegCount, randomGrav(), 0, 15, false);
+            }
+        }
+        public void Update(Vector2 p1, Vector2 p2)
+        {
+            Point1 = p1;
+            Point2 = p2;
+            this.rope.Start = p1;
+            this.rope.End = p2;
+            Update();
+        }
+        public Vector2 randomGrav()
+        {
+            return Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(this.GravityMin, this.GravityMax);
+        }
+        public List<Vector2> GetPoints()
+        {
+            return this.rope.GetPoints();
+        }
+    }
 }

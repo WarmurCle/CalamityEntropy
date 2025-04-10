@@ -1,10 +1,13 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Terraria;
@@ -25,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 50;
             Item.height = 80;
-            Item.damage = 190;
+            Item.damage = 90;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 25;
             Item.useAnimation = 25;
@@ -43,16 +46,31 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override Vector2? HoldoutOffset() => new Vector2(-28, 0);
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
-            p.ToProj().Entropy().ProminenceArrow = true;
-            Util.Util.SyncProj(p);
-            for(int i = 0; i < 24; i++)
-            {
-                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.6f) * 0.3f * Main.rand.NextFloat(0.4f, 1f), ModContent.ProjectileType<ProminenceSplitShot>(), damage / 12, knockback * 2, player.whoAmI);
-                Vector2 vel = velocity.RotatedByRandom(0.84f) * 1.4f * Main.rand.NextFloat(0.4f, 1f);
-                EParticle.spawnNew(new StrikeParticle(), position, vel, Color.Lerp(Color.OrangeRed, new Color(255, 231, 66), Main.rand.NextFloat()), 0.54f, 1, true, BlendState.Additive, vel.ToRotation());
-            }
+            Color impactColor = Main.rand.NextBool(3) ? Color.Firebrick : Color.OrangeRed;
+            float impactParticleScale = Main.rand.NextFloat(1f, 1.75f) * 1.65f;
+            SparkleParticle impactParticle = new SparkleParticle(position + velocity, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 8, 0.16f, 2f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
 
+
+            Main.LocalPlayer.Calamity().GeneralScreenShakePower = 4;
+            for (int i = 0; i < 64; i++)
+            {
+                EParticle.spawnNew(new Smoke() { timeleftmax = 16, timeLeft = 16 }, position, velocity.RotatedByRandom(0.74) * 0.6f * Main.rand.NextFloat(0.4f, 1f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.14f), 1, true, BlendState.Additive, Util.Util.randomRot());
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                int p = Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.08f), type, damage, knockback, player.whoAmI);
+
+                p.ToProj().Entropy().ProminenceArrow = true;
+                Util.Util.SyncProj(p);
+            }
+            for (int i = 0; i < 26; i++)
+            {
+                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.6f) * 0.3f * Main.rand.NextFloat(0.4f, 1f), ModContent.ProjectileType<ProminenceSplitShot>(), damage / 6, knockback * 2, player.whoAmI);
+                Vector2 vel = velocity.RotatedByRandom(0.84f) * 1.4f * Main.rand.NextFloat(0.4f, 1f);
+                EParticle.spawnNew(new StrikeParticle(), position, vel, Color.Lerp(Color.OrangeRed, new Color(255, 231, 66), Main.rand.NextFloat()), 0.24f, 1, true, BlendState.Additive, vel.ToRotation());
+            }
+            player.velocity -= velocity * 0.08f;
             return false;
         }
         public override void AddRecipes()
@@ -66,6 +84,33 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             return true;
         }
+        #region Animations
+        public override void HoldItem(Player player) => player.Calamity().mouseWorldListener = true;
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+            player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
+            float itemRotation = player.compositeFrontArm.rotation + MathHelper.PiOver2 * player.gravDir;
+
+            Vector2 itemPosition = player.MountedCenter + new Vector2(0, -24);
+            Vector2 itemSize = new Vector2(Item.width, Item.height);
+            Vector2 itemOrigin = new Vector2(-14, 0);
+
+            CalamityUtils.CleanHoldStyle(player, itemRotation, itemPosition, itemSize, itemOrigin);
+            base.UseStyle(player, heldItemFrame);
+        }
+
+        public override void UseItemFrame(Player player)
+        {
+            player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
+
+            float animProgress = 1 - player.itemTime / (float)player.itemTimeMax;
+            float rotation = (player.Center - player.Calamity().mouseWorld).ToRotation() * player.gravDir + MathHelper.PiOver2;
+            if (animProgress < 0.5)
+                rotation += (-0.5f) * (float)Math.Pow((0.5f - animProgress) / 0.5f, 2) * player.direction;
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
+        }
+        #endregion
     }
     public class ProminenceSplitShot : ModProjectile
     {

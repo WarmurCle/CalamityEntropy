@@ -785,7 +785,6 @@ namespace CalamityEntropy.Common
             if (ProminenceArrow || projectile.ModProjectile is ProminenceSplitShot)
             {
                 target.AddBuff(BuffID.Daybreak, 300);
-                target.AddBuff(ModContent.BuffType<BanishingFire>(), 300);
                 target.AddBuff(ModContent.BuffType<HolyFlames>(), 300);
             }
             if (projectile.DamageType.CountsAsClass(DamageClass.Throwing) && projectile.Calamity().stealthStrike)

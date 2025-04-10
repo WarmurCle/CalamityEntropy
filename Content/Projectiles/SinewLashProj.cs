@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.SetDefaults();
             Projectile.MaxUpdates = 1;
             this.segments = 20;
-            this.rangeMult = 2f;
+            this.rangeMult = 1.8f;
         }
         public override string getTagEffectName => "SinewLash";
         public override SoundStyle? WhipSound => null;
@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Main.LocalPlayer.Calamity().GeneralScreenShakePower = 4;
+            Main.LocalPlayer.Calamity().GeneralScreenShakePower = 7;
             base.OnHitNPC(target, hit, damageDone);
             Util.Util.PlaySound("FleshWhipHit", Main.rand.NextFloat(0.8f, 1.2f), EndPoint);
             for (int i = 0; i < 3; i++)
