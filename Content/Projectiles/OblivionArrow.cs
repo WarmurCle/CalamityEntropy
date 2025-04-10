@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
             Projectile.ArmorPenetration = 12;
-            Projectile.extraUpdates = 1;
+            Projectile.extraUpdates = 2;
             Projectile.arrow = true;
             Projectile.ArmorPenetration = 120;
         }
@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 odp.Add(Projectile.Center);
                 odr.Add(Projectile.rotation - MathHelper.PiOver2);
-                if (odp.Count > 64)
+                if (odp.Count > 44)
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
@@ -149,7 +149,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int tofs;
         public Color TrailColor(float completionRatio)
         {
-            Color result = new Color(30, 60, 160);
+            Color result = new Color(180, 215, 255);
             return result * completionRatio * alpha;
         }
 

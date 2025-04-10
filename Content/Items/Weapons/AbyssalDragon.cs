@@ -1,10 +1,12 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -63,5 +65,32 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
         }
+        #region Animations
+        public override void HoldItem(Player player) => player.Calamity().mouseWorldListener = true;
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+            player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
+            float itemRotation = player.compositeFrontArm.rotation + MathHelper.PiOver2 * player.gravDir;
+
+            Vector2 itemPosition = player.MountedCenter + new Vector2(0, -24);
+            Vector2 itemSize = new Vector2(Item.width, Item.height);
+            Vector2 itemOrigin = new Vector2(-14, 0);
+
+            CalamityUtils.CleanHoldStyle(player, itemRotation, itemPosition, itemSize, itemOrigin);
+            base.UseStyle(player, heldItemFrame);
+        }
+
+        public override void UseItemFrame(Player player)
+        {
+            player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
+
+            float animProgress = 1 - player.itemTime / (float)player.itemTimeMax;
+            float rotation = (player.Center - player.Calamity().mouseWorld).ToRotation() * player.gravDir + MathHelper.PiOver2;
+            if (animProgress < 0.5)
+                rotation += (-0.5f) * (float)Math.Pow((0.5f - animProgress) / 0.5f, 2) * player.direction;
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
+        }
+        #endregion
     }
 }

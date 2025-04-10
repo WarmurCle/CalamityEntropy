@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
@@ -48,13 +49,14 @@ namespace CalamityEntropy.Content.Projectiles
                 lightColor *= ((float)Projectile.timeLeft / 30f);
             }
             float scale = 0;
+            float scale2 = 1 + (float)Math.Cos(Main.GameUpdateCount * 0.52f) * 0.12f;
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
             for (int i = 0; i < oldPos.Count; i++)
             {
                 scale += 1f / oldPos.Count;
-                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, lightColor * ((float)i / (float)oldPos.Count) * 0.6f, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, lightColor * ((float)i / (float)oldPos.Count) * 0.6f, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2, SpriteEffects.None, 0);
             }
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2, SpriteEffects.None, 0);
 
             return false;
         }

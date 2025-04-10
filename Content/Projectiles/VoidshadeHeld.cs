@@ -44,11 +44,10 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (dash > 0 && attackType == 3)
+            if (dash >= 0 && attackType == 3)
             {
                 dash = -32;
-
-                Projectile.owner.ToPlayer().velocity *= -0.2f;
+                Projectile.owner.ToPlayer().velocity *= -0.05f;
                 Projectile.owner.ToPlayer().Entropy().voidshadeBoostTime = 90;
             }
         }
@@ -167,17 +166,21 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
                 counter += speed;
-                rotSpeed *= (float)Math.Pow(0.9f, 1.0 / speed);
-                if (counter < 30)
+                
+                if (counter < 12)
                 {
                     if (attackType == 0)
                     {
-                        rotSpeed += -0.02f * Projectile.direction * speed;
+                        rotSpeed += -0.06f * Projectile.direction * speed;
                     }
                     else
                     {
-                        rotSpeed += 0.02f * Projectile.direction * speed;
+                        rotSpeed += 0.046f * Projectile.direction * speed;
                     }
+                }
+                else
+                {
+                    rotSpeed *= (float)Math.Pow(0.74f, 1.0 / speed);
                 }
                 if (counter > 90)
                 {
@@ -206,13 +209,22 @@ namespace CalamityEntropy.Content.Projectiles
                     if (counter % 2 == 1)
                     {
                         oldPos.Add(Projectile.Center);
+                        oldPos.Add(Projectile.Center);
+                        oldPos.Add(Projectile.Center);
                     }
                     else
                     {
                         oldPos.Add(Projectile.Center + player.velocity / 2);
+                        oldPos.Add(Projectile.Center + player.velocity / 2);
+                        oldPos.Add(Projectile.Center + player.velocity / 2);
                     }
+                    oldRots.Add(Projectile.rotation - rotSpeed * Projectile.direction - rotSpeed * Projectile.direction * 0.6666f);
+                    oldScale.Add(float.Lerp(getScale(), LastScale, 0.6666f) * Projectile.scale);
+                    oldRots.Add(Projectile.rotation - rotSpeed * Projectile.direction - rotSpeed * Projectile.direction * 0.3333f);
+                    oldScale.Add(float.Lerp(getScale(), LastScale, 0.3333f) * Projectile.scale);
                     oldRots.Add(Projectile.rotation - rotSpeed * Projectile.direction);
                     oldScale.Add(getScale() * Projectile.scale);
+                    LastScale = getScale();
                 }
 
             }
@@ -223,7 +235,7 @@ namespace CalamityEntropy.Content.Projectiles
                 oldRots.RemoveAt(0);
                 oldScale.RemoveAt(0);
             }
-        }
+        }public float LastScale = 0;
         public float trailOffset = 0;
         public float getScale()
         {
@@ -238,7 +250,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return 2;
             }
-            return 1.2f + Math.Abs(rotSpeed / Projectile.owner.ToPlayer().GetTotalAttackSpeed(Projectile.DamageType) * 6 * (vsboost ? 1.5f : 1));
+            return 1.2f + (float)Math.Sqrt(Math.Abs(rotSpeed / Projectile.owner.ToPlayer().GetTotalAttackSpeed(Projectile.DamageType) * 6 * (vsboost ? 1.5f : 1)));
         }
         public bool sb = true;
         public override bool ShouldUpdatePosition()
