@@ -1627,7 +1627,12 @@ Items: {
 
 	AzafureBatteringRam: {
 		DisplayName: Azafure Battering Ram
-		Tooltip: ""
+		Tooltip:
+			'''
+			Charges up before lunging forward.
+			Pierces enemies and fires a powerful burst from within, dealing additional damage before bouncing away.
+			Critical strikes deal more damage
+			'''
 	}
 }
 

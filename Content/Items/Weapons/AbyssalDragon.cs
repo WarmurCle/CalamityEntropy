@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<AbyssDragonProj>();
             Item.shootSpeed = 20f;
-            Item.mana = 52;
+            Item.mana = 40;
             Item.DamageType = DamageClass.Magic;
         }
         public override bool MagicPrefix()
@@ -73,9 +73,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
             float itemRotation = player.compositeFrontArm.rotation + MathHelper.PiOver2 * player.gravDir;
 
-            Vector2 itemPosition = player.MountedCenter + new Vector2(0, -24);
+            Vector2 itemPosition = player.MountedCenter + new Vector2(0, 48);
             Vector2 itemSize = new Vector2(Item.width, Item.height);
-            Vector2 itemOrigin = new Vector2(-14, 0);
+            Vector2 itemOrigin = new Vector2(-16, 0);
 
             CalamityUtils.CleanHoldStyle(player, itemRotation, itemPosition, itemSize, itemOrigin);
             base.UseStyle(player, heldItemFrame);

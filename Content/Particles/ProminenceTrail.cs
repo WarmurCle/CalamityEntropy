@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Particles
         {
             this.timeLeft = 11;
         }
-        public int maxLength = 14;
+        public int maxLength = 21;
         public override void update()
         {
             if(this.timeLeft < 10)

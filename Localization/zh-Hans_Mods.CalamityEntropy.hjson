@@ -1781,6 +1781,7 @@ Items: {
 			'''
 			蓄力，然后朝前方突刺
 			刺中敌人并在敌人身体内发射威力巨大的霰弹，额外造成一次伤害，随后弹开
+			暴击时造成更多伤害
 			'''
 	}
 }
@@ -2093,10 +2094,10 @@ Projectiles: {
 	CrystedgeCrystalBig.DisplayName: 大型水晶碎片
 	ToiletLaser.DisplayName: 虚无激光
 	ToiletVoidPoop.DisplayName: 蚀虚神粪
-	// SinewLashProj.DisplayName: Sinew Lash Proj
-	// ProminenceSplitShot.DisplayName: Prominence Split Shot
-	// BatteringRamProj.DisplayName: Battering Ram Proj
-	// BatteringRamShell.DisplayName: Battering Ram Shell
+	SinewLashProj.DisplayName: 撕裂之腱
+	ProminenceSplitShot.DisplayName: 日珥霰弹
+	BatteringRamProj.DisplayName: 破城矛
+	BatteringRamShell.DisplayName: 弹壳
 }
 
 LegendTooltip: - 传奇物品 -

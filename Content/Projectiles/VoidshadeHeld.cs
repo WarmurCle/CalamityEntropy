@@ -182,13 +182,13 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     rotSpeed *= (float)Math.Pow(0.74f, 1.0 / speed);
                 }
-                if (counter > 90)
+                if (counter > 60)
                 {
                     Projectile.Kill();
                 }
                 Projectile.rotation += rotSpeed * Projectile.direction;
                 Player owner = player;
-                if (counter <= 60)
+                if (counter <= 50)
                 {
                     if (Projectile.velocity.X > 0)
                     {
@@ -204,7 +204,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.Center = player.RotatedRelativePoint(player.MountedCenter);
                 player.heldProj = Projectile.whoAmI;
 
-                if (counter < 49)
+                if (counter < 22)
                 {
                     if (counter % 2 == 1)
                     {
@@ -229,13 +229,17 @@ namespace CalamityEntropy.Content.Projectiles
 
             }
 
-            if (oldPos.Count > 24 || (counter >= 49 && oldPos.Count > 0))
+            for (int i = 0; i < 3; i++)
             {
-                oldPos.RemoveAt(0);
-                oldRots.RemoveAt(0);
-                oldScale.RemoveAt(0);
+                if ((oldPos.Count > 32 && counter > 6) || (counter >= 34 && oldPos.Count > 0))
+                {
+                    oldPos.RemoveAt(0);
+                    oldRots.RemoveAt(0);
+                    oldScale.RemoveAt(0);
+                }
             }
-        }public float LastScale = 0;
+        }
+        public float LastScale = 0;
         public float trailOffset = 0;
         public float getScale()
         {

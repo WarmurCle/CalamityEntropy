@@ -5,6 +5,7 @@ using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,9 +33,32 @@ namespace CalamityEntropy.Content.Projectiles
         public float charge { get { return Projectile.ai[0]; } set { Projectile.ai[0] = value; } }
         public int frame = 0;
         public int frameCounter = 0;
+        public bool init = false;
         public override void AI()
         {
-            if(frame > 0)
+            if (!init)
+            {
+                init = true;
+                Projectile.ai[2] = -1;
+                Projectile.localAI[0] = -1;
+            }
+            if (Projectile.ai[2] > 0)
+            {
+                if(Main.myPlayer != Projectile.owner)
+                {
+                    OnHitBothSide(((int)Projectile.ai[2]).ToNPC());
+                }
+                Projectile.ai[2] = 0;
+            }
+            if (Projectile.localAI[0] > 0)
+            {
+                if (Main.myPlayer != Projectile.owner && CanHit)
+                {
+                    OnHitBothSide(((int)Projectile.localAI[0]).ToPlayer());
+                }
+                Projectile.localAI[0] = 0;
+            }
+            if (frame > 0)
             {
                 frameCounter++;
                 if(frameCounter >= 6)
@@ -72,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
                     if (Projectile.ai[1] == 0)
                     {
                         CanHit = true;
-                        Util.Util.PlaySound("ExobladeDashImpact", 1, Projectile.Center);
+                        Util.Util.PlaySound("ExobladeDashImpact", 1, Projectile.Center, volume: 0.6f);
                         Projectile.ai[1]++;
                         player.mount.Dismount(player);
                         player.RemoveAllGrapplingHooks();
@@ -106,29 +130,37 @@ namespace CalamityEntropy.Content.Projectiles
                 if(Projectile.timeLeft == 50 && CanHit)
                 {
                     CanHit = false;
-                    player.Entropy().XSpeedSlowdownTime = 50;
+                    player.Entropy().XSpeedSlowdownTime = 26;
                     Projectile.timeLeft = 2;
                 }
-                if(Projectile.timeLeft == 32)
+                if (Projectile.timeLeft == 32)
                 {
                     frame++;
                     Util.Util.PlaySound("DudFire", 1, Projectile.Center);
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 44, Projectile.velocity.RotatedBy(-2f * player.direction).RotatedByRandom(0.26f), ModContent.ProjectileType<BatteringRamShell>(), 0, 0, player.whoAmI);
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 44, Projectile.velocity.RotatedBy(-2f * player.direction).RotatedByRandom(0.26f), ModContent.ProjectileType<BatteringRamShell>(), 0, 0, player.whoAmI);
+                    }
                 }
-                if(Projectile.timeLeft <= 32 && Projectile.timeLeft > 10)
+                if(Projectile.timeLeft == 30)
                 {
+                    Util.Util.PlaySound("steam", 1, Projectile.Center);
+                }
+                if(Projectile.timeLeft <= 30 && Projectile.timeLeft > 4)
+                {
+                    float c = (Projectile.timeLeft - 4) / 26f;
                     Vector2 steamCenter = Projectile.Center + Projectile.rotation.ToRotationVector2() * 68 * Projectile.scale;
                     float rot = Projectile.rotation + player.direction * -2f;
-                    for (int i = 0; i < 6; i++)
+                    for (int i = 0; i < 8; i++)
                     {
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.3f, 0f, 0.03f, true, BlendState.Additive, Util.Util.randomRot());
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.3f, 0.016f, 0.01f, true, BlendState.Additive, Util.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Util.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Util.Util.randomRot());
                     }
                     rot += player.direction * 3.8f;
-                    for (int i = 0; i < 6; i++)
+                    for (int i = 0; i < 8; i++)
                     {
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.3f, 0f, 0.03f, true, BlendState.Additive, Util.Util.randomRot());
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.3f, 0.016f, 0.01f, true, BlendState.Additive, Util.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Util.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Util.Util.randomRot());
                     }
                 }
             }
@@ -137,18 +169,37 @@ namespace CalamityEntropy.Content.Projectiles
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - (float)(Math.PI * 0.5f));
 
         }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.rotation);
+            writer.Write(Projectile.localAI[0]);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Projectile.rotation = reader.ReadSingle();
+            Projectile.localAI[0] = reader.ReadSingle();
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            OnHitBothSide(target);
+            Projectile.ai[2] = target.whoAmI;
+            Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
+            Projectile.getOwner().ApplyDamageToNPC(target, damageDone, 0, 0, hit.Crit, Projectile.DamageType);
+            Projectile.rotation += 0.36f * Projectile.getOwner().direction;
+            Projectile.netUpdate = true;
+        }
+        public void OnHitBothSide(NPC target)
         {
             Projectile.getOwner().Entropy().immune = 46;
             target.AddBuff(BuffID.BrokenArmor, 420);
             target.AddBuff(BuffID.OnFire, 420);
-            
+
             Color impactColor = Main.rand.NextBool(3) ? Color.Firebrick : Color.OrangeRed;
             float impactParticleScale = Main.rand.NextFloat(1f, 1.75f) * 2.8f;
             SparkleParticle impactParticle = new SparkleParticle(target.Center, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 8, 0.16f, 2f);
             GeneralParticleHandler.SpawnParticle(impactParticle);
-            Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
-            for(int i = 0; i < 32; i++)
+
+            for (int i = 0; i < 32; i++)
             {
                 Vector2 top = target.Center;
                 Vector2 sparkVelocity2 = Projectile.velocity.RotateRandom(0.8f) * 1.8f * Main.rand.NextFloat(0.3f, 1f);
@@ -168,15 +219,56 @@ namespace CalamityEntropy.Content.Projectiles
                 LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
+
+            Util.Util.PlaySound("gunshot_large", 1, target.Center);
             Util.Util.PlaySound("BRFire", 1, target.Center);
             CanHit = false;
             Projectile.getOwner().velocity *= -1f;
             Projectile.getOwner().velocity.Y *= 0.4f;
-            Projectile.getOwner().Entropy().XSpeedSlowdownTime = 50;
+            Projectile.getOwner().Entropy().XSpeedSlowdownTime = 26;
             Projectile.getOwner().velocity.Y -= 6;
             Projectile.timeLeft = 50;
-            Projectile.rotation += 0.36f * Projectile.getOwner().direction;
-            target.SimpleStrikeNPC(damageDone, Projectile.getOwner().direction, false, 0, Projectile.DamageType);
+        }
+        public void OnHitBothSide(Player target)
+        {
+            Projectile.getOwner().Entropy().immune = 46;
+            target.AddBuff(BuffID.BrokenArmor, 420);
+            target.AddBuff(BuffID.OnFire, 420);
+
+            Color impactColor = Main.rand.NextBool(3) ? Color.Firebrick : Color.OrangeRed;
+            float impactParticleScale = Main.rand.NextFloat(1f, 1.75f) * 2.8f;
+            SparkleParticle impactParticle = new SparkleParticle(target.Center, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 8, 0.16f, 2f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
+
+            for (int i = 0; i < 32; i++)
+            {
+                Vector2 top = target.Center;
+                Vector2 sparkVelocity2 = Projectile.velocity.RotateRandom(0.8f) * 1.8f * Main.rand.NextFloat(0.3f, 1f);
+                int sparkLifetime2 = Main.rand.Next(20, 28);
+                float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
+                Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.LightGoldenrodYellow, Main.rand.NextFloat(0, 1));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
+            }
+            for (int i = 0; i < 32; i++)
+            {
+                Vector2 top = target.Center;
+                Vector2 sparkVelocity2 = -Projectile.velocity.RotateRandom(0.8f) * 1.2f * Main.rand.NextFloat(0.3f, 1f);
+                int sparkLifetime2 = Main.rand.Next(14, 18);
+                float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
+                Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.Crimson, Main.rand.NextFloat(0, 1));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
+            }
+
+            Util.Util.PlaySound("gunshot_large", 1, target.Center);
+            Util.Util.PlaySound("BRFire", 1, target.Center);
+            CanHit = false;
+            Projectile.getOwner().velocity *= -1f;
+            Projectile.getOwner().velocity.Y *= 0.4f;
+            Projectile.getOwner().Entropy().XSpeedSlowdownTime = 26;
+            Projectile.getOwner().velocity.Y -= 6;
+            Projectile.timeLeft = 50;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -190,6 +282,23 @@ namespace CalamityEntropy.Content.Projectiles
             }
             return base.CanHitNPC(target);
         }
+        public override bool CanHitPvp(Player target)
+        {
+            if (!CanHit)
+            {
+                return false;
+            }
+            if(Projectile.Colliding(Projectile.Hitbox, target.getRect()))
+            {
+                OnHitBothSide(target);
+                Projectile.localAI[0] = target.whoAmI;
+                Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
+                Projectile.rotation += 0.36f * Projectile.getOwner().direction;
+                Projectile.netUpdate = true;
+            }
+            return base.CanHitPvp(target);
+        }
+        
         public override bool ShouldUpdatePosition()
         {
             return false;

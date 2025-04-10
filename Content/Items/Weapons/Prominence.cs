@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 50;
             Item.height = 80;
-            Item.damage = 90;
+            Item.damage = 86;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 25;
             Item.useAnimation = 25;
@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = Util.Util.GetSound("ProminenceShoot");
             Item.autoReuse = true;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
-            Item.shootSpeed = 22f;
+            Item.shootSpeed = 12f;
             Item.useAmmo = AmmoID.Arrow;
         }
         public override Vector2? HoldoutOffset() => new Vector2(-28, 0);
