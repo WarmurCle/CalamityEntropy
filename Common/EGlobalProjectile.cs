@@ -59,6 +59,19 @@ namespace CalamityEntropy.Common
         public bool EventideShot = false;
         public bool ProminenceArrow = false;
         public float promineceDamageAddition = 0.25f;
+        public int hittingTarget = -1;
+        public override bool? Colliding(Projectile projectile, Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if(hittingTarget >= 0)
+            {
+                if(Util.Util.getDistance(targetHitbox.Center.ToVector2(), hittingTarget.ToNPC().Hitbox.Center.ToVector2()) < 32)
+                {
+                    return true;
+                }
+            }
+            return base.Colliding(projectile, projHitbox, targetHitbox);
+        }
+        
         public override GlobalProjectile Clone(Projectile from, Projectile to)
         {
             var p = to.Entropy();
@@ -782,6 +795,7 @@ namespace CalamityEntropy.Common
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            hittingTarget = -1;
             if (ProminenceArrow || projectile.ModProjectile is ProminenceSplitShot)
             {
                 target.AddBuff(BuffID.Daybreak, 300);

@@ -2,6 +2,8 @@
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
+using CalamityMod.Items.Weapons.Ranged;
+using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,6 +11,7 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -187,6 +190,37 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.getOwner().ApplyDamageToNPC(target, damageDone, 0, 0, hit.Crit, Projectile.DamageType);
             Projectile.rotation += 0.36f * Projectile.getOwner().direction;
             Projectile.netUpdate = true;
+            Item FalseGun;
+            int gunID = ItemID.Minishark;
+            int CVEID = ModContent.ItemType<CosmicViperEngine>();
+            FalseGun = new Item();
+            var Pk = new Item();
+            FalseGun.SetDefaults(gunID, true);
+            Pk.SetDefaults(CVEID, true);
+            FalseGun.damage = Projectile.damage / 10;
+            FalseGun.knockBack = Pk.knockBack;
+            FalseGun.shootSpeed = Pk.shootSpeed * 1.25f;
+            FalseGun.consumeAmmoOnFirstShotOnly = false;
+            FalseGun.consumeAmmoOnLastShotOnly = false;
+            FalseGun.ArmorPenetration = Projectile.ArmorPenetration;
+            FalseGun.DamageType = DamageClass.Melee;
+            Player player = Projectile.getOwner();
+            for(int i = 0; i < 8; i++)
+            {
+                float r = Projectile.rotation + Main.rand.NextFloat(-0.5f, 0.5f);
+                if (player.HasAmmo(FalseGun))
+                {
+                    player.PickAmmo(FalseGun, out int projID, out float shootSpeed, out int damage, out float kb, out int _, false);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center - r.ToRotationVector2() * shootSpeed, r.ToRotationVector2() * shootSpeed, projID, damage, kb, player.whoAmI);
+                    p.ToProj().DamageType = DamageClass.Melee;
+                    if (!p.ToProj().usesLocalNPCImmunity)
+                    {
+                        p.ToProj().usesLocalNPCImmunity = true;
+                        p.ToProj().localNPCHitCooldown = 16;
+                    }
+                    p.ToProj().Entropy().hittingTarget = target.whoAmI;
+                }
+            }
         }
         public void OnHitBothSide(NPC target)
         {
@@ -282,6 +316,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             return base.CanHitNPC(target);
         }
+
         public override bool CanHitPvp(Player target)
         {
             if (!CanHit)

@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Ranged;
@@ -106,7 +107,7 @@ namespace CalamityEntropy.Content.Projectiles
         private void DefineFalseGun(int baseDamage)
         {
             int p90ID = ModContent.ItemType<P90>();
-            int CVEID = ModContent.ItemType<CosmicViperEngine>();
+            int CVEID = ModContent.ItemType<PhantomPlanetKillerEngine>();
             FalseGun = new Item();
             Pk = new Item();
             FalseGun.SetDefaults(p90ID, true);
