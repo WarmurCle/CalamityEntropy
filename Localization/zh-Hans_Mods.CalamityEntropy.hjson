@@ -1784,6 +1784,17 @@ Items: {
 			暴击时造成更多伤害
 			'''
 	}
+
+	MindCorruptor: {
+		DisplayName: 蚀心者
+		Tooltip:
+			'''
+			够住敌人，然后狠狠的抽回来
+			被击中的敌人一段时间内被召唤物击中产生暗影斩切
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			'''
+	}
 }
 
 MariviniumSet:
@@ -2098,6 +2109,8 @@ Projectiles: {
 	ProminenceSplitShot.DisplayName: 日珥霰弹
 	BatteringRamProj.DisplayName: 破城矛
 	BatteringRamShell.DisplayName: 弹壳
+	MindCorruptorProj.DisplayName: 蚀心者
+	CorruptStrike.DisplayName: 暗影斩切
 }
 
 LegendTooltip: - 传奇物品 -

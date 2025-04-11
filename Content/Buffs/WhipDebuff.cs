@@ -70,7 +70,8 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
                 return;
-
+            if (projectile.ModProjectile is CorruptStrike || projectile.ModProjectile is DragonGoldenFire || projectile.ModProjectile is CrystedgeCrystalSmall || projectile.ModProjectile is CrystedgeCrystalMid || projectile.ModProjectile is CrystedgeCrystalBig)
+                return;
             if (projectile.TryGetOwner(out var owner))
             {
                 if (Main.rand.Next(0, 100) < owner.Entropy().summonCrit)
@@ -99,6 +100,11 @@ namespace CalamityEntropy.Content.Buffs
                     {
                         Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Util.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
                     }
+                }
+                if (t.EffectName == "MindCorruptor")
+                {
+                    float rot = Util.Util.randomRot();
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
                 }
             }
             

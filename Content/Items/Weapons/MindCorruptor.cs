@@ -11,19 +11,20 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class SinewLash : BaseWhipItem
+    public class MindCorruptor : BaseWhipItem
     {
-        public override int TagDamage => 5;
-        public override float TagCritChance => 0.025f;
+        public override int TagDamage => 4;
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<SinewLashProj>(), 46, 3, 4, 42);
+            Item.DefaultToWhip(ModContent.ProjectileType<MindCorruptorProj>(), 60, 3, 4, 42);
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.autoReuse = true;
+            Item.UseSound = Util.Util.GetSound("corruptwhip_swing");
         }
         public override bool CanUseItem(Player player)
         {
+            Item.UseSound = Util.Util.GetSound("corruptwhip_swing", Main.rand.NextFloat(0.6f, 1.4f));
             return true;
         }
     }

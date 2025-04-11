@@ -18,6 +18,7 @@ namespace CalamityEntropy.Util
         {
             GameShaders.Armor.Apply(id, player);
         }
+        public static string WhiteTexPath = "CalamityEntropy/Assets/Extra/white";
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
         public static Texture2D getTexture(this Projectile p)
         {

@@ -1634,6 +1634,15 @@ Items: {
 			Critical strikes deal more damage
 			'''
 	}
+
+	MindCorruptor: {
+		DisplayName: Mind Corruptor
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			'''
+	}
 }
 
 MariviniumSet:
@@ -1947,6 +1956,8 @@ Projectiles: {
 	ProminenceSplitShot.DisplayName: Prominence Split Shot
 	BatteringRamProj.DisplayName: Battering Ram Proj
 	BatteringRamShell.DisplayName: Battering Ram Shell
+	MindCorruptorProj.DisplayName: Mind Corruptor Proj
+	CorruptStrike.DisplayName: Corrupt Strike
 }
 
 LegendTooltip: - Legend -
