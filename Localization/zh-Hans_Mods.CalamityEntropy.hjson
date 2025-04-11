@@ -1789,7 +1789,7 @@ Items: {
 		DisplayName: 蚀心者
 		Tooltip:
 			'''
-			够住敌人，然后狠狠的抽回来
+			钩住敌人，然后狠狠的抽回来
 			被击中的敌人一段时间内被召唤物击中产生暗影斩切
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
