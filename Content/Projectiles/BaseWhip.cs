@@ -140,6 +140,10 @@ namespace CalamityEntropy.Content.Projectiles
                     if (tp.ItemFullName.Equals(ownerItem.ModItem.FullName))
                     {
                         flag = false;
+                        if (tp.TimeLeft < bw.TagTime)
+                        {
+                            tp.TimeLeft = bw.TagTime;
+                        }
                         return;
                     }
                 }

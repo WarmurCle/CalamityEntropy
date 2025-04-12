@@ -23,6 +23,8 @@ using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
+using CalamityMod.NPCs.HiveMind;
+using CalamityMod.NPCs.Perforator;
 using CalamityMod.Projectiles.Rogue;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
@@ -977,6 +979,14 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
+            if (item.type == ModContent.ItemType<HiveMindBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<MindCorruptor>(), 3);
+            }
+            if (item.type == ModContent.ItemType<PerforatorBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<SinewLash>(), 3);
+            }
             if (item.type == ModContent.ItemType<HiveMindBag>() || item.type == ModContent.ItemType<PerforatorBag>())
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkAerialite>(), new Fraction(1, 2));

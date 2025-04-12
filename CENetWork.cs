@@ -47,7 +47,8 @@ namespace CalamityEntropy
                         packet.Write(plr);
                         packet.Write(npc);
                         packet.Write(wai);
-                        packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
+                        packet.Send();//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
+                        //by polaris:这个客户端发送的时候并没有执行对应的代码，得给客户端发一遍
                     }
                 }
             }

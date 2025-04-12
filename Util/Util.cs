@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -14,6 +15,19 @@ namespace CalamityEntropy.Util
 {
     public static class Util
     {
+        public static void DrawChargeBar(float barScale, Vector2 position, float progress, Color color)
+        {
+            var barBG = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/GenericBarBack").Value;
+            var barFG = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/GenericBarFront").Value;
+
+            Vector2 barOrigin = barBG.Size() * 0.5f;
+            Vector2 drawPos = position;
+            Rectangle frameCrop = new Rectangle(0, 0, (int)(progress * barFG.Width), barFG.Height);
+            
+            SpriteBatch spriteBatch = Main.spriteBatch;
+            spriteBatch.Draw(barBG, drawPos, null, color, 0f, barOrigin, barScale, 0f, 0f);
+            spriteBatch.Draw(barFG, drawPos, frameCrop, color * 0.8f, 0f, barOrigin, barScale, 0f, 0f);
+        }
         public static void ApplyGameShaderForPlayer(int id, Player player)
         {
             GameShaders.Armor.Apply(id, player);

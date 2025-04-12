@@ -1643,6 +1643,11 @@ Items: {
 			{$CommonItemTooltip.Whips}
 			'''
 	}
+
+	AzafureChargeShield: {
+		Tooltip: ""
+		DisplayName: Azafure Charge Shield
+	}
 }
 
 MariviniumSet:

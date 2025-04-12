@@ -27,6 +27,7 @@ using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Util;
 using CalamityMod;
+using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Events;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Pets;
@@ -75,11 +76,13 @@ using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Core;
 using Terraria.UI;
 namespace CalamityEntropy
 {
@@ -181,6 +184,18 @@ namespace CalamityEntropy
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             EModILEdit.load();
+            Type baseType = typeof(PlayerDashEffect);
+            Type[] types = AssemblyManager.GetLoadableTypes(this.Code);
+            foreach (Type type in types)
+            {
+                if (!type.IsSubclassOf(baseType) || type.IsAbstract)
+                    continue;
+
+                string id = (string)type.GetProperty("ID").GetValue(null);
+
+                PlayerDashEffect dashEffect = (PlayerDashEffect)Activator.CreateInstance(type);
+                PlayerDashManager.TryAddDash(dashEffect);
+            }
         }
 
         private void get_whip_settings_hook(On_Projectile.orig_GetWhipSettings orig, Projectile proj, out float timeToFlyOut, out int segments, out float rangeMultiplier)
@@ -204,6 +219,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            EModHooks.UnLoadData();
             LoopSoundManager.unload();
             ealaserSound = null;
             ealaserSound2 = null;
@@ -317,11 +333,30 @@ namespace CalamityEntropy
             }
             Main.spriteBatch.End();
         }
-
+        public float AzShieldBarAlpha = 0;
         private void drawIr(On_Main.orig_DrawInfernoRings orig, Main self)
         {
             Texture2D shell = Util.Util.getExtraTex("shell");
             Texture2D crystalShield = Util.Util.getExtraTex("MariviniumShield");
+            if(Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
+            {
+                var mi = Main.LocalPlayer.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield;
+                float charge = mi.charge;
+                float maxCharge = mi.maxCharge;
+                if(charge >= maxCharge)
+                {
+                    AzShieldBarAlpha = float.Lerp(AzShieldBarAlpha, 0, 0.1f);
+                }
+                else
+                {
+                    AzShieldBarAlpha = float.Lerp(AzShieldBarAlpha, 1, 0.1f);
+                }
+                Util.Util.DrawChargeBar(1.5f, Main.LocalPlayer.Center - Main.screenPosition + new Vector2(0, -42), ((float)charge / maxCharge), ((charge > 1) ? Color.Lerp(Color.OrangeRed, Color.Orange, (float)Math.Cos(Main.GameUpdateCount * 0.2f) * 0.5f + 0.5f) : Color.Firebrick) * AzShieldBarAlpha);
+            }
+            else
+            {
+                AzShieldBarAlpha = float.Lerp(AzShieldBarAlpha, 0, 0.1f);
+            }
             foreach (Player player in Main.ActivePlayers)
             {
                 if (player.Entropy().nihShellCount > 0)
@@ -753,6 +788,7 @@ namespace CalamityEntropy
             => bossChecklist.Call("LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
         public override void PostSetupContent()
         {
+            
             if (ModLoader.TryGetMod("IsaacMod", out Mod isaac))
             {
                 isaac.Call("HeldProj", ModContent.ProjectileType<RailPulseBowProjectile>());

@@ -29,14 +29,14 @@ namespace CalamityEntropy.Content.Buffs
                 player.statLife -= 16;
                 if (player.statLife <= 0)
                 {
-                    player.KillMe(PlayerDeathReason.ByCustomReason($"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidTouch")), 16, 0);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral($"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidTouch"))), 64, 0);
                 }
             }
             var r = Main.rand;
             Dust.NewDust(player.Center, player.width, player.height, DustID.CorruptSpray, (float)r.NextDouble() * 6 - 3, (float)r.NextDouble() * 6 - 3);
             if (!player.GetModPlayer<EPlayerDash>().velt)
             {
-                player.velocity *= 0.90f;
+                player.velocity *= 0.97f;
             }
             for (int i = 0; i < 1; i++)
             {

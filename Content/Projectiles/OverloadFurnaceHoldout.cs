@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Projectiles
             Color lightColor = Color.White;
             if (Projectile.ai[0] >= maxTime)
             {
-                lightColor = Color.Lerp(Color.White, Color.Red, 0.5f + (float)Math.Cos((++counter) * 0.1f) * 0.5f);
+                lightColor = Color.Lerp(Color.White, Color.Red, 0.5f + (float)Math.Cos(counter * 0.16f) * 0.5f);
                 if (Main.rand.NextBool(8))
                 {
                     EParticle.spawnNew(new EMediumSmoke(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Util.Util.randomRot());
@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
             if (Projectile.ai[0] >= maxTime)
             {
-                lightColor = Color.Lerp(lightColor, Color.Red, 0.5f + ((float)Math.Sin((++counter) * 0.04f) * 0.5f));
+                lightColor = Color.Lerp(lightColor, Color.Red, 0.5f + ((float)Math.Sin((++counter) * 0.16f) * 0.5f));
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

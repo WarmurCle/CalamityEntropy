@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 24;
             Item.height = 24;
-            Item.damage = 5;
+            Item.damage = 10;
             Item.DamageType = DamageClass.Magic;
             Item.useTime = 3;
             Item.useAnimation = 3;
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noUseGraphic = true;
             var modItem = Item.Calamity();
             modItem.UsesCharge = true;
-            Item.mana = 20;
+            Item.mana = 6;
             modItem.MaxCharge = 100f;
             modItem.ChargePerUse = 0.05f;
         }

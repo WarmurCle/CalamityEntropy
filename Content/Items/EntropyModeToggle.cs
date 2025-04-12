@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Items;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -7,6 +8,12 @@ namespace CalamityEntropy.Content.Items
 {
     public class EntropyModeToggle : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.AnimatesAsSoul[Type] = true;
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(4, 10));
+        }
         public override void SetDefaults()
         {
             Item.width = 40;

@@ -22,7 +22,9 @@ using CalamityMod.NPCs.Abyss;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.DevourerofGods;
+using CalamityMod.NPCs.HiveMind;
 using CalamityMod.NPCs.NormalNPCs;
+using CalamityMod.NPCs.Perforator;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.SlimeGod;
@@ -547,7 +549,15 @@ namespace CalamityEntropy.Common
         {
             if (npc.boss)
             {
-                npcLoot.Add(ModContent.ItemType<BookMarkPerfection>(), new Fraction(1, 24));
+                npcLoot.Add(ModContent.ItemType<BookMarkPerfection>(), new Fraction(1, 30));
+            }
+            if(npc.type == ModContent.NPCType<HiveMind>())
+            {
+                npcLoot.Add(ModContent.ItemType<MindCorruptor>(), 3);
+            }
+            if (npc.type == ModContent.NPCType<PerforatorHive>())
+            {
+                npcLoot.Add(ModContent.ItemType<SinewLash>(), 3);
             }
             if (npc.type == NPCID.QueenSlimeBoss)
             {

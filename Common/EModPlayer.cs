@@ -9,6 +9,7 @@ using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
@@ -21,6 +22,7 @@ using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
 using System;
 using System.Collections.Generic;
@@ -107,6 +109,7 @@ namespace CalamityEntropy.Common
         public float temporaryArmor = 0;
         public int XSpeedSlowdownTime = 0;
         public IEnumerable<KeyValuePair<string, Vector2>> homes = new Dictionary<string, Vector2>();
+        public int AzChargeShieldSteamTime = 0;
         public bool holdingPoop { get { return _holdingPoop; } set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge
@@ -212,7 +215,7 @@ namespace CalamityEntropy.Common
         public int voidshadeBoostTime = 0;
         public float mawOfVoidCharge = 0;
         public bool mawOfVoidUsing = false;
-
+        public int AzDash = 0;
         public bool revelation = false;
         public float revelationCharge = 0;
         public bool revelationUsing = false;
@@ -230,6 +233,7 @@ namespace CalamityEntropy.Common
         public bool MariviniumSet = false;
         public override void ResetEffects()
         {
+            AzafureChargeShieldItem = null;
             visualMagiShield = false;
             MariviniumSet = false;
             meleeDamageReduce = 0;
@@ -837,10 +841,45 @@ namespace CalamityEntropy.Common
         public bool syncHoldingPoop = false;
         public int damageRecord = 0;
 
-
+        public Item AzafureChargeShieldItem = null;
         public bool VSoundsPlayed = false;
+        public bool DashFlag = false;
+        
         public override void PostUpdate()
         {
+            AzDash--;
+            if (Main.LocalPlayer.dashDelay < 0)
+            {
+                DashFlag = true;
+            }
+            if (DashFlag && Main.LocalPlayer.dashDelay > 0)
+            {
+                if (Main.LocalPlayer.Calamity().LastUsedDashID == AzafureShieldDash.ID)
+                {
+                    Main.LocalPlayer.dashDelay = AzafureChargeShield.DashDelay;
+                }
+                DashFlag = false;
+            }
+            if (AzChargeShieldSteamTime > 0)
+            {
+                AzChargeShieldSteamTime--;
+                if(AzChargeShieldSteamTime == 12)
+                {
+                    Util.Util.PlaySound("steam", 1, Player.Center);
+                }
+                if(AzChargeShieldSteamTime < 12)
+                {
+
+                    float c = AzChargeShieldSteamTime / 12f;
+                    Vector2 steamCenter = Player.MountedCenter;
+                    float rot = new Vector2(-1 * Player.direction, -2).ToRotation();
+                    for (int i = 0; i < 8; i++)
+                    {
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Util.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Util.Util.randomRot());
+                    }
+                }
+            }
             if (XSpeedSlowdownTime-- >= 0)
             {
                 Player.velocity.X *= 0.94f;

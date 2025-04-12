@@ -1768,7 +1768,7 @@ Items: {
 		Tooltip:
 			'''
 			向前方抛出，然后收回，同时撕扯沿途的敌人
-			召唤物获得2.5%的暴击率
+			召唤物获得5%的暴击率
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			'''
@@ -1794,6 +1794,15 @@ Items: {
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			'''
+	}
+
+	AzafureChargeShield: {
+		Tooltip:
+			'''
+			消耗自身充能冲刺并穿过敌怪
+			充能会缓慢恢复
+			'''
+		DisplayName: 阿萨福勒充能盾
 	}
 }
 

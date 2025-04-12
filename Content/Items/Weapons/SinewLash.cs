@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     public class SinewLash : BaseWhipItem
     {
         public override int TagDamage => 5;
-        public override float TagCritChance => 0.025f;
+        public override float TagCritChance => 0.05f;
         public override void SetDefaults()
         {
             Item.DefaultToWhip(ModContent.ProjectileType<SinewLashProj>(), 46, 3, 4, 42);

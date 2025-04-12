@@ -1,34 +1,84 @@
-﻿namespace CalamityEntropy.Content.ILEditing
+﻿using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Weapons;
+using CalamityMod;
+using CalamityMod.CalPlayer;
+using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
+using MonoMod.RuntimeDetour.HookGen;
+using System;
+using System.Collections.Concurrent;
+using System.Reflection;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.ILEditing
 {
     public static class EModILEdit
     {
 
         public static void load()
         {
+            MethodInfo method = typeof(CalamityPlayer).GetMethod("ModDashMovement", BindingFlags.Instance | BindingFlags.Public);
         }
 
-        /*private static void HookGetDPS(ILContext il)
+    }
+    public static class EModHooks
+    {
+        private static ConcurrentDictionary<(MethodBase, Delegate), Hook> _hooks = new ConcurrentDictionary<(MethodBase, Delegate), Hook>();
+        public static ConcurrentDictionary<(MethodBase, Delegate), Hook> Hooks => _hooks;
+        public static Hook Add(MethodBase method, Delegate hookDelegate)
         {
-            var c = new ILCursor(il);
-            if(!c.TryGotoNext(i => i.MatchConvI4()))
+            if (method == null)
             {
-                return;
+                throw new ArgumentException("The MethodBase passed in is Null");
             }
-            if (!c.TryGotoNext(i => i.MatchConvI4()))
+            if (hookDelegate == null)
             {
-                return;
+                throw new ArgumentException("The HookDelegate passed in is Null");
             }
-            c.Index++;
-            c.Emit(Mono.Cecil.Cil.OpCodes.Ldarg_0);
-            c.EmitDelegate<Func<int, Player, int>>((returnV, player) =>
-            {
-                if (player.Entropy().Godhead)
-                {
-                    return player.Entropy().effectCount;
-                }
-                return returnV;
-            });
 
-        }*/
+            Hook hook = new Hook(method, hookDelegate);
+
+            if (!hook.IsApplied)
+            {
+                hook.Apply();
+            }
+            _hooks.TryAdd((method, hookDelegate), hook);
+            return hook;
+        }
+
+        public static bool CheckHookStatus()
+        {
+            int hookDownNum = 0;
+            foreach (var hook in _hooks.Values)
+            {
+                if (!hook.IsApplied)
+                {
+                    hookDownNum++;
+                }
+            }
+            if (hookDownNum > 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static void UnLoadData()
+        {
+            foreach (var hook in _hooks.Values)
+            {
+                if (hook == null)
+                {
+                    continue;
+                }
+                if (hook.IsApplied)
+                {
+                    hook.Undo();
+                }
+                hook.Dispose();
+            }
+            _hooks.Clear();
+        }
     }
 }
