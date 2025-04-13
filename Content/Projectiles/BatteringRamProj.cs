@@ -211,7 +211,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (player.HasAmmo(FalseGun))
                 {
                     player.PickAmmo(FalseGun, out int projID, out float shootSpeed, out int damage, out float kb, out int _, false);
-                    int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center - r.ToRotationVector2() * shootSpeed, r.ToRotationVector2() * shootSpeed, projID, damage, kb, player.whoAmI);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center - r.ToRotationVector2() * shootSpeed, r.ToRotationVector2() * shootSpeed, projID, damage / 10, kb, player.whoAmI);
                     p.ToProj().DamageType = DamageClass.Melee;
                     if (!p.ToProj().usesLocalNPCImmunity)
                     {

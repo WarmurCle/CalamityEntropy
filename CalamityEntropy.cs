@@ -20,6 +20,7 @@ using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
 using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
+using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Skies;
@@ -336,6 +337,10 @@ namespace CalamityEntropy
         public float AzShieldBarAlpha = 0;
         private void drawIr(On_Main.orig_DrawInfernoRings orig, Main self)
         {
+            screen?.Dispose();
+            screen = null;
+            screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+
             Texture2D shell = Util.Util.getExtraTex("shell");
             Texture2D crystalShield = Util.Util.getExtraTex("MariviniumShield");
             if(Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
@@ -419,6 +424,47 @@ namespace CalamityEntropy
                     }
                 }
             }
+            
+
+            GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
+
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
+
+            foreach(Projectile proj in Main.ActiveProjectiles)
+            {
+                if(proj.ModProjectile is RuneTorrent rt)
+                {
+                    rt.Draw();
+                }
+            }
+
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
+            shader.CurrentTechnique = shader.Techniques["Technique1"];
+            shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
+            Main.spriteBatch.EnterShaderRegion(null, shader);
+            shader.CurrentTechnique.Passes[0].Apply();
+            Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
+            
+            Main.spriteBatch.End();
+            Main.spriteBatch.begin_();
+
             EParticle.drawAll();
             orig(self);
         }

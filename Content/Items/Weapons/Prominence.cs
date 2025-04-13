@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             for (int i = 0; i < 26; i++)
             {
-                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.6f) * 0.3f * Main.rand.NextFloat(0.4f, 1f), ModContent.ProjectileType<ProminenceSplitShot>(), damage / 6, knockback * 2, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.64f) * 0.6f * Main.rand.NextFloat(0.4f, 1f), ModContent.ProjectileType<ProminenceSplitShot>(), damage / 6, knockback * 2, player.whoAmI);
                 Vector2 vel = velocity.RotatedByRandom(0.84f) * 1.4f * Main.rand.NextFloat(0.4f, 1f);
                 EParticle.spawnNew(new StrikeParticle(), position, vel, Color.Lerp(Color.OrangeRed, new Color(255, 231, 66), Main.rand.NextFloat()), 0.24f, 1, true, BlendState.Additive, vel.ToRotation());
             }

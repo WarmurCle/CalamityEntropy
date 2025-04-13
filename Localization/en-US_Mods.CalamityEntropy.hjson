@@ -1963,6 +1963,7 @@ Projectiles: {
 	BatteringRamShell.DisplayName: Battering Ram Shell
 	MindCorruptorProj.DisplayName: Mind Corruptor Proj
 	CorruptStrike.DisplayName: Corrupt Strike
+	RuneTorrent.DisplayName: Rune Torrent
 }
 
 LegendTooltip: - Legend -

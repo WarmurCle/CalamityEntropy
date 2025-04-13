@@ -64,7 +64,7 @@ namespace CalamityEntropy
                     packet.Write((byte)CEMessageType.TurnFriendly);
                     packet.Write(id);
                     packet.Write(owner);
-                    packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
+                    packet.Send();
                 }
             }
             else if (messageType == CEMessageType.Text)
@@ -96,7 +96,7 @@ namespace CalamityEntropy
                     packet.Write((byte)CEMessageType.PlayerSetRB);
                     packet.Write(playerIndex);
                     packet.Write(active);
-                    packet.Send(-1, whoAmI);//如果接受端是服务器，说明是来自客户端的广播，所以可以忽略来源的客户端
+                    packet.Send();
                 }
                 else
                 {

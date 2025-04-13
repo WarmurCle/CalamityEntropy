@@ -32,6 +32,10 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool CanUseItem(Player player)
         {
+            if(Main.dedServ || Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                return false;//这玩意多人有bug，到时候再修算了
+            }
             float slots = 0;
             foreach (Projectile p in Main.ActiveProjectiles)
             {

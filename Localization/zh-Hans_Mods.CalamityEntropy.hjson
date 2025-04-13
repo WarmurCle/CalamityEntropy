@@ -2120,6 +2120,7 @@ Projectiles: {
 	BatteringRamShell.DisplayName: 弹壳
 	MindCorruptorProj.DisplayName: 蚀心者
 	CorruptStrike.DisplayName: 暗影斩切
+	// RuneTorrent.DisplayName: Rune Torrent
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2398,7 +2399,7 @@ NPCs: {
 	SoulSlurperFriendly.DisplayName: 友好的灵魂饮食者
 	SkyfinFriendly.DisplayName: 友好的天鳍鱼
 	IceClasperFriendly.DisplayName: 友好的食魂冰虫
-	TheProphet.DisplayName: 预言者
+	TheProphet.DisplayName: 先知
 }
 
 WyrmChatNoHome: 我们现在要去哪？
