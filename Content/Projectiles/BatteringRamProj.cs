@@ -1,8 +1,6 @@
-﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
-using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +9,7 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
+using CalamityEntropy.Content.Buffs;
 
 namespace CalamityEntropy.Content.Projectiles
 {
