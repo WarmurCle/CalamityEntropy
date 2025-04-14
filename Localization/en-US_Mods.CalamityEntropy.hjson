@@ -2186,6 +2186,11 @@ Buffs: {
 		DisplayName: No Heal
 		Description: You cannot regen or use healing items
 	}
+
+	MaliciousCode: {
+		DisplayName: Malicious Code
+		Description: "It's malicious"
+	}
 }
 
 Uh: ""

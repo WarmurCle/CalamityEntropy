@@ -2347,6 +2347,11 @@ Buffs: {
 		DisplayName: 治疗失效
 		Description: 短时间不能以任何方式回血，无法使用回血物品
 	}
+
+	MaliciousCode: {
+		DisplayName: 恶意代码
+		Description: 它很恶意
+	}
 }
 
 Uh: 呃啊~
