@@ -340,6 +340,9 @@ namespace CalamityEntropy
             screen?.Dispose();
             screen = null;
             screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+            screen3?.Dispose();
+            screen3 = null;
+            screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 
             Texture2D shell = Util.Util.getExtraTex("shell");
             Texture2D crystalShield = Util.Util.getExtraTex("MariviniumShield");
@@ -436,10 +439,16 @@ namespace CalamityEntropy
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
 
-            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.SetRenderTarget(screen3);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
-
+            foreach(NPC npc in Main.ActiveNPCs)
+            {
+                if(npc.ModNPC is TheProphet tp)
+                {
+                    tp.Draw();
+                }
+            }
             foreach(Projectile proj in Main.ActiveProjectiles)
             {
                 if(proj.ModProjectile is RuneTorrent rt)
@@ -454,14 +463,14 @@ namespace CalamityEntropy
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
 
             Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
             shader.CurrentTechnique = shader.Techniques["Technique1"];
-            shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
-            Main.spriteBatch.EnterShaderRegion(null, shader);
+            shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2() / Main.GameViewMatrix.Zoom);
             shader.CurrentTechnique.Passes[0].Apply();
-            Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
-            
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader);
+            Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
             Main.spriteBatch.begin_();
 

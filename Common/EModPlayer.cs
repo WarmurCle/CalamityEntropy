@@ -233,6 +233,7 @@ namespace CalamityEntropy.Common
         public bool MariviniumSet = false;
         public override void ResetEffects()
         {
+            maliciousCode = false;
             AzafureChargeShieldItem = null;
             visualMagiShield = false;
             MariviniumSet = false;
@@ -554,6 +555,10 @@ namespace CalamityEntropy.Common
                 Player.runAcceleration *= 1.05f;
                 Player.maxRunSpeed *= 1.05f;
             }
+            if (maliciousCode)
+            {
+                Player.maxRunSpeed *= MaliciousCode.CALAMITY__OVERHAUL ? 0.8f : 0.85f;
+            }
             Player.runAcceleration *= 1f + 0.14f * VoidCharge;
             Player.maxRunSpeed *= 1f + 0.5f * VoidCharge;
             Player.runAcceleration *= 1f + moveSpeed;
@@ -572,6 +577,19 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateMiscEffects()
         {
+            if (maliciousCode)
+            {
+                //恶意代码debuff
+                //加了大修增加一些效果强度
+                //那很恶意了
+                Player.GetDamage(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
+                Player.GetAttackSpeed(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
+                Player.statLifeMax2 = (int)(Player.statLifeMax2 * (MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f));
+                Player.lifeRegen /= 2;
+                lifeRegenPerSec /= 2;
+                Player.statDefense *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
+                Player.moveSpeed *= (MaliciousCode.CALAMITY__OVERHAUL ? 0.85f : 0.88f);
+            }
             if (SubworldSystem.IsActive<VOIDSubworld>())
             {
                 Player.gravity = 0;
@@ -844,10 +862,12 @@ namespace CalamityEntropy.Common
         public Item AzafureChargeShieldItem = null;
         public bool VSoundsPlayed = false;
         public bool DashFlag = false;
+        public bool maliciousCode = false;
         
         public override void PostUpdate()
         {
             AzDash--;
+            
             if (Main.LocalPlayer.dashDelay < 0)
             {
                 DashFlag = true;

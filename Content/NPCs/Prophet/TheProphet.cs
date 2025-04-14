@@ -1,9 +1,17 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.Prophet;
+using CalamityEntropy.Util;
+using CalamityMod.NPCs.CeaselessVoid;
+using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
@@ -52,7 +60,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             public void update()
             {
                 position += velocity;
-                velocity *= 0.83f;
+                velocity *= 0.8f;
                 timeLeft--;
             }
         }
@@ -148,9 +156,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             {
                 NPC.localAI[0] = 0;
                 Player target = NPC.target.ToPlayer();
-                NPC.velocity += (target.Center - NPC.Center).normalize() * 0.9f;
-                NPC.velocity *= 0.98f;
-                NPC.rotation = NPC.velocity.ToRotation();
+                AttackPlayer(target);
             }
             foreach (TailPoint p in tail)
             {
@@ -163,9 +169,440 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     tail.RemoveAt(0);
                 }
             }
-            tail.Add(new TailPoint(NPC.Center - NPC.rotation.ToRotationVector2() * 26, (NPC.rotation.ToRotationVector2() * -2) + NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * (float)(Math.Sin(Main.GameUpdateCount * 0.24f) * 15)));
+            tail.Add(new TailPoint(NPC.Center - NPC.rotation.ToRotationVector2() * 26, (NPC.rotation.ToRotationVector2() * -10) + NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * (float)(Math.Sin(Main.GameUpdateCount * 0.24f) * 15)));
+        }
+        public int AIStyle = 0;
+        public int AIChangeDelay = 0;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(AIStyle);
+            writer.Write(AIChangeDelay);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            AIStyle = reader.ReadInt32();
+            AIChangeDelay = reader.ReadInt32();
+        }
+        public int phase = 1;
+        public void AttackPlayer(Player target)
+        {
+            if(NPC.life < NPC.lifeMax / 2)
+            {
+                phase = 2;
+            }
+            float difficult = 1;
+            if (Main.expertMode)
+            {
+                difficult += 0.06f;
+            }
+            if (Main.masterMode)
+            {
+                difficult += 0.06f;
+            }
+            if (CalamityWorld.revenge)
+            {
+                difficult += 0.1f;
+            }
+            if (CalamityWorld.death)
+            {
+                difficult += 0.1f;
+            }
+            if (Main.getGoodWorld)
+            {
+                difficult += 0.15f;
+            }
+            if (Main.zenithWorld)
+            {
+                difficult += 0.15f;
+            }
+            difficult *= 1 + ((float)NPC.life / NPC.lifeMax) * 0.2f;
+            if(AIChangeDelay <= 0)
+            {
+                int lastAI = AIStyle;
+                for (int i = 0; i < 6; i++)
+                {
+                    if (AIStyle == lastAI)
+                    {
+                        AIStyle = Main.rand.Next(0, 7);
+                    }
+                }
+                if(AIStyle == 0)
+                {
+                    AIChangeDelay = 240;
+                }
+                if(AIStyle == 1)
+                {
+                    AIChangeDelay = 220;
+                }
+                if(AIStyle == 2)
+                {
+                    AIChangeDelay = 120 + 60 * 4;
+                }
+                if (AIStyle == 3)
+                {
+                    AIChangeDelay = 100;
+                }
+                if (AIStyle == 4)
+                {
+                    AIChangeDelay = 100;
+                }
+                if (AIStyle == 5)
+                {
+                    AIChangeDelay = 245;
+                }
+                if(AIStyle == 6)
+                {
+                    AIChangeDelay = 142;
+                }
+                NPC.netUpdate = true;
+            }
+            if (AIChangeDelay > 0)
+            {
+                if (AIStyle == 0)
+                {
+                    NPC.velocity *= 0.96f;
+                    NPC.velocity += (NPC.Center - target.Center).normalize().RotatedBy(MathHelper.PiOver2) * (NPC.Center.X < target.Center.X ? 0.1f : -0.1f);
+                    NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (target.Center - NPC.Center).ToRotation(), 0.6f, false);
+                    if (AIChangeDelay >= 30 && AIChangeDelay % (phase == 1 ? 60 : 46) == 0)
+                    {
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(Util.Util.randomRot().ToRotationVector2()) * 860 / difficult);
+                    }
+                    if (AIChangeDelay >= 30 && AIChangeDelay % (phase == 1 ? 60 : 56) == (phase == 1 ? 56 : 54))
+                    {
+                        if (!Main.dedServ)
+                        {
+                            SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
+                            Util.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                        }
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            for (int i = 0; i <= (phase == 1 ? 2 : 3); i++)
+                            {
+                                if (i == 0)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize() * difficult, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 6 * difficult, 1);
+                                }
+                                else
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * 0.5f) * difficult, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 6 * difficult, 1);
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * -0.5f) * difficult, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 6 * difficult, 1);
+                                }
+                            }
+                        }
+                        NPC.velocity += (NPC.Center - target.Center).normalize() * 9;
+                    }
+                }
+                if (AIStyle == 1)
+                {
+                    if (AIChangeDelay == 220 || AIChangeDelay == 160 || AIChangeDelay == 100)
+                    {
+                        NPC.rotation = (target.Center + target.velocity * 24 - NPC.Center).ToRotation();
+                        NPC.velocity += NPC.rotation.ToRotationVector2() * -(AIChangeDelay == 100 ? 16 : 6);
+                        NPC.ai[1] = AIChangeDelay == 100 ? 80 : 46;
+                        if (phase > 1)
+                        {
+                            if (!Main.dedServ)
+                            {
+                                SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
+                                Util.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                            }
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                for (int i = 0; i <= (AIChangeDelay == 100 ? 2 : 1); i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize() * difficult * 2, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 6 * difficult, 1);
+                                    }
+                                    else
+                                    {
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * 0.44f) * difficult * 2, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 6 * difficult, 1);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * -0.44f) * difficult * 2, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 6 * difficult, 1);
+                                    }
+                                }
+                            }
+                        }
+                        if (this.trail == null || this.trail.timeLeft < 1)
+                        {
+                            this.trail = new ProminenceTrail() { color1 = Color.DeepSkyBlue, color2 = Color.White, maxLength = 14 };
+                            EParticle.spawnNew(this.trail, NPC.Center, Vector2.Zero, Color.White, 7f, 1, true, BlendState.AlphaBlend, 0);
+                        }
+                    }
+                    if (NPC.ai[1] > 0)
+                    {
+                        NPC.ai[1]--;
+                        NPC.velocity += NPC.rotation.ToRotationVector2() * difficult * (AIChangeDelay <= 100 ? 1.6f : 1) * (phase == 1 ? 1 : 1.4f);
+                        NPC.velocity *= 0.98f;
+                        if (this.trail != null)
+                            this.trail.timeLeft = 13;
+                        if (AIChangeDelay < 100)
+                        {
+                            if (NPC.ai[1] < 64 && AIChangeDelay % (int)((phase == 1 ? 10 : 8) / difficult) == 0)
+                            {
+                                Util.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, NPC.velocity.RotatedBy(MathHelper.PiOver2) * 0.15f * difficult, ModContent.ProjectileType<RuneBulletHostile>(), NPC.damage / 6, 2, -1, 20 * difficult);
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, NPC.velocity.RotatedBy(-MathHelper.PiOver2) * 0.15f * difficult, ModContent.ProjectileType<RuneBulletHostile>(), NPC.damage / 6, 2, -1, 20 * difficult);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        NPC.velocity *= 0.8f;
+                    }
+                    if (AIChangeDelay == 10)
+                    {
+                        TeleportTo(target.Center + Util.Util.randomRot().ToRotationVector2() * 600);
+                    }
+                }
+                if (AIStyle == 2)
+                {
+                    NPC.velocity *= 0.98f;
+                    if (AIChangeDelay < 120)
+                    {
+                        NPC.velocity += (NPC.Center - target.Center).normalize().RotatedBy(MathHelper.PiOver2);
+                    }
+                    NPC.rotation = NPC.velocity.ToRotation();
+                    if (AIChangeDelay >= 110 && AIChangeDelay % 60 == 0)
+                    {
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(Util.Util.randomRot().ToRotationVector2()) * 900 / difficult);
+                        NPC.velocity = (target.Center - NPC.Center).normalize() * 8;
+                    }
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        if (AIChangeDelay >= 110 && AIChangeDelay % 60 == 30)
+                        {
+                            for (int i = 0; i < (phase == 1 ? 1 : 2); i++)
+                            {
+                                if (i == 0)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, NPC.rotation.ToRotationVector2() * 20, ModContent.ProjectileType<RuneCrystalTop>(), NPC.damage / 6 - 5, 4);
+                                }
+                                else
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, NPC.rotation.ToRotationVector2().RotatedBy(0.4f * i) * 20, ModContent.ProjectileType<RuneCrystalTop>(), NPC.damage / 6 - 5, 4);
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, NPC.rotation.ToRotationVector2().RotatedBy(-0.4f * i) * 20, ModContent.ProjectileType<RuneCrystalTop>(), NPC.damage / 6 - 5, 4);
+                                }
+                            }
+                        }
+                    }
+                }
+                if (AIStyle == 3)
+                {
+                    if (AIChangeDelay == 88)
+                    {
+                        if (!Main.dedServ)
+                        {
+                            SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
+                            Util.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                        }
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(Util.Util.randomRot().ToRotationVector2()) * 900 / difficult);
+                    }
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        if (AIChangeDelay == 77)
+                        {
+                            for (int i = 0; i <= (phase == 1 ? 4 : 6); i++)
+                            {
+                                if (i == 0)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize() * difficult * 0.8f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 6 * difficult, 1);
+                                }
+                                else
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * (phase == 1 ? 0.38f : 0.32f)) * difficult * 0.8f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 5 * difficult, 1);
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * -(phase == 1 ? 0.38f : 0.32f)) * difficult * 0.8f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 5 * difficult, 1);
+                                }
+                            }
+                            for (float i = 0.5f; i <= (phase == 1 ? 5.5f : 7.5f); i++)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * (phase == 1 ? 0.38f : 0.32f)) * difficult * 0.5f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 5 * difficult, 1);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * -(phase == 1 ? 0.38f : 0.32f)) * difficult * 0.5f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 5 * difficult, 1);
+
+                            }
+                        }
+                    }
+                }
+                if (AIStyle == 4)
+                {
+                    NPC.rotation = (target.Center - NPC.Center).ToRotation();
+                    if (AIChangeDelay == 86)
+                    {
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(Util.Util.randomRot().ToRotationVector2()) * 900 / difficult);
+                        NPC.velocity = (target.Center - NPC.Center).normalize() * 1;
+                    }
+                    if (AIChangeDelay > 10)
+                    {
+                        if (AIChangeDelay < 60)
+                        {
+                            if (AIChangeDelay % 4 == 0)
+                            {
+                                Util.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
+                            }
+                            if (Main.netMode != NetmodeID.MultiplayerClient && AIChangeDelay % 2 == 0)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.1f : 0.16f)) * difficult * 1.4f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
+                            }
+                        }
+                        else
+                        {
+                            if (AIChangeDelay < 70)
+                            {
+                                if (AIChangeDelay % 6 == 0)
+                                {
+                                    Util.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.16f : 0.4f)) * difficult * 1f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (AIStyle == 5)
+                {
+                    if(AIChangeDelay > 160)
+                    {
+                        if (AIChangeDelay % (phase == 1 ? 4 : 3) == 0)
+                        {
+                            TeleportTo(target.Center + Util.Util.randomRot().ToRotationVector2() * 900 / difficult);
+                            Util.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize() * difficult * 0.4f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
+                            }
+                            NPC.rotation = (target.Center - NPC.Center).ToRotation();
+                        }
+                    }
+                    else
+                    {
+                        NPC.rotation = NPC.velocity.ToRotation();
+                        NPC.velocity *= 0.96f;
+                        NPC.velocity += (target.Center - NPC.Center).normalize() * 0.5f;
+                    }
+                }
+                if (AIStyle == 6)
+                {
+                    if(AIChangeDelay == 140)
+                    {
+                        TeleportTo(target.Center + Util.Util.randomRot().ToRotationVector2() * 560);
+                    }
+                    if(AIChangeDelay == 130)
+                    {
+                        if (!Main.dedServ)
+                        {
+                            SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
+                            Util.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                        }
+                        for (float i = 0; i < 360; i += (phase == 1 ? 60 : 40))
+                        {
+                            float rot = MathHelper.ToRadians(i);
+                            float impactParticleScale = 4f;
+                            var impactParticle2 = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle2);
+                            var impactParticle = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle);
+                            
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, ModContent.ProjectileType<ProphetRune>(), NPC.damage / 6, 4, -1, NPC.whoAmI, rot, Main.rand.Next(1, 12));
+                            }
+                        }
+                    }
+                    if (AIChangeDelay == 120 && phase > 1)
+                    {
+                        if (!Main.dedServ)
+                        {
+                            SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
+                            Util.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                        }
+                        for (float i = 0; i < 360; i += (phase == 1 ? 60 : 40))
+                        {
+                            float rot = MathHelper.ToRadians(i);
+                            float impactParticleScale = 4f;
+                            var impactParticle2 = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle2);
+                            var impactParticle = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle);
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, ModContent.ProjectileType<ProphetRune>(), NPC.damage / 6, 4, -1, NPC.whoAmI, rot, Main.rand.Next(1, 12));
+                            }
+                        }
+
+                    }
+                    if (AIChangeDelay == 110 && phase > 1)
+                    {
+                        if (!Main.dedServ)
+                        {
+                            SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
+                            Util.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                        }
+                        for (float i = 0; i < 360; i += (phase == 1 ? 60 : 40))
+                        {
+                            float rot = MathHelper.ToRadians(i);
+                            float impactParticleScale = 4f;
+                            var impactParticle2 = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle2);
+                            var impactParticle = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle);
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, ModContent.ProjectileType<ProphetRune>(), NPC.damage / 6, 4, -1, NPC.whoAmI, rot, Main.rand.Next(1, 12));
+                            }
+                        }
+                    }
+                    NPC.rotation = NPC.velocity.ToRotation();
+                    NPC.velocity += (target.Center - NPC.Center).normalize() * 0.2f;
+                    NPC.velocity *= 0.96f;
+                }
+            }
+            else
+            {
+                NPC.rotation = NPC.velocity.ToRotation();
+                NPC.velocity *= 0.98f;
+                NPC.velocity += (target.Center - NPC.Center).SafeNormalize(Vector2.Zero);
+            }
+            this.trail?.AddPoint(NPC.Center + NPC.rotation.ToRotationVector2() * (NPC.velocity.Length() + 60));
+            AIChangeDelay--;
+            NPC.netUpdate = true;
+            if(NPC.netSpam > 9)
+            {
+                NPC.netSpam = 9;
+            }
+        }
+        public ProminenceTrail trail = null;
+        public void TeleportTo(Vector2 pos)
+        {
+            
+            NPC.velocity *= 0;
+            Color impactColor = Main.rand.NextBool(3) ? Color.SkyBlue : Color.White;
+            float impactParticleScale = 5.6f;
+
+            SparkleParticle impactParticle2 = new SparkleParticle(NPC.Center, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+            GeneralParticleHandler.SpawnParticle(impactParticle2);
+            SparkleParticle impactParticle = new SparkleParticle(NPC.Center, Vector2.Zero, impactColor, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
+
+            NPC.Center = pos;
+
+            impactParticle2 = new SparkleParticle(NPC.Center, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+            GeneralParticleHandler.SpawnParticle(impactParticle2);
+            impactParticle = new SparkleParticle(NPC.Center, Vector2.Zero, impactColor, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
+
+            tail.Clear();
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            return false;
+        }
+        public void Draw()
         {
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             DrawTail();
@@ -173,7 +610,6 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             Texture2D tex = TextureAssets.Npc[NPC.type].Value;
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, Color.White, NPC.rotation + MathHelper.PiOver2, tex.Size() / 2, NPC.scale, SpriteEffects.None);
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
-            return false;
         }
         public void DrawFins()
         {
@@ -192,7 +628,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public void DrawTail()
         {
-            if (tail.Count < 3)
+            if (tail == null || tail.Count < 3)
             {
                 return;
             }

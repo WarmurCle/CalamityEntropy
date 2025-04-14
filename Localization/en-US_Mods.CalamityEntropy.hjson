@@ -1964,6 +1964,9 @@ Projectiles: {
 	MindCorruptorProj.DisplayName: Mind Corruptor Proj
 	CorruptStrike.DisplayName: Corrupt Strike
 	RuneTorrent.DisplayName: Rune Torrent
+	RuneBulletHostile.DisplayName: Rune Bullet Hostile
+	RuneCrystalTop.DisplayName: Rune Crystal Top
+	ProphetRune.DisplayName: Prophet Rune
 }
 
 LegendTooltip: - Legend -

@@ -185,6 +185,10 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             OnHitBothSide(target);
+            if (Main.zenithWorld)
+            {
+                target.AddBuff(ModContent.BuffType<MaliciousCode>(), 460);
+            }
             Projectile.ai[2] = target.whoAmI;
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
             Projectile.getOwner().ApplyDamageToNPC(target, damageDone, 0, 0, hit.Crit, Projectile.DamageType);

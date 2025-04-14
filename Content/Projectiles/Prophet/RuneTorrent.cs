@@ -23,14 +23,28 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             Projectile.ignoreWater = true;
             Projectile.width = Projectile.height = 16;
             Projectile.MaxUpdates = 4;
+            Projectile.timeLeft = 800;
         }
+        public bool r = true;
         public override void AI()
         {
+            if (r)
+            {
+                r = false;
+                if (Projectile.ai[1] == 0)
+                {
+                    Projectile.localAI[0] = Main.rand.NextFloat(0.0001f, MathHelper.Pi * 128);
+                }
+                else
+                {
+                    Projectile.localAI[0] = Main.GameUpdateCount % 256 * MathHelper.Pi;
+                }
+            }
             nowSpeed = Projectile.velocity.Length();
             float maxSpeed = Projectile.ai[0];
             if (nowSpeed < maxSpeed)
             {
-                nowSpeed *= 1.006f;
+                nowSpeed *= 1.004f;
             }
             Projectile.localAI[0] += nowSpeed;
             Projectile.velocity = Projectile.velocity.normalize() * nowSpeed;

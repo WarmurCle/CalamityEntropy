@@ -1331,7 +1331,11 @@ Items: {
 	}
 
 	FriendFinder: {
-		Tooltip: 召唤一个友方小怪
+		Tooltip:
+			'''
+			召唤一个友方小怪
+			暂时无法在多人模式使用
+			'''
 		DisplayName: 寻友护符
 	}
 
@@ -2120,7 +2124,10 @@ Projectiles: {
 	BatteringRamShell.DisplayName: 弹壳
 	MindCorruptorProj.DisplayName: 蚀心者
 	CorruptStrike.DisplayName: 暗影斩切
-	// RuneTorrent.DisplayName: Rune Torrent
+	RuneTorrent.DisplayName: 符文洪流
+	RuneBulletHostile.DisplayName: 符文弹
+	RuneCrystalTop.DisplayName: 符文晶簇
+	ProphetRune.DisplayName: 符文
 }
 
 LegendTooltip: - 传奇物品 -

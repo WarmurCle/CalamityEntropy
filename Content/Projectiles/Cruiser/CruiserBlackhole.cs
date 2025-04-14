@@ -71,8 +71,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                         projSpawn = false;
                         for (int i = 0; i < 40 + (Main.expertMode ? 16 : 0) + (Main.masterMode ? 16 : 0); i++)
                         {
-
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(Main.rand.Next(0, 35), 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<VoidStar>(), Projectile.damage, 4, 0, 0, 0, 1);
+                            Util.Util.SyncProj(Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(Main.rand.Next(0, 35), 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<VoidStar>(), Projectile.damage, 4, 0, 0, 0, 1));
                         }
                     }
                 }
@@ -81,8 +80,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), Projectile.damage, 0, -1, 0, 1);
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BHExp>(), Projectile.damage, 0);
+                        Util.Util.SyncProj(Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), Projectile.damage, 0, -1, 0, 1));
+                        Util.Util.SyncProj(Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BHExp>(), Projectile.damage, 0));
 
 
                     }

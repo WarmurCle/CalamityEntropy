@@ -165,6 +165,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             potionType = ModContent.ItemType<OmegaHealingPotion>();
         }
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(Main.zenithWorld ? ModContent.BuffType<MaliciousCode>() : ModContent.BuffType<VoidTouch>(), 120);
+        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CruiserBag>()));
@@ -1074,7 +1078,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), (int)(NPC.damage / 7f), 0);
                         }
                         {
-                            if (Main.getGoodWorld)
+                            if (Main.zenithWorld)
                             {
                                 for (int i = 1; i < bodies.Count; i++)
                                 {
@@ -1320,7 +1324,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         spriteBatch.Draw(tx, pos - screenPosition, null, Color.White, rot, new Vector2(tx.Width, tx.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
 
                     }
-                    if(d == bodies.Count - 1 || Main.getGoodWorld)
+                    if(d == bodies.Count - 1 || Main.zenithWorld)
                     {
                         spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White, rot + MathHelper.ToRadians(180 - da), new Vector2(0, f1.Height), NPC.scale, SpriteEffects.None, 0);
                         spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White, rot + MathHelper.ToRadians(180 + da), new Vector2(0, 0), NPC.scale, SpriteEffects.FlipVertically, 0);

@@ -44,7 +44,8 @@ namespace CalamityEntropy.Content.Particles
                 odp.RemoveAt(0);
             }
         }
-
+        public Color color1 = new Color(151, 0, 5);
+        public Color color2 = new Color(255, 231, 66);
         public override void draw()
         {
             if (odp.Count < 3)
@@ -60,16 +61,16 @@ namespace CalamityEntropy.Content.Particles
                 if (c > 0.4)
                 {
                     float x = (c - 0.4f) / 0.6f;
-                    width = (float)Math.Sqrt(1 - x * x);
+                    width = (float)Math.Sqrt(1 - x * x) * this.scale;
                 }
                 else
                 {
-                    width = 1f;
+                    width = 1f * this.scale;
                 }
-                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * width * this.scale,
+                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * width,
                       new Vector3((((float)i) / odp.Count), 1, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
-                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * width * this.scale,
+                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * width,
                       new Vector3((((float)i) / odp.Count), 0, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
             }
@@ -81,8 +82,8 @@ namespace CalamityEntropy.Content.Particles
 
                 Main.spriteBatch.EnterShaderRegion(BlendState.NonPremultiplied, shader);
                 Main.instance.GraphicsDevice.Textures[1] = Util.Util.getExtraTex("colormap_fire");
-                shader.Parameters["color2"].SetValue(new Color(255, 231, 66).ToVector4());
-                shader.Parameters["color1"].SetValue(new Color(151, 0, 5).ToVector4());
+                shader.Parameters["color2"].SetValue(color2.ToVector4());
+                shader.Parameters["color1"].SetValue(color1.ToVector4());
                 shader.Parameters["ofs"].SetValue(Main.GlobalTimeWrappedHourly * 3);
                 shader.Parameters["alpha"].SetValue(float.Min(1, this.timeLeft / 10f));
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
