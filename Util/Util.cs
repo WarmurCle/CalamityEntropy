@@ -15,6 +15,10 @@ namespace CalamityEntropy.Util
 {
     public static class Util
     {
+        public static Vector2 randomPointInCircle(float r)
+        {
+            return randomRot().ToRotationVector2() * Main.rand.NextFloat(-r, r);
+        }
         public static void DrawChargeBar(float barScale, Vector2 position, float progress, Color color)
         {
             var barBG = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/GenericBarBack").Value;

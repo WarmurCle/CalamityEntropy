@@ -1648,6 +1648,16 @@ Items: {
 		Tooltip: ""
 		DisplayName: Azafure Charge Shield
 	}
+
+	ProphecyToken: {
+		Tooltip: ""
+		DisplayName: Prophecy Token
+	}
+
+	ProphetBag: {
+		DisplayName: Prophet Bag
+		Tooltip: ""
+	}
 }
 
 MariviniumSet:
@@ -1967,6 +1977,10 @@ Projectiles: {
 	RuneBulletHostile.DisplayName: Rune Bullet Hostile
 	RuneCrystalTop.DisplayName: Rune Crystal Top
 	ProphetRune.DisplayName: Prophet Rune
+	ProphetLightning.DisplayName: Prophet Lightning
+	FableEye.DisplayName: Fable Eye
+	RuneSword.DisplayName: Rune Sword
+	ProphetVoidSpike.DisplayName: Prophet Void Spike
 }
 
 LegendTooltip: - Legend -
@@ -2189,7 +2203,7 @@ Buffs: {
 
 	MaliciousCode: {
 		DisplayName: Malicious Code
-		Description: "It's malicious"
+		Description: It's malicious
 	}
 }
 
@@ -2250,7 +2264,16 @@ NPCs: {
 	SoulSlurperFriendly.DisplayName: Soul Slurper Friendly
 	SkyfinFriendly.DisplayName: Skyfin Friendly
 	IceClasperFriendly.DisplayName: Ice Clasper Friendly
-	TheProphet.DisplayName: The Prophet
+
+	TheProphet: {
+		DisplayName: The Prophet
+
+		BossChecklistIntegration: {
+			EntryName: The Prophet
+			SpawnInfo: Use [i:CalamityEntropy/ProphecyToken] to summon.
+			DespawnMessage: The Prophet has been defeat.
+		}
+	}
 }
 
 WyrmChatNoHome: Where are we going now?
@@ -2267,16 +2290,19 @@ WyrmChat10: You asked me why I attacked you at that time? My mission is to prote
 WyrmChat11: Chaos always makes me feel uncomfortable.
 loreCruiser:
 	'''
-	This worm like giant creature once lived in the void,
-	Once the channel linking reality and the void is opened,
-	It's not difficult to tear you apart
+	Life absorbs energy for entropy reduction.
+	The hunting of Voidborn, on the other hand, involves devouring order and then spreading and absorbing entropy itself.
+	Is this a survival instinct or is it driven by a more noble purpose?
+	If left unchecked, perhaps one day the world will return to eternal silence.
 	'''
 loreCruiserEffect: Permanently increase the max life by 20 and increase the max mana by 50
 loreNihTwin:
 	'''
-	Creatures living in the void parasitize on large floating creatures in some kind of void.
-	Although they resemble bacteriophages and cells, they are actually completely different from the organisms we are familiar with.
-	This creature can escape from its original dimension through the cracks in the void and come into our world.
+	Imagine a world where order’s foundation lies not in resisting entropy, but amplifying it.
+	A Void Realm detached from our reality—empty, silent, yet teeming with existences in forms beyond mortal comprehension.
+	When you shattered the Wall of Flesh that imprisoned the essence of light and dark, the unleashed energies tore reality’s wounds wider still.
+	The aberrant creature you slew was but a droplet overflowing from the Sea of Chaos within the Void. And thus...
+	The gears of fate begin their slow, inexorable turn.
 	'''
 
 Keybinds: {
@@ -2290,6 +2316,7 @@ CdDS: Divine Shield Cooldown
 CruiserBestiary: The worm like creature living in the void has been completely eroded by the void. When its scales shatter, you will see its true form.
 AbyssalWraithBestiary: The false gods generated under distorted beliefs can burst out infinite void energy, but even such ultimate creatures are just the tip of the iceberg in the void.
 NihilityTwinBestiary: A pair of creatures born in the void.
+ProphetBestiary: An ancient soul that witnessed that incredible power while still alive
 WorldGen.VoidOreSpawn: Void energy is emanating from the sky
 
 Tiles: {
@@ -2539,3 +2566,4 @@ EntropyModeDesc: "[c/aa12e1:More challenging than death mode, Less Health, Less 
 EntropyModeActive: Entropy Mode is active. YOU WILL BE FORGOTTEN
 EntropyModeDeactive: Entropy Mode is Deactive. Why not crave abandonment
 MissedInVoid: missed in the void
+BatteringRamZenithText: It has malicious code

@@ -8,6 +8,7 @@ using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -52,6 +53,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient(ItemID.IronBar, 20)
                 .AddTile(TileID.Anvils)
                 .Register();
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (Main.zenithWorld)
+            {
+                tooltips.Add(new TooltipLine(Mod, "Extend Desc", Mod.GetLocalization("BatteringRamZenithText").Value));
+            }
         }
     }
 }

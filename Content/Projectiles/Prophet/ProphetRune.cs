@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 if (plr >= 0)
                 {
                     Player player = Main.player[plr];
-                    Projectile.rotation = (player.Center + player.velocity * 12 - Projectile.Center).ToRotation();
+                    Projectile.rotation = (player.Center + player.velocity * 22 - Projectile.Center).ToRotation();
                 }
             }
             if (counter > 100)

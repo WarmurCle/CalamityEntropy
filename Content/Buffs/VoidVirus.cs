@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Buffs
                 }
                 else
                 {
-                    player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidVirus1") + $"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidVirus2")), 4, 0, dodgeable: false, armorPenetration: 114514, quiet: true);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidVirus1") + $"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidVirus2"))), 4, 0, dodgeable: false, armorPenetration: 114514, quiet: true);
                 }
             }
         }

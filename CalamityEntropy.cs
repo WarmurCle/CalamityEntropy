@@ -455,6 +455,10 @@ namespace CalamityEntropy
                 {
                     rt.Draw();
                 }
+                if (proj.ModProjectile is ProphetVoidSpike vs)
+                {
+                    vs.Draw();
+                }
             }
 
             Main.spriteBatch.End();
@@ -877,6 +881,25 @@ namespace CalamityEntropy
                 {
                     {
                         {
+                            string entryName = "TheProphet";
+                            List<int> collection = new List<int>() {  };
+                            Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
+                            {
+                                Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Prophet").Value;
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 1, SpriteEffects.None, 0);
+                            };
+                            Func<bool> prophet = () => EDownedBosses.downedProphet;
+                            AddBoss(bossChecklist, Instance, entryName, 11.85f, prophet, ModContent.NPCType<TheProphet>(), new Dictionary<string, object>()
+                            {
+                                ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.TheProphet.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.TheProphet.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetText("Mods.CalamityEntropy.NPCs.TheProphet.BossChecklistIntegration.DespawnMessage"),
+                                ["spawnItems"] = ModContent.ItemType<ProphecyToken>(),
+                                ["collectibles"] = collection,
+                                ["customPortrait"] = portrait
+                            });
+                        }
+                        {
                             string entryName = "NihilityTwin";
                             List<int> segments = new List<int>() { ModContent.NPCType<NihilityActeriophage>(), ModContent.NPCType<ChaoticCell>() };
                             List<int> collection = new List<int>() { ModContent.ItemType<NihilityTwinBag>(), ModContent.ItemType<NihilityTwinTrophy>(), ModContent.ItemType<NihilityTwinRelic>(), ModContent.ItemType<NihilityShell>(), ModContent.ItemType<Voidseeker>(), ModContent.ItemType<EventideSniper>(), ModContent.ItemType<NihilityBacteriophageWand>(), ModContent.ItemType<StarlessNight>(), ModContent.ItemType<VoidPathology>() };
@@ -888,9 +911,9 @@ namespace CalamityEntropy
                             Func<bool> nihtwin = () => EDownedBosses.downedNihilityTwin;
                             AddBoss(bossChecklist, Instance, entryName, 19.3f, nihtwin, segments, new Dictionary<string, object>()
                             {
-                                ["displayName"] = Language.GetText("Mods.NPCs.NihilityActeriophage.BossChecklistIntegration.EntryName"),
-                                ["spawnInfo"] = Language.GetText("Mods.NPCs.NihilityActeriophage.BossChecklistIntegration.SpawnInfo"),
-                                ["despawnMessage"] = Language.GetText("Mods.NPCs.NihilityActeriophage.BossChecklistIntegration.DespawnMessage"),
+                                ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetText("Mods.CalamityEntropy.NPCs.NihilityActeriophage.BossChecklistIntegration.DespawnMessage"),
                                 ["spawnItems"] = ModContent.ItemType<NihilityHorn>(),
                                 ["collectibles"] = collection,
                                 ["customPortrait"] = portrait
@@ -908,9 +931,9 @@ namespace CalamityEntropy
                             Func<bool> cruiser = () => EDownedBosses.downedCruiser;
                             AddBoss(bossChecklist, Instance, entryName, 21.7f, cruiser, segments, new Dictionary<string, object>()
                             {
-                                ["displayName"] = Language.GetTextValue("Mods.NPCs.Cruiser.BossChecklistIntegration.EntryName"),
-                                ["spawnInfo"] = Language.GetTextValue("Mods.NPCs.Cruiser.BossChecklistIntegration.SpawnInfo"),
-                                ["despawnMessage"] = Language.GetTextValue("Mods.NPCs.Cruiser.BossChecklistIntegration.DespawnMessage"),
+                                ["displayName"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.DespawnMessage"),
                                 ["spawnItems"] = ModContent.ItemType<VoidBottle>(),
                                 ["collectibles"] = collection,
                                 ["customPortrait"] = portrait
@@ -944,6 +967,7 @@ namespace CalamityEntropy
                 ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/corruptedBeaconLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 ofCharge = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ElectricLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                FableEye.sound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/prophetlaserloop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             }
             EntropyBossbar.bossbarColor[NPCID.KingSlime] = new Color(90, 160, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<DesertScourgeHead>()] = new Color(216, 210, 175);

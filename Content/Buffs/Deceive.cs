@@ -17,15 +17,14 @@ namespace CalamityEntropy.Content.Buffs
 
         }
 
-
         public override void Update(Player player, ref int buffIndex)
         {
-            player.velocity *= 0.98f;
+            player.velocity *= 0.97f;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.velocity *= 0.98f;
+            npc.velocity *= npc.boss ? 0.99f : 0.97f;
         }
     }
 }

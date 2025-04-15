@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.Cruiser;
+using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.ItemDropRules;
@@ -11,7 +12,7 @@ using static CalamityEntropy.Common.EGlobalItem;
 
 namespace CalamityEntropy.Content.Items
 {
-    public class CruiserBag : ModItem
+    public class ProphetBag : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -26,7 +27,7 @@ namespace CalamityEntropy.Content.Items
             Item.width = 24;
             Item.height = 24;
             Item.expert = true;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemRarityID.Blue;
         }
 
         public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
@@ -51,21 +52,9 @@ namespace CalamityEntropy.Content.Items
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<CruiserHead>()));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<TheProphet>()));
 
-            itemLoot.Add(ModContent.ItemType<VoidRelics>(), new Fraction(1, 5));
-            itemLoot.Add(ModContent.ItemType<VoidElytra>(), new Fraction(5, 5));
-            itemLoot.Add(ModContent.ItemType<VoidEcho>(), new Fraction(1, 5));
-            itemLoot.Add(ModContent.ItemType<Silence>(), new Fraction(2, 5));
-            itemLoot.Add(ModContent.ItemType<WingsOfHush>(), new Fraction(2, 5));
-            itemLoot.Add(ModContent.ItemType<VoidAnnihilate>(), new Fraction(2, 5));
-            itemLoot.Add(ModContent.ItemType<WindOfUndertaker>(), new Fraction(1, 5));
-            itemLoot.Add(ModContent.ItemType<VoidToy>(), new Fraction(1, 5));
-            itemLoot.Add(ModContent.ItemType<CruiserPlush>(), new Fraction(1, 6));
-            itemLoot.Add(ModContent.ItemType<VoidScales>(), new Fraction(1, 1), 24, 32);
-            itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<TheocracyPearlToy>(), 5));
-
-            itemLoot.Add(ModContent.ItemType<VoidMonolith>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<RuneSong>(), new Fraction(3, 5));
         }
     }
 }

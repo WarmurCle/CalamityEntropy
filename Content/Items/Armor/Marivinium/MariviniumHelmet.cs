@@ -71,6 +71,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.buffImmune[ModContent.BuffType<VoidTouch>()] = true;
             player.buffImmune[ModContent.BuffType<Plague>()] = true;
             player.buffImmune[ModContent.BuffType<VoidVirus>()] = true;
+            player.buffImmune[ModContent.BuffType<Deceive>()] = true;
             player.buffImmune[ModContent.BuffType<SulphuricPoisoning>()] = true;
             player.buffImmune[ModContent.BuffType<Irradiated>()] = true;
             player.buffImmune[BuffID.Venom] = true;
@@ -86,6 +87,8 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.buffImmune[148] = true;
             player.buffImmune[BuffID.BrokenArmor] = true;
             player.buffImmune[BuffID.WitheredArmor] = true;
+            player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
+            player.buffImmune[ModContent.BuffType<MaliciousCode>()] = true;
             if (Main.zenithWorld)
             {
                 player.buffImmune[ModContent.BuffType<NOU>()] = true;

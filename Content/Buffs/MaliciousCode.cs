@@ -23,16 +23,16 @@ namespace CalamityEntropy.Content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.Entropy().maliciousCode = true;
-            if (Main.rand.NextBool(16))
+            if (Main.rand.NextBool(14))
             {
-                EParticle.spawnNew(new MCodeParticle(), player.Center + Util.Util.randomVec(28), Vector2.Zero, Main.rand.NextBool(5) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, true, BlendState.AlphaBlend, 0);
+                EParticle.spawnNew(new MCodeParticle(), player.Center + Util.Util.randomVec(28), Vector2.Zero, Main.rand.NextBool(5) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
             }
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-            if (Main.rand.NextBool(14))
+            if (Main.rand.NextBool(8))
             {
-                EParticle.spawnNew(new MCodeParticle(), npc.Center + new Vector2(Main.rand.NextFloat(npc.width) - npc.width / 2, Main.rand.NextFloat(npc.height) - npc.height / 2), Vector2.Zero, Main.rand.NextBool(5) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, true, BlendState.AlphaBlend, 0);
+                EParticle.spawnNew(new MCodeParticle(), npc.Center + new Vector2(Main.rand.NextFloat(npc.width) - npc.width / 2, Main.rand.NextFloat(npc.height) - npc.height / 2), Vector2.Zero, Main.rand.NextBool(4) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
             }
         }
     }
@@ -55,6 +55,13 @@ namespace CalamityEntropy.Content.Buffs
                 }
             }
             return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
+        }
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+        {
+            if (npc.HasBuff<MaliciousCode>())
+            {
+                modifiers.ArmorPenetration += 25;
+            }
         }
     }
     public class MaliciousCodeProj : GlobalProjectile

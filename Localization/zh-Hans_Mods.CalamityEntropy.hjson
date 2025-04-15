@@ -1808,6 +1808,16 @@ Items: {
 			'''
 		DisplayName: 阿萨福勒充能盾
 	}
+
+	ProphecyToken: {
+		Tooltip: 召唤先知
+		DisplayName: 预言信物
+	}
+
+	ProphetBag: {
+		// DisplayName: Prophet Bag
+		// Tooltip: ""
+	}
 }
 
 MariviniumSet:
@@ -2128,6 +2138,10 @@ Projectiles: {
 	RuneBulletHostile.DisplayName: 符文弹
 	RuneCrystalTop.DisplayName: 符文晶簇
 	ProphetRune.DisplayName: 符文
+	ProphetLightning.DisplayName: 预言者脉冲束
+	FableEye.DisplayName: 预言之眼激光
+	RuneSword.DisplayName: 符文飞剑
+	ProphetVoidSpike.DisplayName: 虚空触手
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2411,7 +2425,16 @@ NPCs: {
 	SoulSlurperFriendly.DisplayName: 友好的灵魂饮食者
 	SkyfinFriendly.DisplayName: 友好的天鳍鱼
 	IceClasperFriendly.DisplayName: 友好的食魂冰虫
-	TheProphet.DisplayName: 先知
+
+	TheProphet: {
+		DisplayName: 先知
+
+		BossChecklistIntegration: {
+			EntryName: 先知
+			SpawnInfo: 使用[i:CalamityEntropy/ProphecyToken]召唤
+			DespawnMessage: 先知已被击败
+		}
+	}
 }
 
 WyrmChatNoHome: 我们现在要去哪？
@@ -2428,16 +2451,20 @@ WyrmChat10: 你问我当时为什么要袭击你...我的使命是保护那件�
 WyrmChat11: 混沌能量总是让我感到不适。
 loreCruiser:
 	'''
-	这种蠕虫一样的巨型生物曾生活在虚无中，
-	一旦链接现实与虚无的通道被打开，
-	对于撕碎你来说并不是什么难事
+	生命摄取能量以进行熵减。
+	而虚空生物的狩猎，则是吞噬秩序，而后传播与汲取熵本身。
+	这究竟是一种生存本能，还是出自于更加崇高的目的？
+	若是放任其行动，也许终有一日，这个世界会归于永恒的寂静。
+
 	'''
 loreCruiserEffect: 使用后永久增加20生命上限和50魔力上限
 loreNihTwin:
 	'''
-	虚空中生存的生物，寄生在某种虚空中漂浮的大型生物身上。
-	虽然形似噬菌体和细胞，但它们其实与我们所熟知的生物完全不同。
-	这种生物能从虚空裂缝中逃离原本的维度，并来到我们的世界里。
+	想象一下，一个秩序的存在基础与目的不是熵减而是熵增的世界。
+	那是独立于此世之外的虚无之界，空旷，寂静，但却生存着以一种形式存在的生命的世界。
+	在你击杀封印光暗之魂的血肉之墙的一刻，溢散的能量让现实的缺口再度被撕裂。
+	而被你所击杀的这只诡异的生物，只是虚空本身那无尽的混乱之海中溢散的水滴。
+	命运的齿轮，也许于此刻开始缓慢转动。
 	'''
 
 Keybinds: {
@@ -2451,6 +2478,7 @@ CdDS: 神圣干预冷却
 CruiserBestiary: 生活在虚空中的蠕虫一样的生物，已完全被虚空侵蚀。当它鳞甲破碎时，你将见到它真正的样子。
 AbyssalWraithBestiary: 扭曲信仰下产生的伪神，能爆发出无限的虚空能量，可即使是这样究极生物，也只不过是虚空的冰山一角而已。
 NihilityTwinBestiary: 一对诞生于虚空的生物
+ProphetBestiary: 一个古老的灵魂，它还活着的时候见证了那不可思议的力量
 WorldGen.VoidOreSpawn: 天空中散发出虚空能量
 
 Tiles: {
@@ -2707,3 +2735,4 @@ EntropyModeDesc:
 EntropyModeActive: 熵变模式已开启！你将被遗忘
 EntropyModeDeactive: 熵变模式已关闭。为何不渴望遗弃
 MissedInVoid: 被遗忘了
+BatteringRamZenithText: “它包含了恶意代码”
