@@ -157,6 +157,7 @@ Items: {
 	Lore: {
 		CruiserLore.DisplayName: Cruiser
 		NihilityTwinLore.DisplayName: Nihility Twin
+		ProphetLore.DisplayName: Prophet Lore
 	}
 
 	BrokenChainsaw: {
@@ -1033,7 +1034,7 @@ Items: {
 	}
 
 	NihilityTwinBag: {
-		DisplayName: Nihility Twin Treasure Bag
+		DisplayName: Treasure Bag(Nihility Twin)
 		Tooltip: ""
 	}
 
@@ -1650,12 +1651,31 @@ Items: {
 	}
 
 	ProphecyToken: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			Summon The Prophet
+			Can only be used in dungeons
+			'''
 		DisplayName: Prophecy Token
 	}
 
 	ProphetBag: {
-		DisplayName: Prophet Bag
+		DisplayName: Treasure Bag (TheProphet)
+		Tooltip: ""
+	}
+
+	ProphetTrophy: {
+		DisplayName: Prophet Trophy
+		Tooltip: ""
+	}
+
+	ProphetRelic: {
+		Tooltip: ""
+		DisplayName: Prophet Relic
+	}
+
+	UrnOfSouls: {
+		DisplayName: Urn Of Souls
 		Tooltip: ""
 	}
 }
@@ -1981,6 +2001,8 @@ Projectiles: {
 	FableEye.DisplayName: Fable Eye
 	RuneSword.DisplayName: Rune Sword
 	ProphetVoidSpike.DisplayName: Prophet Void Spike
+	UrnOfSoulsHoldout.DisplayName: Urn Of Souls Holdout
+	UrnSoulFire.DisplayName: Urn Soul Fire
 }
 
 LegendTooltip: - Legend -
@@ -2270,7 +2292,7 @@ NPCs: {
 
 		BossChecklistIntegration: {
 			EntryName: The Prophet
-			SpawnInfo: Use [i:CalamityEntropy/ProphecyToken] to summon.
+			SpawnInfo: Use [i:CalamityEntropy/ProphecyToken] in dungeon to summon.
 			DespawnMessage: The Prophet has been defeat.
 		}
 	}
@@ -2304,6 +2326,32 @@ loreNihTwin:
 	The aberrant creature you slew was but a droplet overflowing from the Sea of Chaos within the Void. And thus...
 	The gears of fate begin their slow, inexorable turn.
 	'''
+loreProphet:
+	'''
+	No army, kingdom, or sovereign can long endure without practitioners of divinatory magic—those who pluck fragments of tomorrow from fleeting omens, 
+	weaving past and future through present calculus.
+
+	Yet those who gaze into realms mortals were never meant to comprehend inevitably incur fate's retribution. Hence their brief, violent ends.
+	But what if the greatest forbidden sight isn't fate itself... but the Void?
+
+	This truth crystallized shortly after Draedon and I discovered the Void's existence. 
+	He advocated harnessing its chaotic energies despite the risks.
+	I saw only an existential threat—for its corruption transcends mere matter.
+
+	This didn't stop me from studying the enemy. I sought out the kingdom's most aged seer.
+	After... persuasive negotiation, I compelled him to glimpse the Void.
+
+	The results? Catastrophic. Before my blade silenced the abomination he became,
+	its warped form spewed maddening whispers that turned gardens into carnivorous thickets and turned brothers to drawn swords.
+	Through blood magic, I trapped its soul within this tome and interrogated every scrap of vision.
+
+	Only when the seer's mind brushed against the threshold of forbidden cognition did I finally seal its tainted essence.
+	Yet even now, though its spirit lies shattered in the deepest oubliette,
+	the grimoire attracts wandering souls like moths to a dying star.
+
+	They cobble together flesh from dungeon stones and bone dust...
+	Then begin anew their eternal recitation of the Annihilation Cantos.
+	'''
 
 Keybinds: {
 	RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
@@ -2313,10 +2361,22 @@ Keybinds: {
 
 CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
-CruiserBestiary: The worm like creature living in the void has been completely eroded by the void. When its scales shatter, you will see its true form.
-AbyssalWraithBestiary: The false gods generated under distorted beliefs can burst out infinite void energy, but even such ultimate creatures are just the tip of the iceberg in the void.
-NihilityTwinBestiary: A pair of creatures born in the void.
-ProphetBestiary: An ancient soul that witnessed that incredible power while still alive
+CruiserBestiary:
+	'''
+	A supreme predator born from the void, bearing a resemblance to that Devourer of Gods you once encountered.
+	It feasts on order, spreads chaos, and tears the world apart as its hunting ground... and you are no prey to be devoured.
+	'''
+AbyssalWraithBestiary: ???
+NihilityTwinBestiary:
+	'''
+	Basic entities of the void, emerging from the rifts, they have become enemies of order through mindless entropy.
+	That realm follows survival rules utterly opposed to reality—which is why the conflict between reality and the void is a fight to the death.
+	'''
+ProphetBestiary:
+	'''
+	A pitiful, shattered soul driven mad by the horrifying truth hidden behind the invasion of the void.
+	Bound to ancient texts, it endlessly repeats mindless screams and whispers, desperately—yet futilely—trying to convey what it has witnessed.
+	'''
 WorldGen.VoidOreSpawn: Void energy is emanating from the sky
 
 Tiles: {

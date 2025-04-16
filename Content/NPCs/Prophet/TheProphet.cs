@@ -72,7 +72,9 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 timeLeft--;
             }
         }
-        public List<TailPoint> tail; public override void ModifyNPCLoot(NPCLoot npcLoot)
+        public List<TailPoint> tail; 
+        
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<ProphetBag>()));
 
@@ -82,12 +84,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
                 normalOnly.Add(ModContent.ItemType<RuneSong>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<UrnOfSouls>(), new Fraction(3, 5));
             }
-            //npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<CruiserRelic>());
+            npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ProphetRelic>());
 
-            //npcLoot.Add(ModContent.ItemType<CruiserTrophy>(), 10);
+            npcLoot.Add(ModContent.ItemType<ProphetTrophy>(), 10);
 
-            //npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedProphet, ModContent.ItemType<CruiserLore>());
+            npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedProphet, ModContent.ItemType<ProphetLore>());
         }
         public override void SetStaticDefaults()
         {
@@ -808,10 +811,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     for (i = 0; i < points.Count; i++)
                     {
                         ve.Add(new Vertex(NPC.Center - Main.screenPosition + points[i],
-                        new Vector3((float)i / points.Count, 1, 0.99f),
+                        new Vector3((float)i / points.Count, 1, 0.9f),
                               Color.SkyBlue * a));
                         ve.Add(new Vertex(NPC.Center - Main.screenPosition + pointsOutside[i],
-                              new Vector3((float)i / points.Count, 0, 0.99f),
+                              new Vector3((float)i / points.Count, 0, 0.9f),
                               Color.SkyBlue * a));
 
                     }
@@ -832,10 +835,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     for (i = 0; i < points.Count; i++)
                     {
                         ve.Add(new Vertex(NPC.Center - Main.screenPosition + points[i],
-                              new Vector3((float)i / points.Count, 1, 0.99f),
+                              new Vector3((float)i / points.Count, 1, 0.9f),
                               Color.White * a));
                         ve.Add(new Vertex(NPC.Center - Main.screenPosition + pointsOutside[i],
-                              new Vector3((float)i / points.Count, 0, 0.99f),
+                              new Vector3((float)i / points.Count, 0, 0.9f),
                               Color.White * a));
 
                     }
@@ -856,10 +859,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     for (i = 0; i < points.Count; i++)
                     {
                         ve.Add(new Vertex(NPC.Center - Main.screenPosition + points[i],
-                              new Vector3((float)i / points.Count, 1, 0.99f),
+                              new Vector3((float)i / points.Count, 1, 0.9f),
                               Color.SkyBlue * a));
                         ve.Add(new Vertex(NPC.Center - Main.screenPosition + pointsOutside[i],
-                              new Vector3((float)i / points.Count, 0, 0.99f),
+                              new Vector3((float)i / points.Count, 0, 0.9f),
                               Color.SkyBlue * a));
 
                     }

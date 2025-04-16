@@ -194,6 +194,7 @@ Items: {
 	Lore: {
 		CruiserLore.DisplayName: 巡游者
 		NihilityTwinLore.DisplayName: 虚无双子
+		ProphetLore.DisplayName: 先知
 	}
 
 	BrokenChainsaw: {
@@ -1810,13 +1811,32 @@ Items: {
 	}
 
 	ProphecyToken: {
-		Tooltip: 召唤先知
+		Tooltip: 召唤先知，只能在地牢使用
 		DisplayName: 预言信物
 	}
 
 	ProphetBag: {
-		// DisplayName: Prophet Bag
-		// Tooltip: ""
+		DisplayName: 宝藏袋（先知）
+		Tooltip: ""
+	}
+
+	ProphetTrophy: {
+		DisplayName: 先知纪念章
+		Tooltip: ""
+	}
+
+	ProphetRelic: {
+		Tooltip: ""
+		DisplayName: 先知圣物
+	}
+
+	UrnOfSouls: {
+		DisplayName: 灵魂之瓮
+		Tooltip:
+			'''
+			喷射灵魂火焰
+			击中敌人时摄取魔力值
+			'''
 	}
 }
 
@@ -2142,6 +2162,8 @@ Projectiles: {
 	FableEye.DisplayName: 预言之眼激光
 	RuneSword.DisplayName: 符文飞剑
 	ProphetVoidSpike.DisplayName: 虚空触手
+	// UrnOfSoulsHoldout.DisplayName: Urn Of Souls Holdout
+	// UrnSoulFire.DisplayName: Urn Soul Fire
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2431,7 +2453,7 @@ NPCs: {
 
 		BossChecklistIntegration: {
 			EntryName: 先知
-			SpawnInfo: 使用[i:CalamityEntropy/ProphecyToken]召唤
+			SpawnInfo: 在地牢使用[i:CalamityEntropy/ProphecyToken]召唤
 			DespawnMessage: 先知已被击败
 		}
 	}
@@ -2466,6 +2488,21 @@ loreNihTwin:
 	而被你所击杀的这只诡异的生物，只是虚空本身那无尽的混乱之海中溢散的水滴。
 	命运的齿轮，也许于此刻开始缓慢转动。
 	'''
+loreProphet:
+	'''
+	任何一支军队，任何一个王国，任何一位君王都不能缺少一位修习预言魔法的法师，它们能从细微的迹象中捕捉到未来的碎片，以此刻来推演过去和明日。
+	当然，向着凡人本不应窥探之物投去目光者，亦有一日会遭到命运的报应。这也是为什么它们常常短命横死。
+
+	当然，不可窥探之物也许不止是命运，也包括……虚空。
+	那是我与嘉登发现虚空本身的存在后不久，我们之间产生了分歧。他主张探索那个世界，利用那里的力量，即使不可避免的会带来危险。而我则是将那里的一切视为大敌，毕竟它们的侵染从不只限于物质。
+	当然，这并不代表我不会去了解我的敌人……于是我找寻到了王国中一位苍老的先知，在经过了一番友善的商讨之后，我令他向着虚空投去一撇。
+
+	……至于结果，只能说十分的可怖。在那扭曲的形体被一剑斩裂之前，它口中错乱无序的低语让周围的一切都开始被推向疯狂与混乱……植物开始绞杀彼此，仆从开始拔剑相向。
+	借助着魔法，它的灵魂被拘禁于一本古籍中，由我亲自向他拷问它所看到的事物。直到我确信我已经接近了那条不可逾矩的认知之界限，才将它那被侵染的精魄彻底封印。
+	但即使那卷册上灵魂的本质已经被几乎全部磨灭，封印于地牢的它依然会吸引与溢散的魂灵，重足为躯体。
+
+	然后，再一次开始颂念，那永不停歇湮灭之预言。
+	'''
 
 Keybinds: {
 	RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
@@ -2475,10 +2512,22 @@ Keybinds: {
 
 CdMoonlight: 月光护盾
 CdDS: 神圣干预冷却
-CruiserBestiary: 生活在虚空中的蠕虫一样的生物，已完全被虚空侵蚀。当它鳞甲破碎时，你将见到它真正的样子。
-AbyssalWraithBestiary: 扭曲信仰下产生的伪神，能爆发出无限的虚空能量，可即使是这样究极生物，也只不过是虚空的冰山一角而已。
-NihilityTwinBestiary: 一对诞生于虚空的生物
-ProphetBestiary: 一个古老的灵魂，它还活着的时候见证了那不可思议的力量
+CruiserBestiary:
+	'''
+	来源于虚空的顶级猎杀者，与你所遭遇过的那位神明吞噬者有着相似的姿态。
+	他捕食秩序，传播混沌，将现世撕碎为他的猎场...而你也绝不是任它吞噬的猎物。
+	'''
+AbyssalWraithBestiary: 虚空之中存在的不可描述之神，窥探祂的真身是不可能的，因为即便你看到了祂，你的视线也只会被虚无吞没
+NihilityTwinBestiary:
+	'''
+	虚空中的底层生物，自裂隙而来，因无意识的熵增行为而成为了秩序之敌。
+	那片地域遵循着与现实截然相反的生存规则——这也是为何现实与虚空之间的纠葛是一场你死我活的生存之争。
+	'''
+ProphetBestiary:
+	'''
+	一个可悲的破碎灵魂，因潜藏于虚空入侵的表象背后，更为恐怖的真相而疯狂。
+	被束缚于典籍的它一遍遍重复着无意义的嘶吼与低语，绝望且徒劳的向它人传达着它所见之物。
+	'''
 WorldGen.VoidOreSpawn: 天空中散发出虚空能量
 
 Tiles: {
