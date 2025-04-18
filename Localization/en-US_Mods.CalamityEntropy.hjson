@@ -795,7 +795,11 @@ Items: {
 
 	Barren: {
 		DisplayName: 『Barren』
-		Tooltip: Rogue Projectile obtain micro tracking
+		Tooltip: 
+			'''
+			Rogue Projectile obtain micro tracking
+			But decrease 15% rogueDC damage and 15% rogueDC critchance
+			'''
 	}
 
 	Confuse: {
@@ -854,12 +858,13 @@ Items: {
 		Tooltip:
 			'''
 			Rogue Projectile obtain micro tracking
+			Decrease 15% rogueDC damage and 15% rogueDC critchance
 			Attack to exert deceive debuff in enemies that Reduce their movement speed
 			Launch shadow flames during attack
 			+3% damage for each summon slots
 			+32% Damage
 			+4 Void Touch
-			+24% Damage taken
+			+30% Damage taken
 			-70% Life Regen
 			+16% Mana Cost
 			-4% Crit
