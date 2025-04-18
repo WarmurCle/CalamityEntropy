@@ -615,6 +615,7 @@ Items: {
 			+ 8 Life Regen/s
 			-8% Crit Chance
 			Remove defense damage.
+			''NO ONE loves defense damage''
 			-Death Mode-
 			'''
 	}
@@ -628,7 +629,7 @@ Items: {
 		Tooltip:
 			'''
 			Gives you 30% extra mana
-			Every 1 extra mana provides 0.3% magic damage bonus
+			Every 1 extra mana provides 0.1% magic damage bonus
 			'''
 		DisplayName: Archmage's Handmirror
 	}
@@ -643,11 +644,8 @@ Items: {
 			'''
 			+15% damage
 			+2HP/s Life Regen
-			+4 Max Minions
-			+75% Minions Knockback
-			+5% Crit Chance
-			+5% Move Speed
-			+5% Melee Speed
+			+2 Max Minions
+			Greatly increase your various attributes
 			'''
 		DisplayName: Celestial Ring
 	}
@@ -749,7 +747,7 @@ Items: {
 		Tooltip:
 			'''
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 90 second cooldown time
+			This effect has a 120 second cooldown time
 			Loot from hallow monsters
 			'''
 		DisplayName: Holy Mantle
