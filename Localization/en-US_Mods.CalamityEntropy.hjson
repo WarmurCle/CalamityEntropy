@@ -1595,18 +1595,17 @@ Items: {
 MariviniumSet:
 	'''
 	Armor Bonus:
-	-30% Melee Damage Taken
 	+10 Minion Slot
 	+100% Summon Damage
 	+40% Whip Range
 	+5% Summon Crit
-	+15% Damage Reduce
+	+5% Damage Reduce
 	+100 Armor Penetration
 	if your crit chance is over 100%, convert excess crit chance into damage bonus
 	+140 Rogue Stealth
 	When standing, increase life regen
 	Immunity to most debuffs
-	When using true melee weapons, +15% Damage reduce and 25 defense
+	When using true melee weapons, +10% Damage reduce and 25 defense
 	Stealth strike has a probability of causing an water explosion
 	Obtain 2 layers of shields, which will take 10 seconds to recover after being shattered
 	After shield shattered, treat 140 health points and increace your damage by 100% for 5 seconds
@@ -2283,8 +2282,6 @@ Configs: {
 vfb:
 	'''
 	Armor Bonus:
-	+15% Damage
-	+10% Crit
 	+20 Armor Penetration
 	Hitting the target will increase void energy
 	Provides movement and flight speed bonuses based on the amount of void energy
@@ -2298,21 +2295,21 @@ helmvfc:
 	'''
 helmvfd:
 	'''
-	+30% Attack Speed
-	+10% Damage Reduce
+	+24% Attack Speed
+	+5% Damage Reduce
 	Accumulates more void energy when hitting targets.
 	'''
 helmvfs: Projectile damage increases with time
 helmvfl:
 	'''
 	+15% movement speed
-	+150 Max Stealth
+	+135 Max Stealth
 	Stealth strikes will accumulate more void energy
 	'''
 helmvfe:
 	'''
-	+8 Max Minions
-	+95% Summon Damage
+	+7 Max Minions
+	+80% Summon Damage
 	Summon a Void Symbiont fight for you
 	'''
 Reforge: Reforge
