@@ -953,7 +953,7 @@ Items: {
 			'''
 			Charging when using weapons,
 			when it is fully charged, release the mouse button to release a black laser ring
-			deals 225 damage every 3 frames
+			deals 75 damage every 3 frames
 			"Consume thy enemy!"
 			'''
 		DisplayName: Maw Of The Void
@@ -1050,9 +1050,9 @@ Items: {
 	NihilityShell: {
 		Tooltip:
 			'''
-			Critical hits will deal 250% damage
+			Critical hits will deal 210% damage
 			Probability of obtaining an energy shell during critical strike
-			The energy shell can reduce the damage you receive by 40% once
+			The energy shell can reduce the damage you receive by 15% once
 			You can only get a maximum of two shells
 			'''
 		DisplayName: Nihility Shell
@@ -1211,7 +1211,6 @@ Items: {
 		DisplayName: Marivinium Body Armor
 		Tooltip:
 			'''
-			+15% Damage Reduce
 			+15% Damage
 			+15 Crit Chance
 			+250 Max Mana
@@ -1601,7 +1600,6 @@ MariviniumSet:
 	Armor Bonus:
 	+10 Minion Slot
 	+100% Summon Damage
-	+40% Whip Range
 	+5% Summon Crit
 	+5% Damage Reduce
 	+100 Armor Penetration
