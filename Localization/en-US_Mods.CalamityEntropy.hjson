@@ -307,7 +307,7 @@ Items: {
 	}
 
 	TemperanceCard: {
-		Tooltip: +2 Minion Slot
+		Tooltip: +1 Minion Slot
 		DisplayName: 『Temperance』
 	}
 
@@ -319,21 +319,22 @@ Items: {
 	OracleDeck: {
 		Tooltip:
 			'''
-			+8% Crit Chance
-			+30% Move Speed
-			+12 Max Stealth
+			+10% Crit Chance
+			+15% Move Speed
+			+8 Max Stealth
 			-30% Mana Cost
-			-12% Damage Taken
+			-10% Damage Taken
 			+10 Armor Penetration
-			+2 Minion Slot
+			+1 Minion Slot
+			+5% Melee Attack Speed
 			+100% Light
-			Heal players nearby 20 per 5 sec
+			Heal players nearby 10 per 5 sec
 			'''
 		DisplayName: Oracle Deck
 	}
 
 	MetropolisCard: {
-		Tooltip: +10 Max Stealth
+		Tooltip: +5 Max Stealth
 		DisplayName: 『Metropolis』
 	}
 
@@ -348,7 +349,7 @@ Items: {
 	}
 
 	EnduranceCard: {
-		Tooltip: -12% Damage Taken
+		Tooltip: -5% Damage Taken
 		DisplayName: 『Endurance』
 	}
 
@@ -440,7 +441,7 @@ Items: {
 			Puts a shell around the owner when below 50% life that reduces damage taken
 			Absorbs 25% of damage done to players on your team when above 25% life
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 90 second cooldown time
+			This effect has a 120 second cooldown time
 			'''
 	}
 
@@ -463,7 +464,7 @@ Items: {
 		DisplayName: Holy Moonlight
 		Tooltip:
 			'''
-			Get a magic shield every thirty seconds, which is equivalent to 60% of the magic limit,
+			Get a magic shield every thirty seconds, which is equivalent to 50% of the magic limit,
 			During the existence of the Magic Shield, increase movement speed by 10% and reduce magic consumption by 10%,
 			The shield will deal damage to the enemies it touches,
 			When the magic shield is broken, it eliminates its own magic sickness and benefits, and returns to its full magic value,
@@ -495,7 +496,7 @@ Items: {
 		Tooltip:
 			'''
 			+10% Damage
-			+10% Crit Chance
+			+8% Crit Chance
 			+20% Movement Speed
 			'''
 		DisplayName: Void Faquir Cuises
@@ -514,8 +515,8 @@ Items: {
 	VoidFaquirDevourerHelm: {
 		Tooltip:
 			'''
-			+30% Melee Damage
-			+25% Melee Crit Chance
+			+20% Melee Damage
+			+15% Melee Crit Chance
 			'''
 		DisplayName: Void Faquir Devourer Helm
 	}
@@ -523,7 +524,7 @@ Items: {
 	VoidFaquirCosmosHood: {
 		Tooltip:
 			'''
-			+35% Magic Damage
+			+30% Magic Damage
 			+25% Magic Crit Chance
 			+150 Max Mana
 			'''
@@ -548,8 +549,8 @@ Items: {
 		DisplayName: Void Faquir Shadow Helm
 		Tooltip:
 			'''
-			+35% Ranged Damage
-			+35% Ranged Crit Chance
+			+32% Ranged Damage
+			+30% Ranged Crit Chance
 			'''
 	}
 
