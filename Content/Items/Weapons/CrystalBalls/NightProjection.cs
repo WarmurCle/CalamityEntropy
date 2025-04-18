@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
         {
             Item.width = 44;
             Item.height = 44;
-            Item.damage = 109;
+            Item.damage = 115;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 20;
@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.rare = ItemRarityID.Cyan;
             Item.shoot = ModContent.ProjectileType<NightProjectionHoldout>();
             Item.shootSpeed = 16f;
-            Item.mana = 6;
+            Item.mana = 3;
             Item.DamageType = DamageClass.Magic;
         }
         public override bool MagicPrefix()
