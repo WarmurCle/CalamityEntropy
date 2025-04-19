@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.NPCs.AstrumAureus;
 using CalamityMod.NPCs.BrimstoneElemental;
 using CalamityMod.NPCs.Bumblebirb;
@@ -70,6 +71,11 @@ namespace CalamityEntropy.Content.NPCs
             ModContent.NPCType<NihilityActeriophage>(),
             ModContent.NPCType<TheProphet>()
         };
+
+        public override void SetStaticDefaults()
+        {
+            this.HideFromBestiary();
+        }
         public override void SetDefaults()
         {
             NPC.friendly = false;

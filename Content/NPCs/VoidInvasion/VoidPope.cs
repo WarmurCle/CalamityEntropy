@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Util;
+using CalamityMod;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -31,7 +32,8 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             Main.npcFrameCount[NPC.type] = 1;
             NPCID.Sets.MustAlwaysDraw[NPC.type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
-
+            this.HideFromBestiary();
+        
             NPCID.Sets.MPAllowedEnemies[Type] = true;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
