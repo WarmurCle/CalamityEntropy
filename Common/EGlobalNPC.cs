@@ -737,6 +737,10 @@ namespace CalamityEntropy.Common
                     {
                         buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);
                     }
+                    if (npc.HasBuff<SoulDisorder>())
+                    {
+                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<SoulDisorder>()].Value);
+                    }
                     if (npc.GetGlobalNPC<ScorpioEffectNPC>().effectLevel > 0)
                     {
                         buffTextureList.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Buffs/AstralScorpionPoisonous").Value);

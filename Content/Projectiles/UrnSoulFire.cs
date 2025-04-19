@@ -73,8 +73,10 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
+
             Projectile.getOwner().statMana += 2;
-            if(Projectile.getOwner().statMana > Projectile.getOwner().statManaMax2)
+            if (Projectile.getOwner().statMana > Projectile.getOwner().statManaMax2)
             {
                 Projectile.getOwner().statMana = Projectile.getOwner().statManaMax2;
             }

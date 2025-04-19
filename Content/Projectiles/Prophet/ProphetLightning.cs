@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics.Primitives;
@@ -33,6 +34,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             Projectile.tileCollide = false;
             Projectile.ArmorPenetration = 12;
             Projectile.timeLeft = 100;
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
         }
         public override bool ShouldUpdatePosition()
         {

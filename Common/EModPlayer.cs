@@ -30,6 +30,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -111,6 +112,7 @@ namespace CalamityEntropy.Common
         public int XSpeedSlowdownTime = 0;
         public IEnumerable<KeyValuePair<string, Vector2>> homes = new Dictionary<string, Vector2>();
         public int AzChargeShieldSteamTime = 0;
+        public Item foreseeOrbItem = null;
         public class EquipInfo
         {
             public string id;
@@ -276,8 +278,20 @@ namespace CalamityEntropy.Common
             }
             return false;
         }
+        public bool foreseeOrbLast = false;
         public override void ResetEffects()
         {
+            if (Player.whoAmI == Main.myPlayer)
+            {
+                if(foreseeOrbLast && foreseeOrbItem == null && Player.HasBuff<ShatteredOrb>())
+                {
+                    Util.Util.PlaySound("amethyst_break", 1, Player.Center);
+                    Player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Player.name + " " + Mod.GetLocalization("OrbPunishDeath" + Main.rand.Next(0, 2).ToString()).Value)), (int)(Player.statLifeMax2 * 0.9f), 0);
+                }
+                foreseeOrbLast = foreseeOrbItem != null;
+            }
+            foreseeOrbItem = null;
+            soulDicorder = false;
             equipAccs = new List<EquipInfo>();
             vetrasylsEye = false;
             maliciousCode = false;
@@ -726,6 +740,10 @@ namespace CalamityEntropy.Common
         {
             deusCoreAdd = 0;
             modifiers.ModifyHurtInfo += EPHurtModifier;
+            if (soulDicorder)
+            {
+                modifiers.SourceDamage += 0.05f;
+            }
         }
         public int immune = 0;
         public bool cHat = false;
@@ -826,7 +844,17 @@ namespace CalamityEntropy.Common
             {
                 return;
             }
-            bool setToOne = false;
+            bool setToOne = false; 
+            if (!setToOne)
+            { 
+                if(foreseeOrbItem != null && !Player.HasBuff<ShatteredOrb>())
+                {
+                    setToOne = true;
+                    Util.Util.PlaySound("amethyst_break", 1, Player.Center);
+                    info.Damage = 1;
+                    Player.AddBuff(ModContent.BuffType<ShatteredOrb>(), 30 * 60);
+                }
+            }
             if (!setToOne)
             {
                 foreach (Projectile p in Main.ActiveProjectiles)
@@ -1653,6 +1681,10 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateEquips()
         {
+            if (soulDicorder)
+            {
+                Player.statDefense -= 14;
+            }
             foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.ModProjectile is WispLanternProj wl)
@@ -1858,6 +1890,8 @@ namespace CalamityEntropy.Common
             }
         }
         public List<Item> EBookStackItems = null;
+        public bool soulDicorder = false;
+
         public override void LoadData(TagCompound tag)
         {
             var boost = tag.GetList<string>("EntropyBoosts");

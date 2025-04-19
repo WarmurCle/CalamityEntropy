@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Util;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 4;
             Projectile.ArmorPenetration = 80;
             Projectile.scale = 0.6f;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
@@ -135,7 +140,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 2 || Projectile.ai[0] == 42)
             {
                 noSlowTime = 4;
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/sword_spin1"), Projectile.Center);
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/runesong" + Main.rand.Next(1, 4).ToString()) { Pitch = Main.rand.NextFloat(0.5f, 0.6f)}, Projectile.Center);
                 odr.Clear();
                 ods.Clear();
                 if (Projectile.velocity.X > 0)
@@ -157,7 +162,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 22 || Projectile.ai[0] == 62)
             {
                 noSlowTime = 4;
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/sword_spin1"), Projectile.Center);
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/runesong" + Main.rand.Next(1, 4).ToString()) { Pitch = Main.rand.NextFloat(0.5f, 0.6f) }, Projectile.Center);
                 odr.Clear();
                 ods.Clear();
                 if (Projectile.velocity.X < 0)
@@ -282,7 +287,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = Color.Lerp(new Color(105, 105, 255), new Color(195, 195, 255), (float)i / (float)odr.Count) * 0.8f;
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(280 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(306 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3(i / (float)odr.Count, 1, 1),
                       b));
                 ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),

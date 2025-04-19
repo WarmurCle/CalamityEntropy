@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Dusts;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using CalamityMod;
@@ -33,7 +34,6 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 1;
         }
-
         public override void AI()
         {
             if (Projectile.Calamity().stealthStrike)
@@ -53,6 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
             if (Projectile.Calamity().stealthStrike)
             {
                 for (float j = 0; j < 360f; j += 60)

@@ -83,11 +83,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
 
             var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
-                normalOnly.Add(ModContent.ItemType<RuneSong>(), new Fraction(3, 5));
-                normalOnly.Add(ModContent.ItemType<UrnOfSouls>(), new Fraction(3, 5));
-                normalOnly.Add(ModContent.ItemType<SpiritBanner>(), new Fraction(3, 5));
-                normalOnly.Add(ModContent.ItemType<RuneMachineGun>(), new Fraction(3, 5));
-                normalOnly.Add(ModContent.ItemType<ProphecyFlyingKnife>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<RuneSong>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<UrnOfSouls>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<SpiritBanner>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<RuneMachineGun>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<ProphecyFlyingKnife>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<ForeseeOrb>(), new Fraction(4, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ProphetRelic>());
 

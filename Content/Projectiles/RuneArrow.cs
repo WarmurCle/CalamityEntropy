@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -67,10 +68,8 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity += v * 2f;
                 }
             }
-            if (Main.GameUpdateCount % 2 == 0)
-            {
-                EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
-            }
+            EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+            
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -83,6 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
             if (!htd)
             {
                 Projectile.timeLeft = 20;

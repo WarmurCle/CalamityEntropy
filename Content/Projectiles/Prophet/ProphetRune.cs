@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Util;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -53,6 +54,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 Projectile.velocity += Projectile.rotation.ToRotationVector2() * 2.6f;
             }
             lastPos = Projectile.Center;
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
         }
         public override bool PreDraw(ref Color lightColor)
         {

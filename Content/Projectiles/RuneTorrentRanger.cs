@@ -29,7 +29,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = 6;
             Projectile.ArmorPenetration = 8;
         }
-        public bool r = true;
+        public bool r = true; public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
+        }
         public override void AI()
         {
             if (r)

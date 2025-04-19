@@ -1,4 +1,5 @@
 using CalamityEntropy.Content.Projectiles;
+using CalamityMod.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,8 +20,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 1;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
-            Item.value = 12000;
-            Item.rare = ItemRarityID.Orange;
+            Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
+            Item.rare = ItemRarityID.Yellow;
             Item.UseSound = null;
             Item.channel = true;
             Item.noMelee = true;

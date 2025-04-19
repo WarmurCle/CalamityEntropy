@@ -65,6 +65,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         {
             return false;
         }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
+        }
         public override bool PreDraw(ref Color lightColor)
         {
 

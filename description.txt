@@ -1,7 +1,7 @@
 This mod is an expansion of CalamityMod.
 
 -What we added-
-2 new boss
+3 new boss
 weapons
 Accessories
 new bossbar style

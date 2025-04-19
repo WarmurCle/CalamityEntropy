@@ -57,6 +57,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         {
             return false;
         }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
+        }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.normalize() * length, targetHitbox);

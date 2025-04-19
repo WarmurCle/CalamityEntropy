@@ -42,6 +42,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 Projectile.Center += Projectile.velocity.SafeNormalize(Vector2.One) * 16;
             }
         }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
+        }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (orgPos == Vector2.Zero)

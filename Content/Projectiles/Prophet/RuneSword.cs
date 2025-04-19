@@ -75,7 +75,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             Color endColor = Color.Lerp(colorHue, Color.Turquoise, (float)Math.Sin(completionRatio * MathHelper.Pi * 1.6f - Main.GlobalTimeWrappedHourly * 4f) * 0.5f + 0.5f);
             return Color.Lerp(Color.White, endColor, fadeToEnd) * fadeOpacity;
         }
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
+        }
         internal float WidthFunction(float completionRatio)
         {
             float expansionCompletion = (float)Math.Pow(1 - completionRatio, 3);

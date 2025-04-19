@@ -117,7 +117,7 @@ Items: {
 				Tooltip:
 					'''
 					发射一些追踪飞刀
-					潜伏攻击召唤6个环绕你的符文球，一段时间后追踪敌怪
+					潜伏攻击击中后召唤6个符文球攻击敌怪
 					'''
 				DisplayName: 预言飞刀
 			}
@@ -1880,6 +1880,16 @@ Items: {
 			83%概率不消耗弹药
 			'''
 	}
+
+	ForeseeOrb: {
+		DisplayName: 预知宝珠
+		Tooltip:
+			'''
+			受伤时将伤害降低至1并破碎，30秒后复原
+			没有破碎时提供20%的伤害加成
+			[c/ff0000:破碎时取下将对你造成最大生命值的90%伤害]
+			'''
+	}
 }
 
 MariviniumSet:
@@ -2209,9 +2219,9 @@ Projectiles: {
 	WelkingShield.DisplayName: 苍穹之盾
 	SpiritBannerMinion.DisplayName: 招魂幡
 	SpiritLightSoul.DisplayName: 炼狱之魂
-	// RuneTorrentRanger.DisplayName: Rune Torrent Ranger
-	// FutureKnife.DisplayName: Future Knife
-	// ProphecyRune.DisplayName: Prophecy Rune
+	RuneTorrentRanger.DisplayName: 符文洪流
+	FutureKnife.DisplayName: 未来飞刀
+	ProphecyRune.DisplayName: 符文光球
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2440,6 +2450,16 @@ Buffs: {
 	SpiritGathering: {
 		Description: “它们渴望肉体”
 		DisplayName: 灵魂聚焦
+	}
+
+	SoulDisorder: {
+		Description: 灵魂的动荡使你更加脆弱
+		DisplayName: 灵魂紊乱
+	}
+
+	ShatteredOrb: {
+		DisplayName: 破碎宝珠
+		Description: 预知宝珠破碎了，若在其恢复之前将其取下将对你的灵魂造成大量的伤害
 	}
 }
 
@@ -2864,3 +2884,5 @@ AmmoStyngerBolt: 毒刺
 AmmoBoulders: 巨石
 AmmoType: 弹药类型
 UseAmmo: 使用弹药
+OrbPunishDeath0: 的灵魂破碎了
+OrbPunishDeath1: 试图取下裂开的预知宝珠

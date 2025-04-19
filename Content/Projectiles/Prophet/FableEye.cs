@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework.Audio;
@@ -110,6 +111,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             return Util.Util.LineThroughRect(Projectile.Center, p[p.Count - 1], targetHitbox, (int)(100 * w));
         }
         float yx = 0;
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             yx += 0.036f;

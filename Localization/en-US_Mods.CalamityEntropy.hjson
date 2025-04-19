@@ -82,7 +82,7 @@ Items: {
 				Tooltip:
 					'''
 					Fires several homing throwing knives.
-					Stealth attack summons 6 orbiting rune orbs that track enemies after a short time.
+					Stealth attack summons 6 orbiting rune orbs that attack enemies after a short time.
 					'''
 				DisplayName: Prophecy Flying Knife
 			}
@@ -1711,6 +1711,16 @@ Items: {
 		DisplayName: Rune Machine Gun
 		Tooltip: ""
 	}
+
+	ForeseeOrb: {
+		DisplayName: Foresee Orb
+		Tooltip:
+			'''
+			When injured, reduce the damage to 1 and break it, and recover after 30 seconds
+			Provide a 20% damage bonus when not broken
+			[c/ff0000:Removing it when broken will cause 90% damage to your maximum health]
+			'''
+	}
 }
 
 MariviniumSet:
@@ -2271,6 +2281,16 @@ Buffs: {
 		Description: ""
 		DisplayName: Spirit Gathering
 	}
+
+	SoulDisorder: {
+		Description: Mods.CalamityEntropy.Buffs.SoulDisorder.Description
+		DisplayName: Soul Disorder
+	}
+
+	ShatteredOrb: {
+		DisplayName: Shattered Orb
+		Description: ""
+	}
 }
 
 Uh: ""
@@ -2697,3 +2717,5 @@ AmmoStyngerBolt: Stynger Bolt
 AmmoBoulders: Boulder
 AmmoType: Ammo type
 UseAmmo: Use Ammo
+OrbPunishDeath0: shattered into pieces
+OrbPunishDeath1: try to remove the shattered foresee orb
