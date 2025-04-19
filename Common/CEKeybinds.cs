@@ -7,11 +7,13 @@ namespace CalamityEntropy.Common
     public class CEKeybinds : ModSystem
     {
         public static ModKeybind RetrieveVoidAnnihilateHotKey { get; private set; }
+        public static ModKeybind VetrasylsEyeBlockHotKey { get; private set; }
         public static ModKeybind ThrowPoopHotKey { get; set; }
         public static ModKeybind PoopHoldHotKey { get; set; }
         public override void Load()
         {
             RetrieveVoidAnnihilateHotKey = KeybindLoader.RegisterKeybind(Mod, "RetrieveVoidAnnihilate", "J");
+            VetrasylsEyeBlockHotKey = KeybindLoader.RegisterKeybind(Mod, "VetrasylsEyeBlock", "C");
             string MyGameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games");
             string Isaac1 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance").Replace("/", "\\");
             string Isaac2 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance+").Replace("/", "\\");

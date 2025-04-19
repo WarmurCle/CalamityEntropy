@@ -156,7 +156,15 @@ namespace CalamityEntropy.Content.Particles
             {
                 clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
             }
-            Main.spriteBatch.Draw(this.texture, this.position - Main.screenPosition, null, clr * alpha, rotation, getOrigin(), scale, SpriteEffects.None, 0);
+            if(!this.useAdditive && !this.useAlphaBlend)
+            {
+                clr.A = (byte)(clr.A * alpha);
+            }
+            else
+            {
+                clr *= alpha;
+            }
+            Main.spriteBatch.Draw(this.texture, this.position - Main.screenPosition, null, clr, rotation, getOrigin(), scale, SpriteEffects.None, 0);
         }
         public virtual Texture2D texture => null;
     }

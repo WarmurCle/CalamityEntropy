@@ -760,7 +760,7 @@ namespace CalamityEntropy.Common
 
                     return false;
                 }
-                if (item.rare == ModContent.RarityType<GlowGreen>() || item.rare == ModContent.RarityType<GlowPurple>())
+                if (item.rare == ModContent.RarityType<GlowGreen>() || item.rare == ModContent.RarityType<GlowPurple>() || item.rare == ModContent.RarityType<SkyBlue>())
                 {
                     float xa = 0;
                     for (int i = 0; i < line.Text.Length; i++)
@@ -774,11 +774,19 @@ namespace CalamityEntropy.Common
                         {
                             color = new Color(120, 0, 180);
                         }
+                        if (item.rare == ModContent.RarityType<SkyBlue>())
+                        {
+                            color = new Color(24, 24, 255);
+                        }
                         yofs = 0;
                         Color strokeColord = new Color(210, 255, 210);
                         if (item.rare == ModContent.RarityType<GlowPurple>())
                         {
-                            color = new Color(255, 140, 255);
+                            strokeColord = new Color(146, 86, 240);
+                        }
+                        if (item.rare == ModContent.RarityType<SkyBlue>())
+                        {
+                            strokeColord = new Color(180, 180, 255);
                         }
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
@@ -1261,6 +1269,24 @@ namespace CalamityEntropy.Common
                 }
                 ;
                 itemLoot.AddIf(getsMO, ModContent.ItemType<MosHat>());
+
+                if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage)) 
+                {
+                    ModItem i;
+                    if (magicStorage.TryFind<ModItem>("CraftingAccess", out i))
+                    {
+                        itemLoot.Add(i.Type, 1);
+                    }
+                    if (magicStorage.TryFind<ModItem>("StorageHeart", out i))
+                    {
+                        itemLoot.Add(i.Type, 1);
+                    }
+                    if (magicStorage.TryFind<ModItem>("StorageUnit", out i))
+                    {
+                        itemLoot.Add(i.Type, 1, 10, 10);
+                    }
+                    
+                }
             }
         }
         public class IsDeathMode : IItemDropRuleCondition, IProvideItemConditionDescription

@@ -326,11 +326,6 @@ namespace CalamityEntropy
                         rot += MathHelper.TwoPi / count;
                     }
                 }
-                if (player.Entropy().mariviniumBody)
-                {
-                    Texture2D back = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Marivinium/Back").Value;
-                    Main.EntitySpriteDraw(back, player.MountedCenter + player.gfxOffY * Vector2.UnitY - Main.screenPosition, null, Lighting.GetColor((int)(player.Center.X / 16f), (int)(player.Center.Y / 16)), player.fullRotation, (new Vector2(player.direction > 0 ? 31 : 48 - 31, 20)), 1, (player.direction > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
-                }
             }
             Main.spriteBatch.End();
         }
@@ -882,7 +877,7 @@ namespace CalamityEntropy
                     {
                         {
                             string entryName = "TheProphet";
-                            List<int> collection = new List<int>() {  };
+                            List<int> collection = new List<int>() { ModContent.ItemType<RuneSong>(), ModContent.ItemType<UrnOfSouls>(), ModContent.ItemType<SpiritBanner>() };
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                             {
                                 Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Prophet").Value;
@@ -922,7 +917,7 @@ namespace CalamityEntropy
                         {
                             string entryName = "Cruiser";
                             List<int> segments = new List<int>() { ModContent.NPCType<CruiserHead>(), ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() };
-                            List<int> collection = new List<int>() { ModContent.ItemType<CruiserBag>(), ModContent.ItemType<CruiserTrophy>(), ModContent.ItemType<VoidScales>(), ModContent.ItemType<VoidMonolith>(), ModContent.ItemType<CruiserRelic>(), ModContent.ItemType<VoidRelics>(), ModContent.ItemType<VoidAnnihilate>(), ModContent.ItemType<VoidElytra>(), ModContent.ItemType<VoidEcho>(), ModContent.ItemType<Content.Items.Weapons.Silence>(), ModContent.ItemType<RuneSong>(), ModContent.ItemType<WingsOfHush>(), ModContent.ItemType<WindOfUndertaker>(), ModContent.ItemType<VoidToy>(), ModContent.ItemType<TheocracyPearlToy>(), ModContent.ItemType<CruiserPlush>() };
+                            List<int> collection = new List<int>() { ModContent.ItemType<CruiserBag>(), ModContent.ItemType<CruiserTrophy>(), ModContent.ItemType<VoidScales>(), ModContent.ItemType<VoidMonolith>(), ModContent.ItemType<CruiserRelic>(), ModContent.ItemType<VoidRelics>(), ModContent.ItemType<VoidAnnihilate>(), ModContent.ItemType<VoidElytra>(), ModContent.ItemType<VoidEcho>(), ModContent.ItemType<Content.Items.Weapons.Silence>(), ModContent.ItemType<WingsOfHush>(), ModContent.ItemType<WindOfUndertaker>(), ModContent.ItemType<VoidToy>(), ModContent.ItemType<TheocracyPearlToy>(), ModContent.ItemType<CruiserPlush>() };
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                             {
                                 Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Cruiser").Value;
@@ -1697,7 +1692,7 @@ namespace CalamityEntropy
                             Main.spriteBatch.Draw(kt, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 300, 0).RotatedBy(p.rotation), null, Color.White, p.rotation + (float)Math.PI / 2, new Vector2(kt.Width, kt.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / kt.Width * 1.4f, 1f), SpriteEffects.None, 0);
 
                         }
-
+                        
 
                         if (p.ModProjectile is VoidBottleThrow)
                         {

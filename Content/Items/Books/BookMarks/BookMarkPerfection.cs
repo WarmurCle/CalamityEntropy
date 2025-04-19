@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +21,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override EBookProjectileEffect getEffect()
         {
             return new APlusBMEffect();
+        }
+
+        public override void ModifyStat(EBookStatModifer modifer)
+        {
+            if (Main.LocalPlayer.Entropy().hitTimeCount > 600)
+            {
+                modifer.Crit += 16;
+            }
         }
     }
 

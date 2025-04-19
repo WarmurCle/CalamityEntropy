@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.NPCs.NihilityTwin;
+using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Util;
 using CalamityMod.NPCs.AstrumAureus;
 using CalamityMod.NPCs.BrimstoneElemental;
@@ -66,7 +67,8 @@ namespace CalamityEntropy.Content.NPCs
             ModContent.NPCType<Yharon>(),
             ModContent.NPCType<PrimordialWyrmHead>(),
             ModContent.NPCType<SupremeCalamitas>(),
-            ModContent.NPCType<NihilityActeriophage>()
+            ModContent.NPCType<NihilityActeriophage>(),
+            ModContent.NPCType<TheProphet>()
         };
         public override void SetDefaults()
         {

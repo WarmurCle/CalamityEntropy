@@ -1740,7 +1740,11 @@ Items: {
 
 	BookMarkPerfection: {
 		DisplayName: 满分考卷
-		Tooltip: 增加其他所有概率触发的书签的触发概率
+		Tooltip:
+			'''
+			增加其他所有概率触发的书签的触发概率
+			+16%暴击，暴击加成会在受击后的十秒内失效
+			'''
 	}
 
 	Crystedge: {
@@ -1773,7 +1777,7 @@ Items: {
 		Tooltip:
 			'''
 			向前方抛出，然后收回，同时撕扯沿途的敌人
-			召唤物获得5%的暴击率
+			召唤物获得6%的暴击率
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			'''
@@ -1837,6 +1841,31 @@ Items: {
 			喷射灵魂火焰
 			击中敌人时摄取魔力值
 			'''
+	}
+
+	VetrasylsEye: {
+		Tooltip:
+			'''
+			按下[KEY]键可以使用能量护盾格挡敌怪和射弹，格挡成功会有短暂无敌时间
+			格挡范围有限（130度），使用时会朝鼠标方向格挡
+			'''
+		DisplayName: 维塔希尔之瞳
+	}
+
+	SpiritBanner: {
+		DisplayName: 招魂幡
+		Tooltip:
+			'''
+			召唤一张魂幡，持续产生追击敌人的灵魂
+			只能召唤一张
+			使用3召唤栏
+			“魂之挽歌”
+			'''
+	}
+
+	RuneMachineGun: {
+		// DisplayName: Rune Machine Gun
+		// Tooltip: ""
 	}
 }
 
@@ -2158,12 +2187,16 @@ Projectiles: {
 	RuneBulletHostile.DisplayName: 符文弹
 	RuneCrystalTop.DisplayName: 符文晶簇
 	ProphetRune.DisplayName: 符文
-	ProphetLightning.DisplayName: 预言者脉冲束
+	ProphetLightning.DisplayName: 先知脉冲束
 	FableEye.DisplayName: 预言之眼激光
 	RuneSword.DisplayName: 符文飞剑
 	ProphetVoidSpike.DisplayName: 虚空触手
-	// UrnOfSoulsHoldout.DisplayName: Urn Of Souls Holdout
-	// UrnSoulFire.DisplayName: Urn Soul Fire
+	UrnOfSoulsHoldout.DisplayName: 灵魂之瓮
+	UrnSoulFire.DisplayName: 灵魂之火
+	WelkingShield.DisplayName: 苍穹之盾
+	SpiritBannerMinion.DisplayName: 招魂幡
+	SpiritLightSoul.DisplayName: 炼狱之魂
+	// RuneTorrentRanger.DisplayName: Rune Torrent Ranger
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2388,6 +2421,11 @@ Buffs: {
 		DisplayName: 恶意代码
 		Description: 它很恶意
 	}
+
+	SpiritGathering: {
+		Description: “它们渴望肉体”
+		DisplayName: 灵魂聚焦
+	}
 }
 
 Uh: 呃啊~
@@ -2508,6 +2546,7 @@ Keybinds: {
 	RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
 	ThrowPoop.DisplayName: 丢出大便
 	KeepPoop.DisplayName: 保留大便
+	// VetrasylsEyeBlock.DisplayName: Vetrasyls Eye Block
 }
 
 CdMoonlight: 月光护盾

@@ -85,6 +85,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             {
                 normalOnly.Add(ModContent.ItemType<RuneSong>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<UrnOfSouls>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<SpiritBanner>(), new Fraction(3, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ProphetRelic>());
 

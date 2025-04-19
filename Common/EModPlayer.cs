@@ -107,9 +107,23 @@ namespace CalamityEntropy.Common
         public bool heartOfStorm = false;
         public int ffinderCd = 0;
         public float temporaryArmor = 0;
+        public bool vetrasylsEye = false;
         public int XSpeedSlowdownTime = 0;
         public IEnumerable<KeyValuePair<string, Vector2>> homes = new Dictionary<string, Vector2>();
         public int AzChargeShieldSteamTime = 0;
+        public class EquipInfo
+        {
+            public string id;
+            public bool visual;
+            public bool hasEffect;
+            public EquipInfo(string Id, bool hasVisual = true, bool effect = true)
+            {
+                id = Id;
+                hasEffect = effect;
+                visual = hasVisual;
+            }
+        }
+        public List<EquipInfo> equipAccs = new List<EquipInfo>();
         public bool holdingPoop { get { return _holdingPoop; } set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
         public float VoidCharge
@@ -222,6 +236,7 @@ namespace CalamityEntropy.Common
         public int deusCoreBloodOut = 0;
         public int summonCrit = 0;
         public float meleeDamageReduce = 0;
+        public int hitTimeCount = 999999;
         public bool isUsingItem()
         {
             return Main.mouseLeft && !Player.mouseInterface && Player.HeldItem.damage > 0 && Player.HeldItem.active;
@@ -231,8 +246,40 @@ namespace CalamityEntropy.Common
             modifiers.SourceDamage *= (1 - meleeDamageReduce);
         }
         public bool MariviniumSet = false;
+        public void addEquip(string id, bool hasVisual = true)
+        {
+            equipAccs.Add(new EquipInfo(id, hasVisual, true));
+        }
+        public void addEquipVisual(string id)
+        {
+            equipAccs.Add(new EquipInfo(id, true, false));
+        }
+        public bool hasAcc(string id)
+        {
+            foreach(var i in equipAccs)
+            {
+                if(i.id == id && i.hasEffect)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool hasAccVisual(string id)
+        {
+            foreach (var i in equipAccs)
+            {
+                if (i.id == id && i.visual)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public override void ResetEffects()
         {
+            equipAccs = new List<EquipInfo>();
+            vetrasylsEye = false;
             maliciousCode = false;
             AzafureChargeShieldItem = null;
             visualMagiShield = false;
@@ -338,11 +385,23 @@ namespace CalamityEntropy.Common
         public bool cLeft = false;
         public bool cRight = false;
         public float rbDotDist = 0;
+        public int vShieldCD = 0;
         public override void PreUpdate()
         {
+            hitTimeCount++;
             if (Player.HeldItem != null && Player.HeldItem.ModItem is EntropyBook eb)
             {
                 eb.CheckSpawn(Player);
+            }
+            if(!Main.dedServ && vetrasylsEye && vShieldCD <= 0 && CEKeybinds.VetrasylsEyeBlockHotKey.JustReleased)
+            {
+                vShieldCD = 40;
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 6, ModContent.ProjectileType<WelkingShield>(), 0, 0, Player.whoAmI);
+            }
+            vShieldCD -= 1;
+            if(vShieldCD == 0 && vetrasylsEye)
+            {
+                Util.Util.PlaySound("beep", 1, Player.Center);
             }
             temporaryArmor *= 0.994f;
             if (temporaryArmor > 0)
@@ -674,6 +733,7 @@ namespace CalamityEntropy.Common
         {
             HitTCounter = 300;
             Player.immuneTime = (int)(Player.immuneTime * 0.5f);
+            hitTimeCount = 0;
         }
         public override bool FreeDodge(Player.HurtInfo info)
         {

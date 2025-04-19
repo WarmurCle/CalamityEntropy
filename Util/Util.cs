@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -15,6 +16,37 @@ namespace CalamityEntropy.Util
 {
     public static class Util
     {
+        public static Vector2 GetFrameOrigin(this PlayerDrawSet drawInfo)
+        {
+            return new Vector2(
+            (int)(drawInfo.Position.X - Main.screenPosition.X - (drawInfo.drawPlayer.bodyFrame.Width / 2) + (float)(drawInfo.drawPlayer.width / 2)),
+            (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawInfo.drawPlayer.height - (float)drawInfo.drawPlayer.bodyFrame.Height + 4f));
+        }
+        public static Vector2 HeadPosition(this PlayerDrawSet drawInfo, bool addBob = false, bool vanillaStyle = false)
+        {
+            Vector2 drawPosition = GetFrameOrigin(drawInfo);
+
+            if (vanillaStyle)
+                drawPosition += drawInfo.drawPlayer.headPosition + drawInfo.headVect;
+            else
+            {
+                if (drawInfo.drawPlayer.gravDir == -1)
+                    drawPosition.Y = (int)drawInfo.Position.Y - Main.screenPosition.Y + (float)drawInfo.drawPlayer.bodyFrame.Height - 4f;
+
+                Vector2 headOffset = drawInfo.drawPlayer.headPosition + drawInfo.headVect;
+
+                if (!drawInfo.drawPlayer.dead && drawInfo.drawPlayer.gravDir == -1)
+                    headOffset.Y -= 6;
+
+                headOffset.Y *= drawInfo.drawPlayer.gravDir;
+                drawPosition += headOffset;
+            }
+
+            if (addBob)
+                drawPosition += Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height] * drawInfo.drawPlayer.gravDir;
+
+            return drawPosition;
+        }
         public static Vector2 randomPointInCircle(float r)
         {
             return randomRot().ToRotationVector2() * Main.rand.NextFloat(-r, r);
@@ -273,12 +305,11 @@ namespace CalamityEntropy.Util
 
         public static NPC findTarget(Player player, Projectile proj, int maxDistance, bool check = false)
         {
-            NPC target = proj.FindTargetWithinRange(maxDistance, check);
             if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
             {
-                target = player.MinionAttackTargetNPC.ToNPC();
+                return player.MinionAttackTargetNPC.ToNPC();
             }
-            return target;
+            return proj.FindTargetWithinRange(maxDistance, check);
         }
         public static Texture2D getExtraTex(string name)
         {

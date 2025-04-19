@@ -418,7 +418,10 @@ namespace CalamityEntropy.Common
                     hit.HideCombatText = true;
                     int damageDone = npc.StrikeNPC(hit, false, false);
                     CombatText.NewText(npc.getRect(), new Color(148, 148, 255), damageDone);
-
+                    if(Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendStrikeNPC(npc, hit);
+                    }
 
                 }
                 if (!(npc.ModNPC is VoidCultist))
@@ -547,6 +550,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            if(npc.type == NPCID.WyvernHead)
+            {
+                npcLoot.Add(ModContent.ItemType<VetrasylsEye>(), 5);
+            }
             if (npc.boss)
             {
                 npcLoot.Add(ModContent.ItemType<BookMarkPerfection>(), new Fraction(1, 30));

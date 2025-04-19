@@ -1586,7 +1586,11 @@ Items: {
 
 	BookMarkPerfection: {
 		DisplayName: Perfection
-		Tooltip: Increase the triggering probability of bookmarks triggered by all other probabilities
+		Tooltip:
+			'''
+			Increase the triggering probability of bookmarks triggered by all other probabilities
+			+16% crit chance, crit bonus will expire within ten seconds after being hit
+			'''
 	}
 
 	Crystedge: {
@@ -1619,7 +1623,7 @@ Items: {
 		Tooltip:
 			'''
 			Throws forward and then retracts, tearing through enemies in its path.
-			Minions gain 2.5% increased critical strike chance
+			Minions gain 6% increased critical strike chance
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			'''
@@ -1676,6 +1680,26 @@ Items: {
 
 	UrnOfSouls: {
 		DisplayName: Urn Of Souls
+		Tooltip: ""
+	}
+
+	VetrasylsEye: {
+		Tooltip: Press [KEY] to block with an enrgy shield
+		DisplayName: Vetrasyls Eye
+	}
+
+	SpiritBanner: {
+		DisplayName: Spirit Banner
+		Tooltip:
+			'''
+			Summon a spirit banner that spawns spirits chasing enemies
+			Can only summon one banner at once
+			Use 3 minion slots
+			'''
+	}
+
+	RuneMachineGun: {
+		DisplayName: Rune Machine Gun
 		Tooltip: ""
 	}
 }
@@ -2003,6 +2027,10 @@ Projectiles: {
 	ProphetVoidSpike.DisplayName: Prophet Void Spike
 	UrnOfSoulsHoldout.DisplayName: Urn Of Souls Holdout
 	UrnSoulFire.DisplayName: Urn Soul Fire
+	WelkingShield.DisplayName: Welking Shield
+	SpiritBannerMinion.DisplayName: Spirit Banner
+	SpiritLightSoul.DisplayName: Spirit
+	RuneTorrentRanger.DisplayName: Rune Torrent Ranger
 }
 
 LegendTooltip: - Legend -
@@ -2227,6 +2255,11 @@ Buffs: {
 		DisplayName: Malicious Code
 		Description: It's malicious
 	}
+
+	SpiritGathering: {
+		Description: ""
+		DisplayName: Spirit Gathering
+	}
 }
 
 Uh: ""
@@ -2357,6 +2390,7 @@ Keybinds: {
 	RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
 	ThrowPoop.DisplayName: Throw Poop
 	KeepPoop.DisplayName: Hold Poop
+	VetrasylsEyeBlock.DisplayName: Vetrasyls Eye Block
 }
 
 CdMoonlight: Moonlight Shield

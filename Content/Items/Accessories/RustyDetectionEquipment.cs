@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Util;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
@@ -19,6 +20,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.accessory = true;
 
         }
+        public static string ID = "RustyDetectorEquipment";
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -26,8 +28,12 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.noFallDmg = true;
             player.jumpSpeedBoost += 1.6f;
             player.maxRunSpeed *= 1.1f;
+            player.Entropy().addEquip(ID, !hideVisual);
         }
-
+        public override void UpdateVanity(Player player)
+        {
+            player.Entropy().addEquipVisual(ID);
+        }
         public override void AddRecipes()
         {
             CreateRecipe().
