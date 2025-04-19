@@ -29,8 +29,9 @@ namespace CalamityEntropy.Content.Items
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AltarOfTheAccursedItem>())
-                .AddIngredient(ModContent.ItemType<WyrmTooth>())
-        .AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
+                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 4)
+                .AddIngredient(ModContent.ItemType<AuricBar>(), 4)
+                .AddIngredient(ModContent.ItemType<Necroplasm>(), 6)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
