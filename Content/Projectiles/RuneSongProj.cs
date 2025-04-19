@@ -35,6 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 4;
             Projectile.ArmorPenetration = 80;
+            Projectile.scale = 0.6f;
         }
         public override void SendExtraAI(BinaryWriter writer)
         {

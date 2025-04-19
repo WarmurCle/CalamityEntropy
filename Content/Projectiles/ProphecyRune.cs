@@ -4,9 +4,9 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Projectiles.Prophet
+namespace CalamityEntropy.Content.Projectiles
 {
-    public class ProphetRune : ModProjectile
+    public class ProphecyRune : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -14,45 +14,52 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = DamageClass.Melee;
-            Projectile.width = 40;
-            Projectile.height = 40;
-            Projectile.friendly = false;
-            Projectile.hostile = true;
-            Projectile.penetrate = -1;
+            Projectile.DamageType = CUtil.rogueDC;
+            Projectile.width = 26;
+            Projectile.height = 26;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 400;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 0;
 
         }
-        public Vector2 lastPos;
+        public override bool? CanHitNPC(NPC target)
+        {
+            if(counter < 100)
+            {
+                return false;
+            }
+            return null;
+        }
+        public float rotCount = 0;
         public float counter = 0;
         public override void AI()
         {
-            NPC owner = ((int)Projectile.ai[0]).ToNPC();
+            rotCount += 0.32f * ((100 - counter) * 0.01f);
             counter++;
-            if (counter < 100)
-            {
-                Projectile.Center = owner.Center + Projectile.ai[1].ToRotationVector2().RotatedBy(Main.GameUpdateCount * 0.12f) * 86;
-            }
-            if (counter == 100)
-            {
-                Projectile.velocity = (Projectile.Center - lastPos) * 2;
-                byte plr = Player.FindClosest(Projectile.Center, 4000, 4000);
-                if (plr >= 0)
-                {
-                    Player player = Main.player[plr];
-                    Projectile.rotation = (player.Center + player.velocity * 22 - Projectile.Center).ToRotation();
-                }
-            }
             if (counter > 100)
             {
-                Projectile.velocity *= 0.94f;
-                Projectile.velocity += Projectile.rotation.ToRotationVector2() * 2.6f;
+                NPC target = Util.Util.findTarget(Projectile.getOwner(), Projectile, 2800);
+                if (target != null)
+                {
+                    Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.9f;
+                    Projectile.velocity *= 0.96f;
+                }
             }
-            lastPos = Projectile.Center;
+            else
+            {
+                NPC target = Util.Util.findTarget(Projectile.getOwner(), Projectile, 2800);
+                if (target != null)
+                {
+                    Projectile.Center = target.Center + (Projectile.ai[0]).ToRotationVector2().RotatedBy(rotCount) * counter * 1.8f;
+                }
+                else
+                {
+                    Projectile.Kill();
+                }
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -65,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D tx = Util.Util.getExtraTex("runes/rune" + ((int)Projectile.ai[2]).ToString());
-            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * (counter > 100 ? 1 : counter / 100f) * (0.8f + (float)(Math.Cos(Main.GameUpdateCount * 0.26f) * 0.2f)), 0, tx.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * (counter > 100 ? 1 : counter / 100f) * (0.8f + (float)(Math.Cos(Main.GameUpdateCount * 0.2f) * 0.2f)), 0, tx.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 

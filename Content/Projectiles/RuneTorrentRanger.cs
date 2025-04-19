@@ -23,10 +23,11 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.width = Projectile.height = 26;
+            Projectile.width = Projectile.height = 64;
             Projectile.MaxUpdates = 4;
             Projectile.timeLeft = 600;
             Projectile.penetrate = 6;
+            Projectile.ArmorPenetration = 8;
         }
         public bool r = true;
         public override void AI()

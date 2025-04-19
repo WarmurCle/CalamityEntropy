@@ -19,6 +19,8 @@ namespace CalamityEntropy.Common
         [Increment(1f)]
         public float VoidChargeBarY { get; set; }
 
+        [DefaultValue(true)]
+        public bool ItemAdditionalInfo { get; set; }
 
         [DefaultValue(true)]
         public bool ChainsawShakeScreen { get; set; }

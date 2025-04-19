@@ -73,7 +73,6 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<Deceive>(), 240);
             Projectile.getOwner().statMana += 2;
             if(Projectile.getOwner().statMana > Projectile.getOwner().statManaMax2)
             {

@@ -86,6 +86,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 normalOnly.Add(ModContent.ItemType<RuneSong>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<UrnOfSouls>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<SpiritBanner>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<RuneMachineGun>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<ProphecyFlyingKnife>(), new Fraction(3, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ProphetRelic>());
 
@@ -123,10 +125,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.boss = true;
             NPC.width = 56;
             NPC.height = 56;
-            NPC.damage = 74;
+            NPC.damage = 84;
             NPC.defense = 16;
             NPC.Calamity().DR = 0.12f;
-            NPC.lifeMax = 35000;
+            NPC.lifeMax = 40000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 4;

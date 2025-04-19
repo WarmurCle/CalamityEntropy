@@ -26,6 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<UrnOfSoulsHoldout>();
             Item.shootSpeed = 6f;
             Item.mana = 10;
+            Item.ArmorPenetration = 46;
             Item.DamageType = DamageClass.Magic;
         }
         public override bool MagicPrefix()

@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Util;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -66,7 +67,10 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity += v * 2f;
                 }
             }
-
+            if (Main.GameUpdateCount % 2 == 0)
+            {
+                EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+            }
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -101,10 +105,10 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 List<Vertex> ve = new List<Vertex>();
                 Color b = Color.White * 0.7f;
-                ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 10,
+                ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 20 * 0.6f,
                           new Vector3((float)0, 1, 1),
                           b));
-                ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 10,
+                ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 20 * 0.6f,
                       new Vector3((float)0, 0, 1),
                       b));
                 for (int i = 1; i < odp.Count; i++)
@@ -112,10 +116,10 @@ namespace CalamityEntropy.Content.Projectiles
 
 
                     c += 1f / odp.Count;
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 20,
+                    ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 20 * 0.6f,
                           new Vector3((float)i / odp.Count, 1, 1),
                           b));
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 20,
+                    ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 20 * 0.6f,
                           new Vector3((float)i / odp.Count, 0, 1),
                           b));
 
@@ -142,7 +146,7 @@ namespace CalamityEntropy.Content.Projectiles
                     return false;
 
                 }
-                Main.spriteBatch.Draw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, TextureAssets.Projectile[Projectile.type].Value.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, TextureAssets.Projectile[Projectile.type].Value.Size() / 2, Projectile.scale * 0.6f, SpriteEffects.None, 0);
 
             }
             odp.RemoveAt(odp.Count - 1);

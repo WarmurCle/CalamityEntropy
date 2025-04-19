@@ -77,6 +77,15 @@ Items: {
 				Tooltip: ""
 				DisplayName: Amethyst Frisbee
 			}
+
+			ProphecyFlyingKnife: {
+				Tooltip:
+					'''
+					Fires several homing throwing knives.
+					Stealth attack summons 6 orbiting rune orbs that track enemies after a short time.
+					'''
+				DisplayName: Prophecy Flying Knife
+			}
 		}
 	}
 
@@ -2031,6 +2040,8 @@ Projectiles: {
 	SpiritBannerMinion.DisplayName: Spirit Banner
 	SpiritLightSoul.DisplayName: Spirit
 	RuneTorrentRanger.DisplayName: Rune Torrent Ranger
+	FutureKnife.DisplayName: Future Knife
+	ProphecyRune.DisplayName: Prophecy Rune
 }
 
 LegendTooltip: - Legend -
@@ -2456,6 +2467,11 @@ Configs: {
 			Tooltip: ""
 			Label: Rep Boss Music Replace Calamity Music
 		}
+
+		ItemAdditionalInfo: {
+			Label: Item Additional Info
+			Tooltip: Display additional information about certain items like armor penetration, ammo type, etc
+		}
 	}
 
 	ServerConfig: {
@@ -2661,3 +2677,23 @@ EntropyModeActive: Entropy Mode is active. YOU WILL BE FORGOTTEN
 EntropyModeDeactive: Entropy Mode is Deactive. Why not crave abandonment
 MissedInVoid: missed in the void
 BatteringRamZenithText: It has malicious code
+ArmorPenetrationItemTooltip: Armor Penetration
+AmmoSolution: Solution
+AmmoArrow: Arrow
+AmmoBullet: Bullet
+AmmoCandyCorn: Candy Corn
+AmmoCoin: Coin
+AmmoDart: Dart
+AmmoFallenStar: Fallen Star
+AmmoFlare: Flare
+AmmoGel: Gel
+AmmoJackOLantern: Jack O' Lantern
+AmmoNail: Nail
+AmmoRocket: Rocket
+AmmoSand: Sand
+AmmoSnowball: Snowball
+AmmoStake: Stake
+AmmoStyngerBolt: Stynger Bolt
+AmmoBoulders: Boulder
+AmmoType: Ammo type
+UseAmmo: Use Ammo

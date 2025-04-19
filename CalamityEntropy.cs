@@ -450,6 +450,10 @@ namespace CalamityEntropy
                 {
                     rt.Draw();
                 }
+                if (proj.ModProjectile is RuneTorrentRanger rt_)
+                {
+                    rt_.Draw();
+                }
                 if (proj.ModProjectile is ProphetVoidSpike vs)
                 {
                     vs.Draw();

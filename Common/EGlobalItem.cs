@@ -186,8 +186,103 @@ namespace CalamityEntropy.Common
             }
         }
 
+        public string getAmmoName(int type)
+        {
+            if(type == AmmoID.Solution)
+            {
+                return Mod.GetLocalization("AmmoSolution").Value;
+            }
+            if (type == AmmoID.Arrow)
+            {
+                return Mod.GetLocalization("AmmoArrow").Value;
+            }
+            if (type == AmmoID.Bullet)
+            {
+                return Mod.GetLocalization("AmmoBullet").Value;
+            }
+            if (type == AmmoID.CandyCorn)
+            {
+                return Mod.GetLocalization("AmmoCandyCorn").Value;
+            }
+            if (type == AmmoID.Coin)
+            {
+                return Mod.GetLocalization("AmmoCoin").Value;
+            }
+            if (type == AmmoID.Dart)
+            {
+                return Mod.GetLocalization("AmmoDart").Value;
+            }
+            if (type == AmmoID.FallenStar)
+            {
+                return Mod.GetLocalization("AmmoFallenStar").Value;
+            }
+            if (type == AmmoID.Flare)
+            {
+                return Mod.GetLocalization("AmmoFlare").Value;
+            }
+            if (type == AmmoID.Gel)
+            {
+                return Mod.GetLocalization("AmmoGel").Value;
+            }
+            if (type == AmmoID.JackOLantern)
+            {
+                return Mod.GetLocalization("AmmoJackOLantern").Value;
+            }
+            if (type == AmmoID.NailFriendly)
+            {
+                return Mod.GetLocalization("AmmoNail").Value;
+            }
+            if (type == AmmoID.Rocket)
+            {
+                return Mod.GetLocalization("AmmoRocket").Value;
+            }
+            if (type == AmmoID.Sand)
+            {
+                return Mod.GetLocalization("AmmoSand").Value;
+            }
+            if (type == AmmoID.Snowball)
+            {
+                return Mod.GetLocalization("AmmoSnowball").Value;
+            }
+            if (type == AmmoID.Stake)
+            {
+                return Mod.GetLocalization("AmmoStake").Value;
+            }
+            if (type == AmmoID.StyngerBolt)
+            {
+                return Mod.GetLocalization("AmmoStyngerBolt").Value;
+            }
+            if(ModLoader.HasMod("MoreBoulders") && type == 540)
+            {
+                return Mod.GetLocalization("AmmoBoulders").Value;
+            }
+            return type.ToString();
+        }
+
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if(ModContent.GetInstance<Config>().ItemAdditionalInfo) 
+            {
+                if (item.ammo != AmmoID.None)
+                {
+                    tooltips.Add(new TooltipLine(Mod, "Ammo Type", Mod.GetLocalization("AmmoType").Value + ": " + getAmmoName(item.ammo)));
+                }
+                if (item.useAmmo != AmmoID.None)
+                {
+                    tooltips.Add(new TooltipLine(Mod, "Use Ammo", Mod.GetLocalization("UseAmmo").Value + ": " + getAmmoName(item.useAmmo)));
+                }
+                for (int i = 0; i < tooltips.Count; i++)
+                {
+                    if (tooltips[i].Mod == "Terraria" && tooltips[i].Name == "Knockback")
+                    {
+                        if (item.damage > 0 && item.ArmorPenetration > 0)
+                        {
+                            tooltips.Insert(i + 1, new TooltipLine(Mod, "Armor Penetration", item.ArmorPenetration.ToString() + " " + Mod.GetLocalization("ArmorPenetrationItemTooltip").Value));
+                        }
+                    }
+                }
+            }
+
             if (item.Entropy().armorPrefix != null)
             {
                 foreach (var tooltip in tooltips)

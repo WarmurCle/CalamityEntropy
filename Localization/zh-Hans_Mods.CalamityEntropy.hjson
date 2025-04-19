@@ -112,6 +112,15 @@ Items: {
 					'''
 				DisplayName: 紫晶飞盘
 			}
+
+			ProphecyFlyingKnife: {
+				Tooltip:
+					'''
+					发射一些追踪飞刀
+					潜伏攻击召唤6个环绕你的符文球，一段时间后追踪敌怪
+					'''
+				DisplayName: 预言飞刀
+			}
 		}
 	}
 
@@ -1864,8 +1873,12 @@ Items: {
 	}
 
 	RuneMachineGun: {
-		// DisplayName: Rune Machine Gun
-		// Tooltip: ""
+		DisplayName: 符文机枪
+		Tooltip:
+			'''
+			快速射出大量子弹和符文洪流
+			83%概率不消耗弹药
+			'''
 	}
 }
 
@@ -2197,6 +2210,8 @@ Projectiles: {
 	SpiritBannerMinion.DisplayName: 招魂幡
 	SpiritLightSoul.DisplayName: 炼狱之魂
 	// RuneTorrentRanger.DisplayName: Rune Torrent Ranger
+	// FutureKnife.DisplayName: Future Knife
+	// ProphecyRune.DisplayName: Prophecy Rune
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2612,6 +2627,11 @@ Configs: {
 			Tooltip: ""
 			Label: 忏悔音乐是否替换灾厄Boss音乐
 		}
+
+		ItemAdditionalInfo: {
+			Label: 物品额外信息
+			Tooltip: " 展示某些物品额外的信息，如护甲穿透、弹药类型等"
+		}
 	}
 
 	ServerConfig: {
@@ -2824,3 +2844,23 @@ EntropyModeActive: 熵变模式已开启！你将被遗忘
 EntropyModeDeactive: 熵变模式已关闭。为何不渴望遗弃
 MissedInVoid: 被遗忘了
 BatteringRamZenithText: “它包含了恶意代码”
+ArmorPenetrationItemTooltip: 护甲穿透
+AmmoSolution: 环境溶液
+AmmoArrow: 箭矢
+AmmoBullet: 子弹
+AmmoCandyCorn: 玉米糖
+AmmoCoin: 钱币
+AmmoDart: 飞镖
+AmmoFallenStar: 坠落之星
+AmmoFlare: 照明弹
+AmmoGel: 凝胶
+AmmoJackOLantern: 南瓜灯
+AmmoNail: 钉子
+AmmoRocket: 火箭
+AmmoSand: 沙子
+AmmoSnowball: 雪球
+AmmoStake: 桩
+AmmoStyngerBolt: 毒刺
+AmmoBoulders: 巨石
+AmmoType: 弹药类型
+UseAmmo: 使用弹药

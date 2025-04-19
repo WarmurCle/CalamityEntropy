@@ -57,7 +57,8 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<RuneSong>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<UrnOfSouls>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<SpiritBanner>(), new Fraction(3, 5));
-
+            itemLoot.Add(ModContent.ItemType<RuneMachineGun>(), new Fraction(3, 5));
+            itemLoot.Add(ModContent.ItemType<ProphecyFlyingKnife>(), new Fraction(3, 5));
         }
     }
 }

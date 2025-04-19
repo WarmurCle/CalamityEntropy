@@ -32,6 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.reuseDelay = 10;
             Item.useAnimation = 42;
             Item.useStyle = ItemUseStyleID.Shoot;
+            Item.ArmorPenetration = 26;
             Item.noMelee = true;
             Item.knockBack = 2f;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
