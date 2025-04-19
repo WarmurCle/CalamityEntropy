@@ -287,7 +287,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = Color.Lerp(new Color(105, 105, 255), new Color(195, 195, 255), (float)i / (float)odr.Count) * 0.8f;
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(306 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(316 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3(i / (float)odr.Count, 1, 1),
                       b));
                 ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
