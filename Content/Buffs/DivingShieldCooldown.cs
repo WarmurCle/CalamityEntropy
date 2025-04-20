@@ -8,8 +8,9 @@ namespace CalamityEntropy.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = false;
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
     }
 }

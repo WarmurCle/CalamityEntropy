@@ -432,60 +432,16 @@ namespace CalamityEntropy
 
             Main.spriteBatch.End();
 
-            graphicsDevice.SetRenderTarget(screen);
-            graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
-            Main.spriteBatch.End();
-
-            graphicsDevice.SetRenderTarget(screen3);
-            graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
-            foreach(NPC npc in Main.ActiveNPCs)
-            {
-                if(npc.ModNPC is TheProphet tp)
-                {
-                    tp.Draw();
-                }
-            }
-            foreach(Projectile proj in Main.ActiveProjectiles)
-            {
-                if(proj.ModProjectile is RuneTorrent rt)
-                {
-                    rt.Draw();
-                }
-                if (proj.ModProjectile is RuneTorrentRanger rt_)
-                {
-                    rt_.Draw();
-                }
-                if (proj.ModProjectile is ProphetVoidSpike vs)
-                {
-                    vs.Draw();
-                }
-            }
-
-            Main.spriteBatch.End();
-
-            graphicsDevice.SetRenderTarget(Main.screenTarget);
-            graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
-            Main.spriteBatch.End();
-
-            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
-            shader.CurrentTechnique = shader.Techniques["Technique1"];
-            shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2() / Main.GameViewMatrix.Zoom);
-            shader.CurrentTechnique.Passes[0].Apply();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader);
-            Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(0, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
 
             EParticle.drawAll();
-
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform); orig(self);
             orig(self);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform); orig(self);
+
         }
         public int pocType = -1;
         private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
@@ -743,7 +699,7 @@ namespace CalamityEntropy
         }
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
-            if (Main.debuff[type])
+            if (Main.debuff[type] && !BuffID.Sets.NurseCannotRemoveDebuff[type])
             {
                 if (Main.rand.NextDouble() < self.Entropy().DebuffImmuneChance)
                 {
@@ -1156,7 +1112,53 @@ namespace CalamityEntropy
 
             }
 
+            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
 
+            graphicsDevice.SetRenderTarget(screen3);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.ModNPC is TheProphet tp)
+                {
+                    tp.Draw();
+                }
+            }
+            foreach (Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.ModProjectile is RuneTorrent rt)
+                {
+                    rt.Draw();
+                }
+                if (proj.ModProjectile is RuneTorrentRanger rt_)
+                {
+                    rt_.Draw();
+                }
+                if (proj.ModProjectile is ProphetVoidSpike vs)
+                {
+                    vs.Draw();
+                }
+            }
+
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
+            shader.CurrentTechnique = shader.Techniques["Technique1"];
+            shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2() / Main.GameViewMatrix.Zoom);
+            shader.CurrentTechnique.Passes[0].Apply();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader);
+            Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
 
             if (screen != null)
             {
