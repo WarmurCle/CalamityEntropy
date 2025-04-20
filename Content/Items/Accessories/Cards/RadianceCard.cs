@@ -1,6 +1,10 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Util;
+using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +13,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 {
     public class RadianceCard : ModItem
     {
+        public static float LifeRegenMul = 0.2f; //+20%生命恢复
 
         public override void SetDefaults()
         {
@@ -22,8 +27,12 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.lifeRegen = (int)(player.lifeRegen * 1.2f);
+            player.lifeRegen = (int)(player.lifeRegen * (1 + LifeRegenMul));
             player.GetModPlayer<EModPlayer>().radianceCard = true;
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Replace("[LR]", (int)(Math.Round(LifeRegenMul * 100)));
         }
 
         public override void AddRecipes()

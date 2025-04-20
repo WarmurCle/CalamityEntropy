@@ -1,8 +1,10 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Util;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -13,10 +15,12 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class VoidElytra : ModItem
     {
-
+        public static float HorSpeed = 10;
+        public static float AccMul = 3;
+        public static int wTime = 290;
         public override void SetStaticDefaults()
         {
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(290, 10f, 3f, false, 20, 3f);
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(wTime, HorSpeed, AccMul, false, 20, 3f);
         }
 
         public override void SetDefaults()
@@ -27,6 +31,12 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.accessory = true;
 
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Replace("[A]", HorSpeed);
+            tooltips.Replace("[B]", AccMul);
+            tooltips.Replace("[C]", wTime);
         }
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
             ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)

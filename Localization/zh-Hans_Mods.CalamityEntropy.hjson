@@ -255,10 +255,10 @@ Items: {
 		DisplayName: 虚空推进鞘翅
 		Tooltip:
 			'''
-			水平飞行速度： 10
-			加速倍率： 3
+			水平飞行速度： [A]
+			加速倍率： [B]
 			优异的垂直飞行速度
-			飞行时间：290
+			飞行时间：[C]
 			允许你向四个方向冲刺
 			[c/356498:将生命献给虚空，得到对极限的突破]
 			'''
@@ -363,30 +363,30 @@ Items: {
 	}
 
 	WisdomCard: {
-		Tooltip: -20%魔力消耗
+		Tooltip: -[COST]%魔力消耗
 		DisplayName: 『智慧』
 	}
 
 	TemperanceCard: {
-		Tooltip: +2 召唤栏
+		Tooltip: +[T] 召唤栏
 		DisplayName: 『克己』
 	}
 
 	RadianceCard: {
-		Tooltip: +20%生命恢复
+		Tooltip: +[LR]%生命恢复
 		DisplayName: 『光芒』
 	}
 
 	OracleDeck: {
 		Tooltip:
 			'''
-			+8% 暴击率
+			+[CR]% 暴击率
 			+30% 移速
-			+12 最大潜伏值
+			+[ST] 最大潜伏值
 			-30% 魔力消耗
 			受到伤害降低12%
-			+10 护甲穿透
-			+2 召唤栏
+			+[AP] 护甲穿透
+			+[MN] 召唤栏
 			+100% 光照
 			装备后每隔五秒附近所有玩家受到20点治疗
 			'''

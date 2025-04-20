@@ -176,7 +176,7 @@ namespace CalamityEntropy.Common
                 {
                     DrawVoidChargeBar(Main.spriteBatch);
                     return true;
-                }, InterfaceScaleType.None));
+                }, InterfaceScaleType.UI));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Other Charge Bars", () =>
                 {
                     int baroffsety = 84;
@@ -201,7 +201,7 @@ namespace CalamityEntropy.Common
                         Main.spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
                     }
                     return true;
-                }, InterfaceScaleType.None));
+                }, InterfaceScaleType.UI));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Xyth Bar", () =>
                 {
                     drawXythBar();

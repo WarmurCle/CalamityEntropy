@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,17 +22,27 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
             Item.accessory = true;
 
         }
+        public static int CRIT = 8;
+        public static float STEALTH = 0.12f;
+        public static int MINIONADD = 2;
+        public static int ArmorPenet = 10;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().oracleDeckInInv = true;
-            player.GetCritChance(DamageClass.Generic) += 8;
-            player.Calamity().rogueStealthMax += 0.12f;
-            player.maxMinions += 2;
-            player.GetArmorPenetration(DamageClass.Generic) += 10;
+            player.GetCritChance(DamageClass.Generic) += CRIT;
+            player.Calamity().rogueStealthMax += STEALTH;
+            player.maxMinions += MINIONADD;
+            player.GetArmorPenetration(DamageClass.Generic) += ArmorPenet;
             player.GetModPlayer<EModPlayer>().oracleDeck = true;
         }
-
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Replace("[CR]", CRIT);
+            tooltips.Replace("[ST]", STEALTH.ToPercent());
+            tooltips.Replace("[MN]", MINIONADD);
+            tooltips.Replace("[AP]", ArmorPenet);
+        }
         public override void UpdateInventory(Player player)
         {
             player.Entropy().oracleDeckInInv = true;

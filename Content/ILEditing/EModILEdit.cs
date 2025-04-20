@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.ILEditing
 
         public static void load()
         {
-            MethodInfo method = typeof(CalamityPlayer).GetMethod("ModDashMovement", BindingFlags.Instance | BindingFlags.Public);
+
         }
 
     }

@@ -220,6 +220,10 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            screen = null;
+            screen2 = null;
+            screen3 = null;
+            
             EModHooks.UnLoadData();
             LoopSoundManager.unload();
             ealaserSound = null;
@@ -475,9 +479,12 @@ namespace CalamityEntropy
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader);
             Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
-            Main.spriteBatch.begin_();
+            Main.spriteBatch.Begin(0, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
 
             EParticle.drawAll();
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
             orig(self);
         }
         public int pocType = -1;
@@ -1879,7 +1886,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.Draw(screen2, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
                 Main.spriteBatch.End();
-            }
+            }/*
             if (BeeGame.Active)
             {
                 if (!beegameInited)
@@ -1911,7 +1918,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.Draw(Main.screenTargetSwap, new Rectangle((Main.screenWidth - BeeGame.maxWidth) / 2, (Main.screenHeight - BeeGame.maxHeight) / 2, BeeGame.maxWidth, BeeGame.maxHeight), Color.White);
 
                 Main.spriteBatch.End();
-            }
+            }*/
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             if (blackMaskTime > 0)
             {

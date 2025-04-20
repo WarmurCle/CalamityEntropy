@@ -218,10 +218,10 @@ Items: {
 		DisplayName: Void Elytra
 		Tooltip:
 			'''
-			Horizontal speed: 10
-			Acceleration multiplier: 3
+			Horizontal speed: [A]
+			Acceleration multiplier: [B]
 			Excellent vertical speed
-			Flight time: 290
+			Flight time: [C]
 			Allow you to dash in four directions
 			[c/356498:Dedicate life to the void and achieve breakthroughs in the limits]
 			'''
@@ -312,30 +312,30 @@ Items: {
 	}
 
 	WisdomCard: {
-		Tooltip: -20% Mana Cost
+		Tooltip: -[COST]% Mana Cost
 		DisplayName: 『Wisdom』
 	}
 
 	TemperanceCard: {
-		Tooltip: +2 Minion Slot
+		Tooltip: +[T] Minion Slot
 		DisplayName: 『Temperance』
 	}
 
 	RadianceCard: {
-		Tooltip: +20% Life Regen
+		Tooltip: +[LR]% Life Regen
 		DisplayName: 『Radiance』
 	}
 
 	OracleDeck: {
 		Tooltip:
 			'''
-			+8% Crit Chance
+			+[CR]% Crit Chance
 			+30% Move Speed
-			+12 Max Stealth
+			+[ST] Max Stealth
 			-30% Mana Cost
 			-12% Damage Taken
-			+10 Armor Penetration
-			+2 Minion Slot
+			+[AP] Armor Penetration
+			+[MN] Minion Slot
 			+100% Light
 			Heal players nearby 20 per 5 sec
 			'''

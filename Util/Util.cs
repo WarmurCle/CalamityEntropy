@@ -16,6 +16,39 @@ namespace CalamityEntropy.Util
 {
     public static class Util
     {
+        public static void Replace(this List<TooltipLine> tooltips, string targetStr, string to)
+        {
+            if (!Main.dedServ)
+            {
+                tooltips.FindAndReplace(targetStr, to);
+            }
+        }
+        public static void Replace(this List<TooltipLine> tooltips, string targetStr, int to)
+        {
+            if (!Main.dedServ)
+            {
+                tooltips.FindAndReplace(targetStr, to.ToString());
+            }
+        }
+        public static void Replace(this List<TooltipLine> tooltips, string targetStr, float to)
+        {
+            if (!Main.dedServ)
+            {
+                tooltips.FindAndReplace(targetStr, to.ToString());
+            }
+        }
+        public static int ToPercent(this float f)
+        {
+            return (int)(Math.Round(f * 100));
+        }
+        public static void FindAndReplace(this List<TooltipLine> tooltips, string replacedKey, string newKey)
+        {
+            TooltipLine tooltipLine = tooltips.FirstOrDefault((TooltipLine x) => x.Mod == "Terraria" && x.Text.Contains(replacedKey));
+            if (tooltipLine != null)
+            {
+                tooltipLine.Text = tooltipLine.Text.Replace(replacedKey, newKey);
+            }
+        }
         public static Vector2 GetFrameOrigin(this PlayerDrawSet drawInfo)
         {
             return new Vector2(
