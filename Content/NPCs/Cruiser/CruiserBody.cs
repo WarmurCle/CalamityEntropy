@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.noGravity = true;
             NPC.Entropy().VoidTouchDR = 0.7f;
             NPC.scale = 1.1f;
-            NPC.Calamity().DR = 0.6f;
+            NPC.Calamity().DR = 0.86f;
             if (Main.getGoodWorld)
             {
                 NPC.scale = 0.5f;
