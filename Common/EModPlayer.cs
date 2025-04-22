@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -113,6 +114,8 @@ namespace CalamityEntropy.Common
         public IEnumerable<KeyValuePair<string, Vector2>> homes = new Dictionary<string, Vector2>();
         public int AzChargeShieldSteamTime = 0;
         public Item foreseeOrbItem = null;
+        public int RuneDash = 0;
+        public float RuneDashDir = 0;
         public class EquipInfo
         {
             public string id;
@@ -439,6 +442,10 @@ namespace CalamityEntropy.Common
                     packet.Send();
                 }
             }
+            if(RuneDash > 0)
+            {
+                Player.gravity = 0;
+            }
             if (Player.dead) { return; }
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<BatteringRamProj>()] > 0)
             {
@@ -455,6 +462,10 @@ namespace CalamityEntropy.Common
                     Player.gravity = 0;
                     Player.maxFallSpeed = 9999;
                 }
+            }
+            if(RuneDash > 0)
+            {
+                Player.maxFallSpeed = 1000;
             }
             if (rBadgeActive)
             {
@@ -489,6 +500,14 @@ namespace CalamityEntropy.Common
                     pack.Send();
                 }
                 Player.velocity.Y += 0.0001f;
+                
+            }
+            else
+            {
+                rbDotDist += (-rbDotDist) * 0.06f;
+            }
+            if(rBadgeActive || RuneDash > 0)
+            {
                 resetTileSets = true;
                 tileSolid = (bool[])Main.tileSolid.Clone();
                 solidTop = (bool[])Main.tileSolidTop.Clone();
@@ -502,10 +521,6 @@ namespace CalamityEntropy.Common
                         TileID.Sets.Platforms[type] = false;
                     }
                 }
-            }
-            else
-            {
-                rbDotDist += (-rbDotDist) * 0.06f;
             }
             if (BlackFlameCd > 0)
             {
@@ -849,9 +864,8 @@ namespace CalamityEntropy.Common
             { 
                 if(foreseeOrbItem != null && !Player.HasBuff<ShatteredOrb>())
                 {
-                    setToOne = true;
                     Util.Util.PlaySound("amethyst_break", 1, Player.Center);
-                    info.Damage = 1;
+                    info.Damage = info.Damage > 100 ? 100 :info.Damage;
                     Player.AddBuff(ModContent.BuffType<ShatteredOrb>(), 30 * 60);
                 }
             }
@@ -951,9 +965,69 @@ namespace CalamityEntropy.Common
         public bool VSoundsPlayed = false;
         public bool DashFlag = false;
         public bool maliciousCode = false;
-        
+        public ProminenceTrail runeDashTrail = null;
         public override void PostUpdate()
         {
+            if (Main.myPlayer == Player.whoAmI && hasAcc("RuneWing"))
+            {
+                if (RuneDash > 0)
+                {
+                    int rd = RuneDash - 1;
+                    immune = 12;
+                    if (runeDashTrail == null || runeDashTrail.timeLeft < 1) {
+                        runeDashTrail = new ProminenceTrail() { color1 = Color.DeepSkyBlue, color2 = Color.White, maxLength = 120 };
+                        EParticle.spawnNew(runeDashTrail, Player.Center, Vector2.Zero, Color.White, 5f, 1, true, BlendState.AlphaBlend, 0);
+                    }
+                    for(int i = 0; i < 3; i++)
+                    {
+                        EParticle.spawnNew(new RuneParticle(), Player.Center + Util.Util.randomVec(26), Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+
+                    }
+                    RuneDash--;
+                    Player.velocity = RuneDashDir.ToRotationVector2() * RuneWing.DashVelo;
+                    for(int f = 0; f < 10; f++)
+                    {
+                        runeDashTrail?.AddPoint(Player.Center + Player.velocity * f * 0.1f);
+                    }
+                    
+                    runeDashTrail.timeLeft = 13;
+                    
+                    if (CEKeybinds.RuneDashHotKey.JustReleased)
+                    {
+                        RuneDash = 0;
+                        if(Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write((byte)CEMessageType.RuneDashSync);
+                            packet.Write(Player.whoAmI);
+                            packet.Write(RuneDashDir);
+                            packet.Write(true);
+                        }
+                    }
+                    if(RuneDash <= 0)
+                    {
+                        Player.velocity *= 0.1f;
+                        runeDashTrail = null;
+                        Player.AddCooldown(RuneDashCD.ID, int.Max(400, (int)(((RuneWing.MAXDASHTIME - rd) / (float)RuneWing.MAXDASHTIME) * RuneWing.MaxCooldownTick)));
+                    }
+                }
+                else
+                {
+                    if (CEKeybinds.RuneDashHotKey.JustPressed && !Player.HasCooldown(RuneDashCD.ID))
+                    {
+                        Util.Util.PlaySound("RuneDash", 1, Player.Center);
+                        RuneDash = RuneWing.MAXDASHTIME;
+                        RuneDashDir = (Main.MouseWorld - Player.Center).ToRotation();
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write(Player.whoAmI);
+                            packet.Write(RuneDashDir);
+                            packet.Write(false);
+                        }
+                    }
+                }
+            }
             AzDash--;
             
             if (Main.LocalPlayer.dashDelay < 0)

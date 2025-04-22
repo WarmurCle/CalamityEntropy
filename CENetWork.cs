@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Util;
@@ -24,7 +25,8 @@ namespace CalamityEntropy
         PoopSync,
         SpawnItem,
         PickUpPoop,
-        SyncEntropyMode
+        SyncEntropyMode,
+        RuneDashSync
     }
 
     internal class CENetWork
@@ -219,6 +221,31 @@ namespace CalamityEntropy
                     {
                         Main.NewText(Instance.GetLocalization("EntropyModeDeactive").Value, new Color(170, 18, 225));
                     }
+                }
+            }
+            else if (messageType == CEMessageType.RuneDashSync)
+            {
+                int wai = reader.ReadInt32();
+                Player player = wai.ToPlayer();
+                float dir = reader.ReadSingle();
+                bool e = reader.ReadBoolean();
+                if (e)
+                {
+                    player.Entropy().RuneDash = 0;
+                }
+                else
+                {
+                    player.Entropy().RuneDash = RuneWing.MAXDASHTIME;
+                    player.Entropy().RuneDashDir = dir;
+                }
+                if (Main.dedServ)
+                {
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)(CEMessageType.RuneDashSync));
+                    packet.Write(wai);
+                    packet.Write(dir);
+                    packet.Write(e);
+                    packet.Send(-1, wai);
                 }
             }
         }

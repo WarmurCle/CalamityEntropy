@@ -41,6 +41,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.buffType = ModContent.BuffType<SpiritGathering>();
             Item.rare = ItemRarityID.Yellow;
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(Item.buffType, 3);
@@ -52,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override bool CanShoot(Player player)
         {
-            return player.ownedProjectileCounts[Item.shoot] == 0;
+            return player.ownedProjectileCounts[Item.shoot] == 0 && player.maxMinions - player.slotsMinions >= 3;
         }
     }
 }

@@ -1,12 +1,16 @@
 ﻿using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Util;
+using CalamityMod.Graphics.Primitives;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;
+using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -44,12 +48,14 @@ namespace CalamityEntropy.Content.Skies
         }
         public int counter = 0;
         public int awtime = 0;
-        public Effect skyEffect = null;
+        public Effect skyEffect = null; public Effect skyEffect2 = null;
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
             if (this.skyEffect == null)
             {
                 this.skyEffect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/AWSkyEffect", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                this.skyEffect2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/awsky2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+
             }
             counter++;
             Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/CrSky").Value;
@@ -169,22 +175,26 @@ namespace CalamityEntropy.Content.Skies
                 graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 1.16f - Main.screenPosition.X * -0.5f), (int)(counter * 1f - Main.screenPosition.Y * -0.5f), Main.screenWidth, Main.screenHeight), Color.White * 0.6f);
-                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.4f - Main.screenPosition.X * -0.5f), (int)(counter * -1f - Main.screenPosition.Y * -0.5f), Main.screenWidth, Main.screenHeight), Color.White * 0.6f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.43f - Main.screenPosition.X * -0.25f), (int)(counter * 0.3f - Main.screenPosition.Y * -0.25f), Main.screenWidth / 2, Main.screenHeight / 2), Color.White * 0.6f);
+                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.21f - Main.screenPosition.X * -0.25f), (int)(counter * -0.27f - Main.screenPosition.Y * -0.25f), Main.screenWidth / 2, Main.screenHeight / 2), Color.White * 0.6f);
 
 
                 spriteBatch.End();
 
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
                 graphicsDevice.Clear(Color.Black);
+                skyEffect2.CurrentTechnique = skyEffect2.Techniques["Technique1"];
+                skyEffect2.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 4);
+
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
 
+                skyEffect2.CurrentTechnique.Passes[0].Apply();
                 spriteBatch.Draw(screen2, Vector2.Zero, Color.White);
 
                 skyEffect.CurrentTechnique = skyEffect.Techniques["Technique1"];
                 skyEffect.CurrentTechnique.Passes[0].Apply();
                 skyEffect.Parameters["tex0"].SetValue(screen);
-                skyEffect.Parameters["minAlpha"].SetValue(1.16f);
+                skyEffect.Parameters["minAlpha"].SetValue(1.27f);
                 skyEffect.Parameters["a"].SetValue(opacity);
                 skyEffect.Parameters["r"].SetValue(0.16f);
                 skyEffect.Parameters["g"].SetValue(0.2f);
@@ -218,7 +228,7 @@ namespace CalamityEntropy.Content.Skies
             public static List<LightningParticle> lightningParticles = new List<LightningParticle>();
             public LightningParticle()
             {
-                Vector2 centerp = Main.screenPosition * 0.5f + new Vector2(Main.screenWidth / 2, Main.screenHeight / 2) + new Vector2(Main.rand.Next(-1200, 1201), Main.rand.Next(-1200, 1201));
+                Vector2 centerp = Main.screenPosition + new Vector2(Main.screenWidth / 2, Main.screenHeight / 2) + new Vector2(Main.rand.Next(-1200, 1201), Main.rand.Next(-1200, 1201));
                 float a1 = Util.Util.randomRot();
                 float a2 = a1 + MathHelper.ToRadians(180);
                 Vector2 p1 = centerp;
@@ -236,36 +246,43 @@ namespace CalamityEntropy.Content.Skies
 
             public int timeleft = 200;
             public int maxTime = 200;
+            public float opc = 0;
             public void draw(float op)
             {
-
+                opc = op;
                 timeleft--;
-                Texture2D px = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
+                List<Vector2> pointsDraw = new List<Vector2>();
 
-                float jd = 1;
-                float lw = 2f * ((float)timeleft / maxTime);
-                Color color = Color.Purple;
-                for (int i = 1; i < points.Count; i++)
+                for (int i = points.Count - 1; i >= 0; i--)
                 {
-                    Vector2 jv = points[i] - points[i - 1];
-                    jv.Normalize();
-                    jv *= 2;
-                    Util.Util.drawLine(Main.spriteBatch, px, points[i - 1] - Main.screenPosition * 0.5f, points[i] - Main.screenPosition * 0.5f + jv, color * jd * op, 14f * lw, 0, false);
-                    lw -= 2f * ((float)timeleft / maxTime) / ((float)points.Count + 1);
+                    pointsDraw.Add(points[i]);
                 }
 
-                jd = 1;
-                lw = 2f * ((float)timeleft / maxTime);
-                for (int i = 1; i < points2.Count; i++)
+                for (int i = 0; i < points2.Count; i++)
                 {
-                    Vector2 jv = points2[i] - points2[i - 1];
-                    jv.Normalize();
-                    jv *= 2;
-                    Util.Util.drawLine(Main.spriteBatch, px, points2[i - 1] - Main.screenPosition * 0.5f, points2[i] - Main.screenPosition * 0.5f + jv, color * jd * op, 14f * lw, 0, false);
-                    lw -= 2f * ((float)timeleft / maxTime) / ((float)points2.Count + 1);
+                    pointsDraw.Add(points2[i]);
                 }
+                Main.spriteBatch.EnterShaderRegion();
+                GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak2"));
+                GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
+                PrimitiveRenderer.RenderTrail(points, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+                Main.spriteBatch.ExitShaderRegion();
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
+
+            }
+            public Color TrailColor(float completionRatio)
+            {
+                Color result = Color.Lerp(Color.MediumPurple, Color.LightBlue, new Vector2(1, 0).RotatedBy(completionRatio * MathHelper.Pi).Y) * completionRatio * (opc * 1.4f);
+                return result;
+            }
+
+            public float TrailWidth(float completionRatio)
+            {
+                return 48 * new Vector2(1, 0).RotatedBy((timeleft / (float)maxTime) * MathHelper.Pi).Y * new Vector2(1, 0).RotatedBy(completionRatio * MathHelper.Pi).Y;
             }
         }
+        
+
         public override void Update(GameTime gameTime)
         {
             if (Main.LocalPlayer.Entropy().crSky <= 0 || Main.gameMenu)

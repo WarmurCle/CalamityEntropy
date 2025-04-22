@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 {
     public class Wizard : ArmorPrefix
     {
-        public override void updateEquip(Player player, Item item)
+        public override void UpdateEquip(Player player, Item item)
         {
             player.GetDamage(DamageClass.Summon) += 0.02f;
             player.maxMinions += 1;

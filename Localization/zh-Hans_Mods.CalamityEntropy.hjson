@@ -1824,7 +1824,11 @@ Items: {
 	}
 
 	ProphecyToken: {
-		Tooltip: 召唤先知，只能在地牢使用
+		Tooltip:
+			'''
+			召唤先知，只能在地牢使用
+			地牢外狂暴
+			'''
 		DisplayName: 预言信物
 	}
 
@@ -1885,13 +1889,160 @@ Items: {
 		DisplayName: 预知宝珠
 		Tooltip:
 			'''
-			受伤时将伤害降低至1并破碎，30秒后复原
+			受伤时将伤害降低至100并破碎，30秒后复原
 			没有破碎时提供20%的伤害加成
 			[c/ff0000:破碎时取下将对你造成最大生命值的90%伤害]
 			'''
 	}
+
+	RuneWing: {
+		Tooltip:
+			'''
+			水平飞行速度： [A]
+			加速倍率： [B]
+			不错的垂直飞行速度
+			飞行时间：[C]
+			按住[KEY]向鼠标方向突进，期间免疫伤害
+			冷却由冲刺距离决定，提前松开按键可以提前结束冲刺，最多冲刺[DT]秒
+			'''
+		DisplayName: 预知之翼
+	}
+
+	BookMarkForesee: {
+		Tooltip: 击中敌人概率召唤一圈符文攻击敌人
+		DisplayName: 预知书签
+	}
+
+	RuneStoneShining: {
+		DisplayName: 符文石板 『|』
+		Tooltip: ""
+	}
+
+	PrefixClearKnife: {
+		Tooltip:
+			'''
+			用于清除护甲词条，会返还词条物品
+			在物品栏中右键盔甲物品
+			'''
+		DisplayName: 清刻之刃
+	}
+
+	RuneStoneSilence: {
+		DisplayName: 符文石板 『|』
+		Tooltip: ""
+	}
+
+	BlessingEnd: {
+		DisplayName: 赐福 『|』
+		Tooltip: ""
+	}
+
+	BlessingHeatDeath: {
+		DisplayName: 赐福 『热寂』
+		Tooltip: ""
+	}
+
+	BlessingLastStand: {
+		DisplayName: 赐福 『|』
+		Tooltip: ""
+	}
+
+	BlessingVoid: {
+		DisplayName: 赐福 『|』
+		Tooltip: ""
+	}
+
+	BlessingVoidTouched: {
+		DisplayName: 赐福 『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollEvoker: {
+		DisplayName: 附魔卷轴 『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollMagical: {
+		DisplayName: 附魔卷轴 『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollMassive: {
+		DisplayName: 附魔卷轴 『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollMiracle: {
+		DisplayName: 附魔卷轴 『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollReckless: {
+		DisplayName: 附魔卷轴 『|』
+		Tooltip: ""
+	}
+
+	OriginGemDestinedGreatness: {
+		DisplayName: 起源宝珠 『|』
+		Tooltip: ""
+	}
+
+	OriginGemGodForged: {
+		DisplayName: 起源宝珠 『|』
+		Tooltip: ""
+	}
+
+	OriginGemGreat: {
+		DisplayName: 起源宝珠 『|』
+		Tooltip: ""
+	}
+
+	OriginGemSacrifical: {
+		DisplayName: 起源宝珠 『|』
+		Tooltip: ""
+	}
+
+	OriginGemWizard: {
+		DisplayName: 起源宝珠 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneBiochemistry: {
+		DisplayName: 符文石板 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneGuarded: {
+		DisplayName: 符文石板 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneHard: {
+		DisplayName: 符文石板 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneLight: {
+		DisplayName: 符文石板 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneRegen: {
+		DisplayName: 符文石板 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneThorny: {
+		DisplayName: 符文石板 『|』
+		Tooltip: ""
+	}
 }
 
+PrefixitemDesc:
+	'''
+	用于给护甲添加词缀
+	在物品栏中右键护甲物品
+	'''
 MariviniumSet:
 	'''
 	套装奖励：
@@ -2222,6 +2373,7 @@ Projectiles: {
 	RuneTorrentRanger.DisplayName: 符文洪流
 	FutureKnife.DisplayName: 未来飞刀
 	ProphecyRune.DisplayName: 符文光球
+	ProphecyRuneBM.DisplayName: 符文光球
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2461,6 +2613,11 @@ Buffs: {
 		DisplayName: 破碎宝珠
 		Description: 预知宝珠破碎了，若在其恢复之前将其取下将对你的灵魂造成大量的伤害
 	}
+
+	HeatDeath: {
+		DisplayName: 热寂
+		Description: ？？？
+	}
 }
 
 Uh: 呃啊~
@@ -2563,23 +2720,23 @@ loreNihTwin:
 loreProphet:
 	'''
 	任何一支军队，任何一个王国，任何一位君王都不能缺少一位修习预言魔法的法师，
-	它们能从细微的迹象中捕捉到未来的碎片，以此刻来推演过去和明日。
+	他们能从细微的迹象中捕捉到未来的碎片，以此刻来推演过去和明日。
 	当然，向着凡人本不应窥探之物投去目光者，亦有一日会遭到命运的报应。
-	这也是为什么它们常常短命横死。
+	这也是为什么他们常常短命横死。
 
 	当然，不可窥探之物也许不止是命运，也包括……虚空。
 	那是我与嘉登发现虚空本身的存在后不久，我们之间产生了分歧。
-	他主张探索那个世界，利用那里的力量，即使不可避免的会带来危险。
+	他主张探索那个世界，利用那里的力量，即使不可避免地会带来危险。
 	而我则是将那里的一切视为大敌，毕竟它们的侵染从不只限于物质。
 
 	当然，这并不代表我不会去了解我的敌人……
-	于是我找寻到了王国中一位苍老的先知，在经过了一番友善的商讨之后，我令他向着虚空投去一撇。
+	于是我找寻到了王国中一位苍老的先知，在经过了一番友善的商讨之后，我令他向着虚空投去一瞥。
 	……至于结果，只能说十分的可怖。
-	在那扭曲的形体被一剑斩裂之前，它口中错乱无序的低语让周围的一切都开始被推向疯狂与混乱……
+	在那扭曲的形体被一剑斩裂之前，他口中错乱无序的低语让周围的一切都开始被推向疯狂与混乱……
 	植物开始绞杀彼此，仆从开始拔剑相向。
-	借助着魔法，它的灵魂被拘禁于一本古籍中，由我亲自向他拷问它所看到的事物。
-	直到我确信我已经接近了那条不可逾矩的认知之界限，才将它那被侵染的精魄彻底封印。
-	但即使那卷册上灵魂的本质已经被几乎全部磨灭，封印于地牢的它依然会吸引与溢散的魂灵，重足为躯体。
+	借助着魔法，他的灵魂被拘禁于一本古籍中，由我亲自向他拷问他所看到的事物。
+	直到我确信我已经接近了那条不可逾矩的认知之界限，才将他那被侵染的精魄彻底封印。
+	但即使那卷册上灵魂的本质已经被几乎全部磨灭，封印于地牢的他依然会吸引于逸散的魂灵，重组为躯体。
 
 	然后，再一次开始颂念，那永不停歇湮灭之预言。
 	'''
@@ -2588,7 +2745,8 @@ Keybinds: {
 	RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
 	ThrowPoop.DisplayName: 丢出大便
 	KeepPoop.DisplayName: 保留大便
-	// VetrasylsEyeBlock.DisplayName: Vetrasyls Eye Block
+	VetrasylsEyeBlock.DisplayName: 维塔希尔之瞳格挡
+	RuneDash.DisplayName: 符文之翼冲刺
 }
 
 CdMoonlight: 月光护盾
@@ -2828,6 +2986,15 @@ ArmorPrefixLastStandDescription:
 	增加一次复活机会
 	该复活不可叠加
 	'''
+ArmorPrefixHeatDeathName: 热寂
+ArmorPrefixHeatDeathDescription:
+	'''
+	+50% 防御
+	你将造成1.5倍的伤害
+	+2 虚空之触
+	周围敌怪将受到虚空的侵蚀
+	[c/ff0000:攻击附带热寂，但你的血量会持续流失]
+	'''
 PrefixEnchanted: 注魔
 PrefixEnchantedDesc: +2% 强化魔力
 Prefixes.Enchanted.DisplayName: 注魔
@@ -2867,8 +3034,8 @@ EntropyModeDesc:
 	[c/aa12e1:更加难的模式，更少的生命，伤害和生存能力。Boss获得动态减伤和单次受伤最大伤害限制，百分比减少生命、护甲，暴击率最高只能达到50%，伤害增幅削减，降低部分机动]
 	[c/aa12e1:准备好被遗忘吧!]
 	'''
-EntropyModeActive: 熵变模式已开启！你将被遗忘
-EntropyModeDeactive: 熵变模式已关闭。为何不渴望遗弃
+EntropyModeActive: 熵变模式已开启！你将被遗忘......
+EntropyModeDeactive: 熵变模式已关闭，为何不渴望遗弃?
 MissedInVoid: 被遗忘了
 BatteringRamZenithText: “它包含了恶意代码”
 ArmorPenetrationItemTooltip: 护甲穿透
@@ -2893,3 +3060,4 @@ AmmoType: 弹药类型
 UseAmmo: 使用弹药
 OrbPunishDeath0: 的灵魂破碎了
 OrbPunishDeath1: 试图取下裂开的预知宝珠
+RuneDashCD: 符文突进冷却

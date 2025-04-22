@@ -336,6 +336,7 @@ namespace CalamityEntropy
         public float AzShieldBarAlpha = 0;
         private void drawIr(On_Main.orig_DrawInfernoRings orig, Main self)
         {
+            orig(self);
             screen?.Dispose();
             screen = null;
             screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
@@ -438,9 +439,6 @@ namespace CalamityEntropy
             EParticle.drawAll();
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform); orig(self);
-            orig(self);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform); orig(self);
 
         }
         public int pocType = -1;
@@ -524,6 +522,10 @@ namespace CalamityEntropy
                             orig(self, i);
                         }
                     }
+                }
+                if (self.ModNPC is TheProphet && self.Calamity().CurrentlyEnraged)
+                {
+                    orig(self, i);
                 }
                 orig(self, i);
             }
@@ -809,7 +811,10 @@ namespace CalamityEntropy
             => bossChecklist.Call("LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
         public override void PostSetupContent()
         {
-            
+            for(int i = 0; i < NPCLoader.NPCCount; i++)
+            {
+                NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Content.Buffs.HeatDeath>()] = false;
+            }
             if (ModLoader.TryGetMod("IsaacMod", out Mod isaac))
             {
                 isaac.Call("HeldProj", ModContent.ProjectileType<RailPulseBowProjectile>());
@@ -844,7 +849,7 @@ namespace CalamityEntropy
                     {
                         {
                             string entryName = "TheProphet";
-                            List<int> collection = new List<int>() { ModContent.ItemType<RuneSong>(), ModContent.ItemType<UrnOfSouls>(), ModContent.ItemType<SpiritBanner>(), ModContent.ItemType<ProphecyFlyingKnife>(), ModContent.ItemType<RuneMachineGun>(), ModContent.ItemType<ForeseeOrb>() };
+                            List<int> collection = new List<int>() { ModContent.ItemType<RuneSong>(), ModContent.ItemType<UrnOfSouls>(), ModContent.ItemType<SpiritBanner>(), ModContent.ItemType<ProphecyFlyingKnife>(), ModContent.ItemType<RuneMachineGun>(), ModContent.ItemType<ForeseeOrb>(), ModContent.ItemType<RuneWing>() };
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                             {
                                 Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Prophet").Value;
@@ -946,7 +951,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[NPCID.DD2DarkMageT3] = new Color(180, 230, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<HiveMind>()] = new Color(140, 60, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<PerforatorHive>()] = new Color(155, 60, 60);
-            EntropyBossbar.bossbarColor[NPCID.Skeleton] = new Color(221, 221, 188);
+            EntropyBossbar.bossbarColor[NPCID.SkeletronHead] = new Color(221, 221, 188);
             EntropyBossbar.bossbarColor[NPCID.Deerclops] = new Color(220, 200, 200);
             EntropyBossbar.bossbarColor[ModContent.NPCType<CrimulanPaladin>()] = new Color(255, 60, 75);
             EntropyBossbar.bossbarColor[ModContent.NPCType<SplitCrimulanPaladin>()] = new Color(255, 60, 75);
@@ -1029,6 +1034,12 @@ namespace CalamityEntropy
             if (ModLoader.TryGetMod("CalamityHunt", out Mod calHunt))
             {
                 EntropyBossbar.bossbarColor[calHunt.Find<ModNPC>("Goozma").Type] = new Color(94, 76, 99);
+            }
+            if (ModLoader.TryGetMod("CalamityFables", out Mod cf))
+            {
+                EntropyBossbar.bossbarColor[cf.Find<ModNPC>("Crabulon").Type] = new Color(86, 191, 255);
+                EntropyBossbar.bossbarColor[cf.Find<ModNPC>("DesertScourge").Type] = new Color(172, 154, 146);
+                EntropyBossbar.bossbarColor[cf.Find<ModNPC>("SirNautilus").Type] = new Color(155, 133, 99);
             }
         }
         public static List<Projectile> checkProj = new List<Projectile>();
@@ -1125,7 +1136,13 @@ namespace CalamityEntropy
             {
                 if (npc.ModNPC is TheProphet tp)
                 {
-                    tp.Draw();
+                    if (NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White))
+                    {
+                        tp.Draw();
+                    }
+                    NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
                 }
             }
             foreach (Projectile proj in Main.ActiveProjectiles)
@@ -1819,7 +1836,11 @@ namespace CalamityEntropy
 
                         if (npc.type == ModContent.NPCType<AbyssalWraith>() && npc.ModNPC is AbyssalWraith)
                         {
-                            ((AbyssalWraith)npc.ModNPC).Draw();
+                            if (NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White))
+                            {
+                                ((AbyssalWraith)npc.ModNPC).Draw();
+                            }
+                            NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                         }
                         if (npc.type == ModContent.NPCType<CruiserHead>() && npc.ModNPC is CruiserHead)
                         {
@@ -1827,7 +1848,11 @@ namespace CalamityEntropy
                             if (((CruiserHead)npc.ModNPC).phase == 2)
                             {
                                 ((CruiserHead)npc.ModNPC).candraw = true;
-                                ((CruiserHead)npc.ModNPC).PreDraw(Main.spriteBatch, Main.screenPosition, Color.White);
+                                if (NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White))
+                                {
+                                    ((CruiserHead)npc.ModNPC).PreDraw(Main.spriteBatch, Main.screenPosition, Color.White);
+                                }
+                                NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                                 ((CruiserHead)npc.ModNPC).candraw = false;
                             }
                             /*if (npc.ai[0] > 0 && npc.ai[0] < 100)

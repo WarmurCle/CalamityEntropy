@@ -5,7 +5,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 {
     public class DestinedGreatness : ArmorPrefix
     {
-        public override void updateEquip(Player player, Item item)
+        public override void UpdateEquip(Player player, Item item)
         {
             player.luck += 0.1f;
             player.GetCritChance(DamageClass.Generic) += 4;

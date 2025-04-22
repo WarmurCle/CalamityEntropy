@@ -86,15 +86,15 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 
         public virtual string getDesc()
         {
-            return Language.GetOrRegister("Mods." + this.Mod.Name + ".ArmorPrefix" + this.Name + "Description").Value;
+            return Language.GetOrRegister(Mod.GetLocalizationKey("ArmorPrefix" + this.Name + "Description")).Value;
         }
         public virtual TooltipLine getDescTooltipLine()
         {
-            return new TooltipLine(CalamityEntropy.Instance, "Armor Prefix Description", this.getDesc()) { OverrideColor = Color.Green };
+            return new TooltipLine(CalamityEntropy.Instance, "Armor Prefix Description", this.getDesc()) { OverrideColor = Color.LightGreen };
         }
-        public string GivenName { get { return Language.GetOrRegister("Mods." + this.Mod.Name + ".ArmorPrefix" + this.Name + "Name").Value; } }
+        public string GivenName { get { return Language.GetOrRegister(Mod.GetLocalizationKey("ArmorPrefix" + this.Name + "Name")).Value; } }
 
-        public virtual void updateEquip(Player player, Item item)
+        public virtual void UpdateEquip(Player player, Item item)
         {
 
         }

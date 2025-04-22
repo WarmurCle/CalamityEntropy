@@ -17,9 +17,8 @@ namespace CalamityEntropy.Content.Tiles
         {
             Main.tileLighted[base.Type] = true;
             Main.tileSolid[base.Type] = true;
-            Main.tileBlockLight[base.Type] = true;
             Main.tileSpelunker[base.Type] = true;
-            Main.tileOreFinderPriority[base.Type] = 1000;
+            Main.tileOreFinderPriority[base.Type] = 1200;
             Main.tileShine[base.Type] = 3500;
             Main.tileShine2[base.Type] = false;
             CalamityUtils.MergeWithGeneral(base.Type);

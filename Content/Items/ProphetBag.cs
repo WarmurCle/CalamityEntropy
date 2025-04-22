@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.Cruiser;
@@ -60,6 +61,8 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<RuneMachineGun>(), new Fraction(4, 5));
             itemLoot.Add(ModContent.ItemType<ProphecyFlyingKnife>(), new Fraction(4, 5));
             itemLoot.Add(ModContent.ItemType<ForeseeOrb>(), new Fraction(4, 5));
+            itemLoot.Add(ModContent.ItemType<RuneWing>(), new Fraction(4, 5));
+            itemLoot.Add(ModContent.ItemType<BookMarkForesee>(), new Fraction(2, 5));
         }
     }
 }

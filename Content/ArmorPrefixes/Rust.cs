@@ -4,7 +4,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 {
     public class Rust : ArmorPrefix
     {
-        public override void updateEquip(Player player, Item item)
+        public override void UpdateEquip(Player player, Item item)
         {
         }
         public override Color getColor()

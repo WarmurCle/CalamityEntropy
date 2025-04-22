@@ -5,7 +5,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 {
     public class Massive : ArmorPrefix
     {
-        public override void updateEquip(Player player, Item item)
+        public override void UpdateEquip(Player player, Item item)
         {
             player.Entropy().moveSpeed -= 0.15f;
         }

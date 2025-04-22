@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items
             Item.rare = ItemRarityID.Green;
         }
 
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.StoneBlock, 40)
@@ -39,6 +39,6 @@ namespace CalamityEntropy.Content.Items
                 .AddIngredient(ItemID.LeadBar, 5)
                 .AddTile(TileID.WorkBenches)
                 .Register();
-        }
+        }*/
     }
 }

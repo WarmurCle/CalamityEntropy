@@ -121,7 +121,6 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             NPC.knockBackResist = 0f;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
-            NPC.Entropy().VoidTouchDR = 0.55f;
             NPC.dontCountMe = true;
             NPC.netAlways = true;
             NPC.defense = 60;

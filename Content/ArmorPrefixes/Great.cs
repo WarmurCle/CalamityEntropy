@@ -5,7 +5,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 {
     public class Great : ArmorPrefix
     {
-        public override void updateEquip(Player player, Item item)
+        public override void UpdateEquip(Player player, Item item)
         {
             player.GetDamage(DamageClass.Generic) += 0.04f;
         }

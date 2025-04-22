@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 {
     public class GodForged : ArmorPrefix
     {
-        public override void updateEquip(Player player, Item item)
+        public override void UpdateEquip(Player player, Item item)
         {
             player.Entropy().damageReduce += 0.02f;
             player.GetDamage(DamageClass.Generic) += 0.04f;

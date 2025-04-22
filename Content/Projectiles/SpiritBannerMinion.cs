@@ -70,9 +70,9 @@ namespace CalamityEntropy.Content.Projectiles
                 NPC target = Util.Util.findTarget(player, Projectile, 4600);
                 if (target != null)
                 {
-                    if (Projectile.ai[0] <= 0)
+                    if (Projectile.ai[0] <= -20)
                     {
-                        Projectile.ai[0] = 100;
+                        Projectile.ai[0] = 80;
                         Util.Util.PlaySound("soulScreem", 1, Projectile.Center, volume:0.4f);
                         for (int i = 0; i < 3; i++)
                         {

@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 }
                 else
                 {
-                    rotspeed += (1.4f - rotspeed) * 0.016f;
+                    rotspeed += (2f - rotspeed) * 0.016f;
                 }
             }
             if (Projectile.ai[0] > 40 && Util.Util.getDistance(Main.LocalPlayer.Center, Projectile.Center) < 4000)

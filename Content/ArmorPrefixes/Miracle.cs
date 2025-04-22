@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 {
     public class Miracle : ArmorPrefix
     {
-        public override void updateEquip(Player player, Item item)
+        public override void UpdateEquip(Player player, Item item)
         {
             player.Entropy().damageReduce += 0.01f;
             player.Entropy().light += 0.4f;

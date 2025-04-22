@@ -33,6 +33,7 @@ using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ReLogic.Graphics;
 using SubworldLibrary;
 using System;
@@ -90,6 +91,11 @@ namespace CalamityEntropy.Common
         }
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            if (needExitShader)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.begin_();
+            }
             if (npc.Entropy().StareOfAbyssLevel > 0)
             {
 
@@ -453,12 +459,24 @@ namespace CalamityEntropy.Common
 
             return base.PreAI(npc);
         }
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+        {
+            if (npc.HasBuff<HeatDeath>())
+            {
+                modifiers.FinalDamage *= 1.2f;
+            }
+        }
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
+            
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
             if (projectile.owner >= 0)
             {
+                if (projectile.getOwner().Entropy().hasAcc("HEATDEATH"))
+                {
+                    npc.AddBuff(ModContent.BuffType<HeatDeath>(), 8 * 60);
+                }
                 if (projectile.owner.ToPlayer().Entropy().nihShell)
                 {
                     modifiers.CritDamage += 0.5f;
@@ -491,6 +509,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
+            if (player.Entropy().hasAcc("HEATDEATH"))
+            {
+                npc.AddBuff(ModContent.BuffType<HeatDeath>(), 8 * 60);
+            }
             if (player.Entropy().nihShell)
             {
                 modifiers.CritDamage += 0.5f;
@@ -514,6 +536,10 @@ namespace CalamityEntropy.Common
 
         public static bool AddVoidTouch(NPC nPC, int time, float level, int maxTime = 600, int maxLevel = 10)
         {
+            if(nPC.Entropy().VoidTouchDR == 1)
+            {
+                return false;
+            }
             if (nPC.Entropy().VoidTouchTime < maxTime)
             {
                 nPC.Entropy().VoidTouchTime += (int)(time * 1.4f);
@@ -741,6 +767,10 @@ namespace CalamityEntropy.Common
                     {
                         buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<SoulDisorder>()].Value);
                     }
+                    if (npc.HasBuff<HeatDeath>())
+                    {
+                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<HeatDeath>()].Value);
+                    }
                     if (npc.GetGlobalNPC<ScorpioEffectNPC>().effectLevel > 0)
                     {
                         buffTextureList.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Buffs/AstralScorpionPoisonous").Value);
@@ -810,9 +840,48 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
+            needExitShader = false;
+            List<Effect> shaders = new List<Effect>();
+            if (npc.HasBuff<SoulDisorder>())
+            {
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SoulDiscorder", AssetRequestMode.ImmediateLoad).Value;
+                shader.Parameters["strength"].SetValue(1);
+                shader.Parameters["f1"].SetValue((float)npc.frame.Y / npc.getTexture().Height);
+                shader.Parameters["f2"].SetValue((float)(npc.frame.Y + npc.frame.Height) / npc.getTexture().Height);
+                shader.Parameters["offset"].SetValue(Main.GlobalTimeWrappedHourly);
+                shader.Parameters["colorMap"].SetValue(Util.Util.getExtraTex("SoulDiscorderColorMap"));
+                shaders.Add(shader);
+            }
+            if (npc.HasBuff<HeatDeath>())
+            {
+                if(hdStrength < 1)
+                {
+                    hdStrength += 0.01f;
+                }
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/HeatDeath", AssetRequestMode.ImmediateLoad).Value;
+                shader.Parameters["strength"].SetValue(hdStrength * 0.6f * (float)(Math.Cos(Main.GlobalTimeWrappedHourly * 1.3f) * 0.25f + 0.75f));
+                shader.Parameters["minColor"].SetValue((Color.Lerp(Color.DarkRed, new Color(170, 0, 250), (float)(Math.Cos(Main.GlobalTimeWrappedHourly * 2) * 0.5f + 0.5f))).ToVector4());
+                shader.Parameters["maxColor"].SetValue((Color.Lerp(new Color(170, 0, 250), Color.DarkRed, (float)(Math.Cos(Main.GlobalTimeWrappedHourly * 2) * 0.5f + 0.5f))).ToVector4());
+                shaders.Add(shader);
+            }
+            else
+            {
+                if(hdStrength > 0)
+                {
+                    hdStrength -= 0.01f;
+                }
+            }
+            if (shaders.Count > 0)
+            {
+                Main.spriteBatch.EnterShaderRegion();
+                shaders[shaders.Count - 1].CurrentTechnique.Passes[0].Apply();
+                
+                needExitShader = true;
+            }
             return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
         }
-
+        public float hdStrength = 0;
+        public bool needExitShader = false;
         public override void OnKill(NPC npc)
         {
             if (npc.type == ModContent.NPCType<PrimordialWyrmHead>())

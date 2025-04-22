@@ -7,6 +7,7 @@ using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Armor.VoidFaquir;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Pets;
+using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.CrystalBalls;
@@ -17,6 +18,7 @@ using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Items.Fishing.SulphurCatches;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.TreasureBags;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
 using CalamityMod.Items.Weapons.Magic;
@@ -34,6 +36,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -78,8 +81,61 @@ namespace CalamityEntropy.Common
         public List<S3Particle> particles1 = new List<S3Particle>();
         public float[] wispColor = null;
 
-        public override void SetDefaults(Item entity)
+        public override bool CanRightClick(Item item)
         {
+            return Util.Util.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _);
+        }
+        public override void RightClick(Item item, Player player)
+        {
+            Item held = Main.mouseItem;
+            if (Util.Util.IsArmor(item))
+            {
+                if(held.IsArmorReforgeItem(out var p))
+                {
+                    if (p == null)
+                    {
+                        for (int i = 0; i < ItemLoader.ItemCount; i++)
+                        {
+                            var ins = ItemLoader.GetItem(i);
+                            if (ins is BasePrefixItem pi && pi.PrefixName == armorPrefixName)
+                            {
+                                player.QuickSpawnItem(player.GetSource_FromThis(), new Item(ins.Type), 1);
+                                break;
+                            }
+                        }
+                    }
+                    item.Entropy().SetArmorPrefix(p);
+                    SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/Reforge");
+                    SoundEngine.PlaySound(s);
+                }
+            }
+        }
+        public override bool ConsumeItem(Item item, Player player)
+        {
+            Item held = Main.mouseItem;
+            if (Util.Util.IsArmor(item))
+            {
+                if(held.IsArmorReforgeItem(out var _))
+                {
+                    if (ItemLoader.ConsumeItem(held, player))
+                    {
+                        held.Shrink();
+                    }
+                    return false;
+                }
+            }
+            return true;
+        }
+        public void SetArmorPrefix(ArmorPrefix armorPrefixS)
+        {
+            if(armorPrefixS == null)
+            {
+                this.armorPrefix = null;
+                this.armorPrefixName = string.Empty;
+                return;
+            }
+            this.armorPrefix = armorPrefixS;
+            this.armorPrefixName = armorPrefixS.RegisterName();
         }
         public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
         {
@@ -97,7 +153,7 @@ namespace CalamityEntropy.Common
             }
             if (armorPrefix != null)
             {
-                armorPrefix.updateEquip(player, item);
+                armorPrefix.UpdateEquip(player, item);
                 player.statDefense += (int)(Math.Round(item.defense * armorPrefix.AddDefense()));
             }
         }
@@ -173,19 +229,6 @@ namespace CalamityEntropy.Common
             armorPrefix = ArmorPrefix.findByName(armorPrefixName);
         }
 
-        public override void OnCreated(Item item, ItemCreationContext context)
-        {
-            if (Util.Util.IsArmor(item) && Main.rand.NextDouble() < ModContent.GetInstance<ServerConfig>().CraftArmorWithPrefixChance)
-            {
-                ArmorPrefix armorPrefix = ArmorPrefix.RollPrefixToItem(item);
-                if (armorPrefix != null)
-                {
-                    item.Entropy().armorPrefix = armorPrefix;
-                    item.Entropy().armorPrefixName = armorPrefix.RegisterName();
-                }
-            }
-        }
-
         public string getAmmoName(int type)
         {
             if(type == AmmoID.Solution)
@@ -255,6 +298,10 @@ namespace CalamityEntropy.Common
             if(ModLoader.HasMod("MoreBoulders") && type == 540)
             {
                 return Mod.GetLocalization("AmmoBoulders").Value;
+            }
+            if (type == 6259 || type == 8584)
+            {
+                return CalamityUtils.GetItemName<WulfrumMetalScrap>().Value;
             }
             return type.ToString();
         }

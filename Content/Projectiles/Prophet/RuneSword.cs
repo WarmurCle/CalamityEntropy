@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     int p = Player.FindClosest(Projectile.Center, 5000, 5000);
                     if (p >= 0) {
                         Player player = p.ToPlayer();
-                        Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (player.Center + player.velocity * 20 - Projectile.Center).ToRotation(), 0.1f, false);
+                        Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (player.Center + player.velocity * 12 - Projectile.Center).ToRotation(), 0.1f, false);
                     }
                 }
             }
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 if (p >= 0)
                 {
                     Player player = p.ToPlayer();
-                    Projectile.rotation = (player.Center + player.velocity * 20 - Projectile.Center).ToRotation();
+                    Projectile.rotation = (player.Center + player.velocity * 12 - Projectile.Center).ToRotation();
                 }
                 Projectile.velocity = Projectile.rotation.ToRotationVector2() * 24;
             }

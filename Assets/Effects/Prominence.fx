@@ -7,7 +7,7 @@ float ofs;
 float4 EffectFunction(float2 coords : TEXCOORD0) : COLOR0
 {
     float2 cd = float2(frac(coords.x + ofs), coords.y);
-    if(tex2D(uImage, cd).r < 1 - coords.x)
+    if(tex2D(uImage, cd).r * tex2D(uImage, cd).r < 1 - coords.x)
     {
         return float4(0, 0, 0, 0);
     }

@@ -24,6 +24,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 
 namespace CalamityEntropy.Content.NPCs.Prophet
 {
@@ -89,6 +90,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 normalOnly.Add(ModContent.ItemType<RuneMachineGun>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<ProphecyFlyingKnife>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<ForeseeOrb>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<RuneWing>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<BookMarkForesee>(), new Fraction(2, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ProphetRelic>());
 
@@ -127,12 +130,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.width = 56;
             NPC.height = 56;
             NPC.damage = 84;
-            NPC.defense = 16;
-            NPC.Calamity().DR = 0.12f;
-            NPC.lifeMax = 40000;
+            NPC.defense = 26;
+            NPC.Calamity().DR = 0.16f;
+            NPC.lifeMax = 54000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 4;
+                NPC.damage += 8;
             }
             else if (CalamityWorld.revenge)
             {
@@ -154,8 +157,27 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             }
         }
 
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
+        {
+            modifiers.FinalDamage *= dr;
+            if(AIStyle == 8)
+            {
+                modifiers.FinalDamage *= 0.5f;
+            }
+        }
+        public float dr = 0.5f;
         public override void AI()
         {
+            if(dr < 1)
+            {
+                dr += 0.5f / (160 * 60);
+            }
+            NPC.Calamity().CurrentlyIncreasingDefenseOrDR = AIStyle == 8;
+            if(AIStyle == 8)
+            {
+                NPC.Calamity().DR = 0.65f;
+            }
+            else { NPC.Calamity().DR = 0.16f; }
             if(spawnAnm > 0)
             {
                 NPC.dontTakeDamage = true;
@@ -224,6 +246,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     NPC.localAI[0] = 0;
                     Player target = NPC.target.ToPlayer();
+                    NPC.Calamity().CurrentlyEnraged = false;
                     AttackPlayer(target);
                 }
             }
@@ -257,6 +280,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public int spawnAnm = 120;
         public void AttackPlayer(Player target)
         {
+            if (!target.ZoneDungeon)
+            {
+                NPC.Calamity().CurrentlyEnraged = true;
+            }
             if(NPC.life < NPC.lifeMax / 2)
             {
                 phase = 2;
@@ -725,12 +752,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     {
                         TeleportTo(target.Center + Util.Util.randomRot().ToRotationVector2() * 280);
                     }
-                    if(AIChangeDelay == 240 || AIChangeDelay == 180 || AIChangeDelay == 120)
+                    if(AIChangeDelay > 100 && AIChangeDelay % (phase == 1 ? 40 : 30) == 0)
                     {
                         float r = Util.Util.randomRot();
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            for (float i = 0; i < 360; i += (phase == 1 ? 45 : 36))
+                            for (float i = 0; i < 360; i += (phase == 1 ? 36 : 30))
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (r + MathHelper.ToRadians(i)).ToRotationVector2() * 8, ModContent.ProjectileType<ProphetVoidSpike>(), NPC.damage / 6, 4, -1, 0, NPC.whoAmI);
                             }

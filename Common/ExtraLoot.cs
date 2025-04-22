@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Vanity;
+using CalamityEntropy.Content.Tiles;
+using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +13,20 @@ namespace CalamityEntropy.Common
     {
         public override void PostWorldGen()
         {
+            for (int i = 0; i < 3; i++)
+            {
+                int bc = 0;
+                while (bc++ < 4096)
+                {
+                    int px = Main.rand.Next(Main.tile.Width);
+                    int py = Main.rand.Next(Main.tile.Height);
+                    if(Main.tile[px, py].HasTile && Main.tileBrick[Main.tile[px, py].TileType])
+                    {
+                        Main.tile[px, py].ResetToType((ushort)ModContent.TileType<TheHeatDeath>());
+                        break;
+                    }
+                }
+            }
             int itemsPlaced = 0;
             for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
             {

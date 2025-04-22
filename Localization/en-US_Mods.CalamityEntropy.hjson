@@ -1716,13 +1716,161 @@ Items: {
 		DisplayName: Foresee Orb
 		Tooltip:
 			'''
-			When injured, reduce the damage to 1 and break it, and recover after 30 seconds
+			When injured, reduce the damage to 100 and break it, and recover after 30 seconds
 			Provide a 20% damage bonus when not broken
 			[c/ff0000:Removing it when broken will cause 90% damage to your maximum health]
 			'''
 	}
+
+	RuneWing: {
+		Tooltip:
+			'''
+			Horizontal speed: [A]
+			Acceleration multiplier: [B]
+			Excellent vertical speed
+			Flight time: [C]
+			Press [KEY] to advance towards the mouse direction, during which immune damage occurs
+			Cooling is determined by the sprint distance, 
+			releasing the button in advance can end the sprint in advance, with a maximum sprint time of [DT] seconds
+			'''
+		DisplayName: Foresee Wings
+	}
+
+	BookMarkForesee: {
+		Tooltip: Hit the enemy probability summon a circle of runes to attack the enemy
+		DisplayName: Bookmark - Foresee
+	}
+
+	RuneStoneShining: {
+		DisplayName: Rune Stone 『|』
+		Tooltip: ""
+	}
+
+	PrefixClearKnife: {
+		Tooltip:
+			'''
+			Used to clear armor prefixs
+			Right click on the armor item in the inventory
+			'''
+		DisplayName: Prefix Clear Knife
+	}
+
+	RuneStoneSilence: {
+		DisplayName: Rune Stone 『|』
+		Tooltip: ""
+	}
+
+	BlessingEnd: {
+		DisplayName: Blessing 『|』
+		Tooltip: ""
+	}
+
+	BlessingHeatDeath: {
+		DisplayName: Blessing 『Heat Death』
+		Tooltip: ""
+	}
+
+	BlessingLastStand: {
+		DisplayName: Blessing 『|』
+		Tooltip: ""
+	}
+
+	BlessingVoid: {
+		DisplayName: Blessing 『|』
+		Tooltip: ""
+	}
+
+	BlessingVoidTouched: {
+		DisplayName: Blessing 『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollEvoker: {
+		DisplayName: Enchanted Scroll  『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollMagical: {
+		DisplayName: Enchanted Scroll  『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollMassive: {
+		DisplayName: Enchanted Scroll  『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollMiracle: {
+		DisplayName: Enchanted Scroll  『|』
+		Tooltip: ""
+	}
+
+	EnchantedScrollReckless: {
+		DisplayName: Enchanted Scroll  『|』
+		Tooltip: ""
+	}
+
+	OriginGemDestinedGreatness: {
+		DisplayName: Origin Gem 『|』
+		Tooltip: ""
+	}
+
+	OriginGemGodForged: {
+		DisplayName: Origin Gem 『|』
+		Tooltip: ""
+	}
+
+	OriginGemGreat: {
+		DisplayName: Origin Gem 『|』
+		Tooltip: ""
+	}
+
+	OriginGemSacrifical: {
+		DisplayName: Origin Gem 『|』
+		Tooltip: ""
+	}
+
+	OriginGemWizard: {
+		DisplayName: Origin Gem 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneBiochemistry: {
+		DisplayName: Rune Stone 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneGuarded: {
+		DisplayName: Rune Stone 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneHard: {
+		DisplayName: Rune Stone 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneLight: {
+		DisplayName: Rune Stone 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneRegen: {
+		DisplayName: Rune Stone 『|』
+		Tooltip: ""
+	}
+
+	RuneStoneThorny: {
+		DisplayName: Rune Stone 『|』
+		Tooltip: ""
+	}
 }
 
+PrefixitemDesc:
+	'''
+	Used to add a prefix to an armor
+	Right click on the armor item in the inventory
+	'''
 MariviniumSet:
 	'''
 	Armor Bonus:
@@ -2052,6 +2200,7 @@ Projectiles: {
 	RuneTorrentRanger.DisplayName: Rune Torrent Ranger
 	FutureKnife.DisplayName: Future Knife
 	ProphecyRune.DisplayName: Prophecy Rune
+	ProphecyRuneBM.DisplayName: Prophecy Rune
 }
 
 LegendTooltip: - Legend -
@@ -2291,6 +2440,11 @@ Buffs: {
 		DisplayName: Shattered Orb
 		Description: ""
 	}
+
+	HeatDeath: {
+		DisplayName: Heat Death
+		Description: ???
+	}
 }
 
 Uh: ""
@@ -2422,6 +2576,7 @@ Keybinds: {
 	ThrowPoop.DisplayName: Throw Poop
 	KeepPoop.DisplayName: Hold Poop
 	VetrasylsEyeBlock.DisplayName: Vetrasyls Eye Block
+	RuneDash.DisplayName: Rune Wings Dash
 }
 
 CdMoonlight: Moonlight Shield
@@ -2662,6 +2817,14 @@ ArmorPrefixLastStandDescription:
 	+30% Defense
 	+5% Damage Reduce
 	'''
+ArmorPrefixHeatDeathName: Heat Death
+ArmorPrefixHeatDeathDescription:
+	'''
+	+50% Defense
+	Multiply your damage by 1.5
+	+2 Void Touch
+	[c/ff0000:Your attack will come with heat death, but your health will continue to drain]
+	'''
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +2% Enhanced Mana
 Prefixes.Enchanted.DisplayName: Enchanted
@@ -2719,3 +2882,4 @@ AmmoType: Ammo type
 UseAmmo: Use Ammo
 OrbPunishDeath0: shattered into pieces
 OrbPunishDeath1: try to remove the shattered foresee orb
+RuneDashCD: Rune Dash Cooldown

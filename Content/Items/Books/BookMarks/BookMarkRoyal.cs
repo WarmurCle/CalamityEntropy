@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 shootCooldown--;
             }
         }
-        public int shootCooldown = 0;
+        public int shootCooldown = 30;
     }
     public class JewelEmerald : RoyalJewel
     {

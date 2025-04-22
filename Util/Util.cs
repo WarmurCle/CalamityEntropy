@@ -1,4 +1,6 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.ArmorPrefixes;
+using CalamityEntropy.Content.Items.PrefixItem;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,36 @@ namespace CalamityEntropy.Util
 {
     public static class Util
     {
+        public static bool IsArmorReforgeItem(this Item item, out ArmorPrefix prefix)
+        {
+            prefix = null;
+            if(item.ModItem is PrefixClearKnife)
+            {
+                return true;
+            }
+            if(item.ModItem is BasePrefixItem bpi)
+            {
+                prefix = ArmorPrefix.findByName(bpi.PrefixName);
+                return true;
+            }
+            return false;
+        }
+        public static void Shrink(this Item item, int count = 1)
+        {
+            item.stack -= count;
+            if(item.stack <= 0)
+            {
+                item.TurnToAir();
+            }
+        }
+        public static float GetRepeatedCosFromZeroToOne(float v, int repeat)
+        {
+            if(repeat <= 1)
+            {
+                return (float)(Math.Cos(v * MathHelper.Pi - 1)) * 0.5f + 0.5f;
+            }
+            return (float)(Math.Cos(GetRepeatedCosFromZeroToOne(v, repeat - 1) * MathHelper.Pi - 1)) * 0.5f + 0.5f;
+        }
         public static void Replace(this List<TooltipLine> tooltips, string targetStr, string to)
         {
             if (!Main.dedServ)
@@ -346,7 +378,7 @@ namespace CalamityEntropy.Util
         }
         public static Texture2D getExtraTex(string name)
         {
-            return ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/" + name).Value;
+            return ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/" + name, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         }
         public static Rectangle GetCutTexRect(Texture2D tex, int count, int index, bool hor = true)
         {

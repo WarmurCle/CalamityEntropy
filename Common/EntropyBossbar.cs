@@ -63,7 +63,7 @@ namespace CalamityEntropy.Common
             {
                 return bossbarColor[npc.type];
             }
-            return new Color(255, 40, 40);
+            return new Color(255, 50, 50);
         }
         public int drawOfs = 0;
         public override bool PreventDraw => true;
@@ -281,7 +281,7 @@ namespace CalamityEntropy.Common
             Color tColor = getNpcBarColor(npc);
             if (!bossbarColor.ContainsKey(npc.type))
             {
-                tColor = new Color(106, 0, 255);
+                tColor = new Color(126, 135, 255);
             }
             for (int i = 0; i < 36; i++)
             {
