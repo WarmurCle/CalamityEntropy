@@ -7,8 +7,9 @@ namespace CalamityEntropy.Content.Particles
     public abstract class EParticle
     {
         public Effect useEffect = null;
-        public Vector2 position { get; set; }
-        public Vector2 velocity { get; set; }
+        public int TimeLeftMax = 0;
+        public Vector2 position = Vector2.Zero;
+        public Vector2 velocity = Vector2.Zero;
         public int timeLeft = 200;
         public bool useAdditive = false;
         public bool useAlphaBlend = true;
@@ -123,7 +124,7 @@ namespace CalamityEntropy.Content.Particles
         {
 
         }
-        public static void spawnNew(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs, float rotation = 0)
+        public static void spawnNew(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs, float rotation = 0, int lifeTime = -1)
         {
             particle.position = pos;
             particle.velocity = vel;
@@ -143,6 +144,11 @@ namespace CalamityEntropy.Content.Particles
                 particle.useAlphaBlend = true;
             }
             particle.onSpawn();
+            if(lifeTime > 0)
+            {
+                particle.timeLeft = lifeTime;
+            }
+            particle.TimeLeftMax = particle.timeLeft;
             particles.Add(particle);
         }
         public virtual Vector2 getOrigin()

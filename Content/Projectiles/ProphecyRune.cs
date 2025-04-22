@@ -1,4 +1,7 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Util;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -24,6 +27,15 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.timeLeft = 400;
 
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale, 1, true, BlendState.AlphaBlend, 0);
+            }
+            Util.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), target.Center, 10, 0.4f);
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
         }
         public override bool? CanHitNPC(NPC target)
         {

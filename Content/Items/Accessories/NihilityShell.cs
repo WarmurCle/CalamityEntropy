@@ -8,7 +8,10 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class NihilityShell : ModItem
     {
-        public static int MaxCount = 2; public override void SetDefaults()
+        public static int MaxCount = 2;
+        public static float CirtDamageAddition = 0.12f;
+        public static float HurtDamageReduce = 0.16f;
+        public override void SetDefaults()
         {
             Item.width = 40;
             Item.height = 40;
@@ -33,12 +36,12 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 if (player.Entropy().nihShellCd <= 0)
                 {
-                    if (Main.rand.NextBool(6))
+                    if (Main.rand.NextBool(9))
                     {
                         if (player.Entropy().nihShellCount < MaxCount)
                         {
                             player.Entropy().nihShellCount++;
-                            player.Entropy().nihShellCd = 10 * 60;
+                            player.Entropy().nihShellCd = 16 * 60;
                         }
                     }
                 }

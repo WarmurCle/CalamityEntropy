@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Prefixes
         }
         public override void ApplyAccessoryEffects(Player player)
         {
-            player.Entropy().enhancedMana += 0.02f;
+            player.Entropy().enhancedMana += 0.04f;
         }
 
         public override void ModifyValue(ref float valueMult)

@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Buffs
         }
         public override void Update(Player player, ref int buffIndex)
         {
-            player.Entropy().AttackVoidTouch += 0.2f;
+            player.Entropy().AttackVoidTouch += 0.016f;
         }
     }
 }

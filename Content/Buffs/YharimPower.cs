@@ -17,18 +17,18 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) += 0.06f;
-            player.GetCritChance(DamageClass.Generic) += 5;
+            player.GetDamage(DamageClass.Generic) += 0.05f;
+            player.GetCritChance(DamageClass.Generic) += 4;
             player.pickSpeed -= 0.3f;
-            player.GetAttackSpeed(DamageClass.Melee) *= 1.1f;
-            player.GetKnockback(DamageClass.Summon) *= 2;
-            player.moveSpeed *= 1.2f;
-            player.luck += 4;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.1f;
+            player.GetKnockback(DamageClass.Summon) += 4;
+            player.moveSpeed *= 1.12f;
+            player.luck += 0.3f;
             player.GetArmorPenetration(DamageClass.Generic) += 10f;
-            player.Calamity().contactDamageReduction *= 1.08f;
-            player.Calamity().projectileDamageReduction *= 1.08f;
-            player.statDefense += 10;
-            player.lifeRegen += 8;
+            player.Calamity().contactDamageReduction *= 1.06f;
+            player.Calamity().projectileDamageReduction *= 1.06f;
+            player.statDefense += 8;
+            player.lifeRegen += 5;
         }
     }
 }

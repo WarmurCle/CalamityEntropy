@@ -333,11 +333,12 @@ Items: {
 			+30% Move Speed
 			+[ST] Max Stealth
 			-30% Mana Cost
-			-12% Damage Taken
+			-10% Damage Taken
 			+[AP] Armor Penetration
 			+[MN] Minion Slot
+			+[ATS]% Melee speed
 			+100% Light
-			Heal players nearby 20 per 5 sec
+			Heal players nearby 10 per 5 sec
 			'''
 		DisplayName: Oracle Deck
 	}
@@ -358,7 +359,7 @@ Items: {
 	}
 
 	EnduranceCard: {
-		Tooltip: -12% Damage Taken
+		Tooltip: -5% Damage Taken
 		DisplayName: 『Endurance』
 	}
 
@@ -473,7 +474,7 @@ Items: {
 		DisplayName: Holy Moonlight
 		Tooltip:
 			'''
-			Get a magic shield every thirty seconds, which is equivalent to 60% of the magic limit,
+			Get a magic shield every thirty seconds, which is equivalent to 50% of the magic limit,
 			During the existence of the Magic Shield, increase movement speed by 10% and reduce magic consumption by 10%,
 			The shield will deal damage to the enemies it touches,
 			When the magic shield is broken, it eliminates its own magic sickness and benefits, and returns to its full magic value,
@@ -524,8 +525,8 @@ Items: {
 	VoidFaquirDevourerHelm: {
 		Tooltip:
 			'''
-			+30% Melee Damage
-			+25% Melee Crit Chance
+			+20% Melee Damage
+			+15% Melee Crit Chance
 			'''
 		DisplayName: Void Faquir Devourer Helm
 	}
@@ -533,7 +534,7 @@ Items: {
 	VoidFaquirCosmosHood: {
 		Tooltip:
 			'''
-			+35% Magic Damage
+			+30% Magic Damage
 			+25% Magic Crit Chance
 			+150 Max Mana
 			'''
@@ -542,7 +543,7 @@ Items: {
 
 	VoidFaquirEvokerHelm: {
 		DisplayName: Void Faquir Evoker Helm
-		Tooltip: +25% Summon Damage
+		Tooltip: +80% Summon Damage
 	}
 
 	VoidFaquirLurkerMask: {
@@ -558,8 +559,8 @@ Items: {
 		DisplayName: Void Faquir Shadow Helm
 		Tooltip:
 			'''
-			+35% Ranged Damage
-			+35% Ranged Crit Chance
+			+32% Ranged Damage
+			+30% Ranged Crit Chance
 			'''
 	}
 
@@ -615,6 +616,7 @@ Items: {
 	JailerWhip: {
 		Tooltip:
 			'''
+			Minion gain 5% crit chance
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			'''
@@ -641,7 +643,7 @@ Items: {
 		Tooltip:
 			'''
 			Gives you 30% extra mana
-			Every 1 extra mana provides 0.3% magic damage bonus
+			Every 1 extra mana provides 0.1% magic damage bonus
 			'''
 		DisplayName: Archmage's Handmirror
 	}
@@ -655,7 +657,7 @@ Items: {
 		Tooltip:
 			'''
 			+15% damage
-			+2HP/s Life Regen
+			+2sHP/s Life Regen
 			+4 Max Minions
 			+75% Minions Knockback
 			+5% Crit Chance
@@ -810,7 +812,11 @@ Items: {
 
 	Barren: {
 		DisplayName: 『Barren』
-		Tooltip: Rogue Projectile obtain micro tracking
+		Tooltip:
+			'''
+			Rogue Projectile obtain micro tracking
+			-15% Rogue damage & crit
+			'''
 	}
 
 	Confuse: {
@@ -872,9 +878,9 @@ Items: {
 			Attack to exert deceive debuff in enemies that Reduce their movement speed
 			Launch shadow flames during attack
 			+3% damage for each summon slots
-			+32% Damage
+			+30% Damage
 			+4 Void Touch
-			+24% Damage taken
+			+30% Damage taken
 			-70% Life Regen
 			+16% Mana Cost
 			-4% Crit
@@ -1060,9 +1066,9 @@ Items: {
 	NihilityShell: {
 		Tooltip:
 			'''
-			Critical hits will deal 250% damage
+			Critical hits will deal 12% more damage
 			Probability of obtaining an energy shell during critical strike
-			The energy shell can reduce the damage you receive by 40% once
+			The energy shell can reduce the damage you receive by 16% once
 			You can only get a maximum of two shells
 			'''
 		DisplayName: Nihility Shell
@@ -1176,7 +1182,13 @@ Items: {
 
 	Ystralyn: {
 		DisplayName: Ystralyn
-		Tooltip: Summon an Eidolon Wyrm phantom when hit enemies
+		Tooltip:
+			'''
+			Summon an Eidolon Wyrm phantom when hit enemies
+			Minion gain 10% crit chance
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			'''
 	}
 
 	VoidPathology: {
@@ -1204,7 +1216,11 @@ Items: {
 	}
 
 	FriendFinder: {
-		Tooltip: Summon a friendly monster
+		Tooltip:
+			'''
+			Summon a friendly monster
+			Cannot be used in multiplayer mode
+			'''
 		DisplayName: Friend Finder
 	}
 
@@ -1230,7 +1246,6 @@ Items: {
 		DisplayName: Marivinium Body Armor
 		Tooltip:
 			'''
-			+15% Damage Reduce
 			+15% Damage
 			+15 Crit Chance
 			+250 Max Mana
@@ -1877,9 +1892,9 @@ MariviniumSet:
 	-30% Melee Damage Taken
 	+10 Minion Slot
 	+100% Summon Damage
-	+40% Whip Range
+	+10% Whip Range
 	+5% Summon Crit
-	+15% Damage Reduce
+	+5% Damage Reduce
 	+100 Armor Penetration
 	if your crit chance is over 100%, convert excess crit chance into damage bonus
 	+140 Rogue Stealth
@@ -2201,6 +2216,7 @@ Projectiles: {
 	FutureKnife.DisplayName: Future Knife
 	ProphecyRune.DisplayName: Prophecy Rune
 	ProphecyRuneBM.DisplayName: Prophecy Rune
+	CruiserEnergyBall.DisplayName: Cruiser Energy Ball
 }
 
 LegendTooltip: - Legend -
@@ -2304,7 +2320,7 @@ Buffs: {
 
 	JailerWhipDebuff: {
 		Description: ""
-		DisplayName: Jailer Whip Teg
+		DisplayName: Jailer Whip Tag
 	}
 
 	TeletorBuff: {
@@ -2683,7 +2699,7 @@ helmvfc:
 	'''
 helmvfd:
 	'''
-	+30% Attack Speed
+	+24% Attack Speed
 	+10% Damage Reduce
 	Accumulates more void energy when hitting targets.
 	'''
@@ -2691,7 +2707,7 @@ helmvfs: Projectile damage increases with time
 helmvfl:
 	'''
 	+15% movement speed
-	+150 Max Stealth
+	+135 Max Stealth
 	Stealth strikes will accumulate more void energy
 	'''
 helmvfe:
@@ -2826,7 +2842,7 @@ ArmorPrefixHeatDeathDescription:
 	[c/ff0000:Your attack will come with heat death, but your health will continue to drain]
 	'''
 PrefixEnchanted: Enchanted
-PrefixEnchantedDesc: +2% Enhanced Mana
+PrefixEnchantedDesc: +4% Enhanced Mana
 Prefixes.Enchanted.DisplayName: Enchanted
 DamageClasses.NoneTypeDamageClass.DisplayName: Damage
 hkLevel: Level

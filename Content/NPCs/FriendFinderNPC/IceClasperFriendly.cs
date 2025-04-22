@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
         {
             NPC.npcSlots = 3f;
             NPC.noGravity = true;
-            NPC.damage = 102;
+            NPC.damage = 62;
             NPC.width = 50;
             NPC.height = 50;
             NPC.defense = 12;

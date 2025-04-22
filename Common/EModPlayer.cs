@@ -532,8 +532,8 @@ namespace CalamityEntropy.Common
                 {
                     if (BlackFlameCd < 1)
                     {
-                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 6 + 1, 2, Player.whoAmI);
-                        BlackFlameCd = 30;
+                        Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), Player.GetWeaponDamage(Player.HeldItem) / 8 + 1, 2, Player.whoAmI);
+                        BlackFlameCd = 45;
                     }
                 }
             }
@@ -698,11 +698,11 @@ namespace CalamityEntropy.Common
             float d = damageReduce - 1;
             if (Player.Entropy().enduranceCard)
             {
-                d += 0.18f;
+                d += 0.05f;
             }
             if (Player.Entropy().oracleDeck)
             {
-                d += 0.12f;
+                d += 0.10f;
             }
             if (Player.Entropy().VFHelmMelee)
             {
@@ -718,7 +718,7 @@ namespace CalamityEntropy.Common
             Player.statManaMax2 += (int)(Player.statManaMax2 * enhancedMana);
             if (Player.statMana > manaNorm)
             {
-                Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.003f;
+                Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.001f;
             }
             if (CalamityEntropy.EntropyMode)
             {
@@ -937,7 +937,7 @@ namespace CalamityEntropy.Common
                     if (nihShellCount > 0)
                     {
                         nihShellCount--;
-                        info.Damage = (int)(info.Damage * 0.4f);
+                        info.Damage = (int)(info.Damage * (1 - NihilityShell.HurtDamageReduce));
                         Util.Util.PlaySound("shielddown", 1, Player.Center);
                         for (int i = 0; i < 24; i++)
                         {
@@ -1121,7 +1121,7 @@ namespace CalamityEntropy.Common
             {
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<VoidMonster>()] < 1)
                 {
-                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<VoidMonster>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(4080)), 4, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<VoidMonster>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(680)), 4, Player.whoAmI);
                 }
             }
             serviceWhipDamageBonus *= 0.995f;
@@ -1518,7 +1518,7 @@ namespace CalamityEntropy.Common
                 }
                 else
                 {
-                    int magiShieldAddCount = (int)(Player.statManaMax2 * 0.6f);
+                    int magiShieldAddCount = (int)(Player.statManaMax2 * 0.5f);
                     magiShieldCd = 30 * 60;
                     if (MagiShield < magiShieldAddCount)
                     {
@@ -1596,7 +1596,7 @@ namespace CalamityEntropy.Common
                     {
                         if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2)
                         {
-                            Main.LocalPlayer.Heal(20);
+                            Main.LocalPlayer.Heal(10);
                         }
                     }
                 }
@@ -1830,7 +1830,7 @@ namespace CalamityEntropy.Common
             }
             if (VoidInspire > 0)
             {
-                Player.GetDamage(DamageClass.Generic) += 0.5f;
+                Player.GetDamage(DamageClass.Generic) += 0.8f;
                 Player.Calamity().infiniteFlight = true;
             }
             if (ArchmagesMirror)

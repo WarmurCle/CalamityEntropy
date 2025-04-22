@@ -82,12 +82,17 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            for (int i = 0; i < 16; i++)
+            {
+                EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.6f, 1, true, BlendState.AlphaBlend, 0);
+            }
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
             if (!htd)
             {
                 Projectile.timeLeft = 20;
                 htd = true;
             }
+            Util.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), target.Center, 10, 0.4f);
         }
         public override bool PreDraw(ref Color lightColor)
         {

@@ -26,9 +26,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.height = 84;
             Item.damage = 630;
             Item.noMelee = true;
+            Item.crit = 10;
             Item.useAnimation = Item.useTime = 36;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.ArmorPenetration = 46;
             Item.knockBack = 5f;
             Item.UseSound = SoundID.Item28;
             Item.autoReuse = true;
@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<AbyssDragonProj>();
             Item.shootSpeed = 20f;
-            Item.mana = 40;
+            Item.mana = 28;
             Item.DamageType = DamageClass.Magic;
         }
         public override bool MagicPrefix()

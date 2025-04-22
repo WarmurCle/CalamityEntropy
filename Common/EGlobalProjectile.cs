@@ -513,7 +513,7 @@ namespace CalamityEntropy.Common
                             if (CircleIntersectsRectangle(projectile.Center, rsize / 2, n.Hitbox))
                             {
                                 int c = projectile.Entropy().ghcounter;
-                                if (c % 6 == 0)
+                                if (c % 8 == 0)
                                 {
                                     bool canHit = true;
                                     if (projectile.ModProjectile is ModProjectile mp)
@@ -528,7 +528,7 @@ namespace CalamityEntropy.Common
                                     {
                                         int ydf = n.defense;
                                         n.defense = (int)MathHelper.Min(projectile.damage / 8 / 2 - 26, n.defense);
-                                        Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage / 14, 0, 0, false, DamageClass.Generic, false);
+                                        Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage / 20, 0, 0, false, DamageClass.Generic, false);
                                         n.defense = ydf;
                                     }
                                 }

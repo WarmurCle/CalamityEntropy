@@ -13,8 +13,8 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 60;
-            Item.crit = 22;
+            Item.damage = 26;
+            Item.crit = 4;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 100;
             Item.noUseGraphic = true;
@@ -25,6 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.knockBack = 6;
             Item.value = 12000;
             Item.rare = ItemRarityID.Gray;
+            Item.ArmorPenetration = 6;
             Item.Entropy().stroke = true;
             Item.Entropy().strokeColor = new Color(20, 26, 92);
             Item.Entropy().tooltipStyle = 4;

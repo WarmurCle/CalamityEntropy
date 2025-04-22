@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 {
     public class TemperanceCard : ModItem
     {
-        public static int MinionsAddition = 2;
+        public static int MinionsAddition = 1;
         public override void SetDefaults()
         {
             Item.width = 22;

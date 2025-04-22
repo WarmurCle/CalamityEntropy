@@ -358,7 +358,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 }
                 if (AIStyle == 8)
                 {
-                    AIChangeDelay = 500;
+                    AIChangeDelay = 560;
                 }
                 if (AIStyle == 9)
                 {
@@ -717,9 +717,14 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     NPC.velocity *= 0.9f;
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
-                    if(AIChangeDelay == 496)
+                    if(AIChangeDelay == 556)
                     {
-                        TeleportTo(target.Center + new Vector2(0, -400));
+                        TeleportTo(target.Center + new Vector2(0, -200));
+                    }
+                    if(AIChangeDelay > 480)
+                    {
+                        NPC.velocity += (target.Center - NPC.Center).normalize();
+                        NPC.velocity *= 0.96f;
                     }
                     if(AIChangeDelay == 480)
                     {

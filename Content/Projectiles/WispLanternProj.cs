@@ -116,11 +116,19 @@ namespace CalamityEntropy.Content.Projectiles
                                 break;
                             }
                         }
-                        accCountInv++;
+                        foreach(var pp in CanApply)
+                        {
+                            if(pp.type == item.type)
+                            {
+                                skip = true;
+                                break;
+                            }
+                        }
                         if (skip)
                         {
                             continue;
                         }
+                        accCountInv++;
                         index.Add(i);
                         CanApply.Add(item);
                     }

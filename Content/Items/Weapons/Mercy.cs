@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 110;
+            Item.damage = 100;
             Item.DamageType = DamageClass.Magic;
             Item.width = 96;
             Item.noUseGraphic = true;
@@ -32,6 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.mana = 110;
             Item.useStyle = -1;
             Item.noMelee = true;
+            Item.ArmorPenetration = 26;
             /* Item.Entropy().stroke = true;
              Item.Entropy().strokeColor = new Color(66, 7, 20);
              Item.Entropy().tooltipStyle = 4;

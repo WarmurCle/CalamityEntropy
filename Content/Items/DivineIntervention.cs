@@ -36,17 +36,17 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(ModContent.BuffType<DivingShieldCooldown>(), 1800, true, false);
-            player.AddCooldown(DivingCd.ID, 1800);
+            player.AddBuff(ModContent.BuffType<DivingShieldCooldown>(), 3600, true, false);
+            player.AddCooldown(DivingCd.ID, 3600);
             return true;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient(ItemID.HallowedBar, 10).
-                AddIngredient(ItemID.Ruby, 1).
-                AddIngredient(ItemID.HolyWater, 1).
+                AddIngredient(ItemID.HallowedBar, 40).
+                AddIngredient(ItemID.Ruby, 5).
+                AddIngredient(ItemID.HolyWater, 4).
                 AddTile(TileID.MythrilAnvil).
                 Register();
         }

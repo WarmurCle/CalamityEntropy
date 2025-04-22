@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
 
         public override void UpdateArmorSet(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.9f;
+            player.GetDamage(DamageClass.Generic) += 0.8f;
             player.GetArmorPenetration(DamageClass.Generic) += 20;
             player.maxMinions += 7;
             player.Entropy().VFSet = true;

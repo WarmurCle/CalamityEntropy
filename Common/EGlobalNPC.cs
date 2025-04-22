@@ -420,7 +420,7 @@ namespace CalamityEntropy.Common
                 }
                 if (Main.GameUpdateCount % 20 == 0 && !npc.dontTakeDamage)
                 {
-                    NPC.HitInfo hit = npc.CalculateHitInfo((int)(50 * npc.Entropy().VoidTouchLevel * (1 - npc.Entropy().VoidTouchDR)), 0, false, 0, DamageClass.Generic, false, 0);
+                    NPC.HitInfo hit = npc.CalculateHitInfo((int)(26 * npc.Entropy().VoidTouchLevel * (1 - npc.Entropy().VoidTouchDR)), 0, false, 0, DamageClass.Generic, false, 0);
                     hit.HideCombatText = true;
                     int damageDone = npc.StrikeNPC(hit, false, false);
                     CombatText.NewText(npc.getRect(), new Color(148, 148, 255), damageDone);
@@ -479,7 +479,7 @@ namespace CalamityEntropy.Common
                 }
                 if (projectile.owner.ToPlayer().Entropy().nihShell)
                 {
-                    modifiers.CritDamage += 0.5f;
+                    modifiers.CritDamage += NihilityShell.CirtDamageAddition;
                 }
             }
             if (projectile.owner >= 0)
@@ -515,7 +515,7 @@ namespace CalamityEntropy.Common
             }
             if (player.Entropy().nihShell)
             {
-                modifiers.CritDamage += 0.5f;
+                modifiers.CritDamage += NihilityShell.CirtDamageAddition;
             }
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.05f * (1 - npc.Entropy().VoidTouchDR);
             if (player.Entropy().VFSet)
@@ -1157,7 +1157,7 @@ namespace CalamityEntropy.Common
             onHurt(npc, damageDone, player, null, hit);
             if (player.Entropy().deusCoreBloodOut > 0 && player.Entropy().bloodTrCD <= 0)
             {
-                int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, damageDone / 80 + 1);
+                int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, damageDone / 100 + 1);
                 if (btransfer > 60)
                 {
                     btransfer = 60;
@@ -1213,7 +1213,7 @@ namespace CalamityEntropy.Common
                 sourcePlr = player;
                 if (player.Entropy().deusCoreBloodOut > 0 && player.Entropy().bloodTrCD <= 0)
                 {
-                    int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, damageDone / 80 + 1);
+                    int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, damageDone / 100 + 1);
                     if (btransfer > 60)
                     {
                         btransfer = 60;

@@ -1136,10 +1136,10 @@ namespace CalamityEntropy
             {
                 if (npc.ModNPC is TheProphet tp)
                 {
-                    if (NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White))
-                    {
-                        tp.Draw();
-                    }
+                    NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                    
+                    tp.Draw();
+                    
                     NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                     Main.spriteBatch.End();
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
@@ -1147,6 +1147,10 @@ namespace CalamityEntropy
             }
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
+                if(proj.ModProjectile is CruiserEnergyBall ceb)
+                {
+                    ceb.Draw();
+                }
                 if (proj.ModProjectile is RuneTorrent rt)
                 {
                     rt.Draw();
@@ -1232,14 +1236,10 @@ namespace CalamityEntropy
                         continue;
                     }
 
-                    if (n.type == ModContent.NPCType<CruiserHead>() && n.active && ((CruiserHead)n.ModNPC).phaseTrans > 120 && n.ai[0] > 1)
+                    if (n.ModNPC is CruiserHead ch && n.active && ((CruiserHead)n.ModNPC).phaseTrans > 120 && n.ai[0] > 1)
                     {
                         Texture2D disTex = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cruiserSpace2").Value;
-                        Vector2 ddp = (n.Center + ((CruiserHead)n.ModNPC).bodies[((CruiserHead)n.ModNPC).bodies.Count - 1]) / 2;
-                        if (((CruiserHead)n.ModNPC).aitype == 4)
-                        {
-                            ddp = ((CruiserHead)n.ModNPC).rotPos;
-                        }
+                        Vector2 ddp = ch.SpaceCenter;
                         Main.spriteBatch.Draw(disTex, ddp - Main.screenPosition, null, Color.White * 0.1f, 0, new Vector2(disTex.Width, disTex.Height) / 2, ((CruiserHead)n.ModNPC).maxDistance / 900f * 2 - 0.01f, SpriteEffects.None, 0);
                         Main.spriteBatch.Draw(disTex, ddp - Main.screenPosition, null, Color.White, 0, new Vector2(disTex.Width, disTex.Height) / 2, ((CruiserHead)n.ModNPC).maxDistance / 900f * 2, SpriteEffects.None, 0);
 
@@ -1836,10 +1836,10 @@ namespace CalamityEntropy
 
                         if (npc.type == ModContent.NPCType<AbyssalWraith>() && npc.ModNPC is AbyssalWraith)
                         {
-                            if (NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White))
-                            {
-                                ((AbyssalWraith)npc.ModNPC).Draw();
-                            }
+                            NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                            
+                            ((AbyssalWraith)npc.ModNPC).Draw();
+                            
                             NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                         }
                         if (npc.type == ModContent.NPCType<CruiserHead>() && npc.ModNPC is CruiserHead)
@@ -1848,10 +1848,10 @@ namespace CalamityEntropy
                             if (((CruiserHead)npc.ModNPC).phase == 2)
                             {
                                 ((CruiserHead)npc.ModNPC).candraw = true;
-                                if (NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White))
-                                {
-                                    ((CruiserHead)npc.ModNPC).PreDraw(Main.spriteBatch, Main.screenPosition, Color.White);
-                                }
+                                NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                                
+                                ((CruiserHead)npc.ModNPC).PreDraw(Main.spriteBatch, Main.screenPosition, Color.White);
+                                
                                 NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                                 ((CruiserHead)npc.ModNPC).candraw = false;
                             }
@@ -1972,5 +1972,20 @@ namespace CalamityEntropy
             return Main.ScreenSize.ToVector2() / 2 + (v - Main.ScreenSize.ToVector2() / 2) * z;
         }
         public bool beegameInited = false;
+        public static void SpawnHeavenSpark(Vector2 pos, float rot, float length, float scale, int LifeTime = 24)
+        {
+            Vector2 norl = rot.ToRotationVector2();
+            float sengs = length;
+            for (int j = 0; j < 53; j++)
+            {
+                var spark = new HeavenfallStar();
+                EParticle.spawnNew(spark, Main.MouseWorld, norl * (0.1f + j * 0.34f) * sengs, Color.BlueViolet, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, norl.ToRotation(), LifeTime);
+            }
+            for (int j = 0; j < 53; j++)
+            {
+                var spark = new HeavenfallStar();
+                EParticle.spawnNew(spark, Main.MouseWorld, norl * -(0.1f + j * 0.34f) * sengs, Color.BlueViolet, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, (-norl).ToRotation(), LifeTime);
+            }
+        }
     }
 }

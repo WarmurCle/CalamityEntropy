@@ -182,7 +182,7 @@ namespace CalamityEntropy.Common
             if (mp.BlackFlameCd <= 0 && player.whoAmI == Main.myPlayer)
             {
                 mp.BlackFlameCd = item.useTime - 2;
-                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 6 + 1, 2, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, (Main.MouseWorld - player.Center).SafeNormalize(Vector2.One) * 14, ModContent.ProjectileType<BlackFire>(), player.GetWeaponDamage(item) / 8 + 1, 2, player.whoAmI);
             }
             return null;
         }

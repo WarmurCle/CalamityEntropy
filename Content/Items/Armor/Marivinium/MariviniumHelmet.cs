@@ -39,9 +39,9 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
         {
             player.Entropy().meleeDamageReduce += 0.3f;
             player.maxMinions += 10;
-            player.Entropy().damageReduce += 0.15f;
+            player.Entropy().damageReduce += 0.05f;
             player.GetDamage(DamageClass.Summon) += 1;
-            player.whipRangeMultiplier += 0.4f;
+            player.whipRangeMultiplier += 0.1f;
             player.Entropy().summonCrit += 5;
             player.GetArmorPenetration(DamageClass.Generic) += 100;
             player.Entropy().MariviniumSet = true;
@@ -89,6 +89,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.buffImmune[BuffID.WitheredArmor] = true;
             player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
             player.buffImmune[ModContent.BuffType<MaliciousCode>()] = true;
+            player.buffImmune[ModContent.BuffType<CrushDepth>()] = true;
             if (Main.zenithWorld)
             {
                 player.buffImmune[ModContent.BuffType<NOU>()] = true;

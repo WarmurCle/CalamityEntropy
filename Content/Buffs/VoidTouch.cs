@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (Main.GameUpdateCount % 20 == 0)
+            if (Main.GameUpdateCount % 15 == 0)
             {
                 player.statLife -= 16;
                 if (player.statLife <= 0)

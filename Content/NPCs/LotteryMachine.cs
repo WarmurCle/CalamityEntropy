@@ -331,7 +331,8 @@ namespace CalamityEntropy.Content.NPCs
                 p1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
                 p1.Add(new RewardPoolItem(ItemID.HealingPotion, 120));
                 p1.Add(new RewardPoolItem(ItemID.ManaPotion, 120));
-                p1.Add(new RewardPoolItem(ModContent.ItemType<YharimsStimulants>(), 10));
+                p1.Add(new RewardPoolItem(ModContent.ItemType<YharimsStimulants>(), 16));
+                p1.Add(new RewardPoolItem(ModContent.ItemType<YharimsStimulants>(), 16));
                 g1.Add(new RewardPoolItem(ItemID.LifeCrystal, 10));
 
                 g2 = new RewardPool();

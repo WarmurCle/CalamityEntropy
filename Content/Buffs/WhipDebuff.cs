@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Buffs
             if (npc.HasBuff<JailerWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += JailerWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(10))
+                if (Main.rand.NextBool(20))
                 {
                     modifiers.SetCrit();
                 }
@@ -128,7 +128,7 @@ namespace CalamityEntropy.Content.Buffs
             {
                 modifiers.FlatBonusDamage += WyrmWhipDebuff.TagDamage * projTagMultiplier;
                 modifiers.SourceDamage += WyrmWhipDebuff.TagDamageMul * projTagMultiplier;
-                if (Main.rand.NextBool(6))
+                if (Main.rand.NextBool(10))
                 {
                     modifiers.SetCrit();
                 }
@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.Buffs
                 }
                 if (projectile.TryGetOwner(out var owner))
                 {
-                    owner.Heal((int)MathHelper.Max(damageDone / 3000, 1));
+                    owner.Heal((int)MathHelper.Max(damageDone / 4000, 1));
                 }
             }
         }

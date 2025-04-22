@@ -164,8 +164,8 @@ namespace CalamityEntropy.Content.Skies
                 graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
                 Texture2D s = Util.Util.getExtraTex("Perlin");
-                Texture2D s1 = Util.Util.getExtraTex("AwSky1");
-                Texture2D s2 = Util.Util.getExtraTex("AwSky2");
+                Texture2D s1 = Util.Util.getExtraTex("Noise_10");
+                Texture2D s2 = Util.Util.getExtraTex("Noise_10");
                 spriteBatch.Draw(s, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.1f - Main.screenPosition.X * -0.5f), (int)(counter * 0.1f - Main.screenPosition.Y * -0.5f), Main.screenWidth, Main.screenHeight), Color.White);
 
 
@@ -175,8 +175,8 @@ namespace CalamityEntropy.Content.Skies
                 graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.43f - Main.screenPosition.X * -0.25f), (int)(counter * 0.3f - Main.screenPosition.Y * -0.25f), Main.screenWidth / 2, Main.screenHeight / 2), Color.White * 0.6f);
-                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.21f - Main.screenPosition.X * -0.25f), (int)(counter * -0.27f - Main.screenPosition.Y * -0.25f), Main.screenWidth / 2, Main.screenHeight / 2), Color.White * 0.6f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.33f - Main.screenPosition.X * -0.25f), (int)(counter * -0.63f - Main.screenPosition.Y * -0.25f), Main.screenWidth / 2, Main.screenHeight / 2), Color.White * 1f);
+                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.67f - Main.screenPosition.X * -0.25f), (int)(counter * -0.29f - Main.screenPosition.Y * -0.25f), Main.screenWidth / 2, Main.screenHeight / 2), Color.White * 1f);
 
 
                 spriteBatch.End();
@@ -194,7 +194,7 @@ namespace CalamityEntropy.Content.Skies
                 skyEffect.CurrentTechnique = skyEffect.Techniques["Technique1"];
                 skyEffect.CurrentTechnique.Passes[0].Apply();
                 skyEffect.Parameters["tex0"].SetValue(screen);
-                skyEffect.Parameters["minAlpha"].SetValue(1.27f);
+                skyEffect.Parameters["minAlpha"].SetValue(0f);
                 skyEffect.Parameters["a"].SetValue(opacity);
                 skyEffect.Parameters["r"].SetValue(0.16f);
                 skyEffect.Parameters["g"].SetValue(0.2f);
