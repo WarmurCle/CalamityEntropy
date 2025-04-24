@@ -1,10 +1,13 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Util;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
+using Terraria.Map;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser
@@ -29,27 +32,68 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.timeLeft = 300;
         }
         public float Scale = 0;
+        public LoopSound snd = null;
         public NPC owner { get { return ((int)Projectile.ai[0]).ToNPC(); } set { Projectile.ai[0] = value.whoAmI; } }
         public override void AI()
         {
+            if (!Main.dedServ) {
+                if (snd == null)
+                {
+                    snd = new LoopSound(CalamityEntropy.ofCharge);
+                    snd.instance.Pitch = 0;
+                    snd.instance.Volume = 0;
+                    snd.play();
+                }
+                if(Projectile.timeLeft > 120)
+                {
+                    snd.setVolume_Dist(Projectile.Center, 100, 2600, ((300 - Projectile.timeLeft) / 180f) * 0.5f);
+                    snd.instance.Pitch = (300 - Projectile.timeLeft) / 180f;
+                    snd.timeleft = 3;
+                }
+            }
             if(Projectile.timeLeft > 120)
             {
                 Scale += 1 / 180f;
-                Projectile.Center = owner.Center;
+                Projectile.Center = owner.Center + owner.velocity.normalize() * 80;
             }
             if(Projectile.timeLeft == 120)
             {
                 Scale = 1;
                 Projectile.velocity = owner.velocity.normalize() * 30;
+                Util.Util.PlaySound("CrystalBallActive", 1, Projectile.Center);
             }
             if(Projectile.timeLeft < 120)
             {
-                Projectile.velocity *= 0.98f;
+                if(Projectile.timeLeft > 16)
+                {
+                    Projectile.timeLeft -= 1;
+                }
+                Projectile.velocity *= 0.975f;
             }
             if(Projectile.timeLeft < 10)
             {
                 Scale *= 1.1f;
                 Projectile.Opacity -= 0.1f;
+            }
+            if(Projectile.timeLeft == 10)
+            {
+                Util.Util.PlaySound("energyImpact", 1, Projectile.Center);
+                if(!(Main.netMode == NetmodeID.MultiplayerClient))
+                {
+                    float rj = Util.Util.randomRot();
+                    for (float i = 0; i < 360; i += 10f)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (rj + MathHelper.ToRadians(i)).ToRotationVector2() * 6, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, Projectile.knockBack);
+                    }
+                    for (float i = 0; i < 360; i += 16f)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (rj + MathHelper.ToRadians(i)).ToRotationVector2() * 8, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, Projectile.knockBack);
+                    }
+                    for (float i = 0; i < 360; i += 18f)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (rj + MathHelper.ToRadians(i)).ToRotationVector2() * 10, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, Projectile.knockBack);
+                    }
+                }
             }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox)
@@ -59,14 +103,6 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public override bool PreDraw(ref Color lightColor)
         {
             return false;
-        }
-        public override void OnKill(int timeLeft)
-        {
-            float rj = Util.Util.randomRot();
-            for(float i = 0; i < 360; i += 20f)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (rj + MathHelper.ToRadians(i)).ToRotationVector2() * 18, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, Projectile.knockBack);
-            }
         }
         public List<Vector2> GP(float distAdd = 0, float c = 1)
         {

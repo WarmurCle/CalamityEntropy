@@ -2378,6 +2378,7 @@ Projectiles: {
 	ProphecyRune.DisplayName: 符文光球
 	ProphecyRuneBM.DisplayName: 符文光球
 	// CruiserEnergyBall.DisplayName: Cruiser Energy Ball
+	// VoidResidue.DisplayName: Void Residue
 }
 
 LegendTooltip: - 传奇物品 -

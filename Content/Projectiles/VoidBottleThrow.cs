@@ -62,6 +62,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Particle p = new Particle();
                     p.position = Projectile.Center;
                     p.alpha = 1.5f;
+                    p.shape = 4;
                     var r = Main.rand;
                     p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * 8), (float)((r.NextDouble() - 0.5) * 8));
                     VoidParticles.particles.Add(p);

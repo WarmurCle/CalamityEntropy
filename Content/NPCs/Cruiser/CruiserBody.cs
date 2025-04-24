@@ -2,6 +2,7 @@
 using CalamityEntropy.Util;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,7 +37,16 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 modifiers.SourceDamage *= ((float)NPC.ai[0] / 500f);
             }
         }
-
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.width);
+            writer.Write(NPC.height);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.width = reader.ReadInt32();
+            NPC.height = reader.ReadInt32();
+        }
         public override void SetDefaults()
         {
 
@@ -69,7 +79,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
         public override void AI()
         {
-
+            NPC.dontTakeDamage = Main.npc[(int)NPC.ai[1]].dontTakeDamage;
             NPC.ai[0] += 1;
             if (NPC.ai[0] < 5)
             {

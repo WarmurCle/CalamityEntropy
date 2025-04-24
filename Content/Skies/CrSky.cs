@@ -164,20 +164,27 @@ namespace CalamityEntropy.Content.Skies
                 graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
                 Texture2D s = Util.Util.getExtraTex("Perlin");
-                Texture2D s1 = Util.Util.getExtraTex("Noise_10");
-                Texture2D s2 = Util.Util.getExtraTex("Noise_10");
-                spriteBatch.Draw(s, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.1f - Main.screenPosition.X * -0.5f), (int)(counter * 0.1f - Main.screenPosition.Y * -0.5f), Main.screenWidth, Main.screenHeight), Color.White);
+                Texture2D s1 = Util.Util.getExtraTex("EternityStreak");
+                Texture2D s2 = Util.Util.getExtraTex("EternityStreak");
+                spriteBatch.Draw(Util.Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.1f - Main.screenPosition.X * -0.5f), (int)(counter * 0.1f - Main.screenPosition.Y * -0.5f), Main.screenWidth, Main.screenHeight), Color.White);
 
 
                 spriteBatch.End();
 
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
-                graphicsDevice.Clear(Color.Transparent);
+                graphicsDevice.Clear(Color.Black);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.33f - Main.screenPosition.X * -0.25f), (int)(counter * -0.63f - Main.screenPosition.Y * -0.25f), Main.screenWidth / 2, Main.screenHeight / 2), Color.White * 1f);
-                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.67f - Main.screenPosition.X * -0.25f), (int)(counter * -0.29f - Main.screenPosition.Y * -0.25f), Main.screenWidth / 2, Main.screenHeight / 2), Color.White * 1f);
-
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.33f - Main.screenPosition.X * -0.125f), (int)(counter * -0.043f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
+                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.37f - Main.screenPosition.X * -0.125f), (int)(counter * -0.046f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.44f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0373f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
+                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.245f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0329f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.478f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0334f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
+                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.45f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0421f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.26f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0133f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
+                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.17f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0431f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.47f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0243f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
+                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.365f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0325f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
 
                 spriteBatch.End();
 

@@ -116,6 +116,7 @@ namespace CalamityEntropy.Common
         public Item foreseeOrbItem = null;
         public int RuneDash = 0;
         public float RuneDashDir = 0;
+        public int CruiserAntiGravTime = 0;
         public class EquipInfo
         {
             public string id;
@@ -445,6 +446,13 @@ namespace CalamityEntropy.Common
             if(RuneDash > 0)
             {
                 Player.gravity = 0;
+            }
+            if(CruiserAntiGravTime > 0)
+            {
+                CruiserAntiGravTime--;
+                Player.gravity = 0;
+                Player.maxFallSpeed = 100;
+                Player.velocity *= 0.98f;
             }
             if (Player.dead) { return; }
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<BatteringRamProj>()] > 0)

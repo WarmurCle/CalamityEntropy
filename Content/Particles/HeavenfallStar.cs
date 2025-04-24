@@ -16,10 +16,10 @@ namespace CalamityEntropy.Content.Particles
         public override void update()
         {
             base.update();
-            scale *= 0.94f;
+            scale *= 0.92f;
             float LifetimeCompletion = 1 - ((float)timeLeft / TimeLeftMax);
             color = Color.Lerp(InitialColor, Color.Transparent, (float)Math.Pow(LifetimeCompletion, 3D));
-            velocity *= 0.95f;
+            velocity *= 0.92f;
         }
         public override void draw()
         {

@@ -72,6 +72,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
         public override void AI()
         {
+            NPC.dontTakeDamage = Main.npc[(int)NPC.ai[1]].dontTakeDamage;
             NPC.ai[0] += 1;
             if (NPC.ai[0] < 5)
             {

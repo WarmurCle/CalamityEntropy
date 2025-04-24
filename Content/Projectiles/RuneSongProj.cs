@@ -41,6 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            CalamityEntropy.SpawnHeavenSpark(target.Center, Util.Util.randomRot(), Main.rand.NextFloat(0.9f, 1.2f) * (Projectile.ai[0] > 79 ? 1.5f : 1), 0.8f, new Color(60, 60, 200), 30);
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
             Util.Util.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center);
             for(int i = 0; i < 36; i++)

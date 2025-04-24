@@ -61,6 +61,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 VoidParticles.particles.Add(p);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
+            Projectile.velocity *= 1.007f;
         }
         public override bool PreDraw(ref Color lightColor)
         {

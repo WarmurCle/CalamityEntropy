@@ -1972,19 +1972,23 @@ namespace CalamityEntropy
             return Main.ScreenSize.ToVector2() / 2 + (v - Main.ScreenSize.ToVector2() / 2) * z;
         }
         public bool beegameInited = false;
-        public static void SpawnHeavenSpark(Vector2 pos, float rot, float length, float scale, int LifeTime = 24)
+        public static void SpawnHeavenSpark(Vector2 pos, float rot, float length, float scale, Color color = default, int LifeTime = 24)
         {
             Vector2 norl = rot.ToRotationVector2();
             float sengs = length;
-            for (int j = 0; j < 53; j++)
+            if(color == default)
             {
-                var spark = new HeavenfallStar();
-                EParticle.spawnNew(spark, Main.MouseWorld, norl * (0.1f + j * 0.34f) * sengs, Color.BlueViolet, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, norl.ToRotation(), LifeTime);
+                color = Color.BlueViolet;
             }
             for (int j = 0; j < 53; j++)
             {
                 var spark = new HeavenfallStar();
-                EParticle.spawnNew(spark, Main.MouseWorld, norl * -(0.1f + j * 0.34f) * sengs, Color.BlueViolet, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, (-norl).ToRotation(), LifeTime);
+                EParticle.spawnNew(spark, pos, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, norl.ToRotation(), LifeTime);
+            }
+            for (int j = 0; j < 53; j++)
+            {
+                var spark = new HeavenfallStar();
+                EParticle.spawnNew(spark, pos, norl * -(0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, (-norl).ToRotation(), LifeTime);
             }
         }
     }
