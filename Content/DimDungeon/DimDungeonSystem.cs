@@ -15,7 +15,7 @@ public class DimDungeonSystem : ModSystem
     public static bool[,] doors = null;
     public override void PostDrawTiles()
     {
-        Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+        Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
         if (rooms != null && SubworldSystem.IsActive<DimDungeonSubworld>())
         {
             foreach (Room room in rooms)

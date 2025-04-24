@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f * trailAlpha, Projectile.velocity.ToRotation(), new Vector2(t.Width, t.Height / 2), new Vector2(Projectile.velocity.Length() * 0.07f, 1f) * Projectile.scale, SpriteEffects.None, 0);
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             lightColor = Color.White;
             return base.PreDraw(ref lightColor);
         }

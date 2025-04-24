@@ -2218,6 +2218,7 @@ Projectiles: {
 	ProphecyRuneBM.DisplayName: Prophecy Rune
 	CruiserEnergyBall.DisplayName: Cruiser Energy Ball
 	VoidResidue.DisplayName: Void Residue
+	VoidBomb.DisplayName: Void Bomb
 }
 
 LegendTooltip: - Legend -

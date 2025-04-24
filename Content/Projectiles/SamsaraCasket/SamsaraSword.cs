@@ -216,7 +216,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             if (Projectile.owner.ToPlayer().HeldItem.ModItem is HorizonssKey hk)
             {
                 Projectile.damage = (int)(damageMul * Projectile.owner.ToPlayer().GetWeaponDamage(Projectile.owner.ToPlayer().HeldItem));
-                if (casket.ToProj().Entropy().ttindex != -1)
+                if (casket.ToProj().Entropy().IndexOfTwistedTwinShootedThisProj != -1)
                 {
                     Projectile.damage = (int)((float)Projectile.damage * TwistedTwinMinion.damageMul);
                 }

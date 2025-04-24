@@ -152,7 +152,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.EntitySpriteDraw(tex, target.Center - Main.screenPosition, null, Color.White, 0, tex.Size() / 2, Projectile.scale, SpriteEffects.None);
             }
             sb.End();
-            sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.ZoomMatrix);
 
             return false;
         }

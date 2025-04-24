@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 90;
             NPC.height = 90;
-            NPC.damage = 210;
+            NPC.damage = 198;
             if (Main.expertMode)
             {
                 NPC.damage += 18;
@@ -301,17 +301,34 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             else
             {
                 aiRound++; 
-                if (aiRound == 2)
+                if (aiRound == 6)
                 {
                     aiRound = 0;
                 }
-                if (aiRound == 0)
+                if (aiRound == 0 || aiRound == 2)
                 {
                     ai = AIStyle.VoidSpike;
                 }
                 if (aiRound == 1)
                 {
-                    ai = AIStyle.BiteAndDash;
+                    ai = Main.rand.NextBool() ? AIStyle.BiteAndDash : AIStyle.AroundSpawnVoidBomb;
+                }
+                if(aiRound == 3)
+                {
+                    ai = AIStyle.SplittingVoidStar;
+                }
+                if(aiRound == 4)
+                {
+                    ai = AIStyle.QuickDash;
+                }
+                if(aiRound == 5)
+                {
+                    ai = AIStyle.Cruise;
+                    if (Main.rand.NextBool())
+                    {
+                        ai = AIStyle.VoidSpike;
+                        aiRound = 0;
+                    }
                 }
                 
             }
@@ -503,14 +520,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 {
                                     ai = AIStyle.VoidSpike;
                                     NPC.dontTakeDamage = false;
-                                    NPC.defense = 0;
                                     NPC.width = 156;
                                     NPC.height = 156;
                                     foreach (NPC n in Main.npc)
                                     {
                                         if (n.realLife == NPC.whoAmI)
                                         {
-                                            n.defense = 4;
                                             n.Calamity().DR = 0.8f;
                                             if (n.ai[2] <= 8 && n.ai[2] > 4)
                                             {
@@ -686,20 +701,20 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if (ai == AIStyle.VoidSpike)
                         {
-                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (18 - NPC.velocity.Length()) * 0.08f);
-                            NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.008f, false).ToRotationVector2() * NPC.velocity.Length();
+                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (58 - NPC.velocity.Length()) * 0.08f);
+                            NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.0376f, false).ToRotationVector2() * NPC.velocity.Length();
                             changeCounter++;
-                            if (changeCounter == 60)
+                            if (changeCounter == 40 || changeCounter == 60 || changeCounter == 80 || changeCounter == 100)
                             {
                                 if (canShoot)
                                 {
-                                    for (float i = 0; i < 360; i += 10)
+                                    for (float i = 0; i < 360; i += 30)
                                     {
-                                        Shoot(ModContent.ProjectileType<VoidSpike>(), NPC.Center, MathHelper.ToRadians(i).ToRotationVector2() * 12);
+                                        Shoot(ModContent.ProjectileType<VoidSpike>(), NPC.Center, MathHelper.ToRadians(i).ToRotationVector2() * 8);
                                     }
                                 }
                             }
-                            if(changeCounter > 100)
+                            if(changeCounter > 150)
                             {
                                 changeAi();
                             }
@@ -720,14 +735,20 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             else
                             {
                                 changeCounter++;
-                                if (changeCounter < 60)
+                                if (changeCounter < 20)
                                 {
-                                    NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (66 - NPC.velocity.Length()) * 0.08f);
+                                    mouthRot -= 5f;
+                                    NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (80 - NPC.velocity.Length()) * 0.2f);
 
                                     if (Util.Util.getDistance(NPC.Center + NPC.rotation.ToRotationVector2() * 160, target.Center) < 160)
                                     {
                                         target.velocity *= 0;
+                                        target.Entropy().immune = 12;
                                         target.Center = NPC.Center + NPC.rotation.ToRotationVector2() * 160;
+                                    }
+                                    if(!Util.Util.isAir(NPC.Center + NPC.rotation.ToRotationVector2() * 360))
+                                    {
+                                        changeCounter = 60;
                                     }
                                 }
                                 else
@@ -735,12 +756,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     Vector2 targetPos = target.Center + (NPC.Center - target.Center).normalize().RotatedBy(0.6f) * 1600;
                                     NPC.velocity += (targetPos - NPC.Center).normalize() * 1f;
                                     NPC.velocity *= 0.98f;
-                                    if(changeCounter > 180)
+                                    if(changeCounter > 120)
                                     {
                                         changeAi();
                                     }
                                 }
-                                if(changeCounter == 60)
+                                if(changeCounter == 20)
                                 {
                                     if (Util.Util.getDistance(NPC.Center + NPC.rotation.ToRotationVector2() * 80, target.Center) < 160)
                                     {
@@ -750,21 +771,131 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     
                                     if (canShoot)
                                     {
-                                        for (int i = 1; i < 16; i++)
+                                        for (int i = 1; i < 18; i++)
                                         {
-                                            Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize().RotatedBy(-0.2f) * 128 * i, NPC.velocity.RotatedBy(-0.2f));
-                                            Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize() * 128 * i, NPC.velocity);
-                                            Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize().RotatedBy(0.2f) * 128 * i, NPC.velocity.RotatedBy(0.2f));
-                                            
-                                            Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize().RotatedBy(-0.3f) * 128 * i, NPC.velocity.RotatedBy(-0.3f));
-                                            Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize().RotatedBy(0.3f) * 128 * i, NPC.velocity.RotatedBy(0.3f));
-
+                                            for (int j = -6; j < 7; j++)
+                                            {
+                                                if(j == 0)
+                                                {
+                                                    Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize() * 300 * i, NPC.velocity);
+                                                }
+                                                else
+                                                {
+                                                    Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize().RotatedBy(0.09f * j) * 300 * i, NPC.velocity.RotatedBy(0.09f * j));
+                                                }
+                                            }
                                         }
                                     }
                                     NPC.velocity *= 0.3f;
                                 }
 
                             }
+                        }
+                        if(ai == AIStyle.AroundSpawnVoidBomb)
+                        {
+                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (44 - NPC.velocity.Length()) * 0.08f);
+                            NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.03f, false).ToRotationVector2() * NPC.velocity.Length();
+
+                            changeCounter++;
+                            if(changeCounter < 180)
+                            {
+                                if(changeCounter % 9 == 0)
+                                {
+                                    if (canShoot)
+                                        Shoot(ModContent.ProjectileType<VoidBomb>(), NPC.Center, Util.Util.randomPointInCircle(4) + (target.Center - NPC.Center).normalize() * 16);
+                                }
+                            }
+                            if(changeCounter > 340)
+                            {
+                                changeAi();
+                            }
+                        }
+                        if(ai == AIStyle.Cruise)
+                        {
+
+                            if (NPC.velocity.Length() < 30)
+                            {
+                                NPC.velocity *= 1.046f;
+                            }
+                            NPC.velocity += (target.Center - NPC.Center).normalize() * 0.1f;
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.06f);
+                            NPC.velocity *= 0.998f;
+                            changeCounter++;
+                            if(changeCounter > 200)
+                            {
+                                if (Main.rand.NextBool(150) || changeCounter > 500)
+                                {
+                                    changeAi();
+                                }
+                            }
+                        }
+                        if (ai == AIStyle.SplittingVoidStar)
+                        {
+
+                            if (changeCounter < 100)
+                            {
+                                mouthRot -= 4.8f;
+                            }
+                            else
+                            {
+                                if (changeCounter < 120)
+                                {
+                                    mouthRot += 5f;
+                                }
+                            }
+                            changeCounter++;
+                            if (changeCounter < 100 && NPC.Distance(target.Center) > 800)
+                            {
+                                NPC.velocity *= 0.98f;
+                                NPC.velocity += (target.Center - NPC.Center).normalize() * 1f;
+                            }
+                            else
+                            {
+                                NPC.velocity *= 0.94f;
+                                NPC.velocity += (target.Center - NPC.Center).normalize() * 0.26f;
+                            }
+                            if (changeCounter == 100)
+                            {
+                                if (canShoot)
+                                {
+                                    for (int i = 0; i < 80; i++)
+                                    {
+                                        Shoot(ModContent.ProjectileType<VoidStar>(), NPC.Center, NPC.velocity.normalize().RotatedByRandom(2f) * 24 * Main.rand.NextFloat(0.2f, 1f), 0.8f);
+                                    }
+                                }
+                                Util.Util.PlaySound("brimstonevortexshoot", 1, NPC.Center);
+                                Util.Util.PlaySound("vbuse", 1, NPC.Center);
+                            }
+                            if (changeCounter > 140)
+                            {
+                                changeAi();
+                            }
+                        }
+                        if(ai == AIStyle.QuickDash)
+                        {
+                            if(changeCounter == 0)
+                            {
+                                NPC.rotation = (target.Center - NPC.Center).ToRotation();
+                            }
+                            changeCounter++;
+                            
+                            if(changeCounter > 38)
+                            {
+                                NPC.velocity *= 0.97f;
+                                NPC.velocity += (target.Center - NPC.Center).normalize() * 1.4f;
+                            }
+                            else
+                            {
+                                NPC.velocity += NPC.rotation.ToRotationVector2() * 3.5f;
+                            }
+                            if(changeCounter > 100)
+                            {
+                                changeAi();
+                            }
+                        }
+                        if(ai == AIStyle.VoidLaser)
+                        {
+
                         }
                         NPC.rotation = NPC.velocity.ToRotation();
                     }
@@ -1117,7 +1248,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 Vector2 ddp = SpaceCenter;
                 sb.Draw(disTex, ddp - Main.screenPosition, null, Color.DarkBlue * 0.6f, 0, new Vector2(disTex.Width, disTex.Height) / 2, (float)maxDistance / 900f, SpriteEffects.None, 0);
                 sb.End();
-                sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             }
 
 

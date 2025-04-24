@@ -1049,7 +1049,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             Main.spriteBatch.Draw(htx, NPC.Center - Main.screenPosition, null, Color.White, 0, htx.Size() / 2, 1f * lbsize, SpriteEffects.None, 0);
 
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
         }
         public float lbsize = 0;

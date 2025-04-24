@@ -223,7 +223,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 else
                 {
                     Projectile p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner).ToProj();
-                    p.Entropy().ttindex = Projectile.Entropy().ttindex;
+                    p.Entropy().IndexOfTwistedTwinShootedThisProj = Projectile.Entropy().IndexOfTwistedTwinShootedThisProj;
                     SamsaraSword ss = ((SamsaraSword)p.ModProjectile);
                     ss.casket = Projectile.whoAmI;
                     ss.index = index;

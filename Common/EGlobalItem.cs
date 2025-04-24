@@ -670,7 +670,7 @@ namespace CalamityEntropy.Common
                                         int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback, Main.myPlayer);
 
                                         pj.ToProj().scale *= 0.8f;
-                                        pj.ToProj().Entropy().ttindex = p.identity;
+                                        pj.ToProj().Entropy().IndexOfTwistedTwinShootedThisProj = p.identity;
                                         pj.ToProj().netUpdate = true;
 
                                         Projectile projts = pj.ToProj();
@@ -686,7 +686,7 @@ namespace CalamityEntropy.Common
                                         {
                                             int pj = Projectile.NewProjectile(p.GetSource_FromAI(), position + p.Center - player.Center, velocity, type, (int)(damage * TwistedTwinMinion.damageMul), knockback, Main.myPlayer);
                                             pj.ToProj().scale *= 0.8f;
-                                            pj.ToProj().Entropy().ttindex = p.identity;
+                                            pj.ToProj().Entropy().IndexOfTwistedTwinShootedThisProj = p.identity;
                                             pj.ToProj().netUpdate = true;
                                             Projectile projts = pj.ToProj();
                                             if (!projts.usesLocalNPCImmunity)

@@ -790,7 +790,7 @@ namespace CalamityEntropy
                                 int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
                                 Projectile ph = phd.ToProj();
                                 ph.scale *= 0.8f;
-                                ph.Entropy().ttindex = p.identity;
+                                ph.Entropy().IndexOfTwistedTwinShootedThisProj = p.identity;
                                 ph.netUpdate = true;
                                 Projectile projts = ph;
                                 ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);

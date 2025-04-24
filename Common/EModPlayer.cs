@@ -452,7 +452,11 @@ namespace CalamityEntropy.Common
                 CruiserAntiGravTime--;
                 Player.gravity = 0;
                 Player.maxFallSpeed = 100;
-                Player.velocity *= 0.98f;
+                Player.velocity *= 0.97f;
+                if (Player.controlDown)
+                {
+                    Player.velocity.Y += 0.6f;
+                }
             }
             if (Player.dead) { return; }
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<BatteringRamProj>()] > 0)
@@ -514,7 +518,7 @@ namespace CalamityEntropy.Common
             {
                 rbDotDist += (-rbDotDist) * 0.06f;
             }
-            if(rBadgeActive || RuneDash > 0)
+            if(rBadgeActive || RuneDash > 0 || CruiserAntiGravTime > 0)
             {
                 resetTileSets = true;
                 tileSolid = (bool[])Main.tileSolid.Clone();
@@ -1961,7 +1965,7 @@ namespace CalamityEntropy.Common
                     if (item.type != ItemID.None)
                     {
                         tag["EntropyBookMarks"] = BookMarks;
-                        Mod.Logger.Info("Saved book marks:" + BookMarks.ToString());
+                        //Mod.Logger.Info("Saved book marks:" + BookMarks.ToString());
                         for (int i = 0; i < BookMarks; i++)
                         {
                             tag["EntropyBookMark" + i.ToString()] = ItemIO.Save(EBookStackItems[i]);
@@ -1988,7 +1992,7 @@ namespace CalamityEntropy.Common
                     var item = ItemIO.Load((TagCompound)tag["EntropyBookMark" + i.ToString()]);
                     if (item.type != ItemID.None)
                     {
-                        Mod.Logger.Info("Loaded mark:" + item.Name);
+                        //Mod.Logger.Info("Loaded mark:" + item.Name);
                         EBookStackItems.Add(item);
                     }
                 }

@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Books
                                 Projectile ph = phd.ToProj();
                                 (ph.ModProjectile as EntropyBookHeldProjectile).bookItem = Item;
                                 ph.scale *= 0.8f;
-                                ph.Entropy().ttindex = p.identity;
+                                ph.Entropy().IndexOfTwistedTwinShootedThisProj = p.identity;
                                 p.netUpdate = true;
                                 ph.netUpdate = true;
                                 ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);
@@ -262,7 +262,7 @@ namespace CalamityEntropy.Content.Items.Books
                     bm.ModifyStat(modifer);
                 }
             }
-            Projectile proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax), type, (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().ttindex < 0 ? 1 : TwistedTwinMinion.damageMul))), Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback), Projectile.owner).ToProj();
+            Projectile proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax), type, (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul))), Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback), Projectile.owner).ToProj();
             proj.penetrate += modifer.PenetrateAddition;
             proj.CritChance = bookItem.crit + (int)modifer.Crit;
             proj.scale *= modifer.Size * scaleMul;
@@ -318,7 +318,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AI()
         {
             var player = Projectile.getOwner();
-            if (Projectile.Entropy().ttindex >= 0 && !Projectile.Entropy().ttindex.ToProj().active)
+            if (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj >= 0 && !Projectile.Entropy().IndexOfTwistedTwinShootedThisProj.ToProj().active)
             {
                 Projectile.Kill();
                 return;

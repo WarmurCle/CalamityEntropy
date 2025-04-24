@@ -169,7 +169,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White * light, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale * xscale, SpriteEffects.None, 0);
 
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             return false;
         }

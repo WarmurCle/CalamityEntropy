@@ -21,6 +21,7 @@ using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -43,8 +44,8 @@ namespace CalamityEntropy.Common
         public bool DI = false;
         public bool gh = false;
         public int ghcounter = 0;
-        public int ttindex = -1;
-        public int OnProj { get { return ttindex; } set { ttindex = value; } }
+        public int IndexOfTwistedTwinShootedThisProj = -1;
+        public int OnProj { get { return IndexOfTwistedTwinShootedThisProj; } set { IndexOfTwistedTwinShootedThisProj = value; } }
         public int flagTT = 0;
         public Vector2 playerPosL;
         public Vector2 playerMPosL;
@@ -78,7 +79,7 @@ namespace CalamityEntropy.Common
             p.EventideShot = EventideShot;
             p.DI = DI;
             p.gh = gh;
-            p.ttindex = ttindex;
+            p.IndexOfTwistedTwinShootedThisProj = IndexOfTwistedTwinShootedThisProj;
             p.flagTT = flagTT;
             p.daTarget = daTarget;
             p.maxDmgUps = maxDmgUps;
@@ -98,7 +99,7 @@ namespace CalamityEntropy.Common
         public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             binaryWriter.Write(OnProj);
-            binaryWriter.Write(ttindex);
+            binaryWriter.Write(IndexOfTwistedTwinShootedThisProj);
             binaryWriter.Write(GWBow);
             binaryWriter.Write(withGrav);
             binaryWriter.Write(vdtype);
@@ -113,7 +114,7 @@ namespace CalamityEntropy.Common
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
             OnProj = binaryReader.ReadInt32();
-            ttindex = binaryReader.ReadInt32();
+            IndexOfTwistedTwinShootedThisProj = binaryReader.ReadInt32();
             GWBow = binaryReader.ReadBoolean();
             withGrav = binaryReader.ReadBoolean();
             vdtype = binaryReader.ReadInt32();
@@ -218,7 +219,7 @@ namespace CalamityEntropy.Common
                             int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
                             Projectile ph = phd.ToProj();
                             ph.scale *= 0.8f;
-                            ph.Entropy().ttindex = p.identity;
+                            ph.Entropy().IndexOfTwistedTwinShootedThisProj = p.identity;
                             p.netUpdate = true;
                             ph.netUpdate = true;
                             Projectile projts = ph;
@@ -242,9 +243,9 @@ namespace CalamityEntropy.Common
                             projectile.friendly = ((Projectile)ps.Entity).friendly;
                             projectile.hostile = ((Projectile)ps.Entity).hostile;
                         }
-                        if (pj.Entropy().ttindex != -1)
+                        if (pj.Entropy().IndexOfTwistedTwinShootedThisProj != -1)
                         {
-                            projectile.Entropy().ttindex = pj.Entropy().ttindex;
+                            projectile.Entropy().IndexOfTwistedTwinShootedThisProj = pj.Entropy().IndexOfTwistedTwinShootedThisProj;
                             int type = projectile.type;
 
 
@@ -258,7 +259,7 @@ namespace CalamityEntropy.Common
                             if (projectile.type != ModContent.ProjectileType<TwistedTwinMinion>())
                             {
                                 projectile.scale *= 0.8f;
-                                ttindex = plr.Entropy().twinSpawnIndex;
+                                IndexOfTwistedTwinShootedThisProj = plr.Entropy().twinSpawnIndex;
                                 projectile.netUpdate = true;
 
                                 Projectile projts = projectile;
@@ -445,7 +446,7 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
-            if (projectile.Entropy().ttindex >= 0)
+            if (projectile.Entropy().IndexOfTwistedTwinShootedThisProj >= 0)
             {
                 if (netsnc)
                 {
@@ -453,7 +454,7 @@ namespace CalamityEntropy.Common
                     netsnc = false;
                 }
                 playerPosL = projectile.owner.ToPlayer().Center;
-                projectile.owner.ToPlayer().Center = ttindex.ToProj_Identity().Center;
+                projectile.owner.ToPlayer().Center = IndexOfTwistedTwinShootedThisProj.ToProj_Identity().Center;
             }
             projectile.Entropy().counter++;
             projectile.Entropy().odp.Add(projectile.Center);
@@ -564,7 +565,7 @@ namespace CalamityEntropy.Common
             }
             if (projectile.owner >= 0)
             {
-                if (projectile.Entropy().ttindex >= 0)
+                if (projectile.Entropy().IndexOfTwistedTwinShootedThisProj >= 0)
                 {
                     projectile.owner.ToPlayer().Center = playerPosL;
                 }
@@ -591,11 +592,22 @@ namespace CalamityEntropy.Common
 
         public override void PostDraw(Projectile projectile, Color lightColor)
         {
+            //修复部分射弹导致其他射弹不显示
+            //不要在绘制完射弹把SpriteSortMode设置成Immediate
             if (projectile.ModProjectile != null)
             {
-                projectile.ModProjectile.PostDraw(lightColor);
+                var fInfo = Main.spriteBatch.GetType().GetField("sortMode", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (fInfo != null)
+                {
+                    var v = fInfo.GetValue(Main.spriteBatch);
+                    if (v != null && (SpriteSortMode)v == SpriteSortMode.Immediate)
+                    {
+                        Main.spriteBatch.ExitShaderRegion();
+                    }
+                }
             }
-            if (ttindex >= 0 && projectile.owner >= 0 && lastCenter != Vector2.Zero)
+
+            if (IndexOfTwistedTwinShootedThisProj >= 0 && projectile.owner >= 0 && lastCenter != Vector2.Zero)
             {
                 projectile.owner.ToPlayer().Center = lastCenter;
             }
@@ -635,10 +647,10 @@ namespace CalamityEntropy.Common
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
             this.projectile = projectile;
-            if (ttindex >= 0 && projectile.friendly)
+            if (IndexOfTwistedTwinShootedThisProj >= 0 && projectile.friendly)
             {
                 lastCenter = projectile.owner.ToPlayer().Center;
-                projectile.owner.ToPlayer().Center = ttindex.ToProj_Identity().Center;
+                projectile.owner.ToPlayer().Center = IndexOfTwistedTwinShootedThisProj.ToProj_Identity().Center;
             }
             Texture2D tx;
             if (projectile.Entropy().DI)

@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.Kill();
             }
-            if (Projectile.Entropy().ttindex != -1 && !(Projectile.Entropy().ttindex.ToProj().active))
+            if (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj != -1 && !(Projectile.Entropy().IndexOfTwistedTwinShootedThisProj.ToProj().active))
             {
                 Projectile.Kill();
             }
@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             gw2.cs = false;
                         }
-                        int p = Projectile.NewProjectile(player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, ammoID), Projectile.Center, new Vector2(shootSpeed, 0).RotatedBy(Projectile.rotation) * (Projectile.ai[1] / (float)maxCharge), projID, (int)(damage * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1.8f : 1) * (Projectile.Entropy().ttindex == -1 ? 1 : TwistedTwinMinion.damageMul)), kb * (Projectile.ai[1] / (float)maxCharge), Projectile.owner);
+                        int p = Projectile.NewProjectile(player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, ammoID), Projectile.Center, new Vector2(shootSpeed, 0).RotatedBy(Projectile.rotation) * (Projectile.ai[1] / (float)maxCharge), projID, (int)(damage * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1.8f : 1) * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj == -1 ? 1 : TwistedTwinMinion.damageMul)), kb * (Projectile.ai[1] / (float)maxCharge), Projectile.owner);
                         p.ToProj().scale = 1.2f * Projectile.scale;
                         if (Projectile.ai[1] >= maxCharge)
                         {

@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityMod;
 using CalamityMod.CalPlayer;
+using Microsoft.Xna.Framework.Graphics;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.RuntimeDetour.HookGen;
@@ -15,12 +16,22 @@ namespace CalamityEntropy.Content.ILEditing
 {
     public static class EModILEdit
     {
-
+        private delegate void ExitShaderRegionDelegate(SpriteBatch spriteBatch);
         public static void load()
         {
+            //var originalMethod = typeof(CalamityUtils)
+            //.GetMethod("ExitShaderRegion",
+            //          System.Reflection.BindingFlags.Public |
+            //          System.Reflection.BindingFlags.Static);
+            //EModHooks.Add(originalMethod, ExitShaderRegionHook);
+            //ExitShaderRegionDelegate detour = ExitShaderRegionHook;
 
+            //var _hook = EModHooks.Add(originalMethod, detour);
+            //CalamityEntropy.Instance.Logger.Info("CalEntropy's Hook Loaded");
         }
-
+        private static void ExitShaderRegionHook(SpriteBatch spriteBatch)
+        {
+        }
     }
     public static class EModHooks
     {
@@ -79,6 +90,11 @@ namespace CalamityEntropy.Content.ILEditing
                 hook.Dispose();
             }
             _hooks.Clear();
+        }
+
+        internal static void Add(Action<SpriteBatch> exitShaderRegion, object esrHook)
+        {
+            throw new NotImplementedException();
         }
     }
 }

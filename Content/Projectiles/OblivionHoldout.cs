@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.Kill();
             }
-            if (Projectile.Entropy().ttindex != -1 && !(Projectile.Entropy().ttindex.ToProj().active))
+            if (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj != -1 && !(Projectile.Entropy().IndexOfTwistedTwinShootedThisProj.ToProj().active))
             {
                 Projectile.Kill();
             }

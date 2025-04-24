@@ -172,11 +172,6 @@ namespace CalamityEntropy.Content.Projectiles
 
         public void drawT()
         {
-
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-
             tofs++;
             Texture2D value = TextureAssets.Projectile[base.Projectile.type].Value;
             Vector2 position = base.Projectile.Center - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;

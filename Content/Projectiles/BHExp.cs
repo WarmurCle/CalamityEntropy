@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightball").Value;
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.Black * ((float)Projectile.timeLeft / 30f), Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, (30 - Projectile.timeLeft) / 2f, SpriteEffects.None, 0);
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             return false;
         }

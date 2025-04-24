@@ -240,7 +240,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(203, 211, 186) * cAlpha, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale * 0.5f, SpriteEffects.None, 0);
             lightColor = Color.Lerp(lightColor, Color.White, cAlpha);
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
 
             tex = TextureAssets.Projectile[Projectile.type].Value;
