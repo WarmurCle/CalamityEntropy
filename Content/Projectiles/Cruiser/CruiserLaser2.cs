@@ -48,6 +48,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         }
         public override void AI()
         {
+            Projectile.rotation = Projectile.velocity.ToRotation();
             if (st)
             {
                 st = false;
@@ -189,6 +190,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             sb.End();
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
+            return false;
+        }
+        public override bool ShouldUpdatePosition()
+        {
             return false;
         }
     }
