@@ -17,6 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
+            ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 5;
         }
 
         public override void SetDefaults()
