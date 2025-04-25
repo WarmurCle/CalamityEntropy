@@ -1,6 +1,6 @@
-This mod is an expansion of CalamityMod.
+[h1]This mod is an expansion of CalamityMod[/h1]
 
--What we added-
+[h2]-What we added-[/h2]
 3 new boss
 weapons
 Accessories
@@ -12,14 +12,16 @@ Auric Boulder
 
 We will continue to add more new content in the future
 
--Credits-
+[h2]-Credits-[/h2]
 Polaris: Leader, Code, Concept
 ChaLost: Sprite, Concept
 Serrat Antler: Sprite, Concept
 Ahirith: Sprite, Concept (Pets)
 JesterRomut: Sprite, Music (Title Theme), Code
 30000Puslin: Sprite, Concept
-Special thanks to Hadrian (FRANCIUMKILLA) for making Cruiser's theme
+Special thanks to Hadrian (FRANCIUMKILLA) for making Cruiser & Prophet's theme
+
+
 
 Bug Reports: https://github.com/WarmurCle/CalamityEntropy/issues
 
@@ -28,3 +30,5 @@ Discord Server: https://discord.com/invite/Mnmzd34Fda
 ChineseWiki：https://calentropy.miraheze.org
 
 EnglishWiki：https://terrariamods.wiki.gg/wiki/Calamity_Entropy
+
+Try [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3161388997] Calamity Overhaul Mod [/url] too,We will have some interesting linkage content in the future.

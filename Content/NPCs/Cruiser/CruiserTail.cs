@@ -21,9 +21,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
             NPC.width = 45;
             NPC.height = 45;
-            NPC.damage = 180;
+            NPC.damage = 120;
             NPC.dontCountMe = true;
-            NPC.defense = 40;
+            NPC.defense = 10;
             NPC.lifeMax = 80000;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath4;
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.noGravity = true;
             NPC.defense = 10;
             NPC.dontCountMe = true;
-            NPC.Entropy().VoidTouchDR = 0.76f;
+            NPC.Entropy().VoidTouchDR = 0.6f;
             NPC.scale = 1.1f;
             if (Main.getGoodWorld)
             {

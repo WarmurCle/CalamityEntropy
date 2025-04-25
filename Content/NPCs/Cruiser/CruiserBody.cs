@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
             NPC.width = 70;
             NPC.height = 70;
-            NPC.damage = 190;
+            NPC.damage = 100;
             NPC.dontCountMe = true;
             NPC.dontCountMe = true;
             NPC.lifeMax = 80000;
@@ -61,12 +61,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.value = 50f;
             NPC.knockBackResist = 0f;
             NPC.noTileCollide = true;
-            NPC.defense = 120;
+            NPC.defense = 60;
             NPC.boss = true;
             NPC.noGravity = true;
             NPC.Entropy().VoidTouchDR = 0.7f;
             NPC.scale = 1.1f;
-            NPC.Calamity().DR = 0.86f;
+            NPC.Calamity().DR = 0.4f;
             if (Main.getGoodWorld)
             {
                 NPC.scale = 0.5f;

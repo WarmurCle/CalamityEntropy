@@ -24,12 +24,12 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (Main.GameUpdateCount % 15 == 0)
+            if (Main.GameUpdateCount % 18 == 0)
             {
-                player.statLife -= 16;
+                player.statLife -= 13;
                 if (player.statLife <= 0)
                 {
-                    player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral($"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidTouch"))), 64, 0);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral($"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidTouch"))), 16, 0);
                 }
             }
             var r = Main.rand;

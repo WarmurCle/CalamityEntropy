@@ -119,14 +119,14 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 90;
             NPC.height = 90;
-            NPC.damage = 190;
+            NPC.damage = 138;
             if (Main.expertMode)
             {
-                NPC.damage += 16;
+                NPC.damage += 2;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 16;
+                NPC.damage += 4;
             }
             NPC.defense = 100;
             NPC.lifeMax = 1800000;
