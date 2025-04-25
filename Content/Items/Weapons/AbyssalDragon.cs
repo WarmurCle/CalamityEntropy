@@ -27,18 +27,18 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.damage = 630;
             Item.noMelee = true;
             Item.crit = 10;
-            Item.useAnimation = Item.useTime = 36;
+            Item.useAnimation = Item.useTime = 32;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5f;
             Item.UseSound = SoundID.Item28;
-            Item.autoReuse = true;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<AbyssDragonProj>();
             Item.shootSpeed = 20f;
-            Item.mana = 28;
+            Item.mana = 7;
             Item.DamageType = DamageClass.Magic;
+            Item.channel = true;
         }
         public override bool MagicPrefix()
         {
@@ -48,11 +48,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
 
             Projectile.NewProjectile(player.GetSource_ItemUse(Item), position, velocity, ModContent.ProjectileType<AbyssDragonProj>(), damage, knockback, player.whoAmI);
-            for (int i = 0; i < 6 + player.Entropy().WeaponBoost * 3; i++)
-            {
-                Projectile.NewProjectile(player.GetSource_ItemUse(Item), position, velocity.RotatedByRandom(MathHelper.ToRadians(6)), ModContent.ProjectileType<AbyssalStar>(), (int)(damage * 0.3f), knockback, player.whoAmI);
-
-            }
+            
             return false;
         }
         public override void AddRecipes()
@@ -85,10 +81,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
 
-            float animProgress = 1 - player.itemTime / (float)player.itemTimeMax;
             float rotation = (player.Center - player.Calamity().mouseWorld).ToRotation() * player.gravDir + MathHelper.PiOver2;
-            if (animProgress < 0.5)
-                rotation += (-0.5f) * (float)Math.Pow((0.5f - animProgress) / 0.5f, 2) * player.direction;
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
         }
         #endregion

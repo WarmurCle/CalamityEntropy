@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class NihilityShell : ModItem
     {
-        public static int MaxCount = 2;
+        public static int MaxCount = 3;
         public static float CirtDamageAddition = 0.12f;
         public static float HurtDamageReduce = 0.16f;
         public override void SetDefaults()

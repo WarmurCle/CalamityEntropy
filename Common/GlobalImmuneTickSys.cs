@@ -31,9 +31,9 @@ namespace CalamityEntropy.Common
             NPC hitted = NPC;
             if (NPC.realLife == -1)
             {
-                foreach(NPC n in Main.ActiveNPCs)
+                foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if(n.realLife == NPC.whoAmI)
+                    if (n.realLife == NPC.whoAmI)
                     {
                         SyncImmuneTickWithNPC(proj, hitted, n, player);
                     }
@@ -55,14 +55,14 @@ namespace CalamityEntropy.Common
         {
             if (NPCHasGlobalImmuneTick.Contains(NPC.type))
             {
-                NPC.gimmune().immune = item.useTime;
+                NPC.gimmune().immune = player.itemTime;
                 if (NPC.realLife == -1)
                 {
                     foreach (NPC n in Main.ActiveNPCs)
                     {
                         if (n.realLife == NPC.whoAmI)
                         {
-                            n.gimmune().immune = item.useTime;
+                            n.gimmune().immune = player.itemTime;
                         }
                     }
                 }
@@ -94,11 +94,16 @@ namespace CalamityEntropy.Common
             }
             else
             {
-                NPC.gimmune().immune = sync.gimmune().immune = 10;
+                if (proj.penetrate != 0)
+                {
+                    NPC.gimmune().immune = sync.gimmune().immune = 10;
+                }
             }
         }
         public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
+            if (projectile.penetrate == 1 && !projectile.usesIDStaticNPCImmunity) { return null; }
+
             if (immune != 0)
             {
                 return false;
@@ -111,6 +116,7 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
+
             return null;
         }
         public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
