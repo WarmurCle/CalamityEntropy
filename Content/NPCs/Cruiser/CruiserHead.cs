@@ -115,20 +115,21 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
+            NPC.Calamity().DR = 0.4f;
             NPC.boss = true;
             NPC.width = 90;
             NPC.height = 90;
-            NPC.damage = 198;
+            NPC.damage = 190;
             if (Main.expertMode)
             {
-                NPC.damage += 18;
+                NPC.damage += 16;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 18;
+                NPC.damage += 16;
             }
-            NPC.defense = 140;
-            NPC.lifeMax = 1900000;
+            NPC.defense = 100;
+            NPC.lifeMax = 1800000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
@@ -531,11 +532,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     NPC.dontTakeDamage = false;
                                     NPC.width = 156;
                                     NPC.height = 156;
+                                    NPC.Calamity().DR = 0.2f;
                                     foreach (NPC n in Main.npc)
                                     {
                                         if (n.realLife == NPC.whoAmI)
                                         {
-                                            n.Calamity().DR = 0.8f;
+                                            n.Calamity().DR = 0.7f;
                                             if (n.ai[2] <= 8 && n.ai[2] > 4)
                                             {
                                                 n.width = 26;
@@ -821,10 +823,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if (ai == AIStyle.Cruise)
                         {
-                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (60 - NPC.velocity.Length()) * 0.2f);
+                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (40 - NPC.velocity.Length()) * 0.2f);
 
                             NPC.velocity += (target.Center - NPC.Center).normalize() * 0.1f;
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.048f);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.07f);
                             NPC.velocity *= 0.998f;
                             changeCounter++;
                             if (changeCounter > 200)
@@ -903,17 +905,17 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         {
                             if (changeCounter % 46 == 0)
                             {
-                                NPC.rotation = (target.Center + target.velocity * 22 - NPC.Center).ToRotation();
+                                NPC.rotation = (target.Center + target.velocity * Main.rand.NextFloat(0, 36) - NPC.Center).ToRotation();
                                 NPC.velocity = NPC.rotation.ToRotationVector2();
                                 EParticle.spawnNew(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.NonPremultiplied, NPC.rotation);
                             }
-                            if (changeCounter % 46 == 24)
+                            if (changeCounter % 46 == 16)
                             {
                                 if (canShoot)
                                 {
                                     Shoot(ModContent.ProjectileType<CruiserLaser2>(), NPC.Center, NPC.rotation.ToRotationVector2() * 10, ai0: NPC.whoAmI);
                                 }
-                                NPC.velocity = NPC.rotation.ToRotationVector2() * ((Util.Util.getDistance(NPC.Center, target.Center) + 1400f) / 20f);
+                                NPC.velocity = NPC.rotation.ToRotationVector2() * ((Util.Util.getDistance(NPC.Center, target.Center) + 1400f) / 26f);
                             }
                             if (changeCounter % 46 == 45)
                             {

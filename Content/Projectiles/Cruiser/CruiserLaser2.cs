@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                     }
                 }
             }
-            Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f) * 8;
+            Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 9000f, 1000f, 0f, 4.5f) * 10;
             if (Projectile.ai[0] >= 0)
             {
                 if (ownern == null) { ownern = ((int)(Projectile.ai[0])).ToNPC(); }
