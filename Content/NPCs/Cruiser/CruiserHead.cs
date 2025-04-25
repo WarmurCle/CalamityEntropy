@@ -903,7 +903,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         {
                             if (changeCounter % 46 == 0)
                             {
-                                NPC.rotation = (target.Center - NPC.Center).ToRotation();
+                                NPC.rotation = (target.Center + target.velocity * 22 - NPC.Center).ToRotation();
                                 NPC.velocity = NPC.rotation.ToRotationVector2();
                                 EParticle.spawnNew(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.NonPremultiplied, NPC.rotation);
                             }
