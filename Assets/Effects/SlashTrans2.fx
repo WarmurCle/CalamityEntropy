@@ -6,7 +6,7 @@ float4 EnchantedFunction(float2 coords : TEXCOORD0) : COLOR0
     float4 colory = tex2D(uImage, frac(coords + float2(ofs, 0)));
     float4 barColor = tex2D(uTransformImage, float2(0.5, coords.y));
 	
-    return (lerp(float4(0.2, 0.2, 0.5, 0.46), float4(0.7, 0.7, 1, 1), colory.r) * barColor) * (coords.x * coords.y);
+    return (lerp(float4(0.2, 0.2, 0.5, 0.46), float4(0.7, 0.7, 1, 1), colory.b) * barColor) * (coords.x * coords.y) * colory;
 }
 
 technique Technique1

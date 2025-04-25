@@ -794,15 +794,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         if(ai == AIStyle.AroundSpawnVoidBomb)
                         {
                             NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (44 - NPC.velocity.Length()) * 0.08f);
-                            NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.03f, false).ToRotationVector2() * NPC.velocity.Length();
+                            NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.0325f, false).ToRotationVector2() * NPC.velocity.Length();
 
                             changeCounter++;
                             if(changeCounter < 180)
                             {
-                                if(changeCounter % 9 == 0)
+                                if(changeCounter % 7 == 0)
                                 {
                                     if (canShoot)
-                                        Shoot(ModContent.ProjectileType<VoidBomb>(), NPC.Center, Util.Util.randomPointInCircle(4) + (target.Center - NPC.Center).normalize() * 16);
+                                        Shoot(ModContent.ProjectileType<VoidBomb>(), NPC.Center, Util.Util.randomPointInCircle(8) + (target.Center - NPC.Center).normalize() * 22);
                                 }
                             }
                             if(changeCounter > 340)
@@ -812,13 +812,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if(ai == AIStyle.Cruise)
                         {
-
-                            if (NPC.velocity.Length() < 30)
-                            {
-                                NPC.velocity *= 1.046f;
-                            }
+                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (60 - NPC.velocity.Length()) * 0.2f);
+                            
                             NPC.velocity += (target.Center - NPC.Center).normalize() * 0.1f;
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.06f);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.048f);
                             NPC.velocity *= 0.998f;
                             changeCounter++;
                             if(changeCounter > 200)

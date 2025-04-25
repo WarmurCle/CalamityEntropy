@@ -37,6 +37,14 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.timeLeft = 120;
 
         }
+        public override bool CanHitPlayer(Player target)
+        {
+            return false;
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return false;
+        }
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(Projectile.rotation);

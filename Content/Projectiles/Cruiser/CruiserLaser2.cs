@@ -96,12 +96,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 if (ownern == null) { ownern = ((int)(Projectile.ai[0])).ToNPC(); }
                 if (ownern != null && ownern.active)
                 {
-                    Projectile.Center = ownern.Center;
-                    Projectile.rotation = ownern.rotation;
                 }
                 else
                 {
-                    Projectile.Kill();
+                    Projectile.Kill();return;
                 }
             }
             if (ownern != null)

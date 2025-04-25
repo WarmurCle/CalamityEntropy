@@ -194,7 +194,7 @@ namespace CalamityEntropy.Content.Projectiles
             Player player = Main.player[Projectile.owner];
 
             Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Extra_201").Value;
-            Texture2D tail2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/CrSky").Value;
+            Texture2D tail2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/B1").Value;
             Texture2D tail3 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Noise_10").Value;
             var r = Main.rand;
             sb.End();

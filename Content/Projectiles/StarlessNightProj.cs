@@ -18,6 +18,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/StarlessNight";
         List<float> odr = new List<float>();
         List<float> ods = new List<float>();
+        public int[] NPCHitCounts = new int[Main.npc.Length];
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -48,6 +49,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int spawnVoidStarCount = 5;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            NPCHitCounts[target.whoAmI]++;
             CalamityEntropy.Instance.screenShakeAmp = 6;
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner);
             Util.Util.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, volume: 0.7f);
@@ -61,6 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
                 spawnVoidStarCount--;
             }
         }
+        
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             rotSpeed = reader.ReadSingle();
@@ -154,11 +157,17 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
+            if (NPCHitCounts[target.whoAmI] > 1)
+            {
+                return false;
+            }
             return base.CanHitNPC(target);
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            flag = true;
             drawSlash();
+            flag = false;
             return false;
         }
         public void drawSword()
@@ -174,19 +183,20 @@ namespace CalamityEntropy.Content.Projectiles
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Main.EntitySpriteDraw(TextureAssets.Projectile[Projectile.type].Value, Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, Color.White, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(0, TextureAssets.Projectile[Projectile.type].Value.Height), Projectile.scale * 3f * scaleD, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(TextureAssets.Projectile[Projectile.type].Value, Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, Color.White, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(0, TextureAssets.Projectile[Projectile.type].Value.Height), Projectile.scale * 2.86f * scaleD, SpriteEffects.None, 0);
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
         }
+        public bool flag = false;
         public void drawSlash()
         {
             SpriteBatch sb = Main.spriteBatch;
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             Player player = Main.player[Projectile.owner];
 
-            Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Extra_201").Value;
-            Texture2D tail2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/SwordSlashTexture").Value;
+            Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/MotionTrail2").Value;
+            Texture2D tail2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/GradientNoise").Value;
             var r = Main.rand;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -195,7 +205,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = new Color(255, 255, 255);
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(574 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(640 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3(i / (float)odr.Count, 1, 1),
                       b));
                 ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
@@ -210,26 +220,31 @@ namespace CalamityEntropy.Content.Projectiles
                 shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
 
                 sb.End();
-                sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
+                sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
 
-                gd.Textures[0] = tail;
-                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 gd.Textures[0] = tail2;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
+                if (flag)
+                {
+                    gd.Textures[0] = tail;
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    gd.Textures[0] = tail;
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                }
                 sb.End();
                 sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
 
             }
 
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(0, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 580 * Projectile.scale * scaleD, targetHitbox, 64);
+            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 628 * Projectile.scale * scaleD, targetHitbox, 64);
         }
     }
 
