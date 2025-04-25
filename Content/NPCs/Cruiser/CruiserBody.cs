@@ -47,46 +47,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.width = reader.ReadInt32();
             NPC.height = reader.ReadInt32();
         }
-        public void SyncImmuneTick(int plr)
-        {
-            NPC n = NPC.realLife.ToNPC();
-            if (plr > 0)
-            {
-                if (NPC.immune[plr] > n.immune[plr])
-                {
-                    n.immune[plr] = NPC.immune[plr];
-                }
-            }
-            foreach (Projectile p in Main.ActiveProjectiles)
-            {
-                if (p.usesLocalNPCImmunity)
-                {
-                    if (p.localNPCImmunity[NPC.whoAmI] > p.localNPCImmunity[n.whoAmI])
-                    {
-                        p.localNPCImmunity[n.whoAmI] = p.localNPCImmunity[NPC.whoAmI];
-                    }
-                }
-                if (p.usesIDStaticNPCImmunity)
-                {
-                    if (Projectile.perIDStaticNPCImmunity[p.type][NPC.whoAmI] > Projectile.perIDStaticNPCImmunity[p.type][n.whoAmI])
-                    {
-                        Projectile.perIDStaticNPCImmunity[p.type][n.whoAmI] = Projectile.perIDStaticNPCImmunity[p.type][NPC.whoAmI];
-                    }
-                }
-            }
-            if(n.ModNPC is CruiserHead ch)
-            {
-                ch.SyncImmuneTick(plr);
-            }
-        }
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-            SyncImmuneTick(player.whoAmI);
-        }
-        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-        {
-            SyncImmuneTick(projectile.owner);
-        }
+
         public override void SetDefaults()
         {
 
@@ -119,6 +80,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
         public override void AI()
         {
+            NPC.defense = Main.npc[(int)NPC.ai[1]].defense;
+            NPC.Calamity().DR = Main.npc[(int)NPC.ai[1]].Calamity().DR;
             NPC.dontTakeDamage = Main.npc[(int)NPC.ai[1]].dontTakeDamage;
             NPC.ai[0] += 1;
             if (NPC.ai[0] < 5)

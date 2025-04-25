@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
-            NPC.Calamity().DR = 0.4f;
+            NPC.Calamity().DR = 0.3f;
             NPC.boss = true;
             NPC.width = 90;
             NPC.height = 90;
@@ -128,8 +128,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 NPC.damage += 9;
             }
-            NPC.defense = 100;
-            NPC.lifeMax = 1400000;
+            NPC.defense = 40;
+            NPC.lifeMax = 1200000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
@@ -171,48 +171,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             bite = true;
             target.AddBuff(Main.zenithWorld ? ModContent.BuffType<MaliciousCode>() : ModContent.BuffType<VoidTouch>(), 120);
-        }
-        public void SyncImmuneTick(int plr)
-        {
-            foreach (NPC n in Main.ActiveNPCs)
-            {
-                if (n.realLife == NPC.whoAmI)
-                {
-                    if (plr > 0) {
-                        if (NPC.immune[plr] > n.immune[plr])
-                        {
-                            n.immune[plr] = NPC.immune[plr];
-                        } }
-
-                    foreach (Projectile p in Main.ActiveProjectiles)
-                    {
-                        if (p.usesLocalNPCImmunity)
-                        {
-                            if (p.localNPCImmunity[NPC.whoAmI] > p.localNPCImmunity[n.whoAmI])
-                            {
-                                p.localNPCImmunity[n.whoAmI] = p.localNPCImmunity[NPC.whoAmI];
-                            }
-                        }
-                        if (p.usesIDStaticNPCImmunity)
-                        {
-                            if (Projectile.perIDStaticNPCImmunity[p.type][NPC.whoAmI] > Projectile.perIDStaticNPCImmunity[p.type][n.whoAmI])
-                            {
-                                Projectile.perIDStaticNPCImmunity[p.type][n.whoAmI] = Projectile.perIDStaticNPCImmunity[p.type][NPC.whoAmI];
-                            }
-                        }
-                    } 
-                }
-
-            }
-
-        }
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-            SyncImmuneTick(player.whoAmI);
-        }
-        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-        {
-            SyncImmuneTick(projectile.owner);
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
@@ -579,7 +537,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     {
                                         if (n.realLife == NPC.whoAmI)
                                         {
-                                            n.Calamity().DR = 0.1f;
                                             if (n.ai[2] <= 8 && n.ai[2] > 4)
                                             {
                                                 n.width = 26;
@@ -594,7 +551,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                             {
                                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n.whoAmI, 0f, 0f, 0f, 0);
                                             }
-                                        }
+                                        }tm
                                     }
                                 }
                                 if (alpha < 1)
