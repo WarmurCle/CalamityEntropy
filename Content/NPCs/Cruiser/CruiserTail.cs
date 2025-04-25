@@ -46,11 +46,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            modifiers.SourceDamage *= ((int)NPC.ai[1]).ToNPC().Entropy().damageMul;
             if (NPC.ai[0] < 500)
             {
                 modifiers.SourceDamage *= ((float)NPC.ai[0] / 500f);
             }
+            ((int)NPC.ai[1]).ToNPC().ModNPC.ModifyHitByProjectile(projectile, ref modifiers);
         }
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {

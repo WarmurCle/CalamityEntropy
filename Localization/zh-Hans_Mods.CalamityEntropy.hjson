@@ -1190,7 +1190,7 @@ Items: {
 			暴击伤害增加12%
 			暴击时概率获得一块能量甲壳
 			每块能量甲壳能抵挡你受到伤害的16%一次
-			最多同时拥有2块能量甲壳
+			最多同时拥有3块能量甲壳
 			'''
 		DisplayName: 噬虚魔壳
 	}
@@ -2377,9 +2377,9 @@ Projectiles: {
 	FutureKnife.DisplayName: 未来飞刀
 	ProphecyRune.DisplayName: 符文光球
 	ProphecyRuneBM.DisplayName: 符文光球
-	// CruiserEnergyBall.DisplayName: Cruiser Energy Ball
-	// VoidResidue.DisplayName: Void Residue
-	// VoidBomb.DisplayName: Void Bomb
+	CruiserEnergyBall.DisplayName: 巡游者能量球
+	VoidResidue.DisplayName: 虚空废料
+	VoidBomb.DisplayName: 虚空炸弹
 }
 
 LegendTooltip: - 传奇物品 -

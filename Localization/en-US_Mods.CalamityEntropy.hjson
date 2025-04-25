@@ -1069,7 +1069,7 @@ Items: {
 			Critical hits will deal 12% more damage
 			Probability of obtaining an energy shell during critical strike
 			The energy shell can reduce the damage you receive by 16% once
-			You can only get a maximum of two shells
+			You can only get a maximum of three shells
 			'''
 		DisplayName: Nihility Shell
 	}

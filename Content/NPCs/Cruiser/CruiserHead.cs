@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
-            NPC.Calamity().DR = 0.3f;
+            NPC.Calamity().DR = 0.1f;
             NPC.boss = true;
             NPC.width = 90;
             NPC.height = 90;
@@ -128,8 +128,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 NPC.damage += 9;
             }
-            NPC.defense = 40;
-            NPC.lifeMax = 1200000;
+            NPC.defense = 10;
+            NPC.lifeMax = 500000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
@@ -237,19 +237,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-
-            modifiers.SourceDamage *= NPC.Entropy().damageMul;
             NPC.Entropy().damageMul *= 0.98f;
             if (phase == 2)
             {
-                modifiers.SourceDamage *= 1.5f;
+                modifiers.FinalDamage *= 1.64f;
             }
 
         }
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-
-            modifiers.SourceDamage *= NPC.Entropy().damageMul;
             NPC.Entropy().damageMul *= 0.98f;
         }
 
@@ -401,7 +397,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void AI()
         {
             bool canShoot = Main.netMode != NetmodeID.MultiplayerClient;
-            NPC.Entropy().damageMul += 1f / 14000f;
+            NPC.Entropy().damageMul += 1f / 10000f;
             if (NPC.Entropy().damageMul > 1)
             {
                 NPC.Entropy().damageMul = 1;
@@ -532,7 +528,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     NPC.dontTakeDamage = false;
                                     NPC.width = 156;
                                     NPC.height = 156;
-                                    NPC.Calamity().DR = 0f;
                                     foreach (NPC n in Main.npc)
                                     {
                                         if (n.realLife == NPC.whoAmI)

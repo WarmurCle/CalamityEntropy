@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Util;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
@@ -31,9 +32,9 @@ namespace CalamityEntropy.Common
             NPC hitted = NPC;
             if (NPC.realLife == -1)
             {
-                foreach(NPC n in Main.ActiveNPCs)
+                foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if(n.realLife == NPC.whoAmI)
+                    if (n.realLife == NPC.whoAmI)
                     {
                         SyncImmuneTickWithNPC(proj, hitted, n, player);
                     }
@@ -51,18 +52,42 @@ namespace CalamityEntropy.Common
                 SyncImmuneTick(npc, projectile, projectile.owner);
             }
         }
+        public void SyncShieldDashImmune(NPC NPC, int plr)
+        {
+            if (NPCHasGlobalImmuneTick.Contains(NPC.type))
+            {
+                if (NPC.realLife == -1)
+                {
+                    foreach (NPC n in Main.ActiveNPCs)
+                    {
+                        if (n.realLife == NPC.whoAmI && NPC.Calamity().dashImmunityTime[plr] > n.Calamity().dashImmunityTime[plr])
+                        {
+                            n.Calamity().dashImmunityTime[plr] = NPC.Calamity().dashImmunityTime[plr];
+                        }
+                    }
+                }
+                else
+                {
+                    if (NPC.realLife.ToNPC().Calamity().dashImmunityTime[plr] < NPC.Calamity().dashImmunityTime[plr])
+                    {
+                        NPC.realLife.ToNPC().Calamity().dashImmunityTime[plr] = NPC.Calamity().dashImmunityTime[plr];
+                    }
+                    SyncShieldDashImmune(NPC.realLife.ToNPC(), plr);
+                }
+            }
+        }
         public override void OnHitByItem(NPC NPC, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
             if (NPCHasGlobalImmuneTick.Contains(NPC.type))
             {
-                NPC.gimmune().immune = item.useTime;
+                NPC.gimmune().immune = player.itemTime;
                 if (NPC.realLife == -1)
                 {
                     foreach (NPC n in Main.ActiveNPCs)
                     {
                         if (n.realLife == NPC.whoAmI)
                         {
-                            n.gimmune().immune = item.useTime;
+                            n.gimmune().immune = player.itemTime;
                         }
                     }
                 }
@@ -94,11 +119,16 @@ namespace CalamityEntropy.Common
             }
             else
             {
-                NPC.gimmune().immune = sync.gimmune().immune = 10;
+                if (proj.penetrate != 0)
+                {
+                    NPC.gimmune().immune = sync.gimmune().immune = 10;
+                }
             }
         }
         public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
+            if (projectile.penetrate == 1 && !projectile.usesIDStaticNPCImmunity) { return null; }
+
             if (immune != 0)
             {
                 return false;
@@ -111,6 +141,7 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
+
             return null;
         }
         public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
@@ -123,12 +154,21 @@ namespace CalamityEntropy.Common
         }
         public override void AI(NPC npc)
         {
-            if(immune > 0)
+            if (immune > 0)
             {
                 immune--;
             }
+            if (readySyncDashImmune)
+            {
+                readySyncDashImmune = false;
+                SyncShieldDashImmune(npc, sdPlayer.whoAmI);
+            }
         }
+        public bool readySyncDashImmune = false;
+        public Player sdPlayer = null;
+
     }
+
     public class GlobalImmuneTickSysGProj : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
