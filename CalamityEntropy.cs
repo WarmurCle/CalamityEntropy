@@ -1164,6 +1164,7 @@ namespace CalamityEntropy
                     vs.Draw();
                 }
             }
+            EParticle.DrawPixelShaderParticles();
 
             Main.spriteBatch.End();
 

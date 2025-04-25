@@ -18,6 +18,7 @@ namespace CalamityEntropy.Content.Particles
         public override void onSpawn()
         {
             this.timeLeft = 11;
+            this.PixelShader = true;
         }
         public int maxLength = 21;
         public override void update()

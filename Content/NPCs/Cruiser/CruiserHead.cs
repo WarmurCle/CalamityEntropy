@@ -905,17 +905,17 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         {
                             if (changeCounter % 46 == 0)
                             {
-                                NPC.rotation = (target.Center + target.velocity * Main.rand.NextFloat(0, 36) - NPC.Center).ToRotation();
+                                NPC.rotation = (target.Center + target.velocity * Main.rand.NextFloat(10, 36) - NPC.Center).ToRotation();
                                 NPC.velocity = NPC.rotation.ToRotationVector2();
-                                EParticle.spawnNew(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.NonPremultiplied, NPC.rotation);
+                                EParticle.spawnNew(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, NPC.rotation);
                             }
-                            if (changeCounter % 46 == 16)
+                            if (changeCounter % 46 == 24)
                             {
                                 if (canShoot)
                                 {
                                     Shoot(ModContent.ProjectileType<CruiserLaser2>(), NPC.Center, NPC.rotation.ToRotationVector2() * 10, ai0: NPC.whoAmI);
                                 }
-                                NPC.velocity = NPC.rotation.ToRotationVector2() * ((Util.Util.getDistance(NPC.Center, target.Center) + 1400f) / 26f);
+                                NPC.velocity = NPC.rotation.ToRotationVector2() * ((Util.Util.getDistance(NPC.Center, target.Center) + 1400f) / 22f);
                             }
                             if (changeCounter % 46 == 45)
                             {
@@ -1084,6 +1084,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
                 }
             }
+            NPC.netSpam = 0;
             NPC.netUpdate = true;
             vtodraw = NPC.Center;
             for (int i = 0; i < bodies.Count; i++)

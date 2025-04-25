@@ -18,9 +18,10 @@ namespace CalamityEntropy.Content.Particles
         public bool glow = true;
         public float rotation = 0;
         public float scale = 1;
+        public bool PixelShader = false;
 
         public static List<EParticle> particles = new List<EParticle>();
-        public static void drawAll()
+        public static void DrawPixelShaderParticles()
         {
             List<EParticle> additiveDraw = new List<EParticle>();
             List<EParticle> alphaBlendDraw = new List<EParticle>();
@@ -28,6 +29,10 @@ namespace CalamityEntropy.Content.Particles
             Dictionary<Effect, List<EParticle>> useEffectParticle = new Dictionary<Effect, List<EParticle>>();
             foreach (EParticle p in particles)
             {
+                if (!p.PixelShader)
+                {
+                    continue;
+                }
                 if (p.useEffect == null)
                 {
                     if (p.useAdditive)
@@ -84,17 +89,76 @@ namespace CalamityEntropy.Content.Particles
                 Main.spriteBatch.End();
             }
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-            foreach (Effect effect in useEffectParticle.Keys)
+
+        }
+        public static void drawAll()
+        {
+            List<EParticle> additiveDraw = new List<EParticle>();
+            List<EParticle> alphaBlendDraw = new List<EParticle>();
+            List<EParticle> other = new List<EParticle>();
+            Dictionary<Effect, List<EParticle>> useEffectParticle = new Dictionary<Effect, List<EParticle>>();
+            foreach (EParticle p in particles)
             {
-                foreach (EParticle p in useEffectParticle[effect])
+                if (p.PixelShader)
                 {
-                    p.prepareShader();
-                    effect.CurrentTechnique.Passes[0].Apply();
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, (p.useAdditive ? BlendState.Additive : (p.useAlphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied)), SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-                    p.draw();
-                    Main.spriteBatch.End();
+                    continue;
+                }
+                if (p.useEffect == null)
+                {
+                    if (p.useAdditive)
+                    {
+                        additiveDraw.Add(p);
+                    }
+                    else if (p.useAlphaBlend)
+                    {
+                        alphaBlendDraw.Add(p);
+                    }
+                    else
+                    {
+                        other.Add(p);
+                    }
+                }
+                else
+                {
+                    if (useEffectParticle.ContainsKey(p.useEffect))
+                    {
+                        useEffectParticle[p.useEffect].Add(p);
+                    }
+                    else
+                    {
+                        useEffectParticle[p.useEffect] = new List<EParticle>() { p };
+                    }
                 }
             }
+            Main.spriteBatch.End();
+            if (alphaBlendDraw.Count > 0)
+            {
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+                foreach (EParticle p in alphaBlendDraw)
+                {
+                    p.draw();
+                }
+                Main.spriteBatch.End();
+            }
+            if (other.Count > 0)
+            {
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+                foreach (EParticle p in other)
+                {
+                    p.draw();
+                }
+                Main.spriteBatch.End();
+            }
+            if (additiveDraw.Count > 0)
+            {
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+                foreach (EParticle p in additiveDraw)
+                {
+                    p.draw();
+                }
+                Main.spriteBatch.End();
+            }
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
         }
         public virtual void prepareShader()
         {

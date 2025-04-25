@@ -153,7 +153,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.dontCountMe = true;
             if (!Main.dedServ)
             {
-                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/TheProphet");
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/SpectralForesight");
             }
         }
 
