@@ -551,7 +551,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                             {
                                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n.whoAmI, 0f, 0f, 0f, 0);
                                             }
-                                        }tm
+                                        }
                                     }
                                 }
                                 if (alpha < 1)
