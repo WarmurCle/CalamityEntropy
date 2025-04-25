@@ -45,6 +45,46 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CruiserBoss");
             }
         }
+        public void SyncImmuneTick(int plr)
+        {
+            NPC n = NPC.realLife.ToNPC();
+            if (plr > 0)
+            {
+                if (NPC.immune[plr] > n.immune[plr])
+                {
+                    n.immune[plr] = NPC.immune[plr];
+                }
+            }
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (p.usesLocalNPCImmunity)
+                {
+                    if (p.localNPCImmunity[NPC.whoAmI] > p.localNPCImmunity[n.whoAmI])
+                    {
+                        p.localNPCImmunity[n.whoAmI] = p.localNPCImmunity[NPC.whoAmI];
+                    }
+                }
+                if (p.usesIDStaticNPCImmunity)
+                {
+                    if (Projectile.perIDStaticNPCImmunity[p.type][NPC.whoAmI] > Projectile.perIDStaticNPCImmunity[p.type][n.whoAmI])
+                    {
+                        Projectile.perIDStaticNPCImmunity[p.type][n.whoAmI] = Projectile.perIDStaticNPCImmunity[p.type][NPC.whoAmI];
+                    }
+                }
+            }
+            if (n.ModNPC is CruiserHead ch)
+            {
+                ch.SyncImmuneTick(plr);
+            }
+        }
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            SyncImmuneTick(player.whoAmI);
+        }
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            SyncImmuneTick(projectile.owner);
+        }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             modifiers.SourceDamage *= ((int)NPC.ai[1]).ToNPC().Entropy().damageMul;

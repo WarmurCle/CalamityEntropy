@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 if(!(Main.netMode == NetmodeID.MultiplayerClient))
                 {
                     float rj = Util.Util.randomRot();
-                    for (float i = 0; i < 360; i += 10f)
+                    for (float i = 0; i < 360; i += 12f)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (rj + MathHelper.ToRadians(i)).ToRotationVector2() * 6, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, Projectile.knockBack);
                     }

@@ -323,6 +323,11 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.Kill();
                 return;
             }
+            if (player.dead)
+            {
+                Projectile.Kill();
+                return;
+            }
 
             if (player.HeldItem.type != ItemType && !UIOpen)
             {

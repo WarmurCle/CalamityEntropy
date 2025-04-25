@@ -119,17 +119,17 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 90;
             NPC.height = 90;
-            NPC.damage = 138;
+            NPC.damage = 160;
             if (Main.expertMode)
             {
-                NPC.damage += 2;
+                NPC.damage += 9;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 4;
+                NPC.damage += 9;
             }
             NPC.defense = 100;
-            NPC.lifeMax = 1800000;
+            NPC.lifeMax = 1400000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
@@ -171,6 +171,48 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             bite = true;
             target.AddBuff(Main.zenithWorld ? ModContent.BuffType<MaliciousCode>() : ModContent.BuffType<VoidTouch>(), 120);
+        }
+        public void SyncImmuneTick(int plr)
+        {
+            foreach (NPC n in Main.ActiveNPCs)
+            {
+                if (n.realLife == NPC.whoAmI)
+                {
+                    if (plr > 0) {
+                        if (NPC.immune[plr] > n.immune[plr])
+                        {
+                            n.immune[plr] = NPC.immune[plr];
+                        } }
+
+                    foreach (Projectile p in Main.ActiveProjectiles)
+                    {
+                        if (p.usesLocalNPCImmunity)
+                        {
+                            if (p.localNPCImmunity[NPC.whoAmI] > p.localNPCImmunity[n.whoAmI])
+                            {
+                                p.localNPCImmunity[n.whoAmI] = p.localNPCImmunity[NPC.whoAmI];
+                            }
+                        }
+                        if (p.usesIDStaticNPCImmunity)
+                        {
+                            if (Projectile.perIDStaticNPCImmunity[p.type][NPC.whoAmI] > Projectile.perIDStaticNPCImmunity[p.type][n.whoAmI])
+                            {
+                                Projectile.perIDStaticNPCImmunity[p.type][n.whoAmI] = Projectile.perIDStaticNPCImmunity[p.type][NPC.whoAmI];
+                            }
+                        }
+                    } 
+                }
+
+            }
+
+        }
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            SyncImmuneTick(player.whoAmI);
+        }
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            SyncImmuneTick(projectile.owner);
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
@@ -532,12 +574,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     NPC.dontTakeDamage = false;
                                     NPC.width = 156;
                                     NPC.height = 156;
-                                    NPC.Calamity().DR = 0.2f;
+                                    NPC.Calamity().DR = 0f;
                                     foreach (NPC n in Main.npc)
                                     {
                                         if (n.realLife == NPC.whoAmI)
                                         {
-                                            n.Calamity().DR = 0.7f;
+                                            n.Calamity().DR = 0.1f;
                                             if (n.ai[2] <= 8 && n.ai[2] > 4)
                                             {
                                                 n.width = 26;
@@ -586,7 +628,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if (ai == AIStyle.TryToClosePlayer)
                         {
-                            if (NPC.velocity.Length() < 30)
+                            if (NPC.velocity.Length() < 36)
                             {
                                 NPC.velocity *= 1.046f;
                             }
@@ -594,7 +636,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.08f);
                             NPC.velocity *= 0.998f;
                             changeCounter++;
-                            if (changeCounter > 500 || NPC.Distance(target.Center) < 260)
+                            if (changeCounter > 500 || NPC.Distance(target.Center) < 220)
                             {
                                 changeAi();
                             }
@@ -712,7 +754,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if (ai == AIStyle.VoidSpike)
                         {
-                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (58 - NPC.velocity.Length()) * 0.08f);
+                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (46 - NPC.velocity.Length()) * 0.08f);
                             NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.0376f, false).ToRotationVector2() * NPC.velocity.Length();
                             changeCounter++;
                             if (changeCounter == 40 || changeCounter == 60 || changeCounter == 80 || changeCounter == 100)
@@ -804,8 +846,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if (ai == AIStyle.AroundSpawnVoidBomb)
                         {
-                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (44 - NPC.velocity.Length()) * 0.08f);
-                            NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.0325f, false).ToRotationVector2() * NPC.velocity.Length();
+                            NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (32 - NPC.velocity.Length()) * 0.08f);
+                            NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.028f, false).ToRotationVector2() * NPC.velocity.Length();
 
                             changeCounter++;
                             if (changeCounter < 180)
@@ -972,7 +1014,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     {
                         Particle p = new Particle();
                         p.shape = 4;
-                        p.position = NPC.Center - NPC.rotation.ToRotationVector2() * 60 - NPC.velocity * 0.5f; ;
+                        p.position = NPC.Center - NPC.rotation.ToRotationVector2() * 60 - NPC.velocity * 0.5f;
                         p.alpha = 1.6f * NPC.scale;
                         p.ad = 0.013f;
                         var r = Main.rand;
