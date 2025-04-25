@@ -129,7 +129,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC.damage += 9;
             }
             NPC.defense = 10;
-            NPC.lifeMax = 800000;
+            NPC.lifeMax = 600000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
@@ -238,11 +238,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
 
-            modifiers.SourceDamage *= NPC.Entropy().damageMul;
+            modifiers.FinalDamage *= NPC.Entropy().damageMul;
             NPC.Entropy().damageMul *= 0.98f;
             if (phase == 2)
             {
-                modifiers.SourceDamage *= 1.5f;
+                modifiers.FinalDamage *= 1.64f;
             }
 
         }
@@ -401,7 +401,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void AI()
         {
             bool canShoot = Main.netMode != NetmodeID.MultiplayerClient;
-            NPC.Entropy().damageMul += 1f / 14000f;
+            NPC.Entropy().damageMul += 1f / 10000f;
             if (NPC.Entropy().damageMul > 1)
             {
                 NPC.Entropy().damageMul = 1;

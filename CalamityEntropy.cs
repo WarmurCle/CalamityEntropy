@@ -181,6 +181,7 @@ namespace CalamityEntropy
             On_Main.DrawTiles += drawtile;
             On_Projectile.FillWhipControlPoints += fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
+            On_Player.ApplyDamageToNPC += applydamagetonpc;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
@@ -265,6 +266,14 @@ namespace CalamityEntropy
             On_Main.DrawTiles -= drawtile;
             On_Projectile.FillWhipControlPoints -= fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings -= get_whip_settings_hook;
+            On_Player.ApplyDamageToNPC -= applydamagetonpc;
+        }
+
+        private void applydamagetonpc(On_Player.orig_ApplyDamageToNPC orig, Player self, NPC n, int damage, float knockback, int direction, bool crit, DamageClass damageType, bool damageVariation)
+        {
+            orig(self, n, damage, knockback, direction, crit, damageType, damageVariation);
+            n.gimmune().readySyncDashImmune = true;
+            n.gimmune().sdPlayer = self;
         }
 
         public static Effect whiteTrans => ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;

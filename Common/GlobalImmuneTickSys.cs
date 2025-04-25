@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Util;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
@@ -49,6 +50,30 @@ namespace CalamityEntropy.Common
             if (NPCHasGlobalImmuneTick.Contains(npc.type))
             {
                 SyncImmuneTick(npc, projectile, projectile.owner);
+            }
+        }
+        public void SyncShieldDashImmune(NPC NPC, int plr)
+        {
+            if (NPCHasGlobalImmuneTick.Contains(NPC.type))
+            {
+                if (NPC.realLife == -1)
+                {
+                    foreach (NPC n in Main.ActiveNPCs)
+                    {
+                        if (n.realLife == NPC.whoAmI && NPC.Calamity().dashImmunityTime[plr] > n.Calamity().dashImmunityTime[plr])
+                        {
+                            n.Calamity().dashImmunityTime[plr] = NPC.Calamity().dashImmunityTime[plr];
+                        }
+                    }
+                }
+                else
+                {
+                    if (NPC.realLife.ToNPC().Calamity().dashImmunityTime[plr] < NPC.Calamity().dashImmunityTime[plr])
+                    {
+                        NPC.realLife.ToNPC().Calamity().dashImmunityTime[plr] = NPC.Calamity().dashImmunityTime[plr];
+                    }
+                    SyncShieldDashImmune(NPC.realLife.ToNPC(), plr);
+                }
             }
         }
         public override void OnHitByItem(NPC NPC, Player player, Item item, NPC.HitInfo hit, int damageDone)
@@ -129,12 +154,21 @@ namespace CalamityEntropy.Common
         }
         public override void AI(NPC npc)
         {
-            if(immune > 0)
+            if (immune > 0)
             {
                 immune--;
             }
+            if (readySyncDashImmune)
+            {
+                readySyncDashImmune = false;
+                SyncShieldDashImmune(npc, sdPlayer.whoAmI);
+            }
         }
+        public bool readySyncDashImmune = false;
+        public Player sdPlayer = null;
+
     }
+
     public class GlobalImmuneTickSysGProj : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
