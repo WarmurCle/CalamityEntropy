@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
     [AutoloadEquip(EquipType.Head)]
     public class MariviniumHelmet : ModItem
     {
-        public static int ShieldCd = 12 * 60;
+        public static int ShieldCd = 20 * 60;
         public static int MaxShield = 2;
         public override void SetDefaults()
         {

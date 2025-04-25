@@ -1087,10 +1087,14 @@ namespace CalamityEntropy.Common
                 if (MariviniumShieldCount < MariviniumHelmet.MaxShield)
                 {
                     MariviniumShieldCd--;
+                    if(MariviniumShieldCount > 0)
+                    {
+                        MariviniumShieldCd--;
+                    }
                     if (MariviniumShieldCd <= 0)
                     {
-                        MariviniumShieldCd = MariviniumHelmet.ShieldCd;
                         MariviniumShieldCount++;
+                        MariviniumShieldCd = MariviniumHelmet.ShieldCd;
                     }
                 }
                 else

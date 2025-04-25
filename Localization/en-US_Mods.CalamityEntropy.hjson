@@ -1902,7 +1902,7 @@ MariviniumSet:
 	Immunity to most debuffs
 	When using true melee weapons, +15% Damage reduce and 25 defense
 	Stealth strike has a probability of causing an water explosion
-	Obtain 2 layers of shields, which will take 10 seconds to recover after being shattered
+	Obtain 2 layers of shields, which will take 20 seconds to recover after being shattered
 	After shield shattered, treat 140 health points and increace your damage by 100% for 5 seconds
 	'''
 DeathMode: Death Mode
