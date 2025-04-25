@@ -913,7 +913,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 {
                                     Shoot(ModContent.ProjectileType<CruiserLaser2>(), NPC.Center, NPC.rotation.ToRotationVector2() * 10, ai0: NPC.whoAmI);
                                 }
-                                NPC.velocity = NPC.rotation.ToRotationVector2() * 80;
+                                NPC.velocity = NPC.rotation.ToRotationVector2() * ((Util.Util.getDistance(NPC.Center, target.Center) + 1400f) / 20f);
                             }
                             if (changeCounter % 46 == 45)
                             {
