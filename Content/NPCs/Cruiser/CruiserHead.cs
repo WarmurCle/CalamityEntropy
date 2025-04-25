@@ -129,7 +129,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC.damage += 9;
             }
             NPC.defense = 10;
-            NPC.lifeMax = 600000;
+            NPC.lifeMax = 500000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
@@ -237,8 +237,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-
-            modifiers.FinalDamage *= NPC.Entropy().damageMul;
             NPC.Entropy().damageMul *= 0.98f;
             if (phase == 2)
             {
@@ -248,8 +246,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-
-            modifiers.SourceDamage *= NPC.Entropy().damageMul;
             NPC.Entropy().damageMul *= 0.98f;
         }
 
