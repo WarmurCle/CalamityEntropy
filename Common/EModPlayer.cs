@@ -749,12 +749,12 @@ namespace CalamityEntropy.Common
                     DamageClass dc = dmgClasses[i];
                     if (Player.GetDamage(dc).Additive > 1)
                     {
-                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive, 0.8f);
+                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive, 0.9f);
                         Player.GetDamage(dc) -= (Player.GetDamage(dc).Additive - tv);
                     }
-                    if (Player.GetCritChance(dc) > 50)
+                    if (Player.GetCritChance(dc) > 75)
                     {
-                        Player.GetCritChance(dc) = 50;
+                        Player.GetCritChance(dc) = 75;
                     }
                 }
             }

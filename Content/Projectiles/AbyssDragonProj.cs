@@ -33,8 +33,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 120;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.ArmorPenetration = 60;
-            Projectile.localNPCHitCooldown = 12;
-            Projectile.extraUpdates = 1;
+            Projectile.localNPCHitCooldown = 8;
+            Projectile.extraUpdates = 2;
         }
         public List<Vector2> odp = new List<Vector2>();
         public List<float> odr = new List<float>();

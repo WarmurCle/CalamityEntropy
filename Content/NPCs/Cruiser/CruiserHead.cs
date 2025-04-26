@@ -11,9 +11,7 @@ using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Util;
 using CalamityMod;
 using CalamityMod.Events;
-using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Items.Potions;
-using CalamityMod.NPCs;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
@@ -117,19 +115,19 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.Calamity().canBreakPlayerDefense = true;
             NPC.Calamity().DR = 0.4f;
             NPC.boss = true;
-            NPC.width = 90;
-            NPC.height = 90;
+            NPC.width = 100;
+            NPC.height = 100;
             NPC.damage = 160;
             if (Main.expertMode)
             {
-                NPC.damage += 9;
+                NPC.damage += 10;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 9;
+                NPC.damage += 10;
             }
-            NPC.defense = 90;
-            NPC.lifeMax = 800000;
+            NPC.defense = 100;
+            NPC.lifeMax = 1200000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;
@@ -169,7 +167,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            bite = true;
             target.AddBuff(Main.zenithWorld ? ModContent.BuffType<MaliciousCode>() : ModContent.BuffType<VoidTouch>(), 120);
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -240,13 +237,17 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.Entropy().damageMul *= 0.98f;
             if (phase == 2)
             {
-                modifiers.FinalDamage *= 1.64f;
+                modifiers.FinalDamage *= 1.2f;
             }
 
         }
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             NPC.Entropy().damageMul *= 0.98f;
+            if (phase == 2)
+            {
+                modifiers.FinalDamage *= 1.2f;
+            }
         }
 
         public void changeAi()
@@ -491,6 +492,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     if (NPC.HasValidTarget)
                     {
                         Player target = NPC.target.ToPlayer();
+                        if(!bite && NPC.Distance(target.Center) < 900 && ai != AIStyle.SplittingVoidStar && ai != AIStyle.VoidResidue && ai != AIStyle.BiteAndDash && ai != AIStyle.EnergyBall && ai != AIStyle.AroundPlayerAndShootVoidStar && ai != AIStyle.AroundSpawnVoidBomb)
+                        {
+                            mouthRot += Utils.Remap(NPC.Distance(target.Center), 900, 50, 0, 7f); 
+                            if (NPC.Distance(target.Center) < float.Max(30, NPC.velocity.Length()) * 4.6f)
+                            {
+                                bite = true;
+                            }
+                        }
+                        
                         int phaseNow = 1;
                         if (NPC.life < NPC.lifeMax / 2)
                         {
@@ -937,6 +947,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         NPC.rotation = NPC.velocity.ToRotation();
                     }
                 }
+                
                 if (bite)
                 {
                     mouthRot -= 12;
@@ -948,6 +959,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 else
                 {
                     mouthRot *= 0.9f;
+                }
+                if (mouthRot < -48)
+                {
+                    mouthRot = -48;
                 }
                 if (phaseTrans > 120)
                 {

@@ -78,7 +78,7 @@ namespace CalamityEntropy.Common
         public int StareOfAbyssTime = 0;
         public int EclipsedImprintTime = 0;
         public int friendFinderOwner = 0;
-        public int TDRCounter = 5 * 60 * 60;
+        public int TDRCounter = 4 * 60 * 60;
         public List<Vector2> getAbyssalCirclePointsRelative(NPC npc, float distAdd = 0, float c = 1)
         {
             float dist = (npc.width + npc.height) / 2f + 30 - (float)Math.Cos(Main.GlobalTimeWrappedHourly) * 12 + distAdd;

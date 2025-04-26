@@ -57,26 +57,29 @@ namespace CalamityEntropy.Content.Projectiles
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f) * Projectile.ai[0] / 60f;
             if (Projectile.ai[0] > 200)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     Particle p = new Particle();
                     p.position = Projectile.Center;
-                    p.alpha = 1.5f;
+                    p.alpha = Main.rand.NextFloat(0.8f, 1.6f);
                     p.shape = 4;
-                    var r = Main.rand;
-                    p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * 8), (float)((r.NextDouble() - 0.5) * 8));
+                    p.vd = 0.97f;
+                    p.velocity = Util.Util.randomPointInCircle(8);
                     VoidParticles.particles.Add(p);
                 }
 
             }
             else if (Projectile.ai[0] > 120)
             {
-                Particle p = new Particle();
-                p.position = Projectile.Center;
-                p.alpha = 1.5f;
-                var r = Main.rand;
-                p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * 8), (float)((r.NextDouble() - 0.5) * 8));
-                VoidParticles.particles.Add(p);
+                for(int i = 0; i < 5; i++)
+                {
+                    Particle p = new Particle();
+                    p.position = Projectile.Center;
+                    p.alpha = Main.rand.NextFloat(0.8f, 1.6f);
+                    p.vd = 0.97f;
+                    p.velocity = Util.Util.randomPointInCircle(8);
+                    VoidParticles.particles.Add(p);
+                }
             }
             if (Projectile.ai[0] == 280)
             {

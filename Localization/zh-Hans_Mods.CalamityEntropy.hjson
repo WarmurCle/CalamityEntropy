@@ -1744,7 +1744,7 @@ Items: {
 		Tooltip:
 			'''
 			增加挑战性，更少的生命，伤害和生存能力。
-			Boss获得动态减伤和单次受伤最大伤害限制，百分比减少生命、护甲，暴击率最高只能达到50%，伤害增幅削减，降低部分机动
+			Boss获得动态减伤和单次受伤最大伤害限制，百分比减少生命、护甲，暴击率最高只能达到75%，伤害增幅削减，降低部分机动
 			暂时没有其他额外内容/新AI
 			'''
 		DisplayName: 熵变之核
@@ -2038,6 +2038,11 @@ Items: {
 	RuneStoneThorny: {
 		DisplayName: 符文石板 『|』
 		Tooltip: ""
+	}
+
+	HiveArrow: {
+		Tooltip: 击中后散射毒刺
+		DisplayName: 蜂巢箭
 	}
 }
 
@@ -2380,6 +2385,8 @@ Projectiles: {
 	CruiserEnergyBall.DisplayName: 巡游者能量球
 	VoidResidue.DisplayName: 虚空废料
 	VoidBomb.DisplayName: 虚空炸弹
+	// HiveArrowProjectile.DisplayName: Hive Arrow Projectile
+	// BeeSpike.DisplayName: Bee Spike
 }
 
 LegendTooltip: - 传奇物品 -

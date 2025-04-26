@@ -1879,6 +1879,11 @@ Items: {
 		DisplayName: Rune Stone 『|』
 		Tooltip: ""
 	}
+
+	HiveArrow: {
+		Tooltip: Scattering stinger after hitting the target
+		DisplayName: Hive Arrow
+	}
 }
 
 PrefixitemDesc:
@@ -2219,6 +2224,8 @@ Projectiles: {
 	CruiserEnergyBall.DisplayName: Cruiser Energy Ball
 	VoidResidue.DisplayName: Void Residue
 	VoidBomb.DisplayName: Void Bomb
+	HiveArrowProjectile.DisplayName: Hive Arrow Projectile
+	BeeSpike.DisplayName: Bee Spike
 }
 
 LegendTooltip: - Legend -
