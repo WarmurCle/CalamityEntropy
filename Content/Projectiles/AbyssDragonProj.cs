@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
                 spawnSeg = false;
                 segs = new List<WyrmSeg>();
                 iWyrmSeg seg = this;
-                List<int> spacings = new List<int>() { 30, 34, 32, 32, 32, 34, 18 };
+                List<int> spacings = new List<int>() { 28, 30, 32, 32, 32, 34, 18 };
                 for (int i = 0; i < 7; i++)
                 {
                     WyrmSeg spawn = new WyrmSeg() { Center = Projectile.Center, follow = seg, rotC = 0.06f, spacing = spacings[i] };
