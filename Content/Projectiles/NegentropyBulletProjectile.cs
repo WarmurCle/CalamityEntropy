@@ -17,7 +17,19 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 12; Projectile.height = 12; Projectile.aiStyle = 1; Projectile.friendly = true; Projectile.hostile = false; Projectile.DamageType = DamageClass.Ranged; Projectile.penetrate = -1; Projectile.timeLeft = 4000; Projectile.alpha = 255; Projectile.light = 0.5f; Projectile.ignoreWater = true; Projectile.tileCollide = false; Projectile.extraUpdates = 5; Projectile.ArmorPenetration = 100;
+            Projectile.width = 12; 
+            Projectile.height = 12; 
+            Projectile.aiStyle = 1; 
+            Projectile.friendly = true; Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Ranged; 
+            Projectile.penetrate = -1; 
+            Projectile.timeLeft = 2400; 
+            Projectile.alpha = 255; 
+            Projectile.light = 0.5f;
+            Projectile.ignoreWater = true; 
+            Projectile.tileCollide = false; 
+            Projectile.extraUpdates = 5; 
+            Projectile.ArmorPenetration = 100;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.light = 0.4f;
@@ -33,9 +45,9 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public void portalParticle(Vector2 pos)
         {
-            for (int i = 0; i < 360; i += 20)
+            for (int i = 0; i < 360; i += 40)
             {
-                EParticle.spawnNew(new AbyssalLine() { lx = 0.27f, xadd = 0.27f }, pos, Vector2.Zero, Color.AliceBlue, 1, 1, true, BlendState.Additive, MathHelper.ToRadians(i));
+                EParticle.spawnNew(new AbyssalLine() { lx = 2f, xadd = 0.27f }, pos, Vector2.Zero, Color.AliceBlue, 1, 1, true, BlendState.Additive, MathHelper.ToRadians(i));
             }
         }
 

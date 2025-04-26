@@ -28,6 +28,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 600;
             Projectile.penetrate = 6;
             Projectile.ArmorPenetration = 8;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 8;
         }
         public bool r = true; public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

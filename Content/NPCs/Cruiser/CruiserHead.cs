@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
-            NPC.Calamity().DR = 0.1f;
+            NPC.Calamity().DR = 0.4f;
             NPC.boss = true;
             NPC.width = 90;
             NPC.height = 90;
@@ -128,8 +128,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 NPC.damage += 9;
             }
-            NPC.defense = 10;
-            NPC.lifeMax = 500000;
+            NPC.defense = 90;
+            NPC.lifeMax = 800000;
             if (CalamityWorld.death)
             {
                 NPC.damage += 24;

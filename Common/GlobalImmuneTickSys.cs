@@ -129,7 +129,7 @@ namespace CalamityEntropy.Common
         {
             if (projectile.penetrate == 1 && !projectile.usesIDStaticNPCImmunity) { return null; }
 
-            if (immune != 0)
+            if (immune != 0 && !(projectile.usesLocalNPCImmunity || projectile.usesIDStaticNPCImmunity))
             {
                 return false;
             }

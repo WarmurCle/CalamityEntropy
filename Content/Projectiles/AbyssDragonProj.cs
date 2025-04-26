@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.timeLeft = 1;
                 }
                 Vector2 spawnPos = player.Center + Util.Util.randomRot().ToRotationVector2() * 1400;
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, (player.Calamity().mouseWorld - spawnPos).normalize() * 12, ModContent.ProjectileType<AbyssalStar>(), (int)(Projectile.damage * 0.2f), Projectile.knockBack, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, (player.Calamity().mouseWorld - spawnPos).normalize() * 12, ModContent.ProjectileType<AbyssalStar>(), (int)(Projectile.damage * 0.24f), Projectile.knockBack, player.whoAmI);
 
             }
             player.Calamity().mouseWorldListener = true;
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
                 spawnSeg = false;
                 segs = new List<WyrmSeg>();
                 iWyrmSeg seg = this;
-                List<int> spacings = new List<int>() { 34, 34, 32, 32, 32, 34, 18 };
+                List<int> spacings = new List<int>() { 30, 34, 32, 32, 32, 34, 18 };
                 for (int i = 0; i < 7; i++)
                 {
                     WyrmSeg spawn = new WyrmSeg() { Center = Projectile.Center, follow = seg, rotC = 0.06f, spacing = spacings[i] };
