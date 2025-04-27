@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -7,8 +8,11 @@ namespace CalamityEntropy.Content.Projectiles
     {
         public override void PushNPC(NPC npc)
         {
-            Vector2 v = (npc.Center - Projectile.Center).SafeNormalize(Vector2.UnitX) * 16;
-            npc.velocity += v;
+            if(npc.velocity.Length() > 0.1f && npc.type != NPCID.WallofFlesh)
+            {
+                Vector2 v = (npc.Center - Projectile.Center).SafeNormalize(Vector2.UnitX) * 16;
+                npc.velocity += v;
+            }
             if (Main.myPlayer == Projectile.owner)
             {
                 NPC.HitInfo hit = npc.CalculateHitInfo(Projectile.damage, 0, false, 0, Projectile.DamageType);
