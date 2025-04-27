@@ -7,6 +7,7 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 80;
             Item.height = 138;
-            Item.damage = 500;
+            Item.damage = 560;
             Item.crit = 8;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 25;
@@ -56,6 +57,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<AuricBar>(5)
                 .AddIngredient(ItemID.FragmentSolar, 20)
                 .AddIngredient(ItemID.FragmentVortex, 5)
+                .AddTile<CosmicAnvil>()
                 .Register();
         }
         public override bool RangedPrefix()
