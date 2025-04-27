@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
@@ -23,7 +24,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 80;
             Item.height = 138;
-            Item.damage = 185;
+            Item.damage = 500;
+            Item.crit = 8;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 25;
             Item.useAnimation = 25;
@@ -34,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<Violet>();
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.channel = true;
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Arrow;
             Item.noUseGraphic = true;
         }
@@ -47,6 +49,14 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<ContinentalGreatbow>()
+                .AddIngredient<TelluricGlare>()
+                .AddIngredient<Prominence>()
+                .AddIngredient<AuricBar>(5)
+                .AddIngredient(ItemID.FragmentSolar, 20)
+                .AddIngredient(ItemID.FragmentVortex, 5)
+                .Register();
         }
         public override bool RangedPrefix()
         {

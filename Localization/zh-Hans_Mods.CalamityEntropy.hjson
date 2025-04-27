@@ -2059,8 +2059,8 @@ Items: {
 	}
 
 	SolarStorm: {
-		// Tooltip: ""
-		// DisplayName: Solar Storm
+		Tooltip: ""
+		DisplayName: 太阳风暴
 	}
 }
 
@@ -2408,6 +2408,7 @@ Projectiles: {
 	HiveBulletProjectile.DisplayName: 蜂巢弹
 	// SmallBee.DisplayName: Small Bee
 	// SolarStormHeld.DisplayName: Solar Storm Held
+	// SolarStormExplosionProj.DisplayName: Solar Storm Explosion Proj
 }
 
 LegendTooltip: - 传奇物品 -

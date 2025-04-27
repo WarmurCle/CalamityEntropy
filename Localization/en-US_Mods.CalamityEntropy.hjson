@@ -2243,6 +2243,7 @@ Projectiles: {
 	HiveBulletProjectile.DisplayName: Hive Bullet Projectile
 	SmallBee.DisplayName: Small Bee
 	SolarStormHeld.DisplayName: Solar Storm Held
+	SolarStormExplosionProj.DisplayName: Solar Storm Explosion Proj
 }
 
 LegendTooltip: - Legend -

@@ -187,7 +187,7 @@ namespace CalamityEntropy.Utilities
             sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
             sb.Draw(glow, worldPos - Main.screenPosition, null, color, 0, glow.Size() * 0.5f, scale * 0.4f, SpriteEffects.None, 0);
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Deferred, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
 
         }
 
