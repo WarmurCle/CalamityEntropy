@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.friendly = true; Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Ranged; 
             Projectile.penetrate = -1; 
-            Projectile.timeLeft = 2400; 
+            Projectile.timeLeft = 800; 
             Projectile.alpha = 255; 
             Projectile.light = 0.5f;
             Projectile.ignoreWater = true; 

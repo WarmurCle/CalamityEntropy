@@ -117,6 +117,7 @@ namespace CalamityEntropy
         public static Vector2 cutScreenCenter = Vector2.Zero;
         public bool ChristmasEvent = false;
         public static float FlashEffectStrength = 0;
+        public static Dictionary<int, Projectile> pInstance = null;
         public override void HandlePacket(BinaryReader reader, int whoAmI) => CENetWork.Handle(reader, whoAmI);
 
         public static SoundEffect ealaserSound = null;
@@ -125,7 +126,7 @@ namespace CalamityEntropy
         public override void Load()
         {
             Instance = this;
-
+            pInstance = new Dictionary<int, Projectile>();
             DateTime today = DateTime.Now;
             AprilFool = today.Month == 4 && today.Day == 1;
 
@@ -218,13 +219,23 @@ namespace CalamityEntropy
             }
         }
 
+        public static Projectile GetAProjectileInstance(int type)
+        {
+            if (!pInstance.Keys.Contains(type))
+            {
+                Projectile p = new Projectile();
+                p.SetDefaults(type);
+                pInstance[type] = p;
+            }
+            return pInstance[type];
+        }
 
         public override void Unload()
         {
             screen = null;
             screen2 = null;
             screen3 = null;
-            
+            pInstance = null;
             EModHooks.UnLoadData();
             LoopSoundManager.unload();
             ealaserSound = null;
@@ -952,7 +963,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[NPCID.EyeofCthulhu] = new Color(255, 40, 40);
             EntropyBossbar.bossbarColor[NPCID.EaterofWorldsBody] = new Color(80, 40, 255);
             EntropyBossbar.bossbarColor[NPCID.EaterofWorldsHead] = new Color(80, 40, 255);
-            EntropyBossbar.bossbarColor[NPCID.EaterofWorldsHead] = new Color(80, 40, 255);
+            EntropyBossbar.bossbarColor[NPCID.EaterofWorldsTail] = new Color(80, 40, 255);
             EntropyBossbar.bossbarColor[NPCID.BrainofCthulhu] = new Color(255, 40, 40);
             EntropyBossbar.bossbarColor[NPCID.QueenBee] = new Color(242, 242, 145);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Crabulon>()] = new Color(133, 255, 237);

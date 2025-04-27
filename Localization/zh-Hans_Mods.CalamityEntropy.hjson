@@ -2041,8 +2041,21 @@ Items: {
 	}
 
 	HiveArrow: {
-		Tooltip: 击中后散射毒刺
-		DisplayName: 蜂巢箭
+		Tooltip:
+			'''
+			追踪的蜂蜡箭
+			击中后散射毒刺
+			'''
+		DisplayName: 蜂息箭
+	}
+
+	HiveBullet: {
+		DisplayName: 蜂巢弹
+		Tooltip:
+			'''
+			无视目标50%的护甲
+			击中后生成追踪蜜蜂
+			'''
 	}
 }
 
@@ -2385,8 +2398,10 @@ Projectiles: {
 	CruiserEnergyBall.DisplayName: 巡游者能量球
 	VoidResidue.DisplayName: 虚空废料
 	VoidBomb.DisplayName: 虚空炸弹
-	// HiveArrowProjectile.DisplayName: Hive Arrow Projectile
-	// BeeSpike.DisplayName: Bee Spike
+	HiveArrowProjectile.DisplayName: 蜂息箭
+	BeeSpike.DisplayName: 毒刺
+	HiveBulletProjectile.DisplayName: 蜂巢弹
+	// SmallBee.DisplayName: Small Bee
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3055,7 +3070,6 @@ EntropyModeActive: 熵变模式已开启！你将被遗忘......
 EntropyModeDeactive: 熵变模式已关闭，为何不渴望遗弃?
 MissedInVoid: 被遗忘了
 BatteringRamZenithText: “它包含了恶意代码”
-ArmorPenetrationItemTooltip: 护甲穿透
 AmmoSolution: 环境溶液
 AmmoArrow: 箭矢
 AmmoBullet: 子弹
@@ -3078,3 +3092,8 @@ UseAmmo: 使用弹药
 OrbPunishDeath0: 的灵魂破碎了
 OrbPunishDeath1: 试图取下裂开的预知宝珠
 RuneDashCD: 符文突进冷却
+ArmorPenetrationItemTooltip: 护甲穿透
+AmmoLifeTime: 射弹最大存在时间
+AmmoShootSpeed: 射弹速度
+AmmoPenetrate: 穿透次数
+AmmoPenetrateInfinite: 无限

@@ -1884,6 +1884,15 @@ Items: {
 		// Tooltip: Scattering stinger after hitting the target
 		// DisplayName: Hive Arrow
 	}
+
+	HiveBullet: {
+		/* DisplayName:
+			'''
+			Hive Bullet
+			Summon tracking bees after hitting
+			''' */
+		// Tooltip: Ignore 50% of the target's armor
+	}
 }
 
 PrefixitemDesc:
@@ -2226,6 +2235,8 @@ Projectiles: {
 	VoidBomb.DisplayName: Void Bomb
 	// HiveArrowProjectile.DisplayName: Hive Arrow Projectile
 	// BeeSpike.DisplayName: Bee Spike
+	// HiveBulletProjectile.DisplayName: Hive Bullet Projectile
+	// SmallBee.DisplayName: Small Bee
 }
 
 LegendTooltip: - Legend -
@@ -2885,7 +2896,6 @@ EntropyModeActive: Entropy Mode is active. YOU WILL BE FORGOTTEN
 EntropyModeDeactive: Entropy Mode is Deactive. Why not crave abandonment
 MissedInVoid: missed in the void
 BatteringRamZenithText: It has malicious code
-ArmorPenetrationItemTooltip: Armor Penetration
 AmmoSolution: Solution
 AmmoArrow: Arrow
 AmmoBullet: Bullet
@@ -2908,3 +2918,8 @@ UseAmmo: Use Ammo
 OrbPunishDeath0: shattered into pieces
 OrbPunishDeath1: try to remove the shattered foresee orb
 RuneDashCD: Rune Dash Cooldown
+ArmorPenetrationItemTooltip: Armor Penetration
+// AmmoLifeTime: Life Time
+// AmmoShootSpeed: Shoot Speed
+// AmmoPenetrate: Penetrate times
+// AmmoPenetrateInfinite: Infinite

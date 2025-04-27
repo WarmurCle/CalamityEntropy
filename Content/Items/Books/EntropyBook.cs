@@ -658,7 +658,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (lifeSteal > 0)
             {
-                Projectile.getOwner()?.Heal(lifeSteal);
+                Projectile.getOwner()?.Entropy().TryHealMeWithCd(lifeSteal);
             }
         }
     }

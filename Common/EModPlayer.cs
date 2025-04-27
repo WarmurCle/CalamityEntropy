@@ -129,6 +129,17 @@ namespace CalamityEntropy.Common
                 visual = hasVisual;
             }
         }
+        public int HealingCd = 0;
+        public bool TryHealMeWithCd(int amount, int cd = 12)
+        {
+            if(HealingCd <= 0)
+            {
+                HealingCd = cd;
+                Player.Heal(amount);
+                return true;
+            }
+            return false;
+        }
         public List<EquipInfo> equipAccs = new List<EquipInfo>();
         public bool holdingPoop { get { return _holdingPoop; } set { if (Player.whoAmI == Main.myPlayer && value != _holdingPoop) { syncHoldingPoop = true; } _holdingPoop = value; } }
         public float CasketSwordRot { get { return (float)effectCount * 0.12f; } }
@@ -980,6 +991,8 @@ namespace CalamityEntropy.Common
         public ProminenceTrail runeDashTrail = null;
         public override void PostUpdate()
         {
+            if (HealingCd > 0) HealingCd--;
+
             if (Main.myPlayer == Player.whoAmI && hasAcc("RuneWing"))
             {
                 if (RuneDash > 0)
