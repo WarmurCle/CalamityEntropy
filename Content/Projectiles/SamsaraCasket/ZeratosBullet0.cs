@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             }
             Projectile.velocity.Y += 0.6f;
             Projectile.rotation = Projectile.velocity.ToRotation() - MathHelper.PiOver2;
-            Util.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 6);
+            Utilities.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 6);
         }
 
         public override void OnKill(int timeLeft)
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            Util.Util.DrawAfterimage(TextureAssets.Projectile[Projectile.type].Value, odp, odr);
+            Utilities.Util.DrawAfterimage(TextureAssets.Projectile[Projectile.type].Value, odp, odr);
             Texture2D tex = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/SamsaraCasket/ZeratosBullet" + frame.ToString()).Value;
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 

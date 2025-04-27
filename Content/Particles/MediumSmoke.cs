@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Particles
                 clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
             }
             clr = Color.Lerp(clr, Color.White, wl);
-            Main.spriteBatch.Draw(this.texture, this.position - Main.screenPosition, Util.Util.GetCutTexRect(texture, 3, texT, false), clr * alpha, rotation, getOrigin(), scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(this.texture, this.position - Main.screenPosition, Utilities.Util.GetCutTexRect(texture, 3, texT, false), clr * alpha, rotation, getOrigin(), scale, SpriteEffects.None, 0);
         }
     }
 }

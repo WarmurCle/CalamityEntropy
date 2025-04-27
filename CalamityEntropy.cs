@@ -26,7 +26,7 @@ using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Events;
@@ -146,7 +146,7 @@ namespace CalamityEntropy
             cve = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid", AssetRequestMode.ImmediateLoad).Value;
             cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
             cve2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid2", AssetRequestMode.ImmediateLoad).Value;
-            pixel = Util.Util.getExtraTex("white");
+            pixel = Utilities.Util.getExtraTex("white");
 
             AbyssalWraith.loadHead();
             CruiserHead.loadHead();
@@ -314,8 +314,8 @@ namespace CalamityEntropy
         {
             orig(self);
             Main.spriteBatch.begin_();
-            Texture2D shell = Util.Util.getExtraTex("shell");
-            Texture2D crystalShield = Util.Util.getExtraTex("MariviniumShield");
+            Texture2D shell = Utilities.Util.getExtraTex("shell");
+            Texture2D crystalShield = Utilities.Util.getExtraTex("MariviniumShield");
             foreach (Player player in Main.ActivePlayers)
             {
                 if (player.Entropy().nihShellCount > 0)
@@ -364,8 +364,8 @@ namespace CalamityEntropy
             screen3 = null;
             screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 
-            Texture2D shell = Util.Util.getExtraTex("shell");
-            Texture2D crystalShield = Util.Util.getExtraTex("MariviniumShield");
+            Texture2D shell = Utilities.Util.getExtraTex("shell");
+            Texture2D crystalShield = Utilities.Util.getExtraTex("MariviniumShield");
             if(Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
             {
                 var mi = Main.LocalPlayer.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield;
@@ -379,7 +379,7 @@ namespace CalamityEntropy
                 {
                     AzShieldBarAlpha = float.Lerp(AzShieldBarAlpha, 1, 0.1f);
                 }
-                Util.Util.DrawChargeBar(1.5f, Main.LocalPlayer.Center - Main.screenPosition + new Vector2(0, -42), ((float)charge / maxCharge), ((charge > 1) ? Color.Lerp(Color.OrangeRed, Color.Orange, (float)Math.Cos(Main.GameUpdateCount * 0.2f) * 0.5f + 0.5f) : Color.Firebrick) * AzShieldBarAlpha);
+                Utilities.Util.DrawChargeBar(1.5f, Main.LocalPlayer.Center - Main.screenPosition + new Vector2(0, -42), ((float)charge / maxCharge), ((charge > 1) ? Color.Lerp(Color.OrangeRed, Color.Orange, (float)Math.Cos(Main.GameUpdateCount * 0.2f) * 0.5f + 0.5f) : Color.Firebrick) * AzShieldBarAlpha);
             }
             else
             {
@@ -516,7 +516,7 @@ namespace CalamityEntropy
                     {
                         if (!Main.dedServ)
                         {
-                            Util.Util.PlaySound("clicker_static", 1, npc.Center);
+                            Utilities.Util.PlaySound("clicker_static", 1, npc.Center);
                         }
                         deliriumNPC.counter = Main.rand.Next(60, 360);
                         npc.netUpdate = true;
@@ -604,10 +604,10 @@ namespace CalamityEntropy
                 {
                     if (n.active && !n.friendly && !n.dontTakeDamage)
                     {
-                        if (Util.Util.getDistance(n.Center, npc.Center) < dist)
+                        if (Utilities.Util.getDistance(n.Center, npc.Center) < dist)
                         {
                             t = n;
-                            dist = Util.Util.getDistance(n.Center, npc.Center);
+                            dist = Utilities.Util.getDistance(n.Center, npc.Center);
                         }
                     }
                 }
@@ -651,7 +651,7 @@ namespace CalamityEntropy
 
                 npc.friendly = true;
 
-                SetTargetTrackingValues(self, faceTarget, Util.Util.getDistance(self.Center, Main.player[0].Center), -1);
+                SetTargetTrackingValues(self, faceTarget, Utilities.Util.getDistance(self.Center, Main.player[0].Center), -1);
             }
         }
 
@@ -716,7 +716,7 @@ namespace CalamityEntropy
                 npc.boss = false;
 
                 npc.friendly = true;
-                SetTargetTrackingValues(self, faceTarget, Util.Util.getDistance(self.Center, Main.player[0].Center), -1);
+                SetTargetTrackingValues(self, faceTarget, Utilities.Util.getDistance(self.Center, Main.player[0].Center), -1);
             }
         }
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
@@ -1085,7 +1085,7 @@ namespace CalamityEntropy
             for (int i = 1; i < points.Count; i++)
             {
                 Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
-                Util.Util.drawLine(Main.spriteBatch, t, points[i - 1], points[i], Color.White, 8);
+                Utilities.Util.drawLine(Main.spriteBatch, t, points[i - 1], points[i], Color.White, 8);
             }
         }
         private void ec(On_FilterManager.orig_EndCapture orig, FilterManager self, RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
@@ -1236,7 +1236,7 @@ namespace CalamityEntropy
                     if (p.ModProjectile is SilenceHook)
                     {
                         Vector2 c = ((int)p.ai[1]).ToProj().Center;
-                        Util.Util.drawChain(p.Center, c, 20, Util.Util.getExtraTex("VoidChain"));
+                        Utilities.Util.drawChain(p.Center, c, 20, Utilities.Util.getExtraTex("VoidChain"));
                     }
 
                     if (p.ModProjectile is CruiserBlackholeBullet || p.ModProjectile is VoidBullet)
@@ -1293,7 +1293,7 @@ namespace CalamityEntropy
                     {
                         continue;
                     }
-                    Texture2D draw = Util.Util.getExtraTex("cvdt");
+                    Texture2D draw = Utilities.Util.getExtraTex("cvdt");
                     float sc = 1;
 
                     Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White, pt.rotation, draw.Size() / 2, 2.2f * pt.alpha * sc, SpriteEffects.None, 0);
@@ -1307,7 +1307,7 @@ namespace CalamityEntropy
                 kscreen2.CurrentTechnique = kscreen2.Techniques["Technique1"];
                 kscreen2.CurrentTechnique.Passes[0].Apply();
                 kscreen2.Parameters["tex0"].SetValue(screen2);
-                kscreen2.Parameters["tex1"].SetValue(Util.Util.getExtraTex("EternityStreak"));
+                kscreen2.Parameters["tex1"].SetValue(Utilities.Util.getExtraTex("EternityStreak"));
                 kscreen2.Parameters["offset"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
                 kscreen2.Parameters["i"].SetValue(0.04f);
                 Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
@@ -1428,7 +1428,7 @@ namespace CalamityEntropy
                             w = 0.85f;
                         }
                         Vector2 opos = p.Center;
-                        Texture2D tx = Util.Util.getExtraTex("wohlaser");
+                        Texture2D tx = Utilities.Util.getExtraTex("wohlaser");
                         int drawCount = (int)(2400f * p.scale / tx.Width) + 1;
                         for (int i = 0; i < drawCount; i++)
                         {
@@ -1449,7 +1449,7 @@ namespace CalamityEntropy
                                 Color cl = new Color(200, 235, 255);
                                 for (int i = mp.odp.Count - 1; i >= 1; i--)
                                 {
-                                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
+                                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
                                     size -= sizej;
                                 }
                             }
@@ -1472,7 +1472,7 @@ namespace CalamityEntropy
                             }
                             for (int i = mp.odp.Count - 1; i >= 1; i--)
                             {
-                                Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
+                                Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
                                 size -= sizej;
                             }
                         }
@@ -1493,7 +1493,7 @@ namespace CalamityEntropy
                     {
                         if (!p.dead && p.Entropy().MagiShield > 0 && p.Entropy().visualMagiShield)
                         {
-                            Texture2D shieldTexture = Util.Util.getExtraTex("shield");
+                            Texture2D shieldTexture = Utilities.Util.getExtraTex("shield");
                             Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255), 0, shieldTexture.Size() / 2, 0.47f, SpriteEffects.None, 0);
 
                         }
@@ -1505,7 +1505,7 @@ namespace CalamityEntropy
                     {
                         if (p.ModProjectile is MoonlightShieldBreak)
                         {
-                            Texture2D shieldTexture = Util.Util.getExtraTex("shield");
+                            Texture2D shieldTexture = Utilities.Util.getExtraTex("shield");
                             Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255) * p.ai[2], 0, shieldTexture.Size() / 2, 0.47f * (1 + p.ai[1]), SpriteEffects.None, 0);
 
                         }
@@ -1642,7 +1642,7 @@ namespace CalamityEntropy
                             for (int i = 1; i < player.Entropy().daPoints.Count; i++)
                             {
 
-                                Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, player.Entropy().daPoints[i - 1], player.Entropy().daPoints[i], color * 0.6f, 12 * sc, 0);
+                                Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, player.Entropy().daPoints[i - 1], player.Entropy().daPoints[i], color * 0.6f, 12 * sc, 0);
                                 sc += scj;
                             }
                         }
@@ -1828,7 +1828,7 @@ namespace CalamityEntropy
                     {
                         continue;
                     }
-                    Texture2D draw = Util.Util.getExtraTex("cvdt");
+                    Texture2D draw = Util.getExtraTex("cvdt");
                     float sc = 1;
                     
                     Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White, pt.rotation, draw.Size() / 2, 5.4f * pt.alpha * sc * 0.16f, SpriteEffects.None, 0);
@@ -1842,7 +1842,7 @@ namespace CalamityEntropy
                 kscreen2.CurrentTechnique = kscreen2.Techniques["Technique1"];
                 kscreen2.CurrentTechnique.Passes[0].Apply();
                 kscreen2.Parameters["tex0"].SetValue(Main.screenTargetSwap);
-                kscreen2.Parameters["tex1"].SetValue(Util.Util.getExtraTex("EternityStreak"));
+                kscreen2.Parameters["tex1"].SetValue(Util.getExtraTex("EternityStreak"));
                 kscreen2.Parameters["offset"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
                 kscreen2.Parameters["i"].SetValue(0.07f);
                 Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
@@ -1909,7 +1909,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Util.Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 9000, Color.Black, 9000);
+                Utilities.Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 9000, Color.Black, 9000);
                 Main.spriteBatch.End();
 
                 graphicsDevice.SetRenderTarget(screen2);
@@ -1918,7 +1918,7 @@ namespace CalamityEntropy
                 Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Util.Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -9000, Color.Black, 9000);
+                Utilities.Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -9000, Color.Black, 9000);
 
                 Main.spriteBatch.End();
 
@@ -1982,7 +1982,7 @@ namespace CalamityEntropy
                     blackMaskAlpha -= 0.025f;
                 }
             }
-            Main.spriteBatch.Draw(Util.Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.5f * blackMaskAlpha);
+            Main.spriteBatch.Draw(Utilities.Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.5f * blackMaskAlpha);
             Main.spriteBatch.End();
             orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
         }

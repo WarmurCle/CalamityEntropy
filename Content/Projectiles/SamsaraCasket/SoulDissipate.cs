@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
                 alpha = 1;
-                Projectile.Center = (t.Center + Util.Util.randomRot().ToRotationVector2() * (180 + (t.width + t.height) / 2));
+                Projectile.Center = (t.Center + Utilities.Util.randomRot().ToRotationVector2() * (180 + (t.width + t.height) / 2));
                 Vector2 tPos = t.Center + (t.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * (180 + (t.width + t.height) / 2);
                 Projectile.velocity = (tPos - Projectile.Center) / 10;
             }

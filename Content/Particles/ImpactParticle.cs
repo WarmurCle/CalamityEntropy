@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Particles
 {
     public class ImpactParticle : EParticle
     {
-        public override Texture2D texture => Util.Util.getExtraTex("Impact2");
+        public override Texture2D texture => Utilities.Util.getExtraTex("Impact2");
         public override void onSpawn()
         {
             base.onSpawn();

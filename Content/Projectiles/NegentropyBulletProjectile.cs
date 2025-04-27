@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -60,8 +60,8 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.damage = ((int)(Projectile.damage * 0.5f));
                 NPC target = ptarget;
                 portalParticle(Projectile.Center);
-                Util.Util.PlaySound("portal_emerge", 1.6f, Projectile.Center, 12, 0.22f);
-                Projectile.Center = target.Center + Util.Util.randomRot().ToRotationVector2() * 400;
+                Utilities.Util.PlaySound("portal_emerge", 1.6f, Projectile.Center, 12, 0.22f);
+                Projectile.Center = target.Center + Utilities.Util.randomRot().ToRotationVector2() * 400;
                 Projectile.velocity = (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * Projectile.velocity.Length();
                 Projectile.netUpdate = true;
                 portalParticle(Projectile.Center);
@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (int)(Projectile.damage * 0.9f);
-            Util.Util.PlaySound("ystn_hit", 1.6f, Projectile.Center, 1, 0.24f);
+            Utilities.Util.PlaySound("ystn_hit", 1.6f, Projectile.Center, 1, 0.24f);
             if (portalcount > 0 && portalTime < 0)
             {
                 portalcount--;

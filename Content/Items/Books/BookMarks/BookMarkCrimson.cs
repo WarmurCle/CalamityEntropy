@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework.Graphics;

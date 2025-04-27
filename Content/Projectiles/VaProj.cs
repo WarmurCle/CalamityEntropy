@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
@@ -68,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (speed < 0)
             {
                 angle = (Projectile.Center - Main.player[Projectile.owner].Center).ToRotation();
-                if (Util.Util.getDistance(Projectile.Center, Main.player[Projectile.owner].Center) < Projectile.velocity.Length() * 1.12f)
+                if (Utilities.Util.getDistance(Projectile.Center, Main.player[Projectile.owner].Center) < Projectile.velocity.Length() * 1.12f)
                 {
                     Projectile.Kill();
                 }
@@ -110,7 +110,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
 
                 NPC target = Projectile.FindTargetWithinRange(1800, false);
-                if (target != null && Util.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
+                if (target != null && Utilities.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
                 {
                     homingTime = 0;
                     Projectile.velocity *= 0.9f;

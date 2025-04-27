@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D t = TextureAssets.Projectile[Projectile.type].Value;
-            Util.Util.DrawAfterimage(t, Projectile.Entropy().odp, Projectile.Entropy().odr);
+            Utilities.Util.DrawAfterimage(t, Projectile.Entropy().odp, Projectile.Entropy().odr);
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, t.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
             return false;

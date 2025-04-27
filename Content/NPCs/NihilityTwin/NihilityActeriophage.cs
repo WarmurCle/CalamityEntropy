@@ -5,7 +5,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Potions;
 using CalamityMod.World;
@@ -277,7 +277,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     cell.velocity *= 0.98f;
                     if (phase == 1)
                     {
-                        if (Util.Util.getDistance(cell.Center, NPC.Center) > 120)
+                        if (Utilities.Util.getDistance(cell.Center, NPC.Center) > 120)
                         {
                             cell.velocity += (NPC.Center - cell.Center).SafeNormalize(Vector2.Zero) * 0.6f;
                         }
@@ -309,7 +309,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     {
                         if (NPC.ai[0]-- > 0)
                         {
-                            if (Util.Util.getDistance(targetPos, NPC.Center) > 1400)
+                            if (Utilities.Util.getDistance(targetPos, NPC.Center) > 1400)
                             {
                                 NPC.ai[0] = 36;
                             }
@@ -342,10 +342,10 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                 NPC.velocity *= 1.076f;
                             }
 
-                            if (Util.Util.getDistance(targetPos, NPC.Center) > 1400)
+                            if (Utilities.Util.getDistance(targetPos, NPC.Center) > 1400)
                             {
                                 NPC.ai[0] = 36;
-                                Util.Util.PlaySound("beast_ghostdash" + Main.rand.Next(1, 5), 1);
+                                Utilities.Util.PlaySound("beast_ghostdash" + Main.rand.Next(1, 5), 1);
                             }
                         }
                         NPC.rotation = NPC.velocity.ToRotation();
@@ -374,7 +374,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         rotSpeed *= 0.62f;
                         cell.velocity *= 0.98f;
                         cell.velocity += (NPC.Center + NPC.rotation.ToRotationVector2() * -120 - cell.Center) * 0.14f;
-                        if (aicounter > 60 && counter % 1 == 0 && Main.netMode != NetmodeID.MultiplayerClient && Util.Util.getDistance(cell.Center, NPC.Center) < 720)
+                        if (aicounter > 60 && counter % 1 == 0 && Main.netMode != NetmodeID.MultiplayerClient && Utilities.Util.getDistance(cell.Center, NPC.Center) < 720)
                         {
                             Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, NPC.rotation.ToRotationVector2() * -14, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
                         }
@@ -395,7 +395,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     }
                     if (aitype == 2)
                     {
-                        if (aicounter > 0 || Util.Util.getDistance(targetPos, NPC.Center) < 1200)
+                        if (aicounter > 0 || Utilities.Util.getDistance(targetPos, NPC.Center) < 1200)
                         {
                             aicounter++;
                         }
@@ -444,7 +444,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             spawnParticle(NPC.Center + NPC.velocity * ((float)i / 10f));
                         }
 
-                        if (aicounter > 0 || Util.Util.getDistance(targetPos, NPC.Center) < 800)
+                        if (aicounter > 0 || Utilities.Util.getDistance(targetPos, NPC.Center) < 800)
                         {
                             aicounter++;
                         }
@@ -455,7 +455,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                 NPC.velocity = NPC.velocity.SafeNormalize(Vector2.Zero) * 30;
                             }
                             NPC.velocity = (targetPos - new Vector2(0, 200) - NPC.Center) * 0.08f;
-                            if (Util.Util.getDistance(targetPos, NPC.Center + NPC.velocity * 2) < 800)
+                            if (Utilities.Util.getDistance(targetPos, NPC.Center + NPC.velocity * 2) < 800)
                             {
                                 NPC.velocity *= 0.36f;
                             }
@@ -475,7 +475,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             {
                                 if (counter % 30 == 0)
                                 {
-                                    float rot = Util.Util.randomRot();
+                                    float rot = Utilities.Util.randomRot();
                                     for (int i = 0; i < 360; i += 60)
                                     {
                                         Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, (rot + MathHelper.ToRadians(i)).ToRotationVector2() * 12, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
@@ -511,7 +511,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                     Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, rot.ToRotationVector2() * 14, ModContent.ProjectileType<CellBullet>(), NPC.damage / 7, 4);
                                 }
                             }
-                            rot = Util.Util.randomRot();
+                            rot = Utilities.Util.randomRot();
                             for (int i = 0; i < 360; i += 60)
                             {
                                 Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, (rot + MathHelper.ToRadians(i)).ToRotationVector2() * 10, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
@@ -528,8 +528,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     {
                         if (aicounter == 0)
                         {
-                            Util.Util.PlaySound("charge", 1, NPC.Center);
-                            Util.Util.PlaySound("charge", 1, NPC.Center);
+                            Utilities.Util.PlaySound("charge", 1, NPC.Center);
+                            Utilities.Util.PlaySound("charge", 1, NPC.Center);
                             NPC.rotation = (NPC.Center - targetPos).ToRotation();
                             foreach (Player player in Main.ActivePlayers)
                             {
@@ -577,10 +577,10 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         cell.velocity += (targetPos - cell.Center).SafeNormalize(Vector2.Zero) * 0.36f;
                         cell.ai[2] = 4;
                         NPC.velocity = NPC.rotation.ToRotationVector2() * 18f;
-                        NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (cell.Center - NPC.Center).ToRotation(), 0.07f, false);
+                        NPC.rotation = Utilities.Util.rotatedToAngle(NPC.rotation, (cell.Center - NPC.Center).ToRotation(), 0.07f, false);
                         if (aicounter == 1)
                         {
-                            NPC.ai[2] = Util.Util.randomRot();
+                            NPC.ai[2] = Utilities.Util.randomRot();
                         }
                         NPC.ai[2] += MathHelper.ToRadians(0.5f);
                         aicounter++;
@@ -642,7 +642,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                 NPC.ai[2] = 20;
                                 if (aicounter <= 5)
                                 {
-                                    Util.Util.PlaySound("beast_ghostdash" + Main.rand.Next(1, 5), 1, NPC.Center);
+                                    Utilities.Util.PlaySound("beast_ghostdash" + Main.rand.Next(1, 5), 1, NPC.Center);
                                 }
                             }
                             if (NPC.ai[2] > 0)
@@ -655,14 +655,14 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             }
                             else
                             {
-                                NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.09f, false);
+                                NPC.rotation = Utilities.Util.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.09f, false);
                             }
                             cell.velocity += (targetPos - cell.Center).SafeNormalize(Vector2.Zero) * 0.36f;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 if (counter % 30 == 0)
                                 {
-                                    float rot = Util.Util.randomRot();
+                                    float rot = Utilities.Util.randomRot();
                                     for (int i = 0; i < 360; i += 90)
                                     {
                                         Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, (rot + MathHelper.ToRadians(i)).ToRotationVector2() * 18, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
@@ -681,7 +681,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     if (aitype == 1)
                     {
 
-                        if (aicounter > 0 || Util.Util.getDistance(cell.Center, NPC.Center) < 90)
+                        if (aicounter > 0 || Utilities.Util.getDistance(cell.Center, NPC.Center) < 90)
                         {
                             aicounter++;
                         }
@@ -754,7 +754,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                 NPC.ai[2] = 20;
                                 if (aicounter <= 2)
                                 {
-                                    Util.Util.PlaySound("beast_ghostdash" + Main.rand.Next(1, 5), 1, NPC.Center);
+                                    Utilities.Util.PlaySound("beast_ghostdash" + Main.rand.Next(1, 5), 1, NPC.Center);
                                 }
                             }
                             if (NPC.ai[2] > 0)
@@ -767,7 +767,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             }
                             else
                             {
-                                NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.09f, false);
+                                NPC.rotation = Utilities.Util.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.09f, false);
                             }
                             cell.velocity += (targetPos - cell.Center).SafeNormalize(Vector2.Zero) * 0.36f;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -793,7 +793,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     {
                         if (aicounter == 1)
                         {
-                            Util.Util.PlaySound("beast_lavaball_rise1", 1);
+                            Utilities.Util.PlaySound("beast_lavaball_rise1", 1);
                         }
                         NPC.rotation = (cell.Center - NPC.Center).ToRotation() + MathHelper.Pi;
                         ropeLerp = 1;
@@ -802,7 +802,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         {
                             NPC.velocity += (cell.Center - NPC.Center).SafeNormalize(Vector2.Zero) * 3.4f;
                             cell.velocity += (NPC.Center - cell.Center).SafeNormalize(Vector2.Zero) * 3.4f;
-                            if (Util.Util.getDistance(NPC.Center, cell.Center) < NPC.velocity.Length() + cell.velocity.Length() + 6)
+                            if (Utilities.Util.getDistance(NPC.Center, cell.Center) < NPC.velocity.Length() + cell.velocity.Length() + 6)
                             {
                                 Vector2 midPos = (NPC.Center + cell.Center) / 2;
                                 NPC.velocity *= 0;
@@ -818,7 +818,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                                     }
 
                                 }
-                                Util.Util.PlaySound("flashback", 1, NPC.Center);
+                                Utilities.Util.PlaySound("flashback", 1, NPC.Center);
                                 prepareAiChange();
                                 if (Main.rand.NextBool(2))
                                 {
@@ -848,7 +848,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         {
                             if (counter % 30 == 0)
                             {
-                                float rot = Util.Util.randomRot();
+                                float rot = Utilities.Util.randomRot();
                                 for (int i = 0; i < 360; i += 40)
                                 {
                                     Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, (rot + MathHelper.ToRadians(i)).ToRotationVector2() * 18, ModContent.ProjectileType<CellBullet>(), NPC.damage / 6, 4);
@@ -865,21 +865,21 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     {
                         if (aicounter == 2)
                         {
-                            Util.Util.PlaySound("charge", 1, NPC.Center);
-                            Util.Util.PlaySound("charge", 1, NPC.Center);
+                            Utilities.Util.PlaySound("charge", 1, NPC.Center);
+                            Utilities.Util.PlaySound("charge", 1, NPC.Center);
                         }
                         if (aicounter < 40)
                         {
                             NPC.velocity = (targetPos - NPC.Center) * 0.009f;
-                            NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (NPC.Center - targetPos).ToRotation(), 4f, true);
+                            NPC.rotation = Utilities.Util.rotatedToAngle(NPC.rotation, (NPC.Center - targetPos).ToRotation(), 4f, true);
                         }
                         else
                         {
                             if (aicounter > 160)
                             {
-                                NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 1.4f, true);
+                                NPC.rotation = Utilities.Util.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 1.4f, true);
                             }
-                            NPC.rotation = Util.Util.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.01f, false);
+                            NPC.rotation = Utilities.Util.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.01f, false);
                         }
                         if (aicounter == 40)
                         {
@@ -910,7 +910,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                float rot = Util.Util.randomRot();
+                                float rot = Utilities.Util.randomRot();
                                 for (int i = 0; i < 360; i += 40)
                                 {
                                     Projectile.NewProjectile(cell.GetSource_FromThis(), cell.Center, Vector2.Zero, ModContent.ProjectileType<NihilityEnergyBall>(), NPC.damage / 6, 4, -1, cell.whoAmI, rot + MathHelper.ToRadians(i));
@@ -956,7 +956,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             if (ropeLerp > 0)
             {
                 Vector2 rend = Vector2.Lerp(buttom, cell.Center, ropeLerp);
-                rope.segmentLength = Util.Util.getDistance(buttom, rend) / 35f;
+                rope.segmentLength = Utilities.Util.getDistance(buttom, rend) / 35f;
                 rope.Start = buttom;
                 rope.End = rend;
                 rope.Update();
@@ -1040,7 +1040,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
 
             for (int i = 1; i < points.Count - 1; i++)
             {
-                jn += Util.Util.getDistance(points[i - 1], points[i]) / (float)28 * lc;
+                jn += Utilities.Util.getDistance(points[i - 1], points[i]) / (float)28 * lc;
 
                 ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 7 * lc,
                       new Vector3(jn, 1, 1),

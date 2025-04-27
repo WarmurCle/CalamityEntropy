@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (projectile.ModProjectile is EBookBaseLaser laser)
             {
-                float r = Util.Util.randomRot();
+                float r = Utilities.Util.randomRot();
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 vel = (MathHelper.ToRadians(i * 120) + r).ToRotationVector2() * projectile.velocity.Length();
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 if (projectile.ModProjectile is EBookBaseProjectile eb)
                 {
-                    float r = Util.Util.randomRot();
+                    float r = Utilities.Util.randomRot();
                     for (int i = 0; i < 3; i++)
                     {
                         Vector2 vel = (MathHelper.ToRadians(i * 120) + r).ToRotationVector2() * projectile.velocity.Length();

@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Ranged;
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if(Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates) <= 0.7f)
             {
-                WhipPoints.segmentLength = Util.Util.getDistance(getMyEndPos(), player.HandPosition.Value) / (WhipPoints.GetPoints().Count);
+                WhipPoints.segmentLength = Utilities.Util.getDistance(getMyEndPos(), player.HandPosition.Value) / (WhipPoints.GetPoints().Count);
                 WhipPoints.End = getMyEndPos();
             }
             WhipPoints.Start = player.HandPosition.Value;
@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Forwarding)
                 {
-                    SegLengthMax = Util.Util.getDistance(WhipPoints.GetPoints()[WhipPoints.GetPoints().Count - 1], player.HandPosition.Value);
+                    SegLengthMax = Utilities.Util.getDistance(WhipPoints.GetPoints()[WhipPoints.GetPoints().Count - 1], player.HandPosition.Value);
                     Forwarding = false;
                     WhipPoints.twoPoint = false;
                 }
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = 7;
             base.OnHitNPC(target, hit, damageDone);
-            Util.Util.PlaySound("FleshWhipHit", Main.rand.NextFloat(0.8f, 1.2f), EndPoint);
+            Utilities.Util.PlaySound("FleshWhipHit", Main.rand.NextFloat(0.8f, 1.2f), EndPoint);
             for (int i = 0; i < 3; i++)
             {
                 Color impactColor = Main.rand.NextBool(3) ? Color.LightCoral : Color.Crimson;
@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.Projectiles
                 float YScale = 1;
                 if(i > 0 && i < points.Count - 1)
                 {
-                    YScale = Util.Util.getDistance(points[i - 1], points[i]) / (frameHeight - 2);
+                    YScale = Utilities.Util.getDistance(points[i - 1], points[i]) / (frameHeight - 2);
                 }
                 if (i == points.Count - 1)
                 {

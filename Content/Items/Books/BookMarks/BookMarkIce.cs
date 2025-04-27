@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (ownerClient)
             {
-                Vector2 pos = projectile.Center - projectile.velocity.normalize() * 168 + Util.Util.randomVec(128);
+                Vector2 pos = projectile.Center - projectile.velocity.normalize() * 168 + Utilities.Util.randomVec(128);
                 int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), pos, (Main.MouseWorld - pos).normalize() * 32, ModContent.ProjectileType<IceEdge2>(), projectile.damage / 5, projectile.knockBack, projectile.owner);
                 (p.ToProj().ModProjectile as EBookBaseProjectile).homing = (projectile.ModProjectile as EBookBaseProjectile).homing;
             }

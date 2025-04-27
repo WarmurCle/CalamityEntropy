@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Terraria.DataStructures;
 using System.Runtime.Serialization.Formatters;
 using CalamityEntropy.Content.Particles;
@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Buffs
             player.Entropy().maliciousCode = true;
             if (Main.rand.NextBool(14))
             {
-                EParticle.spawnNew(new MCodeParticle(), player.Center + Util.Util.randomVec(28), Vector2.Zero, Main.rand.NextBool(5) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
+                EParticle.spawnNew(new MCodeParticle(), player.Center + Utilities.Util.randomVec(28), Vector2.Zero, Main.rand.NextBool(5) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
             }
         }
         public override void Update(NPC npc, ref int buffIndex)

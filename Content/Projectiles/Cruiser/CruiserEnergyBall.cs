@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
 
     public class CruiserEnergyBall : ModProjectile
     {
-        public override string Texture => Util.Util.WhiteTexPath;
+        public override string Texture => Utilities.Util.WhiteTexPath;
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<VoidTouch>(), 160);
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 Scale = 1;
                 Projectile.velocity = owner.velocity.normalize() * 30;
-                Util.Util.PlaySound("CrystalBallActive", 1, Projectile.Center);
+                Utilities.Util.PlaySound("CrystalBallActive", 1, Projectile.Center);
             }
             if(Projectile.timeLeft < 120)
             {
@@ -77,10 +77,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             }
             if(Projectile.timeLeft == 10)
             {
-                Util.Util.PlaySound("energyImpact", 1, Projectile.Center);
+                Utilities.Util.PlaySound("energyImpact", 1, Projectile.Center);
                 if(!(Main.netMode == NetmodeID.MultiplayerClient))
                 {
-                    float rj = Util.Util.randomRot();
+                    float rj = Utilities.Util.randomRot();
                     for (float i = 0; i < 360; i += 12f)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (rj + MathHelper.ToRadians(i)).ToRotationVector2() * 6, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, Projectile.knockBack);
@@ -145,7 +145,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    Texture2D tx = Util.Util.getExtraTex("AbyssalCircle3");
+                    Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle3");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
@@ -169,7 +169,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    Texture2D tx = Util.Util.getExtraTex("AbyssalCircle3");
+                    Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle3");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
@@ -193,7 +193,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    Texture2D tx = Util.Util.getExtraTex("AbyssalCircle4");
+                    Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle4");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }

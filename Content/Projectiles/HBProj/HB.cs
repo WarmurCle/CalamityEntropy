@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles.HBProj
             int scl = (int)(230 + 25 * Math.Cos(counter / 6));
             sb.Draw(part1, drawpos + ep * 0.4f - Main.screenPosition, null, new Color(scl, scl, scl), counter * 0.1f, part1.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
-            sb.Draw(eye, drawpos + ep * 0.4f - Main.screenPosition, Util.Util.GetCutTexRect(eye, 4, (int)(counter / 4) % 4), Color.White, 0, new Vector2((flip ? 86 - 54 : 54), 46), Projectile.scale, ef, 0);
+            sb.Draw(eye, drawpos + ep * 0.4f - Main.screenPosition, Utilities.Util.GetCutTexRect(eye, 4, (int)(counter / 4) % 4), Color.White, 0, new Vector2((flip ? 86 - 54 : 54), 46), Projectile.scale, ef, 0);
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

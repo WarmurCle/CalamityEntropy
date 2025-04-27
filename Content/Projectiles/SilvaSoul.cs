@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             base.AI();
-            EParticle.spawnNew(new LifeLeaf(), Projectile.Center, Util.Util.randomVec(6), Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, false, BlendState.AlphaBlend, Util.Util.randomRot());
+            EParticle.spawnNew(new LifeLeaf(), Projectile.Center, Utilities.Util.randomVec(6), Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, false, BlendState.AlphaBlend, Utilities.Util.randomRot());
             if (Projectile.timeLeft < 3)
             {
                 return;
@@ -54,15 +54,15 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     l += 0.03f;
                 }
-                Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1.4f, 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
-                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1f * l, true));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1.4f, 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1f * l, true));
                 if (Projectile.getRect().Intersects(target.getRect()))
                 {
                     for (int i = 0; i < 42; i++)
                     {
-                        EParticle.spawnNew(new GlowSpark(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gold, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
+                        EParticle.spawnNew(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gold, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
                     }
-                    Util.Util.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.6f);
+                    Utilities.Util.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.6f);
                     Projectile.Kill();
                     Projectile.getOwner().Entropy().TryHealMeWithCd(Projectile.getOwner().statLifeMax2 / 240 + 1);
                     Projectile.getOwner().Entropy().temporaryArmor += 1f;

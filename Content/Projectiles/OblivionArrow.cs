@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
 
                 NPC target = Projectile.FindTargetWithinRange(1600, false);
-                if (target != null && Util.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
+                if (target != null && Utilities.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
                 {
                     homingTime = 0;
                     Projectile.velocity *= 0.9f;
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
-                Texture2D tex = Util.Util.getExtraTex("obshot");
+                Texture2D tex = Utilities.Util.getExtraTex("obshot");
 
                 Main.spriteBatch.Draw(tex, Projectile.owner.ToPlayer().Center - Main.screenPosition, null, Color.Blue, spawnrot, new Vector2(0, tex.Height / 2), 0.44f * new Vector2(2f - 2 * particlea, particlea), SpriteEffects.None, 0);
 

@@ -17,7 +17,7 @@ using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
@@ -300,7 +300,7 @@ namespace CalamityEntropy.Common
             {
                 if(foreseeOrbLast && foreseeOrbItem == null && Player.HasBuff<ShatteredOrb>())
                 {
-                    Util.Util.PlaySound("amethyst_break", 1, Player.Center);
+                    Utilities.Util.PlaySound("amethyst_break", 1, Player.Center);
                     Player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Player.name + " " + Mod.GetLocalization("OrbPunishDeath" + Main.rand.Next(0, 2).ToString()).Value)), (int)(Player.statLifeMax2 * 0.9f), 0);
                 }
                 foreseeOrbLast = foreseeOrbItem != null;
@@ -430,7 +430,7 @@ namespace CalamityEntropy.Common
             vShieldCD -= 1;
             if(vShieldCD == 0 && vetrasylsEye)
             {
-                Util.Util.PlaySound("beep", 1, Player.Center);
+                Utilities.Util.PlaySound("beep", 1, Player.Center);
             }
             temporaryArmor *= 0.994f;
             if (temporaryArmor > 0)
@@ -823,7 +823,7 @@ namespace CalamityEntropy.Common
                 immune = 90;
                 MariviniumShieldCount--;
                 Player.Heal(140);
-                Util.Util.PlaySound("crystalShieldBreak", 1, Player.Center, 1, 0.7f);
+                Utilities.Util.PlaySound("crystalShieldBreak", 1, Player.Center, 1, 0.7f);
                 Player.AddBuff(ModContent.BuffType<AbyssalWrath>(), 300);
                 for (int i = 0; i < 42; i++)
                 {
@@ -887,7 +887,7 @@ namespace CalamityEntropy.Common
             { 
                 if(foreseeOrbItem != null && !Player.HasBuff<ShatteredOrb>())
                 {
-                    Util.Util.PlaySound("amethyst_break", 1, Player.Center);
+                    Utilities.Util.PlaySound("amethyst_break", 1, Player.Center);
                     info.Damage = info.Damage > 100 ? 100 :info.Damage;
                     Player.AddBuff(ModContent.BuffType<ShatteredOrb>(), 30 * 60);
                 }
@@ -896,7 +896,7 @@ namespace CalamityEntropy.Common
             {
                 foreach (Projectile p in Main.ActiveProjectiles)
                 {
-                    if (p.ModProjectile is PoopWulfrumProjectile w && Util.Util.getDistance(Player.Center, p.Center) < PoopWulfrumProjectile.shieldDistance)
+                    if (p.ModProjectile is PoopWulfrumProjectile w && Utilities.Util.getDistance(Player.Center, p.Center) < PoopWulfrumProjectile.shieldDistance)
                     {
                         if (w.shield > 0)
                         {
@@ -961,10 +961,10 @@ namespace CalamityEntropy.Common
                     {
                         nihShellCount--;
                         info.Damage = (int)(info.Damage * (1 - NihilityShell.HurtDamageReduce));
-                        Util.Util.PlaySound("shielddown", 1, Player.Center);
+                        Utilities.Util.PlaySound("shielddown", 1, Player.Center);
                         for (int i = 0; i < 24; i++)
                         {
-                            GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 9), Main.rand.NextFloat(0.8f, 2.4f), new Color(165, 58, 222), 40));
+                            GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 9), Main.rand.NextFloat(0.8f, 2.4f), new Color(165, 58, 222), 40));
                         }
                     }
                 }
@@ -1005,7 +1005,7 @@ namespace CalamityEntropy.Common
                     }
                     for(int i = 0; i < 3; i++)
                     {
-                        EParticle.spawnNew(new RuneParticle(), Player.Center + Util.Util.randomVec(26), Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+                        EParticle.spawnNew(new RuneParticle(), Player.Center + Utilities.Util.randomVec(26), Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
 
                     }
                     RuneDash--;
@@ -1040,7 +1040,7 @@ namespace CalamityEntropy.Common
                 {
                     if (CEKeybinds.RuneDashHotKey.JustPressed && !Player.HasCooldown(RuneDashCD.ID))
                     {
-                        Util.Util.PlaySound("RuneDash", 1, Player.Center);
+                        Utilities.Util.PlaySound("RuneDash", 1, Player.Center);
                         RuneDash = RuneWing.MAXDASHTIME;
                         RuneDashDir = (Main.MouseWorld - Player.Center).ToRotation();
                         if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -1072,7 +1072,7 @@ namespace CalamityEntropy.Common
                 AzChargeShieldSteamTime--;
                 if(AzChargeShieldSteamTime == 12)
                 {
-                    Util.Util.PlaySound("steam", 1, Player.Center);
+                    Utilities.Util.PlaySound("steam", 1, Player.Center);
                 }
                 if(AzChargeShieldSteamTime < 12)
                 {
@@ -1082,8 +1082,8 @@ namespace CalamityEntropy.Common
                     float rot = new Vector2(-1 * Player.direction, -2).ToRotation();
                     for (int i = 0; i < 8; i++)
                     {
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Util.Util.randomRot());
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Util.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Utilities.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Utilities.Util.randomRot());
                     }
                 }
             }
@@ -1270,7 +1270,7 @@ namespace CalamityEntropy.Common
             {
                 if (Main.myPlayer == Player.whoAmI)
                 {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Util.Util.randomVec(14), ModContent.ProjectileType<PhantomWyrm>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(Ystralyn.PhantomDamage)), 1, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Utilities.Util.randomVec(14), ModContent.ProjectileType<PhantomWyrm>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(Ystralyn.PhantomDamage)), 1, Player.whoAmI);
                 }
             }
             foreach (Projectile p in Main.ActiveProjectiles)
@@ -1331,7 +1331,7 @@ namespace CalamityEntropy.Common
                             Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, new Vector2(0, 0), PoopHold.ProjectileType(), 80, 3, Player.whoAmI);
                             holdingPoop = true;
                             PoopHold = null;
-                            Util.Util.PlaySound("poop_itemthrow");
+                            Utilities.Util.PlaySound("poop_itemthrow");
                         }
                         else
                         {
@@ -1350,7 +1350,7 @@ namespace CalamityEntropy.Common
                             Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, new Vector2(0, 0), poops[0].ProjectileType(), 80, 3, Player.whoAmI);
                             holdingPoop = true;
                             poops.RemoveAt(0);
-                            Util.Util.PlaySound("poop_itemthrow");
+                            Utilities.Util.PlaySound("poop_itemthrow");
                         }
                     }
                 }
@@ -1608,7 +1608,7 @@ namespace CalamityEntropy.Common
                 {
                     if (n.Hitbox.Intersects(Player.Hitbox) && n.active)
                     {
-                        Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(DamageClass.Melee).ApplyTo(1200), 0, 0, false, Util.CUtil.rogueDC);
+                        Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(DamageClass.Melee).ApplyTo(1200), 0, 0, false, Utilities.CUtil.rogueDC);
 
                     }
                 }
@@ -1621,7 +1621,7 @@ namespace CalamityEntropy.Common
                 if (OracleDeckHealCd <= 0)
                 {
                     OracleDeckHealCd = 300;
-                    if (Util.Util.getDistance(Main.LocalPlayer.Center, Player.Center) < 1600)
+                    if (Utilities.Util.getDistance(Main.LocalPlayer.Center, Player.Center) < 1600)
                     {
                         if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2)
                         {
@@ -1699,7 +1699,7 @@ namespace CalamityEntropy.Common
                             npc.defense = 0;
                             float or = npc.Calamity().DR;
                             npc.Calamity().DR = 0;
-                            Player.ApplyDamageToNPC(npc, (int)Player.GetTotalDamage(Util.CUtil.rogueDC).ApplyTo(460 + 50 * daCount), 0, 0, false, Util.CUtil.rogueDC);
+                            Player.ApplyDamageToNPC(npc, (int)Player.GetTotalDamage(Utilities.CUtil.rogueDC).ApplyTo(460 + 50 * daCount), 0, 0, false, Utilities.CUtil.rogueDC);
                             npc.defense = od;
                             npc.Calamity().DR = or;
                             daLastP = npc.Center;
@@ -1727,7 +1727,7 @@ namespace CalamityEntropy.Common
                         {
                             foreach (NPC n in Main.npc)
                             {
-                                if (Util.Util.getDistance(n.Center, Player.Center) < 140)
+                                if (Utilities.Util.getDistance(n.Center, Player.Center) < 140)
                                 {
                                     int od = n.defense;
                                     n.defense = 0;
@@ -1738,7 +1738,7 @@ namespace CalamityEntropy.Common
                                     {
                                         dmg += 460 + 50 * i;
                                     }
-                                    Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(Util.CUtil.rogueDC).ApplyTo(dmg), 0, 0, false, Util.CUtil.rogueDC);
+                                    Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(Utilities.CUtil.rogueDC).ApplyTo(dmg), 0, 0, false, Utilities.CUtil.rogueDC);
                                     n.defense = od;
                                     n.Calamity().DR = or;
                                 }

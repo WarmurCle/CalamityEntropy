@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 5 : 6))
             {
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Util.Util.randomRot().ToRotationVector2() * 12, ModContent.ProjectileType<SilvaSoul>(), 0, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * 12, ModContent.ProjectileType<SilvaSoul>(), 0, projectile.knockBack, projectile.owner);
             }
         }
     }

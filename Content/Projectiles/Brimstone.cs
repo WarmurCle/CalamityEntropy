@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (target != null)
                 {
                     Vector2 lasstVel = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).SafeNormalize(Vector2.Zero);
-                    float ra = Util.Util.getRotateAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.1f, false);
+                    float ra = Utilities.Util.getRotateAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.1f, false);
                     Vector2 nowVel = (Projectile.velocity.ToRotation() + ra).ToRotationVector2();
 
                     Projectile.velocity = nowVel;
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 Projectile.velocity = nowVel;
                 float rot = Projectile.velocity.ToRotation();
-                velP = nowVel.RotatedBy(-MathHelper.PiOver2) * Util.Util.getRotateAngle(lasstVel.ToRotation(), nowVel.ToRotation(), 1, false) * 54;
+                velP = nowVel.RotatedBy(-MathHelper.PiOver2) * Utilities.Util.getRotateAngle(lasstVel.ToRotation(), nowVel.ToRotation(), 1, false) * 54;
             }
             /*if (ssd)
             {
@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Projectiles
         public List<float> prs = new List<float>();
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (!Util.Util.isAir(Projectile.Center))
+            if (!Utilities.Util.isAir(Projectile.Center))
             {
                 return false;
             }
@@ -151,9 +151,9 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 1; i < points.Count; i++)
             {
-                if (Util.Util.isAir(points[i]))
+                if (Utilities.Util.isAir(points[i]))
                 {
-                    if (Util.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 56))
+                    if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 56))
                     {
                         return true;
                     }
@@ -167,11 +167,11 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D lend = Util.Util.getExtraTex("vlend");
+            Texture2D lend = Utilities.Util.getExtraTex("vlend");
             counter++;
-            if (!Util.Util.isAir(Projectile.Center))
+            if (!Utilities.Util.isAir(Projectile.Center))
             {
-                Main.spriteBatch.Draw(lend, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.Red, Projectile.rotation + (float)Math.PI / 2f, new Vector2(64, 104) / 2, new Vector2(Projectile.scale * 2, 2), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(lend, Projectile.Center - Main.screenPosition, Utilities.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.Red, Projectile.rotation + (float)Math.PI / 2f, new Vector2(64, 104) / 2, new Vector2(Projectile.scale * 2, 2), SpriteEffects.None, 0);
                 return false;
             }
             if (Projectile.ai[0] < 1)
@@ -205,7 +205,7 @@ namespace CalamityEntropy.Content.Projectiles
             point.Add(Projectile.Center + Projectile.rotation.ToRotationVector2() * 24);
             for (int i = 0; i < points.Count - 1; i++)
             {
-                if (Util.Util.isAir(points[i]))
+                if (Utilities.Util.isAir(points[i]))
                 {
                     point.Add(points[i]);
                 }
@@ -220,14 +220,14 @@ namespace CalamityEntropy.Content.Projectiles
             if (point.Count > 2)
             {
                 Main.spriteBatch.Draw(start, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 5, null, Color.Red, Projectile.rotation, start.Size() / 2, new Vector2(2, Projectile.scale * 2 * laserScale), SpriteEffects.None, 0);
-                Main.spriteBatch.Draw(lend, point[point.Count - 2] - Main.screenPosition + (point[point.Count - 1] - point[point.Count - 2]).ToRotation().ToRotationVector2() * -42, Util.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.Red, (point[point.Count - 1] - point[point.Count - 2]).ToRotation() + (float)Math.PI / 2f, new Vector2(64, 104) / 2, new Vector2(Projectile.scale * 2 * (float)(Math.Max(1, laserScale)), 2 * (float)(Math.Max(1, laserScale))), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(lend, point[point.Count - 2] - Main.screenPosition + (point[point.Count - 1] - point[point.Count - 2]).ToRotation().ToRotationVector2() * -42, Utilities.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.Red, (point[point.Count - 1] - point[point.Count - 2]).ToRotation() + (float)Math.PI / 2f, new Vector2(64, 104) / 2, new Vector2(Projectile.scale * 2 * (float)(Math.Max(1, laserScale)), 2 * (float)(Math.Max(1, laserScale))), SpriteEffects.None, 0);
 
-                Util.Util.drawLaser(Main.spriteBatch, txl, point, (int)(64f / (float)(Math.Max(1, laserScale))), Color.Red, (int)(128 * Projectile.scale * laserScale), (int)(counter / 3f), Projectile.rotation);
+                Utilities.Util.drawLaser(Main.spriteBatch, txl, point, (int)(64f / (float)(Math.Max(1, laserScale))), Color.Red, (int)(128 * Projectile.scale * laserScale), (int)(counter / 3f), Projectile.rotation);
 
             }
             else
             {
-                Main.spriteBatch.Draw(lend, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.Red, Projectile.rotation + (float)Math.PI / 2f, new Vector2(64, 104) / 2, new Vector2(Projectile.scale * 2, 2), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(lend, Projectile.Center - Main.screenPosition, Utilities.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.Red, Projectile.rotation + (float)Math.PI / 2f, new Vector2(64, 104) / 2, new Vector2(Projectile.scale * 2, 2), SpriteEffects.None, 0);
             }
 
             return false;

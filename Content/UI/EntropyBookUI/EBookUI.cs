@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                     {
                         if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                         {
-                            Util.Util.showItemTooltip(Main.LocalPlayer.Entropy().EBookStackItems[i]);
+                            Utilities.Util.showItemTooltip(Main.LocalPlayer.Entropy().EBookStackItems[i]);
                         }
                         Main.LocalPlayer.mouseInterface = true;
                         if (Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || Main.mouseItem.ModItem is BookMark) && !(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir))
@@ -127,7 +127,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                             Item mouseItem = Main.mouseItem.Clone();
                             Main.mouseItem = Main.LocalPlayer.Entropy().EBookStackItems[i];
                             Main.LocalPlayer.Entropy().EBookStackItems[i] = mouseItem;
-                            Util.Util.PlaySound("turnPage");
+                            Utilities.Util.PlaySound("turnPage");
                         }
                         if (Main.mouseRight && !lastMouseRight && slotDist > 100)
                         {
@@ -139,7 +139,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                                     {
                                         ItemIO.Load(Main.LocalPlayer.inventory[ii], ItemIO.Save(Main.LocalPlayer.Entropy().EBookStackItems[i]));
                                         Main.LocalPlayer.Entropy().EBookStackItems[i].TurnToAir();
-                                        Util.Util.PlaySound("turnPage");
+                                        Utilities.Util.PlaySound("turnPage");
                                         break;
                                     }
                                 }

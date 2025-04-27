@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 

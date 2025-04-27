@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
     public class RuneTorrent : ModProjectile
     {
         public List<Vector2> odp = new List<Vector2>();
-        public override string Texture => Util.Util.WhiteTexPath;
+        public override string Texture => Utilities.Util.WhiteTexPath;
         public float nowSpeed = 0;
         public override void SetDefaults()
         {
@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             spawnParticleCount += nowSpeed;
             if(spawnParticleCount > 22) {
                 spawnParticleCount -= 22;
-                EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
             }
         }
         public float spawnParticleCount = 0;

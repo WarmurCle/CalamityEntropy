@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 4 : 6))
             {
-                (Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(30, 34), ModContent.ProjectileType<DarkSoul>(), damageDone / 2, projectile.knockBack / 3, projectile.owner).ToProj().ModProjectile as EBookBaseProjectile).homing = ((EBookBaseProjectile)projectile.ModProjectile).homing;
+                (Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(30, 34), ModContent.ProjectileType<DarkSoul>(), damageDone / 2, projectile.knockBack / 3, projectile.owner).ToProj().ModProjectile as EBookBaseProjectile).homing = ((EBookBaseProjectile)projectile.ModProjectile).homing;
             }
         }
     }

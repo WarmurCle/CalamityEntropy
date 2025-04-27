@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
                         count++;
                     }
                     mct = count;
-                    speed = Util.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) / count;
+                    speed = Utilities.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) / count;
                     js = jspeed;
                     Vector2 jv = (Projectile.getOwner().Center - Projectile.Center).ToRotation().ToRotationVector2() * speed;
                     jv.Y -= js;
@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     if (counter % 6 == 0)
                     {
-                        Util.Util.PlaySound("spin" + Main.rand.Next(1, 3).ToString(), 1, Projectile.Center);
+                        Utilities.Util.PlaySound("spin" + Main.rand.Next(1, 3).ToString(), 1, Projectile.Center);
                     }
                 }
             }
@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (counter % 6 == 0)
                     {
-                        Util.Util.PlaySound("spin" + Main.rand.Next(1, 3).ToString(), 1, Projectile.Center);
+                        Utilities.Util.PlaySound("spin" + Main.rand.Next(1, 3).ToString(), 1, Projectile.Center);
                     }
                 }
             }
@@ -148,17 +148,17 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.damage = (int)(Projectile.damage * 0.9f);
             if (!hited)
             {
-                Util.Util.PlaySound("shield", pos: Projectile.Center);
-                Util.Util.PlaySound("SarosDiskThrow1", pos: Projectile.Center);
+                Utilities.Util.PlaySound("shield", pos: Projectile.Center);
+                Utilities.Util.PlaySound("SarosDiskThrow1", pos: Projectile.Center);
             }
             else
             {
                 homing = true;
             }
-            Util.Util.PlaySound("bne_hit2", pos: Projectile.Center);
+            Utilities.Util.PlaySound("bne_hit2", pos: Projectile.Center);
             if (!hited && Projectile.Calamity().stealthStrike)
             {
-                Util.Util.PlaySound("crystalShieldBreak", pos: Projectile.Center);
+                Utilities.Util.PlaySound("crystalShieldBreak", pos: Projectile.Center);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<AmethystExplosion>(), Projectile.damage, 1, Projectile.owner);
             }
             hited = true;
@@ -167,7 +167,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (!hited)
             {
-                Util.Util.PlaySound("shield", pos: Projectile.Center);
+                Utilities.Util.PlaySound("shield", pos: Projectile.Center);
             }
             else
             {
@@ -179,7 +179,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (!hited)
             {
-                Util.Util.PlaySound("shield", pos: Projectile.Center);
+                Utilities.Util.PlaySound("shield", pos: Projectile.Center);
             }
             else
             {
@@ -206,7 +206,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 1; i < odp.Count; i++)
             {
-                Util.Util.drawLine(odp[i - 1], odp[i], Color.Purple * 0.36f, (float)i / odp.Count * 9);
+                Utilities.Util.drawLine(odp[i - 1], odp[i], Color.Purple * 0.36f, (float)i / odp.Count * 9);
             }
             Texture2D tx = Projectile.getTexture();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));

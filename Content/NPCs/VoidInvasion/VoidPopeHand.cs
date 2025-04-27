@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     }
                 }
 
-                circleDist = circleDist + (Util.Util.getDistance(owner.Center, owner.target.ToPlayer().Center) - circleDist) * 0.01f;
+                circleDist = circleDist + (Utilities.Util.getDistance(owner.Center, owner.target.ToPlayer().Center) - circleDist) * 0.01f;
                 if (circleDist > 640)
                 {
                     circleDist = 640;
@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     }
                 }
             }
-            if (Util.Util.getDistance(targetPos, NPC.Center) > 4600)
+            if (Utilities.Util.getDistance(targetPos, NPC.Center) > 4600)
             {
                 NPC.Center = targetPos;
             }

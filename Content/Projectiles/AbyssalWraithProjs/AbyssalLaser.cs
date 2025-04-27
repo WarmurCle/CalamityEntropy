@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             points.Add(points[points.Count - 1] + (points[points.Count - 1] - points[points.Count - 2]).SafeNormalize(new Vector2(1, 1)) * 2800);
             for (int i = 1; i < points.Count; i++)
             {
-                if (Util.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 30))
+                if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 30))
                 {
                     return true;
                 }
@@ -150,7 +150,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
                 ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 130 * lc,
                       new Vector3(jn, 0, 1),
                       b));
-                jn += Util.Util.getDistance(points[i - 1], points[i]) / (float)tex.Width * lc;
+                jn += Utilities.Util.getDistance(points[i - 1], points[i]) / (float)tex.Width * lc;
 
             }
 

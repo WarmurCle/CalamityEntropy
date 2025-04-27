@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.DataStructures;

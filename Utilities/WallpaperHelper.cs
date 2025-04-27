@@ -6,7 +6,7 @@ using System.Text;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Util
+namespace CalamityEntropy.Utilities
 {
     class WallpaperHelper
     {

@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;
@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.DimDungeon
         public override void DrawMenu(GameTime gameTime)
         {
             Main.spriteBatch.UseSampleState_UI(SamplerState.PointWrap);
-            Main.spriteBatch.Draw(Util.Util.getExtraTex("noise"), Vector2.Zero, new Rectangle(Main.rand.Next(-4096, 4096), Main.rand.Next(-4096, 4096), Main.screenWidth, Main.screenHeight), Color.White);
+            Main.spriteBatch.Draw(Utilities.Util.getExtraTex("noise"), Vector2.Zero, new Rectangle(Main.rand.Next(-4096, 4096), Main.rand.Next(-4096, 4096), Main.screenWidth, Main.screenHeight), Color.White);
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
         }
     }

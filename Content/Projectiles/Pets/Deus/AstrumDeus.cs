@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
         }
         void MoveToTarget(Vector2 targetPos)
         {
-            if (Util.Util.getDistance(Projectile.Center, targetPos) > 1400)
+            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 1400)
             {
                 Projectile.Center = Main.player[Projectile.owner].Center - new Vector2(0, 50);
             }
@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
             {
                 Projectile.tileCollide = false;
                 Projectile.rotation = MathHelper.ToRadians((Projectile.velocity.X * 1.4f));
-                if (Util.Util.getDistance(Projectile.Center, targetPos) > 100)
+                if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 100)
                 {
                     Vector2 px = targetPos - Projectile.Center;
                     px.Normalize();
@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
                     Projectile.velocity *= 0.94f;
 
                 }
-                if (Util.Util.getDistance(Projectile.Center, targetPos) < 100)
+                if (Utilities.Util.getDistance(Projectile.Center, targetPos) < 100)
                 {
                     Projectile.ai[1] = 0;
                 }
@@ -118,11 +118,11 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
                 Projectile.tileCollide = true;
                 Projectile.rotation = 0;
                 Projectile.velocity.Y += 0.5f;
-                if (Util.Util.getDistance(targetPos, Projectile.Center) > 600)
+                if (Utilities.Util.getDistance(targetPos, Projectile.Center) > 600)
                 {
                     Projectile.ai[1] = 1;
                 }
-                else if (Util.Util.getDistance(targetPos * new Vector2(1, 0), Projectile.Center * new Vector2(1, 0)) > 200)
+                else if (Utilities.Util.getDistance(targetPos * new Vector2(1, 0), Projectile.Center * new Vector2(1, 0)) > 200)
                 {
                     if (targetPos.X > Projectile.Center.X)
                     {

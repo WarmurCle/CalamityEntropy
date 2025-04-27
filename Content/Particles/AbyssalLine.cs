@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public override void draw()
         {
-            Texture2D tex = Util.Util.getExtraTex("a_circle");
+            Texture2D tex = Utilities.Util.getExtraTex("a_circle");
             Main.spriteBatch.Draw(tex, position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, ((float)timeLeft / timemax)) * ((float)timeLeft / timemax) * 0.7f, this.rotation, tex.Size() / 2, new Vector2(0.6f * (xscale + 0.1f), 0.56f * lx) * scale, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex, position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, ((float)timeLeft / timemax)) * ((float)timeLeft / timemax), this.rotation, tex.Size() / 2, new Vector2(0.6f * xscale, 0.2f * lx) * scale, SpriteEffects.None, 0);
 

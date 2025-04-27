@@ -135,7 +135,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Util.Util.DrawAfterimage(TextureAssets.Projectile[Projectile.type].Value, odp, odr);
+            Utilities.Util.DrawAfterimage(TextureAssets.Projectile[Projectile.type].Value, odp, odr);
             return true;
         }
     }

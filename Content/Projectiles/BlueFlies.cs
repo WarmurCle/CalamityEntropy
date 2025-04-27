@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player player = Projectile.owner.ToPlayer();
-            NPC target = Util.Util.findTarget(player, Projectile, 800, false);
+            NPC target = Utilities.Util.findTarget(player, Projectile, 800, false);
             if (target != null)
             {
                 Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.6f;
@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(tex, 2, ((Projectile.timeLeft / 4) % 2 == 0 ? 0 : 1)), lightColor, Projectile.rotation, new Vector2(32, 32), Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, Utilities.Util.GetCutTexRect(tex, 2, ((Projectile.timeLeft / 4) % 2 == 0 ? 0 : 1)), lightColor, Projectile.rotation, new Vector2(32, 32), Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

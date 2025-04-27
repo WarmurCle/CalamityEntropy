@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
@@ -102,7 +102,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             tpos.Y += yofs * (target == null ? 0 : 1);
             tpos.X += 400;
             int s = 28;
-            if (Util.Util.getDistance(tpos, Projectile.Center) > s)
+            if (Utilities.Util.getDistance(tpos, Projectile.Center) > s)
             {
                 Projectile.velocity = (tpos - Projectile.Center).normalize() * s;
             }
@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.velocity = (tpos - Projectile.Center);
             }
             tpos.X -= 400;
-            Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Projectile.velocity.Length() > 4 && target == null ? Projectile.velocity.ToRotation() : (tpos - Projectile.Center).ToRotation()), 20, true);
+            Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (Projectile.velocity.Length() > 4 && target == null ? Projectile.velocity.ToRotation() : (tpos - Projectile.Center).ToRotation()), 20, true);
             if (target != null)
             {
                 Projectile.rotation = (target.Center - Projectile.Center).ToRotation();
@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
             Main.spriteBatch.End();
             Main.spriteBatch.begin_();
-            Texture2D tex = Util.Util.getExtraTex("ExoTwinsMinion/A" + ((Main.GameUpdateCount / 4) % 3).ToString());
+            Texture2D tex = Utilities.Util.getExtraTex("ExoTwinsMinion/A" + ((Main.GameUpdateCount / 4) % 3).ToString());
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             return false;
         }
@@ -188,9 +188,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 v2[i].pos = uposd - (uposd - v2[i].pos).SafeNormalize(-Vector2.UnitX) * 12;
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
-                v1[i].rot = Util.Util.rotatedToAngle(v1[i].rot, urotu, 0.76f, false);
+                v1[i].rot = Utilities.Util.rotatedToAngle(v1[i].rot, urotu, 0.76f, false);
                 v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12 * Projectile.scale;
-                v2[i].rot = Util.Util.rotatedToAngle(v2[i].rot, urotd, 0.76f, false);
+                v2[i].rot = Utilities.Util.rotatedToAngle(v2[i].rot, urotd, 0.76f, false);
                 v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12 * Projectile.scale;
 
                 if (i == 0)
@@ -262,7 +262,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             tpos.X -= 400;
             tpos.Y += yofs * (target == null ? 0 : 1);
             int s = 28;
-            if (Util.Util.getDistance(tpos, Projectile.Center) > s)
+            if (Utilities.Util.getDistance(tpos, Projectile.Center) > s)
             {
                 Projectile.velocity = (tpos - Projectile.Center).normalize() * s;
             }
@@ -271,7 +271,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.velocity = (tpos - Projectile.Center);
             }
             tpos.X += 400;
-            Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Projectile.velocity.Length() > 4 && target == null ? Projectile.velocity.ToRotation() : (tpos - Projectile.Center).ToRotation()), 20, true);
+            Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (Projectile.velocity.Length() > 4 && target == null ? Projectile.velocity.ToRotation() : (tpos - Projectile.Center).ToRotation()), 20, true);
             if (target != null)
             {
                 Projectile.rotation = (target.Center - Projectile.Center).ToRotation();
@@ -320,7 +320,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
             Main.spriteBatch.End();
             Main.spriteBatch.begin_();
-            Texture2D tex = Util.Util.getExtraTex("ExoTwinsMinion/B" + ((Main.GameUpdateCount / 4) % 3).ToString());
+            Texture2D tex = Utilities.Util.getExtraTex("ExoTwinsMinion/B" + ((Main.GameUpdateCount / 4) % 3).ToString());
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             return false;
         }
@@ -348,9 +348,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 v2[i].pos = uposd - (uposd - v2[i].pos).SafeNormalize(-Vector2.UnitX) * 12;
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
-                v1[i].rot = Util.Util.rotatedToAngle(v1[i].rot, urotu, 0.76f, false);
+                v1[i].rot = Utilities.Util.rotatedToAngle(v1[i].rot, urotu, 0.76f, false);
                 v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12 * Projectile.scale;
-                v2[i].rot = Util.Util.rotatedToAngle(v2[i].rot, urotd, 0.76f, false);
+                v2[i].rot = Utilities.Util.rotatedToAngle(v2[i].rot, urotd, 0.76f, false);
                 v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12 * Projectile.scale;
 
                 if (i == 0)

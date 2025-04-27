@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.AI();
             foreach (Player p in Main.ActivePlayers)
             {
-                if (Util.Util.getDistance(Projectile.Center, p.Center) < 64 * Projectile.scale * 2f)
+                if (Utilities.Util.getDistance(Projectile.Center, p.Center) < 64 * Projectile.scale * 2f)
                 {
                     p.Entropy().holyGroundTime = 2;
                 }
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix); ;
 
-            Texture2D light = Util.Util.getExtraTex("godhead");
+            Texture2D light = Utilities.Util.getExtraTex("godhead");
             Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, Color.White * 0.3f, 0, light.Size() / 2, 4 * Projectile.scale, SpriteEffects.None, 0); ;
 
             Main.spriteBatch.End();

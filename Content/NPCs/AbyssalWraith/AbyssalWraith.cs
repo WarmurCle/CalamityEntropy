@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Items.Potions;
 using CalamityMod.Particles;
 using CalamityMod.World;
@@ -190,7 +190,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             }
             wingRotLeft *= 0.86f;
             wingRotRight *= 0.86f;
-            if (Util.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 8000 && !NPC.Entropy().ToFriendly && !Main.dedServ)
+            if (Utilities.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 8000 && !NPC.Entropy().ToFriendly && !Main.dedServ)
             {
                 Main.LocalPlayer.Entropy().AWraith = true;
             }
@@ -532,7 +532,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             {
                                 if (NPC.ai[2] % 60 == 0)
                                 {
-                                    int a = (int)MathHelper.ToDegrees(Util.Util.randomRot());
+                                    int a = (int)MathHelper.ToDegrees(Utilities.Util.randomRot());
                                     for (int i = 0; i < 5; i++)
                                     {
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -638,7 +638,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                             if (NPC.ai[2] == 140 || NPC.ai[2] == 100 || NPC.ai[2] == 60 || NPC.ai[2] == 20)
                             {
                                 animation = 0;
-                                float a = Util.Util.randomRot();
+                                float a = Utilities.Util.randomRot();
                                 for (int i = 0; i < 18; i++)
                                 {
                                     a += MathHelper.ToRadians(20);
@@ -695,7 +695,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
 
                                                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                                             {
-                                                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(0, 30), (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * MathHelper.Max(200, MathHelper.Min(Util.Util.getDistance(NPC.Center, target.Center), 660)), ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
+                                                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(0, 30), (target.Center - NPC.Center).SafeNormalize(new Vector2(1, 0)) * MathHelper.Max(200, MathHelper.Min(Util.getDistance(NPC.Center, target.Center), 660)), ModContent.ProjectileType<AbyssalLaser>(), NPC.damage / 6, 6, -1, 0, 0, NPC.whoAmI);
                                                             }
                                                         }
                                                         if (NPC.ai[2] == 2)
@@ -707,7 +707,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                     }
 
 
-                    if (counter % 10 == 0 && Util.Util.getDistance(NPC.Center, target.Center) > 4000)
+                    if (counter % 10 == 0 && Utilities.Util.getDistance(NPC.Center, target.Center) > 4000)
                     {
                         setPortalTo(target.Center + new Vector2(Main.rand.Next(-300, 301), 100));
                     }
@@ -743,14 +743,14 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Util.Util.randomRot().ToRotationVector2() * (float)Main.rand.Next(100, 200) * 0.1f, ModContent.ProjectileType<VoidLightBall>(), (int)(NPC.damage * 0.14f), 6, -1, 0, 0, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Utilities.Util.randomRot().ToRotationVector2() * (float)Main.rand.Next(100, 200) * 0.1f, ModContent.ProjectileType<VoidLightBall>(), (int)(NPC.damage * 0.14f), 6, -1, 0, 0, NPC.whoAmI);
             }
         }
         private void ThrowALightBall(int type)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Util.Util.randomRot().ToRotationVector2() * (float)Main.rand.Next(100, 200) * 0.1f, type, (int)(NPC.damage * 0.14f), 6, -1, 0, 0, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Utilities.Util.randomRot().ToRotationVector2() * (float)Main.rand.Next(100, 200) * 0.1f, type, (int)(NPC.damage * 0.14f), 6, -1, 0, 0, NPC.whoAmI);
             }
         }
 
@@ -855,7 +855,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         {
             Player target = NPC.target.ToPlayer();
             Vector2 pos = target.Center - new Vector2(0, 120);
-            if (Util.Util.getDistance(NPC.Center, pos) > 240 || NPC.velocity.Length() < 4)
+            if (Utilities.Util.getDistance(NPC.Center, pos) > 240 || NPC.velocity.Length() < 4)
             {
                 NPC.velocity += (pos - NPC.Center).SafeNormalize(Vector2.Zero) * 0.4f;
                 NPC.rotation = MathHelper.ToRadians(NPC.velocity.X * 1.4f);
@@ -870,7 +870,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public void KeepDist(float dist, float maxDist = -1)
         {
             Player target = NPC.target.ToPlayer();
-            if (maxDist >= 0 && Util.Util.getDistance(NPC.Center, target.Center) >= dist && Util.Util.getDistance(NPC.Center, target.Center) <= maxDist)
+            if (maxDist >= 0 && Utilities.Util.getDistance(NPC.Center, target.Center) >= dist && Utilities.Util.getDistance(NPC.Center, target.Center) <= maxDist)
             {
                 NPC.velocity *= 0.94f;
                 return;
@@ -1080,7 +1080,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         }
         public void DrawPortal(Vector2 pos, Color color, float size, float xmul = 0.3f, float aj = 0)
         {
-            Texture2D tx = Util.Util.getExtraTex("SoulVortex");
+            Texture2D tx = Utilities.Util.getExtraTex("SoulVortex");
             float angle = MathHelper.ToDegrees(counter * 0.2f + aj);
             Vector2 lu = new Vector2(size, 0).RotatedBy(MathHelper.ToRadians(angle - 135));
             Vector2 ru = new Vector2(size, 0).RotatedBy(MathHelper.ToRadians(angle - 45));
@@ -1099,7 +1099,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             ld = ld.RotatedBy(rangle);
             rd = rd.RotatedBy(rangle);
 
-            Util.Util.drawTextureToPoint(Main.spriteBatch, tx, color, dp + lu, dp + ru, dp + ld, dp + rd);
+            Utilities.Util.drawTextureToPoint(Main.spriteBatch, tx, color, dp + lu, dp + ru, dp + ld, dp + rd);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPosition, Color drawColor)

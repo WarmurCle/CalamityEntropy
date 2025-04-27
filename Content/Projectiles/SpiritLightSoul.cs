@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -57,22 +57,22 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                NPC target = Util.Util.findTarget(Projectile.getOwner(), Projectile, 8000);
+                NPC target = Utilities.Util.findTarget(Projectile.getOwner(), Projectile, 8000);
                 if (target != null)
                 {
                     if (l < 16)
                     {
                         l += 0.01f;
                     }
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.6f * l, false));
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1.4f * l, true));
-                    if(Util.Util.getDistance(Projectile.Center, target.Center) < 100)
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.6f * l, false));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1.4f * l, true));
+                    if(Utilities.Util.getDistance(Projectile.Center, target.Center) < 100)
                     {
                         if (c < 1)
                         {
                             c += 0.1f;
                         }
-                        Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), c, false));
+                        Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), c, false));
 
                     }
                 }
@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.timeLeft > 2)
             {
-                Util.Util.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 3, volume: 0.8f);
+                Utilities.Util.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 3, volume: 0.8f);
                 Projectile.timeLeft = 2;
                 Projectile.Resize(256, 256);
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower += 3f;
@@ -125,8 +125,8 @@ namespace CalamityEntropy.Content.Projectiles
                 GeneralParticleHandler.SpawnParticle(explosion2);
                 for (int i = 0; i < 30; i++)
                 {
-                    EParticle.spawnNew(new Smoke() { timeLeft = 16, timeleftmax = 16 }, target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.3f, Color.DarkGreen, 0.09f, 1, true, BlendState.Additive);
-                    EParticle.spawnNew(new Smoke() { timeLeft = 16, timeleftmax = 16 }, target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.3f, Color.DarkGray, 0.09f, 1, true, BlendState.Additive);
+                    EParticle.spawnNew(new Smoke() { timeLeft = 16, timeleftmax = 16 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.3f, Color.DarkGreen, 0.09f, 1, true, BlendState.Additive);
+                    EParticle.spawnNew(new Smoke() { timeLeft = 16, timeleftmax = 16 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.3f, Color.DarkGray, 0.09f, 1, true, BlendState.Additive);
                 }
             }
         }

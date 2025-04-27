@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 
-namespace CalamityEntropy.Util
+namespace CalamityEntropy.Utilities
 {
     public class Rope
     {

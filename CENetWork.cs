@@ -3,7 +3,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Events;
 using System.IO;
 using Terraria;
@@ -168,7 +168,7 @@ namespace CalamityEntropy
 
                 if (!Main.dedServ && itemtype == ModContent.ItemType<PoopPickup>())
                 {
-                    Util.Util.PlaySound("fart", 1, player.Center);
+                    Utilities.Util.PlaySound("fart", 1, player.Center);
                 }
                 if (Main.dedServ)
                 {

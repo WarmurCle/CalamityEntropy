@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
@@ -212,7 +212,7 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int i = 0; i < 4; i++)
                 {
                     Vector2 velocity = MathHelper.ToRadians(i * 90).ToRotationVector2() * 16;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<HolyBeam>(), (int)(Projectile.damage * 0.36f), 0f, Projectile.owner).ToProj().DamageType = Util.CUtil.rogueDC;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<HolyBeam>(), (int)(Projectile.damage * 0.36f), 0f, Projectile.owner).ToProj().DamageType = Utilities.CUtil.rogueDC;
                 }
             }
         }

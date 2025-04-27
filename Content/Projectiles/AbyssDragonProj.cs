@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Projectiles
                     if (Projectile.timeLeft > 1)
                         Projectile.timeLeft = 1;
                 }
-                Vector2 spawnPos = player.Center + Util.Util.randomRot().ToRotationVector2() * 1400;
+                Vector2 spawnPos = player.Center + Utilities.Util.randomRot().ToRotationVector2() * 1400;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, (player.Calamity().mouseWorld - spawnPos).normalize() * 12, ModContent.ProjectileType<AbyssalStar>(), (int)(Projectile.damage * 0.24f), Projectile.knockBack, player.whoAmI);
 
             }
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (target == null)
             {
                 Vector2 t = player.Calamity().mouseWorld + new Vector2(0, -120);
-                if (Util.Util.getDistance(t, Projectile.Center) > 300)
+                if (Utilities.Util.getDistance(t, Projectile.Center) > 300)
                 {
                     Projectile.velocity *= 0.96f;
                     Projectile.velocity += (t - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.6f;

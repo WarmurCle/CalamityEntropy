@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 20, 1f, 1000, 16);
-            CalamityEntropy.SpawnHeavenSpark(target.Center, Util.Util.randomRot(), 0.6f, 0.6f, new Color(40, 40, 186));
+            CalamityEntropy.SpawnHeavenSpark(target.Center, Utilities.Util.randomRot(), 0.6f, 0.6f, new Color(40, 40, 186));
         }
         public override void AI()
         {

@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (playSound)
             {
                 playSound = false;
-                Util.Util.PlaySound("maw of the void", 1, Projectile.Center, 8);
+                Utilities.Util.PlaySound("maw of the void", 1, Projectile.Center, 8);
             }
             Projectile.Center = Projectile.owner.ToPlayer().Center + Projectile.owner.ToPlayer().gfxOffY * Vector2.UnitY;
         }
@@ -72,14 +72,14 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (i == 0)
                 {
-                    if (Util.Util.LineThroughRect(points[0], points[points.Count - 1], targetHitbox, width))
+                    if (Utilities.Util.LineThroughRect(points[0], points[points.Count - 1], targetHitbox, width))
                     {
                         return true;
                     }
                 }
                 else
                 {
-                    if (Util.Util.LineThroughRect(points[i], points[i - 1], targetHitbox, width))
+                    if (Utilities.Util.LineThroughRect(points[i], points[i - 1], targetHitbox, width))
                     {
                         return true;
                     }

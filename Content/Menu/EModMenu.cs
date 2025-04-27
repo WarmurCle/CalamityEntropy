@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Menu
 
             if (counter % 15 == 0)
             {
-                MenuParticle particle = new MenuParticle(new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), Util.Util.randomRot().ToRotationVector2() * 1, new Vector2(1.5f, 1), 460);
+                MenuParticle particle = new MenuParticle(new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), Utilities.Util.randomRot().ToRotationVector2() * 1, new Vector2(1.5f, 1), 460);
                 MenuParticle.particles.Add(particle);
                 particle.pos += particle.velocity * 2;
             }
@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.Menu
                 alpha += 0.01f;
             }
             this.pos += this.velocity;
-            this.velocity = this.velocity.RotatedBy(MathHelper.ToRadians(0.2f) + MathHelper.ToRadians(1) * (2 / (float)Util.Util.getDistance(pos, center)));
+            this.velocity = this.velocity.RotatedBy(MathHelper.ToRadians(0.2f) + MathHelper.ToRadians(1) * (2 / (float)Utilities.Util.getDistance(pos, center)));
             timeleft--;
             this.velocity *= 1.002f;
         }
@@ -163,7 +163,7 @@ namespace CalamityEntropy.Content.Menu
         public LightningParticle()
         {
             Vector2 centerp = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2) + new Vector2(Main.rand.Next(-60, 61), Main.rand.Next(-60, 61));
-            float a1 = Util.Util.randomRot();
+            float a1 = Utilities.Util.randomRot();
             float a2 = a1 + MathHelper.ToRadians(180);
             Vector2 p1 = centerp;
             Vector2 p2 = centerp;
@@ -194,7 +194,7 @@ namespace CalamityEntropy.Content.Menu
                 Vector2 jv = points[i] - points[i - 1];
                 jv.Normalize();
                 jv *= 2;
-                Util.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * jd, 2f * lw, 0, false);
+                Utilities.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * jd, 2f * lw, 0, false);
                 lw -= 2f * ((float)timeleft / 20f) / ((float)points.Count + 1);
             }
 
@@ -205,7 +205,7 @@ namespace CalamityEntropy.Content.Menu
                 Vector2 jv = points2[i] - points2[i - 1];
                 jv.Normalize();
                 jv *= 2;
-                Util.Util.drawLine(Main.spriteBatch, px, points2[i - 1], points2[i] + jv, color * jd, 2f * lw, 0, false);
+                Utilities.Util.drawLine(Main.spriteBatch, px, points2[i - 1], points2[i] + jv, color * jd, 2f * lw, 0, false);
                 lw -= 2f * ((float)timeleft / 20f) / ((float)points2.Count + 1);
             }
         }

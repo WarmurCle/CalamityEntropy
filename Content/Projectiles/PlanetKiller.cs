@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Summon;
@@ -191,13 +191,13 @@ namespace CalamityEntropy.Content.Projectiles
                     }
 
                     Vector2 Position = target.Center + (Projectile.Center - target.Center).SafeNormalize(Vector2.Zero) * Projectile.ai[1] * 1.4f;
-                    if (Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 600)
+                    if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 600)
                     {
                         Position = target.Center + (Projectile.owner.ToPlayer().Center - target.Center).SafeNormalize(Vector2.Zero) * Projectile.ai[1] * 1.4f;
                     }
                     MoveToTarget(Position, 24, 0.3f);
                     AttackShooting(target);
-                    Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 8f, true);
+                    Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 8f, true);
                 }
             }
             else
@@ -216,7 +216,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     SimpleStandBy(mypos, 0.3f);
                 }
-                Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
+                Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
             }
             if (Projectile.owner == Main.myPlayer)
             {

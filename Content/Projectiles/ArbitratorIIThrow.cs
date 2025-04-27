@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -309,10 +309,10 @@ namespace CalamityEntropy.Content.Projectiles
         public bool breakHandle = false;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D handle = Util.Util.getExtraTex("Arb0");
-            Texture2D tx1 = Util.Util.getExtraTex("Arb2");
-            Texture2D tx2 = Util.Util.getExtraTex("Arb3");
-            Texture2D tx3 = Util.Util.getExtraTex("Arb4");
+            Texture2D handle = Utilities.Util.getExtraTex("Arb0");
+            Texture2D tx1 = Utilities.Util.getExtraTex("Arb2");
+            Texture2D tx2 = Utilities.Util.getExtraTex("Arb3");
+            Texture2D tx3 = Utilities.Util.getExtraTex("Arb4");
             List<Texture2D> tx = new List<Texture2D>() { tx1, tx2, tx3 };
             float rj = 0;
             if (Projectile.ai[0] < 12)

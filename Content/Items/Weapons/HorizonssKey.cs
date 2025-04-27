@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
         {
-            if (damageClass == Util.CUtil.rogueDC)
+            if (damageClass == Utilities.CUtil.rogueDC)
             {
                 return new StatInheritanceData(0.35f, 0.35f, 0.35f, 0.35f, 0.35f);
             }
@@ -71,10 +71,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                     int npc = -1;
                     foreach (NPC n in Main.npc)
                     {
-                        if (n.active && !n.friendly && Util.Util.getDistance(n.Center, Main.MouseWorld) < dist)
+                        if (n.active && !n.friendly && Utilities.Util.getDistance(n.Center, Main.MouseWorld) < dist)
                         {
                             npc = n.whoAmI;
-                            dist = Util.Util.getDistance(n.Center, Main.MouseWorld);
+                            dist = Utilities.Util.getDistance(n.Center, Main.MouseWorld);
                         }
                     }
                     if (npc >= 0)

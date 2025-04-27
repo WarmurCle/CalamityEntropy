@@ -51,7 +51,7 @@ namespace CalamityEntropy.Common
             ActivationTextKey = "Mods.CalamityEntropy.EntropyModeActive";
             DeactivationTextKey = "Mods.CalamityEntropy.EntropyModeDeactive";
 
-            ActivationSound = Util.Util.GetSound("soul");
+            ActivationSound = Util.GetSound("soul");
             ChatTextColor = new Color(170, 18, 225);
             
         }

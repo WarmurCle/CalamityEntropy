@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -31,8 +31,8 @@ namespace CalamityEntropy.Content.Projectiles
             if (target != null)
             {
                 Projectile.velocity *= 0.98f;
-                Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1f * (Util.Util.getDistance(Projectile.Center, target.Center) > 360 ? 1 : -1.4f);
-                if (Util.Util.getDistance(Projectile.Center, target.Center) < 400 && Projectile.ai[0] > 40)
+                Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1f * (Utilities.Util.getDistance(Projectile.Center, target.Center) > 360 ? 1 : -1.4f);
+                if (Utilities.Util.getDistance(Projectile.Center, target.Center) < 400 && Projectile.ai[0] > 40)
                 {
                     if (ModLoader.TryGetMod("CatalystMod", out Mod caly))
                     {

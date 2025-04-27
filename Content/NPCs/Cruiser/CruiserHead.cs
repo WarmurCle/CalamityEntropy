@@ -8,7 +8,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Tiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.Items.Potions;
@@ -481,7 +481,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     foreach (Player p in Main.ActivePlayers)
                     {
-                        if (Util.Util.getDistance(SpaceCenter, p.Center) > maxDistance)
+                        if (Utilities.Util.getDistance(SpaceCenter, p.Center) > maxDistance)
                         {
                             if (!Main.dedServ)
                             {
@@ -585,7 +585,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             }
                             foreach (var p in bodies)
                             {
-                                VoidParticles.particles.Add(new Particle() { position = p, alpha = Main.rand.NextFloat(0.2f, 1.4f), shape = 4, velocity = Util.Util.randomPointInCircle(6) });
+                                VoidParticles.particles.Add(new Particle() { position = p, alpha = Main.rand.NextFloat(0.2f, 1.4f), shape = 4, velocity = Utilities.Util.randomPointInCircle(6) });
                             }
                         }
                         if (ai == AIStyle.TryToClosePlayer)
@@ -691,8 +691,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                         Shoot(ModContent.ProjectileType<VoidResidue>(), NPC.Center, NPC.velocity.normalize().RotatedByRandom(2f) * 24 * Main.rand.NextFloat(0.2f, 1f), 0.8f);
                                     }
                                 }
-                                Util.Util.PlaySound("brimstonevortexshoot", 1, NPC.Center);
-                                Util.Util.PlaySound("vbuse", 1, NPC.Center);
+                                Utilities.Util.PlaySound("brimstonevortexshoot", 1, NPC.Center);
+                                Utilities.Util.PlaySound("vbuse", 1, NPC.Center);
                             }
                             if (changeCounter > 140)
                             {
@@ -717,7 +717,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         if (ai == AIStyle.VoidSpike)
                         {
                             NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (46 - NPC.velocity.Length()) * 0.08f);
-                            NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.0376f, false).ToRotationVector2() * NPC.velocity.Length();
+                            NPC.velocity = Utilities.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.0376f, false).ToRotationVector2() * NPC.velocity.Length();
                             changeCounter++;
                             if (changeCounter == 40 || changeCounter == 60 || changeCounter == 80 || changeCounter == 100)
                             {
@@ -740,7 +740,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             {
                                 NPC.velocity *= 0.9f;
                                 NPC.velocity += (target.Center - NPC.Center).normalize() * 6;
-                                if (Util.Util.getDistance(NPC.Center + NPC.rotation.ToRotationVector2() * 160, target.Center) < 160)
+                                if (Utilities.Util.getDistance(NPC.Center + NPC.rotation.ToRotationVector2() * 160, target.Center) < 160)
                                 {
                                     changeCounter++;
                                     target.velocity *= 0;
@@ -755,13 +755,13 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     mouthRot -= 5f;
                                     NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (80 - NPC.velocity.Length()) * 0.2f);
 
-                                    if (Util.Util.getDistance(NPC.Center + NPC.rotation.ToRotationVector2() * 160, target.Center) < 160)
+                                    if (Utilities.Util.getDistance(NPC.Center + NPC.rotation.ToRotationVector2() * 160, target.Center) < 160)
                                     {
                                         target.velocity *= 0;
                                         target.Entropy().immune = 12;
                                         target.Center = NPC.Center + NPC.rotation.ToRotationVector2() * 160;
                                     }
-                                    if (!Util.Util.isAir(NPC.Center + NPC.rotation.ToRotationVector2() * 360))
+                                    if (!Utilities.Util.isAir(NPC.Center + NPC.rotation.ToRotationVector2() * 360))
                                     {
                                         changeCounter = 60;
                                     }
@@ -778,7 +778,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 }
                                 if (changeCounter == 20)
                                 {
-                                    if (Util.Util.getDistance(NPC.Center + NPC.rotation.ToRotationVector2() * 80, target.Center) < 160)
+                                    if (Utilities.Util.getDistance(NPC.Center + NPC.rotation.ToRotationVector2() * 80, target.Center) < 160)
                                     {
                                         target.velocity = NPC.velocity * 1.6f;
                                         target.Entropy().CruiserAntiGravTime = 100;
@@ -809,7 +809,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         if (ai == AIStyle.AroundSpawnVoidBomb)
                         {
                             NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (32 - NPC.velocity.Length()) * 0.08f);
-                            NPC.velocity = Util.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.028f, false).ToRotationVector2() * NPC.velocity.Length();
+                            NPC.velocity = Utilities.Util.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.028f, false).ToRotationVector2() * NPC.velocity.Length();
 
                             changeCounter++;
                             if (changeCounter < 180)
@@ -817,7 +817,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 if (changeCounter % 7 == 0)
                                 {
                                     if (canShoot)
-                                        Shoot(ModContent.ProjectileType<VoidBomb>(), NPC.Center, Util.Util.randomPointInCircle(8) + (target.Center - NPC.Center).normalize() * 22);
+                                        Shoot(ModContent.ProjectileType<VoidBomb>(), NPC.Center, Utilities.Util.randomPointInCircle(8) + (target.Center - NPC.Center).normalize() * 22);
                                 }
                             }
                             if (changeCounter > 340)
@@ -875,8 +875,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                         Shoot(ModContent.ProjectileType<VoidStar>(), NPC.Center, NPC.velocity.normalize().RotatedByRandom(2f) * 24 * Main.rand.NextFloat(0.2f, 1f), 0.8f);
                                     }
                                 }
-                                Util.Util.PlaySound("brimstonevortexshoot", 1, NPC.Center);
-                                Util.Util.PlaySound("vbuse", 1, NPC.Center);
+                                Utilities.Util.PlaySound("brimstonevortexshoot", 1, NPC.Center);
+                                Utilities.Util.PlaySound("vbuse", 1, NPC.Center);
                             }
                             if (changeCounter > 140)
                             {
@@ -919,7 +919,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 {
                                     Shoot(ModContent.ProjectileType<CruiserLaser2>(), NPC.Center, NPC.rotation.ToRotationVector2() * 10, ai0: NPC.whoAmI);
                                 }
-                                NPC.velocity = NPC.rotation.ToRotationVector2() * ((Util.Util.getDistance(NPC.Center, target.Center) + 1400f) / 22f);
+                                NPC.velocity = NPC.rotation.ToRotationVector2() * ((Utilities.Util.getDistance(NPC.Center, target.Center) + 1400f) / 22f);
                             }
                             if (changeCounter % 46 == 45)
                             {
@@ -1064,7 +1064,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     {
                                         for (int _ = 0; _ < Main.rand.Next(-3, 3); _++)
                                         {
-                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[i] - (bodies[i - 1] - bodies[i]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, Util.Util.randomRot().ToRotationVector2() * speed * 3f, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 7f), 1);
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[i] - (bodies[i - 1] - bodies[i]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, Utilities.Util.randomRot().ToRotationVector2() * speed * 3f, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 7f), 1);
                                         }
                                     }
                                 }
@@ -1119,7 +1119,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     }
                 }
                 float rot = (oPos - bodies[i]).ToRotation();
-                rot = Util.Util.rotatedToAngle(rot, oRot, 0.12f, false);
+                rot = Utilities.Util.rotatedToAngle(rot, oRot, 0.12f, false);
                 
                 int spacing = 80;
                 bodies[i] = oPos - rot.ToRotationVector2() * spacing * NPC.scale;

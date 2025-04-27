@@ -3,7 +3,7 @@ using CalamityMod;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Util
+namespace CalamityEntropy.Utilities
 {
     public static class CUtil
     {

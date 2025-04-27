@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics.Primitives;
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 for (int i = 0; i < 24; i++)
                 {
                     points.Add(p);
-                    pointVels.Add(Util.Util.randomPointInCircle(9));
+                    pointVels.Add(Utilities.Util.randomPointInCircle(9));
                     p += Projectile.velocity;
                     Projectile.velocity = Projectile.velocity.RotatedByRandom(0.5f);
                 }
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             }
             for (int i = 1; i < points.Count; i++)
             {
-                if (Util.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 4))
+                if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 4))
                 {
                     return true;
                 }
@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    Texture2D tx = Util.Util.getExtraTex("Streak2");
+                    Texture2D tx = Utilities.Util.getExtraTex("Streak2");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }

@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
                     v.Normalize();
 
                     Projectile.velocity += v * 0.4f;
-                    if (Util.Util.getDistance(Projectile.Center, target.Center) < 180)
+                    if (Utilities.Util.getDistance(Projectile.Center, target.Center) < 180)
                     {
                         Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((target.Center - Projectile.Center).ToRotation());
                     }

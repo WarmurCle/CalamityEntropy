@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Main.GameUpdateCount % 2 == 0 || Projectile.Calamity().stealthStrike)
             {
-                EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 0.8f, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 0.8f, 1, true, BlendState.AlphaBlend, 0);
             }
         }
 
@@ -55,9 +55,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 0; i < 6; i++)
             {
-                EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, 0.5f, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, 0.5f, 1, true, BlendState.AlphaBlend, 0);
             }
-            Util.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), target.Center, 10, 0.4f);
+            Utilities.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), target.Center, 10, 0.4f);
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
             if (Projectile.Calamity().stealthStrike)
             {

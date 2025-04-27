@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
             CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(255, 60, 60), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.36f, 16);
             GeneralParticleHandler.SpawnParticle(explosion2);
 
-            Util.Util.PlaySound("CrystalBallActive", 1, Projectile.Center, 4, 0.4f);
+            Utilities.Util.PlaySound("CrystalBallActive", 1, Projectile.Center, 4, 0.4f);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Color cl = new Color(255, 90, 90);
                 for (int i = odp.Count - 1; i >= 1; i--)
                 {
-                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i], odp[i - 1], cl * (((float)(255 - Projectile.alpha)) / 255f), size * 0.7f);
+                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i], odp[i - 1], cl * (((float)(255 - Projectile.alpha)) / 255f), size * 0.7f);
                     size -= sizej;
                 }
             }

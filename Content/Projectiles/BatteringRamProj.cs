@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Particles;
@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Projectiles
                     if (Projectile.ai[1] == 0)
                     {
                         CanHit = true;
-                        Util.Util.PlaySound("ExobladeDashImpact", 1, Projectile.Center, volume: 0.6f);
+                        Utilities.Util.PlaySound("ExobladeDashImpact", 1, Projectile.Center, volume: 0.6f);
                         Projectile.ai[1]++;
                         player.mount.Dismount(player);
                         player.RemoveAllGrapplingHooks();
@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Projectiles
                             EParticle.spawnNew(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity * 22, Projectile.velocity * -0.6f, Color.LightGoldenrodYellow, 0.16f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
                         }
                     }
-                    Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), CanHit ? 0.8f : 0.06f, false);
+                    Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), CanHit ? 0.8f : 0.06f, false);
                 }
                 else
                 {
@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Projectile.timeLeft == 32)
                 {
                     frame++;
-                    Util.Util.PlaySound("DudFire", 1, Projectile.Center);
+                    Utilities.Util.PlaySound("DudFire", 1, Projectile.Center);
                     if (Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 44, Projectile.velocity.RotatedBy(-2f * player.direction).RotatedByRandom(0.26f), ModContent.ProjectileType<BatteringRamShell>(), 0, 0, player.whoAmI);
@@ -145,7 +145,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if(Projectile.timeLeft == 30)
                 {
-                    Util.Util.PlaySound("steam", 1, Projectile.Center);
+                    Utilities.Util.PlaySound("steam", 1, Projectile.Center);
                 }
                 if(Projectile.timeLeft <= 30 && Projectile.timeLeft > 4)
                 {
@@ -154,14 +154,14 @@ namespace CalamityEntropy.Content.Projectiles
                     float rot = Projectile.rotation + player.direction * -2f;
                     for (int i = 0; i < 8; i++)
                     {
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Util.Util.randomRot());
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Util.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Utilities.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Utilities.Util.randomRot());
                     }
                     rot += player.direction * 3.8f;
                     for (int i = 0; i < 8; i++)
                     {
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Util.Util.randomRot());
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Util.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Utilities.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Utilities.Util.randomRot());
                     }
                 }
             }
@@ -256,8 +256,8 @@ namespace CalamityEntropy.Content.Projectiles
                 GeneralParticleHandler.SpawnParticle(spark);
             }
 
-            Util.Util.PlaySound("gunshot_large", 1, target.Center);
-            Util.Util.PlaySound("BRFire", 1, target.Center);
+            Utilities.Util.PlaySound("gunshot_large", 1, target.Center);
+            Utilities.Util.PlaySound("BRFire", 1, target.Center);
             CanHit = false;
             Projectile.getOwner().velocity *= -1f;
             Projectile.getOwner().velocity.Y *= 0.4f;
@@ -297,8 +297,8 @@ namespace CalamityEntropy.Content.Projectiles
                 GeneralParticleHandler.SpawnParticle(spark);
             }
 
-            Util.Util.PlaySound("gunshot_large", 1, target.Center);
-            Util.Util.PlaySound("BRFire", 1, target.Center);
+            Utilities.Util.PlaySound("gunshot_large", 1, target.Center);
+            Utilities.Util.PlaySound("BRFire", 1, target.Center);
             CanHit = false;
             Projectile.getOwner().velocity *= -1f;
             Projectile.getOwner().velocity.Y *= 0.4f;
@@ -308,7 +308,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(projHitbox.Center.ToVector2() - Projectile.rotation.ToRotationVector2() * -10 * Projectile.scale, projHitbox.Center.ToVector2() + Projectile.rotation.ToRotationVector2() * 186 * Projectile.scale, targetHitbox, (int)(46 * Projectile.scale));
+            return Utilities.Util.LineThroughRect(projHitbox.Center.ToVector2() - Projectile.rotation.ToRotationVector2() * -10 * Projectile.scale, projHitbox.Center.ToVector2() + Projectile.rotation.ToRotationVector2() * 186 * Projectile.scale, targetHitbox, (int)(46 * Projectile.scale));
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -343,7 +343,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D whiteTex = Util.Util.getExtraTex("BatteringRamWhite");
+            Texture2D whiteTex = Utilities.Util.getExtraTex("BatteringRamWhite");
             Texture2D tex = Projectile.getTexture();
             float xs = ((float)Math.Cos(((float)Math.Cos(((float)Math.Cos(charge * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f);
             Main.spriteBatch.UseBlendState(BlendState.Additive);

@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Projectile sl = ((int)Projectile.ai[1]).ToProj();
-            if (Util.Util.getDistance(sl.Center, Projectile.Center) > 1100)
+            if (Utilities.Util.getDistance(sl.Center, Projectile.Center) > 1100)
             {
                 Projectile.Kill();
             }
@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                if (Util.Util.getDistance(sl.Center, Projectile.Center) > 960)
+                if (Utilities.Util.getDistance(sl.Center, Projectile.Center) > 960)
                 {
                     backing = true;
 
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (backing)
                 {
                     Projectile.velocity = (sl.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 25;
-                    if (Util.Util.getDistance(sl.Center, Projectile.Center) < 30)
+                    if (Utilities.Util.getDistance(sl.Center, Projectile.Center) < 30)
                     {
                         Projectile.Kill();
                     }

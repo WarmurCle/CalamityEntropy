@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             p.ToProj().Entropy().EventideShot = true;
             p.ToProj().usesLocalNPCImmunity = true;
             p.ToProj().localNPCHitCooldown = 60;
-            Util.Util.PlaySound("evshot", 1, player.Center);
+            Utilities.Util.PlaySound("evshot", 1, player.Center);
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);

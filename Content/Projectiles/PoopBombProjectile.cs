@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (!Exp)
                 {
                     Projectile.hostile = true;
-                    Util.Util.PlaySound("boss explosions 0", 1, Projectile.Center);
+                    Utilities.Util.PlaySound("boss explosions 0", 1, Projectile.Center);
                     Projectile.timeLeft = 4;
                     Projectile.Resize(256, 256);
                     for (int i = 0; i < 30; i++)
@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Projectiles
                 expCounter = 1;
                 Exp = true;
             }
-            if (!Util.Util.isAir(Projectile.Center + new Vector2(0, Projectile.height / 2 + 1), true))
+            if (!Utilities.Util.isAir(Projectile.Center + new Vector2(0, Projectile.height / 2 + 1), true))
             {
                 onPlat = true;
                 if (Projectile.velocity.Y > 0)

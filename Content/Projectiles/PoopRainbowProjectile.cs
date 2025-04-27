@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (!Main.dedServ)
             {
-                Util.Util.PlaySound("happy rainbow with giggle", 1);
+                Utilities.Util.PlaySound("happy rainbow with giggle", 1);
             }
         }
         public override int dustType => DustID.RainbowMk2;

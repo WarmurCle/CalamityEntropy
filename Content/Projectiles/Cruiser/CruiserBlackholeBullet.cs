@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             VoidParticles.particles.Add(p);
             Projectile.rotation = (new Vector2(Projectile.ai[1], Projectile.ai[2]) - Projectile.position).ToRotation();
             Projectile.velocity += Projectile.rotation.ToRotationVector2() * 0.08f;
-            if (Util.Util.getDistance(new Vector2(Projectile.ai[1], Projectile.ai[2]), Projectile.Center) < Projectile.velocity.Length() + 20)
+            if (Utilities.Util.getDistance(new Vector2(Projectile.ai[1], Projectile.ai[2]), Projectile.Center) < Projectile.velocity.Length() + 20)
             {
                 Projectile.Kill();
             }
@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, Projectile.Center, new Vector2(Projectile.ai[1], Projectile.ai[2]), Color.Purple * ap * 0.45f, 5 * ap);
+            Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, Projectile.Center, new Vector2(Projectile.ai[1], Projectile.ai[2]), Color.Purple * ap * 0.45f, 5 * ap);
             return false;
         }
     }

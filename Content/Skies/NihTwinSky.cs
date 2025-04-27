@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics.Effects;
@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Skies
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            Main.spriteBatch.Draw(Util.Util.pixelTex, new Rectangle(-1000, -1000, Main.screenWidth + 1000, Main.screenHeight + 1000), new Color(0, 10, 60) * 0.5f * opacity);
+            Main.spriteBatch.Draw(Utilities.Util.pixelTex, new Rectangle(-1000, -1000, Main.screenWidth + 1000, Main.screenHeight + 1000), new Color(0, 10, 60) * 0.5f * opacity);
         }
         public override void Update(GameTime gameTime)
         {

@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs.Wyrm;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Projectiles
         public void update()
         {
             this.rot = (follow.Center - this.Center).ToRotation();
-            this.rot = Util.Util.rotatedToAngle(this.rot, follow.rot, rotC, false);
+            this.rot = Utilities.Util.rotatedToAngle(this.rot, follow.rot, rotC, false);
             this.Center = follow.Center - this.rot.ToRotationVector2() * spacing;
 
         }
@@ -95,12 +95,12 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (target == null || !target.active || !target.CanBeChasedBy(Projectile))
             {
-                target = Util.Util.findTarget(player, Projectile, 3600, false);
+                target = Utilities.Util.findTarget(player, Projectile, 3600, false);
             }
             if (target == null)
             {
                 Vector2 t = player.Center + new Vector2(0, -120);
-                if (Util.Util.getDistance(t, Projectile.Center) > 300)
+                if (Utilities.Util.getDistance(t, Projectile.Center) > 300)
                 {
                     Projectile.velocity *= 0.98f;
                     Projectile.velocity += (t - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.33f;
@@ -170,10 +170,10 @@ namespace CalamityEntropy.Content.Projectiles
         public override string Texture => "CalamityEntropy/Assets/Extra/white";
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D head = Util.Util.getExtraTex("pw_head");
-            Texture2D tail = Util.Util.getExtraTex("pw_tail");
-            Texture2D body1 = Util.Util.getExtraTex("pw_body");
-            Texture2D body2 = Util.Util.getExtraTex("pw_bodyalt");
+            Texture2D head = Utilities.Util.getExtraTex("pw_head");
+            Texture2D tail = Utilities.Util.getExtraTex("pw_tail");
+            Texture2D body1 = Utilities.Util.getExtraTex("pw_body");
+            Texture2D body2 = Utilities.Util.getExtraTex("pw_bodyalt");
             Main.spriteBatch.Draw(head, Projectile.Center - Main.screenPosition, null, Color.White * 0.6f * alpha, Projectile.rotation, head.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             for (int i = 0; i < segs.Count; i++)
             {

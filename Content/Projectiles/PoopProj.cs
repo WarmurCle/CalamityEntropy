@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < 64; i++)
                 {
-                    Vector2 dustVel = Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
+                    Vector2 dustVel = Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
                     Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, dustVel.X, dustVel.Y);
                 }
                 Projectile.Kill();
@@ -103,10 +103,10 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity.X *= 0.6f;
                 if (canDamageEnemies)
                 {
-                    Util.Util.PlaySound("poopland", 1, Projectile.Center);
+                    Utilities.Util.PlaySound("poopland", 1, Projectile.Center);
                     for (int i = 0; i < 16; i++)
                     {
-                        Vector2 dustVel = Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
+                        Vector2 dustVel = Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
                         Dust.NewDust(Projectile.position + new Vector2(0, Projectile.height), Projectile.width, 1, dustType, dustVel.X, dustVel.Y);
                     }
                     canDamageEnemies = false;
@@ -187,7 +187,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.netUpdate = true;
             foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if (p.ModProjectile is PoopWulfrumProjectile w && Util.Util.getDistance(Projectile.Center, p.Center) < PoopWulfrumProjectile.shieldDistance)
+                if (p.ModProjectile is PoopWulfrumProjectile w && Utilities.Util.getDistance(Projectile.Center, p.Center) < PoopWulfrumProjectile.shieldDistance)
                 {
                     if (w.shield > 0)
                     {
@@ -197,7 +197,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            Util.Util.PlaySound("pop_impact_13", 1, Projectile.Center);
+            Utilities.Util.PlaySound("pop_impact_13", 1, Projectile.Center);
             if (Main.rand.Next(0, 101) <= damageChance)
             {
                 life--;
@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 0; i < 24; i++)
             {
-                Vector2 dustVel = Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
+                Vector2 dustVel = Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, dustVel.X, dustVel.Y);
             }
             Projectile.netUpdate = true;
@@ -250,7 +250,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + new Vector2(0, 14), Util.Util.GetCutTexRect(tex, 5, getFrame), lightColor, Projectile.rotation, new Vector2(tex.Height / 2, tex.Height / 2), 1, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + new Vector2(0, 14), Utilities.Util.GetCutTexRect(tex, 5, getFrame), lightColor, Projectile.rotation, new Vector2(tex.Height / 2, tex.Height / 2), 1, SpriteEffects.None);
             return false;
         }
 

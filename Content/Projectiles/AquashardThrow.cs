@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework.Graphics;
@@ -162,7 +162,7 @@ namespace CalamityEntropy.Content.Projectiles
                     for (int i = 0; i < 2 + (Projectile.Calamity().stealthStrike ? 3 : 0); i++)
                     {
                         Vector2 velocity = CalamityUtils.RandomVelocity(100f, 70f, 100f);
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.6), 0f, Projectile.owner).ToProj().DamageType = Util.CUtil.rogueDC;
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.6), 0f, Projectile.owner).ToProj().DamageType = Utilities.CUtil.rogueDC;
                     }
                 }
             }

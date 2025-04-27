@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Particles;
 using System;

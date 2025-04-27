@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             for (int i = 0; i < 1; i++)
             {
-                Vector2 shotDir = Util.Util.randomRot().ToRotationVector2();
+                Vector2 shotDir = Utilities.Util.randomRot().ToRotationVector2();
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center + shotDir * 32, shotDir * 6, ProjectileID.Bee, damageDone / 6, projectile.knockBack / 3, projectile.owner).ToProj().DamageType = projectile.DamageType;
             }
         }

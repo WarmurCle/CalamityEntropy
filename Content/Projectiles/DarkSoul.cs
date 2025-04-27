@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -57,8 +57,8 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         l += l < 2 ? 0.014f : 0.01f;
                     }
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1.4f, 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1.2f * l, true));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1.4f, 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1.2f * l, true));
                 }
                 Projectile.velocity *= 0.97f;
             }
@@ -108,16 +108,16 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    EParticle.spawnNew(new GlowSpark(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Red, Main.rand.NextFloat(0.1f, 0.16f), 1, true, BlendState.Additive, 0);
+                    EParticle.spawnNew(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Red, Main.rand.NextFloat(0.1f, 0.16f), 1, true, BlendState.Additive, 0);
                 }
                 for (int i = 0; i < odp.Count; i++)
                 {
                     for (int i_ = 0; i_ < 6; i_++)
                     {
-                        EParticle.spawnNew(new GlowSpark(), odp[i], Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7) * ((float)i / odp.Count), Color.Red, Main.rand.NextFloat(0.1f, 0.16f) * ((float)i / odp.Count), 1, true, BlendState.Additive, 0);
+                        EParticle.spawnNew(new GlowSpark(), odp[i], Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7) * ((float)i / odp.Count), Color.Red, Main.rand.NextFloat(0.1f, 0.16f) * ((float)i / odp.Count), 1, true, BlendState.Additive, 0);
                     }
                 }
-                Util.Util.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 4, volume: 0.8f);
+                Utilities.Util.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 4, volume: 0.8f);
                 Projectile.timeLeft = 2;
                 Projectile.Resize(256, 256);
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 6;

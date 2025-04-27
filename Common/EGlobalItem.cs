@@ -15,7 +15,7 @@ using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Fishing.SulphurCatches;
 using CalamityMod.Items.Materials;
@@ -83,12 +83,12 @@ namespace CalamityEntropy.Common
 
         public override bool CanRightClick(Item item)
         {
-            return Util.Util.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _);
+            return Utilities.Util.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _);
         }
         public override void RightClick(Item item, Player player)
         {
             Item held = Main.mouseItem;
-            if (Util.Util.IsArmor(item))
+            if (Utilities.Util.IsArmor(item))
             {
                 if(held.IsArmorReforgeItem(out var p))
                 {
@@ -113,7 +113,7 @@ namespace CalamityEntropy.Common
         public override bool ConsumeItem(Item item, Player player)
         {
             Item held = Main.mouseItem;
-            if (Util.Util.IsArmor(item))
+            if (Utilities.Util.IsArmor(item))
             {
                 if(held.IsArmorReforgeItem(out var _))
                 {
@@ -905,7 +905,7 @@ namespace CalamityEntropy.Common
                     SpriteBatch sb = Main.spriteBatch;
                     sb.End();
                     sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
-                    Texture2D glow = Util.Util.getExtraTex("Glow");
+                    Texture2D glow = Utilities.Util.getExtraTex("Glow");
                     sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255) * 0.8f, 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.34f), SpriteEffects.None, 0);
                     sb.End();
                     sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);

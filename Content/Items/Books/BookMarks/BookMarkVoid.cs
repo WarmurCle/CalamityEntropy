@@ -3,7 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -44,8 +44,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
                 for (int i = 0; i < 74; i++)
                 {
-                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), new Color(140, 140, 255), 0.3f, 1, true, BlendState.Additive);
-                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), Color.LightGoldenrodYellow, 0.3f, 1, true, BlendState.Additive);
+                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), new Color(140, 140, 255), 0.3f, 1, true, BlendState.Additive);
+                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), Color.LightGoldenrodYellow, 0.3f, 1, true, BlendState.Additive);
                 }
             }
         }

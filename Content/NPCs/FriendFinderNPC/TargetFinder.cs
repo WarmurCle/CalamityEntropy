@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             {
                 if (!npc.friendly)
                 {
-                    var d = Util.Util.getDistance(npc.Center, owner.Center);
+                    var d = Utilities.Util.getDistance(npc.Center, owner.Center);
                     if (d < distance)
                     {
                         distance = d;

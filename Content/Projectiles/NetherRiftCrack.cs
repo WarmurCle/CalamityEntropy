@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Turret;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] == 0)
             {
-                Projectile.rotation = Util.Util.randomRot();
+                Projectile.rotation = Utilities.Util.randomRot();
             }
             Projectile.Opacity = Projectile.timeLeft / 60f;
             Projectile.ai[0]++;
@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Texture2D t = Util.Util.getExtraTex("Cracks");
+            Texture2D t = Utilities.Util.getExtraTex("Cracks");
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, new Color(200, 200, 255) * Projectile.Opacity, Projectile.rotation, t.Size() / 2f, 3.6f * Projectile.scale, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.begin_();

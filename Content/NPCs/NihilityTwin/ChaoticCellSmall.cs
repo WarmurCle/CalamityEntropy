@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 rope = new Rope(NPC.Center, owner.Center, 30, 0, new Vector2(0, 0f), 0.006f, 15, false);
             }
             Vector2 rend = owner.Center;
-            rope.segmentLength = Util.Util.getDistance(NPC.Center, rend) / 35f;
+            rope.segmentLength = Utilities.Util.getDistance(NPC.Center, rend) / 35f;
             rope.Start = NPC.Center;
             rope.End = rend;
             rope.Update();
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
 
             for (int i = 1; i < points.Count - 1; i++)
             {
-                jn += Util.Util.getDistance(points[i - 1], points[i]) / (float)28 * lc;
+                jn += Utilities.Util.getDistance(points[i - 1], points[i]) / (float)28 * lc;
 
                 ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 7 * lc,
                       new Vector3(jn, 1, 1),

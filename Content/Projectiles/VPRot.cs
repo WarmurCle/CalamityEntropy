@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.NPCs.VoidInvasion;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 1; i < odp.Count; i++)
             {
-                if (Util.Util.LineThroughRect(odp[i - 1], odp[i], targetHitbox, 90))
+                if (Utilities.Util.LineThroughRect(odp[i - 1], odp[i], targetHitbox, 90))
                 {
                     return true;
                 }

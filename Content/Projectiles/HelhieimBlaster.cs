@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.owner == Main.myPlayer)
             {
-                Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseWorld - Projectile.Center).ToRotation(), 0.2f, false);
+                Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (Main.MouseWorld - Projectile.Center).ToRotation(), 0.2f, false);
                 Projectile.netUpdate = true;
                 rp = Projectile.rotation;
 

@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 target = Projectile.FindTargetWithinRange(range, modPlayer.sCasketLevel <= 3);
             }
-            if (target != null && Util.Util.getDistance(player.Center, target.Center) > Math.Min(range, 1400))
+            if (target != null && Utilities.Util.getDistance(player.Center, target.Center) > Math.Min(range, 1400))
             {
                 target = null;
             }
@@ -115,8 +115,8 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 if (returnToCasket)
                 {
                     cAlpha = 0;
-                    Vector2 targetPos = player.Center + new Vector2(Util.Util.getDistance(Projectile.Center, player.Center) - 26, 0).RotatedBy(spawnRot);
-                    if (Util.Util.getDistance(Projectile.Center, player.Center) > 500)
+                    Vector2 targetPos = player.Center + new Vector2(Utilities.Util.getDistance(Projectile.Center, player.Center) - 26, 0).RotatedBy(spawnRot);
+                    if (Utilities.Util.getDistance(Projectile.Center, player.Center) > 500)
                     {
                         Projectile.velocity = (player.Center - Projectile.Center) * 0.4f;
                     }
@@ -125,7 +125,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                         Projectile.velocity = (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 24;
                     }
                     Projectile.rotation = (player.Center - Projectile.Center).ToRotation();
-                    if (Util.Util.getDistance(Projectile.Center, player.Center) < Projectile.velocity.Length() * 1.02f)
+                    if (Utilities.Util.getDistance(Projectile.Center, player.Center) < Projectile.velocity.Length() * 1.02f)
                     {
                         if (casket.ToProj().active && casket.ToProj().ModProjectile is SamsaraCasketProj sc)
                         {
@@ -157,7 +157,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                         else
                         {
                             Vector2 targetPos = player.Center + new Vector2(0, -140) + new Vector2(90, 0).RotatedBy(modPlayer.CasketSwordRot + circleRot);
-                            if (Util.Util.getDistance(Projectile.Center, targetPos) > 64)
+                            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 64)
                             {
                                 Projectile.velocity = (targetPos - Projectile.Center) * 0.2f;
                             }
@@ -233,7 +233,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 yoffset = 0;
             }
-            Texture2D tex = Util.Util.getExtraTex("CircularSmear");
+            Texture2D tex = Utilities.Util.getExtraTex("CircularSmear");
             SpriteBatch sb = Main.spriteBatch;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

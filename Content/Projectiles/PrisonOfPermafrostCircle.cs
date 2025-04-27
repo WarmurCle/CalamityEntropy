@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -61,8 +61,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 0.16f, false);
-                    Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 1.2f, true);
+                    Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 0.16f, false);
+                    Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 1.2f, true);
 
                     Projectile.velocity = Projectile.rotation.ToRotationVector2();
                     Projectile.netUpdate = true;
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 0; i < 16; i++)
                     {
-                        EParticle.spawnNew(new Smoke(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 + Util.Util.randomVec(6), (Projectile.rotation + Main.rand.NextFloat(-0.6f, 0.6f)).ToRotationVector2() * Main.rand.NextFloat(34, 54), new Color(190, 226, 255) * 0.2f, 0.4f, 1, true, BlendState.Additive);
+                        EParticle.spawnNew(new Smoke(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 + Utilities.Util.randomVec(6), (Projectile.rotation + Main.rand.NextFloat(-0.6f, 0.6f)).ToRotationVector2() * Main.rand.NextFloat(34, 54), new Color(190, 226, 255) * 0.2f, 0.4f, 1, true, BlendState.Additive);
                     }
                     if (Projectile.owner == Main.myPlayer)
                     {
@@ -371,7 +371,7 @@ namespace CalamityEntropy.Content.Projectiles
             ld = ld.RotatedBy(Projectile.rotation);
             rd = rd.RotatedBy(Projectile.rotation);
 
-            Util.Util.drawTextureToPoint(Main.spriteBatch, circle, Color.White * alpha, dp + lu, dp + ru, dp + ld, dp + rd);
+            Utilities.Util.drawTextureToPoint(Main.spriteBatch, circle, Color.White * alpha, dp + lu, dp + ru, dp + ld, dp + rd);
             return false;
 
         }

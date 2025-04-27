@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (n.active && !n.friendly && !n.dontTakeDamage)
                 {
-                    if (Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 2000, n.Hitbox, 46))
+                    if (Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 2000, n.Hitbox, 46))
                     {
                         nlist.Add(n.whoAmI);
                     }
@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * dmgLength, targetHitbox, (int)(26 * Projectile.scale), 46);
+            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * dmgLength, targetHitbox, (int)(26 * Projectile.scale), 46);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -139,8 +139,8 @@ namespace CalamityEntropy.Content.Projectiles
             SpriteBatch sb = Main.spriteBatch;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            Texture2D ball = Util.Util.getExtraTex("vlball");
-            Texture2D laser = Util.Util.getExtraTex("VoidLaser");
+            Texture2D ball = Utilities.Util.getExtraTex("vlball");
+            Texture2D laser = Utilities.Util.getExtraTex("VoidLaser");
 
             float dw = 1f + ((float)Math.Cos((float)counter / 5f) * 0.16f) * Projectile.scale;
             sb.Draw(laser, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, dmgLength, laser.Height), Color.Blue * 0.85f, Projectile.rotation, new Vector2(0, laser.Height / 2), new Vector2(1, dw * 1.1f * width), SpriteEffects.None, 0);
@@ -160,8 +160,8 @@ namespace CalamityEntropy.Content.Projectiles
             }
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            Texture2D lend = Util.Util.getExtraTex("vlend");
-            sb.Draw(lend, Projectile.Center + Projectile.rotation.ToRotationVector2() * (dmgLength - 16) - Main.screenPosition, Util.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.White, Projectile.rotation + (float)Math.PI / 2f, new Vector2(64, 52) / 2, Projectile.scale * 2, SpriteEffects.None, 0);
+            Texture2D lend = Utilities.Util.getExtraTex("vlend");
+            sb.Draw(lend, Projectile.Center + Projectile.rotation.ToRotationVector2() * (dmgLength - 16) - Main.screenPosition, Utilities.Util.GetCutTexRect(lend, 4, (int)(counter * 0.5f) % 4), Color.White, Projectile.rotation + (float)Math.PI / 2f, new Vector2(64, 52) / 2, Projectile.scale * 2, SpriteEffects.None, 0);
 
             return false;
         }

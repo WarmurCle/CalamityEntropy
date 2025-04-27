@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -102,7 +102,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Main.spriteBatch.Draw(ht, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(ht.Width, ht.Height) / 2, 1, SpriteEffects.None, 0);
                 }
-                Util.Util.DrawAfterimage(ht, odp, odr);
+                Utilities.Util.DrawAfterimage(ht, odp, odr);
 
             }
 

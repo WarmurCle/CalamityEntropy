@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             {
                 return false;
             }
-            return Util.Util.LineThroughRect(orgPos, Projectile.Center, targetHitbox, (int)(20 * Projectile.scale));
+            return Utilities.Util.LineThroughRect(orgPos, Projectile.Center, targetHitbox, (int)(20 * Projectile.scale));
         }
         public override bool ShouldUpdatePosition()
         {

@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Particles
             this.velocity *= r;
             b = Vector2.Lerp(this.position, b, this.c);
             this.alpha -= this.alphaD;
-            if (Util.Util.getDistance(this.position, b) < 4 && counter > 3 || this.alpha < 0)
+            if (Utilities.Util.getDistance(this.position, b) < 4 && counter > 3 || this.alpha < 0)
             {
                 this.timeLeft = 0;
             }
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Particles
         public int counter = 0;
         public override void draw()
         {
-            Util.Util.drawLine(this.position, b, this.color * this.alpha, width * this.alpha);
+            Utilities.Util.drawLine(this.position, b, this.color * this.alpha, width * this.alpha);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     Main.projectile[p].Calamity().stealthStrike = true;
                     p.ToProj().netUpdate = true;
                 }
-                Util.Util.PlaySound("bne0", 1, position);
+                Utilities.Util.PlaySound("bne0", 1, position);
                 return false;
             }
             else

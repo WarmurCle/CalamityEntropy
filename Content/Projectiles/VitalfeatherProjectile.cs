@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (swingProgress > 0.5f && swingProgress < 0.85f)
             {
                 Lighting.AddLight(lastTop, 1, 0.8f, 0.8f);
-                EParticle.spawnNew(new Smoke(), points[points.Count - 1] + Util.Util.randomVec(2), Util.Util.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
+                EParticle.spawnNew(new Smoke(), points[points.Count - 1] + Utilities.Util.randomVec(2), Utilities.Util.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
 
                 Vector2 top = points[points.Count - 1];
                 Vector2 sparkVelocity2 = (lastTop - top) * -0.04f;
@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Dust obj = Main.dust[num];
                 obj.position = target.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * target.width / 2f;
                 obj.noGravity = true;
-                obj.velocity = Util.Util.randomVec(8);
+                obj.velocity = Utilities.Util.randomVec(8);
                 num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, DustID.InfernoFork, 0f, 0f, 100, default(Color), 2);
                 obj.position = target.Center;
                 obj.velocity.Y -= 6f;
@@ -207,7 +207,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Texture2D light = Util.Util.getExtraTex("lightball");
+            Texture2D light = Utilities.Util.getExtraTex("lightball");
             Main.spriteBatch.Draw(light, lastTop - Main.screenPosition, null, Color.Gold * 0.6f, 0, light.Size() / 2, Projectile.scale * 0.4f, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);

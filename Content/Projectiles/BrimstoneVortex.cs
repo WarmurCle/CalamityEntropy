@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 if (counter == 40)
                 {
-                    Util.Util.PlaySound("brimstonevortexshoot", 1, Projectile.Center, 1, 0.7f);
+                    Utilities.Util.PlaySound("brimstonevortexshoot", 1, Projectile.Center, 1, 0.7f);
                 }
                 if (counter > 60)
                 {
@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.spawnNew(new GlowSpark(), target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 4) + Projectile.velocity.SafeNormalize(Vector2.Zero) * 12, Color.Red, Main.rand.NextFloat(0.04f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.spawnNew(new GlowSpark(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 4) + Projectile.velocity.SafeNormalize(Vector2.Zero) * 12, Color.Red, Main.rand.NextFloat(0.04f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Projectiles
                     ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 24 * Projectile.scale * scale2,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Util.Util.getDistance(points[i], points[i - 1]) / tx.Width);
+                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width);
                 }
 
                 SpriteBatch sb = Main.spriteBatch;
@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
                     ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18 * Projectile.scale * scale2,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Util.Util.getDistance(points[i], points[i - 1]) / tx.Width);
+                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width);
                 }
 
 
@@ -145,7 +145,7 @@ namespace CalamityEntropy.Content.Projectiles
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
-            Util.Util.DrawGlow(points[points.Count - 1], new Color(255, 60, 60), 1.6f * Projectile.scale, false);
+            Utilities.Util.DrawGlow(points[points.Count - 1], new Color(255, 60, 60), 1.6f * Projectile.scale, false);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

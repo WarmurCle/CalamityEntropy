@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using Terraria;
@@ -40,10 +40,10 @@ namespace CalamityEntropy.Content.Items
                 float dist = 3400;
                 foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if (Util.Util.getDistance(n.Center, player.Center) < dist && !n.friendly && n.chaseable && n.realLife < 0 && n.Entropy().AnimaTrapped <= 0)
+                    if (Utilities.Util.getDistance(n.Center, player.Center) < dist && !n.friendly && n.chaseable && n.realLife < 0 && n.Entropy().AnimaTrapped <= 0)
                     {
                         target = n;
-                        dist = Util.Util.getDistance(n.Center, player.Center);
+                        dist = Utilities.Util.getDistance(n.Center, player.Center);
                     }
                 }
                 if (target != null)

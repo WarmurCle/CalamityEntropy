@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
         float trailAlpha = 0;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D t = Util.Util.getExtraTex("slash");
+            Texture2D t = Utilities.Util.getExtraTex("slash");
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

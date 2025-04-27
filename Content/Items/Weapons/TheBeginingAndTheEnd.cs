@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Content.Projectiles.BNE;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public static void playShootSound(Vector2 c)
         {
-            Util.Util.PlaySound("bne" + Main.rand.Next(0, 3).ToString(), 1, c);
+            Utilities.Util.PlaySound("bne" + Main.rand.Next(0, 3).ToString(), 1, c);
         }
         public override float StealthDamageMultiplier => 1f;
         public override float StealthVelocityMultiplier => 0.8f;

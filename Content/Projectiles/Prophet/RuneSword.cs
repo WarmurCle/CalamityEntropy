@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     int p = Player.FindClosest(Projectile.Center, 5000, 5000);
                     if (p >= 0) {
                         Player player = p.ToPlayer();
-                        Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, (player.Center + player.velocity * 12 - Projectile.Center).ToRotation(), 0.1f, false);
+                        Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (player.Center + player.velocity * 12 - Projectile.Center).ToRotation(), 0.1f, false);
                     }
                 }
             }

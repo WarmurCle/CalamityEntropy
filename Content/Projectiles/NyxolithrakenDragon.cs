@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework.Graphics;
@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (target == null)
             {
                 Vector2 t = player.Center + new Vector2(0, -120);
-                if (Util.Util.getDistance(t, Projectile.Center) > 300)
+                if (Utilities.Util.getDistance(t, Projectile.Center) > 300)
                 {
                     Projectile.velocity *= 0.96f;
                     Projectile.velocity += (t - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.6f;
@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.Center -= Projectile.velocity;
             Projectile.localAI[0]++;
-            if (Util.Util.getDistance(Projectile.Center, player.Center) > 4000)
+            if (Utilities.Util.getDistance(Projectile.Center, player.Center) > 4000)
             {
                 Projectile.Center = player.Center;
             }
@@ -94,9 +94,9 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.timeLeft = 3;
             }
 
-            if (target == null || !target.active || target.dontTakeDamage || Util.Util.getDistance(Projectile.Center, target.Center) > 3000)
+            if (target == null || !target.active || target.dontTakeDamage || Utilities.Util.getDistance(Projectile.Center, target.Center) > 3000)
             {
-                target = Util.Util.findTarget(player, Projectile, 1800, false);
+                target = Utilities.Util.findTarget(player, Projectile, 1800, false);
             }
             if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
             {
@@ -199,7 +199,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             return false;
         }
-        public Texture2D texGlow => Util.Util.getExtraTex("NxDragonGlow");
+        public Texture2D texGlow => Utilities.Util.getExtraTex("NxDragonGlow");
         public void DrawSeg(Vector2 pos, Rectangle frame, float rot, Vector2 origin, Color color)
         {
             if (Projectile.velocity.X > 0)

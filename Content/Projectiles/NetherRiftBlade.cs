@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (counter1 % 6 == 0)
             {
                 bool flag = false;
-                if ((odp.Count < 2 || Util.Util.getDistance(odp[odp.Count - 1], Projectile.Center) > 46))
+                if ((odp.Count < 2 || Utilities.Util.getDistance(odp[odp.Count - 1], Projectile.Center) > 46))
                 {
                     flag = true;
                     odp.Add(Projectile.Center);
@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 92, 0, new Vector2(0, 0), 0.1f, 80, false);
             }
-            rope.segmentLength = Util.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 92f;
+            rope.segmentLength = Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 92f;
             rope.Start = Projectile.owner.ToPlayer().Center;
             rope.End = Projectile.Center;
             rope.Update();
@@ -164,11 +164,11 @@ namespace CalamityEntropy.Content.Projectiles
                             soundplay = false;
                             if (Main.rand.NextBool(2))
                             {
-                                Util.Util.PlaySound("spin1", 1f);
+                                Utilities.Util.PlaySound("spin1", 1f);
                             }
                             else
                             {
-                                Util.Util.PlaySound("spin2", 1f);
+                                Utilities.Util.PlaySound("spin2", 1f);
                             }
                         }
                     }
@@ -179,7 +179,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            EParticle.spawnNew(new TrailSparkParticle(), pt, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive); ;
+                            EParticle.spawnNew(new TrailSparkParticle(), pt, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive); ;
 
                         }
                     }
@@ -195,7 +195,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            EParticle.spawnNew(new TrailSparkParticle(), pt, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive);
+                            EParticle.spawnNew(new TrailSparkParticle(), pt, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive);
 
                         }
                     }
@@ -248,11 +248,11 @@ namespace CalamityEntropy.Content.Projectiles
                         soundplay = false;
                         if (Main.rand.NextBool(2))
                         {
-                            Util.Util.PlaySound("spin1", 1f);
+                            Utilities.Util.PlaySound("spin1", 1f);
                         }
                         else
                         {
-                            Util.Util.PlaySound("spin2", 1f);
+                            Utilities.Util.PlaySound("spin2", 1f);
                         }
                     }
                 }
@@ -321,7 +321,7 @@ namespace CalamityEntropy.Content.Projectiles
                         GraphicsDevice gd = Main.graphics.GraphicsDevice;
                         if (ve.Count >= 3)
                         {
-                            Texture2D tx = Util.Util.getExtraTex("AbyssalCircle2");
+                            Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle2");
                             gd.Textures[0] = tx;
                             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                         }
@@ -345,7 +345,7 @@ namespace CalamityEntropy.Content.Projectiles
                         GraphicsDevice gd = Main.graphics.GraphicsDevice;
                         if (ve.Count >= 3)
                         {
-                            Texture2D tx = Util.Util.getExtraTex("AbyssalCircle2");
+                            Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle2");
                             gd.Textures[0] = tx;
                             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                         }
@@ -377,7 +377,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 1; i < points.Count - 1; i++)
                     {
-                        jn += Util.Util.getDistance(points[i - 1], points[i]) / (float)90 * lc;
+                        jn += Utilities.Util.getDistance(points[i - 1], points[i]) / (float)90 * lc;
 
                         ve.Add(new Vertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 25 * lc,
                               new Vector3(jn, 1, 1),
@@ -408,8 +408,8 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Texture2D c = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/NetherChain").Value;
                     Texture2D c2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/NetherChainWhite").Value;
-                    Main.EntitySpriteDraw(c, mousePos - Main.screenPosition, new Rectangle(0, 0, (int)Util.Util.getDistance(Projectile.Center, mousePos), c.Height), Color.White, (Projectile.Center - mousePos).ToRotation(), new Vector2(0, c.Height / 2), 1, SpriteEffects.None, 0);
-                    Main.EntitySpriteDraw(c2, mousePos - Main.screenPosition, new Rectangle(0, 0, (int)Util.Util.getDistance(Projectile.Center, mousePos), c.Height), Color.White * Projectile.localAI[1], (Projectile.Center - mousePos).ToRotation(), new Vector2(0, c.Height / 2), 1, SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(c, mousePos - Main.screenPosition, new Rectangle(0, 0, (int)Utilities.Util.getDistance(Projectile.Center, mousePos), c.Height), Color.White, (Projectile.Center - mousePos).ToRotation(), new Vector2(0, c.Height / 2), 1, SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(c2, mousePos - Main.screenPosition, new Rectangle(0, 0, (int)Utilities.Util.getDistance(Projectile.Center, mousePos), c.Height), Color.White * Projectile.localAI[1], (Projectile.Center - mousePos).ToRotation(), new Vector2(0, c.Height / 2), 1, SpriteEffects.None, 0);
 
                 }
                 Main.spriteBatch.End();
@@ -419,7 +419,7 @@ namespace CalamityEntropy.Content.Projectiles
                 /*for (int i = 1; i < points.Count; i++)
                 {
                     Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value;
-                    Util.Util.drawLine(Main.spriteBatch, t, points[i - 1], points[i], Color.White, 8);
+                    Util.drawLine(Main.spriteBatch, t, points[i - 1], points[i], Color.White, 8);
                 }*/
 
                 Texture2D pt = TextureAssets.Projectile[Projectile.type].Value;
@@ -457,7 +457,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.localAI[0] = 16 * Projectile.MaxUpdates;
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 14;
                 Projectile.netUpdate = true;
-                Util.Util.PlaySound("scatter", 1, Projectile.Center);
+                Utilities.Util.PlaySound("scatter", 1, Projectile.Center);
                 Projectile.ai[2] = 74;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner, 0).ToProj().hostile = false;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<NetherRiftCrack>(), Projectile.damage, 1, Projectile.owner);

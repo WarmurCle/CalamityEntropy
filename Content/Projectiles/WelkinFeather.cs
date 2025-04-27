@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = Util.CUtil.rogueDC;
+            Projectile.DamageType = Utilities.CUtil.rogueDC;
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.friendly = true;

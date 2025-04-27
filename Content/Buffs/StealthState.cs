@@ -1,4 +1,4 @@
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.ID;

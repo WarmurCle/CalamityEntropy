@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Items.Weapons.Ranged;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
             Player owner = Projectile.owner.ToPlayer();
             if (Projectile.ai[0] == 0)
             {
-                Util.Util.PlaySound("flamethrower start", 1, Projectile.Center);
+                Utilities.Util.PlaySound("flamethrower start", 1, Projectile.Center);
             }
             if (Projectile.ai[0] == 70)
             {
@@ -129,8 +129,8 @@ namespace CalamityEntropy.Content.Projectiles
         public float counter = 0;
         public override void OnKill(int timeLeft)
         {
-            Util.Util.PlaySound("urnclose", 1, Projectile.Center);
-            Util.Util.PlaySound("flamethrower end", 1, Projectile.Center);
+            Utilities.Util.PlaySound("urnclose", 1, Projectile.Center);
+            Utilities.Util.PlaySound("flamethrower end", 1, Projectile.Center);
         }
         public override bool PreDraw(ref Color lightColor)
         {

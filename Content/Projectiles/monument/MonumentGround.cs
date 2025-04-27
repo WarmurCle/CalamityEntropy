@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
         }
         public override void OnSpawn(IEntitySource source)
         {
-            if (!Util.Util.isAir(Projectile.Center))
+            if (!Utilities.Util.isAir(Projectile.Center))
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (Util.Util.isAir(Projectile.Center))
+            if (Utilities.Util.isAir(Projectile.Center))
             {
                 return false;
             }
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Util.Util.isAir(Projectile.Center))
+            if (Utilities.Util.isAir(Projectile.Center))
             {
                 return false;
             }

@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.channel = true;
             Item.knockBack = 1f;
-            Item.UseSound = Util.Util.GetSound("urnopen");
+            Item.UseSound = Utilities.Util.GetSound("urnopen");
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
             Item.rare = ItemRarityID.Yellow;

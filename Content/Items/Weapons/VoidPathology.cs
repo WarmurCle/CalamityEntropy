@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = Item.useTime = 26;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 0;
-            Item.UseSound = Util.Util.GetSound("vp_use");
+            Item.UseSound = Utilities.Util.GetSound("vp_use");
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<Violet>();

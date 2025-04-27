@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            Vector2 shotDir = Util.Util.randomRot().ToRotationVector2();
+            Vector2 shotDir = Utilities.Util.randomRot().ToRotationVector2();
             Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center + shotDir * 32, shotDir * 6, ModContent.ProjectileType<AquashardSplit>(), damageDone / 6, projectile.knockBack / 3, projectile.owner).ToProj().DamageType = projectile.DamageType;
             SoundEngine.PlaySound(in SoundID.Item27, projectile.Center);
         }

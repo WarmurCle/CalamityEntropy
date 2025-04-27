@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
                 return false;
             }
             float laserLength = length * Projectile.scale;
-            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.One) * laserLength, targetHitbox, 12);
+            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.One) * laserLength, targetHitbox, 12);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

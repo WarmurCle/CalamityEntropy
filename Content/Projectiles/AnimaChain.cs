@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.timeLeft == 270)
             {
-                Util.Util.PlaySound("chains_rattle", 1, Projectile.Center);
+                Utilities.Util.PlaySound("chains_rattle", 1, Projectile.Center);
             }
             if (trap < 1)
             {
@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (playsound)
                 {
                     playsound = false;
-                    Util.Util.PlaySound("chain2", 1, Projectile.Center);
+                    Utilities.Util.PlaySound("chain2", 1, Projectile.Center);
 
                 }
                 if (target.active)
@@ -70,11 +70,11 @@ namespace CalamityEntropy.Content.Projectiles
         float r = 1;
         public override void OnSpawn(IEntitySource source)
         {
-            Projectile.rotation = Util.Util.randomRot();
+            Projectile.rotation = Utilities.Util.randomRot();
         }
         public override void OnKill(int timeLeft)
         {
-            Util.Util.PlaySound("chains_break", 1, Projectile.Center);
+            Utilities.Util.PlaySound("chains_break", 1, Projectile.Center);
         }
         int l = 0;
         int rtime = 0;
@@ -117,7 +117,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 startPos = p;
                 Vector2 endPos = Vector2.Lerp(startPos, target.Center, trap);
                 int spacing = 18;
-                Texture2D tx = Util.Util.getExtraTex("anima_chain");
+                Texture2D tx = Utilities.Util.getExtraTex("anima_chain");
 
                 int distance = ((int)Math.Sqrt(Math.Pow(endPos.X - startPos.X, 2) + Math.Pow(endPos.Y - startPos.Y, 2)));
                 float rot = (endPos - startPos).ToRotation();

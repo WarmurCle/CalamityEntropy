@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 if (plr >= 0)
                 {
                     Player player = plr.ToPlayer();
-                    Projectile.velocity = Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (player.Center - Projectile.Center).ToRotation(), rotspeed).ToRotationVector2() * Projectile.velocity.Length();
+                    Projectile.velocity = Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (player.Center - Projectile.Center).ToRotation(), rotspeed).ToRotationVector2() * Projectile.velocity.Length();
                 }
                 if (Projectile.ai[0] > 440)
                 {
@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     rotspeed += (2f - rotspeed) * 0.016f;
                 }
             }
-            if (Projectile.ai[0] > 40 && Util.Util.getDistance(Main.LocalPlayer.Center, Projectile.Center) < 4000)
+            if (Projectile.ai[0] > 40 && Utilities.Util.getDistance(Main.LocalPlayer.Center, Projectile.Center) < 4000)
             {
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 7;
             }
@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             var p = getSamplePoints();
-            return Util.Util.LineThroughRect(Projectile.Center, p[p.Count - 1], targetHitbox, (int)(100 * w));
+            return Utilities.Util.LineThroughRect(Projectile.Center, p[p.Count - 1], targetHitbox, (int)(100 * w));
         }
         float yx = 0;
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 54 * Projectile.scale * w * wd,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Util.Util.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
+                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
                 }
 
 
@@ -213,7 +213,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 54 * Projectile.scale * w * wd,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Util.Util.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
+                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
                 }
 
 

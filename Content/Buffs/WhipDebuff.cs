@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -98,12 +98,12 @@ namespace CalamityEntropy.Content.Buffs
                     modifiers.SetCrit();
                     if(t.EffectName == "Crystedge")
                     {
-                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Util.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Utilities.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
                     }
                 }
                 if (t.EffectName == "MindCorruptor")
                 {
-                    float rot = Util.Util.randomRot();
+                    float rot = Utilities.Util.randomRot();
                     Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
                 }
             }
@@ -155,7 +155,7 @@ namespace CalamityEntropy.Content.Buffs
             {
                 if (!Main.rand.NextBool(3))
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Util.Util.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 3, 1, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 3, 1, projectile.owner);
                 }
                 if (projectile.TryGetOwner(out var owner))
                 {

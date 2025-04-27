@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -127,8 +127,8 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 }
                 else
                 {
-                    NPC target = Util.Util.findTarget(player, Projectile, SamsaraSword.getRange(player), modPlayer.sCasketLevel <= 3);
-                    if (target != null && Util.Util.getDistance(player.Center, target.Center) > Math.Min(SamsaraSword.getRange(player), 1400))
+                    NPC target = Utilities.Util.findTarget(player, Projectile, SamsaraSword.getRange(player), modPlayer.sCasketLevel <= 3);
+                    if (target != null && Utilities.Util.getDistance(player.Center, target.Center) > Math.Min(SamsaraSword.getRange(player), 1400))
                     {
                         target = null;
                     }

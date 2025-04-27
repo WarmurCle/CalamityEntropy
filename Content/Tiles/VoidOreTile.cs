@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.Tiles
             {
                 for (int sj = -12 + cj; sj < 13 + cj; sj++)
                 {
-                    if (Util.Util.getDistance(new Vector2(si, sj), new Vector2(ci, cj)) <= r)
+                    if (Utilities.Util.getDistance(new Vector2(si, sj), new Vector2(ci, cj)) <= r)
                     {
                         tryToSpawn(si, sj);
                     }
@@ -120,7 +120,7 @@ namespace CalamityEntropy.Content.Tiles
         }
         public static bool tryToSpawn(int si, int sj)
         {
-            if (Util.Util.inWorld(si, sj))
+            if (Utilities.Util.inWorld(si, sj))
             {
                 if (!Main.tile[si, sj].HasTile)
                 {

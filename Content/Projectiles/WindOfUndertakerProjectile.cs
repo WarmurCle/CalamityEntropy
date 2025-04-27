@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -88,14 +88,14 @@ namespace CalamityEntropy.Content.Projectiles
             List<Vector2> p2 = getPoints((float)(player.itemAnimationMax - player.itemAnimation) / (float)player.itemAnimationMax, true);
             for (int i = 1; i < p1.Count; i++)
             {
-                if (Util.Util.LineThroughRect(p1[i - 1], p1[i], targetHitbox, 100))
+                if (Utilities.Util.LineThroughRect(p1[i - 1], p1[i], targetHitbox, 100))
                 {
                     return true;
                 }
             }
             for (int i = 1; i < p2.Count; i++)
             {
-                if (Util.Util.LineThroughRect(p2[i - 1], p2[i], targetHitbox, 100))
+                if (Utilities.Util.LineThroughRect(p2[i - 1], p2[i], targetHitbox, 100))
                 {
                     return true;
                 }
@@ -178,7 +178,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 for (int i = 0; i <= Projectile.WhipSettings.Segments; i++)
                 {
-                    points.Add(Util.Util.Bezier(new List<Vector2> { start, mid, end }, ((float)i / (float)Projectile.WhipSettings.Segments)));
+                    points.Add(Utilities.Util.Bezier(new List<Vector2> { start, mid, end }, ((float)i / (float)Projectile.WhipSettings.Segments)));
                 }
 
             }
@@ -191,7 +191,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 for (int i = 0; i <= Projectile.WhipSettings.Segments; i++)
                 {
-                    points.Add(Util.Util.Bezier(new List<Vector2> { start, mid, end }, ((float)i / (float)Projectile.WhipSettings.Segments)));
+                    points.Add(Utilities.Util.Bezier(new List<Vector2> { start, mid, end }, ((float)i / (float)Projectile.WhipSettings.Segments)));
                 }
 
             }

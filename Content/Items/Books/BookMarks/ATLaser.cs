@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 70 * Projectile.scale * w,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Util.Util.getDistance(points[i], points[i - 1]) / tx.Width);
+                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width);
                 }
 
                 SpriteBatch sb = Main.spriteBatch;
@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * Projectile.scale * w,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Util.Util.getDistance(points[i], points[i - 1]) / tx.Width);
+                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width);
                 }
 
 
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
-            Util.Util.DrawGlow(points[points.Count - 1], Color.White * w, 2f * Projectile.scale * w, true);
+            Utilities.Util.DrawGlow(points[points.Count - 1], Color.White * w, 2f * Projectile.scale * w, true);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

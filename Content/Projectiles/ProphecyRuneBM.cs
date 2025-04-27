@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
             counter++;
             if (counter > 100)
             {
-                NPC target = Util.Util.findTarget(Projectile.getOwner(), Projectile, 2800);
+                NPC target = Utilities.Util.findTarget(Projectile.getOwner(), Projectile, 2800);
                 if (target != null)
                 {
                     Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.9f;
@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                NPC target = Util.Util.findTarget(Projectile.getOwner(), Projectile, 2800);
+                NPC target = Utilities.Util.findTarget(Projectile.getOwner(), Projectile, 2800);
                 if (target != null)
                 {
                     Projectile.Center = target.Center + (Projectile.ai[0]).ToRotationVector2().RotatedBy(rotCount) * counter * 1.8f;
@@ -66,12 +66,12 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Texture2D light = Util.Util.getExtraTex("lightball");
+            Texture2D light = Utilities.Util.getExtraTex("lightball");
             Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, Color.White * (counter > 100 ? 1 : counter / 100f) * 0.8f, Projectile.rotation, light.Size() / 2, Projectile.scale * 0.8f, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Texture2D tx = Util.Util.getExtraTex("runes/rune" + ((int)Projectile.ai[2]).ToString());
+            Texture2D tx = Utilities.Util.getExtraTex("runes/rune" + ((int)Projectile.ai[2]).ToString());
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * (counter > 100 ? 1 : counter / 100f) * (0.8f + (float)(Math.Cos(Main.GameUpdateCount * 0.2f) * 0.2f)), 0, tx.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }

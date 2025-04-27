@@ -13,7 +13,7 @@ using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Pets;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Events;
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Common
                     GraphicsDevice gd = Main.graphics.GraphicsDevice;
                     if (ve.Count >= 3)
                     {
-                        Texture2D tx = Util.Util.getExtraTex("AbyssalCircle");
+                        Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle");
                         gd.Textures[0] = tx;
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     }
@@ -146,7 +146,7 @@ namespace CalamityEntropy.Common
                     GraphicsDevice gd = Main.graphics.GraphicsDevice;
                     if (ve.Count >= 3)
                     {
-                        Texture2D tx = Util.Util.getExtraTex("AbyssalCircle");
+                        Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle");
                         gd.Textures[0] = tx;
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     }
@@ -319,7 +319,7 @@ namespace CalamityEntropy.Common
                     AbyssalLine p = new AbyssalLine() { lx = 1.2f, xadd = 0.32f };
                     p.spawnColor = Color.Gold;
                     p.endColor = Color.DarkGoldenrod;
-                    EParticle.spawnNew(p, npc.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
+                    EParticle.spawnNew(p, npc.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
 
                 }
             }
@@ -357,10 +357,10 @@ namespace CalamityEntropy.Common
                 {
                     if (n.active && !n.friendly && !n.dontTakeDamage)
                     {
-                        if (Util.Util.getDistance(n.Center,npc.Center) < dist)
+                        if (Util.getDistance(n.Center,npc.Center) < dist)
                         {
                             t = n;
-                            dist = Util.Util.getDistance(n.Center, npc.Center);
+                            dist = Util.getDistance(n.Center, npc.Center);
                         }
                     }
                 }
@@ -849,7 +849,7 @@ namespace CalamityEntropy.Common
                 shader.Parameters["f1"].SetValue((float)npc.frame.Y / npc.getTexture().Height);
                 shader.Parameters["f2"].SetValue((float)(npc.frame.Y + npc.frame.Height) / npc.getTexture().Height);
                 shader.Parameters["offset"].SetValue(Main.GlobalTimeWrappedHourly);
-                shader.Parameters["colorMap"].SetValue(Util.Util.getExtraTex("SoulDiscorderColorMap"));
+                shader.Parameters["colorMap"].SetValue(Utilities.Util.getExtraTex("SoulDiscorderColorMap"));
                 shaders.Add(shader);
             }
             if (npc.HasBuff<HeatDeath>())
@@ -925,7 +925,7 @@ namespace CalamityEntropy.Common
                 Player h = null;
                 foreach (Player plr in Main.player)
                 {
-                    if (plr.active && Util.Util.getDistance(plr.Center, npc.Center) < 4000)
+                    if (plr.active && Utilities.Util.getDistance(plr.Center, npc.Center) < 4000)
                     {
                         if (plr.ZoneHallow)
                         {
@@ -1135,7 +1135,7 @@ namespace CalamityEntropy.Common
                             float dist = 500;
                             foreach (NPC npcf in Main.ActiveNPCs)
                             {
-                                float d = Util.Util.getDistance(npcf.Center, npc.Center);
+                                float d = Utilities.Util.getDistance(npcf.Center, npc.Center);
                                 if (npcf.whoAmI != npc.whoAmI && !npcf.friendly && d < dist && npcf.Entropy().noelctime <= 0)
                                 {
                                     target = npcf;
@@ -1189,7 +1189,7 @@ namespace CalamityEntropy.Common
                     Main.item[i].noGrabDelay = 100;
                     if (!Main.dedServ)
                     {
-                        Util.Util.PlaySound("fart", 1, player.Center);
+                        Utilities.Util.PlaySound("fart", 1, player.Center);
                     }
                 }
                 else
@@ -1251,7 +1251,7 @@ namespace CalamityEntropy.Common
                         Main.item[i].noGrabDelay = 100;
                         if (!Main.dedServ)
                         {
-                            Util.Util.PlaySound("fart", 1, player.Center);
+                            Utilities.Util.PlaySound("fart", 1, player.Center);
                         }
                     }
                     else

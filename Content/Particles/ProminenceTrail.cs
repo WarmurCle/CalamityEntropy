@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Particles
     public class ProminenceTrail : EParticle
     {
         public List<Vector2> odp = new List<Vector2>();
-        public override Texture2D texture => Util.Util.getExtraTex("SimpleNoise");
+        public override Texture2D texture => Utilities.Util.getExtraTex("SimpleNoise");
         public override void onSpawn()
         {
             this.timeLeft = 11;
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Particles
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Prominence", AssetRequestMode.ImmediateLoad).Value;
 
                 Main.spriteBatch.EnterShaderRegion(BlendState.NonPremultiplied, shader);
-                Main.instance.GraphicsDevice.Textures[1] = Util.Util.getExtraTex("colormap_fire");
+                Main.instance.GraphicsDevice.Textures[1] = Utilities.Util.getExtraTex("colormap_fire");
                 shader.Parameters["color2"].SetValue(color2.ToVector4());
                 shader.Parameters["color1"].SetValue(color1.ToVector4());
                 shader.Parameters["ofs"].SetValue(Main.GlobalTimeWrappedHourly * 3);

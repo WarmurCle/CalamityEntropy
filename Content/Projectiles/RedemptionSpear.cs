@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D tex = Projectile.getTexture();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, this.color, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
-            Util.Util.DrawGlow(Projectile.Center, new Color(this.color.R, this.color.G * 0.82f, this.color.B * 0.1f) * 0.6f, Projectile.scale * 4);
+            Utilities.Util.DrawGlow(Projectile.Center, new Color(this.color.R, this.color.G * 0.82f, this.color.B * 0.1f) * 0.6f, Projectile.scale * 4);
             return false;
         }
         public override Color baseColor => Color.White;

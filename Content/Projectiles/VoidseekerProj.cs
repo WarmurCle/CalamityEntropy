@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,8 +37,8 @@ namespace CalamityEntropy.Content.Projectiles
                 if (stl)
                 {
                     rotspeed = 0.23f;
-                    Util.Util.PlaySound("voidseeker", 1f, Projectile.Center, volume: 1f);
-                    Util.Util.PlaySound("voidSound", 1f, Projectile.Center);
+                    Utilities.Util.PlaySound("voidseeker", 1f, Projectile.Center, volume: 1f);
+                    Utilities.Util.PlaySound("voidSound", 1f, Projectile.Center);
                 }
                 Projectile.rotation = MathHelper.PiOver2;
                 if (stl)
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                     }
                 }
-                Util.Util.PlaySound("da3", 1, Projectile.Center);
+                Utilities.Util.PlaySound("da3", 1, Projectile.Center);
 
             }
             if (Projectile.ai[0] > 26 && Projectile.ai[0] < 38 + (stl ? 5 : 0))
@@ -169,8 +169,8 @@ namespace CalamityEntropy.Content.Projectiles
                 if (playsound)
                 {
                     playsound = false;
-                    Util.Util.PlaySound("voidseekercrit", 1, Projectile.Center, 4);
-                    Util.Util.PlaySound("voidseekercrit", 1, Projectile.Center, 4);
+                    Utilities.Util.PlaySound("voidseekercrit", 1, Projectile.Center, 4);
+                    Utilities.Util.PlaySound("voidseekercrit", 1, Projectile.Center, 4);
                 }
             }
         }
@@ -178,7 +178,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] > 26)
             {
-                return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 240 * scale, targetHitbox, 100);
+                return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 240 * scale, targetHitbox, 100);
             }
             return false;
         }
@@ -212,7 +212,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 for (float i = 1; i <= 1.6f; i += 0.1f)
                 {
-                    Main.spriteBatch.Draw(Util.Util.getExtraTex("blackg"), Projectile.Center - Main.screenPosition, null, Color.Black * 0.06f * balpha, Main.GameUpdateCount * 0.9f * (i - 0.9f), new Vector2(1200, 1200), (1 + (i - 1) * 0.1f) * bsize * 6f, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(Utilities.Util.getExtraTex("blackg"), Projectile.Center - Main.screenPosition, null, Color.Black * 0.06f * balpha, Main.GameUpdateCount * 0.9f * (i - 0.9f), new Vector2(1200, 1200), (1 + (i - 1) * 0.1f) * bsize * 6f, SpriteEffects.None, 0);
                 }
             }
             return false;

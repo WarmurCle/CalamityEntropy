@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             {
                 op -= 0.05f;
             }
-            Texture2D t = Util.Util.getExtraTex("lightball");
+            Texture2D t = Utilities.Util.getExtraTex("lightball");
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * op, Projectile.rotation, t.Size() / 2, Projectile.scale * 2, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * op, Projectile.rotation, t.Size() / 2, Projectile.scale * 2, SpriteEffects.None, 0);
 

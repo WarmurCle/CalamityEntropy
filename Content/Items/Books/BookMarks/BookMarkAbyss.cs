@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
@@ -32,10 +32,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 2 : 4))
             {
                 int damage = projectile.damage / 8;
-                Vector2 p = target.Center + Util.Util.randomRot().ToRotationVector2() * 300;
+                Vector2 p = target.Center + Utilities.Util.randomRot().ToRotationVector2() * 300;
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), p, (target.Center - p).SafeNormalize(Vector2.One), ModContent.ProjectileType<AbyssBookmarkCrack>(), damage, projectile.knockBack, projectile.owner);
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 5;
-                Util.Util.PlaySound("crack", 1, projectile.Center, 3);
+                Utilities.Util.PlaySound("crack", 1, projectile.Center, 3);
             }
         }
     }

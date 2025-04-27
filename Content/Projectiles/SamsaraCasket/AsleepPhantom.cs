@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Util.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 5);
+            Utilities.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 5);
         }
 
         public override bool PreDraw(ref Color lightColor)

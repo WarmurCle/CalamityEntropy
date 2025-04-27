@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.channel = true;
             Item.knockBack = 1f;
-            Item.UseSound = Util.Util.GetSound("soulshine");
+            Item.UseSound = Utilities.Util.GetSound("soulshine");
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityLightPurpleBuyPrice;
             Item.rare = ItemRarityID.LightPurple;

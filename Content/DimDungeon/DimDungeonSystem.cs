@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ public class DimDungeonSystem : ModSystem
             foreach (Room room in rooms)
             {
                 Rectangle r = room.getRect();
-                Util.Util.DrawRectAlt(r, Color.Blue, 4, 0);
+                Utilities.Util.DrawRectAlt(r, Color.Blue, 4, 0);
             }
         }
         Main.spriteBatch.End();

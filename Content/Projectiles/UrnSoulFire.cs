@@ -1,7 +1,7 @@
 ﻿using System;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Dusts;
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 0; i < 4; i++)
             {
-                EParticle.spawnNew(new RuneParticleHoming() { homingTarget = Projectile.getOwner() }, target.Center, Util.Util.randomPointInCircle(10), Color.White, 0.5f, 1, true, BlendState.AlphaBlend);
+                EParticle.spawnNew(new RuneParticleHoming() { homingTarget = Projectile.getOwner() }, target.Center, Utilities.Util.randomPointInCircle(10), Color.White, 0.5f, 1, true, BlendState.AlphaBlend);
             }
             int smokeCount = 3 + (int)MathHelper.Clamp(target.width * 0.1f, 0f, 20f);
             for (int i = 0; i < smokeCount; i++)

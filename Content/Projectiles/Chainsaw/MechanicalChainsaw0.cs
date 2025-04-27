@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             Projectile.ai[2]++;
             if (Projectile.ai[2] > 400 * Projectile.MaxUpdates)
             {
-                Util.Util.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f);
+                Utilities.Util.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f);
                 player.itemTime = 60;
                 Projectile.Kill();
             }

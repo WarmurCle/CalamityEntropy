@@ -65,11 +65,11 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
             tailP = bodyP + (tailP - bodyP).SafeNormalize(Vector2.Zero) * 32;
             float br = (Projectile.Center - bodyP).ToRotation();
             float tr = (bodyP - tailP).ToRotation();
-            br = Util.Util.rotatedToAngle(br, Projectile.rotation, 0.1f, false);
-            tr = Util.Util.rotatedToAngle(tr, br, 0.1f, false);
+            br = Utilities.Util.rotatedToAngle(br, Projectile.rotation, 0.1f, false);
+            tr = Utilities.Util.rotatedToAngle(tr, br, 0.1f, false);
             bodyP = Projectile.Center - br.ToRotationVector2() * 32;
             tailP = bodyP - tr.ToRotationVector2() * 32;
-            if (Util.Util.getDistance(Projectile.Center, targetPos) > 1800)
+            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 1800)
             {
                 Projectile.Center = Main.player[Projectile.owner].Center - new Vector2(0, 50);
             }
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
                 VoidParticles.particles.Add(p);
             }
 
-            if (Util.Util.getDistance(Projectile.Center, targetPos) > 140)
+            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 140)
             {
                 Vector2 px = targetPos - Projectile.Center;
                 px.Normalize();

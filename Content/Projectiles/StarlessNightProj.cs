@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -52,12 +52,12 @@ namespace CalamityEntropy.Content.Projectiles
             NPCHitCounts[target.whoAmI]++;
             CalamityEntropy.Instance.screenShakeAmp = 6;
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner);
-            Util.Util.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, volume: 0.7f);
+            Utilities.Util.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, volume: 0.7f);
             if (spawnVoidStarCount > 0)
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    Vector2 vel = Util.Util.randomRot().ToRotationVector2() * 16;
+                    Vector2 vel = Utilities.Util.randomRot().ToRotationVector2() * 16;
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, vel, ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 5, 1, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
                 }
                 spawnVoidStarCount--;
@@ -89,12 +89,12 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] >= 64 * updates && playsound1)
             {
                 playsound1 = false;
-                Util.Util.PlaySound("sn_swing", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center);
+                Utilities.Util.PlaySound("sn_swing", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center);
             }
             if (Projectile.ai[0] >= 74 * updates && playsound2)
             {
                 playsound2 = false;
-                Util.Util.PlaySound("sn_swing", Main.rand.NextFloat(0.8f, 1f), Projectile.Center);
+                Utilities.Util.PlaySound("sn_swing", Main.rand.NextFloat(0.8f, 1f), Projectile.Center);
             }
             Projectile.Center = owner.MountedCenter + owner.gfxOffY * Vector2.UnitY;
             Projectile.rotation += rotSpeed * meleeSpeed;
@@ -117,7 +117,7 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             Projectile.direction = (Main.MouseWorld - owner.Center).X > 0 ? 1 : -1;
                             float targetrot = (Main.MouseWorld - owner.Center).ToRotation() - 2.42f * Projectile.direction;
-                            Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, targetrot, 0.07f * meleeSpeed, false);
+                            Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, targetrot, 0.07f * meleeSpeed, false);
                         }
                     }
                     if (Projectile.ai[0] > 100 * updates)
@@ -178,7 +178,7 @@ namespace CalamityEntropy.Content.Projectiles
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Main.EntitySpriteDraw(Util.Util.getExtraTex("StarlessNightGlow"), Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, new Color(180, 180, 255) * glowalpha * 0.8f, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(32, 168), Projectile.scale * 3f * scaleD, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(Utilities.Util.getExtraTex("StarlessNightGlow"), Projectile.owner.ToPlayer().MountedCenter - Main.screenPosition, null, new Color(180, 180, 255) * glowalpha * 0.8f, Projectile.rotation + (float)Math.PI * 0.25f, new Vector2(32, 168), Projectile.scale * 3f * scaleD, SpriteEffects.None, 0);
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -216,7 +216,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (ve.Count >= 3)
             {
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SlashTrans", AssetRequestMode.ImmediateLoad).Value;
-                Main.instance.GraphicsDevice.Textures[1] = Util.Util.getExtraTex("sn_colormap");
+                Main.instance.GraphicsDevice.Textures[1] = Utilities.Util.getExtraTex("sn_colormap");
                 shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
 
                 sb.End();
@@ -244,7 +244,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 628 * Projectile.scale * scaleD, targetHitbox, 64);
+            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 628 * Projectile.scale * scaleD, targetHitbox, 64);
         }
     }
 

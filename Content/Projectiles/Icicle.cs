@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles
                     count++;
                 }
                 mct = count;
-                speed = Util.Util.getDistance(Projectile.Center, new Vector2(Projectile.ai[0], Projectile.ai[1])) / count;
+                speed = Utilities.Util.getDistance(Projectile.Center, new Vector2(Projectile.ai[0], Projectile.ai[1])) / count;
                 js = jspeed;
             }
             counter++;
@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity *= 0.9f;
             }
 
-            Projectile.rotation = Util.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
+            Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
 
         }
         public override bool PreDraw(ref Color lightColor)
@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Projectiles
             Color cl = new Color(18, 50, 117);
             for (int i = odp.Count - 1; i >= 1; i--)
             {
-                Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value, this.odp[i], this.odp[i - 1], cl * ((float)i / (float)odp.Count), size);
+                Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Extra/white").Value, this.odp[i], this.odp[i - 1], cl * ((float)i / (float)odp.Count), size);
                 size -= sizej;
             }*/
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Icicle").Value;

@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (Util.Util.getDistance(Projectile.Center, player.Center) > 1800)
+            if (Utilities.Util.getDistance(Projectile.Center, player.Center) > 1800)
             {
                 Projectile.Center = player.Center;
             }
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 targetPos = index.ToProj().Center;
             }
-            if (Util.Util.getDistance(Projectile.Center, targetPos) > spacing)
+            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > spacing)
             {
                 Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 4f;
                 Projectile.velocity *= 0.8f;
@@ -163,7 +163,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tx;
             tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/LilBrimstone").Value;
 
-            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(tx, 8, (int)Projectile.ai[1]), Color.White, 0, new Vector2(46, 52) / 2, Projectile.scale, ef, 0);
+            Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, Utilities.Util.GetCutTexRect(tx, 8, (int)Projectile.ai[1]), Color.White, 0, new Vector2(46, 52) / 2, Projectile.scale, ef, 0);
             return false;
         }
     }

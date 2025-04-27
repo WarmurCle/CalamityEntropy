@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 {
                     target = Projectile.FindTargetWithinRange(range, modPlayer.sCasketLevel > 3);
                 }
-                if (target != null && Util.Util.getDistance(player.Center, target.Center) > Math.Min(range, 1400))
+                if (target != null && Utilities.Util.getDistance(player.Center, target.Center) > Math.Min(range, 1400))
                 {
                     target = null;
                 }

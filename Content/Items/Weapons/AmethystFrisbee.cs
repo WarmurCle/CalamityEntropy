@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 velocity *= 0.54f;
             }
-            Util.Util.PlaySound("throw", 1, player.Center);
+            Utilities.Util.PlaySound("throw", 1, player.Center);
             if (player.Calamity().StealthStrikeAvailable())
             {
                 int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, altShotCount > 0 ? 1 : 0);

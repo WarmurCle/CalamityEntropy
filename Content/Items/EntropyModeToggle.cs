@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Purple;
             Item.scale = 0.6f;
-            Item.UseSound = Util.Util.GetSound("soul");
+            Item.UseSound = Utilities.Util.GetSound("soul");
         }
         public override bool? UseItem(Player player)
         {

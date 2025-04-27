@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -131,7 +131,7 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 if (!npc.friendly && !npc.dontTakeDamage)
                 {
-                    float d = Util.Util.getDistance(npc.Center, mouse);
+                    float d = Utilities.Util.getDistance(npc.Center, mouse);
                     if (d < dist)
                     {
                         target = npc;
@@ -197,8 +197,8 @@ namespace CalamityEntropy.Content.Items.Books
             Vector2 but = Projectile.Center + new Vector2(-13, 28).RotatedBy(Projectile.rotation) * Projectile.scale;
             Vector2 mid = Projectile.Center + new Vector2(-13 - (MathHelper.Max(0, Projectile.ai[1] - 0.25f)) * 32, 0).RotatedBy(Projectile.rotation) * Projectile.scale;
 
-            Util.Util.drawLine(top, mid, new Color(255, 255, 161), 2 * Projectile.scale, 2);
-            Util.Util.drawLine(but, mid, new Color(255, 255, 161), 2 * Projectile.scale, 2);
+            Utilities.Util.drawLine(top, mid, new Color(255, 255, 161), 2 * Projectile.scale, 2);
+            Utilities.Util.drawLine(but, mid, new Color(255, 255, 161), 2 * Projectile.scale, 2);
 
             Main.EntitySpriteDraw(Projectile.getDrawData(Color.White));
             return false;

@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -35,8 +35,8 @@ namespace CalamityEntropy.Content.Projectiles
                 NPC homing = Projectile.FindTargetWithinRange(900, true);
                 if (homing != null)
                 {
-                    Projectile.velocity = (Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (homing.Center - Projectile.Center).ToRotation(), 1 * homingSpeed)).ToRotationVector2() * Projectile.velocity.Length();
-                    Projectile.velocity = (Util.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (homing.Center - Projectile.Center).ToRotation(), 0.12f * homingSpeed, false)).ToRotationVector2() * Projectile.velocity.Length();
+                    Projectile.velocity = (Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (homing.Center - Projectile.Center).ToRotation(), 1 * homingSpeed)).ToRotationVector2() * Projectile.velocity.Length();
+                    Projectile.velocity = (Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (homing.Center - Projectile.Center).ToRotation(), 0.12f * homingSpeed, false)).ToRotationVector2() * Projectile.velocity.Length();
                 }
                 else
                 {
@@ -64,13 +64,13 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (!Main.dedServ)
             {
-                Util.Util.PlaySound("beeSting", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.7f);
+                Utilities.Util.PlaySound("beeSting", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.7f);
             }
             if(Main.myPlayer == Projectile.owner)
             {
                 for(int i = 0; i < 7; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 15), ModContent.ProjectileType<BeeSpike>(), Projectile.damage / 4, Projectile.knockBack / 2, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 15), ModContent.ProjectileType<BeeSpike>(), Projectile.damage / 4, Projectile.knockBack / 2, Projectile.owner);
                 }
             }
         }

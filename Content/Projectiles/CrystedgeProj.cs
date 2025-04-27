@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Projectiles
             end = c + (end - c) * (Math.Abs(Projectile.localAI[0]) * 0.54f);
             for (int i = 0; i <= segs; i++)
             {
-                points.Add(Util.Util.Bezier(new List<Vector2> { start, mid, end }, ((float)i / (float)segs)));
+                points.Add(Utilities.Util.Bezier(new List<Vector2> { start, mid, end }, ((float)i / (float)segs)));
             }
             return points;
         }
@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Projectiles
                 PositionInWorld = Projectile.Center,
                 MovementVector = Vector2.Zero
             });
-            Util.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
+            Utilities.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
         }
         public override void AI()
         {
@@ -135,7 +135,7 @@ namespace CalamityEntropy.Content.Projectiles
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
             for(int i = 0; i < 2; i++)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<CrystedgeCrystalMid>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<CrystedgeCrystalMid>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
             }
             for(int i = 0; i < 14; i++)
             {
@@ -177,7 +177,7 @@ namespace CalamityEntropy.Content.Projectiles
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
             for (int i = 0; i < 3; i++)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<CrystedgeCrystalSmall>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<CrystedgeCrystalSmall>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
             }
             for (int i = 0; i < 8; i++)
             {

@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Particles
             Vector2 a = Vector2.Lerp(startPos, midPos, lifePercent);
             Vector2 b = Vector2.Lerp(midPos, endPos, lifePercent);
             Vector2 drawPos = Vector2.Lerp(a, b, lifePercent);
-            Texture2D pixel = Util.Util.pixelTex;
+            Texture2D pixel = Utilities.Util.pixelTex;
             Main.spriteBatch.Draw(pixel, drawPos - Main.screenPosition, null, Color.Lerp(_startColor, _endColor, lifePercent), 0, pixel.Size() / 2, 2, SpriteEffects.None, 0);
         }
 

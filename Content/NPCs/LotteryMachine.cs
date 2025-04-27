@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
@@ -442,7 +442,7 @@ namespace CalamityEntropy.Content.NPCs
                 {
                     if (new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 2, 2).Intersects(NPC.getRect()))
                     {
-                        if (Util.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 250)
+                        if (Utilities.Util.getDistance(NPC.Center, Main.LocalPlayer.Center) < 250)
                         {
                             if ((SpawnTimer <= 0 && nucTime == 0) || (Main.LocalPlayer.HeldItem.type == ItemID.CopperCoin || Main.LocalPlayer.HeldItem.type == ItemID.SilverCoin || Main.LocalPlayer.HeldItem.type == ItemID.GoldCoin || Main.LocalPlayer.HeldItem.type == ItemID.PlatinumCoin))
                             {
@@ -671,7 +671,7 @@ namespace CalamityEntropy.Content.NPCs
                             textureSpecial = -1;
                             Say("给，这是你的奖励;)", Color.Yellow, 0.86f);
                             useCd = 160;
-                            Util.Util.PlaySound("coininsert", 1, NPC.Center);
+                            Utilities.Util.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
                                 int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
@@ -708,7 +708,7 @@ namespace CalamityEntropy.Content.NPCs
                             rtype = ri.item;
                             stack = ri.stack;
                             useCd = 160;
-                            Util.Util.PlaySound("coininsert", 1, NPC.Center);
+                            Utilities.Util.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
                                 int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
@@ -750,7 +750,7 @@ namespace CalamityEntropy.Content.NPCs
                             rtype = ri.item;
                             stack = ri.stack;
                             useCd = 160;
-                            Util.Util.PlaySound("coininsert", 1, NPC.Center);
+                            Utilities.Util.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
                                 int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);
@@ -809,7 +809,7 @@ namespace CalamityEntropy.Content.NPCs
                             rtype = ri.item;
                             stack = ri.stack;
                             useCd = 160;
-                            Util.Util.PlaySound("coininsert", 1, NPC.Center);
+                            Utilities.Util.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
                                 int pj = Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center - new Vector2(0, 650), new Vector2(0, 16), ModContent.ProjectileType<AtlasItem>(), 0, 0, Main.myPlayer);

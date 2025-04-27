@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -71,13 +71,13 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Main.instance.LoadItem(4);
             Player player = Main.player[Projectile.owner];
-            if (Util.Util.getDistance(Projectile.Center, player.Center) > 3600)
+            if (Utilities.Util.getDistance(Projectile.Center, player.Center) > 3600)
             {
                 Projectile.Center = player.Center;
                 Vector2 L1 = Projectile.Center + new Vector2(-11 * Projectile.direction, -12).RotatedBy(Projectile.rotation);
                 Vector2 L2 = Projectile.Center + new Vector2(11 * Projectile.direction, -14).RotatedBy(Projectile.rotation);
             }
-            if (Util.Util.getDistance(weaponPos, Projectile.Center) > 3000)
+            if (Utilities.Util.getDistance(weaponPos, Projectile.Center) > 3000)
             {
                 weaponPos = Projectile.Center;
                 Vector2 L1 = Projectile.Center + new Vector2(-11 * Projectile.direction, -12).RotatedBy(Projectile.rotation);
@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.ai[0]--;
             Vector2 targetPos = player.Center - new Vector2(0, 120);
-            if (Util.Util.getDistance(Projectile.Center, targetPos) > 60)
+            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 60)
             {
                 Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.8f;
                 Projectile.velocity *= 0.98f;
@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (target != null)
             {
                 Projectile.direction = (target.Center.X > Projectile.Center.X ? 1 : -1);
-                if (Util.Util.getDistance(Projectile.Center, weaponPos) < 120)
+                if (Utilities.Util.getDistance(Projectile.Center, weaponPos) < 120)
                 {
                     Projectile.ai[0] = -1;
                 }
@@ -171,8 +171,8 @@ namespace CalamityEntropy.Content.Projectiles
             l2.Update(L2, weaponPos);
             List<Vector2> points1 = l1.GetPoints();
             List<Vector2> points2 = l2.GetPoints();
-            Util.Util.DrawLines(points1, Color.Red * 0.6f, 2);
-            Util.Util.DrawLines(points2, Color.Blue * 0.6f, 2);
+            Utilities.Util.DrawLines(points1, Color.Red * 0.6f, 2);
+            Utilities.Util.DrawLines(points2, Color.Blue * 0.6f, 2);
 
             Texture2D weaponTex = TextureAssets.Item[4].Value;
             Main.spriteBatch.Draw(weaponTex, weaponPos - Main.screenPosition, null, Lighting.GetColor((int)weaponPos.X / 16, (int)weaponPos.Y / 16), MathHelper.ToRadians(-45) + MathHelper.ToRadians(weaponVel.X * 1.8f), weaponTex.Size() / 2, Projectile.scale, SpriteEffects.None, 0);

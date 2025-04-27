@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -65,9 +65,9 @@ namespace CalamityEntropy.Content.Projectiles
                 v2[i].pos = uposd - (uposd - v2[i].pos).SafeNormalize(-Vector2.UnitX) * 12;
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
-                v1[i].rot = Util.Util.rotatedToAngle(v1[i].rot, urotu, 0.67f, false);
+                v1[i].rot = Utilities.Util.rotatedToAngle(v1[i].rot, urotu, 0.67f, false);
                 v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12;
-                v2[i].rot = Util.Util.rotatedToAngle(v2[i].rot, urotd, 0.67f, false);
+                v2[i].rot = Utilities.Util.rotatedToAngle(v2[i].rot, urotd, 0.67f, false);
                 v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12;
 
             }

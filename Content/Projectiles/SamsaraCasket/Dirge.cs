@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        float rot = Util.Util.randomRot();
+                        float rot = Utilities.Util.randomRot();
                         int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), t.Center + rot.ToRotationVector2() * 400, rot.ToRotationVector2() * -16, 645, Projectile.damage, Projectile.knockBack, Projectile.owner);
                         p.ToProj().DamageType = Projectile.DamageType;
                     }

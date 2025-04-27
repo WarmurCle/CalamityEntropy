@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Terraria;
@@ -20,11 +20,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.autoReuse = true;
-            Item.UseSound = Util.Util.GetSound("corruptwhip_swing");
+            Item.UseSound = Utilities.Util.GetSound("corruptwhip_swing");
         }
         public override bool CanUseItem(Player player)
         {
-            Item.UseSound = Util.Util.GetSound("corruptwhip_swing", Main.rand.NextFloat(0.6f, 1.4f));
+            Item.UseSound = Utilities.Util.GetSound("corruptwhip_swing", Main.rand.NextFloat(0.6f, 1.4f));
             return true;
         }
     }

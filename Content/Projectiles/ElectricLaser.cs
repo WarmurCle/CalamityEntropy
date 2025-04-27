@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -49,13 +49,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center, endPos, targetHitbox, 6);
+            return Utilities.Util.LineThroughRect(Projectile.Center, endPos, targetHitbox, 6);
         }
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend, SamplerState.LinearWrap);
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
-            Rectangle rect = new Rectangle(64 * frame, 0, 64, (int)Util.Util.getDistance(Projectile.Center, endPos));
+            Rectangle rect = new Rectangle(64 * frame, 0, 64, (int)Utilities.Util.getDistance(Projectile.Center, endPos));
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, rect, Color.White, (endPos - Projectile.Center).ToRotation() - MathHelper.PiOver2, new Vector2(32, 0), 1, SpriteEffects.None);
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             return false;

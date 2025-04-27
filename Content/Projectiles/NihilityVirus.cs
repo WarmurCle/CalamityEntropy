@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<VoidVirus>(), 360);
-            Util.Util.PlaySound("nvspark", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 4, 1f);
+            Utilities.Util.PlaySound("nvspark", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 4, 1f);
         }
         List<Vector2> odp = new List<Vector2>();
         List<float> odr = new List<float>();
@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.netUpdate = true;
 
             Projectile.rotation += 0.16f * player.direction;
-            Util.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 12);
+            Utilities.Util.recordOldPosAndRots(Projectile, ref odp, ref odr, 12);
             targets.Clear();
             var activenpcs = Main.ActiveNPCs;
             for (int i = 0; i < 8; i++)
@@ -114,10 +114,10 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         if (!npc.friendly && !npc.dontTakeDamage && npc.CanBeChasedBy(Projectile))
                         {
-                            if (Util.Util.getDistance(npc.Center, Projectile.Center) < dist)
+                            if (Utilities.Util.getDistance(npc.Center, Projectile.Center) < dist)
                             {
                                 target = npc;
-                                dist = Util.Util.getDistance(npc.Center, Projectile.Center);
+                                dist = Utilities.Util.getDistance(npc.Center, Projectile.Center);
                             }
                         }
                     }
@@ -139,10 +139,10 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             if (!npc.friendly && !npc.dontTakeDamage)
                             {
-                                if (Util.Util.getDistance(npc.Center, Projectile.Center) < dist)
+                                if (Utilities.Util.getDistance(npc.Center, Projectile.Center) < dist)
                                 {
                                     target = npc;
-                                    dist = Util.Util.getDistance(npc.Center, Projectile.Center);
+                                    dist = Utilities.Util.getDistance(npc.Center, Projectile.Center);
                                 }
                             }
                         }
@@ -157,7 +157,7 @@ namespace CalamityEntropy.Content.Projectiles
         public void drawlightning(int index, float width = 1, float lightSize = 1)
         {
             var points = lightnings[index].GetPoints();
-            Texture2D lightning = Util.Util.getExtraTex("Lightning");
+            Texture2D lightning = Utilities.Util.getExtraTex("Lightning");
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied, SamplerState.LinearWrap);
             {
                 List<Vertex> ve = new List<Vertex>();
@@ -171,7 +171,7 @@ namespace CalamityEntropy.Content.Projectiles
                     ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 16 * Projectile.scale * lightSize,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Util.Util.getDistance(points[i], points[i - 1]) / lightning.Width) * 0.7f;
+                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / lightning.Width) * 0.7f;
                 }
 
                 SpriteBatch sb = Main.spriteBatch;
@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.Projectiles
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
-            Texture2D light = Util.Util.getExtraTex("lightball");
+            Texture2D light = Utilities.Util.getExtraTex("lightball");
             
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(light, points[points.Count - 1] - Main.screenPosition, null, new Color(120, 120, 200), 0, light.Size() / 2, width * 0.14f * lightSize, SpriteEffects.None, 0);
@@ -204,7 +204,7 @@ namespace CalamityEntropy.Content.Projectiles
             int lc = 0;
             foreach (NPC npc in targets)
             {
-                if (Util.Util.getDistance(lightnings[lc].Point2, npc.Center) > 24)
+                if (Utilities.Util.getDistance(lightnings[lc].Point2, npc.Center) > 24)
                 {
                     for (int i = 0; i < 48; i++)
                     {
@@ -216,7 +216,7 @@ namespace CalamityEntropy.Content.Projectiles
                 lc++;
             }
             Texture2D tex = Projectile.getTexture();
-            Rectangle frame = Util.Util.GetCutTexRect(tex, 4, Projectile.frame, false);
+            Rectangle frame = Utilities.Util.GetCutTexRect(tex, 4, Projectile.frame, false);
             Vector2 origin = new Vector2(78, 80) / 2;
             float ap = 1f / (float)odp.Count;
             for (int i = 0; i < odp.Count; i++)

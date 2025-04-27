@@ -1893,6 +1893,11 @@ Items: {
 			'''
 		Tooltip: Ignore 50% of the target's armor
 	}
+
+	SolarStorm: {
+		Tooltip: ""
+		DisplayName: Solar Storm
+	}
 }
 
 PrefixitemDesc:
@@ -2237,6 +2242,7 @@ Projectiles: {
 	BeeSpike.DisplayName: Bee Spike
 	HiveBulletProjectile.DisplayName: Hive Bullet Projectile
 	SmallBee.DisplayName: Small Bee
+	SolarStormHeld.DisplayName: Solar Storm Held
 }
 
 LegendTooltip: - Legend -

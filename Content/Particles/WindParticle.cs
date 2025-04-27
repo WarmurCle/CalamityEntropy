@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Particles
                 odp.RemoveAt(odp.Count - 1);
             }
         }
-        public float r = Util.Util.randomRot();
+        public float r = Utilities.Util.randomRot();
         public int dir = Main.rand.NextBool() ? 1 : -1;
 
         public override void draw()

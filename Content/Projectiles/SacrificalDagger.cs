@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.timeLeft = 3;
             }
             NPC n = Projectile.FindTargetWithinRange(300, false);
-            if (n != null && Util.Util.getDistance(Projectile.Center, n.Center) > Util.Util.getDistance(n.Center, player.Center + (n.Center - player.Center).SafeNormalize(Vector2.One).RotatedBy(MathHelper.PiOver4) * 64))
+            if (n != null && Utilities.Util.getDistance(Projectile.Center, n.Center) > Utilities.Util.getDistance(n.Center, player.Center + (n.Center - player.Center).SafeNormalize(Vector2.One).RotatedBy(MathHelper.PiOver4) * 64))
             {
                 n = null;
             }

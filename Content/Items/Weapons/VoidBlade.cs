@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles.VoidBlade;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables;

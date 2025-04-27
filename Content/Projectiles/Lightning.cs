@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles
                 List<NPC> close = new List<NPC>();
                 foreach (NPC n in Main.npc)
                 {
-                    if (n.active && !n.friendly && !n.dontTakeDamage && Util.Util.getDistance(n.Center, Projectile.Center) < 800)
+                    if (n.active && !n.friendly && !n.dontTakeDamage && Utilities.Util.getDistance(n.Center, Projectile.Center) < 800)
                     {
                         close.Add(n);
                     }
@@ -68,10 +68,10 @@ namespace CalamityEntropy.Content.Projectiles
                     float targetDist = 1000;
                     foreach (NPC n in close)
                     {
-                        if (Util.Util.getDistance(n.Center, vc) < targetDist && !hited.Contains(n))
+                        if (Utilities.Util.getDistance(n.Center, vc) < targetDist && !hited.Contains(n))
                         {
                             target = n;
-                            targetDist = Util.Util.getDistance(target.Center, vc);
+                            targetDist = Utilities.Util.getDistance(target.Center, vc);
                         }
                     }
                     if (target != null)
@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 1; i < points.Count; i++)
             {
-                if (Util.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 4))
+                if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 4))
                 {
                     return true;
                 }
@@ -166,7 +166,7 @@ namespace CalamityEntropy.Content.Projectiles
                 shader: GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"]), 10);
             if (drawEnd && Projectile.ai[0] < 12)
             {
-                Util.Util.drawTexture(lm, endPos, 0, Color.White * ((12 - Projectile.ai[0]) / 12), new Vector2(1f, 1f));
+                Utilities.Util.drawTexture(lm, endPos, 0, Color.White * ((12 - Projectile.ai[0]) / 12), new Vector2(1f, 1f));
             }
             return false;
         }

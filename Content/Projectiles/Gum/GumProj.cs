@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Projectiles.Gum
             ru = ru.RotatedBy(Projectile.velocity.ToRotation());
             ld = ld.RotatedBy(Projectile.velocity.ToRotation());
             rd = rd.RotatedBy(Projectile.velocity.ToRotation());
-            Util.Util.drawTextureToPoint(Main.spriteBatch, pt, cr, Projectile.Center + lu - Main.screenPosition, Projectile.Center + ru - Main.screenPosition, Projectile.Center + ld - Main.screenPosition, Projectile.Center + rd - Main.screenPosition);
+            Utilities.Util.drawTextureToPoint(Main.spriteBatch, pt, cr, Projectile.Center + lu - Main.screenPosition, Projectile.Center + ru - Main.screenPosition, Projectile.Center + ld - Main.screenPosition, Projectile.Center + rd - Main.screenPosition);
 
             return false;
         }

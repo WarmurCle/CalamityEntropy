@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -68,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity += v * 2f;
                 }
             }
-            EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+            EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
             
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 0; i < 16; i++)
             {
-                EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.6f, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.6f, 1, true, BlendState.AlphaBlend, 0);
             }
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
             if (!htd)
@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.timeLeft = 20;
                 htd = true;
             }
-            Util.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), target.Center, 10, 0.4f);
+            Utilities.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), target.Center, 10, 0.4f);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if (!htd)
                 {
-                    Texture2D light = Util.Util.getExtraTex("lightball");
+                    Texture2D light = Utilities.Util.getExtraTex("lightball");
                     Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, Color.White * 0.4f, Projectile.rotation, light.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
                 }
 

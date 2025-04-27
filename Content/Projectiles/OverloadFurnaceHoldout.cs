@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         Projectile.getOwner().velocity += Projectile.velocity.normalize() * -6f;
                         Projectile.getOwner().Calamity().GeneralScreenShakePower = 4;
-                        Util.Util.PlaySound("ofshoot", 1, Projectile.Center);
+                        Utilities.Util.PlaySound("ofshoot", 1, Projectile.Center);
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, Projectile.velocity.SafeNormalize(Vector2.Zero) * 5f, ModContent.ProjectileType<LightningBall>(), (int)(Projectile.damage * (Projectile.ai[0] >= maxTime ? 5f : 1)), Projectile.knockBack, Projectile.owner, 0, (Projectile.ai[0] >= maxTime ? 1 : 0));
                     }
                     eRotSpeed = owner.direction * -0.3f;
@@ -104,10 +104,10 @@ namespace CalamityEntropy.Content.Projectiles
                 lightColor = Color.Lerp(Color.White, Color.Red, 0.5f + (float)Math.Cos(counter * 0.16f) * 0.5f);
                 if (Main.rand.NextBool(8))
                 {
-                    EParticle.spawnNew(new EMediumSmoke(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Util.Util.randomRot());
+                    EParticle.spawnNew(new EMediumSmoke(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Utilities.Util.randomRot());
                 }
             }
-            Vector2 sPos = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale + Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(64 * Projectile.scale, 64 * Projectile.scale);
+            Vector2 sPos = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale + Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(64 * Projectile.scale, 64 * Projectile.scale);
             EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.064f), sPos, (Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale - sPos) * 0.18f, lightColor, 0.4f, 1, true, BlendState.AlphaBlend, 0);
 
             maxTime = 60;
@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.Projectiles
                         SoundStyle s = SoundID.DD2_BetsyFireballShot;
                         SoundEngine.PlaySound(s, Projectile.Center);
                         Dust.NewDust(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale * Projectile.scale, 1, 1, DustID.Smoke, a.ToRotationVector2().X * 0.4f, a.ToRotationVector2().Y * 0.4f);
-                        EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.064f), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(7, 16), Color.Lerp(Color.White, Color.Red, Main.rand.NextFloat(0, 1)), 1, 1, true, BlendState.AlphaBlend, 0);
+                        EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.064f), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(7, 16), Color.Lerp(Color.White, Color.Red, Main.rand.NextFloat(0, 1)), 1, 1, true, BlendState.AlphaBlend, 0);
                     }
                 }
             }

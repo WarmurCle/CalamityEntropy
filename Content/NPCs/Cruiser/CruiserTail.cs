@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -91,10 +91,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC follow = Main.npc[(int)NPC.ai[1]];
                 if (follow.active)
                 {
-                    Util.Util.wormFollow(NPC.whoAmI, (int)NPC.ai[1], (int)(spacing * NPC.scale), false);
+                    Utilities.Util.wormFollow(NPC.whoAmI, (int)NPC.ai[1], (int)(spacing * NPC.scale), false);
                     if (NPC.ai[0] > 120)
                     {
-                        Util.Util.wormFollow(NPC.whoAmI, (int)NPC.ai[1], (int)(spacing * NPC.scale), true, 0.12f);
+                        Utilities.Util.wormFollow(NPC.whoAmI, (int)NPC.ai[1], (int)(spacing * NPC.scale), true, 0.12f);
                     }
                 }
                 else
@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         {
                             ja = 0;
                         }
-                        ja = Util.Util.rotatedToAngle(ja, 50, 0.22f, false);
+                        ja = Util.rotatedToAngle(ja, 50, 0.22f, false);
                         ja = (100f / ((float)vel.Length() + 1f)) * 5;
                         da = da + (ja - da) * 0.1f;
                         lastPos = NPC.Center;

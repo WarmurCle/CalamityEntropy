@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            Util.Util.DrawChargeBar(scale * 1.2f, position + new Vector2(0, 18) * scale, ((float)charge / maxCharge), (charge < 1) ? Color.DarkOrange : Color.Orange);
+            Utilities.Util.DrawChargeBar(scale * 1.2f, position + new Vector2(0, 18) * scale, ((float)charge / maxCharge), (charge < 1) ? Color.DarkOrange : Color.Orange);
         }
 
         public override void AddRecipes()
@@ -188,7 +188,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 hitDirection = Math.Sign(player.velocity.X);
             }
-            Util.Util.PlaySound("ExoHit" + Main.rand.Next(1, 5), Main.rand.NextFloat(0.8f, 1.2f), target.Center);
+            Utilities.Util.PlaySound("ExoHit" + Main.rand.Next(1, 5), Main.rand.NextFloat(0.8f, 1.2f), target.Center);
             hitContext.HitDirection = hitDirection;
             hitContext.PlayerImmunityFrames = 12;
             int num = AzafureChargeShield.ShieldSlamDamage;

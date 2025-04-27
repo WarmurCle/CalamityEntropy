@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -83,12 +83,12 @@ namespace CalamityEntropy.Content.Projectiles.Pets.DoG
         public bool std = false;
         void MoveToTarget(Vector2 targetPos)
         {
-            if (Util.Util.getDistance(Projectile.Center, targetPos) > 1400)
+            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 1400)
             {
                 Projectile.Center = Main.player[Projectile.owner].Center;
             }
             Projectile.rotation = MathHelper.ToRadians((Projectile.velocity.X * 1.4f));
-            if (Util.Util.getDistance(Projectile.Center, targetPos) > 34)
+            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 34)
             {
                 Vector2 px = targetPos - Projectile.Center;
                 px.Normalize();

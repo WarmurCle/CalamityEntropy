@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 Particle p = new Particle();
                 p.alpha = 0.3f * Main.rand.NextFloat();
                 p.position = Projectile.Center;
-                p.velocity = Util.Util.randomPointInCircle(3);
+                p.velocity = Utilities.Util.randomPointInCircle(3);
                 VoidParticles.particles.Add(p);
             }
             Projectile.rotation += Projectile.velocity.Length() * 0.01f * (Projectile.velocity.X > 0 ? 1 : -1);

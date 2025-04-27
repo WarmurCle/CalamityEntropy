@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
@@ -206,10 +206,10 @@ namespace CalamityEntropy.Content.Items.Books
                         Projectile.ai[2] += 0.15f;
                     }
                     r = Projectile.velocity.ToRotation();
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1f, 0).RotatedBy(Util.Util.rotatedToAngle(r, (Projectile.getOwner().Center - Projectile.Center).ToRotation(), 0.5f * Projectile.ai[2], false));
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(r, (Projectile.getOwner().Center - Projectile.Center).ToRotation(), 1f * Projectile.ai[2], true));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1f, 0).RotatedBy(Utilities.Util.rotatedToAngle(r, (Projectile.getOwner().Center - Projectile.Center).ToRotation(), 0.5f * Projectile.ai[2], false));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(r, (Projectile.getOwner().Center - Projectile.Center).ToRotation(), 1f * Projectile.ai[2], true));
                     Projectile.velocity *= 0.97f;
-                    if (Util.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) < Projectile.velocity.Length() * 1.2f)
+                    if (Utilities.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) < Projectile.velocity.Length() * 1.2f)
                     {
                         Projectile.Kill();
                     }

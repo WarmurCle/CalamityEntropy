@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Buffs.Wyrm;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -70,12 +70,12 @@ namespace CalamityEntropy.Content.Projectiles
             player.AddBuff(ModContent.BuffType<WyrmPhantom>(), 480);
             target.AddBuff(ModContent.BuffType<WyrmWhipDebuff>(), 380);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
-            Util.Util.PlaySound("ystn_hit", Main.rand.NextFloat(0.86f, 1.2f), target.Center, 3, 0.76f);
+            Utilities.Util.PlaySound("ystn_hit", Main.rand.NextFloat(0.86f, 1.2f), target.Center, 3, 0.76f);
             for (int ii = 0; ii < 4; ii++)
             {
                 for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 6 : 1); i++)
                 {
-                    EParticle.spawnNew(new AbyssalLine() { lx = 1.2f, xadd = 1.2f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Util.Util.randomRot());
+                    EParticle.spawnNew(new AbyssalLine() { lx = 1.2f, xadd = 1.2f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
                 }
             }
 
@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 1; i < pointsCrack.Count; i++)
             {
                 Vector2 jv = Vector2.Zero;
-                Util.Util.drawLine(Main.spriteBatch, px, pointsCrack[i - 1] + Projectile.owner.ToPlayer().Center, pointsCrack[i] + jv + Projectile.owner.ToPlayer().Center, color * jd, 1f * lw * (new Vector2(-100, 0).RotatedBy(MathHelper.ToRadians(180 * ((float)i / pointsCrack.Count)))).Y, 4);
+                Utilities.Util.drawLine(Main.spriteBatch, px, pointsCrack[i - 1] + Projectile.owner.ToPlayer().Center, pointsCrack[i] + jv + Projectile.owner.ToPlayer().Center, color * jd, 1f * lw * (new Vector2(-100, 0).RotatedBy(MathHelper.ToRadians(180 * ((float)i / pointsCrack.Count)))).Y, 4);
             }
         }
         private void DrawLine(List<Vector2> list)

@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = Util.CUtil.rogueDC;
+            Projectile.DamageType = Utilities.CUtil.rogueDC;
             Projectile.width = 256;
             Projectile.height = 256;
             Projectile.hostile = false;
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 200 * scale, targetHitbox, 32);
+            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 200 * scale, targetHitbox, 32);
         }
 
         public override bool PreDraw(ref Color lightColor)

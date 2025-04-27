@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Buffs.DamageOverTime;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
                 v.Normalize();
 
                 Projectile.velocity += v * 0.09f;
-                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 3, true));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 3, true));
             }
 
 
@@ -128,7 +128,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (ve.Count >= 4)
                 {
                     Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Fire", AssetRequestMode.ImmediateLoad).Value;
-                    Main.instance.GraphicsDevice.Textures[1] = Util.Util.getExtraTex("colormap_fire");
+                    Main.instance.GraphicsDevice.Textures[1] = Utilities.Util.getExtraTex("colormap_fire");
                     shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
 
                     sb.End();
@@ -171,7 +171,7 @@ namespace CalamityEntropy.Content.Projectiles
                               b));
 
                     }
-                    tx = Util.Util.getExtraTex("StreakSolid");
+                    tx = Utilities.Util.getExtraTex("StreakSolid");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }

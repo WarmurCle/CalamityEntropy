@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 6 : 10))
             {
-                Util.Util.PlaySound("blackholeEnd", 1.25f, projectile.Center, 1, 1.2f);
+                Utilities.Util.PlaySound("blackholeEnd", 1.25f, projectile.Center, 1, 1.2f);
                 if (ModLoader.TryGetMod("CalamityOverhaul", out var co))
                 {
                     if (co.TryFind<ModProjectile>("EXNeutronExplode", out var mp))

@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnKill(timeLeft);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.spawnNew(new GlowSpark(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.spawnNew(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.spawnNew(new GlowSpark(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.spawnNew(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
         public Color color = new Color(188, 149, 255);
@@ -171,12 +171,12 @@ namespace CalamityEntropy.Content.Projectiles
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
-            Texture2D texture = Util.Util.getExtraTex("runes/rune" + runetex.ToString());
+            Texture2D texture = Utilities.Util.getExtraTex("runes/rune" + runetex.ToString());
             if (odp.Count > 1)
             {
                 Vector2 position = odp[odp.Count - 1] - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
                 Vector2 origin = texture.Size() * 0.5f;
-                Util.Util.DrawGlow(position + Main.screenPosition, Color.Lerp(Color.White, this.color * 1.1f, (float)(Math.Cos(Main.GlobalTimeWrappedHourly) * 0.5 + 0.5)), Projectile.scale * 0.6f);
+                Utilities.Util.DrawGlow(position + Main.screenPosition, Color.Lerp(Color.White, this.color * 1.1f, (float)(Math.Cos(Main.GlobalTimeWrappedHourly) * 0.5 + 0.5)), Projectile.scale * 0.6f);
 
                 Main.EntitySpriteDraw(texture, position, null, base.Projectile.GetAlpha(Color.White), 0, origin, base.Projectile.scale * 0.5f, SpriteEffects.None);
 

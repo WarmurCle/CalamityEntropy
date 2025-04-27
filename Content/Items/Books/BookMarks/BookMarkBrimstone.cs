@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 if (ownerClient && Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 2 : 3))
                 {
-                    Vector2 pos = projectile.Center - projectile.velocity.normalize() * 190 + Util.Util.randomVec(128);
+                    Vector2 pos = projectile.Center - projectile.velocity.normalize() * 190 + Utilities.Util.randomVec(128);
                     int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), pos, (Main.MouseWorld - pos).normalize() * 32, ModContent.ProjectileType<BrimstoneVortex>(), projectile.damage / 16, projectile.knockBack, projectile.owner);
                     (p.ToProj().ModProjectile as EBookBaseProjectile).homing = (projectile.ModProjectile as EBookBaseProjectile).homing;
                     (p.ToProj().ModProjectile as EBookBaseProjectile).ProjectileEffects = (projectile.ModProjectile as EBookBaseProjectile).ProjectileEffects;

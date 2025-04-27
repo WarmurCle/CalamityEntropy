@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -67,13 +67,13 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ai[0]--;
             if (Projectile.owner == Main.myPlayer)
             {
-                NPC target = Util.Util.findTarget(player, Projectile, 4600);
+                NPC target = Utilities.Util.findTarget(player, Projectile, 4600);
                 if (target != null)
                 {
                     if (Projectile.ai[0] <= -20)
                     {
                         Projectile.ai[0] = 80;
-                        Util.Util.PlaySound("soulScreem", 1, Projectile.Center, volume:0.4f);
+                        Utilities.Util.PlaySound("soulScreem", 1, Projectile.Center, volume:0.4f);
                         for (int i = 0; i < 3; i++)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -16), new Vector2(0, -12).RotateRandom(1.2f), ModContent.ProjectileType<SpiritLightSoul>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

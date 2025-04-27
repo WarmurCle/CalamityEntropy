@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles
                     al += 0.025f;
                 }
                 Projectile.velocity += (n.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 1.8f;
-                if (Util.Util.getDistance(Projectile.Center, n.Center) < Projectile.velocity.Length() * 1.2f + 40)
+                if (Utilities.Util.getDistance(Projectile.Center, n.Center) < Projectile.velocity.Length() * 1.2f + 40)
                 {
                     if (Projectile.timeLeft > 30)
                     {

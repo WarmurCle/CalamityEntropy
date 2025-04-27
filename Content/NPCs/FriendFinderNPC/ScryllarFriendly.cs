@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     {
                         for (int i = 0; i < 6; i++)
                         {
-                            EParticle.spawnNew(new Smoke() { timeleftmax = 30, timeLeft = 30 }, NPC.Center + Util.Util.randomVec(8), Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 0.6f) + new Vector2(0, -1.2f), Color.OrangeRed, 0.16f, 0.14f, true, Microsoft.Xna.Framework.Graphics.BlendState.Additive);
+                            EParticle.spawnNew(new Smoke() { timeleftmax = 30, timeLeft = 30 }, NPC.Center + Utilities.Util.randomVec(8), Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 0.6f) + new Vector2(0, -1.2f), Color.OrangeRed, 0.16f, 0.14f, true, Microsoft.Xna.Framework.Graphics.BlendState.Additive);
                         }
                     }
                     if (NPC.ai[1] < 30)
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             else
             {
                 NPC.ai[1] = 0;
-                if (Util.Util.getDistance(NPC.Center, target.Center) > 160)
+                if (Utilities.Util.getDistance(NPC.Center, target.Center) > 160)
                 {
                     NPC.velocity += (target.Center - NPC.Center).SafeNormalize(Vector2.Zero) * 0.6f;
                 }

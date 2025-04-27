@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Particles
             this.velocity *= 1 - speed * 0.08f;
             this.velocity += (homingTarget.Center - position).normalize() * speed * 1.4f;
             
-            if(Util.Util.getDistance(position, homingTarget.Center) < this.velocity.Length() * 1.2f)
+            if(Utilities.Util.getDistance(position, homingTarget.Center) < this.velocity.Length() * 1.2f)
             {
                 this.timeLeft = 0;
             }

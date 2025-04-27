@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix); ;
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, Util.Util.GetCutTexRect(tex, 6, (((100000 - Projectile.timeLeft) / 4) % 6)), lightColor, Projectile.rotation, new Vector2(50, 50), Projectile.scale * (0.4f + 0.6f * ((float)Projectile.penetrate / 5f)), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, Utilities.Util.GetCutTexRect(tex, 6, (((100000 - Projectile.timeLeft) / 4) % 6)), lightColor, Projectile.rotation, new Vector2(50, 50), Projectile.scale * (0.4f + 0.6f * ((float)Projectile.penetrate / 5f)), SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix); ;
             return false;
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Util.Util.PlaySound("firedeath hiss", 1, Projectile.Center);
+            Utilities.Util.PlaySound("firedeath hiss", 1, Projectile.Center);
         }
     }
 

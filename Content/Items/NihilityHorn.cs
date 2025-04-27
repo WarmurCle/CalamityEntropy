@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items
             Item.useAnimation = 20;
             Item.useTime = 20;
             Item.noUseGraphic = true;
-            Item.UseSound = Util.Util.GetSound("horn");
+            Item.UseSound = Utilities.Util.GetSound("horn");
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.consumable = false;
             Item.rare = ModContent.RarityType<Turquoise>();

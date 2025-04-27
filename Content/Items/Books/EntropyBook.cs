@@ -2,7 +2,7 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -168,7 +168,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public virtual void playPageSound()
         {
-            Util.Util.PlaySound("pageflip", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 4, 0.5f);
+            Utilities.Util.PlaySound("pageflip", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 4, 0.5f);
         }
         public bool active = false;
         public override void SendExtraAI(BinaryWriter writer)
@@ -621,7 +621,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
                 if (ownerClient)
                 {
-                    Util.Util.SyncProj(Projectile.whoAmI);
+                    Utilities.Util.SyncProj(Projectile.whoAmI);
                 }
             }
             if (sync)
@@ -712,7 +712,7 @@ namespace CalamityEntropy.Content.Items.Books
                 {
                     if (!hited.Contains(npc))
                     {
-                        float r = Util.Util.getDistance(nowPos, npc.Center);
+                        float r = Utilities.Util.getDistance(nowPos, npc.Center);
                         if (r < dist)
                         {
                             dist = r;
@@ -723,7 +723,7 @@ namespace CalamityEntropy.Content.Items.Books
                     {
                         continue;
                     }
-                    if (Util.Util.LineThroughRect(lastPos, nowPos, npc.getRect(), (int)width))
+                    if (Utilities.Util.LineThroughRect(lastPos, nowPos, npc.getRect(), (int)width))
                     {
                         hited.Add(npc);
                     }
@@ -756,7 +756,7 @@ namespace CalamityEntropy.Content.Items.Books
             var points = this.getSamplePoints();
             for (int i = 1; i < points.Count; i++)
             {
-                if (Util.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, (int)width))
+                if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, (int)width))
                 {
                     return true;
                 }

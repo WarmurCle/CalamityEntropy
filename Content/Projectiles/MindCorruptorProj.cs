@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.CalPlayer;
 using CalamityMod.Particles;
 using System;
@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     hookTime--;
                     HNPCPos = hookNPC.ToNPC().Center;
-                    Util.Util.PlaySound("corruptwhip_hit", 1, hookNPC.ToNPC().Center);
+                    Utilities.Util.PlaySound("corruptwhip_hit", 1, hookNPC.ToNPC().Center);
                     for (float i = 0; i <= 1; i += 0.05f)
                     {
                         GeneralParticleHandler.SpawnParticle(new CustomPulse(hookNPC.ToNPC().Center, Vector2.Zero, Color.Lerp(Color.LightBlue, Color.Purple, i) * 0.8f, "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, i * 0.14f, (int)((1.2f - i) * 20)));
@@ -157,7 +157,7 @@ namespace CalamityEntropy.Content.Projectiles
             end = c + (end - c) * (Math.Abs(Projectile.localAI[0]) * 0.18f);
             for (int i = 0; i <= segs; i++)
             {
-                points.Add(Util.Util.Bezier(new List<Vector2> { start, mid, end }, ((float)i / (float)segs)));
+                points.Add(Utilities.Util.Bezier(new List<Vector2> { start, mid, end }, ((float)i / (float)segs)));
             }
             return points;
         }
@@ -179,7 +179,7 @@ namespace CalamityEntropy.Content.Projectiles
                 hookNPC = target.whoAmI;
             }
             Projectile.netUpdate = true;
-            Util.Util.PlaySound("corruptwhip_hit2", 1, target.Center);
+            Utilities.Util.PlaySound("corruptwhip_hit2", 1, target.Center);
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -203,7 +203,7 @@ namespace CalamityEntropy.Content.Projectiles
     }
     public class CorruptStrike : ModProjectile
     {
-        public override string Texture => Util.Util.WhiteTexPath;
+        public override string Texture => Utilities.Util.WhiteTexPath;
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 32;
@@ -236,7 +236,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Util.Util.PlaySound("slice", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 8);
+            Utilities.Util.PlaySound("slice", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 8);
         }
     }
 }

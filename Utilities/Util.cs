@@ -14,10 +14,29 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Util
+namespace CalamityEntropy.Utilities
 {
     public static class Util
     {
+        public static void SetSyncValue(this Projectile proj, string name, object value)
+        {
+            proj.Entropy().DataSynchronous[name].Value = value;
+        }
+        public static void DefineSynchronousData(this Projectile proj, SyncDataType type, string name, object defaultValue)
+        {
+            proj.Entropy().DataSynchronous[name] = new SynchronousData(type, name, defaultValue);
+        }
+        public static T GetSyncValue<T>(this Projectile proj, string name)
+        {
+            return proj.Entropy().DataSynchronous[name].GetValue<T>();
+        }
+        public static void SetSizeFormTexture(this Item item, float scale = 1)
+        {
+            Texture2D tex = ModContent.Request<Texture2D>(item.ModItem.Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            int w = (int)(scale * tex.Width);
+            int h = (int)(scale * tex.Height);
+            item.width = w; item.height = h;
+        }
         public static bool IsArmorReforgeItem(this Item item, out ArmorPrefix prefix)
         {
             prefix = null;
@@ -138,6 +157,10 @@ namespace CalamityEntropy.Util
         public static Texture2D getTexture(this Projectile p)
         {
             return TextureAssets.Projectile[p.type].Value;
+        }
+        public static Texture2D getTextureGlow(this ModProjectile p)
+        {
+            return ModContent.Request<Texture2D>(p.Texture + "Glow").Value;
         }
         public static Vector2 normalize(this Vector2 v)
         {

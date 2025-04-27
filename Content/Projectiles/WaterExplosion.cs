@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = Util.CUtil.rogueDC;
+            Projectile.DamageType = Utilities.CUtil.rogueDC;
             Projectile.width = 400;
             Projectile.height = 400;
             Projectile.friendly = true;
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 0; i < 32; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 18), ModContent.ProjectileType<WaterShot>(), Projectile.damage / 10, Projectile.knockBack + 0.1f, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 18), ModContent.ProjectileType<WaterShot>(), Projectile.damage / 10, Projectile.knockBack + 0.1f, Projectile.owner);
                     }
                 }
             }

@@ -1,5 +1,5 @@
 using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using System.Collections.Generic;
 using System.Text;
 using Terraria.ID;

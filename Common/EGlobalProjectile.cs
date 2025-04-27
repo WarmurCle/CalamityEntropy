@@ -8,7 +8,7 @@ using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
@@ -17,6 +17,7 @@ using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework.Graphics;
+using MonoMod.Utils;
 using SubworldLibrary;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,64 @@ using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Common
 {
+    public enum SyncDataType
+    {
+        Int,
+        String,
+        Boolean,
+        Float,
+        Double,
+        Vector2,
+        Color,
+    }
+    public class SynchronousData
+    {
+        public SyncDataType syncDataType;
+        public object Value;
+        public string Name;
+        public SynchronousData(SyncDataType type, string name, object value)
+        {
+            syncDataType = type;
+            Name = name;
+            Value = value;
+        }
+        public void Write(BinaryWriter writer)
+        {
+            switch (syncDataType)
+            {
+                case SyncDataType.Int: writer.Write((int)Value); break;
+                case SyncDataType.String: writer.Write((string)Value); break;
+                case SyncDataType.Boolean: writer.Write((bool)Value); break;
+                case SyncDataType.Float: writer.Write((float)Value); break;
+                case SyncDataType.Double: writer.Write((double)Value); break;
+                case SyncDataType.Vector2: writer.WriteVector2((Vector2)Value); break;
+                case SyncDataType.Color: writer.WriteRGB((Color)Value); break;
+            }
+        }
+        public object Read(BinaryReader reader)
+        {
+            switch (syncDataType)
+            {
+                case SyncDataType.Int: return reader.ReadInt32();
+                case SyncDataType.String: return reader.ReadString();
+                case SyncDataType.Boolean: return reader.ReadBoolean();
+                case SyncDataType.Float: return reader.ReadSingle();
+                case SyncDataType.Double: return reader.ReadDouble();
+                case SyncDataType.Vector2: return reader.ReadVector2();
+                case SyncDataType.Color: return reader.ReadRGB();
+            }
+            return null;
+        }
+        public void ReadToValue(BinaryReader reader)
+        {
+            Value = Read(reader);
+        }
+        public T GetValue<T>()
+        {
+            return ((T)Value);
+        }
+
+    }
     public class EGlobalProjectile : GlobalProjectile
     {
         public bool Lightning = false;
@@ -61,11 +120,26 @@ namespace CalamityEntropy.Common
         public bool ProminenceArrow = false;
         public float promineceDamageAddition = 0.25f;
         public int hittingTarget = -1;
+        
+        
+        public Dictionary<string, SynchronousData> DataSynchronous = new Dictionary<string, SynchronousData>();
+        public void DefineSynchronousData(SyncDataType type, string name, object defaultValue)
+        {
+            DataSynchronous[name] = new SynchronousData(type, name, defaultValue);
+        }
+        public T GetSyncValue<T>(string name)
+        {
+            return this.DataSynchronous[name].GetValue<T>();
+        }
+        public void SetSyncValue(string name, object value)
+        {
+            this.DataSynchronous[name].Value = value;
+        }
         public override bool? Colliding(Projectile projectile, Rectangle projHitbox, Rectangle targetHitbox)
         {
             if(hittingTarget >= 0)
             {
-                if(Util.Util.getDistance(targetHitbox.Center.ToVector2(), hittingTarget.ToNPC().Hitbox.Center.ToVector2()) < 32)
+                if(Utilities.Util.getDistance(targetHitbox.Center.ToVector2(), hittingTarget.ToNPC().Hitbox.Center.ToVector2()) < 32)
                 {
                     return true;
                 }
@@ -90,6 +164,7 @@ namespace CalamityEntropy.Common
             p.withGrav = withGrav;
             p.ToFriendly = ToFriendly;
             p.ProminenceArrow = ProminenceArrow;
+            p.DataSynchronous = DataSynchronous;
             return p;
         }
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
@@ -110,6 +185,10 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(projectile.Calamity().stealthStrike);
             binaryWriter.Write(zypArrow);
             binaryWriter.Write(ProminenceArrow);
+            foreach(var key in DataSynchronous.Keys)
+            {
+                DataSynchronous[key].Write(binaryWriter);
+            }
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
@@ -125,6 +204,10 @@ namespace CalamityEntropy.Common
             projectile.Calamity().stealthStrike = binaryReader.ReadBoolean();
             zypArrow = binaryReader.ReadBoolean();
             ProminenceArrow = binaryReader.ReadBoolean();
+            foreach (var key in DataSynchronous.Keys)
+            {
+                DataSynchronous[key].ReadToValue(binaryReader);
+            }
         }
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
@@ -159,7 +242,7 @@ namespace CalamityEntropy.Common
                 }
                 if (projectile.owner.ToPlayer().Entropy().BarrenCard)
                 {
-                    if (projectile.DamageType == Util.CUtil.rogueDC)
+                    if (projectile.DamageType == Utilities.CUtil.rogueDC)
                     {
                         BarrenHoming = true;
                     }
@@ -376,10 +459,10 @@ namespace CalamityEntropy.Common
                 {
                     if (n.active && !n.friendly && !n.dontTakeDamage)
                     {
-                        if (Util.Util.getDistance(n.Center, projectile.Center) < dist)
+                        if (Util.getDistance(n.Center, projectile.Center) < dist)
                         {
                             t = n;
-                            dist = Util.Util.getDistance(n.Center, projectile.Center);
+                            dist = Util.getDistance(n.Center, projectile.Center);
                         }
                     }
                 }
@@ -439,7 +522,7 @@ namespace CalamityEntropy.Common
                 if (target != null && counter > 15)
                 {
                     gwHoming += (6 - gwHoming) * 0.0004f;
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(Util.Util.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), gwHoming * projectile.velocity.Length(), true));
+                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), gwHoming * projectile.velocity.Length(), true));
                 }
             }
             if (projectile.Entropy().daTarget)
@@ -632,7 +715,7 @@ namespace CalamityEntropy.Common
                 float maxR = MathHelper.ToRadians(60);
                 float maxDmgMul = 2;
 
-                float r = Util.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
+                float r = Utilities.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
                 if (r < MathHelper.ToRadians(16))
                 {
                     modifiers.SetCrit();
@@ -689,7 +772,7 @@ namespace CalamityEntropy.Common
                 Color cl = new Color(250, 250, 255);
                 for (int i = odp2.Count - 1; i >= 1; i--)
                 {
-                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, this.odp2[i], this.odp2[i - 1], cl * ((float)i / (float)odp2.Count), size);
+                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, this.odp2[i], this.odp2[i - 1], cl * ((float)i / (float)odp2.Count), size);
                     size -= sizej;
                 }
                 tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/LightningArrow").Value;
@@ -726,7 +809,7 @@ namespace CalamityEntropy.Common
                 float sizej = size / odp2.Count;
                 for (int i = odp2.Count - 1; i >= 1; i--)
                 {
-                    Util.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, this.odp2[i], this.odp2[i - 1], color * ((float)i / (float)odp2.Count), size);
+                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, this.odp2[i], this.odp2[i - 1], color * ((float)i / (float)odp2.Count), size);
                     size -= sizej;
                 }
 
@@ -759,7 +842,7 @@ namespace CalamityEntropy.Common
                 PrimitiveRenderer.RenderTrail(odp, new(WidthFunction_Zyp, ColorFunction_Zyp, (_) => projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
                 odp.Reverse();
                 odp.RemoveAt(odp.Count - 1);
-                Texture2D txx = Util.Util.getExtraTex("WyrmArrow");
+                Texture2D txx = Utilities.Util.getExtraTex("WyrmArrow");
 
                 Main.spriteBatch.Draw(txx, projectile.Center + new Vector2(0, 8) - Main.screenPosition + projectile.velocity.SafeNormalize(Vector2.UnitX) * 18, null, lightColor, projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(txx.Width / 2, 0), projectile.scale, (projectile.velocity.X < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);
 
@@ -844,11 +927,11 @@ namespace CalamityEntropy.Common
             }
             if (EventideShot)
             {
-                float r = Util.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
+                float r = Utilities.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
                 if (r < MathHelper.ToRadians(15))
                 {
                     target.AddBuff(ModContent.BuffType<VoidVirus>(), 320);
-                    Util.Util.PlaySound("voidseekercrit", 1, projectile.Center);
+                    Utilities.Util.PlaySound("voidseekercrit", 1, projectile.Center);
                     EGlobalNPC.AddVoidTouch(target, 160, 10, 800, 10);
                     projectile.owner.ToPlayer().Heal(16);
                     Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, projectile.owner);

@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 
         public virtual void ApplyTo(Item item)
         {
-            if (Util.Util.IsArmor(item) && canApplyTo(item) != false)
+            if (Utilities.Util.IsArmor(item) && canApplyTo(item) != false)
             {
                 item.Entropy().armorPrefixName = this.FullName;
             }
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 
         public static ArmorPrefix RollPrefixToItem(Item item)
         {
-            if (!Util.Util.IsArmor(item))
+            if (!Utilities.Util.IsArmor(item))
             {
                 return null;
             }

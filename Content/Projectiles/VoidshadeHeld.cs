@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (counter > 6 && counter < 60)
             {
-                return Util.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 130 * Projectile.scale * getScale(), targetHitbox, 36);
+                return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 130 * Projectile.scale * getScale(), targetHitbox, 36);
             }
             return false;
         }

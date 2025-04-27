@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -125,9 +125,9 @@ namespace CalamityEntropy.Content.Projectiles
             }
             foreach (Projectile p in Main.projectile)
             {
-                if (p.active && Util.Util.getDistance(p.Center, Projectile.Center) < 248 * Projectile.scale * 1.5f && (p.owner != Projectile.owner || p.owner == -1 || p.hostile))
+                if (p.active && Utilities.Util.getDistance(p.Center, Projectile.Center) < 248 * Projectile.scale * 1.5f && (p.owner != Projectile.owner || p.owner == -1 || p.hostile))
                 {
-                    p.velocity += (p.Center - Projectile.Center).SafeNormalize(new Vector2(1, 0)) * 0.1f * (Util.Util.getDistance(p.Center, Projectile.Center) / (248 * 1.5f));
+                    p.velocity += (p.Center - Projectile.Center).SafeNormalize(new Vector2(1, 0)) * 0.1f * (Utilities.Util.getDistance(p.Center, Projectile.Center) / (248 * 1.5f));
                     Dust.NewDust(p.Center, 6, 6, DustID.MagicMirror, 0, 0);
                 }
             }
@@ -143,7 +143,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.netUpdate = true;
                 /*Projectile.velocity += (Main.MouseWorld - Projectile.Center).ToRotation().ToRotationVector2() * 3;
                 Projectile.velocity *= 0.94f;
-                if (Util.Util.getDistance(Projectile.Center, player.Center) > 3000)
+                if (Util.getDistance(Projectile.Center, player.Center) > 3000)
                 {*/
                 Projectile.Center = Main.MouseWorld;
             }

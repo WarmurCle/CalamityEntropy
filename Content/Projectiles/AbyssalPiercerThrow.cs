@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Projectiles.Melee;
 using Microsoft.Xna.Framework.Graphics;
@@ -145,7 +145,7 @@ namespace CalamityEntropy.Content.Projectiles
                     p = 2f;
                 }
 
-                Util.Util.PlaySound("SarosDiskThrow1", p, Projectile.Center);
+                Utilities.Util.PlaySound("SarosDiskThrow1", p, Projectile.Center);
             }
 
             Projectile.ai[0]++;
@@ -154,10 +154,10 @@ namespace CalamityEntropy.Content.Projectiles
         public bool sp = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Util.Util.PlaySound("VividClarityBeamAppear", 1, Projectile.Center);
+            Utilities.Util.PlaySound("VividClarityBeamAppear", 1, Projectile.Center);
             for (int i = 0; i < 2; i++)
             {
-                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6f, 7f), ModContent.ProjectileType<AbyssBladeSplitProjectile>(), (int)(Projectile.damage * 0.36), Projectile.knockBack / 4, Projectile.owner);
+                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6f, 7f), ModContent.ProjectileType<AbyssBladeSplitProjectile>(), (int)(Projectile.damage * 0.36), Projectile.knockBack / 4, Projectile.owner);
                 p.ToProj().DamageType = Projectile.DamageType;
                 p.ToProj().Center += p.ToProj().velocity * 6;
             }
@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Util.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6f, 7f), ModContent.ProjectileType<AbyssBladeSplitProjectile>(), (int)(Projectile.damage * 0.36), Projectile.knockBack / 4, Projectile.owner);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6f, 7f), ModContent.ProjectileType<AbyssBladeSplitProjectile>(), (int)(Projectile.damage * 0.36), Projectile.knockBack / 4, Projectile.owner);
                     p.ToProj().DamageType = Projectile.DamageType;
                     p.ToProj().Center += p.ToProj().velocity * 6;
                 }
@@ -173,7 +173,7 @@ namespace CalamityEntropy.Content.Projectiles
                 sp = false;
                 for (int i = 0; i < 8; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Util.Util.randomRot().ToRotationVector2(), ModContent.ProjectileType<AbyssTentacle>(), (int)(Projectile.damage * 0.3), Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2(), ModContent.ProjectileType<AbyssTentacle>(), (int)(Projectile.damage * 0.3), Projectile.knockBack, Projectile.owner);
 
                 }
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AbyssalVortex>(), Projectile.damage / 6, 0, Projectile.owner);

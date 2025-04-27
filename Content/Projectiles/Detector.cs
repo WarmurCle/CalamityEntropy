@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity *= 0.86f;
                 Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * 6;
-                if (Util.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) < Projectile.velocity.Length() * 1.2f)
+                if (Utilities.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) < Projectile.velocity.Length() * 1.2f)
                 {
                     Projectile.Kill();
                 }
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Projectile.velocity *= 0.99f;
                     Projectile.velocity += (target.Center - Projectile.Center).normalize() * 0.7f;
-                    if (Util.Util.getDistance(Projectile.Center, target.Center) < 500)
+                    if (Utilities.Util.getDistance(Projectile.Center, target.Center) < 500)
                     {
                         if (Main.myPlayer == Projectile.owner)
                         {

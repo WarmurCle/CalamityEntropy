@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Books
             Texture2D tex = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Books/SoulSeekerSupreme").Value;
             foreach (Vector2 pos in getSeekerPos())
             {
-                Main.EntitySpriteDraw(tex, pos - Main.screenPosition, Util.Util.GetCutTexRect(tex, 6, ((int)Main.GameUpdateCount / 4) % 6, false), lightColor, 0, new Vector2(48, 65), Projectile.scale, (Projectile.direction > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
+                Main.EntitySpriteDraw(tex, pos - Main.screenPosition, Utilities.Util.GetCutTexRect(tex, 6, ((int)Main.GameUpdateCount / 4) % 6, false), lightColor, 0, new Vector2(48, 65), Projectile.scale, (Projectile.direction > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
             }
             return base.PreDraw(ref lightColor);
         }

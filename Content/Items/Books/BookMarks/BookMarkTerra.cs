@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Util;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = this.color;
-            Util.Util.DrawAfterimage(Projectile.getTexture(), Projectile.Entropy().odp, Projectile.Entropy().odr, Projectile.scale);
+            Utilities.Util.DrawAfterimage(Projectile.getTexture(), Projectile.Entropy().odp, Projectile.Entropy().odr, Projectile.scale);
             return base.PreDraw(ref lightColor);
         }
     }

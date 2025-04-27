@@ -2057,6 +2057,11 @@ Items: {
 			击中后生成追踪蜜蜂
 			'''
 	}
+
+	SolarStorm: {
+		// Tooltip: ""
+		// DisplayName: Solar Storm
+	}
 }
 
 PrefixitemDesc:
@@ -2402,6 +2407,7 @@ Projectiles: {
 	BeeSpike.DisplayName: 毒刺
 	HiveBulletProjectile.DisplayName: 蜂巢弹
 	// SmallBee.DisplayName: Small Bee
+	// SolarStormHeld.DisplayName: Solar Storm Held
 }
 
 LegendTooltip: - 传奇物品 -

@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
 
                 NPC target = Projectile.FindTargetWithinRange(1600, false);
-                if (target != null && Util.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
+                if (target != null && Utilities.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
                 {
                     homingTime = 0;
                     Projectile.velocity *= 0.9f;
@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tx = TextureAssets.Projectile[Projectile.type].Value;
             if (htd)
             {
-                tx = Util.Util.getExtraTex("LunarSpark");
+                tx = Utilities.Util.getExtraTex("LunarSpark");
             }
             Main.spriteBatch.End();
 

@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Util;
+using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
                 target.velocity += Projectile.velocity * (0.6f + 0.4f * target.knockBackResist);
             }
             EParticle.spawnNew(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
-            EParticle.spawnNew(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Util.Util.randomRot());
+            EParticle.spawnNew(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
         }
 
         public override void OnKill(int timeLeft)
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnKill(timeLeft);
             for (int i = 0; i < 3; i++)
             {
-                EParticle.spawnNew(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Util.Util.randomRot());
+                EParticle.spawnNew(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
             }
             EParticle.spawnNew(new UpdraftParticle(), Projectile.Center, Projectile.velocity, Color.White, Projectile.scale * 0.4f, 1, true, BlendState.Additive, Projectile.rotation);
         }
