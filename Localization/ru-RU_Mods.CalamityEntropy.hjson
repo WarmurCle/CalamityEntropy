@@ -89,7 +89,7 @@ Items: {
 
 			TheDeadCut: {
 				// DisplayName: The Dead Cut
-				// Tooltip: ""
+				// Tooltip: Restore some stealth after hitting
 			}
 		}
 	}
@@ -2249,6 +2249,7 @@ Projectiles: {
 	// SmallBee.DisplayName: Small Bee
 	// SolarStormHeld.DisplayName: Solar Storm Held
 	// SolarStormExplosionProj.DisplayName: Solar Storm Explosion Proj
+	// TheDeadCutProjectile.DisplayName: The Dead Cut Projectile
 }
 
 LegendTooltip: - Legend -
@@ -2694,6 +2695,11 @@ Configs: {
 		ItemAdditionalInfo: {
 			Label: Item Additional Info
 			Tooltip: Display additional information about certain items like armor penetration, ammo type, etc
+		}
+
+		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
+			// Label: Marivium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
+			// Tooltip: ""
 		}
 	}
 

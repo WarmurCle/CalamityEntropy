@@ -78,13 +78,17 @@ namespace CalamityEntropy.Content.Projectiles
 
                 int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center, velocity.RotatedByRandom(MathHelper.ToRadians(2)), projID, damage, kb, Main.myPlayer);
                 p.ToProj().usesLocalNPCImmunity = true;
-                p.ToProj().localNPCHitCooldown = 10;
+                p.ToProj().localNPCHitCooldown = 10; p.ToProj().minionSlots = 0;
+                p.ToProj().minion = true;
                 if (Main.rand.NextBool(3))
                 {
                     p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center, velocity.RotatedByRandom(MathHelper.ToRadians(2)), projID, damage, kb, Main.myPlayer);
                     p.ToProj().usesLocalNPCImmunity = true;
-                    p.ToProj().localNPCHitCooldown = 10;
+                    p.ToProj().localNPCHitCooldown = 10; 
+                    p.ToProj().minionSlots = 0;
+                    p.ToProj().minion = true;
                 }
+                
                 p.ToProj().DamageType = Projectile.DamageType;
             }
             if (Projectile.ai[0] % (int)(210 / (1 + Projectile.owner.ToPlayer().Entropy().WeaponBoost)) == 0)
@@ -98,6 +102,8 @@ namespace CalamityEntropy.Content.Projectiles
                 p.ToProj().tileCollide = false;
                 p.ToProj().usesLocalNPCImmunity = true;
                 p.ToProj().localNPCHitCooldown = 16;
+                p.ToProj().minionSlots = 0;
+                p.ToProj().minion = true;
             }
         }
 

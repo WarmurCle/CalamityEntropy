@@ -25,6 +25,9 @@ namespace CalamityEntropy.Common
         [DefaultValue(true)]
         public bool ChainsawShakeScreen { get; set; }
 
+        [DefaultValue(true)]
+        public bool MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons { get; set; }
+
         [Header("Other")]
 
         [DefaultValue(false)]

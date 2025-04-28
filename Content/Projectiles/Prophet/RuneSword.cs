@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             PrimitiveRenderer.RenderTrail(Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (_) => Projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
 
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
-            Texture2D t = Projectile.getTexture();
+            Texture2D t = Projectile.GetTexture();
             Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition, null, Color.White * 1, Projectile.rotation, t.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
             return false;

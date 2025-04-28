@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Projectile.getTexture();
+            Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * Projectile.Opacity, Projectile.rotation + (Projectile.velocity.X > 0 ? -1 : 1) * rp, tex.Size() * 0.5f, Projectile.Opacity, SpriteEffects.None);
             return false;
         }

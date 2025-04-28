@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -18,7 +19,8 @@ namespace CalamityEntropy.Content.Projectiles
         public Vector2 dscp = Vector2.Zero;
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 1;
+            Main.projFrames[Projectile.type] = 1; 
+            ProjectileID.Sets.MinionShot[Type] = true;
         }
         public override void SetDefaults()
         {
@@ -169,7 +171,7 @@ namespace CalamityEntropy.Content.Projectiles
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    Texture2D tx = Projectile.getTexture();
+                    Texture2D tx = Projectile.GetTexture();
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }

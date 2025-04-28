@@ -63,9 +63,9 @@ namespace CalamityEntropy.Utilities
         {
             if(repeat <= 1)
             {
-                return (float)(Math.Cos(v * MathHelper.Pi - 1)) * 0.5f + 0.5f;
+                return (float)(Math.Cos(v * MathHelper.Pi - MathHelper.Pi)) * 0.5f + 0.5f;
             }
-            return (float)(Math.Cos(GetRepeatedCosFromZeroToOne(v, repeat - 1) * MathHelper.Pi - 1)) * 0.5f + 0.5f;
+            return (float)(Math.Cos(GetRepeatedCosFromZeroToOne(v, repeat - 1) * MathHelper.Pi - MathHelper.Pi)) * 0.5f + 0.5f;
         }
         public static void Replace(this List<TooltipLine> tooltips, string targetStr, string to)
         {
@@ -154,7 +154,7 @@ namespace CalamityEntropy.Utilities
         }
         public static string WhiteTexPath = "CalamityEntropy/Assets/Extra/white";
         public static Texture2D pixelTex => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
-        public static Texture2D getTexture(this Projectile p)
+        public static Texture2D GetTexture(this Projectile p)
         {
             return TextureAssets.Projectile[p.type].Value;
         }
@@ -193,7 +193,7 @@ namespace CalamityEntropy.Utilities
 
         public static Terraria.DataStructures.DrawData getDrawData(this Projectile projectile, Color color, Texture2D texOverride = null)
         {
-            Texture2D tx = projectile.getTexture();
+            Texture2D tx = projectile.GetTexture();
             if(texOverride != null)
             {
                 tx = texOverride;

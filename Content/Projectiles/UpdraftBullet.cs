@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
 
-            Texture2D tex = Projectile.getTexture();
+            Texture2D tex = Projectile.GetTexture();
 
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(200, tex.Height / 2), Projectile.scale * 0.4f, SpriteEffects.None, 0);
 

@@ -14,6 +14,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Main.projFrames[Projectile.type] = 1;
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 6000;
+            ProjectileID.Sets.MinionShot[Type] = true;
             base.SetStaticDefaults();
         }
         public float laserScale = 1f;

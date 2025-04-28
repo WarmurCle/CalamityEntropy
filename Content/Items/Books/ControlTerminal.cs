@@ -290,7 +290,7 @@ namespace CalamityEntropy.Content.Items.Books
                 PrimitiveRenderer.RenderTrail(tpos, new PrimitiveSettings(MiniTrailWidth, MiniTrailColor, (float _) => base.Projectile.Size * 0.5f, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ExobladePierce"]), 30);
                 Main.spriteBatch.ExitShaderRegion();
             }
-            Main.EntitySpriteDraw(Projectile.getTexture(), Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, Projectile.getTexture().Size() / 2f, Projectile.scale, SpriteEffects.None); ;
+            Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, Projectile.GetTexture().Size() / 2f, Projectile.scale, SpriteEffects.None); ;
             return false;
         }
     }

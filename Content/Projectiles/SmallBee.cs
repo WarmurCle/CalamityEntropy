@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float homingSpeed = 0;
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.EntitySpriteDraw(Projectile.getTexture(), Projectile.Center - Main.screenPosition, new Rectangle(0, 14 * Projectile.frame, 14, 14), lightColor, Projectile.rotation, new Vector2(7, 6), Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, new Rectangle(0, 14 * Projectile.frame, 14, 14), lightColor, Projectile.rotation, new Vector2(7, 6), Projectile.scale, SpriteEffects.None);
             return false;
         }
     }

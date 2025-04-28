@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    gd.Textures[0] = Projectile.getTexture();
+                    gd.Textures[0] = Projectile.GetTexture();
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }

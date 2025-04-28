@@ -1,12 +1,15 @@
-sampler uImage : register(s0);
-float prog;
-float alpha = 1;
-float4 EnchantedFunction(float2 coords : TEXCOORD0) : COLOR0
+sampler uImage : register(s0); 
+float strength;
+
+float4 EnchantedFunction(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
-    if(any(tex2D(uImage, coords))){
-        return lerp(tex2D(uImage, coords), float4(1, 1, 1, 1), prog) * tex2D(uImage, coords).a * alpha;
+    float4 colory = tex2D(uImage, coords);
+
+    if (!any(colory))
+    {
+        return colory;
     }
-    return tex2D(uImage, coords);
+    return lerp(colory, float4(1, 1, 1, colory.a), strength) * baseColor;
 }
 
 technique Technique1

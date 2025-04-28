@@ -215,7 +215,7 @@ namespace CalamityEntropy.Content.Projectiles
                 drawlightning(lc, 2.6f - (targets.Count * 0.225f));
                 lc++;
             }
-            Texture2D tex = Projectile.getTexture();
+            Texture2D tex = Projectile.GetTexture();
             Rectangle frame = Utilities.Util.GetCutTexRect(tex, 4, Projectile.frame, false);
             Vector2 origin = new Vector2(78, 80) / 2;
             float ap = 1f / (float)odp.Count;

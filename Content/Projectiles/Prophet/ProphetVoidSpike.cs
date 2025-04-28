@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         }
         public void Draw()
         {
-            Main.EntitySpriteDraw(Projectile.getTexture(), Projectile.Center - Main.screenPosition, null, Color.White * Projectile.Opacity, Projectile.velocity.ToRotation(), new Vector2(0, 12), new Vector2(length / 90f, 1), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, Color.White * Projectile.Opacity, Projectile.velocity.ToRotation(), new Vector2(0, 12), new Vector2(length / 90f, 1), SpriteEffects.None, 0);
         }
 
     }

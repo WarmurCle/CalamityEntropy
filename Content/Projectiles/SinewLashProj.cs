@@ -162,7 +162,7 @@ namespace CalamityEntropy.Content.Projectiles
                     rot = (points[i + 1] - points[i]).ToRotation();
                 }
                 rot -= MathHelper.PiOver2;
-                Main.EntitySpriteDraw(Projectile.getTexture(), points[i] - Main.screenPosition, new Rectangle(0, frameY, Projectile.getTexture().Width, frameHeight), color, rot, origin, new Vector2(float.Min(drawScale / YScale, drawScale 
+                Main.EntitySpriteDraw(Projectile.GetTexture(), points[i] - Main.screenPosition, new Rectangle(0, frameY, Projectile.GetTexture().Width, frameHeight), color, rot, origin, new Vector2(float.Min(drawScale / YScale, drawScale 
                      * 1.2f), YScale), Projectile.spriteDirection > 0 ? Microsoft.Xna.Framework.Graphics.SpriteEffects.None : Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally);
             }
         }

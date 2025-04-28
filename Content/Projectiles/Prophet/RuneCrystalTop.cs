@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         {
             lightColor = Color.White;
             Texture2D t1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Prophet/RuneCrystal").Value;
-            Texture2D t2 = Projectile.getTexture();
+            Texture2D t2 = Projectile.GetTexture();
             if(Projectile.timeLeft < 30)
             {
                 lightColor *= Projectile.timeLeft / 30f;

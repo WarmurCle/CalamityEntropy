@@ -120,7 +120,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             yx += 0.036f;
             List<Vector2> points = this.getSamplePoints();
             points.Insert(0, Projectile.Center - Projectile.velocity);
-            Texture2D tex = Projectile.getTexture();
+            Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * w, 0, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             if (points.Count < 2)
             {

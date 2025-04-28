@@ -55,13 +55,13 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Texture2D outline = Projectile.getTexture(); //ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/VoidResidueOutline").Value;
+            Texture2D outline = Projectile.GetTexture(); //ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/VoidResidueOutline").Value;
             for (float i = 0; i < 360; i += 16)
             {
                 Main.spriteBatch.Draw(outline, Projectile.Center - Main.screenPosition + MathHelper.ToRadians(i).ToRotationVector2() * 2, null, Color.White * Projectile.Opacity, Projectile.rotation, outline.Size() / 2, 1, SpriteEffects.None, 0);
             }
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
-            Texture2D t = Projectile.getTexture();
+            Texture2D t = Projectile.GetTexture();
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * Projectile.Opacity, Projectile.rotation, t.Size() / 2, 1, SpriteEffects.None, 0);
 
             return false;

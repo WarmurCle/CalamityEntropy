@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -12,7 +13,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
-
+            ProjectileID.Sets.MinionShot[Type] = true;
         }
         public override void SetDefaults()
         {

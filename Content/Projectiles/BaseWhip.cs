@@ -160,19 +160,19 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 frameY = 0;
                 frameHeight = handleHeight;
-                origin = new Vector2(Projectile.getTexture().Width, handleHeight) * 0.5f;
+                origin = new Vector2(Projectile.GetTexture().Width, handleHeight) * 0.5f;
             }
             else if (segCount == segCounts - 1)
             {
-                frameY = Projectile.getTexture().Height - endHeight;
+                frameY = Projectile.GetTexture().Height - endHeight;
                 frameHeight = endHeight;
-                origin = new Vector2(Projectile.getTexture().Width, endHeight) * 0.5f;
+                origin = new Vector2(Projectile.GetTexture().Width, endHeight) * 0.5f;
             }
             else
             {
                 frameY = handleHeight + (segCount - 1) % segTypes * segHeight;
                 frameHeight = segHeight;
-                origin = new Vector2(Projectile.getTexture().Width, segHeight) * 0.5f;
+                origin = new Vector2(Projectile.GetTexture().Width, segHeight) * 0.5f;
             }
         }
         public virtual float getSegScale(int segCount, int segCounts)
@@ -211,7 +211,7 @@ namespace CalamityEntropy.Content.Projectiles
                     rot = (points[i + 1] - points[i]).ToRotation();
                 }
                 rot -= MathHelper.PiOver2;
-                Main.EntitySpriteDraw(Projectile.getTexture(), points[i] - Main.screenPosition, new Rectangle(0, frameY, Projectile.getTexture().Width, frameHeight), color, rot, origin, drawScale, Projectile.spriteDirection > 0 ? Microsoft.Xna.Framework.Graphics.SpriteEffects.None : Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally);
+                Main.EntitySpriteDraw(Projectile.GetTexture(), points[i] - Main.screenPosition, new Rectangle(0, frameY, Projectile.GetTexture().Width, frameHeight), color, rot, origin, drawScale, Projectile.spriteDirection > 0 ? Microsoft.Xna.Framework.Graphics.SpriteEffects.None : Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally);
             }
         }
         public virtual Color StringColor => Color.White;

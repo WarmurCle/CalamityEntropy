@@ -78,7 +78,7 @@ namespace CalamityEntropy.Common
         public int StareOfAbyssTime = 0;
         public int EclipsedImprintTime = 0;
         public int friendFinderOwner = 0;
-        public int TDRCounter = 4 * 60 * 60;
+        public int TDRCounter = 3 * 60 * 60;
         public List<Vector2> getAbyssalCirclePointsRelative(NPC npc, float distAdd = 0, float c = 1)
         {
             float dist = (npc.width + npc.height) / 2f + 30 - (float)Math.Cos(Main.GlobalTimeWrappedHourly) * 12 + distAdd;
@@ -614,6 +614,7 @@ namespace CalamityEntropy.Common
                 npcLoot.Add(ModContent.ItemType<BookMarkSunkenSea>(), 1, 1, 1);
             }
         }
+        public float WhiteLerp = 0;
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (npc.type != NPCID.BrainofCthulhu && (npc.type != NPCID.DukeFishron || npc.ai[0] <= 9f) && npc.active)
@@ -870,6 +871,13 @@ namespace CalamityEntropy.Common
                 {
                     hdStrength -= 0.01f;
                 }
+            }
+            if(WhiteLerp > 0)
+            {
+                WhiteLerp -= 1 / 10f;
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
+                shader.Parameters["strength"].SetValue(WhiteLerp);
+                shaders.Add(shader);
             }
             if (shaders.Count > 0)
             {

@@ -344,7 +344,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D whiteTex = Utilities.Util.getExtraTex("BatteringRamWhite");
-            Texture2D tex = Projectile.getTexture();
+            Texture2D tex = Projectile.GetTexture();
             float xs = ((float)Math.Cos(((float)Math.Cos(((float)Math.Cos(charge * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (float i = 0; i < 360; i += 60)

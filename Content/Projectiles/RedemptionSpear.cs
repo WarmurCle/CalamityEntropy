@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Projectile.getTexture();
+            Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, this.color, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
             Utilities.Util.DrawGlow(Projectile.Center, new Color(this.color.R, this.color.G * 0.82f, this.color.B * 0.1f) * 0.6f, Projectile.scale * 4);
             return false;

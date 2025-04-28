@@ -868,6 +868,7 @@ namespace CalamityEntropy.Common
         }
 
         public bool zypArrow = false;
+        
         public override void OnKill(Projectile projectile, int timeLeft)
         {
             if (projectile.friendly)
@@ -888,6 +889,8 @@ namespace CalamityEntropy.Common
                 }
             }
         }
+        
+        public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             hittingTarget = -1;
@@ -896,7 +899,7 @@ namespace CalamityEntropy.Common
                 target.AddBuff(BuffID.Daybreak, 300);
                 target.AddBuff(ModContent.BuffType<HolyFlames>(), 300);
             }
-            if (projectile.DamageType.CountsAsClass(DamageClass.Throwing) && projectile.Calamity().stealthStrike)
+            if (MariExplode && projectile.DamageType.CountsAsClass(DamageClass.Throwing) && projectile.Calamity().stealthStrike)
             {
                 if (projectile.TryGetOwner(out var owner))
                 {
@@ -904,7 +907,8 @@ namespace CalamityEntropy.Common
                     {
                         if (Main.rand.NextBool(3))
                         {
-                            Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<WaterExplosion>(), projectile.damage, projectile.knockBack, projectile.owner);
+                            MariExplode = false;
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<WaterExplosion>(), projectile.damage, projectile.knockBack, projectile.owner);
                         }
                     }
                 }

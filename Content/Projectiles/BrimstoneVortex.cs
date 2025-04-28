@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Projectile.getTexture();
+            Texture2D tex = Projectile.GetTexture();
             List<Vector2> points = getSamplePoints();
             if (points.Count > 1)
             {

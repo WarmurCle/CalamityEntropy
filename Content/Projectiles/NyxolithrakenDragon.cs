@@ -174,7 +174,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             return base.Colliding(projHitbox, targetHitbox);
         }
-        public Texture2D tex => Projectile.getTexture();
+        public Texture2D tex => Projectile.GetTexture();
         public override bool PreDraw(ref Color lightColor)
         {
             Rectangle head = new Rectangle(278, 0, 80, 80);

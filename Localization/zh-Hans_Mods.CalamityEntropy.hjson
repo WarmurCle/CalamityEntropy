@@ -124,7 +124,7 @@ Items: {
 
 			TheDeadCut: {
 				DisplayName: 虚妄切裂者
-				Tooltip: ""
+				Tooltip: 命中后恢复部分潜伏值
 			}
 		}
 	}
@@ -2414,6 +2414,7 @@ Projectiles: {
 	SmallBee.DisplayName: 蜜蜂
 	SolarStormHeld.DisplayName: 太阳风暴
 	SolarStormExplosionProj.DisplayName: 太阳风暴
+	// TheDeadCutProjectile.DisplayName: The Dead Cut Projectile
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2856,6 +2857,11 @@ Configs: {
 		ItemAdditionalInfo: {
 			Label: 物品额外信息
 			Tooltip: " 展示某些物品额外的信息，如护甲穿透、弹药类型等"
+		}
+
+		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
+			Label: 渊洋神迹套装只在手持盗贼武器时提供潜伏条
+			Tooltip: ""
 		}
 	}
 

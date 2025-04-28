@@ -5,6 +5,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Rarities;
+using System.CommandLine.Parsing;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -18,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 98;
             Item.height = 88;
-            Item.damage = 260;
+            Item.damage = 286;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 20;
@@ -29,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
             Item.rare = ModContent.RarityType<DarkBlue>();
-            Item.shoot = ModContent.ProjectileType<RevelationThrow>();
+            Item.shoot = ModContent.ProjectileType<TheDeadCutProjectile>();
             Item.shootSpeed = 16f;
             Item.DamageType = CUtil.rogueDC;
             Item.Entropy().tooltipStyle = 3;
@@ -39,21 +40,38 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;
         }
-
+        public int dir = 1;
         public override float StealthDamageMultiplier => 4f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 4f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.Calamity().StealthStrikeAvailable())
+            bool stealth = player.Calamity().StealthStrikeAvailable();
+            int p = Projectile.NewProjectile(source, position, velocity, type, (int)(damage * (stealth ? 1.6f : 1)), knockback, player.whoAmI, dir);
+            if (stealth)
             {
-                int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
-                if (p.WithinBounds(Main.maxProjectiles))
-                    Main.projectile[p].Calamity().stealthStrike = true;
-                return false;
+                p.ToProj().Calamity().stealthStrike = true;
+                float sCost = 1;
+                player.itemTimeMax *= 2;
+                player.itemAnimationMax *= 2;
+                
+                if (player.Calamity().stealthStrike85Cost)
+                {
+                    sCost = 0.85f;
+                }
+                if (player.Calamity().stealthStrike75Cost)
+                {
+                    sCost = 0.75f;
+                }
+                if (player.Calamity().stealthStrikeHalfCost)
+                {
+                    sCost = 0.5f;
+                }
+                player.Calamity().rogueStealth -= player.Calamity().rogueStealthMax * sCost;
             }
-            return true;
+            dir *= -1;
+            return false;
         }
         public override void AddRecipes()
         {

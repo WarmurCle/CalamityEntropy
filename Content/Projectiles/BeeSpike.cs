@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.EntitySpriteDraw(Projectile.getTexture(), Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, new Vector2(18, 9), Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, new Vector2(18, 9), Projectile.scale, SpriteEffects.None);
             return false;
         }
     }

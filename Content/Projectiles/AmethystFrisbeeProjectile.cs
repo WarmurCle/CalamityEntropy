@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Utilities.Util.drawLine(odp[i - 1], odp[i], Color.Purple * 0.36f, (float)i / odp.Count * 9);
             }
-            Texture2D tx = Projectile.getTexture();
+            Texture2D tx = Projectile.GetTexture();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
         }
