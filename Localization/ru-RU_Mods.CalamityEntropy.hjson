@@ -86,6 +86,11 @@ Items: {
 					'''
 				DisplayName: Пророчество Летающего Ножа
 			}
+
+			TheDeadCut: {
+				// DisplayName: The Dead Cut
+				// Tooltip: ""
+			}
 		}
 	}
 

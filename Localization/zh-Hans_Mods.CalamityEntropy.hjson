@@ -121,6 +121,11 @@ Items: {
 					'''
 				DisplayName: 预言飞刀
 			}
+
+			TheDeadCut: {
+				DisplayName: 虚妄切裂者
+				Tooltip: ""
+			}
 		}
 	}
 
@@ -2406,9 +2411,9 @@ Projectiles: {
 	HiveArrowProjectile.DisplayName: 蜂息箭
 	BeeSpike.DisplayName: 毒刺
 	HiveBulletProjectile.DisplayName: 蜂巢弹
-	// SmallBee.DisplayName: Small Bee
-	// SolarStormHeld.DisplayName: Solar Storm Held
-	// SolarStormExplosionProj.DisplayName: Solar Storm Explosion Proj
+	SmallBee.DisplayName: 蜜蜂
+	SolarStormHeld.DisplayName: 太阳风暴
+	SolarStormExplosionProj.DisplayName: 太阳风暴
 }
 
 LegendTooltip: - 传奇物品 -

@@ -86,6 +86,11 @@ Items: {
 					'''
 				DisplayName: Prophecy Flying Knife
 			}
+
+			TheDeadCut: {
+				DisplayName: The Dead Cut
+				Tooltip: ""
+			}
 		}
 	}
 

@@ -35,6 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float ShootNeededTime = 30;
         public float maxChargeTime = 250;
         public bool spawnParti = true;
+        public int steamTime = 0;
         public override void AI()
         {
             Player player = Projectile.owner.ToPlayer(); 
@@ -111,9 +112,61 @@ namespace CalamityEntropy.Content.Projectiles
                     tShooted = 0;
                     ShootNeededTime = 30;
                     spawnParti = true;
+                    steamTime = 22;
                     Util.PlaySound("ProminenceShoot", 1, Projectile.Center);
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed * 0.4f, ModContent.ProjectileType<SolarStormExplosionProj>(), damage * 16, kb * 2, player.whoAmI);
 
+                }
+                
+            }
+            if (steamTime-- > 0 && steamTime <= 10)
+             {
+                if(steamTime == 10)
+                {
+                    Util.PlaySound("steam", 1, Projectile.Center, 1, 0.8f);
+                }
+                
+                float c = steamTime / 10f;
+                Vector2 steamCenter = Projectile.Center + new Vector2(38, 24).RotatedBy(Projectile.rotation) * Projectile.scale;
+                float rot = Projectile.rotation;
+                for (int i = 0; i < 16; i++)
+                {
+                    EParticle.spawnNew(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                }
+
+                steamCenter = Projectile.Center + new Vector2(38, -24).RotatedBy(Projectile.rotation) * Projectile.scale;
+                rot = Projectile.rotation;
+                for (int i = 0; i < 16; i++)
+                {
+                    EParticle.spawnNew(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                }
+
+                steamCenter = Projectile.Center + new Vector2(32, 43).RotatedBy(Projectile.rotation) * Projectile.scale;
+                rot = Projectile.rotation + MathHelper.ToRadians(45);
+                for (int i = 0; i < 16; i++)
+                {
+                    EParticle.spawnNew(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                }
+
+                steamCenter = Projectile.Center + new Vector2(32, -43).RotatedBy(Projectile.rotation) * Projectile.scale;
+                rot = Projectile.rotation - MathHelper.ToRadians(45);
+                for (int i = 0; i < 16; i++)
+                {
+                    EParticle.spawnNew(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                }
+
+                steamCenter = Projectile.Center + new Vector2(18, 55).RotatedBy(Projectile.rotation) * Projectile.scale;
+                rot = Projectile.rotation + MathHelper.ToRadians(70);
+                for (int i = 0; i < 16; i++)
+                {
+                    EParticle.spawnNew(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                }
+
+                steamCenter = Projectile.Center + new Vector2(18, -55).RotatedBy(Projectile.rotation) * Projectile.scale;
+                rot = Projectile.rotation - MathHelper.ToRadians(70);
+                for (int i = 0; i < 16; i++)
+                {
+                    EParticle.spawnNew(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
                 }
             }
         }
@@ -152,7 +205,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tex = Util.getExtraTex("a_circle");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, Color.OrangeRed * alpha, 0, tex.Size() * 0.5f, size * 0.4f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(255, 220, 190) * alpha, 0, tex.Size() * 0.5f, size * 0.3f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(255, 220, 190) * alpha, 0, tex.Size() * 0.5f, size * 0.24f, SpriteEffects.None, 0);
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -178,6 +231,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public void Explode()
         {
+            Projectile.localNPCHitCooldown = -1;
             Projectile.Resize(700, 700);
             Projectile.timeLeft = 280;
             Projectile.velocity *= 0;
@@ -276,7 +330,7 @@ namespace CalamityEntropy.Content.Projectiles
                 GeneralParticleHandler.SpawnParticle(orb2);
 
                 Vector2 BurstFXDirection = new Vector2(0, 6 * 0.16f).RotatedBy(MathHelper.PiOver4);
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 16; i++)
                 {
                     var randomColor = Main.rand.Next(4) switch
                     {
@@ -302,7 +356,7 @@ namespace CalamityEntropy.Content.Projectiles
                     GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30 * 0.16f, 30 * 0.16f), BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.04f, 0.095f), randomColor, new Vector2(0.3f, 1.6f));
                     GeneralParticleHandler.SpawnParticle(spark2);
                 }
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 16; i++)
                 {
                     var randomColor = Main.rand.Next(4) switch
                     {
@@ -329,7 +383,7 @@ namespace CalamityEntropy.Content.Projectiles
                     GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 Vector2 BurstFXDirection2 = new Vector2(6 * 0.16f, 0).RotatedBy(MathHelper.PiOver4);
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 16; i++)
                 {
                     var randomColor = Main.rand.Next(4) switch
                     {
@@ -355,7 +409,7 @@ namespace CalamityEntropy.Content.Projectiles
                     GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.04f, 0.095f), randomColor, new Vector2(0.3f, 1.6f));
                     GeneralParticleHandler.SpawnParticle(spark2);
                 }
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 16; i++)
                 {
                     var randomColor = Main.rand.Next(4) switch
                     {
@@ -413,7 +467,6 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.timeLeft > 280)
             {
-                Projectile.localNPCHitCooldown = -1;
                 Explode();
             }
         }
