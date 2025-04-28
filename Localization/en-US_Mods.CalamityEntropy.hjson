@@ -2950,6 +2950,5 @@ AmmoLifeTime: Life Time
 AmmoShootSpeed: Shoot Speed
 AmmoPenetrate: Penetrate times
 AmmoPenetrateInfinite: Infinite
-
 PrefixDescriptionEcho: +12 Max Stealth
-PrefixDescriptionVigorous: +15% Stealth Regen 
+PrefixDescriptionVigorous: +15% Stealth Regen
