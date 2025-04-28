@@ -2881,7 +2881,16 @@ ArmorPrefixHeatDeathDescription:
 	'''
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +4% Enhanced Mana
-Prefixes.Enchanted.DisplayName: Enchanted
+
+Prefixes: {
+	Enchanted.DisplayName: Enchanted
+
+	Weapon: {
+		// Echo.DisplayName: Echo
+		// Vigorous.DisplayName: Vigorous
+	}
+}
+
 DamageClasses.NoneTypeDamageClass.DisplayName: Damage
 hkLevel: Level
 ZoneGraveyard: Zone Graveyard

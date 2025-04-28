@@ -2881,7 +2881,16 @@ ArmorPrefixHeatDeathDescription:
 	'''
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +4% Enhanced Mana
-Prefixes.Enchanted.DisplayName: Enchanted
+
+Prefixes: {
+	Enchanted.DisplayName: Enchanted
+
+	Weapon: {
+		Echo.DisplayName: Echo
+		Vigorous.DisplayName: Vigorous
+	}
+}
+
 DamageClasses.NoneTypeDamageClass.DisplayName: Damage
 hkLevel: Level
 ZoneGraveyard: Zone Graveyard
@@ -2941,3 +2950,6 @@ AmmoLifeTime: Life Time
 AmmoShootSpeed: Shoot Speed
 AmmoPenetrate: Penetrate times
 AmmoPenetrateInfinite: Infinite
+
+PrefixDescriptionEcho: +12 Max Stealth
+PrefixDescriptionVigorous: +15% Stealth Regen 

@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,21 +17,24 @@ namespace CalamityEntropy.Content.ILEditing
 {
     public static class EModILEdit
     {
-        private delegate void ExitShaderRegionDelegate(SpriteBatch spriteBatch);
+        private delegate float UpdateStealthGenDelegate(Func<CalamityPlayer, float> orig, CalamityPlayer self);
         public static void load()
         {
-            //var originalMethod = typeof(CalamityUtils)
-            //.GetMethod("ExitShaderRegion",
-            //          System.Reflection.BindingFlags.Public |
-            //          System.Reflection.BindingFlags.Static);
-            //EModHooks.Add(originalMethod, ExitShaderRegionHook);
-            //ExitShaderRegionDelegate detour = ExitShaderRegionHook;
+            var originalMethod = typeof(CalamityPlayer)
+            .GetMethod("UpdateStealthGenStats",
+                      System.Reflection.BindingFlags.NonPublic |
+                      System.Reflection.BindingFlags.Instance, 
+                      null,
+            Type.EmptyTypes ,
+            null);
 
-            //var _hook = EModHooks.Add(originalMethod, detour);
-            //CalamityEntropy.Instance.Logger.Info("CalEntropy's Hook Loaded");
+            UpdateStealthGenDelegate dlg = UpdateStealthGenHook;
+            var _hook = EModHooks.Add(originalMethod, dlg);
+            CalamityEntropy.Instance.Logger.Info("CalEntropy's Hook Loaded");
         }
-        private static void ExitShaderRegionHook(SpriteBatch spriteBatch)
+        private static float UpdateStealthGenHook(Func<CalamityPlayer, float> orig, CalamityPlayer self)
         {
+            return orig(self) * self.Player.Entropy().RogueStealthRegenMult;
         }
     }
     public static class EModHooks

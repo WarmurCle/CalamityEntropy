@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 98;
             Item.height = 88;
-            Item.damage = 286;
+            Item.damage = 360;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 20;
@@ -33,6 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<TheDeadCutProjectile>();
             Item.shootSpeed = 16f;
             Item.DamageType = CUtil.rogueDC;
+            Item.ArmorPenetration = 56;
             Item.Entropy().tooltipStyle = 3;
             Item.Entropy().NameColor = new Color(110, 0, 140);
             Item.Entropy().stroke = true;

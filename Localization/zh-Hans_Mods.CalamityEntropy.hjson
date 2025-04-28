@@ -124,7 +124,7 @@ Items: {
 
 			TheDeadCut: {
 				DisplayName: 虚妄切裂者
-				Tooltip: 命中后恢复部分潜伏值
+				Tooltip: 命中后恢复部分潜行值
 			}
 		}
 	}
@@ -387,7 +387,7 @@ Items: {
 			'''
 			+[CR]% 暴击率
 			+30% 移速
-			+[ST] 最大潜伏值
+			+[ST] 最大潜行值
 			-30% 魔力消耗
 			受到伤害降低10%
 			+[AP] 护甲穿透
@@ -400,7 +400,7 @@ Items: {
 	}
 
 	MetropolisCard: {
-		Tooltip: +10 最大潜伏值
+		Tooltip: +10 最大潜行值
 		DisplayName: 『都市』
 	}
 
@@ -2085,7 +2085,7 @@ MariviniumSet:
 	+5% 伤害减免
 	+100 护甲穿透
 	将溢出的暴击率转化为伤害加成
-	+140 潜伏值。
+	+140 潜行值。
 	站立不动回复大量生命值
 	免疫绝大多数的减益
 	使用真近战武器时增加15%伤害减免和25防御
@@ -2860,7 +2860,7 @@ Configs: {
 		}
 
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			Label: 渊洋神迹套装只在手持盗贼武器时提供潜伏条
+			Label: 渊洋神迹套装只在手持盗贼武器时提供潜行条
 			Tooltip: ""
 		}
 	}
@@ -2908,7 +2908,7 @@ helmvfs: 远程射弹伤害随时间增加
 helmvfl:
 	'''
 	+15% 移动速度
-	+135 最大潜伏值
+	+135 最大潜行值
 	潜伏攻击获得更多虚空能量
 	'''
 helmvfe:
@@ -3002,7 +3002,7 @@ ArmorPrefixSacrificalDescription:
 	-70% 防御
 	'''
 ArmorPrefixSilenceName: 寂静
-ArmorPrefixSilenceDescription: +1 最大潜伏值
+ArmorPrefixSilenceDescription: +1 最大潜行值
 ArmorPrefixMagicalName: 注魔
 ArmorPrefixMagicalDescription:
 	'''
@@ -3047,7 +3047,16 @@ ArmorPrefixHeatDeathDescription:
 	'''
 PrefixEnchanted: 注魔
 PrefixEnchantedDesc: +4% 强化魔力
-Prefixes.Enchanted.DisplayName: 注魔
+
+Prefixes: {
+	Enchanted.DisplayName: 注魔
+
+	Weapon: {
+		Echo.DisplayName: 回响
+		Vigorous.DisplayName: 活跃
+	}
+}
+
 DamageClasses.NoneTypeDamageClass.DisplayName: 伤害
 hkLevel: 当前解锁进度
 ZoneGraveyard: 当在墓地环境时
@@ -3115,3 +3124,6 @@ AmmoLifeTime: 射弹最大存在时间
 AmmoShootSpeed: 射弹速度
 AmmoPenetrate: 穿透次数
 AmmoPenetrateInfinite: 无限
+
+PrefixDescriptionEcho: +12 最大潜行值
+PrefixDescriptionVigorous: +15% 潜行值回复速度

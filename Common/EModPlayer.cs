@@ -10,6 +10,7 @@ using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Prefixes;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
@@ -296,6 +297,7 @@ namespace CalamityEntropy.Common
         public bool foreseeOrbLast = false;
         public override void ResetEffects()
         {
+            RogueStealthRegenMult = 1;
             if (Player.whoAmI == Main.myPlayer)
             {
                 if(foreseeOrbLast && foreseeOrbItem == null && Player.HasBuff<ShatteredOrb>())
@@ -1781,12 +1783,20 @@ namespace CalamityEntropy.Common
         public int MariviniumShieldCount = 0;
         public int MariviniumShieldCd = 12 * 60;
         public bool visualMagiShield = false;
-
+        public float RogueStealthRegenMult = 1;
         public override void PostUpdateEquips()
         {
             if (soulDicorder)
             {
                 Player.statDefense -= 14;
+            }
+            if(Player.HeldItem.prefix == ModContent.PrefixType<Echo>())
+            {
+                Player.Calamity().rogueStealthMax += 0.12f;
+            }
+            if (Player.HeldItem.prefix == ModContent.PrefixType<Vigorous>())
+            {
+                Player.Entropy().RogueStealthRegenMult += 0.15f;
             }
             foreach (Projectile p in Main.ActiveProjectiles)
             {
