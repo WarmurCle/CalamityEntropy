@@ -3124,5 +3124,5 @@ AmmoLifeTime: 射弹最大存在时间
 AmmoShootSpeed: 射弹速度
 AmmoPenetrate: 穿透次数
 AmmoPenetrateInfinite: 无限
-PrefixDescriptionEcho: +12 最大潜行值
-PrefixDescriptionVigorous: +15% 潜行值回复速度
+PrefixEchoDescr: +12 最大潜行值
+PrefixVigorousDescr: +15% 潜行值回复速度
