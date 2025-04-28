@@ -19,12 +19,16 @@ namespace CalamityEntropy.Content.Tiles
             Main.tileLighted[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileLavaDeath[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+            TileObjectData.newTile.Width = 2;
+            TileObjectData.newTile.Height = 4;
+            TileObjectData.newTile.Origin = new Terraria.DataStructures.Point16(1, 3);
+            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
+            TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.addTile(Type);
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             AddMapEntry(new Color(180, 40, 255), CalamityUtils.GetItemName<VoidCandle>());
             TileID.Sets.HasOutlines[Type] = false;
-            AnimationFrameHeight = 18;
         }
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
@@ -47,17 +51,6 @@ namespace CalamityEntropy.Content.Tiles
             player.cursorItemIconEnabled = true;
             player.cursorItemIconID = ModContent.ItemType<VoidCandle>();
         }
-
-        public override void AnimateTile(ref int frame, ref int frameCounter)
-        {
-            frameCounter++;
-            if (frameCounter >= 6)
-            {
-                frame = (frame + 1) % 4;
-                frameCounter = 0;
-            }
-        }
-
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             r = 0.55f;

@@ -53,7 +53,6 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.Kill();
             }
             
-            //妈的射弹射出去短时间内被摧毁会导致Player的channel断了，什么逆天bug
             if (Projectile.owner == Main.myPlayer && Main.mouseLeft && !player.mouseInterface)  
             {
                 player.channel = true;
@@ -98,9 +97,13 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     spawnParti = false;
                     Color impactColor = Color.OrangeRed;
-                    float impactParticleScale = 6f;
-                    SparkleParticle impactParticle = new SparkleParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, impactColor, Color.OrangeRed * 0.1f, impactParticleScale, 14, 0f, 3f);
+                    float impactParticleScale = 2f;
+                    SparkleParticle impactParticle = new SparkleParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, impactColor * 0.34f, Color.OrangeRed * 0.34f, impactParticleScale, 14, 0f, 3f);
                     GeneralParticleHandler.SpawnParticle(impactParticle);
+
+                    EParticle.spawnNew(new ShineParticle() { FollowOwner = player }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 160, 144), 1.2f, 1, true, BlendState.Additive, 0, 12);
+                    EParticle.spawnNew(new ShineParticle() { FollowOwner = player }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 210, 196), 0.8f, 1, true, BlendState.Additive, 0, 12);
+
                 }
                 if (shotCounter > maxChargeTime + 36)
                 {

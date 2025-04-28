@@ -1341,7 +1341,7 @@ namespace CalamityEntropy.Common
             }
             if (shop.NpcType == ModContent.NPCType<FAP>())
             {
-                shop.Add(ModContent.ItemType<VoidCandle>());
+                //shop.Add(ModContent.ItemType<VoidCandle>());
             }
         }
     }

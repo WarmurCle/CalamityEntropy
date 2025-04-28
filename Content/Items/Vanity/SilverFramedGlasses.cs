@@ -7,6 +7,10 @@ namespace CalamityEntropy.Content.Items.Vanity
 {
     public class SilverFramedGlasses : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)
