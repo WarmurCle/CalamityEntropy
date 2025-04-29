@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.ILEditing
                       null,
             Type.EmptyTypes ,
             null);
-
+            
             UpdateStealthGenDelegate dlg = UpdateStealthGenHook;
             var _hook = EModHooks.Add(originalMethod, dlg);
             CalamityEntropy.Instance.Logger.Info("CalEntropy's Hook Loaded");

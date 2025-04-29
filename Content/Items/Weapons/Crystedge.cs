@@ -15,6 +15,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override int TagDamage => 12;
         public override float TagCritChance => 0.06f;
+
         public override void SetDefaults()
         {
             Item.DefaultToWhip(ModContent.ProjectileType<CrystedgeWhipSpawner>(), 100, 3, 5, 72);
@@ -33,6 +34,10 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override string Texture => "CalamityEntropy/Assets/Extra/white";
         public int projType = ModContent.ProjectileType<CrystedgeProj>();
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.IsAWhip[Projectile.type] = true;
+        }
         public override void SetDefaults()
         {
             Projectile.friendly = true;
