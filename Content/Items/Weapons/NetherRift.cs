@@ -28,10 +28,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.UseSound = new SoundStyle("CalamityEntropy/Assets/Sounds/ballandchainhit1");
 
-            Item.damage = 1500;
+            Item.damage = 700;
             Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.knockBack = 2.5f;
-            Item.crit = 26;
             Item.channel = true;
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.value = Item.buyPrice(platinum: 6);
