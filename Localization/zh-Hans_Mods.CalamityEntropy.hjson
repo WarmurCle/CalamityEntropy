@@ -822,7 +822,6 @@ Items: {
 		DisplayName: 献祭面具
 	}
 
-
 	TargetingWand: {
 		Tooltip: ""
 		DisplayName: 奴役权杖
@@ -872,7 +871,6 @@ Items: {
 			- 死亡模式专属 -
 			'''
 	}
-
 
 	CruiserPlush: {
 		DisplayName: 巡游者玩偶
