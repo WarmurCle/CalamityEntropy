@@ -785,7 +785,6 @@ Items: {
 			'''
 	}
 
-
 	CruiserPlush: {
 		DisplayName: Cruiser Plush
 		Tooltip: ""
@@ -794,11 +793,6 @@ Items: {
 	AbyssalWraithPlush: {
 		Tooltip: ""
 		DisplayName: Плюшевый Призрак Бездны
-	}
-
-	GumgumGun: {
-		DisplayName: Gumgum Gun
-		Tooltip: ""
 	}
 
 	Voidshade: {
@@ -2059,7 +2053,6 @@ Projectiles: {
 	VoidRitualCircle.DisplayName: Void Ritual Circle
 	VPVoidLightBall.DisplayName: Void Light Ball
 	VPRot.DisplayName: Void Pope Hand
-	GumProj.DisplayName: Gum Proj
 	VoidshadeHeld.DisplayName: Voidshade
 	VoidImpact.DisplayName: Void Impact
 	BlackFire.DisplayName: Black Fire
