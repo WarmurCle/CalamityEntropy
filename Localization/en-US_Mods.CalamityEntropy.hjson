@@ -735,11 +735,6 @@ Items: {
 		DisplayName: Sacrifical Mask
 	}
 
-	SilverFramedGlasses: {
-		Tooltip: ""
-		DisplayName: Silver Framed Glasses
-	}
-
 	TargetingWand: {
 		Tooltip: "[c/ff0000:This item is now WIP]"
 		DisplayName: Targeting Wand
@@ -790,10 +785,6 @@ Items: {
 			'''
 	}
 
-	CarlosIceCream: {
-		DisplayName: Carlo's Ice Cream
-		Tooltip: Summon a Wum
-	}
 
 	CruiserPlush: {
 		DisplayName: Cruiser Plush
@@ -805,10 +796,6 @@ Items: {
 		DisplayName: Abyssal Wraith Plush
 	}
 
-	GumgumGun: {
-		DisplayName: Gumgum Gun
-		Tooltip: ""
-	}
 
 	Voidshade: {
 		Tooltip: ""
@@ -2068,8 +2055,6 @@ Projectiles: {
 	VoidRitualCircle.DisplayName: Void Ritual Circle
 	VPVoidLightBall.DisplayName: Void Light Ball
 	VPRot.DisplayName: Void Pope Hand
-	WuppoPet.DisplayName: Wuppo Pet
-	GumProj.DisplayName: Gum Proj
 	VoidshadeHeld.DisplayName: Voidshade
 	VoidImpact.DisplayName: Void Impact
 	BlackFire.DisplayName: Black Fire
@@ -2374,11 +2359,6 @@ Buffs: {
 	AquaticChan: {
 		Description: Mods.CalamityEntropy.Buffs.AquaticChan.Description
 		DisplayName: Aquatic Chan
-	}
-
-	WumBuff: {
-		DisplayName: Wum
-		Description: Wum will follow you
 	}
 
 	Deceive: {

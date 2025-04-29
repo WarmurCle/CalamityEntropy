@@ -1328,10 +1328,6 @@ namespace CalamityEntropy.Common
                 shop.Add(ModContent.ItemType<Tarnish>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
 
             }
-            if (shop.NpcType == 663)
-            {
-                shop.Add(ModContent.ItemType<CarlosIceCream>());
-            }
             if (shop.NpcType == 20)
             {
                 shop.Add(ModContent.ItemType<Confuse>());

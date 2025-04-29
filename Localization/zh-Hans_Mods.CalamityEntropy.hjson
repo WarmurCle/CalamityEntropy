@@ -822,10 +822,6 @@ Items: {
 		DisplayName: 献祭面具
 	}
 
-	SilverFramedGlasses: {
-		Tooltip: 所有者：30000 puslin
-		DisplayName: 银框眼镜
-	}
 
 	TargetingWand: {
 		Tooltip: ""
@@ -877,15 +873,6 @@ Items: {
 			'''
 	}
 
-	CarlosIceCream: {
-		DisplayName: 卡洛的冰激凌
-		Tooltip:
-			'''
-			召唤一只乌姆
-			“我还没有忘记你上一次吃冰激凌的时候，并且我很确定你也没有忘记我上次的暴走...”
-			所有者：30000 puslin
-			'''
-	}
 
 	CruiserPlush: {
 		DisplayName: 巡游者玩偶
@@ -895,11 +882,6 @@ Items: {
 	AbyssalWraithPlush: {
 		Tooltip: ""
 		DisplayName: 祟界虚灵玩偶
-	}
-
-	GumgumGun: {
-		DisplayName: 胶胶枪
-		Tooltip: 所有者：30000 Puslin
 	}
 
 	Voidshade: {
@@ -2233,8 +2215,6 @@ Projectiles: {
 	VoidRitualCircle.DisplayName: 虚空邪教徒召唤法阵
 	VPVoidLightBall.DisplayName: 虚光球
 	VPRot.DisplayName: 虚空教主
-	WuppoPet.DisplayName: 乌姆
-	GumProj.DisplayName: 胶胶弹
 	VoidshadeHeld.DisplayName: 虚影薄锋
 	VoidImpact.DisplayName: 虚影剑气
 	BlackFire.DisplayName: 暗影火焰
@@ -2539,11 +2519,6 @@ Buffs: {
 	AquaticChan: {
 		Description: 小海灾会跟着你
 		DisplayName: 海灾酱
-	}
-
-	WumBuff: {
-		DisplayName: 乌姆
-		Description: 这只传奇乌姆会跟着你
 	}
 
 	Deceive: {
