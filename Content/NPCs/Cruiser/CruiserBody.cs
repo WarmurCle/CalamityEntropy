@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
             NPC.width = 70;
             NPC.height = 70;
-            NPC.damage = 100;
+            NPC.damage = 140;
             NPC.dontCountMe = true;
             NPC.dontCountMe = true;
             NPC.lifeMax = 80000;
@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.value = 50f;
             NPC.knockBackResist = 0f;
             NPC.noTileCollide = true;
-            NPC.defense = 60;
+            NPC.defense = 80;
             NPC.boss = true;
             NPC.noGravity = true;
             NPC.Entropy().VoidTouchDR = 0.7f;
