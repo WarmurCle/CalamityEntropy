@@ -735,11 +735,6 @@ Items: {
 		DisplayName: Жертвенная маска
 	}
 
-	SilverFramedGlasses: {
-		Tooltip: ""
-		DisplayName: Очки в серебряной оправе
-	}
-
 	TargetingWand: {
 		Tooltip: "[c/ff0000:This item is now WIP]"
 		DisplayName: Targeting Wand
@@ -790,10 +785,6 @@ Items: {
 			'''
 	}
 
-	CarlosIceCream: {
-		DisplayName: Мороженое Карла
-		Tooltip: Призывает Вума
-	}
 
 	CruiserPlush: {
 		DisplayName: Cruiser Plush
@@ -2068,7 +2059,6 @@ Projectiles: {
 	VoidRitualCircle.DisplayName: Void Ritual Circle
 	VPVoidLightBall.DisplayName: Void Light Ball
 	VPRot.DisplayName: Void Pope Hand
-	WuppoPet.DisplayName: Wuppo Pet
 	GumProj.DisplayName: Gum Proj
 	VoidshadeHeld.DisplayName: Voidshade
 	VoidImpact.DisplayName: Void Impact
@@ -2374,11 +2364,6 @@ Buffs: {
 	AquaticChan: {
 		Description: Mods.CalamityEntropy.Buffs.AquaticChan.Description
 		DisplayName: Aquatic Chan
-	}
-
-	WumBuff: {
-		DisplayName: Wum
-		Description: Wum will follow you
 	}
 
 	Deceive: {
