@@ -20,8 +20,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 60;
             Item.height = 60;
-            Item.damage = 28;
-            Item.ArmorPenetration = 14;
+            Item.damage = 20;
+            Item.ArmorPenetration = 20;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 16;
             Item.useStyle = ItemUseStyleID.Shoot;
