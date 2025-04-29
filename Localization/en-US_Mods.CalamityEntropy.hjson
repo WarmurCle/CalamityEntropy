@@ -335,7 +335,7 @@ Items: {
 		Tooltip:
 			'''
 			+[CR]% Crit Chance
-			+30% Move Speed
+			+20% Move Speed
 			+[ST] Max Stealth
 			-30% Mana Cost
 			-10% Damage Taken
@@ -456,7 +456,7 @@ Items: {
 			Puts a shell around the owner when below 50% life that reduces damage taken
 			Absorbs 25% of damage done to players on your team when above 25% life
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 90 second cooldown time
+			This effect has a 120 second cooldown time
 			'''
 	}
 
@@ -663,7 +663,7 @@ Items: {
 			'''
 			+15% damage
 			+2sHP/s Life Regen
-			+4 Max Minions
+			+2 Max Minions
 			+75% Minions Knockback
 			+5% Crit Chance
 			+5% Move Speed
@@ -974,7 +974,7 @@ Items: {
 			'''
 			Charging when using weapons,
 			when it is fully charged, release the mouse button to release a black laser ring
-			deals 225 damage every 3 frames
+			deals 75 damage every 3 frames
 			"Consume thy enemy!"
 			'''
 		DisplayName: Maw Of The Void
@@ -2722,8 +2722,6 @@ Configs: {
 vfb:
 	'''
 	Armor Bonus:
-	+15% Damage
-	+10% Crit
 	+20 Armor Penetration
 	Hitting the target will increase void energy
 	Provides movement and flight speed bonuses based on the amount of void energy
@@ -2750,8 +2748,8 @@ helmvfl:
 	'''
 helmvfe:
 	'''
-	+8 Max Minions
-	+95% Summon Damage
+	+7 Max Minions
+	+80% Summon Damage
 	Summon a Void Symbiont fight for you
 	'''
 Reforge: Reforge
