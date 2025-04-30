@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 modifiers.FinalDamage *= 0.5f;
             }
         }
-        public float dr = 0.2f;
+        public float dr = 0.8f;
         public override void AI()
         {
             if(dr < 1)

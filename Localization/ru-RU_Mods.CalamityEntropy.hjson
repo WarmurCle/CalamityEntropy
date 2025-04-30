@@ -1888,6 +1888,11 @@ Items: {
 		// Tooltip: ""
 		// DisplayName: Solar Storm
 	}
+
+	CondensedBullet: {
+		// Tooltip: ""
+		// DisplayName: Condensed Bullet
+	}
 }
 
 PrefixitemDesc:
@@ -2233,6 +2238,7 @@ Projectiles: {
 	// SolarStormHeld.DisplayName: Solar Storm Held
 	// SolarStormExplosionProj.DisplayName: Solar Storm Explosion Proj
 	// TheDeadCutProjectile.DisplayName: The Dead Cut Projectile
+	// CondensedBulletProjectile.DisplayName: Condensed Bullet Projectile
 }
 
 LegendTooltip: - Legend -

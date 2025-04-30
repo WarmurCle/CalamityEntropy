@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
@@ -35,7 +34,6 @@ using CalamityMod.UI;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
-using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -239,10 +237,6 @@ namespace CalamityEntropy.Common
             }
         }
         public static int TamedDmgMul = 16;
-        public override bool CheckActive(NPC npc)
-        {
-            return !ToFriendly && !SubworldSystem.IsActive<DimDungeonSubworld>();
-        }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             binaryWriter.Write(ToFriendly);

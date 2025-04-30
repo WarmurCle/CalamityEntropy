@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
@@ -31,7 +30,6 @@ using CalamityMod.Projectiles.Rogue;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
-using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -167,13 +165,13 @@ namespace CalamityEntropy.Common
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (item.type == ItemID.RodOfHarmony)
+            /*if (item.type == ItemID.RodOfHarmony)
             {
                 if (NPC.AnyNPCs(ModContent.NPCType<AbyssalWraith>()))
                 {
                     SubworldSystem.Enter<VOIDSubworld>();
                 }
-            }
+            }*/
             if (player.channel || player.whoAmI != Main.myPlayer || item.pick > 0 || item.damage <= 0 || item.ammo != AmmoID.None || item.axe > 0 || !player.Entropy().TarnishCard)
             {
                 return null;
@@ -317,7 +315,7 @@ namespace CalamityEntropy.Common
                     {
                         tooltips.Add(new TooltipLine(Mod, "Ammo Life Time", Mod.GetLocalization("AmmoLifeTime").Value + ": " + Math.Round((CalamityEntropy.GetAProjectileInstance(item.shoot).timeLeft / (float)CalamityEntropy.GetAProjectileInstance(item.shoot).MaxUpdates) / 60f, 2).ToString() + "s"));
                         tooltips.Add(new TooltipLine(Mod, "Ammo Shoot Speed", Mod.GetLocalization("AmmoShootSpeed").Value + ": " + ((item.shootSpeed * (float)CalamityEntropy.GetAProjectileInstance(item.shoot).MaxUpdates)).ToString()));
-                        tooltips.Add(new TooltipLine(Mod, "Ammo Penetrate", Mod.GetLocalization("AmmoPenetrate").Value + ": " + ((CalamityEntropy.GetAProjectileInstance(item.shoot).penetrate) >= 0 ? (CalamityEntropy.GetAProjectileInstance(item.shoot).penetrate).ToString() : Mod.GetLocalization("AmmoPenetrateInfinite").Value)));
+                        tooltips.Add(new TooltipLine(Mod, "Ammo Penetrate", Mod.GetLocalization("AmmoPenetrate").Value + ": " + ((CalamityEntropy.GetAProjectileInstance(item.shoot).penetrate) >= 0 ? (CalamityEntropy.GetAProjectileInstance(item.shoot).penetrate - 1).ToString() : Mod.GetLocalization("AmmoPenetrateInfinite").Value)));
                     if (CalamityEntropy.GetAProjectileInstance(item.shoot).ArmorPenetration > 0)
                         {
                             tooltips.Add(new TooltipLine(Mod, "Ammo Armor Penetration", Mod.GetLocalization("ArmorPenetrationItemTooltip").Value + ": " + (CalamityEntropy.GetAProjectileInstance(item.shoot).ArmorPenetration).ToString()));

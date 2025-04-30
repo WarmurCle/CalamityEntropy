@@ -2047,6 +2047,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: 太阳风暴
 	}
+
+	CondensedBullet: {
+		Tooltip: 射出无限穿透的射线
+		DisplayName: 凝元弹
+	}
 }
 
 PrefixitemDesc:
@@ -2392,7 +2397,8 @@ Projectiles: {
 	SmallBee.DisplayName: 蜜蜂
 	SolarStormHeld.DisplayName: 太阳风暴
 	SolarStormExplosionProj.DisplayName: 太阳风暴
-	// TheDeadCutProjectile.DisplayName: The Dead Cut Projectile
+	TheDeadCutProjectile.DisplayName: 虚妄切裂者
+	CondensedBulletProjectile.DisplayName: 凝元射线
 }
 
 LegendTooltip: - 传奇物品 -

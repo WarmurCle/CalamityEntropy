@@ -1,10 +1,8 @@
-﻿using CalamityEntropy.Content.DimDungeon;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Utilities;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
-using SubworldLibrary;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.Arm;
 using Terraria;
@@ -60,10 +58,11 @@ namespace CalamityEntropy.Content.Skies
             counter++;
             Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/CrSky").Value;
             float pc = 1f;
+            /*
             if (SubworldSystem.IsActive<VOIDSubworld>())
             {
                 pc *= 0.2f;
-            }
+            }*/
             Color ocolor = new Color((int)(12 * pc), (int)(65 * pc), (int)(100 * pc));
             bool drawAWMask = false;
             int AWIndex = -1;
@@ -133,10 +132,10 @@ namespace CalamityEntropy.Content.Skies
                 ocolor = new Color((int)(12 * pc), (int)(62 * pc), (int)(96 * pc));
             }
             float c = 1f;
-            if (SubworldSystem.IsActive<VOIDSubworld>())
+            /*if (SubworldSystem.IsActive<VOIDSubworld>())
             {
                 c *= 0.2f;
-            }
+            }*/
             dp = new Vector2((Main.screenPosition.X * -0.5f * c + counter * -0.3f * c) % txd.Width, (Main.screenPosition.Y * -0.5f * c + counter * 0.1f * c) % txd.Height);
             spriteBatch.Draw(txd, dp + new Vector2(0, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(txd, dp - txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
@@ -221,11 +220,11 @@ namespace CalamityEntropy.Content.Skies
 
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null);
 
-            if (SubworldSystem.IsActive<VOIDSubworld>())
+            /*if (SubworldSystem.IsActive<VOIDSubworld>())
             {
                 Utilities.Util.DrawGlow(Main.screenPosition, Color.White * 0.4f, 40);
                 opacity = 1;
-            }
+            }*/
 
         }
         public class LightningParticle
