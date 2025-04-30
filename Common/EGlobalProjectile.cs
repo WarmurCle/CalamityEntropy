@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -18,7 +17,6 @@ using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.Utils;
-using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -279,10 +277,6 @@ namespace CalamityEntropy.Common
             }
             if (projectile.friendly)
             {
-                if (projectile.ModProjectile is CrystylCrusherRay && SubworldSystem.IsActive<DimDungeonSubworld>())
-                {
-                    projectile.Kill();
-                }
                 if (projectile.friendly && projectile.owner >= 0)
                 {
                     if (projectile.owner.ToPlayer().Entropy().VFHelmRanged)
