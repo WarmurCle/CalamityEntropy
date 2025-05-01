@@ -819,11 +819,6 @@ Items: {
 		DisplayName: 献祭面具
 	}
 
-	SilverFramedGlasses: {
-		Tooltip: 所有者：30000 puslin
-		DisplayName: 银框眼镜
-	}
-
 	TargetingWand: {
 		Tooltip: ""
 		DisplayName: 奴役权杖
@@ -874,16 +869,6 @@ Items: {
 			'''
 	}
 
-	CarlosIceCream: {
-		DisplayName: 卡洛的冰激凌
-		Tooltip:
-			'''
-			召唤一只乌姆
-			“我还没有忘记你上一次吃冰激凌的时候，并且我很确定你也没有忘记我上次的暴走...”
-			所有者：30000 puslin
-			'''
-	}
-
 	CruiserPlush: {
 		DisplayName: 巡游者玩偶
 		Tooltip: ""
@@ -892,11 +877,6 @@ Items: {
 	AbyssalWraithPlush: {
 		Tooltip: ""
 		DisplayName: 祟界虚灵玩偶
-	}
-
-	GumgumGun: {
-		DisplayName: 胶胶枪
-		Tooltip: 所有者：30000 Puslin
 	}
 
 	Voidshade: {
@@ -2064,6 +2044,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: 太阳风暴
 	}
+
+	CondensedBullet: {
+		Tooltip: 射出无限穿透的射线
+		DisplayName: 凝元弹
+	}
 }
 
 PrefixitemDesc:
@@ -2230,8 +2215,6 @@ Projectiles: {
 	VoidRitualCircle.DisplayName: 虚空邪教徒召唤法阵
 	VPVoidLightBall.DisplayName: 虚光球
 	VPRot.DisplayName: 虚空教主
-	WuppoPet.DisplayName: 乌姆
-	GumProj.DisplayName: 胶胶弹
 	VoidshadeHeld.DisplayName: 虚影薄锋
 	VoidImpact.DisplayName: 虚影剑气
 	BlackFire.DisplayName: 暗影火焰
@@ -2411,7 +2394,8 @@ Projectiles: {
 	SmallBee.DisplayName: 蜜蜂
 	SolarStormHeld.DisplayName: 太阳风暴
 	SolarStormExplosionProj.DisplayName: 太阳风暴
-	// TheDeadCutProjectile.DisplayName: The Dead Cut Projectile
+	TheDeadCutProjectile.DisplayName: 虚妄切裂者
+	CondensedBulletProjectile.DisplayName: 凝元射线
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2536,11 +2520,6 @@ Buffs: {
 	AquaticChan: {
 		Description: 小海灾会跟着你
 		DisplayName: 海灾酱
-	}
-
-	WumBuff: {
-		DisplayName: 乌姆
-		Description: 这只传奇乌姆会跟着你
 	}
 
 	Deceive: {
@@ -3119,5 +3098,5 @@ AmmoLifeTime: 射弹最大存在时间
 AmmoShootSpeed: 射弹速度
 AmmoPenetrate: 穿透次数
 AmmoPenetrateInfinite: 无限
-PrefixDescriptionEcho: +12 最大潜行值
-PrefixDescriptionVigorous: +15% 潜行值回复速度
+PrefixEchoDescr: +12 最大潜行值
+PrefixVigorousDescr: +15% 潜行值回复速度

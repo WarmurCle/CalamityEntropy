@@ -735,11 +735,6 @@ Items: {
 		DisplayName: Sacrifical Mask
 	}
 
-	SilverFramedGlasses: {
-		Tooltip: ""
-		DisplayName: Silver Framed Glasses
-	}
-
 	TargetingWand: {
 		Tooltip: "[c/ff0000:This item is now WIP]"
 		DisplayName: Targeting Wand
@@ -790,11 +785,6 @@ Items: {
 			'''
 	}
 
-	CarlosIceCream: {
-		DisplayName: Carlo's Ice Cream
-		Tooltip: Summon a Wum
-	}
-
 	CruiserPlush: {
 		DisplayName: Cruiser Plush
 		Tooltip: ""
@@ -803,11 +793,6 @@ Items: {
 	AbyssalWraithPlush: {
 		Tooltip: ""
 		DisplayName: Abyssal Wraith Plush
-	}
-
-	GumgumGun: {
-		DisplayName: Gumgum Gun
-		Tooltip: ""
 	}
 
 	Voidshade: {
@@ -1903,6 +1888,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: Solar Storm
 	}
+
+	CondensedBullet: {
+		Tooltip: ""
+		DisplayName: Condensed Bullet
+	}
 }
 
 PrefixitemDesc:
@@ -2068,8 +2058,6 @@ Projectiles: {
 	VoidRitualCircle.DisplayName: Void Ritual Circle
 	VPVoidLightBall.DisplayName: Void Light Ball
 	VPRot.DisplayName: Void Pope Hand
-	WuppoPet.DisplayName: Wuppo Pet
-	GumProj.DisplayName: Gum Proj
 	VoidshadeHeld.DisplayName: Voidshade
 	VoidImpact.DisplayName: Void Impact
 	BlackFire.DisplayName: Black Fire
@@ -2250,6 +2238,7 @@ Projectiles: {
 	SolarStormHeld.DisplayName: Solar Storm Held
 	SolarStormExplosionProj.DisplayName: Solar Storm Explosion Proj
 	TheDeadCutProjectile.DisplayName: The Dead Cut Projectile
+	CondensedBulletProjectile.DisplayName: Condensed Bullet Projectile
 }
 
 LegendTooltip: - Legend -
@@ -2374,11 +2363,6 @@ Buffs: {
 	AquaticChan: {
 		Description: Mods.CalamityEntropy.Buffs.AquaticChan.Description
 		DisplayName: Aquatic Chan
-	}
-
-	WumBuff: {
-		DisplayName: Wum
-		Description: Wum will follow you
 	}
 
 	Deceive: {
@@ -2948,5 +2932,5 @@ AmmoLifeTime: Life Time
 AmmoShootSpeed: Shoot Speed
 AmmoPenetrate: Penetrate times
 AmmoPenetrateInfinite: Infinite
-PrefixDescriptionEcho: +12 Max Stealth
-PrefixDescriptionVigorous: +15% Stealth Regen
+PrefixEchoDescr: +12 Max Stealth
+PrefixVigorousDescr: +15% Stealth Regen

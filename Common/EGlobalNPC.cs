@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
@@ -35,7 +34,6 @@ using CalamityMod.UI;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
-using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -239,10 +237,6 @@ namespace CalamityEntropy.Common
             }
         }
         public static int TamedDmgMul = 16;
-        public override bool CheckActive(NPC npc)
-        {
-            return !ToFriendly && !SubworldSystem.IsActive<DimDungeonSubworld>();
-        }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             binaryWriter.Write(ToFriendly);
@@ -874,7 +868,7 @@ namespace CalamityEntropy.Common
             }
             if(WhiteLerp > 0)
             {
-                WhiteLerp -= 1 / 10f;
+                WhiteLerp -= 1 / 5f;
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
                 shader.Parameters["strength"].SetValue(WhiteLerp);
                 shaders.Add(shader);
@@ -911,13 +905,6 @@ namespace CalamityEntropy.Common
                     {
                         Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<AbyssalPiercer>()));
                     }
-                }
-            }
-            if (npc.type == -3 || npc.type == NPCID.BlueSlime || npc.type == -8 || npc.type == -7 || npc.type == -9 || npc.type == -6 || npc.type == NPCID.IceSlime || npc.type == -10)
-            {
-                if (Main.rand.NextBool(420))
-                {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CarlosIceCream>()));
                 }
             }
             if (!npc.friendly && npc.lifeMax > 20)
@@ -1334,10 +1321,6 @@ namespace CalamityEntropy.Common
                 shop.Add(ModContent.ItemType<Sacrifice>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
                 shop.Add(ModContent.ItemType<Tarnish>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
 
-            }
-            if (shop.NpcType == 663)
-            {
-                shop.Add(ModContent.ItemType<CarlosIceCream>());
             }
             if (shop.NpcType == 20)
             {

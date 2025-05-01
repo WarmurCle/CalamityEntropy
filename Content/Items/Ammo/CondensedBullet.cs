@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ID;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Ammo
 {
-    public class HiveBullet : ModItem
+    public class CondensedBullet : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Ammo
 
         public override void SetDefaults()
         {
-            Item.damage = 8;
+            Item.damage = 28;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 8;
             Item.height = 8;
@@ -25,15 +26,15 @@ namespace CalamityEntropy.Content.Items.Ammo
             Item.consumable = true; Item.knockBack = 1f;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
-            Item.shoot = ModContent.ProjectileType<HiveBulletProjectile>();
-            Item.shootSpeed = 4.5f;
+            Item.shoot = ModContent.ProjectileType<CondensedBulletProjectile>();
+            Item.shootSpeed = 1f;
             Item.ammo = AmmoID.Bullet;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe(50)
-                .AddIngredient(ItemID.BeeWax)
+                .AddIngredient<PurifiedGel>()
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }

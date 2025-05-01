@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
-using CalamityEntropy.Content.DimDungeon;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
@@ -24,7 +23,6 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -703,10 +701,10 @@ namespace CalamityEntropy.Common
                 Player.statDefense *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
                 Player.moveSpeed *= (MaliciousCode.CALAMITY__OVERHAUL ? 0.85f : 0.88f);
             }
-            if (SubworldSystem.IsActive<VOIDSubworld>())
+            /*if (SubworldSystem.IsActive<VOIDSubworld>())
             {
                 Player.gravity = 0;
-            }
+            }*/
             foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.ModProjectile is JewelSapphire)
