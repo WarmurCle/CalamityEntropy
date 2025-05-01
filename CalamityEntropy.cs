@@ -126,7 +126,7 @@ namespace CalamityEntropy
         public static SoundEffect ofCharge = null;
         public override void Load()
         {
-            BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
+            //BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
             Instance = this;
             pInstance = new Dictionary<int, Projectile>();
             DateTime today = DateTime.Now;
@@ -234,7 +234,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
-            BookMarkLoader.CustomBMEffectsByName = null;
+            //BookMarkLoader.CustomBMEffectsByName = null;
             screen = null;
             screen2 = null;
             screen3 = null;
