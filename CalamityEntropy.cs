@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
@@ -125,6 +126,7 @@ namespace CalamityEntropy
         public static SoundEffect ofCharge = null;
         public override void Load()
         {
+            BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
             Instance = this;
             pInstance = new Dictionary<int, Projectile>();
             DateTime today = DateTime.Now;
@@ -232,6 +234,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            BookMarkLoader.CustomBMEffectsByName = null;
             screen = null;
             screen2 = null;
             screen3 = null;
@@ -784,6 +787,11 @@ namespace CalamityEntropy
             {
                 if (args[0] is string str)
                 {
+                    if (str.Equals("IsBookMark"))
+                    {
+                        Item item = (Item)args[1];
+                        return item.ModItem is BookMark;
+                    }
                     if (str.Equals("SetBarColor"))
                     {
                         int type = (int)args[1];

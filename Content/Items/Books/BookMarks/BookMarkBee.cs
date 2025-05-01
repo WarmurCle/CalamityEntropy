@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
     public class BeeBMEffect : EBookProjectileEffect
     {
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             for (int i = 0; i < 1; i++)
             {

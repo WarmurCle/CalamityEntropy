@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.OnProjectileSpawn(projectile, ownerClient);
             projectile.tileCollide = false;
         }
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 120, 2, 600, 14);
         }

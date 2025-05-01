@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             (projectile.ModProjectile as EBookBaseProjectile).color = Color.Crimson;
         }
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 3 : 5))
             {

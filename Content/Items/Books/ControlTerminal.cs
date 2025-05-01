@@ -123,7 +123,7 @@ namespace CalamityEntropy.Content.Items.Books
                 e.gravity = 0;
             }
         }
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<MiracleBlight>(), 60, false);
         }

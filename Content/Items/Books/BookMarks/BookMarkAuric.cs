@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
     public class BookMarkAuricBMEffect : EBookProjectileEffect
     {
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             if (projectile.hasEffect<APlusBMEffect>() ? true : Main.rand.NextBool(2))
             {

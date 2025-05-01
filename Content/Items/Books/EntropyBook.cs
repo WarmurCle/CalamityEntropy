@@ -11,6 +11,7 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static CalamityEntropy.Common.BookMarkLoader;
 
 namespace CalamityEntropy.Content.Items.Books
 {
@@ -573,6 +574,7 @@ namespace CalamityEntropy.Content.Items.Books
             foreach (var effect in ProjectileEffects)
             {
                 writer.Write(effect.RegisterName());
+                writer.Write(effect.BMOtherMod_Name);
             }
         }
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -588,7 +590,13 @@ namespace CalamityEntropy.Content.Items.Books
             this.ProjectileEffects.Clear();
             for (int i = 0; i < reader.ReadInt32(); i++)
             {
-                this.ProjectileEffects.Add(EBookProjectileEffect.findByName(reader.ReadString()));
+                var bef = EBookProjectileEffect.findByName(reader.ReadString());
+                string omN = reader.ReadString();
+                if (omN != string.Empty)
+                {
+                    bef = new BookmarkEffect_OtherMod() { BMOtherMod_Name = omN };
+                }
+                this.ProjectileEffects.Add(bef);
             }
             sync = true;
         }
@@ -647,14 +655,14 @@ namespace CalamityEntropy.Content.Items.Books
             hitCount++;
             foreach (var effect in this.ProjectileEffects)
             {
-                effect.onHitNPC(Projectile, target, damageDone);
+                effect.OnHitNPC(Projectile, target, damageDone);
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             foreach (var effect in this.ProjectileEffects)
             {
-                effect.modifyHitNPC(Projectile, target, ref modifiers);
+                effect.ModifyHitNPC(Projectile, target, ref modifiers);
             }
             if (lifeSteal > 0)
             {
@@ -796,6 +804,7 @@ namespace CalamityEntropy.Content.Items.Books
     public abstract class EBookProjectileEffect : ModType
     {
         public static List<EBookProjectileEffect> instances;
+        public string BMOtherMod_Name = string.Empty;
         protected sealed override void Register()
         {
             if (instances == null)
@@ -845,12 +854,12 @@ namespace CalamityEntropy.Content.Items.Books
 
         }
 
-        public virtual void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public virtual void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
 
         }
 
-        public virtual void modifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+        public virtual void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
 
         }

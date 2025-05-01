@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             (projectile.ModProjectile as EBookBaseProjectile).color = Color.MediumPurple;
         }
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 80, 1.5f, 800, 18);
             if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 4 : 5))

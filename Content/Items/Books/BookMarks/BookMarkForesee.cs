@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
     public class ForeseeBMEffect : EBookProjectileEffect
     {
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 4 : 6))
             {

@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
     public class AbyssBMEffect : EBookProjectileEffect
     {
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 2 : 4))
             {
