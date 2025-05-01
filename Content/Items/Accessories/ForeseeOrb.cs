@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().foreseeOrbItem = Item;
             if (!player.HasBuff<ShatteredOrb>())
             {
-                player.GetDamage(DamageClass.Generic) += 0.2f;
+                player.GetDamage(DamageClass.Generic) += 0.15f;
             }
             if (player.whoAmI == Main.myPlayer)
             {

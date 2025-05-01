@@ -130,8 +130,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.width = 56;
             NPC.height = 56;
             NPC.damage = 84;
-            NPC.defense = 0;
-            NPC.Calamity().DR = 0.14f;
+            NPC.defense = 10;
+            NPC.Calamity().DR = 0.12f;
             NPC.lifeMax = 54000;
             if (CalamityWorld.death)
             {
@@ -157,6 +157,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             }
         }
 
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
+        {
+            if(AIStyle == 8)
+            {
+                modifiers.FinalDamage *= 0.5f;
+            }
+        }
         public float dr = 0.26f;
         public override void AI()
         {
@@ -167,9 +174,9 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.Calamity().CurrentlyIncreasingDefenseOrDR = AIStyle == 8;
             if(AIStyle == 8)
             {
-                NPC.Calamity().DR = 0.65f;
+                NPC.Calamity().DR = 0.50f;
             }
-            else { NPC.Calamity().DR = 0.16f; }
+            else { NPC.Calamity().DR = 0.12f; }
             NPC.Calamity().DR += dr;
             if(spawnAnm > 0)
             {

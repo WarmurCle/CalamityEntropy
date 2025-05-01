@@ -29,7 +29,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.damage = 700;
             Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.knockBack = 2.5f;
-            Item.crit = 26;
             Item.channel = true;
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.value = Item.buyPrice(platinum: 6);

@@ -17,12 +17,12 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class RuneWing : ModItem
     {
-        public static float HorSpeed = 8.5f;
-        public static float AccMul = 2.8f;
-        public static int wTime = 180;
-        public static int MAXDASHTIME = 36;//最大冲刺时间（帧）
+        public static float HorSpeed = 7f;
+        public static float AccMul = 1.2f;
+        public static int wTime = 160;
+        public static int MAXDASHTIME = 30;//最大冲刺时间（帧）
         public static int DashVelo = 56; //冲刺速度（像素）
-        public static int MaxCooldownTick = 26 * 60; //最大冲刺时间时的冷却（帧）
+        public static int MaxCooldownTick = 30 * 60; //最大冲刺时间时的冷却（帧）
         public override void SetStaticDefaults()
         {
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(wTime, HorSpeed, AccMul, false, 20, 2.8f);
