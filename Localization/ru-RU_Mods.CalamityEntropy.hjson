@@ -88,8 +88,8 @@ Items: {
 			}
 
 			TheDeadCut: {
-				// DisplayName: Мёртвый разрез
-				// Tooltip: Восстановите скрытность после удара
+				// DisplayName: The Dead Cut
+				// Tooltip: Restore some stealth after hitting
 			}
 		}
 	}
@@ -1871,22 +1871,22 @@ Items: {
 	}
 
 	HiveArrow: {
-		// Tooltip: Разбрасывает жала после попадания в цель
-		// DisplayName: Стрела улья
+		// Tooltip: Scattering stinger after hitting the target
+		// DisplayName: Hive Arrow
 	}
 
 	HiveBullet: {
 		/* DisplayName:
 			'''
-			Пуля улья
-			Призывает самонаводящихся пчёл после удара
+			Hive Bullet
+			Summon tracking bees after hitting
 			''' */
-		// Tooltip: Игнорируйте 50% брони цели
+		// Tooltip: Ignore 50% of the target's armor
 	}
 
 	SolarStorm: {
 		// Tooltip: ""
-		// DisplayName: Солнечная буря
+		// DisplayName: Solar Storm
 	}
 
 	CondensedBullet: {
