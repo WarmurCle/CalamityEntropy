@@ -2239,6 +2239,7 @@ Projectiles: {
 	SolarStormExplosionProj.DisplayName: Solar Storm Explosion Proj
 	TheDeadCutProjectile.DisplayName: The Dead Cut Projectile
 	CondensedBulletProjectile.DisplayName: Condensed Bullet Projectile
+	ProphetRuneAlt.DisplayName: Prophet Rune Alt
 }
 
 LegendTooltip: - Legend -

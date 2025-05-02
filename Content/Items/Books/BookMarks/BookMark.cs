@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
                 tooltipLine.OverrideColor = tooltipColor;
             }
-            tooltips.Add(new TooltipLine(Mod, "BookMarkTooltip", Mod.GetLocalization("TooltipBookMark").Value) { OverrideColor = Color.Yellow });
+            tooltips.Add(new TooltipLine(CalamityEntropy.Instance, "BookMarkTooltip", CalamityEntropy.Instance.GetLocalization("TooltipBookMark").Value) { OverrideColor = Color.Yellow });
         }
     }
 }

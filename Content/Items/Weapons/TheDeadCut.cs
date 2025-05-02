@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Revelation>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<Revelation>());
             recipe.AddIngredient<TwistingNether>(5);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();

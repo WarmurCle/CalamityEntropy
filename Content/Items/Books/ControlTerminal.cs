@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Books.BookMarks;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Utilities;
 using CalamityMod;
@@ -82,13 +83,13 @@ namespace CalamityEntropy.Content.Items.Books
             int _shotCooldown = bookItem.useTime;
 
             EBookStatModifer m = getBaseModifer();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Projectile.getOwner().GetMyMaxActiveBookMarks(bookItem); i++)
             {
-                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                if (BookMarkLoader.IsABookMark(it))
                 {
-                    var e = bm.getEffect();
-                    bm.ModifyStat(m);
-                    bm.modifyShootCooldown(ref _shotCooldown);
+                    BookMarkLoader.ModifyStat(it, m);
+                    BookMarkLoader.modifyShootCooldown(it, ref _shotCooldown);
                 }
             }
             return (int)(0.6f * (float)_shotCooldown / m.attackSpeed);
@@ -100,9 +101,9 @@ namespace CalamityEntropy.Content.Items.Books
             for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
             {
                 var bm = Projectile.owner.ToPlayer().Entropy().EBookStackItems[i];
-                if (bm.ModItem is BookMark bmmi)
+                if (BookMarkLoader.IsABookMark(bm))
                 {
-                    int pn = bmmi.modifyProjectile(type);
+                    int pn = BookMarkLoader.ModifyProjectile(bm, type);
                     if (pn >= 0)
                     {
                         type = pn;
@@ -123,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Books
                 e.gravity = 0;
             }
         }
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<MiracleBlight>(), 60, false);
         }

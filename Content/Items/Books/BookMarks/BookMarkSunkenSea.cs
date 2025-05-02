@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
     public class SunkenSeaBMEffect : EBookProjectileEffect
     {
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             Vector2 shotDir = Utilities.Util.randomRot().ToRotationVector2();
             Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center + shotDir * 32, shotDir * 6, ModContent.ProjectileType<AquashardSplit>(), damageDone / 6, projectile.knockBack / 3, projectile.owner).ToProj().DamageType = projectile.DamageType;

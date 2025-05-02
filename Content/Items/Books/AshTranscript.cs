@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Books
 
     public class HolyFireDebuffEffect : EBookProjectileEffect
     {
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<HolyFlames>(), 600);
         }

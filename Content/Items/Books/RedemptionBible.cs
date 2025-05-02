@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Books.BookMarks;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Utilities;
@@ -51,10 +52,11 @@ namespace CalamityEntropy.Content.Items.Books
             EBookStatModifer m = getBaseModifer();
             for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
             {
-                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                if (BookMarkLoader.IsABookMark(it))
                 {
-                    var e = bm.getEffect();
-                    bm.ModifyStat(m);
+                    var e = BookMarkLoader.GetEffect(it);
+                    BookMarkLoader.ModifyStat(it, m);
                 }
             }
             return ((float)_shotCooldown / m.attackSpeed) * 0.36f;
@@ -64,10 +66,11 @@ namespace CalamityEntropy.Content.Items.Books
             EBookStatModifer m = getBaseModifer();
             for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
             {
-                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                if (BookMarkLoader.IsABookMark(it))
                 {
-                    var e = bm.getEffect();
-                    bm.ModifyStat(m);
+                    var e = BookMarkLoader.GetEffect(it);
+                    BookMarkLoader.ModifyStat(it, m);
                 }
             }
             return m.Size;

@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             int projtype = ModContent.ProjectileType<DecayPactMaelstrom>();
             book.ShootSingleProjectile(projtype, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.05f, 1);
         }
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<VulnerabilityHex>(), 460);
         }

@@ -321,7 +321,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIStyle == lastAI)
                     {
-                        AIStyle = Main.rand.Next(0, 11);
+                        AIStyle = Main.rand.Next(0, Main.expertMode ? 12 : 11);
                     }
                 }
                 if(AIStyle == 0)
@@ -367,6 +367,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 if (AIStyle == 10)
                 {
                     AIChangeDelay = 320;
+                }
+                if (AIStyle == 11)
+                {
+                    AIChangeDelay = 242;
                 }
                 NPC.netUpdate = true;
             }
@@ -770,6 +774,38 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     }
                     NPC.velocity = (target.Center - NPC.Center) * 0.008f;
                     NPC.rotation = NPC.velocity.ToRotation();
+                }
+                if (AIStyle == 11)
+                {
+                    if(AIChangeDelay == 239)
+                    {
+                        TeleportTo(target.Center + Util.randomRot().ToRotationVector2() * 900 / difficult);
+                        
+                    }
+                    if(AIChangeDelay == 228)
+                    {
+                        float r = Utilities.Util.randomRot();
+                        for (float i = 0; i < 360; i += (phase == 1 ? 90 : 72))
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ProphetRuneAlt>(), NPC.damage / 6, 2, -1, NPC.whoAmI, r + i, Main.rand.Next(1, 12));
+                        }
+                    }
+                    if (AIChangeDelay == 210 || AIChangeDelay == 140 || AIChangeDelay == 70)
+                    {
+                        NPC.rotation = (target.Center + target.velocity * 8 - NPC.Center).ToRotation();
+                        NPC.ai[1] = 62;
+                        NPC.velocity = NPC.rotation.ToRotationVector2() * difficult * (AIChangeDelay <= 100 ? 1.6f : 1) * (phase == 1 ? 0.86f : 1.1f) * 26;
+
+                    }
+                    if (NPC.ai[1] > 0)
+                    {
+                        NPC.ai[1]--;
+                        NPC.velocity *= 0.986f;
+                    }
+                    else
+                    {
+                        NPC.velocity *= 0.8f;
+                    }
                 }
             }
             else

@@ -2396,6 +2396,7 @@ Projectiles: {
 	SolarStormExplosionProj.DisplayName: 太阳风暴
 	TheDeadCutProjectile.DisplayName: 虚妄切裂者
 	CondensedBulletProjectile.DisplayName: 凝元射线
+	// ProphetRuneAlt.DisplayName: Prophet Rune Alt
 }
 
 LegendTooltip: - 传奇物品 -

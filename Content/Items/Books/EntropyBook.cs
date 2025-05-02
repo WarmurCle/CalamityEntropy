@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Books.BookMarks;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.UI.EntropyBookUI;
@@ -218,11 +219,12 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual int getShootProjectileType()
         {
             int r = baseProjectileType;
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Projectile.getOwner().GetMyMaxActiveBookMarks(bookItem); i++)
             {
-                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                if (BookMarkLoader.IsABookMark(Projectile.getOwner().Entropy().EBookStackItems[i]))
                 {
-                    int b = bm.modifyBaseProjectile();
+                    Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                    int b = BookMarkLoader.ModifyBaseProjectile(it);
                     if (b >= 0)
                     {
                         r = b; break;
@@ -237,9 +239,9 @@ namespace CalamityEntropy.Content.Items.Books
             for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
             {
                 var bm = Projectile.owner.ToPlayer().Entropy().EBookStackItems[i];
-                if (bm.ModItem is BookMark bmmi)
+                if (BookMarkLoader.IsABookMark(bm))
                 {
-                    int pn = bmmi.modifyProjectile(type);
+                    int pn = BookMarkLoader.ModifyProjectile(bm, type);
                     if (pn >= 0)
                     {
                         type = pn;
@@ -257,9 +259,10 @@ namespace CalamityEntropy.Content.Items.Books
             EBookStatModifer modifer = getBaseModifer();
             for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
             {
-                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                if (BookMarkLoader.IsABookMark(it))
                 {
-                    bm.ModifyStat(modifer);
+                    BookMarkLoader.ModifyStat(it, modifer);
                 }
             }
             Projectile proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax), type, (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul))), Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback), Projectile.owner).ToProj();
@@ -276,11 +279,12 @@ namespace CalamityEntropy.Content.Items.Books
                 bp.lifeSteal += modifer.lifeSteal;
                 for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
                 {
-                    if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                    Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                    if (BookMarkLoader.IsABookMark(it))
                     {
-                        if (bm.getEffect() != null)
+                        if (BookMarkLoader.GetEffect(it) != null)
                         {
-                            bp.ProjectileEffects.Add(bm.getEffect());
+                            bp.ProjectileEffects.Add(BookMarkLoader.GetEffect(it));
                         }
                     }
                 }
@@ -302,13 +306,13 @@ namespace CalamityEntropy.Content.Items.Books
             EBookStatModifer m = getBaseModifer();
             for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
             {
-                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                if (BookMarkLoader.IsABookMark(it))
                 {
-                    var e = bm.getEffect();
-                    bm.ModifyStat(m);
+                    BookMarkLoader.ModifyStat(it, m);
                     if (this.canApplyShootCDModifer)
                     {
-                        bm.modifyShootCooldown(ref _shotCooldown);
+                        BookMarkLoader.modifyShootCooldown(it, ref _shotCooldown);
                     }
                 }
             }
@@ -392,9 +396,10 @@ namespace CalamityEntropy.Content.Items.Books
                     {
                         for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
                         {
-                            if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                            Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                            if (BookMarkLoader.IsABookMark(it))
                             {
-                                var e = bm.getEffect();
+                                var e = BookMarkLoader.GetEffect(it);
                                 if (e != null)
                                 {
                                     e.OnActive(this);
@@ -438,13 +443,14 @@ namespace CalamityEntropy.Content.Items.Books
                             EBookStatModifer m = getBaseModifer();
                             for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
                             {
-                                if (Projectile.getOwner().Entropy().EBookStackItems[i].ModItem is BookMark bm)
+                                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                                if (BookMarkLoader.IsABookMark(it))
                                 {
-                                    var e = bm.getEffect();
-                                    bm.ModifyStat(m);
+                                    var e = BookMarkLoader.GetEffect(it);
+                                    BookMarkLoader.ModifyStat(it, m);
                                     if (this.canApplyShootCDModifer)
                                     {
-                                        bm.modifyShootCooldown(ref shotCooldown);
+                                        BookMarkLoader.modifyShootCooldown(it, ref shotCooldown);
                                     }
                                     if (e != null)
                                     {
@@ -573,6 +579,7 @@ namespace CalamityEntropy.Content.Items.Books
             foreach (var effect in ProjectileEffects)
             {
                 writer.Write(effect.RegisterName());
+                //writer.Write(effect.BMOtherMod_Name);
             }
         }
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -588,7 +595,13 @@ namespace CalamityEntropy.Content.Items.Books
             this.ProjectileEffects.Clear();
             for (int i = 0; i < reader.ReadInt32(); i++)
             {
-                this.ProjectileEffects.Add(EBookProjectileEffect.findByName(reader.ReadString()));
+                var bef = EBookProjectileEffect.findByName(reader.ReadString());
+                //string omN = reader.ReadString();
+                /*if (omN != string.Empty)
+                {
+                    bef = new BookmarkEffect_OtherMod() { BMOtherMod_Name = omN };
+                }*/
+                this.ProjectileEffects.Add(bef);
             }
             sync = true;
         }
@@ -647,14 +660,14 @@ namespace CalamityEntropy.Content.Items.Books
             hitCount++;
             foreach (var effect in this.ProjectileEffects)
             {
-                effect.onHitNPC(Projectile, target, damageDone);
+                effect.OnHitNPC(Projectile, target, damageDone);
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             foreach (var effect in this.ProjectileEffects)
             {
-                effect.modifyHitNPC(Projectile, target, ref modifiers);
+                effect.ModifyHitNPC(Projectile, target, ref modifiers);
             }
             if (lifeSteal > 0)
             {
@@ -796,6 +809,7 @@ namespace CalamityEntropy.Content.Items.Books
     public abstract class EBookProjectileEffect : ModType
     {
         public static List<EBookProjectileEffect> instances;
+        public string BMOtherMod_Name = string.Empty;
         protected sealed override void Register()
         {
             if (instances == null)
@@ -845,12 +859,12 @@ namespace CalamityEntropy.Content.Items.Books
 
         }
 
-        public virtual void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public virtual void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
 
         }
 
-        public virtual void modifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+        public virtual void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
 
         }

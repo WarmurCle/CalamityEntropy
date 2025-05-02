@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
     public class AquariusBMEffect : EBookProjectileEffect
     {
-        public override void onHitNPC(Projectile projectile, NPC target, int damageDone)
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             int shootCount = 5;
 
