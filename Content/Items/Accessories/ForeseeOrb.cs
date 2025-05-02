@@ -5,6 +5,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -14,6 +15,11 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class ForeseeOrb : ModItem
     {
+        public static float DMG = 0.2f;
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Replace("{DMG}", DMG.ToPercent().ToString());
+        }
         public override void SetDefaults()
         {
             Item.width = 40;
@@ -29,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().foreseeOrbItem = Item;
             if (!player.HasBuff<ShatteredOrb>())
             {
-                player.GetDamage(DamageClass.Generic) += 0.15f;
+                player.GetDamage(DamageClass.Generic) += DMG;
             }
             if (player.whoAmI == Main.myPlayer)
             {

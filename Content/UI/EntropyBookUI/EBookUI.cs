@@ -21,13 +21,13 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
         {
             if (item == null)
             {
-                return 1;
+                return 0;
             }
             if (item.ModItem is EntropyBook eb)
             {
                 return eb.SlotCount;
             }
-            return 1;
+            return 0;
         }
         public static void checkStackItemList()
         {

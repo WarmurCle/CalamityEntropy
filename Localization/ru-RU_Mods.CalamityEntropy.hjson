@@ -1893,6 +1893,11 @@ Items: {
 		// Tooltip: ""
 		// DisplayName: Condensed Bullet
 	}
+
+	ShatteredFractal: {
+		// DisplayName: Shattered Fractal
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

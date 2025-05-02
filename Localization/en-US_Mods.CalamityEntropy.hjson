@@ -1722,7 +1722,7 @@ Items: {
 		Tooltip:
 			'''
 			When injured, reduce the damage to 100 and break it, and recover after 30 seconds
-			Provide a 20% damage bonus when not broken
+			Provide a {DMG}% damage bonus when not broken
 			[c/ff0000:Removing it when broken will cause 90% damage to your maximum health]
 			'''
 	}
@@ -1892,6 +1892,11 @@ Items: {
 	CondensedBullet: {
 		Tooltip: ""
 		DisplayName: Condensed Bullet
+	}
+
+	ShatteredFractal: {
+		DisplayName: Shattered Fractal
+		Tooltip: ""
 	}
 }
 

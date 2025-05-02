@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿VDusing CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -40,13 +40,13 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             float rotJ = Projectile.ai[1];
             if(counter < 220)
             {
-                Projectile.Center = owner.Center + (Main.GameUpdateCount * 0.03f + rotJ).ToRotationVector2() * dist;
+                Projectile.Center = owner.Center + (Main.GameUpdateCount * 0.16f + rotJ).ToRotationVector2() * dist;
                 dC = owner.Center;
             }
             else
             {
-                dist = 100 + (counter - 220) * 3.6f;
-                Projectile.Center = dC + (Main.GameUpdateCount * 0.03f + rotJ).ToRotationVector2() * dist;
+                dist = 100 + (counter - 220) * 4f;
+                Projectile.Center = dC + (Main.GameUpdateCount * 0.12f + rotJ).ToRotationVector2() * dist;
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)

@@ -14,6 +14,7 @@ using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Fishing.SulphurCatches;
@@ -81,10 +82,21 @@ namespace CalamityEntropy.Common
 
         public override bool CanRightClick(Item item)
         {
-            return Utilities.Util.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _);
+            return (Utilities.Util.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _)) || (BookMarkLoader.IsABookMark(item) && EBookUI.active && BookMarkLoader.HasEmptyBookMarkSlot(EBookUI.bookItem, Main.LocalPlayer));
         }
         public override void RightClick(Item item, Player player)
         {
+            if(BookMarkLoader.IsABookMark(item) && EBookUI.active)
+            {
+                for(int i = 0; i < player.Entropy().EBookStackItems.Count; i++)
+                {
+                    if (player.Entropy().EBookStackItems[i].IsAir)
+                    {
+                        player.Entropy().EBookStackItems[i] = item.Clone();
+                        item.TurnToAir();
+                    }
+                }
+            }
             Item held = Main.mouseItem;
             if (Utilities.Util.IsArmor(item))
             {
@@ -110,6 +122,10 @@ namespace CalamityEntropy.Common
         }
         public override bool ConsumeItem(Item item, Player player)
         {
+            if (BookMarkLoader.IsABookMark(item) && EBookUI.active)
+            {
+                return false;
+            }
             Item held = Main.mouseItem;
             if (Utilities.Util.IsArmor(item))
             {

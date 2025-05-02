@@ -67,6 +67,23 @@ namespace CalamityEntropy.Common
             ModifyShootCooldown = modifyShootCooldown};
         }
 
+        public static bool HasEmptyBookMarkSlot(Item item, Player player)
+        {
+            bool f = false;
+            int c = player.GetMyMaxActiveBookMarks(item);
+            if (c > 0)
+            {
+                for (int i = 0; i < c; i++)
+                {
+                    Item it = player.Entropy().EBookStackItems[i];
+                    if (it.IsAir)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return f;
+        }
         public static void OnShoot(string Name, ModProjectile mp)
         {
             if (CustomBMEffectsByName.ContainsKey(Name))

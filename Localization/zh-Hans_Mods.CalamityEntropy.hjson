@@ -1875,7 +1875,7 @@ Items: {
 		Tooltip:
 			'''
 			受伤时将伤害降低至100并破碎，30秒后复原
-			没有破碎时提供15%的伤害加成
+			没有破碎时提供{DMG}%的伤害加成
 			[c/ff0000:破碎时取下将对你造成最大生命值的90%伤害]
 			'''
 	}
@@ -2048,6 +2048,11 @@ Items: {
 	CondensedBullet: {
 		Tooltip: 射出无限穿透的射线
 		DisplayName: 凝元弹
+	}
+
+	ShatteredFractal: {
+		// DisplayName: Shattered Fractal
+		// Tooltip: ""
 	}
 }
 

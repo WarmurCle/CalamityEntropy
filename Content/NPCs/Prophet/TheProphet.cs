@@ -785,22 +785,22 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     if(AIChangeDelay == 228)
                     {
                         float r = Utilities.Util.randomRot();
-                        for (float i = 0; i < 360; i += (phase == 1 ? 90 : 72))
+                        for (float i = 0; i < 358; i += (phase == 1 ? 72 : 60))
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ProphetRuneAlt>(), NPC.damage / 6, 2, -1, NPC.whoAmI, r + i, Main.rand.Next(1, 12));
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ProphetRuneAlt>(), NPC.damage / 6, 2, -1, NPC.whoAmI, r + MathHelper.ToRadians(i), Main.rand.Next(1, 12));
                         }
                     }
                     if (AIChangeDelay == 210 || AIChangeDelay == 140 || AIChangeDelay == 70)
                     {
                         NPC.rotation = (target.Center + target.velocity * 8 - NPC.Center).ToRotation();
                         NPC.ai[1] = 62;
-                        NPC.velocity = NPC.rotation.ToRotationVector2() * difficult * (AIChangeDelay <= 100 ? 1.6f : 1) * (phase == 1 ? 0.86f : 1.1f) * 26;
+                        NPC.velocity = NPC.rotation.ToRotationVector2() * difficult * (phase == 1 ? 0.86f : 1.1f) * 18;
 
                     }
                     if (NPC.ai[1] > 0)
                     {
                         NPC.ai[1]--;
-                        NPC.velocity *= 0.986f;
+                        NPC.velocity *= 0.99f;
                     }
                     else
                     {
