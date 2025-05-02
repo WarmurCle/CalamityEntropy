@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
@@ -104,9 +105,9 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
 
                     if (Main.LocalPlayer.Entropy().EBookStackItems.Count > i && Main.LocalPlayer.Entropy().EBookStackItems[i].type != ItemID.None)
                     {
-                        if (Main.LocalPlayer.Entropy().EBookStackItems[i].ModItem is BookMark bm && bm.UITexture != null)
+                        if (BookMarkLoader.IsABookMark(Main.LocalPlayer.Entropy().EBookStackItems[i]) && BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]) != null)
                         {
-                            Main.spriteBatch.Draw(bm.UITexture, pos, null, Color.White * (closeAnm / 11f), 0, bm.UITexture.Size() / 2, 1, SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]), pos, null, Color.White * (closeAnm / 11f), 0, BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]).Size() / 2, 1, SpriteEffects.None, 0);
                         }
                         else
                         {
@@ -121,7 +122,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                             Utilities.Util.showItemTooltip(Main.LocalPlayer.Entropy().EBookStackItems[i]);
                         }
                         Main.LocalPlayer.mouseInterface = true;
-                        if (Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || Main.mouseItem.ModItem is BookMark) && !(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir))
+                        if (Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || BookMarkLoader.IsABookMark(Main.mouseItem)) && !(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir))
                         {
                             lastMouseLeft = true;
                             Item mouseItem = Main.mouseItem.Clone();

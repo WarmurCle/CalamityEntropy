@@ -80,6 +80,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
@@ -126,7 +127,8 @@ namespace CalamityEntropy
         public static SoundEffect ofCharge = null;
         public override void Load()
         {
-            //BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
+            BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
+            BookMarkLoader.CustomBMByID = new Dictionary<int, BookMarkLoader.BookMarkTag>();
             Instance = this;
             pInstance = new Dictionary<int, Projectile>();
             DateTime today = DateTime.Now;
@@ -234,7 +236,8 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
-            //BookMarkLoader.CustomBMEffectsByName = null;
+            BookMarkLoader.CustomBMEffectsByName = null;
+            BookMarkLoader.CustomBMByID = null;
             screen = null;
             screen2 = null;
             screen3 = null;
@@ -646,7 +649,7 @@ namespace CalamityEntropy
         private void targetClostUpgraded(On_NPC.orig_TargetClosestUpgraded orig, NPC self, bool faceTarget, Vector2? checkPosition)
         {
             orig(self, faceTarget, checkPosition);
-            if (self.Entropy().ToFriendly)
+            /*if (self.Entropy().ToFriendly)
             {
                 self.target = 0;
                 NPC npc = self;
@@ -655,7 +658,7 @@ namespace CalamityEntropy
                 npc.friendly = true;
 
                 SetTargetTrackingValues(self, faceTarget, Utilities.Util.getDistance(self.Center, Main.player[0].Center), -1);
-            }
+            }*/
         }
 
         public static void SetTargetTrackingValues(NPC npc, bool faceTarget, float realDist, int tankTarget)
@@ -780,17 +783,144 @@ namespace CalamityEntropy
         {
             orig(i, j, torchID, lightAmount * brillianceLightMulti);
         }
+        private Action<T1> GetAction<T1>(Dictionary<string, object> objects, string key)
+        {
+            if (objects.TryGetValue(key, out object actionObj) && actionObj is Action<T1>)
+            {
+                return (Action<T1>)actionObj;
+            }
+            return null;
+        }
 
+        private Action<T1, T2> GetAction<T1, T2>(Dictionary<string, object> objects, string key)
+        {
+            if (objects.TryGetValue(key, out object actionObj) && actionObj is Action<T1, T2>)
+            {
+                return (Action<T1, T2>)actionObj;
+            }
+            return null;
+        }
+
+        private Action<T1, T2, T3> GetAction<T1, T2, T3>(Dictionary<string, object> objects, string key)
+        {
+            if (objects.TryGetValue(key, out object actionObj) && actionObj is Action<T1, T2, T3>)
+            {
+                return (Action<T1, T2, T3>)actionObj;
+            }
+            return null;
+        }
         public override object Call(params object[] args)
         {
             if (args.Length > 0)
             {
                 if (args[0] is string str)
                 {
+                    if(str.ToLower().Equals("RegisterBookMarkEffect".ToLower()))
+                    {
+                        if (!(args[1] is Dictionary<string, object>))
+                        {
+                            this.Logger.Warn("Args[1] Must be a Dictionary<string, object>");
+                            return null;
+                        }
+                        Dictionary<string, object> objects = (Dictionary<string, object>)args[1];
+                        if (!objects.TryGetValue("Name", out object nameObj) || !(nameObj is string))
+                        {
+                            this.Logger.Warn("Name is required and must be a string");
+                            return null;
+                        }
+                        string name = (string)nameObj;
+
+                        Action<ModProjectile> onShoot = GetAction<ModProjectile>(objects, "OnShoot");
+                        Action<ModProjectile> onActive = GetAction<ModProjectile>(objects, "OnActive");
+                        Action<Projectile, bool> onProjectileSpawn = GetAction<Projectile, bool>(objects, "OnProjectileSpawn");
+                        Action<Projectile, bool> updateProjectile = GetAction<Projectile, bool>(objects, "UpdateProjectile");
+                        Action<Projectile, NPC, int> onHitNPC = GetAction<Projectile, NPC, int>(objects, "OnHitNPC");
+                        Action<Projectile, NPC, NPC.HitModifiers> modifyHitNPC = GetAction<Projectile, NPC, NPC.HitModifiers>(objects, "ModifyHitNPC");
+
+                        BookMarkLoader.RegisterBookmarkEffect(
+                            name,
+                            onShoot,
+                            onActive,
+                            onProjectileSpawn,
+                            updateProjectile,
+                            onHitNPC,
+                            modifyHitNPC
+                        );
+                    }
+                    if (str.ToLower().Equals("RegisterBookMark".ToLower()))
+                    {
+                        Func<TInput, TOutput> GetModifierFunc<TInput, TOutput>(Dictionary<string, object> objects, string key)
+                        {
+                            if (objects.TryGetValue(key, out object funcObj) && funcObj is Func<TInput, TOutput>)
+                            {
+                                return (Func<TInput, TOutput>)funcObj;
+                            }
+                            return null;
+                        }
+                        if(!(args[1] is Dictionary<string, object>))
+                        {
+                            this.Logger.Warn("Args[1] Must be a Dictionary<string, object>");
+                            return null;
+                        }
+                        Dictionary<string, object> objects = (Dictionary<string, object>)args[1];
+                        if (!objects.TryGetValue("ItemType", out object itemTypeObj) || !(itemTypeObj is int))
+                        {
+                            this.Logger.Warn("ItemType is required and must be an integer");
+                            return null;
+                        }
+                        int itemType = (int)itemTypeObj;
+
+                        if (!objects.TryGetValue("Texture", out object textureObj) || !(textureObj is Asset<Texture2D>))
+                        {
+                            this.Logger.Warn("Texture is required and must be an Asset<Texture2D>");
+                            return null;
+                        }
+                        Asset<Texture2D> texture = (Asset<Texture2D>)textureObj;
+
+                        string effectName = objects.TryGetValue("EffectName", out object effectNameObj) && effectNameObj is string
+                            ? (string)effectNameObj : "";
+
+                        Func<float, float> modifyStat_Damage = GetModifierFunc<float, float>(objects, "ModifyStat_Damage");
+                        Func<float, float> modifyStat_Knockback = GetModifierFunc<float, float>(objects, "ModifyStat_Knockback");
+                        Func<float, float> modifyStat_ShootSpeed = GetModifierFunc<float, float>(objects, "ModifyStat_ShootSpeed");
+                        Func<float, float> modifyStat_Homing = GetModifierFunc<float, float>(objects, "ModifyStat_Homing");
+                        Func<float, float> modifyStat_Size = GetModifierFunc<float, float>(objects, "ModifyStat_Size");
+                        Func<float, float> modifyStat_Crit = GetModifierFunc<float, float>(objects, "ModifyStat_Crit");
+                        Func<float, float> modifyStat_HomingRange = GetModifierFunc<float, float>(objects, "ModifyStat_HomingRange");
+                        Func<int, int> modifyStat_PenetrateAddition = GetModifierFunc<int, int>(objects, "ModifyStat_PenetrateAddition");
+                        Func<float, float> modifyStat_AttackSpeed = GetModifierFunc<float, float>(objects, "ModifyStat_AttackSpeed");
+                        Func<int, int> modifyStat_ArmorPenetration = GetModifierFunc<int, int>(objects, "ModifyStat_ArmorPenetration");
+                        Func<int, int> modifyStat_LifeSteal = GetModifierFunc<int, int>(objects, "ModifyStat_LifeSteal");
+                        Func<int, int> modifyProjectileType = GetModifierFunc<int, int>(objects, "ModifyProjectileType");
+                        Func<int> modifyBaseProjectileType = objects.TryGetValue("ModifyBaseProjectileType", out object mbptObj) && mbptObj is Func<int>
+                            ? (Func<int>)mbptObj : null;
+                        Func<int, int> modifyShootCooldown = GetModifierFunc<int, int>(objects, "ModifyShootCooldown");
+
+                        BookMarkLoader.RegisterBookmark(
+                            itemType,
+                            texture,
+                            effectName,
+                            modifyStat_Damage,
+                            modifyStat_Knockback,
+                            modifyStat_ShootSpeed,
+                            modifyStat_Homing,
+                            modifyStat_Size,
+                            modifyStat_Crit,
+                            modifyStat_HomingRange,
+                            modifyStat_PenetrateAddition,
+                            modifyStat_AttackSpeed,
+                            modifyStat_ArmorPenetration,
+                            modifyStat_LifeSteal,
+                            modifyProjectileType,
+                            modifyBaseProjectileType,
+                            modifyShootCooldown
+                        );
+
+                    }
                     if (str.Equals("IsBookMark"))
                     {
                         Item item = (Item)args[1];
-                        return item.ModItem is BookMark;
+                        return BookMarkLoader.IsABookMark(item);
                     }
                     if (str.Equals("SetBarColor"))
                     {
@@ -835,8 +965,10 @@ namespace CalamityEntropy
             }
             return null;
         }
+        
         private static void AddBoss(Mod bossChecklist, Mod hostMod, string name, float difficulty, Func<bool> downed, object npcTypes, Dictionary<string, object> extraInfo)
             => bossChecklist.Call("LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
+
         public override void PostSetupContent()
         {
             for(int i = 0; i < NPCLoader.NPCCount; i++)
