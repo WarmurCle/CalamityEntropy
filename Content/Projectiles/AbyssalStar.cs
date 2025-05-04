@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             var spark = new HeavenfallStar();
-            EParticle.spawnNew(spark, Projectile.Center, Projectile.velocity.normalize(), new Color(26, 26, 180), Main.rand.NextFloat(0.6f, 1.3f) * 1.2f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
+            EParticle.spawnNew(spark, Projectile.Center - Projectile.velocity * 6, Projectile.velocity.normalize(), new Color(26, 26, 180), Main.rand.NextFloat(0.6f, 1.3f) * 0.4f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
 
             Projectile.rotation += 0.16f;
 

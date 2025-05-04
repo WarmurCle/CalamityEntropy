@@ -58,6 +58,11 @@ namespace CalamityEntropy.Utilities
                 item.TurnToAir();
             }
         }
+        public static float CustomLerp1(float v)
+        {
+            float j = 0.6f;
+            return (float)((Math.Cos(v * (MathHelper.Pi + j) - MathHelper.Pi) * 0.5f + 0.5f) / Math.Cos(j));
+        }
         public static float GetRepeatedCosFromZeroToOne(float v, int repeat)
         {
             if (repeat <= 1)

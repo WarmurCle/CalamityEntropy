@@ -115,6 +115,7 @@ namespace CalamityEntropy.Common
         public int RuneDash = 0;
         public float RuneDashDir = 0;
         public int CruiserAntiGravTime = 0;
+        public int gravAddTime = 0;
         public class EquipInfo
         {
             public string id;
@@ -457,7 +458,14 @@ namespace CalamityEntropy.Common
             {
                 Player.gravity = 0;
             }
-            if (CruiserAntiGravTime > 0)
+            if(gravAddTime > 0)
+            {
+                Player.gravity *= 1.6f;
+                Player.maxFallSpeed *= 3;
+                Player.controlDown = true;
+            }
+            gravAddTime--;
+            if(CruiserAntiGravTime > 0)
             {
                 CruiserAntiGravTime--;
                 Player.gravity = 0;

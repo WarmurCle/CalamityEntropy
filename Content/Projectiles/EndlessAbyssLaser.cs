@@ -162,68 +162,103 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return width >= 0.3f && Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, 30, 24);
+            return width >= 0.3f && Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * length, targetHitbox, 50);
+        }
+        float yx = 0;
+        public List<Vector2> getSamplePoints()
+        {
+            List<Vector2> p = new List<Vector2>();
+            for (int i = 0; i <= length; i++)
+            {
+                p.Add(Projectile.Center + Projectile.velocity.normalize() * i);
+            }
+            return p;
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            counter++;
-            var rand = Main.rand;
-            int tspeed = 34;
-            if (counter % 1 == 0)
+            float w = width;
+            yx += 0.036f;
+            List<Vector2> points = this.getSamplePoints();
+            points.Insert(0, Projectile.Center - Projectile.velocity);
+            if (points.Count < 2)
             {
-                p.Add(new Vector2(0, rand.Next(0, 41) - 20));
+                return false;
             }
-            if (counter % 6 == 0)
+            Main.spriteBatch.End();
+            var effect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/abyssallaser", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            effect.Parameters["yofs"].SetValue(yx);
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, effect, Main.GameViewMatrix.TransformationMatrix);
             {
-                l.Add(new Vector2(0, rand.Next(0, 17) - 8));
-            }
-            for (int i = 0; i < p.Count; i++)
-            {
-                p[i] = p[i] + new Vector2(tspeed, 0);
-            }
-            for (int i = 0; i < l.Count; i++)
-            {
-                l[i] = l[i] + new Vector2(tspeed, 0);
-            }
-            for (int i = 0; i < p.Count; i++)
-            {
-                if (p[i].X > length)
+                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/MegaStreakBacking2b").Value;
+                List<Vertex> ve = new List<Vertex>();
+                Color b = new Color(255, 60, 60);
+                float p = -Main.GlobalTimeWrappedHourly;
+                for (int i = 1; i < points.Count; i++)
                 {
-                    p.RemoveAt(i);
-                    break;
+                    float wd = 1;
+                    if (i < 360)
+                    {
+                        wd = new Vector2(1, 0).RotatedBy((i / 360f) * MathHelper.PiOver2).Y;
+                    }
+                    wd += i * 0.001f;
+                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 32 * Projectile.scale * w * wd,
+                          new Vector3(p, 1, 1),
+                          b));
+                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 32 * Projectile.scale * w * wd,
+                          new Vector3(p, 0, 1),
+                          b));
+                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
+                }
+
+
+                SpriteBatch sb = Main.spriteBatch;
+                GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                if (ve.Count >= 3)
+                {
+                    gd.Textures[0] = tx;
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
-            for (int i = 0; i < l.Count; i++)
+            effect.Parameters["yofs"].SetValue(-yx);
             {
-                if (l[i].X > length)
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, effect, Main.GameViewMatrix.TransformationMatrix);
+
+                effect.CurrentTechnique.Passes["fableeyelaser"].Apply();
+                
+                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/EternityStreak").Value;
+                List<Vertex> ve = new List<Vertex>();
+                Color b = new Color(255, 235, 235);
+                float p = -Main.GlobalTimeWrappedHourly * 2;
+                for (int i = 1; i < points.Count; i++)
                 {
-                    l.RemoveAt(i);
-                    break;
+                    float wd = 1;
+                    if (i < 360)
+                    {
+                        wd = new Vector2(1, 0).RotatedBy((i / 360f) * MathHelper.PiOver2).Y;
+                    }
+                    wd += i * 0.001f;
+                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 15 * Projectile.scale * w * wd,
+                          new Vector3(p, 1, 1),
+                          b));
+                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 15 * Projectile.scale * w * wd,
+                          new Vector3(p, 0, 1),
+                          b));
+                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width) * 0.32f;
+                }
+
+
+                SpriteBatch sb = Main.spriteBatch;
+                GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                if (ve.Count >= 3)
+                {
+                    gd.Textures[0] = tx;
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
-            Texture2D tb = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/clback2").Value;
-            Texture2D px = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
-            Texture2D tl = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cllight").Value;
-            Texture2D th = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/clinghth").Value;
-            Texture2D tl2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cllight2").Value;
-            Main.spriteBatch.Draw(tb, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(0, tb.Height / 2), new Vector2(length, width), SpriteEffects.None, 0);
-            foreach (Vector2 ps in p)
-            {
-                Utilities.Util.drawLine(Main.spriteBatch, px, Projectile.Center + (ps * new Vector2(1, width)).RotatedBy(Projectile.rotation), Projectile.Center + ((ps * new Vector2(1, width)) + new Vector2(16, 0)).RotatedBy(Projectile.rotation), Color.White * 0.4f, 4 * width);
-            }
-            SpriteBatch sb = Main.spriteBatch;
-            sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            Main.spriteBatch.Draw(tl2, Projectile.Center - Main.screenPosition, null, new Color(255, 160, 160) * 0.5f, Projectile.rotation, new Vector2(0, tl2.Height / 2), new Vector2(length, width * 1.2f), SpriteEffects.None, 0);
-
-            foreach (Vector2 ps in l)
-            {
-                Main.spriteBatch.Draw(tl, Projectile.Center + (ps * new Vector2(1, width)).RotatedBy(Projectile.rotation) - Main.screenPosition, null, new Color(160, 160, 255) * 0.7f, Projectile.rotation, tl.Size() / 2, new Vector2(1.5f, 1.5f * width), SpriteEffects.None, 0);
-            }
-            Main.spriteBatch.Draw(th, Projectile.Center - Main.screenPosition, null, new Color(255, 160, 160) * 0.3f, Projectile.rotation, new Vector2(0, th.Height / 2), new Vector2(1, width), SpriteEffects.None, 0);
-
-            sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             return false;
         }

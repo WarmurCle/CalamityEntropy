@@ -1114,7 +1114,7 @@ Items: {
 	}
 
 	DivineRadience: {
-		Tooltip: 发射追踪能量球
+		Tooltip: 发射追踪能量弹
 		DisplayName: 圣辉灵珠
 	}
 
@@ -2051,8 +2051,8 @@ Items: {
 	}
 
 	ShatteredFractal: {
-		// DisplayName: Shattered Fractal
-		// Tooltip: ""
+		DisplayName: 破碎分型
+		Tooltip: ""
 	}
 }
 
@@ -2075,6 +2075,7 @@ MariviniumSet:
 	+140 潜行值。
 	站立不动回复大量生命值
 	免疫绝大多数的减益
+	大幅减小你对射弹的碰撞体积
 	使用真近战武器时增加15%伤害减免和25防御
 	盗贼潜伏攻击有几率产生100%面板伤害的水爆炸
 	获得2层可以抵挡伤害的护盾，第一层护盾恢复需要20秒的时间，第二层需要10秒
@@ -2401,7 +2402,10 @@ Projectiles: {
 	SolarStormExplosionProj.DisplayName: 太阳风暴
 	TheDeadCutProjectile.DisplayName: 虚妄切裂者
 	CondensedBulletProjectile.DisplayName: 凝元射线
-	// ProphetRuneAlt.DisplayName: Prophet Rune Alt
+	ProphetRuneAlt.DisplayName: 先知符文
+	ShatteredFractalHeld.DisplayName: 破碎分型
+	TopazJewelProjectile.DisplayName: 王冠黄宝石
+	// FractalShoot.DisplayName: Fractal Shoot
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2710,6 +2714,8 @@ NPCs: {
 			DespawnMessage: 先知已被击败
 		}
 	}
+
+	TopazJewel.DisplayName: 王冠黄宝石
 }
 
 WyrmChatNoHome: 我们现在要去哪？
@@ -2841,9 +2847,14 @@ Configs: {
 			Tooltip: " 展示某些物品额外的信息，如护甲穿透、弹药类型等"
 		}
 
+		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
+			// Label: Marivinium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
+			// Tooltip: ""
+		}
+
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			Label: 渊洋神迹套装只在手持盗贼武器时提供潜行条
 			Tooltip: ""
+			Label: 渊洋神迹套装只在手持盗贼武器时提供潜行条
 		}
 	}
 

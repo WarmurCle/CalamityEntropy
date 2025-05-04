@@ -2245,6 +2245,9 @@ Projectiles: {
 	// TheDeadCutProjectile.DisplayName: The Dead Cut Projectile
 	// CondensedBulletProjectile.DisplayName: Condensed Bullet Projectile
 	// ProphetRuneAlt.DisplayName: Prophet Rune Alt
+	// ShatteredFractalHeld.DisplayName: Shattered Fractal Held
+	// TopazJewelProjectile.DisplayName: Topaz Jewel Projectile
+	// FractalShoot.DisplayName: Fractal Shoot
 }
 
 LegendTooltip: - Legend -
@@ -2553,6 +2556,8 @@ NPCs: {
 			DespawnMessage: Пророк был повержен
 		}
 	}
+
+	// TopazJewel.DisplayName: Topaz Jewel
 }
 
 WyrmChatNoHome: Куда мы идем теперь?
@@ -2687,9 +2692,14 @@ Configs: {
 			Tooltip: Display additional information about certain items like armor penetration, ammo type, etc
 		}
 
-		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			// Label: Marivium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
+		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
+			// Label: Marivinium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
 			// Tooltip: ""
+		}
+
+		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
+			// Tooltip: ""
+			// Label: Marivium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
 		}
 	}
 

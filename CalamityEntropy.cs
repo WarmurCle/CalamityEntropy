@@ -548,6 +548,10 @@ namespace CalamityEntropy
                         }
                     }
                 }
+                if(EntropyMode && self.ModNPC is GiantClam)
+                {
+                    orig(self, i);
+                }
                 if (self.ModNPC is TheProphet && self.Calamity().CurrentlyEnraged)
                 {
                     orig(self, i);
@@ -558,6 +562,10 @@ namespace CalamityEntropy
 
         private Rectangle modifyRect(On_Player.orig_getRect orig, Player self)
         {
+            if (self.Entropy().MariviniumSet)
+            {
+                return orig(self).Center.ToVector2().getRectCentered(10, 10);
+            }
             return orig(self);
         }
 
@@ -582,7 +590,7 @@ namespace CalamityEntropy
                     {
                         hit.Damage = (int)(self.lifeMax * 0.1f);
                     }
-                    hit.Damage = (int)(hit.Damage * (self.life < (self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) ? (1 / (1 + ((self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) - self.life) * (8f / self.lifeMax))) : 1));
+                    hit.Damage = (int)(hit.Damage * (self.life < (self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) ? (1 / (1 + ((self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) - self.life) * (14f / self.lifeMax))) : 1));
                 }
             }
             return orig(self, hit, fromNet, noPlayerInteraction);

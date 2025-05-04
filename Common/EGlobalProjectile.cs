@@ -13,6 +13,7 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
+using CalamityMod.Projectiles.Boss;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework.Graphics;
@@ -224,7 +225,10 @@ namespace CalamityEntropy.Common
             {
                 return;
             }
-
+            if(projectile.type == 735)
+            {
+                projectile.scale *= 2;
+            }
             if (projectile.friendly)
             {
                 if (projectile.TryGetOwner(out var owner))
@@ -377,8 +381,25 @@ namespace CalamityEntropy.Common
         public Vector2? plrOldPos = null;
         public Vector2? plrOldVel = null;
         public ProminenceTrail trail_pmn = null;
+        public bool init_ = true;
+        public float maxSpd = -1;
         public override bool PreAI(Projectile projectile)
         {
+            if(counter == 35)
+            {
+                if (projectile.type == ModContent.ProjectileType<DoGDeath>() && CalamityEntropy.EntropyMode)
+                {
+                    projectile.MaxUpdates *= 4;
+                }
+            }
+            if (init_)
+            {
+                if (projectile.type == ModContent.ProjectileType<DoGFire>() && CalamityEntropy.EntropyMode)
+                {
+                    projectile.MaxUpdates *= 2;
+                }
+                init_ = false;
+            }
             if (ProminenceArrow)
             {
                 if (trail_pmn == null)
@@ -886,6 +907,11 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if(projectile.type == 735 && projectile.velocity.Y > 0  && projectile.velocity.Y > Math.Abs(projectile.velocity.X))
+            {
+                projectile.getOwner().velocity.Y = -projectile.velocity.Y * 0.4f;
+                projectile.getOwner().Entropy().gravAddTime = 30;
+            }
             hittingTarget = -1;
             if (ProminenceArrow || projectile.ModProjectile is ProminenceSplitShot)
             {

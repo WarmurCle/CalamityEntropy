@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
             Asset<Texture2D> texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Enchanted", AssetRequestMode.ImmediateLoad);
-            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Transform", AssetRequestMode.ImmediateLoad).Value;
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Transform2", AssetRequestMode.ImmediateLoad).Value;
             shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
             shader.Parameters["color"].SetValue(new Color(160, 80, 255, 255).ToVector4());
             shader.Parameters["strength"].SetValue(1.6f);

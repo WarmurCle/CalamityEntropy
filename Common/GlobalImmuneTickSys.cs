@@ -1,6 +1,12 @@
 ﻿using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.NPCs.DesertScourge;
+using CalamityMod.NPCs.DevourerofGods;
+using Microsoft.Xna.Framework.Graphics;
+using rail;
+using ReLogic.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -9,14 +15,31 @@ namespace CalamityEntropy.Common
 {
     public class GlobalImmuneTickSysGNPC : GlobalNPC
     {
-        public static List<int> NPCHasGlobalImmuneTick;
+        public static List<int> GetList()
+        {
+            List<int> r = new List<int>();
+            foreach(var i in NPCAlwaysHasGlobalImmuneTick)
+            {
+                r.Add(i);
+            }
+            foreach(var i in NPCHasGlobalImmuneTickEntropyOnly)
+            {
+                r.Add(i);
+            }
+            return r;
+        }
+        public static List<int> NPCHasGlobalImmuneTick { get { return CalamityEntropy.EntropyMode ? GetList() : NPCAlwaysHasGlobalImmuneTick; } }
+        public static List<int> NPCAlwaysHasGlobalImmuneTick;
+        public static List<int> NPCHasGlobalImmuneTickEntropyOnly;
         public override void SetStaticDefaults()
         {
-            NPCHasGlobalImmuneTick = new List<int>() { ModContent.NPCType<CruiserHead>(), ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() };
+            NPCHasGlobalImmuneTickEntropyOnly = new List<int>() { ModContent.NPCType<DevourerofGodsHead>(), ModContent.NPCType<DevourerofGodsBody>(), ModContent.NPCType<DevourerofGodsTail>(), ModContent.NPCType<DesertScourgeHead>(), ModContent.NPCType<DesertScourgeBody>(), ModContent.NPCType<DesertScourgeTail>() };
+            NPCAlwaysHasGlobalImmuneTick = new List<int>() { ModContent.NPCType<CruiserHead>(), ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() };
         }
         public override void Unload()
         {
-            NPCHasGlobalImmuneTick = null;
+            NPCAlwaysHasGlobalImmuneTick = null;
+            NPCHasGlobalImmuneTickEntropyOnly = null;
         }
         public override bool InstancePerEntity => true;
         public int immune = 0;

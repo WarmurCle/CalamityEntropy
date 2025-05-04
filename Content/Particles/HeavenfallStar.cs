@@ -8,6 +8,7 @@ namespace CalamityEntropy.Content.Particles
     {
         public override Texture2D texture => Utilities.Util.getExtraTex("StarTexture_White");
         public Color InitialColor;
+        public float xScale = 1;
         public override void onSpawn()
         {
             InitialColor = color;
@@ -22,7 +23,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public override void draw()
         {
-            Vector2 scaled = new Vector2(0.2f, 1.6f) * scale;
+            Vector2 scaled = new Vector2(0.2f, 1.6f * xScale) * scale;
             SpriteBatch spriteBatch = Main.spriteBatch;
             spriteBatch.Draw(texture, position - Main.screenPosition, null, color
                 , rotation + MathHelper.PiOver2, texture.Size() * 0.5f, scaled, 0, 0f);

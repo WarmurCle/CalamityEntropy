@@ -43,7 +43,6 @@ namespace CalamityEntropy.Common
                 MonoModHooks.Add(_drawMethod, new Action<DrawDelegate, object, SpriteBatch>(this.DrawHook));
             }
         }
-
         private void DrawHook(DrawDelegate orig, object uiModItem, SpriteBatch sb)
         {
             orig(uiModItem, sb);

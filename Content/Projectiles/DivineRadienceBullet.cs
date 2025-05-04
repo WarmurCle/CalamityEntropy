@@ -1,8 +1,13 @@
-﻿using CalamityMod.Particles;
+﻿using CalamityMod;
+using CalamityMod.Graphics.Primitives;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -11,9 +16,9 @@ namespace CalamityEntropy.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 1;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
         }
-        public List<Vector2> odp = new List<Vector2>();
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
@@ -28,11 +33,6 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void AI()
         {
-            odp.Add(Projectile.Center);
-            if (odp.Count > 9)
-            {
-                odp.RemoveAt(0);
-            }
             Projectile.rotation += 0.16f;
             NPC target = Projectile.FindTargetWithinRange(1600, false);
             if (target != null && drawcount > 8)
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 v = target.Center - Projectile.Center;
                 v.Normalize();
 
-                Projectile.velocity += v * 2.4f;
+                Projectile.velocity += v * 3.2f;
             }
             drawcount++;
         }
@@ -56,45 +56,42 @@ namespace CalamityEntropy.Content.Projectiles
 
             Utilities.Util.PlaySound("CrystalBallActive", 1, Projectile.Center, 4, 0.4f);
         }
+        private float PrimitiveWidthFunction(float completionRatio)
+        {
+            float arrowheadCutoff = 0.36f;
+            float width = 39f;
+            float minHeadWidth = 0.02f;
+            float maxHeadWidth = width;
+            if (completionRatio <= arrowheadCutoff)
+                width = MathHelper.Lerp(minHeadWidth, maxHeadWidth, Utils.GetLerpValue(0f, arrowheadCutoff, completionRatio, true));
+            return width;
+        }
+        private static Color ShaderColorOne = new Color(237, 66, 66);
+        private static Color ShaderColorTwo = new Color(235, 110, 110);
+        private static Color ShaderEndColor = new Color(199, 36, 36);
+        private Color PrimitiveColorFunction(float completionRatio)
+        {
+            float endFadeRatio = 0.41f;
+
+            float completionRatioFactor = 2.7f;
+            float globalTimeFactor = 5.3f;
+            float endFadeFactor = 3.2f;
+            float endFadeTerm = Utils.GetLerpValue(0f, endFadeRatio * 0.5f, completionRatio, true) * endFadeFactor;
+            float cosArgument = completionRatio * completionRatioFactor - Main.GlobalTimeWrappedHourly * globalTimeFactor + endFadeTerm;
+            float startingInterpolant = (float)Math.Cos(cosArgument) * 0.5f + 0.5f;
+
+            float colorLerpFactor = 0.6f;
+            Color startingColor = Color.Lerp(ShaderColorOne, ShaderColorTwo, startingInterpolant * colorLerpFactor);
+
+            return Color.Lerp(startingColor, ShaderEndColor, MathHelper.SmoothStep(0f, 1f, Utils.GetLerpValue(0f, endFadeRatio, completionRatio, true)));
+        }
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = new Color(255, 60, 60);
-            if (Projectile.timeLeft < 30)
-            {
-                lightColor *= ((float)Projectile.timeLeft / 30f);
-            }
-            SpriteBatch spriteBatch = Main.spriteBatch;
-            float opc = 1;
-            Texture2D tx = TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D t = tx;
-            odp.Add(Projectile.Center);
-            if (odp.Count > 2)
-            {
-                float size = 10;
-                float sizej = size / odp.Count;
-                Color cl = new Color(255, 90, 90);
-                for (int i = odp.Count - 1; i >= 1; i--)
-                {
-                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i], odp[i - 1], cl * (((float)(255 - Projectile.alpha)) / 255f), size * 0.7f);
-                    size -= sizej;
-                }
-            }
-            odp.RemoveAt(odp.Count - 1);
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-            spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, lightColor * opc, MathHelper.ToRadians(drawcount * 4f), t.Size() / 2, new Vector2(1.3f, 1) * Projectile.scale * 0.6f, SpriteEffects.None, 0);
-            spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, lightColor * opc, MathHelper.ToRadians((drawcount + 64) * 14f), t.Size() / 2, new Vector2(1.3f, 1) * Projectile.scale * 0.6f, SpriteEffects.None, 0);
-            spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, lightColor * opc, MathHelper.ToRadians((drawcount + 154) * 34f), t.Size() / 2, new Vector2(1.3f, 1) * Projectile.scale * 0.6f, SpriteEffects.None, 0);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-            Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow").Value;
-            Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition * Projectile.scale, null, lightColor, 0, light.Size() / 2, 0.6f * Projectile.scale, SpriteEffects.None, 0);
-
-
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/FabstaffStreak"));
+            Vector2 overallOffset = Projectile.Size * 0.5f;
+            overallOffset += Projectile.velocity * 1.4f;
+            int numPoints = 92;
+            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(PrimitiveWidthFunction, PrimitiveColorFunction, (_) => overallOffset, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), numPoints);
             return false;
         }
     }

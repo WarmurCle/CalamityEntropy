@@ -63,8 +63,8 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? 0.15f : 0.3f)) * 1.4f, ModContent.ProjectileType<DivineRadienceBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? -0.15f : -0.3f)) * 1.4f, ModContent.ProjectileType<DivineRadienceBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? 0.15f : 0.3f)) * 1.4f * 5, Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? 0.15f : 0.3f)) * 1.4f, ModContent.ProjectileType<DivineRadienceBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? -0.15f : -0.3f)) * 1.4f * 5, Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? -0.15f : -0.3f)) * 1.4f, ModContent.ProjectileType<DivineRadienceBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                     }
                     if (!Main.dedServ)
