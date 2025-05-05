@@ -227,6 +227,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public void Explode()
         {
+            Projectile.tileCollide = false;
             Projectile.localNPCHitCooldown = -1;
             Projectile.Resize(700, 700);
             Projectile.timeLeft = 280;

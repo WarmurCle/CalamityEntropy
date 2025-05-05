@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.damage = 46;
             Item.crit = 3;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.width = 52;
+            Item.width = 48;
             Item.height = 60;
             Item.useTime = 16;
             Item.useAnimation = 16;
@@ -38,6 +38,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.UseSound = null;
             Item.noMelee = true;
             Item.noUseGraphic = true;
+            Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<ShatteredFractalHeld>();
             Item.shootSpeed = 12f;
         }
@@ -65,6 +66,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddIngredient(ItemID.IronBroadsword)
                 .AddIngredient(ItemID.SilverBroadsword)
                 .AddIngredient(ItemID.GoldBroadsword)
+                .AddIngredient(ItemID.Starfury)
+                .AddIngredient(ItemID.EnchantedSword)
                 .AddTile(TileID.Anvils)
                 .Register();
 
