@@ -1,7 +1,4 @@
-﻿//软依赖自定义书签
-//未完成
-
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Utilities;
