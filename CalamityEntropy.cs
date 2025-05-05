@@ -1210,6 +1210,7 @@ namespace CalamityEntropy
             }
         }
 
+        //首先纹理在使用前尽量缓存为静态的，Request函数并非性能的最佳选择，尤其是在每帧调用甚至循环调用中的高频访问
         private void CE_EffectHandler(On_FilterManager.orig_EndCapture orig, FilterManager self
             , RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
         {
