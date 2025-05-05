@@ -1,6 +1,5 @@
-using CalamityMod.Items.Materials;
+﻿using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.Ores;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,7 +19,7 @@ namespace CalamityEntropy.Content.Items.PrefixItem
     }
     public class BlessingVoidTouched : BasePrefixItem
     {
-        public override string PrefixName => "VoidTouched"; 
+        public override string PrefixName => "VoidTouched";
         public override void AddRecipes()
         {
             CreateRecipe().
@@ -62,13 +61,13 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         }
         public override void AddRecipes()
         {
-            if (ModLoader.TryGetMod("CalamityOverhaul", out var overhaul)) 
+            if (ModLoader.TryGetMod("CalamityOverhaul", out var overhaul))
             {
                 CreateRecipe().
                     AddIngredient(overhaul.Find<ModItem>("InfinityCatalyst").Type, 16)
                     .AddIngredient<VoidScales>(99)
                     .AddIngredient<WyrmTooth>(99)
-                    .Register(); 
+                    .Register();
             }
         }
     }
@@ -154,7 +153,7 @@ namespace CalamityEntropy.Content.Items.PrefixItem
     public class RuneStoneRegen : BasePrefixItem
     {
         public override string PrefixName => "Regen";
-        public override void AddRecipes() 
+        public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.StoneBlock, 10).
                    AddIngredient(ItemID.LifeCrystal, 1)

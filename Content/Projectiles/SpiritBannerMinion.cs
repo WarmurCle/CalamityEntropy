@@ -1,12 +1,5 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Utilities;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
+﻿using CalamityEntropy.Content.Buffs;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -50,11 +43,11 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Player player = Main.player[Projectile.owner];
             Projectile.frameCounter++;
-            if(Projectile.frameCounter > 5)
+            if (Projectile.frameCounter > 5)
             {
                 Projectile.frameCounter = 0;
                 Projectile.frame++;
-                if(Projectile.frame > 3)
+                if (Projectile.frame > 3)
                 {
                     Projectile.frame = 0;
                 }
@@ -73,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
                     if (Projectile.ai[0] <= -20)
                     {
                         Projectile.ai[0] = 80;
-                        Utilities.Util.PlaySound("soulScreem", 1, Projectile.Center, volume:0.4f);
+                        Utilities.Util.PlaySound("soulScreem", 1, Projectile.Center, volume: 0.4f);
                         for (int i = 0; i < 3; i++)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -16), new Vector2(0, -12).RotateRandom(1.2f), ModContent.ProjectileType<SpiritLightSoul>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

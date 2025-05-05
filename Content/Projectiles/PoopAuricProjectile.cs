@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Projectiles
     {
         public override void PushNPC(NPC npc)
         {
-            if(npc.velocity.Length() > 0.1f && npc.type != NPCID.WallofFlesh)
+            if (npc.velocity.Length() > 0.1f && npc.type != NPCID.WallofFlesh)
             {
                 Vector2 v = (npc.Center - Projectile.Center).SafeNormalize(Vector2.UnitX) * 16;
                 npc.velocity += v;

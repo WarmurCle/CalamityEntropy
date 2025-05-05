@@ -1,12 +1,8 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using CalamityMod.Items;
-using CalamityMod.Rarities;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
@@ -53,11 +49,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             return false;
         }
-        
+
         public override void AI()
         {
             float atkSpeed = Projectile.getOwner().GetTotalAttackSpeed(DamageClass.SummonMeleeSpeed);
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((Main.MouseWorld - Projectile.getOwner().HandPosition.Value).ToRotation());
             }

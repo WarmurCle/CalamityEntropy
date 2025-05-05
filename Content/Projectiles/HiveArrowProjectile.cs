@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (++Projectile.ai[0] > 6)
             {
-                if(homingSpeed < 2)
+                if (homingSpeed < 2)
                 {
                     homingSpeed += 0.003f;
                 }
@@ -66,9 +66,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Utilities.Util.PlaySound("beeSting", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.7f);
             }
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
-                for(int i = 0; i < 7; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 15), ModContent.ProjectileType<BeeSpike>(), Projectile.damage / 4, Projectile.knockBack / 2, Projectile.owner);
                 }

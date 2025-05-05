@@ -49,8 +49,9 @@ namespace CalamityEntropy.Content.Projectiles
         public LoopSound sound = null;
         public override bool PreAI()
         {
-            if (lightnings.Count == 0) { 
-                for(int i = 0; i < 9; i++)
+            if (lightnings.Count == 0)
+            {
+                for (int i = 0; i < 9; i++)
                 {
                     lightnings.Add(new LightningAdvanced(Projectile.Center, Projectile.Center));
                 }
@@ -183,7 +184,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             Texture2D light = Utilities.Util.getExtraTex("lightball");
-            
+
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(light, points[points.Count - 1] - Main.screenPosition, null, new Color(120, 120, 200), 0, light.Size() / 2, width * 0.14f * lightSize, SpriteEffects.None, 0);
 

@@ -1,15 +1,10 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -48,7 +43,8 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 else
                 {
                     int p = Player.FindClosest(Projectile.Center, 5000, 5000);
-                    if (p >= 0) {
+                    if (p >= 0)
+                    {
                         Player player = p.ToPlayer();
                         Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (player.Center + player.velocity * 12 - Projectile.Center).ToRotation(), 0.1f, false);
                     }

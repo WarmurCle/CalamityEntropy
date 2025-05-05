@@ -1,10 +1,7 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Rarities;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -56,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
             ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
-            ascentWhenRising = 0.12f; 
+            ascentWhenRising = 0.12f;
             maxCanAscendMultiplier = 1f;
             maxAscentMultiplier = 2.8f;
             constantAscend = 0.13f;

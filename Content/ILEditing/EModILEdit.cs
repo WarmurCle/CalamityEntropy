@@ -1,17 +1,10 @@
-﻿using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Utilities;
-using CalamityMod;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.CalPlayer;
 using Microsoft.Xna.Framework.Graphics;
-using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
-using MonoMod.RuntimeDetour.HookGen;
 using System;
 using System.Collections.Concurrent;
 using System.Reflection;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.ILEditing
 {
@@ -23,11 +16,11 @@ namespace CalamityEntropy.Content.ILEditing
             var originalMethod = typeof(CalamityPlayer)
             .GetMethod("UpdateStealthGenStats",
                       System.Reflection.BindingFlags.NonPublic |
-                      System.Reflection.BindingFlags.Instance, 
+                      System.Reflection.BindingFlags.Instance,
                       null,
-            Type.EmptyTypes ,
+            Type.EmptyTypes,
             null);
-            
+
             UpdateStealthGenDelegate dlg = UpdateStealthGenHook;
             var _hook = EModHooks.Add(originalMethod, dlg);
             CalamityEntropy.Instance.Logger.Info("CalEntropy's Hook Loaded");

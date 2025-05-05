@@ -1,12 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Prophet

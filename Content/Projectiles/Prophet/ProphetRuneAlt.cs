@@ -1,4 +1,4 @@
-﻿VDusing CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -35,10 +35,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         {
             NPC owner = ((int)Projectile.ai[0]).ToNPC();
             counter += 1;
-            
+
             float dist = 5 * (counter > 20 ? 20 : counter);
             float rotJ = Projectile.ai[1];
-            if(counter < 220)
+            if (counter < 220)
             {
                 Projectile.Center = owner.Center + (Main.GameUpdateCount * 0.16f + rotJ).ToRotationVector2() * dist;
                 dC = owner.Center;

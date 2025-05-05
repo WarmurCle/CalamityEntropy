@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;

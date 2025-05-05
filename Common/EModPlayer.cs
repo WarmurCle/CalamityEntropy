@@ -28,7 +28,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -131,7 +130,7 @@ namespace CalamityEntropy.Common
         public int HealingCd = 0;
         public bool TryHealMeWithCd(int amount, int cd = 12)
         {
-            if(HealingCd <= 0)
+            if (HealingCd <= 0)
             {
                 HealingCd = cd;
                 Player.Heal(amount);
@@ -272,9 +271,9 @@ namespace CalamityEntropy.Common
         }
         public bool hasAcc(string id)
         {
-            foreach(var i in equipAccs)
+            foreach (var i in equipAccs)
             {
-                if(i.id == id && i.hasEffect)
+                if (i.id == id && i.hasEffect)
                 {
                     return true;
                 }
@@ -298,7 +297,7 @@ namespace CalamityEntropy.Common
             RogueStealthRegenMult = 1;
             if (Player.whoAmI == Main.myPlayer)
             {
-                if(foreseeOrbLast && foreseeOrbItem == null && Player.HasBuff<ShatteredOrb>())
+                if (foreseeOrbLast && foreseeOrbItem == null && Player.HasBuff<ShatteredOrb>())
                 {
                     Utilities.Util.PlaySound("amethyst_break", 1, Player.Center);
                     Player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Player.name + " " + Mod.GetLocalization("OrbPunishDeath" + Main.rand.Next(0, 2).ToString()).Value)), (int)(Player.statLifeMax2 * 0.9f), 0);
@@ -422,13 +421,13 @@ namespace CalamityEntropy.Common
             {
                 eb.CheckSpawn(Player);
             }
-            if(!Main.dedServ && vetrasylsEye && vShieldCD <= 0 && CEKeybinds.VetrasylsEyeBlockHotKey.JustReleased)
+            if (!Main.dedServ && vetrasylsEye && vShieldCD <= 0 && CEKeybinds.VetrasylsEyeBlockHotKey.JustReleased)
             {
                 vShieldCD = 40;
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 6, ModContent.ProjectileType<WelkingShield>(), 0, 0, Player.whoAmI);
             }
             vShieldCD -= 1;
-            if(vShieldCD == 0 && vetrasylsEye)
+            if (vShieldCD == 0 && vetrasylsEye)
             {
                 Utilities.Util.PlaySound("beep", 1, Player.Center);
             }
@@ -454,11 +453,11 @@ namespace CalamityEntropy.Common
                     packet.Send();
                 }
             }
-            if(RuneDash > 0)
+            if (RuneDash > 0)
             {
                 Player.gravity = 0;
             }
-            if(CruiserAntiGravTime > 0)
+            if (CruiserAntiGravTime > 0)
             {
                 CruiserAntiGravTime--;
                 Player.gravity = 0;
@@ -486,7 +485,7 @@ namespace CalamityEntropy.Common
                     Player.maxFallSpeed = 9999;
                 }
             }
-            if(RuneDash > 0)
+            if (RuneDash > 0)
             {
                 Player.maxFallSpeed = 1000;
             }
@@ -523,13 +522,13 @@ namespace CalamityEntropy.Common
                     pack.Send();
                 }
                 Player.velocity.Y += 0.0001f;
-                
+
             }
             else
             {
                 rbDotDist += (-rbDotDist) * 0.06f;
             }
-            if(rBadgeActive || RuneDash > 0 || CruiserAntiGravTime > 0)
+            if (rBadgeActive || RuneDash > 0 || CruiserAntiGravTime > 0)
             {
                 resetTileSets = true;
                 tileSolid = (bool[])Main.tileSolid.Clone();
@@ -882,13 +881,13 @@ namespace CalamityEntropy.Common
             {
                 return;
             }
-            bool setToOne = false; 
+            bool setToOne = false;
             if (!setToOne)
-            { 
-                if(foreseeOrbItem != null && !Player.HasBuff<ShatteredOrb>())
+            {
+                if (foreseeOrbItem != null && !Player.HasBuff<ShatteredOrb>())
                 {
                     Utilities.Util.PlaySound("amethyst_break", 1, Player.Center);
-                    info.Damage = info.Damage > 100 ? 100 :info.Damage;
+                    info.Damage = info.Damage > 100 ? 100 : info.Damage;
                     Player.AddBuff(ModContent.BuffType<ShatteredOrb>(), 30 * 60);
                 }
             }
@@ -999,28 +998,29 @@ namespace CalamityEntropy.Common
                 {
                     int rd = RuneDash - 1;
                     immune = 12;
-                    if (runeDashTrail == null || runeDashTrail.timeLeft < 1) {
+                    if (runeDashTrail == null || runeDashTrail.timeLeft < 1)
+                    {
                         runeDashTrail = new ProminenceTrail() { color1 = Color.DeepSkyBlue, color2 = Color.White, maxLength = 120 };
                         EParticle.spawnNew(runeDashTrail, Player.Center, Vector2.Zero, Color.White, 5f, 1, true, BlendState.AlphaBlend, 0);
                     }
-                    for(int i = 0; i < 3; i++)
+                    for (int i = 0; i < 3; i++)
                     {
                         EParticle.spawnNew(new RuneParticle(), Player.Center + Utilities.Util.randomVec(26), Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
 
                     }
                     RuneDash--;
                     Player.velocity = RuneDashDir.ToRotationVector2() * RuneWing.DashVelo;
-                    for(int f = 0; f < 10; f++)
+                    for (int f = 0; f < 10; f++)
                     {
                         runeDashTrail?.AddPoint(Player.Center + Player.velocity * f * 0.1f);
                     }
-                    
+
                     runeDashTrail.timeLeft = 13;
-                    
+
                     if (CEKeybinds.RuneDashHotKey.JustReleased)
                     {
                         RuneDash = 0;
-                        if(Main.netMode == NetmodeID.MultiplayerClient)
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
                             ModPacket packet = Mod.GetPacket();
                             packet.Write((byte)CEMessageType.RuneDashSync);
@@ -1029,7 +1029,7 @@ namespace CalamityEntropy.Common
                             packet.Write(true);
                         }
                     }
-                    if(RuneDash <= 0)
+                    if (RuneDash <= 0)
                     {
                         Player.velocity *= 0.1f;
                         runeDashTrail = null;
@@ -1054,7 +1054,7 @@ namespace CalamityEntropy.Common
                 }
             }
             AzDash--;
-            
+
             if (Main.LocalPlayer.dashDelay < 0)
             {
                 DashFlag = true;
@@ -1070,11 +1070,11 @@ namespace CalamityEntropy.Common
             if (AzChargeShieldSteamTime > 0)
             {
                 AzChargeShieldSteamTime--;
-                if(AzChargeShieldSteamTime == 12)
+                if (AzChargeShieldSteamTime == 12)
                 {
                     Utilities.Util.PlaySound("steam", 1, Player.Center);
                 }
-                if(AzChargeShieldSteamTime < 12)
+                if (AzChargeShieldSteamTime < 12)
                 {
 
                     float c = AzChargeShieldSteamTime / 12f;
@@ -1100,7 +1100,7 @@ namespace CalamityEntropy.Common
                 if (MariviniumShieldCount < MariviniumHelmet.MaxShield)
                 {
                     MariviniumShieldCd--;
-                    if(MariviniumShieldCount > 0)
+                    if (MariviniumShieldCount > 0)
                     {
                         MariviniumShieldCd--;
                     }
@@ -1322,7 +1322,8 @@ namespace CalamityEntropy.Common
             }
             if (brokenAnkh)
             {
-                if (Player.whoAmI == Main.myPlayer && !Main.dedServ) {
+                if (Player.whoAmI == Main.myPlayer && !Main.dedServ)
+                {
                     if (!holdingPoop && CEKeybinds.PoopHoldHotKey is not null && CEKeybinds.PoopHoldHotKey.JustPressed)
                     {
                         if (PoopHold is not null)
@@ -1788,7 +1789,7 @@ namespace CalamityEntropy.Common
             {
                 Player.statDefense -= 14;
             }
-            if(Player.HeldItem.prefix == ModContent.PrefixType<Echo>())
+            if (Player.HeldItem.prefix == ModContent.PrefixType<Echo>())
             {
                 Player.Calamity().rogueStealthMax += 0.12f;
             }

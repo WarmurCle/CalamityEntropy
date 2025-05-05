@@ -1,10 +1,6 @@
-﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -23,7 +19,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            if(Projectile.velocity.Y == 0)
+            if (Projectile.velocity.Y == 0)
             {
                 Projectile.velocity.X *= 0.9f;
             }

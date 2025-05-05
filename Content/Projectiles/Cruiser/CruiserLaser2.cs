@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 }
                 else
                 {
-                    Projectile.Kill();return;
+                    Projectile.Kill(); return;
                 }
             }
             if (ownern != null)

@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Summon;
@@ -9,7 +10,6 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityEntropy.Content.Buffs;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[2] > 0)
             {
-                if(Main.myPlayer != Projectile.owner)
+                if (Main.myPlayer != Projectile.owner)
                 {
                     OnHitBothSide(((int)Projectile.ai[2]).ToNPC());
                 }
@@ -62,11 +62,11 @@ namespace CalamityEntropy.Content.Projectiles
             if (frame > 0)
             {
                 frameCounter++;
-                if(frameCounter >= 6)
+                if (frameCounter >= 6)
                 {
                     frame++;
                     frameCounter = 0;
-                    if(frame > 2)
+                    if (frame > 2)
                     {
                         frame = 0;
                     }
@@ -80,8 +80,8 @@ namespace CalamityEntropy.Content.Projectiles
                 player.itemTime = 2;
                 player.itemAnimation = 2;
             }
-            
-            if(charge < 1)
+
+            if (charge < 1)
             {
                 Projectile.velocity = (player.Calamity().mouseWorld - player.Center).normalize() * Projectile.velocity.Length();
                 charge += 0.025f * player.GetTotalAttackSpeed(Projectile.DamageType);
@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation = (player.Calamity().mouseWorld - player.Center).ToRotation() - player.direction * ((float)Math.Cos(((float)Math.Cos(((float)Math.Cos(charge * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.ToRadians(150);
                 Projectile.timeLeft = 70;
             }
-            if(charge >= 1) 
+            if (charge >= 1)
             {
                 charge = 1;
                 if (!player.channel)
@@ -103,7 +103,8 @@ namespace CalamityEntropy.Content.Projectiles
                         player.RemoveAllGrapplingHooks();
                         player.velocity = Projectile.velocity * 4;
                     }
-                    if(Projectile.timeLeft > 52) {
+                    if (Projectile.timeLeft > 52)
+                    {
                         Vector2 top = Projectile.Center + Projectile.velocity * 22;
                         int sparkLifetime2 = Main.rand.Next(36, 48);
                         float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
@@ -113,7 +114,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                         GeneralParticleHandler.SpawnParticle(spark);
                         GeneralParticleHandler.SpawnParticle(spark2);
-                        if(Projectile.timeLeft % 3 == 0)
+                        if (Projectile.timeLeft % 3 == 0)
                         {
                             EParticle.spawnNew(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity * 22, Projectile.velocity * -0.6f, Color.LightGoldenrodYellow, 0.16f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
                         }
@@ -128,7 +129,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.rotation = (player.Calamity().mouseWorld - player.Center).ToRotation() - player.direction * ((float)Math.Cos(((float)Math.Cos(((float)Math.Cos(charge * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.ToRadians(150);
                     Projectile.timeLeft = 70;
                 }
-                if(Projectile.timeLeft == 50 && CanHit)
+                if (Projectile.timeLeft == 50 && CanHit)
                 {
                     CanHit = false;
                     player.Entropy().XSpeedSlowdownTime = 26;
@@ -143,24 +144,24 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 44, Projectile.velocity.RotatedBy(-2f * player.direction).RotatedByRandom(0.26f), ModContent.ProjectileType<BatteringRamShell>(), 0, 0, player.whoAmI);
                     }
                 }
-                if(Projectile.timeLeft == 30)
+                if (Projectile.timeLeft == 30)
                 {
                     Utilities.Util.PlaySound("steam", 1, Projectile.Center);
                 }
-                if(Projectile.timeLeft <= 30 && Projectile.timeLeft > 4)
+                if (Projectile.timeLeft <= 30 && Projectile.timeLeft > 4)
                 {
                     float c = (Projectile.timeLeft - 4) / 26f;
                     Vector2 steamCenter = Projectile.Center + Projectile.rotation.ToRotationVector2() * 68 * Projectile.scale;
                     float rot = Projectile.rotation + player.direction * -2f;
                     for (int i = 0; i < 8; i++)
                     {
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Utilities.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Utilities.Util.randomRot());
                         EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Utilities.Util.randomRot());
                     }
                     rot += player.direction * 3.8f;
                     for (int i = 0; i < 8; i++)
                     {
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f}, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Utilities.Util.randomRot());
+                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Utilities.Util.randomRot());
                         EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Utilities.Util.randomRot());
                     }
                 }
@@ -207,7 +208,7 @@ namespace CalamityEntropy.Content.Projectiles
             FalseGun.ArmorPenetration = Projectile.ArmorPenetration;
             FalseGun.DamageType = DamageClass.Melee;
             Player player = Projectile.getOwner();
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 float r = Projectile.rotation + Main.rand.NextFloat(-0.5f, 0.5f);
                 if (player.HasAmmo(FalseGun))
@@ -325,7 +326,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return false;
             }
-            if(Projectile.Colliding(Projectile.Hitbox, target.getRect()))
+            if (Projectile.Colliding(Projectile.Hitbox, target.getRect()))
             {
                 OnHitBothSide(target);
                 Projectile.localAI[0] = target.whoAmI;
@@ -335,7 +336,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             return base.CanHitPvp(target);
         }
-        
+
         public override bool ShouldUpdatePosition()
         {
             return false;

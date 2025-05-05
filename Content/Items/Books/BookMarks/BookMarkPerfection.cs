@@ -1,11 +1,8 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Items;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookMarkPerfection : BookMark

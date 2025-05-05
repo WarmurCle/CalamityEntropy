@@ -2,10 +2,8 @@
 using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -63,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.rotation += (Projectile.whoAmI % 2 == 0 ? 1 : -1) * Projectile.velocity.Length() * 0.01f;
             counter++;
             Projectile.velocity *= 0.97f;
-            if(Main.dedServ)
+            if (Main.dedServ)
                 Utilities.Util.SyncProj(Projectile.whoAmI);
         }
         public float counter = 0;

@@ -31,10 +31,10 @@ namespace CalamityEntropy.Content.Projectiles
         public float eRotSpeed = 0;
         public int EAnmTime = -1;
         public LoopSound chargeSnd = null;
-        
+
         public override void AI()
         {
-            
+
             if (!Main.dedServ)
             {
                 if (chargeSnd == null)
@@ -190,7 +190,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow").Value;
                 Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale * Projectile.scale, null, (Projectile.ai[0] >= maxTime ? Color.Lerp(Color.White, Color.Red, (0.5f + (float)Math.Cos((counter) * 0.1f) * 0.5f)) : Color.White) * (Projectile.ai[0] / (float)maxTime), 0, light.Size() / 2, 0.2f * Projectile.scale * (1 + (float)Math.Cos((counter) * 0.1f) * 0.2f), SpriteEffects.None, 0);
-                
+
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

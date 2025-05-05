@@ -1,11 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
-using CalamityMod.Particles;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles

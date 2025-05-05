@@ -1,11 +1,10 @@
-using Terraria.ID;
-using Terraria;
-using Terraria.ModLoader;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
-using Terraria.DataStructures;
-using System.Runtime.Serialization.Formatters;
-using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Buffs
 {

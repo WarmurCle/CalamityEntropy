@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.localAI[1] == 0)
             {
-                for(int i = 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     var pt = new TrailParticle();
                     pt.maxLength = 11;
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 t1.maxLength *= 4;
                 t2.maxLength *= 4;
-                
+
                 EParticle.spawnNew(t1, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
                 EParticle.spawnNew(t2, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
             }
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnKill(int timeLeft)
         {
             Utilities.Util.PlaySound("ofhit", 1, Projectile.Center);
-            for(int i = 0; i < 16; i++)
+            for (int i = 0; i < 16; i++)
             {
                 EParticle.spawnNew(new TrailSparkParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 14), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale, 1, true, BlendState.NonPremultiplied);
             }

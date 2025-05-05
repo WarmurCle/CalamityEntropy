@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
-using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -39,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(counter < 100)
+            if (counter < 100)
             {
                 return false;
             }

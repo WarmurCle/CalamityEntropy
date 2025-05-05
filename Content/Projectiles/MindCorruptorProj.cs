@@ -4,7 +4,6 @@ using CalamityMod.Particles;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -117,9 +116,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 player.itemAnimation = player.itemTime = 2;
             }
-            if(hookNPC > -1 && hookTime <= 0)
+            if (hookNPC > -1 && hookTime <= 0)
             {
-                Projectile.ai[0]+=2;
+                Projectile.ai[0] += 2;
             }
         }
         public override Color StringColor => Color.DarkBlue;
@@ -137,7 +136,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 return ps;
             }
-            if(p > 0.5f && HNPCPos != Vector2.Zero)
+            if (p > 0.5f && HNPCPos != Vector2.Zero)
             {
                 List<Vector2> ps = new List<Vector2>();
                 for (int i = 0; i <= segs; i++)
@@ -166,7 +165,7 @@ namespace CalamityEntropy.Content.Projectiles
             points.Clear();
             List<Vector2> p2 = getPoints(Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates));
 
-            foreach(var p in p2)
+            foreach (var p in p2)
             {
                 points.Add(p);
             }
@@ -174,7 +173,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            if(hookNPC == -1)
+            if (hookNPC == -1)
             {
                 hookNPC = target.whoAmI;
             }
@@ -183,7 +182,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(hookTime > 2 && hookNPC > -1)
+            if (hookTime > 2 && hookNPC > -1)
             {
                 return false;
             }
@@ -195,7 +194,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override int segTypes => 3;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if(hookTime > 6)
+            if (hookTime > 6)
             {
                 modifiers.SourceDamage *= 0.2f;
             }

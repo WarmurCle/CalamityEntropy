@@ -1,12 +1,8 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -63,11 +59,11 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             lightColor = Color.White;
             Texture2D t1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Prophet/RuneCrystal").Value;
             Texture2D t2 = Projectile.GetTexture();
-            if(Projectile.timeLeft < 30)
+            if (Projectile.timeLeft < 30)
             {
                 lightColor *= Projectile.timeLeft / 30f;
             }
-            foreach(var p in segs)
+            foreach (var p in segs)
             {
                 Main.EntitySpriteDraw(t1, p - Main.screenPosition, null, lightColor, Projectile.velocity.ToRotation(), t1.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             }

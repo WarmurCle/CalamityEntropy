@@ -16,7 +16,6 @@ using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework.Graphics;
-using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -118,8 +117,8 @@ namespace CalamityEntropy.Common
         public bool ProminenceArrow = false;
         public float promineceDamageAddition = 0.25f;
         public int hittingTarget = -1;
-        
-        
+
+
         public Dictionary<string, SynchronousData> DataSynchronous = new Dictionary<string, SynchronousData>();
         public void DefineSynchronousData(SyncDataType type, string name, object defaultValue)
         {
@@ -135,16 +134,16 @@ namespace CalamityEntropy.Common
         }
         public override bool? Colliding(Projectile projectile, Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if(hittingTarget >= 0)
+            if (hittingTarget >= 0)
             {
-                if(Utilities.Util.getDistance(targetHitbox.Center.ToVector2(), hittingTarget.ToNPC().Hitbox.Center.ToVector2()) < 32)
+                if (Utilities.Util.getDistance(targetHitbox.Center.ToVector2(), hittingTarget.ToNPC().Hitbox.Center.ToVector2()) < 32)
                 {
                     return true;
                 }
             }
             return base.Colliding(projectile, projHitbox, targetHitbox);
         }
-        
+
         public override GlobalProjectile Clone(Projectile from, Projectile to)
         {
             var p = to.Entropy();
@@ -183,7 +182,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(projectile.Calamity().stealthStrike);
             binaryWriter.Write(zypArrow);
             binaryWriter.Write(ProminenceArrow);
-            foreach(var key in DataSynchronous.Keys)
+            foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].Write(binaryWriter);
             }
@@ -862,7 +861,7 @@ namespace CalamityEntropy.Common
         }
 
         public bool zypArrow = false;
-        
+
         public override void OnKill(Projectile projectile, int timeLeft)
         {
             if (projectile.friendly)
@@ -883,7 +882,7 @@ namespace CalamityEntropy.Common
                 }
             }
         }
-        
+
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {

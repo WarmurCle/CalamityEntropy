@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
                 spawnVoidStarCount--;
             }
         }
-        
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             rotSpeed = reader.ReadSingle();

@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
             CalamityEntropy.SpawnHeavenSpark(target.Center, Utilities.Util.randomRot(), Main.rand.NextFloat(0.9f, 1.2f) * (Projectile.ai[0] > 79 ? 1.5f : 1), 0.8f, new Color(60, 60, 200), 30);
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
             Utilities.Util.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center);
-            for(int i = 0; i < 36; i++)
+            for (int i = 0; i < 36; i++)
             {
                 EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
             }
@@ -147,7 +147,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 2 || Projectile.ai[0] == 42)
             {
                 noSlowTime = 4;
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/runesong" + Main.rand.Next(1, 4).ToString()) { Pitch = Main.rand.NextFloat(0.5f, 0.6f)}, Projectile.Center);
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/runesong" + Main.rand.Next(1, 4).ToString()) { Pitch = Main.rand.NextFloat(0.5f, 0.6f) }, Projectile.Center);
                 odr.Clear();
                 ods.Clear();
                 if (Projectile.velocity.X > 0)

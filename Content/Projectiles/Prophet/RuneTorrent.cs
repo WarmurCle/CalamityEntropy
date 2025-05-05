@@ -1,12 +1,10 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Prophet
@@ -50,12 +48,13 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             Projectile.velocity = Projectile.velocity.normalize() * nowSpeed;
             Projectile.Center += Projectile.velocity.RotatedBy(Math.Cos(Projectile.localAI[0] * 0.01f) * 0.4f);
             odp.Add(Projectile.Center);
-            if(odp.Count > 80)
+            if (odp.Count > 80)
             {
                 odp.RemoveAt(0);
             }
             spawnParticleCount += nowSpeed;
-            if(spawnParticleCount > 22) {
+            if (spawnParticleCount > 22)
+            {
                 spawnParticleCount -= 22;
                 EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
             }

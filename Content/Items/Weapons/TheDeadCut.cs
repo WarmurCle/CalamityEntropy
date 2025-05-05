@@ -5,7 +5,6 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Rarities;
-using System.CommandLine.Parsing;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -56,7 +55,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 float sCost = 1;
                 player.itemTimeMax *= 2;
                 player.itemAnimationMax *= 2;
-                
+
                 if (player.Calamity().stealthStrike85Cost)
                 {
                     sCost = 0.85f;

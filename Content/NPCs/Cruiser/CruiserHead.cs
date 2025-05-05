@@ -291,7 +291,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     ai = Main.rand.NextBool() ? AIStyle.EnergyBall : AIStyle.VoidResidue;
                 }
-                if(aiRound == 13)
+                if (aiRound == 13)
                 {
                     ai = AIStyle.AroundPlayerAndShootVoidStar;
                 }
@@ -299,7 +299,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             else
             {
-                aiRound++; 
+                aiRound++;
                 if (aiRound >= 9)
                 {
                     aiRound = 0;
@@ -312,15 +312,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     ai = Main.rand.NextBool() ? AIStyle.BiteAndDash : AIStyle.AroundSpawnVoidBomb;
                 }
-                if(aiRound == 3)
+                if (aiRound == 3)
                 {
                     ai = AIStyle.SplittingVoidStar;
                 }
-                if(aiRound == 4)
+                if (aiRound == 4)
                 {
                     ai = AIStyle.QuickDash;
                 }
-                if(aiRound == 5)
+                if (aiRound == 5)
                 {
                     ai = AIStyle.Cruise;
                     if (Main.rand.NextBool())
@@ -328,7 +328,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         ai = AIStyle.VoidSpike;
                     }
                 }
-                if(aiRound == 6)
+                if (aiRound == 6)
                 {
                     ai = AIStyle.VoidLaser;
                 }
@@ -412,9 +412,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     bodies[i] = NPC.Center;
                 }
-                foreach(Projectile pj in Main.ActiveProjectiles)
+                foreach (Projectile pj in Main.ActiveProjectiles)
                 {
-                    if(pj.ModProjectile is VoidBottleThrow)
+                    if (pj.ModProjectile is VoidBottleThrow)
                     {
                         NPC.Center = pj.Center;
                         break;
@@ -423,18 +423,18 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             else
             {
-                if(ai == AIStyle.PhaseTransing)
+                if (ai == AIStyle.PhaseTransing)
                 {
                     NPC.dontTakeDamage = true;
                 }
             }
             noaitime--;
-            
+
             if (noaitime == 0)
             {
                 NPC.dontTakeDamage = false;
             }
-            
+
             if (noaitime < 0)
             {
                 if (!b_added)
@@ -493,15 +493,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     if (NPC.HasValidTarget)
                     {
                         Player target = NPC.target.ToPlayer();
-                        if(!bite && NPC.Distance(target.Center) < 900 && ai != AIStyle.SplittingVoidStar && ai != AIStyle.VoidResidue && ai != AIStyle.BiteAndDash && ai != AIStyle.EnergyBall && ai != AIStyle.AroundPlayerAndShootVoidStar && ai != AIStyle.AroundSpawnVoidBomb)
+                        if (!bite && NPC.Distance(target.Center) < 900 && ai != AIStyle.SplittingVoidStar && ai != AIStyle.VoidResidue && ai != AIStyle.BiteAndDash && ai != AIStyle.EnergyBall && ai != AIStyle.AroundPlayerAndShootVoidStar && ai != AIStyle.AroundSpawnVoidBomb)
                         {
-                            mouthRot += Utils.Remap(NPC.Distance(target.Center), 900, 50, 0, 7f); 
+                            mouthRot += Utils.Remap(NPC.Distance(target.Center), 900, 50, 0, 7f);
                             if (NPC.Distance(target.Center) < float.Max(30, NPC.velocity.Length()) * 4.6f)
                             {
                                 bite = true;
                             }
                         }
-                        
+
                         int phaseNow = 1;
                         if (NPC.life < NPC.lifeMax / 2)
                         {
@@ -927,12 +927,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 NPC.velocity = NPC.velocity.normalize();
                             }
                             changeCounter++;
-                            if(changeCounter >= 6 * 46)
+                            if (changeCounter >= 6 * 46)
                             {
                                 changeAi();
                             }
                         }
-                        if(ai != AIStyle.VoidLaser)
+                        if (ai != AIStyle.VoidLaser)
                         {
                             NPC.rotation = NPC.velocity.ToRotation();
                         }
@@ -948,7 +948,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         NPC.rotation = NPC.velocity.ToRotation();
                     }
                 }
-                
+
                 if (bite)
                 {
                     mouthRot -= 12;
@@ -1036,7 +1036,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             num += 1;
                             speed *= 1.15f;
                         }
-                        if(ai == AIStyle.AroundPlayerAndShootVoidStar)
+                        if (ai == AIStyle.AroundPlayerAndShootVoidStar)
                         {
                             counts -= 1;
                             num /= 2;
@@ -1121,7 +1121,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 }
                 float rot = (oPos - bodies[i]).ToRotation();
                 rot = Utilities.Util.rotatedToAngle(rot, oRot, 0.12f, false);
-                
+
                 int spacing = 80;
                 bodies[i] = oPos - rot.ToRotationVector2() * spacing * NPC.scale;
             }
@@ -1255,7 +1255,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         spriteBatch.Draw(tx, pos - screenPosition, null, Color.White * alpha, rot, new Vector2(tx.Width, tx.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
 
                     }
-                    if(d == bodies.Count - 1 || Main.zenithWorld)
+                    if (d == bodies.Count - 1 || Main.zenithWorld)
                     {
                         spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White * alpha, rot + MathHelper.ToRadians(180 - da), new Vector2(0, f1.Height), NPC.scale, SpriteEffects.None, 0);
                         spriteBatch.Draw(f1, pos - screenPosition - new Vector2(36, 0).RotatedBy(rot) * NPC.scale, null, Color.White * alpha, rot + MathHelper.ToRadians(180 + da), new Vector2(0, 0), NPC.scale, SpriteEffects.FlipVertically, 0);

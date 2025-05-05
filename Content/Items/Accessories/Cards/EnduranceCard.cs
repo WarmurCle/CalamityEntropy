@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Fishing.SulphurCatches;
 using Terraria;

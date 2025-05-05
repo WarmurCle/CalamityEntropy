@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         }
         public override void OnSpawn(IEntitySource source)
         {
-            CalamityEntropy.checkProj.Add(Projectile);
+            CalamityEntropy.CheckProjs.Add(Projectile);
         }
         public override void SetDefaults()
         {

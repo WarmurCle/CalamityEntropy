@@ -65,7 +65,7 @@ namespace CalamityEntropy.Common
             flags2[0] = EntropyMode;
             writer.Write(flags);
             writer.Write(flags2);
-            
+
         }
 
         public override void NetReceive(BinaryReader reader)

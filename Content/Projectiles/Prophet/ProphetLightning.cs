@@ -1,15 +1,10 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Prophet
@@ -73,8 +68,8 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             }
 
         }
-        public override bool CanHitPlayer(Player target) 
-        { 
+        public override bool CanHitPlayer(Player target)
+        {
             if (Projectile.ai[0] < 81)
             {
                 return false;

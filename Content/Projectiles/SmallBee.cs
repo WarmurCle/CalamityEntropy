@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (++Projectile.ai[0] > 6)
             {
-                if(homingSpeed < 2)
+                if (homingSpeed < 2)
                 {
                     homingSpeed += 0.003f;
                 }

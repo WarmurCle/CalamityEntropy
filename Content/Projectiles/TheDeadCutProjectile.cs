@@ -3,7 +3,6 @@ using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -41,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player player = Projectile.getOwner();
-            
+
             float MaxUpdateTime = Projectile.MaxUpdates * player.itemTimeMax;
             counter++;
             Projectile.timeLeft = 2;
@@ -54,10 +53,10 @@ namespace CalamityEntropy.Content.Projectiles
                 RotF = MathHelper.TwoPi * 0.75f;
                 float dr = RotF * Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3);
                 JW = (MathHelper.Pi * -0.75f).ToRotationVector2().RotatedBy(dr) * new Vector2(1f, 0.32f);
-                
+
                 LScale = JW.Length();
             }
-            
+
             float l = (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 2) * MathHelper.Pi - MathHelper.PiOver2));
             scale = 1.5f + l * 1.5f;
             if (Projectile.Calamity().stealthStrike)
@@ -79,7 +78,7 @@ namespace CalamityEntropy.Content.Projectiles
                 oldScales.RemoveAt(0);
                 oldRots.RemoveAt(0);
             }
-            
+
             Projectile.Center = player.MountedCenter + Vector2.UnitY * player.gfxOffY;
             if (counter > MaxUpdateTime)
             {
@@ -109,7 +108,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (!Projectile.Calamity().stealthStrike)
             {
                 Projectile.getOwner().Calamity().rogueStealth += Projectile.getOwner().Calamity().rogueStealthMax * (addStealth == 0 ? 0.1f : (addStealth == 1 ? 0.04f : addStealth == 2 ? 0.016f : 0));
-                if(Projectile.getOwner().Calamity().rogueStealth > Projectile.getOwner().Calamity().rogueStealthMax)
+                if (Projectile.getOwner().Calamity().rogueStealth > Projectile.getOwner().Calamity().rogueStealthMax)
                 {
                     Projectile.getOwner().Calamity().rogueStealth = Projectile.getOwner().Calamity().rogueStealthMax;
                 }
@@ -177,7 +176,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             float MaxUpdateTime = Projectile.getOwner().itemTimeMax * Projectile.MaxUpdates;
             float l = (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2));
-            
+
             Main.EntitySpriteDraw(tex, Projectile.getOwner().MountedCenter + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor, rot, origin, Projectile.Calamity().stealthStrike ? new Vector2(Util.getDistance(JW, Vector2.Zero), (1 / 5f) * scale * (0.32f + 0.68f * (1 - l)) * 0.4f) : (Vector2.One * Projectile.scale * scale * LScale), effect);
             return false;
         }

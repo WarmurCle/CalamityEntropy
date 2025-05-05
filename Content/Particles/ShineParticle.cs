@@ -1,6 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Terraria.ModLoader;
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 
@@ -13,9 +12,9 @@ namespace CalamityEntropy.Content.Particles
         public Vector2 ownerLastPos = Vector2.Zero;
         public override void update()
         {
-            if(FollowOwner != null)
+            if (FollowOwner != null)
             {
-                if(ownerLastPos != Vector2.Zero)
+                if (ownerLastPos != Vector2.Zero)
                 {
                     position += (FollowOwner.Center - ownerLastPos);
                 }

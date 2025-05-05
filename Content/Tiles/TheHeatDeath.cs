@@ -1,10 +1,8 @@
-﻿using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.PrefixItem;
+﻿using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityMod.Tiles.Ores;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 
 namespace CalamityEntropy.Content.Tiles
 {

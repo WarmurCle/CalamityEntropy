@@ -1,12 +1,7 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
-using CalamityMod.Rarities;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons

@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
-            
+
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

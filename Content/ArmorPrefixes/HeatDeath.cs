@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
             player.GetDamage(DamageClass.Generic) *= 1.5f;
             player.Entropy().AttackVoidTouch += 0.36f;
             player.Entropy().addEquip("HEATDEATH");
-            if(Main.GameUpdateCount % 40 == 0)
+            if (Main.GameUpdateCount % 40 == 0)
             {
                 int deal = (int)(Math.Round(player.statLife * 0.018f) + 1);
                 if (player.statLife > deal)
@@ -21,9 +21,9 @@ namespace CalamityEntropy.Content.ArmorPrefixes
                     player.statLife -= deal;
                 }
             }
-            foreach(NPC npc in Main.ActiveNPCs)
+            foreach (NPC npc in Main.ActiveNPCs)
             {
-                if(Utilities.Util.getDistance(npc.Center, player.Center) < 2000)
+                if (Utilities.Util.getDistance(npc.Center, player.Center) < 2000)
                 {
                     if (!npc.friendly)
                     {

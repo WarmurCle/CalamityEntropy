@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -38,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public override void AI()
         {
             Projectile.velocity *= 0.996f;
-            if(Projectile.timeLeft < 20)
+            if (Projectile.timeLeft < 20)
             {
                 Projectile.Opacity -= 0.05f;
             }

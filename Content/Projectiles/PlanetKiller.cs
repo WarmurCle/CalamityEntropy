@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Items.Weapons.Summon;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -85,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
                     p.ToProj().usesLocalNPCImmunity = true;
                     p.ToProj().localNPCHitCooldown = 10;
                 }
-                
+
                 p.ToProj().DamageType = Projectile.DamageType;
             }
             if (Projectile.ai[0] % (int)(210 / (1 + Projectile.owner.ToPlayer().Entropy().WeaponBoost)) == 0)

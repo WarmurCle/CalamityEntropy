@@ -1,10 +1,7 @@
 ﻿using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
@@ -22,8 +19,8 @@ namespace CalamityEntropy.Content.Particles
         {
             base.update();
         }
-        
-        public void AddPoint(Vector2 pos) 
+
+        public void AddPoint(Vector2 pos)
         {
             odp.Insert(0, pos);
             if (odp.Count > maxLength)

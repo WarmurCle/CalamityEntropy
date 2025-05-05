@@ -1,15 +1,8 @@
 ﻿using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common
@@ -176,7 +169,7 @@ namespace CalamityEntropy.Common
         public static int[,] IDStaticImmune = new int[ProjectileLoader.ProjectileCount, Main.npc.Length];
         public override bool PreAI(Projectile projectile)
         {
-            for(int i = 0; i < NPCImmune.Length; i++)
+            for (int i = 0; i < NPCImmune.Length; i++)
             {
                 if (NPCImmune[i] > 0)
                     NPCImmune[i]--;
@@ -188,13 +181,13 @@ namespace CalamityEntropy.Common
     {
         public override void PostUpdateProjectiles()
         {
-            for(int i = 0; i < ProjectileLoader.ProjectileCount; i++)
+            for (int i = 0; i < ProjectileLoader.ProjectileCount; i++)
             {
-                for(int j = 0; j < Main.npc.Length; j++)
+                for (int j = 0; j < Main.npc.Length; j++)
                 {
                     if (GlobalImmuneTickSysGProj.IDStaticImmune[i, j] > 0)
                     {
-                        GlobalImmuneTickSysGProj.IDStaticImmune[i, j] --;
+                        GlobalImmuneTickSysGProj.IDStaticImmune[i, j]--;
                     }
                 }
             }

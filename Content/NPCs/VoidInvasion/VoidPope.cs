@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             NPCID.Sets.MustAlwaysDraw[NPC.type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
             this.HideFromBestiary();
-        
+
             NPCID.Sets.MPAllowedEnemies[Type] = true;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

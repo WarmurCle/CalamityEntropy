@@ -1,7 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,16 +17,16 @@ namespace CalamityEntropy.Content.Projectiles
         public override string Texture => Util.WhiteTexPath;
         public override void SetDefaults()
         {
-            Projectile.width = 6; 
+            Projectile.width = 6;
             Projectile.height = 6;
-            Projectile.aiStyle = 1; 
-            Projectile.friendly = true; 
+            Projectile.aiStyle = 1;
+            Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.DamageType = DamageClass.Ranged; 
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 2000;
-            Projectile.tileCollide = true; 
-            Projectile.MaxUpdates = 500; 
+            Projectile.tileCollide = true;
+            Projectile.MaxUpdates = 500;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             AIType = ProjectileID.Bullet;

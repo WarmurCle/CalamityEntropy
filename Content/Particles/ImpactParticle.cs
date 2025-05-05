@@ -1,13 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.Graphics.Primitives;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.Graphics.Shaders;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace CalamityEntropy.Content.Particles
 {
@@ -18,7 +9,8 @@ namespace CalamityEntropy.Content.Particles
         {
             base.onSpawn();
             this.timeLeft = 120;
-        }public float sadd = 0.1f;
+        }
+        public float sadd = 0.1f;
         public override void update()
         {
             base.update();

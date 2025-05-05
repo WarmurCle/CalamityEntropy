@@ -116,9 +116,9 @@ namespace CalamityEntropy.Content.Projectiles
                                 break;
                             }
                         }
-                        foreach(var pp in CanApply)
+                        foreach (var pp in CanApply)
                         {
-                            if(pp.type == item.type)
+                            if (pp.type == item.type)
                             {
                                 skip = true;
                                 break;

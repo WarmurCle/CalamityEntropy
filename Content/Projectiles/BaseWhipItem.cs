@@ -1,8 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Projectiles;
-using CalamityMod.Items;
-using CalamityMod.Rarities;
-using Terraria;
+﻿using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -14,7 +10,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public virtual int TagDamage => 5;
         public virtual float TagDamageMult => 1;
         public virtual float TagCritChance => 0;
-        public virtual int TagTime => 5 * 60; 
+        public virtual int TagTime => 5 * 60;
 
         public override bool CanShoot(Player player)
         {

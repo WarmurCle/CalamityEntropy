@@ -2,21 +2,15 @@
 //未完成
 
 using CalamityEntropy.Content.Items.Books;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria;
-using MonoMod.RuntimeDetour;
-using ReLogic.Content;
 using CalamityEntropy.Content.Items.Books.BookMarks;
-using System.Security.Cryptography.X509Certificates;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Utilities;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common
 {
@@ -34,7 +28,7 @@ namespace CalamityEntropy.Common
             CustomBMEffectsByName[name] = new BookmarkEffectFunctionGroups(onShoot, onActive, onProjectileSpawn, updateProjectile, onHitNPC, modifyHitNPC);
         }
 
-        public static void RegisterBookmark(int ItemType, Asset<Texture2D> tex, string effectName = "", 
+        public static void RegisterBookmark(int ItemType, Asset<Texture2D> tex, string effectName = "",
             Func<float, float> modifyStat_Damage = null,
        Func<float, float> modifyStat_Knockback = null,
        Func<float, float> modifyStat_ShootSpeed = null,
@@ -50,21 +44,23 @@ namespace CalamityEntropy.Common
        Func<int> modifyBaseProjectileType = null,
        Func<int, int> modifyShootCooldown = null)
         {
-            CustomBMByID[ItemType] = new BookMarkTag(tex.Value, effectName) 
-            {ModifyStat_Damage = modifyStat_Damage, 
+            CustomBMByID[ItemType] = new BookMarkTag(tex.Value, effectName)
+            {
+                ModifyStat_Damage = modifyStat_Damage,
                 ModifyStat_Knockback = modifyStat_Knockback,
-            ModifyStat_ShootSpeed = modifyStat_ShootSpeed,
-            ModifyStat_Homing = modifyStat_Homing,
-            ModifyStat_Size = modifyStat_Size,
-            ModifyStat_Crit = modifyStat_Crit,
-            ModifyStat_HomingRange = modifyStat_HomingRange,
-            ModifyStat_PenetrateAddition = modifyStat_PenetrateAddition,
-            ModifyStat_AttackSpeed = modifyStat_AttackSpeed,
-            ModifyStat_ArmorPenetration = modifyStat_ArmorPenetration,
-            ModifyStat_LifeSteal = modifyStat_LifeSteal,
-            ModifyProjectileType = modifyProjectileType,
-            ModifyBaseProjectileType = modifyBaseProjectileType,
-            ModifyShootCooldown = modifyShootCooldown};
+                ModifyStat_ShootSpeed = modifyStat_ShootSpeed,
+                ModifyStat_Homing = modifyStat_Homing,
+                ModifyStat_Size = modifyStat_Size,
+                ModifyStat_Crit = modifyStat_Crit,
+                ModifyStat_HomingRange = modifyStat_HomingRange,
+                ModifyStat_PenetrateAddition = modifyStat_PenetrateAddition,
+                ModifyStat_AttackSpeed = modifyStat_AttackSpeed,
+                ModifyStat_ArmorPenetration = modifyStat_ArmorPenetration,
+                ModifyStat_LifeSteal = modifyStat_LifeSteal,
+                ModifyProjectileType = modifyProjectileType,
+                ModifyBaseProjectileType = modifyBaseProjectileType,
+                ModifyShootCooldown = modifyShootCooldown
+            };
         }
 
         public static bool HasEmptyBookMarkSlot(Item item, Player player)
@@ -132,7 +128,7 @@ namespace CalamityEntropy.Common
         }
         public static Texture2D GetUITexture(Item item)
         {
-            if(item.ModItem is BookMark bm)
+            if (item.ModItem is BookMark bm)
             {
                 return bm.UITexture;
             }
@@ -163,17 +159,17 @@ namespace CalamityEntropy.Common
             if (CustomBMByID.ContainsKey(item.type))
             {
                 var tag = CustomBMByID[item.type];
-                if(tag.ModifyStat_Damage != null)
+                if (tag.ModifyStat_Damage != null)
                     modifer.Damage = tag.ModifyStat_Damage(modifer.Damage);
-                if(tag.ModifyStat_Knockback != null)
+                if (tag.ModifyStat_Knockback != null)
                     modifer.Knockback = tag.ModifyStat_Knockback(modifer.Knockback);
-                if(tag.ModifyStat_ShootSpeed != null)
+                if (tag.ModifyStat_ShootSpeed != null)
                     modifer.shotSpeed = tag.ModifyStat_ShootSpeed(modifer.shotSpeed);
-                if(tag.ModifyStat_Homing != null)
+                if (tag.ModifyStat_Homing != null)
                     modifer.Homing = tag.ModifyStat_Homing(modifer.Homing);
-                if(tag.ModifyStat_Size != null)
+                if (tag.ModifyStat_Size != null)
                     modifer.Size = tag.ModifyStat_Size(modifer.Size);
-                if(tag.ModifyStat_Crit != null)
+                if (tag.ModifyStat_Crit != null)
                     modifer.Crit = tag.ModifyStat_Crit(modifer.Crit);
                 if (tag.ModifyStat_HomingRange != null)
                     modifer.HomingRange = tag.ModifyStat_HomingRange(modifer.HomingRange);
@@ -223,7 +219,7 @@ namespace CalamityEntropy.Common
         {
             if (item.ModItem is BookMark bm)
             {
-                bm.modifyShootCooldown(ref  shootCd);
+                bm.modifyShootCooldown(ref shootCd);
             }
             if (CustomBMByID.ContainsKey(item.type))
             {

@@ -65,7 +65,7 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateDusts()
         {
-            if(CalamityEntropy.FlashEffectStrength > 0)
+            if (CalamityEntropy.FlashEffectStrength > 0)
             {
                 CalamityEntropy.FlashEffectStrength -= 0.02f;
             }

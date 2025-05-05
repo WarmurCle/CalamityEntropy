@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Particles
         {
             if (followOwner != null)
             {
-                if(ownerLastPos == Vector2.Zero)
+                if (ownerLastPos == Vector2.Zero)
                 {
                     ownerLastPos = followOwner.Center;
                 }

@@ -4,11 +4,8 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Utilities;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -99,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         public List<Vector2> getSamplePoints()
         {
             List<Vector2> p = new List<Vector2>();
-            for(int i = 0; i < 1624; i++)
+            for (int i = 0; i < 1624; i++)
             {
                 p.Add(Projectile.Center + Projectile.velocity * i * 6);
             }
@@ -137,7 +134,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 for (int i = 1; i < points.Count; i++)
                 {
                     float wd = 1;
-                    if(i < 48)
+                    if (i < 48)
                     {
                         wd = new Vector2(1, 0).RotatedBy((i / 48f) * MathHelper.PiOver2).Y;
                     }
@@ -157,11 +154,11 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
-            
+
             Main.spriteBatch.End();
             var effect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/fableeyelaser", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             effect.Parameters["yofs"].SetValue(yx);
-            
+
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, effect, Main.GameViewMatrix.TransformationMatrix);
             effect.CurrentTechnique.Passes["fableeyelaser"].Apply();
             {

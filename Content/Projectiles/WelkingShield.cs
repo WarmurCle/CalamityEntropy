@@ -1,16 +1,10 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -35,7 +29,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool flag = true;
         public int btime = 16;
         public float rp = 2;
-        
+
         public override void AI()
         {
             if (flag)
@@ -48,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
             btime--;
             Player plr = Projectile.getOwner();
             Projectile.Center = plr.Center;
-            if(btime < 0)
+            if (btime < 0)
             {
                 Projectile.Opacity -= 0.1f;
                 if (Projectile.Opacity <= 0)
@@ -60,9 +54,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Vector2 p1 = Projectile.Center + new Vector2(50, -70).RotatedBy(Projectile.rotation);
                 Vector2 p2 = Projectile.Center + new Vector2(50, 70).RotatedBy(Projectile.rotation);
-                foreach(NPC n in Main.ActiveNPCs)
+                foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if(!n.friendly && Utilities.Util.LineThroughRect(p1, p2, n.Hitbox, 56))
+                    if (!n.friendly && Utilities.Util.LineThroughRect(p1, p2, n.Hitbox, 56))
                     {
                         Projectile.getOwner().Entropy().immune = 20;
                         n.SimpleStrikeNPC(56, Projectile.velocity.X > 0 ? 1 : -1, true, 20, DamageClass.Melee);
@@ -107,7 +101,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool friendly = false;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            if(source is EntitySource_Parent ep && ep.Entity is Projectile pj)
+            if (source is EntitySource_Parent ep && ep.Entity is Projectile pj)
             {
                 if (pj.GetGlobalProjectile<WelkingShieldGProj>().friendly)
                 {
@@ -120,13 +114,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool CanHitPlayer(Projectile projectile, Player target)
         {
-            if(projectile.damage > 0 && projectile.hostile && projectile.Colliding(projectile.getRect(), target.getRect()) && target.ownedProjectileCounts[ModContent.ProjectileType<WelkingShield>()] > 0)
+            if (projectile.damage > 0 && projectile.hostile && projectile.Colliding(projectile.getRect(), target.getRect()) && target.ownedProjectileCounts[ModContent.ProjectileType<WelkingShield>()] > 0)
             {
-                foreach(Projectile proj in Main.ActiveProjectiles)
+                foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if(proj.ModProjectile is WelkingShield ws && ws.btime > 0)
+                    if (proj.ModProjectile is WelkingShield ws && ws.btime > 0)
                     {
-                        if(Utilities.Util.GetAngleBetweenVectors(proj.velocity, projectile.Center - proj.Center) < MathHelper.ToRadians(65))
+                        if (Utilities.Util.GetAngleBetweenVectors(proj.velocity, projectile.Center - proj.Center) < MathHelper.ToRadians(65))
                         {
                             projectile.velocity = proj.velocity.normalize() * projectile.velocity.Length();
                             ws.Block();

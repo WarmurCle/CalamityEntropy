@@ -1,19 +1,16 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Items.Potions;
-using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +21,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityEntropy.Content.Items.Books.BookMarks;
 
 namespace CalamityEntropy.Content.NPCs.Prophet
 {
@@ -73,8 +69,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 timeLeft--;
             }
         }
-        public List<TailPoint> tail; 
-        
+        public List<TailPoint> tail;
+
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<ProphetBag>()));
@@ -140,8 +136,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             else if (CalamityWorld.revenge)
             {
                 NPC.damage += 4;
-            }   
-            var snd = Utilities.Util.GetSound("prophet_hurt", maxIns:1);
+            }
+            var snd = Utilities.Util.GetSound("prophet_hurt", maxIns: 1);
             var snd2 = Utilities.Util.GetSound("prophet_death");
             NPC.HitSound = snd;
             NPC.DeathSound = snd2;
@@ -159,7 +155,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
 
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            if(AIStyle == 8)
+            if (AIStyle == 8)
             {
                 modifiers.FinalDamage *= 0.5f;
             }
@@ -167,23 +163,23 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public float dr = 0.26f;
         public override void AI()
         {
-            if(dr > 0)
+            if (dr > 0)
             {
                 dr -= 0.5f / (160 * 60);
             }
             NPC.Calamity().CurrentlyIncreasingDefenseOrDR = AIStyle == 8;
-            if(AIStyle == 8)
+            if (AIStyle == 8)
             {
                 NPC.Calamity().DR = 0.50f;
             }
             else { NPC.Calamity().DR = 0.12f; }
             NPC.Calamity().DR += dr;
-            if(spawnAnm > 0)
+            if (spawnAnm > 0)
             {
                 NPC.dontTakeDamage = true;
                 NPC.rotation = MathHelper.PiOver2 * -1;
             }
-            if(spawnAnm == 0)
+            if (spawnAnm == 0)
             {
                 NPC.dontTakeDamage = false;
             }
@@ -284,7 +280,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             {
                 NPC.Calamity().CurrentlyEnraged = true;
             }
-            if(NPC.life < NPC.lifeMax / 2)
+            if (NPC.life < NPC.lifeMax / 2)
             {
                 phase = 2;
             }
@@ -314,7 +310,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 difficult += 0.15f;
             }
             difficult *= 1 + ((float)NPC.life / NPC.lifeMax) * 0.2f;
-            if(AIChangeDelay <= 0)
+            if (AIChangeDelay <= 0)
             {
                 int lastAI = AIStyle;
                 for (int i = 0; i < 6; i++)
@@ -324,15 +320,15 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         AIStyle = Main.rand.Next(0, Main.expertMode ? 12 : 11);
                     }
                 }
-                if(AIStyle == 0)
+                if (AIStyle == 0)
                 {
                     AIChangeDelay = 240;
                 }
-                if(AIStyle == 1)
+                if (AIStyle == 1)
                 {
                     AIChangeDelay = 220;
                 }
-                if(AIStyle == 2)
+                if (AIStyle == 2)
                 {
                     AIChangeDelay = 120 + 60 * 4;
                 }
@@ -348,7 +344,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     AIChangeDelay = 245;
                 }
-                if(AIStyle == 6)
+                if (AIStyle == 6)
                 {
                     AIChangeDelay = 142;
                 }
@@ -582,7 +578,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 }
                 if (AIStyle == 5)
                 {
-                    if(AIChangeDelay > 160)
+                    if (AIChangeDelay > 160)
                     {
                         if (AIChangeDelay % (phase == 1 ? 4 : 3) == 0)
                         {
@@ -604,11 +600,11 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 }
                 if (AIStyle == 6)
                 {
-                    if(AIChangeDelay == 140)
+                    if (AIChangeDelay == 140)
                     {
                         TeleportTo(target.Center + Utilities.Util.randomRot().ToRotationVector2() * 560);
                     }
-                    if(AIChangeDelay == 130)
+                    if (AIChangeDelay == 130)
                     {
                         if (!Main.dedServ)
                         {
@@ -623,7 +619,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             GeneralParticleHandler.SpawnParticle(impactParticle2);
                             var impactParticle = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
                             GeneralParticleHandler.SpawnParticle(impactParticle);
-                            
+
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, ModContent.ProjectileType<ProphetRune>(), NPC.damage / 6, 4, -1, NPC.whoAmI, rot, Main.rand.Next(1, 12));
@@ -679,18 +675,18 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.velocity += (target.Center - NPC.Center).normalize() * 0.2f;
                     NPC.velocity *= 0.96f;
                 }
-                if(AIStyle == 7)
+                if (AIStyle == 7)
                 {
                     bool flag = true;
-                    if(AIChangeDelay > 50) 
-                    { 
-                        if(AIChangeDelay % 40 > 20)
+                    if (AIChangeDelay > 50)
+                    {
+                        if (AIChangeDelay % 40 > 20)
                         {
                         }
                         else
                         {
                             flag = false;
-                            if(Main.netMode != NetmodeID.MultiplayerClient)
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 if (AIChangeDelay % 40 == 20)
                                 {
@@ -717,36 +713,36 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         NPC.rotation = Utilities.Util.rotatedToAngle(NPC.rotation, NPC.velocity.ToRotation(), 0.06f, false);
                     }
                 }
-                if(AIStyle == 8)
+                if (AIStyle == 8)
                 {
                     NPC.velocity *= 0.9f;
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
-                    if(AIChangeDelay == 556)
+                    if (AIChangeDelay == 556)
                     {
                         TeleportTo(target.Center + new Vector2(0, -200));
                     }
-                    if(AIChangeDelay > 480)
+                    if (AIChangeDelay > 480)
                     {
                         NPC.velocity += (target.Center - NPC.Center).normalize();
                         NPC.velocity *= 0.96f;
                     }
-                    if(AIChangeDelay == 480)
+                    if (AIChangeDelay == 480)
                     {
-                        if(Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(0, -80), (target.Center - NPC.Center).normalize() * 0.7f, ModContent.ProjectileType<FableEye>(), NPC.damage / 5, 4);
                         }
                     }
                 }
-                if(AIStyle == 9)
+                if (AIStyle == 9)
                 {
-                    if(AIChangeDelay == 160)
+                    if (AIChangeDelay == 160)
                     {
                         TeleportTo(target.Center + Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(300, 600));
                     }
-                    if(AIChangeDelay > 60)
+                    if (AIChangeDelay > 60)
                     {
-                        if(AIChangeDelay % 5 == 0)
+                        if (AIChangeDelay % 5 == 0)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -755,13 +751,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         }
                     }
                 }
-                if(AIStyle == 10)
+                if (AIStyle == 10)
                 {
-                    if(AIChangeDelay == 310)
+                    if (AIChangeDelay == 310)
                     {
                         TeleportTo(target.Center + Utilities.Util.randomRot().ToRotationVector2() * 280);
                     }
-                    if(AIChangeDelay > 100 && AIChangeDelay % (phase == 1 ? 40 : 30) == 0)
+                    if (AIChangeDelay > 100 && AIChangeDelay % (phase == 1 ? 40 : 30) == 0)
                     {
                         float r = Utilities.Util.randomRot();
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -777,12 +773,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 }
                 if (AIStyle == 11)
                 {
-                    if(AIChangeDelay == 239)
+                    if (AIChangeDelay == 239)
                     {
                         TeleportTo(target.Center + Util.randomRot().ToRotationVector2() * 900 / difficult);
-                        
+
                     }
-                    if(AIChangeDelay == 228)
+                    if (AIChangeDelay == 228)
                     {
                         float r = Utilities.Util.randomRot();
                         for (float i = 0; i < 358; i += (phase == 1 ? 72 : 60))
@@ -817,7 +813,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             this.trail?.AddPoint(NPC.Center + NPC.rotation.ToRotationVector2() * (NPC.velocity.Length() + 60));
             AIChangeDelay--;
             NPC.netUpdate = true;
-            if(Main.netMode == NetmodeID.Server)
+            if (Main.netMode == NetmodeID.Server)
             {
                 NPC.netSpam = 0;
             }
@@ -825,7 +821,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public ProminenceTrail trail = null;
         public void TeleportTo(Vector2 pos)
         {
-            
+
             NPC.velocity *= 0;
             Color impactColor = Main.rand.NextBool(3) ? Color.SkyBlue : Color.White;
             float impactParticleScale = 5.6f;
@@ -860,7 +856,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public void Draw()
         {
-            if(spawnAnm < 60)
+            if (spawnAnm < 60)
             {
                 Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
                 DrawTail();
@@ -869,7 +865,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, Color.White, NPC.rotation + MathHelper.PiOver2, tex.Size() / 2, NPC.scale, SpriteEffects.None);
                 Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             }
-            if(spawnAnm > 0)
+            if (spawnAnm > 0)
             {
                 float a = (float)Math.Sin(spawnAnm / 120f * MathHelper.Pi);
                 Main.spriteBatch.End();
@@ -955,7 +951,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public List<Texture2D> fintexs = null;
         public void DrawFins()
         {
-            if(fintexs == null)
+            if (fintexs == null)
             {
                 fintexs = new List<Texture2D>() {
                     ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/fin1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,

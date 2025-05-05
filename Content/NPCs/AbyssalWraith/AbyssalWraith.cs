@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public List<Texture2D> wingflying = new List<Texture2D>();
         public override void OnSpawn(IEntitySource source)
         {
-            CalamityEntropy.checkNPC.Add(NPC);
+            CalamityEntropy.CheckNPCs.Add(NPC);
             seed = Main.rand.Next(0, 10000);
             if (Main.netMode == NetmodeID.Server)
             {

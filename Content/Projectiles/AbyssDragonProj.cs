@@ -1,15 +1,11 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Utilities;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Projectiles
 {

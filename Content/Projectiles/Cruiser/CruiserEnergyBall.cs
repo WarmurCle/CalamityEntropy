@@ -1,13 +1,10 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Map;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser
@@ -36,7 +33,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public NPC owner { get { return ((int)Projectile.ai[0]).ToNPC(); } set { Projectile.ai[0] = value.whoAmI; } }
         public override void AI()
         {
-            if (!Main.dedServ) {
+            if (!Main.dedServ)
+            {
                 if (snd == null)
                 {
                     snd = new LoopSound(CalamityEntropy.ofCharge);
@@ -44,41 +42,41 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                     snd.instance.Volume = 0;
                     snd.play();
                 }
-                if(Projectile.timeLeft > 120)
+                if (Projectile.timeLeft > 120)
                 {
                     snd.setVolume_Dist(Projectile.Center, 100, 2600, ((300 - Projectile.timeLeft) / 180f) * 0.5f);
                     snd.instance.Pitch = (300 - Projectile.timeLeft) / 180f;
                     snd.timeleft = 3;
                 }
             }
-            if(Projectile.timeLeft > 120)
+            if (Projectile.timeLeft > 120)
             {
                 Scale += 1 / 180f;
                 Projectile.Center = owner.Center + owner.velocity.normalize() * 80;
             }
-            if(Projectile.timeLeft == 120)
+            if (Projectile.timeLeft == 120)
             {
                 Scale = 1;
                 Projectile.velocity = owner.velocity.normalize() * 30;
                 Utilities.Util.PlaySound("CrystalBallActive", 1, Projectile.Center);
             }
-            if(Projectile.timeLeft < 120)
+            if (Projectile.timeLeft < 120)
             {
-                if(Projectile.timeLeft > 16)
+                if (Projectile.timeLeft > 16)
                 {
                     Projectile.timeLeft -= 1;
                 }
                 Projectile.velocity *= 0.975f;
             }
-            if(Projectile.timeLeft < 10)
+            if (Projectile.timeLeft < 10)
             {
                 Scale *= 1.1f;
                 Projectile.Opacity -= 0.1f;
             }
-            if(Projectile.timeLeft == 10)
+            if (Projectile.timeLeft == 10)
             {
                 Utilities.Util.PlaySound("energyImpact", 1, Projectile.Center);
-                if(!(Main.netMode == NetmodeID.MultiplayerClient))
+                if (!(Main.netMode == NetmodeID.MultiplayerClient))
                 {
                     float rj = Utilities.Util.randomRot();
                     for (float i = 0; i < 360; i += 12f)
@@ -118,7 +116,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         {
 
             float a = Scale;
-            if(a > 1)
+            if (a > 1)
             {
                 a = 1;
             }

@@ -10,7 +10,6 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.CrystalBalls;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
@@ -25,8 +24,6 @@ using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.NPCs.HiveMind;
-using CalamityMod.NPCs.Perforator;
 using CalamityMod.Projectiles.Rogue;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
@@ -35,7 +32,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -86,9 +82,9 @@ namespace CalamityEntropy.Common
         }
         public override void RightClick(Item item, Player player)
         {
-            if(BookMarkLoader.IsABookMark(item) && EBookUI.active)
+            if (BookMarkLoader.IsABookMark(item) && EBookUI.active)
             {
-                for(int i = 0; i < player.Entropy().EBookStackItems.Count; i++)
+                for (int i = 0; i < player.Entropy().EBookStackItems.Count; i++)
                 {
                     if (player.Entropy().EBookStackItems[i].IsAir)
                     {
@@ -100,7 +96,7 @@ namespace CalamityEntropy.Common
             Item held = Main.mouseItem;
             if (Utilities.Util.IsArmor(item))
             {
-                if(held.IsArmorReforgeItem(out var p))
+                if (held.IsArmorReforgeItem(out var p))
                 {
                     if (p == null)
                     {
@@ -129,7 +125,7 @@ namespace CalamityEntropy.Common
             Item held = Main.mouseItem;
             if (Utilities.Util.IsArmor(item))
             {
-                if(held.IsArmorReforgeItem(out var _))
+                if (held.IsArmorReforgeItem(out var _))
                 {
                     if (ItemLoader.ConsumeItem(held, player))
                     {
@@ -142,7 +138,7 @@ namespace CalamityEntropy.Common
         }
         public void SetArmorPrefix(ArmorPrefix armorPrefixS)
         {
-            if(armorPrefixS == null)
+            if (armorPrefixS == null)
             {
                 this.armorPrefix = null;
                 this.armorPrefixName = string.Empty;
@@ -245,7 +241,7 @@ namespace CalamityEntropy.Common
 
         public string getAmmoName(int type)
         {
-            if(type == AmmoID.Solution)
+            if (type == AmmoID.Solution)
             {
                 return Mod.GetLocalization("AmmoSolution").Value;
             }
@@ -309,7 +305,7 @@ namespace CalamityEntropy.Common
             {
                 return Mod.GetLocalization("AmmoStyngerBolt").Value;
             }
-            if(ModLoader.HasMod("MoreBoulders") && type == 540)
+            if (ModLoader.HasMod("MoreBoulders") && type == 540)
             {
                 return Mod.GetLocalization("AmmoBoulders").Value;
             }
@@ -322,7 +318,7 @@ namespace CalamityEntropy.Common
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if(ModContent.GetInstance<Config>().ItemAdditionalInfo) 
+            if (ModContent.GetInstance<Config>().ItemAdditionalInfo)
             {
                 if (item.ammo != AmmoID.None)
                 {
@@ -332,10 +328,10 @@ namespace CalamityEntropy.Common
                         tooltips.Add(new TooltipLine(Mod, "Ammo Life Time", Mod.GetLocalization("AmmoLifeTime").Value + ": " + Math.Round((CalamityEntropy.GetAProjectileInstance(item.shoot).timeLeft / (float)CalamityEntropy.GetAProjectileInstance(item.shoot).MaxUpdates) / 60f, 2).ToString() + "s"));
                         tooltips.Add(new TooltipLine(Mod, "Ammo Shoot Speed", Mod.GetLocalization("AmmoShootSpeed").Value + ": " + ((item.shootSpeed * (float)CalamityEntropy.GetAProjectileInstance(item.shoot).MaxUpdates)).ToString()));
                         tooltips.Add(new TooltipLine(Mod, "Ammo Penetrate", Mod.GetLocalization("AmmoPenetrate").Value + ": " + ((CalamityEntropy.GetAProjectileInstance(item.shoot).penetrate) >= 0 ? (CalamityEntropy.GetAProjectileInstance(item.shoot).penetrate - 1).ToString() : Mod.GetLocalization("AmmoPenetrateInfinite").Value)));
-                    if (CalamityEntropy.GetAProjectileInstance(item.shoot).ArmorPenetration > 0)
+                        if (CalamityEntropy.GetAProjectileInstance(item.shoot).ArmorPenetration > 0)
                         {
                             tooltips.Add(new TooltipLine(Mod, "Ammo Armor Penetration", Mod.GetLocalization("ArmorPenetrationItemTooltip").Value + ": " + (CalamityEntropy.GetAProjectileInstance(item.shoot).ArmorPenetration).ToString()));
-                        } 
+                        }
                     }
                 }
                 if (item.useAmmo != AmmoID.None)
@@ -1169,7 +1165,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkAquarius>(), new Fraction(1, 2));
             }
-            if(item.type == ItemID.QueenSlimeBossBag)
+            if (item.type == ItemID.QueenSlimeBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<Crystedge>(), new Fraction(1, 3));
             }
@@ -1436,7 +1432,7 @@ namespace CalamityEntropy.Common
                 ;
                 itemLoot.AddIf(getsMO, ModContent.ItemType<MosHat>());
 
-                if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage)) 
+                if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
                 {
                     ModItem i;
                     if (magicStorage.TryFind<ModItem>("CraftingAccess", out i))
@@ -1451,7 +1447,7 @@ namespace CalamityEntropy.Common
                     {
                         itemLoot.Add(i.Type, 1, 10, 10);
                     }
-                    
+
                 }
             }
         }

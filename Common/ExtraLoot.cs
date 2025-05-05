@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Tiles;
-using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,7 +19,7 @@ namespace CalamityEntropy.Common
                 {
                     int px = Main.rand.Next(Main.tile.Width);
                     int py = Main.rand.Next(Main.tile.Height);
-                    if(Main.tile[px, py].HasTile && Main.tileBrick[Main.tile[px, py].TileType])
+                    if (Main.tile[px, py].HasTile && Main.tileBrick[Main.tile[px, py].TileType])
                     {
                         Main.tile[px, py].ResetToType((ushort)ModContent.TileType<TheHeatDeath>());
                         break;

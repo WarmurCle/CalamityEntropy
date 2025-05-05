@@ -1,9 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.Prophet;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Rarities;
 using System;
 using Terraria;
 using Terraria.DataStructures;

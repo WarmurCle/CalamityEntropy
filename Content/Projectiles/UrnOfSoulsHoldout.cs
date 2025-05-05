@@ -1,14 +1,10 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Utilities;
-using CalamityMod.Items.Weapons.Ranged;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -72,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
                 Projectile.getOwner().Center += Collision.TileCollision(Projectile.getOwner().position, -Projectile.velocity * 0.2f * new Vector2(1, Projectile.getOwner().velocity.Y == 0 ? 0 : 1), Projectile.getOwner().width, Projectile.getOwner().height, false, false, (int)Projectile.getOwner().gravDir);
-               
+
             }
             if (!owner.channel)
             {
@@ -83,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 2;
             }
-            
+
             if (Main.myPlayer == Projectile.owner)
             {
                 Vector2 nv = (Main.MouseWorld - owner.MountedCenter).SafeNormalize(Vector2.One) * 8;

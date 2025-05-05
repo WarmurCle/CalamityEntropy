@@ -1,9 +1,6 @@
 ﻿using CalamityEntropy.Utilities;
-using CalamityMod.Particles;
-using CalamityMod.Projectiles.Turret;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles

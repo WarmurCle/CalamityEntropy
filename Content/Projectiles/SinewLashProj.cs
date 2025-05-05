@@ -1,20 +1,11 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Ranged;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.Drawing;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -32,21 +23,21 @@ namespace CalamityEntropy.Content.Projectiles
         public Rope WhipPoints = null;
         public bool Forwarding = true;
         public override bool PreAI()
-        { 
+        {
             Player player = Projectile.getOwner();
             if (WhipPoints == null)
             {
                 Projectile.GetWhipSettings(Projectile, out float num1, out int segCount, out float num2);
                 WhipPoints = new Rope(player.HandPosition.Value, player.HandPosition.Value, segCount, 0, Vector2.Zero, 0.01f, 15, false);
             }
-            if(Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates) <= 0.7f)
+            if (Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates) <= 0.7f)
             {
                 WhipPoints.segmentLength = Utilities.Util.getDistance(getMyEndPos(), player.HandPosition.Value) / (WhipPoints.GetPoints().Count);
                 WhipPoints.End = getMyEndPos();
             }
             WhipPoints.Start = player.HandPosition.Value;
-            
-            if(Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates) > 0.7f) 
+
+            if (Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates) > 0.7f)
             {
                 if (Forwarding)
                 {
@@ -57,14 +48,14 @@ namespace CalamityEntropy.Content.Projectiles
                 float s = 1 - (((Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates)) - 0.7f) / 0.3f);
                 Projectile.GetWhipSettings(Projectile, out float num1, out int segCount, out float num2);
                 WhipPoints.segmentLength = SegLengthMax * (s * s) / segCount;
-                
+
             }
             WhipPoints.Update();
             return base.PreAI();
         }
         public override bool HitboxActive()
         {
-            if((Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates)) < 0.7f)
+            if ((Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates)) < 0.7f)
             {
                 return false;
             }
@@ -116,7 +107,7 @@ namespace CalamityEntropy.Content.Projectiles
             float c = (Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates)) / 0.7f;
             float ha = 0;
             ha = new Vector2(-180, 0).RotatedBy(c * MathHelper.Pi).Y;
-            
+
             Projectile.GetWhipSettings(Projectile, out float num1, out int num2, out float rangeMult);
             p += Projectile.velocity * (float)Math.Sqrt(3400 * c) * rangeMult * Projectile.getOwner().whipRangeMultiplier;
             p += new Vector2(0, ha * Projectile.spriteDirection).RotatedBy(Projectile.velocity.ToRotation());
@@ -149,7 +140,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 float rot = 0;
                 float YScale = 1;
-                if(i > 0 && i < points.Count - 1)
+                if (i > 0 && i < points.Count - 1)
                 {
                     YScale = Utilities.Util.getDistance(points[i - 1], points[i]) / (frameHeight - 2);
                 }
@@ -162,7 +153,7 @@ namespace CalamityEntropy.Content.Projectiles
                     rot = (points[i + 1] - points[i]).ToRotation();
                 }
                 rot -= MathHelper.PiOver2;
-                Main.EntitySpriteDraw(Projectile.GetTexture(), points[i] - Main.screenPosition, new Rectangle(0, frameY, Projectile.GetTexture().Width, frameHeight), color, rot, origin, new Vector2(float.Min(drawScale / YScale, drawScale 
+                Main.EntitySpriteDraw(Projectile.GetTexture(), points[i] - Main.screenPosition, new Rectangle(0, frameY, Projectile.GetTexture().Width, frameHeight), color, rot, origin, new Vector2(float.Min(drawScale / YScale, drawScale
                      * 1.2f), YScale), Projectile.spriteDirection > 0 ? Microsoft.Xna.Framework.Graphics.SpriteEffects.None : Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally);
             }
         }

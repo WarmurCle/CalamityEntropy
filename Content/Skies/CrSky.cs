@@ -1,10 +1,9 @@
 ﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Utilities;
-using CalamityMod.Graphics.Primitives;
 using CalamityMod;
+using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.Effects;
@@ -287,7 +286,7 @@ namespace CalamityEntropy.Content.Skies
                 return 48 * new Vector2(1, 0).RotatedBy((timeleft / (float)maxTime) * MathHelper.Pi).Y * new Vector2(1, 0).RotatedBy(completionRatio * MathHelper.Pi).Y;
             }
         }
-        
+
 
         public override void Update(GameTime gameTime)
         {

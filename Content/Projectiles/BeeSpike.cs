@@ -1,10 +1,6 @@
-﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityEntropy.Utilities;
-using CalamityMod.Particles;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -32,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.timeLeft < 6)
+            if (Projectile.timeLeft < 6)
             {
                 return false;
             }

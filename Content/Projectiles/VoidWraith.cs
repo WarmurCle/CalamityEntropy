@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnSpawn(IEntitySource source)
         {
-            CalamityEntropy.checkProj.Add(Projectile);
+            CalamityEntropy.CheckProjs.Add(Projectile);
         }
         public override void SetDefaults()
         {

@@ -166,7 +166,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
                 counter += speed;
-                
+
                 if (counter < 12)
                 {
                     if (attackType == 0)

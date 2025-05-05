@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnSpawn(IEntitySource source)
         {
-            CalamityEntropy.checkProj.Add(Projectile);
+            CalamityEntropy.CheckProjs.Add(Projectile);
         }
         public override void AI()
         {
@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else if (Projectile.ai[0] > 120)
             {
-                for(int i = 0; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     Particle p = new Particle();
                     p.position = Projectile.Center;

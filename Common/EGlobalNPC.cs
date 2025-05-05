@@ -418,7 +418,7 @@ namespace CalamityEntropy.Common
                     hit.HideCombatText = true;
                     int damageDone = npc.StrikeNPC(hit, false, false);
                     CombatText.NewText(npc.getRect(), new Color(148, 148, 255), damageDone);
-                    if(Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendStrikeNPC(npc, hit);
                     }
@@ -463,7 +463,7 @@ namespace CalamityEntropy.Common
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            
+
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
             if (projectile.owner >= 0)
             {
@@ -530,7 +530,7 @@ namespace CalamityEntropy.Common
 
         public static bool AddVoidTouch(NPC nPC, int time, float level, int maxTime = 600, int maxLevel = 10)
         {
-            if(nPC.Entropy().VoidTouchDR == 1)
+            if (nPC.Entropy().VoidTouchDR == 1)
             {
                 return false;
             }
@@ -570,7 +570,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if(npc.type == NPCID.WyvernHead)
+            if (npc.type == NPCID.WyvernHead)
             {
                 npcLoot.Add(ModContent.ItemType<VetrasylsEye>(), 5);
             }
@@ -578,7 +578,7 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.Add(ModContent.ItemType<BookMarkPerfection>(), new Fraction(1, 30));
             }
-            if(npc.type == ModContent.NPCType<HiveMind>())
+            if (npc.type == ModContent.NPCType<HiveMind>())
             {
                 npcLoot.Add(ModContent.ItemType<MindCorruptor>(), 3);
             }
@@ -849,7 +849,7 @@ namespace CalamityEntropy.Common
             }
             if (npc.HasBuff<HeatDeath>())
             {
-                if(hdStrength < 1)
+                if (hdStrength < 1)
                 {
                     hdStrength += 0.01f;
                 }
@@ -861,12 +861,12 @@ namespace CalamityEntropy.Common
             }
             else
             {
-                if(hdStrength > 0)
+                if (hdStrength > 0)
                 {
                     hdStrength -= 0.01f;
                 }
             }
-            if(WhiteLerp > 0)
+            if (WhiteLerp > 0)
             {
                 WhiteLerp -= 1 / 5f;
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
@@ -877,7 +877,7 @@ namespace CalamityEntropy.Common
             {
                 Main.spriteBatch.EnterShaderRegion();
                 shaders[shaders.Count - 1].CurrentTechnique.Passes[0].Apply();
-                
+
                 needExitShader = true;
             }
             return base.PreDraw(npc, spriteBatch, screenPos, drawColor);

@@ -1,12 +1,10 @@
 ﻿global using Microsoft.Xna.Framework;
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
@@ -78,9 +76,7 @@ using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
@@ -119,9 +115,10 @@ namespace CalamityEntropy
         public static Vector2 cutScreenCenter = Vector2.Zero;
         public bool ChristmasEvent = false;
         public static float FlashEffectStrength = 0;
-        public static Dictionary<int, Projectile> pInstance = null;
-        public override void HandlePacket(BinaryReader reader, int whoAmI) => CENetWork.Handle(reader, whoAmI);
-
+        public static Dictionary<int, Projectile> Proj_ID_To_Instance { get; set; } = null;
+        public static List<Projectile> CheckProjs { get; set; } = [];
+        public static List<NPC> CheckNPCs { get; set; } = [];
+        public Rope Rope { get; set; }
         public static SoundEffect ealaserSound = null;
         public static SoundEffect ealaserSound2 = null;
         public static SoundEffect ofCharge = null;
@@ -130,7 +127,7 @@ namespace CalamityEntropy
             BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
             BookMarkLoader.CustomBMByID = new Dictionary<int, BookMarkLoader.BookMarkTag>();
             Instance = this;
-            pInstance = new Dictionary<int, Projectile>();
+            Proj_ID_To_Instance = new Dictionary<int, Projectile>();
             DateTime today = DateTime.Now;
             AprilFool = today.Month == 4 && today.Day == 1;
 
@@ -163,7 +160,7 @@ namespace CalamityEntropy
 
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserBody>());
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
-            On_FilterManager.EndCapture += ec;
+            On_FilterManager.EndCapture += CE_EffectHandler;
             EntropySkies.setUpSkies();
             On_Lighting.AddLight_int_int_int_float += al_iiif;
             On_Lighting.AddLight_int_int_float_float_float += al_iifff;
@@ -205,10 +202,12 @@ namespace CalamityEntropy
             }
         }
 
+        public override void HandlePacket(BinaryReader reader, int whoAmI) => CENetWork.Handle(reader, whoAmI);
+
         private void get_whip_settings_hook(On_Projectile.orig_GetWhipSettings orig, Projectile proj, out float timeToFlyOut, out int segments, out float rangeMultiplier)
         {
             orig(proj, out timeToFlyOut, out segments, out rangeMultiplier);
-            if (proj.ModProjectile is BaseWhip bw)
+            if (proj.ModProjectile != null && proj.ModProjectile is BaseWhip bw)
             {
                 bw.ModifyWhipSettings(ref timeToFlyOut, ref segments, ref rangeMultiplier);
             }
@@ -217,7 +216,7 @@ namespace CalamityEntropy
         private void fill_whip_ctrl_points_hook(On_Projectile.orig_FillWhipControlPoints orig, Projectile proj, List<Vector2> controlPoints)
         {
             orig(proj, controlPoints);
-            if(proj.ModProjectile is BaseWhip bw)
+            if (proj.ModProjectile != null && proj.ModProjectile is BaseWhip bw)
             {
                 bw.ModifyControlPoints(controlPoints);
             }
@@ -225,13 +224,13 @@ namespace CalamityEntropy
 
         public static Projectile GetAProjectileInstance(int type)
         {
-            if (!pInstance.Keys.Contains(type))
+            if (!Proj_ID_To_Instance.ContainsKey(type))
             {
                 Projectile p = new Projectile();
                 p.SetDefaults(type);
-                pInstance[type] = p;
+                Proj_ID_To_Instance[type] = p;
             }
-            return pInstance[type];
+            return Proj_ID_To_Instance[type];
         }
 
         public override void Unload()
@@ -241,7 +240,7 @@ namespace CalamityEntropy
             screen = null;
             screen2 = null;
             screen3 = null;
-            pInstance = null;
+            Proj_ID_To_Instance = null;
             EModHooks.UnLoadData();
             LoopSoundManager.unload();
             ealaserSound = null;
@@ -251,8 +250,8 @@ namespace CalamityEntropy
             WallpaperHelper.wallpaper = null;
             efont1 = null;
             efont2 = null;
-            checkProj = null;
-            checkNPC = null;
+            CheckProjs = null;
+            CheckNPCs = null;
             kscreen = null;
             kscreen2 = null;
             cve = null;
@@ -261,7 +260,7 @@ namespace CalamityEntropy
             pixel = null;
             screen = null;
             screen2 = null;
-            On_FilterManager.EndCapture -= ec;
+            On_FilterManager.EndCapture -= CE_EffectHandler;
             On_Lighting.AddLight_int_int_int_float -= al_iiif;
             On_Lighting.AddLight_int_int_float_float_float -= al_iifff;
             On_Lighting.AddLight_Vector2_float_float_float -= al_vfff;
@@ -372,12 +371,12 @@ namespace CalamityEntropy
 
             Texture2D shell = Utilities.Util.getExtraTex("shell");
             Texture2D crystalShield = Utilities.Util.getExtraTex("MariviniumShield");
-            if(Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
+            if (Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
             {
                 var mi = Main.LocalPlayer.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield;
                 float charge = mi.charge;
                 float maxCharge = mi.maxCharge;
-                if(charge >= maxCharge)
+                if (charge >= maxCharge)
                 {
                     AzShieldBarAlpha = float.Lerp(AzShieldBarAlpha, 0, 0.1f);
                 }
@@ -453,13 +452,13 @@ namespace CalamityEntropy
                     }
                 }
             }
-            
+
 
             GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
 
             Main.spriteBatch.End();
 
-            
+
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
 
             EParticle.drawAll();
@@ -566,7 +565,7 @@ namespace CalamityEntropy
         {
             if (!hit.InstantKill)
             {
-                if (self.ModNPC is AbyssalWraith aw)
+                if (self.ModNPC != null && self.ModNPC is AbyssalWraith aw)
                 {
                     if (aw.getMaxDamageCanTake() > 0)
                     {
@@ -644,7 +643,6 @@ namespace CalamityEntropy
                 self.Entropy().plrOldVel3 = null;
             }
         }
-
 
         private void targetClostUpgraded(On_NPC.orig_TargetClosestUpgraded orig, NPC self, bool faceTarget, Vector2? checkPosition)
         {
@@ -754,10 +752,19 @@ namespace CalamityEntropy
         public static bool BrilEnable
         {
             get
-            { if (Main.gameMenu) { return false; } return Main.LocalPlayer.Entropy().brillianceCard > 0; }
+            {
+                return !Main.gameMenu && Main.LocalPlayer.Entropy().brillianceCard > 0;
+            }
             set
-            { if (Main.gameMenu) { return; } if (value) { Main.LocalPlayer.Entropy().brillianceCard = 3; } else { Main.LocalPlayer.Entropy().brillianceCard = 0; } }
+            {
+                if (Main.gameMenu)
+                {
+                    return;
+                }
+                Main.LocalPlayer.Entropy().brillianceCard = value ? 3 : 0;
+            }
         }
+
         public static float BrillianceCardValue = 1.5f;
         public static float OracleDeckBrilValue = 2f;
         public static float brillianceLightMulti { get { if (Main.gameMenu) { return 1; } if (Main.LocalPlayer.Entropy().oracleDeck) { return OracleDeckBrilValue; } else if (BrilEnable) { return BrillianceCardValue; } else { return 1; } } }
@@ -815,7 +822,7 @@ namespace CalamityEntropy
             {
                 if (args[0] is string str)
                 {
-                    if(str.ToLower().Equals("RegisterBookMarkEffect".ToLower()))
+                    if (str.ToLower().Equals("RegisterBookMarkEffect".ToLower()))
                     {
                         if (!(args[1] is Dictionary<string, object>))
                         {
@@ -857,7 +864,7 @@ namespace CalamityEntropy
                             }
                             return null;
                         }
-                        if(!(args[1] is Dictionary<string, object>))
+                        if (!(args[1] is Dictionary<string, object>))
                         {
                             this.Logger.Warn("Args[1] Must be a Dictionary<string, object>");
                             return null;
@@ -965,13 +972,13 @@ namespace CalamityEntropy
             }
             return null;
         }
-        
+
         private static void AddBoss(Mod bossChecklist, Mod hostMod, string name, float difficulty, Func<bool> downed, object npcTypes, Dictionary<string, object> extraInfo)
             => bossChecklist.Call("LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
 
         public override void PostSetupContent()
         {
-            for(int i = 0; i < NPCLoader.NPCCount; i++)
+            for (int i = 0; i < NPCLoader.NPCCount; i++)
             {
                 NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Content.Buffs.HeatDeath>()] = false;
             }
@@ -1202,85 +1209,49 @@ namespace CalamityEntropy
                 EntropyBossbar.bossbarColor[cf.Find<ModNPC>("SirNautilus").Type] = new Color(155, 133, 99);
             }
         }
-        public static List<Projectile> checkProj = new List<Projectile>();
-        public static List<NPC> checkNPC = new List<NPC>();
-        private static void updateCheck()
-        {
 
-        }
-
-        public Rope rope;
-        public void drawRope()
-        {
-            Player player = Main.LocalPlayer;
-            if (rope == null)
-            {
-                rope = new Rope(player.Center, Main.MouseWorld, 30, 5, new Vector2(0, 1f), 0.02f, 15, false);
-            }
-            rope.Start = player.Center;
-            rope.End = Main.MouseWorld;
-            rope.Update();
-            List<Vector2> points = rope.GetPoints();
-            points.Add(Main.MouseWorld);
-            for (int i = 1; i < points.Count; i++)
-            {
-                Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
-                Utilities.Util.drawLine(Main.spriteBatch, t, points[i - 1], points[i], Color.White, 8);
-            }
-        }
-        private void ec(On_FilterManager.orig_EndCapture orig, FilterManager self, RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
+        private void CE_EffectHandler(On_FilterManager.orig_EndCapture orig, FilterManager self
+            , RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
         {
             screenShakeAmp *= 0.9f;
             Texture2D dt;
             Texture2D dt2;
             Texture2D lb;
+
             dt = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cvmask").Value;
             dt2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cvmask2").Value;
             lb = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightball").Value;
-            checkProj.Clear();
-            checkNPC.Clear();
-            foreach (Projectile p in Main.projectile)
+
+            CheckProjs.Clear();
+            CheckNPCs.Clear();
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                checkProj.Add(p);
+                CheckProjs.Add(p);
             }
-            foreach (NPC n in Main.npc)
+            foreach (NPC n in Main.ActiveNPCs)
             {
-                checkNPC.Add(n);
+                CheckNPCs.Add(n);
             }
 
             GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
 
-            if (true)
+            Vector2 sz = screensz;
+            if (screen == null || sz != new Vector2(Main.screenWidth, Main.screenHeight))
             {
-
-                Vector2 sz = screensz;
-                if (screen == null || sz != new Vector2(Main.screenWidth, Main.screenHeight))
-                {
-                    {
-                        screen?.Dispose();
-                        screen = null;
-                        screen3?.Dispose();
-                        screen3 = null;
-                        screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-                        screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-                        screensz = new Vector2(Main.screenWidth, Main.screenHeight);
-                    }
-                    {
-                    }
-                }
-                if (screen2 == null || sz != new Vector2(Main.screenWidth, Main.screenHeight))
-                {
-                    {
-                        screen2?.Dispose();
-                        screen2 = null;
-                        screen2 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-                        screensz = new Vector2(Main.screenWidth, Main.screenHeight);
-                    }
-                    {
-                    }
-                }
-
-
+                screen?.Dispose();
+                screen = null;
+                screen3?.Dispose();
+                screen3 = null;
+                screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+                screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+                screensz = new Vector2(Main.screenWidth, Main.screenHeight);
+            }
+            if (screen2 == null || sz != new Vector2(Main.screenWidth, Main.screenHeight))
+            {
+                screen2?.Dispose();
+                screen2 = null;
+                screen2 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+                screensz = new Vector2(Main.screenWidth, Main.screenHeight);
             }
 
             graphicsDevice.SetRenderTarget(screen);
@@ -1297,9 +1268,9 @@ namespace CalamityEntropy
                 if (npc.ModNPC is TheProphet tp)
                 {
                     NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
-                    
+
                     tp.Draw();
-                    
+
                     NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                     Main.spriteBatch.End();
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
@@ -1307,7 +1278,7 @@ namespace CalamityEntropy
             }
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
-                if(proj.ModProjectile is CruiserEnergyBall ceb)
+                if (proj.ModProjectile is CruiserEnergyBall ceb)
                 {
                     ceb.Draw();
                 }
@@ -1357,13 +1328,8 @@ namespace CalamityEntropy
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
 
-                foreach (Projectile p in checkProj)
+                foreach (Projectile p in CheckProjs)
                 {
-
-                    if (!p.active)
-                    {
-                        continue;
-                    }
                     if (p.ModProjectile is CruiserSlash)
                     {
                         Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/CruiserSlash").Value;
@@ -1390,7 +1356,7 @@ namespace CalamityEntropy
                     }
 
                 }
-                foreach (NPC n in checkNPC)
+                foreach (NPC n in CheckNPCs)
                 {
                     if (!n.active)
                     {
@@ -1489,13 +1455,9 @@ namespace CalamityEntropy
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-                foreach (Projectile p in checkProj)
+                foreach (Projectile p in CheckProjs)
                 {
-                    if (!p.active)
-                    {
-                        continue;
-                    }
-                    if (p.active && p.type == ModContent.ProjectileType<WohShot>() && false)
+                    if (p.type == ModContent.ProjectileType<WohShot>() && false)//他妈的 && false??????
                     {
                         WohShot mp = (WohShot)p.ModProjectile;
                         if (mp.odp.Count > 1)
@@ -1625,6 +1587,7 @@ namespace CalamityEntropy
                         lwf.draw();
                     }
                 }
+
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -1639,33 +1602,30 @@ namespace CalamityEntropy
                         }
                     }
                 }
-                foreach (Projectile p in checkProj)
+                foreach (Projectile p in CheckProjs)
                 {
-                    if (p.active)
+                    if (p.ModProjectile is MoonlightShieldBreak)
                     {
-                        if (p.ModProjectile is MoonlightShieldBreak)
-                        {
-                            Texture2D shieldTexture = Utilities.Util.getExtraTex("shield");
-                            Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255) * p.ai[2], 0, shieldTexture.Size() / 2, 0.47f * (1 + p.ai[1]), SpriteEffects.None, 0);
+                        Texture2D shieldTexture = Utilities.Util.getExtraTex("shield");
+                        Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255) * p.ai[2], 0, shieldTexture.Size() / 2, 0.47f * (1 + p.ai[1]), SpriteEffects.None, 0);
 
-                        }
-                        if (p.ModProjectile is CruiserShadow aw)
+                    }
+                    if (p.ModProjectile is CruiserShadow aw)
+                    {
+                        if (aw.alphaPor > 0)
                         {
-                            if (aw.alphaPor > 0)
+                            float s = 0;
+                            float sj = 1;
+                            for (int i = 0; i <= 30; i++)
                             {
-                                float s = 0;
-                                float sj = 1;
-                                for (int i = 0; i <= 30; i++)
-                                {
-                                    aw.DrawPortal(aw.spawnPos, new Color(50, 35, 240) * aw.alphaPor, aw.spawnRot, 270 * s, 0.3f, i * 3f);
-                                    s = s + (sj - s) * 0.05f;
-                                }
-
+                                aw.DrawPortal(aw.spawnPos, new Color(50, 35, 240) * aw.alphaPor, aw.spawnRot, 270 * s, 0.3f, i * 3f);
+                                s = s + (sj - s) * 0.05f;
                             }
+
                         }
                     }
                 }
-                foreach (NPC n in checkNPC)
+                foreach (NPC n in CheckNPCs)
                 {
                     if (n.active && n.ModNPC is AbyssalWraith aw)
                     {
@@ -1797,12 +1757,8 @@ namespace CalamityEntropy
 
                 PixelParticle.drawAll();
 
-                foreach (Projectile p in checkProj)
+                foreach (Projectile p in CheckProjs)
                 {
-                    if (!p.active)
-                    {
-                        continue;
-                    }
                     if (p.ModProjectile is VoidBottleThrow || p.ModProjectile is CruiserShadow)
                     {
                         Color color = Color.White;
@@ -1863,54 +1819,51 @@ namespace CalamityEntropy
                 Texture2D kt2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/kscc").Value;
                 Texture2D st = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/kslash").Value;
 
-                foreach (Projectile p in checkProj)
+                foreach (Projectile p in CheckProjs)
                 {
-                    if (p.active)
-                    {
-                        /*
+                    /*
                         if (p.type == ModContent.ProjectileType<VoidMark>())
                         {
                             Main.spriteBatch.Draw(kt, p.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kt.Width, kt.Height) / 2, 1.2f, SpriteEffects.None, 0);
                         }
                         */
-                        if (p.ModProjectile is Slash)
-                        {
-                            Main.spriteBatch.Draw(kt, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 165, 0).RotatedBy(p.rotation), null, Color.White, p.rotation + (float)Math.PI / 2, new Vector2(kt.Width, kt.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / kt.Width * 0.4f, 0.1f), SpriteEffects.None, 0);
+                    if (p.ModProjectile is Slash)
+                    {
+                        Main.spriteBatch.Draw(kt, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 165, 0).RotatedBy(p.rotation), null, Color.White, p.rotation + (float)Math.PI / 2, new Vector2(kt.Width, kt.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / kt.Width * 0.4f, 0.1f), SpriteEffects.None, 0);
 
-                        }
-                        if (p.ModProjectile is Slash2)
-                        {
-                            Main.spriteBatch.Draw(kt, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 300, 0).RotatedBy(p.rotation), null, Color.White, p.rotation + (float)Math.PI / 2, new Vector2(kt.Width, kt.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / kt.Width * 1.4f, 1f), SpriteEffects.None, 0);
+                    }
+                    if (p.ModProjectile is Slash2)
+                    {
+                        Main.spriteBatch.Draw(kt, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 300, 0).RotatedBy(p.rotation), null, Color.White, p.rotation + (float)Math.PI / 2, new Vector2(kt.Width, kt.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / kt.Width * 1.4f, 1f), SpriteEffects.None, 0);
 
-                        }
-                        
+                    }
 
-                        if (p.ModProjectile is VoidBottleThrow)
-                        {
-                            Color color = Color.White;
-                        }
-                        if (p.ModProjectile is VoidExplode)
-                        {
-                            float ks = p.timeLeft * 0.1f;
-                            if (p.timeLeft > 10)
-                            {
-                                ks = (20 - (float)p.timeLeft) / 10f;
-                            }
-                            ks *= (1 + p.ai[1]);
-                            Main.spriteBatch.Draw(kt, p.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kt.Width, kt.Height) / 2, ks * 2, SpriteEffects.None, 0);
 
-                        }
-                        if (p.ModProjectile is VoidRExp)
+                    if (p.ModProjectile is VoidBottleThrow)
+                    {
+                        Color color = Color.White;
+                    }
+                    if (p.ModProjectile is VoidExplode)
+                    {
+                        float ks = p.timeLeft * 0.1f;
+                        if (p.timeLeft > 10)
                         {
-                            float ks = (90f - p.timeLeft) * 0.4f;
-
-                            Main.spriteBatch.Draw(kt2, p.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kt2.Width, kt2.Height) / 2, ks, SpriteEffects.None, 0);
-
+                            ks = (20 - (float)p.timeLeft) / 10f;
                         }
-                        if (p.ModProjectile is StarlessNightProj sl)
-                        {
-                            sl.drawSlash();
-                        }
+                        ks *= (1 + p.ai[1]);
+                        Main.spriteBatch.Draw(kt, p.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kt.Width, kt.Height) / 2, ks * 2, SpriteEffects.None, 0);
+
+                    }
+                    if (p.ModProjectile is VoidRExp)
+                    {
+                        float ks = (90f - p.timeLeft) * 0.4f;
+
+                        Main.spriteBatch.Draw(kt2, p.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kt2.Width, kt2.Height) / 2, ks, SpriteEffects.None, 0);
+
+                    }
+                    if (p.ModProjectile is StarlessNightProj sl)
+                    {
+                        sl.drawSlash();
                     }
                 }
 
@@ -1998,9 +1951,9 @@ namespace CalamityEntropy
                         if (npc.type == ModContent.NPCType<AbyssalWraith>() && npc.ModNPC is AbyssalWraith)
                         {
                             NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
-                            
+
                             ((AbyssalWraith)npc.ModNPC).Draw();
-                            
+
                             NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                         }
                         if (npc.type == ModContent.NPCType<CruiserHead>() && npc.ModNPC is CruiserHead)
@@ -2010,9 +1963,9 @@ namespace CalamityEntropy
                             {
                                 ((CruiserHead)npc.ModNPC).candraw = true;
                                 NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
-                                
+
                                 ((CruiserHead)npc.ModNPC).PreDraw(Main.spriteBatch, Main.screenPosition, Color.White);
-                                
+
                                 NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                                 ((CruiserHead)npc.ModNPC).candraw = false;
                             }
@@ -2137,7 +2090,7 @@ namespace CalamityEntropy
         {
             Vector2 norl = rot.ToRotationVector2();
             float sengs = length;
-            if(color == default)
+            if (color == default)
             {
                 color = Color.BlueViolet;
             }

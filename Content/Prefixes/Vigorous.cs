@@ -1,9 +1,8 @@
-﻿using CalamityMod;
-using CalamityMod.Prefixes;
+﻿using CalamityMod.Prefixes;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace CalamityEntropy.Content.Prefixes
 {

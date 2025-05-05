@@ -1,9 +1,7 @@
-using CalamityEntropy.Content.ArmorPrefixes;
+﻿using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Utilities;
 using System.Collections.Generic;
-using System.Text;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.PrefixItem
@@ -22,13 +20,13 @@ namespace CalamityEntropy.Content.Items.PrefixItem
             tooltips.Replace("|", prefix.GivenName);
             foreach (TooltipLine line in tooltips)
             {
-                if(line.Mod == "Terraria")
+                if (line.Mod == "Terraria")
                 {
                     line.OverrideColor = prefix.getColor();
                 }
             }
             tooltips.Add(prefix.getDescTooltipLine());
-            tooltips.Add(new TooltipLine(Mod, "Armor Prefix Item Description", Mod.GetLocalization("PrefixitemDesc").Value) { OverrideColor = Color.Yellow});
+            tooltips.Add(new TooltipLine(Mod, "Armor Prefix Item Description", Mod.GetLocalization("PrefixitemDesc").Value) { OverrideColor = Color.Yellow });
         }
         public virtual string PrefixName => "";
         public override string Texture => "CalamityEntropy/Content/Items/PrefixItem/Textures/" + PrefixName;

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -16,7 +15,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnSpawn(IEntitySource source)
         {
-            CalamityEntropy.checkProj.Add(Projectile);
+            CalamityEntropy.CheckProjs.Add(Projectile);
         }
         public override void SetDefaults()
         {
@@ -71,7 +70,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if(Projectile.timeLeft < 16)
+            if (Projectile.timeLeft < 16)
             {
                 return false;
             }
@@ -92,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles
                 sb.Draw(t1, Projectile.Center - Main.screenPosition, null, Color.DarkBlue * ((float)ct / 60f) * 0.6f, 0, new Vector2(t1.Width, t1.Height) / 2, 50f * (60 - ct) / 128, SpriteEffects.None, 0);
                 sb.End();
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                
+
             }
             return false;
         }

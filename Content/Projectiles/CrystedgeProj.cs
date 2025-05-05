@@ -1,11 +1,7 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -90,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
             points.Clear();
             List<Vector2> p2 = getPoints(Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates));
 
-            foreach(var p in p2)
+            foreach (var p in p2)
             {
                 points.Add(p);
             }
@@ -133,18 +129,18 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<CrystedgeCrystalMid>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
             }
-            for(int i = 0; i < 14; i++)
+            for (int i = 0; i < 14; i++)
             {
                 Dust.NewDust(Projectile.Center, 1, 1, DustID.PinkCrystalShard, Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(-4, 4));
             }
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.timeLeft > 90)
+            if (Projectile.timeLeft > 90)
             {
                 return false;
             }

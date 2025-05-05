@@ -1,15 +1,12 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Particles;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -134,7 +131,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Projectile.velocity *= 0.97f;
             odp.Add(Projectile.Center);
-            if(odp.Count > 12)
+            if (odp.Count > 12)
             {
                 odp.RemoveAt(0);
             }
@@ -145,7 +142,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             lightColor = Color.White;
             Texture2D circle = Utilities.Util.getExtraTex("BasicCircle");
-            for(int i = 0; i < odp.Count; i++)
+            for (int i = 0; i < odp.Count; i++)
             {
                 float s = (i + 1f) / (float)odp.Count * ((float)Projectile.timeLeft / 160f);
                 Main.spriteBatch.Draw(circle, odp[i] - Main.screenPosition, null, Color.Lerp(clr, Color.White, (i + 1f) / (float)odp.Count), 0, circle.Size() * 0.5f, 0.18f * s, SpriteEffects.None, 0);

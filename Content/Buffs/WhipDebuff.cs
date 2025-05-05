@@ -89,14 +89,14 @@ namespace CalamityEntropy.Content.Buffs
                     modifiers.SetCrit();
                 }
             }
-            foreach(var t in Tags)
+            foreach (var t in Tags)
             {
                 modifiers.FlatBonusDamage += t.TagDamage * projTagMultiplier;
                 modifiers.SourceDamage *= t.TagDamageMult;
                 if (Main.rand.NextFloat() < t.CritChance)
                 {
                     modifiers.SetCrit();
-                    if(t.EffectName == "Crystedge")
+                    if (t.EffectName == "Crystedge")
                     {
                         Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Utilities.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
                     }
@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Buffs
                     Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
                 }
             }
-            
+
             if (npc.HasBuff<DragonWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += DragonWhipDebuff.TagDamage * projTagMultiplier;

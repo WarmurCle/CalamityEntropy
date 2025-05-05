@@ -384,7 +384,7 @@ namespace CalamityEntropy.Content.NPCs
 
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Necroplasm>(), 50));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<DarkPlasma>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<ArkoftheElements>(),1));
+                p3.Add(new RewardPoolItem(ModContent.ItemType<ArkoftheElements>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Bloodstone>(), 5));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalLance>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalShiv>(), 1));

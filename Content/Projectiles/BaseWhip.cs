@@ -1,11 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Enums;
@@ -37,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles
         public virtual float FlyProgress => Projectile.ai[0] / flyTime;
         public virtual int getFlyTime()
         {
-            if(Projectile.getOwner().itemAnimationMax > flyMax)
+            if (Projectile.getOwner().itemAnimationMax > flyMax)
             {
                 flyMax = Projectile.getOwner().itemAnimationMax;
             }
@@ -78,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.WhipPointsForCollision.Clear();
                 Projectile.FillWhipControlPoints(Projectile, Projectile.WhipPointsForCollision);
                 Vector2 position = Projectile.WhipPointsForCollision[^1];
-                if(WhipSound != null)
+                if (WhipSound != null)
                 {
                     SoundEngine.PlaySound(WhipSound.Value, position);
                 }
@@ -156,7 +152,7 @@ namespace CalamityEntropy.Content.Projectiles
         public virtual string getTagEffectName => "";
         public virtual void getFrame(int segCount, int segCounts, ref int frameY, ref int frameHeight, ref Vector2 origin)
         {
-            if(segCount == 0)
+            if (segCount == 0)
             {
                 frameY = 0;
                 frameHeight = handleHeight;
@@ -191,16 +187,16 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public virtual void DrawSegs(List<Vector2> points)
         {
-            for(int i = 0; i < points.Count; i++)
+            for (int i = 0; i < points.Count; i++)
             {
                 int frameY = 0;
                 int frameHeight = 0;
                 Vector2 origin = Vector2.Zero;
                 this.getFrame(i, points.Count, ref frameY, ref frameHeight, ref origin);
-                float drawScale = Projectile.scale * this.getSegScale(i, points.Count); 
+                float drawScale = Projectile.scale * this.getSegScale(i, points.Count);
                 Vector2 lightPos = i == 0 ? points[i] : Vector2.Lerp(points[i - 1], points[i], 0.5f);
                 Color color = Color.Lerp(Lighting.GetColor((int)(lightPos.X / 16f), (int)(lightPos.Y / 16f)), this.StringColor, Projectile.light);
-                
+
                 float rot = 0;
                 if (i == points.Count - 1)
                 {
@@ -229,5 +225,5 @@ namespace CalamityEntropy.Content.Projectiles
         public virtual int endHeight => 20;
         public virtual int segTypes => 2;
     }
-    
+
 }

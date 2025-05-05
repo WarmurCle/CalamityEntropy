@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Buffs
                 if (npc.life > del)
                 {
                     npc.life -= del;
-                    if(Main.GameUpdateCount % 16 == 0)
+                    if (Main.GameUpdateCount % 16 == 0)
                     {
                         CombatText.NewText(npc.getRect(), Color.DarkRed, del * 16, false, true);
                     }

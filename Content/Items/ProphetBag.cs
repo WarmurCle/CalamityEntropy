@@ -1,15 +1,12 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Books.BookMarks;
-using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static CalamityEntropy.Common.EGlobalItem;
 
 namespace CalamityEntropy.Content.Items
 {

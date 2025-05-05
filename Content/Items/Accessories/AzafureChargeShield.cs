@@ -1,17 +1,12 @@
 ﻿using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.CalPlayer;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Enums;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Typeless;
 using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
-using Humanizer;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -44,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             CalamityPlayer modPlayer = player.Calamity();
-            if(charge < maxCharge)
+            if (charge < maxCharge)
             {
                 charge += 1f / 260f;
             }
@@ -97,12 +92,12 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().AzDash = 3;
             (player.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield).charge -= 1;
         }
-        
+
         public override void MidDashEffects(Player player, ref float dashSpeed, ref float dashSpeedDecelerationFactor, ref float runSpeedDecelerationFactor)
         {
             Time += 2;
             player.Entropy().AzDash = 3;
-            if(Time > 32)
+            if (Time > 32)
             {
                 player.velocity.X *= 0.94f;
             }
@@ -151,7 +146,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void OnHitEffects(Player player, NPC npc, IEntitySource source, ref DashHitContext hitContext)
         {
-            if(player.Entropy().AzChargeShieldSteamTime <= 0)
+            if (player.Entropy().AzChargeShieldSteamTime <= 0)
             {
                 player.Entropy().AzChargeShieldSteamTime = 32;
             }

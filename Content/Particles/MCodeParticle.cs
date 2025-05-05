@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System.Security.Policy;
 using Terraria;
 using Terraria.ModLoader;
 

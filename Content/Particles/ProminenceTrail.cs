@@ -1,12 +1,10 @@
 ﻿using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
@@ -23,9 +21,9 @@ namespace CalamityEntropy.Content.Particles
         public int maxLength = 21;
         public override void update()
         {
-            if(this.timeLeft < 10)
+            if (this.timeLeft < 10)
             {
-                if(odp.Count > 0)
+                if (odp.Count > 0)
                 {
                     odp.RemoveAt(0);
                 }
@@ -36,8 +34,8 @@ namespace CalamityEntropy.Content.Particles
             }
             base.update();
         }
-        
-        public void AddPoint(Vector2 pos) 
+
+        public void AddPoint(Vector2 pos)
         {
             odp.Add(pos);
             if (odp.Count > maxLength)
@@ -88,13 +86,13 @@ namespace CalamityEntropy.Content.Particles
                 shader.Parameters["ofs"].SetValue(Main.GlobalTimeWrappedHourly * 3);
                 shader.Parameters["alpha"].SetValue(float.Min(1, this.timeLeft / 10f));
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
-                
+
                 gd.Textures[0] = this.texture;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
                 Main.spriteBatch.ExitShaderRegion();
                 Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
-                
+
             }
         }
     }

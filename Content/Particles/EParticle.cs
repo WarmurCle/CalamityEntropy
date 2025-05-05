@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.Particles
                 particle.useAlphaBlend = true;
             }
             particle.onSpawn();
-            if(lifeTime > 0)
+            if (lifeTime > 0)
             {
                 particle.timeLeft = lifeTime;
             }
@@ -226,7 +226,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
             }
-            if(!this.useAdditive && !this.useAlphaBlend)
+            if (!this.useAdditive && !this.useAlphaBlend)
             {
                 clr.A = (byte)(clr.A * alpha);
             }

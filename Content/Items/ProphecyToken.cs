@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items
 
         public override bool? UseItem(Player player)
         {
-            int type = ModContent.NPCType < TheProphet>();
+            int type = ModContent.NPCType<TheProphet>();
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 NPC.SpawnOnPlayer(player.whoAmI, type);
             else

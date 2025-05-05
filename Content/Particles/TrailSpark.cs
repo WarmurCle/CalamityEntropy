@@ -1,11 +1,7 @@
 ﻿using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.Items.Weapons.Rogue;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
@@ -24,14 +20,14 @@ namespace CalamityEntropy.Content.Particles
             base.update();
             AddPoint(this.position);
             this.velocity = this.velocity + gravity * Vector2.UnitY * gA;
-            if(gA < 1)
+            if (gA < 1)
             {
                 gA += 0.025f;
             }
         }
         public float gravity = 0.9f;
         public float gA = 0;
-        public void AddPoint(Vector2 pos) 
+        public void AddPoint(Vector2 pos)
         {
             odp.Insert(0, pos);
             if (odp.Count > maxLength)

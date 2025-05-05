@@ -13,11 +13,11 @@ namespace CalamityEntropy.Content.Particles
 
         public override void update()
         {
-            if(scaleStart < 0)
+            if (scaleStart < 0)
             {
                 scaleStart = scale;
             }
-            if(scaleEnd > 0)
+            if (scaleEnd > 0)
             {
                 scale = float.Lerp(scaleStart, scaleEnd, 1 - (float)this.timeLeft / this.timeleftmax);
             }

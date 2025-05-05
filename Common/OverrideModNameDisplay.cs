@@ -3,16 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
-using Terraria.UI.Chat;
 
 namespace CalamityEntropy.Common
 {
@@ -32,7 +28,7 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.Begin();
                 Main.graphics.GraphicsDevice.SetRenderTarget(_renderTarget);
                 Main.graphics.GraphicsDevice.Clear(Color.Transparent);
-                for(float i = 0; i < 360; i += 60)
+                for (float i = 0; i < 360; i += 60)
                 {
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, text, new Vector2(2, 2) + MathHelper.ToRadians(i).ToRotationVector2() * 1, new Color(100, 80, 200), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
                 }

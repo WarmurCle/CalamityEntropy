@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 namespace CalamityEntropy.Utilities
 {
     public struct Vertex : IVertexType

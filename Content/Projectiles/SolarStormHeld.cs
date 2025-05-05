@@ -1,15 +1,11 @@
-﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -38,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int steamTime = 0;
         public override void AI()
         {
-            Player player = Projectile.owner.ToPlayer(); 
+            Player player = Projectile.owner.ToPlayer();
             if (Projectile.velocity.X > 0)
             {
                 player.direction = 1;
@@ -53,8 +49,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.Kill();
             }
-            
-            if (Projectile.owner == Main.myPlayer && Main.mouseLeft && !player.mouseInterface)  
+
+            if (Projectile.owner == Main.myPlayer && Main.mouseLeft && !player.mouseInterface)
             {
                 player.channel = true;
             }
@@ -117,15 +113,15 @@ namespace CalamityEntropy.Content.Projectiles
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed * 0.4f, ModContent.ProjectileType<SolarStormExplosionProj>(), damage * 16, kb * 2, player.whoAmI);
 
                 }
-                
+
             }
             if (steamTime-- > 0 && steamTime <= 10)
-             {
-                if(steamTime == 10)
+            {
+                if (steamTime == 10)
                 {
                     Util.PlaySound("steam", 1, Projectile.Center, 1, 0.8f);
                 }
-                
+
                 float c = steamTime / 10f;
                 Vector2 steamCenter = Projectile.Center + new Vector2(38, 24).RotatedBy(Projectile.rotation) * Projectile.scale;
                 float rot = Projectile.rotation;
@@ -173,7 +169,7 @@ namespace CalamityEntropy.Content.Projectiles
         public void HandleChannelMovement(Player player, Vector2 playerRotatedPoint)
         {
             Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
-            
+
             float speed = 16f;
             Vector2 newVelocity = (Main.MouseWorld - playerRotatedPoint).SafeNormalize(Vector2.UnitX * player.direction) * speed;
 
@@ -239,7 +235,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if(Projectile.timeLeft > 280)
+            if (Projectile.timeLeft > 280)
             {
                 SolarStormHeld.DrawChargingEnergyBall(Projectile.Center, 1.6f, 1);
             }
@@ -251,7 +247,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if(Projectile.timeLeft > 280)
+            if (Projectile.timeLeft > 280)
             {
                 Explode();
             }
@@ -285,7 +281,7 @@ namespace CalamityEntropy.Content.Projectiles
         public Color mainColor = Color.LawnGreen;
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.timeLeft > 100 && Projectile.timeLeft < 280)
+            if (Projectile.timeLeft > 100 && Projectile.timeLeft < 280)
             {
                 return false;
             }
@@ -301,7 +297,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (!Main.dedServ)
                 {
-                    if(Util.getDistance(Projectile.Center, Projectile.getOwner().Center) < 2000)
+                    if (Util.getDistance(Projectile.Center, Projectile.getOwner().Center) < 2000)
                     {
                         CalamityEntropy.FlashEffectStrength = 0.42f;
                         Projectile.getOwner().Calamity().GeneralScreenShakePower = 12;
@@ -451,7 +447,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
 
-            if(Projectile.timeLeft > 280)
+            if (Projectile.timeLeft > 280)
             {
                 SpawnDust();
                 Vector2 top = Projectile.Center + Util.randomPointInCircle(12);

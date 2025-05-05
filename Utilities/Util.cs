@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -40,11 +39,11 @@ namespace CalamityEntropy.Utilities
         public static bool IsArmorReforgeItem(this Item item, out ArmorPrefix prefix)
         {
             prefix = null;
-            if(item.ModItem is PrefixClearKnife)
+            if (item.ModItem is PrefixClearKnife)
             {
                 return true;
             }
-            if(item.ModItem is BasePrefixItem bpi)
+            if (item.ModItem is BasePrefixItem bpi)
             {
                 prefix = ArmorPrefix.findByName(bpi.PrefixName);
                 return true;
@@ -54,14 +53,14 @@ namespace CalamityEntropy.Utilities
         public static void Shrink(this Item item, int count = 1)
         {
             item.stack -= count;
-            if(item.stack <= 0)
+            if (item.stack <= 0)
             {
                 item.TurnToAir();
             }
         }
         public static float GetRepeatedCosFromZeroToOne(float v, int repeat)
         {
-            if(repeat <= 1)
+            if (repeat <= 1)
             {
                 return (float)(Math.Cos(v * MathHelper.Pi - MathHelper.Pi)) * 0.5f + 0.5f;
             }
@@ -143,7 +142,7 @@ namespace CalamityEntropy.Utilities
             Vector2 barOrigin = barBG.Size() * 0.5f;
             Vector2 drawPos = position;
             Rectangle frameCrop = new Rectangle(0, 0, (int)(progress * barFG.Width), barFG.Height);
-            
+
             SpriteBatch spriteBatch = Main.spriteBatch;
             spriteBatch.Draw(barBG, drawPos, null, color, 0f, barOrigin, barScale, 0f, 0f);
             spriteBatch.Draw(barFG, drawPos, frameCrop, color * 0.8f, 0f, barOrigin, barScale, 0f, 0f);
@@ -194,7 +193,7 @@ namespace CalamityEntropy.Utilities
         public static Terraria.DataStructures.DrawData getDrawData(this Projectile projectile, Color color, Texture2D texOverride = null)
         {
             Texture2D tx = projectile.GetTexture();
-            if(texOverride != null)
+            if (texOverride != null)
             {
                 tx = texOverride;
             }

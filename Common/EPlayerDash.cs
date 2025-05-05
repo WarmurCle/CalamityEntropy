@@ -44,7 +44,7 @@ public class EPlayerDash : ModPlayer
             DashDir = -1;
         }
     }
-    
+
     public override void PreUpdateMovement()
     {
         if (!Main.dedServ && CalamityKeybinds.DashHotkey.JustPressed)

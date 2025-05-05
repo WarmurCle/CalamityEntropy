@@ -17,18 +17,18 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 12; 
-            Projectile.height = 12; 
-            Projectile.aiStyle = 1; 
+            Projectile.width = 12;
+            Projectile.height = 12;
+            Projectile.aiStyle = 1;
             Projectile.friendly = true; Projectile.hostile = false;
-            Projectile.DamageType = DamageClass.Ranged; 
-            Projectile.penetrate = -1; 
-            Projectile.timeLeft = 800; 
-            Projectile.alpha = 255; 
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 800;
+            Projectile.alpha = 255;
             Projectile.light = 0.5f;
-            Projectile.ignoreWater = true; 
-            Projectile.tileCollide = false; 
-            Projectile.extraUpdates = 5; 
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.extraUpdates = 5;
             Projectile.ArmorPenetration = 100;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;

@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Tiles
         {
             Player plr = Main.LocalPlayer;
             CalamityUtils.ChairRightClick(i, j);
-            
+
             return true;
         }
 
@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Tiles
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/void_laser"), new Vector2(spawnX * 16 + 8, spawnY * 16 + 12));
                 Projectile.NewProjectile(Wiring.GetProjectileSource(spawnX, spawnY), spawnX * 16 + 8, spawnY * 16 + 12, 0f, 0f, ProjectileID.ToiletEffect, 0, 0f, Main.myPlayer);
                 Projectile.NewProjectile(Wiring.GetProjectileSource(spawnX, spawnY), spawnX * 16 + 8, spawnY * 16 + 6 * 16, 0f, -8f, ModContent.ProjectileType<ToiletLaser>(), 1100, 10f, Main.myPlayer);
-                for(int i_ = 0; i_ < 64; i_++)
+                for (int i_ = 0; i_ < 64; i_++)
                 {
                     Projectile.NewProjectile(Wiring.GetProjectileSource(spawnX, spawnY), spawnX * 16 + 8, spawnY * 16, Main.rand.NextFloat(-24, 24), Main.rand.NextFloat(-20, -36), ModContent.ProjectileType<ToiletVoidPoop>(), 400, 10f, Main.myPlayer);
                 }

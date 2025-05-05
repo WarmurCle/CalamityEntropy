@@ -4,7 +4,6 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -19,7 +18,7 @@ namespace CalamityEntropy.Content.Projectiles
         public Vector2 dscp = Vector2.Zero;
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 1; 
+            Main.projFrames[Projectile.type] = 1;
             ProjectileID.Sets.MinionShot[Type] = true;
         }
         public override void SetDefaults()
@@ -41,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float c = 0.2f;
         public override void AI()
         {
-            if(Projectile.timeLeft < 3)
+            if (Projectile.timeLeft < 3)
             {
                 Projectile.velocity = Vector2.Zero;
                 return;
@@ -68,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.6f * l, false));
                     Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1.4f * l, true));
-                    if(Utilities.Util.getDistance(Projectile.Center, target.Center) < 100)
+                    if (Utilities.Util.getDistance(Projectile.Center, target.Center) < 100)
                     {
                         if (c < 1)
                         {
@@ -80,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    if(Projectile.timeLeft > 5)
+                    if (Projectile.timeLeft > 5)
                     {
                         Projectile.timeLeft -= 3;
                     }

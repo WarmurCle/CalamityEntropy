@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Books;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
@@ -49,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.AI();
             counter++;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if(Projectile.velocity.Length() < Projectile.ai[0])
+            if (Projectile.velocity.Length() < Projectile.ai[0])
             {
                 Projectile.velocity *= 1.02f;
             }
