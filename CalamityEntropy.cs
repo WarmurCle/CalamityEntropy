@@ -15,10 +15,6 @@ using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
-using CalamityEntropy.Content.Projectiles.Chainsaw;
-using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
@@ -77,7 +73,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -161,7 +156,8 @@ namespace CalamityEntropy
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
             EntropySkies.setUpSkies();
             EffectLoader.Load();
-            if (!Main.dedServ) {
+            if (!Main.dedServ)
+            {
                 EffectLoader.LoadAsset();
             }
             On_Lighting.AddLight_int_int_int_float += al_iiif;
