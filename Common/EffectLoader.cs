@@ -30,10 +30,6 @@ namespace CalamityEntropy.Common
     {
         [AutoLoadAsset("Textures/cvmask")]
         private static Asset<Texture2D> cvmask;
-        [AutoLoadAsset("Textures/cvmask2")]
-        private static Asset<Texture2D> cvmask2;
-        [AutoLoadAsset("Textures/lightball")]
-        private static Asset<Texture2D> lightball;
         [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_blue_base")]
         private static Asset<Texture2D> planetarium_blue_base;
         [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_1")]
