@@ -102,7 +102,6 @@ namespace CalamityEntropy
         public static RenderTarget2D screen3 = null;
         public float screenShakeAmp = 0;
         public float cvcount = 0;
-        public Vector2 screenSize = Vector2.Zero;
         public static bool ets = true;
         public static Texture2D pixel;
         public ArmorForgingStationUI armorForgingStationUI;
@@ -1266,7 +1265,6 @@ namespace CalamityEntropy
 
             GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
 
-            screenSize = new Vector2(Main.screenWidth, Main.screenHeight);
             screen ??= new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
             screen2 ??= new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
             screen3 ??= new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
