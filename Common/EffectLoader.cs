@@ -56,6 +56,10 @@ namespace CalamityEntropy.Common
         private static Asset<Texture2D> ksc1;
         [AutoLoadAsset("CalamityEntropy/Assets/Extra/kscc")]
         private static Asset<Texture2D> kscc;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/white")]
+        private static Asset<Texture2D> white;
+        [AutoLoadAsset("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar")]
+        private static Asset<Texture2D> voidStar;
 
         public static void Load()
         {
@@ -257,15 +261,15 @@ namespace CalamityEntropy.Common
                 {
                     ceb.Draw();
                 }
-                if (proj.type == runeTorrentType && proj.ModProjectile is RuneTorrent rt)
+                else if (proj.type == runeTorrentType && proj.ModProjectile is RuneTorrent rt)
                 {
                     rt.Draw();
                 }
-                if (proj.type == runeTorrentRangerType && proj.ModProjectile is RuneTorrentRanger rt_)
+                else if (proj.type == runeTorrentRangerType && proj.ModProjectile is RuneTorrentRanger rt_)
                 {
                     rt_.Draw();
                 }
-                if (proj.type == prophetVoidSpikeType && proj.ModProjectile is ProphetVoidSpike vs)
+                else if (proj.type == prophetVoidSpikeType && proj.ModProjectile is ProphetVoidSpike vs)
                 {
                     vs.Draw();
                 }
@@ -342,7 +346,7 @@ namespace CalamityEntropy.Common
                 }
                 else if (p.type == voidMonsterType)
                 {
-                    if (p.ModProjectile is VoidMonster vmnpc) 
+                    if (p.ModProjectile is VoidMonster vmnpc)
                     {
                         vmnpc.draw();
                     }
@@ -394,7 +398,8 @@ namespace CalamityEntropy.Common
 
             foreach (Particle pt in VoidParticles.particles)
             {
-                if (pt.shape != 4) {
+                if (pt.shape != 4)
+                {
                     continue;
                 }
                 Texture2D draw = Util.getExtraTex("cvdt");
@@ -442,7 +447,8 @@ namespace CalamityEntropy.Common
 
         private static void DrawPlayerAndProjectileEffects(GraphicsDevice graphicsDevice)
         {
-            if (screen2 == null) {
+            if (screen2 == null)
+            {
                 return;
             }
 
@@ -465,7 +471,7 @@ namespace CalamityEntropy.Common
                     Color color = player.Entropy().VaMoving > 0 ? Color.Blue : Color.Black;
                     for (int i = 1; i < player.Entropy().daPoints.Count; i++)
                     {
-                        Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, player.Entropy().daPoints[i - 1], player.Entropy().daPoints[i], color * 0.6f, 12 * sc, 0);
+                        Util.drawLine(Main.spriteBatch, white.Value, player.Entropy().daPoints[i - 1], player.Entropy().daPoints[i], color * 0.6f, 12 * sc, 0);
                         sc += scj;
                     }
                 }
@@ -473,6 +479,17 @@ namespace CalamityEntropy.Common
 
             PixelParticle.drawAll();
 
+            // 获取投射物类型 ID
+            int voidBottleThrowType = ModContent.ProjectileType<VoidBottleThrow>();
+            int cruiserShadowType = ModContent.ProjectileType<CruiserShadow>();
+            int voidWraithType = ModContent.ProjectileType<VoidWraith>();
+            int abyssPetType = ModContent.ProjectileType<AbyssPet>();
+            int voidPalProjType = ModContent.ProjectileType<VoidPalProj>();
+            int shadewindLanceThrowType = ModContent.ProjectileType<ShadewindLanceThrow>();
+            int voidStarType = ModContent.ProjectileType<VoidStar>();
+            int voidStarFType = ModContent.ProjectileType<VoidStarF>();
+
+            // 遍历投射物，使用类型 ID 判断
             foreach (Projectile p in CheckProjs)
             {
                 if (p.ModProjectile == null)
@@ -480,29 +497,34 @@ namespace CalamityEntropy.Common
                     continue;
                 }
 
-                if (p.ModProjectile is VoidBottleThrow || p.ModProjectile is CruiserShadow)
+                if (p.type == voidBottleThrowType || p.type == cruiserShadowType)
                 {
                     Color color = Color.White;
                     p.ModProjectile.PreDraw(ref color);
                 }
-                if (p.ModProjectile is VoidWraith vw)
+                else if (p.type == voidWraithType)
                 {
-                    vw.draw();
+                    if (p.ModProjectile is VoidWraith vw)
+                    {
+                        vw.draw();
+                    }
                 }
-                if (p.ModProjectile is AbyssPet || p.ModProjectile is VoidPalProj)
+                else if (p.type == abyssPetType || p.type == voidPalProjType)
                 {
                     Color color = Color.White;
                     p.ModProjectile.PreDraw(ref color);
                 }
-                if (p.ModProjectile is ShadewindLanceThrow sp)
+                else if (p.type == shadewindLanceThrowType)
                 {
-                    sp.draw();
+                    if (p.ModProjectile is ShadewindLanceThrow sp)
+                    {
+                        sp.draw();
+                    }
                 }
-                if (p.ModProjectile is VoidStar || p.ModProjectile is VoidStarF)
+                else if (p.type == voidStarType || p.type == voidStarFType)
                 {
-                    Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar").Value;
-                    Color c = p.ModProjectile is VoidStarF && p.ai[2] > 0 ? new Color(255, 100, 100) : Color.White;
-                    Main.spriteBatch.Draw(t, p.Center - Main.screenPosition, null, c * ((255 - p.alpha) / 255f), p.rotation, t.Size() / 2, p.scale, SpriteEffects.None, 0);
+                    Color c = p.type == voidStarFType && p.ai[2] > 0 ? new Color(255, 100, 100) : Color.White;
+                    Main.spriteBatch.Draw(voidStar.Value, p.Center - Main.screenPosition, null, c * ((255 - p.alpha) / 255f), p.rotation, voidStar.Value.Size() / 2, p.scale, SpriteEffects.None, 0);
                 }
             }
 
@@ -530,32 +552,53 @@ namespace CalamityEntropy.Common
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
+            // 获取投射物类型 ID
+            int slashType = ModContent.ProjectileType<Slash>();
+            int slash2Type = ModContent.ProjectileType<Slash2>();
+            int voidExplodeType = ModContent.ProjectileType<VoidExplode>();
+            int voidRExpType = ModContent.ProjectileType<VoidRExp>();
+            int starlessNightProjType = ModContent.ProjectileType<StarlessNightProj>();
+
+            // 遍历投射物，使用类型 ID 判断
             foreach (Projectile p in CheckProjs)
             {
-                if (p.ModProjectile == null) continue;
-                if (p.ModProjectile is Slash)
+                if (p.ModProjectile == null)
+                {
+                    continue;
+                }
+
+                if (p.type == slashType)
                 {
                     Main.spriteBatch.Draw(ksc1.Value, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 165, 0).RotatedBy(p.rotation), null, Color.White, p.rotation + (float)Math.PI / 2, new Vector2(ksc1.Value.Width, ksc1.Value.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / ksc1.Value.Width * 0.4f, 0.1f), SpriteEffects.None, 0);
                 }
-                if (p.ModProjectile is Slash2)
+                else if (p.type == slash2Type)
                 {
                     Main.spriteBatch.Draw(ksc1.Value, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 300, 0).RotatedBy(p.rotation), null, Color.White, p.rotation + (float)Math.PI / 2, new Vector2(ksc1.Value.Width, ksc1.Value.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / ksc1.Value.Width * 1.4f, 1f), SpriteEffects.None, 0);
                 }
-                if (p.ModProjectile is VoidExplode ve)
+                else if (p.type == voidExplodeType)
                 {
-                    float ks = ve.Projectile.timeLeft * 0.1f;
-                    if (ve.Projectile.timeLeft > 10) ks = (20 - (float)ve.Projectile.timeLeft) / 10f;
-                    ks *= (1 + ve.Projectile.ai[1]);
-                    Main.spriteBatch.Draw(ksc1.Value, ve.Projectile.Center - Main.screenPosition, null, Color.White, 0, new Vector2(ksc1.Value.Width, ksc1.Value.Height) / 2, ks * 2, SpriteEffects.None, 0);
+                    if (p.ModProjectile is VoidExplode ve)
+                    {
+                        float ks = ve.Projectile.timeLeft * 0.1f;
+                        if (ve.Projectile.timeLeft > 10) ks = (20 - (float)ve.Projectile.timeLeft) / 10f;
+                        ks *= (1 + ve.Projectile.ai[1]);
+                        Main.spriteBatch.Draw(ksc1.Value, ve.Projectile.Center - Main.screenPosition, null, Color.White, 0, new Vector2(ksc1.Value.Width, ksc1.Value.Height) / 2, ks * 2, SpriteEffects.None, 0);
+                    }
                 }
-                if (p.ModProjectile is VoidRExp vre)
+                else if (p.type == voidRExpType)
                 {
-                    float ks = (90f - vre.Projectile.timeLeft) * 0.4f;
-                    Main.spriteBatch.Draw(kscc.Value, vre.Projectile.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kscc.Value.Width, kscc.Value.Height) / 2, ks, SpriteEffects.None, 0);
+                    if (p.ModProjectile is VoidRExp vre)
+                    {
+                        float ks = (90f - vre.Projectile.timeLeft) * 0.4f;
+                        Main.spriteBatch.Draw(kscc.Value, vre.Projectile.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kscc.Value.Width, kscc.Value.Height) / 2, ks, SpriteEffects.None, 0);
+                    }
                 }
-                if (p.ModProjectile is StarlessNightProj sl)
+                else if (p.type == starlessNightProjType)
                 {
-                    sl.drawSlash();
+                    if (p.ModProjectile is StarlessNightProj sl)
+                    {
+                        sl.drawSlash();
+                    }
                 }
             }
 
@@ -600,15 +643,17 @@ namespace CalamityEntropy.Common
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
+            int abyssalWraithType = ModContent.NPCType<AbyssalWraith>();
+            int cruiserHeadType = ModContent.NPCType<CruiserHead>();
             foreach (NPC npc in Main.ActiveNPCs)
             {
-                if (npc.type == ModContent.NPCType<AbyssalWraith>() && npc.ModNPC is AbyssalWraith aw)
+                if (npc.type == abyssalWraithType && npc.ModNPC is AbyssalWraith aw)
                 {
                     NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                     aw.Draw();
                     NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                 }
-                if (npc.type == ModContent.NPCType<CruiserHead>() && npc.ModNPC is CruiserHead ch && ch.phase == 2)
+                if (npc.type == cruiserHeadType && npc.ModNPC is CruiserHead ch && ch.phase == 2)
                 {
                     ch.candraw = true;
                     NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
@@ -618,8 +663,14 @@ namespace CalamityEntropy.Common
                 }
             }
 
+            int starlessNightType = ModContent.ProjectileType<StarlessNightProj>();
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
+                if (proj.type != starlessNightType)
+                {
+                    continue;
+                }
+
                 if (proj.ModProjectile is StarlessNightProj sl)
                 {
                     sl.drawSword();
