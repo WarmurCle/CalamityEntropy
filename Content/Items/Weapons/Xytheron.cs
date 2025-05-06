@@ -30,6 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<XytheronProj>();
             Item.shootSpeed = 16f;
             Item.ArmorPenetration = 32;
+            Item.autoReuse = true;
         }
 
         public float charge = 0;
