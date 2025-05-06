@@ -1,10 +1,9 @@
-using System;
-using CalamityEntropy.Content.NPCs;
+﻿using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.NormalNPCs;
-using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
