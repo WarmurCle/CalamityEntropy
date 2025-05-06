@@ -437,7 +437,7 @@ namespace CalamityEntropy
                         {
                             if (p.type == pocType && p.owner == player.whoAmI)
                             {
-                                if (p.ModProjectile is PrisonOfPermafrostCircle poc)
+                                if (p.ModProjectile != null && p.ModProjectile is PrisonOfPermafrostCircle poc)
                                 {
                                     float alpha = poc.usingTime / 60f;
                                     if (alpha > 1)
@@ -1293,6 +1293,8 @@ namespace CalamityEntropy
             }
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
+                if (proj.ModProjectile == null)
+                    continue;
                 if (proj.ModProjectile is CruiserEnergyBall ceb)
                 {
                     ceb.Draw();
@@ -1345,7 +1347,7 @@ namespace CalamityEntropy
 
                 foreach (Projectile p in CheckProjs)
                 {
-                    if (p.ModProjectile is CruiserSlash)
+                    if (p.ModProjectile != null && p.ModProjectile is CruiserSlash)
                     {
                         Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/CruiserSlash").Value;
 
@@ -1354,18 +1356,18 @@ namespace CalamityEntropy
                             Main.spriteBatch.Draw(tx, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 300, 0).RotatedBy(p.rotation), null, Color.White, p.rotation, new Vector2(tx.Width, tx.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / tx.Width, 1.2f), SpriteEffects.None, 0);
                         }
                     }
-                    if (p.ModProjectile is SilenceHook)
+                    if (p.ModProjectile != null && p.ModProjectile is SilenceHook)
                     {
                         Vector2 c = ((int)p.ai[1]).ToProj().Center;
                         Utilities.Util.drawChain(p.Center, c, 20, Utilities.Util.getExtraTex("VoidChain"));
                     }
 
-                    if (p.ModProjectile is CruiserBlackholeBullet || p.ModProjectile is VoidBullet)
+                    if (p.ModProjectile != null && p.ModProjectile is CruiserBlackholeBullet || p.ModProjectile is VoidBullet)
                     {
                         Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/CruiserBlackholeBullet").Value;
                         Main.spriteBatch.Draw(tx, p.Center - Main.screenPosition, null, Color.White, p.rotation, new Vector2(tx.Width, tx.Height) / 2, p.scale, SpriteEffects.None, 0);
                     }
-                    if (p.ModProjectile is VoidMonster vmnpc)
+                    if (p.ModProjectile != null && p.ModProjectile is VoidMonster vmnpc)
                     {
                         vmnpc.draw();
                     }
@@ -1396,7 +1398,7 @@ namespace CalamityEntropy
                 }
                 foreach (Projectile p in Main.ActiveProjectiles)
                 {
-                    if (p.ModProjectile is Pioneer1 p1)
+                    if (p.ModProjectile != null && p.ModProjectile is Pioneer1 p1)
                     {
                         p1.drawVoid();
                     }
@@ -1512,11 +1514,11 @@ namespace CalamityEntropy
 
                         }
                     }
-                    if (p.ModProjectile is AbyssalLaser al)
+                    if (p.ModProjectile != null && p.ModProjectile is AbyssalLaser al)
                     {
                         al.drawLaser();
                     }
-                    if (p.ModProjectile is WohLaser)
+                    if (p.ModProjectile != null && p.ModProjectile is WohLaser)
                     {
                         float alp = p.ai[1];
                         float w = p.scale;
@@ -1553,7 +1555,7 @@ namespace CalamityEntropy
                             opos += p.velocity.SafeNormalize(Vector2.One) * tx.Width;
                         }
                     }
-                    if (p.ModProjectile is VoidStar)
+                    if (p.ModProjectile != null && p.ModProjectile is VoidStar)
                     {
                         if (p.ai[0] >= 60 || p.ai[2] == 0)
                         {
@@ -1574,7 +1576,7 @@ namespace CalamityEntropy
                         }
 
                     }
-                    if (p.ModProjectile is VoidStarF)
+                    if (p.ModProjectile != null && p.ModProjectile is VoidStarF)
                     {
                         VoidStarF mp = (VoidStarF)p.ModProjectile;
                         mp.odp.Add(p.Center);
@@ -1597,7 +1599,7 @@ namespace CalamityEntropy
 
                     }
 
-                    if (p.ModProjectile is LightWisperFlame lwf)
+                    if (p.ModProjectile != null && p.ModProjectile is LightWisperFlame lwf)
                     {
                         lwf.draw();
                     }
@@ -1619,13 +1621,13 @@ namespace CalamityEntropy
                 }
                 foreach (Projectile p in CheckProjs)
                 {
-                    if (p.ModProjectile is MoonlightShieldBreak)
+                    if (p.ModProjectile != null && p.ModProjectile is MoonlightShieldBreak)
                     {
                         Texture2D shieldTexture = Utilities.Util.getExtraTex("shield");
                         Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255) * p.ai[2], 0, shieldTexture.Size() / 2, 0.47f * (1 + p.ai[1]), SpriteEffects.None, 0);
 
                     }
-                    if (p.ModProjectile is CruiserShadow aw)
+                    if (p.ModProjectile != null && p.ModProjectile is CruiserShadow aw)
                     {
                         if (aw.alphaPor > 0)
                         {
@@ -1697,19 +1699,19 @@ namespace CalamityEntropy
 
                 foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (proj.ModProjectile is AbyssalCrack ac)
+                    if (proj.ModProjectile != null && proj.ModProjectile is AbyssalCrack ac)
                     {
                         ac.draw();
                     }
-                    if (proj.ModProjectile is AbyssBookmarkCrack ac2)
+                    if (proj.ModProjectile != null && proj.ModProjectile is AbyssBookmarkCrack ac2)
                     {
                         ac2.drawVoid();
                     }
-                    if (proj.ModProjectile is NxCrack nc)
+                    if (proj.ModProjectile != null && proj.ModProjectile is NxCrack nc)
                     {
                         nc.drawCrack();
                     }
-                    if (proj.ModProjectile is YstralynProj yst)
+                    if (proj.ModProjectile != null && proj.ModProjectile is YstralynProj yst)
                     {
                         yst.draw_crack();
                     }
@@ -1995,7 +1997,7 @@ namespace CalamityEntropy
                 }
                 foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (proj.ModProjectile is StarlessNightProj sl)
+                    if (proj.ModProjectile != null && proj.ModProjectile is StarlessNightProj sl)
                     {
                         sl.drawSword();
                     }
