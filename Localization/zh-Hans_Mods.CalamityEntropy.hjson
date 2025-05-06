@@ -600,7 +600,7 @@ Items: {
 
 	VoidFaquirEvokerHelm: {
 		DisplayName: 虚空唤灵盔
-		Tooltip: +80% 召唤伤害
+		Tooltip: +25% 召唤伤害
 	}
 
 	VoidFaquirLurkerMask: {

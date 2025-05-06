@@ -48,6 +48,7 @@ namespace CalamityEntropy.Content.Skies
         public Effect skyEffect = null; public Effect skyEffect2 = null;
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
+            
             if (this.skyEffect == null)
             {
                 this.skyEffect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/AWSkyEffect", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -82,17 +83,9 @@ namespace CalamityEntropy.Content.Skies
             }
             awtime--;
 
-
+            Main.spriteBatch.UseSampleState(SamplerState.LinearWrap);
             Vector2 dp = new Vector2((Main.screenPosition.X * -0.5f + counter * 0.3f) % txd.Width, (Main.screenPosition.Y * -0.5f + counter * -0.1f) % txd.Height);
-            spriteBatch.Draw(txd, dp + new Vector2(0, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp - txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(0, -txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(txd.Width, -txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(-txd.Width, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(txd.Width, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(-txd.Width, txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(0, txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(txd, new Vector2(-528, -528), new Rectangle((int)-dp.X, (int)-dp.Y, Main.screenWidth + 1024, Main.screenHeight + 1024), ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
             if (awtime > 0)
             {
@@ -136,15 +129,7 @@ namespace CalamityEntropy.Content.Skies
                 c *= 0.2f;
             }*/
             dp = new Vector2((Main.screenPosition.X * -0.5f * c + counter * -0.3f * c) % txd.Width, (Main.screenPosition.Y * -0.5f * c + counter * 0.1f * c) % txd.Height);
-            spriteBatch.Draw(txd, dp + new Vector2(0, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp - txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(0, -txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(txd.Width, -txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(-txd.Width, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(txd.Width, 0), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(-txd.Width, txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + new Vector2(0, txd.Height), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(txd, dp + txd.Size(), null, ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(txd, new Vector2(-528, -528), new Rectangle((int)-dp.X, (int)-dp.Y, Main.screenWidth + 1024, Main.screenHeight + 1024), ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
             if (drawAWMask)
             {

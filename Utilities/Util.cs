@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -312,7 +313,12 @@ namespace CalamityEntropy.Utilities
         public static void UseBlendState(this SpriteBatch sb, BlendState blend, SamplerState s = null)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Deferred, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, Main.graphics.GraphicsDevice.RasterizerState, null, (Matrix)Main.spriteBatch.GetType().GetField("transformMatrix", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Main.spriteBatch));
+        }
+        public static void UseSampleState(this SpriteBatch sb, SamplerState s)
+        {
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, Main.graphics.GraphicsDevice.BlendState, s, DepthStencilState.None, Main.graphics.GraphicsDevice.RasterizerState, null, (Matrix)Main.spriteBatch.GetType().GetField("transformMatrix", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Main.spriteBatch));
         }
         public static void UseState_UI(this SpriteBatch sb, BlendState blend, SamplerState sampler)
         {
