@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 Texture2D bs = Util.getExtraTex("SemiCircularSmear");
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
-                Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(new Color(50, 140, 160), new Color(200, 255, 66), counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 1) * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f, Projectile.velocity.ToRotation(), bs.Size() / 2f, Projectile.scale * 1.4f * scale, SpriteEffects.None, 0); //Projectile.rotation + MathHelper.ToRadians(32) * -dir
+                Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(new Color(50, 140, 160), new Color(200, 255, 66), counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 1) * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f, Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.1f * scale, SpriteEffects.None, 0);
                 Main.spriteBatch.ExitShaderRegion();
             }
             else
