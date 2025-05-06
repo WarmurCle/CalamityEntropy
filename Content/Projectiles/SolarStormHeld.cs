@@ -202,7 +202,10 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, Color.OrangeRed * alpha, 0, tex.Size() * 0.5f, size * 0.4f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(255, 220, 190) * alpha, 0, tex.Size() * 0.5f, size * 0.24f, SpriteEffects.None, 0);
+            Main.spriteBatch.End();
+            Main.spriteBatch.begin_();
         }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return false;
