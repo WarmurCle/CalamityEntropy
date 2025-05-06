@@ -1,0 +1,685 @@
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
+using CalamityEntropy.Content.NPCs.Cruiser;
+using CalamityEntropy.Content.NPCs.Prophet;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.Chainsaw;
+using CalamityEntropy.Content.Projectiles.Cruiser;
+using CalamityEntropy.Content.Projectiles.Pets.Abyss;
+using CalamityEntropy.Content.Projectiles.Prophet;
+using CalamityEntropy.Utilities;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
+using System.Reflection;
+using Terraria;
+using Terraria.Graphics.Effects;
+using Terraria.ModLoader;
+using static CalamityEntropy.CalamityEntropy;
+
+namespace CalamityEntropy.Common
+{
+    // 自定义标签，标记需要自动加载的资源路径
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+    public class AutoLoadAssetAttribute(string path) : Attribute
+    {
+        public string Path { get; } = path;
+    }
+
+    internal class EffectLoader
+    {
+        [AutoLoadAsset("Textures/cvmask")]
+        private static Asset<Texture2D> cvmask;
+        [AutoLoadAsset("Textures/cvmask2")]
+        private static Asset<Texture2D> cvmask2;
+        [AutoLoadAsset("Textures/lightball")]
+        private static Asset<Texture2D> lightball;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_blue_base")]
+        private static Asset<Texture2D> planetarium_blue_base;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_1")]
+        private static Asset<Texture2D> planetarium_starfield_1;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_2")]
+        private static Asset<Texture2D> planetarium_starfield_2;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_3")]
+        private static Asset<Texture2D> planetarium_starfield_3;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_4")]
+        private static Asset<Texture2D> planetarium_starfield_4;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_5")]
+        private static Asset<Texture2D> planetarium_starfield_5;
+        [AutoLoadAsset("CalamityEntropy/Content/Projectiles/CruiserSlash")]
+        private static Asset<Texture2D> cruiserSlash;
+        [AutoLoadAsset("CalamityEntropy/Content/Projectiles/Cruiser/CruiserBlackholeBullet")]
+        private static Asset<Texture2D> cruiserBlackholeBullet;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/cruiserSpace2")]
+        private static Asset<Texture2D> cruiserSpace2;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/ksc1")]
+        private static Asset<Texture2D> ksc1;
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/kscc")]
+        private static Asset<Texture2D> kscc;
+
+        public static void Load()
+        {
+            Main.OnResolutionChanged += Main_OnResolutionChanged;
+            On_FilterManager.EndCapture += CE_EffectHandler;
+        }
+
+        public static void UnLoad()
+        {
+            Main.OnResolutionChanged -= Main_OnResolutionChanged;
+            On_FilterManager.EndCapture -= CE_EffectHandler;
+        }
+
+        public static void LoadAsset()
+        {
+            // 获取当前类的所有静态字段
+            var fields = typeof(EffectLoader).GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+
+            foreach (var field in fields)
+            {
+                // 检查字段是否标记了 AutoLoadAssetAttribute
+                var attribute = field.GetCustomAttribute<AutoLoadAssetAttribute>();
+                if (attribute != null)
+                {
+                    try
+                    {
+                        field.SetValue(null, ModContent.Request<Texture2D>(attribute.Path));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to load asset at path: {attribute.Path}. Error: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        public static void UnLoadAsset()
+        {
+            // 获取当前类的所有静态字段
+            var fields = typeof(EffectLoader).GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+
+            foreach (var field in fields)
+            {
+                // 检查字段是否标记了 AutoLoadAssetAttribute
+                var attribute = field.GetCustomAttribute<AutoLoadAssetAttribute>();
+                if (attribute != null)
+                {
+                    try
+                    {
+                        var asset = field.GetValue(null);
+                        if (asset != null)
+                        {
+                            field.SetValue(null, null);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to unload asset at path: {attribute.Path}. Error: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        // 确保旧的RenderTarget2D对象被正确释放
+        private static void DisposeScreen()
+        {
+            screen?.Dispose();
+            screen = null;
+            screen2?.Dispose();
+            screen2 = null;
+            screen3?.Dispose();
+            screen3 = null;
+        }
+
+        //在改变屏幕时更新这些字段的值，而不是每帧不断的释放更新浪费性能
+        private static void Main_OnResolutionChanged(Vector2 obj)
+        {
+            DisposeScreen();
+            screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+            screen2 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+            screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+        }
+
+        //首先纹理在使用前尽量缓存为静态的，Request函数并非性能的最佳选择，尤其是在每帧调用甚至循环调用中的高频访问
+        //这不是最佳的选择，要我说EndCapture就应该去死，该他妈的沉没在历史的粪坑中。万物都有自己的道理唯独它没有
+        //如果有机会，我会把Red绑上十字架然后用白磷火刑慢慢的把他净化，神皇会赞许我的行为的，因为那帮家伙全他妈的是异端邪祟
+        //----HoCha113 2025-5-6
+        private static void CE_EffectHandler(On_FilterManager.orig_EndCapture orig, FilterManager self,
+        RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
+        {
+            //初始化
+            InitializeEffectHandler();
+
+            //获取渲染资源
+            GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
+            //初始化那些他妈的屏幕字段
+            EnsureRenderTargets(graphicsDevice);
+
+            //绘制初始屏幕
+            DrawInitialScreen(graphicsDevice);
+
+            //绘制 NPC 和投射物
+            DrawNPCsAndProjectiles(graphicsDevice);
+
+            //应用像素着色器
+            ApplyPixelShader(graphicsDevice);
+
+            //绘制投射物特效
+            DrawProjectileEffects(graphicsDevice);
+
+            //绘制粒子效果
+            DrawParticleEffects(graphicsDevice);
+
+            // 阶段 6: 应用背景着色器
+            ApplyBackgroundShader(graphicsDevice);
+
+            //绘制玩家和投射物特效
+            DrawPlayerAndProjectileEffects(graphicsDevice);
+
+            //绘制切片效果
+            DrawSlashEffects(graphicsDevice);
+
+            //应用最终着色器
+            ApplyFinalShader(graphicsDevice);
+
+            //处理屏幕切割效果
+            HandleCutScreenEffect(graphicsDevice);
+
+            //绘制黑色遮罩
+            DrawBlackMask();
+
+            //调用原始方法
+            orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
+        }
+
+        private static void InitializeEffectHandler()
+        {
+            Instance.screenShakeAmp *= 0.9f;
+            CheckProjs.Clear();
+            CheckNPCs.Clear();
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                CheckProjs.Add(p);
+            }
+            foreach (NPC n in Main.ActiveNPCs)
+            {
+                CheckNPCs.Add(n);
+            }
+        }
+
+        private static void EnsureRenderTargets(GraphicsDevice graphicsDevice)
+        {
+            screen ??= new RenderTarget2D(graphicsDevice, Main.screenWidth, Main.screenHeight);
+            screen2 ??= new RenderTarget2D(graphicsDevice, Main.screenWidth, Main.screenHeight);
+            screen3 ??= new RenderTarget2D(graphicsDevice, Main.screenWidth, Main.screenHeight);
+        }
+
+        private static void DrawInitialScreen(GraphicsDevice graphicsDevice)
+        {
+            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+        }
+
+        private static void DrawNPCsAndProjectiles(GraphicsDevice graphicsDevice)
+        {
+            graphicsDevice.SetRenderTarget(screen3);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
+
+            int theProphetType = ModContent.NPCType<TheProphet>();
+            int cruiserEnergyBallType = ModContent.ProjectileType<CruiserEnergyBall>();
+            int runeTorrentType = ModContent.ProjectileType<RuneTorrent>();
+            int runeTorrentRangerType = ModContent.ProjectileType<RuneTorrentRanger>();
+            int prophetVoidSpikeType = ModContent.ProjectileType<ProphetVoidSpike>();
+
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.type != theProphetType)
+                {
+                    continue;
+                }
+
+                if (npc.ModNPC is TheProphet tp)
+                {
+                    NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                    tp.Draw();
+                    NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
+                }
+            }
+
+            foreach (Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.type == cruiserEnergyBallType && proj.ModProjectile is CruiserEnergyBall ceb)
+                {
+                    ceb.Draw();
+                }
+                if (proj.type == runeTorrentType && proj.ModProjectile is RuneTorrent rt)
+                {
+                    rt.Draw();
+                }
+                if (proj.type == runeTorrentRangerType && proj.ModProjectile is RuneTorrentRanger rt_)
+                {
+                    rt_.Draw();
+                }
+                if (proj.type == prophetVoidSpikeType && proj.ModProjectile is ProphetVoidSpike vs)
+                {
+                    vs.Draw();
+                }
+            }
+
+            EParticle.DrawPixelShaderParticles();
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+        }
+
+        private static void ApplyPixelShader(GraphicsDevice graphicsDevice)
+        {
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
+            shader.CurrentTechnique = shader.Techniques["Technique1"];
+            shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2() / Main.GameViewMatrix.Zoom);
+            shader.CurrentTechnique.Passes[0].Apply();
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader);
+            Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+        }
+
+        private static void DrawProjectileEffects(GraphicsDevice graphicsDevice)
+        {
+            if (screen == null)
+            {
+                return;
+            }
+
+            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+            Instance.cvcount += 3;
+
+            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
+
+            int cruiserSlashType = ModContent.ProjectileType<CruiserSlash>();
+            int silenceHookType = ModContent.ProjectileType<SilenceHook>();
+            int cruiserBlackholeBulletType = ModContent.ProjectileType<CruiserBlackholeBullet>();
+            int voidBulletType = ModContent.ProjectileType<VoidBullet>();
+            int voidMonsterType = ModContent.ProjectileType<VoidMonster>();
+
+            foreach (Projectile p in CheckProjs)
+            {
+                if (p.type == cruiserSlashType)
+                {
+                    if (p.ModProjectile is CruiserSlash cs && cs.ct > 60)
+                    {
+                        Main.spriteBatch.Draw(cruiserSlash.Value, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 300, 0).RotatedBy(p.rotation), null, Color.White, p.rotation, new Vector2(cruiserSlash.Value.Width, cruiserSlash.Value.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / cruiserSlash.Value.Width, 1.2f), SpriteEffects.None, 0);
+                    }
+                }
+                else if (p.type == silenceHookType)
+                {
+                    Vector2 c = ((int)p.ai[1]).ToProj().Center;
+                    Util.drawChain(p.Center, c, 20, Util.getExtraTex("VoidChain"));
+                }
+                else if (p.type == cruiserBlackholeBulletType)
+                {
+                    Main.spriteBatch.Draw(cruiserBlackholeBullet.Value, p.Center - Main.screenPosition, null, Color.White, p.rotation, new Vector2(cruiserBlackholeBullet.Value.Width, cruiserBlackholeBullet.Value.Height) / 2, p.scale, SpriteEffects.None, 0);
+                }
+                else if (p.type == voidBulletType)
+                {
+                    Main.spriteBatch.Draw(cruiserBlackholeBullet.Value, p.Center - Main.screenPosition, null, Color.White, p.rotation, new Vector2(cruiserBlackholeBullet.Value.Width, cruiserBlackholeBullet.Value.Height) / 2, p.scale, SpriteEffects.None, 0);
+                }
+                else if (p.type == voidMonsterType)
+                {
+                    if (p.ModProjectile is VoidMonster vmnpc) 
+                    {
+                        vmnpc.draw();
+                    }
+                }
+            }
+
+            int cruiserHeadType = ModContent.NPCType<CruiserHead>();
+
+            foreach (NPC n in CheckNPCs)
+            {
+                if (n.type != cruiserHeadType)
+                {
+                    continue;
+                }
+
+                if (n.ModNPC is CruiserHead ch && ch.phaseTrans > 120 && n.ai[0] > 1)
+                {
+                    Vector2 ddp = ch.SpaceCenter;
+                    Main.spriteBatch.Draw(cruiserSpace2.Value, ddp - Main.screenPosition, null, Color.White * 0.1f, 0, new Vector2(cruiserSpace2.Value.Width, cruiserSpace2.Value.Height) / 2, ch.maxDistance / 900f * 2 - 0.01f, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(cruiserSpace2.Value, ddp - Main.screenPosition, null, Color.White, 0, new Vector2(cruiserSpace2.Value.Width, cruiserSpace2.Value.Height) / 2, ch.maxDistance / 900f * 2, SpriteEffects.None, 0);
+                }
+            }
+
+            foreach (Particle pt in VoidParticles.particles)
+            {
+                if (cvmask == null)
+                {
+                    continue;
+                }
+                Main.spriteBatch.Draw(cvmask.Value, pt.position - Main.screenPosition, null, Color.White * 0.06f, pt.rotation, cvmask.Value.Size() / 2, (5.4f * pt.alpha) * 0.05f, SpriteEffects.None, 0);
+            }
+
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (p.ModProjectile is Pioneer1 p1)
+                {
+                    p1.drawVoid();
+                }
+            }
+
+            Main.spriteBatch.End();
+        }
+
+        private static void DrawParticleEffects(GraphicsDevice graphicsDevice)
+        {
+            graphicsDevice.SetRenderTarget(screen2);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
+
+            foreach (Particle pt in VoidParticles.particles)
+            {
+                if (pt.shape != 4) {
+                    continue;
+                }
+                Texture2D draw = Util.getExtraTex("cvdt");
+                Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White, pt.rotation, draw.Size() / 2, 2.2f * pt.alpha, SpriteEffects.None, 0);
+            }
+
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(screen3);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone);
+            kscreen2.CurrentTechnique = kscreen2.Techniques["Technique1"];
+            kscreen2.CurrentTechnique.Passes[0].Apply();
+            kscreen2.Parameters["tex0"].SetValue(screen2);
+            kscreen2.Parameters["tex1"].SetValue(Util.getExtraTex("EternityStreak"));
+            kscreen2.Parameters["offset"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
+            kscreen2.Parameters["i"].SetValue(0.04f);
+            Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+        }
+
+        private static void ApplyBackgroundShader(GraphicsDevice graphicsDevice)
+        {
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
+            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            cve.CurrentTechnique = cve.Techniques["Technique1"];
+            cve.CurrentTechnique.Passes[0].Apply();
+            cve.Parameters["tex1"].SetValue(planetarium_blue_base.Value);
+            cve.Parameters["tex2"].SetValue(planetarium_starfield_1.Value);
+            cve.Parameters["tex3"].SetValue(planetarium_starfield_2.Value);
+            cve.Parameters["tex4"].SetValue(planetarium_starfield_3.Value);
+            cve.Parameters["tex5"].SetValue(planetarium_starfield_4.Value);
+            cve.Parameters["tex6"].SetValue(planetarium_starfield_5.Value);
+            cve.Parameters["time"].SetValue(Instance.cvcount / 50f);
+            cve.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
+            cve.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-Instance.cvcount / 6f, Instance.cvcount / 6f)) / Main.ScreenSize.ToVector2());
+            Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+        }
+
+        private static void DrawPlayerAndProjectileEffects(GraphicsDevice graphicsDevice)
+        {
+            if (screen2 == null) {
+                return;
+            }
+
+            graphicsDevice.SetRenderTarget(screen2);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            foreach (Player player in Main.ActivePlayers)
+            {
+                if (!player.dead && player.Entropy().daPoints.Count > 2)
+                {
+                    float scj = 1f / player.Entropy().daPoints.Count;
+                    float sc = scj;
+                    Color color = player.Entropy().VaMoving > 0 ? Color.Blue : Color.Black;
+                    for (int i = 1; i < player.Entropy().daPoints.Count; i++)
+                    {
+                        Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, player.Entropy().daPoints[i - 1], player.Entropy().daPoints[i], color * 0.6f, 12 * sc, 0);
+                        sc += scj;
+                    }
+                }
+            }
+
+            PixelParticle.drawAll();
+
+            foreach (Projectile p in CheckProjs)
+            {
+                if (p.ModProjectile == null)
+                {
+                    continue;
+                }
+
+                if (p.ModProjectile is VoidBottleThrow || p.ModProjectile is CruiserShadow)
+                {
+                    Color color = Color.White;
+                    p.ModProjectile.PreDraw(ref color);
+                }
+                if (p.ModProjectile is VoidWraith vw)
+                {
+                    vw.draw();
+                }
+                if (p.ModProjectile is AbyssPet || p.ModProjectile is VoidPalProj)
+                {
+                    Color color = Color.White;
+                    p.ModProjectile.PreDraw(ref color);
+                }
+                if (p.ModProjectile is ShadewindLanceThrow sp)
+                {
+                    sp.draw();
+                }
+                if (p.ModProjectile is VoidStar || p.ModProjectile is VoidStarF)
+                {
+                    Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar").Value;
+                    Color c = p.ModProjectile is VoidStarF && p.ai[2] > 0 ? new Color(255, 100, 100) : Color.White;
+                    Main.spriteBatch.Draw(t, p.Center - Main.screenPosition, null, c * ((255 - p.alpha) / 255f), p.rotation, t.Size() / 2, p.scale, SpriteEffects.None, 0);
+                }
+            }
+
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(screen2, Vector2.Zero, Color.White);
+            Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+        }
+
+        private static void DrawSlashEffects(GraphicsDevice graphicsDevice)
+        {
+            if (screen == null || screen2 == null) return;
+
+            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            foreach (Projectile p in CheckProjs)
+            {
+                if (p.ModProjectile == null) continue;
+                if (p.ModProjectile is Slash)
+                {
+                    Main.spriteBatch.Draw(ksc1.Value, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 165, 0).RotatedBy(p.rotation), null, Color.White, p.rotation + (float)Math.PI / 2, new Vector2(ksc1.Value.Width, ksc1.Value.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / ksc1.Value.Width * 0.4f, 0.1f), SpriteEffects.None, 0);
+                }
+                if (p.ModProjectile is Slash2)
+                {
+                    Main.spriteBatch.Draw(ksc1.Value, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 300, 0).RotatedBy(p.rotation), null, Color.White, p.rotation + (float)Math.PI / 2, new Vector2(ksc1.Value.Width, ksc1.Value.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / ksc1.Value.Width * 1.4f, 1f), SpriteEffects.None, 0);
+                }
+                if (p.ModProjectile is VoidExplode ve)
+                {
+                    float ks = ve.Projectile.timeLeft * 0.1f;
+                    if (ve.Projectile.timeLeft > 10) ks = (20 - (float)ve.Projectile.timeLeft) / 10f;
+                    ks *= (1 + ve.Projectile.ai[1]);
+                    Main.spriteBatch.Draw(ksc1.Value, ve.Projectile.Center - Main.screenPosition, null, Color.White, 0, new Vector2(ksc1.Value.Width, ksc1.Value.Height) / 2, ks * 2, SpriteEffects.None, 0);
+                }
+                if (p.ModProjectile is VoidRExp vre)
+                {
+                    float ks = (90f - vre.Projectile.timeLeft) * 0.4f;
+                    Main.spriteBatch.Draw(kscc.Value, vre.Projectile.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kscc.Value.Width, kscc.Value.Height) / 2, ks, SpriteEffects.None, 0);
+                }
+                if (p.ModProjectile is StarlessNightProj sl)
+                {
+                    sl.drawSlash();
+                }
+            }
+
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            kscreen.CurrentTechnique = kscreen.Techniques["Technique1"];
+            kscreen.CurrentTechnique.Passes[0].Apply();
+            kscreen.Parameters["tex0"].SetValue(Main.screenTargetSwap);
+            kscreen.Parameters["i"].SetValue(0.1f);
+            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+        }
+
+        private static void ApplyFinalShader(GraphicsDevice graphicsDevice)
+        {
+            if (FlashEffectStrength > 0)
+            {
+                graphicsDevice.SetRenderTarget(screen);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+
+                graphicsDevice.SetRenderTarget(Main.screenTarget);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+
+                for (float i = 1; i <= 16; i++)
+                {
+                    Main.spriteBatch.Draw(screen, screen.Size() / 2, null, Color.White * ((16f / i) * 0.1f * FlashEffectStrength), 0, screen.Size() / 2, 1 + FlashEffectStrength * 0.08f * i, SpriteEffects.None, 0);
+                }
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.End();
+            }
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.type == ModContent.NPCType<AbyssalWraith>() && npc.ModNPC is AbyssalWraith aw)
+                {
+                    NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                    aw.Draw();
+                    NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                }
+                if (npc.type == ModContent.NPCType<CruiserHead>() && npc.ModNPC is CruiserHead ch && ch.phase == 2)
+                {
+                    ch.candraw = true;
+                    NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                    ch.PreDraw(Main.spriteBatch, Main.screenPosition, Color.White);
+                    NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
+                    ch.candraw = false;
+                }
+            }
+
+            foreach (Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.ModProjectile is StarlessNightProj sl)
+                {
+                    sl.drawSword();
+                }
+            }
+
+            Main.spriteBatch.End();
+        }
+
+        private static void HandleCutScreenEffect(GraphicsDevice graphicsDevice)
+        {
+            if (cutScreen <= 0)
+            {
+                return;
+            }
+
+            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 9000, Color.Black, 9000);
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(screen2);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -9000, Color.Black, 9000);
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Black);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+            Effect blur = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/blur", AssetRequestMode.ImmediateLoad).Value;
+            blur.CurrentTechnique = blur.Techniques["GaussianBlur"];
+            blur.Parameters["resolution"].SetValue(Main.ScreenSize.ToVector2());
+            blur.Parameters["blurAmount"].SetValue(cutScreen * 0.036f);
+            blur.CurrentTechnique.Passes[0].Apply();
+            Main.spriteBatch.Draw(screen, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(screen2, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.End();
+        }
+
+        private static void DrawBlackMask()
+        {
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            if (blackMaskTime > 0)
+            {
+                blackMaskAlpha = Math.Min(blackMaskAlpha + 0.05f, 1f);
+            }
+            else
+            {
+                blackMaskAlpha = Math.Max(blackMaskAlpha - 0.025f, 0f);
+            }
+            Main.spriteBatch.Draw(Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.5f * blackMaskAlpha);
+            Main.spriteBatch.End();
+        }
+    }
+}
