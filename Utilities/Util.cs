@@ -313,12 +313,12 @@ namespace CalamityEntropy.Utilities
         public static void UseBlendState(this SpriteBatch sb, BlendState blend, SamplerState s = null)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, Main.graphics.GraphicsDevice.RasterizerState, null, (Matrix)Main.spriteBatch.GetType().GetField("transformMatrix", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Main.spriteBatch));
+            sb.Begin(SpriteSortMode.Immediate, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void UseSampleState(this SpriteBatch sb, SamplerState s)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, Main.graphics.GraphicsDevice.BlendState, s, DepthStencilState.None, Main.graphics.GraphicsDevice.RasterizerState, null, (Matrix)Main.spriteBatch.GetType().GetField("transformMatrix", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Main.spriteBatch));
+            sb.Begin(SpriteSortMode.Immediate, Main.graphics.GraphicsDevice.BlendState, s, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void UseState_UI(this SpriteBatch sb, BlendState blend, SamplerState sampler)
         {

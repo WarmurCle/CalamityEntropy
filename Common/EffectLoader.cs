@@ -28,7 +28,7 @@ namespace CalamityEntropy.Common
 
     internal class EffectLoader
     {
-        [AutoLoadAsset("Textures/cvmask")]
+        [AutoLoadAsset("CalamityEntropy/Assets/Extra/cvmask")]
         private static Asset<Texture2D> cvmask;
         [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_blue_base")]
         private static Asset<Texture2D> planetarium_blue_base;

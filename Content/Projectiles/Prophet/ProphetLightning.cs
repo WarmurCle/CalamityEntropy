@@ -105,7 +105,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
 
             if (Projectile.ai[0] > 80)
             {
-                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                
                 List<Vertex> ve = new List<Vertex>();
                 Color b = Color.White;
 
@@ -122,6 +122,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     lr = (points[i] - points[i - 1]).ToRotation();
                 }
                 a = 1;
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
