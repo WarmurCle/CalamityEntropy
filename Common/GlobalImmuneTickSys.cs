@@ -3,12 +3,6 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.DevourerofGods;
-using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json.Linq;
-using rail;
-using ReLogic.Graphics;
-using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -244,9 +238,5 @@ namespace CalamityEntropy.Common
         public static GlobalImmuneTickSysGProj gimmune(this Projectile n) => n.GetGlobalProjectile<GlobalImmuneTickSysGProj>();
 
         public static long Pack(int whoAmI, int projectileId) => (long)whoAmI << 32 | (long)(uint)projectileId;
-
-        public static int NpcWhoAmIFromPacked(long packed) => (int)(packed >> 32);
-
-        public static int ProjectileIdFromPacked(long packed) => (int)(packed & 0xFFFF_FFFFL);
     }
 }
