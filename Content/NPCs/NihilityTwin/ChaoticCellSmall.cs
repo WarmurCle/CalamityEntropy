@@ -112,6 +112,11 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         {
             List<Vertex> ve = new List<Vertex>();
             List<Vector2> points = new List<Vector2>();
+
+            // Addresses a crash when viewing the NPC in a browser.
+            if (rope == null)
+                return;
+
             points = rope.GetPoints();
 
             points.Insert(0, NPC.Center);
