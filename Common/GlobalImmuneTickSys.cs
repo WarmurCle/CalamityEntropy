@@ -4,9 +4,11 @@ using CalamityMod;
 using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.DevourerofGods;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json.Linq;
 using rail;
 using ReLogic.Graphics;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -131,7 +133,11 @@ namespace CalamityEntropy.Common
             }
             else if (proj.usesIDStaticNPCImmunity)
             {
-                GlobalImmuneTickSysGProj.IDStaticImmune[proj.type, NPC.whoAmI] = GlobalImmuneTickSysGProj.IDStaticImmune[proj.type, sync.whoAmI] = proj.idStaticNPCHitCooldown;
+                long npcPacked = GUtil.Pack(NPC.whoAmI, proj.type);
+                long syncPacked = GUtil.Pack(sync.whoAmI, proj.type);
+
+                GlobalImmuneTickSysGProj.ActiveCooldowns[npcPacked] = GlobalImmuneTickSysGProj.ActiveCooldowns[syncPacked] =
+                    proj.idStaticNPCHitCooldown;
             }
             else
             {
@@ -149,7 +155,10 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
-            if (GlobalImmuneTickSysGProj.IDStaticImmune[projectile.whoAmI, npc.whoAmI] != 0)
+
+            long npcPacked = GUtil.Pack(npc.whoAmI, projectile.type);
+
+            if (GlobalImmuneTickSysGProj.ActiveCooldowns.ContainsKey(npcPacked))
             {
                 return false;
             }
@@ -188,8 +197,16 @@ namespace CalamityEntropy.Common
     public class GlobalImmuneTickSysGProj : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
+
         public int[] NPCImmune = new int[Main.npc.Length];
-        public static int[,] IDStaticImmune = new int[ProjectileLoader.ProjectileCount, Main.npc.Length];
+
+        // If an NPC is immune, then its entry in this 2D array will be true.
+        //public static bool[,] IDStaticImmune = new bool[ProjectileLoader.ProjectileCount, Main.npc.Length];
+
+        // Each pair of Projectile ID + NPC whoAmI constitutes a packed long key that accesses its cooldown timer.
+        // We check if a given NPC has an immunity for a specific projectile by seeing if its key is present.
+        public static Dictionary<long, int> ActiveCooldowns = new();
+
         public override bool PreAI(Projectile projectile)
         {
             for (int i = 0; i < NPCImmune.Length; i++)
@@ -197,6 +214,7 @@ namespace CalamityEntropy.Common
                 if (NPCImmune[i] > 0)
                     NPCImmune[i]--;
             }
+
             return true;
         }
     }
@@ -204,15 +222,19 @@ namespace CalamityEntropy.Common
     {
         public override void PostUpdateProjectiles()
         {
-            for (int i = 0; i < ProjectileLoader.ProjectileCount; i++)
+            List<long> toRemove = [];
+
+            foreach (var pair in GlobalImmuneTickSysGProj.ActiveCooldowns)
             {
-                for (int j = 0; j < Main.npc.Length; j++)
+                if (--GlobalImmuneTickSysGProj.ActiveCooldowns[pair.Key] <= 0)
                 {
-                    if (GlobalImmuneTickSysGProj.IDStaticImmune[i, j] > 0)
-                    {
-                        GlobalImmuneTickSysGProj.IDStaticImmune[i, j]--;
-                    }
+                    toRemove.Add(pair.Key);
                 }
+            }
+
+            foreach (long key in toRemove)
+            {
+                GlobalImmuneTickSysGProj.ActiveCooldowns.Remove(key);
             }
         }
     }
@@ -221,5 +243,10 @@ namespace CalamityEntropy.Common
         public static GlobalImmuneTickSysGNPC gimmune(this NPC n) => n.GetGlobalNPC<GlobalImmuneTickSysGNPC>();
         public static GlobalImmuneTickSysGProj gimmune(this Projectile n) => n.GetGlobalProjectile<GlobalImmuneTickSysGProj>();
 
+        public static long Pack(int whoAmI, int projectileId) => (long)whoAmI << 32 | (long)(uint)projectileId;
+
+        public static int NpcWhoAmIFromPacked(long packed) => (int)(packed >> 32);
+
+        public static int ProjectileIdFromPacked(long packed) => (int)(packed & 0xFFFF_FFFFL);
     }
 }
