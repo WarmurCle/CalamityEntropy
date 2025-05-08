@@ -91,7 +91,7 @@ namespace CalamityEntropy
         public static Effect kscreen2;
         public static Effect cve;
         public static Effect cve2;
-        public static Effect cab;
+        public static Effect cab = null;
         public static RenderTarget2D screen = null;
         public static RenderTarget2D screen2 = null;
         public static RenderTarget2D screen3 = null;

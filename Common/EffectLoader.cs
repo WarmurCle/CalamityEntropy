@@ -172,6 +172,9 @@ namespace CalamityEntropy.Common
             // 阶段 6: 应用背景着色器
             ApplyBackgroundShader(graphicsDevice);
 
+            //深渊类型Shader
+            DrawAbyssalEffect(graphicsDevice);
+
             //绘制玩家和投射物特效
             DrawPlayerAndProjectileEffects(graphicsDevice);
 
@@ -189,6 +192,63 @@ namespace CalamityEntropy.Common
 
             //调用原始方法
             orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
+        }
+
+        private static void DrawAbyssalEffect(GraphicsDevice graphicsDevice)
+        {
+            if(cab == null)
+                cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
+            
+            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+
+            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.Clear(Color.Transparent);
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            foreach (Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.ModProjectile is AbyssalCrack ac)
+                {
+                    ac.draw();
+                }
+                if (proj.ModProjectile is AbyssBookmarkCrack ac2)
+                {
+                    ac2.drawVoid();
+                }
+                if (proj.ModProjectile is NxCrack nc)
+                {
+                    nc.drawCrack();
+                }
+                if (proj.ModProjectile is YstralynProj yst)
+                {
+                    yst.draw_crack();
+                }
+            }
+
+            Main.spriteBatch.End();
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+            Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+            cab.CurrentTechnique = cab.Techniques["Technique1"];
+            cab.CurrentTechnique.Passes[0].Apply();
+            cab.Parameters["clr"].SetValue(new Color(12, 50, 160).ToVector4());
+            cab.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1").Value);
+            cab.Parameters["time"].SetValue(Instance.cvcount / 50f);
+            cab.Parameters["scrsize"].SetValue(screen.Size());
+            cab.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(1920, 1080));
+            Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+
+            Main.spriteBatch.End();
         }
 
         private static void InitializeEffectHandler()
