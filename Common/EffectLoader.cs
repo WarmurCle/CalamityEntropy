@@ -3,6 +3,7 @@ using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
 using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
@@ -11,6 +12,7 @@ using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Terraria;
 using Terraria.Graphics.Effects;
@@ -175,6 +177,9 @@ namespace CalamityEntropy.Common
             //深渊类型Shader
             DrawAbyssalEffect(graphicsDevice);
 
+            //我也不知道叫啥的特效
+            DrawRandomEffect(graphicsDevice);
+
             //绘制玩家和投射物特效
             DrawPlayerAndProjectileEffects(graphicsDevice);
 
@@ -192,6 +197,227 @@ namespace CalamityEntropy.Common
 
             //调用原始方法
             orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
+        }
+
+        private static void DrawRandomEffect(GraphicsDevice graphicsDevice)
+        {
+            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+
+            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (!p.active)
+                {
+                    continue;
+                }
+                if (p.ModProjectile != null && p.type == ModContent.ProjectileType<WohShot>() && false)
+                {
+                    WohShot mp = (WohShot)p.ModProjectile;
+                    if (mp.odp.Count > 1)
+                    {
+                        List<Vertex> ve = new List<Vertex>();
+                        Color b = new Color(75, 125, 255);
+
+                        float a = 0;
+                        float lr = 0;
+                        for (int i = 1; i < mp.odp.Count; i++)
+                        {
+                            a += 1f / mp.odp.Count;
+
+                            ve.Add(new Vertex(vLToCenter(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18, Main.GameViewMatrix.Zoom.X),
+                                  new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
+                                  b * a));
+                            ve.Add(new Vertex(vLToCenter(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18, Main.GameViewMatrix.Zoom.X),
+                                  new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
+                                  b * a));
+                            lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
+                        }
+                        a = 1;
+                        GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                        if (ve.Count >= 3)
+                        {
+                            Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
+                            gd.Textures[0] = tx;
+                            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                        }
+
+
+                    }
+                }
+                if (p.ModProjectile != null && p.ModProjectile is AbyssalLaser al)
+                {
+                    al.drawLaser();
+                }
+                if (p.ModProjectile != null && p.ModProjectile is WohLaser)
+                {
+                    float alp = p.ai[1];
+                    float w = p.scale;
+                    if (p.ai[0] == 0)
+                    {
+                        w = 0f;
+                    }
+                    if (p.ai[0] == 1)
+                    {
+                        w = 0.1f;
+                    }
+                    if (p.ai[0] == 2)
+                    {
+                        w = 0.16f;
+                    }
+                    if (p.ai[0] == 3)
+                    {
+                        w = 0.3f;
+                    }
+                    if (p.ai[0] == 4)
+                    {
+                        w = 0.5f;
+                    }
+                    if (p.ai[0] == 5)
+                    {
+                        w = 0.85f;
+                    }
+                    Vector2 opos = p.Center;
+                    Texture2D tx = Util.getExtraTex("wohlaser");
+                    int drawCount = (int)(2400f * p.scale / tx.Width) + 1;
+                    for (int i = 0; i < drawCount; i++)
+                    {
+                        Main.spriteBatch.Draw(tx, opos - Main.screenPosition, null, new Color(55, 100, 255) * alp, p.velocity.ToRotation(), new Vector2(0, tx.Height / 2), new Vector2(1, w * 1f), SpriteEffects.None, 0);
+                        opos += p.velocity.SafeNormalize(Vector2.One) * tx.Width;
+                    }
+                }
+                if (p.ModProjectile != null && p.ModProjectile is VoidStar)
+                {
+                    if (p.ai[0] >= 60 || p.ai[2] == 0)
+                    {
+                        VoidStar mp = (VoidStar)p.ModProjectile;
+                        mp.odp.Add(p.Center);
+                        if (mp.odp.Count > 2)
+                        {
+                            float size = 10;
+                            float sizej = size / mp.odp.Count;
+                            Color cl = new Color(200, 235, 255);
+                            for (int i = mp.odp.Count - 1; i >= 1; i--)
+                            {
+                                Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
+                                size -= sizej;
+                            }
+                        }
+                        mp.odp.RemoveAt(mp.odp.Count - 1);
+                    }
+
+                }
+                if (p.ModProjectile != null && p.ModProjectile is VoidStarF)
+                {
+                    VoidStarF mp = (VoidStarF)p.ModProjectile;
+                    mp.odp.Add(p.Center);
+                    if (mp.odp.Count > 2)
+                    {
+                        float size = 10;
+                        float sizej = size / mp.odp.Count;
+                        Color cl = new Color(200, 235, 255);
+                        if (p.ai[2] > 0)
+                        {
+                            cl = new Color(255, 160, 160);
+                        }
+                        for (int i = mp.odp.Count - 1; i >= 1; i--)
+                        {
+                            Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
+                            size -= sizej;
+                        }
+                    }
+                    mp.odp.RemoveAt(mp.odp.Count - 1);
+
+                }
+
+                if (p.ModProjectile is LightWisperFlame lwf)
+                {
+                    lwf.draw();
+                }
+            }
+            Main.spriteBatch.End();
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            foreach (Player p in Main.ActivePlayers)
+            {
+                {
+                    if (!p.dead && p.Entropy().MagiShield > 0 && p.Entropy().visualMagiShield)
+                    {
+                        Texture2D shieldTexture = Util.getExtraTex("shield");
+                        Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255), 0, shieldTexture.Size() / 2, 0.47f, SpriteEffects.None, 0);
+
+                    }
+                }
+            }
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (p.active)
+                {
+                    if (p.ModProjectile != null && p.ModProjectile is MoonlightShieldBreak)
+                    {
+                        Texture2D shieldTexture = Util.getExtraTex("shield");
+                        Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255) * p.ai[2], 0, shieldTexture.Size() / 2, 0.47f * (1 + p.ai[1]), SpriteEffects.None, 0);
+
+                    }
+                    if (p.ModProjectile != null && p.ModProjectile is CruiserShadow aw)
+                    {
+                        if (aw.alphaPor > 0)
+                        {
+                            float s = 0;
+                            float sj = 1;
+                            for (int i = 0; i <= 30; i++)
+                            {
+                                aw.DrawPortal(aw.spawnPos, new Color(50, 35, 240) * aw.alphaPor, aw.spawnRot, 270 * s, 0.3f, i * 3f);
+                                s = s + (sj - s) * 0.05f;
+                            }
+
+                        }
+                    }
+                }
+            }
+            foreach (NPC n in Main.ActiveNPCs)
+            {
+                if (n.active && n.ModNPC is AbyssalWraith aw)
+                {
+                    if (aw.portalAlpha > 0)
+                    {
+                        float s = 0;
+                        float sj = 1;
+                        for (int i = 0; i <= 30; i++)
+                        {
+                            aw.DrawPortal(aw.portalPos + new Vector2(0, 220 - i * 2.2f), new Color(50, 35, 240) * aw.portalAlpha, 270 * s, 0.3f, i * 3f);
+                            s = s + (sj - s) * 0.05f;
+                        }
+
+                        s = 0;
+                        sj = 1;
+                        for (int i = 0; i <= 30; i++)
+                        {
+                            aw.DrawPortal(aw.portalTarget + new Vector2(0, 220 - i * 2.2f), new Color(50, 35, 240) * aw.portalAlpha, 270 * s, 0.3f, i * 3f);
+                            s = s + (sj - s) * 0.05f;
+                        }
+                    }
+                }
+            }
+            Main.spriteBatch.End();
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
+            cve2.CurrentTechnique = cve2.Techniques["Technique1"];
+            cve2.CurrentTechnique.Passes[0].Apply();
+            cve2.Parameters["tex0"].SetValue(Main.screenTargetSwap);
+            cve2.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/VoidBack").Value);
+            cve2.Parameters["time"].SetValue(Instance.cvcount / 50f);
+            cve2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(1920, 1080));
+            Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.End();
         }
 
         private static void DrawAbyssalEffect(GraphicsDevice graphicsDevice)
