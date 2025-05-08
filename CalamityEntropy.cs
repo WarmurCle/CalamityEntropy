@@ -185,6 +185,8 @@ namespace CalamityEntropy
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
+            BossRushEvent.Bosses.Insert(28, new BossRushEvent.Boss(ModContent.NPCType<TheProphet>()));
+
             EModILEdit.load();
             Type baseType = typeof(PlayerDashEffect);
             Type[] types = AssemblyManager.GetLoadableTypes(this.Code);

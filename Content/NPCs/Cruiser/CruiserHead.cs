@@ -535,6 +535,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             {
                                 if (ai == AIStyle.PhaseTransing)
                                 {
+                                    NPC.Entropy().VoidTouchDR = 0.4f;
                                     ai = AIStyle.VoidSpike;
                                     NPC.dontTakeDamage = false;
                                     NPC.width = 156;
