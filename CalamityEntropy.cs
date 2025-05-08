@@ -359,12 +359,16 @@ namespace CalamityEntropy
         private void drawIr(On_Main.orig_DrawInfernoRings orig, Main self)
         {
             orig(self);
+
+            // I'm assuming these are not needed, as they're handled in EffectLoader.EnsureRenderTargets and other methods.
+            // Why is screen2 not here?
+            /*
             screen?.Dispose();
             screen = null;
             screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
             screen3?.Dispose();
             screen3 = null;
-            screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+            screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);*/
 
             Texture2D shell = Utilities.Util.getExtraTex("shell");
             Texture2D crystalShield = Utilities.Util.getExtraTex("MariviniumShield");
