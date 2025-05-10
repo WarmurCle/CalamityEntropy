@@ -26,8 +26,8 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (Main.GameUpdateCount % 18 == 0)
             {
-                player.statLife -= 12;
-                if (player.statLife <= 12)
+                player.statLife -= 15;
+                if (player.statLife <= 15)
                 {
                     player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral($"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidTouch"))), 16, 0);
                 }
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Buffs
             Dust.NewDust(player.Center, player.width, player.height, DustID.CorruptSpray, (float)r.NextDouble() * 6 - 3, (float)r.NextDouble() * 6 - 3);
             if (!player.GetModPlayer<EPlayerDash>().velt)
             {
-                player.velocity *= 0.99f;
+                player.velocity *= 0.95f;
             }
             for (int i = 0; i < 1; i++)
             {

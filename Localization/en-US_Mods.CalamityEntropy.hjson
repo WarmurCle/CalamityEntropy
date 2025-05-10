@@ -842,7 +842,7 @@ Items: {
 		Tooltip:
 			'''
 			-5% Crit
-			+16% Attack Speed
+			+12% Melee Attack Speed
 			'''
 	}
 
@@ -1472,9 +1472,8 @@ Items: {
 		DisplayName: Bookmark - Sagittarius
 		Tooltip:
 			'''
-			+6% Damage
-			+4 Penetrate
-			+26% Shot Speed
+			-8% Crit
+			+1 Penetrate
 			'''
 	}
 
@@ -1491,8 +1490,8 @@ Items: {
 		DisplayName: Bookmark - Virgo
 		Tooltip:
 			'''
-			+14% Damage
-			+3 Penetrate
+			-10% Damage
+			+1 Penetrate
 			'''
 	}
 
