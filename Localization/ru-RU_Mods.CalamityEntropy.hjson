@@ -1913,6 +1913,11 @@ Items: {
 		// DisplayName: Nihility Twins Music Box
 		// Tooltip: ""
 	}
+
+	WelkinFractal: {
+		// DisplayName: Welkin Fractal
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2263,6 +2268,9 @@ Projectiles: {
 	// ShatteredFractalHeld.DisplayName: Shattered Fractal Held
 	// TopazJewelProjectile.DisplayName: Topaz Jewel Projectile
 	// FractalShoot.DisplayName: Fractal Shoot
+	// WelkinFractalHeld.DisplayName: Welkin Fractal Held
+	// FractalBeam.DisplayName: Fractal Beam
+	// FractalFeather.DisplayName: Fractal Feather
 }
 
 LegendTooltip: - Legend -
@@ -2969,3 +2977,4 @@ ArmorPenetrationItemTooltip: Armor Penetration
 // PrefixEchoDescr: +12 Max Stealth
 // PrefixVigorousDescr: +15% Stealth Regen
 // WikiURL: https://terrariamods.wiki.gg/wiki/Calamity_Entropy/{}
+// GameTips.VoidOreTip: Void ore will spawn high in the sky after defeated Cruiser

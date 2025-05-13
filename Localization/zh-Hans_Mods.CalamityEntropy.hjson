@@ -2069,6 +2069,11 @@ Items: {
 		DisplayName: 音乐盒(虚无双子)
 		Tooltip: ""
 	}
+
+	WelkinFractal: {
+		DisplayName: 苍穹分型
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2420,7 +2425,10 @@ Projectiles: {
 	ProphetRuneAlt.DisplayName: 先知符文
 	ShatteredFractalHeld.DisplayName: 破碎分型
 	TopazJewelProjectile.DisplayName: 王冠黄宝石
-	// FractalShoot.DisplayName: Fractal Shoot
+	FractalShoot.DisplayName: 分型弹
+	WelkinFractalHeld.DisplayName: 苍穹分型
+	FractalBeam.DisplayName: 分型射线
+	FractalFeather.DisplayName: 分型之羽
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3134,3 +3142,4 @@ AmmoPenetrateInfinite: 无限
 PrefixEchoDescr: +12 最大潜行值
 PrefixVigorousDescr: +15% 潜行值回复速度
 WikiURL: http://calentropy.miraheze.org/wiki/{}
+GameTips.VoidOreTip: 虚渺矿会在击败巡游者后在太空生成
