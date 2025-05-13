@@ -76,6 +76,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
         public override void AI()
         {
+            NPC.scale = Main.npc[(int)NPC.ai[1]].scale;
             NPC.Entropy().VoidTouchDR = Main.npc[(int)NPC.ai[1]].Entropy().VoidTouchDR;
             NPC.defense = Main.npc[(int)NPC.ai[1]].defense;
             NPC.Calamity().DR = Main.npc[(int)NPC.ai[1]].Calamity().DR;

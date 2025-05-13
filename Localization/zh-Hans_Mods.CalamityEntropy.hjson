@@ -1598,7 +1598,7 @@ Items: {
 		Tooltip:
 			'''
 			+6%伤害
-			+4 穿透
+			+2 穿透
 			+26% 弹速
 			'''
 	}
@@ -1617,7 +1617,7 @@ Items: {
 		Tooltip:
 			'''
 			+14% 伤害
-			+3 穿透
+			+1 穿透
 			'''
 	}
 
@@ -2052,6 +2052,21 @@ Items: {
 
 	ShatteredFractal: {
 		DisplayName: 破碎分型
+		Tooltip: ""
+	}
+
+	ProphetMusicBox: {
+		DisplayName: 音乐盒(先知)
+		Tooltip: ""
+	}
+
+	CruiserMusicBox: {
+		DisplayName: 音乐盒(巡游者)
+		Tooltip: ""
+	}
+
+	NihilityTwinsMusicBox: {
+		DisplayName: 音乐盒(虚无双子)
 		Tooltip: ""
 	}
 }
@@ -2791,6 +2806,7 @@ NihilityTwinBestiary:
 	虚空中的底层生物，自裂隙而来，因无意识的熵增行为而成为了秩序之敌。
 	那片地域遵循着与现实截然相反的生存规则——这也是为何现实与虚空之间的纠葛是一场你死我活的生存之争。
 	'''
+CCellSmallBestiary: 混沌细胞分裂出的小型个体，它们听从母体的指挥。
 ProphetBestiary:
 	'''
 	一个可悲的破碎灵魂，因潜藏于虚空入侵的表象背后，更为恐怖的真相而疯狂。
@@ -3117,3 +3133,4 @@ AmmoPenetrate: 穿透次数
 AmmoPenetrateInfinite: 无限
 PrefixEchoDescr: +12 最大潜行值
 PrefixVigorousDescr: +15% 潜行值回复速度
+WikiURL: http://calentropy.miraheze.org/wiki/{}

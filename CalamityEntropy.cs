@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
@@ -25,9 +26,11 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Events;
+using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Pets;
 using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Placeables.FurnitureAuric;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
@@ -116,8 +119,14 @@ namespace CalamityEntropy
         public static SoundEffect ealaserSound = null;
         public static SoundEffect ealaserSound2 = null;
         public static SoundEffect ofCharge = null;
+        public string EntropyWikiURL;
         public override void Load()
         {
+            ModLoader.TryGetMod("Wikithis", out var wikithis);
+            EntropyWikiURL = this.GetLocalization("WikiURL").Value;
+            if (!Main.dedServ)
+                wikithis?.Call("AddModURL", this, EntropyWikiURL);
+
             BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
             BookMarkLoader.CustomBMByID = new Dictionary<int, BookMarkLoader.BookMarkTag>();
             Instance = this;
@@ -986,9 +995,19 @@ namespace CalamityEntropy
 
         private static void AddBoss(Mod bossChecklist, Mod hostMod, string name, float difficulty, Func<bool> downed, object npcTypes, Dictionary<string, object> extraInfo)
             => bossChecklist.Call("LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
+        public static List<MusicBox> mbRegs = null;
+        public void RegistryMusicBoxes()
+        {
+            foreach(var mb in mbRegs)
+            {
+                MusicBox.AddMusicBox(mb.MusicFile, mb.Type, mb.MusicBoxTile);
+            }
+            mbRegs = null;
+        }
 
         public override void PostSetupContent()
         {
+            RegistryMusicBoxes();
             for (int i = 0; i < NPCLoader.NPCCount; i++)
             {
                 NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Content.Buffs.HeatDeath>()] = false;

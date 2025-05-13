@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,9 +23,14 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         {
             Main.npcFrameCount[NPC.type] = 1;
             NPCID.Sets.MustAlwaysDraw[NPC.type] = true;
-            this.HideFromBestiary();
         }
-
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+            {
+                new FlavorTextBestiaryInfoElement("Mods.CalamityEntropy.CCellSmallBestiary")
+            });
+        }
         public override void SetDefaults()
         {
             NPC.width = 64;
@@ -154,6 +160,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            if (NPC.IsABestiaryIconDummy)
+                return true;
             drawRope();
             Texture2D tex = TextureAssets.Npc[NPC.type].Value;
             Color color = Color.White;

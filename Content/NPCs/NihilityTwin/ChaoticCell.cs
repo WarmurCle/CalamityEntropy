@@ -22,10 +22,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             Main.npcFrameCount[NPC.type] = 1;
             NPCID.Sets.MustAlwaysDraw[NPC.type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Burning] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<VoidVirus>()] = true;
+            NPCID.Sets.ImmuneToRegularBuffs[NPC.type] = true;
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Scale = 0.48f,

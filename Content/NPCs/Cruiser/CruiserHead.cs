@@ -147,11 +147,19 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.noGravity = true;
             NPC.Entropy().VoidTouchDR = 0.9f;
             NPC.dontCountMe = true;
-            NPC.scale = 1.1f;
+            NPC.scale = 1f;
+            if (Main.masterMode)
+            {
+                NPC.scale = 1.12f;
+            }
             if (Main.getGoodWorld)
             {
                 NPC.scale = 0.5f;
                 length += 46;
+            }
+            if (Main.zenithWorld)
+            {
+                NPC.scale = 1.4f;
             }
             NPC.netAlways = true;
             NPC.Entropy().damageMul = 0.1f;
@@ -193,7 +201,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<CruiserRelic>());
 
             npcLoot.Add(ModContent.ItemType<CruiserTrophy>(), 10);
-
 
             npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedCruiser, ModContent.ItemType<CruiserLore>());
         }

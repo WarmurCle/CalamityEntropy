@@ -62,16 +62,21 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             CreateRecipe().AddIngredient<LoreAwakening>()
                 .AddIngredient(ItemID.WoodenSword)
-                .AddIngredient(ItemID.CopperBroadsword)
-                .AddIngredient(ItemID.IronBroadsword)
-                .AddIngredient(ItemID.SilverBroadsword)
                 .AddIngredient(ItemID.GoldBroadsword)
+                .AddIngredient(ItemID.LightsBane)
                 .AddIngredient(ItemID.Starfury)
                 .AddIngredient(ItemID.EnchantedSword)
                 .AddTile(TileID.Anvils)
                 .Register();
 
-
+            CreateRecipe().AddIngredient<LoreAwakening>()
+                .AddIngredient(ItemID.WoodenSword)
+                .AddIngredient(ItemID.GoldBroadsword)
+                .AddIngredient(ItemID.BloodButcherer)
+                .AddIngredient(ItemID.Starfury)
+                .AddIngredient(ItemID.EnchantedSword)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
     public class ShatteredFractalHeld : ModProjectile
@@ -223,6 +228,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (86 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, targetHitbox, 64);
+        }
+        public override void CutTiles()
+        {
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (86 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
         }
     }
 

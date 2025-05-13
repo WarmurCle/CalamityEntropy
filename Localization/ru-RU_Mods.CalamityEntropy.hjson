@@ -1473,7 +1473,7 @@ Items: {
 		Tooltip:
 			'''
 			+6% урона
-			+4 Penetrate
+			+2 Penetrate
 			+26% к скорости атаки
 			'''
 	}
@@ -1492,7 +1492,7 @@ Items: {
 		Tooltip:
 			'''
 			+14% урона
-			+3 Penetrate
+			+1 Penetrate
 			'''
 	}
 
@@ -1896,6 +1896,21 @@ Items: {
 
 	ShatteredFractal: {
 		// DisplayName: Shattered Fractal
+		// Tooltip: ""
+	}
+
+	ProphetMusicBox: {
+		// DisplayName: Prophet Music Box
+		// Tooltip: ""
+	}
+
+	CruiserMusicBox: {
+		// DisplayName: Cruiser Music Box
+		// Tooltip: ""
+	}
+
+	NihilityTwinsMusicBox: {
+		// DisplayName: Nihility Twins Music Box
 		// Tooltip: ""
 	}
 }
@@ -2636,6 +2651,7 @@ NihilityTwinBestiary:
 	Basic entities of the void, emerging from the rifts, they have become enemies of order through mindless entropy.
 	That realm follows survival rules utterly opposed to reality—which is why the conflict between reality and the void is a fight to the death.
 	'''
+// CCellSmallBestiary: Small individuals produced by chaotic cell division, following the commands of their mother.
 ProphetBestiary:
 	'''
 	A pitiful, shattered soul driven mad by the horrifying truth hidden behind the invasion of the void.
@@ -2952,3 +2968,4 @@ ArmorPenetrationItemTooltip: Armor Penetration
 // AmmoPenetrateInfinite: Infinite
 // PrefixEchoDescr: +12 Max Stealth
 // PrefixVigorousDescr: +15% Stealth Regen
+// WikiURL: https://terrariamods.wiki.gg/wiki/Calamity_Entropy/{}

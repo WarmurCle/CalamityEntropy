@@ -557,7 +557,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = 100;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Magic;

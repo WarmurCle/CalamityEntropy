@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.PrefixItem;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -412,6 +413,10 @@ namespace CalamityEntropy.Utilities
         public static Texture2D getExtraTex(string name)
         {
             return ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/" + name, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+        }
+        public static Asset<Texture2D> getExtraTexAsset(string name)
+        {
+            return ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/" + name, ReLogic.Content.AssetRequestMode.ImmediateLoad);
         }
         public static Rectangle GetCutTexRect(Texture2D tex, int count, int index, bool hor = true)
         {

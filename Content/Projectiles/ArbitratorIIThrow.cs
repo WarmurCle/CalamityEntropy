@@ -140,41 +140,9 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] > 12)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
-                if (!stick)
+                for(int i = 0; i < 10; i++)
                 {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        Vector2 direction = new Vector2(-1, 0).RotatedBy(Projectile.rotation);
-                        Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.16f;
-                        CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, -smokeSpeed - Projectile.velocity, Color.Orange, 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
-                        GeneralParticleHandler.SpawnParticle(smoke);
-
-                        CalamityMod.Particles.Particle smoke2 = new HeavySmokeParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, -smokeSpeed - Projectile.velocity, Color.Black, 20, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, false, 0.01f, true);
-                        GeneralParticleHandler.SpawnParticle(smoke2);
-                    }
-                    for (int i = 0; i < 2; i++)
-                    {
-                        Vector2 direction = new Vector2(-1, 0).RotatedBy(Projectile.rotation);
-                        Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.25f;
-                        CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 + Projectile.velocity / 2 + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, -smokeSpeed - Projectile.velocity, Color.Orange, 15, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
-                        GeneralParticleHandler.SpawnParticle(smoke);
-
-                        CalamityMod.Particles.Particle smoke2 = new HeavySmokeParticle(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 + Projectile.velocity / 2 + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, -smokeSpeed - Projectile.velocity, Color.Black, 10, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, false, 0.01f, true);
-                        GeneralParticleHandler.SpawnParticle(smoke2);
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < 1; i++)
-                    {
-                        Vector2 direction = new Vector2(-1, 0).RotatedBy(Projectile.rotation);
-                        Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.8f;
-                        CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, -smokeSpeed - Projectile.velocity, Color.Lerp(Color.Orange, Color.LightGoldenrodYellow, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
-                        GeneralParticleHandler.SpawnParticle(smoke);
-
-                        CalamityMod.Particles.Particle smoke2 = new HeavySmokeParticle(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, -smokeSpeed - Projectile.velocity, Color.Black, 20, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, false, 0.01f, true);
-                        GeneralParticleHandler.SpawnParticle(smoke2);
-                    }
+                    EclipseMetaball.SpawnParticle(Projectile.Center + (i * 0.1f * Projectile.velocity), Util.randomPointInCircle(2.5f), Main.rand.NextFloat(12f, 29f));
                 }
             }
             handrot -= handrotspeed;
@@ -214,6 +182,10 @@ namespace CalamityEntropy.Content.Projectiles
         public bool exp = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            for (int i = 0; i < 26; i++)
+            {
+                EclipseMetaball.SpawnParticle(target.Center, Util.randomPointInCircle(10), Main.rand.NextFloat(18f, 36f));
+            }
             if (exp)
             {
                 SoundEngine.PlaySound(new("CalamityMod/Sounds/NPCKilled/DevourerSegmentBreak1") { Volume = 0.3f }, Projectile.Center);
@@ -264,6 +236,10 @@ namespace CalamityEntropy.Content.Projectiles
                                 Projectile.Resize(600, 600);
                                 Projectile.timeLeft = 2;
                             }
+                        }
+                        for (int i = 0; i < 64; i++)
+                        {
+                            EclipseMetaball.SpawnParticle(target.Center, Util.randomPointInCircle(16), Main.rand.NextFloat(30f, 64f));
                         }
                         exp = false;
                     }

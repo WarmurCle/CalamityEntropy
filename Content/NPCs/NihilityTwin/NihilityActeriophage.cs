@@ -115,7 +115,6 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 normalOnly.Add(ModContent.ItemType<VoidPathology>(), new Fraction(4, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<NihilityTwinRelic>());
-
             npcLoot.Add(ModContent.ItemType<NihilityTwinTrophy>(), 10);
 
 
