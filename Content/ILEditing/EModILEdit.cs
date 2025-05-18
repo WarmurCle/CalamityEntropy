@@ -1,16 +1,21 @@
-﻿using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Utilities;
 using CalamityMod.CalPlayer;
+using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.RuntimeDetour;
 using System;
 using System.Collections.Concurrent;
 using System.Reflection;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.ILEditing
 {
     public static class EModILEdit
     {
         private delegate float UpdateStealthGenDelegate(Func<CalamityPlayer, float> orig, CalamityPlayer self);
+        private delegate float CALEOCAI_Delegate(Func<NPC, Mod, bool> orig, NPC npc, Mod mod);
         public static void load()
         {
             var originalMethod = typeof(CalamityPlayer)
@@ -21,9 +26,28 @@ namespace CalamityEntropy.Content.ILEditing
             Type.EmptyTypes,
             null);
 
-            UpdateStealthGenDelegate dlg = UpdateStealthGenHook;
-            var _hook = EModHooks.Add(originalMethod, dlg);
-            CalamityEntropy.Instance.Logger.Info("CalEntropy's Hook Loaded");
+            var _hook = EModHooks.Add(originalMethod, UpdateStealthGenHook);
+
+            originalMethod = typeof(EyeOfCthulhuAI)
+            .GetMethod("BuffedEyeofCthulhuAI",
+                      System.Reflection.BindingFlags.Public |
+                      System.Reflection.BindingFlags.Static,
+                      null,
+            new Type[] { typeof(NPC), typeof(Mod) },
+            null);
+            _hook = EModHooks.Add(originalMethod, EOCAIHook);
+            CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
+        }
+        private static bool EOCAIHook(Func<NPC, Mod, bool> orig, NPC npc, Mod mod)
+        {
+            if (CalamityEntropy.EntropyMode)
+            {
+                return EOCEntropyModeAI.BuffedEyeofCthulhuAI(npc, mod);
+            }
+            else
+            {
+                return orig(npc, mod);
+            }
         }
         private static float UpdateStealthGenHook(Func<CalamityPlayer, float> orig, CalamityPlayer self)
         {

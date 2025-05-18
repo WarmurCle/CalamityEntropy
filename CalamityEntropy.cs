@@ -560,7 +560,7 @@ namespace CalamityEntropy
                         }
                     }
                 }
-                if (EntropyMode && self.ModNPC is GiantClam)
+                if (EntropyMode && (self.ModNPC != null && (self.ModNPC is GiantClam || (self.ModNPC is PerforatorHive))))
                 {
                     orig(self, i);
                 }

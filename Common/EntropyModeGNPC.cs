@@ -1,35 +1,73 @@
 ﻿using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.NPCs.CeaselessVoid;
+using CalamityMod.NPCs.Crabulon;
 using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.NormalNPCs;
+using CalamityMod.NPCs.Perforator;
+using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.Projectiles.Boss;
 using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace CalamityEntropy.Common
 {
     public class EntropyModeGNPC : GlobalNPC
     {
         public override bool InstancePerEntity => true;
-
-
+        PrefEntropyAI perfAI = null;
+        public override bool PreAI(NPC npc)
+        {
+            if (CalamityEntropy.EntropyMode)
+            {
+                if (npc.ModNPC != null)
+                {
+                    if (npc.ModNPC is PerforatorHive pf)
+                    {
+                        if (perfAI == null)
+                            perfAI = new PrefEntropyAI();
+                        perfAI.PerfAI(pf);
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        public static List<int> SlimeGodSlimes = new List<int>
+        {
+            NPCType<CrimulanPaladin>(),
+            NPCType<EbonianPaladin>(),
+            NPCType<SplitCrimulanPaladin>(),
+            NPCType<SplitEbonianPaladin>()
+        };
+        public override bool CheckActive(NPC npc)
+        {
+            return !SlimeGodSlimes.Contains(npc.type);
+        }
         public override void PostAI(NPC npc)
         {
             if (CalamityEntropy.EntropyMode)
             {
-                if (npc.ModNPC is DesertScourgeHead && npc.localAI[2] == 1f && this.dScFLag)
+                if (npc.type == NPCID.EyeofCthulhu)
                 {
-                    this.dScFLag = false;
-                    NPC.SpawnOnPlayer(npc.FindClosestPlayer(), ModContent.NPCType<DesertNuisanceHead>());
-                    NPC.SpawnOnPlayer(npc.FindClosestPlayer(), ModContent.NPCType<DesertNuisanceHeadYoung>());
+                    if (init)
+                    {
+                        npc.scale *= 1.4f;
+                    }
+                }
+                if (SlimeGodSlimes.Contains(npc.type))
+                {
+                    npc.MaxFallSpeedMultiplier *= 12;
                 }
                 if (npc.type == 50)
                 {
-                    if (this.init && npc.type == 50)
-                    {
-                        npc.MaxFallSpeedMultiplier *= 36f;
-                    }
+                    npc.MaxFallSpeedMultiplier *= 36f;
+
                     if (this.ksFlag && npc.velocity.Y != 0f && npc.velocity.Y < 0f)
                     {
                         this.ksFlag2 = false;
@@ -67,19 +105,93 @@ namespace CalamityEntropy.Common
                         npc.velocity.Y = npc.velocity.Y + this.vyAdd;
                     }
                 }
-                if (this.SpawnAtHalfLife && npc.life < npc.lifeMax / 2)
+                if (npc.ModNPC != null)
                 {
-                    this.SpawnAtHalfLife = false;
-                    if (npc.type == 50)
+                    if(npc.ModNPC is DarkEnergy)
                     {
-                        Vector2 vector = npc.Center + new Vector2(-40f, -(float)npc.height / 2f) * npc.scale;
-                        if (Main.netMode != 1)
+                        if (Main.GameUpdateCount % 120 == 0 && Main.rand.NextBool())
                         {
-                            NPC.NewNPC(npc.GetSource_FromAI(null), (int)vector.X, (int)vector.Y - 60, ModContent.NPCType<TopazJewel>(), 0, 0f, 0f, 0f, 0f, 255);
+                            if(Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                var parent = Main.npc[NPC.FindFirstNPC(ModContent.NPCType<CeaselessVoid>())];
+                                if (parent.HasValidTarget)
+                                {
+                                    int pt = ModContent.ProjectileType<DoGDeath>();
+                                    Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, (parent.target.ToPlayer().Center - npc.Center).normalize() * 8, pt, parent.GetProjectileDamage(pt), 2);
+                                }
+                            }
+                        }
+                    }
+                    if (npc.ModNPC is CeaselessVoid)
+                    {
+                        if (Main.GameUpdateCount % 400 == 0)
+                        {
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                var parent = Main.npc[NPC.FindFirstNPC(ModContent.NPCType<CeaselessVoid>())];
+                                if (parent.HasValidTarget)
+                                {
+                                    int pt = ModContent.ProjectileType<DoGDeath>();
+                                    for(float i = 0; i < 358; i += 20)
+                                    {
+                                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, MathHelper.ToRadians(i).ToRotationVector2() * 8, pt, parent.GetProjectileDamage(pt), 2);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (npc.ModNPC is CrabShroom)
+                    {
+                        npc.dontTakeDamage = true;
+                    }
+                    if (npc.ModNPC is DesertScourgeHead && npc.localAI[2] == 1f && this.dScFLag)
+                    {
+                        this.dScFLag = false;
+                        NPC.SpawnOnPlayer(npc.FindClosestPlayer(), ModContent.NPCType<DesertNuisanceHead>());
+                        NPC.SpawnOnPlayer(npc.FindClosestPlayer(), ModContent.NPCType<DesertNuisanceHeadYoung>());
+                    }
+                    if (npc.ModNPC is Crabulon)
+                    {
+                        npc.MaxFallSpeedMultiplier *= 10f;
+                        if (npc.velocity.Length() < 40)
+                        {
+                            npc.velocity *= 1.01f;
+                        }
+                        if (this.ksFlag && npc.velocity.Y != 0f && npc.velocity.Y < 0f)
+                        {
+                            this.ksFlag2 = false;
+                            npc.velocity.Y = npc.velocity.Y * 1.34f;
+                            npc.velocity.X = npc.velocity.X * 1.5f;
+                            if (Utils.NextBool(Main.rand, 3))
+                            {
+                                npc.velocity.Y = npc.velocity.Y * 1.4f;
+                                this.ksFlag2 = true;
+                            }
+                        }
+                        if (npc.velocity.X != 0f && npc.velocity.Y != 0f && this.ksFlag2 && Math.Sign(npc.velocity.X) != Math.Sign(npc.target.ToPlayer().Center.X - npc.Center.X))
+                        {
+                            npc.velocity.X = npc.velocity.X * 0.1f;
+                            npc.velocity.Y = -4f;
+                            this.ksFlag2 = false;
+                        }
+                        this.ksFlag = (npc.velocity.Y == 0f);
+                        if (npc.velocity.Y == 0f)
+                        {
+                            this.vyAdd = 0f;
+                        }
+                        if (npc.velocity.Y != 0f)
+                        {
+                            this.vyAdd = 0.65f;
+                            if (this.ksFlag2)
+                            {
+                                this.vyAdd = 0.4f;
+                            }
+                            npc.velocity.Y = npc.velocity.Y + this.vyAdd;
                         }
                     }
                 }
             }
+            init = false;
         }
 
         public override void OnKill(NPC npc)

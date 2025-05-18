@@ -14,19 +14,14 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class VitalfeatherProjectile : ModProjectile
+    public class VitalfeatherProjectile : BaseWhip
     {
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.IsAWhip[Type] = true;
-        }
-
         public override void SetDefaults()
         {
-            Projectile.DefaultToWhip();
-            Projectile.MaxUpdates = 8;
-            Projectile.WhipSettings.Segments = 19;
-            Projectile.WhipSettings.RangeMultiplier = 3.1f;
+            base.SetDefaults();
+            Projectile.MaxUpdates = 10;
+            this.segments = 19;
+            this.rangeMult = 2f;
         }
         public Vector2 lastTop = Vector2.Zero;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -47,10 +42,10 @@ namespace CalamityEntropy.Content.Projectiles
             List<Vector2> points = points_;
 
             float swingProgress = Timer / swingTime;
-            if (swingProgress > 0.5f && swingProgress < 0.85f)
+            if (swingProgress > 0.04f)
             {
                 Lighting.AddLight(lastTop, 1, 0.8f, 0.8f);
-                EParticle.spawnNew(new Smoke(), points[points.Count - 1] + Utilities.Util.randomVec(2), Utilities.Util.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
+                EParticle.spawnNew(new Smoke() { timeLeft = 40, timeleftmax = 40, TimeLeftMax = 40}, points[points.Count - 1] + Utilities.Util.randomVec(2), Utilities.Util.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
 
                 Vector2 top = points[points.Count - 1];
                 Vector2 sparkVelocity2 = (lastTop - top) * -0.04f;
@@ -213,6 +208,61 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
             return false;
+        }
+
+        public override void ModifyControlPoints(List<Vector2> controlPoints)
+        {
+            controlPoints.Clear();
+            Projectile proj = Projectile;
+            float timeToFlyOut;
+            int segments;
+            float rangeMultiplier;
+            Projectile.GetWhipSettings(Projectile, out timeToFlyOut, out segments, out rangeMultiplier);
+            rangeMultiplier *= Projectile.getOwner().whipRangeMultiplier;
+            float timePercent = proj.ai[0] / timeToFlyOut;
+            float num = 31.415928f * (1f - timePercent * 1.5f) * (float)(-(float)proj.spriteDirection) / (float)segments;
+            float hDistancePercent = timePercent * 1.5f;
+            float retractionPercent = 0f;
+            if (hDistancePercent > 1f)
+            {
+                retractionPercent = (hDistancePercent - 1f) / 0.5f;
+                hDistancePercent = MathHelper.Lerp(1f, 0f, retractionPercent);
+            }
+            Player player = Main.player[proj.owner];
+            Item heldItem = Main.player[proj.owner].HeldItem;
+            float distFactor = (float)(ContentSamples.ItemsByType[heldItem.type].useAnimation * 2) * timePercent * player.whipRangeMultiplier;
+            float pxPerSegment = proj.velocity.Length() * distFactor * hDistancePercent * rangeMultiplier / (float)segments;
+            Vector2 playerArmPosition = Main.GetPlayerArmPosition(proj);
+            Vector2 prev_p = playerArmPosition;
+            float rot = -1.5707964f;
+            Vector2 prev_p2 = prev_p;
+            float rot2 = 1.5707964f + 1.5707964f * (float)proj.spriteDirection;
+            Vector2 prev_p3 = prev_p;
+            float rot3 = 1.5707964f;
+            controlPoints.Add(playerArmPosition);
+            for (int i = 0; i < segments; i++)
+            {
+                float segmentPercent = (float)i / (float)segments;
+                float thisRotation = 3.7070792f * (float)Math.Sin((double)(2f * segmentPercent - 3.42f * timePercent + 0.75f * hDistancePercent)) * (float)(-(float)proj.spriteDirection) + 1.5707964f;
+                Vector2 p = prev_p + Utils.ToRotationVector2(rot) * pxPerSegment * 1.2f;
+                Vector2 p2 = prev_p3 + Utils.ToRotationVector2(rot3) * (pxPerSegment * 2f);
+                Vector2 vector8 = prev_p2 + Utils.ToRotationVector2(rot2) * (pxPerSegment * 2f);
+                float invHDistance = 1f - hDistancePercent;
+                float smoothHDistPercent = 1f - invHDistance * invHDistance;
+                Vector2 value = Vector2.Lerp(p2, p, smoothHDistPercent * 0.9f + 0.1f);
+                Vector2 vector7 = Vector2.Lerp(vector8, value, smoothHDistPercent * 0.7f + 0.3f);
+                Vector2 vector9 = playerArmPosition + (vector7 - playerArmPosition) * new Vector2(1.7f, 1.65f);
+                float smoothRetractPercent = retractionPercent;
+                smoothRetractPercent *= smoothRetractPercent;
+                Vector2 item = Utils.RotatedBy(vector9, (double)(proj.rotation + 0f * smoothRetractPercent * (float)proj.spriteDirection), playerArmPosition);
+                controlPoints.Add(item);
+                rot = thisRotation;
+                rot3 = thisRotation;
+                rot2 = thisRotation;
+                prev_p = p;
+                prev_p3 = p2;
+                prev_p2 = vector8;
+            }
         }
     }
 }

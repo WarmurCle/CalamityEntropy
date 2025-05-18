@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.UI
                         if (Main.LocalPlayer.Entropy().MagiShield - (context.resourceNumber + 1) * 30 < 30)
                         {
                             float s = ((float)(Main.LocalPlayer.Entropy().MagiShield - (context.resourceNumber + 1) * 30)) / 30f;
-                            context.scale = new Vector2(s, s);
+                            context.scale *= new Vector2(s, s);
                         }
 
                         context.Draw();

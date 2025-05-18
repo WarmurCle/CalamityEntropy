@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     {
         public static float HorSpeed = 7f;
         public static float AccMul = 1.2f;
-        public static int wTime = 160;
+        public static int wTime = 180;
         public static int MAXDASHTIME = 30;//最大冲刺时间（帧）
         public static int DashVelo = 56; //冲刺速度（像素）
         public static int MaxCooldownTick = 30 * 60; //最大冲刺时间时的冷却（帧）
