@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.height = 12;
             Projectile.friendly = true;
             Projectile.light = 1f;
-            Projectile.timeLeft = 160;
+            Projectile.timeLeft = 120;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;

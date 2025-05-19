@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Ammo
         {
             Item.width = 14;
             Item.height = 36;
-            Item.damage = 8;
+            Item.damage = 5;
             Item.DamageType = DamageClass.Ranged;
             Item.rare = ItemRarityID.Orange;
             Item.maxStack = Item.CommonMaxStack;
