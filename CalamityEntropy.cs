@@ -191,6 +191,9 @@ namespace CalamityEntropy
             On_Projectile.FillWhipControlPoints += fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
             On_Player.ApplyDamageToNPC += applydamagetonpc;
+            On_Main.DrawCursor += draw_cursor_hook;
+            On_Main.DrawThickCursor += draw_thick_cursor_hook;
+
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
@@ -208,6 +211,14 @@ namespace CalamityEntropy
 
                 PlayerDashEffect dashEffect = (PlayerDashEffect)Activator.CreateInstance(type);
                 PlayerDashManager.TryAddDash(dashEffect);
+            }
+        }
+
+        private void draw_cursor_hook(On_Main.orig_DrawCursor orig, Vector2 bonus, bool smart)
+        {
+            if (!EModSys.mi)
+            {
+                orig(bonus, smart);
             }
         }
 
@@ -293,6 +304,17 @@ namespace CalamityEntropy
             On_Projectile.FillWhipControlPoints -= fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings -= get_whip_settings_hook;
             On_Player.ApplyDamageToNPC -= applydamagetonpc;
+            On_Main.DrawCursor -= draw_cursor_hook;
+            On_Main.DrawThickCursor -= draw_thick_cursor_hook;
+        }
+
+        private Vector2 draw_thick_cursor_hook(On_Main.orig_DrawThickCursor orig, bool smart)
+        {
+            if (!EModSys.mi)
+            {
+                return orig(smart);
+            }
+            return Vector2.Zero;
         }
 
         private void applydamagetonpc(On_Player.orig_ApplyDamageToNPC orig, Player self, NPC n, int damage, float knockback, int direction, bool crit, DamageClass damageType, bool damageVariation)
@@ -482,6 +504,7 @@ namespace CalamityEntropy
         private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
         {
             orig(self, gameTime);
+            EModSys.mi = false;
             if (LoopSoundManager.sounds != null)
             {
                 if (LoopSoundManager.sounds.Count > 0)

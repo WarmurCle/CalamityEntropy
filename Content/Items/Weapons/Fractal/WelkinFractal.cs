@@ -17,6 +17,7 @@ using static Terraria.GameContent.Animations.Actions.Sprites;
 using CalamityMod.Items.LoreItems;
 using static tModPorter.ProgressUpdate;
 using Terraria.GameContent.Drawing;
+using CalamityMod.Items.Weapons.Melee;
 
 namespace CalamityEntropy.Content.Items.Weapons.Fractal
 {
@@ -61,6 +62,22 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             CreateRecipe().AddIngredient<ShatteredFractal>()
                 .AddIngredient<CalamityMod.Items.Materials.AerialiteBar>(6)
+                .AddIngredient(ItemID.Feather, 2)
+                .AddIngredient(ItemID.SunplateBlock, 4)
+                .AddIngredient(ItemID.Starfury)
+                .AddIngredient<WindBlade>()
+                .AddIngredient<TaintedBlade>()
+                .AddTile(TileID.Anvils)
+                .Register();
+
+            CreateRecipe().AddIngredient<ShatteredFractal>()
+                .AddIngredient<CalamityMod.Items.Materials.AerialiteBar>(6)
+                .AddIngredient(ItemID.Feather, 2)
+                .AddIngredient(ItemID.SunplateBlock, 4)
+                .AddIngredient(ItemID.Starfury)
+                .AddIngredient<WindBlade>()
+                .AddIngredient<PerfectDark>()
+                .AddTile(TileID.Anvils)
                 .Register();
         }
     }

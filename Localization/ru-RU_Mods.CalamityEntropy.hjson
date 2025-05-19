@@ -1918,6 +1918,11 @@ Items: {
 		// DisplayName: Welkin Fractal
 		// Tooltip: ""
 	}
+
+	BrilliantFractal: {
+		// DisplayName: Brilliant Fractal
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2271,6 +2276,9 @@ Projectiles: {
 	// WelkinFractalHeld.DisplayName: Welkin Fractal Held
 	// FractalBeam.DisplayName: Fractal Beam
 	// FractalFeather.DisplayName: Fractal Feather
+	// BrilliantFractalHeld.DisplayName: Brilliant Fractal Held
+	// FractalBlight.DisplayName: Fractal Blight
+	// FractalShadow.DisplayName: Fractal Shadow
 }
 
 LegendTooltip: - Legend -

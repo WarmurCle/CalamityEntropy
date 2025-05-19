@@ -2075,6 +2075,11 @@ Items: {
 		DisplayName: 苍穹分型
 		Tooltip: ""
 	}
+
+	BrilliantFractal: {
+		DisplayName: 光辉分型
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2430,6 +2435,9 @@ Projectiles: {
 	WelkinFractalHeld.DisplayName: 苍穹分型
 	FractalBeam.DisplayName: 分型射线
 	FractalFeather.DisplayName: 分型之羽
+	BrilliantFractalHeld.DisplayName: 光辉分型
+	FractalBlight.DisplayName: 分型光星
+	FractalShadow.DisplayName: 分型剑影
 }
 
 LegendTooltip: - 传奇物品 -

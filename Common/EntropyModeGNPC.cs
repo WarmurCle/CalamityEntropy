@@ -109,7 +109,7 @@ namespace CalamityEntropy.Common
                 {
                     if(npc.ModNPC is DarkEnergy)
                     {
-                        if (Main.GameUpdateCount % 120 == 0 && Main.rand.NextBool())
+                        if (Main.GameUpdateCount % 260 == 0 && Main.rand.NextBool(4))
                         {
                             if(Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -124,7 +124,7 @@ namespace CalamityEntropy.Common
                     }
                     if (npc.ModNPC is CeaselessVoid)
                     {
-                        if (Main.GameUpdateCount % 400 == 0)
+                        if (Main.GameUpdateCount % 200 == 0)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {

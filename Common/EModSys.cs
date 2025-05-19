@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -26,7 +27,7 @@ namespace CalamityEntropy.Common
         public static bool noItemUse = false;
         public float counter = 0;
         public bool prd = true;
-        public bool mi = false;
+        public static bool mi = false;
         public bool escLast = true;
         public bool rCtrlLast = false;
         public bool eowLast = false;
@@ -38,6 +39,10 @@ namespace CalamityEntropy.Common
 
         public override void PostDrawTiles()
         {
+            if (mi)
+            {
+                Main.instance.IsMouseVisible = true;
+            }
             if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<EventideSniper>())
             {
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
@@ -60,7 +65,6 @@ namespace CalamityEntropy.Common
             {
                 CalamityEntropy.Instance.userInterface?.Update(gameTime);
             }
-
         }
 
         public override void PostUpdateDusts()
@@ -135,10 +139,7 @@ namespace CalamityEntropy.Common
                     prd = false;
                 }
             }
-            if (mi)
-            {
-                Main.instance.IsMouseVisible = true;
-            }
+            
 
             LoopSoundManager.update();
         }
