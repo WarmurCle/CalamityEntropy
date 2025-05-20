@@ -31,6 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.MaxUpdates = 8;
+            Projectile.tileCollide = false;
         }
         bool init = true;
         public float counter = 0;
@@ -46,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (init)
             {
-                rotSpeed = Projectile.ai[1] * 0.05f;
+                rotSpeed = Projectile.ai[1] * 0.13f;
                 Projectile.rotation = Projectile.ai[0];
                 init = false;
             }

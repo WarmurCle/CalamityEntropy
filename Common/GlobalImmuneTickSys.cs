@@ -29,7 +29,7 @@ namespace CalamityEntropy.Common
         public static List<int> NPCHasGlobalImmuneTickEntropyOnly;
         public override void SetStaticDefaults()
         {
-            NPCHasGlobalImmuneTickEntropyOnly = new List<int>() { ModContent.NPCType<DevourerofGodsHead>(), ModContent.NPCType<DevourerofGodsBody>(), ModContent.NPCType<DevourerofGodsTail>(), ModContent.NPCType<DesertScourgeHead>(), ModContent.NPCType<DesertScourgeBody>(), ModContent.NPCType<DesertScourgeTail>() };
+            NPCHasGlobalImmuneTickEntropyOnly = new List<int>() { ModContent.NPCType<DesertScourgeHead>(), ModContent.NPCType<DesertScourgeBody>(), ModContent.NPCType<DesertScourgeTail>() };
             NPCAlwaysHasGlobalImmuneTick = new List<int>() { ModContent.NPCType<CruiserHead>(), ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() };
         }
         public override void Unload()

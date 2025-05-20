@@ -389,7 +389,7 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.type == ModContent.ProjectileType<DoGDeath>() && CalamityEntropy.EntropyMode)
                 {
-                    projectile.MaxUpdates *= 4;
+                    projectile.MaxUpdates *= 2;
                 }
             }
             if (init_)

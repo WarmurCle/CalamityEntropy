@@ -15,6 +15,7 @@ using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,8 +23,10 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
@@ -64,6 +67,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public int circleDir = 1;
         public float alpha = 1;
         public bool candraw = false;
+        public bool DeathAnm = false;
+        public int DeathAnmCount = 200;
 
         public static int icon = ModContent.GetModBossHeadSlot("CalamityEntropy/Content/NPCs/Cruiser/CruiserHead_Head_Boss");
         public static int iconP2;
@@ -221,6 +226,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             writer.Write(phaseTrans);
             writer.Write(phase);
             writer.WriteVector2(SpaceCenter);
+            writer.Write(DeathAnm);
+            writer.Write(DeathAnmCount);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
@@ -239,6 +246,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             phaseTrans = reader.ReadInt32();
             phase = reader.ReadInt32();
             SpaceCenter = reader.ReadVector2();
+            DeathAnm = reader.ReadBoolean();
+            DeathAnmCount = reader.ReadInt32();
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
@@ -256,6 +265,22 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 modifiers.FinalDamage *= 1.2f;
             }
+        }
+        public override bool CheckDead()
+        {
+            if(DeathAnmCount <= 0)
+            {
+                return true;
+            }
+            DeathAnm = true;
+            NPC.damage = 0;
+            NPC.life = 1;
+            NPC.dontTakeDamage = true;
+            NPC.active = true;
+            NPC.netUpdate = true;
+            if (NPC.netSpam >= 10)
+                NPC.netSpam = 9;
+            return false;
         }
 
         public void changeAi()
@@ -403,9 +428,93 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 7 * damageMult), 3, -1, ai0, ai1, ai2);
         }
+        public float whiteLerp = 0;
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if(NPC.life <= 0 && DeathAnmCount <= 10)
+            {
+                Util.PlaySound("VoidAttack", 1, NPC.Center);
+                Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
+                for (int i = 0; i < 86; i++)
+                {
+                    Particle p = new Particle();
+                    p.position = NPC.Center;
+                    p.alpha = Main.rand.NextFloat(1f, 2f);
+                    p.shape = 4;
+                    p.vd = 0.97f;
+                    p.velocity = Utilities.Util.randomPointInCircle(16);
+                    VoidParticles.particles.Add(p);
+                }
+            }
+        }
+        public float camLerp = 0;
         public override void AI()
         {
             bool canShoot = Main.netMode != NetmodeID.MultiplayerClient;
+            if (DeathAnm)
+            {
+                if(camLerp < 1)
+                {
+                    camLerp += 0.025f;
+                }
+                else
+                {
+                    camLerp = 24f;
+                }
+                Main.LocalPlayer.Entropy().screenShift = camLerp;
+                Main.LocalPlayer.Entropy().screenPos = NPC.Center;
+                if (NPC.velocity.Length() > 6)
+                {
+                    NPC.velocity *= 0.96f;
+                }
+                NPC.rotation = NPC.velocity.ToRotation();
+                DeathAnmCount--;
+                if (whiteLerp < 1)
+                    whiteLerp += 1 / 160f;
+                if(DeathAnmCount % 6 == 0 && !Main.dedServ)
+                {
+                    EParticle.spawnNew(new PremultBurst(), NPC.Center, Vector2.Zero, Color.LightBlue, 3.2f, 1, true, BlendState.Additive, 0);
+                }
+                if(DeathAnmCount <= 0)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NPC.StrikeInstantKill();
+                        NPC.netSpam = 9;
+                        NPC.netUpdate = true;
+                    }
+                }
+                vtodraw = NPC.Center;
+                for (int i = 0; i < bodies.Count; i++)
+                {
+                    Vector2 oPos;
+                    float oRot;
+
+                    if (i == 0)
+                    {
+                        oPos = NPC.Center;
+                        oRot = NPC.rotation;
+                    }
+                    else
+                    {
+                        oPos = bodies[i - 1];
+                        if (i == 1)
+                        {
+                            oRot = (NPC.Center - bodies[0]).ToRotation();
+                        }
+                        else
+                        {
+                            oRot = (bodies[i - 2] - bodies[i - 1]).ToRotation();
+                        }
+                    }
+                    float rot = (oPos - bodies[i]).ToRotation();
+                    rot = Utilities.Util.rotatedToAngle(rot, oRot, 0.12f, false);
+
+                    int spacing = 80;
+                    bodies[i] = oPos - rot.ToRotationVector2() * spacing * NPC.scale;
+                }
+                return;
+            }
             NPC.Entropy().damageMul += 1f / 10000f;
             if (NPC.Entropy().damageMul > 1)
             {
@@ -1171,10 +1280,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             return false;
         }
+        
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPosition, Color drawColor)
         {
             if (NPC.IsABestiaryIconDummy)
                 return true;
+            
             if (!candraw && !(phase == 1))
             {
                 return false;
@@ -1182,6 +1293,13 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             if (noaitime > 0)
             {
                 return false;
+            }
+            if (whiteLerp > 0)
+            {
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
+                shader.Parameters["strength"].SetValue(whiteLerp);
+                Main.spriteBatch.EnterShaderRegion(BlendState.AlphaBlend, shader);
+                shader.CurrentTechnique.Passes[0].Apply();
             }
             if (phaseTrans > 120)
             {
@@ -1270,9 +1388,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
                     }
 
-
-
-
                 }
                 Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserHead").Value;
                 Texture2D j2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Cruiser/CruiserJawUp").Value;
@@ -1292,6 +1407,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void PostDraw(SpriteBatch sbb, Vector2 screenPos, Color drawColor)
         {
+            Main.spriteBatch.ExitShaderRegion();
             if (phase == 1)
             {
                 SpriteBatch sb = Main.spriteBatch;

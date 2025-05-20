@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles.VoidBlade;
+using CalamityEntropy.Content.Projectiles.VoidBlade;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Materials;
@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 26;
+            Item.damage = 56;
             Item.crit = 4;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 100;

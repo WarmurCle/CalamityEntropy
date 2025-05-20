@@ -17,6 +17,7 @@ using static Terraria.GameContent.Animations.Actions.Sprites;
 using CalamityMod.Items.LoreItems;
 using static tModPorter.ProgressUpdate;
 using Terraria.GameContent.Drawing;
+using CalamityMod.Items.Weapons.Melee;
 
 namespace CalamityEntropy.Content.Items.Weapons.Fractal
 {
@@ -24,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 130;
+            Item.damage = 120;
             Item.crit = 3;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
@@ -56,11 +57,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<WelkinFractal>()
-                .AddIngredient(ItemID.HallowedBar, 8)
-                .AddIngredient(ItemID.SoulofLight, 6)
-                .AddIngredient(ItemID.SoulofFright, 2)
-                .AddIngredient(ItemID.SoulofMight, 2)
-                .AddIngredient(ItemID.SoulofSight, 2)
+                .AddIngredient<Aftershock>()
+                .AddIngredient<EutrophicScimitar>()
                 .AddTile(TileID.MythrilAnvil).Register();
         }
     }
@@ -202,12 +200,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D bs = Util.getExtraTex("SemiCircularSmear");
-            Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(Color.White, Color.Gold, counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f, Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.2f * scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(Color.White, Color.LightGoldenrodYellow, counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.4f * scale, SpriteEffects.None, 0);
 
             if (shineTex == null)
                 shineTex = Util.getExtraTex("StarTexture");
-            Main.spriteBatch.Draw(shineTex, Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale - Main.screenPosition, null, Color.LightGoldenrodYellow * 0.6f * ((float)Math.Cos((counter / MaxUpdateTime) * MathHelper.TwoPi - MathHelper.Pi) * 0.5f + 0.5f), 0, shineTex.Size() / 2f, 0.36f * Projectile.scale * new Vector2(2.2f, 0.5f), SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(shineTex, Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale - Main.screenPosition, null, Color.LightGoldenrodYellow * 0.6f * ((float)Math.Cos((counter / MaxUpdateTime) * MathHelper.TwoPi - MathHelper.Pi) * 0.5f + 0.5f), 0, shineTex.Size() / 2f, 0.36f * Projectile.scale * new Vector2(0.5f, 2.2f), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(shineTex, Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale - Main.screenPosition, null, Color.LightGoldenrodYellow * 0.7f * ((float)Math.Cos((counter / MaxUpdateTime) * MathHelper.TwoPi - MathHelper.Pi) * 0.5f + 0.5f), 0, shineTex.Size() / 2f, 0.36f * Projectile.scale * new Vector2(2.8f, 0.5f), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(shineTex, Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale - Main.screenPosition, null, Color.LightGoldenrodYellow * 0.7f * ((float)Math.Cos((counter / MaxUpdateTime) * MathHelper.TwoPi - MathHelper.Pi) * 0.5f + 0.5f), 0, shineTex.Size() / 2f, 0.36f * Projectile.scale * new Vector2(0.5f, 2.8f), SpriteEffects.None, 0);
 
             Main.spriteBatch.ExitShaderRegion();
 
