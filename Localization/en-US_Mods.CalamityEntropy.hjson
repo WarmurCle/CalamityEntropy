@@ -1929,9 +1929,19 @@ Items: {
 		DisplayName: Broken Hilt
 	}
 
-	StarlitFractal: {
+	ElementalFractal: {
 		Tooltip: ""
+		DisplayName: Elemental Fractal
+	}
+
+	StarlitFractal: {
 		DisplayName: Starlit Fractal
+		Tooltip: ""
+	}
+
+	AbyssFractal: {
+		Tooltip: ""
+		DisplayName: Abyss Fractal
 	}
 }
 
@@ -2291,8 +2301,13 @@ Projectiles: {
 	FractalBlight.DisplayName: Fractal Blight
 	FractalShadow.DisplayName: Fractal Shadow
 	BrokenHiltHeld.DisplayName: Broken Hilt Held
+	ElementalFractalHeld.DisplayName: Elemental Fractal Held
+	ElementalFractalThrown.DisplayName: Elemental Fractal Thrown
 	StarlitFractalHeld.DisplayName: Starlit Fractal Held
-	StarlitFractalThrown.DisplayName: Starlit Fractal Thrown
+	FractalStarBlade.DisplayName: Fractal Star Blade
+	AbyssFractalHeld.DisplayName: Abyss Fractal Held
+	AbyssalBlade.DisplayName: Abyssal Blade
+	AbyssalBullet.DisplayName: Abyssal Bullet
 }
 
 LegendTooltip: - Legend -

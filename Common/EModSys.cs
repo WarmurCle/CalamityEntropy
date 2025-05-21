@@ -76,6 +76,7 @@ namespace CalamityEntropy.Common
             CalamityEntropy.blackMaskTime--;
             PixelParticle.Update();
             VoidParticles.Update();
+            AbyssalParticles.Update();
             CalamityEntropy.cutScreen += CalamityEntropy.cutScreenVel;
             if (CalamityEntropy.cutScreen > 0)
             {

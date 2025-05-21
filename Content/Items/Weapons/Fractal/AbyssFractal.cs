@@ -17,32 +17,32 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.Fractal
 {
-    public class StarlitFractal : ModItem
+    public class AbyssFractal : ModItem
     {
         public override void SetDefaults()
         {
-            Item.damage = 158;
-            Item.crit = 5;
+            Item.damage = 198;
+            Item.crit = 7;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.width = 48;
-            Item.height = 60;
-            Item.useTime = Item.useAnimation = 26;
+            Item.width = 60;
+            Item.height = 40;
+            Item.useTime = Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
-            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.rare = ItemRarityID.Pink;
+            Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
+            Item.rare = ItemRarityID.Yellow;
             Item.UseSound = null;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<StarlitFractalHeld>();
+            Item.shoot = ModContent.ProjectileType<AbyssFractalHeld>();
             Item.shootSpeed = 12f;
         }
         public int atkType = 1;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, atkType == 0 ? -1 : atkType);
-            atkType*=-1;
+            atkType *= -1;
             return false;
         }
 
@@ -52,16 +52,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<AbyssFractal>()
-                .AddIngredient<EntropicClaymore>()
-                .AddIngredient<AstralBlade>()
-                .AddIngredient<AstralBar>(6)
+            CreateRecipe().AddIngredient<BrilliantFractal>()
+                .AddIngredient<AbyssBlade>()
+                .AddIngredient<BrinyBaron>()
+                .AddIngredient<PerennialBar>(6)
                 .AddTile(TileID.LunarCraftingStation).Register();
         }
     }
-    public class StarlitFractalHeld : ModProjectile
+    public class AbyssFractalHeld : ModProjectile
     {
-        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/StarlitFractal";
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/AbyssFractal";
         List<float> odr = new List<float>();
         public override void SetStaticDefaults()
         {
@@ -88,7 +88,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public float alpha = 0;
         public bool init = true;
         public bool shoot = true;
-        public float spawnProjCounter = 0;
         public override void AI()
         {
             Player owner = Projectile.getOwner();
@@ -97,11 +96,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             counter++;
             if(Main.myPlayer == Projectile.owner)
             {
-                if(spawnProj && progress > 0.4f)
+                if (spawnProj && progress > 0.4f)
                 {
                     int dir = (int)(Projectile.ai[0]) * (Projectile.velocity.X > 0 ? -1 : 1);
                     spawnProj = false;
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 49, Projectile.velocity.RotatedBy(dir * MathHelper.PiOver2).normalize() * 3 + Util.randomPointInCircle(2), ModContent.ProjectileType<FractalStarBlade>(), Projectile.damage, Projectile.knockBack * 4, Projectile.owner, Projectile.rotation, dir);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80, Projectile.velocity.RotatedBy(dir * MathHelper.PiOver2 * 0.7f).normalize() * 12 + Util.randomPointInCircle(5), ModContent.ProjectileType<AbyssalBullet>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
+                    }
                 }
             }
             if (init)
@@ -115,6 +117,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Util.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
                 }
                 init = false;
+            }
+            if (progress > 0.46 && Projectile.owner == Main.myPlayer)
+            {
+                if (shoot)
+                {
+                    shoot = false;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 0.16f, ModContent.ProjectileType<AbyssalBlade>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
             }
             odr.Add(Projectile.rotation);
             Projectile.timeLeft = 3;
@@ -157,18 +167,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public bool playHitSound = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 460);
-            for (int i = 0; i < 2; i++)
-            {
-                Vector2 pos = target.Center + new Vector2(0, -900) + Util.randomPointInCircle(400);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMagic>(), Projectile.damage / 4, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
-            }
+            target.AddBuff(ModContent.BuffType<CrushDepth>(), 400);
             if (playHitSound)
             {
                 playHitSound = false;
                 Util.PlaySound(Projectile.ai[0] == 2 ? "sf_hit1" : "sf_hit", 1, Projectile.Center, volume: 0.6f);
             }
-            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
+            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TownSlimeTransform, new ParticleOrchestraSettings
             {
                 PositionInWorld = target.Center,
                 MovementVector = Vector2.Zero
@@ -195,7 +200,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Texture2D bs = Util.getExtraTex("SemiCircularSmear");
 
             Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, new Color(100, 50, 200) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.74f * scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(Color.White, Color.Blue, counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.56f * scale, SpriteEffects.None, 0);
 
             Main.spriteBatch.ExitShaderRegion();
 

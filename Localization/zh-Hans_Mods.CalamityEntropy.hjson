@@ -2090,9 +2090,19 @@ Items: {
 		DisplayName: 破碎剑柄
 	}
 
+	ElementalFractal: {
+		Tooltip: "[c/ff5300:剑上闪耀着元素之光]"
+		DisplayName: 元素分型
+	}
+
 	StarlitFractal: {
-		Tooltip: "[c/ff5300:剑上流动着星光]"
 		DisplayName: 星熠分型
+		Tooltip: "[c/ff5300:剑身浮动着星光]"
+	}
+
+	AbyssFractal: {
+		Tooltip: "[c/ff5300:剑身仿佛深不见底的深渊]"
+		DisplayName: 深渊分型
 	}
 }
 
@@ -2453,8 +2463,13 @@ Projectiles: {
 	FractalBlight.DisplayName: 分型光星
 	FractalShadow.DisplayName: 分型剑影
 	BrokenHiltHeld.DisplayName: 破碎剑柄
+	ElementalFractalHeld.DisplayName: 元素分型
+	ElementalFractalThrown.DisplayName: 元素分型
 	StarlitFractalHeld.DisplayName: 星熠分型
-	StarlitFractalThrown.DisplayName: 星熠分型
+	FractalStarBlade.DisplayName: 分型星影
+	AbyssFractalHeld.DisplayName: 深渊分型
+	AbyssalBlade.DisplayName: 深渊剑影
+	AbyssalBullet.DisplayName: 渊水弹
 }
 
 LegendTooltip: - 传奇物品 -

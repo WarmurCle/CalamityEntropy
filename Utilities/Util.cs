@@ -19,6 +19,23 @@ namespace CalamityEntropy.Utilities
 {
     public static class Util
     {
+        public static NPC FindTarget_HomingProj(object atker, Vector2 center, float radians)
+        {
+            NPC npc = null;
+            float dist = radians;
+            foreach(NPC n in Main.ActiveNPCs)
+            {
+                if (n.CanBeChasedBy(atker) && !n.friendly)
+                {
+                    if(getDistance(n.Center, center) <= dist)
+                    {
+                        dist = getDistance(n.Center, center);
+                        npc = n;
+                    }
+                }
+            }
+            return npc;
+        }
         public static void SetSyncValue(this Projectile proj, string name, object value)
         {
             proj.Entropy().DataSynchronous[name].Value = value;

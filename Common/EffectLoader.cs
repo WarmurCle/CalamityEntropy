@@ -177,7 +177,7 @@ namespace CalamityEntropy.Common
             //深渊类型Shader
             DrawAbyssalEffect(graphicsDevice);
 
-            //我也不知道叫啥的特效
+            //我也不知道叫啥的特效 虚寂之翼用了
             DrawRandomEffect(graphicsDevice);
 
             //绘制玩家和投射物特效
@@ -456,6 +456,7 @@ namespace CalamityEntropy.Common
                     yst.draw_crack();
                 }
             }
+            DrawParticleEffectsAlt();
 
             Main.spriteBatch.End();
             graphicsDevice.SetRenderTarget(Main.screenTarget);
@@ -701,6 +702,18 @@ namespace CalamityEntropy.Common
             kscreen2.Parameters["i"].SetValue(0.04f);
             Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
+        }
+
+        private static void DrawParticleEffectsAlt()
+        {
+            foreach (Particle pt in AbyssalParticles.particles)
+            {
+                if (cvmask == null)
+                {
+                    continue;
+                }
+                Main.spriteBatch.Draw(cvmask.Value, pt.position - Main.screenPosition, null, Color.White * 0.06f, pt.rotation, cvmask.Value.Size() / 2, (5.4f * pt.alpha) * 0.05f, SpriteEffects.None, 0);
+            }
         }
 
         private static void ApplyBackgroundShader(GraphicsDevice graphicsDevice)

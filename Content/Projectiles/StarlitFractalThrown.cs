@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class StarlitFractalThrown : ModProjectile
+    public class ElementalFractalThrown : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
                 MovementVector = Vector2.Zero
             });
         }
-        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/StarlitFractalGlow";
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/ElementalFractalGlow";
         public void Draw(Vector2 pos, Color lightColor, float rotation, int dir, float scale = 1)
         {
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
