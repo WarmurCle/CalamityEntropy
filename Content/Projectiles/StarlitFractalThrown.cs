@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
             {
-                PositionInWorld = Projectile.Center,
+                PositionInWorld = target.Center,
                 MovementVector = Vector2.Zero
             });
         }
