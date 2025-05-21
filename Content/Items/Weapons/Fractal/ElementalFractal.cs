@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 404;
+            Item.damage = 450;
             Item.crit = 8;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 60;
@@ -111,6 +111,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 if (progress > 0.18f && progress < 0.82f)
                 {
+                    for(int i = 0; i < Projectile.localNPCImmunity.Length; i++)
+                    {
+                        if (Projectile.localNPCImmunity[i] == -1)
+                            Projectile.localNPCImmunity[i] = Projectile.MaxUpdates * 4;
+                    }
                     Projectile.localNPCHitCooldown = Projectile.MaxUpdates * 4;
                 }
                 else
