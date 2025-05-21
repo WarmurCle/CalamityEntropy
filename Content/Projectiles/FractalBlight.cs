@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 24;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 16;
         }
         public override void SetDefaults()
         {

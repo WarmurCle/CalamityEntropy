@@ -2091,8 +2091,8 @@ Items: {
 	}
 
 	StarlitFractal: {
-		// Tooltip: ""
-		// DisplayName: Starlit Fractal
+		Tooltip: "[c/ff5300:剑上流动着星光]"
+		DisplayName: 星熠分型
 	}
 }
 
@@ -2453,8 +2453,8 @@ Projectiles: {
 	FractalBlight.DisplayName: 分型光星
 	FractalShadow.DisplayName: 分型剑影
 	BrokenHiltHeld.DisplayName: 破碎剑柄
-	// StarlitFractalHeld.DisplayName: Starlit Fractal Held
-	// StarlitFractalThrown.DisplayName: Starlit Fractal Thrown
+	StarlitFractalHeld.DisplayName: 星熠分型
+	StarlitFractalThrown.DisplayName: 星熠分型
 }
 
 LegendTooltip: - 传奇物品 -

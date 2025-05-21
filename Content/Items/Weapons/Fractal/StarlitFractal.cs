@@ -101,7 +101,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
 
             if (Projectile.ai[0] == 0)
             {
-                float RotF = MathHelper.ToRadians(260 + 360 * 2);
+                if (progress > 0.18f && progress < 0.82f)
+                {
+                    Projectile.localNPCHitCooldown = Projectile.MaxUpdates * 6;
+                }
+                else
+                {
+                    Projectile.localNPCHitCooldown = -1;
+                }
+
+                    float RotF = MathHelper.ToRadians(140) + MathHelper.TwoPi * 2;
                 if (progress > 0.3f && progress < 0.7f)
                     spawnProjCounter += owner.GetTotalAttackSpeed(Projectile.DamageType);
                 if (spawnProjCounter >= 6f)
@@ -110,33 +119,43 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, Util.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 6, ModContent.ProjectileType<FractalBlight>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner, Main.rand.NextFloat() * 6.28f, 1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, Util.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 6, ModContent.ProjectileType<FractalBlight>(), Projectile.damage / 8, Projectile.knockBack, Projectile.owner, Main.rand.NextFloat() * 6.28f, 1);
                     }
                 }
                 alpha = 1;
                 scale = 1.6f;
-                Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
+                Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.ToRadians(-140) + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 1)) * -1 * (Projectile.velocity.X > 0 ? -1 : 1);
             }
             else
             {
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((owner.Calamity().mouseWorld - Projectile.Center).ToRotation());
-                if (progress < 0.5f)
+                if (progress < 0.34f)
                 {
-                    float p = progress / 0.5f;
-                    Projectile.rotation = (owner.Calamity().mouseWorld - Projectile.Center).ToRotation() + Util.GetRepeatedCosFromZeroToOne(p, 5) * MathHelper.ToRadians(140) * (Projectile.velocity.X > 0 ? -1 : 1);
+                    float p = progress / 0.34f;
+                    Projectile.rotation = (owner.Calamity().mouseWorld - Projectile.Center).ToRotation() + Util.GetRepeatedCosFromZeroToOne(p, 2) * MathHelper.ToRadians(140) * (Projectile.velocity.X > 0 ? -1 : 1);
                 }
                 else
                 {
-                    if (progress < 0.62f)
+                    if (progress < 0.67)
                     {
-                        float p = (progress - 0.5f) / 0.12f;
-                        Projectile.rotation = (owner.Calamity().mouseWorld - Projectile.Center).ToRotation() + Util.GetRepeatedCosFromZeroToOne(1 - p, 5) * MathHelper.ToRadians(140) * (Projectile.velocity.X > 0 ? -1 : 1);
+                        float p = (progress - 0.34f) / 0.33f;
+
+                        Projectile.rotation = (owner.Calamity().mouseWorld - Projectile.Center).ToRotation() + (Util.GetRepeatedCosFromZeroToOne(1 - p, 2) * MathHelper.ToRadians(280) - MathHelper.ToRadians(140)) * (Projectile.velocity.X > 0 ? -1 : 1);
+
                     }
                     else
                     {
-                        counter = MaxUpdateTimes + 1;
+                        float p = (progress - 0.67f) / 0.33f;
+
+                        Projectile.rotation = (owner.Calamity().mouseWorld - Projectile.Center).ToRotation() + (Util.GetRepeatedCosFromZeroToOne(p, 2) * MathHelper.ToRadians(280) - MathHelper.ToRadians(140)) * (Projectile.velocity.X > 0 ? -1 : 1);
+
+                    }
+                    if (progress > 0.46 && shoot)
+                    {
+                        shoot = false;
+                        Util.PlaySound("zypshot2", 1, Projectile.Center);
                         if (Main.myPlayer == Projectile.owner)
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<StarlitFractalThrown>(), Projectile.damage, Projectile.knockBack * 2, Projectile.owner); ;
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 2, ModContent.ProjectileType<StarlitFractalThrown>(), (int)(Projectile.damage * 1.6f), Projectile.knockBack * 2, Projectile.owner);
                     }
                 }
                 scale = 1.6f;
@@ -182,7 +201,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound)
             {
                 playHitSound = false;
-                Util.PlaySound(Projectile.ai[0] == 2 ? "sf_hit1" : "sf_hit", 1, Projectile.Center, volume: 0.6f);
+                Util.PlaySound("sf_hit", 1, Projectile.Center, volume: 0.6f);
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
             {
@@ -196,7 +215,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            int dir = (int)(Projectile.ai[0]) * (Projectile.velocity.X > 0 ? -1 : 1);
+            int dir = (Projectile.velocity.X > 0 ? 1 : -1);
             if (Projectile.ai[0] == 2)
             {
                 dir = Math.Sign(Projectile.velocity.X);
@@ -214,7 +233,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
                 Texture2D bs = Util.getExtraTex("SemiCircularSmear");
-                Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(Color.White, Color.LightGoldenrodYellow, counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.4f * scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(new Color(120, 240, 255), new Color(255, 160, 160), counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.4f * scale, SpriteEffects.None, 0);
 
                 if (shineTex == null)
                     shineTex = Util.getExtraTex("StarTexture");
@@ -228,11 +247,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (86 * (Projectile.ai[0] == 2 ? 0.9f : 1)) * Projectile.scale * scale, targetHitbox, 64);
+            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (102 * (Projectile.ai[0] == 2 ? 0.9f : 1)) * Projectile.scale * scale, targetHitbox, 34);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (86 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (102 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
         }
     }
 
