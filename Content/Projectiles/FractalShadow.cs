@@ -51,18 +51,24 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation = Projectile.ai[0];
                 init = false;
             }
+            NPC fTarget = Util.FindTarget_HomingProj(Projectile, Projectile.Center, 1600);
             if (counter < 46 * Projectile.MaxUpdates)
             {
                 Projectile.velocity *= 0.986f;
                 pg = counter / (46 * Projectile.MaxUpdates);
                 Projectile.rotation += rotSpeed * (1 - pg);
                 rotSpeed *= 0.99f;
-                Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.022f * pg, false);
-
+                if (fTarget != null)
+                {
+                    Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (fTarget.Center - Projectile.Center).ToRotation(), 0.022f * pg, false);
+                }
             }
             if (counter == 46 * Projectile.MaxUpdates)
             {
-                Projectile.rotation = (player.Calamity().mouseWorld - Projectile.Center).ToRotation();
+                if (fTarget != null)
+                {
+                    Projectile.rotation = (fTarget.Center - Projectile.Center).ToRotation();
+                }
                 Projectile.velocity = Projectile.rotation.ToRotationVector2() * 12;
             }
             counter++;

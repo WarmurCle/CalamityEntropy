@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 158;
+            Item.damage = 138;
             Item.crit = 5;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
@@ -56,6 +56,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddIngredient<EntropicClaymore>()
                 .AddIngredient<AstralBlade>()
                 .AddIngredient<AstralBar>(6)
+                .AddIngredient<StarblightSoot>(4)
                 .AddTile(TileID.LunarCraftingStation).Register();
         }
     }

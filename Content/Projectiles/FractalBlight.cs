@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.height = 12;
             Projectile.friendly = true;
             Projectile.light = 1f;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 200;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
@@ -50,9 +50,9 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity += (homing.Center - Projectile.Center).normalize() * 1.6f;
                 Projectile.velocity *= 0.96f;
             }
-            if(Projectile.timeLeft < 40)
+            if(Projectile.timeLeft < 60)
             {
-                Projectile.Opacity -= 1 / 40f;
+                Projectile.Opacity -= 1 / 60f;
             }
         }
         public Color TrailColor(float completionRatio)
