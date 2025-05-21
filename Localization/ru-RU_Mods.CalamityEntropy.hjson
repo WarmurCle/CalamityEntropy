@@ -1923,6 +1923,16 @@ Items: {
 		// DisplayName: Brilliant Fractal
 		// Tooltip: ""
 	}
+
+	BrokenHilt: {
+		// Tooltip: ""
+		// DisplayName: Broken Hilt
+	}
+
+	StarlitFractal: {
+		// Tooltip: ""
+		// DisplayName: Starlit Fractal
+	}
 }
 
 PrefixitemDesc:
@@ -2279,6 +2289,9 @@ Projectiles: {
 	// BrilliantFractalHeld.DisplayName: Brilliant Fractal Held
 	// FractalBlight.DisplayName: Fractal Blight
 	// FractalShadow.DisplayName: Fractal Shadow
+	// BrokenHiltHeld.DisplayName: Broken Hilt Held
+	// StarlitFractalHeld.DisplayName: Starlit Fractal Held
+	// StarlitFractalThrown.DisplayName: Starlit Fractal Thrown
 }
 
 LegendTooltip: - Legend -

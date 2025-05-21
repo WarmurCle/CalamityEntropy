@@ -239,7 +239,7 @@ namespace CalamityEntropy.Common
                     }
                     if (npc.ModNPC is StormWeaverBody)
                     {
-                        if (Main.GameUpdateCount % 380 == 0)
+                        if (Main.GameUpdateCount % 380 == 0 && Main.rand.NextBool(6))
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {

@@ -686,17 +686,20 @@ namespace CalamityEntropy.Common
         public int vdtype = -1;
         public bool rpBow = false;
         public float gwHoming = 0.06f;
-
+        public FieldInfo SSMFInfo = null;
         public override void PostDraw(Projectile projectile, Color lightColor)
         {
             //修复部分射弹导致其他射弹不显示
             //不要在绘制完射弹把SpriteSortMode设置成Immediate
             if (projectile.ModProjectile != null)
             {
-                var fInfo = Main.spriteBatch.GetType().GetField("sortMode", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (fInfo != null)
+                if( SSMFInfo == null )
                 {
-                    var v = fInfo.GetValue(Main.spriteBatch);
+                    SSMFInfo = Main.spriteBatch.GetType().GetField("sortMode", BindingFlags.Instance | BindingFlags.NonPublic);
+                }
+                if (SSMFInfo != null)
+                {
+                    var v = SSMFInfo.GetValue(Main.spriteBatch);
                     if (v != null && (SpriteSortMode)v == SpriteSortMode.Immediate)
                     {
                         Main.spriteBatch.ExitShaderRegion();

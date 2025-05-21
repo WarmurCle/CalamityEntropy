@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public Color TrailColor(float completionRatio)
         {
-            Color color = Color.Lerp(Color.White, Color.Gold, completionRatio) * (1 - completionRatio) * Projectile.Opacity;
+            Color color = (Projectile.ai[1] == 1 ? Color.Lerp(Color.White, Color.Blue, completionRatio) : Color.Lerp(Color.White, Color.Gold, completionRatio)) * (1 - completionRatio) * Projectile.Opacity;
             return color;
         }
 
@@ -75,6 +75,10 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.ExitShaderRegion();
 
             Color color = Color.LightGoldenrodYellow;
+            if (Projectile.ai[1] == 1)
+            {
+                color = new Color(140, 140, 255);
+            }
             color.A = 0;
             Vector2 vector = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
             Texture2D value16 = Projectile.GetTexture();

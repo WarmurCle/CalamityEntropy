@@ -14,36 +14,32 @@ using CalamityMod.Items;
 
 namespace CalamityEntropy.Content.Items.Weapons.Fractal
 {
-    public class WelkinFractal : ModItem
+    public class StarlitFractal : ModItem
     {
         public override void SetDefaults()
         {
-            Item.damage = 46;
-            Item.crit = 3;
+            Item.damage = 160;
+            Item.crit = 8;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.width = 48;
+            Item.width = 60;
             Item.height = 60;
-            Item.useTime = Item.useAnimation = 26;
+            Item.useTime = Item.useAnimation = 60;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
-            Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
-            Item.rare = ItemRarityID.LightRed;
+            Item.value = CalamityGlobalItem.RarityCyanBuyPrice;
+            Item.rare = ItemRarityID.Cyan;
             Item.UseSound = null;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<WelkinFractalHeld>();
+            Item.shoot = ModContent.ProjectileType<StarlitFractalHeld>();
             Item.shootSpeed = 12f;
         }
         public int atkType = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, atkType == 0 ? -1 : atkType);
-            atkType++;
-            if(atkType > 2)
-            {
-                atkType = 0;
-            }
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, atkType);
+            atkType = 1 - atkType;
             return false;
         }
 
@@ -53,30 +49,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<ShatteredFractal>()
-                .AddIngredient<CalamityMod.Items.Materials.AerialiteBar>(6)
-                .AddIngredient(ItemID.Feather, 2)
-                .AddIngredient(ItemID.SunplateBlock, 4)
-                .AddIngredient(ItemID.Starfury)
-                .AddIngredient<WindBlade>()
-                .AddIngredient<TaintedBlade>()
-                .AddTile(TileID.Anvils)
-                .Register();
 
-            CreateRecipe().AddIngredient<ShatteredFractal>()
-                .AddIngredient<CalamityMod.Items.Materials.AerialiteBar>(6)
-                .AddIngredient(ItemID.Feather, 2)
-                .AddIngredient(ItemID.SunplateBlock, 4)
-                .AddIngredient(ItemID.Starfury)
-                .AddIngredient<WindBlade>()
-                .AddIngredient<PerfectDark>()
-                .AddTile(TileID.Anvils)
-                .Register();
         }
     }
-    public class WelkinFractalHeld : ModProjectile
+    public class StarlitFractalHeld : ModProjectile
     {
-        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/WelkinFractal";
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/StarlitFractal";
         List<float> odr = new List<float>();
         public override void SetStaticDefaults()
         {
@@ -103,7 +81,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public float alpha = 0;
         public bool init = true;
         public bool shoot = true;
-        public float spawnFeatherCounter = 0;
+        public float spawnProjCounter = 0;
         public override void AI()
         {
             Player owner = Projectile.getOwner();
@@ -112,53 +90,62 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             counter++;
             if (init)
             {
-                if (Projectile.ai[0] == 2)
+                if (Projectile.ai[0] == 0)
                 {
-                    Util.PlaySound("powerwhip", 1, Projectile.Center, volume: 0.6f);
-                }
-                if(Projectile.ai[0] < 2)
-                {
-                    Util.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                    Util.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.6f);
                 }
                 init = false;
             }
             odr.Add(Projectile.rotation);
             Projectile.timeLeft = 3;
-            float RotF = 4f;
-            if (Projectile.ai[0] == 2)
+
+            if (Projectile.ai[0] == 0)
             {
-                if(shoot)
+                float RotF = MathHelper.ToRadians(260 + 360 * 2);
+                if (progress > 0.3f && progress < 0.7f)
+                    spawnProjCounter += owner.GetTotalAttackSpeed(Projectile.DamageType);
+                if (spawnProjCounter >= 6f)
                 {
-                    shoot = false;
-                    if(Main.myPlayer == Projectile.owner)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.normalize() * 10, ModContent.ProjectileType<FractalBeam>(), Projectile.damage * 2, Projectile.knockBack, Projectile.owner);
-                    }
-                    Util.PlaySound("sf_shoot", 1, Projectile.Center);
-                }
-                float l = (float)(Math.Cos(progress * MathHelper.Pi - MathHelper.PiOver2));
-                Projectile.rotation = Projectile.velocity.ToRotation();
-                scale = 1f + l * 3f;
-                alpha = l;
-                Projectile.Center = Projectile.getOwner().MountedCenter + Projectile.velocity.normalize() * (-34 + l * 34);
-            }
-            else
-            {
-                spawnFeatherCounter += owner.GetTotalAttackSpeed(Projectile.DamageType);
-                if (spawnFeatherCounter >= 16f)
-                {
-                    spawnFeatherCounter -= 16f;
-                    Vector2 spawnPos = Projectile.Center + new Vector2(0, 600) * Projectile.ai[0] + Util.randomPointInCircle(34);
+                    spawnProjCounter -= 6f;
+                    Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, (Main.MouseWorld - spawnPos).normalize() * 28, ModContent.ProjectileType<FractalFeather>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner, Main.rand.NextFloat() * 6.28f);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, Util.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 6, ModContent.ProjectileType<FractalBlight>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner, Main.rand.NextFloat() * 6.28f, 1);
                     }
                 }
                 alpha = 1;
-                scale = 1f * (1 + (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(progress, 3) * MathHelper.Pi - MathHelper.PiOver2)) * 0.8f);
+                scale = 1.6f;
                 Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
-                Projectile.Center = Projectile.getOwner().MountedCenter; 
             }
+            else
+            {
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((owner.Calamity().mouseWorld - Projectile.Center).ToRotation());
+                if (progress < 0.5f)
+                {
+                    float p = progress / 0.5f;
+                    Projectile.rotation = (owner.Calamity().mouseWorld - Projectile.Center).ToRotation() + Util.GetRepeatedCosFromZeroToOne(p, 5) * MathHelper.ToRadians(140) * (Projectile.velocity.X > 0 ? -1 : 1);
+                }
+                else
+                {
+                    if (progress < 0.62f)
+                    {
+                        float p = (progress - 0.5f) / 0.12f;
+                        Projectile.rotation = (owner.Calamity().mouseWorld - Projectile.Center).ToRotation() + Util.GetRepeatedCosFromZeroToOne(1 - p, 5) * MathHelper.ToRadians(140) * (Projectile.velocity.X > 0 ? -1 : 1);
+                    }
+                    else
+                    {
+                        counter = MaxUpdateTimes + 1;
+                        if (Main.myPlayer == Projectile.owner)
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<StarlitFractalThrown>(), Projectile.damage, Projectile.knockBack * 2, Projectile.owner); ;
+                    }
+                }
+                scale = 1.6f;
+                alpha = 1;
+            }
+
+
+            Projectile.Center = Projectile.getOwner().MountedCenter;
+
 
             if (odr.Count > 60)
             {
@@ -177,7 +164,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
-            if(counter > MaxUpdateTimes)
+            if (counter > MaxUpdateTimes)
             {
                 owner.itemTime = 1;
                 owner.itemAnimation = 1;
@@ -203,7 +190,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 MovementVector = Vector2.Zero
             });
         }
-
+        public static Texture2D shineTex = null;
+        public bool spawnProj = true;
+        
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
@@ -217,23 +206,24 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
 
             float MaxUpdateTime = Projectile.getOwner().itemTimeMax * Projectile.MaxUpdates;
-            if (Projectile.ai[0] < 2)
-            {
-                Texture2D bs = Util.getExtraTex("SemiCircularSmear");
-                Main.spriteBatch.UseBlendState(BlendState.Additive);
-                Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(new Color(50, 140, 160), new Color(200, 255, 66), counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f, Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.2f * scale, SpriteEffects.None, 0);
-                Main.spriteBatch.ExitShaderRegion();
-                Texture2D glow = this.getTextureGlow();
-                Main.spriteBatch.Draw(glow, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White * alpha, rot, origin, Projectile.scale * scale, effect, 0);
 
-            }
-            else
+            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale * 1.1f, effect);
+
+            if (Projectile.ai[0] == 0)
             {
-                Texture2D glow = this.getTextureGlow();
-                Main.spriteBatch.Draw(glow, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White * alpha * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2) * 0.5f + 0.5f), rot, origin, Projectile.scale * scale * 1.4f * 0.34f, effect, 0);
+                
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                Texture2D bs = Util.getExtraTex("SemiCircularSmear");
+                Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(Color.White, Color.LightGoldenrodYellow, counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.4f * scale, SpriteEffects.None, 0);
+
+                if (shineTex == null)
+                    shineTex = Util.getExtraTex("StarTexture");
+                Main.spriteBatch.Draw(shineTex, Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale - Main.screenPosition, null, Color.LightGoldenrodYellow * 0.7f * ((float)Math.Cos((counter / MaxUpdateTime) * MathHelper.TwoPi - MathHelper.Pi) * 0.5f + 0.5f), 0, shineTex.Size() / 2f, 0.36f * Projectile.scale * new Vector2(2.8f, 0.5f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(shineTex, Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale - Main.screenPosition, null, Color.LightGoldenrodYellow * 0.7f * ((float)Math.Cos((counter / MaxUpdateTime) * MathHelper.TwoPi - MathHelper.Pi) * 0.5f + 0.5f), 0, shineTex.Size() / 2f, 0.36f * Projectile.scale * new Vector2(0.5f, 2.8f), SpriteEffects.None, 0);
+
+                Main.spriteBatch.ExitShaderRegion();
             }
-            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale, effect);
-            
+
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

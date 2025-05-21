@@ -1,23 +1,16 @@
-﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Tiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System.Collections.Generic;
-using System.IO;
 using System;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.GameContent.Animations.Actions.Sprites;
-using CalamityMod.Items.LoreItems;
-using static tModPorter.ProgressUpdate;
 using Terraria.GameContent.Drawing;
 using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Items;
 
 namespace CalamityEntropy.Content.Items.Weapons.Fractal
 {
@@ -26,7 +19,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void SetDefaults()
         {
             Item.damage = 42;
-            Item.crit = 3;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
@@ -34,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
-            Item.value = 12000;
+            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = null;
             Item.noMelee = true;
@@ -61,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<LoreAwakening>()
+            CreateRecipe().AddIngredient<BrokenHilt>()
                 .AddIngredient(ItemID.WoodenSword)
                 .AddIngredient(ItemID.GoldBroadsword)
                 .AddIngredient(ItemID.LightsBane)
@@ -70,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddTile(TileID.Anvils)
                 .Register();
 
-            CreateRecipe().AddIngredient<LoreAwakening>()
+            CreateRecipe().AddIngredient<BrokenHilt>()
                 .AddIngredient(ItemID.WoodenSword)
                 .AddIngredient(ItemID.GoldBroadsword)
                 .AddIngredient(ItemID.BloodButcherer)
@@ -174,6 +166,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             owner.itemAnimation = 2;
             if(counter > MaxUpdateTimes)
             {
+                owner.itemTime = 1;
+                owner.itemAnimation = 1;
                 Projectile.Kill();
             }
         }

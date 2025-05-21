@@ -47,13 +47,13 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (init)
             {
-                rotSpeed = Projectile.ai[1] * 0.13f;
+                rotSpeed = Projectile.ai[1] * 0.1f;
                 Projectile.rotation = Projectile.ai[0];
                 init = false;
             }
             if (counter < 46 * Projectile.MaxUpdates)
             {
-                Projectile.velocity *= 0.98f;
+                Projectile.velocity *= 0.986f;
                 pg = counter / (46 * Projectile.MaxUpdates);
                 Projectile.rotation += rotSpeed * (1 - pg);
                 rotSpeed *= 0.99f;

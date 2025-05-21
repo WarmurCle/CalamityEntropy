@@ -1140,7 +1140,7 @@ namespace CalamityEntropy
                             AddBoss(bossChecklist, ModContent.GetInstance<CalamityMod.CalamityMod>(), entryName, 23.5f, wyd, segments2, new Dictionary<string, object>()
                             {
                                 ["displayName"] = Language.GetText("Mods.CalamityMod.NPCs.PrimordialWyrmHead.DisplayName"),
-                                ["spawnInfo"] = Language.GetText("Mods.PWSpawnInfo"),
+                                ["spawnInfo"] = this.GetLocalization("PWSpawnInfo"),
                                 ["collectibles"] = collection2,
                                 ["customPortrait"] = portrait2
                             });

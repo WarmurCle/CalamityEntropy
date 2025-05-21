@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ignoreWater = true;
             Projectile.width = Projectile.height = 64;
             Projectile.MaxUpdates = 4;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 180;
             Projectile.penetrate = 6;
             Projectile.ArmorPenetration = 8;
             Projectile.usesLocalNPCImmunity = true;

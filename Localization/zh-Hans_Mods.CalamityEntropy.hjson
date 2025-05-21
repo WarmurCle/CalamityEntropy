@@ -2053,7 +2053,11 @@ Items: {
 
 	ShatteredFractal: {
 		DisplayName: 破碎分型
-		Tooltip: ""
+		Tooltip:
+			'''
+			[c/ff5300:曾经的神剑，但如今已失去了它的潜能]
+			[c/ff5300:或许以后你可以让它重现光芒]
+			'''
 	}
 
 	ProphetMusicBox: {
@@ -2073,12 +2077,22 @@ Items: {
 
 	WelkinFractal: {
 		DisplayName: 苍穹分型
-		Tooltip: ""
+		Tooltip: "[c/ff5300:被苍穹所赐福]"
 	}
 
 	BrilliantFractal: {
 		DisplayName: 光辉分型
-		Tooltip: ""
+		Tooltip: "[c/ff5300:吸纳了光辉能量]"
+	}
+
+	BrokenHilt: {
+		Tooltip: "[c/ff5300:远古神剑的一部分]"
+		DisplayName: 破碎剑柄
+	}
+
+	StarlitFractal: {
+		// Tooltip: ""
+		// DisplayName: Starlit Fractal
 	}
 }
 
@@ -2438,6 +2452,9 @@ Projectiles: {
 	BrilliantFractalHeld.DisplayName: 光辉分型
 	FractalBlight.DisplayName: 分型光星
 	FractalShadow.DisplayName: 分型剑影
+	BrokenHiltHeld.DisplayName: 破碎剑柄
+	// StarlitFractalHeld.DisplayName: Starlit Fractal Held
+	// StarlitFractalThrown.DisplayName: Starlit Fractal Thrown
 }
 
 LegendTooltip: - 传奇物品 -

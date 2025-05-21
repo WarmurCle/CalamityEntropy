@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Prefixes
 
         public override float RollChance(Item item)
         {
-            return 4f;
+            return 1f;
         }
 
         public override bool CanRoll(Item item)
@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Prefixes
 
         public override void ModifyValue(ref float valueMult)
         {
-            valueMult *= 1.6f;
+            valueMult *= 1.25f;
         }
 
         public override void Apply(Item item)
