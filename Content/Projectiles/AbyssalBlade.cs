@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Projectile.rotation = (fTarget.Center - Projectile.Center).ToRotation();
                 }
-                Util.PlaySound("AbyssalBladeLaunch", 1, Projectile.Center, volume: 0.5f);
+                Util.PlaySound("AbyssalBladeLaunch", 1, Projectile.Center, volume: 0.3f);
                 Projectile.velocity = Projectile.rotation.ToRotationVector2() * 10;
                 if (Main.myPlayer == Projectile.owner)
                 {
