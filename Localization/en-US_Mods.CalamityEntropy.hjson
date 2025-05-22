@@ -1724,6 +1724,7 @@ Items: {
 			When injured, reduce the damage to 100 and break it, and recover after 30 seconds
 			Provide a {DMG}% damage bonus when not broken
 			[c/ff0000:Removing it when broken will cause 90% damage to your maximum health]
+			"It drains your soul to repair itself. If forcibly severed, your soul will burst forth in a torrent"
 			'''
 	}
 
@@ -1896,7 +1897,11 @@ Items: {
 
 	ShatteredFractal: {
 		DisplayName: Shattered Fractal
-		Tooltip: ""
+		Tooltip: 
+		'''
+		[c/ff5300:Once a divine sword, but now its potential is lost]
+		[c/ff5300:Perhaps one day, you can restore it to its former glory]
+		'''
 	}
 
 	ProphetMusicBox: {
@@ -1916,31 +1921,31 @@ Items: {
 
 	WelkinFractal: {
 		DisplayName: Welkin Fractal
-		Tooltip: ""
+		Tooltip: "[c/ff5300:Blessed by the heavens]"
 	}
 
 	BrilliantFractal: {
 		DisplayName: Brilliant Fractal
-		Tooltip: ""
+		Tooltip: "[c/ff5300:Absorbs radiant energy]"
 	}
 
 	BrokenHilt: {
-		Tooltip: ""
+		Tooltip: "[c/ff5300:A fragment of an ancient divine blade]"
 		DisplayName: Broken Hilt
 	}
 
 	ElementalFractal: {
-		Tooltip: ""
+		Tooltip: "[c/ff5300:The sword shimmers with elemental light]"
 		DisplayName: Elemental Fractal
 	}
 
 	StarlitFractal: {
 		DisplayName: Starlit Fractal
-		Tooltip: ""
+		Tooltip: "[c/ff5300:Starlight drifts along its blade]"
 	}
 
 	AbyssFractal: {
-		Tooltip: ""
+		Tooltip: "[c/ff5300:The blade resembles a bottomless abyss]"
 		DisplayName: Abyss Fractal
 	}
 }
@@ -2308,6 +2313,7 @@ Projectiles: {
 	AbyssFractalHeld.DisplayName: Abyss Fractal Held
 	AbyssalBlade.DisplayName: Abyssal Blade
 	AbyssalBullet.DisplayName: Abyssal Bullet
+	AstralStarMelee.DisplayName: Astral Star Melee
 }
 
 LegendTooltip: - Legend -

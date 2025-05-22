@@ -1878,6 +1878,7 @@ Items: {
 			受伤时将伤害降低至100并破碎，30秒后复原
 			没有破碎时提供{DMG}%的伤害加成
 			[c/ff0000:破碎时取下将对你造成最大生命值的90%伤害]
+			"它吸取你的灵魂进行自我修复，若强行断开，你的灵魂会喷涌而出"
 			'''
 	}
 
@@ -2077,7 +2078,7 @@ Items: {
 
 	WelkinFractal: {
 		DisplayName: 苍穹分型
-		Tooltip: "[c/ff5300:被苍穹所赐福]"
+		Tooltip: "[c/ff5300:它被苍穹所赐福]"
 	}
 
 	BrilliantFractal: {
@@ -2470,6 +2471,7 @@ Projectiles: {
 	AbyssFractalHeld.DisplayName: 深渊分型
 	AbyssalBlade.DisplayName: 深渊剑影
 	AbyssalBullet.DisplayName: 渊水弹
+	AstralStarMelee.DisplayName: 星熠星陨
 }
 
 LegendTooltip: - 传奇物品 -

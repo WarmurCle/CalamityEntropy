@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 98;
+            Item.damage = 160;
             Item.crit = 7;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 60;
@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             CreateRecipe().AddIngredient<BrilliantFractal>()
                 .AddIngredient<AbyssBlade>()
-                .AddIngredient<BrinyBaron>()
+                .AddIngredient<Floodtide>()
                 .AddIngredient<PerennialBar>(6)
                 .AddTile(TileID.LunarCraftingStation).Register();
         }
@@ -171,7 +171,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound)
             {
                 playHitSound = false;
-                Util.PlaySound(Projectile.ai[0] == 2 ? "sf_hit1" : "sf_hit", 1, Projectile.Center, volume: 0.6f);
+                Util.PlaySound("sf_hit", 1, Projectile.Center);
+                Util.PlaySound("FractalHit", 1, Projectile.Center);
+                
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TownSlimeTransform, new ParticleOrchestraSettings
             {

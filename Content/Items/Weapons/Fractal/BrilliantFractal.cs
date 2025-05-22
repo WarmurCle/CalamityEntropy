@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 120;
+            Item.damage = 100;
             Item.crit = 5;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
@@ -50,8 +50,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<WelkinFractal>()
-                .AddIngredient<Aftershock>()
-                .AddIngredient<EutrophicScimitar>()
+                .AddIngredient<StormSaber>()
+                .AddIngredient<CelestialClaymore>()
+                .AddIngredient<BrimstoneSword>()
                 .AddTile(TileID.MythrilAnvil).Register();
         }
     }
@@ -167,7 +168,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound)
             {
                 playHitSound = false;
-                Util.PlaySound(Projectile.ai[0] == 2 ? "sf_hit1" : "sf_hit", 1, Projectile.Center, volume: 0.6f);
+                Util.PlaySound("sf_hit", 1, Projectile.Center);
+                Util.PlaySound("FractalHit", 1, Projectile.Center);
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
             {

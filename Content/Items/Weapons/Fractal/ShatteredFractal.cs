@@ -182,7 +182,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound)
             {
                 playHitSound = false;
-                Util.PlaySound(Projectile.ai[0] == 2 ? "sf_hit1" : "sf_hit", 1, Projectile.Center, volume: 0.6f);
+                Util.PlaySound(Projectile.ai[0] == 2 ? "sf_hit1" : "sf_hit", 1, Projectile.Center);
+                if (Projectile.ai[0] != 2)
+                {
+                    Util.PlaySound("FractalHit", 1, Projectile.Center);
+                }
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
             {

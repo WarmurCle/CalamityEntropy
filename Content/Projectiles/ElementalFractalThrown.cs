@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
@@ -57,12 +58,16 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Util.PlaySound("sf_hit", 1, Projectile.Center, volume: 0.6f);
-
+            target.AddBuff(ModContent.BuffType<ElementalMix>(), 400);
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
             {
                 PositionInWorld = target.Center,
                 MovementVector = Vector2.Zero
             });
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += target.defense + 64;
         }
         public override void OnKill(int timeLeft)
         {

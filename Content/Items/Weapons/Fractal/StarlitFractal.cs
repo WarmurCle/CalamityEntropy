@@ -2,14 +2,14 @@
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Dusts;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 using Terraria.ID;
@@ -21,12 +21,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 138;
+            Item.damage = 155;
             Item.crit = 5;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = Item.useAnimation = 26;
+            Item.useTime = Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, atkType == 0 ? -1 : atkType);
-            atkType*=-1;
+            atkType *= -1;
             return false;
         }
 
@@ -53,11 +53,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<AbyssFractal>()
-                .AddIngredient<EntropicClaymore>()
+                .AddIngredient<TitanArm>()
                 .AddIngredient<AstralBlade>()
-                .AddIngredient<AstralBar>(6)
-                .AddIngredient<StarblightSoot>(4)
-                .AddTile(TileID.LunarCraftingStation).Register();
+                .AddIngredient(ItemID.PiercingStarlight)
+                .AddIngredient(ItemID.FragmentSolar, 4)
+                .AddIngredient(ItemID.FragmentNebula, 4)
+                .AddIngredient(ItemID.FragmentStardust, 4)
+                .AddIngredient(ItemID.FragmentVortex, 4)
+                .AddTile(TileID.MythrilAnvil).Register();
         }
     }
     public class StarlitFractalHeld : ModProjectile
@@ -96,9 +99,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             counter++;
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
-                if(spawnProj && progress > 0.4f)
+                if (spawnProj && progress > 0.4f)
                 {
                     int dir = (int)(Projectile.ai[0]) * (Projectile.velocity.X > 0 ? -1 : 1);
                     spawnProj = false;
@@ -162,12 +165,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             for (int i = 0; i < 2; i++)
             {
                 Vector2 pos = target.Center + new Vector2(0, -900) + Util.randomPointInCircle(400);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMagic>(), Projectile.damage / 4, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 4, Projectile.owner);
             }
             if (playHitSound)
             {
                 playHitSound = false;
-                Util.PlaySound(Projectile.ai[0] == 2 ? "sf_hit1" : "sf_hit", 1, Projectile.Center, volume: 0.6f);
+                Util.PlaySound("sf_hit", 1, Projectile.Center);
+                Util.PlaySound("FractalHit", 1, Projectile.Center);
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
             {
@@ -211,5 +215,182 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (132) * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
         }
     }
+    public class AstralStarMelee : ModProjectile
+    {
 
+        public override string Texture => "CalamityMod/Projectiles/Typeless/AstralStar";
+
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailCacheLength[Type] = 6;
+            ProjectileID.Sets.TrailingMode[Type] = 0;
+        }
+
+        public override void SetDefaults()
+        {
+            base.Projectile.width = 24;
+            base.Projectile.height = 24;
+            base.Projectile.friendly = true;
+            base.Projectile.DamageType = DamageClass.Melee;
+            base.Projectile.penetrate = 1;
+            base.Projectile.tileCollide = false;
+            base.Projectile.ignoreWater = true;
+        }
+
+        public override void AI()
+        {
+            base.Projectile.ai[1] += 1f;
+
+            if (base.Projectile.soundDelay == 0)
+            {
+                base.Projectile.soundDelay = 20 + Main.rand.Next(40);
+                if (Main.rand.NextBool(5))
+                {
+                    SoundEngine.PlaySound(in SoundID.Item9, base.Projectile.Center);
+                }
+            }
+
+            base.Projectile.rotation += (Math.Abs(base.Projectile.velocity.X) + Math.Abs(base.Projectile.velocity.Y)) * 0.01f * (float)base.Projectile.direction;
+            if (Main.rand.NextBool(8))
+            {
+                int num = 2;
+                for (int i = 0; i < num; i++)
+                {
+                    Color newColor = Main.hslToRgb(0.5f, 1f, 0.5f);
+                    int num2 = Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, 267, 0f, 0f, 0, newColor);
+                    Main.dust[num2].position = base.Projectile.Center + Main.rand.NextVector2Circular(base.Projectile.width, base.Projectile.height) * 0.5f;
+                    Main.dust[num2].velocity *= Main.rand.NextFloat() * 0.8f;
+                    Main.dust[num2].noGravity = true;
+                    Main.dust[num2].fadeIn = 0.6f + Main.rand.NextFloat();
+                    Main.dust[num2].velocity += base.Projectile.velocity.SafeNormalize(Vector2.UnitY) * 3f;
+                    Main.dust[num2].scale = 0.7f;
+                    if (num2 != 6000)
+                    {
+                        Dust dust = Dust.CloneDust(num2);
+                        dust.scale /= 2f;
+                        dust.fadeIn *= 0.85f;
+                        dust.color = new Color(255, 255, 255, 255);
+                    }
+                }
+
+                Vector2 vector = Vector2.UnitX.RotatedByRandom(1.5707963705062866).RotatedBy(base.Projectile.velocity.ToRotation());
+                int num3 = Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, ModContent.DustType<AstralOrange>(), base.Projectile.velocity.X * 0.25f, base.Projectile.velocity.Y * 0.25f, 150);
+                Main.dust[num3].velocity = vector * 0.33f;
+                Main.dust[num3].position = base.Projectile.Center + vector * 6f;
+            }
+
+            if (Main.rand.NextBool(24) && Main.netMode != 2)
+            {
+                int num4 = Gore.NewGore(base.Projectile.GetSource_FromAI(), base.Projectile.Center, base.Projectile.velocity * 0.1f, 16);
+                Main.gore[num4].velocity *= 0.66f;
+                Main.gore[num4].velocity += base.Projectile.velocity * 0.15f;
+            }
+
+            base.Projectile.light = 0.9f;
+            if (Main.rand.NextBool(5))
+            {
+                Color newColor2 = Main.hslToRgb(1f, 1f, 0.5f);
+                int num5 = Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, 267, 0f, 0f, 0, newColor2);
+                Main.dust[num5].position = base.Projectile.Center + Main.rand.NextVector2Circular(base.Projectile.width, base.Projectile.height) * 0.5f;
+                Main.dust[num5].velocity *= Main.rand.NextFloat() * 0.8f;
+                Main.dust[num5].noGravity = true;
+                Main.dust[num5].fadeIn = 0.6f + Main.rand.NextFloat();
+                Main.dust[num5].velocity += base.Projectile.velocity * 0.25f;
+                Main.dust[num5].scale = 0.7f;
+                if (num5 != 6000)
+                {
+                    Dust dust2 = Dust.CloneDust(num5);
+                    dust2.scale /= 2f;
+                    dust2.fadeIn *= 0.85f;
+                    dust2.color = new Color(255, 255, 255, 255);
+                }
+
+                Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, ModContent.DustType<AstralOrange>(), base.Projectile.velocity.X * 0.25f, base.Projectile.velocity.Y * 0.25f, 150);
+            }
+
+            if (Main.rand.NextBool(10) && Main.netMode != 2)
+            {
+                Gore.NewGore(base.Projectile.GetSource_FromAI(), base.Projectile.position, base.Projectile.velocity * 0.1f, Main.rand.Next(16, 18));
+            }
+
+            CalamityUtils.HomeInOnNPC(Projectile, base.Projectile.tileCollide, 500f, 15f, 20f);
+
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 180);
+        }
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return new Color(200, 100, 250, base.Projectile.alpha);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Projectile.DrawStarTrail(Color.Coral, Color.White);
+            CalamityUtils.DrawAfterimagesCentered(base.Projectile, ProjectileID.Sets.TrailingMode[base.Projectile.type], lightColor);
+            return false;
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Collision.HitTiles(base.Projectile.position, base.Projectile.velocity, base.Projectile.width, base.Projectile.height);
+            SoundEngine.PlaySound(in SoundID.Dig, base.Projectile.Center);
+            return true;
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            base.Projectile.ExpandHitboxBy(50);
+            int num = 3;
+            for (int i = 0; i < num; i++)
+            {
+                Color newColor = Main.hslToRgb(1f, 1f, 0.5f);
+                int num2 = Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, 267, 0f, 0f, 0, newColor);
+                Main.dust[num2].position = base.Projectile.Center + Main.rand.NextVector2Circular(base.Projectile.width, base.Projectile.height);
+                Main.dust[num2].velocity *= Main.rand.NextFloat() * 2.4f;
+                Main.dust[num2].noGravity = true;
+                Main.dust[num2].fadeIn = 0.6f + Main.rand.NextFloat();
+                Main.dust[num2].scale = 1.4f;
+                if (num2 != 6000)
+                {
+                    Dust dust = Dust.CloneDust(num2);
+                    dust.scale /= 2f;
+                    dust.fadeIn *= 0.85f;
+                    dust.color = new Color(255, 255, 255, 255);
+                }
+            }
+
+            for (int j = 0; j < 3; j++)
+            {
+                int num3 = Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, ModContent.DustType<AstralOrange>(), 0f, 0f, 100);
+                Main.dust[num3].velocity *= 3f;
+                if (Main.rand.NextBool())
+                {
+                    Main.dust[num3].scale = 0.5f;
+                    Main.dust[num3].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                }
+            }
+
+            for (int k = 0; k < 3; k++)
+            {
+                int num4 = Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, ModContent.DustType<AstralOrange>(), 0f, 0f, 100, default(Color), 1.5f);
+                Main.dust[num4].noGravity = true;
+                Main.dust[num4].velocity *= 5f;
+                num4 = Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, ModContent.DustType<AstralOrange>(), 0f, 0f, 100);
+                Main.dust[num4].velocity *= 2f;
+            }
+
+            if (Main.netMode != 2)
+            {
+                for (int l = 0; l < 3; l++)
+                {
+                    Gore.NewGore(base.Projectile.GetSource_Death(), base.Projectile.position, base.Projectile.velocity * 0.05f, Main.rand.Next(16, 18));
+                }
+            }
+        }
+
+    }
 }

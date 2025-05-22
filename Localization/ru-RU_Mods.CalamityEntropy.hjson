@@ -2307,6 +2307,7 @@ Projectiles: {
 	// AbyssFractalHeld.DisplayName: Abyss Fractal Held
 	// AbyssalBlade.DisplayName: Abyssal Blade
 	// AbyssalBullet.DisplayName: Abyssal Bullet
+	// AstralStarMelee.DisplayName: Astral Star Melee
 }
 
 LegendTooltip: - Legend -

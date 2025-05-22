@@ -1,14 +1,9 @@
-﻿using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Content.Items.Weapons.Fractal;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
 using Terraria;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -112,7 +107,7 @@ namespace CalamityEntropy.Content.Projectiles
             for(int i = 0; i < 3; i++)
             {
                 Vector2 pos = target.Center + new Vector2(0, -900) + Util.randomPointInCircle(400);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMagic>(), Projectile.damage / 4, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 4, Projectile.owner).ToProj();
             }
         }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/StarlitFractalGlow";

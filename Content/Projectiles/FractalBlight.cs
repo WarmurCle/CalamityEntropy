@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -65,6 +66,13 @@ namespace CalamityEntropy.Content.Projectiles
         {
             float widthInterpolant = Utils.GetLerpValue(0f, 0.25f, completionRatio, true) * Utils.GetLerpValue(1.1f, 0.7f, completionRatio, true);
             return MathHelper.SmoothStep(8f, 20f, widthInterpolant);
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Projectile.ai[1] == 1)
+            {
+                target.AddBuff(ModContent.BuffType<ElementalMix>(), 400);
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {

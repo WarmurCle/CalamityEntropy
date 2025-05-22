@@ -20,12 +20,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 450;
+            Item.damage = 650;
             Item.crit = 8;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 60;
             Item.height = 60;
-            Item.useTime = Item.useAnimation = 60;
+            Item.useTime = Item.useAnimation = 50;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddIngredient(ItemID.LunarBar, 8)
                 .AddIngredient<FlarefrostBlade>()
                 .AddIngredient<LifeAlloy>(6)
-                .AddIngredient<GalacticaSingularity>()
+                .AddIngredient<GalacticaSingularity>(6)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
@@ -232,7 +232,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound)
             {
                 playHitSound = false;
-                Util.PlaySound("sf_hit", 1, Projectile.Center, volume: 0.6f);
+                Util.PlaySound("sf_hit", 1, Projectile.Center);
+                Util.PlaySound("FractalHit", 1, Projectile.Center);
+                
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
             {
@@ -278,11 +280,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (116 * (Projectile.ai[0] == 2 ? 0.9f : 1)) * Projectile.scale * scale, targetHitbox, 46);
+            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (124 * (Projectile.ai[0] == 2 ? 0.9f : 1)) * Projectile.scale * scale, targetHitbox, 46);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (120 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (130 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
         }
     }
 
