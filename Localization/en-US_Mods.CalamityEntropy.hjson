@@ -1897,11 +1897,11 @@ Items: {
 
 	ShatteredFractal: {
 		DisplayName: Shattered Fractal
-		Tooltip: 
-		'''
-		[c/ff5300:Once a divine sword, but now its potential is lost]
-		[c/ff5300:Perhaps one day, you can restore it to its former glory]
-		'''
+		Tooltip:
+			'''
+			[c/ff5300:Once a divine sword, but now its potential is lost]
+			[c/ff5300:Perhaps one day, you can restore it to its former glory]
+			'''
 	}
 
 	ProphetMusicBox: {
