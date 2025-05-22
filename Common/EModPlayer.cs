@@ -116,6 +116,7 @@ namespace CalamityEntropy.Common
         public float RuneDashDir = 0;
         public int CruiserAntiGravTime = 0;
         public int gravAddTime = 0;
+        public bool plagueEngine = false;
         public class EquipInfo
         {
             public string id;
@@ -295,6 +296,7 @@ namespace CalamityEntropy.Common
         public bool foreseeOrbLast = false;
         public override void ResetEffects()
         {
+            plagueEngine = false;
             RogueStealthRegenMult = 1;
             if (Player.whoAmI == Main.myPlayer)
             {
@@ -432,10 +434,10 @@ namespace CalamityEntropy.Common
             {
                 Utilities.Util.PlaySound("beep", 1, Player.Center);
             }
-            temporaryArmor *= 0.994f;
+            temporaryArmor *= 0.995f;
             if (temporaryArmor > 0)
             {
-                temporaryArmor -= 0.002f;
+                temporaryArmor -= 0.0015f;
             }
             if (temporaryArmor < 0)
             {
@@ -1975,7 +1977,7 @@ namespace CalamityEntropy.Common
         {
             if (Player.Calamity().ZoneAstral)
             {
-                if (Main.rand.NextBool(10))
+                if (Main.rand.NextBool(18))
                 {
                     itemDrop = ModContent.ItemType<GreedCard>();
                 }

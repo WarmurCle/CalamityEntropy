@@ -1948,6 +1948,20 @@ Items: {
 		Tooltip: "[c/ff5300:The blade resembles a bottomless abyss]"
 		DisplayName: Abyss Fractal
 	}
+
+	PlagueInternalCombustionEngine: {
+		Tooltip:
+			'''
+			Hitting enemies with true melee weapons restores health and grants temporary armor.
+			+{AttackSpeed}% true melee attack speed
+			'''
+		DisplayName: Plague Internal Combustion Engine
+	}
+
+	SpiritFractal: {
+		DisplayName: Spirit Fractal
+		Tooltip: "[c/ff5300:There are many spirits gathered on the sword]"
+	}
 }
 
 PrefixitemDesc:
@@ -2314,6 +2328,8 @@ Projectiles: {
 	AbyssalBlade.DisplayName: Abyssal Blade
 	AbyssalBullet.DisplayName: Abyssal Bullet
 	AstralStarMelee.DisplayName: Astral Star Melee
+	FractalGhostBlade.DisplayName: Fractal Ghost Blade
+	SpiritFractalHeld.DisplayName: Spirit Fractal Held
 }
 
 LegendTooltip: - Legend -
@@ -2956,7 +2972,11 @@ Prefixes: {
 	}
 }
 
-DamageClasses.NoneTypeDamageClass.DisplayName: Damage
+DamageClasses: {
+	NoneTypeDamageClass.DisplayName: Damage
+	NoDRMelee.DisplayName: No D R Melee
+}
+
 hkLevel: Level
 ZoneGraveyard: Zone Graveyard
 DownedBoss2: After Defeat Eater of World / Brain of cthulhu

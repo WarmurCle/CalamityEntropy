@@ -229,7 +229,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<ElementalMix>(), 400);
-            if (playHitSound)
+            if (playHitSound || Projectile.ai[0] == 0)
             {
                 playHitSound = false;
                 Util.PlaySound("sf_hit", 1, Projectile.Center);

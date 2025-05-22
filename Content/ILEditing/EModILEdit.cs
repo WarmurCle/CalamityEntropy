@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Utilities;
 using CalamityMod.CalPlayer;
+using CalamityMod.NPCs;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.RuntimeDetour;
@@ -36,6 +37,7 @@ namespace CalamityEntropy.Content.ILEditing
             new Type[] { typeof(NPC), typeof(Mod) },
             null);
             _hook = EModHooks.Add(originalMethod, EOCAIHook);
+
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
         private static bool EOCAIHook(Func<NPC, Mod, bool> orig, NPC npc, Mod mod)

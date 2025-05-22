@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.DamageClasses;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
@@ -58,6 +59,7 @@ namespace CalamityEntropy.Common
         public float damageMul = 1;
         public int AnimaTrapped = 0;
         public int[] tfriendlyNPCHitCooldown = new int[201];
+
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;
@@ -458,6 +460,13 @@ namespace CalamityEntropy.Common
             if (npc.HasBuff<HeatDeath>())
             {
                 modifiers.FinalDamage *= 1.2f;
+            }
+            if (modifiers.DamageType.CountsAsClass<NoDRMelee>())
+            {
+                if(modifiers.FinalDamage.Multiplicative < 1)
+                {
+                    modifiers.FinalDamage /= modifiers.FinalDamage.Multiplicative;
+                }
             }
         }
 

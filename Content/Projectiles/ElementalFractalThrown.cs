@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Content.DamageClasses;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
@@ -57,6 +58,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            hit.DamageType = NoDRMelee.Instance;
             Util.PlaySound("sf_hit", 1, Projectile.Center, volume: 0.6f);
             target.AddBuff(ModContent.BuffType<ElementalMix>(), 400);
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
@@ -68,6 +70,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.ArmorPenetration += target.defense + 64;
+            modifiers.SourceDamage /= (1f - target.Calamity().DR);
         }
         public override void OnKill(int timeLeft)
         {

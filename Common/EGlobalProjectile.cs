@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -910,7 +911,8 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(projectile.type == 735 && projectile.velocity.Y > 0  && projectile.velocity.Y > Math.Abs(projectile.velocity.X))
+            
+            if (projectile.type == 735 && projectile.velocity.Y > 0  && projectile.velocity.Y > Math.Abs(projectile.velocity.X))
             {
                 projectile.getOwner().velocity.Y = -projectile.velocity.Y * 0.4f;
                 projectile.getOwner().Entropy().gravAddTime = 30;
@@ -970,6 +972,10 @@ namespace CalamityEntropy.Common
             if (projectile.owner != -1 && projectile.friendly)
             {
                 EModPlayer plr = projectile.owner.ToPlayer().Entropy();
+                if (projectile.owner.ToPlayer().Entropy().plagueEngine && projectile.DamageType.CountsAsClass<TrueMeleeDamageClass>())
+                {
+                    PlagueInternalCombustionEngine.ApplyTrueMeleeEffect(projectile.owner.ToPlayer());
+                }
                 if (plr.holyMoonlight && plr.HMRegenCd <= 0)
                 {
                     if (plr.MagiShield <= 0)

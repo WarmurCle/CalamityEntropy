@@ -736,6 +736,10 @@ namespace CalamityEntropy.Common
 
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if(player.Entropy().plagueEngine && item.DamageType.CountsAsClass<TrueMeleeDamageClass>())
+            {
+                PlagueInternalCombustionEngine.ApplyTrueMeleeEffect(player);
+            }
             if (item.type == ModContent.ItemType<StellarStriker>())
             {
                 IEntitySource source_ItemUse = player.GetSource_ItemUse(item);
@@ -1149,6 +1153,10 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
+            if (item.Is<PlaguebringerGoliathBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<PlagueInternalCombustionEngine>(), 2);
+            }
             if (item.type == ModContent.ItemType<HiveMindBag>())
             {
                 itemLoot.Add(ModContent.ItemType<MindCorruptor>(), 3);

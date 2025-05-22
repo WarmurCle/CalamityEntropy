@@ -54,7 +54,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             CreateRecipe().AddIngredient<AbyssFractal>()
                 .AddIngredient<TitanArm>()
-                .AddIngredient<AstralBlade>()
                 .AddIngredient(ItemID.PiercingStarlight)
                 .AddIngredient(ItemID.FragmentSolar, 4)
                 .AddIngredient(ItemID.FragmentNebula, 4)
@@ -217,7 +216,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     }
     public class AstralStarMelee : ModProjectile
     {
-
         public override string Texture => "CalamityMod/Projectiles/Typeless/AstralStar";
 
         public override void SetStaticDefaults()

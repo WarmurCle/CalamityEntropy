@@ -19,6 +19,37 @@ namespace CalamityEntropy.Utilities
 {
     public static class Util
     {
+        public static float RotTowards(this float curAngle, float targetAngle, float maxChange)
+        {
+            curAngle = MathHelper.WrapAngle(curAngle);
+            targetAngle = MathHelper.WrapAngle(targetAngle);
+            if (curAngle < targetAngle)
+            {
+                if (targetAngle - curAngle > (float)Math.PI)
+                {
+                    curAngle += (float)Math.PI * 2f;
+                }
+            }
+            else if (curAngle - targetAngle > (float)Math.PI)
+            {
+                curAngle -= (float)Math.PI * 2f;
+            }
+
+            curAngle += MathHelper.Clamp(targetAngle - curAngle, 0f - maxChange, maxChange);
+            return MathHelper.WrapAngle(curAngle);
+        }
+        public static Vector2 SmoothHomingBehavior(this Entity entity, Vector2 TargetCenter, float SpeedUpdates = 1, float HomingStrenght = 0.1f)
+        {
+            float targetAngle = (TargetCenter - entity.Center).ToRotation();
+            float f = entity.velocity.ToRotation().RotTowards(targetAngle, HomingStrenght);
+            Vector2 speed = f.ToRotationVector2() * entity.velocity.Length() * SpeedUpdates;
+            entity.velocity = speed;
+            return speed;
+        }
+        public static float Parabola(float t, float height)
+        {
+            return 4 * height * t * (1 - t);
+        }
         public static NPC FindTarget_HomingProj(object atker, Vector2 center, float radians)
         {
             NPC npc = null;
@@ -704,7 +735,7 @@ namespace CalamityEntropy.Utilities
         public static bool LineThroughRect(Vector2 start, Vector2 end, Rectangle rect, int lineWidth = 4, int checkDistance = 8)
         {
             float point = 0f;
-            return Collision.CheckAABBvLineCollision(rect.TopLeft(), rect.Size(), start, end, lineWidth, ref point);
+            return rect.Contains((int)start.X, (int)start.Y) || rect.Contains((int)end.X, (int)end.Y) || Collision.CheckAABBvLineCollision(rect.TopLeft(), rect.Size(), start, end, lineWidth, ref point);
         }
 
         public static void drawLine(SpriteBatch spriteBatch, Texture2D px, Vector2 start, Vector2 end, Color color, float width, int wa = 0, bool worldpos = true)

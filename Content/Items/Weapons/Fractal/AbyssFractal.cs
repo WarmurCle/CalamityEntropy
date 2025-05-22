@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddIngredient<AbyssBlade>()
                 .AddIngredient<Floodtide>()
                 .AddIngredient<PerennialBar>(6)
-                .AddTile(TileID.LunarCraftingStation).Register();
+                .AddTile(TileID.MythrilAnvil).Register();
         }
     }
     public class AbyssFractalHeld : ModProjectile
