@@ -201,7 +201,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 normalOnly.Add(ModContent.ItemType<VoidCandle>(), new Fraction(2, 5));
                 normalOnly.Add(ModContent.ItemType<VoidMonolith>(), 3);
                 normalOnly.Add(ModContent.ItemType<VoidToy>(), 3);
-                normalOnly.Add(ModContent.ItemType<VoidScales>(), new Fraction(1, 1), 58, 68);
+                normalOnly.Add(ModContent.ItemType<VoidScales>(), new Fraction(1, 1), 88, 128);
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<CruiserRelic>());
 

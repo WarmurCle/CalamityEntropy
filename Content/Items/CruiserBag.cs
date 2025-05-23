@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<WindOfUndertaker>(), new Fraction(1, 5));
             itemLoot.Add(ModContent.ItemType<VoidToy>(), new Fraction(1, 5));
             itemLoot.Add(ModContent.ItemType<CruiserPlush>(), new Fraction(1, 6));
-            itemLoot.Add(ModContent.ItemType<VoidScales>(), new Fraction(1, 1), 24, 32);
+            itemLoot.Add(ModContent.ItemType<VoidScales>(), new Fraction(1, 1), 140, 162);
             itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<TheocracyPearlToy>(), 5));
 
             itemLoot.Add(ModContent.ItemType<VoidMonolith>(), new Fraction(2, 5));

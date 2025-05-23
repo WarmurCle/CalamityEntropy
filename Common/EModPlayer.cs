@@ -709,10 +709,14 @@ namespace CalamityEntropy.Common
                     if(p.type == voidslashType && p.ModProjectile is VoidSlash vs && vs.d < 16) 
                     {
                         Player.gravity = 0;
+                        Player.invis = true;
+                        if (immune < 8)
+                        {
+                            immune = 8;
+                        }
                     }
                 }
-                Player.invis = true;
-                immune = 5;
+                
             }
             if (maliciousCode)
             {

@@ -463,9 +463,9 @@ namespace CalamityEntropy.Common
                 {
                     modifiers.FinalDamage *= 1.2f;
                 }
-                if (modifiers.DamageType != null && modifiers.DamageType.CountsAsClass<NoDRMelee>())
+                if (modifiers.DamageType != null && modifiers.DamageType.CountsAsClass(NoDRMelee.Instance))
                 {
-                    if (modifiers.FinalDamage.Multiplicative < 1)
+                    if (modifiers.FinalDamage.Multiplicative < 1 && modifiers.FinalDamage.Multiplicative > 0)
                     {
                         modifiers.FinalDamage /= modifiers.FinalDamage.Multiplicative;
                     }

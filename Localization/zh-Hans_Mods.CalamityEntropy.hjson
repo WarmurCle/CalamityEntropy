@@ -2053,7 +2053,7 @@ Items: {
 	}
 
 	ShatteredFractal: {
-		DisplayName: 破碎分型
+		DisplayName: 破碎分形
 		Tooltip:
 			'''
 			[c/ff5300:曾经的神剑，但如今已失去了它的潜能]
@@ -2077,12 +2077,12 @@ Items: {
 	}
 
 	WelkinFractal: {
-		DisplayName: 苍穹分型
+		DisplayName: 苍穹分形
 		Tooltip: "[c/d4fff8:它被苍穹所赐福]"
 	}
 
 	BrilliantFractal: {
-		DisplayName: 光辉分型
+		DisplayName: 光辉分形
 		Tooltip: "[c/f2ffd4:吸纳了光辉能量]"
 	}
 
@@ -2093,17 +2093,17 @@ Items: {
 
 	ElementalFractal: {
 		Tooltip: "[c/ff00a6:剑上闪耀着元素之光]"
-		DisplayName: 元素分型
+		DisplayName: 元素分形
 	}
 
 	StarlitFractal: {
-		DisplayName: 星熠分型
+		DisplayName: 星熠分形
 		Tooltip: "[c/dd00ff:剑身浮动着星光]"
 	}
 
 	AbyssFractal: {
 		Tooltip: "[c/7045ff:剑身仿佛深不见底的深渊]"
-		DisplayName: 深渊分型
+		DisplayName: 深渊分形
 	}
 
 	PlagueInternalCombustionEngine: {
@@ -2116,7 +2116,7 @@ Items: {
 	}
 
 	SpiritFractal: {
-		DisplayName: 聚魂分型
+		DisplayName: 聚魂分形
 		Tooltip: "[c/dfe7cb:剑上聚集着众多亡魂]"
 	}
 
@@ -2126,7 +2126,7 @@ Items: {
 			[c/ba3ade:剑上附着薄薄一层虚空]
 			右键: 虚空斩
 			'''
-		DisplayName: 虚空分型
+		DisplayName: 虚空分形
 	}
 }
 
@@ -2477,26 +2477,26 @@ Projectiles: {
 	TheDeadCutProjectile.DisplayName: 虚妄切裂者
 	CondensedBulletProjectile.DisplayName: 凝元射线
 	ProphetRuneAlt.DisplayName: 先知符文
-	ShatteredFractalHeld.DisplayName: 破碎分型
+	ShatteredFractalHeld.DisplayName: 破碎分形
 	TopazJewelProjectile.DisplayName: 王冠黄宝石
-	FractalShoot.DisplayName: 分型弹
-	WelkinFractalHeld.DisplayName: 苍穹分型
-	FractalBeam.DisplayName: 分型射线
-	FractalFeather.DisplayName: 分型之羽
-	BrilliantFractalHeld.DisplayName: 光辉分型
-	FractalBlight.DisplayName: 分型光星
-	FractalShadow.DisplayName: 分型剑影
+	FractalShoot.DisplayName: 分形弹
+	WelkinFractalHeld.DisplayName: 苍穹分形
+	FractalBeam.DisplayName: 分形射线
+	FractalFeather.DisplayName: 分形之羽
+	BrilliantFractalHeld.DisplayName: 光辉分形
+	FractalBlight.DisplayName: 分形光星
+	FractalShadow.DisplayName: 分形剑影
 	BrokenHiltHeld.DisplayName: 破碎剑柄
-	ElementalFractalHeld.DisplayName: 元素分型
-	ElementalFractalThrown.DisplayName: 元素分型
-	StarlitFractalHeld.DisplayName: 星熠分型
-	FractalStarBlade.DisplayName: 分型星影
-	AbyssFractalHeld.DisplayName: 深渊分型
+	ElementalFractalHeld.DisplayName: 元素分形
+	ElementalFractalThrown.DisplayName: 元素分形
+	StarlitFractalHeld.DisplayName: 星熠分形
+	FractalStarBlade.DisplayName: 分形星影
+	AbyssFractalHeld.DisplayName: 深渊分形
 	AbyssalBlade.DisplayName: 深渊剑影
 	AbyssalBullet.DisplayName: 渊水弹
 	AstralStarMelee.DisplayName: 星熠星陨
 	FractalGhostBlade.DisplayName: 聚魂之影
-	SpiritFractalHeld.DisplayName: 聚魂分型
+	SpiritFractalHeld.DisplayName: 聚魂分形
 	// VoidFractalHeld.DisplayName: Void Fractal Held
 	// FractalLaser.DisplayName: Fractal Laser
 	// VoidSlash.DisplayName: Void Slash
