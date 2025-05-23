@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (npc.HasBuff<SoulDisorder>())
             {
-                modifiers.ArmorPenetration += 14;
-                modifiers.FinalDamage += 0.05f;
+                modifiers.ArmorPenetration += 40;
+                modifiers.FinalDamage += 0.1f;
             }
         }
     }

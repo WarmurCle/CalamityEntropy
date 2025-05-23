@@ -8,6 +8,7 @@ using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Prefixes;
 using CalamityEntropy.Content.Projectiles;
@@ -694,9 +695,25 @@ namespace CalamityEntropy.Common
         }
         public int scHealCD = 60;
         public int HitTCounter = 0;
-
+        public int voidslashType = -1;
         public override void PostUpdateMiscEffects()
         {
+            if (voidslashType == -1)
+            {
+                voidslashType = ModContent.ProjectileType<VoidSlash>();
+            }
+            if (Player.ownedProjectileCounts[voidslashType] > 0)
+            {
+                foreach(Projectile p in Main.ActiveProjectiles)
+                {
+                    if(p.type == voidslashType && p.ModProjectile is VoidSlash vs && vs.d < 16) 
+                    {
+                        Player.gravity = 0;
+                    }
+                }
+                Player.invis = true;
+                immune = 5;
+            }
             if (maliciousCode)
             {
                 //恶意代码debuff
@@ -1951,7 +1968,7 @@ namespace CalamityEntropy.Common
 
         public override void SetControls()
         {
-            if (rBadgeActive)
+            if (rBadgeActive || (voidslashType >= 0 && Player.ownedProjectileCounts[voidslashType] > 0))
             {
                 cDown = Player.controlDown;
                 cLeft = Player.controlLeft;

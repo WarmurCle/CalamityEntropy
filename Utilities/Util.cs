@@ -214,7 +214,16 @@ namespace CalamityEntropy.Utilities
         }
         public static Texture2D getTextureGlow(this ModProjectile p)
         {
-            return ModContent.Request<Texture2D>(p.Texture + "Glow").Value;
+            return RequestTex(p.Texture + "Glow");
+        }
+        public static Dictionary<string, Texture2D> TexCache;
+        public static Texture2D RequestTex(string path)
+        {
+            if(!TexCache.ContainsKey(path))
+            {
+                TexCache[path] = ModContent.Request<Texture2D>(path, AssetRequestMode.ImmediateLoad).Value;
+            }
+            return TexCache[path];
         }
         public static Vector2 normalize(this Vector2 v)
         {
@@ -460,7 +469,7 @@ namespace CalamityEntropy.Utilities
         }
         public static Texture2D getExtraTex(string name)
         {
-            return ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/" + name, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            return RequestTex("CalamityEntropy/Assets/Extra/" + name);
         }
         public static Asset<Texture2D> getExtraTexAsset(string name)
         {

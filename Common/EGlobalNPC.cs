@@ -457,15 +457,18 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
-            if (npc.HasBuff<HeatDeath>())
+            if (npc.active)
             {
-                modifiers.FinalDamage *= 1.2f;
-            }
-            if (modifiers.DamageType.CountsAsClass<NoDRMelee>())
-            {
-                if(modifiers.FinalDamage.Multiplicative < 1)
+                if (npc.HasBuff<HeatDeath>())
                 {
-                    modifiers.FinalDamage /= modifiers.FinalDamage.Multiplicative;
+                    modifiers.FinalDamage *= 1.2f;
+                }
+                if (modifiers.DamageType != null && modifiers.DamageType.CountsAsClass<NoDRMelee>())
+                {
+                    if (modifiers.FinalDamage.Multiplicative < 1)
+                    {
+                        modifiers.FinalDamage /= modifiers.FinalDamage.Multiplicative;
+                    }
                 }
             }
         }

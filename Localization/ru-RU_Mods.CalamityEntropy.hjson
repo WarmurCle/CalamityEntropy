@@ -1962,6 +1962,15 @@ Items: {
 		DisplayName: Spirit Fractal
 		Tooltip: "[c/ff5300:There are many spirits gathered on the sword]"
 	}
+
+	VoidFractal: {
+		/* Tooltip:
+			'''
+			[c/ba3ade: A thin layer of void adheres to the sword]
+			Right click: Void Slash
+			''' */
+		// DisplayName: Void Fractal
+	}
 }
 
 PrefixitemDesc:
@@ -2330,6 +2339,10 @@ Projectiles: {
 	AstralStarMelee.DisplayName: Astral Star Melee
 	FractalGhostBlade.DisplayName: Fractal Ghost Blade
 	SpiritFractalHeld.DisplayName: Spirit Fractal Held
+	// VoidFractalHeld.DisplayName: Void Fractal Held
+	// FractalLaser.DisplayName: Fractal Laser
+	// VoidSlash.DisplayName: Void Slash
+	// VoidWave.DisplayName: Void Wave
 }
 
 LegendTooltip: - Legend -

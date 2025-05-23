@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.Items.Weapons.Fractal;
+using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.Particles;
@@ -667,6 +668,10 @@ namespace CalamityEntropy.Common
                 if (p.ModProjectile is Pioneer1 p1)
                 {
                     p1.drawVoid();
+                }
+                if(p.ModProjectile is VoidSlash vs)
+                {
+                    vs.draw();
                 }
             }
 

@@ -2078,31 +2078,31 @@ Items: {
 
 	WelkinFractal: {
 		DisplayName: 苍穹分型
-		Tooltip: "[c/ff5300:它被苍穹所赐福]"
+		Tooltip: "[c/d4fff8:它被苍穹所赐福]"
 	}
 
 	BrilliantFractal: {
 		DisplayName: 光辉分型
-		Tooltip: "[c/ff5300:吸纳了光辉能量]"
+		Tooltip: "[c/f2ffd4:吸纳了光辉能量]"
 	}
 
 	BrokenHilt: {
-		Tooltip: "[c/ff5300:远古神剑的一部分]"
+		Tooltip: "[c/c4ff3b:远古神剑的一部分]"
 		DisplayName: 破碎剑柄
 	}
 
 	ElementalFractal: {
-		Tooltip: "[c/ff5300:剑上闪耀着元素之光]"
+		Tooltip: "[c/ff00a6:剑上闪耀着元素之光]"
 		DisplayName: 元素分型
 	}
 
 	StarlitFractal: {
 		DisplayName: 星熠分型
-		Tooltip: "[c/ff5300:剑身浮动着星光]"
+		Tooltip: "[c/dd00ff:剑身浮动着星光]"
 	}
 
 	AbyssFractal: {
-		Tooltip: "[c/ff5300:剑身仿佛深不见底的深渊]"
+		Tooltip: "[c/7045ff:剑身仿佛深不见底的深渊]"
 		DisplayName: 深渊分型
 	}
 
@@ -2117,7 +2117,16 @@ Items: {
 
 	SpiritFractal: {
 		DisplayName: 聚魂分型
-		Tooltip: "[c/ff5300:剑上聚集着众多亡魂]"
+		Tooltip: "[c/dfe7cb:剑上聚集着众多亡魂]"
+	}
+
+	VoidFractal: {
+		Tooltip:
+			'''
+			[c/ba3ade:剑上附着薄薄一层虚空]
+			右键: 虚空斩
+			'''
+		DisplayName: 虚空分型
 	}
 }
 
@@ -2488,6 +2497,10 @@ Projectiles: {
 	AstralStarMelee.DisplayName: 星熠星陨
 	FractalGhostBlade.DisplayName: 聚魂之影
 	SpiritFractalHeld.DisplayName: 聚魂分型
+	// VoidFractalHeld.DisplayName: Void Fractal Held
+	// FractalLaser.DisplayName: Fractal Laser
+	// VoidSlash.DisplayName: Void Slash
+	// VoidWave.DisplayName: Void Wave
 }
 
 LegendTooltip: - 传奇物品 -

@@ -122,6 +122,7 @@ namespace CalamityEntropy
         public string EntropyWikiURL;
         public override void Load()
         {
+            Util.TexCache = new Dictionary<string, Texture2D>();
             ModLoader.TryGetMod("Wikithis", out var wikithis);
             EntropyWikiURL = this.GetLocalization("WikiURL").Value;
             if (!Main.dedServ)
@@ -255,6 +256,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            Util.TexCache = null;
             BookMarkLoader.CustomBMEffectsByName = null;
             BookMarkLoader.CustomBMByID = null;
             screen = null;

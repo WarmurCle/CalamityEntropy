@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
@@ -7,6 +8,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Projectiles.Melee;
+using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -23,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 400;
+            Item.damage = 410;
             Item.crit = 5;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
@@ -60,6 +62,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             return false;
         }
+
 
         public override bool MeleePrefix()
         {
@@ -213,7 +216,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public bool playHitSound = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 460);
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 460);
             for (int i = 0; i < 2; i++)
             {
                 Vector2 pos = target.Center + new Vector2(0, -900) + Util.randomPointInCircle(400);

@@ -1921,31 +1921,31 @@ Items: {
 
 	WelkinFractal: {
 		DisplayName: Welkin Fractal
-		Tooltip: "[c/ff5300:Blessed by the heavens]"
+		Tooltip: "[c/d4fff8:Blessed by the heavens]"
 	}
 
 	BrilliantFractal: {
 		DisplayName: Brilliant Fractal
-		Tooltip: "[c/ff5300:Absorbs radiant energy]"
+		Tooltip: "[c/f2ffd4:Absorbs radiant energy]"
 	}
 
 	BrokenHilt: {
-		Tooltip: "[c/ff5300:A fragment of an ancient divine blade]"
+		Tooltip: "[c/c4ff3b:A fragment of an ancient divine blade]"
 		DisplayName: Broken Hilt
 	}
 
 	ElementalFractal: {
-		Tooltip: "[c/ff5300:The sword shimmers with elemental light]"
+		Tooltip: "[c/ff00a6:The sword shimmers with elemental light]"
 		DisplayName: Elemental Fractal
 	}
 
 	StarlitFractal: {
 		DisplayName: Starlit Fractal
-		Tooltip: "[c/ff5300:Starlight drifts along its blade]"
+		Tooltip: "[c/dd00ff:Starlight drifts along its blade]"
 	}
 
 	AbyssFractal: {
-		Tooltip: "[c/ff5300:The blade resembles a bottomless abyss]"
+		Tooltip: "[c/7045ff:The blade resembles a bottomless abyss]"
 		DisplayName: Abyss Fractal
 	}
 
@@ -1960,7 +1960,16 @@ Items: {
 
 	SpiritFractal: {
 		DisplayName: Spirit Fractal
-		Tooltip: "[c/ff5300:There are many spirits gathered on the sword]"
+		Tooltip: "[c/dfe7cb:There are many spirits gathered on the sword]"
+	}
+
+	VoidFractal: {
+		Tooltip:
+			'''
+			[c/ba3ade: A thin layer of void adheres to the sword]
+			Right click: Void Slash
+			'''
+		DisplayName: Void Fractal
 	}
 }
 
@@ -2330,6 +2339,10 @@ Projectiles: {
 	AstralStarMelee.DisplayName: Astral Star Melee
 	FractalGhostBlade.DisplayName: Fractal Ghost Blade
 	SpiritFractalHeld.DisplayName: Spirit Fractal Held
+	VoidFractalHeld.DisplayName: Void Fractal Held
+	FractalLaser.DisplayName: Fractal Laser
+	VoidSlash.DisplayName: Void Slash
+	VoidWave.DisplayName: Void Wave
 }
 
 LegendTooltip: - Legend -
