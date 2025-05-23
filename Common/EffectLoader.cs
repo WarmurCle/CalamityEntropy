@@ -171,7 +171,7 @@ namespace CalamityEntropy.Common
             //绘制粒子效果
             DrawParticleEffects(graphicsDevice);
 
-            // 阶段 6: 应用背景着色器
+            //应用背景着色器
             ApplyBackgroundShader(graphicsDevice);
 
             //深渊类型Shader
