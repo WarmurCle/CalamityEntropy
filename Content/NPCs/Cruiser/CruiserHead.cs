@@ -118,11 +118,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
-            NPC.Calamity().DR = 0.4f;
+            NPC.Calamity().DR = 0.3f;
             NPC.boss = true;
             NPC.width = 100;
             NPC.height = 100;
-            NPC.damage = 190;
+            NPC.damage = 180;
             if (Main.expertMode)
             {
                 NPC.damage += 10;
@@ -426,7 +426,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public AIStyle ai = AIStyle.TryToClosePlayer;
         public void Shoot(int type, Vector2 pos, Vector2 velo, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0)
         {
-            Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 7 * damageMult), 3, -1, ai0, ai1, ai2);
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 8 * damageMult), 3, -1, ai0, ai1, ai2);
         }
         public float whiteLerp = 0;
         public override void HitEffect(NPC.HitInfo hit)
@@ -716,7 +716,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.08f);
                             NPC.velocity *= 0.998f;
                             changeCounter++;
-                            if (changeCounter > 500 || NPC.Distance(target.Center) < 220)
+                            if (changeCounter > 500 || NPC.Distance(target.Center) < 440)
                             {
                                 changeAi();
                             }

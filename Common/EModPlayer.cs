@@ -846,10 +846,9 @@ namespace CalamityEntropy.Common
                 HolyShield = false;
 
                 Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
-                if (holyMantle)
-                {
-                    Player.AddCooldown("HolyMantleCooldown", HolyMantle.Cooldown, true);
-                }
+
+                Player.AddCooldown("HolyMantleCooldown", HolyMantle.Cooldown, true);
+                
                 deusCoreBloodOut -= deusCoreAdd;
                 return true;
             }

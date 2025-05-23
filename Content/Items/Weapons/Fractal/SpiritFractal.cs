@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 at = 1;
             }
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, at, 0, Main.MouseWorld.Distance(position));
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, at, 0, Main.MouseWorld.Distance(position) + 180);
             atkType += 1;
             if(atkType > 4)
             {
@@ -128,19 +128,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
 
             if (Projectile.ai[0] == 2)
             {
-                if (progress > 0.18f && progress < 0.82f)
+                for (int i = 0; i < Projectile.localNPCImmunity.Length; i++)
                 {
-                    for (int i = 0; i < Projectile.localNPCImmunity.Length; i++)
-                    {
-                        if (Projectile.localNPCImmunity[i] == -1)
-                            Projectile.localNPCImmunity[i] = Projectile.MaxUpdates * 4;
-                    }
-                    Projectile.localNPCHitCooldown = Projectile.MaxUpdates * 4;
+                    if (Projectile.localNPCImmunity[i] == -1)
+                        Projectile.localNPCImmunity[i] = (int)(Projectile.MaxUpdates * 4 / owner.GetTotalAttackSpeed(Projectile.DamageType));
                 }
-                else
-                {
-                    Projectile.localNPCHitCooldown = -1;
-                }
+                Projectile.localNPCHitCooldown = (int)(Projectile.MaxUpdates * 4 / owner.GetTotalAttackSpeed(Projectile.DamageType));
 
                 float RotF = MathHelper.ToRadians(280) + MathHelper.TwoPi * 3;
                 if (progress > 0.3f && progress < 0.7f)

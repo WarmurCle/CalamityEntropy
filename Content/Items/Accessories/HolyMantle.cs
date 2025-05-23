@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class HolyMantle : ModItem
     {
-        public static int Cooldown = 120 * 60;
+        public static int Cooldown = 100 * 60;
         public override void SetDefaults()
         {
             Item.width = 86;

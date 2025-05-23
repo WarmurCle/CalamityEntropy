@@ -114,9 +114,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     for(int i = 0; i < Projectile.localNPCImmunity.Length; i++)
                     {
                         if (Projectile.localNPCImmunity[i] == -1)
-                            Projectile.localNPCImmunity[i] = Projectile.MaxUpdates * 4;
+                            Projectile.localNPCImmunity[i] = (int)(Projectile.MaxUpdates * 4 / owner.GetTotalAttackSpeed(Projectile.DamageType));
                     }
-                    Projectile.localNPCHitCooldown = Projectile.MaxUpdates * 4;
+                    Projectile.localNPCHitCooldown = (int)(Projectile.MaxUpdates * 4 / owner.GetTotalAttackSpeed(Projectile.DamageType));
                 }
                 else
                 {
