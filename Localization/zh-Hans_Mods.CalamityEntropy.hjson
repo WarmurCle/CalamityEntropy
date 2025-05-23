@@ -369,17 +369,17 @@ Items: {
 
 	WisdomCard: {
 		Tooltip: -[COST]%魔力消耗
-		DisplayName: 『智慧』
+		DisplayName: 神谕卡片『智慧』
 	}
 
 	TemperanceCard: {
 		Tooltip: +[T] 召唤栏
-		DisplayName: 『克己』
+		DisplayName: 神谕卡片『克己』
 	}
 
 	RadianceCard: {
 		Tooltip: +[LR]%生命恢复
-		DisplayName: 『光芒』
+		DisplayName: 神谕卡片『光芒』
 	}
 
 	OracleDeck: {
@@ -401,32 +401,32 @@ Items: {
 
 	MetropolisCard: {
 		Tooltip: +10 最大潜行值
-		DisplayName: 『都市』
+		DisplayName: 神谕卡片『都市』
 	}
 
 	InspirationCard: {
 		Tooltip: +20%移动速度
-		DisplayName: 『启迪』
+		DisplayName: 神谕卡片『启迪』
 	}
 
 	EntityCard: {
 		Tooltip: +10% 近战攻击速度
-		DisplayName: 『实体』
+		DisplayName: 神谕卡片『实体』
 	}
 
 	EnduranceCard: {
 		Tooltip: -5%受到的伤害
-		DisplayName: 『坚忍』
+		DisplayName: 神谕卡片『坚忍』
 	}
 
 	BrillianceCard: {
 		Tooltip: +50%光照
-		DisplayName: 『辉煌』
+		DisplayName: 神谕卡片『辉煌』
 	}
 
 	AuraCard: {
 		Tooltip: +5%暴击
-		DisplayName: 『灵光』
+		DisplayName: 神谕卡片『灵光』
 	}
 
 	ThreadOfFate: {
@@ -622,7 +622,7 @@ Items: {
 	}
 
 	GreedCard: {
-		DisplayName: 『贪婪』
+		DisplayName: 幻影卡片『贪婪』
 		Tooltip: 每有一个召唤栏，+2%伤害
 	}
 
@@ -891,17 +891,17 @@ Items: {
 	}
 
 	Barren: {
-		DisplayName: 『荒芜』
+		DisplayName: 幻影卡片『荒芜』
 		Tooltip: 盗贼弹幕获得微追踪，但是减少15%盗贼伤害和暴击率
 	}
 
 	Confuse: {
-		DisplayName: 『迷惑』
+		DisplayName: 幻影卡片『迷惑』
 		Tooltip: 攻击使敌人中蒙蔽debuff，减少其移动速度
 	}
 
 	Fool: {
-		DisplayName: 『愚者』
+		DisplayName: 幻影卡片『愚者』
 		Tooltip:
 			'''
 			+20%魔力消耗
@@ -910,7 +910,7 @@ Items: {
 	}
 
 	Frail: {
-		DisplayName: 『孱弱』
+		DisplayName: 幻影卡片『孱弱』
 		Tooltip:
 			'''
 			+15%伤害
@@ -919,12 +919,12 @@ Items: {
 	}
 
 	Nothing: {
-		DisplayName: 『虚无』
+		DisplayName: 幻影卡片『虚无』
 		Tooltip: 攻击附带虚空之触减益
 	}
 
 	Perplexed: {
-		DisplayName: 『迷茫』
+		DisplayName: 幻影卡片『迷茫』
 		Tooltip:
 			'''
 			-5% 暴击率
@@ -933,7 +933,7 @@ Items: {
 	}
 
 	Sacrifice: {
-		DisplayName: 『献祭』
+		DisplayName: 幻影卡片『献祭』
 		Tooltip:
 			'''
 			-60%再生速度
@@ -942,7 +942,7 @@ Items: {
 	}
 
 	Tarnish: {
-		DisplayName: 『晦暗』
+		DisplayName: 幻影卡片『晦暗』
 		Tooltip: 攻击时发射暗隐火焰
 	}
 
