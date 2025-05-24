@@ -511,8 +511,9 @@ namespace CalamityEntropy
             {
                 if (LoopSoundManager.sounds.Count > 0)
                 {
-                    foreach (var sound in LoopSoundManager.sounds)
+                    for (int i = 0; i < LoopSoundManager.sounds.Count; i++)
                     {
+                        var sound = LoopSoundManager.sounds[i];
                         sound.stop();
                     }
                     LoopSoundManager.sounds.Clear();
