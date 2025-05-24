@@ -418,6 +418,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
 
             Main.spriteBatch.Draw(t1, Projectile.Center - Main.screenPosition, new Rectangle((int)(Main.GlobalTimeWrappedHourly * -900), 0, t1.Width, t1.Height), new Color(160, 160, 255), Projectile.rotation, t1.Size() / 2f, new Vector2((float)length / t1.Width, (w / (float)t1.Height) * width * width2), SpriteEffects.None, 0);
             Main.spriteBatch.Draw(t2, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, t2.Size() / 2f, new Vector2((float)length / (float)t2.Width, w / (float)t2.Height * width * width2), SpriteEffects.None, 0);
+
+            Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.LinearClamp);
+
             Main.spriteBatch.Draw(te, Projectile.Center + Projectile.rotation.ToRotationVector2() * length * 0.5f - Main.screenPosition, null, Color.LightBlue, Projectile.rotation, new Vector2(0, te.Height / 2f), new Vector2(0.6f, width * width2), SpriteEffects.None, 0);
             Main.spriteBatch.Draw(te, Projectile.Center - Projectile.rotation.ToRotationVector2() * length * 0.5f - Main.screenPosition, null, Color.LightBlue, Projectile.rotation + MathHelper.Pi, new Vector2(0, te.Height / 2f), new Vector2(0.6f, width * width2), SpriteEffects.None, 0);
 

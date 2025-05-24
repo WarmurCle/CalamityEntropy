@@ -592,7 +592,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if (projectile.Entropy().gh)
+            if (projectile.Entropy().gh && projectile.friendly)
             {
                 if (projectile.owner == Main.myPlayer)
                 {
