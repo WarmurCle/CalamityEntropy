@@ -58,9 +58,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (player.altFunctionUse == 2)
             {
                 Util.PlaySound("VoidAnticipation", 1, position);
-                Main.SetCameraLerp(0.1f, 16);
                 player.AddBuff(BuffID.ChaosState, 5 * 60);
-                Projectile.NewProjectile(source, position, velocity * 3, ModContent.ProjectileType<VoidSlash>(), damage, 0, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 30, 0, player.whoAmI);
                 return false;
             }
             int at = 2;
@@ -386,7 +385,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 35;
             Projectile.timeLeft = 80;
         }
         public float widthAdd = 0.2f;
@@ -442,15 +441,30 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Projectile.tileCollide = false;
             Projectile.light = 0f;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 2;
+            Projectile.localNPCHitCooldown = -1;
             Projectile.ArmorPenetration = 128;
-            Projectile.timeLeft = 48;
+            Projectile.timeLeft = 80;
         }
         public List<Vector2> points = new List<Vector2>();
         public int d = 0;
         public override void AI()
         {
             d++;
+            if (d == 1)
+            {
+                Main.SetCameraLerp(0.12f, 25);
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 o = (points.Count > 0 ? points[points.Count - 1] : Projectile.Center - Projectile.velocity);
+                    Vector2 nv = Projectile.Center + Utilities.Util.randomVec(4);
+                    for (float iz = 0.1f; iz <= 1; iz += 0.1f)
+                    {
+                        points.Add(Vector2.Lerp(o, nv, i));
+                    }
+                    Projectile.position += Projectile.velocity;
+                }
+                Projectile.getOwner().Center = Projectile.Center;
+            }
             if (d > 16)
             {
                 Projectile.velocity *= 0;

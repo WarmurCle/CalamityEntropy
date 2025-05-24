@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 410;
+            Item.damage = 440;
             Item.crit = 5;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
@@ -147,7 +147,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 48 * scale * Projectile.scale;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, Util.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<GhastlySoulLarge>(), Projectile.damage / 8, Projectile.knockBack, Projectile.owner, 0, 1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, Util.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<GhastlySoulLarge>(), Projectile.damage / 7, Projectile.knockBack, Projectile.owner, 0, 1);
                     }
                 }
                 alpha = 1;
@@ -178,7 +178,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
 
                     for (int i = 0; i < 2; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.normalize() * 28 + Util.randomPointInCircle(8), ModContent.ProjectileType<FractalGhostBlade>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.normalize() * 28 + Util.randomPointInCircle(8), ModContent.ProjectileType<FractalGhostBlade>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
                 if (Projectile.velocity.X > 0)
@@ -217,11 +217,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 460);
-            for (int i = 0; i < 2; i++)
-            {
-                Vector2 pos = target.Center + new Vector2(0, -900) + Util.randomPointInCircle(400);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 4, Projectile.owner);
-            }
             if (playHitSound || Projectile.ai[0] == 2)
             {
                 playHitSound = false;
