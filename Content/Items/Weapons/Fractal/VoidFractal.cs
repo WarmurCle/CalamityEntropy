@@ -443,7 +443,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.ArmorPenetration = 128;
-            Projectile.timeLeft = 80;
+            Projectile.timeLeft = 60;
         }
         public List<Vector2> points = new List<Vector2>();
         public int d = 0;
@@ -453,17 +453,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (d == 1)
             {
                 Main.SetCameraLerp(0.12f, 25);
-                for (int i = 0; i < 4; i++)
-                {
-                    Vector2 o = (points.Count > 0 ? points[points.Count - 1] : Projectile.Center - Projectile.velocity);
-                    Vector2 nv = Projectile.Center + Utilities.Util.randomVec(4);
-                    for (float iz = 0.1f; iz <= 1; iz += 0.1f)
-                    {
-                        points.Add(Vector2.Lerp(o, nv, i));
-                    }
-                    Projectile.position += Projectile.velocity;
-                }
-                Projectile.getOwner().Center = Projectile.Center;
+                Projectile.Center += Projectile.velocity;
             }
             if (d > 16)
             {

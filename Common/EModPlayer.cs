@@ -1972,7 +1972,7 @@ namespace CalamityEntropy.Common
 
         public override void SetControls()
         {
-            if (rBadgeActive || (voidslashType >= 0 && Player.ownedProjectileCounts[voidslashType] > 0))
+            if (rBadgeActive)
             {
                 cDown = Player.controlDown;
                 cLeft = Player.controlLeft;
@@ -1982,6 +1982,21 @@ namespace CalamityEntropy.Common
                 Player.controlLeft = false;
                 Player.controlRight = false;
                 Player.controlUp = false;
+            }
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (p.type == voidslashType && p.ModProjectile is VoidSlash vs && vs.d < 16)
+                {
+                    cDown = Player.controlDown;
+                    cLeft = Player.controlLeft;
+                    cRight = Player.controlRight;
+                    cUp = Player.controlUp;
+                    Player.controlDown = false;
+                    Player.controlLeft = false;
+                    Player.controlRight = false;
+                    Player.controlUp = false;
+                    break;
+                }
             }
             if (BeeGame.Active)
             {
