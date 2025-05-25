@@ -151,8 +151,8 @@ namespace CalamityEntropy.Common
         public void drawChargeBar(Vector2 center, float prog, Color color)
         {
             Texture2D bar = ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/ui_chargebar").Value;
-            Main.spriteBatch.Draw(bar, center, new Rectangle(0, 0, 54, 12), Color.White, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(bar, center, new Rectangle(0, 14, 4 + (int)Math.Round(46 * prog), 12), color, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bar, center, new Rectangle(0, 0, 36, 12), Color.White, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bar, center, new Rectangle(0, 12, (int)Math.Round(36 * prog), 12), color, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
         }
         public override void PreUpdateDusts()
         {
