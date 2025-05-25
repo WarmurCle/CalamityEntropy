@@ -1971,6 +1971,11 @@ Items: {
 			''' */
 		// DisplayName: Void Fractal
 	}
+
+	BurntLostClassics: {
+		// Tooltip: ""
+		// DisplayName: Burnt Lost Classics
+	}
 }
 
 PrefixitemDesc:
@@ -2343,6 +2348,8 @@ Projectiles: {
 	// FractalLaser.DisplayName: Fractal Laser
 	// VoidSlash.DisplayName: Void Slash
 	// VoidWave.DisplayName: Void Wave
+	// BurntBrimShot.DisplayName: Burnt Brim Shot
+	// BurntLostClassicsHeld.DisplayName: Burnt Lost Classics Held
 }
 
 LegendTooltip: - Legend -
@@ -2674,6 +2681,7 @@ loreCruiser:
 	Является ли это инстинктом самосохранения или им движет более благородная цель?
 	Если не остановить это, возможно, однажды мир вернется к вечной тишине.
 	'''
+// UseToggle: Use this item to turn on or off special effects:
 loreCruiserEffect: Permanently increase the max life by 20 and increase the max mana by 50
 loreNihTwin:
 	'''
@@ -2683,6 +2691,12 @@ loreNihTwin:
 	Странное существо, которое ты убил, было всего лишь каплей, выплеснувшейся из Моря Хаоса в Пустоте. И вот так...
 	Шестеренки судьбы начинают свой медленный, неумолимый поворот.
 	'''
+/* NihTwinLoreEffect:
+	'''
+	Increase resistance to void erosion by {1}%
+	Increase life regeneration by {2}/s per second
+	Increase max flight time by {3}%
+	''' */
 loreProphet:
 	'''
 	Ни одна армия, королевство или правитель не смогут долго продержаться без практиков магии гадания — тех, кто извлекает фрагменты завтрашнего дня из мимолетных предзнаменований,
@@ -2718,6 +2732,13 @@ Keybinds: {
 	RuneDash.DisplayName: Rune Wings Dash
 }
 
+/* ProphetLoreEffect:
+	'''
+	Increase the invincible frame time after injury by {1}%
+	+{2} Natural life regeneration
+	''' */
+// Enabled: Enabled
+// Disabled: Disabled
 CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
 CruiserBestiary:

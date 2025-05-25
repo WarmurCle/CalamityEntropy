@@ -594,6 +594,11 @@ namespace CalamityEntropy
                 {
                     orig(self, i);
                 }
+                if(EntropyMode && self.ModNPC != null && (self.ModNPC is BrimstoneElemental || self.ModNPC is AquaticScourgeHead || self.ModNPC is AquaticScourgeTail || self.ModNPC is AquaticScourgeBodyAlt || self.ModNPC is AquaticScourgeBody || self.ModNPC is Cataclysm || self.ModNPC is Catastrophe || (self.ModNPC is CalamitasClone && !self.dontTakeDamage) || self.ModNPC is Leviathan || self.ModNPC is Anahita || self.ModNPC is AstrumAureus || self.ModNPC is PlaguebringerGoliath || self.ModNPC is RavagerBody || self.ModNPC is RavagerHead || self.ModNPC is RavagerHead2 || self.ModNPC is Bumblefuck || self.ModNPC is Polterghast))
+                {
+                    orig(self, i);
+                    self.position -= self.velocity;
+                }
                 orig(self, i);
             }
         }

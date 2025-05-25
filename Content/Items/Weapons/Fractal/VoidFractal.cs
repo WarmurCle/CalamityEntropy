@@ -9,6 +9,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Projectiles.Melee;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -26,12 +27,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 800;
+            Item.damage = 1200;
             Item.crit = 5;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = Item.useAnimation = 20;
+            Item.useTime = Item.useAnimation = 31;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
@@ -95,9 +96,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<SpiritFractal>()
-                .AddIngredient<VoidScales>(5)
+                .AddIngredient<VoidBar>(10)
                 .AddIngredient<VoidAnnihilate>()
-                .AddTile(TileID.LunarCraftingStation).Register();
+                .AddTile<CosmicAnvil>().Register();
         }
     }
 
@@ -446,7 +447,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.ArmorPenetration = 128;
-            Projectile.timeLeft = 60;
+            Projectile.timeLeft = 36;
         }
         public List<Vector2> points = new List<Vector2>();
         public int d = 0;
@@ -490,28 +491,46 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             return false;
         }
+        public List<Vector2> GetVPoints(Vector2 start, Vector2 end, int offset)
+        {
+            List<Vector2> rt = new List<Vector2>();
+            for(float i = 0; i <= 1; i += 0.0025f)
+            {
+                rt.Add(Vector2.Lerp(start, end, i) + new Vector2(0, offset * (Projectile.timeLeft / 36f) * ((float)Math.Cos(i * MathHelper.TwoPi - MathHelper.Pi) + 1) * 0.5f).RotatedBy((end - start).ToRotation()));
+            }
+            return rt;
+        }
+        public static void DrawSlashPart(List<Vector2> l, List<Vector2> r, Texture2D tex, Color color, Color topColor)
+        {
+            List<Vertex> vertex = new List<Vertex>();
 
+            for (int i = 0; i < l.Count; i++)
+            {
+                Color c = Color.Lerp(topColor, color, ((float)Math.Cos(i * MathHelper.TwoPi - MathHelper.Pi) + 1) * 0.5f);
+                vertex.Add(new Vertex(l[i] - Main.screenPosition,
+                      new Vector3(i / (l.Count - 1f), 1, 1),
+                    c));
+                vertex.Add(new Vertex(r[i] - Main.screenPosition,
+                      new Vector3(i / (l.Count - 1f), 0, 1),
+                      c));
+            }
+
+            GraphicsDevice gd = Main.graphics.GraphicsDevice;
+            gd.Textures[0] = tex;
+            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, vertex.ToArray(), 0, vertex.Count - 2);
+
+        }
         public override bool PreDraw(ref Color lightColor)
         {
+            Vector2 start = points[0];
+            Vector2 end = points[points.Count - 1];
 
+            Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied, SamplerState.LinearClamp);
+            DrawSlashPart(GetVPoints(start, end, 100), GetVPoints(start, end, -100), Util.getExtraTex("MegaStreakBacking2b"), new Color(180, 0, 255, 160), new Color(180, 0, 255, 160));
+            DrawSlashPart(GetVPoints(start, end, 26), GetVPoints(start, end, -26), Util.pixelTex, new Color(180, 55, 235), new Color(255, 200, 255, 0));
+            DrawSlashPart(GetVPoints(Vector2.Lerp(start, end, 0.2f), Vector2.Lerp(end, start, 0.2f), 26), GetVPoints(Vector2.Lerp(start, end, 0.1f), Vector2.Lerp(end, start, 0.1f), -26), Util.pixelTex, Color.Black, Color.Black);
             return false;
         }
 
-        public void draw()
-        {
-            if (points.Count < 1)
-            {
-                return;
-            }
-            Texture2D px = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
-            float jd = 1;
-            float lw = Projectile.timeLeft / 30f;
-            Color color = Color.White;
-            for (int i = 1; i < points.Count; i++)
-            {
-                Vector2 jv = Vector2.Zero;
-                Utilities.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * jd, 1f * lw * (new Vector2(-30, 0).RotatedBy(MathHelper.ToRadians(180 * ((float)i / points.Count)))).Y, 3);
-            }
-        }
     }
 }

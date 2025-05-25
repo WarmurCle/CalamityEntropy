@@ -1971,6 +1971,11 @@ Items: {
 			'''
 		DisplayName: Void Fractal
 	}
+
+	BurntLostClassics: {
+		Tooltip: ""
+		DisplayName: Burnt Lost Classics
+	}
 }
 
 PrefixitemDesc:
@@ -2343,6 +2348,8 @@ Projectiles: {
 	FractalLaser.DisplayName: Fractal Laser
 	VoidSlash.DisplayName: Void Slash
 	VoidWave.DisplayName: Void Wave
+	BurntBrimShot.DisplayName: Burnt Brim Shot
+	BurntLostClassicsHeld.DisplayName: Burnt Lost Classics Held
 }
 
 LegendTooltip: - Legend -
@@ -2674,7 +2681,8 @@ loreCruiser:
 	Is this a survival instinct or is it driven by a more noble purpose?
 	If left unchecked, perhaps one day the world will return to eternal silence.
 	'''
-loreCruiserEffect: Permanently increase the max life by 20 and increase the max mana by 50
+UseToggle: Use this item to turn on or off special effects:
+loreCruiserEffect: Increase the max life by 20 and increase the max mana by 50
 loreNihTwin:
 	'''
 	Imagine a world where order’s foundation lies not in resisting entropy, but amplifying it.
@@ -2682,6 +2690,12 @@ loreNihTwin:
 	When you shattered the Wall of Flesh that imprisoned the essence of light and dark, the unleashed energies tore reality’s wounds wider still.
 	The aberrant creature you slew was but a droplet overflowing from the Sea of Chaos within the Void. And thus...
 	The gears of fate begin their slow, inexorable turn.
+	'''
+NihTwinLoreEffect:
+	'''
+	Increase resistance to void erosion by {1}%
+	Increase life regeneration by {2}/s per second
+	Increase max flight time by {3}%
 	'''
 loreProphet:
 	'''
@@ -2718,6 +2732,13 @@ Keybinds: {
 	RuneDash.DisplayName: Rune Wings Dash
 }
 
+ProphetLoreEffect:
+	'''
+	Increase the invincible frame time after injury by {1}%
+	+{2} Natural life regeneration
+	'''
+Enabled: Enabled
+Disabled: Disabled
 CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
 CruiserBestiary:

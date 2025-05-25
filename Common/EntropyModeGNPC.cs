@@ -1,8 +1,11 @@
 ﻿using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Events;
+using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Crabulon;
+using CalamityMod.NPCs.Cryogen;
 using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.DevourerofGods;
 using CalamityMod.NPCs.NormalNPCs;
@@ -11,6 +14,8 @@ using CalamityMod.NPCs.Signus;
 using CalamityMod.NPCs.SlimeGod;
 using CalamityMod.NPCs.StormWeaver;
 using CalamityMod.Projectiles.Boss;
+using CalamityMod.Projectiles.Magic;
+using CalamityMod.UI;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -102,10 +107,43 @@ namespace CalamityEntropy.Common
         public bool EDogSpawnSignus = true;
         public bool EDogSpawnSWeaver = true;
         public bool EDogSpawnCVoid = true;
+        public int ImmuneTimeForAS = 300;
         public override void PostAI(NPC npc)
         {
             if (CalamityEntropy.EntropyMode)
             {
+                if(npc.type == NPCID.WallofFleshEye)
+                {
+                    if (npc.Entropy().counter % 400 < 60 && npc.Entropy().counter % 6 == 0)
+                    {
+                        Vector2 lookAt = Main.player[npc.target].Center + Main.player[npc.target].velocity * 10;
+
+                        float velocity = 26;
+                        int projectileType = ProjectileID.EyeLaser;
+                        int damage = npc.GetProjectileDamage(projectileType);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            {
+                                Vector2 projectileVelocity = (lookAt - npc.Center).SafeNormalize(Vector2.UnitY).RotatedBy(MathHelper.ToRadians(10)) * velocity;
+                                Vector2 projectileSpawn = npc.Center + projectileVelocity.SafeNormalize(Vector2.UnitY) * 150f;
+
+                                int proj = Projectile.NewProjectile(npc.GetSource_FromAI(), projectileSpawn, projectileVelocity, projectileType, damage, 0f, Main.myPlayer, 1f, 0f);
+                                Main.projectile[proj].timeLeft = 900;
+
+                                Main.projectile[proj].tileCollide = false;
+                            }
+                            {
+                                Vector2 projectileVelocity = (lookAt - npc.Center).SafeNormalize(Vector2.UnitY).RotatedBy(MathHelper.ToRadians(-10)) * velocity;
+                                Vector2 projectileSpawn = npc.Center + projectileVelocity.SafeNormalize(Vector2.UnitY) * 150f;
+
+                                int proj = Projectile.NewProjectile(npc.GetSource_FromAI(), projectileSpawn, projectileVelocity, projectileType, damage, 0f, Main.myPlayer, 1f, 0f);
+                                Main.projectile[proj].timeLeft = 900;
+
+                                Main.projectile[proj].tileCollide = false;
+                            }
+                        }
+                    }
+                }
                 if (npc.type == NPCID.EyeofCthulhu)
                 {
                     if (init)
@@ -116,6 +154,13 @@ namespace CalamityEntropy.Common
                 if (SlimeGodSlimes.Contains(npc.type))
                 {
                     npc.MaxFallSpeedMultiplier *= 12;
+                }
+                if(npc.type == NPCID.PlanterasHook)
+                {
+                    if(Main.GameUpdateCount % 40 == 0 && Main.rand.NextBool(2))
+                    {
+                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, (NPC.plantBoss.ToNPC().target.ToPlayer().Center - npc.Center).normalize() * 22, ProjectileID.SeedPlantera, npc.GetProjectileDamage(ProjectileID.SeedPlantera), 2, Main.myPlayer);
+                    }
                 }
                 if (npc.type == 50)
                 {
@@ -160,6 +205,83 @@ namespace CalamityEntropy.Common
                 }
                 if (npc.ModNPC != null)
                 {
+                    if(Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        if (npc.ModNPC is CryogenShield)
+                        {
+                            if (npc.Entropy().counter % 22 == 0)
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    int iceBlast = Main.zenithWorld ? ModContent.ProjectileType<BrimstoneBarrage>() : ModContent.ProjectileType<IceBlast>();
+
+                                    int totalProjectiles = BossRushEvent.BossRushActive ? 8 : 5;
+                                    float radians = MathHelper.TwoPi / totalProjectiles;
+                                    int type = iceBlast;
+                                    int damage = npc.GetProjectileDamage(type);
+                                    float velocity = 26f;
+                                    float projectileVelocityToPass = 0f;
+                                    Vector2 spinningPoint = new Vector2(0f, -velocity);
+                                    for (int k = 0; k < totalProjectiles; k++)
+                                    {
+                                        Vector2 projSpreadRotation = spinningPoint.RotatedBy(radians * k + Main.GlobalTimeWrappedHourly);
+                                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + Vector2.Normalize(projSpreadRotation) * 30f, projSpreadRotation, type, damage, 0f, Main.myPlayer, 0f, 0f, projectileVelocityToPass);
+                                    }
+                                }
+                            }
+                        }
+                        if (npc.ModNPC is Cryogen)
+                        {
+                            if (!NPC.AnyNPCs(ModContent.NPCType<CryogenShield>()))
+                            {
+                                if(npc.Entropy().counter % 600 == 0)
+                                {
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        int totalProjectiles = 3;
+                                        float radians = MathHelper.TwoPi / totalProjectiles;
+                                        int type = ModContent.ProjectileType<IceBomb>();
+                                        int damage = npc.GetProjectileDamage(type);
+                                        float velocity = 2f + npc.ai[0];
+                                        double angleA = radians * 0.5;
+                                        double angleB = MathHelper.ToRadians(90f) - angleA;
+                                        float velocityX = (float)(velocity * Math.Sin(angleA) / Math.Sin(angleB));
+                                        Vector2 spinningPoint = Main.rand.NextBool() ? new Vector2(0f, -velocity) : new Vector2(-velocityX, -velocity);
+                                        for (int k = 0; k < totalProjectiles; k++)
+                                        {
+                                            Vector2 projSpreadRotation = spinningPoint.RotatedBy(radians * k);
+                                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + Vector2.Normalize(projSpreadRotation) * 30f, projSpreadRotation, type, damage, 0f, Main.myPlayer);
+                                        }
+                                    }
+                                }
+                                if (npc.Entropy().counter % 6 == 0)
+                                {
+                                    if (npc.Entropy().counter % 30 == 0){
+                                        int iceBlast = ModContent.ProjectileType<IceBlast>();
+
+                                        int totalProjectiles = BossRushEvent.BossRushActive ? 6 : 4;
+                                        float radians = MathHelper.TwoPi / totalProjectiles;
+                                        int type = iceBlast;
+                                        int damage = npc.GetProjectileDamage(type);
+                                        float velocity = 10f;
+                                        float projectileVelocityToPass = 28f;
+                                        Vector2 spinningPoint = new Vector2(0f, -velocity);
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        {
+                                            
+                                            for (int k = 0; k < totalProjectiles; k++)
+                                            {
+                                                Vector2 projSpreadRotation = spinningPoint.RotatedBy(radians * k + Main.GlobalTimeWrappedHourly);
+                                                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + Vector2.Normalize(projSpreadRotation) * 30f, projSpreadRotation, type, damage, 0f, Main.myPlayer, 0f, 0f, projectileVelocityToPass);
+                                            }
+                                        }
+                                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, (npc.target.ToPlayer().Center - npc.Center).normalize() * 20, type, damage, 0f, Main.myPlayer, 0f, 0f, projectileVelocityToPass);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
                     if (npc.ModNPC is DevourerofGodsTail || npc.ModNPC is DevourerofGodsHead || npc.ModNPC is DevourerofGodsBody)
                     {
                         if (NPC.AnyNPCs(ModContent.NPCType<Signus>()) || NPC.AnyNPCs(ModContent.NPCType<CeaselessVoid>()) || NPC.AnyNPCs(ModContent.NPCType<StormWeaverHead>()))

@@ -2128,6 +2128,11 @@ Items: {
 			'''
 		DisplayName: 虚空分形
 	}
+
+	BurntLostClassics: {
+		Tooltip: 散射硫火球
+		DisplayName: 焦灼遗编
+	}
 }
 
 PrefixitemDesc:
@@ -2501,6 +2506,8 @@ Projectiles: {
 	// FractalLaser.DisplayName: Fractal Laser
 	// VoidSlash.DisplayName: Void Slash
 	// VoidWave.DisplayName: Void Wave
+	// BurntBrimShot.DisplayName: Burnt Brim Shot
+	// BurntLostClassicsHeld.DisplayName: Burnt Lost Classics Held
 }
 
 LegendTooltip: - 传奇物品 -
@@ -2832,7 +2839,8 @@ loreCruiser:
 	这究竟是一种生存本能，还是出自于更加崇高的目的？
 	若是放任其行动，也许终有一日，这个世界会归于永恒的寂静。
 	'''
-loreCruiserEffect: 使用后永久增加20生命上限和50魔力上限
+UseToggle: 使用以开启或关闭特殊效果:
+loreCruiserEffect: 增加20生命上限和50魔力上限
 loreNihTwin:
 	'''
 	想象一下，一个秩序的存在基础与目的不是熵减而是熵增的世界。
@@ -2840,6 +2848,12 @@ loreNihTwin:
 	在你击杀封印光暗之魂的血肉之墙的一刻，溢散的能量让现实的缺口再度被撕裂。
 	而被你所击杀的这只诡异的生物，只是虚空本身那无尽的混乱之海中溢散的水滴。
 	命运的齿轮，也许于此刻开始缓慢转动。
+	'''
+NihTwinLoreEffect:
+	'''
+	增加{1}%对虚空侵蚀的抗性
+	增加{2}/s 每秒生命再生
+	增加{3}%飞行时间
 	'''
 loreProphet:
 	'''
@@ -2873,6 +2887,13 @@ Keybinds: {
 	RuneDash.DisplayName: 符文之翼冲刺
 }
 
+ProphetLoreEffect:
+	'''
+	将受伤后的无敌帧时间增加{1}%
+	+{2}自然生命再生
+	'''
+Enabled: 已启用
+Disabled: 已禁用
 CdMoonlight: 月光护盾
 CdDS: 神圣干预冷却
 CruiserBestiary:

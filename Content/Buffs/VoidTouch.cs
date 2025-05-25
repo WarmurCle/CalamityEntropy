@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -24,12 +25,13 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (Main.GameUpdateCount % 20 == 0)
+            if (Main.GameUpdateCount % 20 == 0 && player.Entropy().voidResistance < 1)
             {
-                player.statLife -= 10;
-                if (player.statLife <= 10)
+                int dmg = (int)(player.Entropy().voidResistance * 12);
+                player.statLife -= dmg;
+                if (player.statLife <= dmg)
                 {
-                    player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral($"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidTouch"))), 16, 0);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral($"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidTouch"))), dmg, 0);
                 }
             }
             var r = Main.rand;

@@ -59,17 +59,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddIngredient(ItemID.SunplateBlock, 4)
                 .AddIngredient(ItemID.Starfury)
                 .AddIngredient<WindBlade>()
-                .AddIngredient<TaintedBlade>()
-                .AddTile(TileID.Anvils)
-                .Register();
-
-            CreateRecipe().AddIngredient<ShatteredFractal>()
-                .AddIngredient<CalamityMod.Items.Materials.AerialiteBar>(6)
-                .AddIngredient(ItemID.Feather, 2)
-                .AddIngredient(ItemID.SunplateBlock, 4)
-                .AddIngredient(ItemID.Starfury)
-                .AddIngredient<WindBlade>()
-                .AddIngredient<PerfectDark>()
                 .AddTile(TileID.Anvils)
                 .Register();
         }

@@ -347,7 +347,7 @@ namespace CalamityEntropy.Utilities
             s.MaxInstances = maxIns;
             return s;
         }
-        public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 2, float volume = 1)
+        public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 6, float volume = 1)
         {
             if (!Main.dedServ)
             {

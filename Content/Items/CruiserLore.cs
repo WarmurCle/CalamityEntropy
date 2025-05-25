@@ -21,12 +21,25 @@ namespace CalamityEntropy.Content.Items
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+
+            TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
+            if (LoreColor.HasValue)
+            {
+                tooltipLineEF.OverrideColor = LoreColor.Value;
+            }
+            tooltips.Add(tooltipLineEF);
             TooltipLine tooltipLineA = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.loreCruiserEffect"));
             if (LoreColor.HasValue)
             {
                 tooltipLineA.OverrideColor = LoreColor.Value;
             }
+
             tooltips.Add(tooltipLineA);
+
+            TooltipLine tooltipLineE = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy." + (Main.LocalPlayer.Entropy().CruiserLoreBonus ? "Enabled" : "Disabled")));
+            tooltipLineE.OverrideColor = Main.LocalPlayer.Entropy().CruiserLoreBonus ? Color.Yellow : Color.Gray;
+            tooltips.Add(tooltipLineE);
+
             TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreCruiser"));
             if (LoreColor.HasValue)
             {
@@ -43,7 +56,6 @@ namespace CalamityEntropy.Content.Items
             Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.rare = ItemRarityID.Cyan;
-            Item.consumable = true;
             SoundStyle s = new("CalamityEntropy/Assets/Sounds/vmspawn");
             s.Volume = 0.6f;
             s.Pitch = 1.4f;
@@ -51,19 +63,16 @@ namespace CalamityEntropy.Content.Items
             Item.maxStack = 1;
             Item.useTurn = true;
         }
+        public override bool CanUseItem(Player player)
+        {
+           return true;
+        }
         public override bool? UseItem(Player player)
         {
             EModPlayer modPlayer = player.Entropy();
             player.itemTime = Item.useTime;
-            player.UseManaMaxIncreasingItem(ManaBoost);
-            player.UseHealthMaxIncreasingItem(LifeBoost);
-            modPlayer.CruiserLoreUsed = true;
+            modPlayer.CruiserLoreBonus = !modPlayer.CruiserLoreBonus;
             return true;
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            return !player.Entropy().CruiserLoreUsed;
         }
     }
 }

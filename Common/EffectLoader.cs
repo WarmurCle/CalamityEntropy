@@ -665,13 +665,12 @@ namespace CalamityEntropy.Common
 
             foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if (p.ModProjectile is Pioneer1 p1)
+                if (p.ModProjectile != null)
                 {
-                    p1.drawVoid();
-                }
-                if(p.ModProjectile is VoidSlash vs)
-                {
-                    vs.draw();
+                    if (p.ModProjectile is Pioneer1 p1)
+                    {
+                        p1.drawVoid();
+                    }
                 }
             }
 

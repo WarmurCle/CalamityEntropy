@@ -3,7 +3,10 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Utilities;
+using CalamityMod;
+using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -11,6 +14,7 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.Items.Books
 {
@@ -120,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Books
 
         public virtual EBookStatModifer getBaseModifer()
         {
-            EBookStatModifer modifer = new EBookStatModifer() { Damage = 1, Knockback = Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack), Crit = Projectile.getOwner().GetTotalCritChance(Projectile.DamageType), attackSpeed = Projectile.getOwner().GetTotalAttackSpeed(Projectile.DamageType) };
+            EBookStatModifer modifer = new EBookStatModifer() { Damage = 1, Knockback = Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack), Crit = Projectile.getOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.CritChance, attackSpeed = Projectile.getOwner().GetTotalAttackSpeed(Projectile.DamageType), armorPenetration = Projectile.ArmorPenetration };
             return modifer;
         }
 
@@ -248,6 +252,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
             }
             ShootSingleProjectile(type, Projectile.Center, Projectile.velocity);
+            
             return true;
         }
         public Item bookItem;
@@ -264,34 +269,42 @@ namespace CalamityEntropy.Content.Items.Books
                     BookMarkLoader.ModifyStat(it, modifer);
                 }
             }
-            Projectile proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax), type, (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul))), Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback), Projectile.owner).ToProj();
-            proj.penetrate += modifer.PenetrateAddition;
-            proj.CritChance = bookItem.crit + (int)modifer.Crit;
-            proj.scale *= modifer.Size * scaleMul;
-            proj.ArmorPenetration += (int)(Projectile.getOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration);
-            if (proj.ModProjectile is EBookBaseProjectile bp)
+            Vector2 shootVel = (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax);
+            float kb = Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback);
+            int dmg = (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
+            bookItem.channel = false;
+            if(ItemLoader.Shoot(bookItem, Projectile.getOwner(), new Terraria.DataStructures.EntitySource_ItemUse_WithAmmo(Projectile.getOwner(), bookItem, 0), pos, velocity * ContentSamples.ProjectilesByType[type].MaxUpdates, type, dmg, kb))
             {
-                bp.ShooterModProjectile = this;
-                bp.homing += modifer.Homing;
-                bp.homingRange *= modifer.HomingRange;
-                bp.attackSpeed = modifer.attackSpeed;
-                bp.lifeSteal += modifer.lifeSteal;
-                for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+                Projectile proj = Projectile.NewProjectile(Projectile.getOwner().GetSource_ItemUse(bookItem), pos, shootVel, type, dmg, kb, Projectile.owner).ToProj();
+                proj.penetrate += modifer.PenetrateAddition;
+                proj.CritChance = bookItem.crit + (int)modifer.Crit;
+                proj.scale *= modifer.Size * scaleMul;
+                proj.ArmorPenetration += (int)(Projectile.getOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration);
+                if (proj.ModProjectile is EBookBaseProjectile bp)
                 {
-                    Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
-                    if (BookMarkLoader.IsABookMark(it))
+                    bp.ShooterModProjectile = this;
+                    bp.homing += modifer.Homing;
+                    bp.homingRange *= modifer.HomingRange;
+                    bp.attackSpeed = modifer.attackSpeed;
+                    bp.lifeSteal += modifer.lifeSteal;
+                    for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
                     {
-                        if (BookMarkLoader.GetEffect(it) != null)
+                        Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                        if (BookMarkLoader.IsABookMark(it))
                         {
-                            bp.ProjectileEffects.Add(BookMarkLoader.GetEffect(it));
+                            if (BookMarkLoader.GetEffect(it) != null)
+                            {
+                                bp.ProjectileEffects.Add(BookMarkLoader.GetEffect(it));
+                            }
                         }
                     }
-                }
-                if (this.getEffect() != null)
-                {
-                    bp.ProjectileEffects.Add(this.getEffect());
+                    if (this.getEffect() != null)
+                    {
+                        bp.ProjectileEffects.Add(this.getEffect());
+                    }
                 }
             }
+            bookItem.channel = true;
         }
         public bool mouseRightLast = false;
         public virtual bool CanShoot()

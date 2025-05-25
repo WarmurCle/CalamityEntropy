@@ -38,8 +38,11 @@ namespace CalamityEntropy.Common
 {
     public class EModPlayer : ModPlayer
     {
+        public bool NihilityTwinLoreBonus = false;
+        public bool ProphetLoreBonus = false;
+        public float voidResistance = 0f;
         public int itemTime = 0;
-        public bool CruiserLoreUsed = false;
+        public bool CruiserLoreBonus = false;
         public bool Godhead = false;
         public bool auraCard = false;
         public int brillianceCard = 0;
@@ -297,6 +300,8 @@ namespace CalamityEntropy.Common
         public bool foreseeOrbLast = false;
         public override void ResetEffects()
         {
+            HitCooldown = 0;
+            voidResistance = 0;
             plagueEngine = false;
             RogueStealthRegenMult = 1;
             if (Player.whoAmI == Main.myPlayer)
@@ -698,6 +703,17 @@ namespace CalamityEntropy.Common
         public int voidslashType = -1;
         public override void PostUpdateMiscEffects()
         {
+            if (NihilityTwinLoreBonus)
+            {
+                lifeRegenPerSec += NihilityTwinLore.HealPreSec;
+                voidResistance += NihilityTwinLore.VoidRes;
+                Player.wingTimeMax = (int)(Player.wingTimeMax * (1 + NihilityTwinLore.MaxFlyTimeAddition));
+            }
+            if (ProphetLoreBonus)
+            {
+                HitCooldown += ProphetLore.ImmuneAdd;
+                Player.lifeRegen += ProphetLore.LifeRegen;
+            }
             if (voidslashType == -1)
             {
                 voidslashType = ModContent.ProjectileType<VoidSlash>();
@@ -815,11 +831,12 @@ namespace CalamityEntropy.Common
         }
         public int immune = 0;
         public bool cHat = false;
+        public float HitCooldown = 0;
         public override void OnHurt(Player.HurtInfo info)
         {
             HitTCounter = 300;
-            Player.immuneTime = (int)(Player.immuneTime * 0.5f);
             hitTimeCount = 0;
+            Player.immuneTime = (int)(Player.immuneTime * (1 + HitCooldown));
         }
         public override bool FreeDodge(Player.HurtInfo info)
         {
@@ -1946,10 +1963,10 @@ namespace CalamityEntropy.Common
         public override void ModifyMaxStats(out StatModifier health, out StatModifier mana)
         {
             health = StatModifier.Default;
-            health.Base = CruiserLoreUsed.ToInt() * CruiserLore.LifeBoost;
+            health.Base = CruiserLoreBonus.ToInt() * CruiserLore.LifeBoost;
 
             mana = StatModifier.Default;
-            mana.Base = CruiserLoreUsed.ToInt() * CruiserLore.ManaBoost;
+            mana.Base = CruiserLoreBonus.ToInt() * CruiserLore.ManaBoost;
         }
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
         {
@@ -2021,12 +2038,14 @@ namespace CalamityEntropy.Common
 
         public override void Initialize()
         {
-            CruiserLoreUsed = false;
+            CruiserLoreBonus = false;
         }
         public override void SaveData(TagCompound tag)
         {
             var boost = new List<string>();
-            boost.AddWithCondition("CruiserLore", CruiserLoreUsed);
+            boost.AddWithCondition("CruiserLore", CruiserLoreBonus);
+            boost.AddWithCondition("NihTwinLore", NihilityTwinLoreBonus);
+            boost.AddWithCondition("ProphetLore", ProphetLoreBonus);
             tag["EntropyBoosts"] = boost;
             if (EBookStackItems != null)
             {
@@ -2052,7 +2071,10 @@ namespace CalamityEntropy.Common
         public override void LoadData(TagCompound tag)
         {
             var boost = tag.GetList<string>("EntropyBoosts");
-            CruiserLoreUsed = boost.Contains("CruiserLore");
+            CruiserLoreBonus = boost.Contains("CruiserLore");
+            NihilityTwinLoreBonus = boost.Contains("NihTwinLore");
+            ProphetLoreBonus = boost.Contains("ProphetLore");
+
             EBookStackItems = new List<Item>();
 
             if (tag.ContainsKey("EntropyBookMarks"))

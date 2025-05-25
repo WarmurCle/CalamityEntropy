@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.DevourerofGods;
 using System.Collections.Generic;
@@ -14,11 +15,11 @@ namespace CalamityEntropy.Common
         public static List<int> GetList()
         {
             List<int> r = new List<int>();
-            foreach(var i in NPCAlwaysHasGlobalImmuneTick)
+            foreach (var i in NPCAlwaysHasGlobalImmuneTick)
             {
                 r.Add(i);
             }
-            foreach(var i in NPCHasGlobalImmuneTickEntropyOnly)
+            foreach (var i in NPCHasGlobalImmuneTickEntropyOnly)
             {
                 r.Add(i);
             }
@@ -29,7 +30,7 @@ namespace CalamityEntropy.Common
         public static List<int> NPCHasGlobalImmuneTickEntropyOnly;
         public override void SetStaticDefaults()
         {
-            NPCHasGlobalImmuneTickEntropyOnly = new List<int>() { ModContent.NPCType<DesertScourgeHead>(), ModContent.NPCType<DesertScourgeBody>(), ModContent.NPCType<DesertScourgeTail>() };
+            NPCHasGlobalImmuneTickEntropyOnly = new List<int>() { ModContent.NPCType<DesertScourgeHead>(), ModContent.NPCType<DesertScourgeBody>(), ModContent.NPCType<DesertScourgeTail>(), ModContent.NPCType<AquaticScourgeHead>(), ModContent.NPCType<AquaticScourgeBody>(), ModContent.NPCType<AquaticScourgeBodyAlt>(), ModContent.NPCType<AquaticScourgeTail>() };
             NPCAlwaysHasGlobalImmuneTick = new List<int>() { ModContent.NPCType<CruiserHead>(), ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() };
         }
         public override void Unload()

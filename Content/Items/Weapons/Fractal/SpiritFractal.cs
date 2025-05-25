@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 440;
+            Item.damage = 300;
             Item.crit = 5;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
@@ -73,6 +73,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             CreateRecipe().AddIngredient<ElementalFractal>()
                 .AddIngredient<VoidEdge>()
                 .AddIngredient<TerrorBlade>()
+                .AddIngredient<RuneSong>()
                 .AddIngredient<RuinousSoul>(4)
                 .AddTile(TileID.LunarCraftingStation).Register();
         }
