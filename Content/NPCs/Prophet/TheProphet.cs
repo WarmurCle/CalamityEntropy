@@ -8,6 +8,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Events;
 using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
@@ -275,7 +276,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public int spawnAnm = 120;
         public void AttackPlayer(Player target)
         {
-            if (!target.ZoneDungeon)
+            if (!target.ZoneDungeon && !BossRushEvent.BossRushActive)
             {
                 NPC.Calamity().CurrentlyEnraged = true;
             }

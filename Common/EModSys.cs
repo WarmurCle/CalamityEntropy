@@ -59,6 +59,10 @@ namespace CalamityEntropy.Common
 
         public override void UpdateUI(GameTime gameTime)
         {
+            if(Lighting.Mode != Terraria.Graphics.Light.LightMode.Color)
+            {
+                Lighting.Mode = Terraria.Graphics.Light.LightMode.Color;
+            }
             noItemUse = false;
             counter += 1f;
             if (ArmorForgingStationUI.Visible)

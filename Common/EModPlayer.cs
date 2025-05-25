@@ -836,8 +836,10 @@ namespace CalamityEntropy.Common
         {
             HitTCounter = 300;
             hitTimeCount = 0;
-            Player.immuneTime = (int)(Player.immuneTime * (1 + HitCooldown));
+            JustHit = true;
+            
         }
+        public bool JustHit = false;
         public override bool FreeDodge(Player.HurtInfo info)
         {
             if (immune > 0)
@@ -1817,6 +1819,11 @@ namespace CalamityEntropy.Common
                 if (daPoints.Count > 0)
                     daPoints.RemoveAt(0);
             }
+            if (JustHit)
+            {
+                Player.immuneTime = (int)(Player.immuneTime * (1 + HitCooldown));
+            }
+            JustHit = false;
         }
         public int daCd = 0;
         public int daCount = 0;

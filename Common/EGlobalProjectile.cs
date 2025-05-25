@@ -12,6 +12,9 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
+using CalamityMod.NPCs.CeaselessVoid;
+using CalamityMod.NPCs.Signus;
+using CalamityMod.NPCs.StormWeaver;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Boss;
@@ -390,14 +393,21 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.type == ModContent.ProjectileType<DoGDeath>() && CalamityEntropy.EntropyMode)
                 {
-                    projectile.MaxUpdates *= 2;
+                    projectile.MaxUpdates *= 3;
                 }
             }
             if (init_)
             {
                 if (projectile.type == ModContent.ProjectileType<DoGFire>() && CalamityEntropy.EntropyMode)
                 {
-                    projectile.MaxUpdates *= 2;
+                    if (NPC.AnyNPCs(ModContent.NPCType<Signus>()) || NPC.AnyNPCs(ModContent.NPCType<StormWeaverHead>()) || NPC.AnyNPCs(ModContent.NPCType<CeaselessVoid>()))
+                    {
+                        projectile.velocity *= 0.6f;
+                    }
+                    else
+                    {
+                        projectile.MaxUpdates *= 2;
+                    }
                 }
                 init_ = false;
             }

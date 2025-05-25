@@ -2734,7 +2734,7 @@ Keybinds: {
 
 ProphetLoreEffect:
 	'''
-	Increase the invincible frame time after injury by {1}%
+	Increase the invincible frame time after injury
 	+{2} Natural life regeneration
 	'''
 Enabled: Enabled

@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items
 {
     public class ProphetLore : LoreItem
     {
-        public static float ImmuneAdd = 0.2f;
+        public static float ImmuneAdd = 0.5f;
         public static int LifeRegen = 4;
         public override void SetStaticDefaults()
         {
@@ -32,7 +32,6 @@ namespace CalamityEntropy.Content.Items
             {
                 tooltipLineA.OverrideColor = LoreColor.Value;
             }
-            tooltipLineA.Text = tooltipLineA.Text.Replace("{1}", ImmuneAdd.ToPercent().ToString());
             tooltipLineA.Text = tooltipLineA.Text.Replace("{2}", LifeRegen.ToString());
 
             tooltips.Add(tooltipLineA);

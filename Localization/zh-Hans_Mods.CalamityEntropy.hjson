@@ -2889,7 +2889,7 @@ Keybinds: {
 
 ProphetLoreEffect:
 	'''
-	将受伤后的无敌帧时间增加{1}%
+	增加受伤后的无敌帧时间
 	+{2}自然生命再生
 	'''
 Enabled: 已启用
