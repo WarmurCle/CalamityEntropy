@@ -37,6 +37,10 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
         {
             Projectile.scale += Projectile.owner.ToPlayer().Entropy().WeaponBoost * 0.8f;
         }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return Projectile.localAI[0] < 5 ? false : null;
+        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -52,7 +56,11 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             {
                 HandleChannelMovement(player, playerRotatedPoint);
             }
-            Projectile.rotation = Projectile.velocity.ToRotation();
+            Projectile.rotation = Projectile.velocity.ToRotation() + (Projectile.localAI[0]++ > 3 ? 0 : Projectile.getOwner().direction * -MathHelper.ToRadians(4 - Projectile.localAI[0]) * 48);
+            if (Projectile.localAI[0] == 4)
+            {
+                Util.PlaySound("chainsawHit", 1, Projectile.Center, volume: 0.4f);
+            }
             Projectile.Center = player.Center + player.gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 46 * Projectile.scale;
             if (Projectile.Entropy().OnProj != -1)
             {

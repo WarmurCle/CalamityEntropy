@@ -185,6 +185,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Utilities.Util.drawLine(points[i - 1], points[i], color, 2 * Projectile.scale);
             }
         }
+        
         public virtual void DrawSegs(List<Vector2> points)
         {
             for (int i = 0; i < points.Count; i++)

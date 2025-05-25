@@ -2133,6 +2133,34 @@ Items: {
 		Tooltip: 散射硫火球
 		DisplayName: 焦灼遗编
 	}
+
+	ProphecyMasterpiece: {
+		Tooltip: 发射持续的激光
+		DisplayName: 预知巨著
+	}
+
+	ForeseeWhip: {
+		DisplayName: 预言之鞭
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			增加10%召唤物暴击率
+			召唤物暴击会将伤害的12%传递给附近最多4个敌人
+			'''
+	}
+
+	Nemesis: {
+		DisplayName: 天罚
+		Tooltip:
+			'''
+			左键攻击在光标处召唤大量龙陨星
+			真近战会产生治疗球
+			每六次真近战召唤一次天罚
+			按住右键进行蓄力
+			蓄力满后旋转刀刃急速挥出大量斩击
+			'''
+	}
 }
 
 PrefixitemDesc:
@@ -2508,6 +2536,17 @@ Projectiles: {
 	// VoidWave.DisplayName: Void Wave
 	// BurntBrimShot.DisplayName: Burnt Brim Shot
 	// BurntLostClassicsHeld.DisplayName: Burnt Lost Classics Held
+	// ForeseeEye.DisplayName: Foresee Eye
+	// ProphecyMasterpieceHeld.DisplayName: Prophecy Masterpiece Held
+	// ForeseeWhipProj.DisplayName: Foresee Whip Proj
+	// EndlessChopping.DisplayName: Endless Chopping
+	// EndSkillOrbOnSpan.DisplayName: End Skill Orb On Span
+	// EXNemesisProj.DisplayName: E X Nemesis Proj
+	// NemesisAlt.DisplayName: Nemesis Alt
+	// NemesisHeld.DisplayName: Nemesis Held
+	// NemesisProj.DisplayName: Nemesis Proj
+	// SpwanTextProj.DisplayName: Spwan Text Proj
+	// BaseKnife.DisplayName: Base Knife
 }
 
 LegendTooltip: - 传奇物品 -

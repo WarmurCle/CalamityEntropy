@@ -162,7 +162,7 @@ namespace CalamityEntropy.Common
                         Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, (NPC.plantBoss.ToNPC().target.ToPlayer().Center - npc.Center).normalize() * 22, ProjectileID.SeedPlantera, npc.GetProjectileDamage(ProjectileID.SeedPlantera), 2, Main.myPlayer);
                     }
                 }
-                if (npc.type == 50)
+                if (npc.type == NPCID.KingSlime)
                 {
                     npc.MaxFallSpeedMultiplier *= 36f;
 
@@ -201,6 +201,14 @@ namespace CalamityEntropy.Common
                             this.vyAdd = 0.4f;
                         }
                         npc.velocity.Y = npc.velocity.Y + this.vyAdd;
+                    }
+                    if (SpawnAtHalfLife)
+                    {
+                        SpawnAtHalfLife = false;
+                        Vector2 vector = npc.Center + new Vector2(0, -40 * npc.scale);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            NPC.NewNPC(npc.GetSource_FromAI(), (int)vector.X, (int)vector.Y, ModContent.NPCType<TopazJewel>());
+
                     }
                 }
                 if (npc.ModNPC != null)

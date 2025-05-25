@@ -399,7 +399,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.Center = Projectile.getOwner().Center + (UIOpen ? Vector2.UnitY * -52 : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
             if (Main.myPlayer == Projectile.owner)
             {
-                bool flag = Main.mouseLeft && !Main.LocalPlayer.mouseInterface && !UIOpen;
+                bool flag = Main.mouseLeft && !Main.LocalPlayer.mouseInterface && !UIOpen && Projectile.getOwner().CheckMana(bookItem.mana, false);
                 if (flag != active)
                 {
                     active = flag;
@@ -418,6 +418,8 @@ namespace CalamityEntropy.Content.Items.Books
                                 }
                             }
                         }
+                        if(this.getEffect() != null)
+                            this.getEffect().OnActive(this);
                     }
                 }
                 if (active)
@@ -481,6 +483,10 @@ namespace CalamityEntropy.Content.Items.Books
                             }
                             shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
 
+                        }
+                        else
+                        {
+                            active = false;
                         }
                     }
                 }
@@ -693,7 +699,7 @@ namespace CalamityEntropy.Content.Items.Books
         public int segCounts = 100;
         public int penetrate = 1;
         public int quickTime = -1;
-        public float width => 32 * Projectile.scale;
+        public virtual float width => 32 * Projectile.scale;
         public override bool ShouldUpdatePosition()
         {
             return false;

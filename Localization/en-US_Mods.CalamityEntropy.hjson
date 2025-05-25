@@ -1976,6 +1976,27 @@ Items: {
 		Tooltip: ""
 		DisplayName: Burnt Lost Classics
 	}
+
+	ProphecyMasterpiece: {
+		Tooltip: ""
+		DisplayName: Prophecy Masterpiece
+	}
+
+	ForeseeWhip: {
+		DisplayName: Foresee Whip
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			Increase the critical hit rate of minions by 10%
+			Minions' critical strike will pass 12% of damage to up to 4 nearby enemies
+			'''
+	}
+
+	Nemesis: {
+		DisplayName: Nemesis
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2300,7 +2321,7 @@ Projectiles: {
 	RuneCrystalTop.DisplayName: Rune Crystal Top
 	ProphetRune.DisplayName: Prophet Rune
 	ProphetLightning.DisplayName: Prophet Lightning
-	FableEye.DisplayName: Fable Eye
+	FableEye.DisplayName: Foresee Eye
 	RuneSword.DisplayName: Rune Sword
 	ProphetVoidSpike.DisplayName: Prophet Void Spike
 	UrnOfSoulsHoldout.DisplayName: Urn Of Souls Holdout
@@ -2350,6 +2371,17 @@ Projectiles: {
 	VoidWave.DisplayName: Void Wave
 	BurntBrimShot.DisplayName: Burnt Brim Shot
 	BurntLostClassicsHeld.DisplayName: Burnt Lost Classics Held
+	ForeseeEye.DisplayName: Foresee Eye
+	ProphecyMasterpieceHeld.DisplayName: Prophecy Masterpiece Held
+	ForeseeWhipProj.DisplayName: Foresee Whip Proj
+	EndlessChopping.DisplayName: Endless Chopping
+	EndSkillOrbOnSpan.DisplayName: End Skill Orb On Span
+	EXNemesisProj.DisplayName: E X Nemesis Proj
+	NemesisAlt.DisplayName: Nemesis Alt
+	NemesisHeld.DisplayName: Nemesis Held
+	NemesisProj.DisplayName: Nemesis Proj
+	SpwanTextProj.DisplayName: Spwan Text Proj
+	BaseKnife.DisplayName: Base Knife
 }
 
 LegendTooltip: - Legend -

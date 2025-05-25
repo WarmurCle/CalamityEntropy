@@ -112,6 +112,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         {
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
         }
+        
         public override bool PreDraw(ref Color lightColor)
         {
             yx += 0.036f;

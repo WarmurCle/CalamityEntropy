@@ -68,6 +68,7 @@ using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
 using CalamityMod.UI.CalamitasEnchants;
+using InnoVault;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -85,6 +86,8 @@ namespace CalamityEntropy
 {
     public class CalamityEntropy : Mod
     {
+
+        internal static List<ILoader> ILoaders { get; private set; }
         public static ref bool EntropyMode => ref EDownedBosses.EntropyMode;
         public static bool AprilFool = false;
         public static List<int> calDebuffIconDisplayList = new List<int>();
@@ -122,6 +125,7 @@ namespace CalamityEntropy
         public string EntropyWikiURL;
         public override void Load()
         {
+           
             Util.TexCache = new Dictionary<string, Texture2D>();
             ModLoader.TryGetMod("Wikithis", out var wikithis);
             EntropyWikiURL = this.GetLocalization("WikiURL").Value;
@@ -135,6 +139,12 @@ namespace CalamityEntropy
             DateTime today = DateTime.Now;
             AprilFool = today.Month == 4 && today.Day == 1;
 
+            ILoaders = VaultUtils.GetSubInterface<ILoader>();
+            foreach (ILoader setup in ILoaders)
+            {
+                setup.LoadData();
+                setup.DompLoadText();
+            }
             LoopSoundManager.init();
 
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
@@ -256,6 +266,12 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            foreach (ILoader setup in ILoaders)
+            {
+                setup.UnLoadData();
+                setup.DompUnLoadText();
+            }
+            ILoaders = null;
             Util.TexCache = null;
             BookMarkLoader.CustomBMEffectsByName = null;
             BookMarkLoader.CustomBMByID = null;
@@ -1038,6 +1054,14 @@ namespace CalamityEntropy
 
         public override void PostSetupContent()
         {
+            foreach (ILoader setup in ILoaders)
+            {
+                setup.SetupData();
+                if (!Main.dedServ)
+                {
+                    setup.LoadAsset();
+                }
+            }
             RegistryMusicBoxes();
             for (int i = 0; i < NPCLoader.NPCCount; i++)
             {

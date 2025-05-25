@@ -1,9 +1,12 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.Buffs
 {
@@ -96,15 +99,7 @@ namespace CalamityEntropy.Content.Buffs
                 if (Main.rand.NextFloat() < t.CritChance)
                 {
                     modifiers.SetCrit();
-                    if (t.EffectName == "Crystedge")
-                    {
-                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Utilities.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
-                    }
-                }
-                if (t.EffectName == "MindCorruptor")
-                {
-                    float rot = Utilities.Util.randomRot();
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
+                    
                 }
             }
 
@@ -134,6 +129,7 @@ namespace CalamityEntropy.Content.Buffs
                 }
             }
         }
+
         public override bool PreAI(NPC npc)
         {
             for (int i = Tags.Count - 1; i >= 0; i--)
@@ -161,6 +157,42 @@ namespace CalamityEntropy.Content.Buffs
                 {
                     owner.Heal((int)MathHelper.Max(damageDone / 4000, 1));
                 }
+            }
+            foreach (var t in Tags)
+            {
+                if (hit.Crit)
+                {
+                    if (t.EffectName == "Crystedge")
+                    {
+                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Utilities.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
+                    }
+                    if (t.EffectName == "ForeseeWhip")
+                    {
+                        int C = 4;
+                        foreach(NPC n in Main.ActiveNPCs)
+                        {
+                            if(!n.friendly && n.CanBeChasedBy(projectile) && n.Distance(npc.Center) < 400 && n != npc)
+                            {
+                                if(C > 0)
+                                {
+                                    C--;
+                                    int dmg = (int)(damageDone * 0.12f);
+                                    projectile.getOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
+                                    for(float f = 0; f <= 1; f += 0.1f)
+                                    {
+                                        EParticle.spawnNew(new RuneParticle(), Vector2.Lerp(npc.Center, n.Center, f), Util.randomPointInCircle(0.1f), Color.White, 0.5f, 1, true, BlendState.Additive, 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (t.EffectName == "MindCorruptor")
+                {
+                    float rot = Utilities.Util.randomRot();
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
+                }
+                
             }
         }
     }
