@@ -15,13 +15,13 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => Utilities.Util.getExtraTex("SimpleNoise");
         public override void SetProperty()
         {
-            this.timeLeft = 11;
+            this.Lifetime = 11;
             this.PixelShader = true;
         }
         public int maxLength = 21;
         public override void AI()
         {
-            if (this.timeLeft < 10)
+            if (this.Lifetime < 10)
             {
                 if (odp.Count > 0)
                 {
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Particles
                 return;
             }
             List<Vertex> ve = new List<Vertex>();
-            Color b = this.color * ((float)this.timeLeft / 12f);
+            Color b = this.Color * ((float)this.Lifetime / 12f);
             float width = 0;
             for (int i = 1; i < odp.Count; i++)
             {
@@ -60,11 +60,11 @@ namespace CalamityEntropy.Content.Particles
                 if (c > 0.4)
                 {
                     float x = (c - 0.4f) / 0.6f;
-                    width = (float)Math.Sqrt(1 - x * x) * this.scale;
+                    width = (float)Math.Sqrt(1 - x * x) * this.Scale;
                 }
                 else
                 {
-                    width = 1f * this.scale;
+                    width = 1f * this.Scale;
                 }
                 ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * width,
                       new Vector3((((float)i) / odp.Count), 1, 1),
@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Particles
                 shader.Parameters["color2"].SetValue(color2.ToVector4());
                 shader.Parameters["color1"].SetValue(color1.ToVector4());
                 shader.Parameters["ofs"].SetValue(Main.GlobalTimeWrappedHourly * 3);
-                shader.Parameters["alpha"].SetValue(float.Min(1, this.timeLeft / 10f));
+                shader.Parameters["alpha"].SetValue(float.Min(1, this.Lifetime / 10f));
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
 
                 gd.Textures[0] = this.Texture;

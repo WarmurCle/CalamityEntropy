@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Particles
                 ownerLastPos = FollowOwner.Center;
             }
             base.AI();
-            this.alpha = (float)(Math.Cos(((float)timeLeft / TimeLeftMax) * MathHelper.Pi - MathHelper.PiOver2));
+            this.Opacity = (float)(Math.Cos(((float)Lifetime / TimeLeftMax) * MathHelper.Pi - MathHelper.PiOver2));
         }
     }
 }

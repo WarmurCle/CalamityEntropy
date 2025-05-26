@@ -437,7 +437,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                                 }
                             }
                         }
-                        if (this.trail == null || this.trail.timeLeft < 1)
+                        if (this.trail == null || this.trail.Lifetime < 1)
                         {
                             this.trail = new ProminenceTrail() { color1 = Color.DeepSkyBlue, color2 = Color.White, maxLength = 14 };
                             EParticle.NewParticle(this.trail, NPC.Center, Vector2.Zero, Color.White, 7f, 1, true, BlendState.AlphaBlend, 0);
@@ -449,7 +449,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         NPC.velocity += NPC.rotation.ToRotationVector2() * difficult * (AIChangeDelay <= 100 ? 1.6f : 1) * (phase == 1 ? 1 : 1.4f);
                         NPC.velocity *= 0.98f;
                         if (this.trail != null)
-                            this.trail.timeLeft = 13;
+                            this.trail.Lifetime = 13;
                         if (AIChangeDelay < 100)
                         {
                             if (NPC.ai[1] < 64 && AIChangeDelay % (int)((phase == 1 ? 10 : 8) / difficult) == 0)

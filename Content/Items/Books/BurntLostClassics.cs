@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.Items.Books
 
             for(int i = 0; i < 4; i++)
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 26, timeLeft = 26 }, Projectile.Center, Util.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, Util.randomRot());
+                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center, Util.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, Util.randomRot());
             }
             Lighting.AddLight(Projectile.Center, 0.25f, 0f, 0f);
             Projectile.rotation += 0.5f * (float)Projectile.direction;

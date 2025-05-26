@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = 4;
             for (int i = 0; i < 64; i++)
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 16, timeLeft = 16 }, position, velocity.RotatedByRandom(0.74) * 0.6f * Main.rand.NextFloat(0.4f, 1f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.14f), 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16 }, position, velocity.RotatedByRandom(0.74) * 0.6f * Main.rand.NextFloat(0.4f, 1f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.14f), 1, true, BlendState.Additive, Utilities.Util.randomRot());
             }
             for (int i = 0; i < 3; i++)
             {

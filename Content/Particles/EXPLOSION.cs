@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Particles
 
         public override void SetProperty()
         {
-            this.timeLeft = 96;
+            this.Lifetime = 96;
         }
         public int frame = 0;
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/EXPLOSION").Value;
@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Particles
         {
             Texture2D tex = Texture;
             Rectangle rect = new Rectangle(frame % 11 * 240, (int)(frame / 11) * 135, 240, 135);
-            Main.spriteBatch.Draw(tex, position - Main.screenPosition, rect, color, this.rotation, new Vector2(120, 135 / 2f), scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, position - Main.screenPosition, rect, Color, this.Rotation, new Vector2(120, 135 / 2f), Scale, SpriteEffects.None, 0);
         }
         public override void AI()
         {
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Particles
 
         public override void SetProperty()
         {
-            this.timeLeft = 96;
+            this.Lifetime = 96;
         }
         public int frame = 0;
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/EXPLOSIONCOSMIC").Value;
@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Particles
         {
             Texture2D tex = Texture;
             Rectangle rect = new Rectangle(frame % 11 * 240, (int)(frame / 11) * 135, 240, 135);
-            Main.spriteBatch.Draw(tex, position - Main.screenPosition, rect, color, this.rotation, new Vector2(120, 135 / 2f), scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, position - Main.screenPosition, rect, Color, this.Rotation, new Vector2(120, 135 / 2f), Scale, SpriteEffects.None, 0);
         }
         public override void AI()
         {

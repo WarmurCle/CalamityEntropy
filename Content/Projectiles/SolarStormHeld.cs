@@ -127,42 +127,42 @@ namespace CalamityEntropy.Content.Projectiles
                 float rot = Projectile.rotation;
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(38, -24).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation;
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(32, 43).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation + MathHelper.ToRadians(45);
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(32, -43).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation - MathHelper.ToRadians(45);
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(18, 55).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation + MathHelper.ToRadians(70);
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(18, -55).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation - MathHelper.ToRadians(70);
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, timeLeft = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
                 }
             }
         }

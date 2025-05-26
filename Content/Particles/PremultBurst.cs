@@ -9,17 +9,17 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/PremultBurst").Value;
         public override void SetProperty()
         {
-            this.timeLeft = 2;
+            this.Lifetime = 2;
         }
         public override void AI()
         {
             base.AI();
-            this.timeLeft = 2;
-            this.scale -= 0.1f;
-            if(this.scale < 0)
+            this.Lifetime = 2;
+            this.Scale -= 0.1f;
+            if(this.Scale < 0)
             {
-                this.timeLeft = 0;
-                this.scale = 0;
+                this.Lifetime = 0;
+                this.Scale = 0;
             }
         }
     }

@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/CrLine").Value;
         public override void SetProperty()
         {
-            this.timeLeft = 30;
+            this.Lifetime = 30;
         }
         public override Vector2 getOrigin()
         {
@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Particles
         public override void AI()
         {
             base.AI();
-            this.alpha = this.timeLeft / 30f;
+            this.Opacity = this.Lifetime / 30f;
         }
     }
 }

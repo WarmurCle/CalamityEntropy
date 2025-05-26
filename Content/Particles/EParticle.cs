@@ -10,14 +10,14 @@ namespace CalamityEntropy.Content.Particles
         public int TimeLeftMax = 0;
         public Vector2 position = Vector2.Zero;
         public Vector2 velocity = Vector2.Zero;
-        public int timeLeft = 200;
+        public int Lifetime = 200;
         public bool useAdditive = false;
         public bool useAlphaBlend = true;
-        public float alpha = 1;
-        public Color color = Color.White;
+        public float Opacity = 1;
+        public Color Color = Color.White;
         public bool glow = true;
-        public float rotation = 0;
-        public float scale = 1;
+        public float Rotation = 0;
+        public float Scale = 1;
         public bool PixelShader = false;
 
         public static List<EParticle> particles = new List<EParticle>();
@@ -173,7 +173,7 @@ namespace CalamityEntropy.Content.Particles
             }
             for (int i = particles.Count - 1; i >= 0; i--)
             {
-                if (particles[i].timeLeft <= 0)
+                if (particles[i].Lifetime <= 0)
                 {
                     particles.RemoveAt(i);
                 }
@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.Particles
         public virtual void AI()
         {
             this.position += this.velocity;
-            timeLeft--;
+            Lifetime--;
         }
         public virtual void SetProperty()
         {
@@ -192,13 +192,13 @@ namespace CalamityEntropy.Content.Particles
         {
             particle.position = pos;
             particle.velocity = vel;
-            particle.color = col;
-            particle.scale = scale;
+            particle.Color = col;
+            particle.Scale = scale;
             particle.glow = glow;
-            particle.alpha = a;
+            particle.Opacity = a;
             particle.useAlphaBlend = false;
             particle.useAdditive = false;
-            particle.rotation = rotation;
+            particle.Rotation = rotation;
             if (bs == BlendState.Additive)
             {
                 particle.useAdditive = true;
@@ -210,9 +210,9 @@ namespace CalamityEntropy.Content.Particles
             particle.SetProperty();
             if (lifeTime > 0)
             {
-                particle.timeLeft = lifeTime;
+                particle.Lifetime = lifeTime;
             }
-            particle.TimeLeftMax = particle.timeLeft;
+            particle.TimeLeftMax = particle.Lifetime;
             particles.Add(particle);
         }
         public virtual Vector2 getOrigin()
@@ -221,20 +221,20 @@ namespace CalamityEntropy.Content.Particles
         }
         public virtual void PreDraw()
         {
-            Color clr = this.color;
+            Color clr = this.Color;
             if (!this.glow)
             {
                 clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
             }
             if (!this.useAdditive && !this.useAlphaBlend)
             {
-                clr.A = (byte)(clr.A * alpha);
+                clr.A = (byte)(clr.A * Opacity);
             }
             else
             {
-                clr *= alpha;
+                clr *= Opacity;
             }
-            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, null, clr, rotation, getOrigin(), scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, null, clr, Rotation, getOrigin(), Scale, SpriteEffects.None, 0);
         }
         public virtual Texture2D Texture => null;
     }

@@ -8,15 +8,15 @@ namespace CalamityEntropy.Content.Particles
         public override void SetProperty()
         {
             base.SetProperty();
-            this.timeLeft = 120;
+            this.Lifetime = 120;
         }
         public float sadd = 0.1f;
         public override void AI()
         {
             base.AI();
-            this.scale += sadd;
+            this.Scale += sadd;
             sadd *= 0.9f;
-            this.color *= 0.96f;
+            this.Color *= 0.96f;
 
         }
     }

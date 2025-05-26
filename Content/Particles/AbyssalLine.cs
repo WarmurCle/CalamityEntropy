@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Particles
         public float lx = 3;
         public override void SetProperty()
         {
-            this.timeLeft = 50;
+            this.Lifetime = 50;
         }
         public override void AI()
         {
@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Particles
         public override void PreDraw()
         {
             Texture2D tex = Utilities.Util.getExtraTex("a_circle");
-            Main.spriteBatch.Draw(tex, position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, ((float)timeLeft / timemax)) * ((float)timeLeft / timemax) * 0.7f, this.rotation, tex.Size() / 2, new Vector2(0.6f * (xscale + 0.1f), 0.56f * lx) * scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, ((float)timeLeft / timemax)) * ((float)timeLeft / timemax), this.rotation, tex.Size() / 2, new Vector2(0.6f * xscale, 0.2f * lx) * scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, ((float)Lifetime / timemax)) * ((float)Lifetime / timemax) * 0.7f, this.Rotation, tex.Size() / 2, new Vector2(0.6f * (xscale + 0.1f), 0.56f * lx) * Scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, ((float)Lifetime / timemax)) * ((float)Lifetime / timemax), this.Rotation, tex.Size() / 2, new Vector2(0.6f * xscale, 0.2f * lx) * Scale, SpriteEffects.None, 0);
         }
     }
 }

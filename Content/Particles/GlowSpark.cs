@@ -10,14 +10,14 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/GlowSpark").Value;
         public override void SetProperty()
         {
-            this.timeLeft = 26;
+            this.Lifetime = 26;
         }
         public override void AI()
         {
             base.AI();
-            this.alpha = this.timeLeft / 26f;
+            this.Opacity = this.Lifetime / 26f;
             this.velocity = this.velocity + Vector2.UnitY * 0.2f;
-            this.rotation = this.velocity.ToRotation();
+            this.Rotation = this.velocity.ToRotation();
         }
     }
     public class GlowSpark2 : EParticle
@@ -25,14 +25,14 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/GlowSpark2").Value;
         public override void SetProperty()
         {
-            this.timeLeft = 26;
+            this.Lifetime = 26;
         }
         public override void AI()
         {
             base.AI();
-            this.alpha = this.timeLeft / 26f;
+            this.Opacity = this.Lifetime / 26f;
             this.velocity = this.velocity + Vector2.UnitY * 0.2f;
-            this.rotation = this.velocity.ToRotation();
+            this.Rotation = this.velocity.ToRotation();
         }
     }
     public class GlowSparkDirecting : EParticle
@@ -63,28 +63,28 @@ namespace CalamityEntropy.Content.Particles
                 ownerLastPos = followOwner.Center;
             }
             base.AI();
-            this.alpha = 1 - (this.timeLeft / (float)TimeLeftMax);
-            this.position = Vector2.Lerp(TargetPos, SpawnPos, (this.timeLeft / (float)TimeLeftMax));
-            rotation = (TargetPos - SpawnPos).ToRotation();
+            this.Opacity = 1 - (this.Lifetime / (float)TimeLeftMax);
+            this.position = Vector2.Lerp(TargetPos, SpawnPos, (this.Lifetime / (float)TimeLeftMax));
+            Rotation = (TargetPos - SpawnPos).ToRotation();
         }
         public override void PreDraw()
         {
 
-            Color clr = this.color;
+            Color clr = this.Color;
             if (!this.glow)
             {
                 clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
             }
             if (!this.useAdditive && !this.useAlphaBlend)
             {
-                clr.A = (byte)(clr.A * alpha);
+                clr.A = (byte)(clr.A * Opacity);
             }
             else
             {
-                clr *= alpha;
+                clr *= Opacity;
             }
-            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, null, clr, rotation, getOrigin(), scale * new Vector2(scaleX, 1), SpriteEffects.None, 0);
-            Util.DrawGlow(position, color * 0.8f, scale * 0.4f);
+            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, null, clr, Rotation, getOrigin(), Scale * new Vector2(scaleX, 1), SpriteEffects.None, 0);
+            Util.DrawGlow(position, Color * 0.8f, Scale * 0.4f);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
         }
     }

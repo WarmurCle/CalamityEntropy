@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/MALICIOUSCODE/t" + frame.ToString()).Value;
         public override void SetProperty()
         {
-            this.timeLeft = 60;
+            this.Lifetime = 60;
         }
         public override void AI()
         {

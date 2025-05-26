@@ -420,7 +420,7 @@ namespace CalamityEntropy.Common
                 }
                 trail_pmn.AddPoint(projectile.Center + projectile.velocity * 1.5f);
                 trail_pmn.AddPoint(projectile.Center + projectile.velocity * 2);
-                trail_pmn.timeLeft = 11;
+                trail_pmn.Lifetime = 11;
             }
             promineceDamageAddition -= 0.006f / projectile.MaxUpdates;
             if (projectile.TryGetOwner(out var owner))

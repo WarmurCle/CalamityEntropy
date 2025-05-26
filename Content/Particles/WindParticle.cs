@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Wind").Value;
         public override void SetProperty()
         {
-            this.timeLeft = 46;
+            this.Lifetime = 46;
         }
         public float v1 = 12;
         public float v2 = 3;
@@ -23,9 +23,9 @@ namespace CalamityEntropy.Content.Particles
         public override void AI()
         {
             base.AI();
-            this.alpha = this.timeLeft / 46f;
-            this.velocity = this.rotation.ToRotationVector2() * v1 + r.ToRotationVector2() * v2;
-            this.rotation = this.rotation + dir * rv;
+            this.Opacity = this.Lifetime / 46f;
+            this.velocity = this.Rotation.ToRotationVector2() * v1 + r.ToRotationVector2() * v2;
+            this.Rotation = this.Rotation + dir * rv;
             odp.Insert(0, this.position);
             if (odp.Count > 16)
             {
@@ -47,13 +47,13 @@ namespace CalamityEntropy.Content.Particles
 
         public Color TrailColor(float completionRatio)
         {
-            Color result = this.color * completionRatio * this.alpha * new Vector2(1, 0).RotatedBy(completionRatio * MathHelper.Pi).Y;
+            Color result = this.Color * completionRatio * this.Opacity * new Vector2(1, 0).RotatedBy(completionRatio * MathHelper.Pi).Y;
             return result;
         }
 
         public float TrailWidth(float completionRatio)
         {
-            return this.scale * 26;
+            return this.Scale * 26;
         }
     }
 }

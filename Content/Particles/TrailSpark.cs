@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Trail").Value;
         public override void SetProperty()
         {
-            this.timeLeft = 30;
+            this.Lifetime = 30;
         }
         public int maxLength = 7;
         public override void AI()
@@ -43,19 +43,19 @@ namespace CalamityEntropy.Content.Particles
                 return;
             }
             List<Vertex> ve = new List<Vertex>();
-            Color b = this.color * ((float)this.timeLeft / 8f);
-            ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 2 * this.scale,
+            Color b = this.Color * ((float)this.Lifetime / 8f);
+            ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 2 * this.Scale,
                       new Vector3((((float)0) / odp.Count), 1, 1),
                       b));
-            ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 2 * this.scale,
+            ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 2 * this.Scale,
                   new Vector3((((float)0) / odp.Count), 0, 1),
                   b));
             for (int i = 1; i < odp.Count; i++)
             {
-                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 2 * this.scale,
+                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 2 * this.Scale,
                       new Vector3((((float)i) / odp.Count), 1, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
-                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 2 * this.scale,
+                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 2 * this.Scale,
                       new Vector3((((float)i) / odp.Count), 0, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
             }

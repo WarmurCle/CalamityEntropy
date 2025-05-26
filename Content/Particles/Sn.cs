@@ -8,12 +8,12 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Sn").Value;
         public override void SetProperty()
         {
-            this.timeLeft = 16;
+            this.Lifetime = 16;
         }
         public override void AI()
         {
             base.AI();
-            this.alpha = this.timeLeft / 16f;
+            this.Opacity = this.Lifetime / 16f;
         }
     }
 }

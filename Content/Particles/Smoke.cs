@@ -15,15 +15,15 @@ namespace CalamityEntropy.Content.Particles
         {
             if (scaleStart < 0)
             {
-                scaleStart = scale;
+                scaleStart = Scale;
             }
             if (scaleEnd > 0)
             {
-                scale = float.Lerp(scaleStart, scaleEnd, 1 - (float)this.timeLeft / this.timeleftmax);
+                Scale = float.Lerp(scaleStart, scaleEnd, 1 - (float)this.Lifetime / this.timeleftmax);
             }
             base.AI();
             this.velocity *= vc;
-            this.alpha = (float)this.timeLeft / (float)timeleftmax;
+            this.Opacity = (float)this.Lifetime / (float)timeleftmax;
         }
     }
 }

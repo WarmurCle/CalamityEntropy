@@ -9,17 +9,17 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/HadCircle").Value;
         public override void SetProperty()
         {
-            this.timeLeft = 16;
+            this.Lifetime = 16;
         }
         public override void AI()
         {
-            if (this.timeLeft > 8)
+            if (this.Lifetime > 8)
             {
-                this.timeLeft--;
+                this.Lifetime--;
             }
             base.AI();
-            this.alpha = (float)Math.Sqrt(1 - (Math.Abs(8f - this.timeLeft) / 8f));
-            this.scale = (((float)Math.Sqrt(1 - (Math.Abs(8f - this.timeLeft) / 8f)))) * 0.94f;
+            this.Opacity = (float)Math.Sqrt(1 - (Math.Abs(8f - this.Lifetime) / 8f));
+            this.Scale = (((float)Math.Sqrt(1 - (Math.Abs(8f - this.Lifetime) / 8f)))) * 0.94f;
         }
     }
     public class HadCircle2 : EParticle
@@ -27,19 +27,19 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/BloomRing").Value;
         public override void SetProperty()
         {
-            this.timeLeft = 16;
+            this.Lifetime = 16;
         }
         public override void AI()
         {
             base.AI();
-            this.alpha = (this.timeLeft / 16f);
-            this.scale = (16 - this.timeLeft) / 16f * 2.4f;
+            this.Opacity = (this.Lifetime / 16f);
+            this.Scale = (16 - this.Lifetime) / 16f * 2.4f;
         }
         public float scale2 = 1;
 
         public override void PreDraw()
         {
-            this.scale *= this.scale2;
+            this.Scale *= this.scale2;
             base.PreDraw();
             base.PreDraw();
         }

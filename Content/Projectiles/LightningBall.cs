@@ -50,11 +50,11 @@ namespace CalamityEntropy.Content.Projectiles
                 EParticle.NewParticle(t2, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
             }
             ++Projectile.localAI[1];
-            t1.timeLeft = 13;
-            t2.timeLeft = 13;
+            t1.Lifetime = 13;
+            t2.Lifetime = 13;
             foreach (var p in ts)
             {
-                p.timeLeft = 13;
+                p.Lifetime = 13;
                 if (Main.rand.NextBool(8))
                 {
                     p.AddPoint(Projectile.Center + Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-26, 26) * Projectile.scale);

@@ -12,8 +12,8 @@ namespace CalamityEntropy.Content.Particles
         public override void SetProperty()
         {
             base.SetProperty();
-            this.orgColor = this.color;
-            this.timeLeft = 80;
+            this.orgColor = this.Color;
+            this.Lifetime = 80;
         }
         public float rotDir = Main.rand.NextBool() ? 1 : -1;
         public int texT = Main.rand.Next(0, 3);
@@ -25,9 +25,9 @@ namespace CalamityEntropy.Content.Particles
             {
                 wl -= 0.1f;
             }
-            this.rotation += rotDir * 0.03f;
-            this.alpha = ((float)this.timeLeft / (float)timeleftmax);
-            this.color = Color.Lerp(this.color, Color.Black, 0.03f);
+            this.Rotation += rotDir * 0.03f;
+            this.Opacity = ((float)this.Lifetime / (float)timeleftmax);
+            this.Color = Color.Lerp(this.Color, Color.Black, 0.03f);
             this.velocity *= 0.9f;
             this.velocity = this.velocity + new Vector2(0, -0.1f);
         }
@@ -37,13 +37,13 @@ namespace CalamityEntropy.Content.Particles
         }
         public override void PreDraw()
         {
-            Color clr = this.color;
+            Color clr = this.Color;
             if (!this.glow)
             {
                 clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
             }
             clr = Color.Lerp(clr, Color.White, wl);
-            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, Utilities.Util.GetCutTexRect(Texture, 3, texT, false), clr * alpha, rotation, getOrigin(), scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, Utilities.Util.GetCutTexRect(Texture, 3, texT, false), clr * Opacity, Rotation, getOrigin(), Scale, SpriteEffects.None, 0);
         }
     }
 }
