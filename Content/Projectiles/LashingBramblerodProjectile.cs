@@ -36,12 +36,9 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             base.AI();
-            if (Projectile.localAI[3]++ % 6 == 0)
-            {
-                var points = new List<Vector2>();
-                Projectile.FillWhipControlPoints(Projectile, points);
-                EParticle.spawnNew(new LifeLeaf(), points[points.Count - 1], Util.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, Util.randomRot());
-            }
+            var points = new List<Vector2>();
+            Projectile.FillWhipControlPoints(Projectile, points);
+            EParticle.spawnNew(new LifeLeaf(), points[points.Count - 1], Util.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, Util.randomRot());
         }
         public override int handleHeight => 30;
         public override int segHeight => 20;
