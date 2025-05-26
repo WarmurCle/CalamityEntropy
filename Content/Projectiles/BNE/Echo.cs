@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         }
         public override void AI()
         {
-            EParticle.spawnNew(new EchoCircle(), Projectile.Center, Projectile.velocity, Color.White, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
+            EParticle.NewParticle(new EchoCircle(), Projectile.Center, Projectile.velocity, Color.White, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
         }
         public override bool PreDraw(ref Color lightColor)
         {

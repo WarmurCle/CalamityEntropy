@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 0; i < 6; i++)
             {
-                EParticle.spawnNew(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
             }
         }
     }

@@ -1326,12 +1326,12 @@ namespace CalamityEntropy
             for (int j = 0; j < 53; j++)
             {
                 var spark = new HeavenfallStar();
-                EParticle.spawnNew(spark, pos, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, norl.ToRotation(), LifeTime);
+                EParticle.NewParticle(spark, pos, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, norl.ToRotation(), LifeTime);
             }
             for (int j = 0; j < 53; j++)
             {
                 var spark = new HeavenfallStar();
-                EParticle.spawnNew(spark, pos, norl * -(0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, (-norl).ToRotation(), LifeTime);
+                EParticle.NewParticle(spark, pos, norl * -(0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, (-norl).ToRotation(), LifeTime);
             }
         }
     }

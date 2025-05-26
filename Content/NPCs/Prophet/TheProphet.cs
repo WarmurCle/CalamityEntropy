@@ -440,7 +440,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         if (this.trail == null || this.trail.timeLeft < 1)
                         {
                             this.trail = new ProminenceTrail() { color1 = Color.DeepSkyBlue, color2 = Color.White, maxLength = 14 };
-                            EParticle.spawnNew(this.trail, NPC.Center, Vector2.Zero, Color.White, 7f, 1, true, BlendState.AlphaBlend, 0);
+                            EParticle.NewParticle(this.trail, NPC.Center, Vector2.Zero, Color.White, 7f, 1, true, BlendState.AlphaBlend, 0);
                         }
                     }
                     if (NPC.ai[1] > 0)

@@ -41,13 +41,13 @@ namespace CalamityEntropy.Content.Projectiles
                     var pt = new TrailParticle();
                     pt.maxLength = 11;
                     ts.Add(pt);
-                    EParticle.spawnNew(pt, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.56f, 1, true, BlendState.NonPremultiplied);
+                    EParticle.NewParticle(pt, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.56f, 1, true, BlendState.NonPremultiplied);
                 }
                 t1.maxLength *= 4;
                 t2.maxLength *= 4;
 
-                EParticle.spawnNew(t1, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
-                EParticle.spawnNew(t2, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
+                EParticle.NewParticle(t1, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
+                EParticle.NewParticle(t2, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
             }
             ++Projectile.localAI[1];
             t1.timeLeft = 13;
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles
             Utilities.Util.PlaySound("ofhit", 1, Projectile.Center);
             for (int i = 0; i < 16; i++)
             {
-                EParticle.spawnNew(new TrailSparkParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 14), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale, 1, true, BlendState.NonPremultiplied);
+                EParticle.NewParticle(new TrailSparkParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 14), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale, 1, true, BlendState.NonPremultiplied);
             }
             CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), new Vector2(2f, 2f), 0, 0.1f, (false ? 2 : 1) * 0.85f * 0.4f, (false ? 46 : 36));
             GeneralParticleHandler.SpawnParticle(pulse);

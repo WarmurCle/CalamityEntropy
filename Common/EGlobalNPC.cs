@@ -315,7 +315,7 @@ namespace CalamityEntropy.Common
                     AbyssalLine p = new AbyssalLine() { lx = 1.2f, xadd = 0.32f };
                     p.spawnColor = Color.Gold;
                     p.endColor = Color.DarkGoldenrod;
-                    EParticle.spawnNew(p, npc.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(p, npc.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
 
                 }
             }

@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (swingProgress > 0.04f)
             {
                 Lighting.AddLight(lastTop, 1, 0.8f, 0.8f);
-                EParticle.spawnNew(new Smoke() { timeLeft = 40, timeleftmax = 40, TimeLeftMax = 40}, points[points.Count - 1] + Utilities.Util.randomVec(2), Utilities.Util.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
+                EParticle.NewParticle(new Smoke() { timeLeft = 40, timeleftmax = 40, TimeLeftMax = 40}, points[points.Count - 1] + Utilities.Util.randomVec(2), Utilities.Util.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
 
                 Vector2 top = points[points.Count - 1];
                 Vector2 sparkVelocity2 = (lastTop - top) * -0.04f;

@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Particles
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (EParticle p in alphaBlendDraw)
                 {
-                    p.draw();
+                    p.PreDraw();
                 }
                 Main.spriteBatch.End();
             }
@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Particles
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (EParticle p in other)
                 {
-                    p.draw();
+                    p.PreDraw();
                 }
                 Main.spriteBatch.End();
             }
@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Particles
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (EParticle p in additiveDraw)
                 {
-                    p.draw();
+                    p.PreDraw();
                 }
                 Main.spriteBatch.End();
             }
@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.Particles
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (EParticle p in alphaBlendDraw)
                 {
-                    p.draw();
+                    p.PreDraw();
                 }
                 Main.spriteBatch.End();
             }
@@ -145,7 +145,7 @@ namespace CalamityEntropy.Content.Particles
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (EParticle p in other)
                 {
-                    p.draw();
+                    p.PreDraw();
                 }
                 Main.spriteBatch.End();
             }
@@ -154,7 +154,7 @@ namespace CalamityEntropy.Content.Particles
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (EParticle p in additiveDraw)
                 {
-                    p.draw();
+                    p.PreDraw();
                 }
                 Main.spriteBatch.End();
             }
@@ -169,7 +169,7 @@ namespace CalamityEntropy.Content.Particles
         {
             foreach (EParticle particle in particles)
             {
-                particle.update();
+                particle.AI();
             }
             for (int i = particles.Count - 1; i >= 0; i--)
             {
@@ -179,16 +179,16 @@ namespace CalamityEntropy.Content.Particles
                 }
             }
         }
-        public virtual void update()
+        public virtual void AI()
         {
             this.position += this.velocity;
             timeLeft--;
         }
-        public virtual void onSpawn()
+        public virtual void SetProperty()
         {
 
         }
-        public static void spawnNew(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs, float rotation = 0, int lifeTime = -1)
+        public static void NewParticle(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs, float rotation = 0, int lifeTime = -1)
         {
             particle.position = pos;
             particle.velocity = vel;
@@ -207,7 +207,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 particle.useAlphaBlend = true;
             }
-            particle.onSpawn();
+            particle.SetProperty();
             if (lifeTime > 0)
             {
                 particle.timeLeft = lifeTime;
@@ -217,9 +217,9 @@ namespace CalamityEntropy.Content.Particles
         }
         public virtual Vector2 getOrigin()
         {
-            return this.texture.Size() / 2;
+            return this.Texture.Size() / 2;
         }
-        public virtual void draw()
+        public virtual void PreDraw()
         {
             Color clr = this.color;
             if (!this.glow)
@@ -234,8 +234,8 @@ namespace CalamityEntropy.Content.Particles
             {
                 clr *= alpha;
             }
-            Main.spriteBatch.Draw(this.texture, this.position - Main.screenPosition, null, clr, rotation, getOrigin(), scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, null, clr, rotation, getOrigin(), scale, SpriteEffects.None, 0);
         }
-        public virtual Texture2D texture => null;
+        public virtual Texture2D Texture => null;
     }
 }

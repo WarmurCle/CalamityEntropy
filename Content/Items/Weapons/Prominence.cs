@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = 4;
             for (int i = 0; i < 64; i++)
             {
-                EParticle.spawnNew(new Smoke() { timeleftmax = 16, timeLeft = 16 }, position, velocity.RotatedByRandom(0.74) * 0.6f * Main.rand.NextFloat(0.4f, 1f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.14f), 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new Smoke() { timeleftmax = 16, timeLeft = 16 }, position, velocity.RotatedByRandom(0.74) * 0.6f * Main.rand.NextFloat(0.4f, 1f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.14f), 1, true, BlendState.Additive, Utilities.Util.randomRot());
             }
             for (int i = 0; i < 3; i++)
             {
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.64f) * 0.6f * Main.rand.NextFloat(0.4f, 1f), ModContent.ProjectileType<ProminenceSplitShot>(), damage / 6, knockback * 2, player.whoAmI);
                 Vector2 vel = velocity.RotatedByRandom(0.84f) * 1.4f * Main.rand.NextFloat(0.4f, 1f);
-                EParticle.spawnNew(new StrikeParticle(), position, vel, Color.Lerp(Color.OrangeRed, new Color(255, 231, 66), Main.rand.NextFloat()), 0.24f, 1, true, BlendState.Additive, vel.ToRotation());
+                EParticle.NewParticle(new StrikeParticle(), position, vel, Color.Lerp(Color.OrangeRed, new Color(255, 231, 66), Main.rand.NextFloat()), 0.24f, 1, true, BlendState.Additive, vel.ToRotation());
             }
             player.velocity -= velocity * 0.08f;
             return false;

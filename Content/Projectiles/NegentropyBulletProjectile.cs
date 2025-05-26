@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 0; i < 360; i += 40)
             {
-                EParticle.spawnNew(new AbyssalLine() { lx = 2f, xadd = 0.27f }, pos, Vector2.Zero, Color.AliceBlue, 1, 1, true, BlendState.Additive, MathHelper.ToRadians(i));
+                EParticle.NewParticle(new AbyssalLine() { lx = 2f, xadd = 0.27f }, pos, Vector2.Zero, Color.AliceBlue, 1, 1, true, BlendState.Additive, MathHelper.ToRadians(i));
             }
         }
 

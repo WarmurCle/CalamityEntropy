@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         {
             for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 6 : 1); i++)
             {
-                EParticle.spawnNew(new AbyssalLine() { lx = (Projectile.Calamity().stealthStrike ? 3 : 1.6f), xadd = (Projectile.Calamity().stealthStrike ? 3 : 1.6f) }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new AbyssalLine() { lx = (Projectile.Calamity().stealthStrike ? 3 : 1.6f), xadd = (Projectile.Calamity().stealthStrike ? 3 : 1.6f) }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
             }
             target.Entropy().StareOfAbyssTime = 12 * 60;
             target.Entropy().StareOfAbyssLevel = (int)MathHelper.Min(target.Entropy().StareOfAbyssLevel + (Projectile.Calamity().stealthStrike ? 6 : 1), 8);

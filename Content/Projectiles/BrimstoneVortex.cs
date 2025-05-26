@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.spawnNew(new GlowSpark(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 4) + Projectile.velocity.SafeNormalize(Vector2.Zero) * 12, Color.Red, Main.rand.NextFloat(0.04f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new GlowSpark(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 4) + Projectile.velocity.SafeNormalize(Vector2.Zero) * 12, Color.Red, Main.rand.NextFloat(0.04f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
         public override bool PreDraw(ref Color lightColor)

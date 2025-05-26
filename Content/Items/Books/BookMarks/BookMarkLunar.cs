@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Utilities.Util.PlaySound("light_bolt", 1, n.Center);
                 for (int i = 0; i < 80; i++)
                 {
-                    EParticle.spawnNew(new GlowSpark2(), n.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 12), Color.Lerp(Color.SpringGreen, new Color(200, 230, 255), Main.rand.NextFloat()), Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, 0);
+                    EParticle.NewParticle(new GlowSpark2(), n.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 12), Color.Lerp(Color.SpringGreen, new Color(200, 230, 255), Main.rand.NextFloat()), Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, 0);
                 }
                 ProjectileLoader.OnHitNPC(projectile, n, n.CalculateHitInfo(dmg, 0, false, 0, projectile.DamageType), dmg);
             }

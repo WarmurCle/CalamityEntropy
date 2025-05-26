@@ -5,14 +5,14 @@ namespace CalamityEntropy.Content.Particles
 {
     public class Sn : EParticle
     {
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Sn").Value;
-        public override void onSpawn()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Sn").Value;
+        public override void SetProperty()
         {
             this.timeLeft = 16;
         }
-        public override void update()
+        public override void AI()
         {
-            base.update();
+            base.AI();
             this.alpha = this.timeLeft / 16f;
         }
     }

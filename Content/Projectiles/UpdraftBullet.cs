@@ -32,8 +32,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Main.GameUpdateCount % 3 == 0)
             {
-                EParticle.spawnNew(new WindParticle() { v1 = 9, v2 = 3, r = Projectile.rotation + MathHelper.Pi, dir = -1 }, Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi);
-                EParticle.spawnNew(new WindParticle() { v1 = 9, v2 = 3, r = Projectile.rotation + MathHelper.Pi, dir = 1 }, Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi);
+                EParticle.NewParticle(new WindParticle() { v1 = 9, v2 = 3, r = Projectile.rotation + MathHelper.Pi, dir = -1 }, Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi);
+                EParticle.NewParticle(new WindParticle() { v1 = 9, v2 = 3, r = Projectile.rotation + MathHelper.Pi, dir = 1 }, Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi);
             }
         }
 
@@ -59,14 +59,14 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.032f), target.Center + new Vector2(Main.rand.NextFloat(0, target.width) - (target.width / 2f), Main.rand.NextFloat(0, target.height) - (target.height / 2f)), new Vector2(0, -34), Color.Lerp(this.color, Color.LightBlue, 0.5f), 1, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new ULineParticle(4, 0.8f, 0.85f, 0.032f), target.Center + new Vector2(Main.rand.NextFloat(0, target.width) - (target.width / 2f), Main.rand.NextFloat(0, target.height) - (target.height / 2f)), new Vector2(0, -34), Color.Lerp(this.color, Color.LightBlue, 0.5f), 1, 1, true, BlendState.AlphaBlend, 0);
             }
             if (target.velocity.Length() > 0.1f && target.type != NPCID.WallofFlesh)
             {
                 target.velocity += Projectile.velocity * (0.6f + 0.4f * target.knockBackResist);
             }
-            EParticle.spawnNew(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
-            EParticle.spawnNew(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+            EParticle.NewParticle(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
+            EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
         }
 
         public override void OnKill(int timeLeft)
@@ -74,9 +74,9 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnKill(timeLeft);
             for (int i = 0; i < 3; i++)
             {
-                EParticle.spawnNew(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
             }
-            EParticle.spawnNew(new UpdraftParticle(), Projectile.Center, Projectile.velocity, Color.White, Projectile.scale * 0.4f, 1, true, BlendState.Additive, Projectile.rotation);
+            EParticle.NewParticle(new UpdraftParticle(), Projectile.Center, Projectile.velocity, Color.White, Projectile.scale * 0.4f, 1, true, BlendState.Additive, Projectile.rotation);
         }
     }
 

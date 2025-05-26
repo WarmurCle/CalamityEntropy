@@ -9,14 +9,14 @@ namespace CalamityEntropy.Content.Particles
     public class RuneParticle : EParticle
     {
         public int frame = Main.rand.Next(0, 14);
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Runes/r" + frame.ToString()).Value;
-        public override void onSpawn()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Runes/r" + frame.ToString()).Value;
+        public override void SetProperty()
         {
             this.timeLeft = 42;
         }
-        public override void update()
+        public override void AI()
         {
-            base.update();
+            base.AI();
             this.alpha = this.timeLeft / 42f;
             this.color = Color.Lerp(new Color(110, 120, 255), Color.White, this.alpha);
         }
@@ -25,13 +25,13 @@ namespace CalamityEntropy.Content.Particles
     {
         public int frame = Main.rand.Next(0, 14);
         public Entity homingTarget;
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Runes/r" + frame.ToString()).Value;
-        public override void onSpawn()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Runes/r" + frame.ToString()).Value;
+        public override void SetProperty()
         {
             this.timeLeft = 3;
         }
         float speed = 0;
-        public override void update()
+        public override void AI()
         {
             if (homingTarget == null)
             {
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 speed += 0.05f;
             }
-            base.update();
+            base.AI();
             if (this.timeLeft > 1)
             {
                 this.timeLeft = 3;

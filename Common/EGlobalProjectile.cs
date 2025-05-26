@@ -416,7 +416,7 @@ namespace CalamityEntropy.Common
                 if (trail_pmn == null)
                 {
                     trail_pmn = new ProminenceTrail();
-                    EParticle.spawnNew(trail_pmn, projectile.Center + projectile.velocity * 2, Vector2.Zero, Color.White, projectile.scale, 1, true, BlendState.NonPremultiplied);
+                    EParticle.NewParticle(trail_pmn, projectile.Center + projectile.velocity * 2, Vector2.Zero, Color.White, projectile.scale, 1, true, BlendState.NonPremultiplied);
                 }
                 trail_pmn.AddPoint(projectile.Center + projectile.velocity * 1.5f);
                 trail_pmn.AddPoint(projectile.Center + projectile.velocity * 2);

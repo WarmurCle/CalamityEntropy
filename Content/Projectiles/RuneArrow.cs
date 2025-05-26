@@ -68,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity += v * 2f;
                 }
             }
-            EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+            EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
 
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 0; i < 16; i++)
             {
-                EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.6f, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.6f, 1, true, BlendState.AlphaBlend, 0);
             }
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
             if (!htd)

@@ -126,8 +126,8 @@ namespace CalamityEntropy.Content.Projectiles
                 //GeneralParticleHandler.SpawnParticle(explosion2);
                 for (int i = 0; i < 42; i++)
                 {
-                    EParticle.spawnNew(new Smoke() { timeLeft = 20, timeleftmax = 20 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGreen, 0.09f, 1, true, BlendState.Additive);
-                    EParticle.spawnNew(new Smoke() { timeLeft = 20, timeleftmax = 20 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGray, 0.09f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { timeLeft = 20, timeleftmax = 20 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGreen, 0.09f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { timeLeft = 20, timeleftmax = 20 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGray, 0.09f, 1, true, BlendState.Additive);
                 }
             }
         }

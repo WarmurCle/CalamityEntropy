@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             base.AI();
-            EParticle.spawnNew(new LifeLeaf(), Projectile.Center, Utilities.Util.randomVec(6), Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, false, BlendState.AlphaBlend, Utilities.Util.randomRot());
+            EParticle.NewParticle(new LifeLeaf(), Projectile.Center, Utilities.Util.randomVec(6), Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, false, BlendState.AlphaBlend, Utilities.Util.randomRot());
             if (Projectile.timeLeft < 3)
             {
                 return;
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 0; i < 42; i++)
                     {
-                        EParticle.spawnNew(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gold, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
+                        EParticle.NewParticle(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gold, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
                     }
                     Utilities.Util.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.6f);
                     Projectile.Kill();

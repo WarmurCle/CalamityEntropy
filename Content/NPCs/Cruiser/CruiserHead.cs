@@ -473,7 +473,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     whiteLerp += 1 / 160f;
                 if(DeathAnmCount % 6 == 0 && !Main.dedServ)
                 {
-                    EParticle.spawnNew(new PremultBurst(), NPC.Center, Vector2.Zero, Color.LightBlue, 3.2f, 1, true, BlendState.Additive, 0);
+                    EParticle.NewParticle(new PremultBurst(), NPC.Center, Vector2.Zero, Color.LightBlue, 3.2f, 1, true, BlendState.Additive, 0);
                 }
                 if(DeathAnmCount <= 0)
                 {
@@ -1029,7 +1029,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             {
                                 NPC.rotation = (target.Center + target.velocity * Main.rand.NextFloat(10, 36) - NPC.Center).ToRotation();
                                 NPC.velocity = NPC.rotation.ToRotationVector2();
-                                EParticle.spawnNew(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, NPC.rotation);
+                                EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, NPC.rotation);
                             }
                             if (changeCounter % 46 == 24)
                             {

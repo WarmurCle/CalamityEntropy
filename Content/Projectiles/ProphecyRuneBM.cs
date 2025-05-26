@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
             Util.PlaySound("rune_shatter", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 1);
             for (int i = 0; i < 5; i++)
             {
-                EParticle.spawnNew(new GlowSpark(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new GlowSpark(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
     }

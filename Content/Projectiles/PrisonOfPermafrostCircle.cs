@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 0; i < 16; i++)
                     {
-                        EParticle.spawnNew(new Smoke(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 + Utilities.Util.randomVec(6), (Projectile.rotation + Main.rand.NextFloat(-0.6f, 0.6f)).ToRotationVector2() * Main.rand.NextFloat(34, 54), new Color(190, 226, 255) * 0.2f, 0.4f, 1, true, BlendState.Additive);
+                        EParticle.NewParticle(new Smoke(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 + Utilities.Util.randomVec(6), (Projectile.rotation + Main.rand.NextFloat(-0.6f, 0.6f)).ToRotationVector2() * Main.rand.NextFloat(34, 54), new Color(190, 226, 255) * 0.2f, 0.4f, 1, true, BlendState.Additive);
                     }
                     if (Projectile.owner == Main.myPlayer)
                     {

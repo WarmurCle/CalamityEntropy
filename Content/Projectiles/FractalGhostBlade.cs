@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (launch)
                     {
-                        EParticle.spawnNew(new Particles.ImpactParticle(), Projectile.Center, Vector2.Zero, Color.IndianRed, 0.18f, 1, true, BlendState.Additive, (target.Center - Projectile.Center).ToRotation());
+                        EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center, Vector2.Zero, Color.IndianRed, 0.18f, 1, true, BlendState.Additive, (target.Center - Projectile.Center).ToRotation());
 
                         if (!Main.dedServ)
                         {

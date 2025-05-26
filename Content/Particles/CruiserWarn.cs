@@ -5,18 +5,18 @@ namespace CalamityEntropy.Content.Particles
 {
     public class CruiserWarn : EParticle
     {
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/CrLine").Value;
-        public override void onSpawn()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/CrLine").Value;
+        public override void SetProperty()
         {
             this.timeLeft = 30;
         }
         public override Vector2 getOrigin()
         {
-            return new Vector2(0, texture.Height / 2);
+            return new Vector2(0, Texture.Height / 2);
         }
-        public override void update()
+        public override void AI()
         {
-            base.update();
+            base.AI();
             this.alpha = this.timeLeft / 30f;
         }
     }

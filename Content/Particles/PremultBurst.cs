@@ -6,14 +6,14 @@ namespace CalamityEntropy.Content.Particles
 {
     public class PremultBurst : EParticle
     {
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/PremultBurst").Value;
-        public override void onSpawn()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/PremultBurst").Value;
+        public override void SetProperty()
         {
             this.timeLeft = 2;
         }
-        public override void update()
+        public override void AI()
         {
-            base.update();
+            base.AI();
             this.timeLeft = 2;
             this.scale -= 0.1f;
             if(this.scale < 0)

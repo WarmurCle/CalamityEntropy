@@ -108,13 +108,13 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    EParticle.spawnNew(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Red, Main.rand.NextFloat(0.1f, 0.16f), 1, true, BlendState.Additive, 0);
+                    EParticle.NewParticle(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Red, Main.rand.NextFloat(0.1f, 0.16f), 1, true, BlendState.Additive, 0);
                 }
                 for (int i = 0; i < odp.Count; i++)
                 {
                     for (int i_ = 0; i_ < 6; i_++)
                     {
-                        EParticle.spawnNew(new GlowSpark(), odp[i], Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7) * ((float)i / odp.Count), Color.Red, Main.rand.NextFloat(0.1f, 0.16f) * ((float)i / odp.Count), 1, true, BlendState.Additive, 0);
+                        EParticle.NewParticle(new GlowSpark(), odp[i], Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7) * ((float)i / odp.Count), Color.Red, Main.rand.NextFloat(0.1f, 0.16f) * ((float)i / odp.Count), 1, true, BlendState.Additive, 0);
                     }
                 }
                 Utilities.Util.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 4, volume: 0.8f);

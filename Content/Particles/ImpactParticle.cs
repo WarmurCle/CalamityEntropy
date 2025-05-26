@@ -4,16 +4,16 @@ namespace CalamityEntropy.Content.Particles
 {
     public class ImpactParticle : EParticle
     {
-        public override Texture2D texture => Utilities.Util.getExtraTex("Impact2");
-        public override void onSpawn()
+        public override Texture2D Texture => Utilities.Util.getExtraTex("Impact2");
+        public override void SetProperty()
         {
-            base.onSpawn();
+            base.SetProperty();
             this.timeLeft = 120;
         }
         public float sadd = 0.1f;
-        public override void update()
+        public override void AI()
         {
-            base.update();
+            base.AI();
             this.scale += sadd;
             sadd *= 0.9f;
             this.color *= 0.96f;

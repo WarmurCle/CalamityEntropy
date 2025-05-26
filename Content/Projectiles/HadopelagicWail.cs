@@ -31,19 +31,19 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] == 0)
             {
-                EParticle.spawnNew(new HadLine(), Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2).SafeNormalize(Vector2.Zero) * 120, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
-                EParticle.spawnNew(new HadLine(), Projectile.Center + Projectile.velocity.RotatedBy(-MathHelper.PiOver2).SafeNormalize(Vector2.Zero) * 120, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
+                EParticle.NewParticle(new HadLine(), Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2).SafeNormalize(Vector2.Zero) * 120, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
+                EParticle.NewParticle(new HadLine(), Projectile.Center + Projectile.velocity.RotatedBy(-MathHelper.PiOver2).SafeNormalize(Vector2.Zero) * 120, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
 
             }
             Projectile.ai[0]++;
-            EParticle.spawnNew(new HadCircle(), Projectile.Center, Vector2.Zero, Color.White, 0.6f, 0, true, BlendState.Additive, Projectile.velocity.ToRotation());
+            EParticle.NewParticle(new HadCircle(), Projectile.Center, Vector2.Zero, Color.White, 0.6f, 0, true, BlendState.Additive, Projectile.velocity.ToRotation());
 
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            EParticle.spawnNew(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
-            EParticle.spawnNew(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
+            EParticle.NewParticle(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
+            EParticle.NewParticle(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
         }
         public override bool PreDraw(ref Color lightColor)
         {

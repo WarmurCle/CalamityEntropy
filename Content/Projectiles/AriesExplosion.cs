@@ -36,8 +36,8 @@ namespace CalamityEntropy.Content.Projectiles
                 GeneralParticleHandler.SpawnParticle(explosion2);
                 for (int i = 0; i < 28; i++)
                 {
-                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, new Color(140, 140, 255), 0.06f, 1, true, BlendState.Additive);
-                    EParticle.spawnNew(new Smoke() { timeLeft = 26, timeleftmax = 26 }, Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, Color.LightGoldenrodYellow, 0.06f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { timeLeft = 26, timeleftmax = 26 }, Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, new Color(140, 140, 255), 0.06f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { timeLeft = 26, timeleftmax = 26 }, Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, Color.LightGoldenrodYellow, 0.06f, 1, true, BlendState.Additive);
                 }
             }
             Projectile.ai[0]++;

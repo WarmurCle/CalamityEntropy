@@ -9,15 +9,15 @@ namespace CalamityEntropy.Content.Particles
     public class TrailSparkParticle : EParticle
     {
         public List<Vector2> odp = new List<Vector2>();
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Trail").Value;
-        public override void onSpawn()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Trail").Value;
+        public override void SetProperty()
         {
             this.timeLeft = 30;
         }
         public int maxLength = 7;
-        public override void update()
+        public override void AI()
         {
-            base.update();
+            base.AI();
             AddPoint(this.position);
             this.velocity = this.velocity + gravity * Vector2.UnitY * gA;
             if (gA < 1)
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Particles
             }
         }
 
-        public override void draw()
+        public override void PreDraw()
         {
             if (odp.Count < 3)
             {
@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Particles
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             if (ve.Count >= 3)
             {
-                gd.Textures[0] = this.texture;
+                gd.Textures[0] = this.Texture;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             }
         }

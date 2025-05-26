@@ -6,22 +6,22 @@ namespace CalamityEntropy.Content.Particles
 {
     public class StrikeParticle : EParticle
     {
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/UpdraftParticle").Value;
-        public override void onSpawn()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/UpdraftParticle").Value;
+        public override void SetProperty()
         {
             end = this.position;
             this.timeLeft = 60;
         }
-        public override void update()
+        public override void AI()
         {
-            base.update();
+            base.AI();
             this.velocity *= 0.8f;
             end = Vector2.Lerp(end, this.position, 0.16f);
         }
         public Vector2 end;
-        public override void draw()
+        public override void PreDraw()
         {
-            Main.spriteBatch.Draw(texture, this.position - Main.screenPosition, null, new Color(255, 206, 180), (this.position - end).ToRotation(), this.getOrigin(), new Vector2(Utilities.Util.getDistance(this.position, end) / (float)texture.Width, this.scale * 0.3f), SpriteEffects.None, 0); ;
+            Main.spriteBatch.Draw(Texture, this.position - Main.screenPosition, null, new Color(255, 206, 180), (this.position - end).ToRotation(), this.getOrigin(), new Vector2(Utilities.Util.getDistance(this.position, end) / (float)Texture.Width, this.scale * 0.3f), SpriteEffects.None, 0); ;
         }
     }
 }

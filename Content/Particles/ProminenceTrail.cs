@@ -12,14 +12,14 @@ namespace CalamityEntropy.Content.Particles
     public class ProminenceTrail : EParticle
     {
         public List<Vector2> odp = new List<Vector2>();
-        public override Texture2D texture => Utilities.Util.getExtraTex("SimpleNoise");
-        public override void onSpawn()
+        public override Texture2D Texture => Utilities.Util.getExtraTex("SimpleNoise");
+        public override void SetProperty()
         {
             this.timeLeft = 11;
             this.PixelShader = true;
         }
         public int maxLength = 21;
-        public override void update()
+        public override void AI()
         {
             if (this.timeLeft < 10)
             {
@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Particles
                     odp.RemoveAt(0);
                 }
             }
-            base.update();
+            base.AI();
         }
 
         public void AddPoint(Vector2 pos)
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public Color color1 = new Color(151, 0, 5);
         public Color color2 = new Color(255, 231, 66);
-        public override void draw()
+        public override void PreDraw()
         {
             if (odp.Count < 3)
             {
@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Particles
                 shader.Parameters["alpha"].SetValue(float.Min(1, this.timeLeft / 10f));
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
 
-                gd.Textures[0] = this.texture;
+                gd.Textures[0] = this.Texture;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
                 Main.spriteBatch.ExitShaderRegion();

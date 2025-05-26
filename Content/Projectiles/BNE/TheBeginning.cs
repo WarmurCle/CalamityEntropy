@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                 AbyssalLine p = new AbyssalLine() { lx = (Projectile.Calamity().stealthStrike ? 3 : 1.6f), xadd = (Projectile.Calamity().stealthStrike ? 3 : 1.6f) };
                 p.spawnColor = Color.Gold;
                 p.endColor = Color.DarkGoldenrod;
-                EParticle.spawnNew(p, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(p, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
             }
             target.Entropy().EclipsedImprintTime = 12 * 60;
             target.Entropy().EclipsedImprintLevel = (int)MathHelper.Min(target.Entropy().EclipsedImprintLevel + (Projectile.Calamity().stealthStrike ? 6 : 1), 8);
