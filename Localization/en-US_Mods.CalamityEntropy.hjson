@@ -3113,3 +3113,4 @@ GameTips.VoidOreTip: Void ore will spawn high in the sky after defeated Cruiser
 LoreAwakeningDesc: Slightly increase movement speed and jumping height
 LoreKingSlimeDesc: Increase jumping height, but reduce movement speed
 LoreDdesertScourgeDesc: Increase breath holding time
+LoreDesertScourgeDesc: Mods.CalamityEntropy.LoreDesertScourgeDesc

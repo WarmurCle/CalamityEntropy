@@ -302,6 +302,7 @@ namespace CalamityEntropy.Common
         public bool foreseeOrbLast = false;
         public override void ResetEffects()
         {
+            DashCD = 1;
             HitCooldown = 0;
             voidResistance = 0;
             plagueEngine = false;
@@ -1036,7 +1037,7 @@ namespace CalamityEntropy.Common
                 info.Damage = 0;
             }
         }
-
+        public float DashCD = 1;
         public int OracleDeckHealCd = 0;
         public int effectCount = 0;
         public int shielddamagecd = 0;
@@ -1126,6 +1127,7 @@ namespace CalamityEntropy.Common
                 {
                     Main.LocalPlayer.dashDelay = AzafureChargeShield.DashDelay;
                 }
+                Main.LocalPlayer.dashDelay = (int)(Main.LocalPlayer.dashDelay * DashCD);
                 DashFlag = false;
             }
             if (AzChargeShieldSteamTime > 0)
