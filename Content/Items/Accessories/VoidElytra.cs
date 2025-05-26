@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             if (player.wingTime < 2 && !(player.mount.Active) && inUse)
             {
                 player.wingTime = 2;
-                player.AddBuff(ModContent.BuffType<VoidTouch>(), 12);
+                player.AddBuff(ModContent.BuffType<VoidTouch>(), 5);
             }
             return base.WingUpdate(player, inUse);
         }

@@ -31,14 +31,15 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            Utilities.Util.PlaySound("beeSting", 1, target.Center, volume: 0.4f);
+            Utilities.Util.PlaySound("beeSting", 1, target.Center);
         }
-        public override void AI()
+        public override bool PreAI()
         {
-            base.AI();
             var points = new List<Vector2>();
             Projectile.FillWhipControlPoints(Projectile, points);
-            EParticle.spawnNew(new LifeLeaf(), points[points.Count - 1], Util.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, Util.randomRot());
+            EParticle.NewParticle(new LifeLeaf(), points[points.Count - 1], Util.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, Util.randomRot());
+
+            return base.PreAI();
         }
         public override int handleHeight => 30;
         public override int segHeight => 20;

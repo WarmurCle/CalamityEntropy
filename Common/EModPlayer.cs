@@ -1060,14 +1060,14 @@ namespace CalamityEntropy.Common
                 {
                     int rd = RuneDash - 1;
                     immune = 12;
-                    if (runeDashTrail == null || runeDashTrail.timeLeft < 1)
+                    if (runeDashTrail == null || runeDashTrail.Lifetime < 1)
                     {
                         runeDashTrail = new ProminenceTrail() { color1 = Color.DeepSkyBlue, color2 = Color.White, maxLength = 120 };
-                        EParticle.spawnNew(runeDashTrail, Player.Center, Vector2.Zero, Color.White, 5f, 1, true, BlendState.AlphaBlend, 0);
+                        EParticle.NewParticle(runeDashTrail, Player.Center, Vector2.Zero, Color.White, 5f, 1, true, BlendState.AlphaBlend, 0);
                     }
                     for (int i = 0; i < 3; i++)
                     {
-                        EParticle.spawnNew(new RuneParticle(), Player.Center + Utilities.Util.randomVec(26), Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+                        EParticle.NewParticle(new RuneParticle(), Player.Center + Utilities.Util.randomVec(26), Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
 
                     }
                     RuneDash--;
@@ -1077,7 +1077,7 @@ namespace CalamityEntropy.Common
                         runeDashTrail?.AddPoint(Player.Center + Player.velocity * f * 0.1f);
                     }
 
-                    runeDashTrail.timeLeft = 13;
+                    runeDashTrail.Lifetime = 13;
 
                     if (CEKeybinds.RuneDashHotKey.JustReleased)
                     {
@@ -1145,8 +1145,8 @@ namespace CalamityEntropy.Common
                     float rot = new Vector2(-1 * Player.direction, -2).ToRotation();
                     for (int i = 0; i < 8; i++)
                     {
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Utilities.Util.randomRot());
-                        EParticle.spawnNew(new Smoke() { timeleftmax = 36, timeLeft = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Utilities.Util.randomRot());
+                        EParticle.NewParticle(new Smoke() { timeleftmax = 36, Lifetime = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, Utilities.Util.randomRot());
+                        EParticle.NewParticle(new Smoke() { timeleftmax = 36, Lifetime = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, Utilities.Util.randomRot());
                     }
                 }
             }

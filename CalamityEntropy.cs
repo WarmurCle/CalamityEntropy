@@ -22,6 +22,7 @@ using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
+using CalamityEntropy.Core;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.CalPlayer.Dashes;
@@ -177,10 +178,6 @@ namespace CalamityEntropy
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
             EntropySkies.setUpSkies();
             EffectLoader.Load();
-            if (!Main.dedServ)
-            {
-                EffectLoader.LoadAsset();
-            }
             On_Lighting.AddLight_int_int_int_float += al_iiif;
             On_Lighting.AddLight_int_int_float_float_float += al_iifff;
             On_Lighting.AddLight_Vector2_float_float_float += al_vfff;
@@ -302,7 +299,6 @@ namespace CalamityEntropy
             screen = null;
             screen2 = null;
             EffectLoader.UnLoad();
-            EffectLoader.UnLoadAsset();
             On_Lighting.AddLight_int_int_int_float -= al_iiif;
             On_Lighting.AddLight_int_int_float_float_float -= al_iifff;
             On_Lighting.AddLight_Vector2_float_float_float -= al_vfff;
@@ -1326,12 +1322,12 @@ namespace CalamityEntropy
             for (int j = 0; j < 53; j++)
             {
                 var spark = new HeavenfallStar();
-                EParticle.spawnNew(spark, pos, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, norl.ToRotation(), LifeTime);
+                EParticle.NewParticle(spark, pos, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, norl.ToRotation(), LifeTime);
             }
             for (int j = 0; j < 53; j++)
             {
                 var spark = new HeavenfallStar();
-                EParticle.spawnNew(spark, pos, norl * -(0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, (-norl).ToRotation(), LifeTime);
+                EParticle.NewParticle(spark, pos, norl * -(0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, (-norl).ToRotation(), LifeTime);
             }
         }
     }

@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (spawnParticleCount > 22)
             {
                 spawnParticleCount -= 22;
-                EParticle.spawnNew(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
             }
         }
         public float spawnParticleCount = 0;

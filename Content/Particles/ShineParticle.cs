@@ -7,10 +7,10 @@ namespace CalamityEntropy.Content.Particles
 {
     public class ShineParticle : EParticle
     {
-        public override Texture2D texture => Util.getExtraTex("Glow2");
+        public override Texture2D Texture => Util.getExtraTex("Glow2");
         public Entity FollowOwner;
         public Vector2 ownerLastPos = Vector2.Zero;
-        public override void update()
+        public override void AI()
         {
             if (FollowOwner != null)
             {
@@ -20,8 +20,8 @@ namespace CalamityEntropy.Content.Particles
                 }
                 ownerLastPos = FollowOwner.Center;
             }
-            base.update();
-            this.alpha = (float)(Math.Cos(((float)timeLeft / TimeLeftMax) * MathHelper.Pi - MathHelper.PiOver2));
+            base.AI();
+            this.Opacity = (float)(Math.Cos(((float)Lifetime / TimeLeftMax) * MathHelper.Pi - MathHelper.PiOver2));
         }
     }
 }

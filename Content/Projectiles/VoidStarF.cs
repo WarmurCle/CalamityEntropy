@@ -57,8 +57,8 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[2] > 0)
             {
                 Projectile.DamageType = DamageClass.Magic;
-                EParticle.spawnNew(new HeavenfallStar() { xScale = 0.14f }, Projectile.Center, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
-                EParticle.spawnNew(new HeavenfallStar() { xScale = 0.14f }, Projectile.Center - Projectile.velocity / 2f, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
+                EParticle.NewParticle(new HeavenfallStar() { xScale = 0.14f }, Projectile.Center, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
+                EParticle.NewParticle(new HeavenfallStar() { xScale = 0.14f }, Projectile.Center - Projectile.velocity / 2f, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
 
             }
             else

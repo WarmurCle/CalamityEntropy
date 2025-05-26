@@ -104,11 +104,11 @@ namespace CalamityEntropy.Content.Projectiles
                 lightColor = Color.Lerp(Color.White, Color.Red, 0.5f + (float)Math.Cos(counter * 0.16f) * 0.5f);
                 if (Main.rand.NextBool(8))
                 {
-                    EParticle.spawnNew(new EMediumSmoke(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new EMediumSmoke(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Utilities.Util.randomRot());
                 }
             }
             Vector2 sPos = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale + Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(64 * Projectile.scale, 64 * Projectile.scale);
-            EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.064f), sPos, (Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale - sPos) * 0.18f, lightColor, 0.4f, 1, true, BlendState.AlphaBlend, 0);
+            EParticle.NewParticle(new ULineParticle(4, 0.8f, 0.85f, 0.064f), sPos, (Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale - sPos) * 0.18f, lightColor, 0.4f, 1, true, BlendState.AlphaBlend, 0);
 
             maxTime = 60;
 
@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.Projectiles
                         SoundStyle s = SoundID.DD2_BetsyFireballShot;
                         SoundEngine.PlaySound(s, Projectile.Center);
                         Dust.NewDust(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale * Projectile.scale, 1, 1, DustID.Smoke, a.ToRotationVector2().X * 0.4f, a.ToRotationVector2().Y * 0.4f);
-                        EParticle.spawnNew(new ULineParticle(4, 0.8f, 0.85f, 0.064f), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(7, 16), Color.Lerp(Color.White, Color.Red, Main.rand.NextFloat(0, 1)), 1, 1, true, BlendState.AlphaBlend, 0);
+                        EParticle.NewParticle(new ULineParticle(4, 0.8f, 0.85f, 0.064f), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(7, 16), Color.Lerp(Color.White, Color.Red, Main.rand.NextFloat(0, 1)), 1, 1, true, BlendState.AlphaBlend, 0);
                     }
                 }
             }

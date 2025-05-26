@@ -6,17 +6,17 @@ namespace CalamityEntropy.Content.Particles
 {
     public class RedemptionSpearParticle : EParticle
     {
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/RedemptionSpear").Value;
-        public override void onSpawn()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/RedemptionSpear").Value;
+        public override void SetProperty()
         {
-            this.timeLeft = 20;
+            this.Lifetime = 20;
         }
-        public override void update()
+        public override void AI()
         {
-            base.update();
-            this.alpha = this.timeLeft / 20f;
+            base.AI();
+            this.Opacity = this.Lifetime / 20f;
             this.velocity *= 0.8f;
-            this.rotation = this.velocity.ToRotation() + MathHelper.PiOver4;
+            this.Rotation = this.velocity.ToRotation() + MathHelper.PiOver4;
         }
 
     }

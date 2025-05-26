@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 6 : 1); i++)
                 {
-                    EParticle.spawnNew(new AbyssalLine() { lx = 1.2f, xadd = 1.2f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new AbyssalLine() { lx = 1.2f, xadd = 1.2f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
                 }
             }
 

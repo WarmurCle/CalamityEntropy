@@ -416,11 +416,11 @@ namespace CalamityEntropy.Common
                 if (trail_pmn == null)
                 {
                     trail_pmn = new ProminenceTrail();
-                    EParticle.spawnNew(trail_pmn, projectile.Center + projectile.velocity * 2, Vector2.Zero, Color.White, projectile.scale, 1, true, BlendState.NonPremultiplied);
+                    EParticle.NewParticle(trail_pmn, projectile.Center + projectile.velocity * 2, Vector2.Zero, Color.White, projectile.scale, 1, true, BlendState.NonPremultiplied);
                 }
                 trail_pmn.AddPoint(projectile.Center + projectile.velocity * 1.5f);
                 trail_pmn.AddPoint(projectile.Center + projectile.velocity * 2);
-                trail_pmn.timeLeft = 11;
+                trail_pmn.Lifetime = 11;
             }
             promineceDamageAddition -= 0.006f / projectile.MaxUpdates;
             if (projectile.TryGetOwner(out var owner))

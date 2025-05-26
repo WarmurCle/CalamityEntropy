@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     {
                         for (int i = 0; i < 6; i++)
                         {
-                            EParticle.spawnNew(new Smoke() { timeleftmax = 30, timeLeft = 30 }, NPC.Center + Utilities.Util.randomVec(8), Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 0.6f) + new Vector2(0, -1.2f), Color.OrangeRed, 0.16f, 0.14f, true, Microsoft.Xna.Framework.Graphics.BlendState.Additive);
+                            EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30 }, NPC.Center + Utilities.Util.randomVec(8), Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 0.6f) + new Vector2(0, -1.2f), Color.OrangeRed, 0.16f, 0.14f, true, Microsoft.Xna.Framework.Graphics.BlendState.Additive);
                         }
                     }
                     if (NPC.ai[1] < 30)

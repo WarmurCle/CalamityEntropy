@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int j = 0; j < 120; j++)
                 {
                     var spark = new HeavenfallStar();
-                    EParticle.spawnNew(spark, Projectile.Center, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f), 1, true, BlendState.Additive, norl.ToRotation(), 24);
+                    EParticle.NewParticle(spark, Projectile.Center, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f), 1, true, BlendState.Additive, norl.ToRotation(), 24);
                 }
             }
         }

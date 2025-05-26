@@ -6,29 +6,29 @@ namespace CalamityEntropy.Content.Particles
 {
     public class HeavenfallStar : EParticle
     {
-        public override Texture2D texture => Utilities.Util.getExtraTex("StarTexture_White");
+        public override Texture2D Texture => Utilities.Util.getExtraTex("StarTexture_White");
         public Color InitialColor;
         public float xScale = 1;
-        public override void onSpawn()
+        public override void SetProperty()
         {
-            InitialColor = color;
+            InitialColor = Color;
         }
-        public override void update()
+        public override void AI()
         {
-            base.update();
-            scale *= 0.92f;
-            float LifetimeCompletion = 1 - ((float)timeLeft / TimeLeftMax);
-            color = Color.Lerp(InitialColor, Color.Transparent, (float)Math.Pow(LifetimeCompletion, 3D));
+            base.AI();
+            Scale *= 0.92f;
+            float LifetimeCompletion = 1 - ((float)Lifetime / TimeLeftMax);
+            Color = Color.Lerp(InitialColor, Color.Transparent, (float)Math.Pow(LifetimeCompletion, 3D));
             velocity *= 0.92f;
         }
-        public override void draw()
+        public override void PreDraw()
         {
-            Vector2 scaled = new Vector2(0.2f, 1.6f * xScale) * scale;
+            Vector2 scaled = new Vector2(0.2f, 1.6f * xScale) * Scale;
             SpriteBatch spriteBatch = Main.spriteBatch;
-            spriteBatch.Draw(texture, position - Main.screenPosition, null, color
-                , rotation + MathHelper.PiOver2, texture.Size() * 0.5f, scaled, 0, 0f);
-            spriteBatch.Draw(texture, position - Main.screenPosition, null, color
-                , rotation + MathHelper.PiOver2, texture.Size() * 0.5f, scaled * new Vector2(0.45f, 1f), 0, 0f);
+            spriteBatch.Draw(Texture, position - Main.screenPosition, null, Color
+                , Rotation + MathHelper.PiOver2, Texture.Size() * 0.5f, scaled, 0, 0f);
+            spriteBatch.Draw(Texture, position - Main.screenPosition, null, Color
+                , Rotation + MathHelper.PiOver2, Texture.Size() * 0.5f, scaled * new Vector2(0.45f, 1f), 0, 0f);
         }
     }
 }

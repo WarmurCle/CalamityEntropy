@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (CalamityEntropy.AprilFool)
             {
-                EParticle.spawnNew(new EXPLOSION(), Projectile.Center + new Vector2(0, -26), Vector2.Zero, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0);
+                EParticle.NewParticle(new EXPLOSION(), Projectile.Center + new Vector2(0, -26), Vector2.Zero, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0);
             }
 
 

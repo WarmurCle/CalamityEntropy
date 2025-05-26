@@ -5,15 +5,15 @@ namespace CalamityEntropy.Content.Particles
 {
     public class UpdraftParticle : EParticle
     {
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/UpdraftParticle").Value;
-        public override void onSpawn()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/UpdraftParticle").Value;
+        public override void SetProperty()
         {
-            this.timeLeft = 20;
+            this.Lifetime = 20;
         }
-        public override void update()
+        public override void AI()
         {
-            base.update();
-            this.alpha = this.timeLeft / 20f;
+            base.AI();
+            this.Opacity = this.Lifetime / 20f;
             this.velocity *= 0.84f;
         }
 

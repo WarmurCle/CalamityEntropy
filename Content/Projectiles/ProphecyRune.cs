@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 0; i < 9; i++)
             {
-                EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale, 1, true, BlendState.AlphaBlend, 0);
             }
             Utilities.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), target.Center, 10, 0.4f);
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);

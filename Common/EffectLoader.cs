@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Weapons.Fractal;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.Particles;
@@ -10,14 +9,12 @@ using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Utilities;
-using CalamityMod.Projectiles.Summon;
-using Humanizer;
+using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Threading.Channels;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
@@ -25,42 +22,35 @@ using static CalamityEntropy.CalamityEntropy;
 
 namespace CalamityEntropy.Common
 {
-    // 自定义标签，标记需要自动加载的资源路径
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
-    public class AutoLoadAssetAttribute(string path) : Attribute
-    {
-        public string Path { get; } = path;
-    }
-
     internal class EffectLoader
     {
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/cvmask")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/cvmask")]
         private static Asset<Texture2D> cvmask;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_blue_base")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_blue_base")]
         private static Asset<Texture2D> planetarium_blue_base;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_1")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_1")]
         private static Asset<Texture2D> planetarium_starfield_1;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_2")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_2")]
         private static Asset<Texture2D> planetarium_starfield_2;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_3")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_3")]
         private static Asset<Texture2D> planetarium_starfield_3;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_4")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_4")]
         private static Asset<Texture2D> planetarium_starfield_4;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/planetarium_starfield_5")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_5")]
         private static Asset<Texture2D> planetarium_starfield_5;
-        [AutoLoadAsset("CalamityEntropy/Content/Projectiles/CruiserSlash")]
+        [VaultLoaden("CalamityEntropy/Content/Projectiles/CruiserSlash")]
         private static Asset<Texture2D> cruiserSlash;
-        [AutoLoadAsset("CalamityEntropy/Content/Projectiles/Cruiser/CruiserBlackholeBullet")]
+        [VaultLoaden("CalamityEntropy/Content/Projectiles/Cruiser/CruiserBlackholeBullet")]
         private static Asset<Texture2D> cruiserBlackholeBullet;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/cruiserSpace2")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/cruiserSpace2")]
         private static Asset<Texture2D> cruiserSpace2;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/ksc1")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/ksc1")]
         private static Asset<Texture2D> ksc1;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/kscc")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/kscc")]
         private static Asset<Texture2D> kscc;
-        [AutoLoadAsset("CalamityEntropy/Assets/Extra/white")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/white")]
         private static Asset<Texture2D> white;
-        [AutoLoadAsset("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar")]
+        [VaultLoaden("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar")]
         private static Asset<Texture2D> voidStar;
 
         public static void Load()
@@ -73,56 +63,6 @@ namespace CalamityEntropy.Common
         {
             Main.OnResolutionChanged -= Main_OnResolutionChanged;
             On_FilterManager.EndCapture -= CE_EffectHandler;
-        }
-
-        public static void LoadAsset()
-        {
-            // 获取当前类的所有静态字段
-            var fields = typeof(EffectLoader).GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-
-            foreach (var field in fields)
-            {
-                // 检查字段是否标记了 AutoLoadAssetAttribute
-                var attribute = field.GetCustomAttribute<AutoLoadAssetAttribute>();
-                if (attribute != null)
-                {
-                    try
-                    {
-                        field.SetValue(null, ModContent.Request<Texture2D>(attribute.Path));
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Failed to load asset at path: {attribute.Path}. Error: {ex.Message}");
-                    }
-                }
-            }
-        }
-
-        public static void UnLoadAsset()
-        {
-            // 获取当前类的所有静态字段
-            var fields = typeof(EffectLoader).GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-
-            foreach (var field in fields)
-            {
-                // 检查字段是否标记了 AutoLoadAssetAttribute
-                var attribute = field.GetCustomAttribute<AutoLoadAssetAttribute>();
-                if (attribute != null)
-                {
-                    try
-                    {
-                        var asset = field.GetValue(null);
-                        if (asset != null)
-                        {
-                            field.SetValue(null, null);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Failed to unload asset at path: {attribute.Path}. Error: {ex.Message}");
-                    }
-                }
-            }
         }
 
         // 确保旧的RenderTarget2D对象被正确释放

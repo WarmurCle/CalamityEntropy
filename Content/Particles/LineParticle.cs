@@ -5,26 +5,26 @@ namespace CalamityEntropy.Content.Particles
 {
     public class ULineParticle : EParticle
     {
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/LifeLeaf").Value;
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/LifeLeaf").Value;
 
-        public override void update()
+        public override void AI()
         {
-            base.update();
+            base.AI();
             counter++;
             this.velocity *= r;
             b = Vector2.Lerp(this.position, b, this.c);
-            this.alpha -= this.alphaD;
-            if (Utilities.Util.getDistance(this.position, b) < 4 && counter > 3 || this.alpha < 0)
+            this.Opacity -= this.alphaD;
+            if (Utilities.Util.getDistance(this.position, b) < 4 && counter > 3 || this.Opacity < 0)
             {
-                this.timeLeft = 0;
+                this.Lifetime = 0;
             }
             else
             {
-                this.timeLeft = 4;
+                this.Lifetime = 4;
             }
         }
         public Vector2 b;
-        public override void onSpawn()
+        public override void SetProperty()
         {
             b = this.position;
         }
@@ -40,9 +40,9 @@ namespace CalamityEntropy.Content.Particles
             this.alphaD = alphaDec;
         }
         public int counter = 0;
-        public override void draw()
+        public override void PreDraw()
         {
-            Utilities.Util.drawLine(this.position, b, this.color * this.alpha, width * this.alpha);
+            Utilities.Util.drawLine(this.position, b, this.Color * this.Opacity, width * this.Opacity);
         }
     }
 }

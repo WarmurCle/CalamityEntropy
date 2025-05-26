@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Utilities.Util.PlaySound("bne_hit", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.4f);
-            EParticle.spawnNew(new AbyssalLine() { lx = 1.9f, xadd = 1.9f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+            EParticle.NewParticle(new AbyssalLine() { lx = 1.9f, xadd = 1.9f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
 
             if (homing)
             {

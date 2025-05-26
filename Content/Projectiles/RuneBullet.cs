@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnKill(timeLeft);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.spawnNew(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.spawnNew(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
         public override Color baseColor => new Color(188, 149, 255);

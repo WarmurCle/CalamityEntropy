@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Projectiles
             Utilities.Util.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center);
             for (int i = 0; i < 36; i++)
             {
-                EParticle.spawnNew(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
             }
         }
         public override void SendExtraAI(BinaryWriter writer)

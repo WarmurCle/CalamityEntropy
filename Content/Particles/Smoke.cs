@@ -5,25 +5,25 @@ namespace CalamityEntropy.Content.Particles
 {
     public class Smoke : EParticle
     {
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Smoke").Value;
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Smoke").Value;
         public int timeleftmax = 200;
         public float scaleEnd = -1;
         public float scaleStart = -1;
         public float vc = 1;
 
-        public override void update()
+        public override void AI()
         {
             if (scaleStart < 0)
             {
-                scaleStart = scale;
+                scaleStart = Scale;
             }
             if (scaleEnd > 0)
             {
-                scale = float.Lerp(scaleStart, scaleEnd, 1 - (float)this.timeLeft / this.timeleftmax);
+                Scale = float.Lerp(scaleStart, scaleEnd, 1 - (float)this.Lifetime / this.timeleftmax);
             }
-            base.update();
+            base.AI();
             this.velocity *= vc;
-            this.alpha = (float)this.timeLeft / (float)timeleftmax;
+            this.Opacity = (float)this.Lifetime / (float)timeleftmax;
         }
     }
 }

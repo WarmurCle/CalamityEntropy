@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
             Projectile.velocity = Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
             base.Shoot();
-            EParticle.spawnNew(new HadCircle2() { scale2 = 0.4f }, Projectile.Center, Vector2.Zero, Color.OrangeRed, 1, 1, true, BlendState.Additive, 0);
+            EParticle.NewParticle(new HadCircle2() { scale2 = 0.4f }, Projectile.Center, Vector2.Zero, Color.OrangeRed, 1, 1, true, BlendState.Additive, 0);
             Projectile.rotation = oRot;
             Projectile.Center = opos;
             Projectile.velocity = oVel;

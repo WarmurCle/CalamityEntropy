@@ -24,14 +24,14 @@ namespace CalamityEntropy.Content.Buffs
             player.Entropy().maliciousCode = true;
             if (Main.rand.NextBool(14))
             {
-                EParticle.spawnNew(new MCodeParticle(), player.Center + Utilities.Util.randomVec(28), Vector2.Zero, Main.rand.NextBool(5) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new MCodeParticle(), player.Center + Utilities.Util.randomVec(28), Vector2.Zero, Main.rand.NextBool(5) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
             }
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
             if (Main.rand.NextBool(8))
             {
-                EParticle.spawnNew(new MCodeParticle(), npc.Center + new Vector2(Main.rand.NextFloat(npc.width) - npc.width / 2, Main.rand.NextFloat(npc.height) - npc.height / 2), Vector2.Zero, Main.rand.NextBool(4) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new MCodeParticle(), npc.Center + new Vector2(Main.rand.NextFloat(npc.width) - npc.width / 2, Main.rand.NextFloat(npc.height) - npc.height / 2), Vector2.Zero, Main.rand.NextBool(4) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
             }
         }
     }

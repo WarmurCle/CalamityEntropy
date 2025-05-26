@@ -176,7 +176,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            EParticle.spawnNew(new TrailSparkParticle(), pt, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive); ;
+                            EParticle.NewParticle(new TrailSparkParticle(), pt, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive); ;
 
                         }
                     }
@@ -192,7 +192,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            EParticle.spawnNew(new TrailSparkParticle(), pt, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive);
+                            EParticle.NewParticle(new TrailSparkParticle(), pt, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive);
 
                         }
                     }

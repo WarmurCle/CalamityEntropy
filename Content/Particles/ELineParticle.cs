@@ -5,14 +5,14 @@ namespace CalamityEntropy.Content.Particles
 {
     public class ELineParticle : EParticle
     {
-        public override Texture2D texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/LifeLeaf").Value;
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/LifeLeaf").Value;
 
-        public override void update()
+        public override void AI()
         {
-            base.update();
+            base.AI();
         }
         public Vector2 b;
-        public override void onSpawn()
+        public override void SetProperty()
         {
             b = this.position;
         }
@@ -26,19 +26,19 @@ namespace CalamityEntropy.Content.Particles
             this.r = r;
         }
         public int counter = 0;
-        public override void draw()
+        public override void PreDraw()
         {
             counter++;
-            Utilities.Util.drawLine(this.position, b, this.color, width);
+            Utilities.Util.drawLine(this.position, b, this.Color, width);
             this.velocity *= r;
             b = Vector2.Lerp(this.position, b, this.c);
             if (Utilities.Util.getDistance(this.position, b) < 2 && counter > 20)
             {
-                this.timeLeft = 0;
+                this.Lifetime = 0;
             }
             else
             {
-                this.timeLeft = 2;
+                this.Lifetime = 2;
             }
         }
     }

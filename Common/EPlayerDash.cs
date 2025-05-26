@@ -47,7 +47,7 @@ public class EPlayerDash : ModPlayer
 
     public override void PreUpdateMovement()
     {
-        if (!Main.dedServ && CalamityKeybinds.DashHotkey.JustPressed && Player.whoAmI == Main.myPlayer)
+        if (!Main.dedServ && CalamityKeybinds.DashHotkey.JustPressed)
         {
             if (Player.direction == 1)
             {
