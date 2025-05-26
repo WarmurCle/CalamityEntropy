@@ -25,9 +25,9 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (Main.GameUpdateCount % 20 == 0 && player.Entropy().voidResistance < 1)
+            if (Main.GameUpdateCount % 18 == 0 && player.Entropy().voidResistance < 1)
             {
-                int dmg = (int)(player.Entropy().voidResistance * 12);
+                int dmg = (int)((1 - player.Entropy().voidResistance) * 14);
                 player.statLife -= dmg;
                 if (player.statLife <= dmg)
                 {

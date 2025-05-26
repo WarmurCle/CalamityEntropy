@@ -47,14 +47,6 @@ namespace CalamityEntropy.Content.Projectiles
                 Lighting.AddLight(lastTop, 1, 0.8f, 0.8f);
                 EParticle.spawnNew(new Smoke() { timeLeft = 40, timeleftmax = 40, TimeLeftMax = 40}, points[points.Count - 1] + Utilities.Util.randomVec(2), Utilities.Util.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
 
-                Vector2 top = points[points.Count - 1];
-                Vector2 sparkVelocity2 = (lastTop - top) * -0.04f;
-                int sparkLifetime2 = Main.rand.Next(9, 14);
-                float sparkScale2 = Main.rand.NextFloat(1.2f, 2.2f);
-                Color sparkColor2 = Color.Lerp(Color.Orange, Color.OrangeRed, Main.rand.NextFloat(0, 1));
-                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
-
                 int pointIndex = Main.rand.Next(points.Count - 10, points.Count);
                 Rectangle spawnArea = Utils.CenteredRectangle(points[pointIndex], new Vector2(30f, 30f));
                 int dustType = DustID.Smoke;

@@ -456,7 +456,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             d++;
             if (d == 1)
             {
-                Main.SetCameraLerp(0.12f, 25);
+                if(Projectile.owner == Main.myPlayer)
+		Main.SetCameraLerp(0.12f, 25);
                 Projectile.Center += Projectile.velocity;
             }
             if (d > 16)

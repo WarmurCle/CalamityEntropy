@@ -1997,6 +1997,11 @@ Items: {
 		DisplayName: Nemesis
 		Tooltip: ""
 	}
+
+	LashingBramblerod: {
+		Tooltip: ""
+		DisplayName: Lashing Bramblerod
+	}
 }
 
 PrefixitemDesc:
@@ -2382,6 +2387,7 @@ Projectiles: {
 	NemesisProj.DisplayName: Nemesis Proj
 	SpwanTextProj.DisplayName: Spwan Text Proj
 	BaseKnife.DisplayName: Base Knife
+	LashingBramblerodProjectile.DisplayName: Lashing Bramblerod Projectile
 }
 
 LegendTooltip: - Legend -

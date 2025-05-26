@@ -2161,6 +2161,11 @@ Items: {
 			蓄力满后旋转刀刃急速挥出大量斩击
 			'''
 	}
+
+	LashingBramblerod: {
+		// Tooltip: ""
+		// DisplayName: Lashing Bramblerod
+	}
 }
 
 PrefixitemDesc:
@@ -2547,6 +2552,7 @@ Projectiles: {
 	// NemesisProj.DisplayName: Nemesis Proj
 	// SpwanTextProj.DisplayName: Spwan Text Proj
 	// BaseKnife.DisplayName: Base Knife
+	// LashingBramblerodProjectile.DisplayName: Lashing Bramblerod Projectile
 }
 
 LegendTooltip: - 传奇物品 -

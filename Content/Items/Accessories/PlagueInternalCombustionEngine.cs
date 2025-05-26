@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public static void ApplyTrueMeleeEffect(Player player)
         {
-            if (player.Entropy().TryHealMeWithCd(3, 1))
+            if (player.Entropy().TryHealMeWithCd(3, 2))
             {
                 player.Entropy().temporaryArmor += 2f;
             }
