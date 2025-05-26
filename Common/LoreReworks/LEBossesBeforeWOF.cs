@@ -8,7 +8,7 @@ namespace CalamityEntropy.Common.LoreReworks
 {
     public class LEKingSlime : LoreEffect
     {
-        public override int ItemType => ModContent.ItemType<LoreKingSlime>());
+        public override int ItemType => ModContent.ItemType<LoreKingSlime>();
         public override void UpdateEffects(Player player)
         {
             player.jumpSpeedBoost += 0.8f;

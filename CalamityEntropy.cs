@@ -1073,6 +1073,7 @@ namespace CalamityEntropy
                     continue;
                 var loreEffect = (LoreEffect)Activator.CreateInstance(type);
                 LoreReworkSystem.loreEffects[loreEffect.ItemType] = loreEffect;
+                var _ = loreEffect.Decription.Value;
             }
             RegistryMusicBoxes();
             for (int i = 0; i < NPCLoader.NPCCount; i++)

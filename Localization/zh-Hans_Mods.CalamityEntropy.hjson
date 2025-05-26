@@ -3285,3 +3285,5 @@ PrefixVigorousDescr: +15% 潜行值回复速度
 WikiURL: http://calentropy.miraheze.org/wiki/{}
 GameTips.VoidOreTip: 虚渺矿会在击败巡游者后在太空生成
 LoreAwakeningDesc: 小幅增加移动速度和跳跃高度
+LoreKingSlimeDesc: 提升跳跃高度，但会减少移动速度
+LoreDdesertScourgeDesc: 增加憋气时间
