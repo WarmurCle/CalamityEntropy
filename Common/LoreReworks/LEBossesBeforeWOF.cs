@@ -2,6 +2,7 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Placeables.FurnitureStatigel;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
@@ -29,17 +30,22 @@ namespace CalamityEntropy.Common.LoreReworks
     public class LEEOC : LoreEffect
     {
         public override int ItemType => ModContent.ItemType<LoreEyeofCthulhu>();
+        public static float Value = 0.2f;
         public override void UpdateEffects(Player player)
         {
-            player.Entropy().DashCD -= 0.2f;
+            player.Entropy().DashCD -= Value;
+        }
+        public override void ModifyTooltip(TooltipLine tooltip)
+        { 
+            tooltip.Text = tooltip.Text.Replace("{1}", Value.ToPercent().ToString());
         }
     }
     public class LECabulon : LoreEffect
     {
         public static int BuffTime = 15;
-        public override void ModifyTooltip(List<TooltipLine> tooltips)
+        public override void ModifyTooltip(TooltipLine tooltip)
         {
-            tooltips.Replace("{1}", BuffTime);
+            tooltip.Text = tooltip.Text.Replace("{1}", BuffTime.ToString());
         }
         public override int ItemType => ModContent.ItemType<LoreCrabulon>();
     }

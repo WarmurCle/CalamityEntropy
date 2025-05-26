@@ -3112,5 +3112,8 @@ WikiURL: https://terrariamods.wiki.gg/wiki/Calamity_Entropy/{}
 GameTips.VoidOreTip: Void ore will spawn high in the sky after defeated Cruiser
 LoreAwakeningDesc: Slightly increase movement speed and jumping height
 LoreKingSlimeDesc: Increase jumping height, but reduce movement speed
-LoreDdesertScourgeDesc: Increase breath holding time
-LoreDesertScourgeDesc: Mods.CalamityEntropy.LoreDesertScourgeDesc
+LoreDesertScourgeDesc: Increase breath holding time
+LoreCrimsonDesc: +{1}max health
+LoreCrabulonDesc: Obtain mushy for {1} seconds after injury
+LoreEyeofCthulhuDesc: Reduce dash cooldown by {1}%
+LoreCorruptionDesc: Gain {1}% Damage Reduce

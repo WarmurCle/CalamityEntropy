@@ -3286,5 +3286,8 @@ WikiURL: http://calentropy.miraheze.org/wiki/{}
 GameTips.VoidOreTip: 虚渺矿会在击败巡游者后在太空生成
 LoreAwakeningDesc: 小幅增加移动速度和跳跃高度
 LoreKingSlimeDesc: 提升跳跃高度，但会减少移动速度
-LoreDdesertScourgeDesc: 增加憋气时间
-// LoreDesertScourgeDesc: Mods.CalamityEntropy.LoreDesertScourgeDesc
+LoreDesertScourgeDesc: 增加憋气时间
+LoreCrimsonDesc: +{1}最大生命值
+LoreCrabulonDesc: 受伤后获得{1}秒的与菇共生增益
+LoreEyeofCthulhuDesc: 减少{1}%冲刺间隔
+LoreCorruptionDesc: 所受伤害减少{1}%

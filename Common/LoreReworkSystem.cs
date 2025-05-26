@@ -32,7 +32,7 @@ namespace CalamityEntropy.Common
         public abstract int ItemType { get; }
         public virtual SoundStyle? useSound => Util.GetSound("loreEnabled");
 
-        public virtual void ModifyTooltip(List<TooltipLine> tooltips)
+        public virtual void ModifyTooltip(TooltipLine tooltip)
         {
         }
 
@@ -130,11 +130,14 @@ namespace CalamityEntropy.Common
             {
                 tooltipLineA.OverrideColor = LoreColor.Value;
             }
+            LoreReworkSystem.loreEffects[item.type].ModifyTooltip(tooltipLineA);
             tooltips.Add(tooltipLineA);
-            LoreReworkSystem.loreEffects[item.type].ModifyTooltip(tooltips);
+           
             TooltipLine tooltipLineE = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy." + (LoreReworkSystem.Enabled(item.type) ? "Enabled" : "Disabled")));
             tooltipLineE.OverrideColor = LoreReworkSystem.Enabled(item.type) ? Color.Yellow : Color.Gray;
             tooltips.Add(tooltipLineE);
+
+            
 
             TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreCruiser"));
             if (LoreColor.HasValue)
