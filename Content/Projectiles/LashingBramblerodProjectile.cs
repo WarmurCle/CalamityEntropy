@@ -32,7 +32,6 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.OnHitNPC(target, hit, damageDone);
             Utilities.Util.PlaySound("beeSting", 1, target.Center, volume: 0.4f);
-            Projectile.getOwner().Calamity().GeneralScreenShakePower = 2.4f;
         }
         public override void AI()
         {
