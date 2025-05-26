@@ -21,24 +21,27 @@ namespace CalamityEntropy.Content.Items
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
-            if (LoreColor.HasValue)
+            if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
             {
-                tooltipLineEF.OverrideColor = LoreColor.Value;
-            }
-            tooltips.Add(tooltipLineEF);
-            TooltipLine tooltipLineA = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.ProphetLoreEffect"));
-            if (LoreColor.HasValue)
-            {
-                tooltipLineA.OverrideColor = LoreColor.Value;
-            }
-            tooltipLineA.Text = tooltipLineA.Text.Replace("{2}", LifeRegen.ToString());
+                TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
+                if (LoreColor.HasValue)
+                {
+                    tooltipLineEF.OverrideColor = LoreColor.Value;
+                }
+                tooltips.Add(tooltipLineEF);
+                TooltipLine tooltipLineA = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.ProphetLoreEffect"));
+                if (LoreColor.HasValue)
+                {
+                    tooltipLineA.OverrideColor = LoreColor.Value;
+                }
+                tooltipLineA.Text = tooltipLineA.Text.Replace("{2}", LifeRegen.ToString());
 
-            tooltips.Add(tooltipLineA);
+                tooltips.Add(tooltipLineA);
 
-            TooltipLine tooltipLineE = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy." + (Main.LocalPlayer.Entropy().ProphetLoreBonus ? "Enabled" : "Disabled")));
-            tooltipLineE.OverrideColor = Main.LocalPlayer.Entropy().ProphetLoreBonus ? Color.Yellow : Color.Gray;
-            tooltips.Add(tooltipLineE);
+                TooltipLine tooltipLineE = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy." + (Main.LocalPlayer.Entropy().ProphetLoreBonus ? "Enabled" : "Disabled")));
+                tooltipLineE.OverrideColor = Main.LocalPlayer.Entropy().ProphetLoreBonus ? Color.Yellow : Color.Gray;
+                tooltips.Add(tooltipLineE);
+            }
 
             TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreProphet"));
             if (LoreColor.HasValue)
@@ -50,7 +53,7 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool CanUseItem(Player player)
         {
-            return true;
+            return ModContent.GetInstance<ServerConfig>().LoreSpecialEffect;
         }
         public override void SetDefaults()
         {

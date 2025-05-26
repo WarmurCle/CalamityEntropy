@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Utilities;
 using CalamityMod.CalPlayer;
+using CalamityMod.Items.LoreItems;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using Microsoft.Xna.Framework.Graphics;
@@ -38,6 +39,16 @@ namespace CalamityEntropy.Content.ILEditing
             null);
             _hook = EModHooks.Add(originalMethod, EOCAIHook);
 
+            originalMethod = typeof(LoreItem)
+            .GetMethod("CanUseItem",
+                      System.Reflection.BindingFlags.Public |
+                      System.Reflection.BindingFlags.Instance,
+                      null,
+            new Type[] {typeof(Player)},
+            null);
+
+            _hook = EModHooks.Add(originalMethod, canuseitem_hook);
+
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
         private static bool EOCAIHook(Func<NPC, Mod, bool> orig, NPC npc, Mod mod)
@@ -54,6 +65,14 @@ namespace CalamityEntropy.Content.ILEditing
         private static float UpdateStealthGenHook(Func<CalamityPlayer, float> orig, CalamityPlayer self)
         {
             return orig(self) * self.Player.Entropy().RogueStealthRegenMult;
+        }
+        private static bool canuseitem_hook(Func<ModItem, Player, bool> orig, ModItem self, Player player)
+        {
+            if(ModContent.GetInstance<ServerConfig>().LoreSpecialEffect && LoreReworkSystem.loreEffects.ContainsKey(self.Type))
+            {
+                return true;
+            }
+            return orig(self, player);
         }
     }
     public static class EModHooks

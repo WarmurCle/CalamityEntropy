@@ -26,7 +26,8 @@ namespace CalamityEntropy
         SpawnItem,
         PickUpPoop,
         SyncEntropyMode,
-        RuneDashSync
+        RuneDashSync,
+        SyncPlayer = 255
     }
 
     internal class CENetWork
@@ -246,6 +247,29 @@ namespace CalamityEntropy
                     packet.Write(dir);
                     packet.Write(e);
                     packet.Send(-1, wai);
+                }
+            }
+
+            else if (messageType == CEMessageType.SyncPlayer)
+            {
+                ModPacket packet = Instance.GetPacket();
+
+                int loreCount = reader.ReadInt32();
+                Player plr = whoAmI.ToPlayer();
+                plr.Entropy().enabledLoreItems.Clear();
+                for (int i = 0; i < loreCount; i++)
+                {
+                    plr.Entropy().enabledLoreItems.Add(reader.ReadInt32());
+                }
+                if (Main.dedServ)
+                {
+                    packet.Write((byte)CEMessageType.SyncPlayer);
+                    packet.Write(loreCount);
+                    foreach(var i in plr.Entropy().enabledLoreItems)
+                    {
+                        packet.Write(i);
+                    }    
+                    packet.Send(-1, whoAmI);
                 }
             }
         }

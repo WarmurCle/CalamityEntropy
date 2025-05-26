@@ -3027,6 +3027,11 @@ Configs: {
 			Label: 允许sethome和home指令
 			Tooltip: ""
 		}
+
+		LoreSpecialEffect: {
+			Label: 传颂之物特殊效果
+			Tooltip: 为灾厄的传颂之物添加特殊效果
+		}
 	}
 }
 
@@ -3279,3 +3284,4 @@ PrefixEchoDescr: +12 最大潜行值
 PrefixVigorousDescr: +15% 潜行值回复速度
 WikiURL: http://calentropy.miraheze.org/wiki/{}
 GameTips.VoidOreTip: 虚渺矿会在击败巡游者后在太空生成
+LoreAwakeningDesc: 小幅增加移动速度和跳跃高度

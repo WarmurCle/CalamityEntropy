@@ -26,6 +26,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -38,6 +39,7 @@ namespace CalamityEntropy.Common
 {
     public class EModPlayer : ModPlayer
     {
+        public List<int> enabledLoreItems = new List<int>();
         public bool NihilityTwinLoreBonus = false;
         public bool ProphetLoreBonus = false;
         public float voidResistance = 0f;
@@ -703,6 +705,16 @@ namespace CalamityEntropy.Common
         public int voidslashType = -1;
         public override void PostUpdateMiscEffects()
         {
+            if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
+            {
+                foreach (var lore in enabledLoreItems)
+                {
+                    if (LoreReworkSystem.loreEffects.ContainsKey(lore))
+                    {
+                        LoreReworkSystem.loreEffects[lore].UpdateEffects(Player);
+                    }
+                }
+            }
             if (NihilityTwinLoreBonus)
             {
                 lifeRegenPerSec += NihilityTwinLore.HealPreSec;
@@ -2054,6 +2066,7 @@ namespace CalamityEntropy.Common
             boost.AddWithCondition("NihTwinLore", NihilityTwinLoreBonus);
             boost.AddWithCondition("ProphetLore", ProphetLoreBonus);
             tag["EntropyBoosts"] = boost;
+            tag["LoreEnabled"] = enabledLoreItems;
             if (EBookStackItems != null)
             {
                 int BookMarks = EBookStackItems.Count;
@@ -2074,14 +2087,26 @@ namespace CalamityEntropy.Common
         }
         public List<Item> EBookStackItems = null;
         public bool soulDicorder = false;
-
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            if(fromWho == Main.myPlayer)
+            {
+                var mp = Mod.GetPacket();
+                mp.Write((byte)255);
+                mp.Write(enabledLoreItems.Count);
+                foreach(var item in enabledLoreItems)
+                {
+                    mp.Write(item);
+                }
+            }
+        }
         public override void LoadData(TagCompound tag)
         {
             var boost = tag.GetList<string>("EntropyBoosts");
             CruiserLoreBonus = boost.Contains("CruiserLore");
             NihilityTwinLoreBonus = boost.Contains("NihTwinLore");
             ProphetLoreBonus = boost.Contains("ProphetLore");
-
+            enabledLoreItems = [.. tag.GetList<int>("LoreEnabled")];
             EBookStackItems = new List<Item>();
 
             if (tag.ContainsKey("EntropyBookMarks"))

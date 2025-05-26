@@ -125,7 +125,7 @@ namespace CalamityEntropy
         public string EntropyWikiURL;
         public override void Load()
         {
-           
+
             Util.TexCache = new Dictionary<string, Texture2D>();
             ModLoader.TryGetMod("Wikithis", out var wikithis);
             EntropyWikiURL = this.GetLocalization("WikiURL").Value;
@@ -138,6 +138,7 @@ namespace CalamityEntropy
             Proj_ID_To_Instance = new Dictionary<int, Projectile>();
             DateTime today = DateTime.Now;
             AprilFool = today.Month == 4 && today.Day == 1;
+
 
             ILoaders = VaultUtils.GetSubInterface<ILoader>();
             foreach (ILoader setup in ILoaders)
@@ -223,6 +224,8 @@ namespace CalamityEntropy
                 PlayerDashEffect dashEffect = (PlayerDashEffect)Activator.CreateInstance(type);
                 PlayerDashManager.TryAddDash(dashEffect);
             }
+
+            
         }
 
         private void draw_cursor_hook(On_Main.orig_DrawCursor orig, Vector2 bonus, bool smart)
@@ -1061,6 +1064,15 @@ namespace CalamityEntropy
                 {
                     setup.LoadAsset();
                 }
+            }
+            Type baseTypeLR = typeof(LoreEffect);
+            Type[] lrTypes = AssemblyManager.GetLoadableTypes(this.Code);
+            foreach (Type type in lrTypes)
+            {
+                if (!type.IsSubclassOf(baseTypeLR) || type.IsAbstract)
+                    continue;
+                var loreEffect = (LoreEffect)Activator.CreateInstance(type);
+                LoreReworkSystem.loreEffects[loreEffect.ItemType] = loreEffect;
             }
             RegistryMusicBoxes();
             for (int i = 0; i < NPCLoader.NPCCount; i++)

@@ -12,5 +12,8 @@ namespace CalamityEntropy.Common
 
         [DefaultValue(true)]
         public bool EnableSethomeCommand { get; set; }
+
+        [DefaultValue(true)]
+        public bool LoreSpecialEffect { get; set; }
     }
 }
