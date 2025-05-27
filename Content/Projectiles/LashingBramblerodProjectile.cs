@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
 
     public class SilvaVine : ModProjectile
     {
-        public static int MaxFlowers = 6;
+        public static int MaxFlowers = 4;
         public override void SetDefaults()
         {
             Projectile.friendly = true;
