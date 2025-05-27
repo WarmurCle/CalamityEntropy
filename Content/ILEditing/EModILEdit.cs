@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Utilities;
+using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.NPCs;

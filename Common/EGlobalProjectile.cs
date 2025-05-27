@@ -12,6 +12,7 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
+using CalamityMod.Items.Tools;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Signus;
 using CalamityMod.NPCs.StormWeaver;
@@ -874,6 +875,12 @@ namespace CalamityEntropy.Common
 
                 Main.spriteBatch.Draw(txx, projectile.Center + new Vector2(0, 8) - Main.screenPosition + projectile.velocity.SafeNormalize(Vector2.UnitX) * 18, null, lightColor, projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(txx.Width / 2, 0), projectile.scale, (projectile.velocity.X < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);
 
+                return false;
+            }
+            if(projectile.ModProjectile != null && projectile.ModProjectile is BobbitHead)
+            {
+                CalamityUtils.DrawHook(projectile, ModContent.Request<Texture2D>("CalamityMod/Projectiles/Typeless/BobbitHookChain").Value);
+                Main.EntitySpriteDraw(projectile.getDrawData(lightColor));
                 return false;
             }
             return true;
