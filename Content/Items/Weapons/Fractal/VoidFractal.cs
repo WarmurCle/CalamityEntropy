@@ -386,8 +386,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 35;
+            Projectile.localNPCHitCooldown = 10;
             Projectile.timeLeft = 80;
+            
+        }
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 4000;
         }
         public float widthAdd = 0.2f;
         public float width = 0;
