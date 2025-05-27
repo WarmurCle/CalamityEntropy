@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
+using rail;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -162,6 +163,29 @@ namespace CalamityEntropy.Content.Buffs
             {
                 if (hit.Crit)
                 {
+                    if (t.EffectName == "LashingBramblerod")
+                    {
+                        if (projectile.TryGetOwner(out var owner))
+                        {
+                            if (owner.ownedProjectileCounts[SilvaVineDRPlayer.VineType] > 0)
+                            {
+                                foreach (Projectile p in Main.ActiveProjectiles)
+                                {
+                                    if (p.type == SilvaVineDRPlayer.VineType && p.ModProjectile is SilvaVine sv)
+                                    {
+                                        if (sv.flowerCount < SilvaVine.MaxFlowers)
+                                        {
+                                            sv.flowerCount++;
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Projectile.NewProjectile(owner.GetSource_FromThis(), owner.position, Vector2.Zero, SilvaVineDRPlayer.VineType, 40, 0, owner.whoAmI)
+                            }
+                        }
+                    }
                     if (t.EffectName == "Crystedge")
                     {
                         Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Utilities.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);

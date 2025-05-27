@@ -2163,8 +2163,16 @@ Items: {
 	}
 
 	LashingBramblerod: {
-		// Tooltip: ""
-		// DisplayName: Lashing Bramblerod
+		Tooltip: 
+		'''
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		增加召唤物{CRIT}%的暴击率
+		召唤物暴击会产生荆棘围绕你，并为你提供一次性的{DR}%伤害减免
+		若已有荆棘，则荆棘上会增加一朵花，每朵花额外提供{DR2}%的伤害减免和{LR}/s每秒生命再生
+		最多同时拥有{FC}朵花
+		'''
+		DisplayName: 蔓生棘鞭
 	}
 }
 

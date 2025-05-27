@@ -46,4 +46,100 @@ namespace CalamityEntropy.Content.Projectiles
         public override int endHeight => 30;
         public override int segTypes => 2;
     }
+
+    public class SilvaVine : ModProjectile
+    {
+        public static int MaxFlowers = 6;
+        public override void SetDefaults()
+        {
+            Projectile.friendly = true;
+            Projectile.width = Projectile.height = 64;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+        }
+
+        public int flowerCount = 0;
+        public class SilvaFlower
+        {
+            public Vector2 offset;
+            public int type;
+            public float rotation;
+
+            public SilvaFlower() 
+            {
+                offset = Util.randomPoint(new Rectangle(-30, -30, 60, 60));
+                type = Main.rand.Next(3);
+                rotation = Util.randomRot();
+            }
+
+            public void Draw(Vector2 projPos, Color lightColor)
+            {
+                Texture2D tex = Util.getExtraTex("flower" + type.ToString());
+                Main.EntitySpriteDraw(tex, projPos + offset - Main.screenPosition, null, lightColor, rotation, tex.Size() / 2f, 1, SpriteEffects.None);
+            }
+        }
+        public List<SilvaFlower> flowers = new();
+
+        public override void AI()
+        {
+            var player = Projectile.getOwner();
+            Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
+            if(flowers.Count < flowerCount)
+            {
+                flowers.Add(new SilvaFlower());
+            }
+            Projectile.timeLeft = 3;
+            if (player.Entropy().JustHit)
+            {
+                Projectile.Kill();
+            }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
+            foreach (var flower in flowers)
+            {
+                flower.Draw(Projectile.Center, lightColor);
+            }
+            return false;
+        }
+        public static float baseDR = 0.1f;
+        public static float DREachFlower = 0.05f;
+        public static int RegenPerFlower = 2;
+        public float DamageReduce => baseDR + DREachFlower * flowerCount;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(flowerCount);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            flowerCount = reader.ReadInt32();
+        }
+    }
+
+    public class SilvaVineDRPlayer : ModPlayer
+    {
+        public static int VineType = -1;
+        public override void PostUpdateEquips()
+        {
+            if(VineType == -1)
+            {
+                VineType = ModContent.ProjectileType<SilvaVine>();
+            }
+            if (Player.ownedProjectileCounts[VineType] > 0)
+            {
+                foreach (Projectile p in Main.ActiveProjectiles)
+                {
+                    if (p.type == VineType)
+                    {
+                        if (p.ModProjectile is SilvaVine sv)
+                        {
+                            Player.endurance += sv.DamageReduce;
+                            Player.Entropy().lifeRegenPerSec += sv.flowerCount * SilvaVine.RegenPerFlower;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

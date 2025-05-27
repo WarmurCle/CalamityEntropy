@@ -1999,7 +1999,15 @@ Items: {
 	}
 
 	LashingBramblerod: {
-		Tooltip: ""
+		Tooltip: 
+		'''
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		Increases minion {CRIT}% critical strike chance
+		When a minion lands a critical hit, thorns will sprout around you, granting a one-time {DR}% damage reduction
+		If thorns are already present, a flower will grow on them, with each flower providing an additional {DR2}% damage reduction and {LR}/s life regeneration per second
+		Can have up to {FC} flowers at a time
+		'''
 		DisplayName: Lashing Bramblerod
 	}
 }
