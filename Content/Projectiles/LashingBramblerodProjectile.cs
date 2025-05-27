@@ -94,9 +94,10 @@ namespace CalamityEntropy.Content.Projectiles
                 flowers.Add(new SilvaFlower());
             }
             Projectile.timeLeft = 3;
-            if (player.Entropy().JustHit)
+            if (player.GetModPlayer<SilvaVineDRPlayer>().HitCounter > 0) 
             {
                 Util.PlaySound("FractalHit", 1, Projectile.Center);
+                Projectile.timeLeft = 0;
                 Projectile.Kill();
             }
         }
@@ -130,8 +131,10 @@ namespace CalamityEntropy.Content.Projectiles
     public class SilvaVineDRPlayer : ModPlayer
     {
         public static int VineType = -1;
+        public int HitCounter = 0;
         public override void PostUpdateEquips()
         {
+            HitCounter--;
             if(VineType == -1)
             {
                 VineType = ModContent.ProjectileType<SilvaVine>();
@@ -150,6 +153,10 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
+        }
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            HitCounter = 2;
         }
     }
 }
