@@ -465,6 +465,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             else
             {
+                if (Projectile.ai[0] == 1)
+                {
+                    int type = ModContent.ProjectileType<FinalFractalBlade>();
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) * 0.1f, type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) * 0.1f, type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
                 Vector2 o = (points.Count > 0 ? points[points.Count - 1] : Projectile.Center - Projectile.velocity);
                 Vector2 nv = Projectile.Center + Utilities.Util.randomVec(4);
                 for (float i = 0.1f; i <= 1; i += 0.1f)
@@ -526,7 +532,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Vector2 end = points[points.Count - 1];
 
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied, SamplerState.LinearClamp);
-            DrawSlashPart(GetVPoints(start, end, 100), GetVPoints(start, end, -100), Util.getExtraTex("MegaStreakBacking2b"), new Color(180, 0, 255, 160), new Color(180, 0, 255, 160));
+            DrawSlashPart(GetVPoints(start, end, 100), GetVPoints(start, end, -100), Util.getExtraTex("MegaStreakBacking2b"), (Projectile.ai[0] == 0 ? new Color(180, 0, 255, 160) : new Color(240, 200, 255, 180)), (Projectile.ai[0] == 0 ? new Color(180, 0, 255, 160) : new Color(240, 200, 255, 180)));
             DrawSlashPart(GetVPoints(start, end, 26), GetVPoints(start, end, -26), Util.pixelTex, new Color(180, 55, 235), new Color(255, 200, 255, 0));
             DrawSlashPart(GetVPoints(Vector2.Lerp(start, end, 0.2f), Vector2.Lerp(end, start, 0.2f), 26), GetVPoints(Vector2.Lerp(start, end, 0.1f), Vector2.Lerp(end, start, 0.1f), -26), Util.pixelTex, Color.Black, Color.Black);
             return false;

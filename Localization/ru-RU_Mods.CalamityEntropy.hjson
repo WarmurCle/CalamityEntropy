@@ -2013,7 +2013,11 @@ Items: {
 
 	FinalFractal: {
 		// DisplayName: Final Fractal
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			[c/fcc7ff: Sword of the Outland]
+			Right click: Ghost Slash
+			''' */
 	}
 }
 
@@ -2403,6 +2407,8 @@ Projectiles: {
 	// LashingBramblerodProjectile.DisplayName: Lashing Bramblerod Projectile
 	// SilvaVine.DisplayName: Silva Vine
 	// FinalFractalHeld.DisplayName: Final Fractal Held
+	// FinalFractalBlade.DisplayName: Final Fractal Blade
+	// FinalFracRightClick.DisplayName: Final Frac Right Click
 }
 
 LegendTooltip: - Legend -

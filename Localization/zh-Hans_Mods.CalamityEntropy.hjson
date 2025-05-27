@@ -2175,8 +2175,12 @@ Items: {
 	}
 
 	FinalFractal: {
-		// DisplayName: Final Fractal
-		// Tooltip: ""
+		DisplayName: 幽邃分型
+		Tooltip:
+			'''
+			[c/fcc7ff:异界的神剑]
+			右键:幽冥斩
+			'''
 	}
 }
 
@@ -2567,6 +2571,8 @@ Projectiles: {
 	LashingBramblerodProjectile.DisplayName: 蔓生棘鞭
 	SilvaVine.DisplayName: 藤蔓护盾
 	// FinalFractalHeld.DisplayName: Final Fractal Held
+	// FinalFractalBlade.DisplayName: Final Fractal Blade
+	// FinalFracRightClick.DisplayName: Final Frac Right Click
 }
 
 LegendTooltip: - 传奇物品 -
