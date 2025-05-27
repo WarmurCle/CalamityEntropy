@@ -128,10 +128,6 @@ namespace CalamityEntropy
         {
 
             Util.TexCache = new Dictionary<string, Texture2D>();
-            ModLoader.TryGetMod("Wikithis", out var wikithis);
-            EntropyWikiURL = this.GetLocalization("WikiURL").Value;
-            if (!Main.dedServ)
-                wikithis?.Call("AddModURL", this, EntropyWikiURL);
 
             BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
             BookMarkLoader.CustomBMByID = new Dictionary<int, BookMarkLoader.BookMarkTag>();

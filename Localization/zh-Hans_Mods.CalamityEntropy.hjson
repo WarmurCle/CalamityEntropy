@@ -2542,25 +2542,25 @@ Projectiles: {
 	AstralStarMelee.DisplayName: 星熠星陨
 	FractalGhostBlade.DisplayName: 聚魂之影
 	SpiritFractalHeld.DisplayName: 聚魂分形
-	// VoidFractalHeld.DisplayName: Void Fractal Held
-	// FractalLaser.DisplayName: Fractal Laser
-	// VoidSlash.DisplayName: Void Slash
-	// VoidWave.DisplayName: Void Wave
-	// BurntBrimShot.DisplayName: Burnt Brim Shot
-	// BurntLostClassicsHeld.DisplayName: Burnt Lost Classics Held
-	// ForeseeEye.DisplayName: Foresee Eye
-	// ProphecyMasterpieceHeld.DisplayName: Prophecy Masterpiece Held
-	// ForeseeWhipProj.DisplayName: Foresee Whip Proj
-	// EndlessChopping.DisplayName: Endless Chopping
-	// EndSkillOrbOnSpan.DisplayName: End Skill Orb On Span
-	// EXNemesisProj.DisplayName: E X Nemesis Proj
-	// NemesisAlt.DisplayName: Nemesis Alt
-	// NemesisHeld.DisplayName: Nemesis Held
-	// NemesisProj.DisplayName: Nemesis Proj
-	// SpwanTextProj.DisplayName: Spwan Text Proj
-	// BaseKnife.DisplayName: Base Knife
-	// LashingBramblerodProjectile.DisplayName: Lashing Bramblerod Projectile
-	// SilvaVine.DisplayName: Silva Vine
+	VoidFractalHeld.DisplayName: 虚空分型
+	FractalLaser.DisplayName: 分型激光
+	VoidSlash.DisplayName: 虚空斩
+	VoidWave.DisplayName: 虚空波
+	BurntBrimShot.DisplayName: 硫火弹
+	BurntLostClassicsHeld.DisplayName: 焦灼遗编
+	ForeseeEye.DisplayName: 预言之眼
+	ProphecyMasterpieceHeld.DisplayName: 预知巨著
+	ForeseeWhipProj.DisplayName: 预知之鞭
+	EndlessChopping.DisplayName: Endless Chopping
+	EndSkillOrbOnSpan.DisplayName: 斩击
+	EXNemesisProj.DisplayName: 天罚
+	NemesisAlt.DisplayName: 天罚
+	NemesisHeld.DisplayName: 天罚
+	NemesisProj.DisplayName: 天罚
+	SpwanTextProj.DisplayName: 文字
+	BaseKnife.DisplayName: 挥舞基类
+	LashingBramblerodProjectile.DisplayName: 蔓生棘鞭
+	SilvaVine.DisplayName: 藤蔓护盾
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3296,7 +3296,7 @@ AmmoPenetrate: 穿透次数
 AmmoPenetrateInfinite: 无限
 PrefixEchoDescr: +12 最大潜行值
 PrefixVigorousDescr: +15% 潜行值回复速度
-WikiURL: http://calentropy.miraheze.org/wiki/{}
+WikiURL: http://calentropy.miraheze.org/wiki/
 GameTips.VoidOreTip: 虚渺矿会在击败巡游者后在太空生成
 LoreAwakeningDesc: 小幅增加移动速度和跳跃高度
 LoreKingSlimeDesc: 提升跳跃高度，但会减少移动速度
