@@ -3144,3 +3144,21 @@ GameTips.VoidOreTip: Void ore will spawn high in the sky after defeated Cruiser
 // LoreCrabulonDesc: Obtain mushy for {1} seconds after injury
 // LoreEyeofCthulhuDesc: Reduce dash cooldown by {1}%
 // LoreCorruptionDesc: Gain {1}% Damage Reduce
+
+DraedonDialogs: {
+	Void: {
+		// Inquiry: The Void
+		/* Response:
+			'''
+			I have always conducted research on the Void, long before I ever met Yharim. 
+
+			During my collaboration with Yharim, I proposed a more in-depth study of the Void, so Yharim sought out a prophet and asked him to take a glimpse into it. 
+
+			Though the prophet met a rather grim fate later, it did not deter me from furthering my investigations into the Void. 
+
+			When Yharim learned of this, he expressed strong opposition, but I nevertheless opened a rift to the Void and deployed a reconnaissance drone. 
+
+			Shortly after entering the Void, the transmission of footage was lost, leaving only static noise and ethereal whispers in its place.
+			''' */
+	}
+}

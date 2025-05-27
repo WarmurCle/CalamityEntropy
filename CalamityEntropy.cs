@@ -69,7 +69,9 @@ using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
 using CalamityMod.UI.CalamitasEnchants;
+using CalamityMod.UI.DraedonSummoning;
 using InnoVault;
+using log4net.Repository.Hierarchy;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -85,7 +87,7 @@ using Terraria.ModLoader.Core;
 using Terraria.UI;
 namespace CalamityEntropy
 {
-    public class CalamityEntropy : Mod
+    public partial class CalamityEntropy : Mod
     {
 
         internal static List<ILoader> ILoaders { get; private set; }
@@ -1046,9 +1048,10 @@ namespace CalamityEntropy
             }
             mbRegs = null;
         }
-
+        
         public override void PostSetupContent()
         {
+            RegistryDraedonDialogs();
             foreach (ILoader setup in ILoaders)
             {
                 setup.SetupData();
