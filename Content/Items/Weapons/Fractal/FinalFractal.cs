@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 960;
+            Item.damage = 800;
             Item.crit = 5;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
@@ -389,7 +389,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             if (Projectile.ai[0] == 3)
             {
-                Projectile.localNPCHitCooldown = 3 * 10;
+                Projectile.localNPCHitCooldown = 2 * 10;
             }
             return base.CanHitNPC(target);
         }
@@ -406,11 +406,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 scale = 2;
                 for (int i = 0; i < 6; i++)
                 {
-                    Vector2 ver = Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-6, 6);
+                    Vector2 ver = Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-12, 12);
                     BasePRT particle = new PRT_Light(target.Center, ver
                         , Main.rand.NextFloat(1.3f, 1.7f), new Color(220, 180, 255), 60, 0.15f);
                     PRTLoader.AddParticle(particle);
                 }
+                Util.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 100);
             }
             EGlobalNPC.AddVoidTouch(target, 40, 1.4f, 600, 16);
             if (playHitSound)
@@ -427,14 +428,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             });
         }
         public bool spawnProj = true;
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if (Projectile.ai[0] == 3)
-            {
-                modifiers.SetCrit();
-                modifiers.SourceDamage *= 0.5f;
-            }
-        }
         public override bool PreDraw(ref Color lightColor)
         {
             Player owner = Projectile.getOwner();
