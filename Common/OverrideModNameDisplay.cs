@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Utilities;
+﻿/*using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
@@ -81,3 +81,4 @@ namespace CalamityEntropy.Common
         public delegate void DrawDelegate(object uiModItem, SpriteBatch sb);
     }
 }
+*/

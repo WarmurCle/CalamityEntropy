@@ -2173,6 +2173,11 @@ Items: {
 			'''
 		DisplayName: 蔓生棘鞭
 	}
+
+	FinalFractal: {
+		// DisplayName: Final Fractal
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2561,6 +2566,7 @@ Projectiles: {
 	BaseKnife.DisplayName: 挥舞基类
 	LashingBramblerodProjectile.DisplayName: 蔓生棘鞭
 	SilvaVine.DisplayName: 藤蔓护盾
+	// FinalFractalHeld.DisplayName: Final Fractal Held
 }
 
 LegendTooltip: - 传奇物品 -

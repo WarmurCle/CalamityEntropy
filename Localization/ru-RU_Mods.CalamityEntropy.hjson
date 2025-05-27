@@ -2010,6 +2010,11 @@ Items: {
 			''' */
 		// DisplayName: Lashing Bramblerod
 	}
+
+	FinalFractal: {
+		// DisplayName: Final Fractal
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2397,6 +2402,7 @@ Projectiles: {
 	// BaseKnife.DisplayName: Base Knife
 	// LashingBramblerodProjectile.DisplayName: Lashing Bramblerod Projectile
 	// SilvaVine.DisplayName: Silva Vine
+	// FinalFractalHeld.DisplayName: Final Fractal Held
 }
 
 LegendTooltip: - Legend -
