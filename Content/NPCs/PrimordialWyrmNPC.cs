@@ -1,4 +1,6 @@
 ﻿using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -50,7 +52,11 @@ namespace CalamityEntropy.Content.NPCs
             NPC.knockBackResist = 0f;
             AnimationType = NPCID.Clothier;
         }
-
+        public override bool PreAI()
+        {
+            dcd--;
+            return base.PreAI();
+        }
         public override bool CanTownNPCSpawn(int numTownNPCs)
         {
             if (DownedBossSystem.downedPrimordialWyrm)
@@ -129,25 +135,50 @@ namespace CalamityEntropy.Content.NPCs
         }
         public override void TownNPCAttackStrength(ref int damage, ref float knockback)
         {
-            damage = 700;
+            damage = Main.zenithWorld ? 2000 : 700;
+
             knockback = 3f;
-            var sd = CommonCalamitySounds.WyrmScreamSound;
-            sd.MaxInstances = 6;
-            SoundEngine.PlaySound(in sd, NPC.Center);
+            
         }
         public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
         {
             cooldown = 30;
             randExtraCooldown = 15;
         }
+        
+        public int st = 0;
+        public int dcd = 0;
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
             projType = ModContent.ProjectileType<EidolicWailSoundwave>();
+            if (Main.zenithWorld)
+            {
+                projType = st % 2 == 1 ? ModContent.ProjectileType<HadopelagicLaser>() : ModContent.ProjectileType<HadopelagicWail>();
+                if (dcd <= 0)
+                {
+                    st++;
+                }
+            }
             attackDelay = 4;
+            if (dcd <= 0)
+            {
+                var sd = CommonCalamitySounds.WyrmScreamSound;
+                if (Main.zenithWorld)
+                {
+                    sd = Util.GetSound("he" + (Main.rand.NextBool() ? 1 : 3).ToString());
+                }
+                sd.MaxInstances = 6;
+                SoundEngine.PlaySound(in sd, NPC.Center);
+                dcd = 59;
+            }
         }
         public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
         {
             multiplier = 14.5f;
+            if (Main.zenithWorld)
+            {
+                multiplier = 32;
+            }
             gravityCorrection = 0f;
             randomOffset = 0f;
         }
