@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Item1
         public override void SetDefaults() {
             Item.height = 154;
             Item.width = 154;
-            Item.damage = 350;
+            Item.damage = 230;
             Item.DamageType = DamageClass.Melee;
             Item.useAnimation = Item.useTime = 20;
             Item.scale = 1;

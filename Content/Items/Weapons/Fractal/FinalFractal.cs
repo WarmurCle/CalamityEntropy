@@ -556,7 +556,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Projectile.friendly = true;
             Projectile.light = 1f;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 200 * 8;
+            Projectile.timeLeft = 80 * 8;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.MaxUpdates = 8;

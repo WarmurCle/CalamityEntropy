@@ -16,6 +16,7 @@ using CalamityMod.NPCs.StormWeaver;
 using CalamityMod.Projectiles.Boss;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.UI;
+using CalamityMod.World;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -46,6 +47,56 @@ namespace CalamityEntropy.Common
                         perfAI.PerfAI(pf);
                         return false;
                     }
+                    if(npc.ModNPC is Signus || npc.ModNPC is CeaselessVoid || npc.ModNPC is StormWeaverHead)
+                    {
+                        if(Util.getDistance(npc.Center, Main.player[Player.FindClosest(npc.Center, 999999, 999999)].Center) > 4000)
+                        {
+                            Player plr = Main.player[Player.FindClosest(npc.Center, 999999, 999999)];
+                            npc.Center = plr.Center - (plr.Center - npc.Center).normalize() * 800;
+                        }
+                    }
+                    if(npc.ModNPC is StormWeaverHead sw && NPC.AnyNPCs(ModContent.NPCType<DevourerofGodsHead>()))
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            var tailF = typeof(StormWeaverHead).GetField("tail", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                            var tail = (bool)tailF.GetValue(sw);
+                            if (!tail && npc.ai[0] == 0f)
+                            {
+                                int Previous = npc.whoAmI;
+                                int totalLength = (CalamityWorld.death ? 60 : CalamityWorld.revenge ? 50 : Main.expertMode ? 40 : 30) / 3;
+                                int npcCounts = 0;
+                                if (Main.zenithWorld) // use up every remaining npc but 20 for safety in the zenith seed
+                                {
+                                    for (int i = 0; i < Main.maxNPCs; i++)
+                                    {
+                                        if (!Main.npc[i].active)
+                                            npcCounts++;
+                                    }
+
+                                    totalLength = npcCounts - 20;
+                                }
+
+                                for (int segments = 0; segments < totalLength; segments++)
+                                {
+                                    int lol;
+                                    if (segments >= 0 && segments < totalLength - 1)
+                                        lol = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.position.X + (npc.width / 2), (int)npc.position.Y + (npc.height / 2), ModContent.NPCType<StormWeaverBody>(), npc.whoAmI);
+                                    else
+                                        lol = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.position.X + (npc.width / 2), (int)npc.position.Y + (npc.height / 2), ModContent.NPCType<StormWeaverTail>(), npc.whoAmI);
+
+                                    Main.npc[lol].realLife = npc.whoAmI;
+                                    Main.npc[lol].ai[2] = npc.whoAmI;
+                                    Main.npc[lol].ai[1] = Previous;
+                                    Main.npc[Previous].ai[0] = lol;
+                                    npc.netUpdate = true;
+                                    Previous = lol;
+                                }
+
+                                tailF.SetValue(sw, true);
+                            }
+                        }
+                    }
                 }
             }
             return true;
@@ -63,7 +114,7 @@ namespace CalamityEntropy.Common
             {
                 if (npc.ModNPC != null)
                 {
-                    if (npc.ModNPC is Signus || npc.ModNPC is CeaselessVoid || npc.ModNPC is StormWeaverHead)
+                    if (npc.ModNPC is Signus || npc.ModNPC is CeaselessVoid || npc.ModNPC is StormWeaverHead || npc.ModNPC is StormWeaverTail || npc.ModNPC is StormWeaverBody)
                     {
                         return false;
                     }
@@ -369,7 +420,7 @@ namespace CalamityEntropy.Common
                     }
                     if (npc.ModNPC is StormWeaverBody)
                     {
-                        if (Main.GameUpdateCount % 380 == 0 && Main.rand.NextBool(6))
+                        if (Main.GameUpdateCount % 380 == 0 && (Main.rand.NextBool(6) || NPC.AnyNPCs(ModContent.NPCType<DevourerofGodsHead>())))
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {

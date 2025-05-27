@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Prophet
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
-
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 4000;
         }
         public override void SetDefaults()
         {

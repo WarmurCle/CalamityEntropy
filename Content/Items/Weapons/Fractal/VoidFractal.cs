@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 960;
+            Item.damage = 800;
             Item.crit = 5;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 Util.PlaySound("VoidAnticipation", 1, position);
                 player.AddBuff(BuffID.ChaosState, 5 * 60);
-                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 30, 0, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 22, 0, player.whoAmI);
                 return false;
             }
             int at = 2;
