@@ -30,7 +30,7 @@ namespace CalamityEntropy.Common.LoreReworks
     public class LEEOC : LoreEffect
     {
         public override int ItemType => ModContent.ItemType<LoreEyeofCthulhu>();
-        public static float Value = 0.2f;
+        public static float Value = 0.1f;
         public override void UpdateEffects(Player player)
         {
             player.Entropy().DashCD -= Value;
