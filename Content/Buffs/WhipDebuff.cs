@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.Buffs
                             }
                             else
                             {
-                                Projectile.NewProjectile(owner.GetSource_FromThis(), owner.position, Vector2.Zero, SilvaVineDRPlayer.VineType, 40, 0, owner.whoAmI)
+                                Projectile.NewProjectile(owner.GetSource_FromThis(), owner.position, Vector2.Zero, SilvaVineDRPlayer.VineType, 40, 0, owner.whoAmI);
                             }
                         }
                     }
