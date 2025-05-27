@@ -15,11 +15,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             base.ModifyTooltips(tooltips);
-            tooltips.Replace("{CRIT}", TagCritChance.ToPercent());
-            tooltips.Replace("{DR}", SilvaVine.baseDR.ToPercent());
-            tooltips.Replace("{DR2}", SilvaVine.DREachFlower.ToPercent());
-            tooltips.Replace("{LR}", SilvaVine.RegenPerFlower);
-            tooltips.Replace("{FC}", SilvaVine.MaxFlowers);
+            tooltips.Replace("[1]", TagCritChance.ToPercent());
+            tooltips.Replace("[2]", SilvaVine.baseDR.ToPercent());
+            tooltips.Replace("[3]", SilvaVine.DREachFlower.ToPercent());
+            tooltips.Replace("[4]", SilvaVine.RegenPerFlower);
+            tooltips.Replace("[5]", SilvaVine.MaxFlowers);
         }
         public override void SetDefaults()
         {

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static tModPorter.ProgressUpdate;
@@ -56,6 +57,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.width = Projectile.height = 64;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
+            Projectile.penetrate = -1;
         }
 
         public int flowerCount = 0;
@@ -67,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             public SilvaFlower() 
             {
-                offset = Util.randomPoint(new Rectangle(-30, -30, 60, 60));
+                offset = Util.randomPointInCircle(28);
                 type = Main.rand.Next(3);
                 rotation = Util.randomRot();
             }
@@ -79,7 +81,10 @@ namespace CalamityEntropy.Content.Projectiles
             }
         }
         public List<SilvaFlower> flowers = new();
-
+        public override void OnSpawn(IEntitySource source)
+        {
+            Util.PlaySound("VineSpawn", 1, Projectile.Center);
+        }
         public override void AI()
         {
             var player = Projectile.getOwner();
@@ -91,8 +96,13 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 3;
             if (player.Entropy().JustHit)
             {
+                Util.PlaySound("FractalHit", 1, Projectile.Center);
                 Projectile.Kill();
             }
+        }
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            overPlayers.Add(index);
         }
         public override bool PreDraw(ref Color lightColor)
         {

@@ -2163,15 +2163,14 @@ Items: {
 	}
 
 	LashingBramblerod: {
-		Tooltip: 
-		'''
-		{$CommonItemTooltip.SummonTagDamage}
-		{$CommonItemTooltip.Whips}
-		增加召唤物{CRIT}%的暴击率
-		召唤物暴击会产生荆棘围绕你，并为你提供一次性的{DR}%伤害减免
-		若已有荆棘，则荆棘上会增加一朵花，每朵花额外提供{DR2}%的伤害减免和{LR}/s每秒生命再生
-		最多同时拥有{FC}朵花
-		'''
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			增加召唤物[1]%的暴击率
+			召唤物暴击时产生荆棘环绕自身，获得一次性的[2]%伤害减免
+			若已有荆棘，则额外生长一朵花，每朵花提供[3]%伤害减免和[4]/s生命恢复，最多同时存在[5]朵花。
+			'''
 		DisplayName: 蔓生棘鞭
 	}
 }
@@ -2561,6 +2560,7 @@ Projectiles: {
 	// SpwanTextProj.DisplayName: Spwan Text Proj
 	// BaseKnife.DisplayName: Base Knife
 	// LashingBramblerodProjectile.DisplayName: Lashing Bramblerod Projectile
+	// SilvaVine.DisplayName: Silva Vine
 }
 
 LegendTooltip: - 传奇物品 -

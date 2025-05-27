@@ -1999,7 +1999,15 @@ Items: {
 	}
 
 	LashingBramblerod: {
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			Increases minion [1]% critical strike chance
+			When a minion lands a critical hit, thorns will sprout around you, granting a one-time [2]% damage reduction
+			If thorns are already present, a flower will grow on them, with each flower providing an additional [3]% damage reduction and [4]/s life regeneration per second
+			Can have up to [5] flowers at a time
+			''' */
 		// DisplayName: Lashing Bramblerod
 	}
 }
@@ -2388,6 +2396,7 @@ Projectiles: {
 	// SpwanTextProj.DisplayName: Spwan Text Proj
 	// BaseKnife.DisplayName: Base Knife
 	// LashingBramblerodProjectile.DisplayName: Lashing Bramblerod Projectile
+	// SilvaVine.DisplayName: Silva Vine
 }
 
 LegendTooltip: - Legend -
