@@ -159,6 +159,7 @@ namespace CalamityEntropy.Content.Tiles
             }
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
+                bool f = false;
                 for (int i = 0; i < 12; i++)
                 {
                     Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
@@ -171,16 +172,23 @@ namespace CalamityEntropy.Content.Tiles
                                 if (Util.inWorld(p.X + x, p.Y + y))
                                 {
                                     if (TileID.Sets.Ore[Main.tile[p.X + x, p.Y + y].TileType])
-                                        MineOre(p.X + x, p.Y + y);
+                                        if(MineOre(p.X + x, p.Y + y))
+                                        {
+                                            f = true;
+                                        }
                                 }
                             }
                         }
                     }
                 }
+                if (f)
+                {
+                    this.SendData();
+                }
             }
         }
         public static MethodBase method;
-        public void MineOre(int x, int y)
+        public bool MineOre(int x, int y)
         {
             Tile t = Main.tile[x, y];
             if (method == null)
@@ -221,7 +229,7 @@ namespace CalamityEntropy.Content.Tiles
                                 {
                                     EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Utilities.Util.randomRot());
                                 }
-                                return;
+                                return true;
                             }
                         }
                         foreach (var c in items)
@@ -234,23 +242,26 @@ namespace CalamityEntropy.Content.Tiles
                                 {
                                     EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Utilities.Util.randomRot());
                                 }
-                                return;
+                                return true;
                             }
                         }
                     }
                 }
             }
+            return false;
         }
         public override void SendData(ModPacket data)
         {
-            foreach (var item in filters)
+            for (int i = 0; i < FiltersCount; i++)
             {
+                Item item = filters[i];
                 data.Write(item.type);
                 data.Write7BitEncodedInt(item.netID);
                 data.Write7BitEncodedInt(item.stack);
             }
-            foreach (var item in items)
+            for (int i = 0; i < ItemsCount; i++)
             {
+                Item item = items[i];
                 data.Write(item.type);
                 data.Write7BitEncodedInt(item.netID);
                 data.Write7BitEncodedInt(item.stack);
@@ -266,7 +277,7 @@ namespace CalamityEntropy.Content.Tiles
                 item.stack = reader.Read7BitEncodedInt();
                 filters[i] = item;
             }
-            for (int i = 0; i < FiltersCount; i++)
+            for (int i = 0; i < ItemsCount; i++)
             {
                 Item item = new Item(reader.ReadInt32());
                 item.netDefaults(reader.Read7BitEncodedInt());

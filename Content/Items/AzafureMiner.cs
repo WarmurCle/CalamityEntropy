@@ -29,7 +29,12 @@ namespace CalamityEntropy.Content.Items
 
         public override void AddRecipes()
         {
-
+            CreateRecipe().AddIngredient<EnergyCore>()
+                .AddIngredient<DubiousPlating>(10)
+                .AddIngredient<SuspiciousScrap>(10)
+                .AddIngredient(ItemID.IronBar)
+                .AddTile(TileID.HeavyWorkBench)
+                .Register();
         }
     }
 }
