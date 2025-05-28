@@ -3322,6 +3322,8 @@ LoreCrimsonDesc: +{1}最大生命值
 LoreCrabulonDesc: 受伤后获得{1}秒的与菇共生增益
 LoreEyeofCthulhuDesc: 减少{1}%冲刺间隔
 LoreCorruptionDesc: 所受伤害减少{1}%
+LoreBrainofCthulhuDesc: +{1}%暴击率, 但是-{2}%伤害
+LoreQueenBeeDesc: +{2}%伤害, 但是-{1}%暴击率
 
 DraedonDialogs: {
 	Void: {
