@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Tiles
             TileObjectData.newTile.UsesCustomCanPlace = true;
             TileObjectData.newTile.Width = 4;
             TileObjectData.newTile.Height = 3;
-            TileObjectData.newTile.Origin = new Point16(2, 1);
+            TileObjectData.newTile.Origin = new Point16(2, 2);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop, 4, 0);
             TileObjectData.addTile(Type);
@@ -160,14 +160,46 @@ namespace CalamityEntropy.Content.Tiles
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 bool f = false;
-                for (int i = 0; i < 12; i++)
+                List<int> types = new List<int>();
+                foreach (Item item in filters)
+                {
+                    types.Add(item.type);
+                }
+                for (int i = 0; i < 14; i++)
                 {
                     Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
                     if (TileID.Sets.Ore[Main.tile[p.X, p.Y].TileType])
                     {
-                        for (int x = -10; x < 11; x++)
+                        Tile t = Main.tile[p.X, p.Y];
+                        if (method == null)
                         {
-                            for (int y = -10; y < 11; y++)
+                            method = typeof(WorldGen).GetMethod("KillTile_GetItemDrops", BindingFlags.Static | BindingFlags.NonPublic,
+                                null,
+                                new System.Type[]
+                                {
+                    typeof(int), typeof(int), typeof(Tile), typeof(int).MakeByRefType(),
+                    typeof(int).MakeByRefType(), typeof(int).MakeByRefType(),
+                    typeof(int).MakeByRefType(), typeof(bool)
+                                },
+                                null);
+                        }
+                        int itemtype = t.GetTileDorp();
+                        if (itemtype <= 0)
+                        {
+                            object[] parameters = new object[]
+                            {
+                p.X, p.Y, t, null, null, null, null, false
+                            };
+                            method.Invoke(null, parameters);
+                            itemtype = (int)parameters[3];
+                        }
+                        if (!types.Contains(itemtype))
+                        {
+                            continue;
+                        }
+                        for (int x = -14; x < 15; x++)
+                        {
+                            for (int y = -14; y < 15; y++)
                             {
                                 if (Util.inWorld(p.X + x, p.Y + y))
                                 {
@@ -224,7 +256,11 @@ namespace CalamityEntropy.Content.Tiles
                             if (c.type == itemtype && c.stack < c.maxStack)
                             {
                                 c.stack++;
-                                t.ClearTile();
+                                Main.tile[x, y].ClearTile();
+                                if (Main.dedServ)
+                                {
+                                    NetMessage.SendTileSquare(-1, x, y);
+                                }
                                 if (Main.rand.NextBool(12))
                                 {
                                     EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Utilities.Util.randomRot());
@@ -237,7 +273,11 @@ namespace CalamityEntropy.Content.Tiles
                             if (c.IsAir)
                             {
                                 c.SetDefaults(itemtype);
-                                t.ClearTile();
+                                Main.tile[x, y].ClearTile();
+                                if (Main.dedServ)
+                                {
+                                    NetMessage.SendTileSquare(-1, x, y);
+                                }
                                 if (Main.rand.NextBool(12))
                                 {
                                     EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Utilities.Util.randomRot());
