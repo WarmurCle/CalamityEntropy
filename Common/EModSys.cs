@@ -65,7 +65,7 @@ namespace CalamityEntropy.Common
                 if (sayTip)
                 {
                     sayTip = false;
-                    Main.NewText(Mod.GetLocalization("LightModeTip").Value)
+                    Main.NewText(Mod.GetLocalization("LightModeTip").Value, Color.Red);
                 }
             }
             noItemUse = false;
