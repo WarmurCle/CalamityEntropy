@@ -6,7 +6,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Weapons.Nemesies
+namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 {
     internal class NemesisProj : ModProjectile
     {

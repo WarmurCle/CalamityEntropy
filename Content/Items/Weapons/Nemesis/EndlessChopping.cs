@@ -5,7 +5,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Core;
 using InnoVault;
 
-namespace CalamityEntropy.Content.Items.Weapons.Nemesies
+namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 {
     internal class EndlessChopping : ModProjectile
     {

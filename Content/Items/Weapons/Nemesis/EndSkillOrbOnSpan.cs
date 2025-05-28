@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-namespace CalamityEntropy.Content.Items.Weapons.Nemesies
+namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 {
     internal class EndSkillOrbOnSpan : ModProjectile
     {

@@ -9,11 +9,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using CalamityEntropy.Content.Particles;
 
-namespace CalamityEntropy.Content.Items.Weapons.Nemesies
+namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 {
     internal class EXNemesisProj : ModProjectile
     {
-        public override string Texture => "CalamityEntropy/Content/Items/Nemesis";
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Nemesis/Nemesis";
         bool isFs;
         int alp;
         Vector2 origVer;

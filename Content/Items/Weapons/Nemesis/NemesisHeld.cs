@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using CalamityEntropy.Core;
 
-namespace CalamityEntropy.Content.Items.Weapons.Nemesies
+namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 {
     internal class NemesisHeld : BaseKnife
     {
