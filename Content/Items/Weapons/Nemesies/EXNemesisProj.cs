@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using CalamityEntropy.Content.Particles;
 
-namespace CalamityEntropy.Content.Item1
+namespace CalamityEntropy.Content.Items.Weapons.Nemesies
 {
     internal class EXNemesisProj : ModProjectile
     {

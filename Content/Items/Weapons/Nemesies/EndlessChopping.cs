@@ -5,7 +5,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Core;
 using InnoVault;
 
-namespace CalamityEntropy.Content.Item1
+namespace CalamityEntropy.Content.Items.Weapons.Nemesies
 {
     internal class EndlessChopping : ModProjectile
     {
@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Item1
                 origVer = Projectile.velocity;
                 Projectile.velocity = Vector2.Zero;
                 for (int i = 0; i < 133; i++) {
-                    Vector2 ver = origVer.UnitVector() * ((i / 133f) * 133 + 0.1f);
+                    Vector2 ver = origVer.UnitVector() * (i / 133f * 133 + 0.1f);
                     BasePRT spark = new PRT_RTSpark(Projectile.Center, -ver, false, 19, 2.3f);
                     PRTLoader.AddParticle(spark);
                     BasePRT spark2 = new PRT_RTSpark(Projectile.Center, ver, false, 19, 2.3f);

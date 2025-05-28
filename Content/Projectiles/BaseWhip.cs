@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Utilities;
 using System.Collections.Generic;
 using Terraria;

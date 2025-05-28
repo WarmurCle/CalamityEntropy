@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Effects;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Item1;
 using Terraria.ModLoader;
+using CalamityEntropy.Content.Items.Weapons.Nemesies;
 
 namespace CalamityEntropy.Core
 {
