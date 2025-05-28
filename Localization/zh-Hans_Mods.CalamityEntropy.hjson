@@ -2175,7 +2175,7 @@ Items: {
 	}
 
 	FinalFractal: {
-		DisplayName: 幽邃分型
+		DisplayName: 幽邃分形
 		Tooltip:
 			'''
 			[c/fcc7ff:异界的神剑]
@@ -2556,8 +2556,8 @@ Projectiles: {
 	AstralStarMelee.DisplayName: 星熠星陨
 	FractalGhostBlade.DisplayName: 聚魂之影
 	SpiritFractalHeld.DisplayName: 聚魂分形
-	VoidFractalHeld.DisplayName: 虚空分型
-	FractalLaser.DisplayName: 分型激光
+	VoidFractalHeld.DisplayName: 虚空分形
+	FractalLaser.DisplayName: 分形激光
 	VoidSlash.DisplayName: 虚空斩
 	VoidWave.DisplayName: 虚空波
 	BurntBrimShot.DisplayName: 硫火弹
@@ -2575,9 +2575,9 @@ Projectiles: {
 	BaseKnife.DisplayName: 挥舞基类
 	LashingBramblerodProjectile.DisplayName: 蔓生棘鞭
 	SilvaVine.DisplayName: 藤蔓护盾
-	// FinalFractalHeld.DisplayName: Final Fractal Held
-	// FinalFractalBlade.DisplayName: Final Fractal Blade
-	// FinalFracRightClick.DisplayName: Final Frac Right Click
+	FinalFractalHeld.DisplayName: 幽邃分形
+	FinalFractalBlade.DisplayName: 幽邃分形
+	FinalFracRightClick.DisplayName: 幽邃分形
 }
 
 LegendTooltip: - 传奇物品 -
