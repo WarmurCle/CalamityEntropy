@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesies
 {
     internal class EndlessChopping : ModProjectile
     {
-        public override string Texture => EffectLoaderAlt.AssetPath + "placeholder3";
+        public override string Texture => "CalamityEntropy/Assets/placeholder3";
         Vector2 origVer;
         bool set;
         public override void SetDefaults() {

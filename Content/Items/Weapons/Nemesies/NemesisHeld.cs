@@ -6,14 +6,15 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using CalamityEntropy.Core;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Weapons.Nemesies
 {
     internal class NemesisHeld : BaseKnife
     {
         public override int TargetID => ModContent.ItemType<Nemesis>();
-        public override string trailTexturePath => EffectLoaderAlt.AssetPath + "MotionTrail3";
-        public override string gradientTexturePath => EffectLoaderAlt.AssetPath + "NemesisBar";
+        public override string trailTexturePath => EffectLoader.AssetPath + "MotionTrail3";
+        public override string gradientTexturePath => EffectLoader.AssetPath + "NemesisBar";
         public override void SetKnifeProperty() {
             Projectile.width = Projectile.height = 182;
             overOffsetCachesRoting = MathHelper.ToRadians(6);
@@ -150,8 +151,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesies
             float maxCharge = 140 * updateCount;
             if (Projectile.ai[0] == 2 && newCharge <= maxCharge) {
                 {
-                    Texture2D barBG = ModContent.Request<Texture2D>(EffectLoaderAlt.AssetPath + "GenericBarBack", (AssetRequestMode)2).Value;
-                    Texture2D barFG = ModContent.Request<Texture2D>(EffectLoaderAlt.AssetPath + "GenericBarFront", (AssetRequestMode)2).Value;
+                    Texture2D barBG = ModContent.Request<Texture2D>(EffectLoader.AssetPath + "GenericBarBack", (AssetRequestMode)2).Value;
+                    Texture2D barFG = ModContent.Request<Texture2D>(EffectLoader.AssetPath + "GenericBarFront", (AssetRequestMode)2).Value;
                     float barScale = 2f;
                     Vector2 barOrigin = barBG.Size() * 0.5f;
                     Vector2 drawPos = Owner.Center + new Vector2(0, 60) - Main.screenPosition;

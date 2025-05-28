@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesies
 {
     internal class EXNemesisProj : ModProjectile
     {
-        public override string Texture => "CalamityEntropy/Content/Item1/Nemesis";
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Nemesies/Nemesis";
         bool isFs;
         int alp;
         Vector2 origVer;

@@ -3,12 +3,13 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 using CalamityEntropy.Core;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content
 {
     internal class SpwanTextProj : ModProjectile
     {
-        public override string Texture => EffectLoaderAlt.AssetPath + "placeholder";
+        public override string Texture => EffectLoader.AssetPath + "placeholder";
         internal Action text;
         public static void New(Player player, Action action, int time = 180) {
             Projectile proj = Projectile.NewProjectileDirect(player.GetSource_FromAI(), player.Center

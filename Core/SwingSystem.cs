@@ -1,4 +1,5 @@
-﻿using InnoVault;
+﻿using CalamityEntropy.Common;
+using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
@@ -35,10 +36,10 @@ namespace CalamityEntropy.Core
                 string path3 = swing.GlowTexturePath;
 
                 if (path1 == "") {
-                    path1 = EffectLoaderAlt.AssetPath + "MotionTrail3";
+                    path1 = EffectLoader.AssetPath + "MotionTrail3";
                 }
                 if (path2 == "") {
-                    path2 = EffectLoaderAlt.AssetPath + "NullEffectColorBar";
+                    path2 = EffectLoader.AssetPath + "NullEffectColorBar";
                 }
 
                 int type = SwingFullNameToType[swing.GetType().Name];

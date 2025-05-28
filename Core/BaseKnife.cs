@@ -1,4 +1,5 @@
-﻿using InnoVault;
+﻿using CalamityEntropy.Common;
+using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -9,7 +10,7 @@ namespace CalamityEntropy.Core
 {
     internal class BaseKnife : BaseSwing
     {
-        public override string Texture => EffectLoaderAlt.AssetPath + "placeholder3";
+        public override string Texture => EffectLoader.AssetPath + "placeholder3";
         public override Texture2D TextureValue => TargetID == ItemID.None ? CEUtils.GetT2DValue(Texture) : TextureAssets.Item[TargetID].Value;
         public SwingDataStruct SwingData = new SwingDataStruct();
         public SwingAITypeEnum SwingAIType;
