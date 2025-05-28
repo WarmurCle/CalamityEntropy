@@ -12,7 +12,6 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Items.Tools;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Signus;
 using CalamityMod.NPCs.StormWeaver;
@@ -230,7 +229,7 @@ namespace CalamityEntropy.Common
             {
                 return;
             }
-            if(projectile.type == 735)
+            if (projectile.type == 735)
             {
                 projectile.scale *= 2;
             }
@@ -390,7 +389,7 @@ namespace CalamityEntropy.Common
         public float maxSpd = -1;
         public override bool PreAI(Projectile projectile)
         {
-            if(counter == 35)
+            if (counter == 35)
             {
                 if (projectile.type == ModContent.ProjectileType<DoGDeath>() && CalamityEntropy.EntropyMode)
                 {
@@ -705,7 +704,7 @@ namespace CalamityEntropy.Common
             //不要在绘制完射弹把SpriteSortMode设置成Immediate
             if (projectile.ModProjectile != null)
             {
-                if( SSMFInfo == null )
+                if (SSMFInfo == null)
                 {
                     SSMFInfo = Main.spriteBatch.GetType().GetField("sortMode", BindingFlags.Instance | BindingFlags.NonPublic);
                 }
@@ -877,7 +876,7 @@ namespace CalamityEntropy.Common
 
                 return false;
             }
-            if(projectile.ModProjectile != null && projectile.ModProjectile is BobbitHead)
+            if (projectile.ModProjectile != null && projectile.ModProjectile is BobbitHead)
             {
                 CalamityUtils.DrawHook(projectile, ModContent.Request<Texture2D>("CalamityMod/Projectiles/Typeless/BobbitHookChain").Value);
                 Main.EntitySpriteDraw(projectile.getDrawData(lightColor));
@@ -928,8 +927,8 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            
-            if (projectile.type == 735 && projectile.velocity.Y > 0  && projectile.velocity.Y > Math.Abs(projectile.velocity.X))
+
+            if (projectile.type == 735 && projectile.velocity.Y > 0 && projectile.velocity.Y > Math.Abs(projectile.velocity.X))
             {
                 projectile.getOwner().velocity.Y = -projectile.velocity.Y * 0.4f;
                 projectile.getOwner().Entropy().gravAddTime = 30;

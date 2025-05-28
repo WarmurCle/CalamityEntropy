@@ -3,19 +3,12 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Dusts;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Projectiles.Melee;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 using Terraria.ID;
@@ -64,11 +57,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 return false;
             }
             int at = 2;
-            if(atkType == 0 || atkType == 2 || atkType == 4)
+            if (atkType == 0 || atkType == 2 || atkType == 4)
             {
                 at = -1;
             }
-            if(atkType == 1 || atkType == 3 || atkType == 5)
+            if (atkType == 1 || atkType == 3 || atkType == 5)
             {
                 at = 1;
             }
@@ -78,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, at, 0, Main.MouseWorld.Distance(position) + 180);
             atkType += 1;
-            if(atkType > 7)
+            if (atkType > 7)
             {
                 atkType = 0;
             }
@@ -145,7 +138,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Util.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
                     Projectile.scale *= 1.3f;
                     Util.PlaySound("CastTriangles", 1, Projectile.Center);
-                    
+
                 }
                 if (Projectile.ai[0] < 2)
                 {
@@ -249,8 +242,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 odr.RemoveAt(0);
             }
-            
-            if(progress < 0.6f || Projectile.ai[0] > 1)
+
+            if (progress < 0.6f || Projectile.ai[0] > 1)
             {
                 owner.heldProj = Projectile.whoAmI;
                 owner.itemTime = 2;
@@ -261,7 +254,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 Projectile.Kill();
             }
         }
-        
+
         public override bool ShouldUpdatePosition()
         {
             return false;
@@ -270,14 +263,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public bool playHitSound = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            
+
             EGlobalNPC.AddVoidTouch(target, 40, 1.4f, 600, 16);
             if (playHitSound || Projectile.ai[0] == 2)
             {
                 playHitSound = false;
                 Util.PlaySound("sf_hit", 1, Projectile.Center);
                 Util.PlaySound("FractalHit", 1, Projectile.Center);
-                
+
                 if (Projectile.ai[0] == 3)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, new Vector2(0, 8).RotatedByRandom(1), ModContent.ProjectileType<FractalLaser>(), Projectile.damage / 9, 0, Projectile.owner);
@@ -388,7 +381,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.timeLeft = 80;
-            
+
         }
         public override void SetStaticDefaults()
         {
@@ -403,7 +396,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             width += widthAdd;
             widthAdd *= 0.98f;
             width += (1 - width) * 0.08f;
-            if(Projectile.timeLeft < 16)
+            if (Projectile.timeLeft < 16)
             {
                 width2 -= 1 / 16f;
             }
@@ -484,7 +477,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 }
                 Projectile.getOwner().Center = Projectile.Center;
             }
-            
+
         }
         public override string Texture => "CalamityEntropy/Assets/Extra/white";
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -505,7 +498,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public List<Vector2> GetVPoints(Vector2 start, Vector2 end, int offset)
         {
             List<Vector2> rt = new List<Vector2>();
-            for(float i = 0; i <= 1; i += 0.0025f)
+            for (float i = 0; i <= 1; i += 0.0025f)
             {
                 rt.Add(Vector2.Lerp(start, end, i) + new Vector2(0, offset * (Projectile.timeLeft / 36f) * ((float)Math.Cos(i * MathHelper.TwoPi - MathHelper.Pi) + 1) * 0.5f).RotatedBy((end - start).ToRotation()));
             }

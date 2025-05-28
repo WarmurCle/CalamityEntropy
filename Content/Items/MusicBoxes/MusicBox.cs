@@ -1,5 +1,5 @@
+﻿using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ID;
 
 namespace CalamityEntropy.Content.Items.MusicBoxes
 {
@@ -12,11 +12,11 @@ namespace CalamityEntropy.Content.Items.MusicBoxes
             MusicLoader.AddMusicBox(musicMod, musicID, itemID, tileID);
         }
         public abstract int MusicBoxTile { get; }
-        public abstract string MusicFile {  get; }
+        public abstract string MusicFile { get; }
         public virtual bool Obtainable { get; } = true;
         public override void Load()
         {
-            if(CalamityEntropy.mbRegs == null)
+            if (CalamityEntropy.mbRegs == null)
             {
                 CalamityEntropy.mbRegs = new System.Collections.Generic.List<MusicBox>();
             }

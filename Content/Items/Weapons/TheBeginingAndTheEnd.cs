@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles.BNE;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;

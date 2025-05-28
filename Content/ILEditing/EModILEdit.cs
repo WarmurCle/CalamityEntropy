@@ -1,9 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Utilities;
-using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Items.LoreItems;
-using CalamityMod.NPCs;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.RuntimeDetour;
@@ -45,7 +43,7 @@ namespace CalamityEntropy.Content.ILEditing
                       System.Reflection.BindingFlags.Public |
                       System.Reflection.BindingFlags.Instance,
                       null,
-            new Type[] {typeof(Player)},
+            new Type[] { typeof(Player) },
             null);
 
             _hook = EModHooks.Add(originalMethod, canuseitem_hook);
@@ -69,7 +67,7 @@ namespace CalamityEntropy.Content.ILEditing
         }
         private static bool canuseitem_hook(Func<ModItem, Player, bool> orig, ModItem self, Player player)
         {
-            if(ModContent.GetInstance<ServerConfig>().LoreSpecialEffect && LoreReworkSystem.loreEffects.ContainsKey(self.Type))
+            if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect && LoreReworkSystem.loreEffects.ContainsKey(self.Type))
             {
                 return true;
             }

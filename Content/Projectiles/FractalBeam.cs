@@ -1,19 +1,8 @@
-﻿using CalamityEntropy.Content.Dusts;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityEntropy.Content.Particles;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -26,7 +15,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.width = 16;
             Projectile.height = 16;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 16; 
+            Projectile.timeLeft = 16;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
@@ -49,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 norl = Projectile.velocity.normalize();
                 float sengs = 3;
                 var color = Color.SkyBlue;
-                
+
                 for (int j = 0; j < 120; j++)
                 {
                     var spark = new HeavenfallStar();

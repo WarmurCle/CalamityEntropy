@@ -13,7 +13,6 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -60,10 +59,6 @@ namespace CalamityEntropy.Common
 
         public override void UpdateUI(GameTime gameTime)
         {
-            if(Lighting.Mode != Terraria.Graphics.Light.LightMode.Color)
-            {
-                Lighting.Mode = Terraria.Graphics.Light.LightMode.Color;
-            }
             noItemUse = false;
             counter += 1f;
             if (ArmorForgingStationUI.Visible)
@@ -146,7 +141,7 @@ namespace CalamityEntropy.Common
                     prd = false;
                 }
             }
-            
+
 
             LoopSoundManager.update();
         }

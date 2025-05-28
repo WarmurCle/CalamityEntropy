@@ -226,7 +226,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, effect, Main.GameViewMatrix.TransformationMatrix);
 
                 effect.CurrentTechnique.Passes["fableeyelaser"].Apply();
-                
+
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/EternityStreak").Value;
                 List<Vertex> ve = new List<Vertex>();
                 Color b = new Color(255, 235, 235);

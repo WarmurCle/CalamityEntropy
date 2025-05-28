@@ -11,7 +11,8 @@ namespace CalamityEntropy.Content.Particles
         private static Asset<Texture2D> PRT_LineCap;
         void ICELoader.LoadAsset() => PRT_LineCap = CEUtils.GetT2DAsset("CalamityEntropy/Content/Particles/PRT_RTSpark");
         void ICELoader.UnLoadData() => PRT_LineCap = null;
-        public PRT_Line(Vector2 position, Vector2 lineSize, float scale, Color color, int lifetime) {
+        public PRT_Line(Vector2 position, Vector2 lineSize, float scale, Color color, int lifetime)
+        {
             Position = position;
             LineSize = lineSize;
             Scale = scale;
@@ -23,7 +24,8 @@ namespace CalamityEntropy.Content.Particles
 
         public override void SetProperty() => PRTDrawMode = PRTDrawModeEnum.AdditiveBlend;
 
-        public override bool PreDraw(SpriteBatch spriteBatch) {
+        public override bool PreDraw(SpriteBatch spriteBatch)
+        {
             float rot = LineSize.ToRotation() + MathHelper.PiOver2;
             Vector2 origin = new Vector2(TexValue.Width / 2f, TexValue.Height);
             Vector2 scale = new Vector2(0.2f, LineSize.Length() / TexValue.Height);

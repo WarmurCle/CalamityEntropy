@@ -1,5 +1,4 @@
-﻿using InnoVault;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content
 {
@@ -7,9 +6,10 @@ namespace CalamityEntropy.Content
     {
         public int SwingIndex;
         public int DontUseItemTime;
-        public override void PostUpdate() 
+        public override void PostUpdate()
         {
-            if (DontUseItemTime > 0) {
+            if (DontUseItemTime > 0)
+            {
                 DontUseItemTime--;
             }
         }

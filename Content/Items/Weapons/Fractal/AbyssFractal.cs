@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             counter++;
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 if (spawnProj && progress > 0.4f)
                 {
@@ -172,7 +172,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 playHitSound = false;
                 Util.PlaySound("sf_hit", 1, Projectile.Center);
                 Util.PlaySound("FractalHit", 1, Projectile.Center);
-                
+
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TownSlimeTransform, new ParticleOrchestraSettings
             {

@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 if (progress > 0.18f && progress < 0.82f)
                 {
-                    for(int i = 0; i < Projectile.localNPCImmunity.Length; i++)
+                    for (int i = 0; i < Projectile.localNPCImmunity.Length; i++)
                     {
                         if (Projectile.localNPCImmunity[i] == -1)
                             Projectile.localNPCImmunity[i] = (int)(Projectile.MaxUpdates * 4 / owner.GetTotalAttackSpeed(Projectile.DamageType));
@@ -123,7 +123,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Projectile.localNPCHitCooldown = -1;
                 }
 
-                    float RotF = MathHelper.ToRadians(140) + MathHelper.TwoPi * 4;
+                float RotF = MathHelper.ToRadians(140) + MathHelper.TwoPi * 4;
                 if (progress > 0.3f && progress < 0.7f)
                     spawnProjCounter += owner.GetTotalAttackSpeed(Projectile.DamageType);
                 if (spawnProjCounter >= 6f)
@@ -234,7 +234,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 playHitSound = false;
                 Util.PlaySound("sf_hit", 1, Projectile.Center);
                 Util.PlaySound("FractalHit", 1, Projectile.Center);
-                
+
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
             {
@@ -244,7 +244,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public static Texture2D shineTex = null;
         public bool spawnProj = true;
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
@@ -263,7 +263,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
 
             if (Projectile.ai[0] == 0)
             {
-                
+
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
                 Texture2D bs = Util.getExtraTex("SemiCircularSmear");
                 Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(new Color(255, 200, 215), new Color(255, 140, 150), counter / MaxUpdateTime) * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 1) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.6f * scale, SpriteEffects.None, 0);

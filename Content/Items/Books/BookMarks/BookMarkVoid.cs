@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System;

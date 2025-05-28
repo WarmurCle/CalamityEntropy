@@ -26,7 +26,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -469,14 +468,14 @@ namespace CalamityEntropy.Common
             {
                 Player.gravity = 0;
             }
-            if(gravAddTime > 0)
+            if (gravAddTime > 0)
             {
                 Player.gravity *= 1.6f;
                 Player.maxFallSpeed *= 3;
                 Player.controlDown = true;
             }
             gravAddTime--;
-            if(CruiserAntiGravTime > 0)
+            if (CruiserAntiGravTime > 0)
             {
                 CruiserAntiGravTime--;
                 Player.gravity = 0;
@@ -733,9 +732,9 @@ namespace CalamityEntropy.Common
             }
             if (Player.ownedProjectileCounts[voidslashType] > 0)
             {
-                foreach(Projectile p in Main.ActiveProjectiles)
+                foreach (Projectile p in Main.ActiveProjectiles)
                 {
-                    if(p.type == voidslashType && p.ModProjectile is VoidSlash vs && vs.d < 16) 
+                    if (p.type == voidslashType && p.ModProjectile is VoidSlash vs && vs.d < 16)
                     {
                         Player.gravity = 0;
                         Player.invis = true;
@@ -745,7 +744,7 @@ namespace CalamityEntropy.Common
                         }
                     }
                 }
-                
+
             }
             if (maliciousCode)
             {
@@ -850,7 +849,7 @@ namespace CalamityEntropy.Common
             HitTCounter = 300;
             hitTimeCount = 0;
             JustHit = true;
-            
+
         }
         public bool JustHit = false;
         public override bool FreeDodge(Player.HurtInfo info)
@@ -901,7 +900,7 @@ namespace CalamityEntropy.Common
                 Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MantleBreak>(), 0, 0, Player.whoAmI);
 
                 Player.AddCooldown("HolyMantleCooldown", HolyMantle.Cooldown, true);
-                
+
                 deusCoreBloodOut -= deusCoreAdd;
                 return true;
             }
@@ -2091,12 +2090,12 @@ namespace CalamityEntropy.Common
         public bool soulDicorder = false;
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            if(fromWho == Main.myPlayer)
+            if (fromWho == Main.myPlayer)
             {
                 var mp = Mod.GetPacket();
                 mp.Write((byte)255);
                 mp.Write(enabledLoreItems.Count);
-                foreach(var item in enabledLoreItems)
+                foreach (var item in enabledLoreItems)
                 {
                     mp.Write(item);
                 }

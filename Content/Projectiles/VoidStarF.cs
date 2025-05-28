@@ -110,8 +110,8 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.rotation += 0.1f;
             Lighting.AddLight(Projectile.Center, 0.75f, 1f, 0.24f);
-            
-            
+
+
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

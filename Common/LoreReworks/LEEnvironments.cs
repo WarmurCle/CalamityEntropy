@@ -1,7 +1,5 @@
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod.Items.LoreItems;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 

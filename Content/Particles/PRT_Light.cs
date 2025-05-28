@@ -18,7 +18,8 @@ namespace CalamityEntropy.Content.Particles
         void ICELoader.LoadAsset() => BloomTex = CEUtils.GetT2DAsset("CalamityEntropy/Content/Particles/PRT_Light2");
         void ICELoader.UnLoadData() => BloomTex = null;
         public PRT_Light(Vector2 position, Vector2 velocity, float scale, Color color, int lifetime, float opacity = 1f
-            , float squishStrenght = 1f, float maxSquish = 3f, float hueShift = 0f, Entity _entity = null, float _followingRateRatio = 0.9f) {
+            , float squishStrenght = 1f, float maxSquish = 3f, float hueShift = 0f, Entity _entity = null, float _followingRateRatio = 0.9f)
+        {
             Position = position;
             Velocity = velocity;
             Scale = scale;
@@ -35,7 +36,8 @@ namespace CalamityEntropy.Content.Particles
 
         public override void SetProperty() => PRTDrawMode = PRTDrawModeEnum.AdditiveBlend;
 
-        public override void AI() {
+        public override void AI()
+        {
             Velocity *= LifetimeCompletion >= 0.34f ? 0.93f : 1.02f;
 
             Opacity = LifetimeCompletion > 0.5f ? (float)Math.Sin(LifetimeCompletion * MathHelper.Pi) * 0.2f + 0.8f : (float)Math.Sin(LifetimeCompletion * MathHelper.Pi);
@@ -43,12 +45,14 @@ namespace CalamityEntropy.Content.Particles
 
             Color = Main.hslToRgb(Main.rgbToHsl(Color).X + HueShift, Main.rgbToHsl(Color).Y, Main.rgbToHsl(Color).Z);
 
-            if (entity != null && entity.active) {
+            if (entity != null && entity.active)
+            {
                 Position += entity.velocity * followingRateRatio;
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch) {
+        public override bool PreDraw(SpriteBatch spriteBatch)
+        {
             Texture2D tex = PRTLoader.PRT_IDToTexture[ID];
             Texture2D bloomTex = BloomTex.Value;
 

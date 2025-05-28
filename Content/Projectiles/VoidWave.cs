@@ -1,14 +1,6 @@
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.Graphics.Primitives;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 

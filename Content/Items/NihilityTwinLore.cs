@@ -2,9 +2,7 @@
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.LoreItems;
-using CalamityMod.Projectiles.Magic;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

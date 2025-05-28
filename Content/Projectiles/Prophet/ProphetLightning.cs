@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
 
             if (Projectile.ai[0] > 80)
             {
-                
+
                 List<Vertex> ve = new List<Vertex>();
                 Color b = Color.White;
 

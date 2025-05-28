@@ -1,14 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
-using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Graphics.Primitives;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -33,7 +26,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Projectile.localAI[0]++;
-            if(homing == null)
+            if (homing == null)
             {
                 homing = Projectile.FindTargetWithinRange(1200);
             }
@@ -49,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity += (homing.Center - Projectile.Center).normalize() * 0.5f;
                 Projectile.velocity *= 0.97f;
             }
-            if(Projectile.timeLeft < 40)
+            if (Projectile.timeLeft < 40)
             {
                 Projectile.Opacity -= 1 / 40f;
             }

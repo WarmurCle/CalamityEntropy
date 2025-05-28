@@ -1,16 +1,10 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -101,8 +95,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AI()
         {
             base.AI();
-            
-            if(this.quickTime >= 0)
+
+            if (this.quickTime >= 0)
             {
                 width2 = 1;
             }
@@ -123,7 +117,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
                 if (ShooterModProjectile is EntropyBookHeldProjectile eb)
                 {
-                    if(Main.GameUpdateCount % 16 == 0)
+                    if (Main.GameUpdateCount % 16 == 0)
                     {
                         Item bookItem = eb.bookItem;
                         for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)

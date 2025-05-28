@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
-using CalamityMod;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

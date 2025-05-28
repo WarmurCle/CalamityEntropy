@@ -1,12 +1,7 @@
 ﻿using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
 using Terraria;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -41,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Player player = Projectile.getOwner();
             player.Calamity().mouseWorldListener = true;
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 Main.LocalPlayer.Calamity().mouseWorld = Main.MouseWorld;
             }
@@ -76,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            for(int i = 0; i < ProjectileID.Sets.TrailCacheLength[Type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Type]; i++)
             {
                 float prog = ((float)i / ProjectileID.Sets.TrailCacheLength[Type]);
                 Color clr = Color.White * 0.36f * (1 - prog);

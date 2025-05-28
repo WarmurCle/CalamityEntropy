@@ -1,16 +1,9 @@
 ﻿using CalamityEntropy.Utilities;
-using CalamityMod.CalPlayer;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
-using static tModPorter.ProgressUpdate;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -33,7 +26,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override Color StringColor => Color.Transparent;
         public override void DrawStrings(List<Vector2> points)
-        {}
+        { }
         public List<Vector2> getPoints(float perc)
         {
             var points = new List<Vector2>();
@@ -60,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             Utilities.Util.PlaySound("ProphetWhipHitShine", 1, target.Center, volume: 0.4f);
             Utilities.Util.PlaySound("runesonghit", 2, target.Center, volume: 0.4f);
-            
+
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -86,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
                 rot -= MathHelper.PiOver2;
                 Main.EntitySpriteDraw(Projectile.GetTexture(), points[i] - Main.screenPosition, new Rectangle(0, frameY, Projectile.GetTexture().Width, frameHeight), color, rot, origin, drawScale, Projectile.spriteDirection > 0 ? Microsoft.Xna.Framework.Graphics.SpriteEffects.None : Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally);
 
-                
+
             }
             {
                 float lc = 1;
@@ -112,7 +105,7 @@ namespace CalamityEntropy.Content.Projectiles
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
-            
+
 
         }
         public override int handleHeight => 50;

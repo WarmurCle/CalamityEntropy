@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Skies
         public Effect skyEffect = null; public Effect skyEffect2 = null;
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            
+
             if (this.skyEffect == null)
             {
                 this.skyEffect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/AWSkyEffect", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;

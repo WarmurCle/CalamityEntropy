@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Weapons.Nemesies;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.Particles;
@@ -16,9 +15,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Terraria;
-using Terraria.GameContent.RGB;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using static CalamityEntropy.CalamityEntropy;
@@ -159,18 +156,24 @@ namespace CalamityEntropy.Common
             orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
         }
 
-        private static bool HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift) {
+        private static bool HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift)
+        {
             warpSets = [];
             warpSetsNoBlueshift = [];
-            foreach (Projectile p in Main.projectile) {
-                if (!p.active) {
+            foreach (Projectile p in Main.projectile)
+            {
+                if (!p.active)
+                {
                     continue;
                 }
-                if (p.ModProjectile is IDrawWarp drawWarp) {
-                    if (drawWarp.noBlueshift()) {
+                if (p.ModProjectile is IDrawWarp drawWarp)
+                {
+                    if (drawWarp.noBlueshift())
+                    {
                         warpSetsNoBlueshift.Add(drawWarp);
                     }
-                    else {
+                    else
+                    {
                         warpSets.Add(drawWarp);
                     }
                 }
@@ -178,15 +181,19 @@ namespace CalamityEntropy.Common
             return warpSets.Count > 0 || warpSetsNoBlueshift.Count > 0;
         }
 
-        private static void AddEndEffect() {
-            if (Main.gameMenu) {
+        private static void AddEndEffect()
+        {
+            if (Main.gameMenu)
+            {
                 return;
             }
 
             GraphicsDevice graphicsDevice = Main.instance.GraphicsDevice;
 
-            if (HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift)) {
-                if (warpSets.Count > 0) {
+            if (HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift))
+            {
+                if (warpSets.Count > 0)
+                {
                     //绘制屏幕
                     graphicsDevice.SetRenderTarget(screen);
                     graphicsDevice.Clear(Color.Transparent);
@@ -221,7 +228,8 @@ namespace CalamityEntropy.Common
                     foreach (IDrawWarp p in warpSets) { if (p.canDraw()) { p.costomDraw(Main.spriteBatch); } }
                     Main.spriteBatch.End();
                 }
-                if (warpSetsNoBlueshift.Count > 0) {
+                if (warpSetsNoBlueshift.Count > 0)
+                {
                     //绘制屏幕
                     graphicsDevice.SetRenderTarget(screen);
                     graphicsDevice.Clear(Color.Transparent);
@@ -259,7 +267,8 @@ namespace CalamityEntropy.Common
             }
 
             #region RT粒子特效
-            if (PRT_RTSpark.HasSet(out List<BasePRT> prts)) {
+            if (PRT_RTSpark.HasSet(out List<BasePRT> prts))
+            {
                 graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
@@ -512,9 +521,9 @@ namespace CalamityEntropy.Common
 
         private static void DrawAbyssalEffect(GraphicsDevice graphicsDevice)
         {
-            if(cab == null)
+            if (cab == null)
                 cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
-            
+
             graphicsDevice.SetRenderTarget(screen);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);

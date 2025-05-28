@@ -2,7 +2,6 @@
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Events;
-using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Crabulon;
 using CalamityMod.NPCs.Cryogen;
@@ -14,18 +13,14 @@ using CalamityMod.NPCs.Signus;
 using CalamityMod.NPCs.SlimeGod;
 using CalamityMod.NPCs.StormWeaver;
 using CalamityMod.Projectiles.Boss;
-using CalamityMod.Projectiles.Magic;
-using CalamityMod.UI;
 using CalamityMod.World;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
-using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 using static Terraria.ModLoader.ModContent;
 
 namespace CalamityEntropy.Common
@@ -47,15 +42,15 @@ namespace CalamityEntropy.Common
                         perfAI.PerfAI(pf);
                         return false;
                     }
-                    if(npc.ModNPC is Signus || npc.ModNPC is CeaselessVoid || npc.ModNPC is StormWeaverHead)
+                    if (npc.ModNPC is Signus || npc.ModNPC is CeaselessVoid || npc.ModNPC is StormWeaverHead)
                     {
-                        if(Util.getDistance(npc.Center, Main.player[Player.FindClosest(npc.Center, 999999, 999999)].Center) > 4000)
+                        if (Util.getDistance(npc.Center, Main.player[Player.FindClosest(npc.Center, 999999, 999999)].Center) > 4000)
                         {
                             Player plr = Main.player[Player.FindClosest(npc.Center, 999999, 999999)];
                             npc.Center = plr.Center - (plr.Center - npc.Center).normalize() * 800;
                         }
                     }
-                    if(npc.ModNPC is StormWeaverHead sw && NPC.AnyNPCs(ModContent.NPCType<DevourerofGodsHead>()))
+                    if (npc.ModNPC is StormWeaverHead sw && NPC.AnyNPCs(ModContent.NPCType<DevourerofGodsHead>()))
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -126,11 +121,11 @@ namespace CalamityEntropy.Common
         {
             if (CalamityEntropy.EntropyMode)
             {
-                if(npc.ModNPC != null)
+                if (npc.ModNPC != null)
                 {
-                    if(npc.ModNPC is DevourerofGodsTail || npc.ModNPC is DevourerofGodsHead || npc.ModNPC is DevourerofGodsBody)
+                    if (npc.ModNPC is DevourerofGodsTail || npc.ModNPC is DevourerofGodsHead || npc.ModNPC is DevourerofGodsBody)
                     {
-                        if(NPC.AnyNPCs(ModContent.NPCType<Signus>()) || NPC.AnyNPCs(ModContent.NPCType<CeaselessVoid>()) || NPC.AnyNPCs(ModContent.NPCType<StormWeaverHead>()))
+                        if (NPC.AnyNPCs(ModContent.NPCType<Signus>()) || NPC.AnyNPCs(ModContent.NPCType<CeaselessVoid>()) || NPC.AnyNPCs(ModContent.NPCType<StormWeaverHead>()))
                         {
                             modifiers.FinalDamage *= 0;
                         }
@@ -163,7 +158,7 @@ namespace CalamityEntropy.Common
         {
             if (CalamityEntropy.EntropyMode)
             {
-                if(npc.type == NPCID.WallofFleshEye)
+                if (npc.type == NPCID.WallofFleshEye)
                 {
                     if (npc.Entropy().counter % 400 < 60 && npc.Entropy().counter % 6 == 0)
                     {
@@ -206,9 +201,9 @@ namespace CalamityEntropy.Common
                 {
                     npc.MaxFallSpeedMultiplier *= 12;
                 }
-                if(npc.type == NPCID.PlanterasHook)
+                if (npc.type == NPCID.PlanterasHook)
                 {
-                    if(Main.GameUpdateCount % 40 == 0 && Main.rand.NextBool(2))
+                    if (Main.GameUpdateCount % 40 == 0 && Main.rand.NextBool(2))
                     {
                         Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, (NPC.plantBoss.ToNPC().target.ToPlayer().Center - npc.Center).normalize() * 22, ProjectileID.SeedPlantera, npc.GetProjectileDamage(ProjectileID.SeedPlantera), 2, Main.myPlayer);
                     }
@@ -264,7 +259,7 @@ namespace CalamityEntropy.Common
                 }
                 if (npc.ModNPC != null)
                 {
-                    if(Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         if (npc.ModNPC is CryogenShield)
                         {
@@ -293,7 +288,7 @@ namespace CalamityEntropy.Common
                         {
                             if (!NPC.AnyNPCs(ModContent.NPCType<CryogenShield>()))
                             {
-                                if(npc.Entropy().counter % 600 == 0)
+                                if (npc.Entropy().counter % 600 == 0)
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
@@ -315,7 +310,8 @@ namespace CalamityEntropy.Common
                                 }
                                 if (npc.Entropy().counter % 6 == 0)
                                 {
-                                    if (npc.Entropy().counter % 30 == 0){
+                                    if (npc.Entropy().counter % 30 == 0)
+                                    {
                                         int iceBlast = ModContent.ProjectileType<IceBlast>();
 
                                         int totalProjectiles = BossRushEvent.BossRushActive ? 6 : 4;
@@ -327,7 +323,7 @@ namespace CalamityEntropy.Common
                                         Vector2 spinningPoint = new Vector2(0f, -velocity);
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                         {
-                                            
+
                                             for (int k = 0; k < totalProjectiles; k++)
                                             {
                                                 Vector2 projSpreadRotation = spinningPoint.RotatedBy(radians * k + Main.GlobalTimeWrappedHourly);
@@ -437,7 +433,7 @@ namespace CalamityEntropy.Common
                     {
                         if (Main.GameUpdateCount % 260 == 0 && Main.rand.NextBool(4))
                         {
-                            if(Main.netMode != NetmodeID.MultiplayerClient)
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 var parent = Main.npc[NPC.FindFirstNPC(ModContent.NPCType<CeaselessVoid>())];
                                 if (parent.HasValidTarget)
@@ -458,7 +454,7 @@ namespace CalamityEntropy.Common
                                 if (parent.HasValidTarget)
                                 {
                                     int pt = ModContent.ProjectileType<DoGDeath>();
-                                    for(float i = 0; i < 358; i += 20)
+                                    for (float i = 0; i < 358; i += 20)
                                     {
                                         Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, MathHelper.ToRadians(i).ToRotationVector2() * 8, pt, parent.GetProjectileDamage(pt), 2);
                                     }
@@ -523,7 +519,7 @@ namespace CalamityEntropy.Common
         {
             int num = 200;
             num = NPC.NewNPC(NPC.GetBossSpawnSource(targetPlayerIndex), spawnPositionX, spawnPositionY, Type, 1);
-            
+
 
             if (num == 200)
                 return -1;

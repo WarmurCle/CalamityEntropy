@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;

@@ -1,16 +1,16 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Items;
+using CalamityMod.Items.Weapons.Melee;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Drawing;
-using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Items;
 
 namespace CalamityEntropy.Content.Items.Weapons.Fractal
 {
@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, atkType == 0 ? -1 : atkType);
             atkType++;
-            if(atkType > 2)
+            if (atkType > 2)
             {
                 atkType = 0;
             }
@@ -113,7 +113,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 {
                     Util.PlaySound("powerwhip", 1, Projectile.Center, volume: 0.6f);
                 }
-                if(Projectile.ai[0] < 2)
+                if (Projectile.ai[0] < 2)
                 {
                     Util.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
                 }
@@ -124,10 +124,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             float RotF = 5f;
             if (Projectile.ai[0] == 2)
             {
-                if(shoot)
+                if (shoot)
                 {
                     shoot = false;
-                    if(Main.myPlayer == Projectile.owner)
+                    if (Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.normalize() * 10, ModContent.ProjectileType<FractalShoot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
@@ -144,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 alpha = 1;
                 scale = 1f * (1 + (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(progress, 2) * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f);
                 Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 2)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
-                Projectile.Center = Projectile.getOwner().MountedCenter; 
+                Projectile.Center = Projectile.getOwner().MountedCenter;
             }
 
             if (odr.Count > 60)
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
-            if(counter > MaxUpdateTimes)
+            if (counter > MaxUpdateTimes)
             {
                 owner.itemTime = 1;
                 owner.itemAnimation = 1;
@@ -221,7 +221,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 Main.spriteBatch.Draw(glow, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White * alpha * (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 2) * MathHelper.Pi - MathHelper.PiOver2) * 0.5f + 0.5f), rot, origin, Projectile.scale * scale * 1.4f, effect, 0);
             }
             Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale, effect);
-            
+
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

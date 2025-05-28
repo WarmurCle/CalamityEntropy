@@ -1,13 +1,13 @@
 ﻿using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityMod.Items;
 
 namespace CalamityEntropy.Content.Items.Weapons.Fractal
 {
@@ -149,7 +149,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             float MaxUpdateTime = Projectile.getOwner().itemTimeMax * Projectile.MaxUpdates;
 
             Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale, effect);
-            
+
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

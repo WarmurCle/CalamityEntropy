@@ -1,14 +1,9 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -42,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool launch = true;
         public override bool? CanHitNPC(NPC target)
         {
-            if(launch) return false;
+            if (launch) return false;
             return base.CanHitNPC(target);
         }
         public bool playSound = true;
@@ -53,13 +48,13 @@ namespace CalamityEntropy.Content.Projectiles
                 playSound = false;
                 SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, Projectile.position);
             }
-            if(Projectile.timeLeft < 240)
+            if (Projectile.timeLeft < 240)
             {
                 Projectile.Opacity = Projectile.timeLeft / 240f;
             }
             Player player = Projectile.getOwner();
             player.Calamity().mouseWorldListener = true;
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 Main.LocalPlayer.Calamity().mouseWorld = Main.MouseWorld;
             }
@@ -101,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float rotSpeed = 0.001f;
         public override bool PreDraw(ref Color lightColor)
         {
-            for(int i = 0; i < ProjectileID.Sets.TrailCacheLength[Type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Type]; i++)
             {
                 float prog = ((float)i / ProjectileID.Sets.TrailCacheLength[Type]);
                 Color clr = Color.Lerp(new Color(242, 201, 190), new Color(48, 52, 79), prog) * 0.2f;

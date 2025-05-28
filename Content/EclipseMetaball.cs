@@ -1,14 +1,11 @@
-
+﻿
 using CalamityMod.Graphics.Metaballs;
-using CalamityMod.Projectiles.Magic;
-using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
-using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace CalamityEntropy.Content
 {
@@ -45,7 +42,7 @@ namespace CalamityEntropy.Content
             private set;
         } = new();
 
-         public override bool AnythingToDraw => Particles.Count > 0;
+        public override bool AnythingToDraw => Particles.Count > 0;
 
         public override IEnumerable<Texture2D> Layers
         {
@@ -65,7 +62,7 @@ namespace CalamityEntropy.Content
             if (Main.netMode == NetmodeID.Server)
                 return;
 
-            layerAssets = new() { Utilities.Util.getExtraTexAsset("black")};
+            layerAssets = new() { Utilities.Util.getExtraTexAsset("black") };
         }
 
         public override void ClearInstances() => Particles.Clear();

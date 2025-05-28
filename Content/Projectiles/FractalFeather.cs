@@ -1,17 +1,12 @@
-﻿using CalamityEntropy.Content.Dusts;
-using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles

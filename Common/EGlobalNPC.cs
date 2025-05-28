@@ -582,7 +582,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if(npc.type == NPCID.Plantera)
+            if (npc.type == NPCID.Plantera)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<LashingBramblerod>(), new Fraction(3, 5));
             }

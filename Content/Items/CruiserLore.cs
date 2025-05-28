@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool CanUseItem(Player player)
         {
-           return ModContent.GetInstance<ServerConfig>().LoreSpecialEffect;
+            return ModContent.GetInstance<ServerConfig>().LoreSpecialEffect;
         }
         public override bool? UseItem(Player player)
         {

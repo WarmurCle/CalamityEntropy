@@ -1,11 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.CalPlayer;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -13,7 +8,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static tModPorter.ProgressUpdate;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -67,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles
             public int type;
             public float rotation;
 
-            public SilvaFlower() 
+            public SilvaFlower()
             {
                 offset = Util.randomPointInCircle(28);
                 type = Main.rand.Next(3);
@@ -89,12 +83,12 @@ namespace CalamityEntropy.Content.Projectiles
         {
             var player = Projectile.getOwner();
             Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
-            if(flowers.Count < flowerCount)
+            if (flowers.Count < flowerCount)
             {
                 flowers.Add(new SilvaFlower());
             }
             Projectile.timeLeft = 3;
-            if (player.GetModPlayer<SilvaVineDRPlayer>().HitCounter > 0) 
+            if (player.GetModPlayer<SilvaVineDRPlayer>().HitCounter > 0)
             {
                 Util.PlaySound("FractalHit", 1, Projectile.Center);
                 Projectile.timeLeft = 0;
@@ -135,7 +129,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void PostUpdateEquips()
         {
             HitCounter--;
-            if(VineType == -1)
+            if (VineType == -1)
             {
                 VineType = ModContent.ProjectileType<SilvaVine>();
             }

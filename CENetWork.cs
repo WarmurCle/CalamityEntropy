@@ -265,10 +265,10 @@ namespace CalamityEntropy
                 {
                     packet.Write((byte)CEMessageType.SyncPlayer);
                     packet.Write(loreCount);
-                    foreach(var i in plr.Entropy().enabledLoreItems)
+                    foreach (var i in plr.Entropy().enabledLoreItems)
                     {
                         packet.Write(i);
-                    }    
+                    }
                     packet.Send(-1, whoAmI);
                 }
             }

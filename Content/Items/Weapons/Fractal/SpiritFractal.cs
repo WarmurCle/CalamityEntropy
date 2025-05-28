@@ -2,18 +2,14 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Dusts;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Projectiles.Melee;
-using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 using Terraria.ID;
@@ -46,17 +42,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int at = 2;
-            if(atkType == 0 || atkType == 2)
+            if (atkType == 0 || atkType == 2)
             {
                 at = -1;
             }
-            if(atkType == 1 || atkType == 3)
+            if (atkType == 1 || atkType == 3)
             {
                 at = 1;
             }
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, at, 0, Main.MouseWorld.Distance(position) + 180);
             atkType += 1;
-            if(atkType > 4)
+            if (atkType > 4)
             {
                 atkType = 0;
             }
@@ -198,7 +194,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 odr.RemoveAt(0);
             }
-            
+
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
