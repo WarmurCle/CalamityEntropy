@@ -1,4 +1,6 @@
 ﻿using CalamityEntropy.Content;
+using CalamityEntropy.Content.Items.Books;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -8,6 +10,19 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static DamageClass RogueDC => ModContent.GetInstance<RogueDamageClass>();
+
+        public static bool HasEBookEffect<T>(this Projectile p) where T : EBookProjectileEffect {
+            if (p.ModProjectile is EBookBaseProjectile ep) {
+                foreach (var ef in ep.ProjectileEffects) {
+                    if (ef.GetType() == typeof(T)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public static NMSGItem TFAW(this Item item) => item.GetGlobalItem<NMSGItem>();
         public static NMSPLayer TFAW(this Player player) => player.GetModPlayer<NMSPLayer>();
 

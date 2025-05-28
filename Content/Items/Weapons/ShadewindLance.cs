@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<ShadewindLanceThrow>();
             Item.shootSpeed = 46f;
-            Item.DamageType = CUtil.rogueDC;
+            Item.DamageType = CEUtils.RogueDC;
         }
 
 

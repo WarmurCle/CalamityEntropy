@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice / 4; Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<RevelationThrow>();
             Item.shootSpeed = 45f;
-            Item.DamageType = CUtil.rogueDC;
+            Item.DamageType = CEUtils.RogueDC;
             Item.rare = ItemRarityID.Red;
             Item.Entropy().tooltipStyle = 3;
             Item.Entropy().NameColor = new Color(160, 0, 0);

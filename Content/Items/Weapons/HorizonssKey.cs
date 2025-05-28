@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
         {
-            if (damageClass == Utilities.CUtil.rogueDC)
+            if (damageClass == CEUtils.RogueDC)
             {
                 return new StatInheritanceData(0.35f, 0.35f, 0.35f, 0.35f, 0.35f);
             }

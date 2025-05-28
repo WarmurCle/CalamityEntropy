@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.shoot = ModContent.ProjectileType<TheBeginning>();
             Item.shootSpeed = 9f;
-            Item.DamageType = CUtil.rogueDC;
+            Item.DamageType = CEUtils.RogueDC;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

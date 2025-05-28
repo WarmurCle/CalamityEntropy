@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 6 : 10))
+            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 6 : 10))
             {
                 Utilities.Util.PlaySound("blackholeEnd", 1.25f, projectile.Center, 1, 1.2f);
                 if (ModLoader.TryGetMod("CalamityOverhaul", out var co))

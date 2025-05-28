@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.shoot = ModContent.ProjectileType<VoidseekerProj>();
             Item.shootSpeed = 10f;
-            Item.DamageType = CUtil.rogueDC;
+            Item.DamageType = CEUtils.RogueDC;
         }
         public override float StealthDamageMultiplier => 2f;
         public override float StealthVelocityMultiplier => 1f;

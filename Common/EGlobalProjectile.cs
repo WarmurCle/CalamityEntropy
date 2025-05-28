@@ -248,7 +248,7 @@ namespace CalamityEntropy.Common
                 }
                 if (projectile.owner.ToPlayer().Entropy().BarrenCard)
                 {
-                    if (projectile.DamageType == Utilities.CUtil.rogueDC)
+                    if (projectile.DamageType == CEUtils.RogueDC)
                     {
                         BarrenHoming = true;
                     }

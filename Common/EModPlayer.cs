@@ -1672,7 +1672,7 @@ namespace CalamityEntropy.Common
                 {
                     if (n.Hitbox.Intersects(Player.Hitbox) && n.active)
                     {
-                        Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(DamageClass.Melee).ApplyTo(1200), 0, 0, false, Utilities.CUtil.rogueDC);
+                        Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(DamageClass.Melee).ApplyTo(1200), 0, 0, false, CEUtils.RogueDC);
 
                     }
                 }
@@ -1763,7 +1763,7 @@ namespace CalamityEntropy.Common
                             npc.defense = 0;
                             float or = npc.Calamity().DR;
                             npc.Calamity().DR = 0;
-                            Player.ApplyDamageToNPC(npc, (int)Player.GetTotalDamage(Utilities.CUtil.rogueDC).ApplyTo(460 + 50 * daCount), 0, 0, false, Utilities.CUtil.rogueDC);
+                            Player.ApplyDamageToNPC(npc, (int)Player.GetTotalDamage(CEUtils.RogueDC).ApplyTo(460 + 50 * daCount), 0, 0, false, CEUtils.RogueDC);
                             npc.defense = od;
                             npc.Calamity().DR = or;
                             daLastP = npc.Center;
@@ -1802,7 +1802,7 @@ namespace CalamityEntropy.Common
                                     {
                                         dmg += 460 + 50 * i;
                                     }
-                                    Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(Utilities.CUtil.rogueDC).ApplyTo(dmg), 0, 0, false, Utilities.CUtil.rogueDC);
+                                    Player.ApplyDamageToNPC(n, (int)Player.GetTotalDamage(CEUtils.RogueDC).ApplyTo(dmg), 0, 0, false, CEUtils.RogueDC);
                                     n.defense = od;
                                     n.Calamity().DR = or;
                                 }

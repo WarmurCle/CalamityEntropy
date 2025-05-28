@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ItemRarityID.Yellow;
             Item.shoot = ModContent.ProjectileType<FutureKnife>();
             Item.shootSpeed = 18f;
-            Item.DamageType = CUtil.rogueDC;
+            Item.DamageType = CEUtils.RogueDC;
         }
         public int altShotCount = 0;
 

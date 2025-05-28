@@ -22,8 +22,8 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EModPlayer>().BarrenCard = true;
-            player.GetDamage(Utilities.CUtil.rogueDC) -= 0.15f;
-            player.GetCritChance(Utilities.CUtil.rogueDC) -= 15;
+            player.GetDamage(CEUtils.RogueDC) -= 0.15f;
+            player.GetCritChance(CEUtils.RogueDC) -= 15;
         }
 
         public override void AddRecipes()

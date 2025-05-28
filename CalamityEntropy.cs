@@ -165,7 +165,6 @@ namespace CalamityEntropy
 
             AbyssalWraith.loadHead();
             CruiserHead.loadHead();
-            CUtil.load();
 
             foreach (int id in CalamityLists.needsDebuffIconDisplayList)
             {
