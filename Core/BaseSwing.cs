@@ -476,7 +476,7 @@ namespace CalamityEntropy.Core
         public virtual void PostInOwnerUpdate() { }
         public virtual void UpdateFrame() {
             if (AnimationMaxFrme > 1) {
-                TFAWUtils.ClockFrame(ref Projectile.frame, CuttingFrmeInterval, AnimationMaxFrme - 1);
+                VaultUtils.ClockFrame(ref Projectile.frame, CuttingFrmeInterval, AnimationMaxFrme - 1);
             }
         }
         public virtual void NoServUpdate() {
@@ -540,7 +540,7 @@ namespace CalamityEntropy.Core
 
         #region Draw
         public virtual void WarpDraw() {
-            List<ColoredTexturedVertexInfo> bars = [];
+            List<ColoredVertex> bars = [];
             GetCurrentTrailCount(out float count);
 
             float w = 1f;
@@ -559,8 +559,8 @@ namespace CalamityEntropy.Core
                 Vector2 Bottom = Center + oldRotate[i].ToRotationVector2() *
                     (oldLength[i] - ControlTrailBottomWidth(factor) + oldDistanceToOwner[i]) * meleeSizeAsymptotic;
 
-                bars.Add(new ColoredTexturedVertexInfo(Top, new Color(twistOrientation, w, 0f, 25), new Vector3(factor, 0f, w)));
-                bars.Add(new ColoredTexturedVertexInfo(Bottom, new Color(twistOrientation, w, 0f, 25), new Vector3(factor, 1f, w)));
+                bars.Add(new ColoredVertex(Top, new Color(twistOrientation, w, 0f, 25), new Vector3(factor, 0f, w)));
+                bars.Add(new ColoredVertex(Bottom, new Color(twistOrientation, w, 0f, 25), new Vector3(factor, 1f, w)));
             }
 
             Main.spriteBatch.End();
@@ -693,7 +693,7 @@ namespace CalamityEntropy.Core
 
         public virtual void DrawSwing(SpriteBatch spriteBatch, Color lightColor) {
             Texture2D texture = TextureValue;
-            Rectangle rect = TFAWUtils.GetRec(texture, Projectile.frame, AnimationMaxFrme);
+            Rectangle rect = VaultUtils.GetRectangle(texture, Projectile.frame, AnimationMaxFrme);
             Vector2 drawOrigin = rect.Size() / 2;
             SpriteEffects effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None;
 

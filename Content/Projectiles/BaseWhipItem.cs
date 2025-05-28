@@ -2,11 +2,11 @@
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Weapons
+namespace CalamityEntropy.Content.Projectiles
 {
     public abstract class BaseWhipItem : ModItem
     {
-        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(this.TagDamage);
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
         public virtual int TagDamage => 5;
         public virtual float TagDamageMult => 1;
         public virtual float TagCritChance => 0;

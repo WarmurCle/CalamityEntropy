@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using CalamityEntropy.Core;
 
-namespace CalamityEntropy.Content.Item1
+namespace CalamityEntropy.Content.Items.Weapons.Nemesies
 {
     internal class NemesisHeld : BaseKnife
     {
@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Item1
                 Vector2 spwanPos = orig + toMou.UnitVector() * 600;
                 spwanPos.X += Main.rand.Next(-260, 260);
                 spwanPos.Y -= 660;
-                Vector2 ver = (spwanPos.To(InMousePos)).UnitVector() * 26;
+                Vector2 ver = spwanPos.To(InMousePos).UnitVector() * 26;
                 ver = ver.RotatedByRandom(0.2f);
                 ver *= Main.rand.NextFloat(0.6f, 1.33f);
                 Projectile.NewProjectile(Source, spwanPos, ver, type, Projectile.damage / 4
@@ -138,7 +138,7 @@ namespace CalamityEntropy.Content.Item1
                 int type = ModContent.ProjectileType<NemesisProj>();
                 for (int i = 0; i < 6; i++) {
                     Vector2 spwanPos = target.Center;
-                    Vector2 ver = TFAWUtils.randVr(3, 18);
+                    Vector2 ver = CEUtils.randVr(3, 18);
                     Projectile.NewProjectile(Source, spwanPos, ver, type, Projectile.damage
                         , Projectile.knockBack, Owner.whoAmI, 1f, 0);
                 }
@@ -155,7 +155,7 @@ namespace CalamityEntropy.Content.Item1
                     float barScale = 2f;
                     Vector2 barOrigin = barBG.Size() * 0.5f;
                     Vector2 drawPos = Owner.Center + new Vector2(0, 60) - Main.screenPosition;
-                    float sengs = (1 - (maxCharge - newCharge) / maxCharge);
+                    float sengs = 1 - (maxCharge - newCharge) / maxCharge;
                     Rectangle frameCrop = new Rectangle(0, 0, (int)(sengs * barFG.Width), barFG.Height);
                     Color color = Color.OrangeRed;
                     spriteBatch.Draw(barBG, drawPos, null, color, 0f, barOrigin, barScale, 0, 0f);

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-namespace CalamityEntropy.Content.Item1
+namespace CalamityEntropy.Content.Items.Weapons.Nemesies
 {
     internal class EndSkillOrbOnSpan : ModProjectile
     {
@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Item1
 
             if (Projectile.timeLeft == 50 && onOrb && Projectile.IsOwnedByLocalPlayer()) {
                 SoundEngine.PlaySound(SoundID.Item69 with { Pitch = 1.24f }, Projectile.position);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, TFAWUtils.randVr(3, 6)
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randVr(3, 6)
                 , ModContent.ProjectileType<EndlessChopping>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                 onOrb = false;

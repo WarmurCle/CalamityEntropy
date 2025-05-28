@@ -6,7 +6,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Item1
+namespace CalamityEntropy.Content.Items.Weapons.Nemesies
 {
     internal class NemesisAlt : ModProjectile
     {
@@ -48,12 +48,12 @@ namespace CalamityEntropy.Content.Item1
                 int contactDust2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width
                     , target.height, dustId, 0f, 0f, 0, default, thirdDustScale);
                 Dust dust = Main.dust[contactDust2];
-                dust.position = target.Center + (Vector2.UnitX.RotatedByRandom(MathHelper.Pi)
-                    .RotatedBy(target.velocity.ToRotation()) * target.width / 3f) * Main.rand.NextFloat();
+                dust.position = target.Center + Vector2.UnitX.RotatedByRandom(MathHelper.Pi)
+                    .RotatedBy(target.velocity.ToRotation()) * target.width / 3f * Main.rand.NextFloat();
                 dust.noGravity = noGvk;
                 dust.velocity = Projectile.velocity;
                 dust.velocity *= 1.5f;
-                dust.velocity += dustVelocity * (0.6f + (13.6f * Main.rand.NextFloat()));
+                dust.velocity += dustVelocity * (0.6f + 13.6f * Main.rand.NextFloat());
             }
             Projectile.damage = (int)(Projectile.damage * 0.9f);
         }

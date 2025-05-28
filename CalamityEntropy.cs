@@ -90,7 +90,7 @@ namespace CalamityEntropy
     public partial class CalamityEntropy : Mod
     {
 
-        internal static List<ILoader> ILoaders { get; private set; }
+        internal static List<ICELoader> ILoaders { get; private set; }
         public static ref bool EntropyMode => ref EDownedBosses.EntropyMode;
         public static bool AprilFool = false;
         public static List<int> calDebuffIconDisplayList = new List<int>();
@@ -139,8 +139,8 @@ namespace CalamityEntropy
             AprilFool = today.Month == 4 && today.Day == 1;
 
 
-            ILoaders = VaultUtils.GetSubInterface<ILoader>();
-            foreach (ILoader setup in ILoaders)
+            ILoaders = VaultUtils.GetSubInterface<ICELoader>();
+            foreach (ICELoader setup in ILoaders)
             {
                 setup.LoadData();
                 setup.DompLoadText();
@@ -264,7 +264,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
-            foreach (ILoader setup in ILoaders)
+            foreach (ICELoader setup in ILoaders)
             {
                 setup.UnLoadData();
                 setup.DompUnLoadText();
@@ -1052,7 +1052,7 @@ namespace CalamityEntropy
         public override void PostSetupContent()
         {
             RegistryDraedonDialogs();
-            foreach (ILoader setup in ILoaders)
+            foreach (ICELoader setup in ILoaders)
             {
                 setup.SetupData();
                 if (!Main.dedServ)

@@ -6,15 +6,15 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Item1
+namespace CalamityEntropy.Content.Items.Weapons.Nemesies
 {
-    internal class Nemesis : ModItem, ILoader
+    internal class Nemesis : ModItem, ICELoader
     {
         private int fireIndex;
         public override void SetDefaults() {
             Item.height = 154;
             Item.width = 154;
-            Item.damage = 230;
+            Item.damage = 350;
             Item.DamageType = DamageClass.Melee;
             Item.useAnimation = Item.useTime = 20;
             Item.scale = 1;

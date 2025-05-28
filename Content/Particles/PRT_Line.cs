@@ -5,12 +5,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.Particles
 {
-    internal class PRT_Line : BasePRT, ILoader
+    internal class PRT_Line : BasePRT, ICELoader
     {
         public Vector2 LineSize;
         private static Asset<Texture2D> PRT_LineCap;
-        void ILoader.LoadAsset() => PRT_LineCap = TFAWUtils.GetT2DAsset("CalamityEntropy/Content/Particles/PRT_RTSpark");
-        void ILoader.UnLoadData() => PRT_LineCap = null;
+        void ICELoader.LoadAsset() => PRT_LineCap = CEUtils.GetT2DAsset("CalamityEntropy/Content/Particles/PRT_RTSpark");
+        void ICELoader.UnLoadData() => PRT_LineCap = null;
         public PRT_Line(Vector2 position, Vector2 lineSize, float scale, Color color, int lifetime) {
             Position = position;
             LineSize = lineSize;

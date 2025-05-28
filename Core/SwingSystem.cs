@@ -6,21 +6,21 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core
 {
-    internal class SwingSystem : ILoader
+    internal class SwingSystem : ICELoader
     {
         internal static List<BaseSwing> Swings;
         internal static Dictionary<string, int> SwingFullNameToType;
         internal static Dictionary<int, Asset<Texture2D>> trailTextures;
         internal static Dictionary<int, Asset<Texture2D>> gradientTextures;
         internal static Dictionary<int, Asset<Texture2D>> glowTextures;
-        void ILoader.LoadData() {
+        void ICELoader.LoadData() {
             Swings = [];
             SwingFullNameToType = [];
             trailTextures = [];
             gradientTextures = [];
             glowTextures = [];
         }
-        void ILoader.SetupData() {
+        void ICELoader.SetupData() {
             Swings = VaultUtils.GetSubclassInstances<BaseSwing>();
             foreach (var swing in Swings) {
                 string pathValue = swing.GetType().Name;
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Core
                 SwingFullNameToType.Add(pathValue, type);
             }
         }
-        void ILoader.LoadAsset() {
+        void ICELoader.LoadAsset() {
             foreach (var swing in Swings) {
                 string path1 = swing.trailTexturePath;
                 string path2 = swing.gradientTexturePath;
@@ -43,15 +43,15 @@ namespace CalamityEntropy.Core
 
                 int type = SwingFullNameToType[swing.GetType().Name];
 
-                trailTextures.TryAdd(type, TFAWUtils.GetT2DAsset(path1));
-                gradientTextures.TryAdd(type, TFAWUtils.GetT2DAsset(path2));
+                trailTextures.TryAdd(type, CEUtils.GetT2DAsset(path1));
+                gradientTextures.TryAdd(type, CEUtils.GetT2DAsset(path2));
 
                 if (path3 != "") {
-                    glowTextures.TryAdd(type, TFAWUtils.GetT2DAsset(path3));
+                    glowTextures.TryAdd(type, CEUtils.GetT2DAsset(path3));
                 }
             }
         }
-        void ILoader.UnLoadData() {
+        void ICELoader.UnLoadData() {
             Swings = null;
             SwingFullNameToType = null;
             trailTextures = null;
