@@ -23,10 +23,8 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
@@ -268,7 +266,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override bool CheckDead()
         {
-            if(DeathAnmCount <= 0)
+            if (DeathAnmCount <= 0)
             {
                 return true;
             }
@@ -431,7 +429,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public float whiteLerp = 0;
         public override void HitEffect(NPC.HitInfo hit)
         {
-            if(NPC.life <= 0 && DeathAnmCount <= 10)
+            if (NPC.life <= 0 && DeathAnmCount <= 10)
             {
                 Util.PlaySound("VoidAttack", 1, NPC.Center);
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
@@ -453,7 +451,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             bool canShoot = Main.netMode != NetmodeID.MultiplayerClient;
             if (DeathAnm)
             {
-                if(camLerp < 1)
+                if (camLerp < 1)
                 {
                     camLerp += 0.025f;
                 }
@@ -471,11 +469,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 DeathAnmCount--;
                 if (whiteLerp < 1)
                     whiteLerp += 1 / 160f;
-                if(DeathAnmCount % 6 == 0 && !Main.dedServ)
+                if (DeathAnmCount % 6 == 0 && !Main.dedServ)
                 {
                     EParticle.NewParticle(new PremultBurst(), NPC.Center, Vector2.Zero, Color.LightBlue, 3.2f, 1, true, BlendState.Additive, 0);
                 }
-                if(DeathAnmCount <= 0)
+                if (DeathAnmCount <= 0)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -1280,12 +1278,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             return false;
         }
-        
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPosition, Color drawColor)
         {
             if (NPC.IsABestiaryIconDummy)
                 return true;
-            
+
             if (!candraw && !(phase == 1))
             {
                 return false;

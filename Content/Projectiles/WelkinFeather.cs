@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = Utilities.CUtil.rogueDC;
+            Projectile.DamageType = CEUtils.RogueDC;
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.friendly = true;

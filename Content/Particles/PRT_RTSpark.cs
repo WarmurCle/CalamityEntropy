@@ -10,7 +10,8 @@ namespace CalamityEntropy.Content.Particles
         public bool AffectedByGravity;
         public Entity entity;
         public override int InGame_World_MaxCount => 4000;
-        public PRT_RTSpark(Vector2 relativePosition, Vector2 velocity, bool affectedByGravity, int lifetime, float scale, Entity entity = null) {
+        public PRT_RTSpark(Vector2 relativePosition, Vector2 velocity, bool affectedByGravity, int lifetime, float scale, Entity entity = null)
+        {
             Position = relativePosition;
             Velocity = velocity;
             AffectedByGravity = affectedByGravity;
@@ -19,19 +20,23 @@ namespace CalamityEntropy.Content.Particles
             this.entity = entity;
         }
 
-        public override void AI() {
+        public override void AI()
+        {
             Scale *= 0.95f;
             Color = Color.White;
             Velocity *= 0.95f;
-            if (Velocity.Length() < 12f && AffectedByGravity) {
+            if (Velocity.Length() < 12f && AffectedByGravity)
+            {
                 Velocity.X *= 0.94f;
                 Velocity.Y += 0.25f;
             }
 
             Rotation = Velocity.ToRotation() + MathHelper.PiOver2;
 
-            if (entity != null) {
-                if (entity.active) {
+            if (entity != null)
+            {
+                if (entity.active)
+                {
                     Position += entity.velocity;
                 }
             }
@@ -39,14 +44,18 @@ namespace CalamityEntropy.Content.Particles
 
         public override bool PreDraw(SpriteBatch spriteBatch) => false;
 
-        public static bool HasSet(out List<BasePRT> prts) {
+        public static bool HasSet(out List<BasePRT> prts)
+        {
             int rtSparkID = PRTLoader.GetParticleID<PRT_RTSpark>();
             List<BasePRT> reset = new List<BasePRT>();
-            foreach (var prt in PRTLoader.PRT_InGame_World_Inds) {
-                if (!prt.active) {
+            foreach (var prt in PRTLoader.PRT_InGame_World_Inds)
+            {
+                if (!prt.active)
+                {
                     continue;
                 }
-                if (prt.ID != rtSparkID) {
+                if (prt.ID != rtSparkID)
+                {
                     continue;
                 }
 
@@ -57,9 +66,11 @@ namespace CalamityEntropy.Content.Particles
             return reset.Count > 0;
         }
 
-        public static void DrawAll(SpriteBatch spriteBatch, List<BasePRT> prts) {
+        public static void DrawAll(SpriteBatch spriteBatch, List<BasePRT> prts)
+        {
             int rtSparkID = PRTLoader.GetParticleID<PRT_RTSpark>();
-            foreach (var prt in prts) {
+            foreach (var prt in prts)
+            {
                 Vector2 scale = new Vector2(0.5f, 1.6f) * prt.Scale;
                 Texture2D texture = PRTLoader.PRT_IDToTexture[prt.ID];
 

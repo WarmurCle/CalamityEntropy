@@ -1,12 +1,8 @@
 ﻿using CalamityEntropy.Utilities;
-using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
-using Terraria.ID;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories

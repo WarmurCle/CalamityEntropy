@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -27,10 +26,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 4 : 6))
+            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 6))
             {
                 float jj = 360f / Main.rand.Next(3, 8);
-                if (projectile.hasEffect<APlusBMEffect>())
+                if (projectile.HasEBookEffect<APlusBMEffect>())
                 {
                     jj = 360f / Main.rand.Next(Main.rand.Next(3, 8), 8);
                 }

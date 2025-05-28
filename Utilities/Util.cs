@@ -6,7 +6,6 @@ using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -54,11 +53,11 @@ namespace CalamityEntropy.Utilities
         {
             NPC npc = null;
             float dist = radians;
-            foreach(NPC n in Main.ActiveNPCs)
+            foreach (NPC n in Main.ActiveNPCs)
             {
                 if (n.CanBeChasedBy(atker) && !n.friendly)
                 {
-                    if(getDistance(n.Center, center) <= dist)
+                    if (getDistance(n.Center, center) <= dist)
                     {
                         dist = getDistance(n.Center, center);
                         npc = n;
@@ -219,7 +218,7 @@ namespace CalamityEntropy.Utilities
         public static Dictionary<string, Texture2D> TexCache;
         public static Texture2D RequestTex(string path)
         {
-            if(!TexCache.ContainsKey(path))
+            if (!TexCache.ContainsKey(path))
             {
                 TexCache[path] = ModContent.Request<Texture2D>(path, AssetRequestMode.ImmediateLoad).Value;
             }

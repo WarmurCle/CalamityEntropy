@@ -736,7 +736,7 @@ namespace CalamityEntropy.Common
 
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(player.Entropy().plagueEngine && item.DamageType.CountsAsClass<TrueMeleeDamageClass>())
+            if (player.Entropy().plagueEngine && item.DamageType.CountsAsClass<TrueMeleeDamageClass>())
             {
                 PlagueInternalCombustionEngine.ApplyTrueMeleeEffect(player);
             }

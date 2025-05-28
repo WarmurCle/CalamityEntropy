@@ -7,9 +7,6 @@ using CalamityMod.Projectiles.Boss;
 using CalamityMod.World;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -19,7 +16,7 @@ namespace CalamityEntropy.Common
 {
     public class PrefEntropyAI
     {
-        private int biomeEnrageTimer = CalamityGlobalNPC.biomeEnrageTimerMax; 
+        private int biomeEnrageTimer = CalamityGlobalNPC.biomeEnrageTimerMax;
         private bool small = false;
         private bool medium = false;
         private bool large = false;
@@ -52,7 +49,7 @@ namespace CalamityEntropy.Common
 
             Player player = Main.player[NPC.target];
             playerOldPos.Add(player.Center);
-            if(playerOldPos.Count > 32)
+            if (playerOldPos.Count > 32)
             {
                 playerOldPos.RemoveAt(0);
             }

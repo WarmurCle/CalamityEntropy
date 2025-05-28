@@ -1,12 +1,7 @@
 ﻿using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.LoreItems;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -17,8 +12,9 @@ namespace CalamityEntropy.Common
 {
     public abstract class LoreEffect
     {
-        public virtual LocalizedText Decription 
-        { get 
+        public virtual LocalizedText Decription
+        {
+            get
             {
                 var mi = ContentSamples.ItemsByType[ItemType].ModItem;
                 Mod mod = mi.Mod;
@@ -26,7 +22,7 @@ namespace CalamityEntropy.Common
                 {
                     mod = CalamityEntropy.Instance;
                 }
-                return Language.GetOrRegister(mod.GetLocalizationKey(mi.Name + "Desc")); 
+                return Language.GetOrRegister(mod.GetLocalizationKey(mi.Name + "Desc"));
             }
         }
         public abstract int ItemType { get; }
@@ -43,7 +39,7 @@ namespace CalamityEntropy.Common
     public class LoreReworkSystem : ICELoader
     {
         public static Dictionary<int, LoreEffect> loreEffects;
-        public void LoadData() 
+        public void LoadData()
         {
             loreEffects = new Dictionary<int, LoreEffect>();
         }
@@ -55,7 +51,7 @@ namespace CalamityEntropy.Common
         {
             if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
                 return;
-            if(loreEffects.ContainsKey(item.type))
+            if (loreEffects.ContainsKey(item.type))
             {
                 if (Main.LocalPlayer.Entropy().enabledLoreItems.Contains(item.type))
                 {
@@ -65,7 +61,7 @@ namespace CalamityEntropy.Common
                 {
                     Main.LocalPlayer.Entropy().enabledLoreItems.Add(item.type);
                 }
-                
+
             }
         }
         public static bool Enabled<T>() where T : LoreItem
@@ -83,7 +79,7 @@ namespace CalamityEntropy.Common
         {
             if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
                 return;
-                if (LoreReworkSystem.loreEffects.ContainsKey(entity.type))
+            if (LoreReworkSystem.loreEffects.ContainsKey(entity.type))
             {
                 entity.useTurn = true;
                 entity.useTime = entity.useAnimation = 20;
@@ -92,12 +88,12 @@ namespace CalamityEntropy.Common
         }
         public override bool? UseItem(Item item, Player player)
         {
-            if(!LoreReworkSystem.loreEffects.ContainsKey(item.type) || !ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
+            if (!LoreReworkSystem.loreEffects.ContainsKey(item.type) || !ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
             {
                 return null;
             }
             LoreReworkSystem.ToggleLore(item);
-            if(LoreReworkSystem.loreEffects[item.type].useSound.HasValue)
+            if (LoreReworkSystem.loreEffects[item.type].useSound.HasValue)
             {
                 SoundEngine.PlaySound(LoreReworkSystem.Enabled(item.type) ? LoreReworkSystem.loreEffects[item.type].useSound.Value : Util.GetSound("AscendantOff"), player.Center);
             }
@@ -124,7 +120,7 @@ namespace CalamityEntropy.Common
             }
             tooltips.Add(tooltipLineEF);
             var dsc = LoreReworkSystem.loreEffects[item.type].Decription;
-            
+
             TooltipLine tooltipLineA = new TooltipLine(base.Mod, "Entropy:Effect", dsc.Value);
             if (LoreColor.HasValue)
             {
@@ -132,12 +128,12 @@ namespace CalamityEntropy.Common
             }
             LoreReworkSystem.loreEffects[item.type].ModifyTooltip(tooltipLineA);
             tooltips.Add(tooltipLineA);
-           
+
             TooltipLine tooltipLineE = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy." + (LoreReworkSystem.Enabled(item.type) ? "Enabled" : "Disabled")));
             tooltipLineE.OverrideColor = LoreReworkSystem.Enabled(item.type) ? Color.Yellow : Color.Gray;
             tooltips.Add(tooltipLineE);
 
-            
+
 
             TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreCruiser"));
             if (LoreColor.HasValue)

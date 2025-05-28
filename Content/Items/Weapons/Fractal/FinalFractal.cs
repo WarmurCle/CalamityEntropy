@@ -1,29 +1,19 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Dusts;
 using CalamityMod.Items;
-using CalamityMod.Items.Ammo;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Projectiles.Melee;
-using CalamityMod.Tiles.Furniture.CraftingStations;
-using CalamityMod.World;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Drawing;
@@ -73,11 +63,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 return false;
             }
             int at = 2;
-            if(atkType == 0 || atkType == 2 || atkType == 4 || atkType == 6)
+            if (atkType == 0 || atkType == 2 || atkType == 4 || atkType == 6)
             {
                 at = -1;
             }
-            if(atkType == 1 || atkType == 3 || atkType == 5 || atkType == 7)
+            if (atkType == 1 || atkType == 3 || atkType == 5 || atkType == 7)
             {
                 at = 1;
             }
@@ -87,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, at, 0, Main.MouseWorld.Distance(position) + 180);
             atkType += 1;
-            if(atkType > 9)
+            if (atkType > 9)
             {
                 atkType = 0;
             }
@@ -113,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     }
     public class FinalFracRightClick : ModProjectile
     {
-        public int s = 0; 
+        public int s = 0;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (Projectile.ai[0] == 3)
@@ -147,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             rotSpeed *= 0.99f;
             Projectile.rotation += rotSpeed;
             odr.Add(Projectile.rotation);
-            if(odr.Count > 60)
+            if (odr.Count > 60)
             {
                 odr.RemoveAt(0);
             }
@@ -158,7 +148,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 owner.itemAnimation = 4;
                 Projectile.timeLeft = 4;
             }
-            if(owner.whoAmI == Main.myPlayer)
+            if (owner.whoAmI == Main.myPlayer)
             {
                 Projectile.ai[1]++;
                 if (Projectile.ai[1] > Projectile.MaxUpdates * 0.8f && s < 3)
@@ -177,7 +167,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void OnKill(int timeLeft)
         {
-            if(s >= 3)
+            if (s >= 3)
             {
                 Projectile.getOwner().Teleport(Projectile.getOwner().Calamity().mouseWorld, -1);
             }
@@ -256,7 +246,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void AI()
         {
             Player owner = Projectile.getOwner();
-            
+
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             if (!(Projectile.ai[0] == 3 && OnNPC != null && OnNPCTime > 0))
@@ -267,7 +257,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 OnNPCTime--;
             }
-            
+
             if (init)
             {
                 if (Projectile.ai[0] == 2)
@@ -286,7 +276,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 }
                 init = false;
             }
-            
+
             Projectile.timeLeft = 3;
             if (Projectile.ai[0] == 2)
             {
@@ -313,7 +303,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 {
                     Projectile.Resize(64, 64);
                     Projectile.Center = Projectile.getOwner().MountedCenter + Projectile.velocity.normalize() * (Util.Parabola(progress, length));
-                    if(OnNPC != null && OnNPCTime > 0)
+                    if (OnNPC != null && OnNPCTime > 0)
                     {
                         Projectile.Center = OnNPC.Center;
                         length = Util.getDistance(owner.Center, OnNPC.Center);
@@ -333,8 +323,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     if (shoot)
                     {
                         shoot = false;
-                        
-                        if (Projectile.owner == Main.myPlayer) {
+
+                        if (Projectile.owner == Main.myPlayer)
+                        {
                             int type = ModContent.ProjectileType<FinalFractalBlade>();
                             for (int i = 0; i < 6; i++)
                             {
@@ -366,7 +357,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - (float)(Math.PI * 0.5f));
                 }
             }
-            
+
 
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
@@ -419,7 +410,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 playHitSound = false;
                 Util.PlaySound("sf_hit", 1, Projectile.Center);
                 Util.PlaySound("FractalHit", 1, Projectile.Center);
-                
+
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
             {
@@ -468,7 +459,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 Main.spriteBatch.ExitShaderRegion();
             }
 
-            
+
             float texAlpha = 1;
             float phantomAlpha = 0;
             int dir = (int)(Projectile.ai[0] <= 1 ? Projectile.ai[0] : -1) * (Projectile.velocity.X > 0 ? -1 : 1);
@@ -477,7 +468,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 dir = Math.Sign(Projectile.velocity.X);
             }
             Vector2 origin = dir > 0 ? new Vector2(0, tex.Height) : new Vector2(tex.Width, tex.Height);
-            if(Projectile.ai[0] == 3)
+            if (Projectile.ai[0] == 3)
             {
                 origin = tex.Size() / 2f;
             }
@@ -541,7 +532,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 }
                 Projectile.rotation = (Projectile.Center - Projectile.getOwner().Center).RotatedBy(MathHelper.PiOver2 * (Projectile.ai[1] == 720 ? -1 : 1)).ToRotation();
             }
-            
+
         }
         public override void SetStaticDefaults()
         {
@@ -576,14 +567,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (swords.Count == 0)
             {
                 swords = new List<int>(){
-                    ModContent.ItemType<FinalFractal>(), 
-                ModContent.ItemType<SpiritFractal>(), 
+                    ModContent.ItemType<FinalFractal>(),
+                ModContent.ItemType<SpiritFractal>(),
                 ModContent.ItemType<StarlitFractal>(),
                 ModContent.ItemType<VoidFractal>(),
                 ModContent.ItemType<AbyssFractal>(),
                 ModContent.ItemType<ShatteredFractal>(),
                 ModContent.ItemType<BrilliantFractal>(),
-                ModContent.ItemType<WelkinFractal>(), 
+                ModContent.ItemType<WelkinFractal>(),
                 ModContent.ItemType<ElementalFractal>(),
                 ModContent.ItemType<BrokenHilt>(),
                 ModContent.ItemType<ArkoftheCosmos>(),

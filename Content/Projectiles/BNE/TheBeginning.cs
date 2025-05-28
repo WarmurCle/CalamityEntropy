@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = CUtil.rogueDC;
+            Projectile.DamageType = CEUtils.RogueDC;
             Projectile.width = 64;
             Projectile.height = 64;
             Projectile.friendly = true;

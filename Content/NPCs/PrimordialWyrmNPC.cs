@@ -138,14 +138,14 @@ namespace CalamityEntropy.Content.NPCs
             damage = Main.zenithWorld ? 2000 : 700;
 
             knockback = 3f;
-            
+
         }
         public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
         {
             cooldown = 30;
             randExtraCooldown = 15;
         }
-        
+
         public int st = 0;
         public int dcd = 0;
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)

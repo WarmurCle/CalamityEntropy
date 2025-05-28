@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             Projectile.localNPCHitCooldown = 4;
             Projectile.ArmorPenetration = 5;
         }
-        int frame = 2; 
+        int frame = 2;
         public override bool? CanHitNPC(NPC target)
         {
             return Projectile.localAI[0] < 5 ? false : null;

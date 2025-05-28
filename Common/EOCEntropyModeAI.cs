@@ -1,10 +1,9 @@
-﻿using System;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.World;
-using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -194,7 +193,7 @@ namespace CalamityEntropy.Common
                             {
                                 if (spawnServant)
                                 {
-                                    for(int i = 0; i < 3; i++)
+                                    for (int i = 0; i < 3; i++)
                                     {
                                         int eye = NPC.NewNPC(npc.GetSource_FromAI(), (int)servantSpawnCenter.X, (int)servantSpawnCenter.Y, NPCID.ServantofCthulhu, 0, 0f, 0f, enrageScale);
                                         Main.npc[eye].velocity = servantSpawnVelocity.RotatedByRandom(0.6f) * 2;
@@ -355,7 +354,7 @@ namespace CalamityEntropy.Common
                         bool spawnBloodServant = NPC.CountNPCS(ModContent.NPCType<BloodlettingServant>()) < maxBloodServants;
                         if (spawnBloodServant)
                             spawnType = ModContent.NPCType<BloodlettingServant>();
-                        
+
 
                         int servantSpawn = NPC.NewNPC(npc.GetSource_FromAI(), (int)servantSpawnCenter.X, (int)servantSpawnCenter.Y, spawnType, 0, 0f, 0f, enrageScale);
                         Main.npc[servantSpawn].velocity.X = servantSpawnVelocity.X;

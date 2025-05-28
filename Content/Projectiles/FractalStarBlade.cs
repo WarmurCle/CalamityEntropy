@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Player player = Projectile.getOwner();
             player.Calamity().mouseWorldListener = true;
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 Main.LocalPlayer.Calamity().mouseWorld = Main.MouseWorld;
             }
@@ -60,11 +60,11 @@ namespace CalamityEntropy.Content.Projectiles
             else
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
-                if(homing == null || (homing != null && !homing.active))
+                if (homing == null || (homing != null && !homing.active))
                 {
                     homing = Util.FindTarget_HomingProj(Projectile, Projectile.Center, 2400);
                 }
-                else if(!hited)
+                else if (!hited)
                 {
                     Projectile.velocity += (homing.Center - Projectile.Center).normalize() * 1f;
                     Projectile.velocity *= 0.92f;
@@ -79,11 +79,11 @@ namespace CalamityEntropy.Content.Projectiles
 
         }
         public NPC homing = null;
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            for(int i = 0; i < ProjectileID.Sets.TrailCacheLength[Type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Type]; i++)
             {
                 float prog = ((float)i / ProjectileID.Sets.TrailCacheLength[Type]);
                 Color clr = Color.White * 0.36f * (1 - prog);
@@ -100,11 +100,11 @@ namespace CalamityEntropy.Content.Projectiles
             hited = true;
             target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 360);
             Projectile.damage = (int)(Projectile.damage * 0.86f);
-            if(Projectile.timeLeft > 30 * Projectile.MaxUpdates)
+            if (Projectile.timeLeft > 30 * Projectile.MaxUpdates)
             {
                 Projectile.timeLeft = 30 * Projectile.MaxUpdates;
             }
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Vector2 pos = target.Center + new Vector2(0, -900) + Util.randomPointInCircle(400);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 4, Projectile.owner).ToProj();

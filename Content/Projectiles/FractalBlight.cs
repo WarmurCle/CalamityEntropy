@@ -5,7 +5,6 @@ using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
         NPC homing = null;
         public override void AI()
         {
-            if(homing == null)
+            if (homing == null)
             {
                 homing = Projectile.FindTargetWithinRange(1200);
             }
@@ -51,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity += (homing.Center - Projectile.Center).normalize() * 1.6f;
                 Projectile.velocity *= 0.96f;
             }
-            if(Projectile.timeLeft < 60)
+            if (Projectile.timeLeft < 60)
             {
                 Projectile.Opacity -= 1 / 60f;
             }

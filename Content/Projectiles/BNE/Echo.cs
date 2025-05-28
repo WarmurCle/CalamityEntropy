@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -14,7 +13,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = CUtil.rogueDC;
+            Projectile.DamageType = CEUtils.RogueDC;
             Projectile.width = 40;
             Projectile.height = 40;
             Projectile.friendly = true;

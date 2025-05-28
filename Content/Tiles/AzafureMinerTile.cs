@@ -2,8 +2,6 @@
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Dusts;
-using CalamityMod.NPCs.PrimordialWyrm;
 using InnoVault;
 using InnoVault.TileProcessors;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +21,6 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using Terraria.UI;
-using static Terraria.GameContent.Bestiary.BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions;
 
 namespace CalamityEntropy.Content.Tiles
 {
@@ -35,16 +32,16 @@ namespace CalamityEntropy.Content.Tiles
             AzMinerUI.filters = new List<AzMinerUI.UISlot>();
             for (int i = 0; i < AzMinerTP.FiltersCount; i++)
             {
-                AzMinerUI.filters.Add(new AzMinerUI.UISlot() { pos = new Vector2(-168, -115 + (240f / AzMinerTP.FiltersCount) * i), X = 20, Y = 20, itemIndex = i});
+                AzMinerUI.filters.Add(new AzMinerUI.UISlot() { pos = new Vector2(-168, -115 + (240f / AzMinerTP.FiltersCount) * i), X = 20, Y = 20, itemIndex = i });
             }
             int z = 0;
             Vector2 pos = new Vector2(-110, -100);
             for (int i = 0; i < AzMinerTP.ItemsCount; i++)
             {
-                AzMinerUI.items.Add(new AzMinerUI.UISlot() { pos = new Vector2(pos.X, pos.Y), type = 1, itemIndex = i});
+                AzMinerUI.items.Add(new AzMinerUI.UISlot() { pos = new Vector2(pos.X, pos.Y), type = 1, itemIndex = i });
                 z++;
                 pos.X += 50;
-                if(z >= 7)
+                if (z >= 7)
                 {
                     z = 0;
                     pos.Y += 50;
@@ -128,7 +125,7 @@ namespace CalamityEntropy.Content.Tiles
         {
             TagCompound itemSaves = new TagCompound();
             int c = 0;
-            foreach(Item item in filters)
+            foreach (Item item in filters)
             {
                 itemSaves.Add("f" + c.ToString(), ItemIO.Save(item));
                 c++;
@@ -204,7 +201,7 @@ namespace CalamityEntropy.Content.Tiles
                                 if (Util.inWorld(p.X + x, p.Y + y))
                                 {
                                     if (TileID.Sets.Ore[Main.tile[p.X + x, p.Y + y].TileType])
-                                        if(MineOre(p.X + x, p.Y + y))
+                                        if (MineOre(p.X + x, p.Y + y))
                                         {
                                             f = true;
                                         }
@@ -310,7 +307,7 @@ namespace CalamityEntropy.Content.Tiles
 
         public override void ReceiveData(BinaryReader reader, int whoAmI)
         {
-            for(int i = 0; i < FiltersCount; i++)
+            for (int i = 0; i < FiltersCount; i++)
             {
                 Item item = new Item(reader.ReadInt32());
                 item.netDefaults(reader.Read7BitEncodedInt());
@@ -356,7 +353,7 @@ namespace CalamityEntropy.Content.Tiles
             {
                 s.Update();
             }
-            foreach(UISlot s in items)
+            foreach (UISlot s in items)
             {
                 s.Update();
             }
@@ -452,7 +449,7 @@ namespace CalamityEntropy.Content.Tiles
                                 {
                                     tp.items[itemIndex].TurnToAir();
                                 }
-                                
+
                             }
                             else
                             {

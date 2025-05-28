@@ -2,7 +2,6 @@
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -24,7 +23,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = CUtil.rogueDC;
+            Projectile.DamageType = CEUtils.RogueDC;
             Projectile.width = 46;
             Projectile.height = 46;
             Projectile.friendly = true;
@@ -140,7 +139,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] > 12)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
-                for(int i = 0; i < 10; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     EclipseMetaball.SpawnParticle(Projectile.Center + (i * 0.1f * Projectile.velocity), Util.randomPointInCircle(2.5f), Main.rand.NextFloat(12f, 29f));
                 }

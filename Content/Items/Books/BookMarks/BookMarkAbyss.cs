@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
@@ -29,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 2 : 4))
+            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 2 : 4))
             {
                 int damage = projectile.damage / 8;
                 Vector2 p = target.Center + Utilities.Util.randomRot().ToRotationVector2() * 300;

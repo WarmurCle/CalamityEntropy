@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             List<Vertex> ve = new List<Vertex>();
             Color b = Color.White * Projectile.Opacity;
             List<Vector2> points = new List<Vector2>();
-            for(int i = 0; i < 24; i++)
+            for (int i = 0; i < 24; i++)
             {
                 points.Add(Vector2.Lerp(Projectile.Center, Projectile.Center + Projectile.velocity.normalize() * length, (float)i / 31f) + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 12 + i * 0.26f) * (i / 31f) * length * 0.065f * (Projectile.ai[0] < 70 ? 0.5f : 1));
             }

@@ -10,11 +10,11 @@ using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Utilities;
 using InnoVault;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
@@ -22,6 +22,7 @@ using static CalamityEntropy.CalamityEntropy;
 
 namespace CalamityEntropy.Common
 {
+    [VaultLoaden("CalamityEntropy/Assets/Effects/")]
     internal class EffectLoader
     {
         [VaultLoaden("CalamityEntropy/Assets/Extra/cvmask")]
@@ -52,7 +53,14 @@ namespace CalamityEntropy.Common
         private static Asset<Texture2D> white;
         [VaultLoaden("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar")]
         private static Asset<Texture2D> voidStar;
-
+        public static Asset<Effect> PowerSFShader;
+        public static Asset<Effect> KnifeRendering;
+        public static Asset<Effect> StarsTrail;
+        public static Asset<Effect> RTShader;
+        public static Asset<Effect> WarpShader;
+        internal static float twistStrength = 0f;
+        public const string AssetPath = "CalamityEntropy/Assets/";
+        public const string AssetPath2 = "Assets/";
         public static void Load()
         {
             Main.OnResolutionChanged += Main_OnResolutionChanged;
@@ -141,8 +149,153 @@ namespace CalamityEntropy.Common
             //绘制黑色遮罩
             DrawBlackMask();
 
+            //最后的效果渲染层
+            AddEndEffect();
+
             //调用原始方法
             orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
+        }
+
+        private static bool HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift)
+        {
+            warpSets = [];
+            warpSetsNoBlueshift = [];
+            foreach (Projectile p in Main.projectile)
+            {
+                if (!p.active)
+                {
+                    continue;
+                }
+                if (p.ModProjectile is IDrawWarp drawWarp)
+                {
+                    if (drawWarp.noBlueshift())
+                    {
+                        warpSetsNoBlueshift.Add(drawWarp);
+                    }
+                    else
+                    {
+                        warpSets.Add(drawWarp);
+                    }
+                }
+            }
+            return warpSets.Count > 0 || warpSetsNoBlueshift.Count > 0;
+        }
+
+        private static void AddEndEffect()
+        {
+            if (Main.gameMenu)
+            {
+                return;
+            }
+
+            GraphicsDevice graphicsDevice = Main.instance.GraphicsDevice;
+
+            if (HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift))
+            {
+                if (warpSets.Count > 0)
+                {
+                    //绘制屏幕
+                    graphicsDevice.SetRenderTarget(screen);
+                    graphicsDevice.Clear(Color.Transparent);
+                    Main.spriteBatch.Begin(0, BlendState.AlphaBlend);
+                    Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                    Main.spriteBatch.End();
+                    //绘制需要绘制的内容
+                    graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+                    graphicsDevice.Clear(Color.Transparent);
+
+                    Main.spriteBatch.Begin(0, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None
+                        , RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    foreach (IDrawWarp p in warpSets) { p.Warp(); }
+                    Main.spriteBatch.End();
+
+                    //应用扭曲
+                    graphicsDevice.SetRenderTarget(Main.screenTarget);
+                    graphicsDevice.Clear(Color.Transparent);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+
+                    //如果想热加载，最好这样获取值
+                    Effect effect = WarpShader.Value;//EffectsRegistry.WarpShader;
+                    effect.Parameters["tex0"].SetValue(Main.screenTargetSwap);
+                    effect.Parameters["noBlueshift"].SetValue(false);//这个部分的绘制需要使用蓝移效果
+                    effect.Parameters["i"].SetValue(0.02f);
+                    effect.CurrentTechnique.Passes[0].Apply();
+                    Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+                    Main.spriteBatch.End();
+
+                    Main.spriteBatch.Begin(default, BlendState.AlphaBlend, Main.DefaultSamplerState
+                        , default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    foreach (IDrawWarp p in warpSets) { if (p.canDraw()) { p.costomDraw(Main.spriteBatch); } }
+                    Main.spriteBatch.End();
+                }
+                if (warpSetsNoBlueshift.Count > 0)
+                {
+                    //绘制屏幕
+                    graphicsDevice.SetRenderTarget(screen);
+                    graphicsDevice.Clear(Color.Transparent);
+                    Main.spriteBatch.Begin(0, BlendState.AlphaBlend);
+                    Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                    Main.spriteBatch.End();
+                    //绘制需要绘制的内容
+                    graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+                    graphicsDevice.Clear(Color.Transparent);
+
+                    Main.spriteBatch.Begin(0, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None
+                        , RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    foreach (IDrawWarp p in warpSetsNoBlueshift) { p.Warp(); }
+                    Main.spriteBatch.End();
+
+                    //应用扭曲
+                    graphicsDevice.SetRenderTarget(Main.screenTarget);
+                    graphicsDevice.Clear(Color.Transparent);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+
+                    //如果想热加载，最好这样获取值
+                    Effect effect = WarpShader.Value;//EffectsRegistry.WarpShader;
+                    effect.Parameters["tex0"].SetValue(Main.screenTargetSwap);
+                    effect.Parameters["noBlueshift"].SetValue(true);//这个部分的绘制不需要使用蓝移效果
+                    effect.Parameters["i"].SetValue(0.02f);
+                    effect.CurrentTechnique.Passes[0].Apply();
+                    Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+                    Main.spriteBatch.End();
+
+                    Main.spriteBatch.Begin(default, BlendState.AlphaBlend, Main.DefaultSamplerState
+                        , default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    foreach (IDrawWarp p in warpSetsNoBlueshift) { if (p.canDraw()) { p.costomDraw(Main.spriteBatch); } }
+                    Main.spriteBatch.End();
+                }
+            }
+
+            #region RT粒子特效
+            if (PRT_RTSpark.HasSet(out List<BasePRT> prts))
+            {
+                graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+
+                graphicsDevice.SetRenderTarget(screen);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                PRT_RTSpark.DrawAll(Main.spriteBatch, prts);
+                Main.spriteBatch.End();
+
+                graphicsDevice.SetRenderTarget(Main.screenTarget);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                graphicsDevice.Textures[1] = CEUtils.GetT2DAsset("CalamityEntropy/Assets/StarrySky").Value;
+                RTShader.Value.CurrentTechnique.Passes[0].Apply();
+                RTShader.Value.Parameters["m"].SetValue(0.08f);
+                RTShader.Value.Parameters["n"].SetValue(0.01f);
+                RTShader.Value.Parameters["OffsetX"].SetValue((float)((Main.GlobalTimeWrappedHourly) * 0.11f));
+                Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+            }
+            #endregion
         }
 
         private static void DrawRandomEffect(GraphicsDevice graphicsDevice)
@@ -368,9 +521,9 @@ namespace CalamityEntropy.Common
 
         private static void DrawAbyssalEffect(GraphicsDevice graphicsDevice)
         {
-            if(cab == null)
+            if (cab == null)
                 cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
-            
+
             graphicsDevice.SetRenderTarget(screen);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);

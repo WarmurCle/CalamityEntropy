@@ -3,10 +3,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -14,7 +11,6 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.Items.Books
 {
@@ -252,7 +248,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
             }
             ShootSingleProjectile(type, Projectile.Center, Projectile.velocity);
-            
+
             return true;
         }
         public Item bookItem;
@@ -273,7 +269,7 @@ namespace CalamityEntropy.Content.Items.Books
             float kb = Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback);
             int dmg = (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
             bookItem.channel = false;
-            if(ItemLoader.Shoot(bookItem, Projectile.getOwner(), new Terraria.DataStructures.EntitySource_ItemUse_WithAmmo(Projectile.getOwner(), bookItem, 0), pos, velocity * ContentSamples.ProjectilesByType[type].MaxUpdates, type, dmg, kb))
+            if (ItemLoader.Shoot(bookItem, Projectile.getOwner(), new Terraria.DataStructures.EntitySource_ItemUse_WithAmmo(Projectile.getOwner(), bookItem, 0), pos, velocity * ContentSamples.ProjectilesByType[type].MaxUpdates, type, dmg, kb))
             {
                 Projectile proj = Projectile.NewProjectile(Projectile.getOwner().GetSource_ItemUse(bookItem), pos, shootVel, type, dmg, kb, Projectile.owner).ToProj();
                 proj.penetrate += modifer.PenetrateAddition;
@@ -418,7 +414,7 @@ namespace CalamityEntropy.Content.Items.Books
                                 }
                             }
                         }
-                        if(this.getEffect() != null)
+                        if (this.getEffect() != null)
                             this.getEffect().OnActive(this);
                     }
                 }

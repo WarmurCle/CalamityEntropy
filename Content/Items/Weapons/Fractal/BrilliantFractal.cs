@@ -1,16 +1,16 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Items;
+using CalamityMod.Items.Weapons.Melee;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Drawing;
-using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Items;
 
 namespace CalamityEntropy.Content.Items.Weapons.Fractal
 {
@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, atkType == 0 ? -1 : atkType);
-            atkType*=-1;
+            atkType *= -1;
             return false;
         }
 
@@ -92,9 +92,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             counter++;
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
-                if(spawnProj && progress > 0.4f)
+                if (spawnProj && progress > 0.4f)
                 {
                     int dir = (int)(Projectile.ai[0]) * (Projectile.velocity.X > 0 ? -1 : 1);
                     spawnProj = false;
@@ -116,8 +116,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             odr.Add(Projectile.rotation);
             Projectile.timeLeft = 3;
             float RotF = 4f;
-            if(progress > 0.36f && progress < 0.64f)
-            spawnProjCounter += owner.GetTotalAttackSpeed(Projectile.DamageType);
+            if (progress > 0.36f && progress < 0.64f)
+                spawnProjCounter += owner.GetTotalAttackSpeed(Projectile.DamageType);
             if (spawnProjCounter >= 6f)
             {
                 spawnProjCounter -= 6f;

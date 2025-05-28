@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 1;
             Item.useStyle = -1;
             Item.damage = 460;
-            Item.DamageType = Utilities.CUtil.rogueDC;
+            Item.DamageType = CEUtils.RogueDC;
             Item.noMelee = true;
 
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
@@ -16,7 +15,7 @@ namespace CalamityEntropy.Content.Particles
             base.AI();
             this.Lifetime = 2;
             this.Scale -= 0.1f;
-            if(this.Scale < 0)
+            if (this.Scale < 0)
             {
                 this.Lifetime = 0;
                 this.Scale = 0;

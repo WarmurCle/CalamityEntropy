@@ -1,12 +1,8 @@
-﻿using CalamityEntropy.Content.Items.Books.BookMarks;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Materials;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework.Graphics;
-using System.Threading;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -100,13 +96,13 @@ namespace CalamityEntropy.Content.Items.Books
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
-        public int Time; 
+        public int Time;
         public override void AI()
         {
             Time++;
             Player player = Main.player[base.Projectile.owner];
 
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center, Util.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, Util.randomRot());
             }

@@ -2,14 +2,10 @@
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.GameContent.Drawing;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 

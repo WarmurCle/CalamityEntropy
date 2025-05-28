@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<AmethystFrisbeeProjectile>();
             Item.shootSpeed = 26f;
-            Item.DamageType = CUtil.rogueDC;
+            Item.DamageType = CEUtils.RogueDC;
         }
         public int altShotCount = 0;
 

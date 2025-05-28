@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Utilities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -34,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnProjectileSpawn(Projectile projectile, bool ownerClient)
         {
-            if (ownerClient && Main.rand.NextBool(projectile.hasEffect<APlusBMEffect>() ? 4 : 6))
+            if (ownerClient && Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 6))
             {
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 0.6f, ModContent.ProjectileType<NovaSlimerProj>(), projectile.damage, projectile.knockBack, projectile.owner);
             }

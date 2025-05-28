@@ -2,12 +2,10 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
-using rail;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.Buffs
 {
@@ -98,7 +96,7 @@ namespace CalamityEntropy.Content.Buffs
                 if (Main.rand.NextFloat() < t.CritChance)
                 {
                     modifiers.SetCrit();
-                    
+
                 }
             }
 
@@ -191,16 +189,16 @@ namespace CalamityEntropy.Content.Buffs
                     if (t.EffectName == "ForeseeWhip")
                     {
                         int C = 4;
-                        foreach(NPC n in Main.ActiveNPCs)
+                        foreach (NPC n in Main.ActiveNPCs)
                         {
-                            if(!n.friendly && n.CanBeChasedBy(projectile) && n.Distance(npc.Center) < 400 && n != npc)
+                            if (!n.friendly && n.CanBeChasedBy(projectile) && n.Distance(npc.Center) < 400 && n != npc)
                             {
-                                if(C > 0)
+                                if (C > 0)
                                 {
                                     C--;
                                     int dmg = (int)(damageDone * 0.12f);
                                     projectile.getOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
-                                    for(float f = 0; f <= 1; f += 0.1f)
+                                    for (float f = 0; f <= 1; f += 0.1f)
                                     {
                                         EParticle.NewParticle(new RuneParticle(), Vector2.Lerp(npc.Center, n.Center, f), Util.randomPointInCircle(0.1f), Color.White, 0.5f, 1, true, BlendState.Additive, 0);
                                     }
@@ -214,7 +212,7 @@ namespace CalamityEntropy.Content.Buffs
                     float rot = Utilities.Util.randomRot();
                     Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
                 }
-                
+
             }
         }
     }

@@ -22,16 +22,13 @@ using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Core;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Events;
-using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Pets;
 using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Placeables.FurnitureAuric;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
@@ -69,9 +66,7 @@ using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
 using CalamityMod.UI.CalamitasEnchants;
-using CalamityMod.UI.DraedonSummoning;
 using InnoVault;
-using log4net.Repository.Hierarchy;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -165,7 +160,6 @@ namespace CalamityEntropy
 
             AbyssalWraith.loadHead();
             CruiserHead.loadHead();
-            CUtil.load();
 
             foreach (int id in CalamityLists.needsDebuffIconDisplayList)
             {
@@ -220,7 +214,7 @@ namespace CalamityEntropy
                 PlayerDashManager.TryAddDash(dashEffect);
             }
 
-            
+
         }
 
         private void draw_cursor_hook(On_Main.orig_DrawCursor orig, Vector2 bonus, bool smart)
@@ -607,7 +601,7 @@ namespace CalamityEntropy
                 {
                     orig(self, i);
                 }
-                if(EntropyMode && self.ModNPC != null && (self.ModNPC is BrimstoneElemental || self.ModNPC is AquaticScourgeHead || self.ModNPC is AquaticScourgeTail || self.ModNPC is AquaticScourgeBodyAlt || self.ModNPC is AquaticScourgeBody || self.ModNPC is Cataclysm || self.ModNPC is Catastrophe || (self.ModNPC is CalamitasClone && !self.dontTakeDamage) || self.ModNPC is Leviathan || self.ModNPC is Anahita || self.ModNPC is AstrumAureus || self.ModNPC is PlaguebringerGoliath || self.ModNPC is RavagerBody || self.ModNPC is RavagerHead || self.ModNPC is RavagerHead2 || self.ModNPC is Bumblefuck || self.ModNPC is Polterghast))
+                if (EntropyMode && self.ModNPC != null && (self.ModNPC is BrimstoneElemental || self.ModNPC is AquaticScourgeHead || self.ModNPC is AquaticScourgeTail || self.ModNPC is AquaticScourgeBodyAlt || self.ModNPC is AquaticScourgeBody || self.ModNPC is Cataclysm || self.ModNPC is Catastrophe || (self.ModNPC is CalamitasClone && !self.dontTakeDamage) || self.ModNPC is Leviathan || self.ModNPC is Anahita || self.ModNPC is AstrumAureus || self.ModNPC is PlaguebringerGoliath || self.ModNPC is RavagerBody || self.ModNPC is RavagerHead || self.ModNPC is RavagerHead2 || self.ModNPC is Bumblefuck || self.ModNPC is Polterghast))
                 {
                     orig(self, i);
                     self.position -= self.velocity * 0.85f;
@@ -1042,13 +1036,13 @@ namespace CalamityEntropy
         public static List<MusicBox> mbRegs = null;
         public void RegistryMusicBoxes()
         {
-            foreach(var mb in mbRegs)
+            foreach (var mb in mbRegs)
             {
                 MusicBox.AddMusicBox(mb.MusicFile, mb.Type, mb.MusicBoxTile);
             }
             mbRegs = null;
         }
-        
+
         public override void PostSetupContent()
         {
             RegistryDraedonDialogs();

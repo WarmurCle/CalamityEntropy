@@ -3,7 +3,6 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.DesertScourge;
-using CalamityMod.NPCs.DevourerofGods;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;

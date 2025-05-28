@@ -44,8 +44,8 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
         public override void UpdateEquip(Player player)
         {
             player.Entropy().rogueVF = true;
-            player.GetDamage(Utilities.CUtil.rogueDC) += 0.25f;
-            player.GetCritChance(Utilities.CUtil.rogueDC) += 25;
+            player.GetDamage(CEUtils.RogueDC) += 0.25f;
+            player.GetCritChance(CEUtils.RogueDC) += 25;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

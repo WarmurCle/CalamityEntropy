@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<DarkBlue>();
             Item.shoot = ModContent.ProjectileType<TheDeadCutProjectile>();
             Item.shootSpeed = 16f;
-            Item.DamageType = CUtil.rogueDC;
+            Item.DamageType = CEUtils.RogueDC;
             Item.ArmorPenetration = 56;
             Item.Entropy().tooltipStyle = 3;
             Item.Entropy().NameColor = new Color(110, 0, 140);
