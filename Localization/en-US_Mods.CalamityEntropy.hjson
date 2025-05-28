@@ -3171,4 +3171,4 @@ DraedonDialogs: {
 }
 
 SlotInfo2: InsertItem
-LightModeTip: "Warning: Other lighting modes will cause some projectiles and NPCs of Calamity Entropy to become invisible. Best to use color mode."
+LightModeTip: Warning: Other lighting modes will cause some projectiles and NPCs of Calamity Entropy to become invisible. Best to use color mode.
