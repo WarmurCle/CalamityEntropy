@@ -415,7 +415,7 @@ namespace CalamityEntropy.Utilities
         }
         public static bool inWorld(int i, int j)
         {
-            return !(i < 0 || j < 0 || i > Main.tile.Width || j > Main.tile.Height);
+            return !(i < 0 || j < 0 || i >= Main.tile.Width || j >= Main.tile.Height);
         }
         public static Projectile ToProj_Identity(this int id)
         {

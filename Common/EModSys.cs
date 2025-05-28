@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
+using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Utilities;
@@ -69,6 +70,7 @@ namespace CalamityEntropy.Common
             {
                 CalamityEntropy.Instance.userInterface?.Update(gameTime);
             }
+            AzMinerUI.Update();
         }
 
         public override void PostUpdateDusts()
@@ -232,7 +234,15 @@ namespace CalamityEntropy.Common
                 },
                 InterfaceScaleType.UI)
             );
-
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer(
+                "CalamityEntropy: Azafure Miner UI",
+                delegate
+                {
+                    AzMinerUI.Draw();
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
             }
         }
 

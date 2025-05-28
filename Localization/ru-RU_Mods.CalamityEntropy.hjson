@@ -2019,6 +2019,11 @@ Items: {
 			Right click: Ghost Slash
 			''' */
 	}
+
+	AzafureMiner: {
+		// Tooltip: ""
+		// DisplayName: Azafure Miner
+	}
 }
 
 PrefixitemDesc:
@@ -3162,3 +3167,5 @@ DraedonDialogs: {
 			''' */
 	}
 }
+
+// SlotInfo2: InsertItem

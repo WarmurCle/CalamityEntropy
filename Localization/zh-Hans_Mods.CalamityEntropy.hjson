@@ -2182,6 +2182,11 @@ Items: {
 			右键:幽冥斩
 			'''
 	}
+
+	AzafureMiner: {
+		Tooltip: ""
+		DisplayName: 阿萨福勒数字型采矿机
+	}
 }
 
 PrefixitemDesc:
@@ -3335,3 +3340,5 @@ DraedonDialogs: {
 			'''
 	}
 }
+
+SlotInfo2: 存放物品
