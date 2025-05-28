@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     public class ForeseeWhip : BaseWhipItem
     {
         public override int TagDamage => 8;
-        public override float TagDamageMult => 0.1f;
+        public override float TagDamageMult => 1.12f;
         public override float TagCritChance => 0.1f;
         public override void SetDefaults()
         {
