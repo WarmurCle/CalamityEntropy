@@ -74,8 +74,6 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
                 return;
-            if (projectile.ModProjectile is CorruptStrike || projectile.ModProjectile is DragonGoldenFire || projectile.ModProjectile is CrystedgeCrystalSmall || projectile.ModProjectile is CrystedgeCrystalMid || projectile.ModProjectile is CrystedgeCrystalBig)
-                return;
             if (projectile.TryGetOwner(out var owner))
             {
                 if (Main.rand.Next(0, 100) < owner.Entropy().summonCrit)
@@ -144,7 +142,7 @@ namespace CalamityEntropy.Content.Buffs
         }
         public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
+            if (projectile.npcProj || projectile.trap || !(projectile.minion || projectile.sentry || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
                 return;
 
 
