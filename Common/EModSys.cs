@@ -57,12 +57,16 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.End();
             }
         }
-
+        public static bool sayTip = true;
         public override void UpdateUI(GameTime gameTime)
         {
             if(Lighting.Mode != Terraria.Graphics.Light.LightMode.Color)
             {
-                Lighting.Mode = Terraria.Graphics.Light.LightMode.Color;
+                if (sayTip)
+                {
+                    sayTip = false;
+                    Main.NewText(Mod.GetLocalization("LightModeTip").Value)
+                }
             }
             noItemUse = false;
             counter += 1f;
