@@ -3149,6 +3149,8 @@ GameTips.VoidOreTip: Void ore will spawn high in the sky after defeated Cruiser
 // LoreCrabulonDesc: Obtain mushy for {1} seconds after injury
 // LoreEyeofCthulhuDesc: Reduce dash cooldown by {1}%
 // LoreCorruptionDesc: Gain {1}% Damage Reduce
+// LoreBrainofCthulhuDesc: +{1}%Crit, but -{2}% Damage
+// LoreQueenBeeDesc: +{2}%Damage, but -{1}% Crit
 
 DraedonDialogs: {
 	Void: {
