@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Core;
+using InnoVault;
 
 namespace CalamityEntropy.Content.Item1
 {

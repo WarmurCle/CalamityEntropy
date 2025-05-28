@@ -476,7 +476,7 @@ namespace CalamityEntropy.Core
         public virtual void PostInOwnerUpdate() { }
         public virtual void UpdateFrame() {
             if (AnimationMaxFrme > 1) {
-                TFAWUtils.ClockFrame(ref Projectile.frame, CuttingFrmeInterval, AnimationMaxFrme - 1);
+                VaultUtils.ClockFrame(ref Projectile.frame, CuttingFrmeInterval, AnimationMaxFrme - 1);
             }
         }
         public virtual void NoServUpdate() {
@@ -693,7 +693,7 @@ namespace CalamityEntropy.Core
 
         public virtual void DrawSwing(SpriteBatch spriteBatch, Color lightColor) {
             Texture2D texture = TextureValue;
-            Rectangle rect = TFAWUtils.GetRec(texture, Projectile.frame, AnimationMaxFrme);
+            Rectangle rect = VaultUtils.GetRectangle(texture, Projectile.frame, AnimationMaxFrme);
             Vector2 drawOrigin = rect.Size() / 2;
             SpriteEffects effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None;
 

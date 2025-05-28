@@ -138,7 +138,7 @@ namespace CalamityEntropy.Content.Item1
                 int type = ModContent.ProjectileType<NemesisProj>();
                 for (int i = 0; i < 6; i++) {
                     Vector2 spwanPos = target.Center;
-                    Vector2 ver = TFAWUtils.randVr(3, 18);
+                    Vector2 ver = CEUtils.randVr(3, 18);
                     Projectile.NewProjectile(Source, spwanPos, ver, type, Projectile.damage
                         , Projectile.knockBack, Owner.whoAmI, 1f, 0);
                 }

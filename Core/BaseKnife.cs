@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using InnoVault;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -9,7 +10,7 @@ namespace CalamityEntropy.Core
     internal class BaseKnife : BaseSwing
     {
         public override string Texture => EffectLoaderAlt.AssetPath + "placeholder3";
-        public override Texture2D TextureValue => TargetID == ItemID.None ? TFAWUtils.GetT2DValue(Texture) : TextureAssets.Item[TargetID].Value;
+        public override Texture2D TextureValue => TargetID == ItemID.None ? CEUtils.GetT2DValue(Texture) : TextureAssets.Item[TargetID].Value;
         public SwingDataStruct SwingData = new SwingDataStruct();
         public SwingAITypeEnum SwingAIType;
         protected bool autoSetShoot;
@@ -28,11 +29,11 @@ namespace CalamityEntropy.Core
             Projectile.localNPCHitCooldown = 10 * updateCount;
             Projectile.DamageType = DamageClass.Melee;
             SetKnifeProperty();
-            TFAWUtils.SafeLoadItem(TargetID);
+            VaultUtils.SafeLoadItem(TargetID);
         }
 
-        protected void updaTrailTexture() => SwingSystem.trailTextures[Type] = TFAWUtils.GetT2DAsset(trailTexturePath);
-        protected void updaGradientTexture() => SwingSystem.gradientTextures[Type] = TFAWUtils.GetT2DAsset(gradientTexturePath);
+        protected void updaTrailTexture() => SwingSystem.trailTextures[Type] = CEUtils.GetT2DAsset(trailTexturePath);
+        protected void updaGradientTexture() => SwingSystem.gradientTextures[Type] = CEUtils.GetT2DAsset(gradientTexturePath);
 
         public virtual void SetKnifeProperty() { }
 

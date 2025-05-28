@@ -40,7 +40,7 @@ namespace CalamityEntropy.Common
         {
         }
     }
-    public class LoreReworkSystem : ILoader
+    public class LoreReworkSystem : ICELoader
     {
         public static Dictionary<int, LoreEffect> loreEffects;
         public void LoadData() 
