@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (counter1 % 6 == 0)
             {
                 bool flag = false;
-                if ((odp.Count < 2 || Utilities.Util.getDistance(odp[odp.Count - 1], Projectile.Center) > 46))
+                if ((odp.Count < 2 || CEUtils.getDistance(odp[odp.Count - 1], Projectile.Center) > 46))
                 {
                     flag = true;
                     odp.Add(Projectile.Center);
@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 92, 0, new Vector2(0, 0), 0.1f, 80, false);
             }
-            rope.segmentLength = Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 92f;
+            rope.segmentLength = CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 92f;
             rope.Start = Projectile.owner.ToPlayer().Center;
             rope.End = Projectile.Center;
             rope.Update();
@@ -161,11 +161,11 @@ namespace CalamityEntropy.Content.Projectiles
                             soundplay = false;
                             if (Main.rand.NextBool(2))
                             {
-                                Utilities.Util.PlaySound("spin1", 1f);
+                                CEUtils.PlaySound("spin1", 1f);
                             }
                             else
                             {
-                                Utilities.Util.PlaySound("spin2", 1f);
+                                CEUtils.PlaySound("spin2", 1f);
                             }
                         }
                     }
@@ -176,7 +176,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            EParticle.NewParticle(new TrailSparkParticle(), pt, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive); ;
+                            EParticle.NewParticle(new TrailSparkParticle(), pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive); ;
 
                         }
                     }
@@ -192,7 +192,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            EParticle.NewParticle(new TrailSparkParticle(), pt, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive);
+                            EParticle.NewParticle(new TrailSparkParticle(), pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive);
 
                         }
                     }
@@ -245,11 +245,11 @@ namespace CalamityEntropy.Content.Projectiles
                         soundplay = false;
                         if (Main.rand.NextBool(2))
                         {
-                            Utilities.Util.PlaySound("spin1", 1f);
+                            CEUtils.PlaySound("spin1", 1f);
                         }
                         else
                         {
-                            Utilities.Util.PlaySound("spin2", 1f);
+                            CEUtils.PlaySound("spin2", 1f);
                         }
                     }
                 }
@@ -300,16 +300,16 @@ namespace CalamityEntropy.Content.Projectiles
 
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                     {
-                        List<Vertex> ve = new List<Vertex>();
+                        List<ColoredVertex> ve = new List<ColoredVertex>();
                         List<Vector2> points = GP(0);
                         List<Vector2> pointsOutside = GP(84);
                         int i;
                         for (i = 0; i < points.Count; i++)
                         {
-                            ve.Add(new Vertex(mousePos - Main.screenPosition + points[i],
+                            ve.Add(new ColoredVertex(mousePos - Main.screenPosition + points[i],
                                   new Vector3((float)i / points.Count, 1, 0.99f),
                                   Color.SkyBlue * 0.66f * alpha));
-                            ve.Add(new Vertex(mousePos - Main.screenPosition + pointsOutside[i],
+                            ve.Add(new ColoredVertex(mousePos - Main.screenPosition + pointsOutside[i],
                                   new Vector3((float)i / points.Count, 0, 0.99f),
                                   Color.SkyBlue * 0.66f * alpha));
 
@@ -318,22 +318,22 @@ namespace CalamityEntropy.Content.Projectiles
                         GraphicsDevice gd = Main.graphics.GraphicsDevice;
                         if (ve.Count >= 3)
                         {
-                            Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle2");
+                            Texture2D tx = CEUtils.getExtraTex("AbyssalCircle2");
                             gd.Textures[0] = tx;
                             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                         }
                     }
                     {
-                        List<Vertex> ve = new List<Vertex>();
+                        List<ColoredVertex> ve = new List<ColoredVertex>();
                         List<Vector2> points = GP(0, -1);
                         List<Vector2> pointsOutside = GP(84, -1);
                         int i;
                         for (i = 0; i < points.Count; i++)
                         {
-                            ve.Add(new Vertex(mousePos - Main.screenPosition + points[i],
+                            ve.Add(new ColoredVertex(mousePos - Main.screenPosition + points[i],
                                   new Vector3((float)i / points.Count, 1, 0.99f),
                                   Color.SkyBlue * 0.66f * alpha));
-                            ve.Add(new Vertex(mousePos - Main.screenPosition + pointsOutside[i],
+                            ve.Add(new ColoredVertex(mousePos - Main.screenPosition + pointsOutside[i],
                                   new Vector3((float)i / points.Count, 0, 0.99f),
                                   Color.SkyBlue * 0.66f * alpha));
 
@@ -342,7 +342,7 @@ namespace CalamityEntropy.Content.Projectiles
                         GraphicsDevice gd = Main.graphics.GraphicsDevice;
                         if (ve.Count >= 3)
                         {
-                            Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle2");
+                            Texture2D tx = CEUtils.getExtraTex("AbyssalCircle2");
                             gd.Textures[0] = tx;
                             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                         }
@@ -360,8 +360,8 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                List<Vertex> ve = new List<Vertex>();
-                List<Vertex> ve2 = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
+                List<ColoredVertex> ve2 = new List<ColoredVertex>();
                 Color b = lightColor;
                 if (!chainToMouse)
                 {
@@ -374,18 +374,18 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 1; i < points.Count - 1; i++)
                     {
-                        jn += Utilities.Util.getDistance(points[i - 1], points[i]) / (float)90 * lc;
+                        jn += CEUtils.getDistance(points[i - 1], points[i]) / (float)90 * lc;
 
-                        ve.Add(new Vertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 25 * lc,
+                        ve.Add(new ColoredVertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 25 * lc,
                               new Vector3(jn, 1, 1),
                               Color.White));
-                        ve.Add(new Vertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 25 * lc,
+                        ve.Add(new ColoredVertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 25 * lc,
                               new Vector3(jn, 0, 1),
                               Color.White));
-                        ve2.Add(new Vertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 25 * lc,
+                        ve2.Add(new ColoredVertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 25 * lc,
                               new Vector3(jn, 1, 1),
                               Color.White * Projectile.localAI[1]));
-                        ve2.Add(new Vertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 25 * lc,
+                        ve2.Add(new ColoredVertex(points[i].GetSymmetryPoint(Projectile.owner.ToPlayer().Center, Projectile.Center) - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 25 * lc,
                               new Vector3(jn, 0, 1),
                               Color.White * Projectile.localAI[1]));
                     }
@@ -405,8 +405,8 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Texture2D c = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/NetherChain").Value;
                     Texture2D c2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/NetherChainWhite").Value;
-                    Main.EntitySpriteDraw(c, mousePos - Main.screenPosition, new Rectangle(0, 0, (int)Utilities.Util.getDistance(Projectile.Center, mousePos), c.Height), Color.White, (Projectile.Center - mousePos).ToRotation(), new Vector2(0, c.Height / 2), 1, SpriteEffects.None, 0);
-                    Main.EntitySpriteDraw(c2, mousePos - Main.screenPosition, new Rectangle(0, 0, (int)Utilities.Util.getDistance(Projectile.Center, mousePos), c.Height), Color.White * Projectile.localAI[1], (Projectile.Center - mousePos).ToRotation(), new Vector2(0, c.Height / 2), 1, SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(c, mousePos - Main.screenPosition, new Rectangle(0, 0, (int)CEUtils.getDistance(Projectile.Center, mousePos), c.Height), Color.White, (Projectile.Center - mousePos).ToRotation(), new Vector2(0, c.Height / 2), 1, SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(c2, mousePos - Main.screenPosition, new Rectangle(0, 0, (int)CEUtils.getDistance(Projectile.Center, mousePos), c.Height), Color.White * Projectile.localAI[1], (Projectile.Center - mousePos).ToRotation(), new Vector2(0, c.Height / 2), 1, SpriteEffects.None, 0);
 
                 }
                 Main.spriteBatch.End();
@@ -454,7 +454,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.localAI[0] = 16 * Projectile.MaxUpdates;
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 14;
                 Projectile.netUpdate = true;
-                Utilities.Util.PlaySound("scatter", 1, Projectile.Center);
+                CEUtils.PlaySound("scatter", 1, Projectile.Center);
                 Projectile.ai[2] = 74;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner, 0).ToProj().hostile = false;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<NetherRiftCrack>(), Projectile.damage, 1, Projectile.owner);

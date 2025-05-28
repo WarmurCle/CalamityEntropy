@@ -78,7 +78,7 @@ namespace CalamityEntropy.Common
 
         public override bool CanRightClick(Item item)
         {
-            return (Utilities.Util.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _)) || (BookMarkLoader.IsABookMark(item) && EBookUI.active && BookMarkLoader.HasEmptyBookMarkSlot(EBookUI.bookItem, Main.LocalPlayer));
+            return (CEUtils.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _)) || (BookMarkLoader.IsABookMark(item) && EBookUI.active && BookMarkLoader.HasEmptyBookMarkSlot(EBookUI.bookItem, Main.LocalPlayer));
         }
         public override void RightClick(Item item, Player player)
         {
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Common
                 }
             }
             Item held = Main.mouseItem;
-            if (Utilities.Util.IsArmor(item))
+            if (CEUtils.IsArmor(item))
             {
                 if (held.IsArmorReforgeItem(out var p))
                 {
@@ -123,7 +123,7 @@ namespace CalamityEntropy.Common
                 return false;
             }
             Item held = Main.mouseItem;
-            if (Utilities.Util.IsArmor(item))
+            if (CEUtils.IsArmor(item))
             {
                 if (held.IsArmorReforgeItem(out var _))
                 {
@@ -919,7 +919,7 @@ namespace CalamityEntropy.Common
                     SpriteBatch sb = Main.spriteBatch;
                     sb.End();
                     sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
-                    Texture2D glow = Utilities.Util.getExtraTex("Glow");
+                    Texture2D glow = CEUtils.getExtraTex("Glow");
                     sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255) * 0.8f, 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.34f), SpriteEffects.None, 0);
                     sb.End();
                     sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);

@@ -168,7 +168,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public virtual void playPageSound()
         {
-            Utilities.Util.PlaySound("pageflip", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 4, 0.5f);
+            CEUtils.PlaySound("pageflip", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 4, 0.5f);
         }
         public bool active = false;
         public override void SendExtraAI(BinaryWriter writer)
@@ -648,7 +648,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
                 if (ownerClient)
                 {
-                    Utilities.Util.SyncProj(Projectile.whoAmI);
+                    CEUtils.SyncProj(Projectile.whoAmI);
                 }
             }
             if (sync)
@@ -739,7 +739,7 @@ namespace CalamityEntropy.Content.Items.Books
                 {
                     if (!hited.Contains(npc))
                     {
-                        float r = Utilities.Util.getDistance(nowPos, npc.Center);
+                        float r = CEUtils.getDistance(nowPos, npc.Center);
                         if (r < dist)
                         {
                             dist = r;
@@ -750,7 +750,7 @@ namespace CalamityEntropy.Content.Items.Books
                     {
                         continue;
                     }
-                    if (Utilities.Util.LineThroughRect(lastPos, nowPos, npc.getRect(), (int)width))
+                    if (CEUtils.LineThroughRect(lastPos, nowPos, npc.getRect(), (int)width))
                     {
                         hited.Add(npc);
                     }
@@ -783,7 +783,7 @@ namespace CalamityEntropy.Content.Items.Books
             var points = this.getSamplePoints();
             for (int i = 1; i < points.Count; i++)
             {
-                if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, (int)width))
+                if (CEUtils.LineThroughRect(points[i - 1], points[i], targetHitbox, (int)width))
                 {
                     return true;
                 }

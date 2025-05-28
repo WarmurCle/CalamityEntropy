@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (swingProgress > 0.04f)
             {
                 Lighting.AddLight(lastTop, 1, 0.8f, 0.8f);
-                EParticle.NewParticle(new Smoke() { Lifetime = 40, timeleftmax = 40, TimeLeftMax = 40 }, points[points.Count - 1] + Utilities.Util.randomVec(2), Utilities.Util.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
+                EParticle.NewParticle(new Smoke() { Lifetime = 40, timeleftmax = 40, TimeLeftMax = 40 }, points[points.Count - 1] + CEUtils.randomVec(2), CEUtils.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
 
                 int pointIndex = Main.rand.Next(points.Count - 10, points.Count);
                 Rectangle spawnArea = Utils.CenteredRectangle(points[pointIndex], new Vector2(30f, 30f));
@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Dust obj = Main.dust[num];
                 obj.position = target.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * target.width / 2f;
                 obj.noGravity = true;
-                obj.velocity = Utilities.Util.randomVec(8);
+                obj.velocity = CEUtils.randomVec(8);
                 num = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, DustID.InfernoFork, 0f, 0f, 100, default(Color), 2);
                 obj.position = target.Center;
                 obj.velocity.Y -= 6f;
@@ -193,7 +193,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Texture2D light = Utilities.Util.getExtraTex("lightball");
+            Texture2D light = CEUtils.getExtraTex("lightball");
             Main.spriteBatch.Draw(light, lastTop - Main.screenPosition, null, Color.Gold * 0.6f, 0, light.Size() / 2, Projectile.scale * 0.4f, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);

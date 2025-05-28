@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.Particles
 {
     public class ShineParticle : EParticle
     {
-        public override Texture2D Texture => Util.getExtraTex("Glow2");
+        public override Texture2D Texture => CEUtils.getExtraTex("Glow2");
         public Entity FollowOwner;
         public Vector2 ownerLastPos = Vector2.Zero;
         public override void AI()

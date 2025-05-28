@@ -26,11 +26,11 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             {
                 Projectile.velocity += (Projectile.owner.ToPlayer().Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 3.2f;
                 Projectile.velocity *= 0.94f;
-                if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < 64)
+                if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < 64)
                 {
                     Projectile.owner.ToPlayer().Entropy().serviceWhipDamageBonus += 0.022f;
                     Projectile.owner.ToPlayer().Heal(4);
-                    Utilities.Util.PlaySound("soulshine", 1, Projectile.Center, volume: 0.4f);
+                    CEUtils.PlaySound("soulshine", 1, Projectile.Center, volume: 0.4f);
                     for (int i = 0; i < 32; i++)
                     {
                         Dust.NewDust(Projectile.owner.ToPlayer().Center, 1, 1, DustID.OrangeStainedGlass, Main.rand.NextFloat(-8, 8), Main.rand.NextFloat(-8, 8));
@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, Utilities.Util.GetCutTexRect(tex, 4, (int)(Projectile.Entropy().counter / 4) % 4), Color.White * alpha, Projectile.rotation + MathHelper.PiOver2, new Vector2(25, 32), Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, CEUtils.GetCutTexRect(tex, 4, (int)(Projectile.Entropy().counter / 4) % 4), Color.White * alpha, Projectile.rotation + MathHelper.PiOver2, new Vector2(25, 32), Projectile.scale, SpriteEffects.None);
             return false;
         }
 

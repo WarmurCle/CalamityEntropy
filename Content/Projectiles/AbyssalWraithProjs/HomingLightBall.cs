@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             if ((((int)Projectile.ai[2]).ToNPC().active && ((int)Projectile.ai[2]).ToNPC().HasValidTarget))
             {
                 Player target = ((int)Projectile.ai[2]).ToNPC().target.ToPlayer();
-                if (Utilities.Util.getDistance(Projectile.Center, target.Center) > 200)
+                if (CEUtils.getDistance(Projectile.Center, target.Center) > 200)
                 {
                     Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.5f;
                     Projectile.velocity *= 0.96f;

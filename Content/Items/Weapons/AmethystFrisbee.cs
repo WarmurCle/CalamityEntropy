@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 velocity *= 0.54f;
             }
-            Utilities.Util.PlaySound("throw", 1, player.Center);
+            CEUtils.PlaySound("throw", 1, player.Center);
             if (player.Calamity().StealthStrikeAvailable())
             {
                 int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, altShotCount > 0 ? 1 : 0);

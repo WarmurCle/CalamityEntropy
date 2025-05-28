@@ -57,22 +57,22 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                NPC target = Utilities.Util.findTarget(Projectile.getOwner(), Projectile, 8000);
+                NPC target = CEUtils.findTarget(Projectile.getOwner(), Projectile, 8000);
                 if (target != null)
                 {
                     if (l < 16)
                     {
                         l += 0.01f;
                     }
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.6f * l, false));
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1.4f * l, true));
-                    if (Utilities.Util.getDistance(Projectile.Center, target.Center) < 100)
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.6f * l, false));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1.4f * l, true));
+                    if (CEUtils.getDistance(Projectile.Center, target.Center) < 100)
                     {
                         if (c < 1)
                         {
                             c += 0.1f;
                         }
-                        Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), c, false));
+                        Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), c, false));
 
                     }
                 }
@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.timeLeft > 2)
             {
-                Utilities.Util.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 3, volume: 0.4f);
+                CEUtils.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 3, volume: 0.4f);
                 Projectile.timeLeft = 2;
                 Projectile.Resize(256, 256);
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower += 1.6f;
@@ -125,8 +125,8 @@ namespace CalamityEntropy.Content.Projectiles
                 //GeneralParticleHandler.SpawnParticle(explosion2);
                 for (int i = 0; i < 42; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { Lifetime = 20, timeleftmax = 20 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGreen, 0.09f, 1, true, BlendState.Additive);
-                    EParticle.NewParticle(new Smoke() { Lifetime = 20, timeleftmax = 20 }, target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGray, 0.09f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { Lifetime = 20, timeleftmax = 20 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGreen, 0.09f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { Lifetime = 20, timeleftmax = 20 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGray, 0.09f, 1, true, BlendState.Additive);
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (mp.odp.Count > 1)
             {
                 Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = this.color;
                 float a = 0;
                 float lr = 0;
@@ -157,10 +157,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14 * Projectile.scale,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14 * Projectile.scale,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * Projectile.scale,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * Projectile.scale,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();

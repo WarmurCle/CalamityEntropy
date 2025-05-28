@@ -105,11 +105,11 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
             tailP = bodyP + (tailP - bodyP).SafeNormalize(Vector2.Zero) * 32;
             float br = (Projectile.Center - bodyP).ToRotation();
             float tr = (bodyP - tailP).ToRotation();
-            br = Utilities.Util.rotatedToAngle(br, Projectile.rotation, 0.1f, false);
-            tr = Utilities.Util.rotatedToAngle(tr, br, 0.1f, false);
+            br = CEUtils.rotatedToAngle(br, Projectile.rotation, 0.1f, false);
+            tr = CEUtils.rotatedToAngle(tr, br, 0.1f, false);
             bodyP = Projectile.Center - br.ToRotationVector2() * 32;
             tailP = bodyP - tr.ToRotationVector2() * 32;
-            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 1400)
+            if (CEUtils.getDistance(Projectile.Center, targetPos) > 1400)
             {
                 Projectile.Center = Main.player[Projectile.owner].Center - new Vector2(0, 50);
             }
@@ -135,7 +135,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
                     VoidParticles.particles.Add(p);
                 }
 
-                if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 140)
+                if (CEUtils.getDistance(Projectile.Center, targetPos) > 140)
                 {
                     Vector2 px = targetPos - Projectile.Center;
                     px.Normalize();
@@ -144,7 +144,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
                     Projectile.velocity *= 0.98f;
 
                 }
-                if (Projectile.Center.Y < targetPos.Y - 16 && Utilities.Util.getDistance(Projectile.Center, targetPos) < 100 && !(Utilities.Util.isAir(Projectile.owner.ToPlayer().Center + new Vector2(0, Projectile.owner.ToPlayer().height / 2 + 2), true)) && Utilities.Util.isAir(Projectile.Center))
+                if (Projectile.Center.Y < targetPos.Y - 16 && CEUtils.getDistance(Projectile.Center, targetPos) < 100 && !(CEUtils.isAir(Projectile.owner.ToPlayer().Center + new Vector2(0, Projectile.owner.ToPlayer().height / 2 + 2), true)) && CEUtils.isAir(Projectile.Center))
                 {
                     Projectile.ai[1] = 0;
                 }
@@ -170,11 +170,11 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
                 Projectile.tileCollide = true;
                 Projectile.rotation = 0;
                 Projectile.velocity.Y += 0.5f;
-                if (Utilities.Util.getDistance(targetPos, Projectile.Center) > 340 || (Math.Abs(targetPos.Y - Projectile.Center.Y) > 60 && Projectile.owner.ToPlayer().velocity.Y == 0))
+                if (CEUtils.getDistance(targetPos, Projectile.Center) > 340 || (Math.Abs(targetPos.Y - Projectile.Center.Y) > 60 && Projectile.owner.ToPlayer().velocity.Y == 0))
                 {
                     Projectile.ai[1] = 1;
                 }
-                else if (Utilities.Util.getDistance(targetPos * new Vector2(1, 0), Projectile.Center * new Vector2(1, 0)) > 120)
+                else if (CEUtils.getDistance(targetPos * new Vector2(1, 0), Projectile.Center * new Vector2(1, 0)) > 120)
                 {
                     if (targetPos.X > Projectile.Center.X)
                     {
@@ -199,7 +199,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
                     Projectile.direction = -1;
                 }
 
-                if (Math.Abs(Projectile.velocity.X) > 0.5f && !Utilities.Util.isAir(Projectile.Center + (Projectile.velocity * new Vector2(1, 0)).SafeNormalize(Vector2.Zero) * 13 + new Vector2(0, 18)))
+                if (Math.Abs(Projectile.velocity.X) > 0.5f && !CEUtils.isAir(Projectile.Center + (Projectile.velocity * new Vector2(1, 0)).SafeNormalize(Vector2.Zero) * 13 + new Vector2(0, 18)))
                 {
                     Projectile.velocity.Y -= 1.5f;
                 }

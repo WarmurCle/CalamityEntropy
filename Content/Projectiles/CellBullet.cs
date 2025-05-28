@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (setRot)
             {
-                Projectile.rotation = Utilities.Util.randomRot();
+                Projectile.rotation = CEUtils.randomRot();
             }
             Projectile.rotation += 0.001f;
             if (Projectile.velocity.Length() < 50)
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
         float trailAlpha = 0;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D t = Utilities.Util.getExtraTex("slash3");
+            Texture2D t = CEUtils.getExtraTex("slash3");
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

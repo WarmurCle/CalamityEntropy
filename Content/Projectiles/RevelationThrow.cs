@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (speed < 0)
             {
                 angle = (Projectile.Center - Main.player[Projectile.owner].Center).ToRotation();
-                if (Utilities.Util.getDistance(Projectile.Center, Main.player[Projectile.owner].Center) < Projectile.velocity.Length() * 1.12f)
+                if (CEUtils.getDistance(Projectile.Center, Main.player[Projectile.owner].Center) < Projectile.velocity.Length() * 1.12f)
                 {
                     Projectile.Kill();
                 }

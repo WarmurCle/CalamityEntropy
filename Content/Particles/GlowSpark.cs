@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Particles
                 clr *= Opacity;
             }
             Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, null, clr, Rotation, getOrigin(), Scale * new Vector2(scaleX, 1), SpriteEffects.None, 0);
-            Util.DrawGlow(position, Color * 0.8f, Scale * 0.4f);
+            CEUtils.DrawGlow(position, Color * 0.8f, Scale * 0.4f);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
         }
     }

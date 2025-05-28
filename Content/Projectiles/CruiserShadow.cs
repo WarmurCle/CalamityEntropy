@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
         public void DrawPortal(Vector2 pos, Color color, float rot, float size, float xmul = 0.3f, float aj = 0)
         {
 
-            Texture2D tx = Utilities.Util.getExtraTex("SoulVortex");
+            Texture2D tx = CEUtils.getExtraTex("SoulVortex");
             float angle = MathHelper.ToDegrees(counter * 0.2f + aj);
             Vector2 lu = new Vector2(size, 0).RotatedBy(MathHelper.ToRadians(angle - 135));
             Vector2 ru = new Vector2(size, 0).RotatedBy(MathHelper.ToRadians(angle - 45));
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
             ld = ld.RotatedBy(rangle);
             rd = rd.RotatedBy(rangle);
 
-            Utilities.Util.drawTextureToPoint(Main.spriteBatch, tx, color, dp + lu, dp + ru, dp + ld, dp + rd);
+            CEUtils.drawTextureToPoint(Main.spriteBatch, tx, color, dp + lu, dp + ru, dp + ld, dp + rd);
         }
         public override void AI()
         {
@@ -136,11 +136,11 @@ namespace CalamityEntropy.Content.Projectiles
             if (n != null)
             {
                 targetPos = n.Center;
-                if (Utilities.Util.getDistance(targetPos, Projectile.Center) > 60)
+                if (CEUtils.getDistance(targetPos, Projectile.Center) > 60)
                 {
                     Projectile.velocity *= 0.9f;
                     Projectile.rotation = Projectile.velocity.ToRotation();
-                    Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (targetPos - Projectile.Center).ToRotation(), 36);
+                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (targetPos - Projectile.Center).ToRotation(), 36);
 
                     Projectile.velocity = new Vector2(Projectile.velocity.Length() + 10, 0).RotatedBy(Projectile.rotation);
                 }
@@ -152,13 +152,13 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 1000)
+                if (CEUtils.getDistance(Projectile.Center, targetPos) > 1000)
                 {
                     Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 40f;
                     Projectile.velocity *= 0.8f;
                 }
                 else
-                if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 100)
+                if (CEUtils.getDistance(Projectile.Center, targetPos) > 100)
                 {
                     Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.9f;
                     Projectile.velocity *= 0.996f;
@@ -203,7 +203,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
                 float rot = (oPos - bodies[i]).ToRotation();
-                rot = Utilities.Util.rotatedToAngle(rot, oRot, 0.12f, false);
+                rot = CEUtils.rotatedToAngle(rot, oRot, 0.12f, false);
                 int spacing = 54;
                 bodies[i] = oPos - rot.ToRotationVector2() * spacing * Projectile.scale;
             }

@@ -26,7 +26,7 @@ namespace CalamityEntropy.Common
             }
         }
         public abstract int ItemType { get; }
-        public virtual SoundStyle? useSound => Util.GetSound("loreEnabled");
+        public virtual SoundStyle? useSound => CEUtils.GetSound("loreEnabled");
 
         public virtual void ModifyTooltip(TooltipLine tooltip)
         {
@@ -95,7 +95,7 @@ namespace CalamityEntropy.Common
             LoreReworkSystem.ToggleLore(item);
             if (LoreReworkSystem.loreEffects[item.type].useSound.HasValue)
             {
-                SoundEngine.PlaySound(LoreReworkSystem.Enabled(item.type) ? LoreReworkSystem.loreEffects[item.type].useSound.Value : Util.GetSound("AscendantOff"), player.Center);
+                SoundEngine.PlaySound(LoreReworkSystem.Enabled(item.type) ? LoreReworkSystem.loreEffects[item.type].useSound.Value : CEUtils.GetSound("AscendantOff"), player.Center);
             }
             return true;
         }

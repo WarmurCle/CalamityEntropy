@@ -44,10 +44,10 @@ namespace CalamityEntropy.Common
                     }
                     if (npc.ModNPC is Signus || npc.ModNPC is CeaselessVoid || npc.ModNPC is StormWeaverHead)
                     {
-                        if (Util.getDistance(npc.Center, Main.player[Player.FindClosest(npc.Center, 999999, 999999)].Center) > 4000)
+                        if (CEUtils.getDistance(npc.Center, Main.player[Player.FindClosest(npc.Center, 999999, 999999)].Center) > 4000)
                         {
                             Player plr = Main.player[Player.FindClosest(npc.Center, 999999, 999999)];
-                            npc.Center = plr.Center - (plr.Center - npc.Center).normalize() * 800;
+                            npc.Center = plr.Center - CEUtils.normalize((plr.Center - npc.Center)) * 800;
                         }
                     }
                     if (npc.ModNPC is StormWeaverHead sw && NPC.AnyNPCs(ModContent.NPCType<DevourerofGodsHead>()))
@@ -231,7 +231,7 @@ namespace CalamityEntropy.Common
                     }
                     if (!this.ksFlag && npc.velocity.Y == 0f && !Main.dedServ)
                     {
-                        Util.PlaySound("ksLand", 1f, new Vector2?(npc.Center), 2, 1f);
+                        CEUtils.PlaySound("ksLand", 1f, new Vector2?(npc.Center), 2, 1f);
                         CalamityUtils.Calamity(Main.LocalPlayer).GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(npc.Center), 2000f, 1000f, 0f, 12f, true);
                     }
                     this.ksFlag = (npc.velocity.Y == 0f);
@@ -343,9 +343,9 @@ namespace CalamityEntropy.Common
                         {
                             if (npc.ModNPC is DevourerofGodsHead && npc.HasValidTarget)
                             {
-                                if (Util.getDistance(npc.Center, npc.target.ToPlayer().Center) < 2000)
+                                if (CEUtils.getDistance(npc.Center, CEUtils.ToPlayer(npc.target).Center) < 2000)
                                 {
-                                    npc.velocity += (npc.Center - npc.target.ToPlayer().Center).normalize() * 2;
+                                    npc.velocity += CEUtils.normalize((npc.Center - CEUtils.ToPlayer(npc.target).Center)) * 2;
                                 }
                             }
                             npc.Calamity().CurrentlyIncreasingDefenseOrDR = true;

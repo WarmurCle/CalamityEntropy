@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.Opacity = Projectile.timeLeft / 200f;
             }
-            NPC target = Util.FindTarget_HomingProj(Projectile, Projectile.Center, 4000);
+            NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 4000);
             if (target != null)
             {
                 Projectile.SmoothHomingBehavior(target.Center, 1, 0.01f);

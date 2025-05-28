@@ -60,8 +60,8 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.damage = ((int)(Projectile.damage * 0.5f));
                 NPC target = ptarget;
                 portalParticle(Projectile.Center);
-                Utilities.Util.PlaySound("portal_emerge", 1.6f, Projectile.Center, 12, 0.22f);
-                Projectile.Center = target.Center + Utilities.Util.randomRot().ToRotationVector2() * 400;
+                CEUtils.PlaySound("portal_emerge", 1.6f, Projectile.Center, 12, 0.22f);
+                Projectile.Center = target.Center + CEUtils.randomRot().ToRotationVector2() * 400;
                 Projectile.velocity = (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * Projectile.velocity.Length();
                 Projectile.netUpdate = true;
                 portalParticle(Projectile.Center);
@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (int)(Projectile.damage * 0.9f);
-            Utilities.Util.PlaySound("ystn_hit", 1.6f, Projectile.Center, 1, 0.24f);
+            CEUtils.PlaySound("ystn_hit", 1.6f, Projectile.Center, 1, 0.24f);
             if (portalcount > 0 && portalTime < 0)
             {
                 portalcount--;

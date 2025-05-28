@@ -41,8 +41,8 @@ namespace CalamityEntropy.Content.Projectiles
             base.AI();
             if (Projectile.ai[0] == 0)
             {
-                Utilities.Util.PlaySound("bne_hit2", 1, Projectile.Center, 1, 0.36f);
-                Projectile.rotation = Utilities.Util.randomRot();
+                CEUtils.PlaySound("bne_hit2", 1, Projectile.Center, 1, 0.36f);
+                Projectile.rotation = CEUtils.randomRot();
             }
             if (op < 1)
             {
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
             }
-            Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.1f, false);
+            Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.1f, false);
 
         }
         public float op = 0;

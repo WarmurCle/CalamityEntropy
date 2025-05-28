@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
             var mp = this;
             if (mp.odp.Count > 1)
             {
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = Color.LightBlue;
 
                 float a = 0;
@@ -81,10 +81,10 @@ namespace CalamityEntropy.Content.Projectiles
                     b = Color.Gold;
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 10,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 10,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 10,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 10,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();

@@ -81,12 +81,12 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Signus
         public bool std = false;
         void MoveToTarget(Vector2 targetPos)
         {
-            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 1400)
+            if (CEUtils.getDistance(Projectile.Center, targetPos) > 1400)
             {
                 Projectile.Center = Main.player[Projectile.owner].Center;
             }
             Projectile.rotation = MathHelper.ToRadians((Projectile.velocity.X * 1.4f));
-            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 34)
+            if (CEUtils.getDistance(Projectile.Center, targetPos) > 34)
             {
                 Vector2 px = targetPos - Projectile.Center;
                 px.Normalize();

@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
 
     public class CruiserEnergyBall : ModProjectile
     {
-        public override string Texture => Utilities.Util.WhiteTexPath;
+        public override string Texture => CEUtils.WhiteTexPath;
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<VoidTouch>(), 160);
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 Scale = 1;
                 Projectile.velocity = owner.velocity.normalize() * 30;
-                Utilities.Util.PlaySound("CrystalBallActive", 1, Projectile.Center);
+                CEUtils.PlaySound("CrystalBallActive", 1, Projectile.Center);
             }
             if (Projectile.timeLeft < 120)
             {
@@ -75,10 +75,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             }
             if (Projectile.timeLeft == 10)
             {
-                Utilities.Util.PlaySound("energyImpact", 1, Projectile.Center);
+                CEUtils.PlaySound("energyImpact", 1, Projectile.Center);
                 if (!(Main.netMode == NetmodeID.MultiplayerClient))
                 {
-                    float rj = Utilities.Util.randomRot();
+                    float rj = CEUtils.randomRot();
                     for (float i = 0; i < 360; i += 12f)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (rj + MathHelper.ToRadians(i)).ToRotationVector2() * 6, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, Projectile.knockBack);
@@ -125,16 +125,16 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             {
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 List<Vector2> points = GP(0);
                 List<Vector2> pointsOutside = GP(70 * Scale);
                 int i;
                 for (i = 0; i < points.Count; i++)
                 {
-                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + points[i],
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + points[i],
                     new Vector3((float)i / points.Count, 1, 1f),
                           Color.LightBlue * a));
-                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + pointsOutside[i],
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + pointsOutside[i],
                           new Vector3((float)i / points.Count, 0, 1f),
                           Color.LightBlue * a));
 
@@ -143,22 +143,22 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle3");
+                    Texture2D tx = CEUtils.getExtraTex("AbyssalCircle3");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
             {
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 List<Vector2> points = GP(0, -1);
                 List<Vector2> pointsOutside = GP(60 * Scale, -1);
                 int i;
                 for (i = 0; i < points.Count; i++)
                 {
-                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + points[i],
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + points[i],
                           new Vector3((float)i / points.Count, 1, 1f),
                           Color.White * a));
-                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + pointsOutside[i],
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + pointsOutside[i],
                           new Vector3((float)i / points.Count, 0, 1f),
                           Color.White * a));
 
@@ -167,22 +167,22 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle3");
+                    Texture2D tx = CEUtils.getExtraTex("AbyssalCircle3");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
             {
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 List<Vector2> points = GP(0, 0.6f);
                 List<Vector2> pointsOutside = GP(80 * Scale, -1);
                 int i;
                 for (i = 0; i < points.Count; i++)
                 {
-                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + points[i],
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + points[i],
                           new Vector3((float)i / points.Count, 1, 1f),
                           Color.LightBlue * a));
-                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + pointsOutside[i],
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + pointsOutside[i],
                           new Vector3((float)i / points.Count, 0, 1f),
                           Color.LightBlue * a));
 
@@ -191,7 +191,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle4");
+                    Texture2D tx = CEUtils.getExtraTex("AbyssalCircle4");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }

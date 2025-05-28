@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Particles
         public Vector2 end;
         public override void PreDraw()
         {
-            Main.spriteBatch.Draw(Texture, this.position - Main.screenPosition, null, new Color(255, 206, 180), (this.position - end).ToRotation(), this.getOrigin(), new Vector2(Utilities.Util.getDistance(this.position, end) / (float)Texture.Width, this.Scale * 0.3f), SpriteEffects.None, 0); ;
+            Main.spriteBatch.Draw(Texture, this.position - Main.screenPosition, null, new Color(255, 206, 180), (this.position - end).ToRotation(), this.getOrigin(), new Vector2(CEUtils.getDistance(this.position, end) / (float)Texture.Width, this.Scale * 0.3f), SpriteEffects.None, 0); ;
         }
     }
 }

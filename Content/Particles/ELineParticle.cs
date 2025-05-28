@@ -29,10 +29,10 @@ namespace CalamityEntropy.Content.Particles
         public override void PreDraw()
         {
             counter++;
-            Utilities.Util.drawLine(this.position, b, this.Color, width);
+            CEUtils.drawLine(this.position, b, this.Color, width);
             this.velocity *= r;
             b = Vector2.Lerp(this.position, b, this.c);
-            if (Utilities.Util.getDistance(this.position, b) < 2 && counter > 20)
+            if (CEUtils.getDistance(this.position, b) < 2 && counter > 20)
             {
                 this.Lifetime = 0;
             }

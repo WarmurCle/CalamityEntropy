@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
                 target.velocity += Projectile.velocity * (0.6f + 0.4f * target.knockBackResist);
             }
             EParticle.NewParticle(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
-            EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+            EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, CEUtils.randomRot());
         }
 
         public override void OnKill(int timeLeft)
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnKill(timeLeft);
             for (int i = 0; i < 3; i++)
             {
-                EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, CEUtils.randomRot());
             }
             EParticle.NewParticle(new UpdraftParticle(), Projectile.Center, Projectile.velocity, Color.White, Projectile.scale * 0.4f, 1, true, BlendState.Additive, Projectile.rotation);
         }

@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 foreach (NPC npc in Main.ActiveNPCs)
                 {
-                    if (Utilities.Util.getDistance(npc.Center, Projectile.Center) < 4000)
+                    if (CEUtils.getDistance(npc.Center, Projectile.Center) < 4000)
                     {
                         NPC.HitInfo hit = npc.CalculateHitInfo(Projectile.damage / 8, 0, false, 0, Projectile.DamageType);
                         npc.StrikeNPC(hit);

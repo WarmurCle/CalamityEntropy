@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
             Player owner = Projectile.owner.ToPlayer();
             if (Projectile.ai[0] == 0)
             {
-                Utilities.Util.PlaySound("flamethrower start", 1, Projectile.Center);
+                CEUtils.PlaySound("flamethrower start", 1, Projectile.Center);
             }
             if (Projectile.ai[0] == 70)
             {
@@ -125,8 +125,8 @@ namespace CalamityEntropy.Content.Projectiles
         public float counter = 0;
         public override void OnKill(int timeLeft)
         {
-            Utilities.Util.PlaySound("urnclose", 1, Projectile.Center);
-            Utilities.Util.PlaySound("flamethrower end", 1, Projectile.Center);
+            CEUtils.PlaySound("urnclose", 1, Projectile.Center);
+            CEUtils.PlaySound("flamethrower end", 1, Projectile.Center);
         }
         public override bool PreDraw(ref Color lightColor)
         {

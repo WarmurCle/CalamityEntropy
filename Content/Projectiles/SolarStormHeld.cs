@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int l = 0; l < 1 + 30 * ((float)shotCounter / maxChargeTime); l++)
                     {
-                        EParticle.NewParticle(new GlowSparkDirecting() { TargetPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, followOwner = player, scaleX = Main.rand.NextFloat(1, 2) }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 16 + Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 120), Vector2.Zero, Color.OrangeRed, Main.rand.NextFloat(0.6f, 1.4f) * 0.06f, 1, true, BlendState.Additive, 0, Main.rand.Next(10, 16));
+                        EParticle.NewParticle(new GlowSparkDirecting() { TargetPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, followOwner = player, scaleX = Main.rand.NextFloat(1, 2) }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 16 + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 120), Vector2.Zero, Color.OrangeRed, Main.rand.NextFloat(0.6f, 1.4f) * 0.06f, 1, true, BlendState.Additive, 0, Main.rand.Next(10, 16));
                     }
                 }
                 if (shotCounter < maxChargeTime && shotCounter >= tShooted + ShootNeededTime)
@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                         for (int i = 0; i < 4; i++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Utilities.Util.randomPointInCircle(36) + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(-84, 84), Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed, projID, damage, kb, player.whoAmI);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + CEUtils.randomPointInCircle(36) + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(-84, 84), Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed, projID, damage, kb, player.whoAmI);
                         }
                         var snd = SoundID.DD2_BallistaTowerShot;
                         snd.MaxInstances = 5;
@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Projectiles
                     ShootNeededTime = 30;
                     spawnParti = true;
                     steamTime = 22;
-                    Util.PlaySound("ProminenceShoot", 1, Projectile.Center);
+                    CEUtils.PlaySound("ProminenceShoot", 1, Projectile.Center);
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed * 0.4f, ModContent.ProjectileType<SolarStormExplosionProj>(), damage * 16, kb * 2, player.whoAmI);
 
                 }
@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (steamTime == 10)
                 {
-                    Util.PlaySound("steam", 1, Projectile.Center, 1, 0.8f);
+                    CEUtils.PlaySound("steam", 1, Projectile.Center, 1, 0.8f);
                 }
 
                 float c = steamTime / 10f;
@@ -127,42 +127,42 @@ namespace CalamityEntropy.Content.Projectiles
                 float rot = Projectile.rotation;
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(38, -24).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation;
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(32, 43).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation + MathHelper.ToRadians(45);
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(32, -43).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation - MathHelper.ToRadians(45);
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(18, 55).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation + MathHelper.ToRadians(70);
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(18, -55).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation - MathHelper.ToRadians(70);
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
             }
         }
@@ -198,7 +198,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public static void DrawChargingEnergyBall(Vector2 pos, float size, float alpha)
         {
-            Texture2D tex = Util.getExtraTex("a_circle");
+            Texture2D tex = CEUtils.getExtraTex("a_circle");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, Color.OrangeRed * alpha, 0, tex.Size() * 0.5f, size * 0.4f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(255, 220, 190) * alpha, 0, tex.Size() * 0.5f, size * 0.24f, SpriteEffects.None, 0);
@@ -214,7 +214,7 @@ namespace CalamityEntropy.Content.Projectiles
 
     public class SolarStormExplosionProj : ModProjectile
     {
-        public override string Texture => Util.WhiteTexPath;
+        public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Ranged;
@@ -301,10 +301,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (!Main.dedServ)
                 {
-                    if (Util.getDistance(Projectile.Center, Projectile.getOwner().Center) < 2000)
+                    if (CEUtils.getDistance(Projectile.Center, CEUtils.getOwner(Projectile).Center) < 2000)
                     {
                         CalamityEntropy.FlashEffectStrength = 0.42f;
-                        Projectile.getOwner().Calamity().GeneralScreenShakePower = 12;
+                        CEUtils.getOwner(Projectile).Calamity().GeneralScreenShakePower = 12;
                     }
                     SoundEngine.PlaySound(SoundID.NPCDeath56, Projectile.Center);
                 }
@@ -454,7 +454,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.timeLeft > 280)
             {
                 SpawnDust();
-                Vector2 top = Projectile.Center + Util.randomPointInCircle(12);
+                Vector2 top = Projectile.Center + CEUtils.randomPointInCircle(12);
                 Vector2 sparkVelocity2 = Projectile.velocity * 0.8f;
                 int sparkLifetime2 = Main.rand.Next(40, 60);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.6f);

@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Particles
                 }
                 else
                 {
-                    this.position += Utilities.Util.randomVec(16);
+                    this.position += CEUtils.randomVec(16);
                 }
             }
         }

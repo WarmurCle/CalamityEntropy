@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             hit.DamageType = NoDRMelee.Instance;
-            Util.PlaySound("sf_hit", 1, Projectile.Center, volume: 0.6f);
+            CEUtils.PlaySound("sf_hit", 1, Projectile.Center, volume: 0.6f);
             target.AddBuff(ModContent.BuffType<ElementalMix>(), 400);
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
             {

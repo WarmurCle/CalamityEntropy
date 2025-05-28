@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 
         public virtual void ApplyTo(Item item)
         {
-            if (Utilities.Util.IsArmor(item) && canApplyTo(item) != false)
+            if (CEUtils.IsArmor(item) && canApplyTo(item) != false)
             {
                 item.Entropy().armorPrefixName = this.FullName;
             }
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 
         public static ArmorPrefix RollPrefixToItem(Item item)
         {
-            if (!Utilities.Util.IsArmor(item))
+            if (!CEUtils.IsArmor(item))
             {
                 return null;
             }

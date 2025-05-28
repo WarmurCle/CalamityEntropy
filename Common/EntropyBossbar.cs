@@ -82,7 +82,7 @@ namespace CalamityEntropy.Common
                 {
                     if (CalamityLists.minibossList.Contains(n.type) || n.IsABoss())
                     {
-                        if (n.realLife < 0 && Utilities.Util.getDistance(n.Center, Main.LocalPlayer.Center) < 9000)
+                        if (n.realLife < 0 && CEUtils.getDistance(n.Center, Main.LocalPlayer.Center) < 9000)
                         {
                             flag = true;
                             npc = n;
@@ -184,8 +184,8 @@ namespace CalamityEntropy.Common
             Texture2D barWhite2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/EBarWhite2").Value;
             Texture2D barc = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/Ebarc").Value;
             Texture2D bar1 = bar1Norm;
-            Texture2D gzmBar = Utilities.Util.getExtraTex("ColorMapGoozma");
-            Texture2D noise = Utilities.Util.getExtraTex("noise");
+            Texture2D gzmBar = CEUtils.getExtraTex("ColorMapGoozma");
+            Texture2D noise = CEUtils.getExtraTex("noise");
             Texture2D awBar = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/awraithbar").Value;
             bool goozma = false;
             bool namelessDeity = false;
@@ -234,7 +234,7 @@ namespace CalamityEntropy.Common
             }
             if (goozma)
             {
-                Utilities.Util.UseState_UI(spriteBatch, BlendState.Additive, SamplerState.LinearWrap);
+                CEUtils.UseState_UI(spriteBatch, BlendState.Additive, SamplerState.LinearWrap);
                 spriteBatch.Draw(gzmBar, center + new Vector2(0, 8), new Rectangle((int)(drawOfs * 5.6f), 0, (int)(500 * prog), bar2.Height), Color.White, 0, bar2.Size() / 2, 1, SpriteEffects.None, 0);
             }
             if (namelessDeity)

@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 1; i < odp.Count; i++)
             {
-                if (Utilities.Util.LineThroughRect(odp[i - 1], odp[i], targetHitbox, 90))
+                if (CEUtils.LineThroughRect(odp[i - 1], odp[i], targetHitbox, 90))
                 {
                     return true;
                 }

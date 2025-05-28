@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             for (int i = 0; i < 3; i++)
             {
-                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + Utilities.Util.randomVec(2), color, 40, 0.6f, 1, 0.2f, true, 0, true));
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(2), color, 40, 0.6f, 1, 0.2f, true, 0, true));
             }
         }
         public override void PostAI()
@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             odp.Add(Projectile.Center);
-            Texture2D tex = Utilities.Util.getExtraTex("StarTexture");
+            Texture2D tex = CEUtils.getExtraTex("StarTexture");
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
 
@@ -70,8 +70,8 @@ namespace CalamityEntropy.Content.Projectiles
 
 
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
-            Utilities.Util.DrawGlow(Projectile.Center, color, Projectile.scale * 1.2f);
-            Utilities.Util.DrawGlow(Projectile.Center, Color.White, Projectile.scale * 0.8f);
+            CEUtils.DrawGlow(Projectile.Center, color, Projectile.scale * 1.2f);
+            CEUtils.DrawGlow(Projectile.Center, Color.White, Projectile.scale * 0.8f);
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.6f, SpriteEffects.None, 0);
@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 12; i++)
             {
-                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + Utilities.Util.randomVec(6), color, 40, 0.8f, 1, 0.2f, true, 0, true));
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(6), color, 40, 0.8f, 1, 0.2f, true, 0, true));
             }
         }
         public Color TrailColor1(float completionRatio)
@@ -114,11 +114,11 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnKill(timeLeft);
             for (int i = 0; i < 12; i++)
             {
-                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + Utilities.Util.randomVec(6), color, 40, 0.8f, 1, 0.2f, true, 0, true));
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(6), color, 40, 0.8f, 1, 0.2f, true, 0, true));
             }
             for (int i = 0; i < 6; i++)
             {
-                EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 2, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 2, 1, true, BlendState.Additive, CEUtils.randomRot());
             }
         }
     }

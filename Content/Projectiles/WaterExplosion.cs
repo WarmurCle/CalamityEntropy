@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 0; i < 32; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 18), ModContent.ProjectileType<WaterShot>(), Projectile.damage / 10, Projectile.knockBack + 0.1f, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 18), ModContent.ProjectileType<WaterShot>(), Projectile.damage / 10, Projectile.knockBack + 0.1f, Projectile.owner);
                     }
                 }
             }

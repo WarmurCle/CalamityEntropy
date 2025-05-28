@@ -73,20 +73,20 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
                     Player target = ((int)Projectile.ai[2]).ToNPC().target.ToPlayer();
                     if (Projectile.ai[1] == 0)
                     {
-                        Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.12f, false);
+                        Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.12f, false);
                     }
                     if (counter <= 1)
                     {
                         if (Projectile.ai[1] == 2)
                         {
-                            Projectile.rotation = Utilities.Util.randomRot();
-                            rotSpeed = (Utilities.Util.randomRot() - MathHelper.Pi) * 0.05f;
+                            Projectile.rotation = CEUtils.randomRot();
+                            rotSpeed = (CEUtils.randomRot() - MathHelper.Pi) * 0.05f;
                             Projectile.netUpdate = true;
                             Projectile.timeLeft = 220;
                         }
                         else
                         {
-                            Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 1, false);
+                            Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 1, false);
                         }
 
                     }
@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
         float rotSpeed = 0;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return counter > 60 && counter < 90 && Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 2400, targetHitbox, 24);
+            return counter > 60 && counter < 90 && CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 2400, targetHitbox, 24);
         }
         public override void SendExtraAI(BinaryWriter writer)
         {

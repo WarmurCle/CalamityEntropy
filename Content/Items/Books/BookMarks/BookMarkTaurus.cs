@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (projectile.ModProjectile is EBookBaseLaser laser)
             {
-                float r = Utilities.Util.randomRot();
+                float r = CEUtils.randomRot();
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 vel = (MathHelper.ToRadians(i * 120) + r).ToRotationVector2() * projectile.velocity.Length();
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 if (projectile.ModProjectile is EBookBaseProjectile eb)
                 {
-                    float r = Utilities.Util.randomRot();
+                    float r = CEUtils.randomRot();
                     for (int i = 0; i < 3; i++)
                     {
                         Vector2 vel = (MathHelper.ToRadians(i * 120) + r).ToRotationVector2() * projectile.velocity.Length();

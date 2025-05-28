@@ -146,10 +146,10 @@ namespace CalamityEntropy.Content.Skies
                 graphicsDevice.SetRenderTarget(screen);
                 graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
-                Texture2D s = Utilities.Util.getExtraTex("Perlin");
-                Texture2D s1 = Utilities.Util.getExtraTex("EternityStreak");
-                Texture2D s2 = Utilities.Util.getExtraTex("EternityStreak");
-                spriteBatch.Draw(Utilities.Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.1f - Main.screenPosition.X * -0.5f), (int)(counter * 0.1f - Main.screenPosition.Y * -0.5f), Main.screenWidth, Main.screenHeight), Color.White);
+                Texture2D s = CEUtils.getExtraTex("Perlin");
+                Texture2D s1 = CEUtils.getExtraTex("EternityStreak");
+                Texture2D s2 = CEUtils.getExtraTex("EternityStreak");
+                spriteBatch.Draw(CEUtils.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.1f - Main.screenPosition.X * -0.5f), (int)(counter * 0.1f - Main.screenPosition.Y * -0.5f), Main.screenWidth, Main.screenHeight), Color.White);
 
 
                 spriteBatch.End();
@@ -206,7 +206,7 @@ namespace CalamityEntropy.Content.Skies
 
             /*if (SubworldSystem.IsActive<VOIDSubworld>())
             {
-                Utilities.Util.DrawGlow(Main.screenPosition, Color.White * 0.4f, 40);
+                CEUtils.DrawGlow(Main.screenPosition, Color.White * 0.4f, 40);
                 opacity = 1;
             }*/
 
@@ -219,7 +219,7 @@ namespace CalamityEntropy.Content.Skies
             public LightningParticle()
             {
                 Vector2 centerp = Main.screenPosition + new Vector2(Main.screenWidth / 2, Main.screenHeight / 2) + new Vector2(Main.rand.Next(-1200, 1201), Main.rand.Next(-1200, 1201));
-                float a1 = Utilities.Util.randomRot();
+                float a1 = CEUtils.randomRot();
                 float a2 = a1 + MathHelper.ToRadians(180);
                 Vector2 p1 = centerp;
                 Vector2 p2 = centerp;

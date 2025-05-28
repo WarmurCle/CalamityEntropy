@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             p.ToProj().Entropy().EventideShot = true;
             p.ToProj().usesLocalNPCImmunity = true;
             p.ToProj().localNPCHitCooldown = 60;
-            Utilities.Util.PlaySound("evshot", 1, player.Center);
+            CEUtils.PlaySound("evshot", 1, player.Center);
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);

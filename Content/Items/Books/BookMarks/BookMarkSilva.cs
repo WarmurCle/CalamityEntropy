@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 6))
             {
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * 12, ModContent.ProjectileType<SilvaSoul>(), 0, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, CEUtils.randomRot().ToRotationVector2() * 12, ModContent.ProjectileType<SilvaSoul>(), 0, projectile.knockBack, projectile.owner);
             }
         }
     }

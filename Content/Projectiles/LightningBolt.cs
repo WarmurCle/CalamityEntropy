@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Utilities.Util.LineThroughRect(odp[0], Projectile.Center, targetHitbox, (int)(20 * Projectile.scale), (int)(16 * Projectile.scale));
+            return CEUtils.LineThroughRect(odp[0], Projectile.Center, targetHitbox, (int)(20 * Projectile.scale), (int)(16 * Projectile.scale));
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -49,9 +49,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 1; i < odp.Count; i++)
                 {
-                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.White * 0.4f, 20 * Projectile.scale);
+                    CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.White * 0.4f, 20 * Projectile.scale);
 
-                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.White, 12 * Projectile.scale, (int)(8 * Projectile.scale));
+                    CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.White, 12 * Projectile.scale, (int)(8 * Projectile.scale));
 
                 }
             }

@@ -238,7 +238,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
-                Texture2D light = Utilities.Util.getExtraTex("lightball");
+                Texture2D light = CEUtils.getExtraTex("lightball");
                 Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition + Vector2.UnitY * yoffset, null, new Color(200, 160, 255) * (0.6f + (float)(Math.Cos(Main.GameUpdateCount * 0.07f)) * 0.05f), Projectile.rotation, light.Size() / 2, Projectile.scale * 1f, SpriteEffects.None, 0);
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);

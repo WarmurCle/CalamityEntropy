@@ -148,7 +148,7 @@ namespace CalamityEntropy.Content.Buffs
             {
                 if (!Main.rand.NextBool(3))
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 3, 1, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 3, 1, projectile.owner);
                 }
                 if (projectile.TryGetOwner(out var owner))
                 {
@@ -184,7 +184,7 @@ namespace CalamityEntropy.Content.Buffs
                     }
                     if (t.EffectName == "Crystedge")
                     {
-                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, Utilities.Util.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
                     }
                     if (t.EffectName == "ForeseeWhip")
                     {
@@ -200,7 +200,7 @@ namespace CalamityEntropy.Content.Buffs
                                     projectile.getOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
                                     for (float f = 0; f <= 1; f += 0.1f)
                                     {
-                                        EParticle.NewParticle(new RuneParticle(), Vector2.Lerp(npc.Center, n.Center, f), Util.randomPointInCircle(0.1f), Color.White, 0.5f, 1, true, BlendState.Additive, 0);
+                                        EParticle.NewParticle(new RuneParticle(), Vector2.Lerp(npc.Center, n.Center, f), CEUtils.randomPointInCircle(0.1f), Color.White, 0.5f, 1, true, BlendState.Additive, 0);
                                     }
                                 }
                             }
@@ -209,7 +209,7 @@ namespace CalamityEntropy.Content.Buffs
                 }
                 if (t.EffectName == "MindCorruptor")
                 {
-                    float rot = Utilities.Util.randomRot();
+                    float rot = CEUtils.randomRot();
                     Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
                 }
 

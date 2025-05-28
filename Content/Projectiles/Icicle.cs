@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles
                     count++;
                 }
                 mct = count;
-                speed = Utilities.Util.getDistance(Projectile.Center, new Vector2(Projectile.ai[0], Projectile.ai[1])) / count;
+                speed = CEUtils.getDistance(Projectile.Center, new Vector2(Projectile.ai[0], Projectile.ai[1])) / count;
                 js = jspeed;
             }
             counter++;
@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity *= 0.9f;
             }
 
-            Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
+            Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
 
         }
         public override bool PreDraw(ref Color lightColor)

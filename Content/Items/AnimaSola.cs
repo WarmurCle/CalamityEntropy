@@ -40,10 +40,10 @@ namespace CalamityEntropy.Content.Items
                 float dist = 3400;
                 foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if (Utilities.Util.getDistance(n.Center, player.Center) < dist && !n.friendly && n.chaseable && n.realLife < 0 && n.Entropy().AnimaTrapped <= 0)
+                    if (CEUtils.getDistance(n.Center, player.Center) < dist && !n.friendly && n.chaseable && n.realLife < 0 && n.Entropy().AnimaTrapped <= 0)
                     {
                         target = n;
-                        dist = Utilities.Util.getDistance(n.Center, player.Center);
+                        dist = CEUtils.getDistance(n.Center, player.Center);
                     }
                 }
                 if (target != null)

@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        float rot = Utilities.Util.randomRot();
+                        float rot = CEUtils.randomRot();
                         int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), t.Center + rot.ToRotationVector2() * 400, rot.ToRotationVector2() * -16, 645, Projectile.damage, Projectile.knockBack, Projectile.owner);
                         p.ToProj().DamageType = Projectile.DamageType;
                     }

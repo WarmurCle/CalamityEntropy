@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             if (charge < maxCharge)
             {
-                Utilities.Util.DrawChargeBar(scale * 1.2f, position + new Vector2(0, 18) * scale, ((float)charge / maxCharge), (charge < 1) ? Color.DarkOrange : Color.Orange);
+                CEUtils.DrawChargeBar(scale * 1.2f, position + new Vector2(0, 18) * scale, ((float)charge / maxCharge), (charge < 1) ? Color.DarkOrange : Color.Orange);
             }
         }
 
@@ -186,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 hitDirection = Math.Sign(player.velocity.X);
             }
-            Utilities.Util.PlaySound("ExoHit" + Main.rand.Next(1, 5), Main.rand.NextFloat(0.8f, 1.2f), target.Center);
+            CEUtils.PlaySound("ExoHit" + Main.rand.Next(1, 5), Main.rand.NextFloat(0.8f, 1.2f), target.Center);
             hitContext.HitDirection = hitDirection;
             hitContext.PlayerImmunityFrames = 12;
             int num = AzafureChargeShield.ShieldSlamDamage;

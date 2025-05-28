@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             base.AI();
-            NPC target = Utilities.Util.findTarget(Projectile.owner.ToPlayer(), Projectile, 1000, false);
+            NPC target = CEUtils.findTarget(Projectile.owner.ToPlayer(), Projectile, 1000, false);
             if (target != null)
             {
                 if (myCD <= 0)

@@ -124,7 +124,7 @@ namespace CalamityEntropy
         public override void Load()
         {
 
-            Util.TexCache = new Dictionary<string, Texture2D>();
+            CEUtils.TexCache = new Dictionary<string, Texture2D>();
 
             BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
             BookMarkLoader.CustomBMByID = new Dictionary<int, BookMarkLoader.BookMarkTag>();
@@ -156,7 +156,7 @@ namespace CalamityEntropy
             cve = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid", AssetRequestMode.ImmediateLoad).Value;
             cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
             cve2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid2", AssetRequestMode.ImmediateLoad).Value;
-            pixel = Utilities.Util.getExtraTex("white");
+            pixel = CEUtils.getExtraTex("white");
 
             AbyssalWraith.loadHead();
             CruiserHead.loadHead();
@@ -264,7 +264,7 @@ namespace CalamityEntropy
                 setup.DompUnLoadText();
             }
             ILoaders = null;
-            Util.TexCache = null;
+            CEUtils.TexCache = null;
             BookMarkLoader.CustomBMEffectsByName = null;
             BookMarkLoader.CustomBMByID = null;
             screen = null;
@@ -358,8 +358,8 @@ namespace CalamityEntropy
         {
             orig(self);
             Main.spriteBatch.begin_();
-            Texture2D shell = Utilities.Util.getExtraTex("shell");
-            Texture2D crystalShield = Utilities.Util.getExtraTex("MariviniumShield");
+            Texture2D shell = CEUtils.getExtraTex("shell");
+            Texture2D crystalShield = CEUtils.getExtraTex("MariviniumShield");
             foreach (Player player in Main.ActivePlayers)
             {
                 if (player.Entropy().nihShellCount > 0)
@@ -412,8 +412,8 @@ namespace CalamityEntropy
             screen3 = null;
             screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);*/
 
-            Texture2D shell = Utilities.Util.getExtraTex("shell");
-            Texture2D crystalShield = Utilities.Util.getExtraTex("MariviniumShield");
+            Texture2D shell = CEUtils.getExtraTex("shell");
+            Texture2D crystalShield = CEUtils.getExtraTex("MariviniumShield");
             if (Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
             {
                 var mi = Main.LocalPlayer.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield;
@@ -427,7 +427,7 @@ namespace CalamityEntropy
                 {
                     AzShieldBarAlpha = float.Lerp(AzShieldBarAlpha, 1, 0.1f);
                 }
-                Utilities.Util.DrawChargeBar(1.5f, Main.LocalPlayer.Center - Main.screenPosition + new Vector2(0, -42), ((float)charge / maxCharge), ((charge > 1) ? Color.Lerp(Color.OrangeRed, Color.Orange, (float)Math.Cos(Main.GameUpdateCount * 0.2f) * 0.5f + 0.5f) : Color.Firebrick) * AzShieldBarAlpha);
+                CEUtils.DrawChargeBar(1.5f, Main.LocalPlayer.Center - Main.screenPosition + new Vector2(0, -42), ((float)charge / maxCharge), ((charge > 1) ? Color.Lerp(Color.OrangeRed, Color.Orange, (float)Math.Cos(Main.GameUpdateCount * 0.2f) * 0.5f + 0.5f) : Color.Firebrick) * AzShieldBarAlpha);
             }
             else
             {
@@ -566,7 +566,7 @@ namespace CalamityEntropy
                     {
                         if (!Main.dedServ)
                         {
-                            Utilities.Util.PlaySound("clicker_static", 1, npc.Center);
+                            CEUtils.PlaySound("clicker_static", 1, npc.Center);
                         }
                         deliriumNPC.counter = Main.rand.Next(60, 360);
                         npc.netUpdate = true;
@@ -667,10 +667,10 @@ namespace CalamityEntropy
                 {
                     if (n.active && !n.friendly && !n.dontTakeDamage)
                     {
-                        if (Utilities.Util.getDistance(n.Center, npc.Center) < dist)
+                        if (CEUtils.getDistance(n.Center, npc.Center) < dist)
                         {
                             t = n;
-                            dist = Utilities.Util.getDistance(n.Center, npc.Center);
+                            dist = CEUtils.getDistance(n.Center, npc.Center);
                         }
                     }
                 }
@@ -713,7 +713,7 @@ namespace CalamityEntropy
 
                 npc.friendly = true;
 
-                SetTargetTrackingValues(self, faceTarget, Utilities.Util.getDistance(self.Center, Main.player[0].Center), -1);
+                SetTargetTrackingValues(self, faceTarget, CEUtils.getDistance(self.Center, Main.player[0].Center), -1);
             }*/
         }
 
@@ -778,7 +778,7 @@ namespace CalamityEntropy
                 npc.boss = false;
 
                 npc.friendly = true;
-                SetTargetTrackingValues(self, faceTarget, Utilities.Util.getDistance(self.Center, Main.player[0].Center), -1);
+                SetTargetTrackingValues(self, faceTarget, CEUtils.getDistance(self.Center, Main.player[0].Center), -1);
             }
         }
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)

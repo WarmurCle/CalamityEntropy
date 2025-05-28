@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content
             if (Main.netMode == NetmodeID.Server)
                 return;
 
-            layerAssets = new() { Utilities.Util.getExtraTexAsset("black") };
+            layerAssets = new() { CEUtils.getExtraTexAsset("black") };
         }
 
         public override void ClearInstances() => Particles.Clear();

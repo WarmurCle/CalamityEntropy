@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override bool? UseItem(Player player)
         {
-            Utilities.Util.PlaySound("zypshot" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(1f, 1.6f), player.Center, 3, 0.3f);
+            CEUtils.PlaySound("zypshot" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(1f, 1.6f), player.Center, 3, 0.3f);
             return true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             arrow = Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(2)), type, damage, knockback, player.whoAmI);
             arrow.ToProj().Entropy().zypArrow = true;
             arrow.ToProj().ArmorPenetration += 30;
-            Utilities.Util.SyncProj(arrow);
+            CEUtils.SyncProj(arrow);
             return false;
         }
 

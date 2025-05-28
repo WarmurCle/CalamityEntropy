@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player player = Projectile.owner.ToPlayer();
-            if (Utilities.Util.getDistance(Projectile.Center, player.Center) > 1600)
+            if (CEUtils.getDistance(Projectile.Center, player.Center) > 1600)
             {
                 Projectile.Center = player.Center;
             }
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
             float distance = 1000;
             foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if (p.hostile && !p.friendly && p.damage > 0 && Math.Max(p.width, p.height) < 150 && Utilities.Util.getDistance(Projectile.Center, p.Center) < distance && Utilities.Util.getDistance(player.Center, p.Center) < 256)
+                if (p.hostile && !p.friendly && p.damage > 0 && Math.Max(p.width, p.height) < 150 && CEUtils.getDistance(Projectile.Center, p.Center) < distance && CEUtils.getDistance(player.Center, p.Center) < 256)
                 {
                     if (p.Colliding(p.getRect(), Projectile.getRect()))
                     {
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles
                     else
                     {
                         target = p;
-                        distance = Utilities.Util.getDistance(Projectile.Center, p.Center);
+                        distance = CEUtils.getDistance(Projectile.Center, p.Center);
                         hasproj = true;
                     }
                 }
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
                 targetPosp = player.Center + MathHelper.ToRadians(((float)(index + 1) / (float)(maxFlies)) * 360).ToRotationVector2().RotatedBy(player.Entropy().CasketSwordRot * 0.4f) * 90;
                 Projectile.velocity += (targetPosp - Projectile.Center).SafeNormalize(Vector2.Zero) * 3.5f;
                 Projectile.velocity *= 0.9f;
-                if (Utilities.Util.getDistance(targetPosp, Projectile.Center) < Projectile.velocity.Length() + 32)
+                if (CEUtils.getDistance(targetPosp, Projectile.Center) < Projectile.velocity.Length() + 32)
                 {
                     Projectile.Center = targetPosp;
                     Projectile.velocity *= 0f;
@@ -123,7 +123,7 @@ namespace CalamityEntropy.Content.Projectiles
             Vector2 fpos = Projectile.Center;
             for (int i = 0; i < oldPos.Count; i++)
             {
-                Utilities.Util.drawLine(fpos, oldPos[i], Color.Purple * (((float)oldPos.Count - (float)i) / (float)oldPos.Count), 6f * ((float)oldPos.Count - (float)i) / (float)oldPos.Count, 0, true);
+                CEUtils.drawLine(fpos, oldPos[i], Color.Purple * (((float)oldPos.Count - (float)i) / (float)oldPos.Count), 6f * ((float)oldPos.Count - (float)i) / (float)oldPos.Count, 0, true);
                 fpos = oldPos[i];
             }
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;

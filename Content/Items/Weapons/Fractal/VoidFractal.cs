@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             if (player.altFunctionUse == 2)
             {
-                Util.PlaySound("VoidAnticipation", 1, position);
+                CEUtils.PlaySound("VoidAnticipation", 1, position);
                 player.AddBuff(BuffID.ChaosState, 5 * 60);
                 Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 22, 0, player.whoAmI);
                 return false;
@@ -135,18 +135,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 if (Projectile.ai[0] == 2)
                 {
-                    Util.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
+                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
                     Projectile.scale *= 1.3f;
-                    Util.PlaySound("CastTriangles", 1, Projectile.Center);
+                    CEUtils.PlaySound("CastTriangles", 1, Projectile.Center);
 
                 }
                 if (Projectile.ai[0] < 2)
                 {
-                    Util.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
                 }
                 if (Projectile.ai[0] == 3)
                 {
-                    Util.PlaySound("sf_use", 0.75f, Projectile.Center, volume: 1);
+                    CEUtils.PlaySound("sf_use", 0.75f, Projectile.Center, volume: 1);
                 }
                 init = false;
             }
@@ -171,13 +171,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 48 * scale * Projectile.scale;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, Util.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 8, Projectile.knockBack, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 8, Projectile.knockBack, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
                     }
                 }
                 alpha = 1;
                 scale = 2.4f;
-                Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.ToRadians(-140) + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 1)) * (Projectile.velocity.X > 0 ? 1 : -1);
-                Projectile.Center = Projectile.getOwner().MountedCenter + Projectile.velocity.normalize() * (Util.Parabola(progress, Projectile.ai[2]));
+                Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.ToRadians(-140) + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 1)) * (Projectile.velocity.X > 0 ? 1 : -1);
+                Projectile.Center = CEUtils.getOwner(Projectile).MountedCenter + CEUtils.normalize(Projectile.velocity) * (CEUtils.Parabola(progress, Projectile.ai[2]));
                 if (Projectile.velocity.X > 0)
                 {
                     owner.direction = 1;
@@ -196,7 +196,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     float RotF = 4.8f;
                     alpha = 1;
                     scale = 3.5f;
-                    Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 4)) * -1 * (Projectile.velocity.X > 0 ? -1 : 1);
+                    Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 4)) * -1 * (Projectile.velocity.X > 0 ? -1 : 1);
                     Projectile.Center = Projectile.getOwner().MountedCenter;
 
 
@@ -216,12 +216,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     float RotF = 4f;
                     alpha = 1;
                     scale = 1.8f;
-                    Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
+                    Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
                     Projectile.Center = Projectile.getOwner().MountedCenter;
                     if (progress > 0.2f && shoot)
                     {
                         shoot = false;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.normalize() * 12 + Util.randomPointInCircle(6), ModContent.ProjectileType<VoidWave>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2)(CEUtils.normalize(Projectile.velocity) * 12 + CEUtils.randomPointInCircle(6)), ModContent.ProjectileType<VoidWave>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                     if (progress < 0.6f)
                     {
@@ -268,13 +268,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound || Projectile.ai[0] == 2)
             {
                 playHitSound = false;
-                Util.PlaySound("sf_hit", 1, Projectile.Center);
-                Util.PlaySound("FractalHit", 1, Projectile.Center);
+                CEUtils.PlaySound("sf_hit", 1, Projectile.Center);
+                CEUtils.PlaySound("FractalHit", 1, Projectile.Center);
 
                 if (Projectile.ai[0] == 3)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, new Vector2(0, 8).RotatedByRandom(1), ModContent.ProjectileType<FractalLaser>(), Projectile.damage / 9, 0, Projectile.owner);
-                    Util.PlaySound("VoidAttack", 1, Projectile.Center);
+                    CEUtils.PlaySound("VoidAttack", 1, Projectile.Center);
                 }
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
@@ -336,15 +336,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Main.EntitySpriteDraw(phantom, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White * alpha * phantomAlpha, rot, origin, Projectile.scale * scale * 1.1f, effect);
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Texture2D bs = Util.getExtraTex("SemiCircularSmear");
-            Texture2D ss = Util.getExtraTex("SlashSmear");
+            Texture2D bs = CEUtils.getExtraTex("SemiCircularSmear");
+            Texture2D ss = CEUtils.getExtraTex("SlashSmear");
 
             Color color1 = new Color(20, 20, 255);
             Color color2 = new Color(102, 20, 255);
 
             float zScale = Projectile.ai[0] == 2 ? 0.5f : 1;
 
-            float zAlpha = (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2));
+            float zAlpha = (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2));
             if (Projectile.ai[0] == 2)
             {
                 zAlpha = 1;
@@ -358,7 +358,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (152) * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (152) * Projectile.scale * scale, targetHitbox, 64);
         }
         public override void CutTiles()
         {
@@ -369,7 +369,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
 
     public class FractalLaser : ModProjectile
     {
-        public override string Texture => Util.WhiteTexPath;
+        public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
@@ -409,9 +409,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            Texture2D t1 = Util.getExtraTex("B1");
-            Texture2D t2 = Util.getExtraTex("T2");
-            Texture2D te = Util.getExtraTex("FLEND");
+            Texture2D t1 = CEUtils.getExtraTex("B1");
+            Texture2D t2 = CEUtils.getExtraTex("T2");
+            Texture2D te = CEUtils.getExtraTex("FLEND");
             float w = 32;
             Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.LinearWrap);
 
@@ -428,7 +428,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * length * 0.5f, Projectile.Center + Projectile.rotation.ToRotationVector2() * length * -0.5f, targetHitbox, (int)(40 * width * width2));
+            return CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * length * 0.5f, Projectile.Center + Projectile.rotation.ToRotationVector2() * length * -0.5f, targetHitbox, (int)(40 * width * width2));
         }
     }
     public class VoidSlash : ModProjectile
@@ -470,7 +470,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) * 0.1f, type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
                 Vector2 o = (points.Count > 0 ? points[points.Count - 1] : Projectile.Center - Projectile.velocity);
-                Vector2 nv = Projectile.Center + Utilities.Util.randomVec(4);
+                Vector2 nv = Projectile.Center + CEUtils.randomVec(4);
                 for (float i = 0.1f; i <= 1; i += 0.1f)
                 {
                     points.Add(Vector2.Lerp(o, nv, i));
@@ -488,7 +488,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             for (int i = 1; i < points.Count; i++)
             {
-                if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 30))
+                if (CEUtils.LineThroughRect(points[i - 1], points[i], targetHitbox, 30))
                 {
                     return true;
                 }
@@ -506,15 +506,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public static void DrawSlashPart(List<Vector2> l, List<Vector2> r, Texture2D tex, Color color, Color topColor)
         {
-            List<Vertex> vertex = new List<Vertex>();
+            List<ColoredVertex> vertex = new List<ColoredVertex>();
 
             for (int i = 0; i < l.Count; i++)
             {
                 Color c = Color.Lerp(topColor, color, ((float)Math.Cos(i * MathHelper.TwoPi - MathHelper.Pi) + 1) * 0.5f);
-                vertex.Add(new Vertex(l[i] - Main.screenPosition,
+                vertex.Add(new ColoredVertex(l[i] - Main.screenPosition,
                       new Vector3(i / (l.Count - 1f), 1, 1),
                     c));
-                vertex.Add(new Vertex(r[i] - Main.screenPosition,
+                vertex.Add(new ColoredVertex(r[i] - Main.screenPosition,
                       new Vector3(i / (l.Count - 1f), 0, 1),
                       c));
             }
@@ -530,9 +530,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Vector2 end = points[points.Count - 1];
 
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied, SamplerState.LinearClamp);
-            DrawSlashPart(GetVPoints(start, end, 100), GetVPoints(start, end, -100), Util.getExtraTex("MegaStreakBacking2b"), (Projectile.ai[0] == 0 ? new Color(180, 0, 255, 160) : new Color(240, 200, 255, 180)), (Projectile.ai[0] == 0 ? new Color(180, 0, 255, 160) : new Color(240, 200, 255, 180)));
-            DrawSlashPart(GetVPoints(start, end, 26), GetVPoints(start, end, -26), Util.pixelTex, new Color(180, 55, 235), new Color(255, 200, 255, 0));
-            DrawSlashPart(GetVPoints(Vector2.Lerp(start, end, 0.2f), Vector2.Lerp(end, start, 0.2f), 26), GetVPoints(Vector2.Lerp(start, end, 0.1f), Vector2.Lerp(end, start, 0.1f), -26), Util.pixelTex, Color.Black, Color.Black);
+            DrawSlashPart(GetVPoints(start, end, 100), GetVPoints(start, end, -100), CEUtils.getExtraTex("MegaStreakBacking2b"), (Projectile.ai[0] == 0 ? new Color(180, 0, 255, 160) : new Color(240, 200, 255, 180)), (Projectile.ai[0] == 0 ? new Color(180, 0, 255, 160) : new Color(240, 200, 255, 180)));
+            DrawSlashPart(GetVPoints(start, end, 26), GetVPoints(start, end, -26), CEUtils.pixelTex, new Color(180, 55, 235), new Color(255, 200, 255, 0));
+            DrawSlashPart(GetVPoints(Vector2.Lerp(start, end, 0.2f), Vector2.Lerp(end, start, 0.2f), 26), GetVPoints(Vector2.Lerp(start, end, 0.1f), Vector2.Lerp(end, start, 0.1f), -26), CEUtils.pixelTex, Color.Black, Color.Black);
             return false;
         }
 

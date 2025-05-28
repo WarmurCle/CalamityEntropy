@@ -56,10 +56,10 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         if (p.active && p.type == Projectile.type)
                         {
-                            if (Utilities.Util.getDistance(Main.MouseWorld, p.Center) < dist)
+                            if (CEUtils.getDistance(Main.MouseWorld, p.Center) < dist)
                             {
                                 select = p.whoAmI;
-                                dist = Utilities.Util.getDistance(Main.MouseWorld, p.Center);
+                                dist = CEUtils.getDistance(Main.MouseWorld, p.Center);
                             }
                         }
                     }
@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 player.eocDash = 6;
                 player.Entropy().VaMoving = 5;
-                if (Utilities.Util.getDistance(player.Center, Projectile.Center) < 90)
+                if (CEUtils.getDistance(player.Center, Projectile.Center) < 90)
                 {
                     player.velocity = (Projectile.Center - player.Center).SafeNormalize(Vector2.Zero) * 14;
                     player.Center = Projectile.Center;
@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity = (getTargetPos() - Projectile.Center).SafeNormalize(Vector2.Zero) * 54;
                 Projectile.rotation = Projectile.velocity.ToRotation();
-                if (Utilities.Util.getDistance(Projectile.Center, getTargetPos()) < 56)
+                if (CEUtils.getDistance(Projectile.Center, getTargetPos()) < 56)
                 {
                     Projectile.Center = getTargetPos();
                     Projectile.velocity *= 0;
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 Projectile.velocity += (Projectile.owner.ToPlayer().Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 1.4f;
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((Projectile.owner.ToPlayer().Center - Projectile.Center).ToRotation());
-                if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < Projectile.velocity.Length() * 1.2f)
+                if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < Projectile.velocity.Length() * 1.2f)
                 {
                     Projectile.Kill();
                 }
@@ -189,7 +189,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D chaintx = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/FabstaffStreak").Value;
-            Main.spriteBatch.Draw(chaintx, Projectile.Center - Main.screenPosition, new Rectangle(counter, 0, (int)Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center), chaintx.Height), Color.Purple, (Projectile.owner.ToPlayer().Center - Projectile.Center).ToRotation(), new Vector2(0, chaintx.Height) / 2, new Vector2(1, 0.4f), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(chaintx, Projectile.Center - Main.screenPosition, new Rectangle(counter, 0, (int)CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center), chaintx.Height), Color.Purple, (Projectile.owner.ToPlayer().Center - Projectile.Center).ToRotation(), new Vector2(0, chaintx.Height) / 2, new Vector2(1, 0.4f), SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             if (select == Projectile.whoAmI)

@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Particles
     public class ProminenceTrail : EParticle
     {
         public List<Vector2> odp = new List<Vector2>();
-        public override Texture2D Texture => Utilities.Util.getExtraTex("SimpleNoise");
+        public override Texture2D Texture => CEUtils.getExtraTex("SimpleNoise");
         public override void SetProperty()
         {
             this.Lifetime = 11;
@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 return;
             }
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
             Color b = this.Color * ((float)this.Lifetime / 12f);
             float width = 0;
             for (int i = 1; i < odp.Count; i++)
@@ -66,10 +66,10 @@ namespace CalamityEntropy.Content.Particles
                 {
                     width = 1f * this.Scale;
                 }
-                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * width,
+                ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * width,
                       new Vector3((((float)i) / odp.Count), 1, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
-                ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * width,
+                ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * width,
                       new Vector3((((float)i) / odp.Count), 0, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
             }
@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Particles
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Prominence", AssetRequestMode.ImmediateLoad).Value;
 
                 Main.spriteBatch.EnterShaderRegion(BlendState.NonPremultiplied, shader);
-                Main.instance.GraphicsDevice.Textures[1] = Utilities.Util.getExtraTex("colormap_fire");
+                Main.instance.GraphicsDevice.Textures[1] = CEUtils.getExtraTex("colormap_fire");
                 shader.Parameters["color2"].SetValue(color2.ToVector4());
                 shader.Parameters["color1"].SetValue(color1.ToVector4());
                 shader.Parameters["ofs"].SetValue(Main.GlobalTimeWrappedHourly * 3);

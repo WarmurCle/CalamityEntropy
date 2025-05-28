@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             {
                 op -= 0.05f;
             }
-            Texture2D t = Utilities.Util.getExtraTex("lightball");
+            Texture2D t = CEUtils.getExtraTex("lightball");
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * op, Projectile.rotation, t.Size() / 2, Projectile.scale * 2, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White * op, Projectile.rotation, t.Size() / 2, Projectile.scale * 2, SpriteEffects.None, 0);
 

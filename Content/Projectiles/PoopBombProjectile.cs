@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (!Exp)
                 {
                     Projectile.hostile = true;
-                    Utilities.Util.PlaySound("boss explosions 0", 1, Projectile.Center);
+                    CEUtils.PlaySound("boss explosions 0", 1, Projectile.Center);
                     Projectile.timeLeft = 4;
                     Projectile.Resize(256, 256);
                     for (int i = 0; i < 30; i++)
@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Projectiles
                 expCounter = 1;
                 Exp = true;
             }
-            if (!Utilities.Util.isAir(Projectile.Center + new Vector2(0, Projectile.height / 2 + 1), true))
+            if (!CEUtils.isAir(Projectile.Center + new Vector2(0, Projectile.height / 2 + 1), true))
             {
                 onPlat = true;
                 if (Projectile.velocity.Y > 0)

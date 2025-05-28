@@ -19,15 +19,15 @@ namespace CalamityEntropy.Common
         {
             if (!Main.dedServ)
             {
-                if (Utilities.Util.getDistance(center, Main.LocalPlayer.Center) > mindist)
+                if (CEUtils.getDistance(center, Main.LocalPlayer.Center) > mindist)
                 {
-                    if (Utilities.Util.getDistance(center, Main.LocalPlayer.Center) > maxdist)
+                    if (CEUtils.getDistance(center, Main.LocalPlayer.Center) > maxdist)
                     {
                         setVolume(0);
                     }
                     else
                     {
-                        setVolume((1 - (float)(Utilities.Util.getDistance(center, Main.LocalPlayer.Center) - mindist) / (maxdist - mindist)) * volume);
+                        setVolume((1 - (float)(CEUtils.getDistance(center, Main.LocalPlayer.Center) - mindist) / (maxdist - mindist)) * volume);
                     }
                 }
                 else

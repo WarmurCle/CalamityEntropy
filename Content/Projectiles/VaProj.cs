@@ -68,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (speed < 0)
             {
                 angle = (Projectile.Center - Main.player[Projectile.owner].Center).ToRotation();
-                if (Utilities.Util.getDistance(Projectile.Center, Main.player[Projectile.owner].Center) < Projectile.velocity.Length() * 1.12f)
+                if (CEUtils.getDistance(Projectile.Center, Main.player[Projectile.owner].Center) < Projectile.velocity.Length() * 1.12f)
                 {
                     Projectile.Kill();
                 }
@@ -110,7 +110,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
 
                 NPC target = Projectile.FindTargetWithinRange(1800, false);
-                if (target != null && Utilities.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
+                if (target != null && CEUtils.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
                 {
                     homingTime = 0;
                     Projectile.velocity *= 0.9f;
@@ -189,12 +189,12 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = Color.Blue * 0.7f;
-                ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 4,
+                ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 4,
                           new Vector3((float)0, 1, 1),
                           b));
-                ve.Add(new Vertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 4,
+                ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 4,
                       new Vector3((float)0, 0, 1),
                       b));
                 for (int i = 1; i < odp.Count; i++)
@@ -202,10 +202,10 @@ namespace CalamityEntropy.Content.Projectiles
 
 
                     c += 1f / odp.Count;
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 20,
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 20,
                           new Vector3((float)i / odp.Count, 1, 1),
                           b));
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 20,
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 20,
                           new Vector3((float)i / odp.Count, 0, 1),
                           b));
 

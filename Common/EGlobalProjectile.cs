@@ -141,7 +141,7 @@ namespace CalamityEntropy.Common
         {
             if (hittingTarget >= 0)
             {
-                if (Utilities.Util.getDistance(targetHitbox.Center.ToVector2(), hittingTarget.ToNPC().Hitbox.Center.ToVector2()) < 32)
+                if (CEUtils.getDistance(targetHitbox.Center.ToVector2(), hittingTarget.ToNPC().Hitbox.Center.ToVector2()) < 32)
                 {
                     return true;
                 }
@@ -547,7 +547,7 @@ namespace CalamityEntropy.Common
                 if (target != null && counter > 15)
                 {
                     gwHoming += (6 - gwHoming) * 0.0004f;
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), gwHoming * projectile.velocity.Length(), true));
+                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), gwHoming * projectile.velocity.Length(), true));
                 }
             }
             if (projectile.Entropy().daTarget)
@@ -743,7 +743,7 @@ namespace CalamityEntropy.Common
                 float maxR = MathHelper.ToRadians(60);
                 float maxDmgMul = 2;
 
-                float r = Utilities.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
+                float r = CEUtils.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
                 if (r < MathHelper.ToRadians(16))
                 {
                     modifiers.SetCrit();
@@ -800,7 +800,7 @@ namespace CalamityEntropy.Common
                 Color cl = new Color(250, 250, 255);
                 for (int i = odp2.Count - 1; i >= 1; i--)
                 {
-                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, this.odp2[i], this.odp2[i - 1], cl * ((float)i / (float)odp2.Count), size);
+                    CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, this.odp2[i], this.odp2[i - 1], cl * ((float)i / (float)odp2.Count), size);
                     size -= sizej;
                 }
                 tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/LightningArrow").Value;
@@ -837,7 +837,7 @@ namespace CalamityEntropy.Common
                 float sizej = size / odp2.Count;
                 for (int i = odp2.Count - 1; i >= 1; i--)
                 {
-                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, this.odp2[i], this.odp2[i - 1], color * ((float)i / (float)odp2.Count), size);
+                    CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, this.odp2[i], this.odp2[i - 1], color * ((float)i / (float)odp2.Count), size);
                     size -= sizej;
                 }
 
@@ -870,7 +870,7 @@ namespace CalamityEntropy.Common
                 PrimitiveRenderer.RenderTrail(odp, new(WidthFunction_Zyp, ColorFunction_Zyp, (_) => projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
                 odp.Reverse();
                 odp.RemoveAt(odp.Count - 1);
-                Texture2D txx = Utilities.Util.getExtraTex("WyrmArrow");
+                Texture2D txx = CEUtils.getExtraTex("WyrmArrow");
 
                 Main.spriteBatch.Draw(txx, projectile.Center + new Vector2(0, 8) - Main.screenPosition + projectile.velocity.SafeNormalize(Vector2.UnitX) * 18, null, lightColor, projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(txx.Width / 2, 0), projectile.scale, (projectile.velocity.X < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);
 
@@ -971,11 +971,11 @@ namespace CalamityEntropy.Common
             }
             if (EventideShot)
             {
-                float r = Utilities.Util.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
+                float r = CEUtils.GetAngleBetweenVectors(projectile.velocity, (target.Center - projectile.Center));
                 if (r < MathHelper.ToRadians(15))
                 {
                     target.AddBuff(ModContent.BuffType<VoidVirus>(), 320);
-                    Utilities.Util.PlaySound("voidseekercrit", 1, projectile.Center);
+                    CEUtils.PlaySound("voidseekercrit", 1, projectile.Center);
                     EGlobalNPC.AddVoidTouch(target, 160, 10, 800, 10);
                     projectile.owner.ToPlayer().Heal(16);
                     Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, projectile.owner);

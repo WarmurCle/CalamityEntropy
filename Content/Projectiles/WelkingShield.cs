@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (flag)
             {
                 flag = false;
-                Utilities.Util.PlaySound("vshield", 1, Projectile.Center);
+                CEUtils.PlaySound("vshield", 1, Projectile.Center);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
             rp *= 0.73f;
@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 p2 = Projectile.Center + new Vector2(50, 70).RotatedBy(Projectile.rotation);
                 foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if (!n.friendly && Utilities.Util.LineThroughRect(p1, p2, n.Hitbox, 56))
+                    if (!n.friendly && CEUtils.LineThroughRect(p1, p2, n.Hitbox, 56))
                     {
                         Projectile.getOwner().Entropy().immune = 20;
                         n.SimpleStrikeNPC(56, Projectile.velocity.X > 0 ? 1 : -1, true, 20, DamageClass.Melee);
@@ -120,7 +120,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (proj.ModProjectile is WelkingShield ws && ws.btime > 0)
                     {
-                        if (Utilities.Util.GetAngleBetweenVectors(proj.velocity, projectile.Center - proj.Center) < MathHelper.ToRadians(65))
+                        if (CEUtils.GetAngleBetweenVectors(proj.velocity, projectile.Center - proj.Center) < MathHelper.ToRadians(65))
                         {
                             projectile.velocity = proj.velocity.normalize() * projectile.velocity.Length();
                             ws.Block();
@@ -150,7 +150,7 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         if (proj.ModProjectile is WelkingShield ws && ws.btime > 0)
                         {
-                            if (Utilities.Util.GetAngleBetweenVectors(proj.velocity, projectile.Center - proj.Center) < MathHelper.ToRadians(65))
+                            if (CEUtils.GetAngleBetweenVectors(proj.velocity, projectile.Center - proj.Center) < MathHelper.ToRadians(65))
                             {
                                 projectile.velocity = proj.velocity.normalize() * projectile.velocity.Length();
                                 ws.Block();

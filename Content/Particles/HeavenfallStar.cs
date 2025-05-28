@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.Particles
 {
     public class HeavenfallStar : EParticle
     {
-        public override Texture2D Texture => Utilities.Util.getExtraTex("StarTexture_White");
+        public override Texture2D Texture => CEUtils.getExtraTex("StarTexture_White");
         public Color InitialColor;
         public float xScale = 1;
         public override void SetProperty()

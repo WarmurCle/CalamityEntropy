@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
         }
         public override void OnSpawn(IEntitySource source)
         {
-            if (!Utilities.Util.isAir(Projectile.Center))
+            if (!CEUtils.isAir(Projectile.Center))
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (Utilities.Util.isAir(Projectile.Center))
+            if (CEUtils.isAir(Projectile.Center))
             {
                 return false;
             }
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles.monument
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Utilities.Util.isAir(Projectile.Center))
+            if (CEUtils.isAir(Projectile.Center))
             {
                 return false;
             }

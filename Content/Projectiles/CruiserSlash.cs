@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (!sPlayerd)
                 {
                     sPlayerd = true;
-                    if (Utilities.Util.getDistance(Projectile.Center, Main.LocalPlayer.Center) < 600)
+                    if (CEUtils.getDistance(Projectile.Center, Main.LocalPlayer.Center) < 600)
                     {
                         SoundStyle s = new("CalamityEntropy/Assets/Sounds/swing" + Main.rand.Next(1, 4));
                         s.Volume = 1f;
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return false;
             }
-            return ct > 60 && Utilities.Util.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 380, Projectile.Center + Projectile.rotation.ToRotationVector2() * -380, targetHitbox, 12);
+            return ct > 60 && CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 380, Projectile.Center + Projectile.rotation.ToRotationVector2() * -380, targetHitbox, 12);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
                 SpriteBatch sb = Main.spriteBatch;
                 sb.End();
                 sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Texture2D t = Utilities.Util.getExtraTex("a_circle");
+                Texture2D t = CEUtils.getExtraTex("a_circle");
                 Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition, null, new Color(180, 180, 255) * ((float)ct / 60f) * 0.8f, Projectile.rotation, t.Size() / 2f, new Vector2(6.4f, 0.2f), SpriteEffects.None); ;
                 sb.Draw(t1, Projectile.Center - Main.screenPosition, null, Color.DarkBlue * ((float)ct / 60f) * 0.6f, 0, new Vector2(t1.Width, t1.Height) / 2, 50f * (60 - ct) / 128, SpriteEffects.None, 0);
                 sb.End();

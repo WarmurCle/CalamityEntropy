@@ -179,7 +179,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return false;
             }
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 170 * Projectile.scale * scaleD * scale2, targetHitbox, 140) || Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + (Projectile.rotation - rotSpeed * 0.5f).ToRotationVector2() * 300 * Projectile.scale * scaleD, targetHitbox, 100);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 170 * Projectile.scale * scaleD * scale2, targetHitbox, 140) || CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + (Projectile.rotation - rotSpeed * 0.5f).ToRotationVector2() * 300 * Projectile.scale * scaleD, targetHitbox, 100);
         }
     }
 

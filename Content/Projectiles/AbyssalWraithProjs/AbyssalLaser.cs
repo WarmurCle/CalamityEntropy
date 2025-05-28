@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             points.Add(points[points.Count - 1] + (points[points.Count - 1] - points[points.Count - 2]).SafeNormalize(new Vector2(1, 1)) * 2800);
             for (int i = 1; i < points.Count; i++)
             {
-                if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 30))
+                if (CEUtils.LineThroughRect(points[i - 1], points[i], targetHitbox, 30))
                 {
                     return true;
                 }
@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
             Color b = new Color(60, 60, 160) * opc;
             List<Vector2> points = new List<Vector2>();
             Vector2 pb = Projectile.Center + Projectile.velocity;
@@ -144,13 +144,13 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
 
             for (int i = 1; i < points.Count - 1; i++)
             {
-                ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 130 * lc,
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 130 * lc,
                       new Vector3(jn, 1, 1),
                       b));
-                ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 130 * lc,
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 130 * lc,
                       new Vector3(jn, 0, 1),
                       b));
-                jn += Utilities.Util.getDistance(points[i - 1], points[i]) / (float)tex.Width * lc;
+                jn += CEUtils.getDistance(points[i - 1], points[i]) / (float)tex.Width * lc;
 
             }
 

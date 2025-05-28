@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.knockBack = 3f;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ItemRarityID.Red;
-            Item.UseSound = Utilities.Util.GetSound("ProminenceShoot");
+            Item.UseSound = CEUtils.GetSound("ProminenceShoot");
             Item.autoReuse = true;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 12f;
@@ -52,14 +52,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = 4;
             for (int i = 0; i < 64; i++)
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16 }, position, velocity.RotatedByRandom(0.74) * 0.6f * Main.rand.NextFloat(0.4f, 1f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.14f), 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16 }, position, velocity.RotatedByRandom(0.74) * 0.6f * Main.rand.NextFloat(0.4f, 1f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.14f), 1, true, BlendState.Additive, CEUtils.randomRot());
             }
             for (int i = 0; i < 3; i++)
             {
                 int p = Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.08f), type, damage, knockback, player.whoAmI);
 
                 p.ToProj().Entropy().ProminenceArrow = true;
-                Utilities.Util.SyncProj(p);
+                CEUtils.SyncProj(p);
             }
             for (int i = 0; i < 26; i++)
             {
@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            Texture2D circle = Utilities.Util.getExtraTex("BasicCircle");
+            Texture2D circle = CEUtils.getExtraTex("BasicCircle");
             for (int i = 0; i < odp.Count; i++)
             {
                 float s = (i + 1f) / (float)odp.Count * ((float)Projectile.timeLeft / 160f);

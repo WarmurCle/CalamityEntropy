@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (counter > 6 && counter < 60)
             {
-                return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 130 * Projectile.scale * getScale(), targetHitbox, 36);
+                return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 130 * Projectile.scale * getScale(), targetHitbox, 36);
             }
             return false;
         }
@@ -270,26 +270,26 @@ namespace CalamityEntropy.Content.Projectiles
             var r = Main.rand;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
 
             for (int i = 0; i < oldRots.Count; i++)
             {
                 Color b = Color.Lerp(Color.Purple * 0.01f, Color.Purple, ((float)(i)) / (float)oldRots.Count) * 1f;
                 if (attackType == 3)
                 {
-                    ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 16 * Projectile.scale * getScale() * ((float)(oldPos.Count - i - 1) / (float)oldPos.Count),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 16 * Projectile.scale * getScale() * ((float)(oldPos.Count - i - 1) / (float)oldPos.Count),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                           b));
-                    ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2().RotatedBy(-MathHelper.PiOver2) * 16 * Projectile.scale * getScale() * ((float)(oldPos.Count - i - 1) / (float)oldPos.Count),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2().RotatedBy(-MathHelper.PiOver2) * 16 * Projectile.scale * getScale() * ((float)(oldPos.Count - i - 1) / (float)oldPos.Count),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                           b));
                 }
                 else
                 {
-                    ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                           b));
-                    ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] - 80 * oldScale[i] * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] - 80 * oldScale[i] * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 0, 1),
                           b));
                 }
@@ -301,26 +301,26 @@ namespace CalamityEntropy.Content.Projectiles
                 gd.Textures[0] = trail;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             }
-            ve = new List<Vertex>();
+            ve = new List<ColoredVertex>();
 
             for (int i = 0; i < oldRots.Count; i++)
             {
                 Color b = Color.Lerp(Color.White * 0.01f, Color.White, ((float)(i)) / (float)oldRots.Count) * 1f;
                 if (attackType == 3)
                 {
-                    ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 16 * Projectile.scale * getScale() * ((float)(oldPos.Count - i - 1) / (float)oldPos.Count),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 16 * Projectile.scale * getScale() * ((float)(oldPos.Count - i - 1) / (float)oldPos.Count),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                           b));
-                    ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2().RotatedBy(-MathHelper.PiOver2) * 16 * Projectile.scale * getScale() * ((float)(oldPos.Count - i - 1) / (float)oldPos.Count),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2().RotatedBy(-MathHelper.PiOver2) * 16 * Projectile.scale * getScale() * ((float)(oldPos.Count - i - 1) / (float)oldPos.Count),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                           b));
                 }
                 else
                 {
-                    ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                           b));
-                    ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] - 80 * oldScale[i] * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] - 80 * oldScale[i] * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 0, 1),
                           b));
                 }

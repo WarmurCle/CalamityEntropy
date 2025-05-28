@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
             counter++;
             if (counter > 100)
             {
-                NPC target = Utilities.Util.findTarget(Projectile.getOwner(), Projectile, 2800);
+                NPC target = CEUtils.findTarget(Projectile.getOwner(), Projectile, 2800);
                 if (target != null)
                 {
                     Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.9f;
@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                NPC target = Utilities.Util.findTarget(Projectile.getOwner(), Projectile, 2800);
+                NPC target = CEUtils.findTarget(Projectile.getOwner(), Projectile, 2800);
                 if (target != null)
                 {
                     Projectile.Center = target.Center + (Projectile.ai[0]).ToRotationVector2().RotatedBy(rotCount) * counter * 1.8f;
@@ -67,22 +67,22 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Texture2D light = Utilities.Util.getExtraTex("lightball");
+            Texture2D light = CEUtils.getExtraTex("lightball");
             Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition, null, Color.White * (counter > 100 ? 1 : counter / 100f) * 0.8f, Projectile.rotation, light.Size() / 2, Projectile.scale * 0.8f, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Texture2D tx = Utilities.Util.getExtraTex("runes/rune" + ((int)Projectile.ai[2]).ToString());
+            Texture2D tx = CEUtils.getExtraTex("runes/rune" + ((int)Projectile.ai[2]).ToString());
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * (counter > 100 ? 1 : counter / 100f) * (0.8f + (float)(Math.Cos(Main.GameUpdateCount * 0.2f) * 0.2f)), 0, tx.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Util.PlaySound("rune_shatter", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 1);
+            CEUtils.PlaySound("rune_shatter", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 1);
             for (int i = 0; i < 5; i++)
             {
-                EParticle.NewParticle(new GlowSpark(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new GlowSpark(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
     }

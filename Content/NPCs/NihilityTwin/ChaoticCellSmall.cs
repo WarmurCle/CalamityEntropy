@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 rope = new Rope(NPC.Center, owner.Center, 30, 0, new Vector2(0, 0f), 0.006f, 15, false);
             }
             Vector2 rend = owner.Center;
-            rope.segmentLength = Utilities.Util.getDistance(NPC.Center, rend) / 35f;
+            rope.segmentLength = CEUtils.getDistance(NPC.Center, rend) / 35f;
             rope.Start = NPC.Center;
             rope.End = rend;
             rope.Update();
@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         }
         public void drawRope()
         {
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
             List<Vector2> points = new List<Vector2>();
 
             // Addresses a crash when viewing the NPC in a browser.
@@ -132,12 +132,12 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
 
             for (int i = 1; i < points.Count - 1; i++)
             {
-                jn += Utilities.Util.getDistance(points[i - 1], points[i]) / (float)28 * lc;
+                jn += CEUtils.getDistance(points[i - 1], points[i]) / (float)28 * lc;
 
-                ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 7 * lc,
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 7 * lc,
                       new Vector3(jn, 1, 1),
                       Color.White));
-                ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 7 * lc,
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 7 * lc,
                       new Vector3(jn, 0, 1),
                       Color.White));
 

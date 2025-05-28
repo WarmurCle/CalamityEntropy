@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (playSound)
             {
                 playSound = false;
-                Utilities.Util.PlaySound("maw of the void", 1, Projectile.Center, 8);
+                CEUtils.PlaySound("maw of the void", 1, Projectile.Center, 8);
             }
             Projectile.Center = Projectile.owner.ToPlayer().Center + Projectile.owner.ToPlayer().gfxOffY * Vector2.UnitY;
         }
@@ -72,14 +72,14 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (i == 0)
                 {
-                    if (Utilities.Util.LineThroughRect(points[0], points[points.Count - 1], targetHitbox, width))
+                    if (CEUtils.LineThroughRect(points[0], points[points.Count - 1], targetHitbox, width))
                     {
                         return true;
                     }
                 }
                 else
                 {
-                    if (Utilities.Util.LineThroughRect(points[i], points[i - 1], targetHitbox, width))
+                    if (CEUtils.LineThroughRect(points[i], points[i - 1], targetHitbox, width))
                     {
                         return true;
                     }
@@ -97,16 +97,16 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
             List<Vector2> points = getPointsRelative(-40);
             List<Vector2> pointsOutside = getPointsRelative(40);
             int i;
             for (i = 0; i < points.Count; i++)
             {
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + points[i],
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + points[i],
                       new Vector3((float)i / points.Count, 1, 1),
                       Color.White * alpha));
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + pointsOutside[i],
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + pointsOutside[i],
                       new Vector3((float)i / points.Count, 0, 1),
                       Color.White * alpha));
 

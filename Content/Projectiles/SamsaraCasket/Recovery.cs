@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                     }
                     if (counter % 60 == 0)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), t.Center, Utilities.Util.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<RecoveryVineTop>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), t.Center, CEUtils.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<RecoveryVineTop>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
                     }
                 }
             }

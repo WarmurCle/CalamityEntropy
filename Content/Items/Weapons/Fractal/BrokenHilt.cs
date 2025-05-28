@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             counter++;
             if (init)
             {
-                Util.PlaySound("HiltAttack", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                CEUtils.PlaySound("HiltAttack", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
 
                 init = false;
             }
@@ -105,7 +105,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             float RotF = 4f;
             alpha = 1;
             scale = 1f;
-            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
+            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
             Projectile.Center = Projectile.getOwner().MountedCenter;
 
 
@@ -154,7 +154,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (70 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (70 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, targetHitbox, 64);
         }
         public override void CutTiles()
         {

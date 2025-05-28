@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[1] > -20)
             {
-                Projectile.velocity = ((player.Center + ((Projectile.Center - player.Center).ToRotation() + 0.2f * rotdir).ToRotationVector2() * 110) - Projectile.Center).SafeNormalize(Vector2.Zero) * (Utilities.Util.getDistance(Projectile.Center, player.Center) > 150 ? 12 : 4);
+                Projectile.velocity = ((player.Center + ((Projectile.Center - player.Center).ToRotation() + 0.2f * rotdir).ToRotationVector2() * 110) - Projectile.Center).SafeNormalize(Vector2.Zero) * (CEUtils.getDistance(Projectile.Center, player.Center) > 150 ? 12 : 4);
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }

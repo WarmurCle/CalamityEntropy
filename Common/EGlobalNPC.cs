@@ -104,16 +104,16 @@ namespace CalamityEntropy.Common
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 {
-                    List<Vertex> ve = new List<Vertex>();
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
                     List<Vector2> points = npc.Entropy().getAbyssalCirclePointsRelative(npc, -50);
                     List<Vector2> pointsOutside = npc.Entropy().getAbyssalCirclePointsRelative(npc, 50);
                     int i;
                     for (i = 0; i < points.Count; i++)
                     {
-                        ve.Add(new Vertex(npc.Center - Main.screenPosition + points[i],
+                        ve.Add(new ColoredVertex(npc.Center - Main.screenPosition + points[i],
                               new Vector3((float)i / points.Count, 1, 1),
                               Color.SkyBlue * 0.66f * alpha));
-                        ve.Add(new Vertex(npc.Center - Main.screenPosition + pointsOutside[i],
+                        ve.Add(new ColoredVertex(npc.Center - Main.screenPosition + pointsOutside[i],
                               new Vector3((float)i / points.Count, 0, 1),
                               Color.SkyBlue * 0.66f * alpha));
 
@@ -122,22 +122,22 @@ namespace CalamityEntropy.Common
                     GraphicsDevice gd = Main.graphics.GraphicsDevice;
                     if (ve.Count >= 3)
                     {
-                        Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle");
+                        Texture2D tx = CEUtils.getExtraTex("AbyssalCircle");
                         gd.Textures[0] = tx;
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     }
                 }
                 {
-                    List<Vertex> ve = new List<Vertex>();
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
                     List<Vector2> points = npc.Entropy().getAbyssalCirclePointsRelative(npc, -50, -1);
                     List<Vector2> pointsOutside = npc.Entropy().getAbyssalCirclePointsRelative(npc, 50, -1);
                     int i;
                     for (i = 0; i < points.Count; i++)
                     {
-                        ve.Add(new Vertex(npc.Center - Main.screenPosition + points[i],
+                        ve.Add(new ColoredVertex(npc.Center - Main.screenPosition + points[i],
                               new Vector3((float)i / points.Count, 1, 1),
                               Color.SkyBlue * 0.66f * alpha));
-                        ve.Add(new Vertex(npc.Center - Main.screenPosition + pointsOutside[i],
+                        ve.Add(new ColoredVertex(npc.Center - Main.screenPosition + pointsOutside[i],
                               new Vector3((float)i / points.Count, 0, 1),
                               Color.SkyBlue * 0.66f * alpha));
 
@@ -146,7 +146,7 @@ namespace CalamityEntropy.Common
                     GraphicsDevice gd = Main.graphics.GraphicsDevice;
                     if (ve.Count >= 3)
                     {
-                        Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle");
+                        Texture2D tx = CEUtils.getExtraTex("AbyssalCircle");
                         gd.Textures[0] = tx;
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     }
@@ -315,7 +315,7 @@ namespace CalamityEntropy.Common
                     AbyssalLine p = new AbyssalLine() { lx = 1.2f, xadd = 0.32f };
                     p.spawnColor = Color.Gold;
                     p.endColor = Color.DarkGoldenrod;
-                    EParticle.NewParticle(p, npc.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                    EParticle.NewParticle(p, npc.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
 
                 }
             }
@@ -860,7 +860,7 @@ namespace CalamityEntropy.Common
                 shader.Parameters["f1"].SetValue((float)npc.frame.Y / npc.getTexture().Height);
                 shader.Parameters["f2"].SetValue((float)(npc.frame.Y + npc.frame.Height) / npc.getTexture().Height);
                 shader.Parameters["offset"].SetValue(Main.GlobalTimeWrappedHourly);
-                shader.Parameters["colorMap"].SetValue(Utilities.Util.getExtraTex("SoulDiscorderColorMap"));
+                shader.Parameters["colorMap"].SetValue(CEUtils.getExtraTex("SoulDiscorderColorMap"));
                 shaders.Add(shader);
             }
             if (npc.HasBuff<HeatDeath>())
@@ -936,7 +936,7 @@ namespace CalamityEntropy.Common
                 Player h = null;
                 foreach (Player plr in Main.player)
                 {
-                    if (plr.active && Utilities.Util.getDistance(plr.Center, npc.Center) < 4000)
+                    if (plr.active && CEUtils.getDistance(plr.Center, npc.Center) < 4000)
                     {
                         if (plr.ZoneHallow)
                         {
@@ -1146,7 +1146,7 @@ namespace CalamityEntropy.Common
                             float dist = 500;
                             foreach (NPC npcf in Main.ActiveNPCs)
                             {
-                                float d = Utilities.Util.getDistance(npcf.Center, npc.Center);
+                                float d = CEUtils.getDistance(npcf.Center, npc.Center);
                                 if (npcf.whoAmI != npc.whoAmI && !npcf.friendly && d < dist && npcf.Entropy().noelctime <= 0)
                                 {
                                     target = npcf;
@@ -1200,7 +1200,7 @@ namespace CalamityEntropy.Common
                     Main.item[i].noGrabDelay = 100;
                     if (!Main.dedServ)
                     {
-                        Utilities.Util.PlaySound("fart", 1, player.Center);
+                        CEUtils.PlaySound("fart", 1, player.Center);
                     }
                 }
                 else
@@ -1262,7 +1262,7 @@ namespace CalamityEntropy.Common
                         Main.item[i].noGrabDelay = 100;
                         if (!Main.dedServ)
                         {
-                            Utilities.Util.PlaySound("fart", 1, player.Center);
+                            CEUtils.PlaySound("fart", 1, player.Center);
                         }
                     }
                     else

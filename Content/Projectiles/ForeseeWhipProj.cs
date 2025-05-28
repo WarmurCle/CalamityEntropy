@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.WhipAI();
             float RotF = 1f;
-            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne((Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates)), 1)) * -1 * (Projectile.velocity.X > 0 ? -1 : 1);
+            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne((Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates)), 1)) * -1 * (Projectile.velocity.X > 0 ? -1 : 1);
         }
         public override Color StringColor => Color.Transparent;
         public override void DrawStrings(List<Vector2> points)
@@ -51,8 +51,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            Utilities.Util.PlaySound("ProphetWhipHitShine", 1, target.Center, volume: 0.4f);
-            Utilities.Util.PlaySound("runesonghit", 2, target.Center, volume: 0.4f);
+            CEUtils.PlaySound("ProphetWhipHitShine", 1, target.Center, volume: 0.4f);
+            CEUtils.PlaySound("runesonghit", 2, target.Center, volume: 0.4f);
 
         }
         public override bool PreDraw(ref Color lightColor)
@@ -85,15 +85,15 @@ namespace CalamityEntropy.Content.Projectiles
                 float lc = 1;
                 float jn = 0;
 
-                List<Vertex> ve = new();
+                List<ColoredVertex> ve = new();
                 for (int i = 1; i < points.Count - 1; i++)
                 {
                     Color cl = Lighting.GetColor(new Point((int)(points[i].X / 16), (int)(points[i].Y / 16)));
                     jn = (float)(i - 1) / (points.Count - 2);
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * lc,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * lc,
                           new Vector3(jn, 1, 1),
                           cl));
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * lc,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * lc,
                           new Vector3(jn, 0, 1),
                           cl));
                 }
@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Projectiles
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    gd.Textures[0] = Util.getExtraTex("ForeseeWhip");
+                    gd.Textures[0] = CEUtils.getExtraTex("ForeseeWhip");
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }

@@ -48,9 +48,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 foreach (Projectile p in Main.projectile)
                 {
-                    if (p.active && Utilities.Util.getDistance(p.Center, player.Center) < 360 * Projectile.scale * 1.6f && p.hostile && p.velocity.Length() > 0.02f)
+                    if (p.active && CEUtils.getDistance(p.Center, player.Center) < 360 * Projectile.scale * 1.6f && p.hostile && p.velocity.Length() > 0.02f)
                     {
-                        p.velocity += (p.Center - player.Center).SafeNormalize(new Vector2(1, 0)) * p.velocity.Length() * 0.05f * ((360 * Projectile.scale * 1.6f - Utilities.Util.getDistance(p.Center, player.Center)) / 360 * Projectile.scale * 1.6f);
+                        p.velocity += (p.Center - player.Center).SafeNormalize(new Vector2(1, 0)) * p.velocity.Length() * 0.05f * ((360 * Projectile.scale * 1.6f - CEUtils.getDistance(p.Center, player.Center)) / 360 * Projectile.scale * 1.6f);
                         Dust.NewDust(p.Center - new Vector2(3, 3), 6, 6, DustID.YellowStarDust, 0, 0);
                     }
                 }
@@ -66,8 +66,8 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Texture2D t1 = Utilities.Util.getExtraTex("sCircle");
-            Texture2D t2 = Utilities.Util.getExtraTex("sDot");
+            Texture2D t1 = CEUtils.getExtraTex("sCircle");
+            Texture2D t2 = CEUtils.getExtraTex("sDot");
             Color color = new Color(Main.rand.Next(0, 256), Main.rand.Next(0, 256), Main.rand.Next(0, 256));
             if (Projectile.owner.ToPlayer().Entropy().rBadgeActive)
             {

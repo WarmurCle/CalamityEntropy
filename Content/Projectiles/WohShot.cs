@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (speed < 0)
             {
                 angle = (Projectile.Center - Main.player[Projectile.owner].Center).ToRotation();
-                if (Utilities.Util.getDistance(Projectile.Center, Main.player[Projectile.owner].Center) < Projectile.velocity.Length() * 1.12f)
+                if (CEUtils.getDistance(Projectile.Center, Main.player[Projectile.owner].Center) < Projectile.velocity.Length() * 1.12f)
                 {
                     Projectile.Kill();
                 }
@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
 
                 NPC target = Projectile.FindTargetWithinRange(1600, false);
-                if (target != null && Utilities.Util.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
+                if (target != null && CEUtils.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
                 {
                     homingTime = 0;
                     Projectile.velocity *= 0.9f;
@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (homingTime > 0)
             {
                 Vector2 targetPos = new Vector2(Projectile.ai[1], Projectile.ai[2]);
-                if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > Utilities.Util.getDistance(targetPos, Projectile.owner.ToPlayer().Center))
+                if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > CEUtils.getDistance(targetPos, Projectile.owner.ToPlayer().Center))
                 {
                     homingTime = 0;
                 }
@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Projectiles
                 homingTime--;
                 Vector2 targetPos = new Vector2(Projectile.ai[1], Projectile.ai[2]);
 
-                float nr = Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (targetPos - Projectile.Center).ToRotation(), 1.5f, true);
+                float nr = CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (targetPos - Projectile.Center).ToRotation(), 1.5f, true);
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(nr);
                 if (nr == Projectile.velocity.ToRotation())
                 {
@@ -218,7 +218,7 @@ namespace CalamityEntropy.Content.Projectiles
             var mp = this;
             if (mp.odp.Count > 1)
             {
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = new Color(30, 66, 100);
 
                 float a = 0;
@@ -227,10 +227,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 28,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 28,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 28,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 28,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();

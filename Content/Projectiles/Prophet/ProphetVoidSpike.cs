@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         {
             if (Projectile.ai[0] < 70)
                 return false;
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.normalize() * length, targetHitbox);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.normalize() * length, targetHitbox);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         }
         public void Draw()
         {
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
             Color b = Color.White * Projectile.Opacity;
             List<Vector2> points = new List<Vector2>();
             for (int i = 0; i < 24; i++)
@@ -83,10 +83,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             for (int i = 1; i < points.Count - 1; i++)
             {
                 jn = (float)(i - 1) / (points.Count - 2);
-                ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * lc,
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * lc,
                       new Vector3(jn, 1, 1),
                       b));
-                ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * lc,
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * lc,
                       new Vector3(jn, 0, 1),
                       b));
             }

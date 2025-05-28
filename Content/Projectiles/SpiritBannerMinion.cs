@@ -60,13 +60,13 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ai[0]--;
             if (Projectile.owner == Main.myPlayer)
             {
-                NPC target = Utilities.Util.findTarget(player, Projectile, 4600);
+                NPC target = CEUtils.findTarget(player, Projectile, 4600);
                 if (target != null)
                 {
                     if (Projectile.ai[0] <= -20)
                     {
                         Projectile.ai[0] = 80;
-                        Utilities.Util.PlaySound("soulScreem", 1, Projectile.Center, volume: 0.42f);
+                        CEUtils.PlaySound("soulScreem", 1, Projectile.Center, volume: 0.42f);
                         for (int i = 0; i < 3; i++)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -16), new Vector2(0, -12).RotateRandom(1.2f), ModContent.ProjectileType<SpiritLightSoul>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             base.AI();
-            EParticle.NewParticle(new LifeLeaf(), Projectile.Center, Utilities.Util.randomVec(6), Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, false, BlendState.AlphaBlend, Utilities.Util.randomRot());
+            EParticle.NewParticle(new LifeLeaf(), Projectile.Center, CEUtils.randomVec(6), Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, false, BlendState.AlphaBlend, CEUtils.randomRot());
             if (Projectile.timeLeft < 3)
             {
                 return;
@@ -54,15 +54,15 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     l += 0.03f;
                 }
-                Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1.4f, 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
-                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1f * l, true));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1.4f, 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1f * l, true));
                 if (Projectile.getRect().Intersects(target.getRect()))
                 {
                     for (int i = 0; i < 42; i++)
                     {
-                        EParticle.NewParticle(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gold, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
+                        EParticle.NewParticle(new GlowSpark(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gold, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
                     }
-                    Utilities.Util.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.6f);
+                    CEUtils.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.6f);
                     Projectile.Kill();
                     Projectile.getOwner().Entropy().TryHealMeWithCd(Projectile.getOwner().statLifeMax2 / 240 + 1);
                     Projectile.getOwner().Entropy().temporaryArmor += 1f;
@@ -120,7 +120,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (mp.odp.Count > 1)
             {
                 Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = this.color;
                 float a = 0;
                 float lr = 0;
@@ -128,10 +128,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * Projectile.scale,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * Projectile.scale,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * Projectile.scale,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * Projectile.scale,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();

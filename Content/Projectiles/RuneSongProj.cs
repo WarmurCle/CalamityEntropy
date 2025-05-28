@@ -41,12 +41,12 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CalamityEntropy.SpawnHeavenSpark(target.Center, Utilities.Util.randomRot(), Main.rand.NextFloat(0.9f, 1.2f) * (Projectile.ai[0] > 79 ? 1.5f : 1), 0.8f, new Color(60, 60, 200), 30);
+            CalamityEntropy.SpawnHeavenSpark(target.Center, CEUtils.randomRot(), Main.rand.NextFloat(0.9f, 1.2f) * (Projectile.ai[0] > 79 ? 1.5f : 1), 0.8f, new Color(60, 60, 200), 30);
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
-            Utilities.Util.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center);
+            CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center);
             for (int i = 0; i < 36; i++)
             {
-                EParticle.NewParticle(new Particles.RuneParticle(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new Particles.RuneParticle(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
             }
         }
         public override void SendExtraAI(BinaryWriter writer)
@@ -289,15 +289,15 @@ namespace CalamityEntropy.Content.Projectiles
             var r = Main.rand;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
 
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = Color.Lerp(new Color(105, 105, 255), new Color(195, 195, 255), (float)i / (float)odr.Count) * 0.8f;
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(316 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(316 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3(i / (float)odr.Count, 1, 1),
                       b));
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3(i / (float)odr.Count, 0, 1),
                       b));
             }
@@ -323,7 +323,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return false;
             }
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 300 * Projectile.scale * scaleD, targetHitbox, 100) || Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + (Projectile.rotation - rotSpeed * 0.5f).ToRotationVector2() * 300 * Projectile.scale * scaleD, targetHitbox, 100);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 300 * Projectile.scale * scaleD, targetHitbox, 100) || CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + (Projectile.rotation - rotSpeed * 0.5f).ToRotationVector2() * 300 * Projectile.scale * scaleD, targetHitbox, 100);
         }
     }
 

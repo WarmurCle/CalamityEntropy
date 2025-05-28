@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Main.spriteBatch.Draw(ht, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(ht.Width, ht.Height) / 2, 1, SpriteEffects.None, 0);
                 }
-                Utilities.Util.DrawAfterimage(ht, odp, odr);
+                CEUtils.DrawAfterimage(ht, odp, odr);
 
             }
 

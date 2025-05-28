@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     Main.projectile[p].Calamity().stealthStrike = true;
                     p.ToProj().netUpdate = true;
                 }
-                Utilities.Util.PlaySound("bne0", 1, position);
+                CEUtils.PlaySound("bne0", 1, position);
                 return false;
             }
             else

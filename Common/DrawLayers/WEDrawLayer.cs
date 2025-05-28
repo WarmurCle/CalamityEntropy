@@ -23,7 +23,7 @@ namespace CalamityEntropy.Common.DrawLayers
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
-            Texture2D tex = Utilities.Util.getExtraTex("WEVisual");
+            Texture2D tex = CEUtils.getExtraTex("WEVisual");
             Vector2 offset = drawInfo.GetFrameOrigin() + new Vector2(drawInfo.drawPlayer.width, drawInfo.drawPlayer.height * 0.5f);
             drawInfo.DrawDataCache.Add(new DrawData(tex, offset + new Vector2(-10 * drawInfo.drawPlayer.direction, -2), null, drawInfo.colorArmorBody, 0, tex.Size() * 0.5f, 1, drawInfo.drawPlayer.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) { shader = drawInfo.drawPlayer.cBody });
         }

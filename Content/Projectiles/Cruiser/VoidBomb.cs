@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             counter++;
             Projectile.velocity *= 0.97f;
             if (Main.dedServ)
-                Utilities.Util.SyncProj(Projectile.whoAmI);
+                CEUtils.SyncProj(Projectile.whoAmI);
         }
         public float counter = 0;
         public override void OnKill(int timeLeft)
@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2() * -30, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, 2);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), Projectile.damage, 2, -1, -0.4f, -0.4f).ToProj().Resize(100, 100);
             }
-            Utilities.Util.PlaySound("explosion", 1, Projectile.Center, 4);
+            CEUtils.PlaySound("explosion", 1, Projectile.Center, 4);
             CalamityMod.Particles.Particle pulse = new PlasmaExplosion(Projectile.Center, Vector2.Zero, new Color(160, 120, 255), new Vector2(2f, 2f), 0, 0f, 0.036f, 46);
             GeneralParticleHandler.SpawnParticle(pulse);
             CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(180, 156, 255), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.46f, 30);
@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             SpriteBatch sb = Main.spriteBatch;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            Texture2D t = Utilities.Util.getExtraTex("a_circle");
+            Texture2D t = CEUtils.getExtraTex("a_circle");
             Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition, null, new Color(180, 180, 255) * ((float)counter / 120f) * 0.66f, Projectile.rotation, t.Size() / 2f, new Vector2(12, 0.16f), SpriteEffects.None);
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

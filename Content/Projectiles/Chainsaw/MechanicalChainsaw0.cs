@@ -59,11 +59,11 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             Projectile.rotation = Projectile.velocity.ToRotation() + (Projectile.localAI[0]++ > 3 ? 0 : Projectile.getOwner().direction * -MathHelper.ToRadians(4 - Projectile.localAI[0]) * 48);
             if (Projectile.localAI[0] == 4)
             {
-                Util.PlaySound("chainsawHit", 1, Projectile.Center, volume: 0.4f);
+                CEUtils.PlaySound("chainsawHit", 1, Projectile.Center, volume: 0.4f);
             }
             if (Projectile.localAI[0] == 16)
             {
-                Util.PlaySound("chainsawHit", 1, Projectile.Center, volume: 0.4f);
+                CEUtils.PlaySound("chainsawHit", 1, Projectile.Center, volume: 0.4f);
             }
             Projectile.Center = player.Center + player.gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 42 * Projectile.scale;
             if (Projectile.Entropy().OnProj != -1)
@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             Projectile.ai[2]++;
             if (Projectile.ai[2] > 400 * Projectile.MaxUpdates)
             {
-                Utilities.Util.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f);
+                CEUtils.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f);
                 player.itemTime = 60;
                 Projectile.Kill();
             }

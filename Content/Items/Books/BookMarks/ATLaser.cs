@@ -33,18 +33,18 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             {
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StreakFire").Value;
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = this.color * w;
                 float p = -Main.GlobalTimeWrappedHourly * 2;
                 for (int i = 1; i < points.Count; i++)
                 {
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 70 * Projectile.scale * w,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 70 * Projectile.scale * w,
                           new Vector3(p, 1, 1),
                           b));
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 70 * Projectile.scale * w,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 70 * Projectile.scale * w,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width);
+                    p += (CEUtils.getDistance(points[i], points[i - 1]) / tx.Width);
                 }
 
                 SpriteBatch sb = Main.spriteBatch;
@@ -59,18 +59,18 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             {
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StreakSolid").Value;
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = new Color(255, 255, 255) * w;
                 float p = -Main.GlobalTimeWrappedHourly * 2;
                 for (int i = 1; i < points.Count; i++)
                 {
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14 * Projectile.scale * w,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14 * Projectile.scale * w,
                           new Vector3(p, 1, 1),
                           b));
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * Projectile.scale * w,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * Projectile.scale * w,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width);
+                    p += (CEUtils.getDistance(points[i], points[i - 1]) / tx.Width);
                 }
 
 
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
-            Utilities.Util.DrawGlow(points[points.Count - 1], Color.White * w, 2f * Projectile.scale * w, true);
+            CEUtils.DrawGlow(points[points.Count - 1], Color.White * w, 2f * Projectile.scale * w, true);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

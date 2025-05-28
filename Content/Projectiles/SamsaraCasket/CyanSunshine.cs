@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             }
             else
             {
-                if (Utilities.Util.getDistance(t.Center, Projectile.Center) < Projectile.velocity.Length() * 1.16f)
+                if (CEUtils.getDistance(t.Center, Projectile.Center) < Projectile.velocity.Length() * 1.16f)
                 {
                     Projectile.Center = t.Center;
                     Projectile.velocity *= 0f;
@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 {
                     for (int i = 0; i < 10; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.Next(6, 10) - new Vector2(0, 8), ModContent.ProjectileType<CyanFeather>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.Next(6, 10) - new Vector2(0, 8), ModContent.ProjectileType<CyanFeather>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
                 charge = 60;
@@ -134,7 +134,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
 
             for (int i = 1; i < lightningPoints.Count; i++)
             {
-                Utilities.Util.drawLine(lightningPoints[i - 1], lightningPoints[i], Color.White, (float)(Math.Cos(-MathHelper.PiOver2 + ((float)i / (float)lightningPoints.Count) * MathHelper.Pi) * lightningWidth * 6), 2);
+                CEUtils.drawLine(lightningPoints[i - 1], lightningPoints[i], Color.White, (float)(Math.Cos(-MathHelper.PiOver2 + ((float)i / (float)lightningPoints.Count) * MathHelper.Pi) * lightningWidth * 6), 2);
             }
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
             if (charge <= 0)

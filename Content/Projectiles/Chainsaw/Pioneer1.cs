@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity * 600, targetHitbox, 60);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity * 600, targetHitbox, 60);
 
         }
         public override bool PreDraw(ref Color dc)
@@ -61,14 +61,14 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
         {
             List<float> c = new List<float>() { 0, 1.2f, 0.8f, 1f, 1.27f, 0.9f, 1.2f, 1f, 0.8f, 0 };
             List<float> d = new List<float>() { 0, 0.3f, 0.56f, 0.8f, 0.94f, 0.94f, 0.8f, 0.56f, 0.3f, 0 };
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
             Color b = Color.White;
             for (int i = 0; i < c.Count; i++)
             {
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + Projectile.velocity * (i * (600f / c.Count)) + new Vector2(0, -1).RotatedBy(Projectile.rotation) * d[i] * (14 + (float)(Math.Cos(c[i] * Main.GlobalTimeWrappedHourly * 3) + 1) * 4) * w + new Vector2(0, 1).RotatedBy(Projectile.rotation) * (float)Math.Cos(c[c.Count - 1 - i] * Main.GlobalTimeWrappedHourly * 4) * d[d.Count - 1 - i] * 6 * w,
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + Projectile.velocity * (i * (600f / c.Count)) + new Vector2(0, -1).RotatedBy(Projectile.rotation) * d[i] * (14 + (float)(Math.Cos(c[i] * Main.GlobalTimeWrappedHourly * 3) + 1) * 4) * w + new Vector2(0, 1).RotatedBy(Projectile.rotation) * (float)Math.Cos(c[c.Count - 1 - i] * Main.GlobalTimeWrappedHourly * 4) * d[d.Count - 1 - i] * 6 * w,
                           new Vector3((float)i / c.Count, 1, 1),
                           b));
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + Projectile.velocity * (i * (600f / c.Count)) + new Vector2(0, 1).RotatedBy(Projectile.rotation) * d[i] * (14 + (float)(Math.Cos(c[i] * Main.GlobalTimeWrappedHourly * 3) + 1) * 4) * w + new Vector2(0, 1).RotatedBy(Projectile.rotation) * (float)Math.Cos(c[c.Count - 1 - i] * Main.GlobalTimeWrappedHourly * 4) * d[d.Count - 1 - i] * 6 * w,
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + Projectile.velocity * (i * (600f / c.Count)) + new Vector2(0, 1).RotatedBy(Projectile.rotation) * d[i] * (14 + (float)(Math.Cos(c[i] * Main.GlobalTimeWrappedHourly * 3) + 1) * 4) * w + new Vector2(0, 1).RotatedBy(Projectile.rotation) * (float)Math.Cos(c[c.Count - 1 - i] * Main.GlobalTimeWrappedHourly * 4) * d[d.Count - 1 - i] * 6 * w,
                           new Vector3((float)i / c.Count, 1, 1),
                           b));
             }

@@ -51,19 +51,19 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.ai[0] = Math.Sign(Projectile.velocity.X);
                 RotF = MathHelper.TwoPi * 0.75f;
-                float dr = RotF * Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3);
+                float dr = RotF * CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3);
                 JW = (MathHelper.Pi * -0.75f).ToRotationVector2().RotatedBy(dr) * new Vector2(1f, 0.32f);
 
                 LScale = JW.Length();
             }
 
-            float l = (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 2) * MathHelper.Pi - MathHelper.PiOver2));
+            float l = (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 2) * MathHelper.Pi - MathHelper.PiOver2));
             scale = 1.5f + l * 1.5f;
             if (Projectile.Calamity().stealthStrike)
             {
                 scale = 5.8f;
             }
-            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, Projectile.Calamity().stealthStrike ? 3 : 2)) * Projectile.ai[0];
+            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, Projectile.Calamity().stealthStrike ? 3 : 2)) * Projectile.ai[0];
             if (Projectile.Calamity().stealthStrike)
             {
                 Projectile.ai[0] = Math.Sign(Projectile.velocity.X);
@@ -98,13 +98,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 120 * scale * Projectile.scale, targetHitbox, (int)(140 * Projectile.scale));
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 120 * scale * Projectile.scale, targetHitbox, (int)(140 * Projectile.scale));
         }
         public int addStealth = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.Entropy().WhiteLerp = 2;
-            Util.PlaySound("MurasamaHitInorganic", Main.rand.NextFloat(1f, 1.3f), Projectile.Center, 3, 0.6f);
+            CEUtils.PlaySound("MurasamaHitInorganic", Main.rand.NextFloat(1f, 1.3f), Projectile.Center, 3, 0.6f);
             if (!Projectile.Calamity().stealthStrike)
             {
                 Projectile.getOwner().Calamity().rogueStealth += Projectile.getOwner().Calamity().rogueStealthMax * (addStealth == 0 ? 0.1f : (addStealth == 1 ? 0.04f : addStealth == 2 ? 0.016f : 0));
@@ -119,8 +119,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D tex = Projectile.GetTexture();
             Texture2D white = this.getTextureGlow();
-            Texture2D stealth = Util.getExtraTex("TheDeadCutRotated");
-            Texture2D stealthW = Util.getExtraTex("TheDeadCutRotatedWhite");
+            Texture2D stealth = CEUtils.getExtraTex("TheDeadCutRotated");
+            Texture2D stealthW = CEUtils.getExtraTex("TheDeadCutRotatedWhite");
             if (Projectile.Calamity().stealthStrike)
             {
                 tex = stealth; white = stealthW;
@@ -153,15 +153,15 @@ namespace CalamityEntropy.Content.Projectiles
                 SpriteBatch sb = Main.spriteBatch;
                 sb.End();
                 sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
 
                 for (int i = 0; i < oldRots.Count; i++)
                 {
                     Color b = Color.Lerp(Color.DarkGray, Color.LightBlue, (float)i / (float)oldRots.Count) * 0.8f * ((float)i / (float)oldRots.Count);
-                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(520 * oldScales[i] * Projectile.scale * 0.2f, 0).RotatedBy(oldRots[i])),
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(520 * oldScales[i] * Projectile.scale * 0.2f, 0).RotatedBy(oldRots[i])),
                           new Vector3(i / (float)oldRots.Count, 1, 1),
                           b));
-                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition,
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
                           new Vector3(i / (float)oldRots.Count, 0, 1),
                           b));
                 }
@@ -175,9 +175,9 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.ExitShaderRegion();
             }
             float MaxUpdateTime = Projectile.getOwner().itemTimeMax * Projectile.MaxUpdates;
-            float l = (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2));
+            float l = (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2));
 
-            Main.EntitySpriteDraw(tex, Projectile.getOwner().MountedCenter + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor, rot, origin, Projectile.Calamity().stealthStrike ? new Vector2(Util.getDistance(JW, Vector2.Zero), (1 / 5f) * scale * (0.32f + 0.68f * (1 - l)) * 0.4f) : (Vector2.One * Projectile.scale * scale * LScale), effect);
+            Main.EntitySpriteDraw(tex, (Vector2)(CEUtils.getOwner(Projectile).MountedCenter + CEUtils.getOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, lightColor, rot, origin, Projectile.Calamity().stealthStrike ? new Vector2(CEUtils.getDistance(JW, Vector2.Zero), (1 / 5f) * scale * (0.32f + 0.68f * (1 - l)) * 0.4f) : (Vector2.One * Projectile.scale * scale * LScale), effect);
             return false;
         }
     }

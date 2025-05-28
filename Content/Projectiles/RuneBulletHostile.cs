@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnKill(timeLeft);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.NewParticle(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new GlowSpark(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.NewParticle(new GlowSpark(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new GlowSpark(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
             }
         }
         public Color color = new Color(188, 149, 255);
@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Projectiles
             var mp = this;
             if (mp.odp.Count > 1)
             {
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = this.color * 0.66f;
                 b.A = 255;
                 float a = 0;
@@ -116,10 +116,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14 * Projectile.scale,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14 * Projectile.scale,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * Projectile.scale,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * Projectile.scale,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
-                    ve = new List<Vertex>();
+                    ve = new List<ColoredVertex>();
                     b = this.color;
 
                     a = 0;
@@ -141,10 +141,10 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         a += 1f / (float)mp.odp.Count;
 
-                        ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * Projectile.scale,
+                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * Projectile.scale,
                               new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                             b * a));
-                        ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * Projectile.scale,
+                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * Projectile.scale,
                               new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                               b * a));
                         lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
@@ -170,12 +170,12 @@ namespace CalamityEntropy.Content.Projectiles
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
-            Texture2D texture = Utilities.Util.getExtraTex("runes/rune" + runetex.ToString());
+            Texture2D texture = CEUtils.getExtraTex("runes/rune" + runetex.ToString());
             if (odp.Count > 1)
             {
                 Vector2 position = odp[odp.Count - 1] - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
                 Vector2 origin = texture.Size() * 0.5f;
-                Utilities.Util.DrawGlow(position + Main.screenPosition, Color.Lerp(Color.White, this.color * 1.1f, (float)(Math.Cos(Main.GlobalTimeWrappedHourly) * 0.5 + 0.5)), Projectile.scale * 0.6f);
+                CEUtils.DrawGlow(position + Main.screenPosition, Color.Lerp(Color.White, this.color * 1.1f, (float)(Math.Cos(Main.GlobalTimeWrappedHourly) * 0.5 + 0.5)), Projectile.scale * 0.6f);
 
                 Main.EntitySpriteDraw(texture, position, null, base.Projectile.GetAlpha(Color.White), 0, origin, base.Projectile.scale * 0.5f, SpriteEffects.None);
 

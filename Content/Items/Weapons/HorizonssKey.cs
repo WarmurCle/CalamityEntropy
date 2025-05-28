@@ -71,10 +71,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                     int npc = -1;
                     foreach (NPC n in Main.npc)
                     {
-                        if (n.active && !n.friendly && Utilities.Util.getDistance(n.Center, Main.MouseWorld) < dist)
+                        if (n.active && !n.friendly && CEUtils.getDistance(n.Center, Main.MouseWorld) < dist)
                         {
                             npc = n.whoAmI;
-                            dist = Utilities.Util.getDistance(n.Center, Main.MouseWorld);
+                            dist = CEUtils.getDistance(n.Center, Main.MouseWorld);
                         }
                     }
                     if (npc >= 0)

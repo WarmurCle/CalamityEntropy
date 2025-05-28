@@ -65,9 +65,9 @@ namespace CalamityEntropy.Content.Projectiles
                 v2[i].pos = uposd - (uposd - v2[i].pos).SafeNormalize(-Vector2.UnitX) * 12;
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
-                v1[i].rot = Utilities.Util.rotatedToAngle(v1[i].rot, urotu, 0.67f, false);
+                v1[i].rot = CEUtils.rotatedToAngle(v1[i].rot, urotu, 0.67f, false);
                 v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12;
-                v2[i].rot = Utilities.Util.rotatedToAngle(v2[i].rot, urotd, 0.67f, false);
+                v2[i].rot = CEUtils.rotatedToAngle(v2[i].rot, urotd, 0.67f, false);
                 v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12;
 
             }
@@ -184,7 +184,7 @@ namespace CalamityEntropy.Content.Projectiles
             var mp = points;
             if (mp.Count > 1)
             {
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = new Color(16, 35, 85);
 
                 float a = 0;
@@ -193,10 +193,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.Count;
 
-                    ve.Add(new Vertex(mp[i] - Main.screenPosition + (mp[i] - mp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 22,
+                    ve.Add(new ColoredVertex(mp[i] - Main.screenPosition + (mp[i] - mp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 22,
                           new Vector3((float)(i + 1) / mp.Count, 1, 1),
                         b * a));
-                    ve.Add(new Vertex(mp[i] - Main.screenPosition + (mp[i] - mp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 22,
+                    ve.Add(new ColoredVertex(mp[i] - Main.screenPosition + (mp[i] - mp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 22,
                           new Vector3((float)(i + 1) / mp.Count, 0, 1),
                           b * a));
                     lr = (mp[i] - mp[i - 1]).ToRotation();

@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles
                     al += 0.025f;
                 }
                 Projectile.velocity += (n.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 1.8f;
-                if (Utilities.Util.getDistance(Projectile.Center, n.Center) < Projectile.velocity.Length() * 1.2f + 40)
+                if (CEUtils.getDistance(Projectile.Center, n.Center) < Projectile.velocity.Length() * 1.2f + 40)
                 {
                     if (Projectile.timeLeft > 30)
                     {
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
             var mp = this;
             if (mp.odp.Count > 1)
             {
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = new Color(100, 100, 155);
 
                 float a = 0;
@@ -131,10 +131,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 22,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 22,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new Vertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 22,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 22,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();

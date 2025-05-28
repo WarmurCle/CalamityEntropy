@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.NPCs
                 var sd = CommonCalamitySounds.WyrmScreamSound;
                 if (Main.zenithWorld)
                 {
-                    sd = Util.GetSound("he" + (Main.rand.NextBool() ? 1 : 3).ToString());
+                    sd = CEUtils.GetSound("he" + (Main.rand.NextBool() ? 1 : 3).ToString());
                 }
                 sd.MaxInstances = 6;
                 SoundEngine.PlaySound(in sd, NPC.Center);

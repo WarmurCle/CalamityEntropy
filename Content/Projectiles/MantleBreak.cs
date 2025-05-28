@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, Utilities.Util.GetCutTexRect(tex, 8, frame), Color.White, 0, new Vector2(32, 32), Projectile.scale * 2, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, CEUtils.GetCutTexRect(tex, 8, frame), Color.White, 0, new Vector2(32, 32), Projectile.scale * 2, SpriteEffects.None, 0);
             return false;
         }
     }

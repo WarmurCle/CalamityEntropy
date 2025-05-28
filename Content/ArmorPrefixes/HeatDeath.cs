@@ -23,11 +23,11 @@ namespace CalamityEntropy.Content.ArmorPrefixes
             }
             foreach (NPC npc in Main.ActiveNPCs)
             {
-                if (Utilities.Util.getDistance(npc.Center, player.Center) < 2000)
+                if (CEUtils.getDistance(npc.Center, player.Center) < 2000)
                 {
                     if (!npc.friendly)
                     {
-                        EGlobalNPC.AddVoidTouch(npc, 5, 0.04f * (1 - (Utilities.Util.getDistance(npc.Center, player.Center) / 2000f)), 400, int.Max(npc.lifeMax / 15000, 6));
+                        EGlobalNPC.AddVoidTouch(npc, 5, 0.04f * (1 - (CEUtils.getDistance(npc.Center, player.Center) / 2000f)), 400, int.Max(npc.lifeMax / 15000, 6));
                     }
                 }
             }

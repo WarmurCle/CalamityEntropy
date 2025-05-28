@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, this.color, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
-            Utilities.Util.DrawGlow(Projectile.Center, new Color(this.color.R, this.color.G * 0.82f, this.color.B * 0.1f) * 0.6f, Projectile.scale * 4);
+            CEUtils.DrawGlow(Projectile.Center, new Color(this.color.R, this.color.G * 0.82f, this.color.B * 0.1f) * 0.6f, Projectile.scale * 4);
             return false;
         }
         public override Color baseColor => Color.White;

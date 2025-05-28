@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 if (Projectile.ai[0] < 60)
                 {
-                    Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, Projectile.Center, Projectile.Center + Projectile.velocity * 1000, Color.Purple * (0.8f * Projectile.ai[0] / 60f), 2);
+                    CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, Projectile.Center, Projectile.Center + Projectile.velocity * 1000, Color.Purple * (0.8f * Projectile.ai[0] / 60f), 2);
                 }
             }
             return false;

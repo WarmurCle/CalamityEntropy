@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 25, 0, new Vector2(0, 0.6f), 0.06f, 15, true);
             }
-            rope.segmentLength = Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 25f;
+            rope.segmentLength = CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 25f;
             rope.Start = Projectile.owner.ToPlayer().Center;
             rope.End = Projectile.Center;
             rope.Update();
@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 targetPos = Projectile.owner.ToPlayer().MountedCenter;
                 Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * ProjectileID.Sets.YoyosTopSpeed[Projectile.type] * 1.6f;
                 Projectile.velocity *= 0.9f;
-                if (Utilities.Util.getDistance(Projectile.Center, targetPos) < Projectile.velocity.Length() * 1.16f)
+                if (CEUtils.getDistance(Projectile.Center, targetPos) < Projectile.velocity.Length() * 1.16f)
                 {
                     Projectile.Kill();
                 }
@@ -90,18 +90,18 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.ai[2] = Main.MouseWorld.Y;
                 }
                 Vector2 targetPos = new Vector2(Projectile.ai[1], Projectile.ai[2]);
-                if (Utilities.Util.getDistance(targetPos, Projectile.owner.ToPlayer().Center) > ProjectileID.Sets.YoyosMaximumRange[Projectile.type])
+                if (CEUtils.getDistance(targetPos, Projectile.owner.ToPlayer().Center) > ProjectileID.Sets.YoyosMaximumRange[Projectile.type])
                 {
                     targetPos = Projectile.owner.ToPlayer().Center + (targetPos - Projectile.owner.ToPlayer().Center).SafeNormalize(Vector2.One) * ProjectileID.Sets.YoyosMaximumRange[Projectile.type];
                 }
                 Projectile.velocity = (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * ProjectileID.Sets.YoyosTopSpeed[Projectile.type] * 3;
-                if (Utilities.Util.getDistance(Projectile.Center, targetPos) < ProjectileID.Sets.YoyosTopSpeed[Projectile.type] * 3.1f)
+                if (CEUtils.getDistance(Projectile.Center, targetPos) < ProjectileID.Sets.YoyosTopSpeed[Projectile.type] * 3.1f)
                 {
                     Projectile.velocity = targetPos - Projectile.Center;
 
                 }
 
-                if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > ProjectileID.Sets.YoyosMaximumRange[Projectile.type] + 60)
+                if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > ProjectileID.Sets.YoyosMaximumRange[Projectile.type] + 60)
                 {
                     Projectile.ai[0] = 1;
                     Projectile.netUpdate = true;
@@ -120,7 +120,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
             Color b = lightColor;
             List<Vector2> points = new List<Vector2>();
             points = rope.GetPoints();
@@ -133,12 +133,12 @@ namespace CalamityEntropy.Content.Projectiles
 
             for (int i = 1; i < points.Count - 1; i++)
             {
-                jn += Utilities.Util.getDistance(points[i - 1], points[i]) / (float)16 * lc;
+                jn += CEUtils.getDistance(points[i - 1], points[i]) / (float)16 * lc;
 
-                ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 5 * lc,
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 5 * lc,
                       new Vector3(jn, 1, 1),
                       Lighting.GetColor(new Point((int)(points[i].X / 16f), (int)(points[i].Y / 16f)))));
-                ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 5 * lc,
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 5 * lc,
                       new Vector3(jn, 0, 1),
                       Lighting.GetColor(new Point((int)(points[i].X / 16f), (int)(points[i].Y / 16f)))));
 
@@ -183,7 +183,7 @@ namespace CalamityEntropy.Content.Projectiles
             ru = ru.RotatedBy(Projectile.velocity.ToRotation());
             ld = ld.RotatedBy(Projectile.velocity.ToRotation());
             rd = rd.RotatedBy(Projectile.velocity.ToRotation());
-            Utilities.Util.drawTextureToPoint(Main.spriteBatch, pt, lightColor, Projectile.Center + lu - Main.screenPosition, Projectile.Center + ru - Main.screenPosition, Projectile.Center + ld - Main.screenPosition, Projectile.Center + rd - Main.screenPosition);
+            CEUtils.drawTextureToPoint(Main.spriteBatch, pt, lightColor, Projectile.Center + lu - Main.screenPosition, Projectile.Center + ru - Main.screenPosition, Projectile.Center + ld - Main.screenPosition, Projectile.Center + rd - Main.screenPosition);
 
             return false;
         }

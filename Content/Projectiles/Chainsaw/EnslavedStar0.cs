@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             Projectile.rotation = Projectile.velocity.ToRotation() + (Projectile.localAI[0]++ > 3 ? 0 : Projectile.getOwner().direction * -MathHelper.ToRadians(4 - Projectile.localAI[0]) * 48);
             if (Projectile.localAI[0] == 4)
             {
-                Util.PlaySound("chainsawHit", 1, Projectile.Center, volume: 0.4f);
+                CEUtils.PlaySound("chainsawHit", 1, Projectile.Center, volume: 0.4f);
             }
             Projectile.Center = player.Center + player.gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 36 * Projectile.scale + new Vector2(0, -26);
             if (Projectile.Entropy().OnProj != -1)

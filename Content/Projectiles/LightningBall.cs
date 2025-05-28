@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles
                 p.Lifetime = 13;
                 if (Main.rand.NextBool(8))
                 {
-                    p.AddPoint(Projectile.Center + Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-26, 26) * Projectile.scale);
+                    p.AddPoint(Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-26, 26) * Projectile.scale);
                 }
             }
             t1.AddPoint(Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * (float)(Math.Cos(Projectile.localAI[1] * 0.1f)) * (7 * Projectile.scale));
@@ -66,10 +66,10 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnKill(int timeLeft)
         {
-            Utilities.Util.PlaySound("ofhit", 1, Projectile.Center);
+            CEUtils.PlaySound("ofhit", 1, Projectile.Center);
             for (int i = 0; i < 16; i++)
             {
-                EParticle.NewParticle(new TrailSparkParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 14), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale, 1, true, BlendState.NonPremultiplied);
+                EParticle.NewParticle(new TrailSparkParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 14), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale, 1, true, BlendState.NonPremultiplied);
             }
             CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), new Vector2(2f, 2f), 0, 0.1f, (false ? 2 : 1) * 0.85f * 0.4f, (false ? 46 : 36));
             GeneralParticleHandler.SpawnParticle(pulse);
@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/ExoTwinsEject"), Projectile.Center);
-            if (Utilities.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) < 1200)
+            if (CEUtils.getDistance(Projectile.Center, Projectile.getOwner().Center) < 1200)
             {
                 Projectile.getOwner().Calamity().GeneralScreenShakePower = 7;
             }

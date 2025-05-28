@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
                 pg = counter / (46 * Projectile.MaxUpdates);
                 Projectile.rotation += rotSpeed * (1 - pg);
                 rotSpeed *= 0.99f;
-                Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.022f * pg, false);
+                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.022f * pg, false);
 
             }
             else
@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 if (homing == null || (homing != null && !homing.active))
                 {
-                    homing = Util.FindTarget_HomingProj(Projectile, Projectile.Center, 2400);
+                    homing = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 2400);
                 }
                 else if (!hited)
                 {
@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 0; i < 3; i++)
             {
-                Vector2 pos = target.Center + new Vector2(0, -900) + Util.randomPointInCircle(400);
+                Vector2 pos = target.Center + new Vector2(0, -900) + CEUtils.randomPointInCircle(400);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 4, Projectile.owner).ToProj();
             }
         }

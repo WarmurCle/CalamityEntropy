@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = this.color;
-            Utilities.Util.DrawAfterimage(Projectile.GetTexture(), Projectile.Entropy().odp, Projectile.Entropy().odr, Projectile.scale);
+            CEUtils.DrawAfterimage(Projectile.GetTexture(), Projectile.Entropy().odp, Projectile.Entropy().odr, Projectile.scale);
             return base.PreDraw(ref lightColor);
         }
     }

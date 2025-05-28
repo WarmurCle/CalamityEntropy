@@ -36,10 +36,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 int dmg = (int)(projectile.damage * 3f);
                 n.GetGlobalNPC<LunarBMGlobalNPC>().progress = 0;
                 projectile.getOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
-                Utilities.Util.PlaySound("light_bolt", 1, n.Center);
+                CEUtils.PlaySound("light_bolt", 1, n.Center);
                 for (int i = 0; i < 80; i++)
                 {
-                    EParticle.NewParticle(new GlowSpark2(), n.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 12), Color.Lerp(Color.SpringGreen, new Color(200, 230, 255), Main.rand.NextFloat()), Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, 0);
+                    EParticle.NewParticle(new GlowSpark2(), n.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 12), Color.Lerp(Color.SpringGreen, new Color(200, 230, 255), Main.rand.NextFloat()), Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, 0);
                 }
                 ProjectileLoader.OnHitNPC(projectile, n, n.CalculateHitInfo(dmg, 0, false, 0, projectile.DamageType), dmg);
             }
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             List<Vector2> points = el.getSamplePoints();
                             foreach (Vector2 point in points)
                             {
-                                if (Utilities.Util.getDistance(point, n.Center) < BookMarkLunar.distance)
+                                if (CEUtils.getDistance(point, n.Center) < BookMarkLunar.distance)
                                 {
                                     applyEffect(n, 1f / 100f, projectile);
                                     break;
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         }
                         else
                         {
-                            if (Utilities.Util.getDistance(projectile.Center, n.Center) < BookMarkLunar.distance)
+                            if (CEUtils.getDistance(projectile.Center, n.Center) < BookMarkLunar.distance)
                             {
                                 applyEffect(n, 1f / 100f, projectile);
                             }

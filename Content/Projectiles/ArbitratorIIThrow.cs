@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 for (int i = 0; i < 10; i++)
                 {
-                    EclipseMetaball.SpawnParticle(Projectile.Center + (i * 0.1f * Projectile.velocity), Util.randomPointInCircle(2.5f), Main.rand.NextFloat(12f, 29f));
+                    EclipseMetaball.SpawnParticle(Projectile.Center + (i * 0.1f * Projectile.velocity), CEUtils.randomPointInCircle(2.5f), Main.rand.NextFloat(12f, 29f));
                 }
             }
             handrot -= handrotspeed;
@@ -183,7 +183,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 0; i < 26; i++)
             {
-                EclipseMetaball.SpawnParticle(target.Center, Util.randomPointInCircle(10), Main.rand.NextFloat(18f, 36f));
+                EclipseMetaball.SpawnParticle(target.Center, CEUtils.randomPointInCircle(10), Main.rand.NextFloat(18f, 36f));
             }
             if (exp)
             {
@@ -238,7 +238,7 @@ namespace CalamityEntropy.Content.Projectiles
                         }
                         for (int i = 0; i < 64; i++)
                         {
-                            EclipseMetaball.SpawnParticle(target.Center, Util.randomPointInCircle(16), Main.rand.NextFloat(30f, 64f));
+                            EclipseMetaball.SpawnParticle(target.Center, CEUtils.randomPointInCircle(16), Main.rand.NextFloat(30f, 64f));
                         }
                         exp = false;
                     }
@@ -284,10 +284,10 @@ namespace CalamityEntropy.Content.Projectiles
         public bool breakHandle = false;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D handle = Utilities.Util.getExtraTex("Arb0");
-            Texture2D tx1 = Utilities.Util.getExtraTex("Arb2");
-            Texture2D tx2 = Utilities.Util.getExtraTex("Arb3");
-            Texture2D tx3 = Utilities.Util.getExtraTex("Arb4");
+            Texture2D handle = CEUtils.getExtraTex("Arb0");
+            Texture2D tx1 = CEUtils.getExtraTex("Arb2");
+            Texture2D tx2 = CEUtils.getExtraTex("Arb3");
+            Texture2D tx3 = CEUtils.getExtraTex("Arb4");
             List<Texture2D> tx = new List<Texture2D>() { tx1, tx2, tx3 };
             float rj = 0;
             if (Projectile.ai[0] < 12)

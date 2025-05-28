@@ -104,10 +104,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     NPC follow = Main.npc[(int)NPC.ai[1]];
                     if (follow.active)
                     {
-                        Utilities.Util.wormFollow(NPC.whoAmI, (int)NPC.ai[1], (int)(spacing * NPC.scale), false);
+                        CEUtils.wormFollow(NPC.whoAmI, (int)NPC.ai[1], (int)(spacing * NPC.scale), false);
                         if (NPC.ai[0] > 120)
                         {
-                            Utilities.Util.wormFollow(NPC.whoAmI, (int)NPC.ai[1], (int)(spacing * NPC.scale), true, 0.12f);
+                            CEUtils.wormFollow(NPC.whoAmI, (int)NPC.ai[1], (int)(spacing * NPC.scale), true, 0.12f);
                         }
                     }
                 }

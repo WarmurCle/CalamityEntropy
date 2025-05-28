@@ -198,7 +198,7 @@ namespace CalamityEntropy.Content.Tiles
                         {
                             for (int y = -14; y < 15; y++)
                             {
-                                if (Util.inWorld(p.X + x, p.Y + y))
+                                if (CEUtils.inWorld(p.X + x, p.Y + y))
                                 {
                                     if (TileID.Sets.Ore[Main.tile[p.X + x, p.Y + y].TileType])
                                         if (MineOre(p.X + x, p.Y + y))
@@ -260,7 +260,7 @@ namespace CalamityEntropy.Content.Tiles
                                 }
                                 if (Main.rand.NextBool(12))
                                 {
-                                    EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Utilities.Util.randomRot());
+                                    EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                                 }
                                 return true;
                             }
@@ -277,7 +277,7 @@ namespace CalamityEntropy.Content.Tiles
                                 }
                                 if (Main.rand.NextBool(12))
                                 {
-                                    EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, Utilities.Util.randomRot());
+                                    EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                                 }
                                 return true;
                             }
@@ -420,7 +420,7 @@ namespace CalamityEntropy.Content.Tiles
                 {
                     if (Main.mouseItem.IsAir && !getItem().IsAir)
                     {
-                        Util.showItemTooltip(getItem());
+                        CEUtils.showItemTooltip(getItem());
                     }
                 }
             }

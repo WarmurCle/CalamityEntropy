@@ -24,14 +24,14 @@ namespace CalamityEntropy.Content.Projectiles
             base.AI();
             foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if (p.hostile && p.velocity != Vector2.Zero && Utilities.Util.getDistance(p.Center, Projectile.Center) < 640)
+                if (p.hostile && p.velocity != Vector2.Zero && CEUtils.getDistance(p.Center, Projectile.Center) < 640)
                 {
                     p.velocity += (Projectile.Center - p.Center).SafeNormalize(Vector2.Zero) * 1f;
                 }
             }
             foreach (NPC p in Main.ActiveNPCs)
             {
-                if (!p.friendly && p.velocity != Vector2.Zero && Utilities.Util.getDistance(p.Center, Projectile.Center) < 640)
+                if (!p.friendly && p.velocity != Vector2.Zero && CEUtils.getDistance(p.Center, Projectile.Center) < 640)
                 {
                     p.velocity += (Projectile.Center - p.Center).SafeNormalize(Vector2.Zero) * 0.4f;
                 }

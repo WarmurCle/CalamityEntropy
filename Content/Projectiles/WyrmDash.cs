@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (playSound)
             {
                 playSound = false;
-                Utilities.Util.PlaySound("beast_ghostdash1", 0.6f, Projectile.Center, 2, 1);
+                CEUtils.PlaySound("beast_ghostdash1", 0.6f, Projectile.Center, 2, 1);
             }
             if (Projectile.timeLeft < 6)
             {
@@ -82,18 +82,18 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Utilities.Util.PlaySound("xhit", Main.rand.NextFloat(0.6f, 1.1f), Projectile.Center, 8, volume: 0.7f);
-            Utilities.Util.PlaySound("DevourerDeathImpact", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, 8, volume: 0.7f);
+            CEUtils.PlaySound("xhit", Main.rand.NextFloat(0.6f, 1.1f), Projectile.Center, 8, volume: 0.7f);
+            CEUtils.PlaySound("DevourerDeathImpact", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, 8, volume: 0.7f);
             CalamityEntropy.Instance.screenShakeAmp = (Projectile.ai[0] * 0.7f);
             for (int i = 0; i < 1 + (int)(Projectile.ai[0] * 0.34f); i++)
             {
-                EParticle.NewParticle(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
             }
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Utilities.Util.getExtraTex("wyrmdash");
+            Texture2D tex = CEUtils.getExtraTex("wyrmdash");
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 

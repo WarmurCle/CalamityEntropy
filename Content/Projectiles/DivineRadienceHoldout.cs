@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             public SparkleParticle()
             {
-                rot = Utilities.Util.randomRot();
+                rot = CEUtils.randomRot();
                 size = 0;
             }
         }
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     if (!Main.dedServ)
                     {
-                        Utilities.Util.PlaySound("soulshine", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.4f);
+                        CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.4f);
                     }
                     particles.Add(new SparkleParticle());
                 }
@@ -156,7 +156,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow").Value;
             Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition * Projectile.scale, null, Color.MediumVioletRed * 0.7f, 0, light.Size() / 2, 0.5f * Projectile.scale * (1 + (float)Math.Cos((counter) * 0.02f) * 0.2f), SpriteEffects.None, 0);
-            Texture2D spark = Utilities.Util.getExtraTex("Sparkle");
+            Texture2D spark = CEUtils.getExtraTex("Sparkle");
             foreach (SparkleParticle p in particles)
             {
                 Main.spriteBatch.Draw(spark, Projectile.Center - Main.screenPosition * Projectile.scale, null, Color.IndianRed * 0.6f, p.rot, spark.Size() / 2, 0.06f * Projectile.scale * p.size, SpriteEffects.None, 0);

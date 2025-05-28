@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Particles
             this.velocity *= 1 - speed * 0.08f;
             this.velocity += (homingTarget.Center - position).normalize() * speed * 1.4f;
 
-            if (Utilities.Util.getDistance(position, homingTarget.Center) < this.velocity.Length() * 1.2f)
+            if (CEUtils.getDistance(position, homingTarget.Center) < this.velocity.Length() * 1.2f)
             {
                 this.Lifetime = 0;
             }

@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 if (plr >= 0)
                 {
                     Player player = plr.ToPlayer();
-                    Projectile.velocity = Utilities.Util.rotatedToAngle(Projectile.velocity.ToRotation(), (player.Center - Projectile.Center).ToRotation(), rotspeed).ToRotationVector2() * Projectile.velocity.Length();
+                    Projectile.velocity = CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (player.Center - Projectile.Center).ToRotation(), rotspeed).ToRotationVector2() * Projectile.velocity.Length();
                 }
                 if (Projectile.ai[0] > 440)
                 {
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     rotspeed += (2f - rotspeed) * 0.016f;
                 }
             }
-            if (Projectile.ai[0] > 40 && Utilities.Util.getDistance(Main.LocalPlayer.Center, Projectile.Center) < 4000)
+            if (Projectile.ai[0] > 40 && CEUtils.getDistance(Main.LocalPlayer.Center, Projectile.Center) < 4000)
             {
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 7;
             }
@@ -105,7 +105,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             var p = getSamplePoints();
-            return Utilities.Util.LineThroughRect(Projectile.Center, p[p.Count - 1], targetHitbox, (int)(100 * w));
+            return CEUtils.LineThroughRect(Projectile.Center, p[p.Count - 1], targetHitbox, (int)(100 * w));
         }
         float yx = 0;
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -128,7 +128,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             {
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/MegaStreakBacking2").Value;
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = new Color(60, 60, 170);
 
                 float p = -Main.GlobalTimeWrappedHourly * 2;
@@ -139,10 +139,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     {
                         wd = new Vector2(1, 0).RotatedBy((i / 48f) * MathHelper.PiOver2).Y;
                     }
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 120 * Projectile.scale * w * wd,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 120 * Projectile.scale * w * wd,
                           new Vector3((float)i / points.Count, 1, 1),
                           b));
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 120 * Projectile.scale * w * wd,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 120 * Projectile.scale * w * wd,
                           new Vector3((float)i / points.Count, 0, 1),
                           b));
                 }
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             effect.CurrentTechnique.Passes["fableeyelaser"].Apply();
             {
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/TurbulentNoise").Value;
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = Color.SkyBlue * 0.66f;
                 float p = -Main.GlobalTimeWrappedHourly;
                 for (int i = 1; i < points.Count; i++)
@@ -174,13 +174,13 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     {
                         wd = new Vector2(1, 0).RotatedBy((i / 48f) * MathHelper.PiOver2).Y;
                     }
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 54 * Projectile.scale * w * wd,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 54 * Projectile.scale * w * wd,
                           new Vector3(p, 1, 1),
                           b));
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 54 * Projectile.scale * w * wd,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 54 * Projectile.scale * w * wd,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
+                    p += (CEUtils.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
                 }
 
 
@@ -195,7 +195,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             effect.Parameters["yofs"].SetValue(-yx);
             {
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/EternityStreak").Value;
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = new Color(255, 255, 255) * 0.66f;
                 float p = -Main.GlobalTimeWrappedHourly * 2;
                 for (int i = 1; i < points.Count; i++)
@@ -205,13 +205,13 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     {
                         wd = new Vector2(1, 0).RotatedBy((i / 48f) * MathHelper.PiOver2).Y;
                     }
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 54 * Projectile.scale * w * wd,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 54 * Projectile.scale * w * wd,
                           new Vector3(p, 1, 1),
                           b));
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 54 * Projectile.scale * w * wd,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 54 * Projectile.scale * w * wd,
                           new Vector3(p, 0, 1),
                           b));
-                    p += (Utilities.Util.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
+                    p += (CEUtils.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
                 }
 
 

@@ -125,9 +125,9 @@ namespace CalamityEntropy.Content.Projectiles
             }
             foreach (Projectile p in Main.projectile)
             {
-                if (p.active && Utilities.Util.getDistance(p.Center, Projectile.Center) < 248 * Projectile.scale * 1.5f && (p.owner != Projectile.owner || p.owner == -1 || p.hostile))
+                if (p.active && CEUtils.getDistance(p.Center, Projectile.Center) < 248 * Projectile.scale * 1.5f && (p.owner != Projectile.owner || p.owner == -1 || p.hostile))
                 {
-                    p.velocity += (p.Center - Projectile.Center).SafeNormalize(new Vector2(1, 0)) * 0.1f * (Utilities.Util.getDistance(p.Center, Projectile.Center) / (248 * 1.5f));
+                    p.velocity += (p.Center - Projectile.Center).SafeNormalize(new Vector2(1, 0)) * 0.1f * (CEUtils.getDistance(p.Center, Projectile.Center) / (248 * 1.5f));
                     Dust.NewDust(p.Center, 6, 6, DustID.MagicMirror, 0, 0);
                 }
             }

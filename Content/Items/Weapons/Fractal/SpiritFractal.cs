@@ -114,12 +114,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 if (Projectile.ai[0] == 2)
                 {
-                    Util.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
+                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
                     Projectile.scale *= 1.3f;
                 }
                 if (Projectile.ai[0] < 2)
                 {
-                    Util.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
                 }
                 init = false;
             }
@@ -144,13 +144,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 48 * scale * Projectile.scale;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, Util.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<GhastlySoulLarge>(), Projectile.damage / 7, Projectile.knockBack, Projectile.owner, 0, 1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<GhastlySoulLarge>(), Projectile.damage / 7, Projectile.knockBack, Projectile.owner, 0, 1);
                     }
                 }
                 alpha = 1;
                 scale = 1.8f;
-                Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.ToRadians(-140) + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 1)) * (Projectile.velocity.X > 0 ? 1 : -1);
-                Projectile.Center = Projectile.getOwner().MountedCenter + Projectile.velocity.normalize() * (Util.Parabola(progress, Projectile.ai[2]));
+                Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.ToRadians(-140) + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 1)) * (Projectile.velocity.X > 0 ? 1 : -1);
+                Projectile.Center = CEUtils.getOwner(Projectile).MountedCenter + CEUtils.normalize(Projectile.velocity) * (CEUtils.Parabola(progress, Projectile.ai[2]));
                 if (Projectile.velocity.X > 0)
                 {
                     owner.direction = 1;
@@ -167,7 +167,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 float RotF = 4f;
                 alpha = 1;
                 scale = 1.8f;
-                Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
+                Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
                 Projectile.Center = Projectile.getOwner().MountedCenter;
                 if (progress > 0.2f && shoot)
                 {
@@ -175,7 +175,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
 
                     for (int i = 0; i < 2; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.normalize() * 28 + Util.randomPointInCircle(8), ModContent.ProjectileType<FractalGhostBlade>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2)(CEUtils.normalize(Projectile.velocity) * 28 + CEUtils.randomPointInCircle(8)), ModContent.ProjectileType<FractalGhostBlade>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
                 if (Projectile.velocity.X > 0)
@@ -217,8 +217,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound || Projectile.ai[0] == 2)
             {
                 playHitSound = false;
-                Util.PlaySound("sf_hit", 1, Projectile.Center);
-                Util.PlaySound("FractalHit", 1, Projectile.Center);
+                CEUtils.PlaySound("sf_hit", 1, Projectile.Center);
+                CEUtils.PlaySound("FractalHit", 1, Projectile.Center);
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
             {
@@ -248,14 +248,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale * 1.1f, effect);
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Texture2D bs = Util.getExtraTex("SemiCircularSmear");
+            Texture2D bs = CEUtils.getExtraTex("SemiCircularSmear");
 
             Color color1 = new Color(48, 52, 79);
             Color color2 = new Color(242, 201, 190);
 
             float zScale = Projectile.ai[0] == 2 ? 0.5f : 1;
 
-            float zAlpha = (float)(Math.Cos(Util.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2));
+            float zAlpha = (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2));
             if (Projectile.ai[0] == 2)
             {
                 zAlpha = 1;
@@ -269,7 +269,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (152) * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (152) * Projectile.scale * scale, targetHitbox, 64);
         }
         public override void CutTiles()
         {

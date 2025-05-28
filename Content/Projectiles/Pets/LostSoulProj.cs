@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             if (Main.gameMenu)
             {
 
-                Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, Utilities.Util.GetCutTexRect(txd, 4, 0), lightColor, Projectile.rotation, new Vector2(30, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
+                Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, CEUtils.GetCutTexRect(txd, 4, 0), lightColor, Projectile.rotation, new Vector2(30, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
                 return false;
             }
@@ -47,12 +47,12 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             if (spawnAnm)
             {
                 txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/LostSoulSpawn").Value;
-                Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition + new Vector2((spawnAnmFrame == 1 ? Main.rand.Next(-4, 5) : 0), (float)Math.Cos((float)dc * 0.06f) * 20), Utilities.Util.GetCutTexRect(txd, 6, spawnAnmFrame), lightColor * alpha, Projectile.rotation, new Vector2(32, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition + new Vector2((spawnAnmFrame == 1 ? Main.rand.Next(-4, 5) : 0), (float)Math.Cos((float)dc * 0.06f) * 20), CEUtils.GetCutTexRect(txd, 6, spawnAnmFrame), lightColor * alpha, Projectile.rotation, new Vector2(32, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
 
 
                 return false;
             }
-            Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition + new Vector2(0, (float)Math.Cos((float)dc * 0.06f) * 20), Utilities.Util.GetCutTexRect(txd, 4, (counter / 4) % 4), lightColor * alpha, Projectile.rotation, new Vector2(30, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition + new Vector2(0, (float)Math.Cos((float)dc * 0.06f) * 20), CEUtils.GetCutTexRect(txd, 4, (counter / 4) % 4), lightColor * alpha, Projectile.rotation, new Vector2(30, txd.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
 
 
 
@@ -62,11 +62,11 @@ namespace CalamityEntropy.Content.Projectiles.Pets
         public bool std = false;
         void MoveToTarget(Vector2 targetPos)
         {
-            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 3000)
+            if (CEUtils.getDistance(Projectile.Center, targetPos) > 3000)
             {
                 Projectile.Center = Main.player[Projectile.owner].Center;
             }
-            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 20)
+            if (CEUtils.getDistance(Projectile.Center, targetPos) > 20)
             {
                 Vector2 px = targetPos - Projectile.Center;
                 px.Normalize();
@@ -178,7 +178,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                 }
             }
 
-            if (Utilities.Util.getDistance(Projectile.Center, player.Center) < 300 && !spawnAnm && needLoots.Count > 0)
+            if (CEUtils.getDistance(Projectile.Center, player.Center) < 300 && !spawnAnm && needLoots.Count > 0)
             {
                 spawnAnm = true;
                 spawnAnmFrame = 0;
@@ -219,7 +219,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                             hurt();
                             return;
                         }
-                        if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < 1000 && Utilities.Util.getDistance(p.Center + p.velocity * 20, Projectile.Center + Projectile.velocity * 20) < 120 + Math.Max(p.width, p.height))
+                        if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < 1000 && CEUtils.getDistance(p.Center + p.velocity * 20, Projectile.Center + Projectile.velocity * 20) < 120 + Math.Max(p.width, p.height))
                         {
                             Projectile.velocity += (Projectile.Center + Projectile.velocity * 6 - p.Center + p.velocity * 6).SafeNormalize(Vector2.One) * 1.6f;
                         }
@@ -235,7 +235,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                             hurt();
                             return;
                         }
-                        if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < 1000 && Utilities.Util.getDistance(n.Center + n.velocity * 20, Projectile.Center + Projectile.velocity * 20) < 160 + Math.Max(n.width, n.height))
+                        if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) < 1000 && CEUtils.getDistance(n.Center + n.velocity * 20, Projectile.Center + Projectile.velocity * 20) < 160 + Math.Max(n.width, n.height))
                         {
                             Projectile.velocity += (Projectile.Center + Projectile.velocity * 6 - n.Center + n.velocity * 6).SafeNormalize(Vector2.One) * 1.6f;
                         }

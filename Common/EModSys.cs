@@ -22,7 +22,7 @@ namespace CalamityEntropy.Common
 {
     public class EModSys : ModSystem
     {
-        private static Texture2D markTex => Utilities.Util.getExtraTex("EvMark");
+        private static Texture2D markTex => CEUtils.getExtraTex("EvMark");
         internal static int timer;
         public static bool noItemUse = false;
         public float counter = 0;
@@ -161,7 +161,7 @@ namespace CalamityEntropy.Common
             {
                 float prog = xr.charge / 20f;
                 Vector2 Center = Main.ScreenSize.ToVector2() * 0.5f + new Vector2(0, 56);
-                Texture2D bar = Utilities.Util.getExtraTex("XythBar");
+                Texture2D bar = CEUtils.getExtraTex("XythBar");
                 Main.spriteBatch.Draw(bar, Center, new Rectangle(0, 0, 64, 26), Color.White, 0, new Vector2(32, 13), 1, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(bar, Center, new Rectangle(0, 26, (int)(8 + 48 * prog), 6), Color.White, 0, new Vector2(32, 1), 1, SpriteEffects.None, 0);
                 if (Main.MouseScreen.getRectCentered(2, 2).Intersects(Center.getRectCentered(64, 26)))

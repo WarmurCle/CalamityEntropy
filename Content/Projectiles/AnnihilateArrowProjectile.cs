@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
                 NPC target = Projectile.FindTargetWithinRange(400);
                 if (target != null)
                 {
-                    float rot = Utilities.Util.randomRot();
+                    float rot = CEUtils.randomRot();
                     int pjex = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 270 * Projectile.WhipSettings.RangeMultiplier, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner, 0, -0.8f);
                     pjex.ToProj().hostile = false;
                     pjex.ToProj().MaxUpdates *= 2;
@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     for (int i = 0; i < 42; i++)
                     {
-                        PixelParticle p = new PixelParticle(Projectile.Center, Projectile.Center + Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(100, 256), Projectile.Center, Main.rand.Next(20, 42), Color.White, new Color(180, 180, 255));
+                        PixelParticle p = new PixelParticle(Projectile.Center, Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(100, 256), Projectile.Center, Main.rand.Next(20, 42), Color.White, new Color(180, 180, 255));
                         PixelParticle.particles.Add(p);
                     }
                 }
@@ -73,12 +73,12 @@ namespace CalamityEntropy.Content.Projectiles
         public bool homing = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Utilities.Util.PlaySound("bne_hit", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.4f);
-            EParticle.NewParticle(new AbyssalLine() { lx = 1.9f, xadd = 1.9f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+            CEUtils.PlaySound("bne_hit", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.4f);
+            EParticle.NewParticle(new AbyssalLine() { lx = 1.9f, xadd = 1.9f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
 
             if (homing)
             {
-                float rot = Utilities.Util.randomRot();
+                float rot = CEUtils.randomRot();
                 for (int i = 0; i < 3; i++)
                 {
                     float a = rot + MathHelper.ToRadians(i * 120);
@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnKill(int timeLeft)
         {
-            Utilities.Util.PlaySound("bne_hit2", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
+            CEUtils.PlaySound("bne_hit2", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
         }
     }
 }

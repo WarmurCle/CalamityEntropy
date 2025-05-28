@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Projectiles
     public class RuneTorrentRanger : ModProjectile
     {
         public List<Vector2> odp = new List<Vector2>();
-        public override string Texture => Utilities.Util.WhiteTexPath;
+        public override string Texture => CEUtils.WhiteTexPath;
         public float nowSpeed = 0;
         public override void SetDefaults()
         {
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (spawnParticleCount > 22)
             {
                 spawnParticleCount -= 22;
-                EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
             }
         }
         public float spawnParticleCount = 0;
@@ -80,13 +80,13 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 for (int i = 1; i < odp.Count; i++)
                 {
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6 * Projectile.scale,
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6 * Projectile.scale,
                           new Vector3((float)i / odp.Count, 1, 1),
                           Color.Lerp(new Color(110, 120, 255), Color.White, ((float)i / odp.Count)) * ((float)i / odp.Count) * 0.86f));
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 6 * Projectile.scale,
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 6 * Projectile.scale,
                           new Vector3((float)i / odp.Count, 0, 1),
                           Color.Lerp(new Color(110, 120, 255), Color.White, ((float)i / odp.Count)) * ((float)i / odp.Count) * 0.86f));
 

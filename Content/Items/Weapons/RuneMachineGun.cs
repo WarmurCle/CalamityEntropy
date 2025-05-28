@@ -45,8 +45,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Utilities.Util.PlaySound("gunshot_small" + Main.rand.Next(1, 4).ToString(), Main.rand.NextFloat(0.7f, 1.3f), position, 10, 0.4f);
-            Utilities.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), position, 10, 0.4f);
+            CEUtils.PlaySound("gunshot_small" + Main.rand.Next(1, 4).ToString(), Main.rand.NextFloat(0.7f, 1.3f), position, 10, 0.4f);
+            CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), position, 10, 0.4f);
             Projectile.NewProjectile(source, position + new Vector2(8, velocity.X > 0 ? -7 : 7).RotatedBy(velocity.ToRotation()), velocity, type, damage, knockback, player.whoAmI);
             Projectile.NewProjectile(source, position + new Vector2(0, Main.rand.NextFloat(-10, 10)).RotatedBy(velocity.ToRotation()), velocity, ModContent.ProjectileType<RuneTorrentRanger>(), damage, 4, player.whoAmI);
             return false;

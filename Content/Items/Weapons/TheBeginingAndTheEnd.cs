@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public static void playShootSound(Vector2 c)
         {
-            Utilities.Util.PlaySound("bne" + Main.rand.Next(0, 3).ToString(), 1, c);
+            CEUtils.PlaySound("bne" + Main.rand.Next(0, 3).ToString(), 1, c);
         }
         public override float StealthDamageMultiplier => 1f;
         public override float StealthVelocityMultiplier => 0.8f;

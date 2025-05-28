@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.localAI[0]++;
             Player player = Main.player[Projectile.owner];
-            if (Utilities.Util.getDistance(Projectile.Center, player.Center) > 2600)
+            if (CEUtils.getDistance(Projectile.Center, player.Center) > 2600)
             {
                 Projectile.Center = player.Center;
             }
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (target == null || !target.active)
             {
-                target = Utilities.Util.findTarget(player, Projectile, 1800, false);
+                target = CEUtils.findTarget(player, Projectile, 1800, false);
             }
             if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
             {
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.rotation = (Projectile.Center - target.Center).ToRotation();
                         Projectile.velocity *= 0.9f;
                         Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 6f;
-                        if (Utilities.Util.getDistance(Projectile.Center, target.Center) < Projectile.velocity.Length() * 1.7f)
+                        if (CEUtils.getDistance(Projectile.Center, target.Center) < Projectile.velocity.Length() * 1.7f)
                         {
                             stickOnNPC = true;
                             stickNPCIndex = target.whoAmI;
@@ -138,7 +138,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     else
                     {
-                        Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 70);
+                        Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 70);
                     }
                     Projectile.velocity *= 0.92f;
                 }
@@ -146,7 +146,7 @@ namespace CalamityEntropy.Content.Projectiles
             else
             {
                 Vector2 standPos = player.Center + new Vector2(0, -140);
-                float dist = Utilities.Util.getDistance(Projectile.Center, standPos);
+                float dist = CEUtils.getDistance(Projectile.Center, standPos);
                 if (dist > 100)
                 {
                     Projectile.velocity += (standPos - Projectile.Center).SafeNormalize(Vector2.Zero);
@@ -155,7 +155,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.velocity *= 0.982f;
                     }
                 }
-                Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.12f, false);
+                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.12f, false);
             }
             Projectile.pushByOther(0.4f);
         }

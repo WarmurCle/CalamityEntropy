@@ -39,16 +39,16 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                float rot = Utilities.Util.randomRot();
+                float rot = CEUtils.randomRot();
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, rot.ToRotationVector2() * 14, ModContent.ProjectileType<ProjectionStarSplit>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, rot.ToRotationVector2() * -14, ModContent.ProjectileType<ProjectionStarSplitAlt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
             }
             for (int i = 0; i < 36; i++)
             {
-                Vector2 speed = Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
+                Vector2 speed = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
                 Dust.NewDust(Projectile.Center - new Vector2(4, 4), 8, 8, DustID.PinkStarfish, speed.X, speed.Y);
-                speed = Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
+                speed = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(1, 3);
                 Dust.NewDust(Projectile.Center - new Vector2(4, 4), 8, 8, DustID.YellowStarDust, speed.X, speed.Y);
 
             }

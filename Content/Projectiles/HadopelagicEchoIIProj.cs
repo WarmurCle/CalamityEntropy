@@ -87,13 +87,13 @@ namespace CalamityEntropy.Content.Projectiles
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), topPos, Projectile.velocity * 40, ModContent.ProjectileType<HadopelagicWail>(), (int)owner.GetTotalDamage(Projectile.DamageType).ApplyTo((int)(Projectile.damage * 1.16f)), Projectile.knockBack, Projectile.owner);
                             }
                             shootCd = 50;
-                            Util.PlaySound("he2", 1, Projectile.Center);
+                            CEUtils.PlaySound("he2", 1, Projectile.Center);
 
                         }
                         else
                         {
                             gfxXAdd = 4f;
-                            Util.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), 1, Projectile.Center);
+                            CEUtils.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), 1, Projectile.Center);
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), topPos, Projectile.velocity * 30, ModContent.ProjectileType<HadopelagicLaser>(), (int)owner.GetTotalDamage(Projectile.DamageType).ApplyTo((int)(Projectile.damage)), Projectile.knockBack, Projectile.owner);
@@ -138,7 +138,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D glow = Utilities.Util.getExtraTex("HadopelagicEchoIIGlow");
+            Texture2D glow = CEUtils.getExtraTex("HadopelagicEchoIIGlow");
             Rectangle frame = new Rectangle(active ? 126 : 0, Projectile.frame * 66, 126, 66);
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + new Vector2(-gfxOffX + 40, 0).RotatedBy(Projectile.rotation), frame, lightColor, Projectile.rotation, (Projectile.velocity.X > 0 ? new Vector2(86, 42) : new Vector2(86, 66 - 42)), Projectile.scale, (Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically));
             Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition + new Vector2(-gfxOffX + 40, 0).RotatedBy(Projectile.rotation), frame, Color.White, Projectile.rotation, (Projectile.velocity.X > 0 ? new Vector2(86, 42) : new Vector2(86, 66 - 42)), Projectile.scale, (Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically));

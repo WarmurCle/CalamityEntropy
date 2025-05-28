@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                     {
                         if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                         {
-                            Utilities.Util.showItemTooltip(Main.LocalPlayer.Entropy().EBookStackItems[i]);
+                            CEUtils.showItemTooltip(Main.LocalPlayer.Entropy().EBookStackItems[i]);
                         }
                         Main.LocalPlayer.mouseInterface = true;
                         if (Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || BookMarkLoader.IsABookMark(Main.mouseItem)) && !(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir))
@@ -127,7 +127,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                             Item mouseItem = Main.mouseItem.Clone();
                             Main.mouseItem = Main.LocalPlayer.Entropy().EBookStackItems[i];
                             Main.LocalPlayer.Entropy().EBookStackItems[i] = mouseItem;
-                            Utilities.Util.PlaySound("turnPage");
+                            CEUtils.PlaySound("turnPage");
                         }
                         if (Main.mouseRight && !lastMouseRight && slotDist > 100)
                         {
@@ -139,7 +139,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                                     {
                                         ItemIO.Load(Main.LocalPlayer.inventory[ii], ItemIO.Save(Main.LocalPlayer.Entropy().EBookStackItems[i]));
                                         Main.LocalPlayer.Entropy().EBookStackItems[i].TurnToAir();
-                                        Utilities.Util.PlaySound("turnPage");
+                                        CEUtils.PlaySound("turnPage");
                                         break;
                                     }
                                 }

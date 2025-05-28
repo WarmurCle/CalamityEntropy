@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 20, 1f, 1000, 16);
-            CalamityEntropy.SpawnHeavenSpark(target.Center, Utilities.Util.randomRot(), 0.6f, 0.6f, new Color(40, 40, 186));
+            CalamityEntropy.SpawnHeavenSpark(target.Center, CEUtils.randomRot(), 0.6f, 0.6f, new Color(40, 40, 186));
         }
         public override void AI()
         {

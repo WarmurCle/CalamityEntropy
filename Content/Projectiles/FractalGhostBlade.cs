@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (init)
             {
-                Projectile.rotation = Util.randomRot();
+                Projectile.rotation = CEUtils.randomRot();
                 init = false;
             }
             Projectile.rotation += 0.08f;
@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                NPC target = Util.FindTarget_HomingProj(Projectile, Projectile.Center, 4000);
+                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 4000);
                 if (target != null)
                 {
                     if (launch)

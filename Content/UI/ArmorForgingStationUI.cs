@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.UI
             {
                 return;
             }
-            if (item[0].active && Utilities.Util.IsArmor(item[0]))
+            if (item[0].active && CEUtils.IsArmor(item[0]))
             {
                 text.SetText(Main.ValueToCoins((int)(item[0].value / 6)));
             }
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.UI
             Main.isMouseLeftConsumedByUI = true;
             Main.mouseLeft = false;
             EModSys.noItemUse = true;
-            if ((!item[0].active) || (!Utilities.Util.IsArmor(item[0])) || ReforgeCD > 0)
+            if ((!item[0].active) || (!CEUtils.IsArmor(item[0])) || ReforgeCD > 0)
             {
                 return;
 

@@ -68,7 +68,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             {
                 Particle p = new Particle();
                 p.position = NPC.Center;
-                p.velocity = Utilities.Util.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 400)) * 0.01f;
+                p.velocity = CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 400)) * 0.01f;
                 p.alpha = ((float)Main.rand.Next(20, 100)) * 0.01f;
                 VoidParticles.particles.Add(p);
             }
@@ -106,14 +106,14 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                 }
             }
 
-            if (Utilities.Util.getDistance(NPC.Center, targetPos) < maxAtkDist && tryCloseTime <= 0)
+            if (CEUtils.getDistance(NPC.Center, targetPos) < maxAtkDist && tryCloseTime <= 0)
             {
                 Vector2 v = NPC.Center;
-                int vcount = (int)(Utilities.Util.getDistance(v, targetPos) / 8);
+                int vcount = (int)(CEUtils.getDistance(v, targetPos) / 8);
                 Vector2 vj = (targetPos - v).SafeNormalize(Vector2.One) * 8;
                 for (int i = 1; i < vcount; i++)
                 {
-                    if (!Utilities.Util.isAir(v))
+                    if (!CEUtils.isAir(v))
                     {
                         return;
                     }
@@ -227,7 +227,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             }
             if (hasProj)
             {
-                if (Utilities.Util.getDistance(NPC.Center, proji.Center) > 660 || NPC.Center.Y < proji.Center.Y - 30)
+                if (CEUtils.getDistance(NPC.Center, proji.Center) > 660 || NPC.Center.Y < proji.Center.Y - 30)
                 {
                     if (!Main.dedServ)
                     {
@@ -235,7 +235,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                         {
                             Particle p = new Particle();
                             p.position = NPC.Center;
-                            p.velocity = Utilities.Util.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 500)) * 0.01f;
+                            p.velocity = CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 500)) * 0.01f;
                             p.alpha = ((float)Main.rand.Next(20, 100)) * 0.01f;
                             VoidParticles.particles.Add(p);
                         }
@@ -247,7 +247,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                         {
                             Particle p = new Particle();
                             p.position = NPC.Center;
-                            p.velocity = Utilities.Util.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 400)) * 0.01f;
+                            p.velocity = CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 400)) * 0.01f;
                             p.alpha = ((float)Main.rand.Next(20, 100)) * 0.01f;
                             VoidParticles.particles.Add(p);
                         }

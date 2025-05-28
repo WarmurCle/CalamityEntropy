@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles
             else
             {
                 Vector2 o = (points.Count > 0 ? points[points.Count - 1] : Projectile.Center - Projectile.velocity);
-                Vector2 nv = Projectile.Center + Utilities.Util.randomVec(4);
+                Vector2 nv = Projectile.Center + CEUtils.randomVec(4);
                 for (float i = 0.1f; i <= 1; i += 0.1f)
                 {
                     points.Add(Vector2.Lerp(o, nv, i));
@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 1; i < points.Count; i++)
             {
-                if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 30))
+                if (CEUtils.LineThroughRect(points[i - 1], points[i], targetHitbox, 30))
                 {
                     return true;
                 }
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 1; i < points.Count; i++)
             {
                 Vector2 jv = Vector2.Zero;
-                Utilities.Util.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * jd, 1f * lw * (new Vector2(-30, 0).RotatedBy(MathHelper.ToRadians(180 * ((float)i / points.Count)))).Y, 3);
+                CEUtils.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * jd, 1f * lw * (new Vector2(-30, 0).RotatedBy(MathHelper.ToRadians(180 * ((float)i / points.Count)))).Y, 3);
             }
         }
     }

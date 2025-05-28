@@ -54,16 +54,16 @@ namespace CalamityEntropy.Utilities
             this.SegCount = segs;
             this.GravityMin = gravMin;
             this.GravityMax = gravMax;
-            rope = new Rope(point1, point2, SegCount, Util.getDistance(point1, point2) / (float)SegCount, randomGrav(), 0, 15, false);
+            rope = new Rope(point1, point2, SegCount, CEUtils.getDistance(point1, point2) / (float)SegCount, randomGrav(), 0, 15, false);
         }
         public void Update()
         {
-            this.rope.segmentLength = Util.getDistance(Point1, Point2) / (float)SegCount;
+            this.rope.segmentLength = CEUtils.getDistance(Point1, Point2) / (float)SegCount;
             this.rope.gravity = Vector2.Lerp(this.rope.gravity, Vector2.Zero, 0.1f);
             this.rope.Update();
             if (Main.rand.NextBool(40))
             {
-                rope = new Rope(Point1, Point2, SegCount, Util.getDistance(Point1, Point2) / (float)SegCount, randomGrav(), 0, 15, false);
+                rope = new Rope(Point1, Point2, SegCount, CEUtils.getDistance(Point1, Point2) / (float)SegCount, randomGrav(), 0, 15, false);
             }
         }
         public void Update(Vector2 p1, Vector2 p2)
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Utilities
         }
         public Vector2 randomGrav()
         {
-            return Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(this.GravityMin, this.GravityMax);
+            return CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(this.GravityMin, this.GravityMax);
         }
         public List<Vector2> GetPoints()
         {

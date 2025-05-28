@@ -29,15 +29,15 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] == 0)
             {
-                Utilities.Util.PlaySound("explosion", 1, Projectile.Center, 4);
+                CEUtils.PlaySound("explosion", 1, Projectile.Center, 4);
                 CalamityMod.Particles.Particle pulse = new PlasmaExplosion(Projectile.Center, Vector2.Zero, new Color(160, 120, 255), new Vector2(2f, 2f), 0, 0f, 0.032f, 46);
                 GeneralParticleHandler.SpawnParticle(pulse);
                 CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(180, 156, 255), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.4f, 30);
                 GeneralParticleHandler.SpawnParticle(explosion2);
                 for (int i = 0; i < 28; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, new Color(140, 140, 255), 0.06f, 1, true, BlendState.Additive);
-                    EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, Color.LightGoldenrodYellow, 0.06f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, new Color(140, 140, 255), 0.06f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, Color.LightGoldenrodYellow, 0.06f, 1, true, BlendState.Additive);
                 }
             }
             Projectile.ai[0]++;

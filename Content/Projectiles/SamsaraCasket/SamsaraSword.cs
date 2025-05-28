@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 target = Projectile.FindTargetWithinRange(range, modPlayer.sCasketLevel > 3);
             }
-            if (target != null && Utilities.Util.getDistance(player.Center, target.Center) > Math.Min(range, 1400))
+            if (target != null && CEUtils.getDistance(player.Center, target.Center) > Math.Min(range, 1400))
             {
                 target = null;
             }
@@ -139,8 +139,8 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                 if (returnToCasket)
                 {
                     backing();
-                    Vector2 targetPos = player.Center + new Vector2(Utilities.Util.getDistance(Projectile.Center, player.Center) - 26, 0).RotatedBy(spawnRot);
-                    if (Utilities.Util.getDistance(Projectile.Center, player.Center) > 500)
+                    Vector2 targetPos = player.Center + new Vector2(CEUtils.getDistance(Projectile.Center, player.Center) - 26, 0).RotatedBy(spawnRot);
+                    if (CEUtils.getDistance(Projectile.Center, player.Center) > 500)
                     {
                         Projectile.velocity = (player.Center - Projectile.Center) * 0.08f;
                     }
@@ -149,7 +149,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                         Projectile.velocity = (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 24;
                     }
                     Projectile.rotation = (player.Center - Projectile.Center).ToRotation();
-                    if (Utilities.Util.getDistance(Projectile.Center, player.Center) < Projectile.velocity.Length() * 1.02f)
+                    if (CEUtils.getDistance(Projectile.Center, player.Center) < Projectile.velocity.Length() * 1.02f)
                     {
                         if (casket.ToProj().active && casket.ToProj().ModProjectile is SamsaraCasketProj sc)
                         {
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                     {
 
                         Vector2 targetPos = player.Center + new Vector2(0, -140) + new Vector2(90, 0).RotatedBy(modPlayer.CasketSwordRot + circleRot);
-                        if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 64)
+                        if (CEUtils.getDistance(Projectile.Center, targetPos) > 64)
                         {
                             Projectile.velocity = (targetPos - Projectile.Center) * 0.2f;
                         }

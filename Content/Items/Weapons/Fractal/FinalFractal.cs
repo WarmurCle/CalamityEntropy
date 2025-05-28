@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             if (player.altFunctionUse == 2)
             {
-                Util.PlaySound("VoidAnticipation", 1, position);
+                CEUtils.PlaySound("VoidAnticipation", 1, position);
                 player.AddBuff(BuffID.ChaosState, 5 * 60);
                 Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 30, 0, player.whoAmI, 1);
                 return false;
@@ -110,7 +110,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 return null;
             }
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (120) * Projectile.scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (120) * Projectile.scale, targetHitbox, 64);
         }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/FinalFractal";
         List<float> odr = new List<float>();
@@ -181,16 +181,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Texture2D tex = Projectile.GetTexture();
             Texture2D phantom = this.getTextureGlow();
             GraphicsDevice gd = Main.spriteBatch.GraphicsDevice;
-            Texture2D trail = Util.getExtraTex("MotionTrail2");
-            List<Vertex> ve = new List<Vertex>();
+            Texture2D trail = CEUtils.getExtraTex("MotionTrail2");
+            List<ColoredVertex> ve = new List<ColoredVertex>();
 
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = new Color(220, 200, 255);
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(240, 0).RotatedBy(odr[i])),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(240, 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                       b));
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition,
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
                       new Vector3((i) / ((float)odr.Count - 1), 0, 1),
                       b));
             }
@@ -262,17 +262,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 if (Projectile.ai[0] == 2)
                 {
-                    Util.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
-                    Util.PlaySound("CastTriangles", 1, Projectile.Center);
+                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
+                    CEUtils.PlaySound("CastTriangles", 1, Projectile.Center);
 
                 }
                 if (Projectile.ai[0] < 2)
                 {
-                    Util.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
                 }
                 if (Projectile.ai[0] == 3)
                 {
-                    Util.PlaySound("sf_use", 0.75f, Projectile.Center, volume: 1);
+                    CEUtils.PlaySound("sf_use", 0.75f, Projectile.Center, volume: 1);
                 }
                 init = false;
             }
@@ -288,7 +288,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity.normalize() * 1100, Projectile.velocity.normalize() * 10, ModContent.ProjectileType<FractalLaser>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                     }
                     CalamityEntropy.FlashEffectStrength = 0.3f;
-                    Util.PlaySound("sf_shoot", 1, Projectile.Center);
+                    CEUtils.PlaySound("sf_shoot", 1, Projectile.Center);
                 }
                 float l = (float)(Math.Cos(progress * MathHelper.Pi - MathHelper.PiOver2));
                 Projectile.rotation = Projectile.velocity.ToRotation();
@@ -302,11 +302,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 if (Projectile.ai[0] == 3)
                 {
                     Projectile.Resize(64, 64);
-                    Projectile.Center = Projectile.getOwner().MountedCenter + Projectile.velocity.normalize() * (Util.Parabola(progress, length));
+                    Projectile.Center = CEUtils.getOwner(Projectile).MountedCenter + CEUtils.normalize(Projectile.velocity) * (CEUtils.Parabola(progress, length));
                     if (OnNPC != null && OnNPCTime > 0)
                     {
                         Projectile.Center = OnNPC.Center;
-                        length = Util.getDistance(owner.Center, OnNPC.Center);
+                        length = CEUtils.getDistance(owner.Center, OnNPC.Center);
                         Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((OnNPC.Center - owner.Center).ToRotation());
                         if (!OnNPC.active)
                         {
@@ -329,7 +329,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                             int type = ModContent.ProjectileType<FinalFractalBlade>();
                             for (int i = 0; i < 6; i++)
                             {
-                                Vector2 spawnPos = Projectile.getOwner().Calamity().mouseWorld + Util.randomRot().ToRotationVector2() * Main.rand.Next(1200, 2400);
+                                Vector2 spawnPos = Projectile.getOwner().Calamity().mouseWorld + CEUtils.randomRot().ToRotationVector2() * Main.rand.Next(1200, 2400);
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, (Projectile.getOwner().Calamity().mouseWorld - spawnPos) * 0.01f * Main.rand.NextFloat(0.8f, 1.2f), type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                             }
                         }
@@ -337,7 +337,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     float RotF = 4f;
                     alpha = 1;
                     scale = 1.8f;
-                    Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * Util.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
+                    Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
                     Projectile.rotation = Projectile.rotation.ToRotationVector2().ToRotation();
                     Projectile.Center = Projectile.getOwner().MountedCenter;
                     odr.Add(Projectile.rotation);
@@ -397,19 +397,19 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 scale = 2;
                 for (int i = 0; i < 6; i++)
                 {
-                    Vector2 ver = Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(-12, 12);
+                    Vector2 ver = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-12, 12);
                     BasePRT particle = new PRT_Light(target.Center, ver
                         , Main.rand.NextFloat(1.3f, 1.7f), new Color(220, 180, 255), 60, 0.15f);
                     PRTLoader.AddParticle(particle);
                 }
-                Util.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 100);
+                CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 100);
             }
             EGlobalNPC.AddVoidTouch(target, 40, 1.4f, 600, 16);
             if (playHitSound)
             {
                 playHitSound = false;
-                Util.PlaySound("sf_hit", 1, Projectile.Center);
-                Util.PlaySound("FractalHit", 1, Projectile.Center);
+                CEUtils.PlaySound("sf_hit", 1, Projectile.Center);
+                CEUtils.PlaySound("FractalHit", 1, Projectile.Center);
 
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
@@ -429,18 +429,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             GraphicsDevice gd = Main.spriteBatch.GraphicsDevice;
             if (Projectile.ai[0] == 3)
             {
-                Util.drawChain(Projectile.Center, Projectile.getOwner().Center, 18, "CalamityEntropy/Assets/Extra/FFChain");
+                CEUtils.drawChain(Projectile.Center, CEUtils.getOwner(Projectile).Center, 18, "CalamityEntropy/Assets/Extra/FFChain");
             }
-            Texture2D trail = Util.getExtraTex("MotionTrail2");
-            List<Vertex> ve = new List<Vertex>();
+            Texture2D trail = CEUtils.getExtraTex("MotionTrail2");
+            List<ColoredVertex> ve = new List<ColoredVertex>();
 
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = new Color(220, 200, 255);
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition + (new Vector2(240, 0).RotatedBy(odr[i])),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(240, 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                       b));
-                ve.Add(new Vertex(Projectile.Center - Main.screenPosition,
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
                       new Vector3((i) / ((float)odr.Count - 1), 0, 1),
                       b));
             }
@@ -489,7 +489,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 return null;
             }
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (120) * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (120) * Projectile.scale * scale, targetHitbox, 64);
         }
         public override void CutTiles()
         {
@@ -621,7 +621,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Util.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center);
+            CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center);
         }
         public int texType = -1;
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/FinalFractalGlow";

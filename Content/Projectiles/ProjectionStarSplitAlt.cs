@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
                 lightColor *= ((float)Projectile.timeLeft / 30f);
             }
             Texture2D tx = TextureAssets.Projectile[Projectile.type].Value;
-            Utilities.Util.DrawAfterimage(tx, Projectile.Entropy().odp, Projectile.Entropy().odr);
+            CEUtils.DrawAfterimage(tx, Projectile.Entropy().odp, Projectile.Entropy().odr);
 
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tx.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             return false;

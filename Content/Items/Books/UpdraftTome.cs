@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Books
 
         public override void playPageSound()
         {
-            Utilities.Util.PlaySound("windpage", 1, Projectile.Center, 6, 0.52f);
+            CEUtils.PlaySound("windpage", 1, Projectile.Center, 6, 0.52f);
         }
 
         public override float randomShootRotMax => 0.14f;

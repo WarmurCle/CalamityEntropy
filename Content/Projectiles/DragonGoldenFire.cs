@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
                 v.Normalize();
 
                 Projectile.velocity += v * 0.09f;
-                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Utilities.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 3, true));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 3, true));
             }
 
 
@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = Color.White;
 
                 for (int i = 1; i < odp.Count; i++)
@@ -115,10 +115,10 @@ namespace CalamityEntropy.Content.Projectiles
                     }
 
                     c += 1f / odp.Count;
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(46 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + new Vector2(46 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
                           new Vector3((float)i / ((float)odp.Count) + trailOffset, 1, 1),
                           b));
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(-46 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + new Vector2(-46 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
                           new Vector3((float)i / ((float)odp.Count) + trailOffset, 0, 1),
                           b));
 
@@ -128,7 +128,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (ve.Count >= 4)
                 {
                     Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Fire", AssetRequestMode.ImmediateLoad).Value;
-                    Main.instance.GraphicsDevice.Textures[1] = Utilities.Util.getExtraTex("colormap_fire");
+                    Main.instance.GraphicsDevice.Textures[1] = CEUtils.getExtraTex("colormap_fire");
                     shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
 
                     sb.End();
@@ -139,7 +139,7 @@ namespace CalamityEntropy.Content.Projectiles
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     sb.End();
                     sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
-                    ve = new List<Vertex>();
+                    ve = new List<ColoredVertex>();
                     b = Color.White;
 
                     for (int i = 1; i < odp.Count; i++)
@@ -163,15 +163,15 @@ namespace CalamityEntropy.Content.Projectiles
                         }
 
                         c += 1f / odp.Count;
-                        ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(23 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + new Vector2(23 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
                               new Vector3((float)i / ((float)odp.Count) + trailOffset, 1, 1),
                               b));
-                        ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(-23 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + new Vector2(-23 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
                               new Vector3((float)i / ((float)odp.Count) + trailOffset, 0, 1),
                               b));
 
                     }
-                    tx = Utilities.Util.getExtraTex("StreakSolid");
+                    tx = CEUtils.getExtraTex("StreakSolid");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }

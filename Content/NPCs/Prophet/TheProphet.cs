@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             {
                 Vector2 p = prop.Center + offset.RotatedBy(prop.rotation);
                 this.pos = p;
-                this.rot = Utilities.Util.rotatedToAngle(this.rot, prop.rotation + this.tRot - (this.offset.Y > 0 ? -1 : 1) * prop.velocity.Length() * 0.044f, tRS, false);
+                this.rot = CEUtils.rotatedToAngle(this.rot, prop.rotation + this.tRot - (this.offset.Y > 0 ? -1 : 1) * prop.velocity.Length() * 0.044f, tRS, false);
             }
         }
         public List<Fin> leftFin = new List<Fin>();
@@ -138,8 +138,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             {
                 NPC.damage += 4;
             }
-            var snd = Utilities.Util.GetSound("prophet_hurt", maxIns: 1);
-            var snd2 = Utilities.Util.GetSound("prophet_death");
+            var snd = CEUtils.GetSound("prophet_hurt", maxIns: 1);
+            var snd2 = CEUtils.GetSound("prophet_death");
             NPC.HitSound = snd;
             NPC.DeathSound = snd2;
             NPC.value = 2000f;
@@ -377,17 +377,17 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     NPC.velocity *= 0.96f;
                     NPC.velocity += (NPC.Center - target.Center).normalize().RotatedBy(MathHelper.PiOver2) * (NPC.Center.X < target.Center.X ? 0.1f : -0.1f);
-                    NPC.rotation = Utilities.Util.rotatedToAngle(NPC.rotation, (target.Center - NPC.Center).ToRotation(), 0.6f, false);
+                    NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (target.Center - NPC.Center).ToRotation(), 0.6f, false);
                     if (AIChangeDelay >= 30 && AIChangeDelay % (phase == 1 ? 60 : 46) == 0)
                     {
-                        TeleportTo(target.Center + target.velocity.SafeNormalize(Utilities.Util.randomRot().ToRotationVector2()) * 860 / difficult);
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 860 / difficult);
                     }
                     if (AIChangeDelay >= 30 && AIChangeDelay % (phase == 1 ? 60 : 50) == (phase == 1 ? 56 : 46))
                     {
                         if (!Main.dedServ)
                         {
                             SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
-                            Utilities.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                            CEUtils.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
                         }
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -419,7 +419,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             if (!Main.dedServ)
                             {
                                 SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
-                                Utilities.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                                CEUtils.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
                             }
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -454,7 +454,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         {
                             if (NPC.ai[1] < 64 && AIChangeDelay % (int)((phase == 1 ? 10 : 8) / difficult) == 0)
                             {
-                                Utilities.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
+                                CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, NPC.velocity.RotatedBy(MathHelper.PiOver2) * 0.15f * difficult, ModContent.ProjectileType<RuneBulletHostile>(), NPC.damage / 6, 2, -1, 20 * difficult);
@@ -469,7 +469,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     }
                     if (AIChangeDelay == 10)
                     {
-                        TeleportTo(target.Center + Utilities.Util.randomRot().ToRotationVector2() * 600);
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 600);
                     }
                 }
                 if (AIStyle == 2)
@@ -482,7 +482,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.rotation = NPC.velocity.ToRotation();
                     if (AIChangeDelay >= 110 && AIChangeDelay % 60 == 0)
                     {
-                        TeleportTo(target.Center + target.velocity.SafeNormalize(Utilities.Util.randomRot().ToRotationVector2()) * 900 / difficult);
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 900 / difficult);
                         NPC.velocity = (target.Center - NPC.Center).normalize() * 8;
                     }
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -511,9 +511,9 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         if (!Main.dedServ)
                         {
                             SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
-                            Utilities.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                            CEUtils.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
                         }
-                        TeleportTo(target.Center + target.velocity.SafeNormalize(Utilities.Util.randomRot().ToRotationVector2()) * 900 / difficult);
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 900 / difficult);
                     }
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -545,7 +545,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
                     if (AIChangeDelay == 86)
                     {
-                        TeleportTo(target.Center + target.velocity.SafeNormalize(Utilities.Util.randomRot().ToRotationVector2()) * 900 / difficult);
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 900 / difficult);
                         NPC.velocity = (target.Center - NPC.Center).normalize() * 1;
                     }
                     if (AIChangeDelay > 10)
@@ -554,7 +554,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         {
                             if (AIChangeDelay % 4 == 0)
                             {
-                                Utilities.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
+                                CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
                             }
                             if (Main.netMode != NetmodeID.MultiplayerClient && AIChangeDelay % 2 == 0)
                             {
@@ -567,7 +567,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             {
                                 if (AIChangeDelay % 6 == 0)
                                 {
-                                    Utilities.Util.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
+                                    CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
                                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.16f : 0.4f)) * difficult * 1f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
@@ -583,8 +583,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     {
                         if (AIChangeDelay % (phase == 1 ? 4 : 3) == 0)
                         {
-                            TeleportTo(target.Center + Utilities.Util.randomRot().ToRotationVector2() * 900 / difficult);
-                            Utilities.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                            TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 900 / difficult);
+                            CEUtils.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize() * difficult * 0.4f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
@@ -603,14 +603,14 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIChangeDelay == 140)
                     {
-                        TeleportTo(target.Center + Utilities.Util.randomRot().ToRotationVector2() * 560);
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 560);
                     }
                     if (AIChangeDelay == 130)
                     {
                         if (!Main.dedServ)
                         {
                             SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
-                            Utilities.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                            CEUtils.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
                         }
                         for (float i = 0; i < 360; i += (phase == 1 ? 60 : 40))
                         {
@@ -632,7 +632,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         if (!Main.dedServ)
                         {
                             SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
-                            Utilities.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                            CEUtils.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
                         }
                         for (float i = 0; i < 360; i += (phase == 1 ? 60 : 40))
                         {
@@ -655,7 +655,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         if (!Main.dedServ)
                         {
                             SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/CometShardUse"), NPC.Center);
-                            Utilities.Util.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
+                            CEUtils.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
                         }
                         for (float i = 0; i < 360; i += (phase == 1 ? 60 : 40))
                         {
@@ -711,7 +711,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     if (flag)
                     {
                         NPC.velocity = (target.Center + (NPC.Center - target.Center).normalize() * 160 - NPC.Center) * 0.08f;
-                        NPC.rotation = Utilities.Util.rotatedToAngle(NPC.rotation, NPC.velocity.ToRotation(), 0.06f, false);
+                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, NPC.velocity.ToRotation(), 0.06f, false);
                     }
                 }
                 if (AIStyle == 8)
@@ -739,7 +739,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIChangeDelay == 160)
                     {
-                        TeleportTo(target.Center + Utilities.Util.randomRot().ToRotationVector2() * Main.rand.NextFloat(300, 600));
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(300, 600));
                     }
                     if (AIChangeDelay > 60)
                     {
@@ -747,7 +747,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Utilities.Util.randomPointInCircle(10), ModContent.ProjectileType<RuneSword>(), NPC.damage / 6, 4);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, CEUtils.randomPointInCircle(10), ModContent.ProjectileType<RuneSword>(), NPC.damage / 6, 4);
                             }
                         }
                     }
@@ -756,11 +756,11 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIChangeDelay == 310)
                     {
-                        TeleportTo(target.Center + Utilities.Util.randomRot().ToRotationVector2() * 280);
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 280);
                     }
                     if (AIChangeDelay > 140 && AIChangeDelay % (phase == 1 ? 46 : 36) == 0)
                     {
-                        float r = Utilities.Util.randomRot();
+                        float r = CEUtils.randomRot();
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             for (float i = 0; i < 360; i += (phase == 1 ? 36 : 30))
@@ -776,12 +776,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIChangeDelay == 239)
                     {
-                        TeleportTo(target.Center + Util.randomRot().ToRotationVector2() * 900 / difficult);
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 900 / difficult);
 
                     }
                     if (AIChangeDelay == 228)
                     {
-                        float r = Utilities.Util.randomRot();
+                        float r = CEUtils.randomRot();
                         for (float i = 0; i < 358; i += (phase == 1 ? 72 : 60))
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ProphetRuneAlt>(), NPC.damage / 6, 2, -1, NPC.whoAmI, r + MathHelper.ToRadians(i), Main.rand.Next(1, 12));
@@ -873,16 +873,16 @@ namespace CalamityEntropy.Content.NPCs.Prophet
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 {
-                    List<Vertex> ve = new List<Vertex>();
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
                     List<Vector2> points = GP(0);
                     List<Vector2> pointsOutside = GP(180 * a);
                     int i;
                     for (i = 0; i < points.Count; i++)
                     {
-                        ve.Add(new Vertex(NPC.Center - Main.screenPosition + points[i],
+                        ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + points[i],
                         new Vector3((float)i / points.Count, 1, 0.9f),
                               Color.SkyBlue * a));
-                        ve.Add(new Vertex(NPC.Center - Main.screenPosition + pointsOutside[i],
+                        ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + pointsOutside[i],
                               new Vector3((float)i / points.Count, 0, 0.9f),
                               Color.SkyBlue * a));
 
@@ -891,22 +891,22 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     GraphicsDevice gd = Main.graphics.GraphicsDevice;
                     if (ve.Count >= 3)
                     {
-                        Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle2");
+                        Texture2D tx = CEUtils.getExtraTex("AbyssalCircle2");
                         gd.Textures[0] = tx;
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     }
                 }
                 {
-                    List<Vertex> ve = new List<Vertex>();
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
                     List<Vector2> points = GP(0, -1);
                     List<Vector2> pointsOutside = GP(160 * a, -1);
                     int i;
                     for (i = 0; i < points.Count; i++)
                     {
-                        ve.Add(new Vertex(NPC.Center - Main.screenPosition + points[i],
+                        ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + points[i],
                               new Vector3((float)i / points.Count, 1, 0.9f),
                               Color.White * a));
-                        ve.Add(new Vertex(NPC.Center - Main.screenPosition + pointsOutside[i],
+                        ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + pointsOutside[i],
                               new Vector3((float)i / points.Count, 0, 0.9f),
                               Color.White * a));
 
@@ -915,22 +915,22 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     GraphicsDevice gd = Main.graphics.GraphicsDevice;
                     if (ve.Count >= 3)
                     {
-                        Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle2");
+                        Texture2D tx = CEUtils.getExtraTex("AbyssalCircle2");
                         gd.Textures[0] = tx;
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     }
                 }
                 {
-                    List<Vertex> ve = new List<Vertex>();
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
                     List<Vector2> points = GP(0, 0.6f);
                     List<Vector2> pointsOutside = GP(200 * a, -1);
                     int i;
                     for (i = 0; i < points.Count; i++)
                     {
-                        ve.Add(new Vertex(NPC.Center - Main.screenPosition + points[i],
+                        ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + points[i],
                               new Vector3((float)i / points.Count, 1, 0.9f),
                               Color.SkyBlue * a));
-                        ve.Add(new Vertex(NPC.Center - Main.screenPosition + pointsOutside[i],
+                        ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + pointsOutside[i],
                               new Vector3((float)i / points.Count, 0, 0.9f),
                               Color.SkyBlue * a));
 
@@ -939,7 +939,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     GraphicsDevice gd = Main.graphics.GraphicsDevice;
                     if (ve.Count >= 3)
                     {
-                        Texture2D tx = Utilities.Util.getExtraTex("AbyssalCircle2");
+                        Texture2D tx = CEUtils.getExtraTex("AbyssalCircle2");
                         gd.Textures[0] = tx;
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     }
@@ -977,23 +977,23 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             {
                 return;
             }
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
             Color b = Color.White;
 
             for (int i = 0; i < tail.Count - 3; i++)
             {
-                ve.Add(new Vertex(tail[i].position - Main.screenPosition + (tail[i + 1].position - tail[i].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 19,
+                ve.Add(new ColoredVertex(tail[i].position - Main.screenPosition + (tail[i + 1].position - tail[i].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 19,
                       new Vector3((((float)i) / tail.Count), 1, 1),
                       b));
-                ve.Add(new Vertex(tail[i].position - Main.screenPosition + (tail[i + 1].position - tail[i].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 19,
+                ve.Add(new ColoredVertex(tail[i].position - Main.screenPosition + (tail[i + 1].position - tail[i].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 19,
                       new Vector3((((float)i) / tail.Count), 0, 1),
                       b));
 
             }
-            ve.Add(new Vertex(NPC.Center - Main.screenPosition + (NPC.Center - tail[tail.Count - 1].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 19,
+            ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + (NPC.Center - tail[tail.Count - 1].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 19,
                       new Vector3((float)1, 1, 1),
                       b));
-            ve.Add(new Vertex(NPC.Center - Main.screenPosition + (NPC.Center - tail[tail.Count - 1].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 19,
+            ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + (NPC.Center - tail[tail.Count - 1].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 19,
                   new Vector3((float)1, 0, 1),
                   b));
             SpriteBatch sb = Main.spriteBatch;

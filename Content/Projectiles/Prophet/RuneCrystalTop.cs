@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             {
                 return false;
             }
-            return Utilities.Util.LineThroughRect(orgPos, Projectile.Center, targetHitbox, (int)(20 * Projectile.scale));
+            return CEUtils.LineThroughRect(orgPos, Projectile.Center, targetHitbox, (int)(20 * Projectile.scale));
         }
         public override bool ShouldUpdatePosition()
         {

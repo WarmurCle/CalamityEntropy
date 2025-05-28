@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.owner == Main.myPlayer)
             {
-                Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (Main.MouseWorld - Projectile.Center).ToRotation(), 0.2f, false);
+                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (Main.MouseWorld - Projectile.Center).ToRotation(), 0.2f, false);
                 Projectile.netUpdate = true;
                 rp = Projectile.rotation;
 

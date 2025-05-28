@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.End();
 
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = Color.Black;
 
                 for (int i = 1; i < odp.Count; i++)
@@ -101,10 +101,10 @@ namespace CalamityEntropy.Content.Projectiles
                     }
 
                     c += 1f / odp.Count;
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(40 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + new Vector2(40 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
                           new Vector3((float)i / ((float)odp.Count) + trailOffset, 1, 1),
                           b));
-                    ve.Add(new Vertex(odp[i] - Main.screenPosition + new Vector2(-40 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + new Vector2(-40 * width, 0).RotatedBy(odr[i] + MathHelper.PiOver2),
                           new Vector3((float)i / ((float)odp.Count) + trailOffset, 0, 1),
                           b));
 

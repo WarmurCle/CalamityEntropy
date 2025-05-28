@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidEchoProj
 
             sb.Draw(part2, drawpos + ep * 0.4f - Main.screenPosition, null, Color.White, counter * 0.06f, part2.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
-            sb.Draw(mark, Projectile.owner.ToPlayer().Center - Main.screenPosition - new Vector2(0, 38), Utilities.Util.GetCutTexRect(mark, 8, (int)(counter / 4) % 8, false), Color.White, 0, new Vector2(57, 43), Projectile.scale, ef, 0);
+            sb.Draw(mark, Projectile.owner.ToPlayer().Center - Main.screenPosition - new Vector2(0, 38), CEUtils.GetCutTexRect(mark, 8, (int)(counter / 4) % 8, false), Color.White, 0, new Vector2(57, 43), Projectile.scale, ef, 0);
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

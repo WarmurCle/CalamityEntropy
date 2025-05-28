@@ -4,7 +4,7 @@ namespace CalamityEntropy.Content.Particles
 {
     public class ImpactParticle : EParticle
     {
-        public override Texture2D Texture => Utilities.Util.getExtraTex("Impact2");
+        public override Texture2D Texture => CEUtils.getExtraTex("Impact2");
         public override void SetProperty()
         {
             base.SetProperty();

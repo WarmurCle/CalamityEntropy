@@ -77,12 +77,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 targetPos = (target == null ? Main.MouseWorld : target.Center);
             }
-            if (Utilities.Util.getDistance(Projectile.Center, targetPos) > 120)
+            if (CEUtils.getDistance(Projectile.Center, targetPos) > 120)
             {
                 Projectile.velocity += (targetPos - Projectile.Center).normalize() * 2f;
                 Projectile.velocity *= 0.92f;
             }
-            if (Utilities.Util.getDistance(Projectile.Center, Projectile.getOwner().Center) > 2600)
+            if (CEUtils.getDistance(Projectile.Center, Projectile.getOwner().Center) > 2600)
             {
                 target = null;
                 Projectile.Center = Projectile.getOwner().Center;
@@ -113,7 +113,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Utilities.Util.DrawGlow(Projectile.Center, Color.Black * Projectile.Opacity, Projectile.scale * 10 * Projectile.Opacity, false);
+            CEUtils.DrawGlow(Projectile.Center, Color.Black * Projectile.Opacity, Projectile.scale * 10 * Projectile.Opacity, false);
             Texture2D screamTex = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/ScreamyFace", AssetRequestMode.ImmediateLoad).Value;
             lightColor.R = (byte)(255 * Projectile.Opacity);
             Main.spriteBatch.End();

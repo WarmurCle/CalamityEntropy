@@ -69,19 +69,19 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         {
             for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 6 : 1); i++)
             {
-                EParticle.NewParticle(new AbyssalLine() { lx = (Projectile.Calamity().stealthStrike ? 3 : 1.6f), xadd = (Projectile.Calamity().stealthStrike ? 3 : 1.6f) }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Utilities.Util.randomRot());
+                EParticle.NewParticle(new AbyssalLine() { lx = (Projectile.Calamity().stealthStrike ? 3 : 1.6f), xadd = (Projectile.Calamity().stealthStrike ? 3 : 1.6f) }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
             }
             target.Entropy().StareOfAbyssTime = 12 * 60;
             target.Entropy().StareOfAbyssLevel = (int)MathHelper.Min(target.Entropy().StareOfAbyssLevel + (Projectile.Calamity().stealthStrike ? 6 : 1), 8);
-            Utilities.Util.PlaySound("ystn_hit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 3, 0.9f);
+            CEUtils.PlaySound("ystn_hit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 3, 0.9f);
             if (Projectile.Calamity().stealthStrike)
             {
                 for (int i = 0; i < 4 + target.Entropy().StareOfAbyssLevel; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + Utilities.Util.randomRot().ToRotationVector2() * 26, Utilities.Util.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<SoulOfEcho>(), Projectile.damage / 8, Projectile.knockBack / 2, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + CEUtils.randomRot().ToRotationVector2() * 26, CEUtils.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<SoulOfEcho>(), Projectile.damage / 8, Projectile.knockBack / 2, Projectile.owner);
                 }
                 target.Entropy().StareOfAbyssTime = 0;
-                Utilities.Util.PlaySound("bne_hit2", 1, Projectile.Center);
+                CEUtils.PlaySound("bne_hit2", 1, Projectile.Center);
             }
             else
             {
@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                 {
                     for (int i = 0; i < target.Entropy().EclipsedImprintLevel; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Utilities.Util.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<SoulOfEclipse>(), 0, 0, Projectile.owner, Main.rand.Next(0, 80));
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, CEUtils.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<SoulOfEclipse>(), 0, 0, Projectile.owner, Main.rand.Next(0, 80));
                     }
                     target.Entropy().EclipsedImprintTime = 0;
                 }

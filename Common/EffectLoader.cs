@@ -149,153 +149,8 @@ namespace CalamityEntropy.Common
             //绘制黑色遮罩
             DrawBlackMask();
 
-            //最后的效果渲染层
-            AddEndEffect();
-
             //调用原始方法
             orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
-        }
-
-        private static bool HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift)
-        {
-            warpSets = [];
-            warpSetsNoBlueshift = [];
-            foreach (Projectile p in Main.projectile)
-            {
-                if (!p.active)
-                {
-                    continue;
-                }
-                if (p.ModProjectile is IDrawWarp drawWarp)
-                {
-                    if (drawWarp.noBlueshift())
-                    {
-                        warpSetsNoBlueshift.Add(drawWarp);
-                    }
-                    else
-                    {
-                        warpSets.Add(drawWarp);
-                    }
-                }
-            }
-            return warpSets.Count > 0 || warpSetsNoBlueshift.Count > 0;
-        }
-
-        private static void AddEndEffect()
-        {
-            if (Main.gameMenu)
-            {
-                return;
-            }
-
-            GraphicsDevice graphicsDevice = Main.instance.GraphicsDevice;
-
-            if (HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift))
-            {
-                if (warpSets.Count > 0)
-                {
-                    //绘制屏幕
-                    graphicsDevice.SetRenderTarget(screen);
-                    graphicsDevice.Clear(Color.Transparent);
-                    Main.spriteBatch.Begin(0, BlendState.AlphaBlend);
-                    Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
-                    Main.spriteBatch.End();
-                    //绘制需要绘制的内容
-                    graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
-                    graphicsDevice.Clear(Color.Transparent);
-
-                    Main.spriteBatch.Begin(0, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None
-                        , RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                    foreach (IDrawWarp p in warpSets) { p.Warp(); }
-                    Main.spriteBatch.End();
-
-                    //应用扭曲
-                    graphicsDevice.SetRenderTarget(Main.screenTarget);
-                    graphicsDevice.Clear(Color.Transparent);
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-
-                    //如果想热加载，最好这样获取值
-                    Effect effect = WarpShader.Value;//EffectsRegistry.WarpShader;
-                    effect.Parameters["tex0"].SetValue(Main.screenTargetSwap);
-                    effect.Parameters["noBlueshift"].SetValue(false);//这个部分的绘制需要使用蓝移效果
-                    effect.Parameters["i"].SetValue(0.02f);
-                    effect.CurrentTechnique.Passes[0].Apply();
-                    Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
-                    Main.spriteBatch.End();
-
-                    Main.spriteBatch.Begin(default, BlendState.AlphaBlend, Main.DefaultSamplerState
-                        , default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                    foreach (IDrawWarp p in warpSets) { if (p.canDraw()) { p.costomDraw(Main.spriteBatch); } }
-                    Main.spriteBatch.End();
-                }
-                if (warpSetsNoBlueshift.Count > 0)
-                {
-                    //绘制屏幕
-                    graphicsDevice.SetRenderTarget(screen);
-                    graphicsDevice.Clear(Color.Transparent);
-                    Main.spriteBatch.Begin(0, BlendState.AlphaBlend);
-                    Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
-                    Main.spriteBatch.End();
-                    //绘制需要绘制的内容
-                    graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
-                    graphicsDevice.Clear(Color.Transparent);
-
-                    Main.spriteBatch.Begin(0, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None
-                        , RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                    foreach (IDrawWarp p in warpSetsNoBlueshift) { p.Warp(); }
-                    Main.spriteBatch.End();
-
-                    //应用扭曲
-                    graphicsDevice.SetRenderTarget(Main.screenTarget);
-                    graphicsDevice.Clear(Color.Transparent);
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-
-                    //如果想热加载，最好这样获取值
-                    Effect effect = WarpShader.Value;//EffectsRegistry.WarpShader;
-                    effect.Parameters["tex0"].SetValue(Main.screenTargetSwap);
-                    effect.Parameters["noBlueshift"].SetValue(true);//这个部分的绘制不需要使用蓝移效果
-                    effect.Parameters["i"].SetValue(0.02f);
-                    effect.CurrentTechnique.Passes[0].Apply();
-                    Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
-                    Main.spriteBatch.End();
-
-                    Main.spriteBatch.Begin(default, BlendState.AlphaBlend, Main.DefaultSamplerState
-                        , default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                    foreach (IDrawWarp p in warpSetsNoBlueshift) { if (p.canDraw()) { p.costomDraw(Main.spriteBatch); } }
-                    Main.spriteBatch.End();
-                }
-            }
-
-            #region RT粒子特效
-            if (PRT_RTSpark.HasSet(out List<BasePRT> prts))
-            {
-                graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
-                graphicsDevice.Clear(Color.Transparent);
-                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
-                Main.spriteBatch.End();
-
-                graphicsDevice.SetRenderTarget(screen);
-                graphicsDevice.Clear(Color.Transparent);
-                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                PRT_RTSpark.DrawAll(Main.spriteBatch, prts);
-                Main.spriteBatch.End();
-
-                graphicsDevice.SetRenderTarget(Main.screenTarget);
-                graphicsDevice.Clear(Color.Transparent);
-                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-                Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                graphicsDevice.Textures[1] = CEUtils.GetT2DAsset("CalamityEntropy/Assets/StarrySky").Value;
-                RTShader.Value.CurrentTechnique.Passes[0].Apply();
-                RTShader.Value.Parameters["m"].SetValue(0.08f);
-                RTShader.Value.Parameters["n"].SetValue(0.01f);
-                RTShader.Value.Parameters["OffsetX"].SetValue((float)((Main.GlobalTimeWrappedHourly) * 0.11f));
-                Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
-                Main.spriteBatch.End();
-            }
-            #endregion
         }
 
         private static void DrawRandomEffect(GraphicsDevice graphicsDevice)
@@ -322,7 +177,7 @@ namespace CalamityEntropy.Common
                     WohShot mp = (WohShot)p.ModProjectile;
                     if (mp.odp.Count > 1)
                     {
-                        List<Vertex> ve = new List<Vertex>();
+                        List<ColoredVertex> ve = new List<ColoredVertex>();
                         Color b = new Color(75, 125, 255);
 
                         float a = 0;
@@ -331,10 +186,10 @@ namespace CalamityEntropy.Common
                         {
                             a += 1f / mp.odp.Count;
 
-                            ve.Add(new Vertex(vLToCenter(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18, Main.GameViewMatrix.Zoom.X),
+                            ve.Add(new ColoredVertex(vLToCenter(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18, Main.GameViewMatrix.Zoom.X),
                                   new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                                   b * a));
-                            ve.Add(new Vertex(vLToCenter(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18, Main.GameViewMatrix.Zoom.X),
+                            ve.Add(new ColoredVertex(vLToCenter(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18, Main.GameViewMatrix.Zoom.X),
                                   new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                                   b * a));
                             lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
@@ -384,7 +239,7 @@ namespace CalamityEntropy.Common
                         w = 0.85f;
                     }
                     Vector2 opos = p.Center;
-                    Texture2D tx = Util.getExtraTex("wohlaser");
+                    Texture2D tx = CEUtils.getExtraTex("wohlaser");
                     int drawCount = (int)(2400f * p.scale / tx.Width) + 1;
                     for (int i = 0; i < drawCount; i++)
                     {
@@ -405,7 +260,7 @@ namespace CalamityEntropy.Common
                             Color cl = new Color(200, 235, 255);
                             for (int i = mp.odp.Count - 1; i >= 1; i--)
                             {
-                                Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
+                                CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
                                 size -= sizej;
                             }
                         }
@@ -428,7 +283,7 @@ namespace CalamityEntropy.Common
                         }
                         for (int i = mp.odp.Count - 1; i >= 1; i--)
                         {
-                            Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
+                            CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
                             size -= sizej;
                         }
                     }
@@ -449,7 +304,7 @@ namespace CalamityEntropy.Common
                 {
                     if (!p.dead && p.Entropy().MagiShield > 0 && p.Entropy().visualMagiShield)
                     {
-                        Texture2D shieldTexture = Util.getExtraTex("shield");
+                        Texture2D shieldTexture = CEUtils.getExtraTex("shield");
                         Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255), 0, shieldTexture.Size() / 2, 0.47f, SpriteEffects.None, 0);
 
                     }
@@ -461,7 +316,7 @@ namespace CalamityEntropy.Common
                 {
                     if (p.ModProjectile != null && p.ModProjectile is MoonlightShieldBreak)
                     {
-                        Texture2D shieldTexture = Util.getExtraTex("shield");
+                        Texture2D shieldTexture = CEUtils.getExtraTex("shield");
                         Main.spriteBatch.Draw(shieldTexture, p.Center - Main.screenPosition, null, new Color(186, 120, 255) * p.ai[2], 0, shieldTexture.Size() / 2, 0.47f * (1 + p.ai[1]), SpriteEffects.None, 0);
 
                     }
@@ -716,7 +571,7 @@ namespace CalamityEntropy.Common
                 else if (p.type == silenceHookType)
                 {
                     Vector2 c = ((int)p.ai[1]).ToProj().Center;
-                    Util.drawChain(p.Center, c, 20, Util.getExtraTex("VoidChain"));
+                    CEUtils.drawChain(p.Center, c, 20, CEUtils.getExtraTex("VoidChain"));
                 }
                 else if (p.type == cruiserBlackholeBulletType)
                 {
@@ -787,7 +642,7 @@ namespace CalamityEntropy.Common
                 {
                     continue;
                 }
-                Texture2D draw = Util.getExtraTex("cvdt");
+                Texture2D draw = CEUtils.getExtraTex("cvdt");
                 Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White, pt.rotation, draw.Size() / 2, 2.2f * pt.alpha, SpriteEffects.None, 0);
             }
 
@@ -799,7 +654,7 @@ namespace CalamityEntropy.Common
             kscreen2.CurrentTechnique = kscreen2.Techniques["Technique1"];
             kscreen2.CurrentTechnique.Passes[0].Apply();
             kscreen2.Parameters["tex0"].SetValue(screen2);
-            kscreen2.Parameters["tex1"].SetValue(Util.getExtraTex("EternityStreak"));
+            kscreen2.Parameters["tex1"].SetValue(CEUtils.getExtraTex("EternityStreak"));
             kscreen2.Parameters["offset"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
             kscreen2.Parameters["i"].SetValue(0.04f);
             Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
@@ -868,7 +723,7 @@ namespace CalamityEntropy.Common
                     Color color = player.Entropy().VaMoving > 0 ? Color.Blue : Color.Black;
                     for (int i = 1; i < player.Entropy().daPoints.Count; i++)
                     {
-                        Util.drawLine(Main.spriteBatch, white.Value, player.Entropy().daPoints[i - 1], player.Entropy().daPoints[i], color * 0.6f, 12 * sc, 0);
+                        CEUtils.drawLine(Main.spriteBatch, white.Value, (Vector2)CEUtils.Entropy(player).daPoints[i - 1], (Vector2)CEUtils.Entropy(player).daPoints[i], color * 0.6f, 12 * sc, 0);
                         sc += scj;
                     }
                 }
@@ -1090,7 +945,7 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 9000, Color.Black, 9000);
+            CEUtils.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 9000, Color.Black, 9000);
             Main.spriteBatch.End();
 
             graphicsDevice.SetRenderTarget(screen2);
@@ -1099,7 +954,7 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            Util.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -9000, Color.Black, 9000);
+            CEUtils.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -9000, Color.Black, 9000);
             Main.spriteBatch.End();
 
             graphicsDevice.SetRenderTarget(Main.screenTarget);
@@ -1126,7 +981,7 @@ namespace CalamityEntropy.Common
             {
                 blackMaskAlpha = Math.Max(blackMaskAlpha - 0.025f, 0f);
             }
-            Main.spriteBatch.Draw(Util.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.5f * blackMaskAlpha);
+            Main.spriteBatch.Draw(CEUtils.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.5f * blackMaskAlpha);
             Main.spriteBatch.End();
         }
     }

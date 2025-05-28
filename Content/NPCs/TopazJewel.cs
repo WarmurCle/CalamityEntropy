@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.NPCs
                 Vector2 npcPos = NPC.Center;
                 float xDist = Main.player[NPC.target].Center.X - npcPos.X;
                 float yDist = Main.player[NPC.target].Center.Y - npcPos.Y;
-                Vector2 projVector = Util.randomPointInCircle(2) + new Vector2(float.Min((targetPos.X - NPC.Center.X), 400) * 0.01f, -8);
+                Vector2 projVector = CEUtils.randomPointInCircle(2) + new Vector2(float.Min((targetPos.X - NPC.Center.X), 400) * 0.01f, -8);
 
                 float speed = Main.masterMode ? 6f : 4;
                 int type = ModContent.ProjectileType<TopazJewelProjectile>();

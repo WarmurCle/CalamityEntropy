@@ -49,18 +49,18 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            float r = Utilities.Util.randomRot();
+            float r = CEUtils.randomRot();
             EParticle.NewParticle(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r);
             EParticle.NewParticle(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r + MathHelper.PiOver2);
             for (int i = 0; i < 2; i++)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Utilities.Util.randomVec(24), ModContent.ProjectileType<RainbowRocket>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Utilities.Util.randomVec(24), ModContent.ProjectileType<PartySparkle>(), Projectile.damage / 16, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomVec(24), ModContent.ProjectileType<RainbowRocket>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomVec(24), ModContent.ProjectileType<PartySparkle>(), Projectile.damage / 16, Projectile.knockBack, Projectile.owner);
             }
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Utilities.Util.getExtraTex("StarTexture");
+            Texture2D tex = CEUtils.getExtraTex("StarTexture");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Main.DiscoColor, 4 * Main.GlobalTimeWrappedHourly, tex.Size() / 2, Projectile.scale * 0.5f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Main.DiscoColor, -1 * Main.GlobalTimeWrappedHourly, tex.Size() / 2, Projectile.scale * 0.4f, SpriteEffects.None, 0);

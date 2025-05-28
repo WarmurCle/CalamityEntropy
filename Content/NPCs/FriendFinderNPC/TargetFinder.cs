@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             {
                 if (!npc.friendly)
                 {
-                    var d = Utilities.Util.getDistance(npc.Center, owner.Center);
+                    var d = CEUtils.getDistance(npc.Center, owner.Center);
                     if (d < distance)
                     {
                         distance = d;

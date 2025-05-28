@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 if (!npc.friendly && !npc.dontTakeDamage)
                 {
-                    float d = Utilities.Util.getDistance(npc.Center, mouse);
+                    float d = CEUtils.getDistance(npc.Center, mouse);
                     if (d < dist)
                     {
                         target = npc;
@@ -199,8 +199,8 @@ namespace CalamityEntropy.Content.Items.Books
             Vector2 but = Projectile.Center + new Vector2(-13, 28).RotatedBy(Projectile.rotation) * Projectile.scale;
             Vector2 mid = Projectile.Center + new Vector2(-13 - (MathHelper.Max(0, Projectile.ai[1] - 0.25f)) * 32, 0).RotatedBy(Projectile.rotation) * Projectile.scale;
 
-            Utilities.Util.drawLine(top, mid, new Color(255, 255, 161), 2 * Projectile.scale, 2);
-            Utilities.Util.drawLine(but, mid, new Color(255, 255, 161), 2 * Projectile.scale, 2);
+            CEUtils.drawLine(top, mid, new Color(255, 255, 161), 2 * Projectile.scale, 2);
+            CEUtils.drawLine(but, mid, new Color(255, 255, 161), 2 * Projectile.scale, 2);
 
             Main.EntitySpriteDraw(Projectile.getDrawData(Color.White));
             return false;

@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
-        public override string Texture => Util.WhiteTexPath;
+        public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
             Projectile.width = 6;

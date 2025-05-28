@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles
                     p.alpha = Main.rand.NextFloat(0.8f, 1.6f);
                     p.shape = 4;
                     p.vd = 0.97f;
-                    p.velocity = Utilities.Util.randomPointInCircle(8);
+                    p.velocity = CEUtils.randomPointInCircle(8);
                     VoidParticles.particles.Add(p);
                 }
 
@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
                     p.position = Projectile.Center;
                     p.alpha = Main.rand.NextFloat(0.8f, 1.6f);
                     p.vd = 0.97f;
-                    p.velocity = Utilities.Util.randomPointInCircle(8);
+                    p.velocity = CEUtils.randomPointInCircle(8);
                     VoidParticles.particles.Add(p);
                 }
             }

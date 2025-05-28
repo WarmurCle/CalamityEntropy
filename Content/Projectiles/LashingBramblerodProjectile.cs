@@ -26,13 +26,13 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            Utilities.Util.PlaySound("beeSting", 1, target.Center);
+            CEUtils.PlaySound("beeSting", 1, target.Center);
         }
         public override bool PreAI()
         {
             var points = new List<Vector2>();
             Projectile.FillWhipControlPoints(Projectile, points);
-            EParticle.NewParticle(new LifeLeaf(), points[points.Count - 1], Util.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, Util.randomRot());
+            EParticle.NewParticle(new LifeLeaf(), points[points.Count - 1], CEUtils.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, CEUtils.randomRot());
 
             return base.PreAI();
         }
@@ -63,21 +63,21 @@ namespace CalamityEntropy.Content.Projectiles
 
             public SilvaFlower()
             {
-                offset = Util.randomPointInCircle(28);
+                offset = CEUtils.randomPointInCircle(28);
                 type = Main.rand.Next(3);
-                rotation = Util.randomRot();
+                rotation = CEUtils.randomRot();
             }
 
             public void Draw(Vector2 projPos, Color lightColor)
             {
-                Texture2D tex = Util.getExtraTex("flower" + type.ToString());
+                Texture2D tex = CEUtils.getExtraTex("flower" + type.ToString());
                 Main.EntitySpriteDraw(tex, projPos + offset - Main.screenPosition, null, lightColor, rotation, tex.Size() / 2f, 1, SpriteEffects.None);
             }
         }
         public List<SilvaFlower> flowers = new();
         public override void OnSpawn(IEntitySource source)
         {
-            Util.PlaySound("VineSpawn", 1, Projectile.Center);
+            CEUtils.PlaySound("VineSpawn", 1, Projectile.Center);
         }
         public override void AI()
         {
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 3;
             if (player.GetModPlayer<SilvaVineDRPlayer>().HitCounter > 0)
             {
-                Util.PlaySound("FractalHit", 1, Projectile.Center);
+                CEUtils.PlaySound("FractalHit", 1, Projectile.Center);
                 Projectile.timeLeft = 0;
                 Projectile.Kill();
             }

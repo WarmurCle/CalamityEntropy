@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles
             CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(255, 60, 60), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.36f, 16);
             GeneralParticleHandler.SpawnParticle(explosion2);
 
-            Utilities.Util.PlaySound("CrystalBallActive", 1, Projectile.Center, 4, 0.4f);
+            CEUtils.PlaySound("CrystalBallActive", 1, Projectile.Center, 4, 0.4f);
         }
         private float PrimitiveWidthFunction(float completionRatio)
         {

@@ -40,14 +40,14 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         {
             foreach (Player p in Main.player)
             {
-                if (Utilities.Util.getDistance(Projectile.Center, p.Center) < 6000)
+                if (CEUtils.getDistance(Projectile.Center, p.Center) < 6000)
                 {
                     p.velocity += (Projectile.Center - p.Center).SafeNormalize(Vector2.Zero) * 0.24f;
-                    if (Utilities.Util.getDistance(Projectile.Center, p.Center) > 1000)
+                    if (CEUtils.getDistance(Projectile.Center, p.Center) > 1000)
                     {
                         p.velocity += (Projectile.Center - p.Center).SafeNormalize(Vector2.Zero) * 0.5f;
                     }
-                    if (Utilities.Util.getDistance(Projectile.Center, p.Center) > 2000)
+                    if (CEUtils.getDistance(Projectile.Center, p.Center) > 2000)
                     {
                         p.velocity += (Projectile.Center - p.Center).SafeNormalize(Vector2.Zero) * 0.5f;
                     }
@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                         projSpawn = false;
                         for (int i = 0; i < 40 + (Main.expertMode ? 16 : 0) + (Main.masterMode ? 16 : 0); i++)
                         {
-                            Utilities.Util.SyncProj(Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(Main.rand.Next(0, 35), 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<VoidStar>(), Projectile.damage, 4, 0, 0, 0, 1));
+                            CEUtils.SyncProj(Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(Main.rand.Next(0, 35), 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), ModContent.ProjectileType<VoidStar>(), Projectile.damage, 4, 0, 0, 0, 1));
                         }
                     }
                 }
@@ -80,8 +80,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Utilities.Util.SyncProj(Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), Projectile.damage, 0, -1, 0, 1));
-                        Utilities.Util.SyncProj(Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BHExp>(), Projectile.damage, 0));
+                        CEUtils.SyncProj(Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), Projectile.damage, 0, -1, 0, 1));
+                        CEUtils.SyncProj(Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BHExp>(), Projectile.damage, 0));
 
 
                     }
@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
 
             for (int i = 0; i < tp1.Count; i++)
             {
-                Main.spriteBatch.Draw(tx2, Projectile.Center + tp2[i] - Main.screenPosition, null, Color.White * 0.3f, (tp1[i] - tp2[i]).ToRotation(), new Vector2(0, tx2.Height / 2), new Vector2(Utilities.Util.getDistance(tp1[i], tp2[i]) / tx2.Width, 2), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tx2, Projectile.Center + tp2[i] - Main.screenPosition, null, Color.White * 0.3f, (tp1[i] - tp2[i]).ToRotation(), new Vector2(0, tx2.Height / 2), new Vector2(CEUtils.getDistance(tp1[i], tp2[i]) / tx2.Width, 2), SpriteEffects.None, 0);
             }
 
             Main.spriteBatch.End();

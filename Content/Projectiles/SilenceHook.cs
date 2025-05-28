@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Projectile sl = ((int)Projectile.ai[1]).ToProj();
-            if (Utilities.Util.getDistance(sl.Center, Projectile.Center) > 1100)
+            if (CEUtils.getDistance(sl.Center, Projectile.Center) > 1100)
             {
                 Projectile.Kill();
             }
@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                if (Utilities.Util.getDistance(sl.Center, Projectile.Center) > 960)
+                if (CEUtils.getDistance(sl.Center, Projectile.Center) > 960)
                 {
                     backing = true;
 
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (backing)
                 {
                     Projectile.velocity = (sl.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 25;
-                    if (Utilities.Util.getDistance(sl.Center, Projectile.Center) < 30)
+                    if (CEUtils.getDistance(sl.Center, Projectile.Center) < 30)
                     {
                         Projectile.Kill();
                     }

@@ -169,7 +169,7 @@ namespace CalamityEntropy
 
                 if (!Main.dedServ && itemtype == ModContent.ItemType<PoopPickup>())
                 {
-                    Utilities.Util.PlaySound("fart", 1, player.Center);
+                    CEUtils.PlaySound("fart", 1, player.Center);
                 }
                 if (Main.dedServ)
                 {

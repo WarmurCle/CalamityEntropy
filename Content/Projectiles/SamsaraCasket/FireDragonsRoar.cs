@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Utilities.Util.randomRot().ToRotationVector2() * Main.rand.Next(6, 14) + new Vector2(0, -8), ModContent.ProjectileType<ZeratosBullet0>(), Projectile.damage, Projectile.knockBack * 2, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.Next(6, 14) + new Vector2(0, -8), ModContent.ProjectileType<ZeratosBullet0>(), Projectile.damage, Projectile.knockBack * 2, Projectile.owner);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Utilities.Util.DrawAfterimage(TextureAssets.Projectile[Projectile.type].Value, odp, odr);
+            CEUtils.DrawAfterimage(TextureAssets.Projectile[Projectile.type].Value, odp, odr);
             lightColor = Color.White;
             return base.PreDraw(ref lightColor);
         }

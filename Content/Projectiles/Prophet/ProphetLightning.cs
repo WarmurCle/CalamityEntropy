@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 for (int i = 0; i < 24; i++)
                 {
                     points.Add(p);
-                    pointVels.Add(Utilities.Util.randomPointInCircle(9));
+                    pointVels.Add(CEUtils.randomPointInCircle(9));
                     p += Projectile.velocity;
                     Projectile.velocity = Projectile.velocity.RotatedByRandom(0.5f);
                 }
@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             }
             for (int i = 1; i < points.Count; i++)
             {
-                if (Utilities.Util.LineThroughRect(points[i - 1], points[i], targetHitbox, 4))
+                if (CEUtils.LineThroughRect(points[i - 1], points[i], targetHitbox, 4))
                 {
                     return true;
                 }
@@ -107,17 +107,17 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             if (Projectile.ai[0] > 80)
             {
 
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = Color.White;
 
                 float a = 1 - ((Projectile.ai[0] - 80) / 20f);
                 float lr = 0;
                 for (int i = 1; i < points.Count; i++)
                 {
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 26 * width,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 26 * width,
                           new Vector3((float)(i + 1) / points.Count, 1, 1),
                         b));
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 26 * width,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 26 * width,
                           new Vector3((float)(i + 1) / points.Count, 0, 1),
                           b));
                     lr = (points[i] - points[i - 1]).ToRotation();
@@ -127,7 +127,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
-                    Texture2D tx = Utilities.Util.getExtraTex("Streak2");
+                    Texture2D tx = CEUtils.getExtraTex("Streak2");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
@@ -135,17 +135,17 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             }
             else
             {
-                List<Vertex> ve = new List<Vertex>();
+                List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = Color.White;
 
                 float a = 0.6f * (Projectile.ai[0] / 80f);
                 float lr = 0;
                 for (int i = 1; i < points.Count; i++)
                 {
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 4,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 4,
                           new Vector3((float)(i + 1) / points.Count, 1, 1),
                         b * a));
-                    ve.Add(new Vertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 4,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 4,
                           new Vector3((float)(i + 1) / points.Count, 0, 1),
                           b * a));
                     lr = (points[i] - points[i - 1]).ToRotation();

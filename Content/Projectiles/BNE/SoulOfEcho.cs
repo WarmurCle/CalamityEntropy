@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             if (Projectile.timeLeft < 30)
             {
                 Projectile.velocity *= 0.96f;
-                Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.09f, false);
+                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.09f, false);
                 alpha -= 1f / 30f;
                 return;
             }
@@ -43,11 +43,11 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                 }
                 if (target == null)
                 {
-                    target = Utilities.Util.findTarget(Projectile.owner.ToPlayer(), Projectile, 6000, false);
+                    target = CEUtils.findTarget(Projectile.owner.ToPlayer(), Projectile, 6000, false);
                 }
                 if (target != null)
                 {
-                    Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.09f, false);
+                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.09f, false);
 
                     Projectile.velocity = ((target.Center + (Projectile.Center - target.Center).SafeNormalize(Vector2.UnitX) * ((target.width + target.height) / 2f + 90)) - Projectile.Center) * 0.086f;
 
@@ -58,17 +58,17 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).SafeNormalize(Vector2.UnitX) * 16, ModContent.ProjectileType<Echo>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             ;
                         }
-                        Utilities.Util.PlaySound("soulScreem", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, 1);
+                        CEUtils.PlaySound("soulScreem", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, 1);
                     }
                 }
                 else
                 {
-                    if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 100)
+                    if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 100)
                     {
                         Projectile.velocity *= 0.97f;
                         Projectile.velocity += (Projectile.owner.ToPlayer().Center - Projectile.Center).SafeNormalize(Vector2.Zero);
                     }
-                    Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.09f, false);
+                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.09f, false);
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, Utilities.Util.GetCutTexRect(tex, 4, (int)(Projectile.Entropy().counter / 4) % 4), Color.White * alpha, Projectile.rotation + MathHelper.PiOver2, new Vector2(25, 32), Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, CEUtils.GetCutTexRect(tex, 4, (int)(Projectile.Entropy().counter / 4) % 4), Color.White * alpha, Projectile.rotation + MathHelper.PiOver2, new Vector2(25, 32), Projectile.scale, SpriteEffects.None);
             return false;
         }
 

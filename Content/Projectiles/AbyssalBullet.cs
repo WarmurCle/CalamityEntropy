@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class AbyssalBullet : ModProjectile
     {
-        public override string Texture => Util.WhiteTexPath;
+        public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
                 p.ad = 0.05f;
                 p.alpha = 0.38f * Main.rand.NextFloat(0.8f, 1);
                 p.position = Projectile.Center;
-                p.velocity = Utilities.Util.randomPointInCircle(3);
+                p.velocity = CEUtils.randomPointInCircle(3);
                 AbyssalParticles.particles.Add(p);
             }
         }
@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
                 p.alpha = 0.6f * Main.rand.NextFloat(0.4f, 1);
                 p.position = Projectile.Center;
                 p.vd = 0.98f;
-                p.velocity = Utilities.Util.randomPointInCircle(6);
+                p.velocity = CEUtils.randomPointInCircle(6);
                 AbyssalParticles.particles.Add(p);
             }
         }

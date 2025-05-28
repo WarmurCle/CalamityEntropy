@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     }
                 }
 
-                circleDist = circleDist + (Utilities.Util.getDistance(owner.Center, owner.target.ToPlayer().Center) - circleDist) * 0.01f;
+                circleDist = circleDist + (CEUtils.getDistance(owner.Center, owner.target.ToPlayer().Center) - circleDist) * 0.01f;
                 if (circleDist > 640)
                 {
                     circleDist = 640;
@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     }
                 }
             }
-            if (Utilities.Util.getDistance(targetPos, NPC.Center) > 4600)
+            if (CEUtils.getDistance(targetPos, NPC.Center) > 4600)
             {
                 NPC.Center = targetPos;
             }
@@ -244,15 +244,15 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             var r = Main.rand;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            List<Vertex> ve = new List<Vertex>();
+            List<ColoredVertex> ve = new List<ColoredVertex>();
 
             for (int i = 0; i < oldRots.Count; i++)
             {
                 Color b = Color.Lerp(Color.Purple * 0.01f, Color.Purple, ((float)(i)) / (float)oldRots.Count) * 1f;
-                ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (16 + 80 * NPC.scale * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
+                ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (16 + 80 * NPC.scale * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
                       new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                       b));
-                ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (16 + 80 * NPC.scale - 80 * NPC.scale * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
+                ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (16 + 80 * NPC.scale - 80 * NPC.scale * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
                       new Vector3(i / (float)oldRots.Count + trailOffset, 0, 1),
                       b));
             }
@@ -263,15 +263,15 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                 gd.Textures[0] = trail;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             }
-            ve = new List<Vertex>();
+            ve = new List<ColoredVertex>();
 
             for (int i = 0; i < oldRots.Count; i++)
             {
                 Color b = Color.Lerp(Color.White * 0.01f, Color.White, ((float)(i)) / (float)oldRots.Count) * 1f;
-                ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (16 + 80 * NPC.scale * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
+                ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (16 + 80 * NPC.scale * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
                       new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                       b));
-                ve.Add(new Vertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (16 + 80 * NPC.scale - 80 * NPC.scale * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
+                ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (16 + 80 * NPC.scale - 80 * NPC.scale * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
                       new Vector3(i / (float)oldRots.Count + trailOffset, 0, 1),
                       b));
             }

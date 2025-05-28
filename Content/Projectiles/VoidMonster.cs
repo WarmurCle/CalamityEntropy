@@ -99,12 +99,12 @@ namespace CalamityEntropy.Content.Projectiles
                 legsmoving++;
             }
 
-            if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 1200)
+            if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 1200)
             {
                 Projectile.Center = Projectile.owner.ToPlayer().Center;
 
             }
-            if (Utilities.Util.getDistance(tleglu, leglu) > LegSpeed)
+            if (CEUtils.getDistance(tleglu, leglu) > LegSpeed)
             {
                 leglu += (tleglu - leglu).SafeNormalize(Vector2.Zero) * LegSpeed;
             }
@@ -113,7 +113,7 @@ namespace CalamityEntropy.Content.Projectiles
                 leglu = tleglu;
             }
 
-            if (Utilities.Util.getDistance(tlegld, legld) > LegSpeed)
+            if (CEUtils.getDistance(tlegld, legld) > LegSpeed)
             {
                 legld += (tlegld - legld).SafeNormalize(Vector2.Zero) * LegSpeed;
             }
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
                 legld = tlegld;
             }
 
-            if (Utilities.Util.getDistance(tlegru, legru) > LegSpeed)
+            if (CEUtils.getDistance(tlegru, legru) > LegSpeed)
             {
                 legru += (tlegru - legru).SafeNormalize(Vector2.Zero) * LegSpeed;
             }
@@ -131,7 +131,7 @@ namespace CalamityEntropy.Content.Projectiles
                 legru = tlegru;
             }
 
-            if (Utilities.Util.getDistance(tlegrd, legrd) > LegSpeed)
+            if (CEUtils.getDistance(tlegrd, legrd) > LegSpeed)
             {
                 legrd += (tlegrd - legrd).SafeNormalize(Vector2.Zero) * LegSpeed;
             }
@@ -140,22 +140,22 @@ namespace CalamityEntropy.Content.Projectiles
                 legrd = tlegrd;
             }
 
-            if (Utilities.Util.getDistance(leglu, tlu) > 1000)
+            if (CEUtils.getDistance(leglu, tlu) > 1000)
             {
                 leglu = tlu;
                 tleglu = tlu;
             }
-            if (Utilities.Util.getDistance(legld, tld) > 1000)
+            if (CEUtils.getDistance(legld, tld) > 1000)
             {
                 legld = tld;
                 tlegld = tld;
             }
-            if (Utilities.Util.getDistance(legru, tru) > 1000)
+            if (CEUtils.getDistance(legru, tru) > 1000)
             {
                 legru = tru;
                 tlegru = tru;
             }
-            if (Utilities.Util.getDistance(legrd, trd) > 1000)
+            if (CEUtils.getDistance(legrd, trd) > 1000)
             {
                 legrd = trd;
                 tlegrd = trd;
@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.timeLeft = 3;
             }
             Projectile.ai[0]++;
-            if (Utilities.Util.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 140)
+            if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > 140)
             {
                 Projectile.velocity += (Projectile.owner.ToPlayer().Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 1;
                 Projectile.velocity *= 0.98f;
@@ -200,7 +200,7 @@ namespace CalamityEntropy.Content.Projectiles
         public static int LegSpeed = 50;
         public bool checkMoving(Vector2 a, Vector2 b)
         {
-            return Utilities.Util.getDistance(a, b) > MaxDistanceFromLegToTarget;
+            return CEUtils.getDistance(a, b) > MaxDistanceFromLegToTarget;
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -248,7 +248,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 a = Vector2.Lerp(root, p1, p);
                 Vector2 b = Vector2.Lerp(p1, end, p);
                 Vector2 c = Vector2.Lerp(a, b, p);
-                Utilities.Util.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, lastp, c, Color.White, size, 2);
+                CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, lastp, c, Color.White, size, 2);
                 lastp = c;
                 size -= 20f / (float)counts;
                 p += 1f / (float)counts;

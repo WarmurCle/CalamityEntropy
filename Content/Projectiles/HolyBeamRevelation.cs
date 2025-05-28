@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (playSound)
             {
                 playSound = false;
-                Utilities.Util.PlaySound("angel_blast1", 1, Projectile.Center, 8, 0.6f);
+                CEUtils.PlaySound("angel_blast1", 1, Projectile.Center, 8, 0.6f);
             }
             Projectile.Center = Projectile.owner.ToPlayer().Center + Projectile.owner.ToPlayer().gfxOffY * Vector2.UnitY;
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Utilities.Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 1600, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 1600, targetHitbox, 64);
         }
         public override bool ShouldUpdatePosition()
         {

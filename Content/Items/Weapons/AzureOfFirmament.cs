@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 for (int i = 0; i < 12; i++)
                 {
-                    Projectile.NewProjectile(source, position, Utilities.Util.randomRot().ToRotationVector2() * 6, ModContent.ProjectileType<WelkinFeather>(), damage / 4, knockback, player.whoAmI, 0f, -1f);
+                    Projectile.NewProjectile(source, position, CEUtils.randomRot().ToRotationVector2() * 6, ModContent.ProjectileType<WelkinFeather>(), damage / 4, knockback, player.whoAmI, 0f, -1f);
                 }
                 int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
                 if (p.WithinBounds(Main.maxProjectiles))

@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 init = false;
             }
-            NPC fTarget = Util.FindTarget_HomingProj(Projectile, Projectile.Center, 1600);
+            NPC fTarget = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1600);
             if (counter < 46 * Projectile.MaxUpdates)
             {
                 Projectile.velocity *= 0.986f;
@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
                 rotSpeed *= 0.99f;
                 if (fTarget != null)
                 {
-                    Projectile.rotation = Utilities.Util.rotatedToAngle(Projectile.rotation, (fTarget.Center - Projectile.Center).ToRotation(), 0.022f * pg, false);
+                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (fTarget.Center - Projectile.Center).ToRotation(), 0.022f * pg, false);
                 }
             }
             if (counter == 46 * Projectile.MaxUpdates)
@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Projectile.rotation = (fTarget.Center - Projectile.Center).ToRotation();
                 }
-                Util.PlaySound("AbyssalBladeLaunch", 1, Projectile.Center, volume: 0.3f);
+                CEUtils.PlaySound("AbyssalBladeLaunch", 1, Projectile.Center, volume: 0.3f);
                 Projectile.velocity = Projectile.rotation.ToRotationVector2() * 10;
                 if (Main.myPlayer == Projectile.owner)
                 {

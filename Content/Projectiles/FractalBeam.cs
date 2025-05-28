@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class FractalBeam : ModProjectile
     {
-        public override string Texture => Util.WhiteTexPath;
+        public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Util.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity.normalize() * 1200, targetHitbox, 16);
+            return CEUtils.LineThroughRect(Projectile.Center, (Vector2)(Projectile.Center + CEUtils.normalize(Projectile.velocity) * 1200), targetHitbox, 16);
         }
         public override void CutTiles()
         {
