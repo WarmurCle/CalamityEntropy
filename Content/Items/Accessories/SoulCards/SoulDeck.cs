@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
-    public class SoulDeck : ModItem
+    public class SoulDeck : ModItem, IDeck
     {
 
         public override void SetDefaults()
@@ -70,6 +70,10 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
                 .AddIngredient(ModContent.ItemType<CursedThread>(), 1)
                 .AddIngredient<CoreofCalamity>()
                 .AddTile(TileID.Bookcases).Register();
+        }
+        public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+        {
+            return incomingItem.ModItem == null || incomingItem.ModItem is not IDeck;
         }
     }
 }

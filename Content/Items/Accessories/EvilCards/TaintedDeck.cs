@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories.EvilCards
 {
-    public class TaintedDeck : ModItem
+    public class TaintedDeck : ModItem, IDeck
     {
 
         public override void SetDefaults()
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
         }
         public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
         {
-            return incomingItem.ModItem is not OracleDeck;
+            return incomingItem.ModItem == null || incomingItem.ModItem is not IDeck;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

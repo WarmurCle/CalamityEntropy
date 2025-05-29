@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories.Cards
 {
-    public class OracleDeck : ModItem
+    public class OracleDeck : ModItem, IDeck
     {
 
         public override void SetDefaults()
@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 
         public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
         {
-            return incomingItem.ModItem is not TaintedDeck;
+            return incomingItem.ModItem == null || incomingItem.ModItem is not IDeck;
         }
         public override void AddRecipes()
         {
