@@ -2056,7 +2056,7 @@ Items: {
 	}
 
 	IndigoCard: {
-		Tooltip: +[T]% Max flight time and flight speed
+		Tooltip: +[T]%flight speed and [T2]% Max flight time
 		DisplayName: 『Indigo』
 	}
 
@@ -2102,7 +2102,7 @@ Items: {
 			Shortens debuff durations by [DB]%
 			Restores flight time upon touching enemy hitboxes and inflicts Soul Disruption debuff
 			Occasionally releases Soul Fragments on hit, which fly toward you to heal and grant temporary armor
-			Increases flight speed and duration by [FL]%
+			Increases flight speed by [FL]% and duration by [FT]%
 			Slows the decay rate of stats (Armor, Damage, Crit Chance, Damage Reduction, Life Regeneration, Attributes) when they decrease
 			The lower your health, the higher your damage reduction (up to [BE]%)
 			The higher your health, the higher your damage (up to [BD]%)

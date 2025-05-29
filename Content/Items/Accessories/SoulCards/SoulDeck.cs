@@ -23,14 +23,16 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
             Item.rare = ItemRarityID.Red;
             Item.accessory = true;
         }
-        public float WingTimeAndSpeedAddition => IndigoCard.WingTimeAndSpeedAddition;
+        public float WingSpeedAddition => IndigoCard.WingSpeedAddition;
+        public float WingTimeAddition => IndigoCard.WingTimeAddition;
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().bitternessCard = true;
             player.Entropy().grudgeCard = true;
             player.Entropy().devouringCard = true;
-            player.Entropy().WingSpeed += WingTimeAndSpeedAddition;
-            player.Entropy().WingTimeMult += WingTimeAndSpeedAddition;
+            player.Entropy().WingSpeed += WingSpeedAddition;
+            player.Entropy().WingTimeMult += WingTimeAddition;
             player.Entropy().mourningCard = true;
             player.Entropy().obscureCard = true;
             player.Entropy().DebuffTime -= PurificationCard.DebuffTimeReduce;
@@ -42,7 +44,8 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
             tooltips.Replace("[CD]", RequiemCard.CooldownDec.ToPercent());
             tooltips.Replace("[IM]", WisperCard.ImmuneAdd.ToPercent());
             tooltips.Replace("[DB]", PurificationCard.DebuffTimeReduce.ToPercent());
-            tooltips.Replace("[FL]", WingTimeAndSpeedAddition.ToPercent());
+            tooltips.Replace("[FL]", WingSpeedAddition.ToPercent());
+            tooltips.Replace("[FT]", WingTimeAddition.ToPercent());
             tooltips.Replace("[BE]", BitternessCard.enduMax.ToPercent());   
             tooltips.Replace("[BD]", BitternessCard.DmgMax.ToPercent());
             tooltips.Replace("[AP]", DevouringCard.ArmorPene.ToPercent());

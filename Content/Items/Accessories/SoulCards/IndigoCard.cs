@@ -9,7 +9,8 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
     public class IndigoCard : ModItem
     {
-        public static float WingTimeAndSpeedAddition = 0.12f;
+        public static float WingTimeAddition = 0.22f;
+        public static float WingSpeedAddition = 0.12f;
         public override void SetDefaults()
         {
             Item.width = 22;
@@ -21,13 +22,14 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().WingSpeed += WingTimeAndSpeedAddition;
-            player.Entropy().WingTimeMult += WingTimeAndSpeedAddition;
+            player.Entropy().WingSpeed += WingSpeedAddition;
+            player.Entropy().WingTimeMult += WingTimeAddition;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Replace("[T]", WingTimeAndSpeedAddition.ToPercent());
+            tooltips.Replace("[T]", WingSpeedAddition.ToPercent());
+            tooltips.Replace("[T2]", WingTimeAddition.ToPercent());
         }
     }
 }
