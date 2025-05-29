@@ -2187,6 +2187,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: 阿萨福勒数字型采矿机
 	}
+
+	RequiemCard: {
+		DisplayName: 灵魂卡片『魂歌』
+		Tooltip: 将大部分冷却减少[T]%
+	}
 }
 
 PrefixitemDesc:

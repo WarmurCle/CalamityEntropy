@@ -22,6 +22,10 @@ namespace CalamityEntropy
     {
         public static DamageClass RogueDC => ModContent.GetInstance<CalamityMod.RogueDamageClass>();
 
+        public static int ApplyCdDec(this int orig, Player plr)
+        {
+            return (int)(orig * plr.Entropy().CooldownTimeMult);
+        }
         public static bool HasEBookEffect<T>(this Projectile p) where T : EBookProjectileEffect
         {
             if (p.ModProjectile is EBookBaseProjectile ep)

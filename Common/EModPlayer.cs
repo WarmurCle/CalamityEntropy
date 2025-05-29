@@ -38,6 +38,7 @@ namespace CalamityEntropy.Common
 {
     public class EModPlayer : ModPlayer
     {
+        public float CooldownTimeMult = 1;
         public List<int> enabledLoreItems = new List<int>();
         public bool NihilityTwinLoreBonus = false;
         public bool ProphetLoreBonus = false;
@@ -195,7 +196,7 @@ namespace CalamityEntropy.Common
             {
                 playSound = false;
                 genDust = false;
-                lastStandCd = 4000;
+                lastStandCd = (int)(4000 * CooldownTimeMult);
                 Player.Heal(100);
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/holyshield_shatter") { Volume = 0.6f }, Player.Center);
                 return false;
@@ -301,6 +302,10 @@ namespace CalamityEntropy.Common
         public bool foreseeOrbLast = false;
         public override void ResetEffects()
         {
+            grudgeCard = false;
+            obscureCard = false;
+            DebuffTime = 1;
+            CooldownTimeMult = 1;
             DashCD = 1;
             HitCooldown = 0;
             voidResistance = 0;
@@ -434,7 +439,7 @@ namespace CalamityEntropy.Common
             }
             if (!Main.dedServ && vetrasylsEye && vShieldCD <= 0 && CEKeybinds.VetrasylsEyeBlockHotKey.JustReleased)
             {
-                vShieldCD = 40;
+                vShieldCD = 40.ApplyCdDec(Player);
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 6, ModContent.ProjectileType<WelkingShield>(), 0, 0, Player.whoAmI);
             }
             vShieldCD -= 1;
@@ -583,7 +588,7 @@ namespace CalamityEntropy.Common
             }
             if (HolyShield)
             {
-                mantleCd = HolyMantle.Cooldown;
+                mantleCd = (int)(HolyMantle.Cooldown * CooldownTimeMult);
             }
             else
             {
@@ -593,7 +598,7 @@ namespace CalamityEntropy.Common
             {
                 if (mantleCd <= 0)
                 {
-                    mantleCd = HolyMantle.Cooldown;
+                    mantleCd = HolyMantle.Cooldown.ApplyCdDec(Player);
                     HolyShield = true;
                 }
             }
@@ -609,7 +614,7 @@ namespace CalamityEntropy.Common
                 sJudgeCd -= 1;
                 if (sJudgeCd <= 0)
                 {
-                    sJudgeCd = 30 * 60;
+                    sJudgeCd = (30 * 60).ApplyCdDec(Player);
                     SacredJudgeShields += 1;
                 }
             }
@@ -705,6 +710,19 @@ namespace CalamityEntropy.Common
         public int voidslashType = -1;
         public override void PostUpdateMiscEffects()
         {
+            if (obscureCard)
+            {
+                foreach(NPC npc in Main.ActiveNPCs)
+                {
+                    if(!npc.friendly && npc.getRect().Intersects(Player.getRect()))
+                    {
+                        Player.wingTime += 1.2f;
+                        if((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120))
+                        npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 120);
+                        Dust.NewDust(Player.position, Player.width, Player.height, DustID.MagicMirror);
+                    }
+                }
+            }
             if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
             {
                 foreach (var lore in enabledLoreItems)
@@ -844,6 +862,8 @@ namespace CalamityEntropy.Common
         public int immune = 0;
         public bool cHat = false;
         public float HitCooldown = 0;
+        public float DebuffTime = 1;
+        
         public override void OnHurt(Player.HurtInfo info)
         {
             HitTCounter = 300;
@@ -1169,18 +1189,18 @@ namespace CalamityEntropy.Common
                     if (MariviniumShieldCd <= 0)
                     {
                         MariviniumShieldCount++;
-                        MariviniumShieldCd = MariviniumHelmet.ShieldCd;
+                        MariviniumShieldCd = MariviniumHelmet.ShieldCd.ApplyCdDec(Player);
                     }
                 }
                 else
                 {
-                    MariviniumShieldCd = MariviniumHelmet.ShieldCd;
+                    MariviniumShieldCd = MariviniumHelmet.ShieldCd.ApplyCdDec(Player);
                 }
             }
             else
             {
                 MariviniumShieldCount = 0;
-                MariviniumShieldCd = MariviniumHelmet.ShieldCd;
+                MariviniumShieldCd = MariviniumHelmet.ShieldCd.ApplyCdDec(Player);
 
             }
             if (bloodTrCD > 0)
@@ -1599,7 +1619,7 @@ namespace CalamityEntropy.Common
             {
                 if (MagiShield > 0)
                 {
-                    magiShieldCd = 30 * 60;
+                    magiShieldCd = (30 * 60).ApplyCdDec(Player);
                 }
                 if (magiShieldCd > 0)
                 {
@@ -1683,7 +1703,7 @@ namespace CalamityEntropy.Common
             {
                 if (OracleDeckHealCd <= 0)
                 {
-                    OracleDeckHealCd = 300;
+                    OracleDeckHealCd = 300.ApplyCdDec(Player);
                     if (CEUtils.getDistance(Main.LocalPlayer.Center, Player.Center) < 1600)
                     {
                         if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2)
@@ -2088,6 +2108,9 @@ namespace CalamityEntropy.Common
         }
         public List<Item> EBookStackItems = null;
         public bool soulDicorder = false;
+        public bool obscureCard = false;
+        public bool grudgeCard = false;
+
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
             if (fromWho == Main.myPlayer)

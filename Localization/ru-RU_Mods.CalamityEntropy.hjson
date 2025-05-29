@@ -2024,6 +2024,11 @@ Items: {
 		// Tooltip: ""
 		// DisplayName: Azafure Miner
 	}
+
+	RequiemCard: {
+		// DisplayName: 『Requiem』
+		// Tooltip: Reduce most of the cooling by [T]%
+	}
 }
 
 PrefixitemDesc:

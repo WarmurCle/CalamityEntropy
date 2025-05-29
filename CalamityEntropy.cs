@@ -781,6 +781,7 @@ namespace CalamityEntropy
                 SetTargetTrackingValues(self, faceTarget, CEUtils.getDistance(self.Center, Main.player[0].Center), -1);
             }
         }
+
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
             if (Main.debuff[type] && !BuffID.Sets.NurseCannotRemoveDebuff[type])
@@ -789,6 +790,14 @@ namespace CalamityEntropy
                 {
                     return;
                 }
+            }
+            if (cooldownBuffs.Contains(type))
+            {
+                timeToAdd = (int)(timeToAdd * self.Entropy().CooldownTimeMult);
+            }
+            if (Main.debuff[type])
+            {
+                timeToAdd = (int)(timeToAdd * self.Entropy().DebuffTime);
             }
             orig(self, type, timeToAdd, quiet, foodHack);
         }
@@ -1042,9 +1051,10 @@ namespace CalamityEntropy
             }
             mbRegs = null;
         }
-
+        public static List<int> cooldownBuffs;
         public override void PostSetupContent()
         {
+            cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>() };
             RegistryDraedonDialogs();
             foreach (ICELoader setup in ILoaders)
             {

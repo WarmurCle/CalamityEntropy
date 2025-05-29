@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items
                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                 }
             }
-            player.Entropy().ffinderCd = CooldownSec;
+            player.Entropy().ffinderCd = (int)(CooldownSec * player.Entropy().CooldownTimeMult);
             player.AddCooldown("FriendfinderCd", CooldownSec);
 
             return true;

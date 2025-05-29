@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.getOwner().Entropy().immune = 46;
             CalamityEntropy.Instance.screenShakeAmp = 4;
             Projectile.getOwner().Calamity().GeneralScreenShakePower = 4;
-            Projectile.getOwner().Entropy().vShieldCD = 100;
+            Projectile.getOwner().Entropy().vShieldCD = 100.ApplyCdDec(Projectile.getOwner());
             if (!Main.dedServ)
             {
                 SoundEngine.PlaySound(sound, Projectile.Center);

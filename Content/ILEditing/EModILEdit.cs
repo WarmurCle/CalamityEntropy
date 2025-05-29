@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Utilities;
+using CalamityMod;
 using CalamityMod.CalPlayer;
+using CalamityMod.Cooldowns;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using Microsoft.Xna.Framework.Graphics;
@@ -45,10 +47,20 @@ namespace CalamityEntropy.Content.ILEditing
                       null,
             new Type[] { typeof(Player) },
             null);
-
             _hook = EModHooks.Add(originalMethod, canuseitem_hook);
 
+            //public static CooldownInstance AddCooldown(this Player p, string id, int duration, bool overwrite = true)
+            originalMethod = typeof(CalamityUtils)
+                .GetMethod("AddCooldown", BindingFlags.Static | BindingFlags.Public, null, new Type[] { typeof(Player), typeof(string), typeof(int), typeof(bool)}, null);
+
+            _hook = EModHooks.Add(originalMethod, addCdHook);
+
+
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
+        }
+        public static CooldownInstance addCdHook(Func<Player, string, int, bool, CooldownInstance> orig, Player player, string id, int duration, bool overwrite)
+        {
+            return orig.Invoke(player, id, (int)(duration * player.Entropy().CooldownTimeMult), overwrite);
         }
         private static bool EOCAIHook(Func<NPC, Mod, bool> orig, NPC npc, Mod mod)
         {
