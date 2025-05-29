@@ -239,6 +239,10 @@ namespace CalamityEntropy
         public static Texture2D GetTexture(this Projectile p) {
             return TextureAssets.Projectile[p.type].Value;
         }
+        public static Texture2D getTextureAlt(this ModProjectile p, string n = "Alt")
+        {
+            return RequestTex(p.Texture + n);
+        }
         public static Texture2D getTextureGlow(this ModProjectile p) {
             return RequestTex(p.Texture + "Glow");
         }

@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
@@ -21,6 +22,7 @@ using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
+using CalamityMod.NPCs.Crabulon;
 using CalamityMod.NPCs.DevourerofGods;
 using CalamityMod.NPCs.HiveMind;
 using CalamityMod.NPCs.NormalNPCs;
@@ -487,6 +489,10 @@ namespace CalamityEntropy.Common
                 {
                     modifiers.CritDamage += NihilityShell.CirtDamageAddition;
                 }
+                if (projectile.owner.ToPlayer().Entropy().devouringCard)
+                {
+                    modifiers.ArmorPenetration += npc.defense * DevouringCard.ArmorPene;
+                }
             }
             if (projectile.owner >= 0)
             {
@@ -515,6 +521,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
+            if (player.Entropy().devouringCard)
+            {
+                modifiers.ArmorPenetration += npc.defense * DevouringCard.ArmorPene;
+            }
             if (player.Entropy().hasAcc("HEATDEATH"))
             {
                 npc.AddBuff(ModContent.BuffType<HeatDeath>(), 8 * 60);
@@ -582,6 +592,26 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            if(npc.type == NPCID.Paladin)
+            {
+                npcLoot.Add(ModContent.ItemType<DevouringCard>(), 2);
+            }
+            if(npc.type == ModContent.NPCType<Crabulon>())
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<WisperCard>(), 2);
+            }
+            if(npc.type == NPCID.Golem)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<MourningCard>(), 2);
+            }
+            if(npc.type == NPCID.DungeonSpirit)
+            {
+                npcLoot.Add(ModContent.ItemType<RequiemCard>(), new Fraction(1, 12));
+            }
+            if(npc.type == NPCID.BigMimicHallow)
+            {
+                npcLoot.Add(ModContent.ItemType<PurificationCard>(), new Fraction(1, 2));
+            }
             if (npc.type == NPCID.Plantera)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<LashingBramblerod>(), new Fraction(3, 5));
@@ -902,6 +932,13 @@ namespace CalamityEntropy.Common
         public bool needExitShader = false;
         public override void OnKill(NPC npc)
         {
+            if((Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCrimson || Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCorrupt) && Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].Center.Y > Main.worldSurface)
+            {
+                if (Main.rand.NextBool(24))
+                {
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BitternessCard>()));
+                }
+            }
             if (npc.type == ModContent.NPCType<PrimordialWyrmHead>())
             {
                 DownedBossSystem.downedPrimordialWyrm = true;
@@ -1135,6 +1172,13 @@ namespace CalamityEntropy.Common
         {
             if (player != null)
             {
+                if(player.Entropy().grudgeCard)
+                {
+                    if (Main.rand.NextBool(10))
+                    {
+                        Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, CEUtils.randomPointInCircle(10), ModContent.ProjectileType<HealingSpirit>(), 0, 0, player.whoAmI);
+                    }
+                }
                 if (player.Entropy().heartOfStorm)
                 {
                     int lasertype = ModContent.ProjectileType<ElectricLaser>();
@@ -1337,6 +1381,15 @@ namespace CalamityEntropy.Common
                 shop.Add(ModContent.ItemType<Sacrifice>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
                 shop.Add(ModContent.ItemType<Tarnish>(), new Condition(Mod.GetLocalization("HaveTaintedDeck"), () => Main.LocalPlayer.Entropy().taintedDeckInInv));
 
+                AddSoulCard<BitternessCard>(shop);
+                AddSoulCard<DevouringCard>(shop);
+                AddSoulCard<GrudgeCard>(shop);
+                AddSoulCard<IndigoCard>(shop);
+                AddSoulCard<MourningCard>(shop);
+                AddSoulCard<ObscureCard>(shop);
+                AddSoulCard<PurificationCard>(shop);
+                AddSoulCard<RequiemCard>(shop);
+                AddSoulCard<WisperCard>(shop);
             }
             if (shop.NpcType == 20)
             {
@@ -1350,6 +1403,10 @@ namespace CalamityEntropy.Common
             {
                 //shop.Add(ModContent.ItemType<VoidCandle>());
             }
+        }
+        public static void AddSoulCard<T>(NPCShop shop) where T : ModItem
+        {
+            shop.Add(ModContent.ItemType<T>(), new Condition(CalamityEntropy.Instance.GetLocalization("HaveSoulDeck"), () => Main.LocalPlayer.Entropy().soulDeckInInv));
         }
     }
 }

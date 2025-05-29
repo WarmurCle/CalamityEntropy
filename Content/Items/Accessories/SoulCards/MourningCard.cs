@@ -7,9 +7,8 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
-    public class GrudgeCard : ModItem
+    public class MourningCard : ModItem
     {
-        public static float TempDefense = 2;
         public override void SetDefaults()
         {
             Item.width = 22;
@@ -21,14 +20,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().grudgeCard = true;
-        }
-
-        public override void AddRecipes()
-        {
-            Recipe.Create(1508, 12)
-                .AddIngredient(Type)
-                .Register();
+            player.Entropy().mourningCard = true;
         }
     }
 }

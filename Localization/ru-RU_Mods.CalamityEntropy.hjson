@@ -2029,6 +2029,86 @@ Items: {
 		// DisplayName: 『Requiem』
 		// Tooltip: Reduce most of the cooling by [T]%
 	}
+
+	GrudgeCard: {
+		// DisplayName: 『Grudge』
+		// Tooltip: Hitting enemies may release souls that fly to you, healing you and providing temporary armor
+	}
+
+	ObscureCard: {
+		// DisplayName: 『Obscurity』
+		// Tooltip: Restores flight time when touching enemy hitboxes and inflicts Soul Disorder debuff
+	}
+
+	PurificationCard: {
+		// DisplayName: 『Purification』
+		// Tooltip: Reduces duration of all debuffs by [T]%
+	}
+
+	WisperCard: {
+		// DisplayName: 『Whisper』
+		// Tooltip: Extends invincibility duration by /[T]%
+	}
+
+	MourningCard: {
+		// DisplayName: 『Mourning』
+		// Tooltip: When armor, damage, crit chance, and regen decrease, slow down the rate of attribute reduction
+	}
+
+	IndigoCard: {
+		// Tooltip: +[T]% Max flight time and flight speed
+		// DisplayName: 『Indigo』
+	}
+
+	BitternessCard: {
+		// DisplayName: 『Woe』
+		/* Tooltip:
+			'''
+			The lower the health value, the higher the damage reduction
+			The higher the health value, the higher the damage
+			Maximum increase of [1]% damage and [2]% damage reduce
+			''' */
+	}
+
+	DevouringCard: {
+		// DisplayName: 『Soulrend』
+		// Tooltip: Ignore [1]% of enemys' armor
+	}
+
+	CursedThread: {
+		// DisplayName: Cursed Thread
+		/* Tooltip:
+			'''
+			Used to craft Soul Deck
+			The following materials are required:
+			Requiem: Dropped by Dungeon Spirits
+			Whisper: Dropped by Crabulon
+			Purification: Dropped by Hallowed Mimics
+			Obscure: Found in Evil Biome Crates
+			Grudge: Crafted by shimmering 12 Ectoplasm
+			Indigo: Found in Skyware Chests or Sky Crates
+			Mourning: Dropped by Golem boss
+			Woe: Rare drop from Underground Evil Biome enemies
+			Soulrend: Dropped by Paladins
+			''' */
+	}
+
+	SoulDeck: {
+		// DisplayName: Soul Deck
+		/* Tooltip:
+			'''
+			Reduces most cooldowns by [CD]%
+			Increases immune time by [IM]%
+			Shortens debuff durations by [DB]%
+			Restores flight time upon touching enemy hitboxes and inflicts Soul Disruption debuff
+			Occasionally releases Soul Fragments on hit, which fly toward you to heal and grant temporary armor
+			Increases flight speed and duration by [FL]%
+			Slows the decay rate of stats (Armor, Damage, Crit Chance, Damage Reduction, Life Regeneration, Attributes) when they decrease
+			The lower your health, the higher your damage reduction (up to [BE]%)
+			The higher your health, the higher your damage (up to [BD]%)
+			Ignores [AP]% of enemy armor
+			''' */
+	}
 }
 
 PrefixitemDesc:
@@ -2419,6 +2499,7 @@ Projectiles: {
 	// FinalFractalHeld.DisplayName: Final Fractal Held
 	// FinalFractalBlade.DisplayName: Final Fractal Blade
 	// FinalFracRightClick.DisplayName: Final Frac Right Click
+	// HealingSpirit.DisplayName: Healing Spirit
 }
 
 LegendTooltip: - Legend -
@@ -3090,6 +3171,7 @@ ZoneGraveyard: Zone Graveyard
 DownedBoss2: After Defeat Eater of World / Brain of cthulhu
 HaveOracleDeck: When Oracle Deck is in inventory
 HaveTaintedDeck: When Tainted Deck is in inventory
+// HaveSoulDeck: When Soul Deck is in inventory
 DownloadBOI: Have played The Binding of Isaac: Repentance
 IsaacLock: You can't equip this before you played The Binding of Isaac Repentance LOL
 PWSpawnInfo: Enter the Abyss with Chaos State debuff
@@ -3177,3 +3259,6 @@ DraedonDialogs: {
 
 // SlotInfo2: InsertItem
 // LightModeTip: Warning: Other lighting modes will cause some projectiles and NPCs of Calamity Entropy to become invisible. Best to use color mode.
+// KilledByBloodBoiling: "'s blood is boiling"
+// BloodBoiling: Boiling Blood
+// BloodBoilingDescr: Continuously using items increases attack speed, but it will cause sustained damage to yourself

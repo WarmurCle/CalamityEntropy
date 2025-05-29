@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
+using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.VoidFaquir;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Pets;
@@ -1153,6 +1154,22 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
+            if(item.type == ItemID.FloatingIslandFishingCrate)
+            {
+                itemLoot.Add(ModContent.ItemType<IndigoCard>(), 5);
+            }
+            if(item.type == ItemID.GolemBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<MourningCard>(), 1);
+            }
+            if(item.type == 3203 || item.type == 3204 || item.type == 3983 || item.type == 3982)
+            {
+                itemLoot.Add(ModContent.ItemType<ObscureCard>(), 5);
+            }
+            if (item.Is<CrabulonBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<WisperCard>(), 2);
+            }
             if (item.Is<PlaguebringerGoliathBag>())
             {
                 itemLoot.Add(ModContent.ItemType<PlagueInternalCombustionEngine>(), 2);

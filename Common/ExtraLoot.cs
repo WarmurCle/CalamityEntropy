@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
+using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Tiles;
 using Terraria;
@@ -43,10 +44,8 @@ namespace CalamityEntropy.Common
                             continue;
                         for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                         {
-
                             if (chest.item[inventoryIndex].type == ItemID.None)
                             {
-
                                 chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<AuraCard>());
                                 itemsPlaced++;
                                 break;
@@ -54,7 +53,21 @@ namespace CalamityEntropy.Common
                         }
 
                     }
+                    if (chestTile.TileFrameX == 13 * 36)
+                    {
+                        if (!WorldGen.genRand.NextBool(2))
+                            continue;
+                        for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<IndigoCard>());
+                                itemsPlaced++;
+                                break;
+                            }
+                        }
 
+                    }
                 }
                 if (chestTile.TileType == TileID.Containers2)
                 {

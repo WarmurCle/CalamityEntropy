@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
@@ -63,6 +64,7 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<ForeseeWhip>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<ProphecyMasterpiece>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<BookMarkForesee>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<CursedThread>(), 1);
         }
     }
 }

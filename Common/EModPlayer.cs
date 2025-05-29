@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
@@ -123,6 +124,9 @@ namespace CalamityEntropy.Common
         public int CruiserAntiGravTime = 0;
         public int gravAddTime = 0;
         public bool plagueEngine = false;
+        public int bloodBoiling = 0;
+        public int UsingItemCounter = 0;
+
         public class EquipInfo
         {
             public string id;
@@ -300,8 +304,56 @@ namespace CalamityEntropy.Common
             return false;
         }
         public bool foreseeOrbLast = false;
+
+        //悲恸的属性记录
+        public float McDefense = 0;
+        public float McRegen = 0;
+        public float McEndurance = 0;
+
+        public class McAttributeRecord
+        {
+            public static float dec = 0.015f;
+            public McAttributeRecord(DamageClass dmgc)
+            {
+                dmgClass = dmgc;
+            }
+            public DamageClass dmgClass;
+            public float McDamage = 1;
+            public float McCrit = 0;
+            public void Record(Player player)
+            {
+                if(McDamage < player.GetDamage(dmgClass).Additive)
+                {
+                    McDamage = player.GetDamage(dmgClass).Additive;
+                }
+                if(McCrit < player.GetCritChance(dmgClass))
+                {
+                    McCrit = player.GetCritChance(dmgClass);
+                }
+            }
+            
+            public void UpdateAtrLossing(Player player)
+            {
+                McCrit += (player.GetCritChance(dmgClass) - McCrit) * dec;
+                McDamage += (player.GetDamage(dmgClass).Additive - McDamage) * dec;
+            }
+
+            public void SetStats(Player player)
+            {
+                if(player.GetCritChance(dmgClass) < McCrit)
+                    player.GetCritChance(dmgClass) = McCrit;
+                if (player.GetDamage(dmgClass).Additive < McDamage)
+                    player.GetDamage(dmgClass) += McDamage - player.GetDamage(dmgClass).Additive;
+            }
+        }
+        public List<McAttributeRecord> McAttributes = null;
+        public bool devouringCard = false;
         public override void ResetEffects()
         {
+            WingTimeMult = 1;
+            devouringCard = false;
+            bitternessCard = false;
+            mourningCard = false;
             grudgeCard = false;
             obscureCard = false;
             DebuffTime = 1;
@@ -432,6 +484,14 @@ namespace CalamityEntropy.Common
         public int vShieldCD = 0;
         public override void PreUpdate()
         {
+            if (McAttributes == null)
+            {
+                McAttributes = new();
+                for(int i = 0; i < DamageClassLoader.DamageClassCount; i++)
+                {
+                    McAttributes.Add(new McAttributeRecord(DamageClassLoader.GetDamageClass(i)));
+                }
+            }
             hitTimeCount++;
             if (Player.HeldItem != null && Player.HeldItem.ModItem is EntropyBook eb)
             {
@@ -708,6 +768,7 @@ namespace CalamityEntropy.Common
         public int scHealCD = 60;
         public int HitTCounter = 0;
         public int voidslashType = -1;
+        public float WingTimeMult = 1;
         public override void PostUpdateMiscEffects()
         {
             if (obscureCard)
@@ -716,9 +777,12 @@ namespace CalamityEntropy.Common
                 {
                     if(!npc.friendly && npc.getRect().Intersects(Player.getRect()))
                     {
-                        Player.wingTime += 1.2f;
-                        if((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120))
-                        npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 120);
+                        Player.wingTime += 2f;
+                        Player.lifeRegen *= 2;
+                        if ((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120)
+                        {
+                            npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 120);
+                        }
                         Dust.NewDust(Player.position, Player.width, Player.height, DustID.MagicMirror);
                     }
                 }
@@ -744,6 +808,7 @@ namespace CalamityEntropy.Common
                 HitCooldown += ProphetLore.ImmuneAdd;
                 Player.lifeRegen += ProphetLore.LifeRegen;
             }
+            Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeMult);
             if (voidslashType == -1)
             {
                 voidslashType = ModContent.ProjectileType<VoidSlash>();
@@ -776,6 +841,23 @@ namespace CalamityEntropy.Common
                 lifeRegenPerSec /= 2;
                 Player.statDefense *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
                 Player.moveSpeed *= (MaliciousCode.CALAMITY__OVERHAUL ? 0.85f : 0.88f);
+            }
+            
+            if (bloodBoiling > 0)
+            {
+                bloodBoiling--;
+                float AttackSpeedAddition = (float)Math.Sqrt(this.UsingItemCounter) * 0.014f;
+                if (Main.GameUpdateCount % 2 == 0)
+                {
+                    int LifeLossing = (int)(this.UsingItemCounter * 0.008f);
+                    Player.statLife -= LifeLossing;
+                    if(Player.statLife <= 0)
+                    {
+                        Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("KilledByBloodBoiling").Value), LifeLossing, 0);
+                    }
+                }
+                Player.GetAttackSpeed(DamageClass.Generic) += AttackSpeedAddition;
+                
             }
             /*if (SubworldSystem.IsActive<VOIDSubworld>())
             {
@@ -819,6 +901,9 @@ namespace CalamityEntropy.Common
             {
                 Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.001f;
             }
+            Player player = Player;
+            player.GetDamage(DamageClass.Generic) += BitternessCard.DmgMax * (player.statLife / (float)player.statLifeMax2);
+            player.endurance += BitternessCard.enduMax * (1f - (player.statLife / (float)player.statLifeMax2));
             if (CalamityEntropy.EntropyMode)
             {
                 Player.statLifeMax2 = (int)(Player.statLifeMax2 * 0.8f);
@@ -847,6 +932,55 @@ namespace CalamityEntropy.Common
             }
             Player.statDefense += (int)temporaryArmor;
             HitTCounter--;
+
+            if(McAttributes != null)
+            {
+                if (Player.statDefense > McDefense)
+                {
+                    McDefense = Player.statDefense;
+                }
+                if (Player.lifeRegen > McRegen)
+                {
+                    McRegen = Player.lifeRegen;
+                }
+                if(Player.endurance > McEndurance)
+                {
+                    McEndurance = Player.endurance;
+                }
+                foreach (var mca in McAttributes)
+                {
+                    mca.Record(Player);
+                }
+
+                float dec = McAttributeRecord.dec;
+                McDefense += (Player.statDefense - McDefense) * dec;
+                McRegen += (Player.lifeRegen - McRegen) * dec;
+                McEndurance += (Player.endurance - McEndurance) * dec;
+                foreach (var mca in McAttributes)
+                {
+                    mca.UpdateAtrLossing(Player);
+                }
+
+                if (mourningCard)
+                {
+                    if (Player.statDefense < McDefense)
+                    {
+                        Player.statDefense += (int)Math.Round(McDefense) - Player.statDefense;
+                    }
+                    if (Player.lifeRegen < McRegen)
+                    {
+                        Player.lifeRegen = (int)Math.Round(McRegen);
+                    }
+                    foreach (var mca in McAttributes)
+                    {
+                        mca.SetStats(Player);
+                    }
+                    if (Player.endurance < McEndurance)
+                    {
+                        Player.endurance = McEndurance;
+                    }
+                }
+            }
         }
         public int manaNorm = 0;
         public int deusCoreAdd = 0;
@@ -1069,8 +1203,22 @@ namespace CalamityEntropy.Common
         public bool DashFlag = false;
         public bool maliciousCode = false;
         public ProminenceTrail runeDashTrail = null;
+        public int UICJ = 0;
         public override void PostUpdate()
         {
+            if (Player.itemTime > 0 || Player.channel)
+            {
+                UICJ = 3;
+            }
+            UICJ--;
+            if (UICJ > 0)
+            {
+                UsingItemCounter++;
+            }
+            else
+            {
+                UsingItemCounter = 0;
+            }
             if (HealingCd > 0) HealingCd--;
 
             if (Main.myPlayer == Player.whoAmI && hasAcc("RuneWing"))
@@ -1872,6 +2020,7 @@ namespace CalamityEntropy.Common
         public float RogueStealthRegenMult = 1;
         public override void PostUpdateEquips()
         {
+            
             if (soulDicorder)
             {
                 Player.statDefense -= 14;
@@ -2110,6 +2259,9 @@ namespace CalamityEntropy.Common
         public bool soulDicorder = false;
         public bool obscureCard = false;
         public bool grudgeCard = false;
+        public bool mourningCard = false;
+        public bool bitternessCard = false;
+        public bool soulDeckInInv = false;
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {

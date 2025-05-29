@@ -2192,6 +2192,84 @@ Items: {
 		DisplayName: 灵魂卡片『魂歌』
 		Tooltip: 将大部分冷却减少[T]%
 	}
+
+	GrudgeCard: {
+		DisplayName: 灵魂卡片『怨念』
+		Tooltip: 击中敌人有时候会迸发出灵魂，灵魂会飞向你并为你回血并提供临时护甲
+	}
+
+	ObscureCard: {
+		DisplayName: 灵魂卡片『幽冥』
+		Tooltip: 接触敌人碰撞箱时回复飞行时间并造成灵魂紊乱debuff
+	}
+
+	PurificationCard: {
+		DisplayName: 灵魂卡片『净化』
+		Tooltip: 将所有debuff的时间减短[T]%
+	}
+
+	WisperCard: {
+		DisplayName: 灵魂卡片『低语』
+		Tooltip: 延长[T]%的无敌时间
+	}
+
+	MourningCard: {
+		DisplayName: 灵魂卡片『悲恸』
+		Tooltip: 当护甲、伤害、暴击率、伤害减免、生命恢复属性下降时，减缓属性减少的速度
+	}
+
+	IndigoCard: {
+		Tooltip: 增加[T]%飞行速度和飞行时间
+		DisplayName: 灵魂卡片『靛蓝』
+	}
+
+	BitternessCard: {
+		DisplayName: 灵魂卡片『幽怨』
+		Tooltip:
+			'''
+			生命值越低，减伤越高，生命值越高，伤害越高
+			最多增加[1]%伤害和[2]%减伤
+			'''
+	}
+
+	DevouringCard: {
+		DisplayName: 灵魂卡片『噬魂』
+		Tooltip: 攻击无视目标[1]%的护甲
+	}
+
+	CursedThread: {
+		DisplayName: 诅咒之绳
+		Tooltip:
+			'''
+			用于制作灵魂卡组
+			需要以下卡片:
+			魂歌：地牢幽魂掉落
+			低语：菌生蟹掉落
+			净化：神圣宝箱怪掉落
+			幽冥：邪恶地形宝匣开出
+			怨念：由12个灵气微光转化而成
+			靛蓝：空岛箱或天空匣开出
+			悲恸：石巨人掉落
+			幽怨：地下邪恶地形敌怪概率掉落
+			噬魂：圣骑士掉落
+			'''
+	}
+
+	SoulDeck: {
+		DisplayName: 灵魂卡组
+		Tooltip:
+			'''
+			将大部分冷却减少[CD]%
+			延长[IM]%的无敌时间
+			将所有debuff的时间减短[DB]%
+			接触敌人碰撞箱时回复飞行时间并造成灵魂紊乱debuff
+			击中敌人有时候会迸发出灵魂，灵魂会飞向你并为你回血并提供临时护甲
+			增加[FL]%飞行速度和飞行时间
+			当护甲、伤害、暴击率、伤害减免、生命恢复、属性下降时，减缓属性减少的速度
+			生命值越低，减伤越高，生命值越高，伤害越高（最多增加[BE]%减伤和[BD]%伤害）
+			无视敌怪[AP]%的护甲
+			'''
+	}
 }
 
 PrefixitemDesc:
@@ -2583,6 +2661,7 @@ Projectiles: {
 	FinalFractalHeld.DisplayName: 幽邃分形
 	FinalFractalBlade.DisplayName: 幽邃分形
 	FinalFracRightClick.DisplayName: 幽邃分形
+	HealingSpirit.DisplayName: Healing Spirit
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3040,8 +3119,8 @@ Configs: {
 		}
 
 		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			// Label: Marivinium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
-			// Tooltip: ""
+			Label: Marivinium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
+			Tooltip: ""
 		}
 
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
@@ -3247,7 +3326,7 @@ Prefixes: {
 
 DamageClasses: {
 	NoneTypeDamageClass.DisplayName: 伤害
-	// NoDRMelee.DisplayName: No D R Melee
+	NoDRMelee.DisplayName: No D R Melee
 }
 
 hkLevel: 当前解锁进度
@@ -3255,6 +3334,7 @@ ZoneGraveyard: 当在墓地环境时
 DownedBoss2: 击败 克苏鲁之脑 / 世界吞噬怪 后
 HaveOracleDeck: 持有神谕卡组时
 HaveTaintedDeck: 持有堕化卡组时
+HaveSoulDeck: 持有灵魂卡组时
 DownloadBOI: 玩过《以撒的结合：忏悔》
 IsaacLock: 你不能在没有玩过《以撒的结合：忏悔》的情况下佩戴该饰品
 PWSpawnInfo: 带有混沌减益时进入深渊
@@ -3350,3 +3430,6 @@ DraedonDialogs: {
 
 SlotInfo2: 存放物品
 LightModeTip: 警告：颜色以外的照明模式会导致灾熵的部分射弹和敌怪不显示，最好使用颜色照明
+KilledByBloodBoiling: 的血液沸腾了
+BloodBoiling: 血沸
+BloodBoilingDescr: 持续使用物品时增加攻速，但会对自身产生持续的伤害

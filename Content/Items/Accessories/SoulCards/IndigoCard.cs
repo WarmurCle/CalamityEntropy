@@ -7,9 +7,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
-    public class GrudgeCard : ModItem
+    public class IndigoCard : ModItem
     {
-        public static float TempDefense = 2;
+        public static float WingTimeAndSpeedAddition = 0.12f;
         public override void SetDefaults()
         {
             Item.width = 22;
@@ -21,14 +21,13 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().grudgeCard = true;
+            player.Entropy().WingSpeed += WingTimeAndSpeedAddition;
+            player.Entropy().WingTimeMult += WingTimeAndSpeedAddition;
         }
 
-        public override void AddRecipes()
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            Recipe.Create(1508, 12)
-                .AddIngredient(Type)
-                .Register();
+            tooltips.Replace("[T]", WingTimeAndSpeedAddition.ToPercent());
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Prophet;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.Particles;
@@ -90,6 +90,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 normalOnly.Add(ModContent.ItemType<RuneWing>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<ForeseeWhip>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<BookMarkForesee>(), new Fraction(2, 5));
+                normalOnly.Add(ModContent.ItemType<CursedThread>(), 1);
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ProphetRelic>());
 

@@ -24,6 +24,7 @@ using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Events;
 using CalamityMod.Items.Materials;
@@ -784,20 +785,23 @@ namespace CalamityEntropy
 
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
-            if (Main.debuff[type] && !BuffID.Sets.NurseCannotRemoveDebuff[type])
+            if (type != ModContent.BuffType<AdrenalineMode>() && type != ModContent.BuffType<RageMode>())
             {
-                if (Main.rand.NextDouble() < self.Entropy().DebuffImmuneChance)
+                if (Main.debuff[type])
                 {
-                    return;
+                    if (Main.rand.NextDouble() < self.Entropy().DebuffImmuneChance)
+                    {
+                        return;
+                    }
                 }
-            }
-            if (cooldownBuffs.Contains(type))
-            {
-                timeToAdd = (int)(timeToAdd * self.Entropy().CooldownTimeMult);
-            }
-            if (Main.debuff[type])
-            {
-                timeToAdd = (int)(timeToAdd * self.Entropy().DebuffTime);
+                if (cooldownBuffs.Contains(type))
+                {
+                    timeToAdd = (int)(timeToAdd * self.Entropy().CooldownTimeMult);
+                }
+                if (Main.debuff[type])
+                {
+                    timeToAdd = (int)(timeToAdd * self.Entropy().DebuffTime);
+                }
             }
             orig(self, type, timeToAdd, quiet, foodHack);
         }
@@ -1052,8 +1056,18 @@ namespace CalamityEntropy
             mbRegs = null;
         }
         public static List<int> cooldownBuffs;
+        public static void CalEnchantsRegistry()
+        {
+            EnchantmentManager.EnchantmentList.Add(new Enchantment(Instance.GetLocalization("BloodBoiling"), Instance.GetLocalization("BloodBoilingDescr"),
+                    903,
+                    "CalamityEntropy/Assets/UI/CalamitasEnchantments/CurseIcon_BloodBoiling",
+                    null,
+                    player => player.Entropy().bloodBoiling = 3,
+                    item => item.IsEnchantable() && item.damage > 0 && item.DamageType != DamageClass.MeleeNoSpeed));
+        }
         public override void PostSetupContent()
         {
+            CalEnchantsRegistry();
             cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>() };
             RegistryDraedonDialogs();
             foreach (ICELoader setup in ILoaders)

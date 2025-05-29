@@ -7,9 +7,10 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
-    public class GrudgeCard : ModItem
+    public class BitternessCard : ModItem
     {
-        public static float TempDefense = 2;
+        public static float DmgMax = 0.24f;
+        public static float enduMax = 0.12f;
         public override void SetDefaults()
         {
             Item.width = 22;
@@ -21,14 +22,13 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().grudgeCard = true;
+            player.Entropy().bitternessCard = true;
         }
 
-        public override void AddRecipes()
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            Recipe.Create(1508, 12)
-                .AddIngredient(Type)
-                .Register();
+            tooltips.Replace("[1]", DmgMax.ToPercent());
+            tooltips.Replace("[2]", enduMax.ToPercent());
         }
     }
 }
