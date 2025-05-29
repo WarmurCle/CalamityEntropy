@@ -8,6 +8,7 @@ using Terraria.Graphics.Effects;
 using CalamityEntropy.Content.Particles;
 using Terraria.ModLoader;
 using CalamityEntropy.Content.Items.Weapons.Nemesis;
+using InnoVault;
 
 namespace CalamityEntropy.Core
 {
@@ -19,7 +20,7 @@ namespace CalamityEntropy.Core
         public static Effect StarsTrail;
         public static Effect RTShader;
         public const string AssetPath = "CalamityEntropy/Assets/";
-        public const string AssetPath2 = "Assets/";
+        public const string AssetPath2 = "Assets/Effects/";
         internal static RenderTarget2D screen;
         internal static float twistStrength = 0f;
         

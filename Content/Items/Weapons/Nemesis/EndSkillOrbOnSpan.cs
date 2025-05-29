@@ -66,8 +66,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 
             if (Projectile.timeLeft == 50 && onOrb && Projectile.IsOwnedByLocalPlayer()) {
                 SoundEngine.PlaySound(SoundID.Item69 with { Pitch = 1.24f }, Projectile.position);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randVr(3, 6)
-                , ModContent.ProjectileType<EndlessChopping>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                 onOrb = false;
             }
