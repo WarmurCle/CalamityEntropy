@@ -2760,18 +2760,18 @@ Buffs: {
 	}
 
 	GuardiansBuff: {
-		// DisplayName: Guardians Buff
-		// Description: Mods.CalamityEntropy.Buffs.GuardiansBuff.Description
+		// DisplayName: The Guardians
+		// Description: ""
 	}
 
 	ProfBuff: {
-		// DisplayName: Prof Buff
-		// Description: Mods.CalamityEntropy.Buffs.ProfBuff.Description
+		// DisplayName: Providence
+		// Description: ""
 	}
 
 	ProfNGuardBuff: {
-		// DisplayName: Prof N Guard Buff
-		// Description: Mods.CalamityEntropy.Buffs.ProfNGuardBuff.Description
+		// DisplayName: Sulfer Cake
+		// Description: ""
 	}
 }
 

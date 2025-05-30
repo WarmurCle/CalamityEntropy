@@ -2273,17 +2273,17 @@ Items: {
 
 	LavaPancake: {
 		DisplayName: 熔岩煎饼
-		Tooltip: "召唤3位亵渎使徒"
+		Tooltip: 召唤3位亵渎使徒
 	}
 
 	HellBohea: {
 		DisplayName: 地狱红茶
-		Tooltip: "召唤一位渴望焚尽一切的邪神?"
+		Tooltip: 召唤一位渴望焚尽一切的邪神?
 	}
 
 	SulfurMeltCake: {
 		DisplayName: 硫火融心糕
-		Tooltip: "召唤那位神明和她的追随者"
+		Tooltip: 召唤那位神明和她的追随者
 	}
 }
 
@@ -2923,12 +2923,12 @@ Buffs: {
 
 	GuardiansBuff: {
 		DisplayName: 神圣守卫
-		Description: "“她们不是土豆”"
+		Description: “她们不是土豆”
 	}
 
 	ProfBuff: {
 		DisplayName: 普罗维登斯
-		Description: "“燃尽一切”"
+		Description: “燃尽一切”
 	}
 
 	ProfNGuardBuff: {

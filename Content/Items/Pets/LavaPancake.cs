@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Items.Pets
                 return false;
             }
             List<Texture2D> list = new List<Texture2D>();
-            for(int i = 1; i <= 5; i++)
+            for(int i = 1; i <= texs; i++)
             {
                 list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Pets/Prof/" + TextureName + i.ToString()).Value);
             }
@@ -95,6 +95,7 @@ namespace CalamityEntropy.Content.Items.Pets
             return false;
 
         }
+        public virtual int texs => 5;
         public virtual float MS => 0.1f;
         public virtual Vector2 posOffset => new Vector2(-30, -40);
         void MoveToTarget(Vector2 targetPos)

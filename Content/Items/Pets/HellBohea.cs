@@ -45,6 +45,7 @@ namespace CalamityEntropy.Content.Items.Pets
     }
     public class ProfPet : ProfanedGuardianPet
     {
+        public override int texs => 6;
         public override string TextureName => "";
         public override float MS => 0.14f;
         public override Vector2 posOffset => new Vector2(-20, -30);
