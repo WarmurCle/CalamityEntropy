@@ -2109,6 +2109,21 @@ Items: {
 			Ignores [AP]% of enemy armor
 			''' */
 	}
+
+	LavaPancake: {
+		// DisplayName: Lava Pancake
+		// Tooltip: ""
+	}
+
+	HellBohea: {
+		// DisplayName: Hell Bohea
+		// Tooltip: ""
+	}
+
+	SulfurMeltCake: {
+		// DisplayName: Sulfur Melt Cake
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2500,6 +2515,10 @@ Projectiles: {
 	// FinalFractalBlade.DisplayName: Final Fractal Blade
 	// FinalFracRightClick.DisplayName: Final Frac Right Click
 	// HealingSpirit.DisplayName: Healing Spirit
+	// ProfPetG1.DisplayName: Prof Pet G1
+	// ProfPetG2.DisplayName: Prof Pet G2
+	// ProfPetG3.DisplayName: Prof Pet G3
+	// ProfPet.DisplayName: Prof Pet
 }
 
 LegendTooltip: - Legend -
@@ -2738,6 +2757,21 @@ Buffs: {
 	HeatDeath: {
 		DisplayName: Heat Death
 		Description: ???
+	}
+
+	GuardiansBuff: {
+		// DisplayName: Guardians Buff
+		// Description: Mods.CalamityEntropy.Buffs.GuardiansBuff.Description
+	}
+
+	ProfBuff: {
+		// DisplayName: Prof Buff
+		// Description: Mods.CalamityEntropy.Buffs.ProfBuff.Description
+	}
+
+	ProfNGuardBuff: {
+		// DisplayName: Prof N Guard Buff
+		// Description: Mods.CalamityEntropy.Buffs.ProfNGuardBuff.Description
 	}
 }
 

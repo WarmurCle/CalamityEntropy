@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
 
         public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
         {
-            return incomingItem.ModItem == null || incomingItem.ModItem is not IDeck;
+            return !(equippedItem.ModItem is IDeck && incomingItem.ModItem is IDeck);
         }
         public override void AddRecipes()
         {

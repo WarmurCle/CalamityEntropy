@@ -849,7 +849,7 @@ namespace CalamityEntropy.Common
                 float AttackSpeedAddition = (float)Math.Sqrt(this.UsingItemCounter) * 0.014f;
                 if (Main.GameUpdateCount % 2 == 0)
                 {
-                    int LifeLossing = (int)(this.UsingItemCounter * 0.008f);
+                    int LifeLossing = (int)(this.UsingItemCounter * 0.005f);
                     Player.statLife -= LifeLossing;
                     if(Player.statLife <= 0)
                     {

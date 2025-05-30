@@ -27,6 +27,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 480;
+            Projectile.MaxUpdates = 6;
             Projectile.ArmorPenetration = 12;
         }
         public int counter = 0;
@@ -42,18 +43,18 @@ namespace CalamityEntropy.Content.Projectiles
             }
             counter++;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (counter < 32)
+            if (counter < 32 * Projectile.MaxUpdates)
             {
-                Projectile.velocity *= 0.96f;
+                Projectile.velocity *= 0.98f;
             }
             else
             {
                 Player target = Projectile.getOwner();
                 if (l < 9)
                 {
-                    l += 0.03f;
+                    l += 0.007f;
                 }
-                Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1.4f, 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length() + 0.3f, 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1f * l, true));
                 if (Projectile.getRect().Intersects(target.getRect()))
                 {
@@ -141,7 +142,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Texture2D tx = this.getTextureAlt("Body");
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
-                    Main.EntitySpriteDraw(Projectile.getDrawData(Color.White));
+                    Main.EntitySpriteDraw(Projectile.getDrawData(Color.White, overridePos: odp[odp.Count - 1]));
                 }
 
 

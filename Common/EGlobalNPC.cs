@@ -28,6 +28,8 @@ using CalamityMod.NPCs.HiveMind;
 using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.NPCs.Perforator;
 using CalamityMod.NPCs.PrimordialWyrm;
+using CalamityMod.NPCs.ProfanedGuardians;
+using CalamityMod.NPCs.Providence;
 using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.SlimeGod;
 using CalamityMod.NPCs.SunkenSea;
@@ -592,7 +594,15 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if(npc.type == NPCID.Paladin)
+            if(npc.type == ModContent.NPCType<ProfanedGuardianCommander>())
+            {
+                npcLoot.Add(ModContent.ItemType<LavaPancake>(), 2);
+            }
+            if (npc.type == ModContent.NPCType<Providence>())
+            {
+                npcLoot.Add(ModContent.ItemType<HellBohea>(), 2);
+            }
+            if (npc.type == NPCID.Paladin)
             {
                 npcLoot.Add(ModContent.ItemType<DevouringCard>(), 2);
             }
