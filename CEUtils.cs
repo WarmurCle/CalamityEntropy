@@ -482,10 +482,10 @@ namespace CalamityEntropy
         }
 
         public static EModPlayer Entropy(this Player player) {
-            if (player.GetModPlayer<EModPlayer>() == null) {
-                return new EModPlayer();
+            if (player.TryGetModPlayer<EModPlayer>(out var mp)) {
+                return mp;
             }
-            return player.GetModPlayer<EModPlayer>();
+            return new EModPlayer();
         }
 
         public static Player getOwner(this Projectile proj) {

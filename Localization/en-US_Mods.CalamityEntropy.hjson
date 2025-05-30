@@ -3296,3 +3296,4 @@ LightModeTip: Warning: Other lighting modes will cause some projectiles and NPCs
 KilledByBloodBoiling: "'s blood is boiling"
 BloodBoiling: Boiling Blood
 BloodBoilingDescr: Continuously using items increases attack speed, but it will cause sustained damage to yourself
+PrefixHeavyDesc: +10% Fall Speed

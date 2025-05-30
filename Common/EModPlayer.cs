@@ -72,6 +72,7 @@ namespace CalamityEntropy.Common
         public bool meleeVF;
         public bool rangerVF;
         public bool VFSet;
+        public float FallSpeed = 1;
         public bool VFLeg;
         public bool VFHelmRanged;
         public bool VFHelmMagic;
@@ -350,6 +351,7 @@ namespace CalamityEntropy.Common
         public bool devouringCard = false;
         public override void ResetEffects()
         {
+            FallSpeed = 1;
             WingTimeMult = 1;
             devouringCard = false;
             bitternessCard = false;
@@ -539,6 +541,7 @@ namespace CalamityEntropy.Common
                 Player.maxFallSpeed *= 3;
                 Player.controlDown = true;
             }
+            Player.maxFallSpeed *= FallSpeed;
             gravAddTime--;
             if (CruiserAntiGravTime > 0)
             {
