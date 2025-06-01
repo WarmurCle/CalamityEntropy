@@ -3193,6 +3193,8 @@ Prefixes: {
 		Echo.DisplayName: Echo
 		Vigorous.DisplayName: Vigorous
 	}
+
+	Heavy.DisplayName: Heavy
 }
 
 DamageClasses: {

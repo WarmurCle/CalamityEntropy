@@ -3356,6 +3356,8 @@ Prefixes: {
 		Echo.DisplayName: 回响
 		Vigorous.DisplayName: 活跃
 	}
+
+	// Heavy.DisplayName: Heavy
 }
 
 DamageClasses: {

@@ -3193,6 +3193,8 @@ Prefixes: {
 		Echo.DisplayName: Echo
 		Vigorous.DisplayName: Vigorous
 	}
+
+	// Heavy.DisplayName: Heavy
 }
 
 DamageClasses: {
@@ -3296,3 +3298,4 @@ DraedonDialogs: {
 // KilledByBloodBoiling: "'s blood is boiling"
 // BloodBoiling: Boiling Blood
 // BloodBoilingDescr: Continuously using items increases attack speed, but it will cause sustained damage to yourself
+// PrefixHeavyDesc: +10% Fall Speed
