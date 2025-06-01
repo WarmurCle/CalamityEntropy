@@ -350,7 +350,7 @@ Items: {
 
 	MetropolisCard: {
 		Tooltip: +10 к максимальной скрытности
-		DisplayName: 『Метропополис』
+		DisplayName: 『Метрополис』
 	}
 
 	InspirationCard: {
@@ -584,7 +584,7 @@ Items: {
 	}
 
 	Interdimensionallens: {
-		Tooltip: Проецируйте внешний вид за пределами мира
+		Tooltip: Проецируйте внешний вид мира, даже за его пределами
 		DisplayName: Межпространственная линза
 	}
 
