@@ -424,7 +424,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public AIStyle ai = AIStyle.TryToClosePlayer;
         public void Shoot(int type, Vector2 pos, Vector2 velo, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0)
         {
-            Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 8 * damageMult), 3, -1, ai0, ai1, ai2);
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 6 * damageMult), 3, -1, ai0, ai1, ai2);
         }
         public float whiteLerp = 0;
         public override void HitEffect(NPC.HitInfo hit)
@@ -1165,13 +1165,13 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
                                     for (int j = 0; j < num; j++)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 7f), 1);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 6f), 1);
                                         angle += ((float)Math.PI * 2 / (float)num);
                                     }
                                     angle += ((float)Math.PI * 2 / (float)num) / (float)counts;
                                     speed *= 0.7f;
                                 }
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), (int)(NPC.damage / 7f), 0);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), (int)(NPC.damage / 6f), 0);
                             }
                             {
                                 if (Main.zenithWorld)
@@ -1180,7 +1180,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     {
                                         for (int _ = 0; _ < Main.rand.Next(-3, 3); _++)
                                         {
-                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[i] - (bodies[i - 1] - bodies[i]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, CEUtils.randomRot().ToRotationVector2() * speed * 3f, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 7f), 1);
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[i] - (bodies[i - 1] - bodies[i]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, CEUtils.randomRot().ToRotationVector2() * speed * 3f, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 6f), 1);
                                         }
                                     }
                                 }
