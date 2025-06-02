@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<LashingBramblerodProjectile>(), 80, 3, 4, 36);
+            Item.DefaultToWhip(ModContent.ProjectileType<LashingBramblerodProjectile>(), 80, 3, 4, 60);
             Item.rare = ItemRarityID.Yellow;
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
             Item.autoReuse = true;

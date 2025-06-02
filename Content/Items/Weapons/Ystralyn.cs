@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public static int PhantomDamage = 1800;
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<YstralynProj>(), 360, 2, 4, 27);
+            Item.DefaultToWhip(ModContent.ProjectileType<YstralynProj>(), 600, 2, 4, 27);
             Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.autoReuse = true;
