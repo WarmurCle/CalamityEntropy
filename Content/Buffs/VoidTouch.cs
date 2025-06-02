@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (Main.GameUpdateCount % 20 == 0 && player.Entropy().voidResistance < 1)
             {
-                int dmg = (int)(player.Entropy().voidResistance * 12);
+                int dmg = (int)(player.Entropy().voidResistance * 16);
                 player.statLife -= dmg;
                 if (player.statLife <= dmg)
                 {
