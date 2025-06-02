@@ -188,7 +188,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Texture2D chaintx = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/FabstaffStreak").Value;
+            Texture2D chaintx = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/SylvestaffStreak").Value;
             Main.spriteBatch.Draw(chaintx, Projectile.Center - Main.screenPosition, new Rectangle(counter, 0, (int)CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center), chaintx.Height), Color.Purple, (Projectile.owner.ToPlayer().Center - Projectile.Center).ToRotation(), new Vector2(0, chaintx.Height) / 2, new Vector2(1, 0.4f), SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

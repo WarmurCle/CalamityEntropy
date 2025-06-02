@@ -378,7 +378,6 @@ namespace CalamityEntropy.Content.NPCs
                 p2.Add(new RewardPoolItem(ModContent.ItemType<TheCamper>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<SHPC>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<TheDarkMaster>(), 1));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<FabsolsVodka>(), 5));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
                 p3 = new RewardPool();
 
@@ -406,8 +405,6 @@ namespace CalamityEntropy.Content.NPCs
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ArmoredShell>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<HadalMantle>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<OccultSkullCrown>(), 1));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<FabsolsVodka>(), 2));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<Fabsoup>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
                 p3 = new RewardPool();
 
@@ -924,15 +921,6 @@ namespace CalamityEntropy.Content.NPCs
                         Say("我不收垃圾，谢谢", Color.Red);
                         textureSpecial = 10;
                         specialTime = 90;
-                    }
-                    else if (itemType == ModContent.ItemType<Fabsoup>())
-                    {
-                        if (player.ItemAnimationActive == false)
-                        {
-                            player.controlUseItem = true;
-                            player.ItemCheck();
-                            Say("它很好喝，是吧？", Color.Green);
-                        }
                     }
                     else
                     {

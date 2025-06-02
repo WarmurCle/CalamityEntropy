@@ -39,6 +39,7 @@ using CalamityMod.UI;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
+using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,6 +52,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using static Terraria.ModLoader.ModContent;
 
 namespace CalamityEntropy.Common
 {
@@ -669,201 +671,146 @@ namespace CalamityEntropy.Common
         {
             if (npc.type != NPCID.BrainofCthulhu && (npc.type != NPCID.DukeFishron || npc.ai[0] <= 9f) && npc.active)
             {
-                if (CalamityConfig.Instance.DebuffDisplay && (npc.boss || BossHealthBarManager.MinibossHPBarList.Contains(npc.type) || BossHealthBarManager.OneToMany.ContainsKey(npc.type) || CalamityEntropy.calDebuffIconDisplayList.Contains(npc.type)))
+                if (CalamityConfig.Instance.DebuffDisplay && (npc.boss || BossHealthBarManager.MinibossHPBarList.Contains(npc.type) || BossHealthBarManager.OneToMany.ContainsKey(npc.type) || CalamityLists.needsDebuffIconDisplayList.Contains(npc.type)))
                 {
-                    IList<Texture2D> buffTextureList = new List<Texture2D>();
-                    CalamityGlobalNPC cn = npc.Calamity();
+                    List<Texture2D> currentDebuffs = new List<Texture2D>() { };
 
-                    if (cn.astralInfection > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/AstralInfectionDebuff").Value);
-                    if (cn.banishingFire > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/BanishingFire").Value);
-                    if (cn.bFlames > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/BrimstoneFlames").Value);
-                    if (cn.bBlood > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/BurningBlood").Value);
-                    if (cn.brainRot > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/BrainRot").Value);
-                    if (cn.cDepth > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/CrushDepth").Value);
-                    if (cn.rTide > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/RiptideDebuff").Value);
-                    if (cn.dragonFire > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/Dragonfire").Value);
-                    if (cn.miracleBlight > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/MiracleBlight").Value);
-                    if (cn.gsInferno > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/GodSlayerInferno").Value);
-                    if (cn.hFlames > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/HolyFlames").Value);
-                    if (cn.nightwither > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/Nightwither").Value);
-                    if (cn.pFlames > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/Plague").Value);
-                    if (cn.sagePoisonTime > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/SagePoison").Value);
-                    if (cn.shellfishVore > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/ShellfishClaps").Value);
-                    if (cn.somaShredStacks > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/Shred").Value);
-                    if (cn.clamDebuff > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/SnapClamDebuff").Value);
-                    if (cn.sulphurPoison > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/SulphuricPoisoning").Value);
-                    if (cn.vaporfied > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/Vaporfied").Value);
-                    if (cn.vulnerabilityHex > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/VulnerabilityHex").Value);
+                    for (int b = 0; b < CalamityGlobalNPC.moddedDebuffTextureList.Count(); b++)
+                    {
+                        if(CalamityGlobalNPC.moddedDebuffTextureList[b].Item2.Invoke(npc))
+                        {
+                            currentDebuffs.Add(Request<Texture2D>(CalamityGlobalNPC.moddedDebuffTextureList[b].Item1).Value);
+                        }
+                    }
 
-                    if (cn.aCrunch > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/ArmorCrunch").Value);
-                    if (cn.crumble > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/Crumbling").Value);
-                    if (cn.eutrophication > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/Eutrophication").Value);
-                    if (cn.gState > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/GlacialState").Value);
-                    if (cn.irradiated > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/Irradiated").Value);
-                    if (cn.kamiFlu > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/KamiFlu").Value);
-                    if (cn.marked > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/MarkedforDeath").Value);
-                    if (cn.absorberAffliction > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/AbsorberAffliction").Value);
-                    if (cn.pearlAura > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/PearlAura").Value);
-                    if (cn.relicOfResilienceWeakness > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/ProfanedWeakness").Value);
-                    if (cn.tSad > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/TemporalSadness").Value);
-                    if (cn.tesla > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/GalvanicCorrosion").Value);
-                    if (cn.timeSlow > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/TimeDistortion").Value);
-                    if (cn.wDeath > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/WhisperingDeath").Value);
-                    if (cn.wither > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/StatDebuffs/WitherDebuff").Value);
-
-                    if (cn.RancorBurnTime > 0)
-                        buffTextureList.Add(Request("CalamityMod/Buffs/DamageOverTime/RancorBurn").Value);
-
-                    if (cn.electrified > 0)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Electrified].Value);
+                    // Vanilla damage over time debuffs
+                    if (npc.Calamity().electrified > 0)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Electrified].Value);
                     if (npc.onFire)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.OnFire].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.OnFire].Value);
                     if (npc.poisoned)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Poisoned].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Poisoned].Value);
                     if (npc.onFire2)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.CursedInferno].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.CursedInferno].Value);
                     if (npc.onFrostBurn)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Frostburn].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Frostburn].Value);
                     if (npc.venom)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Venom].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Venom].Value);
                     if (npc.shadowFlame)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.ShadowFlame].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.ShadowFlame].Value);
                     if (npc.oiled)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Oiled].Value);
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Oiled").Value);
                     if (npc.javelined)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.BoneJavelin].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.BoneJavelin].Value);
                     if (npc.daybreak)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Daybreak].Value);
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Daybroken").Value);
                     if (npc.celled)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.StardustMinionBleed].Value);
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Celled").Value);
                     if (npc.dryadBane)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.DryadsWardDebuff].Value);
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/DryadsBane").Value);
                     if (npc.dryadWard)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.DryadsWard].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.DryadsWard].Value);
                     if (npc.soulDrain && npc.realLife == -1)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.SoulDrain].Value);
-                    if (npc.onFire3) buffTextureList.Add(TextureAssets.Buff[BuffID.OnFire3].Value);
-                    if (npc.onFrostBurn2) buffTextureList.Add(TextureAssets.Buff[BuffID.Frostburn2].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.SoulDrain].Value);
+                    if (npc.onFire3) // Hellfire
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Hellfire").Value);
+                    if (npc.onFrostBurn2) // Frostbite
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Frostbite").Value);
                     if (npc.tentacleSpiked)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.TentacleSpike].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.TentacleSpike].Value);
 
+                    // Vanilla stat debuffs
                     if (npc.confused)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Confused].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Confused].Value);
                     if (npc.ichor)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Ichor].Value);
-                    if (cn.slowed > 0)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Slow].Value);
-                    if (cn.webbed > 0)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Webbed].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Ichor].Value);
+                    if (npc.Calamity().slowed > 0)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Slow].Value);
+                    if (npc.Calamity().webbed > 0)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Webbed].Value);
                     if (npc.midas)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Midas].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Midas].Value);
                     if (npc.loveStruck)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Lovestruck].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Lovestruck].Value);
                     if (npc.stinky)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Stinky].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Stinky].Value);
                     if (npc.betsysCurse)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.BetsysCurse].Value);
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/BetsysCurse").Value);
                     if (npc.dripping)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Wet].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Wet].Value);
                     if (npc.drippingSlime)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.Slimed].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Slimed].Value);
                     if (npc.drippingSparkleSlime)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.GelBalloonBuff].Value);
-                    if (npc.markedByScytheWhip)
-                        buffTextureList.Add(TextureAssets.Buff[BuffID.ScytheWhipEnemyDebuff].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.GelBalloonBuff].Value);
+                    if (npc.markedByScytheWhip) // Dark Harvest whip, the only Whip debuff that has an NPC bool
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.ScytheWhipEnemyDebuff].Value);
                     if (npc.HasBuff<VoidVirus>())
                     {
-                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<VoidVirus>()].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<VoidVirus>()].Value);
                     }
                     if (npc.HasBuff<Deceive>())
                     {
-                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);
                     }
                     if (npc.HasBuff<SoulDisorder>())
                     {
-                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<SoulDisorder>()].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<SoulDisorder>()].Value);
                     }
                     if (npc.HasBuff<HeatDeath>())
                     {
-                        buffTextureList.Add(TextureAssets.Buff[ModContent.BuffType<HeatDeath>()].Value);
+                        currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<HeatDeath>()].Value);
                     }
                     if (npc.GetGlobalNPC<ScorpioEffectNPC>().effectLevel > 0)
                     {
-                        buffTextureList.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Buffs/AstralScorpionPoisonous").Value);
+                        currentDebuffs.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Buffs/AstralScorpionPoisonous").Value);
                     }
                     bool voidTouchDraw = false;
                     int voidTouchIndex = 0;
                     if (npc.Entropy().VoidTouchTime > 0)
                     {
-                        buffTextureList.Add(Request("CalamityEntropy/Content/Buffs/VoidTouch").Value);
+                        currentDebuffs.Add(Request("CalamityEntropy/Content/Buffs/VoidTouch").Value);
                         voidTouchDraw = true;
-                        voidTouchIndex = buffTextureList.Count - 1;
+                        voidTouchIndex = currentDebuffs.Count - 1;
                     }
                     bool abyssMarkDraw = false;
                     int abyssMarkIndex = 0;
                     if (npc.Entropy().StareOfAbyssLevel > 0)
                     {
-                        buffTextureList.Add(Request("CalamityEntropy/Content/Buffs/Wyrm/StareOfTheAbyss").Value);
+                        currentDebuffs.Add(Request("CalamityEntropy/Content/Buffs/Wyrm/StareOfTheAbyss").Value);
                         abyssMarkDraw = true;
-                        abyssMarkIndex = buffTextureList.Count - 1;
+                        abyssMarkIndex = currentDebuffs.Count - 1;
                     }
                     bool eclipseMarkDraw = false;
                     int eclipseMarkIndex = 0;
                     if (npc.Entropy().EclipsedImprintLevel > 0)
                     {
-                        buffTextureList.Add(Request("CalamityEntropy/Content/Buffs/Wyrm/EclipsedImprint").Value);
+                        currentDebuffs.Add(Request("CalamityEntropy/Content/Buffs/Wyrm/EclipsedImprint").Value);
                         eclipseMarkDraw = true;
-                        eclipseMarkIndex = buffTextureList.Count - 1;
+                        eclipseMarkIndex = currentDebuffs.Count - 1;
                     }
-                    int buffTextureListLength = buffTextureList.Count;
+                    // Total amount of elements in the buff list
+                    int currentDebuffsLength = currentDebuffs.Count();
 
-                    int totalLength = buffTextureListLength * 14;
+                    // Total length of a single row in the buff display
+                    int totalLength = currentDebuffsLength * 14;
 
+                    // Max amount of buffs per row
                     int buffDisplayRowLimit = 5;
 
-                    float drawPosX = totalLength >= 80f ? 40f : totalLength / 2;
+                    // The maximum length of a single row in the buff display
+                    // Limited to 80 units, because every buff drawn here is half the size of a normal buff, 16 x 16, 16 * 5 = 80 units
+                    float drawPosX = totalLength >= 80f ? 40f : (float)(totalLength / 2);
 
-                    float npcHeight = TextureAssets.Npc[npc.type].Value.Height / Main.npcFrameCount[npc.type] / 2 * npc.scale;
+                    // The height of a single frame of the npc
+                    float npcHeight = (float)(TextureAssets.Npc[npc.type].Value.Height / Main.npcFrameCount[npc.type] / 2) * npc.scale;
 
+                    // Offset the debuff display based on the npc's graphical offset, and 16 units, to create some space between the sprite and the display
                     float drawPosY = npcHeight + npc.gfxOffY + 16f;
 
-                    for (int i = 0; i < buffTextureList.Count; i++)
+                    // Iterate through the buff texture list
+                    for (int i = 0; i < currentDebuffs.Count; i++)
                     {
+                        // Reset the X position of the display every 5th and non-zero iteration, otherwise decrease the X draw position by 16 units
                         if (i != 0)
                         {
                             if (i % buffDisplayRowLimit == 0)
@@ -874,7 +821,7 @@ namespace CalamityEntropy.Common
 
                         float additionalYOffset = 14f * (float)Math.Floor(i * 0.2);
 
-                        var tex = buffTextureList.ElementAt(i);
+                        var tex = currentDebuffs[i];
                         spriteBatch.Draw(tex, npc.Center - screenPos - new Vector2(drawPosX, drawPosY + additionalYOffset), null, Color.White, 0f, default, 0.5f, SpriteEffects.None, 0f);
                         if (voidTouchDraw && i == voidTouchIndex)
                         {
@@ -1408,10 +1355,6 @@ namespace CalamityEntropy.Common
             if (shop.NpcType == ModContent.NPCType<THIEF>())
             {
                 shop.Add(ModContent.ItemType<Barren>());
-            }
-            if (shop.NpcType == ModContent.NPCType<FAP>())
-            {
-                //shop.Add(ModContent.ItemType<VoidCandle>());
             }
         }
         public static void AddSoulCard<T>(NPCShop shop) where T : ModItem

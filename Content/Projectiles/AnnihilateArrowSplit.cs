@@ -177,7 +177,7 @@ namespace CalamityEntropy.Content.Projectiles
             Vector2 position = base.Projectile.Center - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
             Vector2 origin = value.Size() * 0.5f;
             Main.spriteBatch.EnterShaderRegion();
-            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/FabstaffStreak"));
+            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/SylvestaffStreak"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
