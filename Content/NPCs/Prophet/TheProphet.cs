@@ -266,6 +266,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             }
         }
 
+        public override bool CheckActive()
+        {
+            return false;
+        }
         public void UpdateTails()
         {
             foreach (TailPoint p in tail)
