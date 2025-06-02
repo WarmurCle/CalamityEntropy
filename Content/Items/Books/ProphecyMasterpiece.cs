@@ -95,7 +95,10 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AI()
         {
             base.AI();
-
+            if(ShooterModProjectile == null && Projectile.getOwner().heldProj >= 0)
+            {
+                ShooterModProjectile = Projectile.getOwner().heldProj.ToProj().ModProjectile;
+            }
             if (this.quickTime >= 0)
             {
                 width2 = 1;
