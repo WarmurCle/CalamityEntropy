@@ -1,5 +1,5 @@
 displayName = Calamity Entropy
 author = Polaris
-version = 1.603
+version = 1.604
 modReferences = CalamityMod, InnoVault
 loadAfter = CalamityMod
