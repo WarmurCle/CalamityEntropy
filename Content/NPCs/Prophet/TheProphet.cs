@@ -22,6 +22,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static CalamityEntropy.Content.NPCs.Prophet.TheProphet;
 
 namespace CalamityEntropy.Content.NPCs.Prophet
 {
@@ -43,7 +44,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 this.tRS = tRS;
                 offset = ofs;
             }
-
+            
             public void update(NPC prop)
             {
                 Vector2 p = prop.Center + offset.RotatedBy(prop.rotation);
@@ -71,7 +72,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             }
         }
         public List<TailPoint> tail;
-
+        public OlderCruiserAIGNPC zenithAI = new OlderCruiserAIGNPC();
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<ProphetBag>()));
@@ -163,28 +164,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             }
         }
         public float dr = 0.26f;
-        public override void AI()
+        public void UpdateFins()
         {
-            if (dr > 0)
-            {
-                dr -= 0.5f / (160 * 60);
-            }
-            NPC.Calamity().CurrentlyIncreasingDefenseOrDR = AIStyle == 8;
-            if (AIStyle == 8)
-            {
-                NPC.Calamity().DR = 0.50f;
-            }
-            else { NPC.Calamity().DR = 0.12f; }
-            NPC.Calamity().DR += dr;
-            if (spawnAnm > 0)
-            {
-                NPC.dontTakeDamage = true;
-                NPC.rotation = MathHelper.PiOver2 * -1;
-            }
-            if (spawnAnm == 0)
-            {
-                NPC.dontTakeDamage = false;
-            }
             if (NPC.localAI[1] == 0)
             {
                 tail = new List<TailPoint>();
@@ -220,8 +201,42 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             {
                 f.update(NPC);
             }
-            spawnAnm--;
+
             NPC.localAI[1]++;
+        }
+        public override void AI()
+        {
+            UpdateFins();
+
+            if (Main.zenithWorld)
+            {
+                zenithAI.PreAI(NPC);
+                UpdateTails();
+                return;
+            }
+            if (dr > 0)
+            {
+                dr -= 0.5f / (160 * 60);
+            }
+            NPC.Calamity().CurrentlyIncreasingDefenseOrDR = AIStyle == 8;
+            if (AIStyle == 8)
+            {
+                NPC.Calamity().DR = 0.50f;
+            }
+            else { NPC.Calamity().DR = 0.12f; }
+            NPC.Calamity().DR += dr;
+            if (spawnAnm > 0)
+            {
+                NPC.dontTakeDamage = true;
+                NPC.rotation = MathHelper.PiOver2 * -1;
+            }
+            if (spawnAnm == 0)
+            {
+                NPC.dontTakeDamage = false;
+            }
+            
+
+            spawnAnm--;
             if (!NPC.HasValidTarget)
             {
                 NPC.TargetClosest();
@@ -247,7 +262,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.Calamity().CurrentlyEnraged = false;
                     AttackPlayer(target);
                 }
+                UpdateTails();
             }
+        }
+
+        public void UpdateTails()
+        {
             foreach (TailPoint p in tail)
             {
                 p.update();
@@ -262,17 +282,22 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             tail.Add(new TailPoint(NPC.Center - NPC.rotation.ToRotationVector2() * 26, (NPC.rotation.ToRotationVector2() * -10) + NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * (float)(Math.Sin(Main.GameUpdateCount * 0.24f) * 15)));
 
         }
+
         public int AIStyle = 0;
         public int AIChangeDelay = 0;
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(AIStyle);
             writer.Write(AIChangeDelay);
+            if (Main.zenithWorld)
+                zenithAI.SendExtraAI(NPC, writer);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             AIStyle = reader.ReadInt32();
             AIChangeDelay = reader.ReadInt32();
+            if (Main.zenithWorld)
+                zenithAI.ReceiveExtraAI(NPC, reader);
         }
         public int phase = 1;
         public int spawnAnm = 120;
@@ -854,10 +879,14 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            if (Main.zenithWorld)
+                zenithAI.PreDraw(NPC, spriteBatch, screenPos, drawColor);
             return false;
         }
         public void Draw()
         {
+            if(Main.zenithWorld)
+                spawnAnm = 0;
             if (spawnAnm < 60)
             {
                 Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);

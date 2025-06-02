@@ -36,7 +36,6 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void AI()
         {
-            base.AI();
             if (Projectile.timeLeft < 3)
             {
                 return;
@@ -45,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (counter < 32 * Projectile.MaxUpdates)
             {
-                Projectile.velocity *= 0.98f;
+                Projectile.velocity *= 0.996f;
             }
             else
             {
