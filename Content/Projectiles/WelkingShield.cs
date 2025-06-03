@@ -59,8 +59,11 @@ namespace CalamityEntropy.Content.Projectiles
                     if (!n.friendly && CEUtils.LineThroughRect(p1, p2, n.Hitbox, 56))
                     {
                         Projectile.getOwner().Entropy().immune = 20;
-                        n.SimpleStrikeNPC(56, Projectile.velocity.X > 0 ? 1 : -1, true, 20, DamageClass.Melee);
-                        n.velocity = (n.Center - Projectile.getOwner().Center).normalize() * (n.velocity.Length() * 2 + n.velocity.Length() > 0.01f ? 12 : 0);
+                        if (!n.dontTakeDamage)
+                        {
+                            n.SimpleStrikeNPC(56, Projectile.velocity.X > 0 ? 1 : -1, true, 20, DamageClass.Melee);
+                            n.velocity = (n.Center - Projectile.getOwner().Center).normalize() * (n.velocity.Length() * 2 + n.velocity.Length() > 0.01f ? 12 : 0);
+                        }
                         Block();
                         break;
                     }

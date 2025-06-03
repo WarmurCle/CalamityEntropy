@@ -1065,8 +1065,94 @@ namespace CalamityEntropy
                     player => player.Entropy().bloodBoiling = 3,
                     item => item.IsEnchantable() && item.damage > 0 && item.DamageType != DamageClass.MeleeNoSpeed));
         }
+        public void initializeIntro(int type, Color c1, Color c2, string Name)
+        {
+            Mod infernum;
+            if (ModLoader.TryGetMod("InfernumMode", out infernum))
+            {
+                try
+                {
+                    object obj = infernum.Call(new object[]
+                    {
+                        "InitializeIntroScreen",
+                        Language.GetText("Mods.EventTrophies.InfernumIntros." + Name),
+                        150,
+                        true,
+                        () => NPC.AnyNPCs(type) && (bool)infernum.Call(new object[]
+                        {
+                            "GetInfernumActive"
+                        }),
+                        (float f1, float f2) => Color.Lerp(c1, c2, f1) * f2
+                    });
+                    Mod infernum6 = infernum;
+                    object[] array = new object[3];
+                    array[0] = "SetupCompletionEffects";
+                    array[1] = obj;
+                    array[2] = delegate ()
+                    {
+                    };
+                    infernum6.Call(array);
+                    Mod infernum2 = infernum;
+                    object[] array2 = new object[3];
+                    array2[0] = "SetupLetterAdditionSound";
+                    array2[1] = obj;
+                    array2[2] = (() => SoundID.Run);
+                    infernum2.Call(array2);
+                    Mod infernum3 = infernum;
+                    object[] array3 = new object[3];
+                    array3[0] = "SetupLetterDisplayCompletionRatio";
+                    array3[1] = obj;
+                    array3[2] = ((int at) => (float)at / 120f);
+                    infernum3.Call(array3);
+                    Mod infernum4 = infernum;
+                    object[] array4 = new object[4];
+                    array4[0] = "SetupMainSound";
+                    array4[1] = obj;
+                    array4[2] = ((int atr, int at, float tdi, float ldcr) => false);
+                    array4[3] = (() => SoundID.NPCDeath56);
+                    infernum4.Call(array4);
+                    infernum.Call(new object[]
+                    {
+                        "SetupScreenCovering",
+                        obj,
+                        Color.Transparent
+                    });
+                    infernum.Call(new object[]
+                    {
+                        "SetupTextScale",
+                        obj,
+                        1.1f
+                    });
+                    infernum.Call(new object[]
+                    {
+                        "RegisterIntroScreen",
+                        obj
+                    });
+                    Mod infernum5 = infernum;
+                    object[] array5 = new object[4];
+                    array5[0] = "RegisterBossBarPhaseInfo";
+                    array5[1] = type;
+                    int num = 2;
+                    List<float> list = new List<float>();
+                    list.Add(1f);
+                    list.Add(0.25f);
+                    array5[num] = list;
+                    array5[3] = ModContent.Request<Texture2D>(ModContent.GetModNPC(type).BossHeadTexture, AssetRequestMode.AsyncLoad).Value;
+                    infernum5.Call(array5);
+                }
+                catch
+                {
+                }
+            }
+        }
         public override void PostSetupContent()
         {
+            if(ModLoader.TryGetMod("InfernumMode", out var _))
+            {
+                initializeIntro(ModContent.NPCType<CruiserHead>(), Color.Purple, Color.LightBlue, "Cruiser");
+                initializeIntro(ModContent.NPCType<NihilityActeriophage>(), Color.Blue, Color.LightBlue, "NihilityTwin");
+                initializeIntro(ModContent.NPCType<TheProphet>(), Color.LightBlue, Color.SkyBlue, "Prophet");
+            }
             CalEnchantsRegistry();
             cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>() };
             RegistryDraedonDialogs();

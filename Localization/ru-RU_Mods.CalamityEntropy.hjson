@@ -3299,3 +3299,21 @@ KilledByBloodBoiling: "'s blood is boiling"
 BloodBoiling: Boiling Blood
 BloodBoilingDescr: Постоянное использование предметов увеличивает скорость атаки, но наносит постепенный урон.
 PrefixHeavyDesc: +10% Fall Speed
+
+InfernumIntros: {
+	NihilityTwin:
+		'''
+		Formidable From The Void
+		Nihility Twins
+		'''
+	Cruiser:
+		'''
+		Unexpected Creature
+		Cruiser
+		'''
+	Prophet:
+		'''
+		Shattered Soul
+		The Prophet
+		'''
+}

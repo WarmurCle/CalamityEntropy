@@ -3470,3 +3470,21 @@ KilledByBloodBoiling: 的血液沸腾了
 BloodBoiling: 血沸
 BloodBoilingDescr: 持续使用物品时增加攻速，但会对自身产生持续的伤害
 PrefixHeavyDesc: +10% 下落速度
+
+InfernumIntros: {
+	NihilityTwin:
+		'''
+		虚空劲敌
+		虚无双子
+		'''
+	Cruiser:
+		'''
+		虚空造物
+		巡游者
+		'''
+	Prophet:
+		'''
+		破碎灵魂
+		先知
+		'''
+}
