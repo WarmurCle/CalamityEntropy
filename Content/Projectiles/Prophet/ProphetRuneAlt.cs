@@ -38,15 +38,15 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
 
             float dist = 5 * (counter > 20 ? 20 : counter);
             float rotJ = Projectile.ai[1];
-            if (counter < 220)
+            if (counter < 200)
             {
                 Projectile.Center = owner.Center + (Main.GameUpdateCount * 0.12f + rotJ).ToRotationVector2() * dist;
                 dC = owner.Center;
             }
             else
             {
-                dist = 100 + (counter - 220) * 16f;
-                Projectile.Center = dC + (Main.GameUpdateCount * 0.04f + rotJ).ToRotationVector2() * dist;
+                dist = 100 + (counter - 200) * 16f;
+                Projectile.Center = dC + (Main.GameUpdateCount * 0.025f + rotJ).ToRotationVector2() * dist;
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
