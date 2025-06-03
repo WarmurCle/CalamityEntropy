@@ -783,7 +783,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIChangeDelay == 160)
                     {
-                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(800, 900));
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(500, 600));
                     }
                     if (AIChangeDelay > 60)
                     {
