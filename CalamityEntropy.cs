@@ -1149,6 +1149,7 @@ namespace CalamityEntropy
         {
             if(ModLoader.TryGetMod("InfernumMode", out var _))
             {
+                InfFont.InfernumFont.SetFont();
                 initializeIntro(ModContent.NPCType<CruiserHead>(), Color.Purple, Color.LightBlue, "Cruiser");
                 initializeIntro(ModContent.NPCType<NihilityActeriophage>(), Color.Blue, Color.LightBlue, "NihilityTwin");
                 initializeIntro(ModContent.NPCType<TheProphet>(), Color.LightBlue, Color.SkyBlue, "Prophet");
