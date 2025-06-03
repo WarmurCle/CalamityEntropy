@@ -424,7 +424,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (target.Center - NPC.Center).ToRotation(), 0.6f, false);
                     if (AIChangeDelay >= 30 && AIChangeDelay % (phase == 1 ? 60 : 46) == 0)
                     {
-                        TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 860 / difficult);
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 1000 / difficult);
                     }
                     if (AIChangeDelay >= 30 && AIChangeDelay % (phase == 1 ? 60 : 50) == (phase == 1 ? 56 : 46))
                     {
@@ -513,7 +513,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     }
                     if (AIChangeDelay == 10)
                     {
-                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 600);
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 1000);
                     }
                 }
                 if (AIStyle == 2)//符文晶簇
@@ -627,7 +627,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     {
                         if (AIChangeDelay % (phase == 1 ? 4 : 3) == 0)
                         {
-                            TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 900 / difficult);
+                            TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 1400 / difficult);
                             CEUtils.PlaySound("crystedge_spawn_crystal", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -647,7 +647,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIChangeDelay == 140)
                     {
-                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 560);
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 800);
                     }
                     if (AIChangeDelay == 130)
                     {
@@ -764,7 +764,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
                     if (AIChangeDelay == 556)
                     {
-                        TeleportTo(target.Center + new Vector2(0, -200));
+                        TeleportTo(target.Center - target.velocity.normalize() * 350);
                     }
                     if (AIChangeDelay > 480)
                     {
@@ -783,7 +783,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIChangeDelay == 160)
                     {
-                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(300, 600));
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(800, 900));
                     }
                     if (AIChangeDelay > 60)
                     {
@@ -800,7 +800,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIChangeDelay == 310)
                     {
-                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 280);
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 400);
                     }
                     if (AIChangeDelay > 140 && AIChangeDelay % (phase == 1 ? 46 : 36) == 0)
                     {
@@ -820,7 +820,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     if (AIChangeDelay == 239)
                     {
-                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 900 / difficult);
+                        TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 1400 / difficult);
 
                     }
                     if (AIChangeDelay == 228)

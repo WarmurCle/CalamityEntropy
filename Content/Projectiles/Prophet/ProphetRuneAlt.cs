@@ -38,14 +38,14 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
 
             float dist = 5 * (counter > 20 ? 20 : counter);
             float rotJ = Projectile.ai[1];
-            if (counter < 200)
+            if (counter < 150)
             {
                 Projectile.Center = owner.Center + (Main.GameUpdateCount * 0.12f + rotJ).ToRotationVector2() * dist;
                 dC = owner.Center;
             }
             else
             {
-                dist = 100 + (counter - 200) * 16f;
+                dist = 100 + (counter - 150) * 18f;
                 Projectile.Center = dC + (Main.GameUpdateCount * 0.025f + rotJ).ToRotationVector2() * dist;
             }
         }
