@@ -1075,7 +1075,7 @@ namespace CalamityEntropy
                     object obj = infernum.Call(new object[]
                     {
                         "InitializeIntroScreen",
-                        Language.GetText("Mods.EventTrophies.InfernumIntros." + Name),
+                        Language.GetText("Mods.CalamityEntropy.InfernumIntros." + Name),
                         150,
                         true,
                         () => NPC.AnyNPCs(type) && (bool)infernum.Call(new object[]
