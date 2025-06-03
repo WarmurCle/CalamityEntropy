@@ -3357,7 +3357,7 @@ Prefixes: {
 		Vigorous.DisplayName: 活跃
 	}
 
-	// Heavy.DisplayName: Heavy
+	Heavy.DisplayName: 沉重
 }
 
 DamageClasses: {

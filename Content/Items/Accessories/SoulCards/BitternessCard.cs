@@ -9,8 +9,8 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
     public class BitternessCard : ModItem
     {
-        public static float DmgMax = 0.12f;
-        public static float enduMax = 0.12f;
+        public static float DmgMax = 0.08f;
+        public static float enduMax = 0.1f;
         public override void SetDefaults()
         {
             Item.width = 22;

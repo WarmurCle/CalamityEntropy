@@ -305,6 +305,22 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public int phase = 1;
         public int spawnAnm = 120;
+        public int GetAIType(int r)
+        {
+            switch (r)
+            {
+                case 0: return 0;
+                case 1: return 3;
+                case 2: return 10;
+                case 3: return 1;
+                case 4: return Main.rand.NextBool() ? 6 : 7;
+                case 5: return Main.rand.NextBool() ? 2 : 4;
+                case 6: return 9;
+                case 7: return Main.rand.NextBool() ? 8 : 11;
+            }
+            return 0;
+        }
+        public int AIC = 0;
         public void AttackPlayer(Player target)
         {
             if (!target.ZoneDungeon && !BossRushEvent.BossRushActive)
@@ -343,14 +359,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             difficult *= 1 + ((float)NPC.life / NPC.lifeMax) * 0.2f;
             if (AIChangeDelay <= 0)
             {
-                int lastAI = AIStyle;
-                for (int i = 0; i < 6; i++)
+                AIC++;
+                if(AIC > 7)
                 {
-                    if (AIStyle == lastAI)
-                    {
-                        AIStyle = Main.rand.Next(0, Main.expertMode ? 12 : 11);
-                    }
+                    AIC = 0;
                 }
+                AIStyle = GetAIType(AIC);
                 if (AIStyle == 0)
                 {
                     AIChangeDelay = 240;
@@ -403,7 +417,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             }
             if (AIChangeDelay > 0)
             {
-                if (AIStyle == 0)
+                if (AIStyle == 0) //4轮符文弹
                 {
                     NPC.velocity *= 0.96f;
                     NPC.velocity += (NPC.Center - target.Center).normalize().RotatedBy(MathHelper.PiOver2) * (NPC.Center.X < target.Center.X ? 0.1f : -0.1f);
@@ -437,7 +451,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         NPC.velocity += (NPC.Center - target.Center).normalize() * 9;
                     }
                 }
-                if (AIStyle == 1)
+                if (AIStyle == 1)//冲刺
                 {
                     if (AIChangeDelay == 220 || AIChangeDelay == 160 || AIChangeDelay == 100)
                     {
@@ -502,7 +516,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * 600);
                     }
                 }
-                if (AIStyle == 2)
+                if (AIStyle == 2)//符文晶簇
                 {
                     NPC.velocity *= 0.98f;
                     if (AIChangeDelay < 120)
@@ -534,7 +548,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         }
                     }
                 }
-                if (AIStyle == 3)
+                if (AIStyle == 3)//2层符文洪流
                 {
                     if (AIChangeDelay == 88)
                     {
@@ -570,7 +584,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         }
                     }
                 }
-                if (AIStyle == 4)
+                if (AIStyle == 4)//速射符文洪流
                 {
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
                     if (AIChangeDelay == 86)
@@ -607,7 +621,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         }
                     }
                 }
-                if (AIStyle == 5)
+                if (AIStyle == 5)//环状符文
                 {
                     if (AIChangeDelay > 160)
                     {
@@ -629,7 +643,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         NPC.velocity += (target.Center - NPC.Center).normalize() * 0.5f;
                     }
                 }
-                if (AIStyle == 6)
+                if (AIStyle == 6)//符文光球
                 {
                     if (AIChangeDelay == 140)
                     {
@@ -706,7 +720,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.velocity += (target.Center - NPC.Center).normalize() * 0.2f;
                     NPC.velocity *= 0.96f;
                 }
-                if (AIStyle == 7)
+                if (AIStyle == 7)//符文冲击
                 {
                     bool flag = true;
                     if (AIChangeDelay > 50)
@@ -744,7 +758,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, NPC.velocity.ToRotation(), 0.06f, false);
                     }
                 }
-                if (AIStyle == 8)
+                if (AIStyle == 8)//大激光
                 {
                     NPC.velocity *= 0.9f;
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
@@ -765,7 +779,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         }
                     }
                 }
-                if (AIStyle == 9)
+                if (AIStyle == 9)//符文飞匕
                 {
                     if (AIChangeDelay == 160)
                     {
@@ -782,7 +796,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         }
                     }
                 }
-                if (AIStyle == 10)
+                if (AIStyle == 10) // 虚空触手
                 {
                     if (AIChangeDelay == 310)
                     {
