@@ -314,13 +314,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 case 2: return 10;
                 case 3: return 1;
                 case 4: return Main.rand.NextBool() ? 6 : 7;
-                case 5: return Main.rand.NextBool() ? 2 : 4;
-                case 6: return 9;
+                case 5: return 9;
+                case 6: return Main.rand.NextBool() ? 2 : 4;
                 case 7: return Main.rand.NextBool() ? 8 : 11;
             }
             return 0;
         }
-        public int AIC = 0;
+        public int AIC = -1;
         public void AttackPlayer(Player target)
         {
             if (!target.ZoneDungeon && !BossRushEvent.BossRushActive)
