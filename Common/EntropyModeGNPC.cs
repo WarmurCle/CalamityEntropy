@@ -44,10 +44,10 @@ namespace CalamityEntropy.Common
                     }
                     if (npc.ModNPC is Signus || npc.ModNPC is CeaselessVoid || npc.ModNPC is StormWeaverHead)
                     {
-                        if (CEUtils.getDistance(npc.Center, Main.player[Player.FindClosest(npc.Center, 999999, 999999)].Center) > 4000)
+                        if (CEUtils.getDistance(npc.Center, Main.player[Player.FindClosest(npc.Center, 999999, 999999)].Center) > 6400)
                         {
                             Player plr = Main.player[Player.FindClosest(npc.Center, 999999, 999999)];
-                            npc.Center = plr.Center - CEUtils.normalize((plr.Center - npc.Center)) * 800;
+                            npc.Center = plr.Center - CEUtils.normalize((plr.Center - npc.Center)) * 900;
                         }
                     }
                     if (npc.ModNPC is StormWeaverHead sw && NPC.AnyNPCs(ModContent.NPCType<DevourerofGodsHead>()))
