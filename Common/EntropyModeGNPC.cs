@@ -107,7 +107,16 @@ namespace CalamityEntropy.Common
         {
             if (CalamityEntropy.EntropyMode)
             {
-                if (npc.ModNPC != null)
+                bool hasPlr = false;
+                foreach(var plr in Main.ActivePlayers)
+                {
+                    if(!plr.dead)
+                    {
+                        hasPlr = true;
+                        break;
+                    }
+                }
+                if (npc.ModNPC != null && hasPlr)
                 {
                     if (npc.ModNPC is Signus || npc.ModNPC is CeaselessVoid || npc.ModNPC is StormWeaverHead || npc.ModNPC is StormWeaverTail || npc.ModNPC is StormWeaverBody)
                     {
