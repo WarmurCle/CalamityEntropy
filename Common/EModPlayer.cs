@@ -172,6 +172,7 @@ namespace CalamityEntropy.Common
         public bool CRing = false;
         public bool LastStand = false;
         public int lastStandCd = 0;
+        public bool ilmeranAsylum = false;
 
         public bool accWispLantern = false;
         public bool visualWispLantern = false;
@@ -351,6 +352,7 @@ namespace CalamityEntropy.Common
         public bool devouringCard = false;
         public override void ResetEffects()
         {
+            ilmeranAsylum = false;
             FallSpeed = 1;
             WingTimeMult = 1;
             devouringCard = false;
