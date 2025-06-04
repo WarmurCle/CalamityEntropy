@@ -764,7 +764,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
                     if (AIChangeDelay == 556)
                     {
-                        TeleportTo(target.Center - target.velocity.normalize() * 350);
+                        TeleportTo(target.Center - target.velocity.SafeNormalize(-Vector2.UnitY) * 300);
                     }
                     if (AIChangeDelay > 480)
                     {
