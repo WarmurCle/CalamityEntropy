@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override int TagDamage => 4;
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<MindCorruptorProj>(), 56, 3, 4, 42);
+            Item.DefaultToWhip(ModContent.ProjectileType<MindCorruptorProj>(), 32, 3, 4, 42);
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.autoReuse = true;
