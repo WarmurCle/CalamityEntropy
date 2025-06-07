@@ -91,7 +91,8 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 tail1 = new Rope(NPC.Center, 10, 11.6f, new Vector2(0, 0.14f), 0.054f, 30);
                 tail2 = new Rope(NPC.Center, 10, 11.6f, new Vector2(0, 0.14f), 0.054f, 30);
             }
-            
+            if (NPC.life <= NPC.lifeMax / 2)
+                phase = 2;
             if (!NPC.HasValidTarget)
             {
                 NPC.TargetClosest();
@@ -161,19 +162,17 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public void DrawMyself(Vector2 pos)
         {
             DrawTails(pos - NPC.Center);
-            if (phase == 2)
-            {
-                Asset<Texture2D> texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Enchanted", AssetRequestMode.ImmediateLoad);
-                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Transform", AssetRequestMode.ImmediateLoad).Value;
-                shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.4f);
-                shader.Parameters["color"].SetValue(new Color(160, 80, 255, 255).ToVector4());
-                shader.Parameters["strength"].SetValue(0.7f);
+            Asset<Texture2D> textured = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Enchanted", AssetRequestMode.ImmediateLoad);
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Transform3", AssetRequestMode.ImmediateLoad).Value;
+            shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
+            shader.Parameters["color"].SetValue((phase == 1 ? new Color(0, 190, 250, 255) : new Color(160, 80, 255, 255)).ToVector4());
+            shader.Parameters["strength"].SetValue(phase == 1 ? 0.2f : 1f);
 
-                shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
-                Main.instance.GraphicsDevice.Textures[1] = texture.Value;
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin(0, Main.spriteBatch.GraphicsDevice.BlendState, Main.spriteBatch.GraphicsDevice.SamplerStates[0], Main.spriteBatch.GraphicsDevice.DepthStencilState, Main.spriteBatch.GraphicsDevice.RasterizerState, shader, Main.UIScaleMatrix);
-            }
+            shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
+            Main.instance.GraphicsDevice.Textures[1] = textured.Value;
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(0, Main.spriteBatch.GraphicsDevice.BlendState, Main.spriteBatch.GraphicsDevice.SamplerStates[0], Main.spriteBatch.GraphicsDevice.DepthStencilState, Main.spriteBatch.GraphicsDevice.RasterizerState, shader, Main.Transform);
+
             Rectangle frame = new Rectangle(0, (texture.Height / Main.npcFrameCount[Type]) * ((frameCounter / 4) % Main.npcFrameCount[Type]), texture.Width, (texture.Height / Main.npcFrameCount[Type]) - 2);
             Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, Color.White * NPC.Opacity, NPC.rotation, new Vector2(texture.Width / 2, 104), NPC.scale, SpriteEffects.None);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
@@ -182,7 +181,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(1f, 0.2f * 0.7f) * starScale * NPC.scale * 0.6f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(0.2f, 1f * 0.7f) * starScale * NPC.scale * 0.6f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
-            
+
         }
         #region drawTail
         public void DrawTails(Vector2 pos)
