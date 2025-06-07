@@ -633,7 +633,7 @@ Items: {
 		Tooltip:
 			'''
 			+ 8 Life Regen/s
-			-8% Crit Chance
+			-15% Crit Chance
 			Remove defense damage.
 			- Смерть -
 			'''
