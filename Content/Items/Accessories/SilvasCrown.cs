@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Calamity().nextHitDealsDefenseDamage = false;
 
             player.Entropy().SCrown = true;
-            player.GetCritChance(DamageClass.Generic) -= 8;
+            player.GetCritChance(DamageClass.Generic) -= 15;
         }
 
     }
