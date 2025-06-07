@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
     public class RequiemCard : ModItem
     {
-        public static float CooldownDec = 0.2f;
+        public static float CooldownDec = 0.1f;
         public override void SetDefaults()
         {
             Item.width = 22;
