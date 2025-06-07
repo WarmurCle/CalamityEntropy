@@ -907,8 +907,11 @@ namespace CalamityEntropy.Common
                 Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.001f;
             }
             Player player = Player;
-            player.GetDamage(DamageClass.Generic) += BitternessCard.DmgMax * (player.statLife / (float)player.statLifeMax2);
-            player.endurance += BitternessCard.enduMax * (1f - (player.statLife / (float)player.statLifeMax2));
+            if (bitternessCard)
+            {
+                player.GetDamage(DamageClass.Generic) += BitternessCard.DmgMax * (player.statLife / (float)player.statLifeMax2);
+                player.endurance += BitternessCard.enduMax * (1f - (player.statLife / (float)player.statLifeMax2));
+            }
             if (CalamityEntropy.EntropyMode)
             {
                 Player.statLifeMax2 = (int)(Player.statLifeMax2 * 0.8f);
