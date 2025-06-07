@@ -2285,6 +2285,11 @@ Items: {
 		DisplayName: 硫火融心糕
 		Tooltip: 召唤那位神明和她的追随者
 	}
+
+	IlmeranAsylum: {
+		// DisplayName: Ilmeran Asylum
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -3006,6 +3011,7 @@ NPCs: {
 	}
 
 	TopazJewel.DisplayName: 王冠黄宝石
+	Luminaris.DisplayName: 幻光星蛾
 }
 
 WyrmChatNoHome: 我们现在要去哪？

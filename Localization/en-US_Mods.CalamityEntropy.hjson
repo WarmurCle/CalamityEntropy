@@ -2124,6 +2124,11 @@ Items: {
 		DisplayName: Sulfur Melt Cake
 		Tooltip: ""
 	}
+
+	IlmeranAsylum: {
+		DisplayName: Ilmeran Asylum
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2844,6 +2849,7 @@ NPCs: {
 	}
 
 	TopazJewel.DisplayName: Topaz Jewel
+	Luminaris.DisplayName: Luminaris
 }
 
 WyrmChatNoHome: Where are we going now?
