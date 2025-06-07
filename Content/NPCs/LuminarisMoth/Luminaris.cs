@@ -13,6 +13,7 @@ using CalamityMod.Events;
 using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -87,19 +88,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             
             if (tail1 == null || tail2 == null)
             {
-                tail1 = new Rope(NPC.Center, 8, 14.5f, new Vector2(0, 0.06f));
-                tail2 = new Rope(NPC.Center, 8, 14.5f, new Vector2(0, 0.06f));
+                tail1 = new Rope(NPC.Center, 10, 11.6f, new Vector2(0, 0.14f), 0.054f, 30);
+                tail2 = new Rope(NPC.Center, 10, 11.6f, new Vector2(0, 0.14f), 0.054f, 30);
             }
-            for(float i = 0; i <= 1; i+=0.1f)
-            {
-                Vector2 tail1Pos = Vector2.Lerp(oldPos, NPC.Center, i) + new Vector2(-18, 30).RotatedBy(NPC.rotation) * NPC.scale;
-                Vector2 tail2Pos = Vector2.Lerp(oldPos, NPC.Center, i) + new Vector2(18, 30).RotatedBy(NPC.rotation) * NPC.scale;
-                tail1.Start = tail1Pos;
-                tail2.Start = tail2Pos;
-                tail1.Update();
-                tail2.Update();
-            }
-            oldPos = NPC.Center;
+            
             if (!NPC.HasValidTarget)
             {
                 NPC.TargetClosest();
@@ -113,12 +105,24 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 NPC.velocity *= 0.96f;
                 NPC.velocity.Y -= 0.2f;
             }
+            for (float i = 0; i <= 1; i += 0.25f)
+            {
+                Vector2 tail1Pos = NPC.velocity + Vector2.Lerp(oldPos, NPC.Center, i) + new Vector2(-14, 32).RotatedBy(NPC.rotation) * NPC.scale;
+                Vector2 tail2Pos = NPC.velocity + Vector2.Lerp(oldPos, NPC.Center, i) + new Vector2(14, 32).RotatedBy(NPC.rotation) * NPC.scale;
+                tail1.Start = tail1Pos;
+                tail2.Start = tail2Pos;
+                tail1.gravity = new Vector2(0, 0.12f);
+                tail2.gravity = new Vector2(0, 0.12f);
+                tail1.Update();
+                tail2.Update();
+            }
+            oldPos = NPC.Center;
         }
 
         public void AttackPlayer(Player player)
         {
-            NPC.velocity *= 0.98f;
-            NPC.velocity += (player.Center - NPC.Center).normalize() * 0.12f;
+            NPC.velocity *= 0.987f;
+            NPC.velocity += (player.Center - NPC.Center).normalize() * 0.5f;
             NPC.rotation = MathHelper.ToRadians(NPC.velocity.X * 1.5f);
         }
 
@@ -136,6 +140,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             texTail2 = null;
             texStar = null;
         }
+        public int phase = 1;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if(texStar == null)
@@ -149,20 +154,33 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 texTail1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/LuminarisMoth/t1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 texTail2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/LuminarisMoth/t2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             }
-            DrawMyself(NPC.Center);
             
+            DrawMyself(NPC.Center);
             return false;
         }
         public void DrawMyself(Vector2 pos)
         {
             DrawTails(pos - NPC.Center);
+            if (phase == 2)
+            {
+                Asset<Texture2D> texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Enchanted", AssetRequestMode.ImmediateLoad);
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Transform", AssetRequestMode.ImmediateLoad).Value;
+                shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.4f);
+                shader.Parameters["color"].SetValue(new Color(160, 80, 255, 255).ToVector4());
+                shader.Parameters["strength"].SetValue(0.7f);
+
+                shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
+                Main.instance.GraphicsDevice.Textures[1] = texture.Value;
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(0, Main.spriteBatch.GraphicsDevice.BlendState, Main.spriteBatch.GraphicsDevice.SamplerStates[0], Main.spriteBatch.GraphicsDevice.DepthStencilState, Main.spriteBatch.GraphicsDevice.RasterizerState, shader, Main.UIScaleMatrix);
+            }
             Rectangle frame = new Rectangle(0, (texture.Height / Main.npcFrameCount[Type]) * ((frameCounter / 4) % Main.npcFrameCount[Type]), texture.Width, (texture.Height / Main.npcFrameCount[Type]) - 2);
             Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, Color.White * NPC.Opacity, NPC.rotation, new Vector2(texture.Width / 2, 104), NPC.scale, SpriteEffects.None);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            float starX = 1f + (float)Math.Cos(Main.GlobalTimeWrappedHourly * 26) * 0.25f;
-            Vector2 starScale = new Vector2(starX, 1f / starX);
-            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(1f, 0.4f) * starScale * NPC.scale * 0.6f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(0.4f, 1f) * starScale * NPC.scale * 0.6f, SpriteEffects.None, 0);
+            float starX = 1f + (float)Math.Cos(Main.GlobalTimeWrappedHourly * 26) * 0.4f;
+            Vector2 starScale = new Vector2(starX, starX);
+            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(1f, 0.2f * 0.7f) * starScale * NPC.scale * 0.6f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(0.2f, 1f * 0.7f) * starScale * NPC.scale * 0.6f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             
         }
