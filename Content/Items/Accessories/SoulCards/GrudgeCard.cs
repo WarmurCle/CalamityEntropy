@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
     public class GrudgeCard : ModItem
     {
-        public static float TempDefense = 2;
+        public static float TempDefense = 1;
         public override void SetDefaults()
         {
             Item.width = 22;
