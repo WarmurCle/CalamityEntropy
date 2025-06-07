@@ -2112,7 +2112,7 @@ namespace CalamityEntropy.Common
             }
             if (VoidInspire > 0)
             {
-                Player.GetDamage(DamageClass.Generic) += 0.8f;
+                Player.GetDamage(DamageClass.Generic) += 0.4f;
                 Player.Calamity().infiniteFlight = true;
             }
             if (ArchmagesMirror)

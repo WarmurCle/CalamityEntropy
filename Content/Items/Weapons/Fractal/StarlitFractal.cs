@@ -54,6 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             CreateRecipe().AddIngredient<AbyssFractal>()
                 .AddIngredient<TitanArm>()
+                .AddIngredient<AegisBlade>()
                 .AddIngredient(ItemID.PiercingStarlight)
                 .AddIngredient(ItemID.FragmentSolar, 4)
                 .AddIngredient(ItemID.FragmentNebula, 4)

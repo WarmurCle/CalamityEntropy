@@ -11,6 +11,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
     {
         public static float DmgMax = 0.1f;
         public static float enduMax = 0.12f;
+        
         public override void SetDefaults()
         {
             Item.width = 22;
