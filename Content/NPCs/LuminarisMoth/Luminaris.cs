@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.LuminarisShoots;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Utilities;
 using CalamityMod;
@@ -117,6 +118,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public Vector2 oldPos = Vector2.Zero;
         public int AIRound = 0;
         public AIStyle ai = AIStyle.RoundShooting;
+        public int AfterImageTime = 0;
 
         public override void AI()
         {
@@ -125,7 +127,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 oldPos = NPC.Center;
             }
             frameCounter++;
-            
+            if(AfterImageTime > 0)
+            {
+                AfterImageTime--;
+            }
             if (tail1 == null || tail2 == null)
             {
                 tail1 = new Rope(NPC.Center, 10, 11.6f, new Vector2(0, 0.14f), 0.054f, 30);
@@ -212,7 +217,8 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             if(ai == AIStyle.RoundShooting)
             {
                 NPC.velocity *= 0;
-                if(AIChangeCounter == 260)
+                AfterImageTime = 16;
+                if (AIChangeCounter == 260)
                 {
                     num3 = Main.rand.NextBool() ? -1 : 1;
                     vec1 = NPC.Center;
@@ -234,10 +240,21 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     }
                     num2 += 0.08f * num3 * enrange;
                     NPC.Center = player.Center + num2.ToRotationVector2() * num1;
+                    if(AIChangeCounter % 20 == 0)
+                    {
+                        CEUtils.PlaySound("bne_hit2", 1, NPC.Center);
+                        Shoot<LuminarisVortex>(NPC.Center, (player.Center - NPC.Center).normalize() * 9);
+                    }
                 }
             }
-
-
+        }
+        public void Shoot<T>(Vector2 pos, Vector2 velocity, float damageMult = 1, float ai0 = 1, float ai1 = 1, float ai2 = 1) where T : ModProjectile
+        {
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                int baseDamage = NPC.damage / 5;
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velocity, ModContent.ProjectileType<T>(), (int)(baseDamage * damageMult), 4, -1, ai0, ai1, ai2);
+            }
         }
         public int AIChangeCounter = 0;
         public void SetAISyyle()
@@ -289,33 +306,57 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 texTail1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/LuminarisMoth/t1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 texTail2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/LuminarisMoth/t2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             }
-            
-            DrawMyself(NPC.Center);
+
+            List<Vector2> afterImagePoints = new List<Vector2>();
+            if (AfterImageTime > 0 && odp.Count > 8)
+            {
+                for (int i = odp.Count - 1; i > odp.Count / 2; i--)
+                {
+                    for (float j = 0; j < 1; j += 0.2f)
+                    {
+                        afterImagePoints.Add(Vector2.Lerp(odp[i], odp[i - 1], j));
+                    }
+                }
+                for (int i = 0; i < afterImagePoints.Count; i++)
+                {
+                    DrawMyself(afterImagePoints[i], Color.White * (1 - ((i + 1f) / afterImagePoints.Count)) * 0.16f * (AfterImageTime / 16f), true);
+                }
+            }
+
+            DrawMyself(NPC.Center, Color.White);
+
             return false;
         }
-        public void DrawMyself(Vector2 pos)
+        public void DrawMyself(Vector2 pos, Color color, bool afterImage = false)
         {
-            DrawTails(pos - NPC.Center);
-            Asset<Texture2D> textured = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Enchanted", AssetRequestMode.ImmediateLoad);
-            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Transform3", AssetRequestMode.ImmediateLoad).Value;
-            shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
-            shader.Parameters["color"].SetValue((phase == 1 ? new Color(0, 190, 250, 255) : new Color(160, 80, 255, 255)).ToVector4());
-            shader.Parameters["strength"].SetValue(phase == 1 ? 0.2f : 1f);
+            DrawTails(pos - NPC.Center, color);
+            if (!afterImage)
+            {
+                Asset<Texture2D> textured = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Enchanted", AssetRequestMode.ImmediateLoad);
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Transform3", AssetRequestMode.ImmediateLoad).Value;
+                shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
+                shader.Parameters["color"].SetValue((phase == 1 ? new Color(0, 190, 250, 255) : new Color(160, 80, 255, 255)).ToVector4());
+                shader.Parameters["strength"].SetValue(phase == 1 ? 0.2f : 1f);
 
-            shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
-            Main.instance.GraphicsDevice.Textures[1] = textured.Value;
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(0, Main.spriteBatch.GraphicsDevice.BlendState, Main.spriteBatch.GraphicsDevice.SamplerStates[0], Main.spriteBatch.GraphicsDevice.DepthStencilState, Main.spriteBatch.GraphicsDevice.RasterizerState, shader, Main.Transform);
-
+                shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
+                Main.instance.GraphicsDevice.Textures[1] = textured.Value;
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(0, Main.spriteBatch.GraphicsDevice.BlendState, Main.spriteBatch.GraphicsDevice.SamplerStates[0], Main.spriteBatch.GraphicsDevice.DepthStencilState, Main.spriteBatch.GraphicsDevice.RasterizerState, shader, Main.Transform);
+            }
             Rectangle frame = new Rectangle(0, (texture.Height / Main.npcFrameCount[Type]) * ((frameCounter / 4) % Main.npcFrameCount[Type]), texture.Width, (texture.Height / Main.npcFrameCount[Type]) - 2);
-            Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, Color.White * NPC.Opacity, NPC.rotation, new Vector2(texture.Width / 2, 104), NPC.scale, SpriteEffects.None);
-            Main.spriteBatch.UseBlendState(BlendState.Additive);
-            float starX = 1f + (float)Math.Cos(Main.GlobalTimeWrappedHourly * 26) * 0.4f;
-            Vector2 starScale = new Vector2(starX, starX);
-            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(1f, 0.8f * 0.7f) * starScale * NPC.scale * 0.74f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(0.8f, 1f * 0.7f) * starScale * NPC.scale * 0.74f, SpriteEffects.None, 0);
-            Main.spriteBatch.ExitShaderRegion();
-            drawT();
+            Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color * NPC.Opacity, NPC.rotation, new Vector2(texture.Width / 2, 104), NPC.scale, SpriteEffects.None);
+
+            if (!afterImage)
+            {
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                float starX = 1f + (float)Math.Cos(Main.GlobalTimeWrappedHourly * 26) * 0.4f;
+                Vector2 starScale = new Vector2(starX, starX);
+                Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * (color.A / 255f) * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(1f, 0.8f * 0.7f) * starScale * NPC.scale * 0.74f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * (color.A / 255f) * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(0.8f, 1f * 0.7f) * starScale * NPC.scale * 0.74f, SpriteEffects.None, 0);
+                Main.spriteBatch.ExitShaderRegion();
+                drawT();
+            }
+            
         }
         public void drawT()
         {
@@ -328,7 +369,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             {
                 {
                     List<ColoredVertex> ve = new List<ColoredVertex>();
-                    Color b = Color.SkyBlue;
+                    Color b = Color.SkyBlue * NPC.Opacity;
 
                     float a = 0;
                     float lr = 0;
@@ -355,7 +396,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 }
                 {
                     List<ColoredVertex> ve = new List<ColoredVertex>();
-                    Color b = Color.White;
+                    Color b = Color.White * NPC.Opacity;
 
                     float a = 0;
                     float lr = 0;
@@ -388,7 +429,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
 
         }
         #region drawTail
-        public void DrawTails(Vector2 pos)
+        public void DrawTails(Vector2 pos, Color color)
         {
             GraphicsDevice gd = Main.spriteBatch.GraphicsDevice;
 
@@ -398,7 +439,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             if (tail1 != null)
             {   
                 List<ColoredVertex> ve = new List<ColoredVertex>();
-                Color b = Color.White * NPC.Opacity;
+                Color b = color * NPC.Opacity;
                 List<Vector2> tailPoints = tail1.GetPoints();
                 for (int i = 1; i < tailPoints.Count; i++)
                 {
@@ -420,7 +461,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             if (tail2 != null)
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
-                Color b = Color.White * NPC.Opacity;
+                Color b = color * NPC.Opacity;
                 List<Vector2> tailPoints = tail2.GetPoints();
                 for (int i = 1; i < tailPoints.Count; i++)
                 {

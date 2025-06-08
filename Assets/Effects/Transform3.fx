@@ -1,7 +1,7 @@
 sampler uImage : register(s0);  sampler uTransformImage : register(s1);  float uTime;  float4 color;
 float4 baseColor = float4(1, 1, 1, 1);
 float strength = 0.6;
- float4 EnchantedFunction(float2 coords : TEXCOORD0) : COLOR0
+ float4 EnchantedFunction(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
     float4 colory = tex2D(uImage, coords) * baseColor;
 
@@ -17,7 +17,7 @@ float strength = 0.6;
         barCoord.x = 1 + barCoord.x;
     }
 	
-	     return clamp((tex2D(uTransformImage, barCoord) * strength * color + colory) * alpha, 0, 1);
+	     return clamp((tex2D(uTransformImage, barCoord) * strength * color + colory) * alpha, 0, 1) * baseColor;
 }
 
 technique Technique1

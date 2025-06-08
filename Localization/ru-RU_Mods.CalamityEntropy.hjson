@@ -2129,6 +2129,11 @@ Items: {
 		// DisplayName: Ilmeran Asylum
 		// Tooltip: ""
 	}
+
+	ProphetMusicBox2: {
+		// Tooltip: ""
+		// DisplayName: Prophet Music Box2
+	}
 }
 
 PrefixitemDesc:
@@ -2525,6 +2530,7 @@ Projectiles: {
 	ProfPetG3.DisplayName: Prof Pet G3
 	ProfPet.DisplayName: Prof Pet
 	// LuminarisAstralShoot.DisplayName: Luminaris Astral Shoot
+	// LuminarisVortex.DisplayName: Luminaris Vortex
 }
 
 LegendTooltip: - Legend -
