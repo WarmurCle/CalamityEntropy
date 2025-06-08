@@ -1066,13 +1066,23 @@ namespace CalamityEntropy
                     player => player.Entropy().bloodBoiling = 3,
                     item => item.IsEnchantable() && item.damage > 0 && item.DamageType != DamageClass.MeleeNoSpeed));
         }
-        public void initializeIntro(int type, Color c1, Color c2, string Name)
+        public void initializeIntro(int type, Color c1, Color c2, string Name, int colorMode = 0)
         {
             Mod infernum;
             if (ModLoader.TryGetMod("InfernumMode", out infernum))
             {
                 try
                 {
+                    Color fc1(float f1, float f2)
+                    {
+                        return Color.Lerp(c1, c2, f1) * f2;
+                    }
+                    Color fc2(float f1, float f2)
+                    {
+                        return Color.Lerp(c1, c2, ((float)Math.Cos((f1 * MathHelper.TwoPi) - MathHelper.Pi) + 1) * 0.5f) * f2;
+                    }
+                    Func<float, float, Color> func;
+                    func = colorMode == 0 ? fc1 : fc2;
                     object obj = infernum.Call(new object[]
                     {
                         "InitializeIntroScreen",
@@ -1083,7 +1093,7 @@ namespace CalamityEntropy
                         {
                             "GetInfernumActive"
                         }),
-                        (float f1, float f2) => Color.Lerp(c1, c2, f1) * f2
+                        func
                     });
                     Mod infernum6 = infernum;
                     object[] array = new object[3];
@@ -1153,8 +1163,8 @@ namespace CalamityEntropy
                 InfFont.InfernumFont.SetFont();
                 initializeIntro(ModContent.NPCType<CruiserHead>(), Color.Purple, Color.LightBlue, "Cruiser");
                 initializeIntro(ModContent.NPCType<NihilityActeriophage>(), Color.Blue, Color.LightBlue, "NihilityTwin");
-                initializeIntro(ModContent.NPCType<TheProphet>(), Color.LightBlue, Color.SkyBlue, "Prophet");
-                initializeIntro(ModContent.NPCType<Luminaris>(), Color.DarkBlue, Color.Purple, "Luminaris");
+                initializeIntro(ModContent.NPCType<TheProphet>(), Color.LightBlue, Color.SkyBlue, "Prophet", 1);
+                initializeIntro(ModContent.NPCType<Luminaris>(), new Color(190, 180, 220), Color.Purple, "Luminaris", 1);
             }
             CalEnchantsRegistry();
             cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>() };
@@ -1470,6 +1480,8 @@ namespace CalamityEntropy
             return Main.ScreenSize.ToVector2() / 2 + (v - Main.ScreenSize.ToVector2() / 2) * z;
         }
         public bool beegameInited = false;
+        private object func;
+
         public static void SpawnHeavenSpark(Vector2 pos, float rot, float length, float scale, Color color = default, int LifeTime = 24)
         {
             Vector2 norl = rot.ToRotationVector2();

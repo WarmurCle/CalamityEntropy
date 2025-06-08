@@ -46,6 +46,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
         }
+        public List<Vector2> odp = new List<Vector2>();
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
@@ -54,8 +55,44 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             });
         }
 
+        public enum AIStyle
+        {
+            RoundShooting,
+            AboveShooting,
+            Subduction,
+            Dashing,
+
+            Shoot360,
+            RoundAndDash,
+            SmashDown,
+            ShootTriangle,
+            Starlit
+        }
+        public Vector2 vec1 = Vector2.Zero;
+        public Vector2 vec2 = Vector2.Zero;
+        public float num1 = 0;
+        public float num2 = 0;
+        public float num3 = 0;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.WriteVector2(vec1);
+            writer.WriteVector2(vec2);
+            writer.Write(num1);
+            writer.Write(num2);
+            writer.Write(num3);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            vec1 = reader.ReadVector2();
+            vec2 = reader.ReadVector2();
+            num1 = reader.ReadSingle();
+            num2 = reader.ReadSingle();
+            num3 = reader.ReadSingle();
+        }
         public override void SetDefaults()
         {
+            
             NPC.boss = true;
             NPC.width = 64;
             NPC.height = 64;
@@ -78,6 +115,9 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         }
         public int frameCounter = 0;
         public Vector2 oldPos = Vector2.Zero;
+        public int AIRound = 0;
+        public AIStyle ai = AIStyle.RoundShooting;
+
         public override void AI()
         {
             if(oldPos == Vector2.Zero)
@@ -118,13 +158,107 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 tail2.Update();
             }
             oldPos = NPC.Center;
+            odp.Add(NPC.Center);
+            if (odp.Count > 24)
+            {
+                odp.RemoveAt(0);
+            }
         }
 
         public void AttackPlayer(Player player)
         {
-            NPC.velocity *= 0.987f;
-            NPC.velocity += (player.Center - NPC.Center).normalize() * 0.5f;
-            NPC.rotation = MathHelper.ToRadians(NPC.velocity.X * 1.5f);
+            float enrange = 1;
+            if(Main.expertMode)
+            {
+                enrange += 0.1f;
+            }
+            if (Main.masterMode)
+            {
+                enrange += 0.1f;
+            }
+            if (CalamityWorld.revenge)
+            {
+                enrange += 0.15f;
+            }
+            if (CalamityWorld.death)
+            {
+                enrange += 0.15f;
+            }
+            if (CalamityEntropy.EntropyMode)
+            {
+                enrange *= 1.4f;
+            }
+            if (Main.getGoodWorld)
+            {
+                enrange *= 1.1f;
+            }
+            if (Main.zenithWorld)
+            {
+                enrange *= 1.4f;
+            }
+            if(AIChangeCounter-- < 0)
+            {
+                vec1 = vec2 = Vector2.Zero;
+                num1 = num2 = num3 = 0;
+                SetAISyyle();
+                AIRound++;
+                AIChangeCounter = 20;
+                if (ai == AIStyle.RoundShooting)
+                {
+                    AIChangeCounter = 260;
+                }
+                NPC.netUpdate = true;
+            }
+            if(ai == AIStyle.RoundShooting)
+            {
+                NPC.velocity *= 0;
+                if(AIChangeCounter == 260)
+                {
+                    num3 = Main.rand.NextBool() ? -1 : 1;
+                    vec1 = NPC.Center;
+                }
+                if(AIChangeCounter > 220)
+                {
+                    NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(380 * Math.Sign(NPC.Center.X - player.Center.X), -380), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 220) / 40f, 1));
+                }
+                if(AIChangeCounter == 220)
+                {
+                    num1 = NPC.Center.Distance(player.Center);
+                    num2 = (NPC.Center - player.Center).ToRotation();
+                }
+                if(AIChangeCounter < 220)
+                {
+                    for (int i = 0; i < odp.Count; i++)
+                    {
+                        odp[i] += player.velocity;
+                    }
+                    num2 += 0.08f * num3 * enrange;
+                    NPC.Center = player.Center + num2.ToRotationVector2() * num1;
+                }
+            }
+
+
+        }
+        public int AIChangeCounter = 0;
+        public void SetAISyyle()
+        {
+            if (phase == 1)
+            {
+                ai = (AIStyle)AIRound;
+                if (AIRound >= 3)
+                {
+                    AIRound = -1;
+                }
+            }
+            else
+            {
+                ai = (AIStyle)(AIRound + 4);
+                if (AIRound >= 4)
+                {
+                    AIRound = -1;
+                }
+            }
+            ai = AIStyle.RoundShooting;
         }
 
         public static Texture2D texture = null;
@@ -178,9 +312,79 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             float starX = 1f + (float)Math.Cos(Main.GlobalTimeWrappedHourly * 26) * 0.4f;
             Vector2 starScale = new Vector2(starX, starX);
-            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(1f, 0.2f * 0.7f) * starScale * NPC.scale * 0.6f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(0.2f, 1f * 0.7f) * starScale * NPC.scale * 0.6f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(1f, 0.8f * 0.7f) * starScale * NPC.scale * 0.74f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(0.8f, 1f * 0.7f) * starScale * NPC.scale * 0.74f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
+            drawT();
+        }
+        public void drawT()
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            GraphicsDevice gd = Main.graphics.GraphicsDevice;
+            odp.Add(NPC.Center);
+            if (odp.Count > 2)
+            {
+                {
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
+                    Color b = Color.SkyBlue;
+
+                    float a = 0;
+                    float lr = 0;
+                    for (int i = 1; i < odp.Count; i++)
+                    {
+                        a += 1f / (float)odp.Count;
+
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 20 * ((i - 1f) / (odp.Count - 2f)),
+                              new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
+                            b * a));
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 20 * ((i - 1f) / (odp.Count - 2f)),
+                              new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
+                              b * a));
+                        lr = (odp[i] - odp[i - 1]).ToRotation();
+                    }
+                    a = 1;
+
+                    if (ve.Count >= 3)
+                    {
+                        Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/MegaStreakBacking2").Value;
+                        gd.Textures[0] = tx;
+                        gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    }
+                }
+                {
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
+                    Color b = Color.White;
+
+                    float a = 0;
+                    float lr = 0;
+                    for (int i = 1; i < odp.Count; i++)
+                    {
+                        a += 1f / (float)odp.Count;
+
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 16 * ((i - 1f) / (odp.Count - 2f)),
+                              new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
+                            b * a));
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 16 * ((i - 1f) / (odp.Count - 2f)),
+                              new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
+                              b * a));
+                        lr = (odp[i] - odp[i - 1]).ToRotation();
+                    }
+                    a = 1;
+
+                    if (ve.Count >= 3)
+                    {
+                        Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak1").Value;
+                        gd.Textures[0] = tx;
+                        gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    }
+                }
+
+            }
+            odp.RemoveAt(odp.Count - 1);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
         }
         #region drawTail

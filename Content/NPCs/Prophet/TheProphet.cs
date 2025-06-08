@@ -54,6 +54,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public List<Fin> leftFin = new List<Fin>();
         public List<Fin> rightFin = new List<Fin>();
+        public bool music2 = false;
         public class TailPoint
         {
             public int timeLeft = 20;
@@ -207,7 +208,14 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public override void AI()
         {
             UpdateFins();
-
+            if (!Main.dedServ)
+            {
+                if(phase == 2 && !music2)
+                {
+                    music2 = true;
+                    Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/Prophet2");
+                }
+            }
             if (Main.zenithWorld)
             {
                 zenithAI.PreAI(NPC);

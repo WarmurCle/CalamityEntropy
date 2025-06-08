@@ -2524,6 +2524,7 @@ Projectiles: {
 	ProfPetG2.DisplayName: Prof Pet G2
 	ProfPetG3.DisplayName: Prof Pet G3
 	ProfPet.DisplayName: Prof Pet
+	// LuminarisAstralShoot.DisplayName: Luminaris Astral Shoot
 }
 
 LegendTooltip: - Legend -
@@ -3322,4 +3323,9 @@ InfernumIntros: {
 		Shattered Soul
 		The Prophet
 		'''
+	/* Luminaris:
+		'''
+		Nyxmothis
+		Luminaris
+		''' */
 }
