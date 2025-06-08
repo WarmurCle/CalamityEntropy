@@ -59,8 +59,9 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public enum AIStyle
         {
             RoundShooting,
-            AboveShooting,
+            AboveMovingShooting,
             Subduction,
+            StayAboveAndShooting,
             Dashing,
 
             Shoot360,
@@ -212,6 +213,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     AIChangeCounter = 260;
                 }
+                if (ai == AIStyle.AboveMovingShooting)
+                {
+                    AIChangeCounter = 260;
+                }
                 NPC.netUpdate = true;
             }
             if(ai == AIStyle.RoundShooting)
@@ -225,7 +230,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 }
                 if(AIChangeCounter > 220)
                 {
-                    NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(380 * Math.Sign(NPC.Center.X - player.Center.X), -380), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 220) / 40f, 1));
+                    NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(440 * Math.Sign(NPC.Center.X - player.Center.X), -440), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 220) / 40f, 1));
                 }
                 if(AIChangeCounter == 220)
                 {
@@ -243,9 +248,45 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     if(AIChangeCounter % 20 == 0)
                     {
                         CEUtils.PlaySound("bne_hit2", 1, NPC.Center);
-                        Shoot<LuminarisVortex>(NPC.Center, (player.Center - NPC.Center).normalize() * 9);
+                        Shoot<LuminarisVortex>(NPC.Center, (player.Center - NPC.Center).normalize() * 8);
                     }
                 }
+            }
+            if (ai == AIStyle.AboveMovingShooting)
+            {
+                NPC.velocity *= 0;
+                AfterImageTime = 16;
+                if (AIChangeCounter > 240)
+                {
+                    if (AIChangeCounter == 260)
+                    {
+                        num3 = Main.rand.NextBool() ? -1 : 1;
+                        vec1 = NPC.Center;
+                    }
+                    NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(360 * Math.Sign(NPC.Center.X - player.Center.X), -440), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 240) / 40f, 1));
+                }
+                else if(AIChangeCounter > 220)
+                {
+                    if(AIChangeCounter == 240)
+                    {
+                        vec1 = NPC.Center;
+                    }
+                    NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(0, -420), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 220) / 40f, 1));
+
+                }
+                if(AIChangeCounter < 220)
+                {
+                    float f = AIChangeCounter < 160 ? 1 : 1 - ((AIChangeCounter - 160) / 60f);
+                    NPC.Center = player.Center + new Vector2((float)(Math.Cos(AIChangeCounter * 0.1f)) * 440, -420);
+                    if(AIChangeCounter < 180)
+                    {
+                        if(AIChangeCounter % 20 == 0)
+                        {
+                            Shoot<LuminarisAstralShoot>(NPC.Center, Vector2.UnitY * 10, 1, Vector2.UnitY.ToRotation(), 0.28f, 12);
+                        }
+                    }
+                }
+
             }
         }
         public void Shoot<T>(Vector2 pos, Vector2 velocity, float damageMult = 1, float ai0 = 1, float ai1 = 1, float ai2 = 1) where T : ModProjectile
@@ -275,7 +316,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     AIRound = -1;
                 }
             }
-            ai = AIStyle.RoundShooting;
+            ai = AIStyle.AboveMovingShooting;
         }
 
         public static Texture2D texture = null;

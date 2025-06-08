@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
         public override void AI()
         {
             CEUtils.recordOldPosAndRots(Projectile, ref odp, ref odr, 16);
-            Projectile.scale = 1.6f * (1 + ((float)(Math.Cos(Main.GameUpdateCount * 0.12f)) * 0.1f));
+            Projectile.scale = 1.4f * (1 + ((float)(Math.Cos(Main.GameUpdateCount * 0.12f)) * 0.1f));
             Projectile.rotation += 0.1f;
             Vector2 top = Projectile.Center - Projectile.velocity + CEUtils.randomPointInCircle(Projectile.GetTexture().Width * 0.5f * Projectile.scale * 0.95f);
             Vector2 sparkVelocity2 = Projectile.velocity * 0.25f;
@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             Color sparkColor2 = Color.Lerp(Color.SkyBlue, Color.Purple, Main.rand.NextFloat(0, 1));
             LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
             GeneralParticleHandler.SpawnParticle(spark);
-            Projectile.velocity *= 1.01f;
+            Projectile.velocity *= 1.003f;
         }
         public override bool PreDraw(ref Color lightColor)
         {
