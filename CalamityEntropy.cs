@@ -11,6 +11,7 @@ using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
+using CalamityEntropy.Content.NPCs.LuminarisMoth;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
@@ -1153,6 +1154,7 @@ namespace CalamityEntropy
                 initializeIntro(ModContent.NPCType<CruiserHead>(), Color.Purple, Color.LightBlue, "Cruiser");
                 initializeIntro(ModContent.NPCType<NihilityActeriophage>(), Color.Blue, Color.LightBlue, "NihilityTwin");
                 initializeIntro(ModContent.NPCType<TheProphet>(), Color.LightBlue, Color.SkyBlue, "Prophet");
+                initializeIntro(ModContent.NPCType<Luminaris>(), Color.DarkBlue, Color.Purple, "Luminaris");
             }
             CalEnchantsRegistry();
             cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>() };
@@ -1385,6 +1387,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<NihilityActeriophage>()] = new Color(255, 155, 248);
             EntropyBossbar.bossbarColor[ModContent.NPCType<ChaoticCell>()] = new Color(255, 155, 248);
             EntropyBossbar.bossbarColor[ModContent.NPCType<TheProphet>()] = new Color(180, 233, 255);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Luminaris>()] = new Color(150, 100, 215);
 
             try
             {
