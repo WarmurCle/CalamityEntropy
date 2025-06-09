@@ -61,14 +61,15 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
         {
             var tex = CEUtils.getExtraTex("StarTexture_White");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(1, 0.8f), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, -Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(0.8f, 1f), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, 2 * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(1.2f, 0.8f), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, -2 * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(0.8f, 1.2f), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, 1.55f * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(1, 0.8f), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, 1.55f * -Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(0.8f, 1f), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, 1.7f * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(1.2f, 0.8f), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f, -1.7f * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(0.8f, 1.2f), SpriteEffects.None);
+            Color color = Projectile.whoAmI % 2 == 0 ? new Color(190, 190, 80) : new Color(116, 200, 180);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, color * 0.8f, Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(1, 0.8f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, color * 0.8f, -Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(0.8f, 1f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, color * 0.8f, 2 * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(1.2f, 0.8f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, color * 0.8f, -2 * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(0.8f, 1.2f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, color * 0.8f, 1.55f * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(1, 0.8f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, color * 0.8f, 1.55f * -Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(0.8f, 1f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, color * 0.8f, 1.7f * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(1.2f, 0.8f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, color * 0.8f, -1.7f * Main.GlobalTimeWrappedHourly, tex.Size() / 2f, Projectile.scale * 0.3f * new Vector2(0.8f, 1.2f), SpriteEffects.None);
             drawT();
             return false;
         }
@@ -85,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             {
                 {
                     List<ColoredVertex> ve = new List<ColoredVertex>();
-                    Color b = Color.SkyBlue;
+                    Color b = Projectile.whoAmI % 2 == 0 ? new Color(255, 255, 160) : new Color(160, 255, 220);
 
                     float a = 0;
                     float lr = 0;
