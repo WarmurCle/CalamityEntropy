@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         {
             RoundShooting,
             AboveMovingShooting,
-            Waiting2Sec,
+            Waiting1Sec,
             Subduction,
             StayAboveAndShooting,
             Dashing,
@@ -218,9 +218,9 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     AIChangeCounter = 290;
                 }
-                if(ai == AIStyle.Waiting2Sec)
+                if(ai == AIStyle.Waiting1Sec)
                 {
-                    AIChangeCounter = 120;
+                    AIChangeCounter = 60;
                 }
                 if(ai == AIStyle.Subduction)
                 {
@@ -257,7 +257,6 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 }
                 if(AIChangeCounter < 220)
                 {
-                    NPC.rotation = (NPC.Center - oldPos).ToRotation() + MathHelper.PiOver2;
                     for (int i = 0; i < odp.Count; i++)
                     {
                         odp[i] += player.velocity;
@@ -269,6 +268,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         CEUtils.PlaySound("bne_hit2", 1, NPC.Center);
                         Shoot<LuminarisVortex>(NPC.Center, (player.Center - NPC.Center).normalize() * 8);
                     }
+                    NPC.rotation = (NPC.Center - oldPos).ToRotation() + MathHelper.PiOver2;
                 }
             }
             if (ai == AIStyle.AboveMovingShooting)
@@ -308,7 +308,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                                 Shoot<LuminarisAstralShoot>(player.Center + new Vector2(-1400, 340), Vector2.UnitX * 26 * enrange, 1, Vector2.UnitY.ToRotation(), -0.3f * enrange, 30);
                                 Shoot<LuminarisAstralShoot>(player.Center + new Vector2(1400, 340), Vector2.UnitX * -26 * enrange, 1, Vector2.UnitY.ToRotation(), -0.3f * enrange, 30);
                                 Shoot<LuminarisAstralShoot>(NPC.Center, Vector2.UnitY * 14 * enrange, 1, (-Vector2.UnitY).ToRotation(), 0.3f * enrange, 30);
-                                EParticle.NewParticle(new HadLine(), player.Center + new Vector2((float)(Math.Cos((AIChangeCounter - (int)(8f / enrange) * 1) * 0.056f)) * 800, -516), Vector2.Zero, Color.LightBlue * 0.82f, 1, 1, true, BlendState.Additive, MathHelper.PiOver2);
+                                EParticle.NewParticle(new HadLine(), player.Center + player.velocity + new Vector2((float)(Math.Cos((AIChangeCounter - (int)(8f / enrange) * 1) * 0.056f)) * 800, -516), Vector2.Zero, Color.LightBlue * 0.82f, 1, 1, true, BlendState.Additive, MathHelper.PiOver2);
                             }
                         }
                     }
@@ -324,7 +324,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     }
                 }
             }
-            if(ai == AIStyle.Waiting2Sec)
+            if(ai == AIStyle.Waiting1Sec)
             {
                 NPC.rotation = 0;
             }
@@ -412,6 +412,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             }
             if(ai == AIStyle.Dashing)
             {
+                AfterImageTime = 16;
                 if(AIChangeCounter == 200)
                 {
                     num1 = NPC.rotation;
@@ -421,19 +422,19 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     NPC.rotation = CEUtils.rotatedToAngle(num1, num2, Utils.Remap(AIChangeCounter, 200, 180, 0, 1), false);
                 }
-                if (AIChangeCounter == 100)
+                if (AIChangeCounter == 130)
                 {
                     num1 = NPC.rotation;
                     num2 = (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2;
                 }
-                if (AIChangeCounter <= 100 && AIChangeCounter >= 80)
+                if (AIChangeCounter <= 130 && AIChangeCounter >= 110)
                 {
-                    NPC.rotation = CEUtils.rotatedToAngle(num1, num2, Utils.Remap(AIChangeCounter, 100, 80, 0, 1), false);
+                    NPC.rotation = CEUtils.rotatedToAngle(num1, num2, Utils.Remap(AIChangeCounter, 130, 110, 0, 1), false);
                 }
-                if(AIChangeCounter < 80 || (AIChangeCounter > 100 && AIChangeCounter < 180))
+                if(AIChangeCounter < 110 || (AIChangeCounter > 130 && AIChangeCounter < 180))
                 {
-                    NPC.velocity = (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 16;
-                    NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2, 1);
+                    NPC.velocity = (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 40;
+                    NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2, 1f);
                 }
             }
         }
@@ -448,19 +449,17 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public int AIChangeCounter = 0;
         public void SetAISyyle()
         {
-            ai = (AIStyle)(AIRound % 6);
-            return;
             if (phase == 1)
             {
                 ai = (AIStyle)AIRound;
-                if (AIRound >= 3)
+                if (AIRound >= 5)
                 {
                     AIRound = -1;
                 }
             }
             else
             {
-                ai = (AIStyle)(AIRound + 4);
+                ai = (AIStyle)(AIRound + 6);
                 if (AIRound >= 4)
                 {
                     AIRound = -1;
