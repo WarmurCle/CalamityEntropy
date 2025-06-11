@@ -59,6 +59,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public enum AIStyle
         {
             RoundShooting,
+            AstralSpike,
             AboveMovingShooting,
             Waiting1Sec,
             Subduction,
@@ -234,6 +235,14 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     AIChangeCounter = 200;
                 }
+                if(ai == AIStyle.AstralSpike)
+                {
+                    AIChangeCounter = 100;
+                }
+                if(ai == AIStyle.Shoot360)
+                {
+                    AIChangeCounter = 160;
+                }
                 NPC.netUpdate = true;
             }
             if(ai == AIStyle.RoundShooting)
@@ -403,7 +412,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     NPC.velocity -= (player.Center - NPC.Center).normalize() * 6;
                     for (int i = 0; i < 10 * enrange; i++)
                     {
-                        Shoot<LuminarisAstralShoot>(NPC.Center, (player.Center - NPC.Center).normalize() * 6 * enrange, 0.9f, CEUtils.randomRot(), 0.2f * enrange, 4 * enrange);
+                        Shoot<LuminarisAstralShoot>(NPC.Center, (player.Center - NPC.Center).normalize() * 6 * enrange, 0.9f, CEUtils.randomRot(), 0.16f * enrange, 4 * enrange);
                     }
                     Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(NPC.Center), 1800f, 1000f, 0f, 2f);
                     CEUtils.PlaySound("ksLand", 1.6f, NPC.Center, volume: 0.5f);
@@ -437,6 +446,67 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2, 1f);
                 }
             }
+            if(ai == AIStyle.AstralSpike)
+            {
+                NPC.velocity *= 0;
+                NPC.rotation = 0;
+                if(AIChangeCounter == 100)
+                {
+                    vec1 = NPC.Center;
+                    vec2 = NPC.Center + CEUtils.randomRot().ToRotationVector2() * 800;
+                }
+                if(AIChangeCounter > 40)
+                {
+                    float p = Utils.Remap(AIChangeCounter, 100, 40, 0, 1);
+                    NPC.Center = Vector2.Lerp(vec1, vec2, CEUtils.GetRepeatedCosFromZeroToOne(p, 1));
+                    if(AIChangeCounter % 2 == 0)
+                    {
+                        if(AIChangeCounter % 4 == 0)
+                        {
+                            Shoot<LuminarisSpikeBlue>(NPC.Center, (player.Center - NPC.Center).normalize() * 1.4f);
+                        }
+                        else
+                        {
+                            Shoot<LuminarisSpikeRed>(NPC.Center, (player.Center - NPC.Center).normalize() * 1.4f);
+                        }
+                    }
+                }
+            }
+            if(ai == AIStyle.Shoot360)
+            {
+                if(AIChangeCounter == 160)
+                {
+                    vec1 = NPC.Center;
+                    vec2 = player.Center + (NPC.Center - player.Center).normalize() * 280 / enrange;
+                }
+                if(AIChangeCounter > 120)
+                {
+                    float p = Utils.Remap(AIChangeCounter, 160, 120, 0, 1);
+                    NPC.Center = Vector2.Lerp(vec1, vec2, CEUtils.GetRepeatedCosFromZeroToOne(p, 1));
+                }
+                if (AIChangeCounter <= 110 && AIChangeCounter >= 80)
+                {
+                    if (AIChangeCounter % 10 == 0)
+                    {
+                        Color impactColor = Color.White;
+                        float impactParticleScale = 6f;
+                        CEUtils.PlaySound("portal_emerge", 1, NPC.Center);
+                        SparkleParticle impactParticle2 = new SparkleParticle(NPC.Center, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+                        GeneralParticleHandler.SpawnParticle(impactParticle2);
+                        SparkleParticle impactParticle = new SparkleParticle(NPC.Center, Vector2.Zero, impactColor, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+                        GeneralParticleHandler.SpawnParticle(impactParticle);
+                        float ag = CEUtils.randomRot();
+                        for(int i = 0; i < 360; i += 20)
+                        {
+                            float a = ag + MathHelper.ToRadians(i);
+                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 6 * enrange, 1, a + MathHelper.PiOver2, 0.3f * enrange);
+                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 6 * enrange, 1, a - MathHelper.PiOver2, 0.3f * enrange);
+                            
+                        }
+                    }
+                }
+            }
+
         }
         public void Shoot<T>(Vector2 pos, Vector2 velocity, float damageMult = 1, float ai0 = 1, float ai1 = 1, float ai2 = 1) where T : ModProjectile
         {
@@ -452,14 +522,16 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             if (phase == 1)
             {
                 ai = (AIStyle)AIRound;
-                if (AIRound >= 5)
+                if (AIRound >= 6)
                 {
                     AIRound = -1;
                 }
             }
             else
             {
-                ai = (AIStyle)(AIRound + 6);
+                ai = AIStyle.Shoot360;
+                return;
+                ai = (AIStyle)(AIRound + 7);
                 if (AIRound >= 4)
                 {
                     AIRound = -1;

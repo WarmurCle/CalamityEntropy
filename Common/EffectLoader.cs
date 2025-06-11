@@ -489,14 +489,17 @@ namespace CalamityEntropy.Common
 
                 if (npc.ModNPC is TheProphet tp)
                 {
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
                     NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                     tp.Draw();
                     NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
                     Main.spriteBatch.End();
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
                 }
             }
-
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
                 if (proj.type == cruiserEnergyBallType && proj.ModProjectile is CruiserEnergyBall ceb)

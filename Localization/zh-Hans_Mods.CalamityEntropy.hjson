@@ -2693,6 +2693,8 @@ Projectiles: {
 	ProfPet.DisplayName: 天神酱
 	// LuminarisAstralShoot.DisplayName: Luminaris Astral Shoot
 	// LuminarisVortex.DisplayName: Luminaris Vortex
+	// LuminarisSpikeBlue.DisplayName: Luminaris Spike Blue
+	// LuminarisSpikeRed.DisplayName: Luminaris Spike Red
 }
 
 LegendTooltip: - 传奇物品 -

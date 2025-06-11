@@ -2531,6 +2531,8 @@ Projectiles: {
 	ProfPet.DisplayName: Prof Pet
 	LuminarisAstralShoot.DisplayName: Luminaris Astral Shoot
 	LuminarisVortex.DisplayName: Luminaris Vortex
+	LuminarisSpikeBlue.DisplayName: Luminaris Spike Blue
+	LuminarisSpikeRed.DisplayName: Luminaris Spike Red
 }
 
 LegendTooltip: - Legend -
