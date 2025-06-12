@@ -5,9 +5,10 @@ using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.PrefixItem;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
+using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -21,7 +22,18 @@ namespace CalamityEntropy
     public static class CEUtils
     {
         public static DamageClass RogueDC => ModContent.GetInstance<CalamityMod.RogueDamageClass>();
-
+        public static List<Vector2> WrapPoints(List<Vector2> points, int d)
+        {
+            var ptd = new List<Vector2>();
+            for (int i = 1; i < points.Count; i++)
+            {
+                for (int j = 0; j < d; j++)
+                {
+                    ptd.Add(Vector2.Lerp(points[i - 1], points[i], (float)j / d));
+                }
+            }
+            return ptd;
+        }
         public static int ApplyCdDec(this int orig, Player plr)
         {
             return (int)(orig * plr.Entropy().CooldownTimeMult);

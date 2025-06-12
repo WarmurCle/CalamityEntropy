@@ -38,12 +38,12 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.scale = 1f;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 180;
         }
         public float counter = 0;
         public override void AI()
         {
-            Projectile.velocity *= 1.04f;
+            Projectile.velocity *= Projectile.ai[0] == 0 ? 1.04f : 0.987f;
             odp.Add(Projectile.Center);
             if(odp.Count > 16)
             {
@@ -100,12 +100,12 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.scale = 1f;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 180;
         }
         public float counter = 0;
         public override void AI()
         {
-            Projectile.velocity *= 1.04f;
+            Projectile.velocity *= Projectile.ai[0] == 0 ? 1.04f : 0.987f;
             odp.Add(Projectile.Center);
             if (odp.Count > 16)
             {

@@ -2533,6 +2533,8 @@ Projectiles: {
 	LuminarisVortex.DisplayName: Luminaris Vortex
 	LuminarisSpikeBlue.DisplayName: Luminaris Spike Blue
 	LuminarisSpikeRed.DisplayName: Luminaris Spike Red
+	LuminarisTriangleShootRed.DisplayName: Luminaris Triangle Shoot Red
+	LuminarisTriangleShootBlue.DisplayName: Luminaris Triangle Shoot Blue
 }
 
 LegendTooltip: - Legend -

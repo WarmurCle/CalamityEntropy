@@ -69,8 +69,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             Shoot360,
             RoundAndDash,
             SmashDown,
-            ShootTriangle,
-            Starlit
+            ShootTriangle
         }
         public Vector2 vec1 = Vector2.Zero;
         public Vector2 vec2 = Vector2.Zero;
@@ -125,7 +124,11 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
 
         public override void AI()
         {
-            if(oldPos == Vector2.Zero)
+            if (MegaTrail > 0)
+            {
+                MegaTrail -= 0.05f;
+            }
+            if (oldPos == Vector2.Zero)
             {
                 oldPos = NPC.Center;
             }
@@ -167,9 +170,13 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             }
             oldPos = NPC.Center;
             odp.Add(NPC.Center);
-            if (odp.Count > 24)
+            int odMax = 24 + (int)(MegaTrail) * 16;
+            for (int i = 0; i < 3; i++)
             {
-                odp.RemoveAt(0);
+                if (odp.Count > odMax)
+                {
+                    odp.RemoveAt(0);
+                }
             }
         }
 
@@ -243,7 +250,19 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     AIChangeCounter = 160;
                 }
-                NPC.netUpdate = true;
+                if(ai == AIStyle.RoundAndDash)
+                {
+                    AIChangeCounter = 200;
+                }
+                if (ai == AIStyle.SmashDown)
+                {
+                    AIChangeCounter = 400;
+                }
+                if(ai == AIStyle.ShootTriangle)
+                {
+                    AIChangeCounter = 200;
+                }
+;               NPC.netUpdate = true;
             }
             if(ai == AIStyle.RoundShooting)
             {
@@ -429,7 +448,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 }
                 if(AIChangeCounter <= 200 && AIChangeCounter >= 180) 
                 {
-                    NPC.rotation = CEUtils.rotatedToAngle(num1, num2, Utils.Remap(AIChangeCounter, 200, 180, 0, 1), false);
+                    NPC.rotation = CEUtils.rotatedToAngle(num1, num2, CEUtils.GetRepeatedCosFromZeroToOne(Utils.Remap(AIChangeCounter, 200, 180, 0, 1), 1), false);
                 }
                 if (AIChangeCounter == 130)
                 {
@@ -474,6 +493,8 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             }
             if(ai == AIStyle.Shoot360)
             {
+                NPC.velocity *= 0;
+                NPC.rotation = 0;
                 if(AIChangeCounter == 160)
                 {
                     vec1 = NPC.Center;
@@ -496,19 +517,163 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         SparkleParticle impactParticle = new SparkleParticle(NPC.Center, Vector2.Zero, impactColor, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
                         GeneralParticleHandler.SpawnParticle(impactParticle);
                         float ag = CEUtils.randomRot();
-                        for(int i = 0; i < 360; i += 20)
+                        for(int i = 0; i < 360; i += 60)
                         {
                             float a = ag + MathHelper.ToRadians(i);
-                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 6 * enrange, 1, a + MathHelper.PiOver2, 0.3f * enrange);
-                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 6 * enrange, 1, a - MathHelper.PiOver2, 0.3f * enrange);
+                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 8 * enrange, 1, a + MathHelper.PiOver2, 0.4f * enrange);
+                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 8 * enrange, 1, a - MathHelper.PiOver2, 0.4f * enrange);
                             
                         }
                     }
                 }
             }
+            if (ai == AIStyle.RoundAndDash)
+            {
+                if (AIChangeCounter > 1)
+                {
+                    NPC.velocity *= 0;
+                    NPC.rotation = 0;
+                    AfterImageTime = 16;
+                    if (AIChangeCounter == 200)
+                    {
+                        vec1 = NPC.Center;
+                        vec2 = player.Center + (NPC.Center - player.Center).SafeNormalize(Vector2.Zero) * 700;
+                    }
+                    if (AIChangeCounter > 140 && AIChangeCounter <= 200)
+                    {
+                        NPC.Center = Vector2.Lerp(vec1, vec2, CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 140) / 60f, 1));
+                    }
+                    else
+                    {
+                        if (AIChangeCounter == 140)
+                        {
+                            num1 = 700;
+                            num2 = (NPC.Center - player.Center).ToRotation();
+                            num3 = num2 + Main.rand.NextFloat(6, 10) * (Main.rand.NextBool() ? 1 : -1);
+                        }
 
+                        if (AIChangeCounter < 50 && AIChangeCounter > 16)
+                        {
+                            MegaTrail = 1.2f;
+                        }
+                        if (AIChangeCounter == 50)
+                        {
+                            CalamityEntropy.FlashEffectStrength = 0.3f;
+                            CEUtils.PlaySound("flamethrower end", 1, NPC.Center);
+                            vec2 = player.Center;
+                            odp.Clear();
+                            odp.Add(NPC.Center);
+                        }
+                        if (AIChangeCounter > 50)
+                        {
+                            float p = Utils.Remap(AIChangeCounter, 140, 50, 0, 1);
+                            float r = float.Lerp(num2, num3, CEUtils.GetRepeatedCosFromZeroToOne(p, 1));
+                            NPC.Center = player.Center + r.ToRotationVector2() * num1;
+                        }
+                        if (AIChangeCounter < 50)
+                        {
+                            float r = num3;
+                            float p = Utils.Remap(AIChangeCounter, 49, 0, 0, 1);
+                            num1 = float.Lerp(700, -700, CEUtils.GetRepeatedCosFromZeroToOne(p, 1));
+                            NPC.Center = vec2 + r.ToRotationVector2() * num1;
+                        }
+                        NPC.rotation = (NPC.Center - oldPos).ToRotation() + MathHelper.PiOver2;
+                    }
+                }
+            }
+            if(ai == AIStyle.SmashDown)
+            {
+                int ac = AIChangeCounter % 100 + 1;
+                if(ac == 100)
+                {
+                    vec1 = NPC.Center;
+                    vec2 = player.Center + player.velocity * 36 + new Vector2(0, -520 + Main.rand.NextFloat(-80, 80));
+                }
+                if(ac >= 40)
+                {
+                    NPC.velocity *= 0;
+                    NPC.rotation = 0;
+                    NPC.Center = Vector2.Lerp(vec1, vec2, CEUtils.GetRepeatedCosFromZeroToOne(Utils.Remap(ac, 100, 40, 0, 1), 1));
+                }
+                else
+                {
+                    NPC.velocity.Y += 2f;
+                    if(ac == 39)
+                    {
+                        CalamityEntropy.FlashEffectStrength = 0.4f;
+                        CEUtils.PlaySound("flamethrower end", 1, NPC.Center);
+                        odp.Clear();
+                        odp.Add(NPC.Center);
+                    }
+                    if(ac < 34)
+                    {
+                        if(ac % (int)(7 / enrange) == 0)
+                        {
+                            Shoot<LuminarisAstralShoot>(NPC.Center, new Vector2(14, 0) * enrange, 1, (-Vector2.UnitY).ToRotation(), enrange * 0.32f, 16 / enrange);
+                            Shoot<LuminarisAstralShoot>(NPC.Center, new Vector2(-14, 0) * enrange, 1, (-Vector2.UnitY).ToRotation(), enrange * 0.32f, 16 / enrange);
+                        }
+                    }
+                    if(ac > 10)
+                    {
+                        MegaTrail = 1;
+                    }
+                }
+            }
+            if(ai == AIStyle.ShootTriangle)
+            {
+                NPC.velocity *= 0;
+                NPC.rotation = 0;
+                AfterImageTime = 16;
+                if (AIChangeCounter == 200)
+                {
+                    num3 = Main.rand.NextBool() ? -1 : 1;
+                    vec1 = NPC.Center;
+                }
+                if (AIChangeCounter > 160)
+                {
+                    NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(440 * Math.Sign(NPC.Center.X - player.Center.X), -440), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 160) / 40f, 1));
+                }
+                if (AIChangeCounter == 160)
+                {
+                    num1 = NPC.Center.Distance(player.Center);
+                    num2 = (NPC.Center - player.Center).ToRotation();
+                }
+                if (AIChangeCounter < 160)
+                {
+                    if (AIChangeCounter >= 148)
+                    {
+                        num2 += MathHelper.ToRadians(30);
+                        NPC.Center = player.Center + num2.ToRotationVector2() * num1;
+                        if(AIChangeCounter % 2 == 0)
+                        {
+                            Shoot<LuminarisTriangleShootBlue>(NPC.Center, (player.Center - NPC.Center).normalize().RotatedBy(MathHelper.ToRadians(20) * (Main.rand.NextBool() ? 1 : -1)) * 10 * Main.rand.NextFloat(0.8f, 1.2f) * enrange);
+                        }
+                        else
+                        {
+                            Shoot<LuminarisTriangleShootRed>(NPC.Center, (player.Center - NPC.Center).normalize().RotatedBy(MathHelper.ToRadians(20) * (Main.rand.NextBool() ? 1 : -1)) * 10 * Main.rand.NextFloat(0.8f, 1.2f) * enrange);
+                        }
+                        NPC.rotation = (NPC.Center - oldPos).ToRotation() + MathHelper.PiOver2;
+                        vec1 = player.Center;
+                    }
+                    else
+                    {
+                        NPC.rotation = 0;
+                        NPC.velocity *= 0.9f;
+                        num2 += MathHelper.ToRadians(10);
+                        NPC.Center = vec1 + num2.ToRotationVector2() * num1;
+                    }
+                }
+            }
         }
-        public void Shoot<T>(Vector2 pos, Vector2 velocity, float damageMult = 1, float ai0 = 1, float ai1 = 1, float ai2 = 1) where T : ModProjectile
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            if(ai == AIStyle.SmashDown && MegaTrail <= 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        public void Shoot<T>(Vector2 pos, Vector2 velocity, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0) where T : ModProjectile
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
@@ -517,6 +682,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             }
         }
         public int AIChangeCounter = 0;
+        public float MegaTrail = 0;
         public void SetAISyyle()
         {
             if (phase == 1)
@@ -529,10 +695,35 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             }
             else
             {
-                ai = AIStyle.Shoot360;
-                return;
-                ai = (AIStyle)(AIRound + 7);
-                if (AIRound >= 4)
+                if(AIRound == 0)
+                {
+                    ai = AIStyle.Shoot360;
+                }
+                if(AIRound == 1)
+                {
+                    ai = AIStyle.SmashDown;
+                }
+                if (AIRound == 2)
+                {
+                    ai = AIStyle.RoundAndDash;
+                }
+                if (AIRound == 3)
+                {
+                    ai = AIStyle.Subduction;
+                }
+                if (AIRound == 4)
+                {
+                    ai = AIStyle.ShootTriangle;
+                }
+                if (AIRound == 5)
+                {
+                    ai = AIStyle.AstralSpike;
+                }
+                if (AIRound == 6)
+                {
+                    ai = AIStyle.SmashDown;
+                }
+                if (AIRound >= 6)
                 {
                     AIRound = -1;
                 }
@@ -611,7 +802,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             {
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
                 float starX = 1f + (float)Math.Cos(Main.GlobalTimeWrappedHourly * 26) * 0.4f;
-                Vector2 starScale = new Vector2(starX, starX);
+                Vector2 starScale = new Vector2(starX, starX) * (1 + MegaTrail * 1.6f);
                 Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * (color.A / 255f) * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(1f, 0.8f * 0.7f) * starScale * NPC.scale * 0.74f, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(texStar, pos - Main.screenPosition, null, Color.LightBlue * (color.A / 255f) * NPC.Opacity, 0, texStar.Size() * 0.5f, new Vector2(0.8f, 1f * 0.7f) * starScale * NPC.scale * 0.74f, SpriteEffects.None, 0);
                 Main.spriteBatch.ExitShaderRegion();
@@ -682,7 +873,61 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     }
                 }
+                if(MegaTrail > 0)
+                {
+                    {
+                        List<ColoredVertex> ve = new List<ColoredVertex>();
+                        Color b = Color.SkyBlue * NPC.Opacity * MegaTrail;
+                        var ptd = CEUtils.WrapPoints(odp, 5);
+                        float a = 0;
+                        float lr = 0;
+                        for (int i = 1; i < ptd.Count; i++)
+                        {
+                            a += 1f / (float)ptd.Count;
+                            ve.Add(new ColoredVertex(ptd[i] - Main.screenPosition + (ptd[i] - ptd[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 70 * ((i - 1f) / (ptd.Count - 2f)),
+                                  new Vector3((float)(i + 1) / ptd.Count + Main.GlobalTimeWrappedHourly, 1, 1),
+                                b * a));
+                            ve.Add(new ColoredVertex(ptd[i] - Main.screenPosition + (ptd[i] - ptd[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 70 * ((i - 1f) / (ptd.Count - 2f)),
+                                  new Vector3((float)(i + 1) / ptd.Count + Main.GlobalTimeWrappedHourly, 0, 1),
+                                  b * a));
+                            lr = (ptd[i] - ptd[i - 1]).ToRotation();
+                        }
+                        a = 1;
 
+                        if (ve.Count >= 3)
+                        {
+                            Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/MegaStreakInner").Value;
+                            gd.Textures[0] = tx;
+                            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                        }
+                    }
+                    {
+                        List<ColoredVertex> ve = new List<ColoredVertex>();
+                        Color b = Color.White * NPC.Opacity * MegaTrail;
+                        var ptd = CEUtils.WrapPoints(odp, 5);
+                        float a = 0;
+                        float lr = 0;
+                        for (int i = 1; i < ptd.Count; i++)
+                        {
+                            a += 1f / (float)ptd.Count;
+                            ve.Add(new ColoredVertex(ptd[i] - Main.screenPosition + (ptd[i] - ptd[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 64 * ((i - 1f) / (ptd.Count - 2f)),
+                                  new Vector3((float)(i + 1) / ptd.Count + Main.GlobalTimeWrappedHourly, 1, 1),
+                                b * a));
+                            ve.Add(new ColoredVertex(ptd[i] - Main.screenPosition + (ptd[i] - ptd[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 64 * ((i - 1f) / (ptd.Count - 2f)),
+                                  new Vector3((float)(i + 1) / ptd.Count + Main.GlobalTimeWrappedHourly, 0, 1),
+                                  b * a));
+                            lr = (ptd[i] - ptd[i - 1]).ToRotation();
+                        }
+                        a = 1;
+
+                        if (ve.Count >= 3)
+                        {
+                            Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak2").Value;
+                            gd.Textures[0] = tx;
+                            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                        }
+                    }
+                }
             }
             odp.RemoveAt(odp.Count - 1);
             Main.spriteBatch.End();
