@@ -2143,7 +2143,7 @@ Items: {
 	}
 
 	StarlitPiercer: {
-		Tooltip: "Shoot phantom bullets during sudden spikes"
+		Tooltip: Shoot phantom bullets during sudden spikes
 		DisplayName: Starlit Piercer
 	}
 

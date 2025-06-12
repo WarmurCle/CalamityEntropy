@@ -99,10 +99,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             NPC.boss = true;
             NPC.width = 76;
             NPC.height = 76;
-            NPC.damage = 65;
+            NPC.damage = 55;
             NPC.Calamity().DR = 0.1f;
             NPC.defense = 10;
-            NPC.lifeMax = 32000;
+            NPC.lifeMax = 22000;
             NPC.HitSound = SoundID.NPCHit32;
             NPC.DeathSound = SoundID.NPCDeath22;
             NPC.value = 1600f;
@@ -729,7 +729,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 }
                 if (AIRound == 6)
                 {
-                    ai = AIStyle.SmashDown;
+                    ai = AIStyle.Dashing;
                 }
                 if (AIRound >= 6)
                 {

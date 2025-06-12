@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 160);
+            target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 20);
         }
         public override void SetDefaults()
         {
