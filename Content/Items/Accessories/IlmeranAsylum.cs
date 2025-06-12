@@ -72,7 +72,10 @@ namespace CalamityEntropy.Content.Items.Accessories
                     {
                         if (!p.Entropy().IlmeranEnhanced)
                         {
-                            Projectile.ai[0] += 0.1f;
+                            if (Projectile.ai[0] < 1)
+                            {
+                                Projectile.ai[0] += 0.1f;
+                            }
                             p.Entropy().IlmeranEnhanced = true;
                             var target = CEUtils.FindTarget_HomingProj(p, p.Center, 6000);
                             if (target != null)
@@ -87,10 +90,10 @@ namespace CalamityEntropy.Content.Items.Accessories
                     }
                 }
             }
-            var target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 6000);
-            if (Projectile.ai[0] >= 1 && target != null)
+            var targetz = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 6000);
+            if (Projectile.ai[0] >= 1 && targetz != null)
             {
-                Vector2 targetPos = target.Center;
+                Vector2 targetPos = targetz.Center;
                 Projectile.velocity += (targetPos - Projectile.Center).normalize() * 1;
                 Projectile.velocity *= 0.98f;
             }
@@ -103,6 +106,10 @@ namespace CalamityEntropy.Content.Items.Accessories
                 {
                     Projectile.Center = targetPos;
                 }
+            }
+            if (!Projectile.getOwner().Entropy().ilmeranAsylum)
+            {
+                Projectile.Kill();
             }
             Projectile.scale = 1 + Projectile.ai[0];
         }

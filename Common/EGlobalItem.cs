@@ -1154,6 +1154,10 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
+            if (item.Is<LeviathanBag>())
+            {
+                itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<IlmeranAsylum>()));
+            }
             if(item.type == ItemID.FloatingIslandFishingCrate)
             {
                 itemLoot.Add(ModContent.ItemType<IndigoCard>(), 5);
@@ -1285,7 +1289,6 @@ namespace CalamityEntropy.Common
             if (item.type == ItemID.FishronBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkPisces>(), new Fraction(1, 1));
-                itemLoot.Add(ModContent.ItemType<IlmeranAsylum>(), new Fraction(1, 2));
             }
             if (item.Is<ProvidenceBag>())
             {
