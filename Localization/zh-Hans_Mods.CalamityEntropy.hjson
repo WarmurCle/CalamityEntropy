@@ -2295,6 +2295,36 @@ Items: {
 		// Tooltip: ""
 		// DisplayName: Prophet Music Box2
 	}
+
+	StarlitPiercer: {
+		// Tooltip: ""
+		// DisplayName: Starlit Piercer
+	}
+
+	LuminarisMusicBox: {
+		// Tooltip: ""
+		// DisplayName: Luminaris Music Box
+	}
+
+	LuminarisRelic: {
+		// Tooltip: ""
+		// DisplayName: Luminaris Relic
+	}
+
+	LuminarisBag: {
+		// Tooltip: ""
+		// DisplayName: Luminaris Bag
+	}
+
+	IllusionaryDew: {
+		// Tooltip: ""
+		// DisplayName: Illusionary Dew
+	}
+
+	LuminarisTrophy: {
+		// DisplayName: Luminaris Trophy
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2697,6 +2727,7 @@ Projectiles: {
 	LuminarisSpikeRed.DisplayName: 幻光晶刺
 	LuminarisTriangleShootRed.DisplayName: 幻光晶簇
 	LuminarisTriangleShootBlue.DisplayName: 幻光晶簇
+	// StarlitPiercerHeld.DisplayName: Starlit Piercer Held
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3022,9 +3053,10 @@ NPCs: {
 	}
 
 	TopazJewel.DisplayName: 王冠黄宝石
-	Luminaris:
-	{
+
+	Luminaris: {
 		DisplayName: 幻光星蛾
+
 		BossChecklistIntegration: {
 			EntryName: 幻光星蛾
 			SpawnInfo: 在星辉地使用[i:CalamityEntropy/IllusionaryDew]召唤

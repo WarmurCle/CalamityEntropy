@@ -2134,6 +2134,36 @@ Items: {
 		// Tooltip: ""
 		// DisplayName: Prophet Music Box2
 	}
+
+	StarlitPiercer: {
+		// Tooltip: ""
+		// DisplayName: Starlit Piercer
+	}
+
+	LuminarisMusicBox: {
+		// Tooltip: ""
+		// DisplayName: Luminaris Music Box
+	}
+
+	LuminarisRelic: {
+		// Tooltip: ""
+		// DisplayName: Luminaris Relic
+	}
+
+	LuminarisBag: {
+		// Tooltip: ""
+		// DisplayName: Luminaris Bag
+	}
+
+	IllusionaryDew: {
+		// Tooltip: ""
+		// DisplayName: Illusionary Dew
+	}
+
+	LuminarisTrophy: {
+		// DisplayName: Luminaris Trophy
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2535,6 +2565,7 @@ Projectiles: {
 	// LuminarisSpikeRed.DisplayName: Luminaris Spike Red
 	// LuminarisTriangleShootRed.DisplayName: Luminaris Triangle Shoot Red
 	// LuminarisTriangleShootBlue.DisplayName: Luminaris Triangle Shoot Blue
+	// StarlitPiercerHeld.DisplayName: Starlit Piercer Held
 }
 
 LegendTooltip: - Legend -
@@ -2860,7 +2891,16 @@ NPCs: {
 	}
 
 	TopazJewel.DisplayName: Topaz Jewel
-	// Luminaris.DisplayName: Luminaris
+
+	Luminaris: {
+		// DisplayName: Luminaris
+
+		BossChecklistIntegration: {
+			// EntryName: Luminaris
+			// SpawnInfo: Use [i:CalamityEntropy/IllusionaryDew] in Astral Infection to summon.
+			// DespawnMessage: Luminaris has been defeated.
+		}
+	}
 }
 
 WyrmChatNoHome: Куда мы идем теперь?

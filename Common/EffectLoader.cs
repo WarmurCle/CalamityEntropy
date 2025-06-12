@@ -379,6 +379,7 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.End();
         }
 
+
         private static void DrawAbyssalEffect(GraphicsDevice graphicsDevice)
         {
             if (cab == null)
@@ -398,10 +399,6 @@ namespace CalamityEntropy.Common
 
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
-                if (proj.ModProjectile == null)
-                {
-                    return;
-                }
                 if (proj.ModProjectile is AbyssalCrack ac)
                 {
                     ac.draw();
@@ -432,7 +429,7 @@ namespace CalamityEntropy.Common
             cab.CurrentTechnique = cab.Techniques["Technique1"];
             cab.CurrentTechnique.Passes[0].Apply();
             cab.Parameters["clr"].SetValue(new Color(12, 50, 160).ToVector4());
-            cab.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1").Value);
+            cab.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1", AssetRequestMode.ImmediateLoad).Value);
             cab.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cab.Parameters["scrsize"].SetValue(screen.Size());
             cab.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(1920, 1080));

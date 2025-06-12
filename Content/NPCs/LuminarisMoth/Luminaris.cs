@@ -1007,11 +1007,11 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
 
             var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
-                normalOnly.Add(ModContent.ItemType<RuneSong>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<StarlitPiercer>(), new Fraction(4, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<LuminarisRelic>());
 
-            //npcLoot.Add(ModContent.ItemType<ProphetTrophy>(), 10);
+            npcLoot.Add(ModContent.ItemType<LuminarisTrophy>(), 10);
 
             //npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedProphet, ModContent.ItemType<ProphetLore>());
         }
