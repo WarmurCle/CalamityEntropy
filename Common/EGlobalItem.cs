@@ -1285,6 +1285,7 @@ namespace CalamityEntropy.Common
             if (item.type == ItemID.FishronBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkPisces>(), new Fraction(1, 1));
+                itemLoot.Add(ModContent.ItemType<IlmeranAsylum>(), new Fraction(1, 2));
             }
             if (item.Is<ProvidenceBag>())
             {

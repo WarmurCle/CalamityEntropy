@@ -596,6 +596,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            if(npc.type == NPCID.DukeFishron)
+            {
+                npcLoot.Add(ModContent.ItemType<IlmeranAsylum>(), 2);
+            }
             if(npc.type == ModContent.NPCType<ProfanedGuardianCommander>())
             {
                 npcLoot.Add(ModContent.ItemType<LavaPancake>(), 2);

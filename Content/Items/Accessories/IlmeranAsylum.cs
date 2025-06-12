@@ -39,14 +39,14 @@ namespace CalamityEntropy.Content.Items.Accessories
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
-            Projectile.width = Projectile.height = 64;
+            Projectile.width = Projectile.height = 100
             Projectile.light = 0.2f;
         }
         
         public override void AI()
         {
             Projectile.timeLeft = 3;
-            Projectile.rotation += 0.14f;
+            Projectile.rotation += 0.24f;
             float mc = 0;
             float max = 0;
             bool j = true;
@@ -99,14 +99,19 @@ namespace CalamityEntropy.Content.Items.Accessories
             }
             else
             {
-                Vector2 targetPos = Projectile.getOwner().Center + (mc * (MathHelper.TwoPi / max)).ToRotationVector2().RotatedBy(Main.GameUpdateCount * 0.1f) * 250;
-                Projectile.velocity += (targetPos - Projectile.Center).normalize() * 3;
+                Vector2 targetPos = Projectile.getOwner().Center + (mc * (MathHelper.TwoPi / max)).ToRotationVector2().RotatedBy(Main.GameUpdateCount * 0.03f) * 320;
+                Projectile.velocity += (targetPos - Projectile.Center).normalize() * 6;
                 Projectile.velocity *= 0.94f;
                 if (CEUtils.getDistance(Projectile.Center, targetPos) > 1600)
                 {
                     Projectile.Center = targetPos;
                 }
             }
+            Projectile.scale = 1 + Projectile.ai[0];
+        }
+        public override void OnKill(int timeLeft)
+        {
+            EParticle.NewParticle(new HadCircle2() { CScale = 0.8f }, Projectile.Center, Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
         }
         public override bool? CanHitNPC(NPC target)
         {
