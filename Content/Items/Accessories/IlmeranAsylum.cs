@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
-            Projectile.width = Projectile.height = 100
+            Projectile.width = Projectile.height = 100;
             Projectile.light = 0.2f;
         }
         
@@ -87,20 +87,17 @@ namespace CalamityEntropy.Content.Items.Accessories
                     }
                 }
             }
-            if (Projectile.ai[0] >= 1)
+            var target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 6000);
+            if (Projectile.ai[0] >= 1 && target != null)
             {
-                var target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 6000);
-                if (target != null)
-                {
-                    Vector2 targetPos = target.Center;
-                    Projectile.velocity += (targetPos - Projectile.Center).normalize() * 1;
-                    Projectile.velocity *= 0.98f;
-                }
+                Vector2 targetPos = target.Center;
+                Projectile.velocity += (targetPos - Projectile.Center).normalize() * 1;
+                Projectile.velocity *= 0.98f;
             }
             else
             {
                 Vector2 targetPos = Projectile.getOwner().Center + (mc * (MathHelper.TwoPi / max)).ToRotationVector2().RotatedBy(Main.GameUpdateCount * 0.03f) * 320;
-                Projectile.velocity += (targetPos - Projectile.Center).normalize() * 6;
+                Projectile.velocity += (targetPos - Projectile.Center).normalize() * 3.6f;
                 Projectile.velocity *= 0.94f;
                 if (CEUtils.getDistance(Projectile.Center, targetPos) > 1600)
                 {
@@ -120,6 +117,12 @@ namespace CalamityEntropy.Content.Items.Accessories
                 return false;
             }
             return null;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
+            return false;
         }
     }
 }

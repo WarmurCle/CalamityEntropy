@@ -2127,13 +2127,13 @@ Items: {
 
 	IlmeranAsylum: {
 		DisplayName: Ilmeran Asylum
-		Tooltip: 
-		'''
-		Generates 3 vortexes around the player
-		Projectiles passing through vortexes will home in on nearby enemies, 
-		gain increased power, and charge the vortexes
-		Fully charged vortexes will pursue nearby enemies and deal damage
-		'''
+		Tooltip:
+			'''
+			Generates 3 vortexes around the player
+			Projectiles passing through vortexes will home in on nearby enemies, 
+			gain increased power, and charge the vortexes
+			Fully charged vortexes will pursue nearby enemies and deal damage
+			'''
 	}
 
 	ProphetMusicBox2: {
