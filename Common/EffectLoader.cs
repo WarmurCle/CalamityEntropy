@@ -394,10 +394,14 @@ namespace CalamityEntropy.Common
             graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
             graphicsDevice.Clear(Color.Transparent);
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
+                if (proj.ModProjectile == null)
+                {
+                    return;
+                }
                 if (proj.ModProjectile is AbyssalCrack ac)
                 {
                     ac.draw();

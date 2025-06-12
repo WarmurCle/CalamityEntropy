@@ -99,10 +99,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             NPC.boss = true;
             NPC.width = 76;
             NPC.height = 76;
-            NPC.damage = 70;
+            NPC.damage = 65;
             NPC.Calamity().DR = 0.1f;
             NPC.defense = 10;
-            NPC.lifeMax = 54000;
+            NPC.lifeMax = 32000;
             NPC.HitSound = SoundID.NPCHit32;
             NPC.DeathSound = SoundID.NPCDeath22;
             NPC.value = 1600f;
@@ -520,8 +520,8 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         for(int i = 0; i < 360; i += 60)
                         {
                             float a = ag + MathHelper.ToRadians(i);
-                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 8 * enrange, 1, a + MathHelper.PiOver2, 0.4f * enrange);
-                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 8 * enrange, 1, a - MathHelper.PiOver2, 0.4f * enrange);
+                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 6 * enrange, 1, a + MathHelper.PiOver2, 0.26f * enrange);
+                            Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 6 * enrange, 1, a - MathHelper.PiOver2, 0.26f * enrange);
                             
                         }
                     }
@@ -677,7 +677,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int baseDamage = NPC.damage / 5;
+                int baseDamage = (int)(NPC.damage / 6.2f);
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velocity, ModContent.ProjectileType<T>(), (int)(baseDamage * damageMult), 4, -1, ai0, ai1, ai2);
             }
         }
@@ -997,6 +997,23 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.GreaterHealingPotion;
+        }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<LuminarisBag>()));
+
+            npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ItemID.GreaterHealingPotion, 1, 5, 15), hideLootReport: true);
+
+
+            var normalOnly = npcLoot.DefineNormalOnlyDropSet();
+            {
+                normalOnly.Add(ModContent.ItemType<RuneSong>(), new Fraction(4, 5));
+            }
+            npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<LuminarisRelic>());
+
+            //npcLoot.Add(ModContent.ItemType<ProphetTrophy>(), 10);
+
+            //npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedProphet, ModContent.ItemType<ProphetLore>());
         }
     }
 }

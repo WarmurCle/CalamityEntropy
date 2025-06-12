@@ -1225,6 +1225,25 @@ namespace CalamityEntropy
                 {
                     {
                         {
+                            string entryName = "Luminaris";
+                            List<int> collection = new List<int>() { };
+                            Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
+                            {
+                                Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/LuminarisBossCheckList").Value;
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 1, SpriteEffects.None, 0);
+                            };
+                            Func<bool> Luminaris = () => EDownedBosses.downedLuminaris;
+                            AddBoss(bossChecklist, Instance, entryName, 9.505f, Luminaris, ModContent.NPCType<Luminaris>(), new Dictionary<string, object>()
+                            {
+                                ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.Luminaris.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.Luminaris.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetText("Mods.CalamityEntropy.NPCs.Luminaris.BossChecklistIntegration.DespawnMessage"),
+                                ["spawnItems"] = ModContent.ItemType<IllusionaryDew>(),
+                                ["collectibles"] = collection,
+                                ["customPortrait"] = portrait
+                            });
+                        }
+                        {
                             string entryName = "TheProphet";
                             List<int> collection = new List<int>() { ModContent.ItemType<RuneSong>(), ModContent.ItemType<UrnOfSouls>(), ModContent.ItemType<SpiritBanner>(), ModContent.ItemType<ProphecyFlyingKnife>(), ModContent.ItemType<RuneMachineGun>(), ModContent.ItemType<ForeseeOrb>(), ModContent.ItemType<RuneWing>() };
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>

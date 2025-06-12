@@ -2855,12 +2855,20 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: The Prophet
 			SpawnInfo: Use [i:CalamityEntropy/ProphecyToken] in dungeon to summon.
-			DespawnMessage: The Prophet has been defeat.
+			DespawnMessage: The Prophet has been defeated.
 		}
 	}
 
 	TopazJewel.DisplayName: Topaz Jewel
-	Luminaris.DisplayName: Luminaris
+	Luminaris:
+	{
+		DisplayName: Luminaris
+		BossChecklistIntegration: {
+			EntryName: Luminaris
+			SpawnInfo: Use [i:CalamityEntropy/IllusionaryDew] in Astral Infection to summon.
+			DespawnMessage: Luminaris has been defeated.
+		}
+	}
 }
 
 WyrmChatNoHome: Where are we going now?
