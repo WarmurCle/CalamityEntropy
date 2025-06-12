@@ -2567,6 +2567,7 @@ Projectiles: {
 	// LuminarisTriangleShootBlue.DisplayName: Luminaris Triangle Shoot Blue
 	// StarlitPiercerHeld.DisplayName: Starlit Piercer Held
 	// FriendlyAstralShoot.DisplayName: Friendly Astral Shoot
+	// IlmeranVortex.DisplayName: Ilmeran Vortex
 }
 
 LegendTooltip: - Legend -

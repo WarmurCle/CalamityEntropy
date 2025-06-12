@@ -2729,6 +2729,7 @@ Projectiles: {
 	LuminarisTriangleShootBlue.DisplayName: 幻光晶簇
 	// StarlitPiercerHeld.DisplayName: Starlit Piercer Held
 	// FriendlyAstralShoot.DisplayName: Friendly Astral Shoot
+	// IlmeranVortex.DisplayName: Ilmeran Vortex
 }
 
 LegendTooltip: - 传奇物品 -

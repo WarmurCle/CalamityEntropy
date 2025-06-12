@@ -1,8 +1,10 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -11,6 +13,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class IlmeranAsylum : ModItem
     {
+        public static float DMGMult = 0.16f;
         public override void SetDefaults()
         {
             Item.width = 52;
@@ -27,6 +30,91 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void AddRecipes()
         {
+        }
+    }
+    public class IlmeranVortex : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.friendly = true;
+            Projectile.width = Projectile.height = 64;
+            Projectile.light = 0.2f;
+        }
+        
+        public override void AI()
+        {
+            Projectile.timeLeft = 3;
+            Projectile.rotation += 0.14f;
+            float mc = 0;
+            float max = 0;
+            bool j = true;
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (!p.friendly)
+                    continue;
+                if (p.type == Projectile.type && p.owner == Projectile.owner)
+                {
+                    max++;
+                    if (p.whoAmI != Projectile.whoAmI)
+                    {
+                        if (j)
+                        {
+                            mc++;
+                        }
+                    }
+                    else { j = false; }
+                }
+                else
+                {
+                    if (p.damage > 0 && p.owner == Projectile.owner && p.Hitbox.Intersects(Projectile.Hitbox))
+                    {
+                        if (!p.Entropy().IlmeranEnhanced)
+                        {
+                            Projectile.ai[0] += 0.1f;
+                            p.Entropy().IlmeranEnhanced = true;
+                            var target = CEUtils.FindTarget_HomingProj(p, p.Center, 6000);
+                            if (target != null)
+                            {
+                                p.velocity = new Vector2(p.velocity.Length(), 0).RotatedBy((target.Center - p.Center).ToRotation());
+                            }
+                            EParticle.NewParticle(new HadCircle2() { CScale = 0.4f }, Projectile.Center, p.velocity.normalize() * 16, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
+                            CEUtils.SyncProj(Projectile.whoAmI);
+                            CEUtils.SyncProj(p.whoAmI);
+                            CEUtils.PlaySound("charm", Main.rand.NextFloat(0.6f, 1.4f), Projectile.Center, volume: 0.4f);
+                        }
+                    }
+                }
+            }
+            if (Projectile.ai[0] >= 1)
+            {
+                var target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 6000);
+                if (target != null)
+                {
+                    Vector2 targetPos = target.Center;
+                    Projectile.velocity += (targetPos - Projectile.Center).normalize() * 1;
+                    Projectile.velocity *= 0.98f;
+                }
+            }
+            else
+            {
+                Vector2 targetPos = Projectile.getOwner().Center + (mc * (MathHelper.TwoPi / max)).ToRotationVector2().RotatedBy(Main.GameUpdateCount * 0.1f) * 250;
+                Projectile.velocity += (targetPos - Projectile.Center).normalize() * 3;
+                Projectile.velocity *= 0.94f;
+                if (CEUtils.getDistance(Projectile.Center, targetPos) > 1600)
+                {
+                    Projectile.Center = targetPos;
+                }
+            }
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (Projectile.ai[0] < 1)
+            {
+                return false;
+            }
+            return null;
         }
     }
 }

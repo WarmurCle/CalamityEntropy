@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         }
         public int frameCounter = 0;
         public Vector2 oldPos = Vector2.Zero;
-        public int AIRound = 1;
+        public int AIRound = 0;
         public AIStyle ai = AIStyle.RoundShooting;
         public int AfterImageTime = 0;
         public int SD = 4;

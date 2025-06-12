@@ -1212,8 +1212,18 @@ namespace CalamityEntropy.Common
         public bool maliciousCode = false;
         public ProminenceTrail runeDashTrail = null;
         public int UICJ = 0;
+        public int ilVortexType = -1;
         public override void PostUpdate()
         {
+            if (ilVortexType == -1)
+                ilVortexType = ModContent.ProjectileType<IlmeranVortex>();
+            if (ilmeranAsylum)
+            {
+                if (Player.ownedProjectileCounts[ilVortexType] < 3)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ilVortexType, 1600, 1, Player.whoAmI);
+                }
+            }
             if (Player.itemTime > 0 || Player.channel)
             {
                 UICJ = 3;

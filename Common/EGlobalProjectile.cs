@@ -122,7 +122,7 @@ namespace CalamityEntropy.Common
         public bool ProminenceArrow = false;
         public float promineceDamageAddition = 0.25f;
         public int hittingTarget = -1;
-
+        public bool IlmeranEnhanced = false;
 
         public Dictionary<string, SynchronousData> DataSynchronous = new Dictionary<string, SynchronousData>();
         public void DefineSynchronousData(SyncDataType type, string name, object defaultValue)
@@ -187,6 +187,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(projectile.Calamity().stealthStrike);
             binaryWriter.Write(zypArrow);
             binaryWriter.Write(ProminenceArrow);
+            binaryWriter.Write(IlmeranEnhanced);
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].Write(binaryWriter);
@@ -206,6 +207,7 @@ namespace CalamityEntropy.Common
             projectile.Calamity().stealthStrike = binaryReader.ReadBoolean();
             zypArrow = binaryReader.ReadBoolean();
             ProminenceArrow = binaryReader.ReadBoolean();
+            IlmeranEnhanced = binaryReader.ReadBoolean();
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].ReadToValue(binaryReader);
@@ -738,6 +740,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
+            if (IlmeranEnhanced)
+            {
+                modifiers.SourceDamage *= IlmeranAsylum.DMGMult + 1;
+            }
             if (EventideShot)
             {
                 float maxR = MathHelper.ToRadians(60);
@@ -927,7 +933,10 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-
+            if (IlmeranEnhanced)
+            {
+                target.AddBuff(ModContent.BuffType<CrushDepth>(), 400);
+            }
             if (projectile.type == 735 && projectile.velocity.Y > 0 && projectile.velocity.Y > Math.Abs(projectile.velocity.X))
             {
                 projectile.getOwner().velocity.Y = -projectile.velocity.Y * 0.4f;
