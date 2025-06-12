@@ -86,7 +86,10 @@ namespace CalamityEntropy.Content.Items.Books
 
     public abstract class EntropyBookHeldProjectile : ModProjectile
     {
-
+        public override void OnKill(int timeLeft)
+        {
+            active = false;
+        }
         public int ItemType => (int)Projectile.ai[0];
         public int openAnim = 0;
         public bool UIOpen = false;
