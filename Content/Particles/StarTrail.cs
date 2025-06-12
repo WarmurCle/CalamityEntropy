@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Particles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Main.spriteBatch.Draw(Texture, this.position - Main.screenPosition, null, this.Color * ((float)this.Lifetime / this.TimeLeftMax), this.Rotation, Texture.Size() / 2f, 0.22f * Scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Texture, this.position - Main.screenPosition, null, this.Color * ((float)this.Lifetime / this.TimeLeftMax), this.Rotation, Texture.Size() / 2f, new Vector2(1.4f, 0.8f) * 0.22f * Scale, SpriteEffects.None, 0);
             if (odp.Count < 3)
             {
                 return;

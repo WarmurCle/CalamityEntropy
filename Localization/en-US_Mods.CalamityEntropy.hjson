@@ -2156,7 +2156,7 @@ Items: {
 	}
 
 	IllusionaryDew: {
-		Tooltip: ""
+		Tooltip: Summon Luminaris in astral infection
 		DisplayName: Illusionary Dew
 	}
 
@@ -2566,6 +2566,7 @@ Projectiles: {
 	LuminarisTriangleShootRed.DisplayName: Luminaris Triangle Shoot Red
 	LuminarisTriangleShootBlue.DisplayName: Luminaris Triangle Shoot Blue
 	StarlitPiercerHeld.DisplayName: Starlit Piercer Held
+	FriendlyAstralShoot.DisplayName: Friendly Astral Shoot
 }
 
 LegendTooltip: - Legend -
@@ -2999,6 +3000,7 @@ ProphetBestiary:
 	A pitiful, shattered soul driven mad by the horrifying truth hidden behind the invasion of the void.
 	Bound to ancient texts, it endlessly repeats mindless screams and whispers, desperately—yet futilely—trying to convey what it has witnessed.
 	'''
+LuminarisBestiary: Moths infected by astral exist with the purpose of spreading astral infection
 WorldGen.VoidOreSpawn: Void energy is emanating from the sky
 
 Tiles: {

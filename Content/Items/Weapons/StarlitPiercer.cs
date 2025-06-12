@@ -16,14 +16,14 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 120;
+            Item.damage = 80;
             Item.crit = 10;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 58;
             Item.noUseGraphic = true;
             Item.height = 58;
-            Item.useTime = 28;
-            Item.useAnimation = 28;
+            Item.useTime = 34;
+            Item.useAnimation = 34;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
@@ -42,6 +42,10 @@ namespace CalamityEntropy.Content.Items.Weapons
     public class StarlitPiercerHeld : ModProjectile
     {
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/StarlitPiercer";
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.SourceDamage *= 1.4f;
+        }
         public override void SetDefaults()
         {
             Projectile.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
@@ -63,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.7f, 1.3f), target.Center);
             for(int i = 0; i < 3; i++)
             {
-                EParticle.NewParticle(new StarTrailParticle(), target.Center, Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(16, 36), Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new StarTrailParticle(), target.Center, Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(16, 36), Color.White, Main.rand.NextFloat(0.6f, 1.6f), 1, true, BlendState.Additive, 0);
             }
         }
         public float starAlpha = 0;
@@ -80,6 +84,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if(dCounter == 0)
                 {
                     CEUtils.PlaySound("powerwhip", 1.6f, Projectile.Center);
+                    if (Projectile.owner == Main.myPlayer)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity * 3, Projectile.velocity * 1.2f, ModContent.ProjectileType<FriendlyAstralShoot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    }
                 }
                 dCounter++;
                 if(dCounter >= zMax)
@@ -89,6 +97,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         Projectile.localNPCImmunity[i] = 0;
                     }
+                    
                     Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((player.Calamity().mouseWorld - player.MountedCenter).ToRotation());
                 }
                 scale = 1.4f + CEUtils.Parabola(dCounter / zMax, 0.2f);
@@ -132,8 +141,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver4, new Vector2(0, tex.Height), Projectile.scale * scale, SpriteEffects.None, 0);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D star = CEUtils.getExtraTex("StarTexture");
-            Main.spriteBatch.Draw(star, Projectile.Center + Projectile.rotation.ToRotationVector2() * 70 * scale - Main.screenPosition, null, Color.White * (starAlpha), 0, star.Size() / 2f, new Vector2(1.6f, 0.6f) * Projectile.scale * 0.2f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(star, Projectile.Center + Projectile.rotation.ToRotationVector2() * 70 * scale - Main.screenPosition, null, Color.White * (starAlpha), 0, star.Size() / 2f, new Vector2(0.6f, 1.6f) * Projectile.scale * 0.2f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(star, Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 * scale - Main.screenPosition, null, Color.White * (starAlpha), 0, star.Size() / 2f, new Vector2(2.4f, 0.6f) * Projectile.scale * 0.2f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(star, Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 * scale - Main.screenPosition, null, Color.White * (starAlpha), 0, star.Size() / 2f, new Vector2(0.6f, 2.4f) * Projectile.scale * 0.2f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             
             return false;

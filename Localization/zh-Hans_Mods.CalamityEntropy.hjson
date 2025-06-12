@@ -2287,43 +2287,43 @@ Items: {
 	}
 
 	IlmeranAsylum: {
-		// DisplayName: Ilmeran Asylum
-		// Tooltip: ""
+		DisplayName: 伊尔梅兰之佑
+		Tooltip: ""
 	}
 
 	ProphetMusicBox2: {
-		// Tooltip: ""
-		// DisplayName: Prophet Music Box2
+		Tooltip: ""
+		DisplayName: 音乐盒（先知二阶段）
 	}
 
 	StarlitPiercer: {
-		// Tooltip: ""
-		// DisplayName: Starlit Piercer
+		Tooltip: ""
+		DisplayName: 星熠穿刺者
 	}
 
 	LuminarisMusicBox: {
-		// Tooltip: ""
-		// DisplayName: Luminaris Music Box
+		Tooltip: ""
+		DisplayName: 音乐盒（幻光星蛾）
 	}
 
 	LuminarisRelic: {
-		// Tooltip: ""
-		// DisplayName: Luminaris Relic
+		Tooltip: ""
+		DisplayName: 幻光星蛾圣物
 	}
 
 	LuminarisBag: {
-		// Tooltip: ""
-		// DisplayName: Luminaris Bag
+		Tooltip: ""
+		DisplayName: 宝藏袋（幻光星蛾）
 	}
 
 	IllusionaryDew: {
-		// Tooltip: ""
-		// DisplayName: Illusionary Dew
+		Tooltip: 在星辉地使用以召唤幻光星蛾
+		DisplayName: 幻光星露
 	}
 
 	LuminarisTrophy: {
-		// DisplayName: Luminaris Trophy
-		// Tooltip: ""
+		DisplayName: 幻光星蛾纪念章
+		Tooltip: ""
 	}
 }
 
@@ -2728,6 +2728,7 @@ Projectiles: {
 	LuminarisTriangleShootRed.DisplayName: 幻光晶簇
 	LuminarisTriangleShootBlue.DisplayName: 幻光晶簇
 	// StarlitPiercerHeld.DisplayName: Starlit Piercer Held
+	// FriendlyAstralShoot.DisplayName: Friendly Astral Shoot
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3158,6 +3159,7 @@ ProphetBestiary:
 	一个可悲的破碎灵魂，因潜藏于虚空入侵的表象背后，更为恐怖的真相而疯狂。
 	被束缚于典籍的它一遍遍重复着无意义的嘶吼与低语，绝望且徒劳的向它人传达着它所见之物。
 	'''
+LuminarisBestiary: 被星辉所感染的一只巨蛾，它存在的目的即是散播星辉瘟疫
 WorldGen.VoidOreSpawn: 天空中散发出虚空能量
 
 Tiles: {

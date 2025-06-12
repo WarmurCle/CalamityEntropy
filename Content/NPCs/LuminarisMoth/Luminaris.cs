@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 PortraitScale = 0.56f,
                 CustomTexturePath = "CalamityEntropy/Assets/BCL/LuminarisBossCheckList",
                 PortraitPositionXOverride = 0,
-                PortraitPositionYOverride = 46
+                PortraitPositionYOverride = -4
             };
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
@@ -118,12 +118,16 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         }
         public int frameCounter = 0;
         public Vector2 oldPos = Vector2.Zero;
-        public int AIRound = 0;
+        public int AIRound = 1;
         public AIStyle ai = AIStyle.RoundShooting;
         public int AfterImageTime = 0;
-
+        public int SD = 4;
         public override void AI()
         {
+            if (SD-- > 0)
+            {
+                return;
+            }
             if (MegaTrail > 0)
             {
                 MegaTrail -= 0.05f;
@@ -274,7 +278,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     num3 = Main.rand.NextBool() ? -1 : 1;
                     vec1 = NPC.Center;
                 }
-                if(AIChangeCounter > 220)
+                if(AIChangeCounter > 220 && AIChangeCounter < 259)
                 {
                     NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(440 * Math.Sign(NPC.Center.X - player.Center.X), -440), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 220) / 40f, 1));
                 }
@@ -667,6 +671,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
+            if(ai == AIStyle.RoundShooting)
+            {
+                return false;
+            }
             if(ai == AIStyle.SmashDown && MegaTrail <= 0)
             {
                 return false;
