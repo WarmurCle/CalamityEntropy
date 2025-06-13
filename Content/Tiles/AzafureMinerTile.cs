@@ -138,6 +138,25 @@ namespace CalamityEntropy.Content.Tiles
             }
             tag.Add("items", itemSaves);
         }
+        public override void OnKill()
+        {
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                return;
+            foreach(var item in filters)
+            {
+                if (!item.IsAir)
+                {
+                    Item.NewItem(Item.GetSource_None(), this.CenterInWorld.getRectCentered(40, 40), item.Clone(), noGrabDelay: true);
+                }
+            }
+            foreach (var item in items)
+            {
+                if (!item.IsAir)
+                {
+                    Item.NewItem(Item.GetSource_None(), this.CenterInWorld.getRectCentered(40, 40), item.Clone(), noGrabDelay: true);
+                }
+            }
+        }
         public override int TargetTileID => ModContent.TileType<AzafureMinerTile>();
         public override void Update()
         {
@@ -162,7 +181,7 @@ namespace CalamityEntropy.Content.Tiles
                 {
                     types.Add(item.type);
                 }
-                for (int i = 0; i < 14; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
                     if (TileID.Sets.Ore[Main.tile[p.X, p.Y].TileType])
