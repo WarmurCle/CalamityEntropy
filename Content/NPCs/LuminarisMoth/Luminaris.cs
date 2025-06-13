@@ -1017,6 +1017,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             {
                 normalOnly.Add(ModContent.ItemType<StarlitPiercer>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<Luminar>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<StarSootInjector>(), new Fraction(4, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<LuminarisRelic>());
 

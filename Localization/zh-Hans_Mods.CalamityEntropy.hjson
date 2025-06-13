@@ -2338,7 +2338,7 @@ Items: {
 	}
 
 	StarSootInjector: {
-		Tooltip: "喷射出幻光蛾尘"
+		Tooltip: 喷射出幻光蛾尘
 		DisplayName: 星光喷射器
 	}
 }
@@ -2746,7 +2746,8 @@ Projectiles: {
 	StarlitPiercerHeld.DisplayName: 星熠穿刺者
 	FriendlyAstralShoot.DisplayName: 幻光弹
 	IlmeranVortex.DisplayName: 伊尔梅兰漩涡
-	// StarSootSmoke.DisplayName: Star Soot Smoke
+	StarSootSmoke.DisplayName: 幻光蛾尘
+	Starblight.DisplayName: 幻星矢
 }
 
 LegendTooltip: - 传奇物品 -

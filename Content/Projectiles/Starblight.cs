@@ -10,6 +10,7 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class Starblight : ModProjectile
     {
+        public override string Texture => CEUtils.WhiteTexPath;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -67,15 +68,15 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     homing += 0.015f;
                 }
-                NPC target = Projectile.FindTargetWithinRange(2600);
+                NPC targett = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200);
 
-                if (target != null)
+                if (targett != null)
                 {
                     if (Projectile.timeLeft < 60)
                     {
                         Projectile.timeLeft = 60;
                     }
-                    Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * homing * 2;
+                    Projectile.velocity += (targett.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * homing * 2;
                 }
             }
         }

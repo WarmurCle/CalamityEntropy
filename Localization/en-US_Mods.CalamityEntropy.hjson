@@ -2586,6 +2586,7 @@ Projectiles: {
 	FriendlyAstralShoot.DisplayName: Friendly Astral Shoot
 	IlmeranVortex.DisplayName: Ilmeran Vortex
 	StarSootSmoke.DisplayName: Star Soot Smoke
+	Starblight.DisplayName: Starblight
 }
 
 LegendTooltip: - Legend -
