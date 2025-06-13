@@ -891,7 +891,7 @@ namespace CalamityEntropy.Common
         {
             if((Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCrimson || Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCorrupt) && Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].Center.Y > Main.worldSurface)
             {
-                if (Main.rand.NextBool(24))
+                if (Main.rand.NextBool(54))
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BitternessCard>()));
                 }

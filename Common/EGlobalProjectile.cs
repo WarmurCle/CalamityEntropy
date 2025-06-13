@@ -123,6 +123,7 @@ namespace CalamityEntropy.Common
         public float promineceDamageAddition = 0.25f;
         public int hittingTarget = -1;
         public bool IlmeranEnhanced = false;
+        public bool LuminarArrow = false;
 
         public Dictionary<string, SynchronousData> DataSynchronous = new Dictionary<string, SynchronousData>();
         public void DefineSynchronousData(SyncDataType type, string name, object defaultValue)
@@ -188,6 +189,8 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(zypArrow);
             binaryWriter.Write(ProminenceArrow);
             binaryWriter.Write(IlmeranEnhanced);
+            binaryWriter.Write(LuminarArrow);
+
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].Write(binaryWriter);
@@ -208,6 +211,7 @@ namespace CalamityEntropy.Common
             zypArrow = binaryReader.ReadBoolean();
             ProminenceArrow = binaryReader.ReadBoolean();
             IlmeranEnhanced = binaryReader.ReadBoolean();
+            LuminarArrow = binaryReader.ReadBoolean();
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].ReadToValue(binaryReader);
@@ -391,6 +395,24 @@ namespace CalamityEntropy.Common
         public float maxSpd = -1;
         public override bool PreAI(Projectile projectile)
         {
+            if (LuminarArrow)
+            {
+                if(starTrailPt == null || starTrailPt.Lifetime <= 0)
+                {
+                    starTrailPt = new StarTrailParticle();
+                    starTrailPt.maxLength = projectile.MaxUpdates * 22;
+                    EParticle.NewParticle(starTrailPt, projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f, 1, true, BlendState.Additive, 0);
+                }
+                starTrailPt.velocity = projectile.velocity * 0.6f;
+                starTrailPt.Lifetime = 30;
+                starTrailPt.position = projectile.Center;
+                NPC homing = CEUtils.FindTarget_HomingProj(projectile, projectile.Center, 1000);
+                if (counter > 10 * projectile.MaxUpdates && homing != null)
+                {
+                    projectile.velocity *= 0.97f * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 60, 520, 0.9f, 1);
+                    projectile.velocity += (homing.Center - projectile.Center).normalize() * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 520, 60, 1, 4);
+                }
+            }
             if (counter == 35)
             {
                 if (projectile.type == ModContent.ProjectileType<DoGDeath>() && CalamityEntropy.EntropyMode)
@@ -761,6 +783,7 @@ namespace CalamityEntropy.Common
                 modifiers.SourceDamage *= 1 + promineceDamageAddition;
             }
         }
+        public StarTrailParticle starTrailPt = null;
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
             this.projectile = projectile;
@@ -868,6 +891,10 @@ namespace CalamityEntropy.Common
 
                 return false;
             }
+            if (LuminarArrow)
+            {
+                return false;
+            }
             if (zypArrow)
             {
                 odp.Add(projectile.Center);
@@ -933,6 +960,17 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (LuminarArrow)
+            {
+                CEUtils.PlaySound("LuminarArrowHit", Main.rand.NextFloat(0.7f, 1.3f), projectile.Center);
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(2f, 2f), 0, 0.02f, 0.6f * 0.4f, 12);
+                GeneralParticleHandler.SpawnParticle(pulse);
+                for (int i = 0; i < 4; i++)
+                {
+                    EParticle.NewParticle(new StarTrailParticle(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 20), Color.White, Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0);
+                }
+                target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 300);
+            }
             if (IlmeranEnhanced)
             {
                 target.AddBuff(ModContent.BuffType<CrushDepth>(), 400);

@@ -851,10 +851,10 @@ namespace CalamityEntropy.Common
             if (bloodBoiling > 0)
             {
                 bloodBoiling--;
-                float AttackSpeedAddition = (float)Math.Sqrt(this.UsingItemCounter) * 0.014f;
+                float AttackSpeedAddition = (float)Math.Sqrt(this.UsingItemCounter) * 0.012f;
                 if (Main.GameUpdateCount % 2 == 0)
                 {
-                    int LifeLossing = (int)(this.UsingItemCounter * 0.005f);
+                    int LifeLossing = (int)(this.UsingItemCounter * 0.002f);
                     Player.statLife -= LifeLossing;
                     if(Player.statLife <= 0)
                     {

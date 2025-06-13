@@ -76,6 +76,13 @@ namespace CalamityEntropy.Common
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
         public float[] wispColor = null;
+        public override void SetDefaults(Item entity)
+        {
+            if(entity.type == ModContent.ItemType<StarblightSoot>())
+            {
+                entity.ammo = 3728;
+            }
+        }
 
         public override bool CanRightClick(Item item)
         {
@@ -309,6 +316,10 @@ namespace CalamityEntropy.Common
             if (ModLoader.HasMod("MoreBoulders") && type == 540)
             {
                 return Mod.GetLocalization("AmmoBoulders").Value;
+            }
+            if(type == 3728)
+            {
+                return Mod.GetLocalization("AmmoStarblightSoot").Value;
             }
             if (type == 6259 || type == 8584)
             {

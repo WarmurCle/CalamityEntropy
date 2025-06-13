@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             {
                 float r = MathHelper.ToRadians(i);
                 float a = r + Projectile.rotation;
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, a.ToRotationVector2() * 16, ModContent.ProjectileType<LuminarisSpikeBlue>(), Projectile.damage, Projectile.knockBack, -1, 1);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, a.ToRotationVector2() * 12, ModContent.ProjectileType<LuminarisSpikeBlue>(), Projectile.damage, Projectile.knockBack, -1, 1);
 
             }
         }
@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             {
                 float r = MathHelper.ToRadians(i);
                 float a = r + Projectile.rotation;
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, a.ToRotationVector2() * 16, ModContent.ProjectileType<LuminarisSpikeRed>(), Projectile.damage, Projectile.knockBack, -1, 1);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, a.ToRotationVector2() * 12, ModContent.ProjectileType<LuminarisSpikeRed>(), Projectile.damage, Projectile.knockBack, -1, 1);
             
             }
         }

@@ -2171,6 +2171,16 @@ Items: {
 		// DisplayName: Luminaris Trophy
 		// Tooltip: ""
 	}
+
+	Luminar: {
+		// Tooltip: Shoot tracking phantom light arrow
+		// DisplayName: Luminar
+	}
+
+	StarSootInjector: {
+		// Tooltip: ""
+		// DisplayName: Star Soot Injector
+	}
 }
 
 PrefixitemDesc:
@@ -2575,6 +2585,7 @@ Projectiles: {
 	// StarlitPiercerHeld.DisplayName: Starlit Piercer Held
 	// FriendlyAstralShoot.DisplayName: Friendly Astral Shoot
 	// IlmeranVortex.DisplayName: Ilmeran Vortex
+	// StarSootSmoke.DisplayName: Star Soot Smoke
 }
 
 LegendTooltip: - Legend -
@@ -3318,6 +3329,7 @@ AmmoSnowball: Snowball
 AmmoStake: Stake
 AmmoStyngerBolt: Stynger Bolt
 AmmoBoulders: Boulder
+// AmmoStarblightSoot: Starblight Soot
 AmmoType: Ammo type
 UseAmmo: Use Ammo
 OrbPunishDeath0: shattered into pieces

@@ -2331,6 +2331,16 @@ Items: {
 		DisplayName: 幻光星蛾纪念章
 		Tooltip: ""
 	}
+
+	Luminar: {
+		Tooltip: 射出追踪的幻光矢
+		DisplayName: 幻光弓
+	}
+
+	StarSootInjector: {
+		Tooltip: "喷射出幻光蛾尘"
+		DisplayName: 星光喷射器
+	}
 }
 
 PrefixitemDesc:
@@ -2736,6 +2746,7 @@ Projectiles: {
 	StarlitPiercerHeld.DisplayName: 星熠穿刺者
 	FriendlyAstralShoot.DisplayName: 幻光弹
 	IlmeranVortex.DisplayName: 伊尔梅兰漩涡
+	// StarSootSmoke.DisplayName: Star Soot Smoke
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3488,6 +3499,7 @@ AmmoSnowball: 雪球
 AmmoStake: 桩
 AmmoStyngerBolt: 毒刺
 AmmoBoulders: 巨石
+AmmoStarblightSoot: 凋星微尘
 AmmoType: 弹药类型
 UseAmmo: 使用弹药
 OrbPunishDeath0: 的灵魂破碎了

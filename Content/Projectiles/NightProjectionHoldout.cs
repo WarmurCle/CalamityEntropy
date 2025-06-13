@@ -63,8 +63,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.5f) * 4f, ModContent.ProjectileType<ProjectionStar>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.6f) * 2f, ModContent.ProjectileType<Starblight>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        }
                     }
                     if (!Main.dedServ)
                     {
