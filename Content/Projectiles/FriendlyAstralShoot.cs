@@ -42,6 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 300;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 12;
+            Projectile.DamageType = DamageClass.Melee;
         }
         public float counter = 0;
         public override void OnKill(int timeLeft)
