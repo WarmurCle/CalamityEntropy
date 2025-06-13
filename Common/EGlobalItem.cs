@@ -85,7 +85,7 @@ namespace CalamityEntropy.Common
             if(entity.type == 1325)
             {
                 entity.damage = 32;
-                entity.shootSpeed *= 2;
+                entity.shootSpeed *= 1.25f;
             }
         }
 
