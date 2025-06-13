@@ -50,6 +50,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
                 odp.RemoveAt(0);
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.Opacity = Projectile.timeLeft < 30 ? Projectile.timeLeft / 30f : 1;
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -65,9 +66,9 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             }
             for(int i = 0; i < ptd.Count; i++)
             {
-                Main.spriteBatch.Draw(glow, ptd[i] - Main.screenPosition, null, Color.White * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count), Projectile.rotation, glow.Size() / 2f, Projectile.scale * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(glow, ptd[i] - Main.screenPosition, null, Color.White * Projectile.Opacity * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count), Projectile.rotation, glow.Size() / 2f, Projectile.scale * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count), SpriteEffects.None, 0);
             }
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -112,6 +113,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
                 odp.RemoveAt(0);
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.Opacity = Projectile.timeLeft < 30 ? Projectile.timeLeft / 30f : 1;
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -127,9 +129,9 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             }
             for (int i = 0; i < ptd.Count; i++)
             {
-                Main.spriteBatch.Draw(glow, ptd[i] - Main.screenPosition, null, Color.White * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count), Projectile.rotation, glow.Size() / 2f, Projectile.scale * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(glow, ptd[i] - Main.screenPosition, null, Color.White * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count) * Projectile.Opacity, Projectile.rotation, glow.Size() / 2f, Projectile.scale * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count), SpriteEffects.None, 0);
             }
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
             return false;
         }
     }

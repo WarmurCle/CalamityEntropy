@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Particles
                 this.Opacity = 1;
             }
         }
-        public Color lightColor = Color.White * 0.4f;
+        public Color lightColor = Color.White * 0.8f;
 
         public override void PreDraw()
         {
