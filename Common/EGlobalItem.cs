@@ -82,6 +82,11 @@ namespace CalamityEntropy.Common
             {
                 entity.ammo = 3728;
             }
+            if(entity.type == 1325)
+            {
+                entity.damage = 32;
+                entity.shootSpeed *= 2;
+            }
         }
 
         public override bool CanRightClick(Item item)
