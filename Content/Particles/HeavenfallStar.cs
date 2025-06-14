@@ -19,15 +19,15 @@ namespace CalamityEntropy.Content.Particles
             Scale *= 0.92f;
             float LifetimeCompletion = 1 - ((float)Lifetime / TimeLeftMax);
             Color = Color.Lerp(InitialColor, Color.Transparent, (float)Math.Pow(LifetimeCompletion, 3D));
-            velocity *= 0.92f;
+            Velocity *= 0.92f;
         }
         public override void PreDraw()
         {
             Vector2 scaled = new Vector2(0.2f, 1.6f * xScale) * Scale;
             SpriteBatch spriteBatch = Main.spriteBatch;
-            spriteBatch.Draw(Texture, position - Main.screenPosition, null, Color
+            spriteBatch.Draw(Texture, Position - Main.screenPosition, null, Color
                 , Rotation + MathHelper.PiOver2, Texture.Size() * 0.5f, scaled, 0, 0f);
-            spriteBatch.Draw(Texture, position - Main.screenPosition, null, Color
+            spriteBatch.Draw(Texture, Position - Main.screenPosition, null, Color
                 , Rotation + MathHelper.PiOver2, Texture.Size() * 0.5f, scaled * new Vector2(0.45f, 1f), 0, 0f);
         }
     }

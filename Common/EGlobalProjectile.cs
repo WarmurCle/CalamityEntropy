@@ -403,9 +403,9 @@ namespace CalamityEntropy.Common
                     starTrailPt.maxLength = projectile.MaxUpdates * 22;
                     EParticle.NewParticle(starTrailPt, projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f, 1, true, BlendState.Additive, 0);
                 }
-                starTrailPt.velocity = projectile.velocity * 0.6f;
+                starTrailPt.Velocity = projectile.velocity * 0.6f;
                 starTrailPt.Lifetime = 30;
-                starTrailPt.position = projectile.Center;
+                starTrailPt.Position = projectile.Center;
                 NPC homing = CEUtils.FindTarget_HomingProj(projectile, projectile.Center, 1000);
                 if (counter > 10 * projectile.MaxUpdates && homing != null)
                 {

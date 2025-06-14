@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Particles
                 Scale = float.Lerp(scaleStart, scaleEnd, 1 - (float)this.Lifetime / this.timeleftmax);
             }
             base.AI();
-            this.velocity *= vc;
+            this.Velocity *= vc;
             this.Opacity = (float)this.Lifetime / (float)timeleftmax;
         }
     }

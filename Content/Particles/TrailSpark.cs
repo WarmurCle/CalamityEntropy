@@ -18,8 +18,8 @@ namespace CalamityEntropy.Content.Particles
         public override void AI()
         {
             base.AI();
-            AddPoint(this.position);
-            this.velocity = this.velocity + gravity * Vector2.UnitY * gA;
+            AddPoint(this.Position);
+            this.Velocity = this.Velocity + gravity * Vector2.UnitY * gA;
             if (gA < 1)
             {
                 gA += 0.025f;

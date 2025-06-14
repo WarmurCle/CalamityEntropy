@@ -25,8 +25,8 @@ namespace CalamityEntropy.Content.Particles
 
         public override void PreDraw()
         {
-            Main.spriteBatch.Draw(Texture, position - Main.screenPosition, null, lightColor * Opacity, 0, Texture.Size() / 2f, Scale * 0.65f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(Texture, position - Main.screenPosition, null, Color * Opacity, 0, Texture.Size() / 2f, Scale * 0.08f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Texture, Position - Main.screenPosition, null, lightColor * Opacity, 0, Texture.Size() / 2f, Scale * 0.65f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Texture, Position - Main.screenPosition, null, Color * Opacity, 0, Texture.Size() / 2f, Scale * 0.08f, SpriteEffects.None, 0);
         }
     }
 }

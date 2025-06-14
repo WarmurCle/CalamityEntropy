@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
                 spt = new StarTrailParticle();
                 EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f, 1, true, BlendState.Additive, 0);
             }
-            spt.velocity = Projectile.velocity;
+            spt.Velocity = Projectile.velocity;
             spt.Lifetime = 30;
             counter++;
             Projectile.ai[0]++;

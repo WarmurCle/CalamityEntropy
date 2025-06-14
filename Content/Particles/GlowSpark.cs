@@ -16,8 +16,8 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             this.Opacity = this.Lifetime / 26f;
-            this.velocity = this.velocity + Vector2.UnitY * 0.2f;
-            this.Rotation = this.velocity.ToRotation();
+            this.Velocity = this.Velocity + Vector2.UnitY * 0.2f;
+            this.Rotation = this.Velocity.ToRotation();
         }
     }
     public class GlowSpark2 : EParticle
@@ -31,8 +31,8 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             this.Opacity = this.Lifetime / 26f;
-            this.velocity = this.velocity + Vector2.UnitY * 0.2f;
-            this.Rotation = this.velocity.ToRotation();
+            this.Velocity = this.Velocity + Vector2.UnitY * 0.2f;
+            this.Rotation = this.Velocity.ToRotation();
         }
     }
     public class GlowSparkDirecting : EParticle
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Particles
         public Vector2 ownerLastPos = Vector2.Zero;
         public override void SetProperty()
         {
-            SpawnPos = position;
+            SpawnPos = Position;
         }
         public override void AI()
         {
@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Particles
             }
             base.AI();
             this.Opacity = 1 - (this.Lifetime / (float)TimeLeftMax);
-            this.position = Vector2.Lerp(TargetPos, SpawnPos, (this.Lifetime / (float)TimeLeftMax));
+            this.Position = Vector2.Lerp(TargetPos, SpawnPos, (this.Lifetime / (float)TimeLeftMax));
             Rotation = (TargetPos - SpawnPos).ToRotation();
         }
         public override void PreDraw()
@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Particles
             Color clr = this.Color;
             if (!this.glow)
             {
-                clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
+                clr = Lighting.GetColor(((int)(this.Position.X / 16)), ((int)(this.Position.Y / 16)), clr);
             }
             if (!this.useAdditive && !this.useAlphaBlend)
             {
@@ -83,8 +83,8 @@ namespace CalamityEntropy.Content.Particles
             {
                 clr *= Opacity;
             }
-            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, null, clr, Rotation, getOrigin(), Scale * new Vector2(scaleX, 1), SpriteEffects.None, 0);
-            CEUtils.DrawGlow(position, Color * 0.8f, Scale * 0.4f);
+            Main.spriteBatch.Draw(this.Texture, this.Position - Main.screenPosition, null, clr, Rotation, getOrigin(), Scale * new Vector2(scaleX, 1), SpriteEffects.None, 0);
+            CEUtils.DrawGlow(Position, Color * 0.8f, Scale * 0.4f);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
         }
     }

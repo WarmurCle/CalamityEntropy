@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Particles
         {
             Texture2D tex = Texture;
             Rectangle rect = new Rectangle(frame % 11 * 240, (int)(frame / 11) * 135, 240, 135);
-            Main.spriteBatch.Draw(tex, position - Main.screenPosition, rect, Color, this.Rotation, new Vector2(120, 135 / 2f), Scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Position - Main.screenPosition, rect, Color, this.Rotation, new Vector2(120, 135 / 2f), Scale, SpriteEffects.None, 0);
         }
         public override void AI()
         {
@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Particles
         {
             Texture2D tex = Texture;
             Rectangle rect = new Rectangle(frame % 11 * 240, (int)(frame / 11) * 135, 240, 135);
-            Main.spriteBatch.Draw(tex, position - Main.screenPosition, rect, Color, this.Rotation, new Vector2(120, 135 / 2f), Scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Position - Main.screenPosition, rect, Color, this.Rotation, new Vector2(120, 135 / 2f), Scale, SpriteEffects.None, 0);
         }
         public override void AI()
         {

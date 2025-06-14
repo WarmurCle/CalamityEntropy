@@ -15,8 +15,7 @@ namespace CalamityEntropy.Content.Particles
             base.AI();
             this.Opacity = Lifetime / 6f;
             this.Scale = Lifetime / 6f * 0.22f;
-            this.velocity *= 0.96f;
-
+            this.Velocity *= 0.96f;
         }
     }
 }

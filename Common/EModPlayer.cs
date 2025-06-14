@@ -519,7 +519,7 @@ namespace CalamityEntropy.Common
                     EParticle.NewParticle(plWingTrail, Player.Center, Vector2.Zero, Color.White, 1.4f, 1, true, BlendState.Additive, 0);
                 }
                 plWingTrail.Lifetime = 30;
-                plWingTrail.position = Player.MountedCenter + Player.gfxOffY * Vector2.UnitY + Player.velocity;
+                plWingTrail.Position = Player.MountedCenter + Player.gfxOffY * Vector2.UnitY + Player.velocity;
                 plWingTrail.Color = Color.White * plWingTrailAlpha;
                 if(Player.controlJump && Player.wingTime > 0)
                 {
