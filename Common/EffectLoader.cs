@@ -524,6 +524,24 @@ namespace CalamityEntropy.Common
             EParticle.DrawPixelShaderParticles();
             Main.spriteBatch.End();
 
+            List<IAdditivePRT> prtAdditives = new List<IAdditivePRT>();
+            foreach (var prt in PRTLoader.PRT_InGame_World_Inds) {
+                if (!prt.active || prt.Mod != Instance) {
+                    continue;
+                }
+                if (prt is IAdditivePRT additivePRT) {
+                    prtAdditives.Add(additivePRT);
+                }
+            }
+            if (prtAdditives.Count > 0) {
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.AnisotropicClamp
+                    , DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+                foreach (var iaddDrawin in prtAdditives) {
+                    iaddDrawin.Draw(Main.spriteBatch);
+                }
+                Main.spriteBatch.End();
+            }
+
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
