@@ -26,8 +26,8 @@ namespace CalamityEntropy.Common.DrawLayers
             var player = drawInfo.drawPlayer;
 
             Texture2D tex = CEUtils.getExtraTex("PLWing/" + (player.Entropy().wingData.FrameCount == -1 ? "f" : "f" + player.Entropy().wingData.FrameCount.ToString()));
-            Vector2 offset = drawInfo.GetFrameOrigin() + new Vector2(drawInfo.drawPlayer.width, drawInfo.drawPlayer.height * 0.5f);
-            drawInfo.DrawDataCache.Add(new DrawData(tex, offset + new Vector2(-10 * drawInfo.drawPlayer.direction, -2), null, drawInfo.colorArmorBody, 0, new Vector2(drawInfo.drawPlayer.direction == 1 ? 52 : tex.Width - 52, 44), 1, drawInfo.drawPlayer.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) { shader = drawInfo.drawPlayer.cWings });
+            Vector2 offset = drawInfo.GetFrameOrigin() + new Vector2(drawInfo.drawPlayer.width, drawInfo.drawPlayer.height);
+            drawInfo.DrawDataCache.Add(new DrawData(tex, offset, null, drawInfo.colorArmorBody, 0, new Vector2(drawInfo.drawPlayer.direction == 1 ? 52 : tex.Width - 52, 54), 1, drawInfo.drawPlayer.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) { shader = drawInfo.drawPlayer.cWings });
         }
 
     }

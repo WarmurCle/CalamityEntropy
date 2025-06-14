@@ -496,6 +496,8 @@ namespace CalamityEntropy.Common
         public int vShieldCD = 0;
         public Item wing = null;
         public int WingFrameAnmCount = 0;
+        public float plWingTrailAlpha = 0;
+        public StarTrailParticle plWingTrail = null;
         public override void Load()
         {
             wingData = new SpecialWingDrawingData();
@@ -506,11 +508,31 @@ namespace CalamityEntropy.Common
         }
         public override void PreUpdate()
         {
+            if (hasAccVisual("PLWing"))
+            {
+                if(plWingTrail == null || plWingTrail.Lifetime <= 1)
+                {
+                    plWingTrail = new StarTrailParticle();
+                    plWingTrail.maxLength = 20;
+                    EParticle.NewParticle(plWingTrail, Player.Center, Vector2.Zero, Color.White, 1.4f, 1, true, BlendState.Additive, 0);
+                }
+                plWingTrail.Lifetime = 30;
+                plWingTrail.position = Player.MountedCenter + Player.gfxOffY * Vector2.UnitY + Player.velocity;
+                plWingTrail.Color = Color.White * plWingTrailAlpha;
+                if(Player.controlJump && Player.wingTime > 0)
+                {
+                    plWingTrailAlpha += (1 - plWingTrailAlpha) * 0.1f;
+                }
+                else
+                {
+                    plWingTrailAlpha *= 0.9f;
+                }
+            }
             if(wing != null && wing.ModItem != null && wing.ModItem is ISpecialDrawingWing sw)
             {
                 wingData.MaxFrame = sw.MaxFrame;
                 wingData.SlowFallFrame = sw.SlowFallingFrame;
-                if(Player.velocity.Y == 0 || !Player.controlJump)
+                if(Player.velocity.Y == 0)
                 {
                     wingData.FrameCount = -1;
                     WingFrameAnmCount = 0;
@@ -528,7 +550,13 @@ namespace CalamityEntropy.Common
                         WingFrameAnmCount = 0;
                     }
                 }
-                else{
+                else if (!Player.controlJump)
+                {
+                    wingData.FrameCount = sw.FallingFrame;
+                    WingFrameAnmCount = 0;
+                }
+                else
+                {
                     WingFrameAnmCount++;
                     if (WingFrameAnmCount >= sw.AnimationTick)
                     {

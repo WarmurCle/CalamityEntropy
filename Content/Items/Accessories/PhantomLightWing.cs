@@ -16,7 +16,9 @@ namespace CalamityEntropy.Content.Items.Accessories
     {
         public static float HorSpeed = 5.8f;
         public static float AccMul = 1.2f;
-        public static int wTime = 1600;
+        public static int wTime = 160;
+        public int AnimationTick => 4;
+        public int FallingFrame => 2;
         public int MaxFrame => 8;
         public int SlowFallingFrame => 1;
         public override void SetStaticDefaults()

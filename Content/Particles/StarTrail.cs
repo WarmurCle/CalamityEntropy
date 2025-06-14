@@ -25,6 +25,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public float gravity = 0;
         public float gA = 1;
+
         public void AddPoint(Vector2 pos)
         {
             odp.Insert(0, pos);
