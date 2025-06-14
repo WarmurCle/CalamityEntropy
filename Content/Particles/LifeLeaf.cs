@@ -14,9 +14,9 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             this.Opacity = this.Lifetime / 30f;
-            this.Rotation += this.velocity.X * 0.04f;
-            this.velocity *= 0.92f;
-            this.velocity = this.velocity + Vector2.UnitY * 0.2f;
+            this.Rotation += this.Velocity.X * 0.04f;
+            this.Velocity *= 0.92f;
+            this.Velocity = this.Velocity + Vector2.UnitY * 0.2f;
         }
     }
 }

@@ -1,16 +1,7 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
+﻿using CalamityMod.Buffs.DamageOverTime;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
@@ -47,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             float gravLength = Projectile.ai[1];
             float gravTime = Projectile.ai[2];
             counter++;
-            if(counter > gravTime)
+            if (counter > gravTime)
             {
                 Projectile.velocity += gravDir * gravLength;
             }

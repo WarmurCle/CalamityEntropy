@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using CalamityMod.Buffs.DamageOverTime;
 using Terraria;
 using Terraria.ModLoader;

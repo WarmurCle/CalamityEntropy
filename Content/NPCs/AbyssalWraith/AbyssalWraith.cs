@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
-using CalamityEntropy.Utilities;
 using CalamityMod.Items.Potions;
 using CalamityMod.Particles;
 using CalamityMod.World;

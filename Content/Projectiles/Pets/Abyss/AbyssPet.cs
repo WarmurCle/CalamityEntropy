@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;

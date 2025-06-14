@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -18,10 +17,10 @@ namespace CalamityEntropy.Content.Particles
         public override void AI()
         {
             base.AI();
-            AddPoint(this.position);
-            this.velocity = this.velocity + gravity * Vector2.UnitY * gA;
-            Rotation = velocity.ToRotation();
-            this.velocity *= 0.94f;
+            AddPoint(this.Position);
+            this.Velocity = this.Velocity + gravity * Vector2.UnitY * gA;
+            Rotation = Velocity.ToRotation();
+            this.Velocity *= 0.94f;
         }
         public float gravity = 0;
         public float gA = 1;
@@ -40,7 +39,7 @@ namespace CalamityEntropy.Content.Particles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            Main.spriteBatch.Draw(Texture, this.position - Main.screenPosition, null, this.Color * ((float)this.Lifetime / this.TimeLeftMax), this.Rotation, Texture.Size() / 2f, new Vector2(1.4f, 0.8f) * 0.22f * Scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Texture, this.Position - Main.screenPosition, null, this.Color * ((float)this.Lifetime / this.TimeLeftMax), this.Rotation, Texture.Size() / 2f, new Vector2(1.4f, 0.8f) * 0.22f * Scale, SpriteEffects.None, 0);
             if (odp.Count < 3)
             {
                 return;

@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

@@ -1159,7 +1159,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
-            if(ModLoader.TryGetMod("InfernumMode", out var _))
+            if (ModLoader.TryGetMod("InfernumMode", out var _))
             {
                 InfFont.InfernumFont.SetFont();
                 initializeIntro(ModContent.NPCType<CruiserHead>(), Color.Purple, Color.LightBlue, "Cruiser");
@@ -1423,7 +1423,7 @@ namespace CalamityEntropy
             {
                 if (ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
                 {
-                    AddBossbarColor(catalyst,"Astrageldon", new Color(220, 94, 210));
+                    AddBossbarColor(catalyst, "Astrageldon", new Color(220, 94, 210));
                 }
                 if (ModLoader.TryGetMod("NoxusBoss", out Mod nxb))
                 {
@@ -1437,9 +1437,9 @@ namespace CalamityEntropy
                 }
                 if (ModLoader.TryGetMod("CalamityFables", out Mod cf))
                 {
-                    AddBossbarColor(cf,"Crabulon", new Color(86, 191, 255));
-                    AddBossbarColor(cf,"DesertScourge", new Color(172, 154, 146));
-                    AddBossbarColor(cf,"SirNautilus", new Color(155, 133, 99));
+                    AddBossbarColor(cf, "Crabulon", new Color(86, 191, 255));
+                    AddBossbarColor(cf, "DesertScourge", new Color(172, 154, 146));
+                    AddBossbarColor(cf, "SirNautilus", new Color(155, 133, 99));
                 }
                 if (ModLoader.TryGetMod("InfernumMode", out Mod infernum))
                 {
@@ -1457,7 +1457,7 @@ namespace CalamityEntropy
                     AddBossbarColor(sots, "PharaohsCurse", Color.Gold);
                     AddBossbarColor(sots, "UnusedAdvisorHead", new Color(238, 208, 255));
                 }
-                if(ModLoader.TryGetMod("FargowiltasSouls", out Mod fs))
+                if (ModLoader.TryGetMod("FargowiltasSouls", out Mod fs))
                 {
                     AddBossbarColor(fs, "AbomBoss", new Color(249, 226, 77));
                     AddBossbarColor(fs, "BanishedBaron", new Color(230, 240, 242));

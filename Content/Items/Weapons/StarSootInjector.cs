@@ -1,8 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
@@ -41,9 +38,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void HoldItem(Player player)
         {
-            if(player.itemTime > 0)
+            if (player.itemTime > 0)
             {
-                EParticle.NewParticle(new GlowLightParticle() { lightColor = Color.LightBlue * 0.55f}, player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, Main.rand.NextFloat(0.6f, 1.4f), 1, true, BlendState.Additive, 0, 30);
+                EParticle.NewParticle(new GlowLightParticle() { lightColor = Color.LightBlue * 0.55f }, player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, Main.rand.NextFloat(0.6f, 1.4f), 1, true, BlendState.Additive, 0, 30);
                 EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0f, scaleEnd = Main.rand.NextFloat(0.6f, 1.4f) * 0.6f }, player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, 1, 1, true, BlendState.Additive, 0);
                 EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0f, scaleEnd = Main.rand.NextFloat(0.6f, 1.4f) * 0.6f }, player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, 1, 1, true, BlendState.Additive, 0);
                 EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0f, scaleEnd = Main.rand.NextFloat(0.6f, 1.4f) * 0.6f }, player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, 1, 1, true, BlendState.Additive, 0);

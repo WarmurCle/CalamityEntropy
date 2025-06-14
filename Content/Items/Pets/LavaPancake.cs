@@ -1,10 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs.Pets;
-using CalamityEntropy.Content.Projectiles.Pets.DoG;
-using CalamityEntropy.Content.Projectiles.Pets.Wyrm;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -75,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Pets
                 return false;
             }
             List<Texture2D> list = new List<Texture2D>();
-            for(int i = 1; i <= texs; i++)
+            for (int i = 1; i <= texs; i++)
             {
                 list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Pets/Prof/" + TextureName + i.ToString()).Value);
             }
@@ -84,12 +79,12 @@ namespace CalamityEntropy.Content.Items.Pets
             if (Projectile.direction == -1)
             {
                 Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
-             
+
             }
             else
             {
                 Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
-            
+
             }
 
             return false;

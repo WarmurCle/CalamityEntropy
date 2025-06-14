@@ -1,8 +1,8 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Buffs.Wyrm;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -75,7 +75,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 6 : 1); i++)
                 {
-                    EParticle.NewParticle(new AbyssalLine() { lx = 1.2f, xadd = 1.2f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+                    var prt = PRTLoader.NewParticle(new AbyssalLine() { lx = 1.2f, xadd = 1.2f }, target.Center, Vector2.Zero, Color.White);
+                    prt.Rotation = CEUtils.randomRot();
                 }
             }
 

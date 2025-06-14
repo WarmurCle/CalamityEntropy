@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

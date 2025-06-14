@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Particles
             this.Rotation += rotDir * 0.03f;
             this.Opacity = ((float)this.Lifetime / (float)timeleftmax);
             this.Color = Color.Lerp(this.Color, Color.Black, 0.03f);
-            this.velocity *= 0.9f;
-            this.velocity = this.velocity + new Vector2(0, -0.1f);
+            this.Velocity *= 0.9f;
+            this.Velocity = this.Velocity + new Vector2(0, -0.1f);
         }
         public override Vector2 getOrigin()
         {
@@ -40,10 +40,10 @@ namespace CalamityEntropy.Content.Particles
             Color clr = this.Color;
             if (!this.glow)
             {
-                clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
+                clr = Lighting.GetColor(((int)(this.Position.X / 16)), ((int)(this.Position.Y / 16)), clr);
             }
             clr = Color.Lerp(clr, Color.White, wl);
-            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, CEUtils.GetCutTexRect(Texture, 3, texT, false), clr * Opacity, Rotation, getOrigin(), Scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(this.Texture, this.Position - Main.screenPosition, CEUtils.GetCutTexRect(Texture, 3, texT, false), clr * Opacity, Rotation, getOrigin(), Scale, SpriteEffects.None, 0);
         }
     }
 }

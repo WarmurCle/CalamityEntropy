@@ -8,8 +8,8 @@ namespace CalamityEntropy.Content.Particles
     {
         public Effect useEffect = null;
         public int TimeLeftMax = 0;
-        public Vector2 position = Vector2.Zero;
-        public Vector2 velocity = Vector2.Zero;
+        public Vector2 Position = Vector2.Zero;
+        public Vector2 Velocity = Vector2.Zero;
         public int Lifetime = 200;
         public bool useAdditive = false;
         public bool useAlphaBlend = true;
@@ -181,7 +181,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public virtual void AI()
         {
-            this.position += this.velocity;
+            this.Position += this.Velocity;
             Lifetime--;
         }
         public virtual void SetProperty()
@@ -190,8 +190,8 @@ namespace CalamityEntropy.Content.Particles
         }
         public static void NewParticle(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs, float rotation = 0, int lifeTime = -1)
         {
-            particle.position = pos;
-            particle.velocity = vel;
+            particle.Position = pos;
+            particle.Velocity = vel;
             particle.Color = col;
             particle.Scale = scale;
             particle.glow = glow;
@@ -224,7 +224,7 @@ namespace CalamityEntropy.Content.Particles
             Color clr = this.Color;
             if (!this.glow)
             {
-                clr = Lighting.GetColor(((int)(this.position.X / 16)), ((int)(this.position.Y / 16)), clr);
+                clr = Lighting.GetColor(((int)(this.Position.X / 16)), ((int)(this.Position.Y / 16)), clr);
             }
             if (!this.useAdditive && !this.useAlphaBlend)
             {
@@ -234,7 +234,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 clr *= Opacity;
             }
-            Main.spriteBatch.Draw(this.Texture, this.position - Main.screenPosition, null, clr, Rotation, getOrigin(), Scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(this.Texture, this.Position - Main.screenPosition, null, clr, Rotation, getOrigin(), Scale, SpriteEffects.None, 0);
         }
         public virtual Texture2D Texture => null;
     }

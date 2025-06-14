@@ -4,9 +4,7 @@ using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -32,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<StarlitPiercerHeld>();
             Item.shootSpeed = 16f;
         }
-        
+
         public override bool MeleePrefix()
         {
             return true;
@@ -64,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.7f, 1.3f), target.Center);
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 EParticle.NewParticle(new StarTrailParticle(), target.Center, Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(16, 36), Color.White, Main.rand.NextFloat(0.6f, 1.6f), 1, true, BlendState.Additive, 0);
             }
@@ -78,9 +76,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             float cMax = player.itemTimeMax * Projectile.MaxUpdates;
             float zMax = cMax * 0.22f;
             counter++;
-            if(counter <= zMax * 3)
+            if (counter <= zMax * 3)
             {
-                if(dCounter == 0)
+                if (dCounter == 0)
                 {
                     CEUtils.PlaySound("powerwhip", 1.6f, Projectile.Center);
                     if (Projectile.owner == Main.myPlayer)
@@ -89,14 +87,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                 }
                 dCounter++;
-                if(dCounter >= zMax)
+                if (dCounter >= zMax)
                 {
                     dCounter = 0;
                     for (int i = 0; i < Projectile.localNPCImmunity.Length; i++)
                     {
                         Projectile.localNPCImmunity[i] = 0;
                     }
-                    
+
                     Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((player.Calamity().mouseWorld - player.MountedCenter).ToRotation());
                 }
                 scale = 1.4f + CEUtils.Parabola(dCounter / zMax, 0.2f);
@@ -143,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.spriteBatch.Draw(star, Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 * scale - Main.screenPosition, null, Color.White * (starAlpha), 0, star.Size() / 2f, new Vector2(2.4f, 0.6f) * Projectile.scale * 0.2f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(star, Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 * scale - Main.screenPosition, null, Color.White * (starAlpha), 0, star.Size() / 2f, new Vector2(0.6f, 2.4f) * Projectile.scale * 0.2f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
-            
+
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

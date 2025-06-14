@@ -8,7 +8,6 @@ using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
@@ -397,15 +396,15 @@ namespace CalamityEntropy.Common
         {
             if (LuminarArrow)
             {
-                if(starTrailPt == null || starTrailPt.Lifetime <= 0)
+                if (starTrailPt == null || starTrailPt.Lifetime <= 0)
                 {
                     starTrailPt = new StarTrailParticle();
                     starTrailPt.maxLength = projectile.MaxUpdates * 22;
                     EParticle.NewParticle(starTrailPt, projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f, 1, true, BlendState.Additive, 0);
                 }
-                starTrailPt.velocity = projectile.velocity * 0.6f;
+                starTrailPt.Velocity = projectile.velocity * 0.6f;
                 starTrailPt.Lifetime = 30;
-                starTrailPt.position = projectile.Center;
+                starTrailPt.Position = projectile.Center;
                 NPC homing = CEUtils.FindTarget_HomingProj(projectile, projectile.Center, 1000);
                 if (counter > 10 * projectile.MaxUpdates && homing != null)
                 {

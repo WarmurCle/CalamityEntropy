@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 

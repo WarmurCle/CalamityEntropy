@@ -2353,6 +2353,11 @@ Items: {
 			'''
 		DisplayName: 幻光星翼
 	}
+
+	TestItem: {
+		// DisplayName: Test Item
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 
@@ -16,7 +15,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 if (ownerLastPos != Vector2.Zero)
                 {
-                    position += (FollowOwner.Center - ownerLastPos);
+                    Position += (FollowOwner.Center - ownerLastPos);
                 }
                 ownerLastPos = FollowOwner.Center;
             }

@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;

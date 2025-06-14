@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Items.Books;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;

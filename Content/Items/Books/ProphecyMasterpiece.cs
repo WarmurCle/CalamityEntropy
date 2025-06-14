@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
@@ -95,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AI()
         {
             base.AI();
-            if(ShooterModProjectile == null && Projectile.getOwner().heldProj >= 0)
+            if (ShooterModProjectile == null && Projectile.getOwner().heldProj >= 0)
             {
                 ShooterModProjectile = Projectile.getOwner().heldProj.ToProj().ModProjectile;
             }

@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Ranged;
 using Microsoft.Xna.Framework.Graphics;

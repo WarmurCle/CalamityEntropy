@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Ranged;
 using System;

@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -24,9 +23,9 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             this.Opacity = this.Lifetime / 46f;
-            this.velocity = this.Rotation.ToRotationVector2() * v1 + r.ToRotationVector2() * v2;
+            this.Velocity = this.Rotation.ToRotationVector2() * v1 + r.ToRotationVector2() * v2;
             this.Rotation = this.Rotation + dir * rv;
-            odp.Insert(0, this.position);
+            odp.Insert(0, this.Position);
             if (odp.Count > 16)
             {
                 odp.RemoveAt(odp.Count - 1);

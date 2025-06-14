@@ -22,7 +22,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static CalamityEntropy.Content.NPCs.Prophet.TheProphet;
 
 namespace CalamityEntropy.Content.NPCs.Prophet
 {
@@ -44,7 +43,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 this.tRS = tRS;
                 offset = ofs;
             }
-            
+
             public void update(NPC prop)
             {
                 Vector2 p = prop.Center + offset.RotatedBy(prop.rotation);
@@ -210,7 +209,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             UpdateFins();
             if (!Main.dedServ)
             {
-                if(phase == 2 && !music2)
+                if (phase == 2 && !music2)
                 {
                     music2 = true;
                     Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/Prophet2");
@@ -242,7 +241,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             {
                 NPC.dontTakeDamage = false;
             }
-            
+
 
             spawnAnm--;
             if (!NPC.HasValidTarget)
@@ -368,7 +367,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             if (AIChangeDelay <= 0)
             {
                 AIC++;
-                if(AIC > 7)
+                if (AIC > 7)
                 {
                     AIC = 0;
                 }
@@ -911,7 +910,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public void Draw()
         {
-            if(Main.zenithWorld)
+            if (Main.zenithWorld)
                 spawnAnm = 0;
             if (spawnAnm < 60)
             {

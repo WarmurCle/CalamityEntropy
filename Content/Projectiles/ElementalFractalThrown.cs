@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.DamageClasses;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.NPCs.DevourerofGods;

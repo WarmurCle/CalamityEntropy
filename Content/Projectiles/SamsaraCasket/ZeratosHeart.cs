@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;

@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -49,10 +48,10 @@ namespace CalamityEntropy.Content.Particles
             }
             this.Color = Color.Lerp(new Color(160, 170, 255), Color.White, (float)Math.Sin(Main.GameUpdateCount * 0.1f) * 0.5f + 0.5f);
 
-            this.velocity *= 1 - speed * 0.08f;
-            this.velocity += (homingTarget.Center - position).normalize() * speed * 1.4f;
+            this.Velocity *= 1 - speed * 0.08f;
+            this.Velocity += (homingTarget.Center - Position).normalize() * speed * 1.4f;
 
-            if (CEUtils.getDistance(position, homingTarget.Center) < this.velocity.Length() * 1.2f)
+            if (CEUtils.getDistance(Position, homingTarget.Center) < this.Velocity.Length() * 1.2f)
             {
                 this.Lifetime = 0;
             }

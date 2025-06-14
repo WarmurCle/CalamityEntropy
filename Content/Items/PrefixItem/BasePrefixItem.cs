@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Utilities;
 using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;

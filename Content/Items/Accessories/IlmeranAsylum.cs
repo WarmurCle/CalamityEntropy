@@ -1,11 +1,7 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Utilities;
-using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -42,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Projectile.width = Projectile.height = 100;
             Projectile.light = 0.2f;
         }
-        
+
         public override void AI()
         {
             Projectile.timeLeft = 3;

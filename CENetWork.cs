@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Utilities;
 using CalamityMod.Events;
 using System.IO;
 using Terraria;

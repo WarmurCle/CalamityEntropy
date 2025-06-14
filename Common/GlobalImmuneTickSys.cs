@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.NPCs.Cruiser;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.DesertScourge;

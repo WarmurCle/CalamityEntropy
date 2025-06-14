@@ -2193,6 +2193,11 @@ Items: {
 			'''
 		DisplayName: Phantom Light Wings
 	}
+
+	TestItem: {
+		DisplayName: Test Item
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

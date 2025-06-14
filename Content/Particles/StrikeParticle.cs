@@ -9,19 +9,19 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/UpdraftParticle").Value;
         public override void SetProperty()
         {
-            end = this.position;
+            end = this.Position;
             this.Lifetime = 60;
         }
         public override void AI()
         {
             base.AI();
-            this.velocity *= 0.8f;
-            end = Vector2.Lerp(end, this.position, 0.16f);
+            this.Velocity *= 0.8f;
+            end = Vector2.Lerp(end, this.Position, 0.16f);
         }
         public Vector2 end;
         public override void PreDraw()
         {
-            Main.spriteBatch.Draw(Texture, this.position - Main.screenPosition, null, new Color(255, 206, 180), (this.position - end).ToRotation(), this.getOrigin(), new Vector2(CEUtils.getDistance(this.position, end) / (float)Texture.Width, this.Scale * 0.3f), SpriteEffects.None, 0); ;
+            Main.spriteBatch.Draw(Texture, this.Position - Main.screenPosition, null, new Color(255, 206, 180), (this.Position - end).ToRotation(), this.getOrigin(), new Vector2(CEUtils.getDistance(this.Position, end) / (float)Texture.Width, this.Scale * 0.3f), SpriteEffects.None, 0); ;
         }
     }
 }

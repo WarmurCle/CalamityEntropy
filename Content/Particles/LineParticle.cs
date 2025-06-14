@@ -11,10 +11,10 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             counter++;
-            this.velocity *= r;
-            b = Vector2.Lerp(this.position, b, this.c);
+            this.Velocity *= r;
+            b = Vector2.Lerp(this.Position, b, this.c);
             this.Opacity -= this.alphaD;
-            if (CEUtils.getDistance(this.position, b) < 4 && counter > 3 || this.Opacity < 0)
+            if (CEUtils.getDistance(this.Position, b) < 4 && counter > 3 || this.Opacity < 0)
             {
                 this.Lifetime = 0;
             }
@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Particles
         public Vector2 b;
         public override void SetProperty()
         {
-            b = this.position;
+            b = this.Position;
         }
         public float width = 2;
         public float c;
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Particles
         public int counter = 0;
         public override void PreDraw()
         {
-            CEUtils.drawLine(this.position, b, this.Color * this.Opacity, width * this.Opacity);
+            CEUtils.drawLine(this.Position, b, this.Color * this.Opacity, width * this.Opacity);
         }
     }
 }

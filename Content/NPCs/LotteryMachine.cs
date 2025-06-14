@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
@@ -9,10 +8,8 @@ using CalamityMod.Items.Accessories.Wings;
 using CalamityMod.Items.DraedonMisc;
 using CalamityMod.Items.Fishing.AstralCatches;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Items.Potions;
-using CalamityMod.Items.Potions.Alcohol;
 using CalamityMod.Items.SummonItems;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
@@ -309,7 +306,7 @@ namespace CalamityEntropy.Content.NPCs
                 g1 = new RewardPool();
                 g1.Add(new RewardPoolItem(ModContent.ItemType<SulphuricScale>(), 1)); g1.Add(new RewardPoolItem(1320, 1));
                 g1.Add(new RewardPoolItem(ModContent.ItemType<DemonicBoneAsh>(), 2)); g1.Add(new RewardPoolItem(ModContent.ItemType<SuspiciousScrap>(), 1));
-                g1.Add(new RewardPoolItem(ItemID.LifeCrystal, 4)); 
+                g1.Add(new RewardPoolItem(ItemID.LifeCrystal, 4));
                 g1.Add(new RewardPoolItem(ModContent.ItemType<AshenStalactite>(), 1)); g1.Add(new RewardPoolItem(ModContent.ItemType<VoltaicJelly>(), 1));
                 g1.Add(new RewardPoolItem(ModContent.ItemType<RottenDogtooth>(), 1));
                 g1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));

@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

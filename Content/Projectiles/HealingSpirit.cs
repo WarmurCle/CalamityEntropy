@@ -1,7 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Accessories.SoulCards;
-using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -63,11 +61,11 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     CEUtils.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.3f);
                     Projectile.Kill();
-                    if(Projectile.getOwner().Entropy().TryHealMeWithCd(Projectile.getOwner().statLifeMax2 / 260 + 1, 4))
+                    if (Projectile.getOwner().Entropy().TryHealMeWithCd(Projectile.getOwner().statLifeMax2 / 260 + 1, 4))
                     {
                         Projectile.getOwner().Entropy().temporaryArmor += GrudgeCard.TempDefense;
                     }
-                    
+
                     return;
                 }
 

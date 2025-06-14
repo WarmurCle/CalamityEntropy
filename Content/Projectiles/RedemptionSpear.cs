@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

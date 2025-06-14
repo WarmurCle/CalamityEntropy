@@ -1,9 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -35,12 +33,12 @@ namespace CalamityEntropy.Content.Projectiles
         public StarTrailParticle spt = null;
         public override void AI()
         {
-            if(spt == null)
+            if (spt == null)
             {
                 spt = new StarTrailParticle();
                 EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f, 1, true, BlendState.Additive, 0);
             }
-            spt.velocity = Projectile.velocity;
+            spt.Velocity = Projectile.velocity;
             spt.Lifetime = 30;
             counter++;
             Projectile.ai[0]++;

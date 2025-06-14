@@ -11,7 +11,8 @@ namespace CalamityEntropy.Content.Particles
         public bool AffectedByGravity;
         public Entity entity;
         public override int InGame_World_MaxCount => 4000;
-        public PRT_Spark(Vector2 relativePosition, Vector2 velocity, bool affectedByGravity, int lifetime, float scale, Color color, Entity entity = null) {
+        public PRT_Spark(Vector2 relativePosition, Vector2 velocity, bool affectedByGravity, int lifetime, float scale, Color color, Entity entity = null)
+        {
             Position = relativePosition;
             Velocity = velocity;
             AffectedByGravity = affectedByGravity;
@@ -23,24 +24,29 @@ namespace CalamityEntropy.Content.Particles
 
         public override void SetProperty() => PRTDrawMode = PRTDrawModeEnum.AdditiveBlend;
 
-        public override void AI() {
+        public override void AI()
+        {
             Scale *= 0.95f;
             Color = Color.Lerp(InitialColor, Color.Transparent, (float)Math.Pow(LifetimeCompletion, 3D));
             Velocity *= 0.95f;
-            if (Velocity.Length() < 12f && AffectedByGravity) {
+            if (Velocity.Length() < 12f && AffectedByGravity)
+            {
                 Velocity.X *= 0.94f;
                 Velocity.Y += 0.25f;
             }
             Rotation = Velocity.ToRotation() + MathHelper.PiOver2;
 
-            if (entity != null) {
-                if (entity.active) {
+            if (entity != null)
+            {
+                if (entity.active)
+                {
                     Position += entity.velocity;
                 }
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch) {
+        public override bool PreDraw(SpriteBatch spriteBatch)
+        {
             Vector2 scale = new Vector2(0.5f, 1.6f) * Scale;
             Texture2D texture = PRTLoader.PRT_IDToTexture[ID];
 

@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using System.Collections.Generic;
 using Terraria;

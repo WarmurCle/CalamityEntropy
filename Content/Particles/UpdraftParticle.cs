@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             this.Opacity = this.Lifetime / 20f;
-            this.velocity *= 0.84f;
+            this.Velocity *= 0.84f;
         }
 
         public override Vector2 getOrigin()

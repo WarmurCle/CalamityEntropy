@@ -1,16 +1,7 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
+﻿using CalamityMod.Buffs.DamageOverTime;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -45,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
         {
             Projectile.velocity *= Projectile.ai[0] == 0 ? 1.04f : 0.987f;
             odp.Add(Projectile.Center);
-            if(odp.Count > 16)
+            if (odp.Count > 16)
             {
                 odp.RemoveAt(0);
             }
@@ -57,14 +48,14 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             Texture2D tex = Projectile.GetTexture();
             Texture2D glow = this.getTextureGlow();
             List<Vector2> ptd = new List<Vector2>();
-            for(int j = 1; j < odp.Count; j++)
+            for (int j = 1; j < odp.Count; j++)
             {
-                for(float p = 0; p < 1; p += 0.2f)
+                for (float p = 0; p < 1; p += 0.2f)
                 {
                     ptd.Add(Vector2.Lerp(odp[j - 1], odp[j], p));
                 }
             }
-            for(int i = 0; i < ptd.Count; i++)
+            for (int i = 0; i < ptd.Count; i++)
             {
                 Main.spriteBatch.Draw(glow, ptd[i] - Main.screenPosition, null, Color.White * Projectile.Opacity * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count), Projectile.rotation, glow.Size() / 2f, Projectile.scale * ((i + 1f) / ptd.Count) * ((i + 1f) / ptd.Count), SpriteEffects.None, 0);
             }
@@ -73,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if(CEUtils.LineThroughRect(Projectile.Center, Projectile.Center - Projectile.velocity, targetHitbox, Projectile.width))
+            if (CEUtils.LineThroughRect(Projectile.Center, Projectile.Center - Projectile.velocity, targetHitbox, Projectile.width))
             {
                 return true;
             }
@@ -82,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
     }
     public class LuminarisSpikeRed : ModProjectile
     {
-        public List<Vector2> odp = new List<Vector2>(); 
+        public List<Vector2> odp = new List<Vector2>();
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;

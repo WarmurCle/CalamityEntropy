@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Terraria;
 using Terraria.ModLoader;

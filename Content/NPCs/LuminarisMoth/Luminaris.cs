@@ -1,16 +1,11 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Accessories.SoulCards;
-using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
-using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.Events;
 using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,8 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -95,7 +88,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         }
         public override void SetDefaults()
         {
-            
+
             NPC.boss = true;
             NPC.width = 76;
             NPC.height = 76;
@@ -137,7 +130,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 oldPos = NPC.Center;
             }
             frameCounter++;
-            if(AfterImageTime > 0)
+            if (AfterImageTime > 0)
             {
                 AfterImageTime--;
             }
@@ -187,7 +180,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public void AttackPlayer(Player player)
         {
             float enrange = 1;
-            if(Main.expertMode)
+            if (Main.expertMode)
             {
                 enrange += 0.1f;
             }
@@ -215,7 +208,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             {
                 enrange *= 1.4f;
             }
-            if(AIChangeCounter-- < 0)
+            if (AIChangeCounter-- < 0)
             {
                 vec1 = vec2 = Vector2.Zero;
                 num1 = num2 = num3 = 0;
@@ -230,11 +223,11 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     AIChangeCounter = 290;
                 }
-                if(ai == AIStyle.Waiting1Sec)
+                if (ai == AIStyle.Waiting1Sec)
                 {
                     AIChangeCounter = 60;
                 }
-                if(ai == AIStyle.Subduction)
+                if (ai == AIStyle.Subduction)
                 {
                     AIChangeCounter = 220;
                 }
@@ -242,19 +235,19 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     AIChangeCounter = 240;
                 }
-                if(ai == AIStyle.Dashing)
+                if (ai == AIStyle.Dashing)
                 {
                     AIChangeCounter = 200;
                 }
-                if(ai == AIStyle.AstralSpike)
+                if (ai == AIStyle.AstralSpike)
                 {
                     AIChangeCounter = 100;
                 }
-                if(ai == AIStyle.Shoot360)
+                if (ai == AIStyle.Shoot360)
                 {
                     AIChangeCounter = 160;
                 }
-                if(ai == AIStyle.RoundAndDash)
+                if (ai == AIStyle.RoundAndDash)
                 {
                     AIChangeCounter = 200;
                 }
@@ -262,13 +255,13 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     AIChangeCounter = 400;
                 }
-                if(ai == AIStyle.ShootTriangle)
+                if (ai == AIStyle.ShootTriangle)
                 {
                     AIChangeCounter = 200;
                 }
-;               NPC.netUpdate = true;
+; NPC.netUpdate = true;
             }
-            if(ai == AIStyle.RoundShooting)
+            if (ai == AIStyle.RoundShooting)
             {
                 NPC.velocity *= 0;
                 NPC.rotation = 0;
@@ -278,16 +271,16 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     num3 = Main.rand.NextBool() ? -1 : 1;
                     vec1 = NPC.Center;
                 }
-                if(AIChangeCounter > 220 && AIChangeCounter < 259)
+                if (AIChangeCounter > 220 && AIChangeCounter < 259)
                 {
                     NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(440 * Math.Sign(NPC.Center.X - player.Center.X), -440), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 220) / 40f, 1));
                 }
-                if(AIChangeCounter == 220)
+                if (AIChangeCounter == 220)
                 {
                     num1 = NPC.Center.Distance(player.Center);
                     num2 = (NPC.Center - player.Center).ToRotation();
                 }
-                if(AIChangeCounter < 220)
+                if (AIChangeCounter < 220)
                 {
                     for (int i = 0; i < odp.Count; i++)
                     {
@@ -295,7 +288,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     }
                     num2 += 0.06f * num3 * enrange;
                     NPC.Center = player.Center + num2.ToRotationVector2() * num1;
-                    if(AIChangeCounter % (int)(38 / enrange) == 0)
+                    if (AIChangeCounter % (int)(38 / enrange) == 0)
                     {
                         CEUtils.PlaySound("bne_hit2", 1, NPC.Center);
                         Shoot<LuminarisVortex>(NPC.Center, (player.Center - NPC.Center).normalize() * 8);
@@ -356,7 +349,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     }
                 }
             }
-            if(ai == AIStyle.Waiting1Sec)
+            if (ai == AIStyle.Waiting1Sec)
             {
                 NPC.rotation = 0;
             }
@@ -413,13 +406,13 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         NPC.rotation = (NPC.Center - oldPos).ToRotation() + MathHelper.PiOver2;
                     }
                 }
-                if(AIChangeCounter < 100)
+                if (AIChangeCounter < 100)
                 {
                     NPC.velocity += (player.Center - NPC.Center).SafeNormalize(Vector2.Zero) * 0.6f;
                     NPC.velocity *= 0.99f;
                     NPC.rotation = NPC.velocity.X * 0.01f;
                 }
-                if(AIChangeCounter == 1)
+                if (AIChangeCounter == 1)
                 {
                     NPC.velocity *= 0;
                     NPC.rotation = 0;
@@ -442,15 +435,15 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
 
                 }
             }
-            if(ai == AIStyle.Dashing)
+            if (ai == AIStyle.Dashing)
             {
                 AfterImageTime = 16;
-                if(AIChangeCounter == 200)
+                if (AIChangeCounter == 200)
                 {
                     num1 = NPC.rotation;
                     num2 = (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2;
                 }
-                if(AIChangeCounter <= 200 && AIChangeCounter >= 180) 
+                if (AIChangeCounter <= 200 && AIChangeCounter >= 180)
                 {
                     NPC.rotation = CEUtils.rotatedToAngle(num1, num2, CEUtils.GetRepeatedCosFromZeroToOne(Utils.Remap(AIChangeCounter, 200, 180, 0, 1), 1), false);
                 }
@@ -463,28 +456,28 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     NPC.rotation = CEUtils.rotatedToAngle(num1, num2, Utils.Remap(AIChangeCounter, 130, 110, 0, 1), false);
                 }
-                if(AIChangeCounter < 110 || (AIChangeCounter > 130 && AIChangeCounter < 180))
+                if (AIChangeCounter < 110 || (AIChangeCounter > 130 && AIChangeCounter < 180))
                 {
                     NPC.velocity = (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 40;
                     NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2, 1f);
                 }
             }
-            if(ai == AIStyle.AstralSpike)
+            if (ai == AIStyle.AstralSpike)
             {
                 NPC.velocity *= 0;
                 NPC.rotation = 0;
-                if(AIChangeCounter == 100)
+                if (AIChangeCounter == 100)
                 {
                     vec1 = NPC.Center;
                     vec2 = NPC.Center + CEUtils.randomRot().ToRotationVector2() * 800;
                 }
-                if(AIChangeCounter > 40)
+                if (AIChangeCounter > 40)
                 {
                     float p = Utils.Remap(AIChangeCounter, 100, 40, 0, 1);
                     NPC.Center = Vector2.Lerp(vec1, vec2, CEUtils.GetRepeatedCosFromZeroToOne(p, 1));
-                    if(AIChangeCounter % 2 == 0)
+                    if (AIChangeCounter % 2 == 0)
                     {
-                        if(AIChangeCounter % 4 == 0)
+                        if (AIChangeCounter % 4 == 0)
                         {
                             Shoot<LuminarisSpikeBlue>(NPC.Center, (player.Center - NPC.Center).normalize() * 1.4f);
                         }
@@ -495,16 +488,16 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     }
                 }
             }
-            if(ai == AIStyle.Shoot360)
+            if (ai == AIStyle.Shoot360)
             {
                 NPC.velocity *= 0;
                 NPC.rotation = 0;
-                if(AIChangeCounter == 160)
+                if (AIChangeCounter == 160)
                 {
                     vec1 = NPC.Center;
                     vec2 = player.Center + (NPC.Center - player.Center).normalize() * 280 / enrange;
                 }
-                if(AIChangeCounter > 120)
+                if (AIChangeCounter > 120)
                 {
                     float p = Utils.Remap(AIChangeCounter, 160, 120, 0, 1);
                     NPC.Center = Vector2.Lerp(vec1, vec2, CEUtils.GetRepeatedCosFromZeroToOne(p, 1));
@@ -521,12 +514,12 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         SparkleParticle impactParticle = new SparkleParticle(NPC.Center, Vector2.Zero, impactColor, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
                         GeneralParticleHandler.SpawnParticle(impactParticle);
                         float ag = CEUtils.randomRot();
-                        for(int i = 0; i < 360; i += 60)
+                        for (int i = 0; i < 360; i += 60)
                         {
                             float a = ag + MathHelper.ToRadians(i);
                             Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 6 * enrange, 1, a + MathHelper.PiOver2, 0.26f * enrange);
                             Shoot<LuminarisAstralShoot>(NPC.Center, a.ToRotationVector2() * 6 * enrange, 1, a - MathHelper.PiOver2, 0.26f * enrange);
-                            
+
                         }
                     }
                 }
@@ -585,15 +578,15 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     }
                 }
             }
-            if(ai == AIStyle.SmashDown)
+            if (ai == AIStyle.SmashDown)
             {
                 int ac = AIChangeCounter % 100 + 1;
-                if(ac == 100)
+                if (ac == 100)
                 {
                     vec1 = NPC.Center;
                     vec2 = player.Center + player.velocity * 36 + new Vector2(0, -520 + Main.rand.NextFloat(-80, 80));
                 }
-                if(ac >= 40)
+                if (ac >= 40)
                 {
                     NPC.velocity *= 0;
                     NPC.rotation = 0;
@@ -602,28 +595,28 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 else
                 {
                     NPC.velocity.Y += 2f;
-                    if(ac == 39)
+                    if (ac == 39)
                     {
                         CalamityEntropy.FlashEffectStrength = 0.4f;
                         CEUtils.PlaySound("flamethrower end", 1, NPC.Center);
                         odp.Clear();
                         odp.Add(NPC.Center);
                     }
-                    if(ac < 34)
+                    if (ac < 34)
                     {
-                        if(ac % (int)(7 / enrange) == 0)
+                        if (ac % (int)(7 / enrange) == 0)
                         {
                             Shoot<LuminarisAstralShoot>(NPC.Center, new Vector2(14, 0) * enrange, 1, (-Vector2.UnitY).ToRotation(), enrange * 0.32f, 16 / enrange);
                             Shoot<LuminarisAstralShoot>(NPC.Center, new Vector2(-14, 0) * enrange, 1, (-Vector2.UnitY).ToRotation(), enrange * 0.32f, 16 / enrange);
                         }
                     }
-                    if(ac > 10)
+                    if (ac > 10)
                     {
                         MegaTrail = 1;
                     }
                 }
             }
-            if(ai == AIStyle.ShootTriangle)
+            if (ai == AIStyle.ShootTriangle)
             {
                 NPC.velocity *= 0;
                 NPC.rotation = 0;
@@ -648,7 +641,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                     {
                         num2 += MathHelper.ToRadians(30);
                         NPC.Center = player.Center + num2.ToRotationVector2() * num1;
-                        if(AIChangeCounter % 2 == 0)
+                        if (AIChangeCounter % 2 == 0)
                         {
                             Shoot<LuminarisTriangleShootBlue>(NPC.Center, (player.Center - NPC.Center).normalize().RotatedBy(MathHelper.ToRadians(20) * (Main.rand.NextBool() ? 1 : -1)) * 10 * Main.rand.NextFloat(0.8f, 1.2f) * enrange);
                         }
@@ -671,11 +664,11 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            if(ai == AIStyle.RoundShooting)
+            if (ai == AIStyle.RoundShooting)
             {
                 return false;
             }
-            if(ai == AIStyle.SmashDown && MegaTrail <= 0)
+            if (ai == AIStyle.SmashDown && MegaTrail <= 0)
             {
                 return false;
             }
@@ -703,11 +696,11 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             }
             else
             {
-                if(AIRound == 0)
+                if (AIRound == 0)
                 {
                     ai = AIStyle.Shoot360;
                 }
-                if(AIRound == 1)
+                if (AIRound == 1)
                 {
                     ai = AIStyle.SmashDown;
                 }
@@ -755,13 +748,13 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public int phase = 1;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if(texStar == null)
+            if (texStar == null)
             {
                 texStar = CEUtils.getExtraTex("StarTexture_White");
             }
-            if(texture == null)
+            if (texture == null)
                 texture = NPC.getTexture();
-            if(texTail1 == null || texTail2 == null)
+            if (texTail1 == null || texTail2 == null)
             {
                 texTail1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/LuminarisMoth/t1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 texTail2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/LuminarisMoth/t2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -816,7 +809,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 Main.spriteBatch.ExitShaderRegion();
                 drawT();
             }
-            
+
         }
         public void drawT()
         {
@@ -881,7 +874,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     }
                 }
-                if(MegaTrail > 0)
+                if (MegaTrail > 0)
                 {
                     {
                         List<ColoredVertex> ve = new List<ColoredVertex>();
@@ -951,7 +944,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             if (tail1 != null)
-            {   
+            {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = color * NPC.Opacity;
                 List<Vector2> tailPoints = tail1.GetPoints();

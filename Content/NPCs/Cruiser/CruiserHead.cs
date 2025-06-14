@@ -8,12 +8,12 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Tiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -1027,7 +1027,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             {
                                 NPC.rotation = (target.Center + target.velocity * Main.rand.NextFloat(10, 36) - NPC.Center).ToRotation();
                                 NPC.velocity = NPC.rotation.ToRotationVector2();
-                                EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, NPC.rotation);
+                                var prt = PRTLoader.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White);
+                                prt.Rotation = NPC.rotation;
                             }
                             if (changeCounter % 46 == 24)
                             {

@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Particles
         public Vector2 b;
         public override void SetProperty()
         {
-            b = this.position;
+            b = this.Position;
         }
         public float width = 2;
         public float c;
@@ -29,10 +29,10 @@ namespace CalamityEntropy.Content.Particles
         public override void PreDraw()
         {
             counter++;
-            CEUtils.drawLine(this.position, b, this.Color, width);
-            this.velocity *= r;
-            b = Vector2.Lerp(this.position, b, this.c);
-            if (CEUtils.getDistance(this.position, b) < 2 && counter > 20)
+            CEUtils.drawLine(this.Position, b, this.Color, width);
+            this.Velocity *= r;
+            b = Vector2.Lerp(this.Position, b, this.c);
+            if (CEUtils.getDistance(this.Position, b) < 2 && counter > 20)
             {
                 this.Lifetime = 0;
             }
