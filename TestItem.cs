@@ -51,8 +51,8 @@ namespace CalamityEntropy
 
         public override bool? UseItem(Player player)
         {
-            var prt = PRTLoader.NewParticle(new AbyssalLine(), player.Center, Vector2.Zero, Color.White);
-            prt.Rotation = CEUtils.randomRot();
+            var prt = PRTLoader.NewParticle(new CruiserWarn(), player.Center, Vector2.Zero, Color.White);
+            prt.Rotation = 0;
             return true;
         }
     }
