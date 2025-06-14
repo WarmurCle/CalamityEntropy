@@ -2,6 +2,7 @@
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.NPCs.DevourerofGods;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -66,7 +67,10 @@ namespace CalamityEntropy.Content.Projectiles
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.ArmorPenetration += target.defense + 64;
-            modifiers.SourceDamage /= (1f - target.Calamity().DR);
+            if (target.type != ModContent.NPCType<DevourerofGodsBody>())
+            {
+                modifiers.SourceDamage /= (1f - target.Calamity().DR);
+            }
         }
         public override void OnKill(int timeLeft)
         {
