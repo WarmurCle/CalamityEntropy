@@ -11,7 +11,7 @@ namespace CalamityEntropy.Common.DrawLayers
     {
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            if (drawInfo.shadow != 0f || drawInfo.drawPlayer.dead)
+            if (drawInfo.shadow != 0f || drawInfo.drawPlayer.dead || (drawInfo.drawPlayer.Entropy().vanityWing != null && !(drawInfo.drawPlayer.Entropy().vanityWing.ModItem is PhantomLightWing)))
                 return false;
             return drawInfo.drawPlayer.Entropy().hasAccVisual("PLWing");
         }

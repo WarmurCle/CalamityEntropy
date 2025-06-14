@@ -96,6 +96,7 @@ namespace CalamityEntropy.Common
                 player.Entropy().wing = item;
             }
         }
+        
         public override bool CanRightClick(Item item)
         {
             return (CEUtils.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _)) || (BookMarkLoader.IsABookMark(item) && EBookUI.active && BookMarkLoader.HasEmptyBookMarkSlot(EBookUI.bookItem, Main.LocalPlayer));
@@ -189,6 +190,10 @@ namespace CalamityEntropy.Common
         }
         public override void UpdateVanity(Item item, Player player)
         {
+            if (item.wingSlot != -1)
+            {
+                player.Entropy().vanityWing = item;
+            }
             if (item.type == ItemID.SantaHat)
             {
                 player.Entropy().cHat = true;

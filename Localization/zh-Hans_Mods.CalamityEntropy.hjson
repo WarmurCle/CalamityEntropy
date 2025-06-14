@@ -209,6 +209,7 @@ Items: {
 		CruiserLore.DisplayName: 巡游者
 		NihilityTwinLore.DisplayName: 虚无双子
 		ProphetLore.DisplayName: 先知
+		// LuminarisLore.DisplayName: Luminaris
 	}
 
 	BrokenChainsaw: {
@@ -2343,13 +2344,13 @@ Items: {
 	}
 
 	PhantomLightWing: {
-		Tooltip: 
-		'''
-		水平飞行速度： [A]
-		加速倍率： [B]
-		不错的垂直飞行速度
-		飞行时间：[C]
-		'''
+		Tooltip:
+			'''
+			水平飞行速度： [A]
+			加速倍率： [B]
+			不错的垂直飞行速度
+			飞行时间：[C]
+			'''
 		DisplayName: 幻光星翼
 	}
 }
@@ -3115,6 +3116,13 @@ loreCruiser:
 	这究竟是一种生存本能，还是出自于更加崇高的目的？
 	若是放任其行动，也许终有一日，这个世界会归于永恒的寂静。
 	'''
+loreLuminaris:
+	'''
+	它并非天生的掠食者，而是星辉能量的化身。
+	它的翅膀由破碎的星辰碎片编织而成，洒落的鳞粉能让周围的植物短暂地发出幽蓝色的微光。
+	传说它曾是星辉之地的守护者，但在某次异常的能量爆发后，它的意识与星辉能量融合，变得躁动不安。
+	如今，它会攻击任何闯入它领地的人，试图用星辉的光芒"净化"他们。
+	'''
 UseToggle: 使用以开启或关闭特殊效果:
 loreCruiserEffect: 增加20生命上限和50魔力上限
 loreNihTwin:
@@ -3535,6 +3543,7 @@ LoreEyeofCthulhuDesc: 减少{1}%冲刺间隔
 LoreCorruptionDesc: 所受伤害减少{1}%
 LoreBrainofCthulhuDesc: +{1}%暴击率, 但是-{2}%伤害
 LoreQueenBeeDesc: +{2}%伤害, 但是-{1}%暴击率
+LuminarisLoreDesc: +{1}%最大飞行时间
 
 DraedonDialogs: {
 	Void: {

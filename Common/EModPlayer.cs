@@ -359,6 +359,7 @@ namespace CalamityEntropy.Common
         public bool devouringCard = false;
         public override void ResetEffects()
         {
+            vanityWing = null;
             wing = null;
             ilmeranAsylum = false;
             FallSpeed = 1;
@@ -495,6 +496,7 @@ namespace CalamityEntropy.Common
         public float rbDotDist = 0;
         public int vShieldCD = 0;
         public Item wing = null;
+        public Item vanityWing = null;
         public int WingFrameAnmCount = 0;
         public float plWingTrailAlpha = 0;
         public StarTrailParticle plWingTrail = null;
@@ -508,7 +510,7 @@ namespace CalamityEntropy.Common
         }
         public override void PreUpdate()
         {
-            if (hasAccVisual("PLWing"))
+            if (hasAccVisual("PLWing") && (vanityWing == null || vanityWing.ModItem is PhantomLightWing))
             {
                 if(plWingTrail == null || plWingTrail.Lifetime <= 1)
                 {
@@ -528,16 +530,60 @@ namespace CalamityEntropy.Common
                     plWingTrailAlpha *= 0.9f;
                 }
             }
-            if(wing != null && wing.ModItem != null && wing.ModItem is ISpecialDrawingWing sw)
+            ISpecialDrawingWing sw;
+            if (vanityWing != null && vanityWing.ModItem != null && vanityWing.ModItem is ISpecialDrawingWing)
             {
+                sw = (ISpecialDrawingWing)vanityWing.ModItem;
                 wingData.MaxFrame = sw.MaxFrame;
                 wingData.SlowFallFrame = sw.SlowFallingFrame;
-                if(Player.velocity.Y == 0)
+                if (Player.velocity.Y == 0)
                 {
                     wingData.FrameCount = -1;
                     WingFrameAnmCount = 0;
                 }
-                else if(Player.wingTime <= 0)
+                else if (Player.wingTime <= 0)
+                {
+                    if (Player.controlJump)
+                    {
+                        wingData.FrameCount = sw.SlowFallingFrame;
+                        WingFrameAnmCount = 0;
+                    }
+                    else
+                    {
+                        wingData.FrameCount = -1;
+                        WingFrameAnmCount = 0;
+                    }
+                }
+                else if (!Player.controlJump)
+                {
+                    wingData.FrameCount = sw.FallingFrame;
+                    WingFrameAnmCount = 0;
+                }
+                else
+                {
+                    WingFrameAnmCount++;
+                    if (WingFrameAnmCount >= sw.AnimationTick)
+                    {
+                        WingFrameAnmCount = 0;
+                        wingData.FrameCount++;
+                    }
+                    if (wingData.FrameCount >= wingData.MaxFrame)
+                    {
+                        wingData.FrameCount = 0;
+                    }
+                }
+            }
+            else if (wing != null && wing.ModItem != null && wing.ModItem is ISpecialDrawingWing)
+            {
+                sw = (ISpecialDrawingWing)wing.ModItem;
+                wingData.MaxFrame = sw.MaxFrame;
+                wingData.SlowFallFrame = sw.SlowFallingFrame;
+                if (Player.velocity.Y == 0)
+                {
+                    wingData.FrameCount = -1;
+                    WingFrameAnmCount = 0;
+                }
+                else if (Player.wingTime <= 0)
                 {
                     if (Player.controlJump)
                     {

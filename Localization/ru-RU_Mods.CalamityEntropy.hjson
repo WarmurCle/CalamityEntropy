@@ -172,6 +172,7 @@ Items: {
 		CruiserLore.DisplayName: История - Крейсер
 		NihilityTwinLore.DisplayName: История - Ничтожные близнецы
 		ProphetLore.DisplayName: История - Пророк
+		// LuminarisLore.DisplayName: Luminaris
 	}
 
 	BrokenChainsaw: {
@@ -2183,8 +2184,14 @@ Items: {
 	}
 
 	PhantomLightWing: {
-		// Tooltip: ""
-		// DisplayName: Phantom Light Wing
+		/* Tooltip:
+			'''
+			Horizontal speed: [A]
+			Acceleration multiplier: [B]
+			Excellent vertical speed
+			Flight time: [C]
+			''' */
+		// DisplayName: Phantom Light Wings
 	}
 }
 
@@ -2948,6 +2955,13 @@ loreCruiser:
 	Является ли это инстинктом самосохранения или им движет более благородная цель?
 	Если не остановить это, возможно, однажды мир вернется к вечной тишине.
 	'''
+/* loreLuminaris:
+	'''
+	It was not a natural predator, but rather an embodiment of astral energy.
+	Its wings were woven from fragments of shattered stars, and the scales it scattered could briefly make nearby plants glow with an eerie blue light.
+	Legends say it was once the guardian of the Starlit Fields, but after an anomalous surge of energy, its consciousness fused with the astral power, leaving it restless and unstable.
+	Now, it attacks any who intrude upon its domain, seeking to "purify" them with the radiance of the stars.
+	''' */
 UseToggle: Используйте этот предмет, чтобы включить или выключить специальные эффекты:
 loreCruiserEffect: Увеличьте максимальное количество жизни на 20 и маны на 50
 loreNihTwin:
@@ -3359,6 +3373,7 @@ LoreEyeofCthulhuDesc: Уменьшает перезарядку рывка на 
 LoreCorruptionDesc: Gain {1}% Damage Reduce
 LoreBrainofCthulhuDesc: +{1}%Crit, but -{2}% Damage
 LoreQueenBeeDesc: +{2}%Damage, but -{1}% Crit
+// LuminarisLoreDesc: +{1}% Max Wing Time
 
 DraedonDialogs: {
 	Void: {
