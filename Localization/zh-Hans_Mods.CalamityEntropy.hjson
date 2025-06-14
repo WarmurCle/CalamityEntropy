@@ -209,7 +209,7 @@ Items: {
 		CruiserLore.DisplayName: 巡游者
 		NihilityTwinLore.DisplayName: 虚无双子
 		ProphetLore.DisplayName: 先知
-		// LuminarisLore.DisplayName: Luminaris
+		LuminarisLore.DisplayName: 幻光星蛾
 	}
 
 	BrokenChainsaw: {

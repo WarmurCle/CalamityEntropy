@@ -1024,7 +1024,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
 
             npcLoot.Add(ModContent.ItemType<LuminarisTrophy>(), 10);
 
-            //npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedProphet, ModContent.ItemType<ProphetLore>());
+            npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedLuminaris, ModContent.ItemType<LuminarisLore>());
         }
     }
 }

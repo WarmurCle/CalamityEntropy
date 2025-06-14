@@ -55,6 +55,7 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<StarlitPiercer>(), new Fraction(4, 5));
             itemLoot.Add(ModContent.ItemType<Luminar>(), new Fraction(4, 5));
             itemLoot.Add(ModContent.ItemType<StarSootInjector>(), new Fraction(4, 5));
+            itemLoot.Add(ModContent.ItemType<PhantomLightWing>(), new Fraction(4, 5));
         }
     }
 }
