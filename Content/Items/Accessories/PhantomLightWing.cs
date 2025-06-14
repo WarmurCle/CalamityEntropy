@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class PhantomLightWing : ModItem, ISpecialDrawingWing
     {
-        public static float HorSpeed = 5.8f;
+        public static float HorSpeed = 6.6f;
         public static float AccMul = 1.2f;
         public static int wTime = 160;
         public int AnimationTick => 4;
@@ -44,6 +44,10 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip("PLWing", !hideVisual);
+            if (!hideVisual)
+            {
+                player.Entropy().light += 0.8f;
+            }
         }
         public override void UpdateVanity(Player player)
         {

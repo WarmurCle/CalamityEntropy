@@ -2183,8 +2183,14 @@ Items: {
 	}
 
 	PhantomLightWing: {
-		Tooltip: ""
-		DisplayName: Phantom Light Wing
+		Tooltip: 
+		'''
+		Horizontal speed: [A]
+		Acceleration multiplier: [B]
+		Excellent vertical speed
+		Flight time: [C]
+		'''
+		DisplayName: Phantom Light Wings
 	}
 }
 
