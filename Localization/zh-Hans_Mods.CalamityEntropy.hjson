@@ -2341,6 +2341,11 @@ Items: {
 		Tooltip: 喷射出幻光蛾尘
 		DisplayName: 星光喷射器
 	}
+
+	PhantomLightWing: {
+		// Tooltip: ""
+		// DisplayName: Phantom Light Wing
+	}
 }
 
 PrefixitemDesc:

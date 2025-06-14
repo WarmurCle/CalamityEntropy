@@ -1,0 +1,34 @@
+﻿using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Utilities;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Common.DrawLayers
+{
+    public class PLWingDrawLayer : PlayerDrawLayer
+    {
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            if (drawInfo.shadow != 0f || drawInfo.drawPlayer.dead)
+                return false;
+            return drawInfo.drawPlayer.Entropy().hasAccVisual("PLWing");
+        }
+
+        public override Position GetDefaultPosition()
+        {
+            return new BeforeParent(PlayerDrawLayers.Wings);
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            var player = drawInfo.drawPlayer;
+
+            Texture2D tex = CEUtils.getExtraTex("PLWing/" + (player.Entropy().wingData.FrameCount == -1 ? "f" : "f" + player.Entropy().wingData.FrameCount.ToString()));
+            Vector2 offset = drawInfo.GetFrameOrigin() + new Vector2(drawInfo.drawPlayer.width, drawInfo.drawPlayer.height * 0.5f);
+            drawInfo.DrawDataCache.Add(new DrawData(tex, offset + new Vector2(-10 * drawInfo.drawPlayer.direction, -2), null, drawInfo.colorArmorBody, 0, new Vector2(drawInfo.drawPlayer.direction == 1 ? 52 : tex.Width - 52, 44), 1, drawInfo.drawPlayer.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) { shader = drawInfo.drawPlayer.cWings });
+        }
+
+    }
+}

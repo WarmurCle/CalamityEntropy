@@ -2181,6 +2181,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: Star Soot Injector
 	}
+
+	PhantomLightWing: {
+		Tooltip: ""
+		DisplayName: Phantom Light Wing
+	}
 }
 
 PrefixitemDesc:

@@ -89,6 +89,13 @@ namespace CalamityEntropy.Common
             }
         }
 
+        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        {
+            if(item.wingSlot != -1)
+            {
+                player.Entropy().wing = item;
+            }
+        }
         public override bool CanRightClick(Item item)
         {
             return (CEUtils.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _)) || (BookMarkLoader.IsABookMark(item) && EBookUI.active && BookMarkLoader.HasEmptyBookMarkSlot(EBookUI.bookItem, Main.LocalPlayer));

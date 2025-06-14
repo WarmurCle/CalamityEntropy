@@ -127,6 +127,13 @@ namespace CalamityEntropy.Common
         public bool plagueEngine = false;
         public int bloodBoiling = 0;
         public int UsingItemCounter = 0;
+        public class SpecialWingDrawingData
+        {
+            public int MaxFrame = 3;
+            public int SlowFallFrame = 2;
+            public int FrameCount = 0;
+        }
+        public SpecialWingDrawingData wingData = new SpecialWingDrawingData();
 
         public class EquipInfo
         {
@@ -352,6 +359,7 @@ namespace CalamityEntropy.Common
         public bool devouringCard = false;
         public override void ResetEffects()
         {
+            wing = null;
             ilmeranAsylum = false;
             FallSpeed = 1;
             WingTimeMult = 1;
@@ -486,12 +494,62 @@ namespace CalamityEntropy.Common
         public bool cRight = false;
         public float rbDotDist = 0;
         public int vShieldCD = 0;
+        public Item wing = null;
+        public int WingFrameAnmCount = 0;
+        public override void Load()
+        {
+            wingData = new SpecialWingDrawingData();
+        }
+        public override void Unload()
+        {
+            wingData = null;
+        }
         public override void PreUpdate()
         {
+            if(wing != null && wing.ModItem != null && wing.ModItem is ISpecialDrawingWing sw)
+            {
+                wingData.MaxFrame = sw.MaxFrame;
+                wingData.SlowFallFrame = sw.SlowFallingFrame;
+                if(Player.velocity.Y == 0 || !Player.controlJump)
+                {
+                    wingData.FrameCount = -1;
+                    WingFrameAnmCount = 0;
+                }
+                else if(Player.wingTime <= 0)
+                {
+                    if (Player.controlJump)
+                    {
+                        wingData.FrameCount = sw.SlowFallingFrame;
+                        WingFrameAnmCount = 0;
+                    }
+                    else
+                    {
+                        wingData.FrameCount = -1;
+                        WingFrameAnmCount = 0;
+                    }
+                }
+                else{
+                    WingFrameAnmCount++;
+                    if (WingFrameAnmCount >= sw.AnimationTick)
+                    {
+                        WingFrameAnmCount = 0;
+                        wingData.FrameCount++;
+                    }
+                    if (wingData.FrameCount >= wingData.MaxFrame)
+                    {
+                        wingData.FrameCount = 0;
+                    }
+                }
+            }
+            else
+            {
+                WingFrameAnmCount = 0;
+                wingData.FrameCount = 0;
+            }
             if (McAttributes == null)
             {
                 McAttributes = new();
-                for(int i = 0; i < DamageClassLoader.DamageClassCount; i++)
+                for (int i = 0; i < DamageClassLoader.DamageClassCount; i++)
                 {
                     McAttributes.Add(new McAttributeRecord(DamageClassLoader.GetDamageClass(i)));
                 }

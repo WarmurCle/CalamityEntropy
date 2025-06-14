@@ -99,7 +99,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             NPC.boss = true;
             NPC.width = 76;
             NPC.height = 76;
-            NPC.damage = 55;
+            NPC.damage = 68;
             NPC.Calamity().DR = 0.1f;
             NPC.defense = 10;
             NPC.lifeMax = 22000;
