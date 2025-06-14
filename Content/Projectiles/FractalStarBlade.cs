@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Items.Weapons.Fractal;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using Microsoft.Xna.Framework.Graphics;

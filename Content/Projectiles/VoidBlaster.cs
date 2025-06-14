@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
 using Terraria.Audio;

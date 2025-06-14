@@ -8,7 +8,6 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
-using CalamityEntropy.Utilities;
 using InnoVault;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
@@ -100,7 +99,8 @@ namespace CalamityEntropy.Common
         private static void CE_EffectHandler(On_FilterManager.orig_EndCapture orig, FilterManager self,
         RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
         {
-            if (Main.gameMenu) {
+            if (Main.gameMenu)
+            {
                 //调用原始方法
                 orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
                 return;
@@ -111,7 +111,7 @@ namespace CalamityEntropy.Common
 
             //初始化
             InitializeEffectHandler();
-            
+
             //初始化那些他妈的屏幕字段
             EnsureRenderTargets(graphicsDevice);
 
@@ -525,18 +525,23 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.End();
 
             List<IAdditivePRT> prtAdditives = new List<IAdditivePRT>();
-            foreach (var prt in PRTLoader.PRT_InGame_World_Inds) {
-                if (!prt.active || prt.Mod != Instance) {
+            foreach (var prt in PRTLoader.PRT_InGame_World_Inds)
+            {
+                if (!prt.active || prt.Mod != Instance)
+                {
                     continue;
                 }
-                if (prt is IAdditivePRT additivePRT) {
+                if (prt is IAdditivePRT additivePRT)
+                {
                     prtAdditives.Add(additivePRT);
                 }
             }
-            if (prtAdditives.Count > 0) {
+            if (prtAdditives.Count > 0)
+            {
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.AnisotropicClamp
                     , DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-                foreach (var iaddDrawin in prtAdditives) {
+                foreach (var iaddDrawin in prtAdditives)
+                {
                     iaddDrawin.Draw(Main.spriteBatch);
                 }
                 Main.spriteBatch.End();

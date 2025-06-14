@@ -1,7 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 

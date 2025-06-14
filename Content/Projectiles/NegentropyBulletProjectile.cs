@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

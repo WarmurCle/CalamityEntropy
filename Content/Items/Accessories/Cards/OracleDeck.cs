@@ -1,6 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Accessories.EvilCards;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;

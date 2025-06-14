@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using System.Collections.Generic;

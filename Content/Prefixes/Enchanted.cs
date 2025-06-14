@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;

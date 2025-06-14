@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Particles
             this.Scale = (16 - this.Lifetime) / 16f * 2.4f * CScale;
         }
         public float scale2 = 1;
-        
+
 
         public override void PreDraw()
         {

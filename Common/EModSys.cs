@@ -5,7 +5,6 @@ using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Utilities;
 using CalamityMod.Items.Placeables.FurnitureAuric;
 using CalamityMod.NPCs.SlimeGod;
 using Microsoft.Xna.Framework.Graphics;
@@ -59,7 +58,7 @@ namespace CalamityEntropy.Common
         public static bool sayTip = true;
         public override void UpdateUI(GameTime gameTime)
         {
-            if(Lighting.Mode != Terraria.Graphics.Light.LightMode.Color)
+            if (Lighting.Mode != Terraria.Graphics.Light.LightMode.Color)
             {
                 if (sayTip)
                 {

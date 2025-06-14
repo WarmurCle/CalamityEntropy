@@ -1,10 +1,10 @@
-﻿using CalamityMod.Items;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
-using Terraria;
-using Terraria.ModLoader;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityMod.Items;
 using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy
 {
@@ -12,11 +12,13 @@ namespace CalamityEntropy
     {
         public override string Texture => "CalamityEntropy/icon";
 
-        public override bool IsLoadingEnabled(Mod mod) {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
             return true;
         }
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Item.width = 80;
             Item.height = 80;
             Item.damage = 9999;
@@ -33,18 +35,22 @@ namespace CalamityEntropy
             Item.rare = ItemRarityID.Yellow;
         }
 
-        public override void UpdateInventory(Player player) {
+        public override void UpdateInventory(Player player)
+        {
 
         }
 
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) {
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
             return false;
         }
 
-        public override void HoldItem(Player player) {
+        public override void HoldItem(Player player)
+        {
         }
 
-        public override bool? UseItem(Player player) {
+        public override bool? UseItem(Player player)
+        {
             var prt = PRTLoader.NewParticle(new AbyssalLine(), player.Center, Vector2.Zero, Color.White);
             prt.Rotation = CEUtils.randomRot();
             return true;

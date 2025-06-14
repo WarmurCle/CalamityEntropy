@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;

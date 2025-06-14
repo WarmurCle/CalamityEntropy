@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
@@ -51,7 +50,7 @@ namespace CalamityEntropy.Content.ILEditing
 
             //public static CooldownInstance AddCooldown(this Player p, string id, int duration, bool overwrite = true)
             originalMethod = typeof(CalamityUtils)
-                .GetMethod("AddCooldown", BindingFlags.Static | BindingFlags.Public, null, new Type[] { typeof(Player), typeof(string), typeof(int), typeof(bool)}, null);
+                .GetMethod("AddCooldown", BindingFlags.Static | BindingFlags.Public, null, new Type[] { typeof(Player), typeof(string), typeof(int), typeof(bool) }, null);
 
             _hook = EModHooks.Add(originalMethod, addCdHook);
 

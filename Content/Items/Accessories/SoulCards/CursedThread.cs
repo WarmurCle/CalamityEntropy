@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Accessories.EvilCards;
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using Terraria.ID;
 using Terraria.ModLoader;
 

@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;

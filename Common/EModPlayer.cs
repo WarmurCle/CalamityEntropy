@@ -19,7 +19,6 @@ using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
@@ -331,16 +330,16 @@ namespace CalamityEntropy.Common
             public float McCrit = 0;
             public void Record(Player player)
             {
-                if(McDamage < player.GetDamage(dmgClass).Additive)
+                if (McDamage < player.GetDamage(dmgClass).Additive)
                 {
                     McDamage = player.GetDamage(dmgClass).Additive;
                 }
-                if(McCrit < player.GetCritChance(dmgClass))
+                if (McCrit < player.GetCritChance(dmgClass))
                 {
                     McCrit = player.GetCritChance(dmgClass);
                 }
             }
-            
+
             public void UpdateAtrLossing(Player player)
             {
                 McCrit += (player.GetCritChance(dmgClass) - McCrit) * dec;
@@ -349,7 +348,7 @@ namespace CalamityEntropy.Common
 
             public void SetStats(Player player)
             {
-                if(player.GetCritChance(dmgClass) < McCrit)
+                if (player.GetCritChance(dmgClass) < McCrit)
                     player.GetCritChance(dmgClass) = McCrit;
                 if (player.GetDamage(dmgClass).Additive < McDamage)
                     player.GetDamage(dmgClass) += McDamage - player.GetDamage(dmgClass).Additive;
@@ -512,7 +511,7 @@ namespace CalamityEntropy.Common
         {
             if (hasAccVisual("PLWing") && (vanityWing == null || vanityWing.ModItem is PhantomLightWing))
             {
-                if(plWingTrail == null || plWingTrail.Lifetime <= 1)
+                if (plWingTrail == null || plWingTrail.Lifetime <= 1)
                 {
                     plWingTrail = new StarTrailParticle();
                     plWingTrail.maxLength = 20;
@@ -521,7 +520,7 @@ namespace CalamityEntropy.Common
                 plWingTrail.Lifetime = 30;
                 plWingTrail.Position = Player.MountedCenter + Player.gfxOffY * Vector2.UnitY + Player.velocity;
                 plWingTrail.Color = Color.White * plWingTrailAlpha;
-                if(Player.controlJump && Player.wingTime > 0)
+                if (Player.controlJump && Player.wingTime > 0)
                 {
                     plWingTrailAlpha += (1 - plWingTrailAlpha) * 0.1f;
                 }
@@ -910,9 +909,9 @@ namespace CalamityEntropy.Common
         {
             if (obscureCard)
             {
-                foreach(NPC npc in Main.ActiveNPCs)
+                foreach (NPC npc in Main.ActiveNPCs)
                 {
-                    if(!npc.friendly && npc.getRect().Intersects(Player.getRect()))
+                    if (!npc.friendly && npc.getRect().Intersects(Player.getRect()))
                     {
                         Player.wingTime += 2f;
                         Player.lifeRegen *= 2;
@@ -979,7 +978,7 @@ namespace CalamityEntropy.Common
                 Player.statDefense *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
                 Player.moveSpeed *= (MaliciousCode.CALAMITY__OVERHAUL ? 0.85f : 0.88f);
             }
-            
+
             if (bloodBoiling > 0)
             {
                 bloodBoiling--;
@@ -988,13 +987,13 @@ namespace CalamityEntropy.Common
                 {
                     int LifeLossing = (int)(this.UsingItemCounter * 0.002f);
                     Player.statLife -= LifeLossing;
-                    if(Player.statLife <= 0)
+                    if (Player.statLife <= 0)
                     {
                         Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("KilledByBloodBoiling").Value), LifeLossing, 0);
                     }
                 }
                 Player.GetAttackSpeed(DamageClass.Generic) += AttackSpeedAddition;
-                
+
             }
             /*if (SubworldSystem.IsActive<VOIDSubworld>())
             {
@@ -1073,7 +1072,7 @@ namespace CalamityEntropy.Common
             Player.statDefense += (int)temporaryArmor;
             HitTCounter--;
 
-            if(McAttributes != null)
+            if (McAttributes != null)
             {
                 if (Player.statDefense > McDefense)
                 {
@@ -1083,7 +1082,7 @@ namespace CalamityEntropy.Common
                 {
                     McRegen = Player.lifeRegen;
                 }
-                if(Player.endurance > McEndurance)
+                if (Player.endurance > McEndurance)
                 {
                     McEndurance = Player.endurance;
                 }
@@ -1137,7 +1136,7 @@ namespace CalamityEntropy.Common
         public bool cHat = false;
         public float HitCooldown = 0;
         public float DebuffTime = 1;
-        
+
         public override void OnHurt(Player.HurtInfo info)
         {
             HitTCounter = 300;
@@ -2170,7 +2169,7 @@ namespace CalamityEntropy.Common
         public float RogueStealthRegenMult = 1;
         public override void PostUpdateEquips()
         {
-            
+
             if (soulDicorder)
             {
                 Player.statDefense -= 14;

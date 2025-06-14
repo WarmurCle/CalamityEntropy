@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

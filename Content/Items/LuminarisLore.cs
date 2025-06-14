@@ -1,10 +1,7 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Utilities;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Items.LoreItems;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;

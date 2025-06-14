@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Items;
-using CalamityEntropy.Utilities;
 using CalamityMod.Dusts;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

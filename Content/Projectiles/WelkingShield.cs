@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;

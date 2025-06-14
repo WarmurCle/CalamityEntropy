@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Projectiles.Melee;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

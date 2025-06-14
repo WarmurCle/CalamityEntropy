@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;

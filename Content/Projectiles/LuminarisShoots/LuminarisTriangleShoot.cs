@@ -1,17 +1,8 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -77,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
     }
     public class LuminarisTriangleShootRed : ModProjectile
     {
-        public List<Vector2> odp = new List<Vector2>(); 
+        public List<Vector2> odp = new List<Vector2>();
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;
@@ -112,16 +103,16 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
                 float r = MathHelper.ToRadians(i);
                 float a = r + Projectile.rotation;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, a.ToRotationVector2() * 12, ModContent.ProjectileType<LuminarisSpikeRed>(), Projectile.damage, Projectile.knockBack, -1, 1);
-            
+
             }
         }
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
             Texture2D l = CEUtils.getExtraTex("LTLine");
-            List<int> rots = new List<int>() { 0, 120, 240};
+            List<int> rots = new List<int>() { 0, 120, 240 };
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            foreach(int i in rots)
+            foreach (int i in rots)
             {
                 float r = MathHelper.ToRadians(i);
                 float a = r + Projectile.rotation;

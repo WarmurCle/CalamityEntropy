@@ -1,9 +1,4 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Accessories.EvilCards;
-using CalamityEntropy.Content.Items.Accessories.SoulCards;
-using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using System.Collections.Generic;
 using Terraria;
@@ -46,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
             tooltips.Replace("[DB]", PurificationCard.DebuffTimeReduce.ToPercent());
             tooltips.Replace("[FL]", WingSpeedAddition.ToPercent());
             tooltips.Replace("[FT]", WingTimeAddition.ToPercent());
-            tooltips.Replace("[BE]", BitternessCard.enduMax.ToPercent());   
+            tooltips.Replace("[BE]", BitternessCard.enduMax.ToPercent());
             tooltips.Replace("[BD]", BitternessCard.DmgMax.ToPercent());
             tooltips.Replace("[AP]", DevouringCard.ArmorPene.ToPercent());
         }

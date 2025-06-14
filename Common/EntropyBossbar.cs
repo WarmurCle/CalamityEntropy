@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.NPCs.ProfanedGuardians;
 using CalamityMod.NPCs.Providence;

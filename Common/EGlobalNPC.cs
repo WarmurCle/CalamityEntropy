@@ -14,7 +14,6 @@ using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Pets;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Events;
@@ -40,7 +39,6 @@ using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
-using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -597,7 +595,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if(npc.type == ModContent.NPCType<ProfanedGuardianCommander>())
+            if (npc.type == ModContent.NPCType<ProfanedGuardianCommander>())
             {
                 npcLoot.Add(ModContent.ItemType<LavaPancake>(), 2);
             }
@@ -609,19 +607,19 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.Add(ModContent.ItemType<DevouringCard>(), 2);
             }
-            if(npc.type == ModContent.NPCType<Crabulon>())
+            if (npc.type == ModContent.NPCType<Crabulon>())
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<WisperCard>(), 2);
             }
-            if(npc.type == NPCID.Golem)
+            if (npc.type == NPCID.Golem)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<MourningCard>(), 2);
             }
-            if(npc.type == NPCID.DungeonSpirit)
+            if (npc.type == NPCID.DungeonSpirit)
             {
                 npcLoot.Add(ModContent.ItemType<RequiemCard>(), new Fraction(1, 12));
             }
-            if(npc.type == NPCID.BigMimicHallow)
+            if (npc.type == NPCID.BigMimicHallow)
             {
                 npcLoot.Add(ModContent.ItemType<PurificationCard>(), new Fraction(1, 2));
             }
@@ -678,7 +676,7 @@ namespace CalamityEntropy.Common
 
                     for (int b = 0; b < CalamityGlobalNPC.moddedDebuffTextureList.Count(); b++)
                     {
-                        if(CalamityGlobalNPC.moddedDebuffTextureList[b].Item2.Invoke(npc))
+                        if (CalamityGlobalNPC.moddedDebuffTextureList[b].Item2.Invoke(npc))
                         {
                             currentDebuffs.Add(Request<Texture2D>(CalamityGlobalNPC.moddedDebuffTextureList[b].Item1).Value);
                         }
@@ -890,7 +888,7 @@ namespace CalamityEntropy.Common
         public bool needExitShader = false;
         public override void OnKill(NPC npc)
         {
-            if((Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCrimson || Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCorrupt) && Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].Center.Y > Main.worldSurface)
+            if ((Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCrimson || Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCorrupt) && Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].Center.Y > Main.worldSurface)
             {
                 if (Main.rand.NextBool(54))
                 {
@@ -1130,7 +1128,7 @@ namespace CalamityEntropy.Common
         {
             if (player != null)
             {
-                if(player.Entropy().grudgeCard)
+                if (player.Entropy().grudgeCard)
                 {
                     if (Main.rand.NextBool(10))
                     {

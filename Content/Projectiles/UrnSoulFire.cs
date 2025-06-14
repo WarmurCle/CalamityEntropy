@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Particles;

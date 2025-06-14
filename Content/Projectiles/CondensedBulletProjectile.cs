@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Utilities;
-using CalamityMod.Particles;
+﻿using CalamityMod.Particles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -8,7 +8,6 @@ using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
@@ -397,7 +396,7 @@ namespace CalamityEntropy.Common
         {
             if (LuminarArrow)
             {
-                if(starTrailPt == null || starTrailPt.Lifetime <= 0)
+                if (starTrailPt == null || starTrailPt.Lifetime <= 0)
                 {
                     starTrailPt = new StarTrailParticle();
                     starTrailPt.maxLength = projectile.MaxUpdates * 22;

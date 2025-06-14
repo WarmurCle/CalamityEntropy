@@ -1,6 +1,5 @@
 ﻿
 using CalamityEntropy.Common;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.NPCs.ExoMechs.Ares;
 using Microsoft.Xna.Framework.Audio;

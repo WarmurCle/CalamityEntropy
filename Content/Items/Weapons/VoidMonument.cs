@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Projectiles.monument;
-using CalamityEntropy.Utilities;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Tiles.Furniture.CraftingStations;

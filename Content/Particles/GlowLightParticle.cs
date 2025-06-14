@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             this.Opacity = this.Lifetime / (float)HideTime;
-            if(Opacity > 1)
+            if (Opacity > 1)
             {
                 this.Opacity = 1;
             }

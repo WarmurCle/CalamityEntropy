@@ -1,11 +1,6 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityMod.Tiles.BaseTiles;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 
 namespace CalamityEntropy.Content.Tiles
 {

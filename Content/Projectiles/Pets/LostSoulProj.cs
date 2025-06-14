@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
-using CalamityEntropy.Utilities;
 using CalamityMod.Events;
 using Microsoft.Xna.Framework.Graphics;
 using System;

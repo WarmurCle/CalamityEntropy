@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using InnoVault;
 using InnoVault.TileProcessors;
@@ -142,7 +141,7 @@ namespace CalamityEntropy.Content.Tiles
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
-            foreach(var item in filters)
+            foreach (var item in filters)
             {
                 if (!item.IsAir)
                 {

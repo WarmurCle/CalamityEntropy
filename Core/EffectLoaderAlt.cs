@@ -1,14 +1,13 @@
-﻿using InnoVault.PRT;
+﻿using CalamityEntropy.Content.Items.Weapons.Nemesis;
+using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Effects;
-using CalamityEntropy.Content.Particles;
 using Terraria.ModLoader;
-using CalamityEntropy.Content.Items.Weapons.Nemesis;
-using InnoVault;
 
 namespace CalamityEntropy.Core
 {
@@ -23,15 +22,18 @@ namespace CalamityEntropy.Core
         public const string AssetPath2 = "Assets/Effects/";
         internal static RenderTarget2D screen;
         internal static float twistStrength = 0f;
-        
-        void ICELoader.LoadAsset() {
+
+        void ICELoader.LoadAsset()
+        {
             AssetRepository assets = CalamityEntropy.Instance.Assets;
             LoadRegularShaders(assets);
         }
 
-        public static void LoadRegularShaders(AssetRepository assets) {
+        public static void LoadRegularShaders(AssetRepository assets)
+        {
             Asset<Effect> getEffect(string key) => assets.Request<Effect>(AssetPath2 + key, AssetRequestMode.ImmediateLoad);
-            void loadFiltersEffect(string filtersKey, string filename, string passname, out Effect effect) {
+            void loadFiltersEffect(string filtersKey, string filename, string passname, out Effect effect)
+            {
                 Asset<Effect> asset = getEffect(filename);
                 Filters.Scene[filtersKey] = new Filter(new(asset, passname), EffectPriority.VeryHigh);
                 effect = asset.Value;
@@ -43,35 +45,43 @@ namespace CalamityEntropy.Core
             loadFiltersEffect("CalamityEntropy:RTShader", "RTShader", "Tentacle", out RTShader);
         }
 
-        void ICELoader.LoadData() {
+        void ICELoader.LoadData()
+        {
             Instance = this;
             On_FilterManager.EndCapture += new On_FilterManager.hook_EndCapture(FilterManager_EndCapture);
             Main.OnResolutionChanged += Main_OnResolutionChanged;
         }
 
-        void ICELoader.UnLoadData() {
+        void ICELoader.UnLoadData()
+        {
             On_FilterManager.EndCapture -= new On_FilterManager.hook_EndCapture(FilterManager_EndCapture);
             Main.OnResolutionChanged -= Main_OnResolutionChanged;
             PowerSFShader = null;
             KnifeRendering = null;
         }
 
-        private void Main_OnResolutionChanged(Vector2 obj) {
+        private void Main_OnResolutionChanged(Vector2 obj)
+        {
             screen?.Dispose();
             screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
         }
 
         private void FilterManager_EndCapture(On_FilterManager.orig_EndCapture orig, FilterManager self
-            , RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor) {
+            , RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
+        {
             GraphicsDevice graphicsDevice = Main.instance.GraphicsDevice;
 
-            if (screen == null) {
+            if (screen == null)
+            {
                 screen = new RenderTarget2D(graphicsDevice, Main.screenWidth, Main.screenHeight);
             }
 
-            if (!Main.gameMenu) {
-                if (HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift)) {
-                    if (warpSets.Count > 0) {
+            if (!Main.gameMenu)
+            {
+                if (HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift))
+                {
+                    if (warpSets.Count > 0)
+                    {
                         //绘制屏幕
                         graphicsDevice.SetRenderTarget(screen);
                         graphicsDevice.Clear(Color.Transparent);
@@ -106,7 +116,8 @@ namespace CalamityEntropy.Core
                         foreach (IDrawWarp p in warpSets) { if (p.canDraw()) { p.costomDraw(Main.spriteBatch); } }
                         Main.spriteBatch.End();
                     }
-                    if (warpSetsNoBlueshift.Count > 0) {
+                    if (warpSetsNoBlueshift.Count > 0)
+                    {
                         //绘制屏幕
                         graphicsDevice.SetRenderTarget(screen);
                         graphicsDevice.Clear(Color.Transparent);
@@ -143,7 +154,8 @@ namespace CalamityEntropy.Core
                     }
                 }
 
-                if (HasPwoerEffect()) {
+                if (HasPwoerEffect())
+                {
                     graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                     graphicsDevice.Clear(Color.Transparent);//用透明清除
                     Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
@@ -166,7 +178,8 @@ namespace CalamityEntropy.Core
                 }
 
                 #region RT粒子特效
-                if (PRT_RTSpark.HasSet(out List<BasePRT> prts)) {
+                if (PRT_RTSpark.HasSet(out List<BasePRT> prts))
+                {
                     graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
                     graphicsDevice.Clear(Color.Transparent);
                     Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
@@ -199,11 +212,14 @@ namespace CalamityEntropy.Core
             orig.Invoke(self, finalTexture, screenTarget1, screenTarget2, clearColor);
         }
 
-        private void DrawPwoerEffect(SpriteBatch sb) {
+        private void DrawPwoerEffect(SpriteBatch sb)
+        {
             int targetProjType = ModContent.ProjectileType<EndSkillOrbOnSpan>();
-            foreach (Projectile proj in Main.projectile) {
+            foreach (Projectile proj in Main.projectile)
+            {
                 Vector2 offsetRotV = proj.rotation.ToRotationVector2() * 1500;
-                if (proj.type == targetProjType && proj.active) {
+                if (proj.type == targetProjType && proj.active)
+                {
                     Texture2D texture = CEUtils.GetT2DValue(AssetPath + "placeholder2");
                     int length = (int)(Math.Sqrt(Main.screenWidth * Main.screenWidth + Main.screenHeight * Main.screenHeight) * 4f);
                     sb.Draw(texture,
@@ -226,22 +242,29 @@ namespace CalamityEntropy.Core
             }
         }
 
-        private bool HasPwoerEffect() {
+        private bool HasPwoerEffect()
+        {
             return true;
         }
 
-        private bool HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift) {
+        private bool HasWarpEffect(out List<IDrawWarp> warpSets, out List<IDrawWarp> warpSetsNoBlueshift)
+        {
             warpSets = [];
             warpSetsNoBlueshift = [];
-            foreach (Projectile p in Main.projectile) {
-                if (!p.active) {
+            foreach (Projectile p in Main.projectile)
+            {
+                if (!p.active)
+                {
                     continue;
                 }
-                if (p.ModProjectile is IDrawWarp drawWarp) {
-                    if (drawWarp.noBlueshift()) {
+                if (p.ModProjectile is IDrawWarp drawWarp)
+                {
+                    if (drawWarp.noBlueshift())
+                    {
                         warpSetsNoBlueshift.Add(drawWarp);
                     }
-                    else {
+                    else
+                    {
                         warpSets.Add(drawWarp);
                     }
                 }

@@ -1,11 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs.Pets;
-using CalamityEntropy.Content.Projectiles.Pets.DoG;
-using CalamityEntropy.Content.Projectiles.Pets.Wyrm;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 

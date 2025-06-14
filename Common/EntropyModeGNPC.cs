@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.NPCs;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.NPCs.CeaselessVoid;
@@ -108,9 +107,9 @@ namespace CalamityEntropy.Common
             if (CalamityEntropy.EntropyMode)
             {
                 bool hasPlr = false;
-                foreach(var plr in Main.ActivePlayers)
+                foreach (var plr in Main.ActivePlayers)
                 {
-                    if(!plr.dead)
+                    if (!plr.dead)
                     {
                         hasPlr = true;
                         break;

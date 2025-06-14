@@ -15,7 +15,6 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items.Fishing.SulphurCatches;
 using CalamityMod.Items.Materials;
@@ -78,11 +77,11 @@ namespace CalamityEntropy.Common
         public float[] wispColor = null;
         public override void SetDefaults(Item entity)
         {
-            if(entity.type == ModContent.ItemType<StarblightSoot>())
+            if (entity.type == ModContent.ItemType<StarblightSoot>())
             {
                 entity.ammo = 3728;
             }
-            if(entity.type == 1325)
+            if (entity.type == 1325)
             {
                 entity.damage = 32;
                 entity.shootSpeed *= 1.25f;
@@ -91,12 +90,12 @@ namespace CalamityEntropy.Common
 
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
-            if(item.wingSlot != -1)
+            if (item.wingSlot != -1)
             {
                 player.Entropy().wing = item;
             }
         }
-        
+
         public override bool CanRightClick(Item item)
         {
             return (CEUtils.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _)) || (BookMarkLoader.IsABookMark(item) && EBookUI.active && BookMarkLoader.HasEmptyBookMarkSlot(EBookUI.bookItem, Main.LocalPlayer));
@@ -334,7 +333,7 @@ namespace CalamityEntropy.Common
             {
                 return Mod.GetLocalization("AmmoBoulders").Value;
             }
-            if(type == 3728)
+            if (type == 3728)
             {
                 return Mod.GetLocalization("AmmoStarblightSoot").Value;
             }
@@ -1186,15 +1185,15 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<IlmeranAsylum>()));
             }
-            if(item.type == ItemID.FloatingIslandFishingCrate)
+            if (item.type == ItemID.FloatingIslandFishingCrate)
             {
                 itemLoot.Add(ModContent.ItemType<IndigoCard>(), 5);
             }
-            if(item.type == ItemID.GolemBossBag)
+            if (item.type == ItemID.GolemBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<MourningCard>(), 1);
             }
-            if(item.type == 3203 || item.type == 3204 || item.type == 3983 || item.type == 3982)
+            if (item.type == 3203 || item.type == 3204 || item.type == 3983 || item.type == 3982)
             {
                 itemLoot.Add(ModContent.ItemType<ObscureCard>(), 5);
             }

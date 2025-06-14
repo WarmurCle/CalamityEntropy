@@ -8,7 +8,6 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Tiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.Items.Potions;
