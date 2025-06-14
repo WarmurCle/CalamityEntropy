@@ -1,12 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
 {
-    public class AbyssalLine : EParticle
+    public class AbyssalLine : BasePRT
     {
-        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/AbyssalLine").Value;
+        public override string Texture => "CalamityEntropy/Content/Particles/AbyssalLine";
         public float timemax = 50;
         public Color spawnColor = new Color(190, 190, 255);
         public Color endColor = Color.Blue;
@@ -16,20 +16,20 @@ namespace CalamityEntropy.Content.Particles
         public float lx = 3;
         public override void SetProperty()
         {
-            this.Lifetime = 50;
+            Lifetime = 50;
         }
         public override void AI()
         {
-            base.AI();
             lx *= 0.88f;
             xscale += xadd;
             xadd *= xdec;
         }
-        public override void PreDraw()
+        public override bool PreDraw(SpriteBatch spriteBatch)
         {
             Texture2D tex = CEUtils.getExtraTex("a_circle");
-            Main.spriteBatch.Draw(tex, position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, ((float)Lifetime / timemax)) * ((float)Lifetime / timemax) * 0.7f, this.Rotation, tex.Size() / 2, new Vector2(0.6f * (xscale + 0.1f), 0.56f * lx) * Scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, ((float)Lifetime / timemax)) * ((float)Lifetime / timemax), this.Rotation, tex.Size() / 2, new Vector2(0.6f * xscale, 0.2f * lx) * Scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(tex, Position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, (Lifetime / timemax)) * (Lifetime / timemax) * 0.7f, this.Rotation, tex.Size() / 2, new Vector2(0.6f * (xscale + 0.1f), 0.56f * lx) * Scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(tex, Position - Main.screenPosition, null, Color.Lerp(endColor, spawnColor, (Lifetime / timemax)) * (Lifetime / timemax), this.Rotation, tex.Size() / 2, new Vector2(0.6f * xscale, 0.2f * lx) * Scale, SpriteEffects.None, 0);
+            return false;
         }
     }
 }

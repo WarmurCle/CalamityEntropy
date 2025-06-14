@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Magic;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -48,10 +49,11 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnKill(int timeLeft)
         {
-            base.OnKill(timeLeft);
             float r = CEUtils.randomRot();
-            EParticle.NewParticle(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r);
-            EParticle.NewParticle(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r + MathHelper.PiOver2);
+            var prt = PRTLoader.NewParticle(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue);
+            prt.Rotation = r;
+            PRTLoader.NewParticle(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue);
+            prt.Rotation = r + MathHelper.PiOver2;
             for (int i = 0; i < 2; i++)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomVec(24), ModContent.ProjectileType<RainbowRocket>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner);

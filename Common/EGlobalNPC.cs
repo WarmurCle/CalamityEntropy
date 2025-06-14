@@ -36,6 +36,7 @@ using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
@@ -321,8 +322,8 @@ namespace CalamityEntropy.Common
                     AbyssalLine p = new AbyssalLine() { lx = 1.2f, xadd = 0.32f };
                     p.spawnColor = Color.Gold;
                     p.endColor = Color.DarkGoldenrod;
-                    EParticle.NewParticle(p, npc.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
-
+                    p.Rotation = CEUtils.randomRot();
+                    PRTLoader.NewParticle(p, npc.Center, Vector2.Zero, Color.White, 1);
                 }
             }
             /*if (ToFriendly)

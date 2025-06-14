@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -53,7 +54,8 @@ namespace CalamityEntropy.Content.Projectiles
             CalamityEntropy.Instance.screenShakeAmp = 5;
             for (int i = 0; i < 3; i++)
             {
-                EParticle.NewParticle(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+                var prt = PRTLoader.NewParticle(new AbyssalLine(), target.Center, Vector2.Zero, Color.White);
+                prt.Rotation = CEUtils.randomRot();
             }
             if (Projectile.owner.ToPlayer().HeldItem.ModItem is Xytheron xr)
             {

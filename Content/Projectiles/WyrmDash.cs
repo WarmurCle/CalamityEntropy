@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
@@ -87,7 +88,8 @@ namespace CalamityEntropy.Content.Projectiles
             CalamityEntropy.Instance.screenShakeAmp = (Projectile.ai[0] * 0.7f);
             for (int i = 0; i < 1 + (int)(Projectile.ai[0] * 0.34f); i++)
             {
-                EParticle.NewParticle(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+                var prt = PRTLoader.NewParticle(new AbyssalLine(), target.Center, Vector2.Zero, Color.White);
+                prt.Rotation = CEUtils.randomRot();
             }
         }
 

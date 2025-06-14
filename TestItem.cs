@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 
 namespace CalamityEntropy
 {
@@ -11,7 +13,7 @@ namespace CalamityEntropy
         public override string Texture => "CalamityEntropy/icon";
 
         public override bool IsLoadingEnabled(Mod mod) {
-            return false;
+            return true;
         }
 
         public override void SetDefaults() {
@@ -43,7 +45,8 @@ namespace CalamityEntropy
         }
 
         public override bool? UseItem(Player player) {
-            
+            var prt = PRTLoader.NewParticle(new AbyssalLine(), player.Center, Vector2.Zero, Color.White);
+            prt.Rotation = CEUtils.randomRot();
             return true;
         }
     }

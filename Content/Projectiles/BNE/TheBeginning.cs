@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -73,7 +74,8 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                 AbyssalLine p = new AbyssalLine() { lx = (Projectile.Calamity().stealthStrike ? 3 : 1.6f), xadd = (Projectile.Calamity().stealthStrike ? 3 : 1.6f) };
                 p.spawnColor = Color.Gold;
                 p.endColor = Color.DarkGoldenrod;
-                EParticle.NewParticle(p, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+                p.Rotation = CEUtils.randomRot();
+                PRTLoader.NewParticle(p, target.Center, Vector2.Zero, Color.White, 1);
             }
             target.Entropy().EclipsedImprintTime = 12 * 60;
             target.Entropy().EclipsedImprintLevel = (int)MathHelper.Min(target.Entropy().EclipsedImprintLevel + (Projectile.Calamity().stealthStrike ? 6 : 1), 8);
