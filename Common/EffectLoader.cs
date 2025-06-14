@@ -524,6 +524,12 @@ namespace CalamityEntropy.Common
             EParticle.DrawPixelShaderParticles();
             Main.spriteBatch.End();
 
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
             List<IAdditivePRT> prtAdditives = new List<IAdditivePRT>();
             foreach (var prt in PRTLoader.PRT_InGame_World_Inds)
             {
@@ -546,12 +552,6 @@ namespace CalamityEntropy.Common
                 }
                 Main.spriteBatch.End();
             }
-
-            graphicsDevice.SetRenderTarget(Main.screenTarget);
-            graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
-            Main.spriteBatch.End();
         }
 
         private static void ApplyPixelShader(GraphicsDevice graphicsDevice)

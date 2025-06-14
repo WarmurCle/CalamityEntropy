@@ -184,9 +184,13 @@ namespace CalamityEntropy.Content.Particles
             this.Position += this.Velocity;
             Lifetime--;
         }
-        public virtual void SetProperty()
+        public virtual void OnSpawn()
         {
 
+        }
+        public static void spawnNew(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs, float rotation = 0, int lifeTime = -1)
+        {
+            NewParticle(particle, pos, vel, col, scale, a, glow, bs, rotation, lifeTime);
         }
         public static void NewParticle(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs, float rotation = 0, int lifeTime = -1)
         {
@@ -207,7 +211,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 particle.useAlphaBlend = true;
             }
-            particle.SetProperty();
+            particle.OnSpawn();
             if (lifeTime > 0)
             {
                 particle.Lifetime = lifeTime;

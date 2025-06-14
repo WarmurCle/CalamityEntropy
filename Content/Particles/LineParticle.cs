@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Particles
             }
         }
         public Vector2 b;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             b = this.Position;
         }

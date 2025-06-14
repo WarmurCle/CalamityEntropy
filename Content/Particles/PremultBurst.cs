@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.Particles
     public class PremultBurst : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/PremultBurst").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 2;
         }

@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Particles
     {
         public List<Vector2> odp = new List<Vector2>();
         public override Texture2D Texture => CEUtils.getExtraTex("SimpleNoise");
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 11;
             this.PixelShader = true;

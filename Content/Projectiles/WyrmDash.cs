@@ -87,8 +87,7 @@ namespace CalamityEntropy.Content.Projectiles
             CalamityEntropy.Instance.screenShakeAmp = (Projectile.ai[0] * 0.7f);
             for (int i = 0; i < 1 + (int)(Projectile.ai[0] * 0.34f); i++)
             {
-                var prt = PRTLoader.NewParticle(new AbyssalLine(), target.Center, Vector2.Zero, Color.White);
-                prt.Rotation = CEUtils.randomRot();
+                EParticle.spawnNew(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
             }
         }
 

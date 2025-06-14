@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.Particles
     public class RedemptionSpearParticle : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/RedemptionSpear").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 20;
         }

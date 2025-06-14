@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Particles
             base.AI();
         }
         public Vector2 b;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             b = this.Position;
         }

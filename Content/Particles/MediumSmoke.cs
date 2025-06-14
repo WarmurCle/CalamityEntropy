@@ -9,9 +9,9 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/MediumSmoke").Value;
         public int timeleftmax = 80;
         public Color orgColor;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
-            base.SetProperty();
+            base.OnSpawn();
             this.orgColor = this.Color;
             this.Lifetime = 80;
         }

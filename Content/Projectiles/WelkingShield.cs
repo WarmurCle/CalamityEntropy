@@ -83,9 +83,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 SoundEngine.PlaySound(sound, Projectile.Center);
             }
-            EParticle.NewParticle(new Sn(), Projectile.Center, Projectile.rotation.ToRotationVector2() * 16, Color.SkyBlue, 0.66f, 1, true, BlendState.Additive, Projectile.rotation);
-            var prt = PRTLoader.NewParticle(new AbyssalLine() { xadd = 0.44f, lx = 0.44f }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 66, Vector2.Zero, Color.SkyBlue);
-            prt.Rotation = Projectile.rotation + MathHelper.PiOver2;
+
+            EParticle.spawnNew(new Sn(), Projectile.Center, Projectile.rotation.ToRotationVector2() * 16, Color.SkyBlue, 0.66f, 1, true, BlendState.Additive, Projectile.rotation);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.44f, lx = 0.44f }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 66, Vector2.Zero, Color.SkyBlue, 1, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.PiOver2);
         }
         public override string Texture => "CalamityEntropy/Assets/Extra/WelkinShield";
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

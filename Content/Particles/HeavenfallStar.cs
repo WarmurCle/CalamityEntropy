@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => CEUtils.getExtraTex("StarTexture_White");
         public Color InitialColor;
         public float xScale = 1;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             InitialColor = Color;
         }

@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Particles
     {
         public int frame = Main.rand.Next(0, 14);
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Runes/r" + frame.ToString()).Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 42;
         }
@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Particles
         public int frame = Main.rand.Next(0, 14);
         public Entity homingTarget;
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Runes/r" + frame.ToString()).Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 3;
         }

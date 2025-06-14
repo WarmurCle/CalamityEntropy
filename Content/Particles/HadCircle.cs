@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.Particles
     public class HadCircle : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/HadCircle").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 16;
         }
@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Particles
     {
         public float CScale = 1;
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/BloomRing").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 16;
         }

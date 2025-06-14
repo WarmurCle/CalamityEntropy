@@ -1,7 +1,8 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
+using CalamityEntropy.Utilities;
 using CalamityMod.Particles;
-using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -73,8 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("bne_hit", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.4f);
-            var prt = PRTLoader.NewParticle(new AbyssalLine() { lx = 1.9f, xadd = 1.9f }, target.Center, Vector2.Zero, Color.White);
-            prt.Rotation = CEUtils.randomRot();
+            EParticle.NewParticle(new AbyssalLine() { lx = 1.9f, xadd = 1.9f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
 
             if (homing)
             {

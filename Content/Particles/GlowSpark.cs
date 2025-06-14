@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.Particles
     public class GlowSpark : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/GlowSpark").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 26;
         }
@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Particles
     public class GlowSpark2 : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/GlowSpark2").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 26;
         }
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Particles
         public Vector2 SpawnPos;
         public Entity followOwner;
         public Vector2 ownerLastPos = Vector2.Zero;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             SpawnPos = Position;
         }

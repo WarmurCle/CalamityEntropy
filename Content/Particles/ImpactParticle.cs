@@ -5,9 +5,9 @@ namespace CalamityEntropy.Content.Particles
     public class ImpactParticle : EParticle
     {
         public override Texture2D Texture => CEUtils.getExtraTex("Impact2");
-        public override void SetProperty()
+        public override void OnSpawn()
         {
-            base.SetProperty();
+            base.OnSpawn();
             this.Lifetime = 120;
         }
         public float sadd = 0.1f;

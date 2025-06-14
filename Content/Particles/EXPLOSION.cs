@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.Particles
     public class EXPLOSION : EParticle
     {
 
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 96;
         }
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Particles
     public class EXPLOSIONCOSMIC : EParticle
     {
 
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 96;
         }

@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.Particles
     public class HadLine : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/HadLine").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 30;
         }

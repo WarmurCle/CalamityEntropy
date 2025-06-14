@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Particles
     {
         public List<Vector2> odp = new List<Vector2>();
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Trail").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 30;
         }

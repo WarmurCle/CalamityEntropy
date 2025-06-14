@@ -1,4 +1,5 @@
-﻿using CalamityMod.Particles;
+﻿using CalamityEntropy.Utilities;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;

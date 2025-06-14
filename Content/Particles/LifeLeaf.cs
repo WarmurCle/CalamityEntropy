@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.Particles
     public class LifeLeaf : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/LifeLeaf").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 30;
         }

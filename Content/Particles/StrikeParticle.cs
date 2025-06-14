@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.Particles
     public class StrikeParticle : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/UpdraftParticle").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             end = this.Position;
             this.Lifetime = 60;

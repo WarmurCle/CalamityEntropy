@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.Particles
     public class GlowLightParticle : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/GlowLight").Value;
-        public override void SetProperty()
+        public override void OnSpawn()
         {
             this.Lifetime = 60;
         }
