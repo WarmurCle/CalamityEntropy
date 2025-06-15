@@ -2198,6 +2198,11 @@ Items: {
 		DisplayName: Test Item
 		Tooltip: ""
 	}
+
+	AzafureAntiaircraftGun: {
+		DisplayName: Azafure Antiaircraft Gun
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2604,6 +2609,7 @@ Projectiles: {
 	IlmeranVortex.DisplayName: Ilmeran Vortex
 	StarSootSmoke.DisplayName: Star Soot Smoke
 	Starblight.DisplayName: Starblight
+	AzAAGunHoldout.DisplayName: Az A A Gun Holdout
 }
 
 LegendTooltip: - Legend -

@@ -3,6 +3,7 @@ using CalamityEntropy.Content;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.PrefixItem;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -21,6 +22,10 @@ namespace CalamityEntropy
     public static class CEUtils
     {
         public static DamageClass RogueDC => ModContent.GetInstance<CalamityMod.RogueDamageClass>();
+        public static void SetShake(Vector2 center, float strength, float MaxDist = 4000)
+        {
+            Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(center), MaxDist, 0, 0f, strength);
+        }
         public static List<Vector2> WrapPoints(List<Vector2> points, int d)
         {
             var ptd = new List<Vector2>();
@@ -406,7 +411,7 @@ namespace CalamityEntropy
         }
         public static Vector2 GetSymmetryPoint(this Vector2 point, Vector2 linePoint1, Vector2 linePoint2)
         {
-            return point.ClosestPointOnLine(linePoint1, linePoint2) + point.ClosestPointOnLine(linePoint1, linePoint2) - point;
+            return CalamityUtils.ClosestPointOnLine(point, linePoint1, linePoint2) + CalamityUtils.ClosestPointOnLine(point, linePoint1, linePoint2) - point;
         }
         public static Rectangle getRectCentered(this Vector2 center, float w, float h)
         {

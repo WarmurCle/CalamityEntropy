@@ -2358,6 +2358,11 @@ Items: {
 		// DisplayName: Test Item
 		// Tooltip: ""
 	}
+
+	AzafureAntiaircraftGun: {
+		// DisplayName: Azafure Antiaircraft Gun
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2765,6 +2770,7 @@ Projectiles: {
 	IlmeranVortex.DisplayName: 伊尔梅兰漩涡
 	StarSootSmoke.DisplayName: 幻光蛾尘
 	Starblight.DisplayName: 幻星矢
+	// AzAAGunHoldout.DisplayName: Az A A Gun Holdout
 }
 
 LegendTooltip: - 传奇物品 -
