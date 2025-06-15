@@ -1,6 +1,7 @@
 ﻿using AlchemistNPCLite.NPCs;
 using AlchemistNPCLite.Utilities;
 using CalamityEntropy.Common;
+using CalamityEntropy.Content.ILEditing;
 using System;
 using System.Reflection;
 using Terraria.ModLoader;
@@ -13,6 +14,12 @@ namespace CalamityEntropy
         [JITWhenModsEnabled("AlchemistNPCLite")]
         internal static class ANPCShopAdd
         {
+            public static void LoadHook()
+            {
+                var orgMethod = GetAddShopMethod();
+                EModHooks.Add(orgMethod, OperatorAddShopHook);
+                CalamityEntropy.Instance.Logger.Info("CalamityEntropy ANPCSupport Hook Loaded");
+            }
             public static void LoadShop()
             {
                 if(NPCShopDatabase.TryGetNPCShop(NPCShopDatabase.GetShopName(ModContent.NPCType<Operator>(), "ModBags1"), out var calBagsShop))

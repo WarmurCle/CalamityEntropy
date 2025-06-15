@@ -56,9 +56,7 @@ namespace CalamityEntropy.Content.ILEditing
 
             if(ModLoader.TryGetMod("AlchemistNPCLite", out var anpc))
             {
-                var orgMethod = ANPCSupport.ANPCShopAdd.GetAddShopMethod();
-                EModHooks.Add(orgMethod, ANPCSupport.ANPCShopAdd.OperatorAddShopHook);
-                CalamityEntropy.Instance.Logger.Info("CalamityEntropy ANPCSupport Hook Loaded");
+                ANPCSupport.ANPCShopAdd.LoadHook();
             }
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");

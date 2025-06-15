@@ -100,19 +100,15 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
+            if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect || !LoreReworkSystem.loreEffects.ContainsKey(item.type))
                 return;
 
-            if (!LoreReworkSystem.loreEffects.ContainsKey(item.type))
-            {
-                return;
-            }
             Color? LoreColor = null;
             if (item.ModItem != null && item.ModItem is LoreItem li)
             {
                 LoreColor = li.LoreColor;
             }
-            TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
+            TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "CalamityEntropy:LoreEffectInfo", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
             if (LoreColor.HasValue)
             {
                 tooltipLineEF.OverrideColor = LoreColor.Value;
@@ -120,7 +116,7 @@ namespace CalamityEntropy.Common
             tooltips.Add(tooltipLineEF);
             var dsc = LoreReworkSystem.loreEffects[item.type].Decription;
 
-            TooltipLine tooltipLineA = new TooltipLine(base.Mod, "Entropy:Effect", dsc.Value);
+            TooltipLine tooltipLineA = new TooltipLine(base.Mod, "CalamityEntropy:LoreEffectDesc", dsc.Value);
             if (LoreColor.HasValue)
             {
                 tooltipLineA.OverrideColor = LoreColor.Value;
@@ -128,19 +124,9 @@ namespace CalamityEntropy.Common
             LoreReworkSystem.loreEffects[item.type].ModifyTooltip(tooltipLineA);
             tooltips.Add(tooltipLineA);
 
-            TooltipLine tooltipLineE = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy." + (LoreReworkSystem.Enabled(item.type) ? "Enabled" : "Disabled")));
+            TooltipLine tooltipLineE = new TooltipLine(base.Mod, "CalamityEntropy:LoreEffectState", Language.GetTextValue("Mods.CalamityEntropy." + (LoreReworkSystem.Enabled(item.type) ? "Enabled" : "Disabled")));
             tooltipLineE.OverrideColor = LoreReworkSystem.Enabled(item.type) ? Color.Yellow : Color.Gray;
             tooltips.Add(tooltipLineE);
-
-
-
-            TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreCruiser"));
-            if (LoreColor.HasValue)
-            {
-                tooltipLine.OverrideColor = LoreColor.Value;
-            }
-
-            CalamityUtils.HoldShiftTooltip(tooltips, new TooltipLine[1] { tooltipLine }, hideNormalTooltip: true);
         }
     }
 }

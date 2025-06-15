@@ -15,6 +15,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class AzafureAntiaircraftGun : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             Item.damage = 535;
@@ -22,8 +26,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.width = 194;
             Item.height = 42;
-            Item.useTime = 100;
-            Item.useAnimation = 100;
+            Item.useTime = 90;
+            Item.useAnimation = 90;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 16;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
@@ -62,7 +66,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.timeLeft = 100;
             Projectile.penetrate = -1;
         }
-        public float counter { get { return Projectile.ai[0]; } set { Projectile.ai[0] = value; } }
+        public float counter = 0;
         public float BarrelOffset = 0;
         public bool shoot = true;
         public bool steamSound = true;
@@ -71,56 +75,74 @@ namespace CalamityEntropy.Content.Items.Weapons
             Player player = Projectile.GetOwner();
             int MaxTime = player.itemTimeMax * Projectile.MaxUpdates;
             float progress = counter / MaxTime;
-            if(progress < 0.4f)
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            if (progress < 0.2f)
             {
-                BarrelOffset = CEUtils.Parabola(progress / 0.4f, 40);
+                BarrelOffset = CEUtils.Parabola(progress / 0.2f, 60);
             }
             else
             {
                 BarrelOffset = 0;
             }
-            if(progress > 0.4f)
+            if(progress > 0.2f)
             {
                 if (steamSound)
                 {
                     steamSound = false;
-                    for(int i = 0; i < 64; i++)
+                    for(int i = 0; i < 14; i++)
                     {
-                        Color smokeColor = CalamityUtils.MulticolorLerp(Main.rand.NextFloat(), CalamityUtils.ExoPalette);
-                        smokeColor = Color.Lerp(smokeColor, Color.Gray, 0.55f);
-                        HeavySmokeParticle smoke = new(Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(6, 8), smokeColor, 40, 1.8f, 1f, 0.03f, true, 0.075f);
+                        Color smokeColor = CalamityUtils.MulticolorLerp(Main.rand.NextFloat(), new Color[3] {Color.White, Color.Gray, Color.LightGray});
+                        smokeColor = Color.Lerp(smokeColor, Color.Gray, 0.6f) * 0.65f;
+                        HeavySmokeParticle smoke = new(Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 40, 1f, 1f, 0.03f, true, 0.075f);
                         GeneralParticleHandler.SpawnParticle(smoke);
                     }
                     CEUtils.PlaySound("SteamAAG", 1, Projectile.Center);
+                    CEUtils.PlaySound("AAGLB", 1, Projectile.Center);
                 }
             }
             if(shoot && Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.velocity.normalize() * 12, ProjectileID.EnchantedBeam, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.rotation.ToRotationVector2() * 42, ProjectileID.EnchantedBeam, Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             if (shoot)
             {
                 CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
                 CEUtils.SetShake(Projectile.Center, 10);
+                for (int i = 0; i < 16; i++)
+                {
+                    Vector2 top = Projectile.Center + Projectile.velocity.normalize() * 130;
+                    Vector2 sparkVelocity2 = Projectile.rotation.ToRotationVector2().RotateRandom(0.3f) * Main.rand.NextFloat(16f, 36f);
+                    int sparkLifetime2 = Main.rand.Next(6, 10);
+                    float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
+                    var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
+
+                    LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
+                }
             }
             shoot = false;
-            if(progress < MaxTime)
+            if (progress < MaxTime)
             {
                 player.itemAnimation = player.itemTime = 3;
-                player.heldProj = Projectile.whoAmI;
                 Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
                 player.Calamity().mouseWorldListener = true;
-                Projectile.rotation = (player.Calamity().mouseWorld - player.MountedCenter).ToRotation();
-                Projectile.velocity = Projectile.rotation.ToRotationVector2() * player.HeldItem.shootSpeed;
+                
+                Projectile.velocity = (player.Calamity().mouseWorld - player.MountedCenter).SafeNormalize(Vector2.Zero) * 12;
             }
             else
             {
-                player.itemTime = player.itemAnimation = 0;
-                Projectile.Kill();
+                player.itemTime = player.itemAnimation = 1;
+                if (Projectile.timeLeft > 3)
+                {
+                    Projectile.timeLeft = 3;
+                }
             }
             counter++;
         }
-
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            behindProjectiles.Add(index);
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
