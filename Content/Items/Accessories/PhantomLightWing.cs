@@ -10,8 +10,8 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class PhantomLightWing : ModItem, ISpecialDrawingWing
     {
-        public static float HorSpeed = 6.6f;
-        public static float AccMul = 1.2f;
+        public static float HorSpeed = 6.4f;
+        public static float AccMul = 1.1f;
         public static int wTime = 160;
         public int AnimationTick => 4;
         public int FallingFrame => 2;

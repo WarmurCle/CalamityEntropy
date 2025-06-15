@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             NPC.noTileCollide = true;
             NPC.noGravity = true;
             NPC.dontCountMe = true;
-            NPC.timeLeft *= 20;
+            NPC.timeLeft *= 10;
             if (!Main.dedServ)
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/LuminarisBoss");

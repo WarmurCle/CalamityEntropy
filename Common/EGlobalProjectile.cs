@@ -405,11 +405,11 @@ namespace CalamityEntropy.Common
                 starTrailPt.Velocity = projectile.velocity * 0.6f;
                 starTrailPt.Lifetime = 30;
                 starTrailPt.Position = projectile.Center;
-                NPC homing = CEUtils.FindTarget_HomingProj(projectile, projectile.Center, 1000);
+                NPC homing = projectile.FindTargetWithinRange(1000);
                 if (counter > 10 * projectile.MaxUpdates && homing != null)
                 {
-                    projectile.velocity *= 0.97f * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 60, 520, 0.9f, 1);
-                    projectile.velocity += (homing.Center - projectile.Center).normalize() * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 520, 60, 1, 4);
+                    projectile.velocity *= 0.97f * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 0, 600, 0.9f, 1);
+                    projectile.velocity += (homing.Center - projectile.Center).normalize() * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 600, 0, 0.6f, 4);
                 }
             }
             if (counter == 35)
