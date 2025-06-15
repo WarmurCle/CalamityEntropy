@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.DefaultToRangedWeapon(ModContent.ProjectileType<StarSootSmoke>(), AmmoID.None, singleShotTime: 16, shotVelocity: 18, hasAutoReuse: true);
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 16;
+            Item.mana = 12;
             Item.width = 152;
             Item.height = 48;
             Item.useTime = 7;
