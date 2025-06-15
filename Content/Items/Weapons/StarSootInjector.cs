@@ -14,13 +14,13 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.DefaultToRangedWeapon(ModContent.ProjectileType<StarSootSmoke>(), AmmoID.None, singleShotTime: 16, shotVelocity: 18, hasAutoReuse: true);
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 16;
+            Item.mana = 12;
             Item.width = 152;
             Item.height = 48;
-            Item.useTime = 4;
-            Item.damage = 50;
+            Item.useTime = 7;
+            Item.damage = 35;
             Item.knockBack = 4f;
-            Item.crit = 15;
+            Item.crit = 10;
             Item.UseSound = SoundID.Item34;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Pink;
