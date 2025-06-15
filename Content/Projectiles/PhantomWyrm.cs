@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 seg.update();
             }
-            var player = Projectile.getOwner();
+            var player = Projectile.GetOwner();
             if (player.HasBuff<WyrmPhantom>())
             {
                 if (alpha < 1)

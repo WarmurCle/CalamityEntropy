@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Books
 
         public virtual EBookStatModifer getBaseModifer()
         {
-            EBookStatModifer modifer = new EBookStatModifer() { Damage = 1, Knockback = Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack), Crit = Projectile.getOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.CritChance, attackSpeed = Projectile.getOwner().GetTotalAttackSpeed(Projectile.DamageType), armorPenetration = Projectile.ArmorPenetration };
+            EBookStatModifer modifer = new EBookStatModifer() { Damage = 1, Knockback = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack), Crit = Projectile.GetOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.CritChance, attackSpeed = Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType), armorPenetration = Projectile.ArmorPenetration };
             return modifer;
         }
 
@@ -204,7 +204,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             if (Main.myPlayer != Projectile.owner)
                 return;
-            Vector2 newVel = (Main.MouseWorld - Projectile.getOwner().Center).SafeNormalize(Vector2.UnitX);
+            Vector2 newVel = (Main.MouseWorld - Projectile.GetOwner().Center).SafeNormalize(Vector2.UnitX);
             if (Projectile.velocity != newVel)
             {
                 Projectile.velocity = newVel;
@@ -220,11 +220,11 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual int getShootProjectileType()
         {
             int r = baseProjectileType;
-            for (int i = 0; i < Projectile.getOwner().GetMyMaxActiveBookMarks(bookItem); i++)
+            for (int i = 0; i < Projectile.GetOwner().GetMyMaxActiveBookMarks(bookItem); i++)
             {
-                if (BookMarkLoader.IsABookMark(Projectile.getOwner().Entropy().EBookStackItems[i]))
+                if (BookMarkLoader.IsABookMark(Projectile.GetOwner().Entropy().EBookStackItems[i]))
                 {
-                    Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                    Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                     int b = BookMarkLoader.ModifyBaseProjectile(it);
                     if (b >= 0)
                     {
@@ -237,7 +237,7 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual bool Shoot()
         {
             int type = getShootProjectileType();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
             {
                 var bm = Projectile.owner.ToPlayer().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(bm))
@@ -259,25 +259,25 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1)
         {
             EBookStatModifer modifer = getBaseModifer();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
             {
-                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(it))
                 {
                     BookMarkLoader.ModifyStat(it, modifer);
                 }
             }
             Vector2 shootVel = (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax);
-            float kb = Projectile.getOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback);
-            int dmg = (int)(Projectile.getOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
+            float kb = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback);
+            int dmg = (int)(Projectile.GetOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
             bookItem.channel = false;
-            if (ItemLoader.Shoot(bookItem, Projectile.getOwner(), new Terraria.DataStructures.EntitySource_ItemUse_WithAmmo(Projectile.getOwner(), bookItem, 0), pos, velocity * ContentSamples.ProjectilesByType[type].MaxUpdates, type, dmg, kb))
+            if (ItemLoader.Shoot(bookItem, Projectile.GetOwner(), new Terraria.DataStructures.EntitySource_ItemUse_WithAmmo(Projectile.GetOwner(), bookItem, 0), pos, velocity * ContentSamples.ProjectilesByType[type].MaxUpdates, type, dmg, kb))
             {
-                Projectile proj = Projectile.NewProjectile(Projectile.getOwner().GetSource_ItemUse(bookItem), pos, shootVel, type, dmg, kb, Projectile.owner).ToProj();
+                Projectile proj = Projectile.NewProjectile(Projectile.GetOwner().GetSource_ItemUse(bookItem), pos, shootVel, type, dmg, kb, Projectile.owner).ToProj();
                 proj.penetrate += modifer.PenetrateAddition;
                 proj.CritChance = bookItem.crit + (int)modifer.Crit;
                 proj.scale *= modifer.Size * scaleMul;
-                proj.ArmorPenetration += (int)(Projectile.getOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration);
+                proj.ArmorPenetration += (int)(Projectile.GetOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration);
                 if (proj.ModProjectile is EBookBaseProjectile bp)
                 {
                     bp.ShooterModProjectile = this;
@@ -285,9 +285,9 @@ namespace CalamityEntropy.Content.Items.Books
                     bp.homingRange *= modifer.HomingRange;
                     bp.attackSpeed = modifer.attackSpeed;
                     bp.lifeSteal += modifer.lifeSteal;
-                    for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+                    for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
                     {
-                        Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                        Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                         if (BookMarkLoader.IsABookMark(it))
                         {
                             if (BookMarkLoader.GetEffect(it) != null)
@@ -314,9 +314,9 @@ namespace CalamityEntropy.Content.Items.Books
             int _shotCooldown = bookItem.useTime;
 
             EBookStatModifer m = getBaseModifer();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
             {
-                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(it))
                 {
                     BookMarkLoader.ModifyStat(it, m);
@@ -331,7 +331,7 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual int frameChange => 4;
         public override void AI()
         {
-            var player = Projectile.getOwner();
+            var player = Projectile.GetOwner();
             if (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj >= 0 && !Projectile.Entropy().IndexOfTwistedTwinShootedThisProj.ToProj().active)
             {
                 Projectile.Kill();
@@ -394,19 +394,19 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.rotation = 0;
             }
             shotCooldown--;
-            Projectile.Center = Projectile.getOwner().Center + (UIOpen ? Vector2.UnitY * -52 : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
+            Projectile.Center = Projectile.GetOwner().Center + (UIOpen ? Vector2.UnitY * -52 : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
             if (Main.myPlayer == Projectile.owner)
             {
-                bool flag = Main.mouseLeft && !Main.LocalPlayer.mouseInterface && !UIOpen && Projectile.getOwner().CheckMana(bookItem.mana, false);
+                bool flag = Main.mouseLeft && !Main.LocalPlayer.mouseInterface && !UIOpen && Projectile.GetOwner().CheckMana(bookItem.mana, false);
                 if (flag != active)
                 {
                     active = flag;
                     Projectile.netUpdate = true;
                     if (active)
                     {
-                        for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+                        for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
                         {
-                            Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                            Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                             if (BookMarkLoader.IsABookMark(it))
                             {
                                 var e = BookMarkLoader.GetEffect(it);
@@ -444,7 +444,7 @@ namespace CalamityEntropy.Content.Items.Books
                 {
                     if (shotCooldown <= 0 && CanShoot())
                     {
-                        if (Projectile.getOwner().CheckMana(bookItem.mana, true) && Shoot())
+                        if (Projectile.GetOwner().CheckMana(bookItem.mana, true) && Shoot())
                         {
                             if (active && pageTurnAnm == 0)
                             {
@@ -453,9 +453,9 @@ namespace CalamityEntropy.Content.Items.Books
                             shotCooldown = bookItem.useTime;
 
                             EBookStatModifer m = getBaseModifer();
-                            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+                            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
                             {
-                                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                                Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                                 if (BookMarkLoader.IsABookMark(it))
                                 {
                                     var e = BookMarkLoader.GetEffect(it);
@@ -535,7 +535,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
-            Projectile.getOwner().heldProj = Projectile.whoAmI;
+            Projectile.GetOwner().heldProj = Projectile.whoAmI;
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -687,7 +687,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (lifeSteal > 0)
             {
-                Projectile.getOwner()?.Entropy().TryHealMeWithCd(lifeSteal);
+                Projectile.GetOwner()?.Entropy().TryHealMeWithCd(lifeSteal);
             }
         }
     }

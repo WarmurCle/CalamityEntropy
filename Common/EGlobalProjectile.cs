@@ -392,6 +392,7 @@ namespace CalamityEntropy.Common
         public ProminenceTrail trail_pmn = null;
         public bool init_ = true;
         public float maxSpd = -1;
+        public List<int> luminarHited = new List<int>();
         public override bool PreAI(Projectile projectile)
         {
             if (LuminarArrow)
@@ -399,17 +400,20 @@ namespace CalamityEntropy.Common
                 if (starTrailPt == null || starTrailPt.Lifetime <= 0)
                 {
                     starTrailPt = new StarTrailParticle();
+                    starTrailPt.addPoint = false;
                     starTrailPt.maxLength = projectile.MaxUpdates * 22;
                     EParticle.NewParticle(starTrailPt, projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f, 1, true, BlendState.Additive, 0);
                 }
-                starTrailPt.Velocity = projectile.velocity * 0.6f;
+                starTrailPt.Velocity = projectile.velocity * 0.8f * projectile.MaxUpdates;
                 starTrailPt.Lifetime = 30;
                 starTrailPt.Position = projectile.Center;
-                NPC homing = projectile.FindTargetWithinRange(1000);
-                if (counter > 10 * projectile.MaxUpdates && homing != null)
+                starTrailPt.AddPoint(starTrailPt.Position);
+                NPC homing = CEUtils.FindTarget_HomingProj(projectile, projectile.Center, 1000, (npc) => !luminarHited.Contains(npc));
+                if (counter > 10 && homing != null)
                 {
-                    projectile.velocity *= 0.97f * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 0, 600, 0.9f, 1);
-                    projectile.velocity += (homing.Center - projectile.Center).normalize() * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 600, 0, 0.6f, 4);
+                    projectile.velocity *= (float)Math.Pow(0.97f * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 0, 600, 0.8f, 1), 1f / projectile.MaxUpdates);
+
+                    projectile.velocity += (homing.Center - projectile.Center).normalize() * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 600, 0, 0.6f, 3) / ((float)projectile.MaxUpdates);
                 }
             }
             if (counter == 35)
@@ -961,6 +965,7 @@ namespace CalamityEntropy.Common
         {
             if (LuminarArrow)
             {
+                luminarHited.Add(target.whoAmI);
                 CEUtils.PlaySound("LuminarArrowHit", Main.rand.NextFloat(0.7f, 1.3f), projectile.Center);
                 CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(2f, 2f), 0, 0.02f, 0.6f * 0.4f, 12);
                 GeneralParticleHandler.SpawnParticle(pulse);
@@ -976,8 +981,8 @@ namespace CalamityEntropy.Common
             }
             if (projectile.type == 735 && projectile.velocity.Y > 0 && projectile.velocity.Y > Math.Abs(projectile.velocity.X))
             {
-                projectile.getOwner().velocity.Y = -projectile.velocity.Y * 0.4f;
-                projectile.getOwner().Entropy().gravAddTime = 30;
+                projectile.GetOwner().velocity.Y = -projectile.velocity.Y * 0.4f;
+                projectile.GetOwner().Entropy().gravAddTime = 30;
             }
             hittingTarget = -1;
             if (ProminenceArrow || projectile.ModProjectile is ProminenceSplitShot)

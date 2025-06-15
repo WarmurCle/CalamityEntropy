@@ -81,9 +81,9 @@ namespace CalamityEntropy.Content.Items.Books
             int _shotCooldown = bookItem.useTime;
 
             EBookStatModifer m = getBaseModifer();
-            for (int i = 0; i < Projectile.getOwner().GetMyMaxActiveBookMarks(bookItem); i++)
+            for (int i = 0; i < Projectile.GetOwner().GetMyMaxActiveBookMarks(bookItem); i++)
             {
-                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(it))
                 {
                     BookMarkLoader.ModifyStat(it, m);
@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             int type = getShootProjectileType();
 
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
             {
                 var bm = Projectile.owner.ToPlayer().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(bm))
@@ -205,10 +205,10 @@ namespace CalamityEntropy.Content.Items.Books
                         Projectile.ai[2] += 0.15f;
                     }
                     r = Projectile.velocity.ToRotation();
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1f, 0).RotatedBy(CEUtils.rotatedToAngle(r, (Projectile.getOwner().Center - Projectile.Center).ToRotation(), 0.5f * Projectile.ai[2], false));
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(r, (Projectile.getOwner().Center - Projectile.Center).ToRotation(), 1f * Projectile.ai[2], true));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1f, 0).RotatedBy(CEUtils.rotatedToAngle(r, (Projectile.GetOwner().Center - Projectile.Center).ToRotation(), 0.5f * Projectile.ai[2], false));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(r, (Projectile.GetOwner().Center - Projectile.Center).ToRotation(), 1f * Projectile.ai[2], true));
                     Projectile.velocity *= 0.97f;
-                    if (CEUtils.getDistance(Projectile.Center, Projectile.getOwner().Center) < Projectile.velocity.Length() * 1.2f)
+                    if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) < Projectile.velocity.Length() * 1.2f)
                     {
                         Projectile.Kill();
                     }

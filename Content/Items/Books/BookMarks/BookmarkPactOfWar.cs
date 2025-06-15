@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 target = Projectile.FindTargetWithinRange(2000);
             }
-            Vector2 tpos = Projectile.getOwner().Center;
+            Vector2 tpos = Projectile.GetOwner().Center;
             if (target != null)
             {
                 tpos = target.Center;
@@ -253,7 +253,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 target = Projectile.FindTargetWithinRange(2000);
             }
-            Vector2 tpos = Projectile.getOwner().Center;
+            Vector2 tpos = Projectile.GetOwner().Center;
             if (target != null)
             {
                 tpos = target.Center;

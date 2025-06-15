@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             rp *= 0.73f;
             btime--;
-            Player plr = Projectile.getOwner();
+            Player plr = Projectile.GetOwner();
             Projectile.Center = plr.Center;
             if (btime < 0)
             {
@@ -58,11 +58,11 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (!n.friendly && CEUtils.LineThroughRect(p1, p2, n.Hitbox, 56))
                     {
-                        Projectile.getOwner().Entropy().immune = 20;
+                        Projectile.GetOwner().Entropy().immune = 20;
                         if (!n.dontTakeDamage)
                         {
                             n.SimpleStrikeNPC(56, Projectile.velocity.X > 0 ? 1 : -1, true, 20, DamageClass.Melee);
-                            n.velocity = (n.Center - Projectile.getOwner().Center).normalize() * (n.velocity.Length() * 2 + n.velocity.Length() > 0.01f ? 12 : 0);
+                            n.velocity = (n.Center - Projectile.GetOwner().Center).normalize() * (n.velocity.Length() * 2 + n.velocity.Length() > 0.01f ? 12 : 0);
                         }
                         Block();
                         break;
@@ -74,11 +74,11 @@ namespace CalamityEntropy.Content.Projectiles
         {
             btime = 0;
             rp = 0;
-            Projectile.getOwner().velocity = Projectile.rotation.ToRotationVector2() * -4;
-            Projectile.getOwner().Entropy().immune = 46;
+            Projectile.GetOwner().velocity = Projectile.rotation.ToRotationVector2() * -4;
+            Projectile.GetOwner().Entropy().immune = 46;
             CalamityEntropy.Instance.screenShakeAmp = 4;
-            Projectile.getOwner().Calamity().GeneralScreenShakePower = 4;
-            Projectile.getOwner().Entropy().vShieldCD = 100.ApplyCdDec(Projectile.getOwner());
+            Projectile.GetOwner().Calamity().GeneralScreenShakePower = 4;
+            Projectile.GetOwner().Entropy().vShieldCD = 100.ApplyCdDec(Projectile.GetOwner());
             if (!Main.dedServ)
             {
                 SoundEngine.PlaySound(sound, Projectile.Center);

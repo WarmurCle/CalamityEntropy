@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public float spawnProjCounter = 0;
         public override void AI()
         {
-            Player owner = Projectile.getOwner();
+            Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             counter++;
@@ -175,7 +175,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
 
 
-            Projectile.Center = Projectile.getOwner().MountedCenter;
+            Projectile.Center = Projectile.GetOwner().MountedCenter;
 
 
             if (odr.Count > 60)
@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool? CanHitNPC(NPC target)
         {
-            Player owner = Projectile.getOwner();
+            Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             if (Projectile.ai[0] == 1 && progress < 0.32f)
@@ -256,16 +256,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
 
-            float MaxUpdateTime = Projectile.getOwner().itemTimeMax * Projectile.MaxUpdates;
+            float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
 
-            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale * 1.1f, effect);
+            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale * 1.1f, effect);
 
             if (Projectile.ai[0] == 0)
             {
 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
                 Texture2D bs = CEUtils.getExtraTex("SemiCircularSmear");
-                Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.getOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, Color.Lerp(new Color(255, 200, 215), new Color(255, 140, 150), counter / MaxUpdateTime) * (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 1) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.6f * scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, Color.Lerp(new Color(255, 200, 215), new Color(255, 140, 150), counter / MaxUpdateTime) * (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 1) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.6f * scale, SpriteEffects.None, 0);
 
                 if (shineTex == null)
                     shineTex = CEUtils.getExtraTex("StarTexture");

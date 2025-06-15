@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void AI()
         {
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
             player.itemTime = player.itemAnimation = 3;
             if (Main.GameUpdateCount % 9 == 0)
             {

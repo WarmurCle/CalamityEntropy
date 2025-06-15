@@ -3,4 +3,4 @@ author = Polaris
 version = 1.616
 modReferences = CalamityMod, InnoVault
 loadAfter = CalamityMod
-weakReferences = InfernumMode
+weakReferences = InfernumMode, AlchemistNPCLite

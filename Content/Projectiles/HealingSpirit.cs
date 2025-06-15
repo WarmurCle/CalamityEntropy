@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                Player target = Projectile.getOwner();
+                Player target = Projectile.GetOwner();
                 if (l < 9)
                 {
                     l += 0.007f;
@@ -61,9 +61,9 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     CEUtils.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.3f);
                     Projectile.Kill();
-                    if (Projectile.getOwner().Entropy().TryHealMeWithCd(Projectile.getOwner().statLifeMax2 / 260 + 1, 4))
+                    if (Projectile.GetOwner().Entropy().TryHealMeWithCd(Projectile.GetOwner().statLifeMax2 / 260 + 1, 4))
                     {
-                        Projectile.getOwner().Entropy().temporaryArmor += GrudgeCard.TempDefense;
+                        Projectile.GetOwner().Entropy().temporaryArmor += GrudgeCard.TempDefense;
                     }
 
                     return;

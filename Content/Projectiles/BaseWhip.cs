@@ -31,9 +31,9 @@ namespace CalamityEntropy.Content.Projectiles
         public virtual float FlyProgress => Projectile.ai[0] / flyTime;
         public virtual int getFlyTime()
         {
-            if (Projectile.getOwner().itemAnimationMax > flyMax)
+            if (Projectile.GetOwner().itemAnimationMax > flyMax)
             {
-                flyMax = Projectile.getOwner().itemAnimationMax;
+                flyMax = Projectile.GetOwner().itemAnimationMax;
             }
             return flyMax;
         }
@@ -45,9 +45,9 @@ namespace CalamityEntropy.Content.Projectiles
                 init = false;
                 if (ownerItem == null)
                 {
-                    if (Projectile.getOwner().HeldItem.ModItem is BaseWhipItem)
+                    if (Projectile.GetOwner().HeldItem.ModItem is BaseWhipItem)
                     {
-                        ownerItem = Projectile.getOwner().HeldItem;
+                        ownerItem = Projectile.GetOwner().HeldItem;
                     }
                 }
             }

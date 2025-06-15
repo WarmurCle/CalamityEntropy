@@ -72,14 +72,14 @@ namespace CalamityEntropy.Content.Projectiles
         {
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
 
-            Projectile.getOwner().statMana += 2;
-            if (Projectile.getOwner().statMana > Projectile.getOwner().statManaMax2)
+            Projectile.GetOwner().statMana += 2;
+            if (Projectile.GetOwner().statMana > Projectile.GetOwner().statManaMax2)
             {
-                Projectile.getOwner().statMana = Projectile.getOwner().statManaMax2;
+                Projectile.GetOwner().statMana = Projectile.GetOwner().statManaMax2;
             }
             for (int i = 0; i < 4; i++)
             {
-                EParticle.NewParticle(new RuneParticleHoming() { homingTarget = Projectile.getOwner() }, target.Center, CEUtils.randomPointInCircle(10), Color.White, 0.5f, 1, true, BlendState.AlphaBlend);
+                EParticle.NewParticle(new RuneParticleHoming() { homingTarget = Projectile.GetOwner() }, target.Center, CEUtils.randomPointInCircle(10), Color.White, 0.5f, 1, true, BlendState.AlphaBlend);
             }
             int smokeCount = 3 + (int)MathHelper.Clamp(target.width * 0.1f, 0f, 20f);
             for (int i = 0; i < smokeCount; i++)

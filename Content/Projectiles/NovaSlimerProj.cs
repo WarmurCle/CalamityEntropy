@@ -46,10 +46,10 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                if (Projectile.getOwner().Distance(Projectile.Center) > 160)
+                if (Projectile.GetOwner().Distance(Projectile.Center) > 160)
                 {
                     Projectile.velocity *= 0.99f;
-                    Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * 0.8f;
+                    Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 0.8f;
                 }
 
 

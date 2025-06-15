@@ -66,13 +66,13 @@ namespace CalamityEntropy.Content.Projectiles
         public List<Vector2> getPoints(float p)
         {
             Projectile.GetWhipSettings(Projectile, out float ttfo, out int segs, out rangeMult);
-            rangeMult *= Projectile.getOwner().whipRangeMultiplier;
+            rangeMult *= Projectile.GetOwner().whipRangeMultiplier;
             List<Vector2> points = new List<Vector2>();
             float pc = ((float)Math.Cos(p * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f;
-            Vector2 start = Projectile.getOwner().HandPosition.Value;
+            Vector2 start = Projectile.GetOwner().HandPosition.Value;
             Vector2 mid = start + Projectile.velocity * rangeMult * 46 * pc;
             Vector2 end = start + Projectile.velocity * rangeMult * 46 * pc + (Projectile.velocity * pc * 82 * rangeMult).RotatedBy(Projectile.localAI[0] > 0 ? p * -MathHelper.TwoPi + MathHelper.Pi : p * MathHelper.TwoPi - MathHelper.Pi);
-            Vector2 c = end.ClosestPointOnLine(Projectile.getOwner().HandPosition.Value, Projectile.getOwner().HandPosition.Value + Projectile.velocity * 128);
+            Vector2 c = end.ClosestPointOnLine(Projectile.GetOwner().HandPosition.Value, Projectile.GetOwner().HandPosition.Value + Projectile.velocity * 128);
             end = c + (end - c) * (Math.Abs(Projectile.localAI[0]) * 0.54f);
             for (int i = 0; i <= segs; i++)
             {

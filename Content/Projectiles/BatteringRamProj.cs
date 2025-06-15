@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
             player.Calamity().mouseWorldListener = true;
             player.heldProj = Projectile.whoAmI;
             if (Projectile.timeLeft > 1)
@@ -189,8 +189,8 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.ai[2] = target.whoAmI;
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
-            Projectile.getOwner().ApplyDamageToNPC(target, damageDone, 0, 0, hit.Crit, Projectile.DamageType);
-            Projectile.rotation += 0.36f * Projectile.getOwner().direction;
+            Projectile.GetOwner().ApplyDamageToNPC(target, damageDone, 0, 0, hit.Crit, Projectile.DamageType);
+            Projectile.rotation += 0.36f * Projectile.GetOwner().direction;
             Projectile.netUpdate = true;
             Item FalseGun;
             int gunID = ItemID.Minishark;
@@ -206,7 +206,7 @@ namespace CalamityEntropy.Content.Projectiles
             FalseGun.consumeAmmoOnLastShotOnly = false;
             FalseGun.ArmorPenetration = Projectile.ArmorPenetration;
             FalseGun.DamageType = DamageClass.Melee;
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
             for (int i = 0; i < 8; i++)
             {
                 float r = Projectile.rotation + Main.rand.NextFloat(-0.5f, 0.5f);
@@ -226,7 +226,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public void OnHitBothSide(NPC target)
         {
-            Projectile.getOwner().Entropy().immune = 46;
+            Projectile.GetOwner().Entropy().immune = 46;
             target.AddBuff(BuffID.BrokenArmor, 420);
             target.AddBuff(BuffID.OnFire, 420);
 
@@ -259,15 +259,15 @@ namespace CalamityEntropy.Content.Projectiles
             CEUtils.PlaySound("gunshot_large", 1, target.Center);
             CEUtils.PlaySound("BRFire", 1, target.Center);
             CanHit = false;
-            Projectile.getOwner().velocity *= -1f;
-            Projectile.getOwner().velocity.Y *= 0.4f;
-            Projectile.getOwner().Entropy().XSpeedSlowdownTime = 26;
-            Projectile.getOwner().velocity.Y -= 6;
+            Projectile.GetOwner().velocity *= -1f;
+            Projectile.GetOwner().velocity.Y *= 0.4f;
+            Projectile.GetOwner().Entropy().XSpeedSlowdownTime = 26;
+            Projectile.GetOwner().velocity.Y -= 6;
             Projectile.timeLeft = 50;
         }
         public void OnHitBothSide(Player target)
         {
-            Projectile.getOwner().Entropy().immune = 46;
+            Projectile.GetOwner().Entropy().immune = 46;
             target.AddBuff(BuffID.BrokenArmor, 420);
             target.AddBuff(BuffID.OnFire, 420);
 
@@ -300,10 +300,10 @@ namespace CalamityEntropy.Content.Projectiles
             CEUtils.PlaySound("gunshot_large", 1, target.Center);
             CEUtils.PlaySound("BRFire", 1, target.Center);
             CanHit = false;
-            Projectile.getOwner().velocity *= -1f;
-            Projectile.getOwner().velocity.Y *= 0.4f;
-            Projectile.getOwner().Entropy().XSpeedSlowdownTime = 26;
-            Projectile.getOwner().velocity.Y -= 6;
+            Projectile.GetOwner().velocity *= -1f;
+            Projectile.GetOwner().velocity.Y *= 0.4f;
+            Projectile.GetOwner().Entropy().XSpeedSlowdownTime = 26;
+            Projectile.GetOwner().velocity.Y -= 6;
             Projectile.timeLeft = 50;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -330,7 +330,7 @@ namespace CalamityEntropy.Content.Projectiles
                 OnHitBothSide(target);
                 Projectile.localAI[0] = target.whoAmI;
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
-                Projectile.rotation += 0.36f * Projectile.getOwner().direction;
+                Projectile.rotation += 0.36f * Projectile.GetOwner().direction;
                 Projectile.netUpdate = true;
             }
             return base.CanHitPvp(target);

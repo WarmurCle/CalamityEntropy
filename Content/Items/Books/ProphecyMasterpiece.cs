@@ -94,9 +94,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AI()
         {
             base.AI();
-            if (ShooterModProjectile == null && Projectile.getOwner().heldProj >= 0)
+            if (ShooterModProjectile == null && Projectile.GetOwner().heldProj >= 0)
             {
-                ShooterModProjectile = Projectile.getOwner().heldProj.ToProj().ModProjectile;
+                ShooterModProjectile = Projectile.GetOwner().heldProj.ToProj().ModProjectile;
             }
             if (this.quickTime >= 0)
             {
@@ -122,9 +122,9 @@ namespace CalamityEntropy.Content.Items.Books
                     if (Main.GameUpdateCount % 16 == 0)
                     {
                         Item bookItem = eb.bookItem;
-                        for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+                        for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
                         {
-                            Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                            Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                             if (BookMarkLoader.IsABookMark(it))
                             {
                                 var e = BookMarkLoader.GetEffect(it);
@@ -151,8 +151,8 @@ namespace CalamityEntropy.Content.Items.Books
                         Projectile.Kill();
                     }
                 }
-                Projectile.getOwner().Calamity().mouseWorldListener = true;
-                Projectile.Center = Projectile.getOwner().MountedCenter + Projectile.getOwner().gfxOffY * Vector2.UnitY + (Projectile.getOwner().Calamity().mouseWorld - Projectile.getOwner().Center).normalize() * 80;
+                Projectile.GetOwner().Calamity().mouseWorldListener = true;
+                Projectile.Center = Projectile.GetOwner().MountedCenter + Projectile.GetOwner().gfxOffY * Vector2.UnitY + (Projectile.GetOwner().Calamity().mouseWorld - Projectile.GetOwner().Center).normalize() * 80;
 
             }
 

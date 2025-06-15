@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             }
             else
             {
-                Vector2 targetPos = Projectile.getOwner().Center + (mc * (MathHelper.TwoPi / max)).ToRotationVector2().RotatedBy(Main.GameUpdateCount * 0.03f) * 320;
+                Vector2 targetPos = Projectile.GetOwner().Center + (mc * (MathHelper.TwoPi / max)).ToRotationVector2().RotatedBy(Main.GameUpdateCount * 0.03f) * 320;
                 Projectile.velocity += (targetPos - Projectile.Center).normalize() * 3.6f;
                 Projectile.velocity *= 0.94f;
                 if (CEUtils.getDistance(Projectile.Center, targetPos) > 1600)
@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                     Projectile.Center = targetPos;
                 }
             }
-            if (!Projectile.getOwner().Entropy().ilmeranAsylum)
+            if (!Projectile.GetOwner().Entropy().ilmeranAsylum)
             {
                 Projectile.Kill();
             }

@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Items.Pets
         public virtual Vector2 posOffset => new Vector2(-30, -40);
         void MoveToTarget(Vector2 targetPos)
         {
-            Projectile.velocity = (targetPos + posOffset * new Vector2(Projectile.getOwner().direction, 1) - Projectile.Center) * MS;
+            Projectile.velocity = (targetPos + posOffset * new Vector2(Projectile.GetOwner().direction, 1) - Projectile.Center) * MS;
         }
         public override bool PreAI()
         {

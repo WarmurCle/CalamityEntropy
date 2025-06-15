@@ -107,10 +107,10 @@ namespace CalamityEntropy.Content.Projectiles
                     Main.LocalPlayer.GetModPlayer<CalamityPlayer>().GeneralScreenShakePower = 8;
                 }
                 Projectile.ai[0] = getFlyTime() * Projectile.MaxUpdates * 0.5f;
-                Projectile.getOwner().itemAnimation = Projectile.getOwner().itemTime = Projectile.getOwner().itemTime / 2;
+                Projectile.GetOwner().itemAnimation = Projectile.GetOwner().itemTime = Projectile.GetOwner().itemTime / 2;
 
             }
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
             if (player.itemTime < 2)
             {
                 player.itemAnimation = player.itemTime = 2;
@@ -131,7 +131,7 @@ namespace CalamityEntropy.Content.Projectiles
                 List<Vector2> ps = new List<Vector2>();
                 for (int i = 0; i <= segs; i++)
                 {
-                    ps.Add(Vector2.Lerp(Projectile.getOwner().HandPosition.Value, hookNPC.ToNPC().Center, (float)i / segs));
+                    ps.Add(Vector2.Lerp(Projectile.GetOwner().HandPosition.Value, hookNPC.ToNPC().Center, (float)i / segs));
                 }
                 return ps;
             }
@@ -140,18 +140,18 @@ namespace CalamityEntropy.Content.Projectiles
                 List<Vector2> ps = new List<Vector2>();
                 for (int i = 0; i <= segs; i++)
                 {
-                    ps.Add(Vector2.Lerp(Projectile.getOwner().HandPosition.Value, Vector2.Lerp(HNPCPos, Projectile.getOwner().HandPosition.Value, (p - 0.5f) * 2), (float)i / segs) + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * (float)Math.Cos(Main.GameUpdateCount * 0.2f + i * 0.4f) * ((p - 0.5f) * 2) * 64 * (float)i / segs);
+                    ps.Add(Vector2.Lerp(Projectile.GetOwner().HandPosition.Value, Vector2.Lerp(HNPCPos, Projectile.GetOwner().HandPosition.Value, (p - 0.5f) * 2), (float)i / segs) + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * (float)Math.Cos(Main.GameUpdateCount * 0.2f + i * 0.4f) * ((p - 0.5f) * 2) * 64 * (float)i / segs);
                 }
                 return ps;
             }
             rangeMult *= 2;
-            rangeMult *= Projectile.getOwner().whipRangeMultiplier;
+            rangeMult *= Projectile.GetOwner().whipRangeMultiplier;
             List<Vector2> points = new List<Vector2>();
             float pc = ((float)Math.Cos(p * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f;
-            Vector2 start = Projectile.getOwner().HandPosition.Value;
+            Vector2 start = Projectile.GetOwner().HandPosition.Value;
             Vector2 mid = start + Projectile.velocity * rangeMult * 46 * pc;
             Vector2 end = start + Projectile.velocity * rangeMult * 46 * pc + (Projectile.velocity * pc * 82 * rangeMult).RotatedBy(Projectile.localAI[0] > 0 ? p * -MathHelper.TwoPi + MathHelper.Pi : p * MathHelper.TwoPi - MathHelper.Pi);
-            Vector2 c = end.ClosestPointOnLine(Projectile.getOwner().HandPosition.Value, Projectile.getOwner().HandPosition.Value + Projectile.velocity * 128);
+            Vector2 c = end.ClosestPointOnLine(Projectile.GetOwner().HandPosition.Value, Projectile.GetOwner().HandPosition.Value + Projectile.velocity * 128);
             end = c + (end - c) * (Math.Abs(Projectile.localAI[0]) * 0.18f);
             for (int i = 0; i <= segs; i++)
             {

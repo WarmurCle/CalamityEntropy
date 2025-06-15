@@ -300,10 +300,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (!Main.dedServ)
                 {
-                    if (CEUtils.getDistance(Projectile.Center, CEUtils.getOwner(Projectile).Center) < 2000)
+                    if (CEUtils.getDistance(Projectile.Center, CEUtils.GetOwner(Projectile).Center) < 2000)
                     {
                         CalamityEntropy.FlashEffectStrength = 0.42f;
-                        CEUtils.getOwner(Projectile).Calamity().GeneralScreenShakePower = 12;
+                        CEUtils.GetOwner(Projectile).Calamity().GeneralScreenShakePower = 12;
                     }
                     SoundEngine.PlaySound(SoundID.NPCDeath56, Projectile.Center);
                 }

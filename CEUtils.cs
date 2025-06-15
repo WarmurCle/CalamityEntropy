@@ -126,7 +126,7 @@ namespace CalamityEntropy
         {
             return 4 * height * t * (1 - t);
         }
-        public static NPC FindTarget_HomingProj(object atker, Vector2 center, float radians)
+        public static NPC FindTarget_HomingProj(object atker, Vector2 center, float radians, Func<int, bool> filter = null)
         {
             NPC npc = null;
             float dist = radians;
@@ -134,7 +134,7 @@ namespace CalamityEntropy
             {
                 if (n.CanBeChasedBy(atker) && !n.friendly)
                 {
-                    if (getDistance(n.Center, center) <= dist)
+                    if (getDistance(n.Center, center) <= dist && (filter == null || filter.Invoke(n.whoAmI)))
                     {
                         dist = getDistance(n.Center, center);
                         npc = n;
@@ -602,7 +602,7 @@ namespace CalamityEntropy
             return new EModPlayer();
         }
 
-        public static Player getOwner(this Projectile proj)
+        public static Player GetOwner(this Projectile proj)
         {
             if (proj.owner < 0)
             {

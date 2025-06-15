@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.Projectiles
             int segments;
             float rangeMultiplier;
             Projectile.GetWhipSettings(Projectile, out timeToFlyOut, out segments, out rangeMultiplier);
-            rangeMultiplier *= Projectile.getOwner().whipRangeMultiplier;
+            rangeMultiplier *= Projectile.GetOwner().whipRangeMultiplier;
             float timePercent = proj.ai[0] / timeToFlyOut;
             float num = 31.415928f * (1f - timePercent * 1.5f) * (float)(-(float)proj.spriteDirection) / (float)segments;
             float hDistancePercent = timePercent * 1.5f;

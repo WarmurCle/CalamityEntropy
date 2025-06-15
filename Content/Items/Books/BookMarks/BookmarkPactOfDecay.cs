@@ -81,10 +81,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.velocity += (targetPos - Projectile.Center).normalize() * 2f;
                 Projectile.velocity *= 0.92f;
             }
-            if (CEUtils.getDistance(Projectile.Center, Projectile.getOwner().Center) > 2600)
+            if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) > 2600)
             {
                 target = null;
-                Projectile.Center = Projectile.getOwner().Center;
+                Projectile.Center = Projectile.GetOwner().Center;
             }
             if (Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 1 && Projectile.timeLeft >= 19)
             {

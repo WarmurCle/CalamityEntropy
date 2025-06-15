@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.Kill();
                     }
                 }
-                Projectile.getOwner().Center += Collision.TileCollision(Projectile.getOwner().position, -Projectile.velocity * 0.2f * new Vector2(1, Projectile.getOwner().velocity.Y == 0 ? 0 : 1), Projectile.getOwner().width, Projectile.getOwner().height, false, false, (int)Projectile.getOwner().gravDir);
+                Projectile.GetOwner().Center += Collision.TileCollision(Projectile.GetOwner().position, -Projectile.velocity * 0.2f * new Vector2(1, Projectile.GetOwner().velocity.Y == 0 ? 0 : 1), Projectile.GetOwner().width, Projectile.GetOwner().height, false, false, (int)Projectile.GetOwner().gravDir);
 
             }
             if (!owner.channel)

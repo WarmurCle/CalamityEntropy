@@ -420,7 +420,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }*/
 
                 Texture2D pt = TextureAssets.Projectile[Projectile.type].Value;
-                Main.spriteBatch.Draw(pt, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, pt.Size() / 2, Projectile.scale * 2, (Projectile.getOwner().direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically), 0);
+                Main.spriteBatch.Draw(pt, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, pt.Size() / 2, Projectile.scale * 2, (Projectile.GetOwner().direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically), 0);
                 Main.spriteBatch.End();
                 Main.spriteBatch.begin_();
                 return false;

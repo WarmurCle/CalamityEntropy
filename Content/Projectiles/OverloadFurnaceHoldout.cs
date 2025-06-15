@@ -83,8 +83,8 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.getOwner().velocity += Projectile.velocity.normalize() * -6f;
-                        Projectile.getOwner().Calamity().GeneralScreenShakePower = 4;
+                        Projectile.GetOwner().velocity += Projectile.velocity.normalize() * -6f;
+                        Projectile.GetOwner().Calamity().GeneralScreenShakePower = 4;
                         CEUtils.PlaySound("ofshoot", 1, Projectile.Center);
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, Projectile.velocity.SafeNormalize(Vector2.Zero) * 5f, ModContent.ProjectileType<LightningBall>(), (int)(Projectile.damage * (Projectile.ai[0] >= maxTime ? 5f : 1)), Projectile.knockBack, Projectile.owner, 0, (Projectile.ai[0] >= maxTime ? 1 : 0));
                     }

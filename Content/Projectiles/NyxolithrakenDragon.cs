@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float CrackCd => Projectile.ai[2];
         public override void AI()
         {
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
             if (target == null)
             {
                 Vector2 t = player.Center + new Vector2(0, -120);

@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             Vector2 ovel = Projectile.velocity;
             Vector2 opos = Projectile.Center;
-            Projectile.Center = new Vector2(Main.MouseWorld.X + Main.rand.NextFloat(-120, 120), Projectile.getOwner().Center.Y + 640);
+            Projectile.Center = new Vector2(Main.MouseWorld.X + Main.rand.NextFloat(-120, 120), Projectile.GetOwner().Center.Y + 640);
             Projectile.velocity = (Main.MouseWorld - Projectile.Center).normalize() * 6;
             bool s = base.Shoot();
             Projectile.Center = opos;

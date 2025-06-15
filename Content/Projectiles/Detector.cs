@@ -29,8 +29,8 @@ namespace CalamityEntropy.Content.Projectiles
             if (back)
             {
                 Projectile.velocity *= 0.86f;
-                Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * 6;
-                if (CEUtils.getDistance(Projectile.Center, Projectile.getOwner().Center) < Projectile.velocity.Length() * 1.2f)
+                Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 6;
+                if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) < Projectile.velocity.Length() * 1.2f)
                 {
                     Projectile.Kill();
                 }
@@ -58,10 +58,10 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    if (Projectile.getOwner().Distance(Projectile.Center) > 120)
+                    if (Projectile.GetOwner().Distance(Projectile.Center) > 120)
                     {
                         Projectile.velocity *= 0.99f;
-                        Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * 0.6f;
+                        Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 0.6f;
                         Projectile.rotation = Projectile.velocity.ToRotation();
                     }
                 }

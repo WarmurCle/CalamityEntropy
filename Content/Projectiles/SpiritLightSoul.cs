@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                NPC target = CEUtils.findTarget(Projectile.getOwner(), Projectile, 8000);
+                NPC target = CEUtils.findTarget(Projectile.GetOwner(), Projectile, 8000);
                 if (target != null)
                 {
                     if (l < 16)

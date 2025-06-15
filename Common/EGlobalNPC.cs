@@ -484,7 +484,7 @@ namespace CalamityEntropy.Common
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
             if (projectile.owner >= 0)
             {
-                if (projectile.getOwner().Entropy().hasAcc("HEATDEATH"))
+                if (projectile.GetOwner().Entropy().hasAcc("HEATDEATH"))
                 {
                     npc.AddBuff(ModContent.BuffType<HeatDeath>(), 8 * 60);
                 }
@@ -1300,7 +1300,6 @@ namespace CalamityEntropy.Common
                 }
             }*/
         }
-
 
 
         public override void ModifyShop(NPCShop shop)

@@ -196,7 +196,7 @@ namespace CalamityEntropy.Content.Buffs
                                 {
                                     C--;
                                     int dmg = (int)(damageDone * 0.12f);
-                                    projectile.getOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
+                                    projectile.GetOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
                                     for (float f = 0; f <= 1; f += 0.1f)
                                     {
                                         EParticle.NewParticle(new RuneParticle(), Vector2.Lerp(npc.Center, n.Center, f), CEUtils.randomPointInCircle(0.1f), Color.White, 0.5f, 1, true, BlendState.Additive, 0);

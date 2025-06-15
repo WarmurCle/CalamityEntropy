@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
         public Vector2 JW = Vector2.Zero;
         public override void AI()
         {
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
 
             float MaxUpdateTime = Projectile.MaxUpdates * player.itemTimeMax;
             counter++;
@@ -106,10 +106,10 @@ namespace CalamityEntropy.Content.Projectiles
             CEUtils.PlaySound("MurasamaHitInorganic", Main.rand.NextFloat(1f, 1.3f), Projectile.Center, 3, 0.6f);
             if (!Projectile.Calamity().stealthStrike)
             {
-                Projectile.getOwner().Calamity().rogueStealth += Projectile.getOwner().Calamity().rogueStealthMax * (addStealth == 0 ? 0.1f : (addStealth == 1 ? 0.04f : addStealth == 2 ? 0.016f : 0));
-                if (Projectile.getOwner().Calamity().rogueStealth > Projectile.getOwner().Calamity().rogueStealthMax)
+                Projectile.GetOwner().Calamity().rogueStealth += Projectile.GetOwner().Calamity().rogueStealthMax * (addStealth == 0 ? 0.1f : (addStealth == 1 ? 0.04f : addStealth == 2 ? 0.016f : 0));
+                if (Projectile.GetOwner().Calamity().rogueStealth > Projectile.GetOwner().Calamity().rogueStealthMax)
                 {
-                    Projectile.getOwner().Calamity().rogueStealth = Projectile.getOwner().Calamity().rogueStealthMax;
+                    Projectile.GetOwner().Calamity().rogueStealth = Projectile.GetOwner().Calamity().rogueStealthMax;
                 }
                 addStealth++;
             }
@@ -142,7 +142,7 @@ namespace CalamityEntropy.Content.Projectiles
                     float prog = (float)i / oldRots.Count;
                     Color c = Color.Lerp(Color.Black, Color.White, prog) * prog * prog * 0.05f;
                     float oRot = Projectile.Calamity().stealthStrike ? oldRots[i] : (dir > 0 ? oldRots[i] + MathHelper.PiOver4 : oldRots[i] + MathHelper.Pi * 0.75f);
-                    Main.EntitySpriteDraw(white, Projectile.getOwner().MountedCenter + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, c, oRot, origin, Projectile.Calamity().stealthStrike ? new Vector2(Projectile.scale * oldScales[i] * (0.8f + 0.2f * prog), 1 / 5f * scale) : (Vector2.One * Projectile.scale * oldScales[i] * (0.8f + 0.2f * prog)), effect);
+                    Main.EntitySpriteDraw(white, Projectile.GetOwner().MountedCenter + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, c, oRot, origin, Projectile.Calamity().stealthStrike ? new Vector2(Projectile.scale * oldScales[i] * (0.8f + 0.2f * prog), 1 / 5f * scale) : (Vector2.One * Projectile.scale * oldScales[i] * (0.8f + 0.2f * prog)), effect);
                 }
             }
             else
@@ -173,10 +173,10 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 Main.spriteBatch.ExitShaderRegion();
             }
-            float MaxUpdateTime = Projectile.getOwner().itemTimeMax * Projectile.MaxUpdates;
+            float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
             float l = (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2));
 
-            Main.EntitySpriteDraw(tex, (Vector2)(CEUtils.getOwner(Projectile).MountedCenter + CEUtils.getOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, lightColor, rot, origin, Projectile.Calamity().stealthStrike ? new Vector2(CEUtils.getDistance(JW, Vector2.Zero), (1 / 5f) * scale * (0.32f + 0.68f * (1 - l)) * 0.4f) : (Vector2.One * Projectile.scale * scale * LScale), effect);
+            Main.EntitySpriteDraw(tex, (Vector2)(CEUtils.GetOwner(Projectile).MountedCenter + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, lightColor, rot, origin, Projectile.Calamity().stealthStrike ? new Vector2(CEUtils.getDistance(JW, Vector2.Zero), (1 / 5f) * scale * (0.32f + 0.68f * (1 - l)) * 0.4f) : (Vector2.One * Projectile.scale * scale * LScale), effect);
             return false;
         }
     }

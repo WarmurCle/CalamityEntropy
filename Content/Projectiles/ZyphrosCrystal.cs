@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 rotdir = Main.rand.NextBool() ? 1 : -1;
             }
-            var player = Projectile.getOwner();
+            var player = Projectile.GetOwner();
             Projectile.ai[1]--;
 
             if (Projectile.ai[1] == -20)
@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] == 2)
             {
-                Projectile.getOwner().Heal(5);
+                Projectile.GetOwner().Heal(5);
             }
             if (Projectile.ai[0] == 4)
             {

@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AI()
         {
             base.AI();
-            Vector2 targetPos = Projectile.getOwner().Center + new Vector2(0, -165);
+            Vector2 targetPos = Projectile.GetOwner().Center + new Vector2(0, -165);
             Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.6f;
             Projectile.velocity *= 0.98f;
             Projectile.rotation = Projectile.velocity.X * 0.06f;
@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AI()
         {
             base.AI();
-            Vector2 targetPos = Projectile.getOwner().Center + new Vector2(0, -120);
+            Vector2 targetPos = Projectile.GetOwner().Center + new Vector2(0, -120);
             if (dashTime > 0)
             {
                 dashTime--;
@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AI()
         {
             base.AI();
-            Vector2 targetPos = Projectile.getOwner().Center;
+            Vector2 targetPos = Projectile.GetOwner().Center;
             Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.06f;
             if (Projectile.Distance(targetPos) > 260)
             {

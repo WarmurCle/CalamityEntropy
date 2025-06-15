@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float starAlpha = 0;
         public override void AI()
         {
-            var player = Projectile.getOwner();
+            var player = Projectile.GetOwner();
             player.heldProj = Projectile.whoAmI;
             player.Calamity().mouseWorldListener = true;
             float cMax = player.itemTimeMax * Projectile.MaxUpdates;

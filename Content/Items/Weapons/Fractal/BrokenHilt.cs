@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public bool shoot = true;
         public override void AI()
         {
-            Player owner = Projectile.getOwner();
+            Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             counter++;
@@ -105,7 +105,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             alpha = 1;
             scale = 1f;
             Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
-            Projectile.Center = Projectile.getOwner().MountedCenter;
+            Projectile.Center = Projectile.GetOwner().MountedCenter;
 
 
             if (odr.Count > 60)
@@ -145,9 +145,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
 
-            float MaxUpdateTime = Projectile.getOwner().itemTimeMax * Projectile.MaxUpdates;
+            float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
 
-            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale, effect);
+            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale, effect);
 
             return false;
         }

@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            var player = Projectile.getOwner();
+            var player = Projectile.GetOwner();
             Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
             if (flowers.Count < flowerCount)
             {

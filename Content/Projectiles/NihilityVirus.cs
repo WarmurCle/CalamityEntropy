@@ -75,9 +75,9 @@ namespace CalamityEntropy.Content.Projectiles
                 sound = new LoopSound(CalamityEntropy.ealaserSound2);
                 sound.play();
             }
-            sound.setVolume_Dist(Projectile.getOwner().Center, 200, 1600, 0.5f);
+            sound.setVolume_Dist(Projectile.GetOwner().Center, 200, 1600, 0.5f);
             sound.timeleft = 2;
-            var player = Projectile.getOwner();
+            var player = Projectile.GetOwner();
             if (player.channel)
             {
                 Projectile.timeLeft = 4;
@@ -196,8 +196,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Vector2 opos = Projectile.getOwner().MountedCenter + Projectile.getOwner().gfxOffY * Vector2.UnitY;
-            Vector2 handPos = opos + (Projectile.Center - opos).SafeNormalize(Vector2.Zero) * 120 * Projectile.getOwner().HeldItem.scale;
+            Vector2 opos = Projectile.GetOwner().MountedCenter + Projectile.GetOwner().gfxOffY * Vector2.UnitY;
+            Vector2 handPos = opos + (Projectile.Center - opos).SafeNormalize(Vector2.Zero) * 120 * Projectile.GetOwner().HeldItem.scale;
             Vector2 end = Projectile.Center;
             lightnings[8].Update(handPos, Projectile.Center);
             drawlightning(8, 1.6f, 2);

@@ -48,9 +48,9 @@ namespace CalamityEntropy.Content.Items.Books
             int _shotCooldown = bookItem.useTime;
 
             EBookStatModifer m = getBaseModifer();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
             {
-                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(it))
                 {
                     var e = BookMarkLoader.GetEffect(it);
@@ -62,9 +62,9 @@ namespace CalamityEntropy.Content.Items.Books
         public float getscale()
         {
             EBookStatModifer m = getBaseModifer();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.getOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
             {
-                Item it = Projectile.getOwner().Entropy().EBookStackItems[i];
+                Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(it))
                 {
                     var e = BookMarkLoader.GetEffect(it);
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AI()
         {
             base.AI();
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
 
             if (Main.myPlayer == Projectile.owner)
             {
@@ -148,7 +148,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             else
             {
-                Vector2 tpos = Projectile.getOwner().Center + new Vector2(-100 * Projectile.getOwner().direction, -80);
+                Vector2 tpos = Projectile.GetOwner().Center + new Vector2(-100 * Projectile.GetOwner().direction, -80);
                 Projectile.Center += (tpos - Projectile.Center) * 0.16f;
                 Projectile.rotation = (mouse - Projectile.Center).ToRotation();
             }
@@ -186,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Books
                     Projectile.ai[0] = 0;
                 }
             }
-            if (Projectile.getOwner().ownedProjectileCounts[ModContent.ProjectileType<RedemptionBibleHeld>()] > 0)
+            if (Projectile.GetOwner().ownedProjectileCounts[ModContent.ProjectileType<RedemptionBibleHeld>()] > 0)
             {
                 Projectile.timeLeft = 3;
             }

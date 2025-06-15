@@ -51,12 +51,12 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AI()
         {
-            float atkSpeed = Projectile.getOwner().GetTotalAttackSpeed(DamageClass.SummonMeleeSpeed);
+            float atkSpeed = Projectile.GetOwner().GetTotalAttackSpeed(DamageClass.SummonMeleeSpeed);
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((Main.MouseWorld - Projectile.getOwner().HandPosition.Value).ToRotation());
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((Main.MouseWorld - Projectile.GetOwner().HandPosition.Value).ToRotation());
             }
-            Projectile.Center = Projectile.getOwner().HandPosition.Value;
+            Projectile.Center = Projectile.GetOwner().HandPosition.Value;
             if (Projectile.ai[0] > Projectile.ai[1] + 5 && Projectile.ai[0] < 41 && Main.myPlayer == Projectile.owner)
             {
                 Projectile.ai[1] += 5;

@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float pg = 0;
         public override void AI()
         {
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
             if (init)
             {
                 rotSpeed = 0;

@@ -102,7 +102,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public bool shoot = true;
         public override void AI()
         {
-            Player owner = Projectile.getOwner();
+            Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             counter++;
@@ -136,14 +136,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 scale = 0.6f + l * 1.2f;
                 alpha = l;
-                Projectile.Center = Projectile.getOwner().MountedCenter + Projectile.velocity.normalize() * (-34 + l * 34);
+                Projectile.Center = Projectile.GetOwner().MountedCenter + Projectile.velocity.normalize() * (-34 + l * 34);
             }
             else
             {
                 alpha = 1;
                 scale = 1f * (1 + (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(progress, 2) * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f);
                 Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 2)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
-                Projectile.Center = Projectile.getOwner().MountedCenter;
+                Projectile.Center = Projectile.GetOwner().MountedCenter;
             }
 
             if (odr.Count > 60)
@@ -206,20 +206,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
 
-            float MaxUpdateTime = Projectile.getOwner().itemTimeMax * Projectile.MaxUpdates;
+            float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
             if (Projectile.ai[0] < 2)
             {
                 Texture2D bs = CEUtils.getExtraTex("SemiCircularSmear");
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
-                Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.getOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, Color.Lerp(new Color(50, 140, 160), new Color(200, 255, 66), counter / MaxUpdateTime) * (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 1) * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f, Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.2f * scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, Color.Lerp(new Color(50, 140, 160), new Color(200, 255, 66), counter / MaxUpdateTime) * (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 1) * MathHelper.Pi - MathHelper.PiOver2)) * 0.5f, Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.2f * scale, SpriteEffects.None, 0);
                 Main.spriteBatch.ExitShaderRegion();
             }
             else
             {
                 Texture2D glow = this.getTextureGlow();
-                Main.spriteBatch.Draw(glow, (Vector2)(Projectile.Center + CEUtils.getOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, Color.White * alpha * (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 2) * MathHelper.Pi - MathHelper.PiOver2) * 0.5f + 0.5f), rot, origin, Projectile.scale * scale * 1.4f, effect, 0);
+                Main.spriteBatch.Draw(glow, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, Color.White * alpha * (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 2) * MathHelper.Pi - MathHelper.PiOver2) * 0.5f + 0.5f), rot, origin, Projectile.scale * scale * 1.4f, effect, 0);
             }
-            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale, effect);
+            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale, effect);
 
             return false;
         }

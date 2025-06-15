@@ -54,9 +54,16 @@ namespace CalamityEntropy.Content.ILEditing
 
             _hook = EModHooks.Add(originalMethod, addCdHook);
 
+            if(ModLoader.TryGetMod("AlchemistNPCLite", out var anpc))
+            {
+                var orgMethod = ANPCSupport.ANPCShopAdd.GetAddShopMethod();
+                EModHooks.Add(orgMethod, ANPCSupport.ANPCShopAdd.OperatorAddShopHook);
+                CalamityEntropy.Instance.Logger.Info("CalamityEntropy ANPCSupport Hook Loaded");
+            }
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
+        
         public static CooldownInstance addCdHook(Func<Player, string, int, bool, CooldownInstance> orig, Player player, string id, int duration, bool overwrite)
         {
             return orig.Invoke(player, id, (int)(duration * player.Entropy().CooldownTimeMult), overwrite);

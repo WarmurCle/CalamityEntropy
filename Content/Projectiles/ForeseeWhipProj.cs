@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles
             float c = (float)((Math.Cos(perc * MathHelper.TwoPi - MathHelper.Pi) + 1) * 0.5f);
             for (int i = 0; i < segs; i++)
             {
-                points.Add(Vector2.Lerp(Projectile.getOwner().HandPosition.Value, Projectile.getOwner().HandPosition.Value + Projectile.rotation.ToRotationVector2() * rangeMult * c * 260, i / (float)(segs - 1)) + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 12 + i * 0.26f) * (i / 31f) * 260 * c * rangeMult * 0.1f);
+                points.Add(Vector2.Lerp(Projectile.GetOwner().HandPosition.Value, Projectile.GetOwner().HandPosition.Value + Projectile.rotation.ToRotationVector2() * rangeMult * c * 260, i / (float)(segs - 1)) + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 12 + i * 0.26f) * (i / 31f) * 260 * c * rangeMult * 0.1f);
             }
             return points;
         }

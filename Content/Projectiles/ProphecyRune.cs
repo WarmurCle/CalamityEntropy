@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
             counter++;
             if (counter > 100)
             {
-                NPC target = CEUtils.findTarget(Projectile.getOwner(), Projectile, 2800);
+                NPC target = CEUtils.findTarget(Projectile.GetOwner(), Projectile, 2800);
                 if (target != null)
                 {
                     Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.9f;
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                NPC target = CEUtils.findTarget(Projectile.getOwner(), Projectile, 2800);
+                NPC target = CEUtils.findTarget(Projectile.GetOwner(), Projectile, 2800);
                 if (target != null)
                 {
                     Projectile.Center = target.Center + (Projectile.ai[0]).ToRotationVector2().RotatedBy(rotCount) * counter * 1.8f;

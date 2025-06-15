@@ -14,10 +14,14 @@ namespace CalamityEntropy.Content.Particles
             this.Lifetime = 30;
         }
         public int maxLength = 8;
+        public bool addPoint = true;
         public override void AI()
         {
             base.AI();
-            AddPoint(this.Position);
+            if (addPoint)
+            {
+                AddPoint(this.Position);
+            }
             this.Velocity = this.Velocity + gravity * Vector2.UnitY * gA;
             Rotation = Velocity.ToRotation();
             this.Velocity *= 0.94f;

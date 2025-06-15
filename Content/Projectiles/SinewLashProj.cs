@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool Forwarding = true;
         public override bool PreAI()
         {
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
             if (WhipPoints == null)
             {
                 Projectile.GetWhipSettings(Projectile, out float num1, out int segCount, out float num2);
@@ -103,13 +103,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public Vector2 getMyEndPos()
         {
-            Vector2 p = Projectile.getOwner().HandPosition.Value;
+            Vector2 p = Projectile.GetOwner().HandPosition.Value;
             float c = (Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates)) / 0.7f;
             float ha = 0;
             ha = new Vector2(-180, 0).RotatedBy(c * MathHelper.Pi).Y;
 
             Projectile.GetWhipSettings(Projectile, out float num1, out int num2, out float rangeMult);
-            p += Projectile.velocity * (float)Math.Sqrt(3400 * c) * rangeMult * Projectile.getOwner().whipRangeMultiplier;
+            p += Projectile.velocity * (float)Math.Sqrt(3400 * c) * rangeMult * Projectile.GetOwner().whipRangeMultiplier;
             p += new Vector2(0, ha * Projectile.spriteDirection).RotatedBy(Projectile.velocity.ToRotation());
             return p;
         }

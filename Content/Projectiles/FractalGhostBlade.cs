@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.Opacity = Projectile.timeLeft / 240f;
             }
-            Player player = Projectile.getOwner();
+            Player player = Projectile.GetOwner();
             player.Calamity().mouseWorldListener = true;
             if (Main.myPlayer == Projectile.owner)
             {

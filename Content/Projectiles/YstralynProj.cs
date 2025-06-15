@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            var player = Projectile.getOwner();
+            var player = Projectile.GetOwner();
             player.AddBuff(ModContent.BuffType<WyrmPhantom>(), 480);
             target.AddBuff(ModContent.BuffType<WyrmWhipDebuff>(), 380);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;

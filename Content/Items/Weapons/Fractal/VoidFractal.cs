@@ -126,7 +126,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public float spawnProjCounter = 0;
         public override void AI()
         {
-            Player owner = Projectile.getOwner();
+            Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             counter += 1 * (Projectile.ai[0] == 3 ? 0.7f : (Projectile.ai[0] == 2 ? 0.5f : 1));
@@ -176,7 +176,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 alpha = 1;
                 scale = 2.4f;
                 Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.ToRadians(-140) + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 1)) * (Projectile.velocity.X > 0 ? 1 : -1);
-                Projectile.Center = CEUtils.getOwner(Projectile).MountedCenter + CEUtils.normalize(Projectile.velocity) * (CEUtils.Parabola(progress, Projectile.ai[2]));
+                Projectile.Center = CEUtils.GetOwner(Projectile).MountedCenter + CEUtils.normalize(Projectile.velocity) * (CEUtils.Parabola(progress, Projectile.ai[2]));
                 if (Projectile.velocity.X > 0)
                 {
                     owner.direction = 1;
@@ -196,7 +196,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     alpha = 1;
                     scale = 3.5f;
                     Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 4)) * -1 * (Projectile.velocity.X > 0 ? -1 : 1);
-                    Projectile.Center = Projectile.getOwner().MountedCenter;
+                    Projectile.Center = Projectile.GetOwner().MountedCenter;
 
 
                     if (Projectile.velocity.X > 0)
@@ -216,7 +216,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     alpha = 1;
                     scale = 1.8f;
                     Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
-                    Projectile.Center = Projectile.getOwner().MountedCenter;
+                    Projectile.Center = Projectile.GetOwner().MountedCenter;
                     if (progress > 0.2f && shoot)
                     {
                         shoot = false;
@@ -294,7 +294,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Player owner = Projectile.getOwner();
+            Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             Texture2D tex = Projectile.GetTexture();
@@ -329,10 +329,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
 
-            float MaxUpdateTime = Projectile.getOwner().itemTimeMax * Projectile.MaxUpdates;
+            float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
 
-            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha * texAlpha, rot, origin, Projectile.scale * scale * 1.1f, effect);
-            Main.EntitySpriteDraw(phantom, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White * alpha * phantomAlpha, rot, origin, Projectile.scale * scale * 1.1f, effect);
+            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha * texAlpha, rot, origin, Projectile.scale * scale * 1.1f, effect);
+            Main.EntitySpriteDraw(phantom, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White * alpha * phantomAlpha, rot, origin, Projectile.scale * scale * 1.1f, effect);
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D bs = CEUtils.getExtraTex("SemiCircularSmear");
@@ -348,8 +348,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 zAlpha = 1;
             }
-            Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(color1, color2, (float)counter / (Projectile.MaxUpdates * Projectile.getOwner().itemTimeMax)) * zAlpha, Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.9f * scale * zScale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(ss, Projectile.Center + Projectile.getOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White * zAlpha, Projectile.rotation + MathHelper.ToRadians(32) * -dir, ss.Size() / 2f, Projectile.scale * 1.9f * scale * zScale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+            Main.spriteBatch.Draw(bs, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.Lerp(color1, color2, (float)counter / (Projectile.MaxUpdates * Projectile.GetOwner().itemTimeMax)) * zAlpha, Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.9f * scale * zScale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(ss, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, Color.White * zAlpha, Projectile.rotation + MathHelper.ToRadians(32) * -dir, ss.Size() / 2f, Projectile.scale * 1.9f * scale * zScale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
 
             Main.spriteBatch.ExitShaderRegion();
 
@@ -474,7 +474,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 {
                     points.Add(Vector2.Lerp(o, nv, i));
                 }
-                Projectile.getOwner().Center = Projectile.Center;
+                Projectile.GetOwner().Center = Projectile.Center;
             }
 
         }

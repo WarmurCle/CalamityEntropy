@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (hited && Projectile.ai[2] == 0)
                 {
                     Projectile.ai[2]++;
-                    Vector2 targetPosition = Projectile.getOwner().Center;
+                    Vector2 targetPosition = Projectile.GetOwner().Center;
                     float speed = 0;
                     int jspeed = 38;
                     float js;
@@ -62,9 +62,9 @@ namespace CalamityEntropy.Content.Projectiles
                         count++;
                     }
                     mct = count;
-                    speed = CEUtils.getDistance(Projectile.Center, Projectile.getOwner().Center) / count;
+                    speed = CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) / count;
                     js = jspeed;
-                    Vector2 jv = (Projectile.getOwner().Center - Projectile.Center).ToRotation().ToRotationVector2() * speed;
+                    Vector2 jv = (Projectile.GetOwner().Center - Projectile.Center).ToRotation().ToRotationVector2() * speed;
                     jv.Y -= js;
                     Projectile.velocity = jv;
 
@@ -72,9 +72,9 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if (hited)
                 {
-                    if (Projectile.Distance(Projectile.getOwner().Center) < Projectile.velocity.Length() + 54)
+                    if (Projectile.Distance(Projectile.GetOwner().Center) < Projectile.velocity.Length() + 54)
                     {
-                        if (Projectile.getOwner().HeldItem.ModItem is AmethystFrisbee af)
+                        if (Projectile.GetOwner().HeldItem.ModItem is AmethystFrisbee af)
                         {
                             af.altShotCount = 16;
                         }
@@ -87,14 +87,14 @@ namespace CalamityEntropy.Content.Projectiles
                             Projectile.localAI[1] += 0.0025f;
                         }
                         Projectile.velocity *= 1f - Projectile.localAI[1];
-                        Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * (Projectile.localAI[1] * 56);
+                        Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * (Projectile.localAI[1] * 56);
 
                     }
                     else
                     {
                         Projectile.velocity.Y += gravity;
                         Projectile.velocity *= 0.997f;
-                        Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * 0.3f;
+                        Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 0.3f;
 
                     }
                 }
@@ -121,8 +121,8 @@ namespace CalamityEntropy.Content.Projectiles
                 if (counter > 46)
                 {
                     Projectile.velocity *= 0.92f;
-                    Projectile.velocity += (Projectile.getOwner().Center - Projectile.Center).normalize() * 3f;
-                    if (Projectile.Distance(Projectile.getOwner().Center) < Projectile.velocity.Length() + 40)
+                    Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 3f;
+                    if (Projectile.Distance(Projectile.GetOwner().Center) < Projectile.velocity.Length() + 40)
                     {
                         Projectile.Kill();
                     }
