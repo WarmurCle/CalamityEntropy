@@ -2618,9 +2618,9 @@ Projectiles: {
 	IlmeranVortex.DisplayName: Ilmeran Vortex
 	StarSootSmoke.DisplayName: Star Soot Smoke
 	Starblight.DisplayName: Starblight
-	AzAAGunHoldout.DisplayName: Az A A Gun Holdout
+	AzAAGunHoldout.DisplayName: Antiaircraft Gun Holdout
 	AntiaircraftShell.DisplayName: Antiaircraft Shell
-	AzAGShot.DisplayName: Az A G Shot
+	AzAGShot.DisplayName: Antiaircraft Shot
 	RockBulletShot.DisplayName: Rock Bullet Shot
 }
 

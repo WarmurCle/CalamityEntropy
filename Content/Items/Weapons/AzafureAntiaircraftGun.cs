@@ -58,6 +58,14 @@ namespace CalamityEntropy.Content.Items.Weapons
     }
     public class AzAAGunHoldout : ModProjectile
     {
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Ranged;
