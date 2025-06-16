@@ -266,21 +266,21 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 NPC.velocity *= 0;
                 NPC.rotation = 0;
                 AfterImageTime = 16;
-                if (AIChangeCounter == 260)
+                if (AIChangeCounter == 200)
                 {
                     num3 = Main.rand.NextBool() ? -1 : 1;
                     vec1 = NPC.Center;
                 }
-                if (AIChangeCounter > 220 && AIChangeCounter < 259)
+                if (AIChangeCounter > 160 && AIChangeCounter < 200)
                 {
-                    NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(440 * Math.Sign(NPC.Center.X - player.Center.X), -440), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 220) / 40f, 1));
+                    NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(440 * Math.Sign(NPC.Center.X - player.Center.X), -440), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 160) / 40f, 1));
                 }
-                if (AIChangeCounter == 220)
+                if (AIChangeCounter == 160)
                 {
                     num1 = NPC.Center.Distance(player.Center);
                     num2 = (NPC.Center - player.Center).ToRotation();
                 }
-                if (AIChangeCounter < 220)
+                if (AIChangeCounter < 160)
                 {
                     for (int i = 0; i < odp.Count; i++)
                     {
@@ -464,7 +464,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 if (AIChangeCounter < 110 || (AIChangeCounter > 130 && AIChangeCounter < 180))
                 {
                     NPC.velocity = (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 40;
-                    NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2, 0.6f * enrange);
+                    NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2, 0.2f * enrange);
                 }
             }
             if (ai == AIStyle.AstralSpike)
