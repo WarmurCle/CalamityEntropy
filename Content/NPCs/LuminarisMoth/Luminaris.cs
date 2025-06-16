@@ -217,7 +217,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 AIChangeCounter = 20;
                 if (ai == AIStyle.RoundShooting)
                 {
-                    AIChangeCounter = 260;
+                    AIChangeCounter = 200;
                 }
                 if (ai == AIStyle.AboveMovingShooting)
                 {

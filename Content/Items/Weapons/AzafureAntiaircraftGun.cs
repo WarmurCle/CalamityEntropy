@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 2300;
+            Item.damage = 2450;
             Item.crit = 10;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 194;
@@ -205,8 +205,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             var p = new Projectile();
             p.SetDefaults((int)Projectile.ai[0]);
             p.whoAmI = 0;
+            dmgMult *= 0.76f;
             ProjectileLoader.OnHitNPC(p, target, hit, damageDone);
         }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.SourceDamage *= dmgMult;
+        }
+        public float dmgMult = 1;
         public override bool PreDraw(ref Color lightColor)
         {
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
