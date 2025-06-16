@@ -6,6 +6,7 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -98,7 +99,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     steamSound = false;
                     if(Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.RotatedBy(-2).normalize() * 16, ModContent.ProjectileType<AntiaircraftShell>(), 0, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.RotatedBy(-2 * player.direction).normalize() * 16, ModContent.ProjectileType<AntiaircraftShell>(), 0, 0, Projectile.owner);
                     }
                     for(int i = 0; i < 14; i++)
                     {
@@ -113,6 +114,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if(shoot && Main.myPlayer == Projectile.owner)
             {
+                player.velocity -= Projectile.velocity.normalize() * 8;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.rotation.ToRotationVector2() * 42, ModContent.ProjectileType<AzAGShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
             }
             if (shoot)
@@ -120,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 150, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
 
                 CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
-                CEUtils.SetShake(Projectile.Center, 10);
+                CEUtils.SetShake(Projectile.Center, 16);
                 for (int i = 0; i < 16; i++)
                 {
                     Vector2 top = Projectile.Center + Projectile.velocity.normalize() * 130;
@@ -137,17 +139,18 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (progress < MaxTime)
             {
                 player.itemAnimation = player.itemTime = 3;
-                Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
+                Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 40 + new Vector2(0, -20);
                 player.Calamity().mouseWorldListener = true;
-                
-                Projectile.velocity = (player.Calamity().mouseWorld - player.MountedCenter).SafeNormalize(Vector2.Zero) * 12;
+                float targetRot = (player.Calamity().mouseWorld - player.MountedCenter).ToRotation();
+                Projectile.velocity = CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), targetRot, 4, true).ToRotationVector2() * player.HeldItem.shootSpeed;
+                player.direction = Math.Sign(Projectile.velocity.X);
             }
             else
             {
                 player.itemTime = player.itemAnimation = 1;
-                if (Projectile.timeLeft > 3)
+                if (Projectile.timeLeft > 4)
                 {
-                    Projectile.timeLeft = 3;
+                    Projectile.timeLeft = 4;
                 }
             }
             counter++;

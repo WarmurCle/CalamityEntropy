@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if(oldVelocity.Y != 0 && Projectile.velocity.Y == 0)
             {
-                Projectile.velocity.Y = oldVelocity.Y * -1f;
+                Projectile.velocity.Y = oldVelocity.Y * -0.5f;
             }
             return false;
         }
