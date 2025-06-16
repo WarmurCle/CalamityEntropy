@@ -487,6 +487,14 @@ namespace CalamityEntropy.Common
         }
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            if(type == ModContent.ProjectileType<RockBulletShot>())
+            {
+                if (Main.rand.NextBool(6))
+                {
+                    CEUtils.PlaySound("gunshot_small" + Main.rand.Next(1, 4).ToString(), 1, position);
+                    return false;
+                }
+            }
             if (!Main.dedServ)
             {
                 if (item.DamageType != DamageClass.Summon)

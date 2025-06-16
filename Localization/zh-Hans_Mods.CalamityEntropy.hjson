@@ -2354,14 +2354,19 @@ Items: {
 		DisplayName: 幻光星翼
 	}
 
-	TestItem: {
-		// DisplayName: Test Item
-		// Tooltip: ""
-	}
-
 	AzafureAntiaircraftGun: {
 		DisplayName: 阿萨福勒防空炮
 		Tooltip: ""
+	}
+
+	RockBullet: {
+		DisplayName: 石头子弹
+		Tooltip: "射击时有概率卡弹"
+	}
+
+	TatteredGun: {
+		DisplayName: 破烂机枪
+		Tooltip: '''"它是一个奇迹"'''
 	}
 }
 
@@ -2773,6 +2778,7 @@ Projectiles: {
 	// AzAAGunHoldout.DisplayName: Az A A Gun Holdout
 	// AntiaircraftShell.DisplayName: Antiaircraft Shell
 	// AzAGShot.DisplayName: Az A G Shot
+	// RockBulletShot.DisplayName: Rock Bullet Shot
 }
 
 LegendTooltip: - 传奇物品 -

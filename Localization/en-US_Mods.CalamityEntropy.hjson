@@ -2194,13 +2194,18 @@ Items: {
 		DisplayName: Phantom Light Wings
 	}
 
-	TestItem: {
-		DisplayName: Test Item
+	AzafureAntiaircraftGun: {
+		DisplayName: Azafure Antiaircraft Gun
 		Tooltip: ""
 	}
 
-	AzafureAntiaircraftGun: {
-		DisplayName: Azafure Antiaircraft Gun
+	RockBullet: {
+		DisplayName: Rock Bullet
+		Tooltip: ""
+	}
+
+	TatteredGun: {
+		DisplayName: Tattered Gun
 		Tooltip: ""
 	}
 }
@@ -2612,6 +2617,7 @@ Projectiles: {
 	AzAAGunHoldout.DisplayName: Az A A Gun Holdout
 	AntiaircraftShell.DisplayName: Antiaircraft Shell
 	AzAGShot.DisplayName: Az A G Shot
+	RockBulletShot.DisplayName: Rock Bullet Shot
 }
 
 LegendTooltip: - Legend -

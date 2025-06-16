@@ -2203,6 +2203,16 @@ Items: {
 		// DisplayName: Azafure Antiaircraft Gun
 		// Tooltip: ""
 	}
+
+	RockBullet: {
+		// DisplayName: Rock Bullet
+		// Tooltip: ""
+	}
+
+	TatteredGun: {
+		// DisplayName: Tattered Gun
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2612,6 +2622,7 @@ Projectiles: {
 	// AzAAGunHoldout.DisplayName: Az A A Gun Holdout
 	// AntiaircraftShell.DisplayName: Antiaircraft Shell
 	// AzAGShot.DisplayName: Az A G Shot
+	// RockBulletShot.DisplayName: Rock Bullet Shot
 }
 
 LegendTooltip: - Legend -
