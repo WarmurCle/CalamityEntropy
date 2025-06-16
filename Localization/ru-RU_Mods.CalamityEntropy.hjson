@@ -2610,6 +2610,8 @@ Projectiles: {
 	// StarSootSmoke.DisplayName: Star Soot Smoke
 	// Starblight.DisplayName: Starblight
 	// AzAAGunHoldout.DisplayName: Az A A Gun Holdout
+	// AntiaircraftShell.DisplayName: Antiaircraft Shell
+	// AzAGShot.DisplayName: Az A G Shot
 }
 
 LegendTooltip: - Legend -

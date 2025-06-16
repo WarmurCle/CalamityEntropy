@@ -2360,8 +2360,8 @@ Items: {
 	}
 
 	AzafureAntiaircraftGun: {
-		// DisplayName: Azafure Antiaircraft Gun
-		// Tooltip: ""
+		DisplayName: 阿萨福勒防空炮
+		Tooltip: ""
 	}
 }
 
@@ -2771,6 +2771,8 @@ Projectiles: {
 	StarSootSmoke.DisplayName: 幻光蛾尘
 	Starblight.DisplayName: 幻星矢
 	// AzAAGunHoldout.DisplayName: Az A A Gun Holdout
+	// AntiaircraftShell.DisplayName: Antiaircraft Shell
+	// AzAGShot.DisplayName: Az A G Shot
 }
 
 LegendTooltip: - 传奇物品 -
