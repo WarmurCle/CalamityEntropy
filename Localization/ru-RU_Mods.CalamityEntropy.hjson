@@ -2194,11 +2194,6 @@ Items: {
 		// DisplayName: Phantom Light Wings
 	}
 
-	TestItem: {
-		// DisplayName: Test Item
-		// Tooltip: ""
-	}
-
 	AzafureAntiaircraftGun: {
 		// DisplayName: Azafure Antiaircraft Gun
 		// Tooltip: ""
@@ -2206,12 +2201,16 @@ Items: {
 
 	RockBullet: {
 		// DisplayName: Rock Bullet
-		// Tooltip: ""
+		// Tooltip: There is a probability of jamming during shooting
 	}
 
 	TatteredGun: {
 		// DisplayName: Tattered Gun
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			There is a probability of jamming during shooting
+			"It is a miracle"
+			''' */
 	}
 }
 

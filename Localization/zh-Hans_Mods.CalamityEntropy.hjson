@@ -2361,12 +2361,16 @@ Items: {
 
 	RockBullet: {
 		DisplayName: 石头子弹
-		Tooltip: "射击时有概率卡弹"
+		Tooltip: 射击时有概率卡壳
 	}
 
 	TatteredGun: {
 		DisplayName: 破烂机枪
-		Tooltip: '''"它是一个奇迹"'''
+		Tooltip:
+			'''
+			射击时有概率卡壳
+			"它是一个奇迹"
+			'''
 	}
 }
 
