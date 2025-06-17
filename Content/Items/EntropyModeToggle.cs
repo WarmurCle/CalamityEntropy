@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemID.FallenStar, 1)
+            CreateRecipe().AddIngredient(ItemID.Poo, 9999)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }

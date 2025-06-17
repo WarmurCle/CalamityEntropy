@@ -45,20 +45,20 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.boss = true;
             NPC.width = 110;
             NPC.height = 110;
-            NPC.damage = 104;
+            NPC.damage = 94;
             if (Main.expertMode)
             {
-                NPC.damage += 6;
+                NPC.damage += 2;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 6;
+                NPC.damage += 2;
             }
             NPC.defense = 30;
-            NPC.lifeMax = 320000;
+            NPC.lifeMax = 300000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 10;
+                NPC.damage += 5;
             }
             else if (CalamityWorld.revenge)
             {

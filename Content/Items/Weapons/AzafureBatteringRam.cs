@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public int charge = 0;
         public override void SetDefaults()
         {
-            Item.damage = 35;
+            Item.damage = 23;
             Item.crit = 4;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 194;
@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 46;
             Item.useAnimation = 46;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 16;
+            Item.knockBack = 10;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ModContent.RarityType<DarkOrange>();
             Item.UseSound = null;

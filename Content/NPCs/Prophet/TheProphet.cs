@@ -129,12 +129,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.boss = true;
             NPC.width = 56;
             NPC.height = 56;
-            NPC.damage = 86;
-            NPC.Calamity().DR = 0.12f;
-            NPC.lifeMax = 54000;
+            NPC.damage = 80;
+            NPC.Calamity().DR = 0.10f;
+            NPC.lifeMax = 52000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 8;
+                NPC.damage += 2;
             }
             else if (CalamityWorld.revenge)
             {
