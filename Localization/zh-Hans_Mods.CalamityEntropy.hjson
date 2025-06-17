@@ -126,6 +126,11 @@ Items: {
 				DisplayName: 虚妄切裂者
 				Tooltip: 命中后恢复部分潜行值
 			}
+
+			LunarPlank: {
+				// DisplayName: Lunar Plank
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -2784,6 +2789,10 @@ Projectiles: {
 	AntiaircraftShell.DisplayName: 弹壳
 	AzAGShot.DisplayName: 防空炮子弹
 	RockBulletShot.DisplayName: 石头子弹
+	// LunarPlankThrow.DisplayName: Lunar Plank Throw
+	// CommonExplotion.DisplayName: Common Explotion
+	// CommonExplotionFriendly.DisplayName: Common Explotion Friendly
+	// StarblightRogue.DisplayName: Starblight Rogue
 }
 
 LegendTooltip: - 传奇物品 -

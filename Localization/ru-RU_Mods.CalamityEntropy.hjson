@@ -91,6 +91,11 @@ Items: {
 				DisplayName: Мёртвая доля
 				Tooltip: Восстанавливает немного скрытности после удара
 			}
+
+			LunarPlank: {
+				// DisplayName: Lunar Plank
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -2622,6 +2627,10 @@ Projectiles: {
 	// AntiaircraftShell.DisplayName: Antiaircraft Shell
 	// AzAGShot.DisplayName: Antiaircraft Shot
 	// RockBulletShot.DisplayName: Rock Bullet Shot
+	// LunarPlankThrow.DisplayName: Lunar Plank Throw
+	// CommonExplotion.DisplayName: Common Explotion
+	// CommonExplotionFriendly.DisplayName: Common Explotion Friendly
+	// StarblightRogue.DisplayName: Starblight Rogue
 }
 
 LegendTooltip: - Legend -

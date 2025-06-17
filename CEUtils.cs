@@ -3,6 +3,7 @@ using CalamityEntropy.Content;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.PrefixItem;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -22,6 +23,14 @@ namespace CalamityEntropy
     public static class CEUtils
     {
         public static DamageClass RogueDC => ModContent.GetInstance<CalamityMod.RogueDamageClass>();
+        public static void SpawnExplotionHostile(IEntitySource source, Vector2 position, int damage, float r)
+        {
+            Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotion>(), damage, 0, -1, r);
+        }
+        public static void SpawnExplotionFriendly(IEntitySource source, Player player, Vector2 position, int damage, float r, DamageClass damageClass)
+        {
+            Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotionFriendly>(), damage, 0, player.whoAmI, r).ToProj().DamageType = damageClass;
+        }
         public static void SetShake(Vector2 center, float strength, float MaxDist = 4000)
         {
             float s = Utils.Remap(Main.LocalPlayer.Distance(center), MaxDist, 0, 0f, strength);
