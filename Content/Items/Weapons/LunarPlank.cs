@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Pink;
             Item.shoot = ModContent.ProjectileType<LunarPlankThrow>();
-            Item.shootSpeed = 4.4f;
+            Item.shootSpeed = 6.4f;
             Item.DamageType = CEUtils.RogueDC;
         }
 
@@ -75,12 +75,19 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/LunarPlank";
         public override void AI()
         {
+            if (Projectile.ai[0] == 0 && Projectile.Calamity().stealthStrike)
+            {
+                Projectile.scale *= 1.4f;
+            }
             Projectile.ai[0]++;
             if (Projectile.ai[0] > 16 * 4)
             {
-                Projectile.velocity.Y += 0.12f;
+                Projectile.velocity.Y += 0.06f;
             }
-            GeneralParticleHandler.SpawnParticle(new MediumMistParticle(Projectile.Center, Projectile.velocity * 0.4f + CEUtils.randomPointInCircle(6), Color.LightBlue, Color.SkyBlue, Main.rand.NextFloat(0.8f, 1.2f), 160 - Main.rand.Next(60), Main.rand.NextFloat(-0.06f, 0.06f)));
+            if (Main.rand.NextBool(3))
+            {
+                GeneralParticleHandler.SpawnParticle(new MediumMistParticle(Projectile.Center, Projectile.velocity * 0.4f + CEUtils.randomPointInCircle(6), Color.LightBlue, Color.SkyBlue, Main.rand.NextFloat(0.8f, 1.2f), 130 - Main.rand.Next(60), Main.rand.NextFloat(-0.06f, 0.06f)));
+            }
             Projectile.rotation += Projectile.velocity.X * 0.004f;
 
             odp.Add(Projectile.Center);
@@ -107,17 +114,17 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     List<ColoredVertex> ve = new List<ColoredVertex>();
                     Color b = Projectile.whoAmI % 2 == 0 ? new Color(255, 255, 160) : new Color(160, 255, 220);
-                    b *= 0.6f;
+                    b *= 0.5f;
                     float a = 0;
                     float lr = 0;
                     for (int i = 1; i < odp.Count; i++)
                     {
                         a += 1f / (float)odp.Count;
 
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 24 * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 24 * Projectile.scale * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
                             b * a));
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 24 * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 24 * Projectile.scale * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
                               b * a));
                         lr = (odp[i] - odp[i - 1]).ToRotation();
@@ -141,10 +148,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         a += 1f / (float)odp.Count;
 
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18 * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18 * Projectile.scale * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
                             b * a));
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18 * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18 * Projectile.scale * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
                               b * a));
                         lr = (odp[i] - odp[i - 1]).ToRotation();
@@ -188,7 +195,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 200, Projectile.DamageType);
                 for(int i = 0; i < 6; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(24, 40), ModContent.ProjectileType<StarblightRogue>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 26), ModContent.ProjectileType<StarblightRogue>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
                 }
             }
             else
