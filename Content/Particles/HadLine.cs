@@ -19,5 +19,9 @@ namespace CalamityEntropy.Content.Particles
             base.AI();
             this.Opacity = this.Lifetime / 30f;
         }
+        public override void PreDraw()
+        {
+            
+        }
     }
 }

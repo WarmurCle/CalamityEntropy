@@ -1,25 +1,23 @@
-﻿using InnoVault.PRT;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
 {
-    public class CruiserWarn : BasePRT, IAdditivePRT
+    public class CruiserWarn : EParticle
     {
-        public override string Texture => "CalamityEntropy/Content/Particles/CrLine";
-        public override void SetProperty()
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/CrLine").Value;
+        public override void OnSpawn()
         {
-            PRTLayersMode = PRTLayersModeEnum.NoDraw;
             this.Lifetime = 30;
+        }
+        public override Vector2 getOrigin()
+        {
+            return new Vector2(0, Texture.Height / 2);
         }
         public override void AI()
         {
+            base.AI();
             this.Opacity = this.Lifetime / 30f;
-        }
-        void IAdditivePRT.Draw(SpriteBatch spriteBatch)
-        {
-            Main.spriteBatch.Draw(TexValue, this.Position - Main.screenPosition, null, Color * Opacity
-                , Rotation, new Vector2(0, TexValue.Height / 2), Scale, SpriteEffects.None, 0);
         }
     }
 }
