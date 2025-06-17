@@ -83,6 +83,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool slSound = true;
         public override void AI()
         {
+            Projectile.timeLeft = 3;
             Player player = Projectile.GetOwner();
             int MaxTime = player.itemTimeMax * Projectile.MaxUpdates;
             float progress = counter / MaxTime;
@@ -122,11 +123,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if(shoot && Main.myPlayer == Projectile.owner)
             {
-                player.velocity -= Projectile.velocity.normalize() * 8;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.rotation.ToRotationVector2() * 42, ModContent.ProjectileType<AzAGShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
             }
             if (shoot)
             {
+                player.velocity -= Projectile.velocity.normalize() * 5;
                 EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 150, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
 
                 CEUtils.PlaySound("AAGShot", 1, Projectile.Center);

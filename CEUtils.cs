@@ -24,7 +24,9 @@ namespace CalamityEntropy
         public static DamageClass RogueDC => ModContent.GetInstance<CalamityMod.RogueDamageClass>();
         public static void SetShake(Vector2 center, float strength, float MaxDist = 4000)
         {
-            Main.LocalPlayer.Calamity().GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(center), MaxDist, 0, 0f, strength);
+            float s = Utils.Remap(Main.LocalPlayer.Distance(center), MaxDist, 0, 0f, strength);
+            if (Main.LocalPlayer.Calamity().GeneralScreenShakePower < s)
+                Main.LocalPlayer.Calamity().GeneralScreenShakePower = s;
         }
         public static List<Vector2> WrapPoints(List<Vector2> points, int d)
         {
