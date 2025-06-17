@@ -8,6 +8,7 @@ using CalamityMod.Particles;
 using InnoVault;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -33,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Pink;
             Item.shoot = ModContent.ProjectileType<LunarPlankThrow>();
-            Item.shootSpeed = 18f;
+            Item.shootSpeed = 4.4f;
             Item.DamageType = CEUtils.RogueDC;
         }
 
@@ -57,6 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     }
     public class LunarPlankThrow : ModProjectile
     {
+        public List<Vector2> odp = new List<Vector2>();
         public override void SetDefaults()
         {
             Projectile.DamageType = CEUtils.RogueDC;
@@ -65,25 +67,103 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.light = 1f;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 1000;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
+            Projectile.MaxUpdates = 4;
         }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/LunarPlank";
         public override void AI()
         {
             Projectile.ai[0]++;
-            if (Projectile.ai[0] > 16)
+            if (Projectile.ai[0] > 16 * 4)
             {
-                Projectile.velocity.Y += 0.4f;
+                Projectile.velocity.Y += 0.12f;
             }
-            GeneralParticleHandler.SpawnParticle(new MediumMistParticle(Projectile.Center, Projectile.velocity * 0.4f + CEUtils.randomPointInCircle(6), Color.LightBlue, Color.SkyBlue, Main.rand.NextFloat(0.8f, 1.2f), 255 - Main.rand.Next(100), Main.rand.NextFloat(-0.2f, 0.2f)));
-            Projectile.rotation += Projectile.velocity.X * 0.012f;
+            GeneralParticleHandler.SpawnParticle(new MediumMistParticle(Projectile.Center, Projectile.velocity * 0.4f + CEUtils.randomPointInCircle(6), Color.LightBlue, Color.SkyBlue, Main.rand.NextFloat(0.8f, 1.2f), 160 - Main.rand.Next(60), Main.rand.NextFloat(-0.06f, 0.06f)));
+            Projectile.rotation += Projectile.velocity.X * 0.004f;
+
+            odp.Add(Projectile.Center);
+            if (odp.Count > 64)
+            {
+                odp.RemoveAt(0);
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            drawT();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
+        }
+        public void drawT()
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            GraphicsDevice gd = Main.graphics.GraphicsDevice;
+            odp.Add(Projectile.Center);
+            if (odp.Count > 2)
+            {
+                {
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
+                    Color b = Projectile.whoAmI % 2 == 0 ? new Color(255, 255, 160) : new Color(160, 255, 220);
+                    b *= 0.6f;
+                    float a = 0;
+                    float lr = 0;
+                    for (int i = 1; i < odp.Count; i++)
+                    {
+                        a += 1f / (float)odp.Count;
+
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 24 * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
+                              new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
+                            b * a));
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 24 * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
+                              new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
+                              b * a));
+                        lr = (odp[i] - odp[i - 1]).ToRotation();
+                    }
+                    a = 1;
+
+                    if (ve.Count >= 3)
+                    {
+                        Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/MegaStreakBacking2").Value;
+                        gd.Textures[0] = tx;
+                        gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    }
+                }
+                {
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
+                    Color b = Color.White;
+
+                    float a = 0;
+                    float lr = 0;
+                    for (int i = 1; i < odp.Count; i++)
+                    {
+                        a += 1f / (float)odp.Count;
+
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18 * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
+                              new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
+                            b * a));
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18 * ((i - 1f) / (odp.Count - 2f)) * ((i - 1f) / (odp.Count - 2f)),
+                              new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
+                              b * a));
+                        lr = (odp[i] - odp[i - 1]).ToRotation();
+                    }
+                    a = 1;
+
+                    if (ve.Count >= 3)
+                    {
+                        Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak1").Value;
+                        gd.Textures[0] = tx;
+                        gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    }
+                }
+
+            }
+            odp.RemoveAt(odp.Count - 1);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
         }
         public override void OnKill(int timeLeft)
         {

@@ -211,7 +211,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             var p = new Projectile();
             p.SetDefaults((int)Projectile.ai[0]);
             p.whoAmI = 0;
-            dmgMult *= 0.76f;
+            dmgMult *= 0.85f;
             ProjectileLoader.OnHitNPC(p, target, hit, damageDone);
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
