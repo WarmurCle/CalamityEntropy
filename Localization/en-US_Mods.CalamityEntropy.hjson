@@ -2628,9 +2628,9 @@ Projectiles: {
 	AzAGShot.DisplayName: Antiaircraft Shot
 	RockBulletShot.DisplayName: Rock Bullet Shot
 	LunarPlankThrow.DisplayName: Lunar Plank Throw
-	CommonExplotion.DisplayName: Common Explotion
-	CommonExplotionFriendly.DisplayName: Common Explotion Friendly
-	StarblightRogue.DisplayName: Starblight Rogue
+	CommonExplotion.DisplayName: Explotion
+	CommonExplotionFriendly.DisplayName: Explotion
+	StarblightRogue.DisplayName: Starblight
 }
 
 LegendTooltip: - Legend -

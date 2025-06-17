@@ -34,6 +34,9 @@ namespace CalamityEntropy.Content.Particles
             {
                 return;
             }
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
             List<ColoredVertex> ve = new List<ColoredVertex>();
             Color b = this.Color * ((float)this.Lifetime / 12f);
             ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6 * this.Scale,

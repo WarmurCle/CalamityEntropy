@@ -128,8 +128,8 @@ Items: {
 			}
 
 			LunarPlank: {
-				// DisplayName: Lunar Plank
-				// Tooltip: ""
+				DisplayName: 幻光石板
+				Tooltip: ""
 			}
 		}
 	}
@@ -2789,10 +2789,10 @@ Projectiles: {
 	AntiaircraftShell.DisplayName: 弹壳
 	AzAGShot.DisplayName: 防空炮子弹
 	RockBulletShot.DisplayName: 石头子弹
-	// LunarPlankThrow.DisplayName: Lunar Plank Throw
-	// CommonExplotion.DisplayName: Common Explotion
-	// CommonExplotionFriendly.DisplayName: Common Explotion Friendly
-	// StarblightRogue.DisplayName: Starblight Rogue
+	LunarPlankThrow.DisplayName: 幻光石板
+	CommonExplotion.DisplayName: 爆炸
+	CommonExplotionFriendly.DisplayName: 爆炸
+	StarblightRogue.DisplayName: 幻光矢
 }
 
 LegendTooltip: - 传奇物品 -
