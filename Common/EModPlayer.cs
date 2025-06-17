@@ -514,7 +514,7 @@ namespace CalamityEntropy.Common
                 if (plWingTrail == null || plWingTrail.Lifetime <= 1)
                 {
                     plWingTrail = new StarTrailParticle();
-                    plWingTrail.maxLength = 20;
+                    plWingTrail.maxLength = 32;
                     EParticle.NewParticle(plWingTrail, Player.Center, Vector2.Zero, Color.White, 1.4f, 1, true, BlendState.Additive, 0);
                 }
                 plWingTrail.Lifetime = 30;
