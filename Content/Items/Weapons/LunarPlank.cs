@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 32;
             Item.height = 34;
-            Item.damage = 200;
+            Item.damage = 160;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 18;
@@ -36,10 +36,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<LunarPlankThrow>();
             Item.shootSpeed = 6.4f;
             Item.DamageType = CEUtils.RogueDC;
+            Item.crit = 4;
         }
 
-        public override float StealthDamageMultiplier => 1.4f;
-        public override float StealthVelocityMultiplier => 1.6f;
+        public override float StealthDamageMultiplier => 1.16f;
+        public override float StealthVelocityMultiplier => 1.4f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
