@@ -159,8 +159,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 NPC.scale = 1.5f;
                 length += 46;
-                lifeMax += 1000000;
-                defense += 100;
+                NPC.lifeMax += 600000;
+                NPC.defense += 40;
             }
             if (Main.zenithWorld)
             {

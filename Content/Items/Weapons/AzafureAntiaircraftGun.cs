@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.width = 194;
             Item.height = 42;
-            Item.useTime = 100;
-            Item.useAnimation = 100;
+            Item.useTime = 90;
+            Item.useAnimation = 90;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 16;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
@@ -144,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 }
             }
             shoot = false;
-            if (progress < MaxTime)
+            if (progress < 1)
             {
                 player.itemAnimation = player.itemTime = 3;
                 Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 40 + new Vector2(0, -20);
@@ -155,11 +155,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                player.itemTime = player.itemAnimation = 1;
-                if (Projectile.timeLeft > 4)
-                {
-                    Projectile.timeLeft = 4;
-                }
+                player.itemTime = player.itemAnimation = 0;
+                Projectile.Kill();
             }
             counter++;
         }
