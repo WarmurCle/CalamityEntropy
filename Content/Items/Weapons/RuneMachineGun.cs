@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAmmo = AmmoID.Bullet;
             Item.crit = 8;
             Item.Calamity().canFirePointBlankShots = true;
-            Item.ArmorPenetration = 50;
+            Item.ArmorPenetration = 15;
         }
         public override Vector2? HoldoutOffset()
         {
