@@ -520,7 +520,7 @@ namespace CalamityEntropy.Common
                 plWingTrail.Lifetime = 30;
                 plWingTrail.Position = Player.MountedCenter + Player.gfxOffY * Vector2.UnitY + Player.velocity;
                 plWingTrail.Color = Color.White * plWingTrailAlpha;
-                if (Player.controlJump && Player.wingTime > 0)
+                if (Player.velocity.Y != 0)
                 {
                     plWingTrailAlpha += (1 - plWingTrailAlpha) * 0.1f;
                 }

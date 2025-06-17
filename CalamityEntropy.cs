@@ -125,7 +125,6 @@ namespace CalamityEntropy
         public string EntropyWikiURL;
         public override void Load()
         {
-
             CEUtils.TexCache = new Dictionary<string, Texture2D>();
 
             BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
