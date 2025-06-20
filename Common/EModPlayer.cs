@@ -1348,7 +1348,7 @@ namespace CalamityEntropy.Common
         {
             if (ilVortexType == -1)
                 ilVortexType = ModContent.ProjectileType<IlmeranVortex>();
-            if (ilmeranAsylum)
+            if (ilmeranAsylum && Main.myPlayer == Player.whoAmI)
             {
                 if (Player.ownedProjectileCounts[ilVortexType] < 3)
                 {
