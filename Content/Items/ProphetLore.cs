@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items
     public class ProphetLore : LoreItem
     {
         public static float ImmuneAdd = 0.5f;
-        public static int LifeRegen = 4;
+        public static int LifeRegen = 1;
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
