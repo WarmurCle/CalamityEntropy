@@ -125,14 +125,13 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         if (Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || BookMarkLoader.IsABookMark(Main.mouseItem)) && !(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir))
                         {
                             bool flag = true;
-                            if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir && !Main.mouseItem.IsAir)
+                            if (!Main.mouseItem.IsAir)
                             {
                                 for (int h = 0; h < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Main.LocalPlayer.Entropy().EBookStackItems.Count); h++)
                                 {
                                     if (BookMarkLoader.IsABookMark(Main.LocalPlayer.Entropy().EBookStackItems[h]))
                                     {
                                         var bm = Main.LocalPlayer.Entropy().EBookStackItems[h];
-                                        var mi = (BookMark)bm.ModItem;
                                         if (!BookMarkLoader.CanBeEquipWith(Main.mouseItem, bm))
                                         {
                                             flag = false;
