@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void SetDefaults()
         {
             Item.width = 26;
-            Item.defense = 22;
+            Item.defense = 20;
             Item.height = 26;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
