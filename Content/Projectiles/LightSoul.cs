@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
                         CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, Color.White, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.5f * 0.65f, 13);
                         GeneralParticleHandler.SpawnParticle(explosion2);
                         Projectile.Kill();
-                        target.Kill();
+                        target.damage = (int)(target.damage * 0.75f);
                         Projectile.GetOwner()?.Entropy().TryHealMeWithCd(Projectile.GetOwner().statLifeMax2 / 400 + 1);
                         return;
                     }

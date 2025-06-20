@@ -1320,7 +1320,7 @@ Items: {
 		Tooltip:
 			'''
 			Hit probability summons the Soul of Light
-			The Soul will collide with and destroy nearby bullets and heal you 1% of your maximum health
+			The Soul will collide with and decrease nearby bullets's damage by 25% and heal you 1% of your maximum health
 			'''
 	}
 
