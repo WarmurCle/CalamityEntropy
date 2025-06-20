@@ -38,6 +38,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
 
         }
+
+        public virtual bool CanBeEquipWith(Item item)
+        {
+            return item.type != Item.type;
+        }
+
         public virtual Color tooltipColor => Color.Green;
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

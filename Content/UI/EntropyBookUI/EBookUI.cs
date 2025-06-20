@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -122,11 +124,31 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         Main.LocalPlayer.mouseInterface = true;
                         if (Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || BookMarkLoader.IsABookMark(Main.mouseItem)) && !(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir))
                         {
-                            lastMouseLeft = true;
-                            Item mouseItem = Main.mouseItem.Clone();
-                            Main.mouseItem = Main.LocalPlayer.Entropy().EBookStackItems[i];
-                            Main.LocalPlayer.Entropy().EBookStackItems[i] = mouseItem;
-                            CEUtils.PlaySound("turnPage");
+                            bool flag = true;
+                            if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir && !Main.mouseItem.IsAir)
+                            {
+                                for (int h = 0; h < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Main.LocalPlayer.Entropy().EBookStackItems.Count); h++)
+                                {
+                                    if (BookMarkLoader.IsABookMark(Main.LocalPlayer.Entropy().EBookStackItems[h]))
+                                    {
+                                        var bm = Main.LocalPlayer.Entropy().EBookStackItems[h];
+                                        var mi = (BookMark)bm.ModItem;
+                                        if (!BookMarkLoader.CanBeEquipWith(Main.mouseItem, bm))
+                                        {
+                                            flag = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            if (flag)
+                            {
+                                lastMouseLeft = true;
+                                Item mouseItem = Main.mouseItem.Clone();
+                                Main.mouseItem = Main.LocalPlayer.Entropy().EBookStackItems[i];
+                                Main.LocalPlayer.Entropy().EBookStackItems[i] = mouseItem;
+                                CEUtils.PlaySound("turnPage");
+                            }
                         }
                         if (Main.mouseRight && !lastMouseRight && slotDist > 100)
                         {

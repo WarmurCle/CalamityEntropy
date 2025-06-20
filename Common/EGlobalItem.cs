@@ -104,12 +104,30 @@ namespace CalamityEntropy.Common
         {
             if (BookMarkLoader.IsABookMark(item) && EBookUI.active)
             {
-                for (int i = 0; i < player.Entropy().EBookStackItems.Count; i++)
+                bool flag = true;
+                for (int h = 0; h < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, EBookUI.bookItem), Main.LocalPlayer.Entropy().EBookStackItems.Count); h++)
                 {
-                    if (player.Entropy().EBookStackItems[i].IsAir)
+                    if (BookMarkLoader.IsABookMark(Main.LocalPlayer.Entropy().EBookStackItems[h]))
                     {
-                        player.Entropy().EBookStackItems[i] = item.Clone();
-                        item.TurnToAir();
+                        var bm = Main.LocalPlayer.Entropy().EBookStackItems[h];
+                        var mi = (BookMark)bm.ModItem;
+                        if (!BookMarkLoader.CanBeEquipWith(item, bm))
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (flag)
+                {
+                    for (int i = 0; i < player.Entropy().EBookStackItems.Count; i++)
+                    {
+                        if (player.Entropy().EBookStackItems[i].IsAir)
+                        {
+                            player.Entropy().EBookStackItems[i] = item.Clone();
+                            item.TurnToAir();
+                        }
                     }
                 }
             }

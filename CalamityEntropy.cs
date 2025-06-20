@@ -954,6 +954,14 @@ namespace CalamityEntropy
                             this.Logger.Warn("Texture is required and must be an Asset<Texture2D>");
                             return null;
                         }
+                        Func<Item, Item, bool> func = null;
+                        if (objects.TryGetValue("CanBeEquipWithFunc", out var cbew_func))
+                        {
+                            if(cbew_func is Func<Item, Item, bool> fc)
+                            {
+                                func = fc;
+                            }
+                        }
                         Asset<Texture2D> texture = (Asset<Texture2D>)textureObj;
 
                         string effectName = objects.TryGetValue("EffectName", out object effectNameObj) && effectNameObj is string
@@ -992,7 +1000,8 @@ namespace CalamityEntropy
                             modifyStat_LifeSteal,
                             modifyProjectileType,
                             modifyBaseProjectileType,
-                            modifyShootCooldown
+                            modifyShootCooldown,
+                            func
                         );
 
                     }
