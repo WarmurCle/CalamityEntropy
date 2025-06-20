@@ -14,12 +14,12 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 30;
+            Item.damage = 45;
             Item.useAnimation = Item.useTime = 20;
             Item.crit = 5;
             Item.mana = 6;
             Item.shootSpeed = 10;
-            Item.ArmorPenetration = 16;
+            Item.ArmorPenetration = 20;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BLC").Value;
         public override int HeldProjectileType => ModContent.ProjectileType<BurntLostClassicsHeld>();

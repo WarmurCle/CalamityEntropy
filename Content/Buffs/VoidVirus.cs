@@ -39,9 +39,9 @@ namespace CalamityEntropy.Content.Buffs
 
             if (Main.GameUpdateCount % 12 == 0)
             {
-                if (player.statLife > 5)
+                if (player.statLife > 2)
                 {
-                    player.statLife -= 5;
+                    player.statLife -= 2;
                 }
                 else
                 {
@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (npc.HasBuff<VoidVirus>())
             {
-                modifiers.ArmorPenetration += 20;
+                modifiers.ArmorPenetration += 10;
             }
         }
     }
