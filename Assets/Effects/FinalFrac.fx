@@ -10,7 +10,7 @@ float4 EffectFunction(float2 coords : TEXCOORD0) : COLOR0
         float z = (colory.r - 0.8) * 3.5;
         color3 = float4(z, z, z, 1);
     }
-    return lerp(color1, color2, colory.r) * float4(1, 1, 1, colory.r * alpha) + color3;
+    return (lerp(color1, color2, colory.r) + color3) * float4(1, 1, 1, colory.r * alpha);
 }
 
 technique Technique1

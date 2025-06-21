@@ -71,14 +71,17 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.timeLeft = 100000;
-            Projectile.MaxUpdates = 12;
+            Projectile.MaxUpdates = 16;
         }
         public float counter = 0;
         public float scale = 1;
         public float alpha = 0;
         public bool init = true;
         public bool shoot = true;
-        
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            CEUtils.PlaySound("moonlighthit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+        }
         public override void AI()
         {
             Player owner = Projectile.GetOwner();
@@ -87,7 +90,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             counter++;
             if (init)
             {
-                CEUtils.PlaySound("HiltAttack", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
 
                 init = false;
             }
@@ -108,7 +111,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.Center = Projectile.GetOwner().MountedCenter;
 
 
-            if (odr.Count > 60)
+            if (odr.Count > 420)
             {
                 odr.RemoveAt(0);
             }
@@ -153,7 +156,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = new Color(220, 200, 255);
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(150, 0).RotatedBy(odr[i])),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(170, 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                       b));
                 ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
