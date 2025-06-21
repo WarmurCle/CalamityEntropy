@@ -27,6 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe().AddIngredient(ItemID.RainbowWhip)
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 12)
+                .AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }
