@@ -46,8 +46,8 @@ namespace CalamityEntropy.Common
         private static Asset<Texture2D> cruiserSpace2;
         [VaultLoaden("CalamityEntropy/Assets/Extra/ksc1")]
         private static Asset<Texture2D> ksc1;
-        [VaultLoaden("CalamityEntropy/Assets/Extra/kscc")]
-        private static Asset<Texture2D> kscc;
+        [VaultLoaden("CalamityEntropy/Assets/Extra/shockwave")]
+        private static Asset<Texture2D> shockwave;
         [VaultLoaden("CalamityEntropy/Assets/Extra/white")]
         private static Asset<Texture2D> white;
         [VaultLoaden("CalamityEntropy/Content/Projectiles/Cruiser/VoidStar")]
@@ -874,7 +874,7 @@ namespace CalamityEntropy.Common
                     if (p.ModProjectile is VoidRExp vre)
                     {
                         float ks = (90f - vre.Projectile.timeLeft) * 0.4f;
-                        Main.spriteBatch.Draw(kscc.Value, vre.Projectile.Center - Main.screenPosition, null, Color.White, 0, new Vector2(kscc.Value.Width, kscc.Value.Height) / 2, ks, SpriteEffects.None, 0);
+                        Main.spriteBatch.Draw(shockwave.Value, vre.Projectile.Center - Main.screenPosition, null, Color.White * (vre.Projectile.timeLeft / 90f), 0, new Vector2(shockwave.Value.Width, shockwave.Value.Height) / 2, ks, SpriteEffects.None, 0);
                     }
                 }
                 else if (p.type == starlessNightProjType)
