@@ -88,6 +88,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<JawsOfOblivion>())
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 12)
+                .AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }
