@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             Item.damage = 95;
             Item.crit = 7;
-            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
+            Item.DamageType = DamageClass.Melee;
             Item.width = 60;
             Item.height = 40;
             Item.useTime = Item.useAnimation = 30;
