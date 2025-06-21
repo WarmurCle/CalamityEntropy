@@ -649,7 +649,7 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == ModContent.NPCType<Yharon>())
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new IsNormal(), ModContent.ItemType<Vitalfeather>(), 3));
+                npcLoot.Add(ItemDropRule.ByCondition(new IsNormal(), ModContent.ItemType<Vitalfeather>(), 4));
             }
             if (npc.type == ModContent.NPCType<PrimordialWyrmHead>())
             {
