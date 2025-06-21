@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 18;
+            Item.damage = 50;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
@@ -52,7 +52,6 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<AerialiteBar>(8)
                 .AddIngredient(ItemID.Obsidian, 10)
                 .AddIngredient(ItemID.StoneBlock, 40)
-                .AddIngredient(ItemID.NightsEdge)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
