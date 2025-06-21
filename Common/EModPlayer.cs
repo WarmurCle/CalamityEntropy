@@ -1352,7 +1352,7 @@ namespace CalamityEntropy.Common
             {
                 if (Player.ownedProjectileCounts[ilVortexType] < 3)
                 {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ilVortexType, 2400, 1, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ilVortexType, 1000, 1, Player.whoAmI);
                 }
             }
             if (Player.itemTime > 0 || Player.channel)
