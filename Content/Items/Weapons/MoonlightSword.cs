@@ -231,11 +231,17 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (Projectile.timeLeft < 20)
+                return false;
+            return base.CanHitNPC(target);
+        }
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.Opacity = Projectile.timeLeft / 80f;
-            Projectile.velocity *= 0.96f;
+            Projectile.velocity *= 0.95f;
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -246,7 +252,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D tex = CEUtils.getExtraTex("swordslash");
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.LightSeaGreen * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.56f, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.LightGreen * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.6f * new Vector2(1, Projectile.timeLeft / 80f), SpriteEffects.None);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }

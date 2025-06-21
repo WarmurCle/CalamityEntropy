@@ -2799,6 +2799,7 @@ Projectiles: {
 	CommonExplotionFriendly.DisplayName: 爆炸
 	StarblightRogue.DisplayName: 幻光矢
 	// MoonlightSwordHeld.DisplayName: Moonlight Sword Held
+	// MoonlightShoot.DisplayName: Moonlight Shoot
 }
 
 LegendTooltip: - 传奇物品 -
