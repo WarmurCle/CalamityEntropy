@@ -2217,6 +2217,11 @@ Items: {
 			"It is a miracle"
 			'''
 	}
+
+	MoonlightSword: {
+		Tooltip: ""
+		DisplayName: Moonlight Sword
+	}
 }
 
 PrefixitemDesc:
@@ -2631,6 +2636,7 @@ Projectiles: {
 	CommonExplotion.DisplayName: Explotion
 	CommonExplotionFriendly.DisplayName: Explotion
 	StarblightRogue.DisplayName: Starblight
+	MoonlightSwordHeld.DisplayName: Moonlight Sword Held
 }
 
 LegendTooltip: - Legend -

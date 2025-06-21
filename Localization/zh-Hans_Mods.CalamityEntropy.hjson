@@ -2380,6 +2380,11 @@ Items: {
 			"它是一个奇迹"
 			'''
 	}
+
+	MoonlightSword: {
+		// Tooltip: ""
+		// DisplayName: Moonlight Sword
+	}
 }
 
 PrefixitemDesc:
@@ -2793,6 +2798,7 @@ Projectiles: {
 	CommonExplotion.DisplayName: 爆炸
 	CommonExplotionFriendly.DisplayName: 爆炸
 	StarblightRogue.DisplayName: 幻光矢
+	// MoonlightSwordHeld.DisplayName: Moonlight Sword Held
 }
 
 LegendTooltip: - 传奇物品 -
