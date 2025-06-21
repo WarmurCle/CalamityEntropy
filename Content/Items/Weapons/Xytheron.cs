@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 9002;
+            Item.damage = 10000;
             Item.crit = 17;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 86;
@@ -66,7 +66,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<StarlessNight>())
-                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 14)
+                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 10)
+                .AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }
