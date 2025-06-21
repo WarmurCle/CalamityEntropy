@@ -259,11 +259,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (NPC.downedBoss3)
             {
-                ad += 0.5f;
+                ad += 0.3f;
             }
             if (Main.hardMode)
             {
-                ad += 0.4f;
+                ad += 0.3f;
             }
             if (DownedBossSystem.downedCryogen)
             {
@@ -275,7 +275,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (NPC.downedAncientCultist)
             {
-                ad += 0.2f;
+                ad += 0.1f;
             }
             if (NPC.downedMoonlord)
             {
@@ -283,7 +283,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedProvidence)
             {
-                ad += 0.5f;
+                ad += 0.3f;
             }
             if (DownedBossSystem.downedDragonfolly)
             {
@@ -295,11 +295,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedPolterghast)
             {
-                ad += 0.2f;
+                ad += 0.5f;
             }
             if (DownedBossSystem.downedDoG)
             {
-                ad += 0.6f;
+                ad += 0.5f;
             }
             if (DownedBossSystem.downedYharon)
             {
@@ -307,15 +307,15 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedExoMechs)
             {
-                ad += 1.0f;
+                ad += 0.3f;
             }
             if (DownedBossSystem.downedCalamitas)
             {
-                ad += 1.0f;
+                ad += 0.8f;
             }
             if (DownedBossSystem.downedExoMechs && DownedBossSystem.downedCalamitas)
             {
-                ad += 1.5f;
+                ad += 0.5f;
             }
             if (DownedBossSystem.downedBossRush)
             {
