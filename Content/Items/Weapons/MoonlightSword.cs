@@ -46,7 +46,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AddRecipes()
         {
-
+            CreateRecipe().AddIngredient(ItemID.HellstoneBar, 16)
+                .AddIngredient(ItemID.Obsidian, 10)
+                .AddIngredient(ItemID.StoneBlock, 40)
+                .AddIngredient(ItemID.NightsEdge)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
     public class MoonlightSwordHeld : ModProjectile
@@ -93,6 +98,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.08f, Projectile.Center);
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;
+                if(Main.myPlayer == Projectile.owner)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<MoonlightShoot>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner)
+                }
             }
             odr.Add(Projectile.rotation);
             Projectile.timeLeft = 3;
@@ -199,6 +208,45 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void CutTiles()
         {
             Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (160 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 54, DelegateMethods.CutTiles);
+        }
+    }
+    public class MoonlightShoot : ModProjectile
+    {
+        public override string Texture => CEUtils.WhiteTexPath;
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Projectile.type] = 1;
+        }
+        public override void SetDefaults()
+        {
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.width = 128;
+            Projectile.height = 128;
+            Projectile.MaxUpdates = 4;
+            Projectile.friendly = true;
+            Projectile.penetrate = 4;
+            Projectile.tileCollide = true;
+            Projectile.light = 1f;
+            Projectile.timeLeft = 80;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+        }
+        public override void AI()
+        {
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            Projectile.Opacity = Projectile.timeLeft / 80f;
+            Projectile.velocity *= 0.97f;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.SourceDamage *= Projectile.timeLeft / 80f;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = CEUtils.getExtraTex("swordslash");
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.2f, SpriteEffects.None);
+            return false;
         }
     }
 
