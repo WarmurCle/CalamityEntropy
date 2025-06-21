@@ -102,16 +102,16 @@ namespace CalamityEntropy.Content.Items.Weapons
             float cr = MathHelper.ToRadians(90);
             if (progress <= 0.5f)
             {
-                Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + CEUtils.Parabola(progress, RotF + cr)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
+                Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + CEUtils.Parabola(progress, RotF + cr)) * Projectile.ai[0];
             }
             else
             {
-                Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * 0.5f + CEUtils.Parabola(progress, cr)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
+                Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * 0.5f + CEUtils.Parabola(progress, cr)) * Projectile.ai[0];
             }
             Projectile.Center = Projectile.GetOwner().MountedCenter;
 
 
-            if (odr.Count > 900)
+            if (odr.Count > 2600)
             {
                 odr.RemoveAt(0);
             }
@@ -171,7 +171,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 sb.End();
                 sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 shader.Parameters["color2"].SetValue((new Color(200, 255, 200)).ToVector4());
-                shader.Parameters["color1"].SetValue((new Color(20, 60, 20)).ToVector4());
+                shader.Parameters["color1"].SetValue((new Color(100, 160, 100)).ToVector4());
                 shader.Parameters["alpha"].SetValue(1 - progress);
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
 
@@ -181,7 +181,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
 
 
-            int dir = (int)(Projectile.ai[0]) * (Projectile.velocity.X > 0 ? -1 : 1);
+            int dir = (int)(Projectile.ai[0]);
             Vector2 origin = dir > 0 ? new Vector2(0, tex.Height) : new Vector2(tex.Width, tex.Height);
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;

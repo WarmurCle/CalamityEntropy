@@ -201,7 +201,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 shader.Parameters["color2"].SetValue(new Color(220, 200, 255).ToVector4());
                 shader.Parameters["color1"].SetValue(new Color(100, 100, 150).ToVector4());
-                shader.Parameters["alpha"].SetValue(1);
+                shader.Parameters["alpha"].SetValue(1f);
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
 
                 gd.Textures[0] = trail;
