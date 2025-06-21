@@ -2637,6 +2637,7 @@ Projectiles: {
 	// CommonExplotionFriendly.DisplayName: Explotion
 	// StarblightRogue.DisplayName: Starblight
 	// MoonlightSwordHeld.DisplayName: Moonlight Sword Held
+	// MoonlightShoot.DisplayName: Moonlight Shoot
 }
 
 LegendTooltip: - Legend -

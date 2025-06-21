@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 init = false;
                 if(Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<MoonlightShoot>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 2, ModContent.ProjectileType<MoonlightShoot>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
                 }
             }
             odr.Add(Projectile.rotation);
@@ -220,12 +220,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.width = 128;
-            Projectile.height = 128;
+            Projectile.width = 260;
+            Projectile.height = 260;
             Projectile.MaxUpdates = 4;
             Projectile.friendly = true;
             Projectile.penetrate = 4;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 80;
             Projectile.usesLocalNPCImmunity = true;
@@ -235,7 +235,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.Opacity = Projectile.timeLeft / 80f;
-            Projectile.velocity *= 0.97f;
+            Projectile.velocity *= 0.96f;
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -244,8 +244,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override bool PreDraw(ref Color lightColor)
         {
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D tex = CEUtils.getExtraTex("swordslash");
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.LightSeaGreen * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.2f, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.LightSeaGreen * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.56f, SpriteEffects.None);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }
