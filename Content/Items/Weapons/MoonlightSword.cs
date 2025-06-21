@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 init = false;
                 if(Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<MoonlightShoot>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner)
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<MoonlightShoot>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
                 }
             }
             odr.Add(Projectile.rotation);
@@ -245,7 +245,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = CEUtils.getExtraTex("swordslash");
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.2f, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.LightSeaGreen * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.2f, SpriteEffects.None);
             return false;
         }
     }
