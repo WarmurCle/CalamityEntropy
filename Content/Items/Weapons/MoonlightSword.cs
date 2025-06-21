@@ -15,16 +15,16 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 20;
+            Item.damage = 52;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = 22;
-            Item.useAnimation = 22;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 2;
-            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
-            Item.rare = ItemRarityID.Green;
+            Item.knockBack = 3;
+            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
+            Item.rare = ItemRarityID.Orange;
             Item.UseSound = null;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool shoot = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("moonlighthit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.06f, Projectile.Center);
+            CEUtils.PlaySound("SwordHit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.06f, Projectile.Center);
         }
         public override void AI()
         {
@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (init)
             {
                 CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.08f, Projectile.Center);
-
+                Projectile.scale *= owner.HeldItem.scale;
                 init = false;
             }
             odr.Add(Projectile.rotation);
@@ -156,7 +156,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = new Color(220, 200, 255);
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(170, 0).RotatedBy(odr[i])),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(170 * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                       b));
                 ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,

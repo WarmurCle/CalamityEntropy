@@ -132,6 +132,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             counter += 1 * (Projectile.ai[0] == 3 ? 0.7f : (Projectile.ai[0] == 2 ? 0.5f : 1));
             if (init)
             {
+                Projectile.scale *= owner.HeldItem.scale;
                 if (Projectile.ai[0] == 2)
                 {
                     CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
