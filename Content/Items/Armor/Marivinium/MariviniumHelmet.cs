@@ -43,12 +43,12 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.GetDamage(DamageClass.Summon) += 1;
             player.whipRangeMultiplier += 0.1f;
             player.Entropy().summonCrit += 5;
-            player.GetArmorPenetration(DamageClass.Generic) += 100;
+            player.GetArmorPenetration(DamageClass.Generic) += 50;
             player.Entropy().MariviniumSet = true;
             if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
             {
                 player.Calamity().wearingRogueArmor = true;
-                player.Calamity().rogueStealthMax += 1.4f;
+                player.Calamity().rogueStealthMax += 1.3f;
             }
             if (player.velocity.Length() < 1)
             {
@@ -115,7 +115,8 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             CreateRecipe()
                 .AddIngredient<OmegaBlueHelmet>()
                 .AddIngredient<WyrmTooth>(4)
-                .AddIngredient<AscendantSpiritEssence>(2).AddTile<AbyssalAltarTile>()
+                .AddIngredient<ShadowspecBar>(5)
+                .AddTile<AbyssalAltarTile>()
                 .Register();
         }
     }

@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
     public class PurificationCard : ModItem
     {
-        public static float DebuffTimeReduce = 0.45f;
+        public static float DebuffTimeReduce = 0.10f;
         public override void SetDefaults()
         {
             Item.width = 22;

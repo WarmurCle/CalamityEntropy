@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Summon;
 using Terraria;
 using Terraria.DataStructures;
@@ -56,6 +57,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<EndoHydraStaff>()
                 .AddIngredient<YharonsKindleStaff>()
                 .AddIngredient<WyrmTooth>(10)
+                .AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
                 .AddTile<AbyssalAltarTile>().Register();
         }
     }

@@ -52,11 +52,11 @@ namespace CalamityEntropy.Content.Items
         {
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<Luminaris>()));
 
-            itemLoot.Add(ModContent.ItemType<StarlitPiercer>(), new Fraction(4, 5));
-            itemLoot.Add(ModContent.ItemType<Luminar>(), new Fraction(4, 5));
-            itemLoot.Add(ModContent.ItemType<StarSootInjector>(), new Fraction(4, 5));
-            itemLoot.Add(ModContent.ItemType<PhantomLightWing>(), new Fraction(4, 5));
-            itemLoot.Add(ModContent.ItemType<LunarPlank>(), new Fraction(4, 5));
+            itemLoot.Add(ModContent.ItemType<StarlitPiercer>(), new Fraction(3, 5));
+            itemLoot.Add(ModContent.ItemType<Luminar>(), new Fraction(3, 5));
+            itemLoot.Add(ModContent.ItemType<StarSootInjector>(), new Fraction(3, 5));
+            itemLoot.Add(ModContent.ItemType<PhantomLightWing>(), new Fraction(5, 5));
+            itemLoot.Add(ModContent.ItemType<LunarPlank>(), new Fraction(3, 5));
         }
     }
 }

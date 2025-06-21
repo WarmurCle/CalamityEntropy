@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 105;
+            Item.damage = 95;
             Item.crit = 7;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 60;
@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<AbyssFractalHeld>();
             Item.shootSpeed = 12f;
-            Item.ArmorPenetration = 15;
+            Item.ArmorPenetration = 20;
         }
         public int atkType = 1;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

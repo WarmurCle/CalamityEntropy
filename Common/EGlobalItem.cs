@@ -1207,7 +1207,7 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
-            if (item.Is<LeviathanBag>())
+            if (item.type == ItemID.FishronBossBag)
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<IlmeranAsylum>()));
             }
@@ -1229,7 +1229,7 @@ namespace CalamityEntropy.Common
             }
             if (item.Is<PlaguebringerGoliathBag>())
             {
-                itemLoot.Add(ModContent.ItemType<PlagueInternalCombustionEngine>(), 2);
+                itemLoot.Add(ModContent.ItemType<PlagueInternalCombustionEngine>(), 4);
             }
             if (item.type == ModContent.ItemType<HiveMindBag>())
             {

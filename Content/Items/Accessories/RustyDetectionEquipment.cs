@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void SetDefaults()
         {
             Item.width = 36;
-            Item.defense = 4;
+            Item.defense = 1;
             Item.height = 46;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.rocketBoots += 20;
+            player.rocketBoots += 10;
             player.noFallDmg = true;
             player.jumpSpeedBoost += 1.6f;
             player.maxRunSpeed *= 1.1f;
@@ -38,6 +38,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             CreateRecipe().
                 AddIngredient(ModContent.ItemType<DubiousPlating>(), 20).
                 AddIngredient(ModContent.ItemType<MysteriousCircuitry>(), 15).
+                AddIngredient(ModContent.ItemType<SuspiciousScrap>(), 1).
                 AddTile(TileID.Anvils).
                 Register();
         }

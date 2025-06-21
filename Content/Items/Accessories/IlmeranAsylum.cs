@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class IlmeranAsylum : ModItem
     {
-        public static float DMGMult = 0.16f;
+        public static float DMGMult = 0.10f;
         public override void SetDefaults()
         {
             Item.width = 52;

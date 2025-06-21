@@ -24,11 +24,8 @@ namespace CalamityEntropy.Content.Buffs
             player.GetKnockback(DamageClass.Summon) += 4;
             player.moveSpeed *= 1.12f;
             player.luck += 0.3f;
-            player.GetArmorPenetration(DamageClass.Generic) += 10f;
-            player.Calamity().contactDamageReduction *= 1.06f;
-            player.Calamity().projectileDamageReduction *= 1.06f;
             player.statDefense += 8;
-            player.lifeRegen += 5;
+            player.lifeRegen += 2;
         }
     }
 }
