@@ -1,5 +1,7 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -15,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 52;
+            Item.damage = 18;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
@@ -47,6 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.HellstoneBar, 16)
+                .AddIngredient<AerialiteBar>(8)
                 .AddIngredient(ItemID.Obsidian, 10)
                 .AddIngredient(ItemID.StoneBlock, 40)
                 .AddIngredient(ItemID.NightsEdge)
@@ -86,6 +89,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("SwordHit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.06f, Projectile.Center);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.4f, lx = 0.4f }, target.Center, Vector2.Zero, Color.LightGreen, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            CEUtils.PlaySound("swing" + Main.rand.Next(1, 4).ToString(), 1, target.Center);
         }
         public override void AI()
         {
