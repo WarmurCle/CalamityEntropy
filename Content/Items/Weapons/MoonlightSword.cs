@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.timeLeft = 100000;
-            Projectile.MaxUpdates = 16;
+            Projectile.MaxUpdates = 14;
         }
         public float counter = 0;
         public float scale = 1;
@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool shoot = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("moonlighthit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+            CEUtils.PlaySound("moonlighthit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.06f, Projectile.Center);
         }
         public override void AI()
         {
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             counter++;
             if (init)
             {
-                CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.08f, Projectile.Center);
 
                 init = false;
             }
@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.Center = Projectile.GetOwner().MountedCenter;
 
 
-            if (odr.Count > 420)
+            if (odr.Count > 900)
             {
                 odr.RemoveAt(0);
             }
