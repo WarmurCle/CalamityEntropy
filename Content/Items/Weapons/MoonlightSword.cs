@@ -88,9 +88,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool shoot = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("SwordHit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.06f, Projectile.Center);
-            EParticle.spawnNew(new AbyssalLine() { xadd = 0.4f, lx = 0.4f }, target.Center, Vector2.Zero, Color.LightGreen, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
             CEUtils.PlaySound("swing" + Main.rand.Next(1, 4).ToString(), 1, target.Center);
+            CEUtils.PlaySound("SwordHit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.06f, Projectile.Center);
         }
         public override void AI()
         {
@@ -222,6 +221,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Main.projFrames[Projectile.type] = 1;
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 0.8f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkSeaGreen }, target.Center, Vector2.Zero, new Color(220, 255, 220), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            
+        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
@@ -257,7 +261,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D tex = CEUtils.getExtraTex("swordslash");
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.LightGreen * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.6f * new Vector2(1, Projectile.timeLeft / 80f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(220, 255, 220) * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.6f * new Vector2(1, Projectile.timeLeft / 80f), SpriteEffects.None);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
