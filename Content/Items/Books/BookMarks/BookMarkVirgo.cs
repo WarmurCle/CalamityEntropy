@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void ModifyStat(EBookStatModifer modifer)
         {
             modifer.PenetrateAddition += 1;
-            modifer.Damage += 0.14f;
+            modifer.Damage += 0.08f;
         }
     }
 }

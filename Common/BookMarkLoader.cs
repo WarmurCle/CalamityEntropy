@@ -38,9 +38,10 @@ namespace CalamityEntropy.Common
       Func<int, int> modifyStat_LifeSteal = null,
        Func<int, int> modifyProjectileType = null,
        Func<int> modifyBaseProjectileType = null,
-       Func<int, int> modifyShootCooldown = null)
+       Func<int, int> modifyShootCooldown = null, 
+       Func<Item, Item, bool> canBeEq = null)
         {
-            CustomBMByID[ItemType] = new BookMarkTag(tex.Value, effectName)
+            CustomBMByID[ItemType] = new BookMarkTag(tex.Value, effectName, canBeEq == null ? default : canBeEq)
             {
                 ModifyStat_Damage = modifyStat_Damage,
                 ModifyStat_Knockback = modifyStat_Knockback,
@@ -230,6 +231,22 @@ namespace CalamityEntropy.Common
         {
             return item.ModItem is BookMark || CustomBMByID.ContainsKey(item.type);
         }
+        private static bool CanBeEquipWith_Base(Item a, Item b)
+        {
+            return a.type != b.type;
+        }
+        public static bool CanBeEquipWith(Item a, Item b)
+        {
+            if(a.ModItem is BookMark bm)
+            {
+                return bm.CanBeEquipWith(b);
+            }
+            if (IsABookMark(a))
+            {
+                return CustomBMByID[a.type].CanBeEquipWith.Invoke(a, b);
+            }
+            return false;
+        }
         public class BookmarkEffectFunctionGroups
         {
             public Action<ModProjectile> OnShoot;
@@ -238,6 +255,8 @@ namespace CalamityEntropy.Common
             public Action<Projectile, bool> UpdateProjectile;
             public Action<Projectile, NPC, int> OnHitNPC;
             public Action<Projectile, NPC, NPC.HitModifiers> ModifyHitNPC;
+            
+
             public BookmarkEffectFunctionGroups(
                 Action<ModProjectile> onShoot = null,
                 Action<ModProjectile> onActive = null,
@@ -287,11 +306,16 @@ namespace CalamityEntropy.Common
         public class BookMarkTag
         {
             public string CustomBMEffectName;
-            public Texture2D uiTex;
-            public BookMarkTag(Texture2D uITexture, string customBMEffectName = null)
+            public Texture2D uiTex; 
+            public Func<Item, Item, bool> CanBeEquipWith = CanBeEquipWith_Base;
+            public BookMarkTag(Texture2D uITexture, string customBMEffectName = null, Func<Item, Item, bool> canBeEquipWith = default)
             {
                 uiTex = uITexture;
                 this.CustomBMEffectName = customBMEffectName;
+                if(canBeEquipWith != default)
+                {
+                    CanBeEquipWith = canBeEquipWith;
+                }
             }
             public Texture2D UITexture => uiTex;
             public EBookProjectileEffect getEffect()
