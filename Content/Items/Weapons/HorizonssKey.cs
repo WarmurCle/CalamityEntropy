@@ -267,11 +267,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedCryogen)
             {
-                ad += 0.36f;
+                ad += 0.26f;
             }
             if (NPC.downedGolemBoss)
             {
-                ad += 0.2f;
+                ad += 0.1f;
             }
             if (NPC.downedAncientCultist)
             {
