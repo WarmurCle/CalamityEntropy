@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
 using System;
 using Terraria;
