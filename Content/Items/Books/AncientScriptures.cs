@@ -10,8 +10,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 34;
-            Item.crit = 2;
+            Item.damage = 13;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<AncientScripturesHeld>();
         public override int SlotCount => 1;
@@ -20,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<LoreAwakening>())
                 .AddIngredient(ItemID.Leather, 6)
-                .AddIngredient(ItemID.ManaCrystal, 2)
+                .AddIngredient(ItemID.ManaCrystal, 1)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }

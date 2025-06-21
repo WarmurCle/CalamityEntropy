@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
 using System;
 using Terraria;
@@ -73,6 +74,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 14)
                 .AddIngredient(ModContent.ItemType<Drataliornus>(), 1)
+                .AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }

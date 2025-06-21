@@ -54,16 +54,16 @@ namespace CalamityEntropy.Content.Items
         {
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<TheProphet>()));
 
-            itemLoot.Add(ModContent.ItemType<RuneSong>(), new Fraction(4, 5));
-            itemLoot.Add(ModContent.ItemType<UrnOfSouls>(), new Fraction(4, 5));
-            itemLoot.Add(ModContent.ItemType<SpiritBanner>(), new Fraction(4, 5));
-            itemLoot.Add(ModContent.ItemType<RuneMachineGun>(), new Fraction(4, 5));
-            itemLoot.Add(ModContent.ItemType<ProphecyFlyingKnife>(), new Fraction(4, 5));
-            itemLoot.Add(ModContent.ItemType<ForeseeOrb>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<RuneWing>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<ForeseeWhip>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<ProphecyMasterpiece>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<BookMarkForesee>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<RuneSong>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<UrnOfSouls>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<SpiritBanner>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<RuneMachineGun>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<ProphecyFlyingKnife>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<ForeseeOrb>(), new Fraction(1, 10));
+            itemLoot.Add(ModContent.ItemType<RuneWing>(), new Fraction(1, 5));
+            itemLoot.Add(ModContent.ItemType<ForeseeWhip>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<ProphecyMasterpiece>(), new Fraction(1, 5));
+            itemLoot.Add(ModContent.ItemType<BookMarkForesee>(), new Fraction(1, 5));
             itemLoot.Add(ModContent.ItemType<CursedThread>(), 1);
         }
     }

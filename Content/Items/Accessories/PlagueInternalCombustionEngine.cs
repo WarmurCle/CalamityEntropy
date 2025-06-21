@@ -16,7 +16,6 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
             Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;
-            Item.defense = 10;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -34,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             if (player.Entropy().TryHealMeWithCd(3, 1))
             {
-                player.Entropy().temporaryArmor += 2f;
+                player.Entropy().temporaryArmor += 1f;
             }
         }
     }
