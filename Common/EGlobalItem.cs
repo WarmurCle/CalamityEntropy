@@ -1207,7 +1207,7 @@ namespace CalamityEntropy.Common
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
-            if (item.type == ItemID.DukeFishronBossBag)
+            if (item.type == ItemID.FishronBossBag)
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<IlmeranAsylum>()));
             }
