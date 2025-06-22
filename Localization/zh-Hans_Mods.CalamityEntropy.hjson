@@ -2387,7 +2387,11 @@ Items: {
 	}
 
 	BookMarkBlackKnife: {
-		Tooltip: 击中目标后概率生成一把延迟攻击的剑
+		Tooltip: 
+		'''
+		击中目标后概率生成一把延迟攻击的剑
+		"快去玩《三角符文》"
+		'''
 		DisplayName: 黑刃书签
 	}
 }
@@ -2803,9 +2807,9 @@ Projectiles: {
 	CommonExplotion.DisplayName: 爆炸
 	CommonExplotionFriendly.DisplayName: 爆炸
 	StarblightRogue.DisplayName: 幻光矢
-	// MoonlightSwordHeld.DisplayName: Moonlight Sword Held
-	// MoonlightShoot.DisplayName: Moonlight Shoot
-	// BlackKnife.DisplayName: Black Knife
+	MoonlightSwordHeld.DisplayName: 皎月之刃
+	MoonlightShoot.DisplayName: 皎月之刃剑气
+	BlackKnife.DisplayName: 黑刃
 }
 
 LegendTooltip: - 传奇物品 -
