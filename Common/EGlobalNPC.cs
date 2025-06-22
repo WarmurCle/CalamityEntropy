@@ -895,6 +895,13 @@ namespace CalamityEntropy.Common
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BitternessCard>()));
                 }
             }
+            if (Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneDungeon)
+            {
+                if (Main.rand.NextBool(256))
+                {
+                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BookMarkBlackKnife>()));
+                }
+            }
             if (npc.type == ModContent.NPCType<PrimordialWyrmHead>())
             {
                 DownedBossSystem.downedPrimordialWyrm = true;
