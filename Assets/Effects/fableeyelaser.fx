@@ -8,14 +8,14 @@ float4 PSFunction(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
     //pj = coords.y + (coords.y - pj);
     float c = sin(coords.y * 3.1415);
     float4 clr = tex2D(uImage0, float2(coords.x, frac(yofs + pj)));
-    if(clr.r > 0.7)
+    if(clr.r > 0.8)
     {
-        float z = (clr.r - 0.7) * 3.5;
+        float z = (clr.r - 0.8) * 3.5;
         clr += float4(z, z, z, z);
     }
-    float c1 = c * c * c * 0.4;
+    float c1 = c * c * c * 0.25;
     clr += float4(c1, c1, c1, c1);
-    float c2 = 1 - ((1 - c) * (1 - c));
+    float c2 = c;
     return clr * float4(c2, c2, c2, c2) * baseColor;
 }
 technique Technique1

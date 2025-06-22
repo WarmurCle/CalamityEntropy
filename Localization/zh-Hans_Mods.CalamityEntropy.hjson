@@ -2385,6 +2385,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: 皎月之刃
 	}
+
+	BookMarkBlackKnife: {
+		Tooltip: 击中目标后概率生成一把延迟攻击的剑
+		DisplayName: 黑刃书签
+	}
 }
 
 PrefixitemDesc:
@@ -2800,6 +2805,7 @@ Projectiles: {
 	StarblightRogue.DisplayName: 幻光矢
 	// MoonlightSwordHeld.DisplayName: Moonlight Sword Held
 	// MoonlightShoot.DisplayName: Moonlight Shoot
+	// BlackKnife.DisplayName: Black Knife
 }
 
 LegendTooltip: - 传奇物品 -

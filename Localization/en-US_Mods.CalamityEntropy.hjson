@@ -2222,6 +2222,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: Moonlight Sword
 	}
+
+	BookMarkBlackKnife: {
+		Tooltip: There is a chance to spawn a black sword after hitting an enemy
+		DisplayName: Bookmark - Black Knife
+	}
 }
 
 PrefixitemDesc:
@@ -2637,6 +2642,7 @@ Projectiles: {
 	StarblightRogue.DisplayName: Starblight
 	MoonlightSwordHeld.DisplayName: Moonlight Sword Held
 	MoonlightShoot.DisplayName: Moonlight Shoot
+	BlackKnife.DisplayName: Black Knife
 }
 
 LegendTooltip: - Legend -
