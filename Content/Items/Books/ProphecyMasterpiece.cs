@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Books
 
     public class ForeseeEye : EBookBaseLaser
     {
-        public override float width => 64 * Projectile.scale;
+        public override float width => 100 * Projectile.scale;
         public override int OnHitEffectProb => 2;
         public override void SetDefaults()
         {
@@ -242,10 +242,10 @@ namespace CalamityEntropy.Content.Items.Books
                     {
                         wd = new Vector2(1, 0).RotatedBy((i / 48f) * MathHelper.PiOver2).Y;
                     }
-                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 54 * Projectile.scale * w * wd,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 62 * Projectile.scale * w * wd,
                           new Vector3(p, 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 54 * Projectile.scale * w * wd,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 62 * Projectile.scale * w * wd,
                           new Vector3(p, 0, 1),
                           b));
                     p += (CEUtils.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
