@@ -2224,11 +2224,11 @@ Items: {
 	}
 
 	BookMarkBlackKnife: {
-		Tooltip: 
-		'''
-		There is a chance to spawn a black sword after hitting an enemy
-		"GO TO PLAY DELTARUNE"
-		'''
+		Tooltip:
+			'''
+			There is a chance to spawn a black sword after hitting an enemy
+			"GO TO PLAY DELTARUNE"
+			'''
 		DisplayName: Bookmark - Black Knife
 	}
 }
