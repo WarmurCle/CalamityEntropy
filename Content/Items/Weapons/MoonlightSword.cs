@@ -260,7 +260,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D tex = CEUtils.getExtraTex("swordslash");
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(220, 255, 220) * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.6f * new Vector2(1, Projectile.timeLeft / 80f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(150, 190, 150) * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(200, 0), Projectile.scale * 0.6f * new Vector2(0.6f, Projectile.timeLeft / 80f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(190, 210, 190) * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(200, 0), Projectile.scale * 0.5f * new Vector2(0.8f, Projectile.timeLeft / 80f * 0.9f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255) * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(200, 0), Projectile.scale * 0.4f * new Vector2(0.1f, Projectile.timeLeft / 80f * 0.76f), SpriteEffects.None);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
