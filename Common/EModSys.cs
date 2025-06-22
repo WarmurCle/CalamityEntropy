@@ -7,8 +7,10 @@ using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod.Items.Placeables.FurnitureAuric;
 using CalamityMod.NPCs.SlimeGod;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -54,6 +56,20 @@ namespace CalamityEntropy.Common
                 }
                 Main.spriteBatch.End();
             }
+            /*Effect effect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Vortex", AssetRequestMode.ImmediateLoad).Value;
+            effect.Parameters["Center"].SetValue(new Vector2(0.5f, 0.5f));
+            effect.Parameters["Strength"].SetValue(16);
+            effect.Parameters["AspectRatio"].SetValue(1);
+            effect.Parameters["TexOffset"].SetValue(Vector2.Zero);
+            float fadeOutDistance = 0.2f;
+            float fadeOutWidth = 0.3f;
+            effect.Parameters["FadeOutDistance"].SetValue(fadeOutDistance);
+            effect.Parameters["FadeOutWidth"].SetValue(fadeOutWidth);
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            effect.CurrentTechnique.Passes[0].Apply();
+            Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), Main.LocalPlayer.Center - Main.screenPosition, null, Color.LightBlue, Main.GlobalTimeWrappedHourly * 4, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 2, SpriteEffects.None, 0);
+            Main.spriteBatch.End();*/
         }
         public static bool sayTip = true;
         public override void UpdateUI(GameTime gameTime)
