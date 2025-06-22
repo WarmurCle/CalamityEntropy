@@ -614,10 +614,10 @@ namespace CalamityEntropy
 
         private Rectangle modifyRect(On_Player.orig_getRect orig, Player self)
         {
-            if (self.Entropy().MariviniumSet)
+            /*if (self.Entropy().MariviniumSet)
             {
                 return orig(self).Center.ToVector2().getRectCentered(10, 10);
-            }
+            }*/
             return orig(self);
         }
 

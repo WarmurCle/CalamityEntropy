@@ -2239,7 +2239,6 @@ MariviniumSet:
 	+5% Summon Crit
 	+5% Damage Reduce
 	+100 Armor Penetration
-	Decrease your hitbox for enemies' projectiles
 	if your crit chance is over 100%, convert excess crit chance into damage bonus
 	+140 Rogue Stealth
 	When standing, increase life regen

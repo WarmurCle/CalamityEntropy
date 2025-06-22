@@ -67,18 +67,18 @@ namespace CalamityEntropy.Content.Items.Accessories
                 }
 
             }
-            if (player.wingTime < 2 && !(player.mount.Active) && inUse)
-            {
-                player.wingTime = 2;
-                player.AddBuff(ModContent.BuffType<VoidTouch>(), 5);
-            }
+            
             return base.WingUpdate(player, inUse);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EPlayerDash>().DashAccessoryEquipped = true;
             player.GetModPlayer<EPlayerDash>().velt = true;
-
+            if (player.wingTime < 2 && !(player.mount.Active))
+            {
+                player.wingTime = 2;
+                player.AddBuff(ModContent.BuffType<VoidTouch>(), 5);
+            }
         }
 
     }

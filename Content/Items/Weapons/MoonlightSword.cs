@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * 0.5f + CEUtils.Parabola(progress, cr)) * Projectile.ai[0];
+                Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * 0.5f + cr - CEUtils.GetRepeatedCosFromZeroToOne(2 * (progress - 0.5f), 1) * cr) * Projectile.ai[0];
             }
             Projectile.Center = Projectile.GetOwner().MountedCenter;
 
