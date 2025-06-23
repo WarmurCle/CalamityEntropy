@@ -125,7 +125,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             NPC.defense = 60;
             if (!Main.dedServ)
             {
-                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/boss2");
+
             }
             for (int i = 1; i <= 8; i++)
             {

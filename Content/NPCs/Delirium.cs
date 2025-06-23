@@ -31,6 +31,10 @@ namespace CalamityEntropy.Content.NPCs
 {
     public class Delirium : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public static List<int> npcTurns = new List<int>()
         {
             NPCID.KingSlime,
@@ -117,20 +121,20 @@ namespace CalamityEntropy.Content.NPCs
         }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
-            binaryWriter.Write(delirium);
+           /* binaryWriter.Write(delirium);
             binaryWriter.Write(counter);
             binaryWriter.Write(npc.lifeMax);
             binaryWriter.Write(npc.life);
-            binaryWriter.Write(npc.damage);
+            binaryWriter.Write(npc.damage);*/
         }
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
         {
-            delirium = binaryReader.ReadBoolean();
+            /*delirium = binaryReader.ReadBoolean();
             counter = binaryReader.ReadInt32();
             npc.lifeMax = binaryReader.ReadInt32();
             npc.life = binaryReader.ReadInt32();
-            npc.damage = binaryReader.ReadInt32();
+            npc.damage = binaryReader.ReadInt32();*/
         }
 
         public override bool CheckActive(NPC npc)
