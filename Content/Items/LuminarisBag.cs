@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.LuminarisMoth;
 using CalamityMod;
+using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -57,6 +58,7 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<StarSootInjector>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<PhantomLightWing>(), new Fraction(5, 5));
             itemLoot.Add(ModContent.ItemType<LunarPlank>(), new Fraction(3, 5));
+            itemLoot.Add(ModContent.ItemType<StarblightSoot>(), 1, 52, 74);
         }
     }
 }

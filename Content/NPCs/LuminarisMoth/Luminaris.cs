@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
@@ -90,8 +91,8 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         {
 
             NPC.boss = true;
-            NPC.width = 76;
-            NPC.height = 76;
+            NPC.width = 96;
+            NPC.height = 96;
             NPC.damage = 68;
             NPC.Calamity().DR = 0.1f;
             NPC.defense = 10;
@@ -1018,6 +1019,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 normalOnly.Add(ModContent.ItemType<StarSootInjector>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<PhantomLightWing>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<LunarPlank>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<StarblightSoot>(), 1, 42, 64);
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<LuminarisRelic>());
 
