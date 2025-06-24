@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Projectiles.TwistedTwin
 {
     public class TwistedTwinMinion : ModProjectile
     {
-        public static float damageMul { get { return 0.05f + Main.LocalPlayer.Entropy().WeaponBoost * 0.05f; } }
+        public static float damageMul { get { return 1.0f + Main.LocalPlayer.Entropy().WeaponBoost * 0.05f; } }
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
