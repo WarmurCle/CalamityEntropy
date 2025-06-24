@@ -13,6 +13,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             Item.width = 42;
             Item.height = 42;
+            Item.defense = 15;
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
             Item.rare = ModContent.RarityType<GlowGreen>();
             Item.accessory = true;
@@ -26,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Calamity().nextHitDealsDefenseDamage = false;
 
             player.Entropy().SCrown = true;
-            player.GetCritChance(DamageClass.Generic) -= 15;
+            player.GetDamage(DamageClass.Generic) *= 0.5f;
         }
 
     }
