@@ -15,6 +15,7 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (player.ownedProjectileCounts[ModContent.ProjectileType<TwistedTwinMinion>()] > 0)
             {
+                player.GetDamage(DamageClass.Generic) *= 0.25f;
                 player.buffTime[buffIndex] = 18000;
             }
             else
