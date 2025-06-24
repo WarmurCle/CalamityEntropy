@@ -1175,12 +1175,12 @@ namespace CalamityEntropy.Common
             onHurt(npc, damageDone, player, null, hit);
             if (player.Entropy().deusCoreBloodOut > 0 && player.Entropy().bloodTrCD <= 0)
             {
-                int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, damageDone / 1000 + 1);
-                if (btransfer > 50)
+                int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, damageDone / 50 + 1);
+                if (btransfer > 10)
                 {
-                    btransfer = 50;
+                    btransfer = 10;
                 }
-                player.Entropy().bloodTrCD = 8;
+                player.Entropy().bloodTrCD = 1;
                 player.Entropy().deusCoreBloodOut -= btransfer;
                 deusBloodOut += btransfer;
             }
