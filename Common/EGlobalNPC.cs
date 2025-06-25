@@ -629,7 +629,7 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == NPCID.WyvernHead)
             {
-                npcLoot.Add(ModContent.ItemType<VetrasylsEye>(), 5);
+                npcLoot.Add(ModContent.ItemType<VetrasylsEye>(), 20);
             }
             if (npc.boss)
             {
@@ -1163,7 +1163,7 @@ namespace CalamityEntropy.Common
                             if (target != null)
                             {
                                 noelctime = 4;
-                                Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, Vector2.Zero, lasertype, damage / 4, 0, player.whoAmI, target.Center.X, target.Center.Y, (source is Projectile p && p.type == lasertype) ? p.ai[2] + 1 : 0);
+                                Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, Vector2.Zero, lasertype, damage / 40, 0, player.whoAmI, target.Center.X, target.Center.Y, (source is Projectile p && p.type == lasertype) ? p.ai[2] + 1 : 0);
                             }
                         }
                     }
