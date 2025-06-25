@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Buffs
             {
                 modifiers.FlatBonusDamage += WyrmWhipDebuff.TagDamage * projTagMultiplier;
                 modifiers.SourceDamage += WyrmWhipDebuff.TagDamageMul * projTagMultiplier;
-                if (Main.rand.NextBool(10))
+                if (Main.rand.NextBool(8))
                 {
                     modifiers.SetCrit();
                 }
