@@ -42,8 +42,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<VoidOde>()
-                .AddIngredient<EventHorizon>()
-                .AddIngredient<MiracleMatter>()
+                .AddIngredient<ExoPrism>(5)
                 .AddTile<DraedonsForge>()
                 .Register();
         }
