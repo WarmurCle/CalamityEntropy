@@ -1163,7 +1163,7 @@ namespace CalamityEntropy.Common
                             if (target != null)
                             {
                                 noelctime = 4;
-                                Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, Vector2.Zero, lasertype, damage / 40, 0, player.whoAmI, target.Center.X, target.Center.Y, (source is Projectile p && p.type == lasertype) ? p.ai[2] + 1 : 0);
+                                Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, Vector2.Zero, lasertype, damage / 20, 0, player.whoAmI, target.Center.X, target.Center.Y, (source is Projectile p && p.type == lasertype) ? p.ai[2] + 1 : 0);
                             }
                         }
                     }
@@ -1180,7 +1180,7 @@ namespace CalamityEntropy.Common
                 {
                     btransfer = 30;
                 }
-                player.Entropy().bloodTrCD = 20;
+                player.Entropy().bloodTrCD = 15;
                 player.Entropy().deusCoreBloodOut -= btransfer;
                 deusBloodOut += btransfer;
             }
