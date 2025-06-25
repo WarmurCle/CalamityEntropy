@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Projectiles
     {
         public override string Texture => CEUtils.WhiteTexPath;
         public List<Vector2> oldPos = new List<Vector2>();
-        public float range = 800;
+        public float range = 760;
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Ranged;
@@ -34,15 +34,21 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 oldPos.RemoveAt(0);
             }
-            if (Projectile.timeLeft % 42 == 0)
+            if (Projectile.timeLeft % 46 == 0)
             {
                 if (Main.myPlayer == Projectile.owner)
                 {
+                    int l = 8;
                     foreach (NPC npc in Main.ActiveNPCs)
                     {
                         if (npc.Distance(Projectile.Center) < range && !npc.friendly && !npc.dontTakeDamage)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 4, ModContent.ProjectileType<PlasmaLightning>(), Projectile.damage / 5, 0, Projectile.owner, npc.Center.X, npc.Center.Y);
+                            l--;
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 4, ModContent.ProjectileType<PlasmaLightning>(), Projectile.damage / 6, 0, Projectile.owner, npc.Center.X, npc.Center.Y);
+                            if(l <= 0)
+                            {
+                                break;
+                            }
                         }
                     }
                 }
