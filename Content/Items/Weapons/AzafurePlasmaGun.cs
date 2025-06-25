@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
             Vector2 itemPosition = player.MountedCenter + itemRotation.ToRotationVector2() * 76f;
             Vector2 itemSize = new Vector2(Item.width, Item.height);
-            Vector2 itemOrigin = new Vector2(-52 + ((player.itemAnimation >= (player.itemAnimationMax * 0.75f)) ? CEUtils.Parabola(4 * (player.itemAnimation - player.itemAnimationMax * 0.75f) / (float)player.itemAnimationMax, 24) : 0), 0);
+            Vector2 itemOrigin = new Vector2(0 + ((player.itemAnimation >= (player.itemAnimationMax * 0.75f)) ? CEUtils.Parabola(4 * (player.itemAnimation - player.itemAnimationMax * 0.75f) / (float)player.itemAnimationMax, 24) : 0), 0);
 
             CalamityUtils.CleanHoldStyle(player, itemRotation, itemPosition, itemSize, itemOrigin);
             base.UseStyle(player, heldItemFrame);

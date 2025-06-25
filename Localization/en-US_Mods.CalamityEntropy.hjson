@@ -2234,7 +2234,7 @@ Items: {
 
 	AzafurePlasmaGun: {
 		DisplayName: Azafure Plasma Gun
-		Tooltip: ""
+		Tooltip: Launch plasma balls that will electrocute nearby enemies
 	}
 }
 

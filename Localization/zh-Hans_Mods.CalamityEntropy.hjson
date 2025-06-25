@@ -2396,8 +2396,8 @@ Items: {
 	}
 
 	AzafurePlasmaGun: {
-		// DisplayName: Azafure Plasma Gun
-		// Tooltip: ""
+		DisplayName: 阿萨福勒磁暴枪
+		Tooltip: 发射会电击附近敌怪的电磁球
 	}
 }
 

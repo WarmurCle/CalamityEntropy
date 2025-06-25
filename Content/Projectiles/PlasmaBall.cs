@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 oldPos.RemoveAt(0);
             }
-            if (Projectile.timeLeft % 12 == 0)
+            if (Projectile.timeLeft % 42 == 0)
             {
                 if (Main.myPlayer == Projectile.owner)
                 {
@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Projectiles
                 GeneralParticleHandler.SpawnParticle(pulse);
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 72, Projectile.DamageType);
                 CEUtils.SetShake(Projectile.Center, 4);
-                CEUtils.PlaySound("light_bolt", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
+                CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
             }
         }
 
