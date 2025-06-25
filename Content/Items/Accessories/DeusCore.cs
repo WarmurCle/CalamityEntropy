@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().deusCore = true;
-            player.Entropy().damageReduce -= 0.5f;
+            player.Entropy().damageReduce -= 1.0f;
         }
 
         public override void AddRecipes()
