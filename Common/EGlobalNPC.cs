@@ -1180,7 +1180,7 @@ namespace CalamityEntropy.Common
                 {
                     btransfer = 30;
                 }
-                player.Entropy().bloodTrCD = 60;
+                player.Entropy().bloodTrCD = 15;
                 player.Entropy().deusCoreBloodOut -= btransfer;
                 deusBloodOut += btransfer;
             }
