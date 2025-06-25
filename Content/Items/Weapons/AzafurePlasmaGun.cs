@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 40;
             Item.crit = 10;
             Item.ArmorPenetration = 5;
             Item.DamageType = DamageClass.Ranged;
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe()
                 .AddIngredient<AerialiteBar>(8)
-                .AddIngredient(ItemID.MeteoriteBar, 6)
+                .AddIngredient<DubiousPlating>(8)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
