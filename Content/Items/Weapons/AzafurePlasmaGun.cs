@@ -21,6 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.damage = 25;
             Item.crit = 10;
+            Item.ArmorPenetration = 5;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 194;
             Item.height = 42;
