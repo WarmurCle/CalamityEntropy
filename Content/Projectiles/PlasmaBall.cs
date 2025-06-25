@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         if (npc.Distance(Projectile.Center) < range && !npc.friendly && !npc.dontTakeDamage)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PlasmaLightning>(), Projectile.damage / 5, 0, Projectile.owner, npc.Center.X, npc.Center.Y);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 4, ModContent.ProjectileType<PlasmaLightning>(), Projectile.damage / 5, 0, Projectile.owner, npc.Center.X, npc.Center.Y);
                         }
                     }
                 }
@@ -57,6 +57,14 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 72, Projectile.DamageType);
                 CEUtils.SetShake(Projectile.Center, 4);
                 CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
+            }
+            int t = ModContent.ProjectileType<PlasmaLightning>();
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.type == t && p.owner == Projectile.owner)
+                {
+                    p.Kill();
+                }
             }
         }
 

@@ -35,10 +35,6 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ArmorPenetration = 64;
             Projectile.timeLeft = 16;
         }
-        public override bool ShouldUpdatePosition()
-        {
-            return false;
-        }
         public override void AI()
         {
             if (Projectile.localAI[0] == 0)
@@ -48,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
             Vector2 end = new Vector2(Projectile.ai[0], Projectile.ai[1]);
             if(points == null || Projectile.localAI[0] % 5 == 0)
             {
-                points = LightningGenerator.GenerateLightning(Projectile.Center, end, 14, 4);
+                points = LightningGenerator.GenerateLightning(Projectile.Center, end, 36, 6);
             }
             Projectile.localAI[0]++;
         }
