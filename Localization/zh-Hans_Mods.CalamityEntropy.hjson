@@ -2394,6 +2394,11 @@ Items: {
 			'''
 		DisplayName: 黑刃书签
 	}
+
+	AzafurePlasmaGun: {
+		// DisplayName: Azafure Plasma Gun
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2810,6 +2815,8 @@ Projectiles: {
 	MoonlightSwordHeld.DisplayName: 皎月之刃
 	MoonlightShoot.DisplayName: 皎月之刃剑气
 	BlackKnife.DisplayName: 黑刃
+	// PlasmaBall.DisplayName: Plasma Ball
+	// PlasmaLightning.DisplayName: Plasma Lightning
 }
 
 LegendTooltip: - 传奇物品 -

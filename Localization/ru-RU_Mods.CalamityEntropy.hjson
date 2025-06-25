@@ -2231,6 +2231,11 @@ Items: {
 			''' */
 		// DisplayName: Bookmark - Black Knife
 	}
+
+	AzafurePlasmaGun: {
+		// DisplayName: Azafure Plasma Gun
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2648,6 +2653,8 @@ Projectiles: {
 	// MoonlightSwordHeld.DisplayName: Moonlight Sword Held
 	// MoonlightShoot.DisplayName: Moonlight Shoot
 	// BlackKnife.DisplayName: Black Knife
+	// PlasmaBall.DisplayName: Plasma Ball
+	// PlasmaLightning.DisplayName: Plasma Lightning
 }
 
 LegendTooltip: - Legend -
