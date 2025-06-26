@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Menu
         public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white");
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/startmenu");
         public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logo");
-        public override string DisplayName => "Calamity Entropy";
+        public override string DisplayName => "Calamity Entropy - Vortex";
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
             Main.time = 27000;
