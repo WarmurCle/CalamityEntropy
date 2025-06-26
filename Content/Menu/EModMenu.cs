@@ -17,7 +17,10 @@ namespace CalamityEntropy.Content.Menu
         public override string DisplayName => "Calamity Entropy";
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
-            Texture2D l1 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer1").Value;
+            Main.time = 27000;
+            Main.dayTime = true;
+            Texture2D mask = CEUtils.getExtraTex("menumask");
+            Texture2D l1 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/VoidVortex").Value;
             Texture2D l2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer2").Value;
             Texture2D l3 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer3").Value;
             Texture2D l4 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer4").Value;
@@ -32,9 +35,14 @@ namespace CalamityEntropy.Content.Menu
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 
-            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.12f), l1.Size() / 2, 1.4f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.12f), l1.Size() / 2, 0.35f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.12f), l1.Size() / 2, 0.7f, SpriteEffects.None, 0);
 
-
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            
+            spriteBatch.Draw(mask, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.6f);
+            
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
 
