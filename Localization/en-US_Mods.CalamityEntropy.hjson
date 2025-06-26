@@ -269,7 +269,7 @@ Items: {
 
 	FriendBox: {
 		DisplayName: Friend Box
-		Tooltip: 
+		Tooltip:
 			'''
 			Summon a pair of entangled twins, duplicating your barrage
 			Duplicated barrage deals 100% damage of the original weapon
@@ -998,7 +998,7 @@ Items: {
 	}
 
 	AnimaSola: {
-		Tooltip: 
+		Tooltip:
 			'''
 			Lock the nearest target for 3 seconds
 			Charging for 25 seconds, when there is a boss, charging for 120 seconds.
