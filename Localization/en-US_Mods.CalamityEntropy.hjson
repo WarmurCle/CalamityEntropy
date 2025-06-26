@@ -269,7 +269,14 @@ Items: {
 
 	FriendBox: {
 		DisplayName: Friend Box
-		Tooltip: ""
+		Tooltip: 
+			'''
+			Summon a pair of entangled twins, duplicating your barrage
+			Duplicated barrage deals 100% damage of the original weapon
+			"So, what is the price?"
+			[c/ff0000: your damage becomes 1/4 of the original]
+			Each pair of entangled twinses 4 summon slots.
+			'''
 	}
 
 	LightningPendant: {
@@ -639,8 +646,8 @@ Items: {
 		Tooltip:
 			'''
 			+ 8 Life Regen/s
-			-15% Crit Chance
 			Remove defense damage.
+			[c/ff0000:Your damage is reduced to 1/2 of its original value]
 			-Death Mode-
 			'''
 	}
@@ -770,7 +777,7 @@ Items: {
 		Tooltip:
 			'''
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 100 second cooldown time
+			This effect has a 120 second cooldown time
 			Loot from hallow monsters
 			'''
 		DisplayName: Holy Mantle
@@ -787,6 +794,7 @@ Items: {
 			'''
 			Transform the damage received into astral erosion, reducing the corresponding health for a period of time
 			The attack can erode and transfer astral erosion to the target, dealing more damage
+			[c/ff0000:However, due to the affliction of a serious illness, you will suffer more damage.]
 			- Death -
 			'''
 	}
@@ -811,7 +819,7 @@ Items: {
 		Tooltip:
 			'''
 			Rogue Projectile obtain micro tracking
-			-15% Rogue damage & crit
+			-25% Rogue damage & crit
 			'''
 	}
 
@@ -990,7 +998,11 @@ Items: {
 	}
 
 	AnimaSola: {
-		Tooltip: Lock the nearest target for 3 seconds
+		Tooltip: 
+			'''
+			Lock the nearest target for 3 seconds
+			Charging for 25 seconds, when there is a boss, charging for 120 seconds.
+			'''
 		DisplayName: Anima Sola
 	}
 
@@ -1181,7 +1193,7 @@ Items: {
 		Tooltip:
 			'''
 			Summon an Eidolon Wyrm phantom when hit enemies
-			Minion gain 10% crit chance
+			Minion gain 12% crit chance
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			'''
@@ -1223,7 +1235,7 @@ Items: {
 	HeartOfStorm: {
 		Tooltip:
 			'''
-			Strike the enemy and unleash a chain of lightning that deals 25% damage
+			Strike the enemy and unleash a chain of lightning that deals 10% damage
 			- Death -
 			'''
 		DisplayName: Heart Of Storm
@@ -1600,6 +1612,7 @@ Items: {
 			'''
 			Active/Deactive Entropy Mode
 			More challenging, Less Health, Less Damage
+			[c/ff0000: Note: This mode is not part of the official recommended process , and the balance adjustments Disaster Entropy do not take this mode into account]
 			'''
 		DisplayName: Entropy Mode Toggle
 	}
