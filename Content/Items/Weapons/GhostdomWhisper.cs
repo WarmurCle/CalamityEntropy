@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<AstrealDefeat>(), 1)
                 .AddIngredient(ModContent.ItemType<Deathwind>(), 1)
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 10)
-                .AddIngredient(ModContent.ItemType<DarkPlasma>(), 8)
+                .AddIngredient(ModContent.ItemType<DarkTesla>(), 8)
                 .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
         }

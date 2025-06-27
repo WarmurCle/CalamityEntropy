@@ -2398,7 +2398,7 @@ Items: {
 		DisplayName: 黑刃书签
 	}
 
-	AzafurePlasmaGun: {
+	AzafureTeslaGun: {
 		DisplayName: 阿萨福勒磁暴枪
 		Tooltip: 发射会电击附近敌怪的电磁球
 	}
@@ -2818,8 +2818,8 @@ Projectiles: {
 	MoonlightSwordHeld.DisplayName: 皎月之刃
 	MoonlightShoot.DisplayName: 皎月之刃剑气
 	BlackKnife.DisplayName: 黑刃
-	// PlasmaBall.DisplayName: Plasma Ball
-	// PlasmaLightning.DisplayName: Plasma Lightning
+	TeslaBall.DisplayName: 磁暴能量球
+	TeslaLightning.DisplayName: 特斯拉球
 }
 
 LegendTooltip: - 传奇物品 -

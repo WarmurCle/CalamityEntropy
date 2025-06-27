@@ -35,11 +35,11 @@ namespace CalamityEntropy.Content.Menu
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 
-            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.04f), l1.Size() / 2, 0.8f, SpriteEffects.None, 0);
-            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.08f), l1.Size() / 2, 0.6f, SpriteEffects.None, 0);
-            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.14f), l1.Size() / 2, 0.4f, SpriteEffects.None, 0);
-            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.22f), l1.Size() / 2, 0.2f, SpriteEffects.None, 0);
-            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.36f), l1.Size() / 2, 0.05f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.89f, MathHelper.ToRadians(counter * 0.04f), l1.Size() / 2, 0.8f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.92f, MathHelper.ToRadians(counter * 0.08f), l1.Size() / 2, 0.6f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.95f, MathHelper.ToRadians(counter * 0.14f), l1.Size() / 2, 0.4f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.97f, MathHelper.ToRadians(counter * 0.22f), l1.Size() / 2, 0.2f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 1f, MathHelper.ToRadians(counter * 0.34f), l1.Size() / 2, 0.1f, SpriteEffects.None, 0);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
             

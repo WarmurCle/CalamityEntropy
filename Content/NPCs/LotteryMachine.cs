@@ -371,7 +371,7 @@ namespace CalamityEntropy.Content.NPCs
                 p3 = new RewardPool();
 
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Necroplasm>(), 50));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<DarkPlasma>(), 1));
+                p3.Add(new RewardPoolItem(ModContent.ItemType<DarkTesla>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ArkoftheElements>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalLance>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalShiv>(), 1));
@@ -397,7 +397,7 @@ namespace CalamityEntropy.Content.NPCs
                 p3 = new RewardPool();
 
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Necroplasm>(), 30));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<DarkPlasma>(), 3));
+                p3.Add(new RewardPoolItem(ModContent.ItemType<DarkTesla>(), 3));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<UelibloomBar>(), 5));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<AuricOre>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<DivineGeode>(), 8));

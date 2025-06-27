@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class PlasmaLightning : ModProjectile
+    public class TeslaLightning : ModProjectile
     {
         public Vector2 endPos;
         List<Vector2> points = null;

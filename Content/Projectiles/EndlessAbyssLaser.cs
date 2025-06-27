@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
         public LoopSound sound2 = null;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (target.ModNPC is AresBody || target.ModNPC is AresGaussNuke || target.ModNPC is AresLaserCannon || target.ModNPC is AresPlasmaFlamethrower || target.ModNPC is AresTeslaCannon)
+            if (target.ModNPC is AresBody || target.ModNPC is AresGaussNuke || target.ModNPC is AresLaserCannon || target.ModNPC is AresTeslaFlamethrower || target.ModNPC is AresTeslaCannon)
             {
                 modifiers.SourceDamage += 0.28f;
             }

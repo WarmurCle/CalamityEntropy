@@ -15,7 +15,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzafurePlasmaGun : ModItem
+    public class AzafureTeslaGun : ModItem
     {
         public override void SetDefaults()
         {
@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<DarkOrange>();
             Item.UseSound = CEUtils.GetSound("ofshoot");
             Item.noMelee = true;
-            Item.shoot = ModContent.ProjectileType<PlasmaBall>();
+            Item.shoot = ModContent.ProjectileType<TeslaBall>();
             Item.shootSpeed = 6;
             var modItem = Item.Calamity();
             modItem.UsesCharge = true;

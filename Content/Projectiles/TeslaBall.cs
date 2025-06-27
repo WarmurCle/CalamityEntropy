@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class PlasmaBall : ModProjectile
+    public class TeslaBall : ModProjectile
     {
         public override string Texture => CEUtils.WhiteTexPath;
         public List<Vector2> oldPos = new List<Vector2>();
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Projectiles
                         if (npc.Distance(Projectile.Center) < range && !npc.friendly && !npc.dontTakeDamage)
                         {
                             l--;
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 4, ModContent.ProjectileType<PlasmaLightning>(), Projectile.damage / 3, 0, Projectile.owner, npc.Center.X, npc.Center.Y);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 4, ModContent.ProjectileType<TeslaLightning>(), Projectile.damage / 3, 0, Projectile.owner, npc.Center.X, npc.Center.Y);
                             if(l <= 0)
                             {
                                 break;
@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.SetShake(Projectile.Center, 4);
                 CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
             }
-            int t = ModContent.ProjectileType<PlasmaLightning>();
+            int t = ModContent.ProjectileType<TeslaLightning>();
             foreach(Projectile p in Main.ActiveProjectiles)
             {
                 if(p.type == t && p.owner == Projectile.owner)

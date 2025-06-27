@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient(ModContent.ItemType<DarkPlasma>(), 3).
+                AddIngredient(ModContent.ItemType<DarkTesla>(), 3).
                 AddIngredient(ItemID.Bottle, 1).
                 AddTile(TileID.WorkBenches).
                 Register();

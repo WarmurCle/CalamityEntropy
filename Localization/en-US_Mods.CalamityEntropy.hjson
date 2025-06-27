@@ -2245,9 +2245,9 @@ Items: {
 		DisplayName: Bookmark - Black Knife
 	}
 
-	AzafurePlasmaGun: {
-		DisplayName: Azafure Plasma Gun
-		Tooltip: Launch plasma balls that will electrocute nearby enemies
+	AzafureTeslaGun: {
+		DisplayName: Azafure Tesla Gun
+		Tooltip: Launch tesla balls that will electrocute nearby enemies
 	}
 }
 
@@ -2665,8 +2665,8 @@ Projectiles: {
 	MoonlightSwordHeld.DisplayName: Moonlight Sword Held
 	MoonlightShoot.DisplayName: Moonlight Shoot
 	BlackKnife.DisplayName: Black Knife
-	PlasmaBall.DisplayName: Plasma Ball
-	PlasmaLightning.DisplayName: Plasma Lightning
+	TeslaBall.DisplayName: Tesla Ball
+	TeslaLightning.DisplayName: Tesla Lightning
 }
 
 LegendTooltip: - Legend -
