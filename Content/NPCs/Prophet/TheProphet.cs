@@ -103,8 +103,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public override void SetDefaults()
         {
             NPC.boss = true;
-            NPC.width = 56;
-            NPC.height = 56;
+            NPC.width = 80;
+            NPC.height = 80;
             NPC.damage = 70;
             NPC.Calamity().DR = 0.10f;
             NPC.lifeMax = 52000;
@@ -237,7 +237,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     tail.RemoveAt(0);
                 }
             }
-            tail.Add(new TailPoint(NPC.Center - rl.ToRotationVector2() * 26, (rl.ToRotationVector2() * -16) + rl.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * (float)(Math.Sin(Main.GameUpdateCount * 0.24f) * 6)));
+            tail.Add(new TailPoint(NPC.Center - rl.ToRotationVector2() * 26, (rl.ToRotationVector2() * -16) + rl.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * (float)(Math.Sin(Main.GameUpdateCount * 0.1f) * 6)));
 
         }
 
@@ -854,7 +854,11 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (Main.zenithWorld)
-                zenithAI.PreDraw(NPC, spriteBatch, screenPos, drawColor);
+                return zenithAI.PreDraw(NPC, spriteBatch, screenPos, drawColor);
+            else
+            {
+                Draw();
+            }
             return false;
         }
         public void Draw()

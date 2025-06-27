@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             }
             Projectile.localAI[0] += nowSpeed;
             Projectile.velocity = Projectile.velocity.normalize() * nowSpeed;
-            Projectile.Center += Projectile.velocity.RotatedBy(Math.Cos(Projectile.localAI[0] * 0.01f) * 0.2f);
+            Projectile.Center += Projectile.velocity.RotatedBy(Math.Cos(Projectile.localAI[0] * 0.01f) * 0.4f);
             odp.Add(Projectile.Center);
             if (odp.Count > 80)
             {
