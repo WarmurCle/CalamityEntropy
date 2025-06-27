@@ -8,6 +8,6 @@ namespace CalamityEntropy.Content.Tiles
     {
         public override string RelicTextureName => "CalamityEntropy/Content/Tiles/LuminarisRelicTile";
 
-        public override int AssociatedItem => ModContent.ItemType<NihilityTwinRelic>();
+        public override int AssociatedItem => ModContent.ItemType<LuminarisRelic>();
     }
 }

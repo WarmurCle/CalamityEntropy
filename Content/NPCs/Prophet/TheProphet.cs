@@ -28,31 +28,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
     [AutoloadBossHead]
     public class TheProphet : ModNPC
     {
-        public class Fin
-        {
-            public Vector2 pos;
-            public float rot;
-            public float tRot = 0;
-            public float tRS = 0.9f;
-            public Vector2 offset;
-            public Fin(Vector2 pos, Vector2 ofs, float tRot, float tRS)
-            {
-                this.pos = pos;
-                rot = 0;
-                this.tRot = tRot;
-                this.tRS = tRS;
-                offset = ofs;
-            }
-
-            public void update(NPC prop)
-            {
-                Vector2 p = prop.Center + offset.RotatedBy(prop.rotation);
-                this.pos = p;
-                this.rot = CEUtils.rotatedToAngle(this.rot, prop.rotation + this.tRot - (this.offset.Y > 0 ? -1 : 1) * prop.velocity.Length() * 0.044f, tRS, false);
-            }
-        }
-        public List<Fin> leftFin = new List<Fin>();
-        public List<Fin> rightFin = new List<Fin>();
+        public float finRotCounter = 0;
         public bool music2 = false;
         public class TailPoint
         {
@@ -67,11 +43,11 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             public void update()
             {
                 position += velocity;
-                velocity *= 0.8f;
+                velocity *= 0.96f;
                 timeLeft--;
             }
         }
-        public List<TailPoint> tail;
+        public List<TailPoint> tail = new();
         public OlderCruiserAIGNPC zenithAI = new OlderCruiserAIGNPC();
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
@@ -166,46 +142,17 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public float dr = 0.26f;
         public void UpdateFins()
         {
-            if (NPC.localAI[1] == 0)
+            finRotCounter += NPC.velocity.Length() * 0.001f + 0.008f;
+            if(finRotCounter > 1)
             {
-                tail = new List<TailPoint>();
-                leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -3.14f * 1.24f, 0.4f));
-                leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -3f * 1.24f, 0.3f));
-                leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -2.8f * 1.24f, 0.2f));
-                leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -2.6f * 1.24f, 0.1f));
-
-                rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 3.14f * 1.24f, 0.4f));
-                rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 3f * 1.24f, 0.3f));
-                rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 2.8f * 1.24f, 0.2f));
-                rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 2.6f * 1.24f, 0.1f));
+                finRotCounter--;
             }
-            if (leftFin.Count < 4 || rightFin.Count < 4)
-            {
-                leftFin = new List<Fin>();
-                rightFin = new List<Fin>();
-                leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -3.14f * 1.24f, 0.4f));
-                leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -3f * 1.24f, 0.3f));
-                leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -2.8f * 1.24f, 0.2f));
-                leftFin.Add(new Fin(NPC.Center, new Vector2(-24, 6), -2.6f * 1.24f, 0.1f));
-
-                rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 3.14f * 1.24f, 0.4f));
-                rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 3f * 1.24f, 0.3f));
-                rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 2.8f * 1.24f, 0.2f));
-                rightFin.Add(new Fin(NPC.Center, new Vector2(-24, -6), 2.6f * 1.24f, 0.1f));
-            }
-            foreach (var f in leftFin)
-            {
-                f.update(NPC);
-            }
-            foreach (var f in rightFin)
-            {
-                f.update(NPC);
-            }
-
             NPC.localAI[1]++;
         }
+        public float rl = 0;
         public override void AI()
         {
+            rl = CEUtils.rotatedToAngle(rl, NPC.rotation, 0.1f, false);
             UpdateFins();
             if (!Main.dedServ)
             {
@@ -290,7 +237,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     tail.RemoveAt(0);
                 }
             }
-            tail.Add(new TailPoint(NPC.Center - NPC.rotation.ToRotationVector2() * 26, (NPC.rotation.ToRotationVector2() * -10) + NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * (float)(Math.Sin(Main.GameUpdateCount * 0.24f) * 15)));
+            tail.Add(new TailPoint(NPC.Center - rl.ToRotationVector2() * 26, (rl.ToRotationVector2() * -16) + rl.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * (float)(Math.Sin(Main.GameUpdateCount * 0.24f) * 6)));
 
         }
 
@@ -557,6 +504,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 }
                 if (AIStyle == 3)//2层符文洪流
                 {
+                    NPC.rotation = (target.Center - NPC.Center).ToRotation();
                     if (AIChangeDelay == 88)
                     {
                         if (!Main.dedServ)
@@ -788,6 +736,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 }
                 if (AIStyle == 9)//符文飞匕
                 {
+                    NPC.rotation = (target.Center - NPC.Center).ToRotation();
                     if (AIChangeDelay == 160)
                     {
                         TeleportTo(target.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(500, 600));
@@ -918,7 +867,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 DrawTail();
                 DrawFins();
                 Texture2D tex = TextureAssets.Npc[NPC.type].Value;
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, Color.White, NPC.rotation + MathHelper.PiOver2, tex.Size() / 2, NPC.scale, SpriteEffects.None);
+                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, Color.White, rl + MathHelper.PiOver2, tex.Size() / 2, NPC.scale, SpriteEffects.None);
                 Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             }
             if (spawnAnm > 0)
@@ -930,7 +879,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     List<ColoredVertex> ve = new List<ColoredVertex>();
                     List<Vector2> points = GP(0);
-                    List<Vector2> pointsOutside = GP(180 * a);
+                    List<Vector2> pointsOutside = GP(360 * a);
                     int i;
                     for (i = 0; i < points.Count; i++)
                     {
@@ -954,7 +903,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     List<ColoredVertex> ve = new List<ColoredVertex>();
                     List<Vector2> points = GP(0, -1);
-                    List<Vector2> pointsOutside = GP(160 * a, -1);
+                    List<Vector2> pointsOutside = GP(420 * a, -1);
                     int i;
                     for (i = 0; i < points.Count; i++)
                     {
@@ -978,7 +927,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     List<ColoredVertex> ve = new List<ColoredVertex>();
                     List<Vector2> points = GP(0, 0.6f);
-                    List<Vector2> pointsOutside = GP(200 * a, -1);
+                    List<Vector2> pointsOutside = GP(420 * a, -1);
                     int i;
                     for (i = 0; i < points.Count; i++)
                     {
@@ -1010,21 +959,15 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             if (fintexs == null)
             {
                 fintexs = new List<Texture2D>() {
-                    ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/fin1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
-                    ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/fin2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value ,
-                    ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/fin3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value ,
-                    ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/fin4", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value
+                    ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/Wing1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
+                    ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/Wing2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value
                 };
             }
-            for (int i = 3; i >= 0; i--)
-            {
-                if (fintexs.Count > i && leftFin.Count > i && rightFin.Count > i)
-                {
-                    Main.EntitySpriteDraw(fintexs[i], leftFin[i].pos - Main.screenPosition, null, Color.White, leftFin[i].rot - MathHelper.PiOver2, new Vector2(0, 0), NPC.scale, SpriteEffects.None);
-                    Main.EntitySpriteDraw(fintexs[i], rightFin[i].pos - Main.screenPosition, null, Color.White, rightFin[i].rot - MathHelper.PiOver2, new Vector2(fintexs[i].Width, 0), NPC.scale, SpriteEffects.FlipHorizontally);
-                }
-            }
-
+            float rotj = finRotCounter <= 0.4f ? CEUtils.GetRepeatedCosFromZeroToOne(finRotCounter / 0.4f, 1) : 1-CEUtils.GetRepeatedCosFromZeroToOne((finRotCounter - 0.4f) / 0.6f, 1);
+            Main.EntitySpriteDraw(fintexs[1], NPC.Center + new Vector2(-20, -20).RotatedBy(NPC.rotation) - Main.screenPosition, null, Color.White, rl - rotj, fintexs[1].Size(), NPC.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(fintexs[1], NPC.Center + new Vector2(-20, 20).RotatedBy(rl) - Main.screenPosition, null, Color.White, rl + rotj, fintexs[1].Size() * new Vector2(1, 0), NPC.scale, SpriteEffects.FlipVertically);
+            Main.EntitySpriteDraw(fintexs[0], NPC.Center + new Vector2(0, -20).RotatedBy(rl) - Main.screenPosition, null, Color.White, rl - 1 + rotj, new Vector2(fintexs[0].Width * 0.5f, fintexs[0].Height), NPC.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(fintexs[0], NPC.Center + new Vector2(0, 20).RotatedBy(rl) - Main.screenPosition, null, Color.White, rl + 1 - rotj, new Vector2(fintexs[0].Width * 0.5f, 0), NPC.scale, SpriteEffects.FlipVertically);
         }
         public void DrawTail()
         {
@@ -1037,18 +980,18 @@ namespace CalamityEntropy.Content.NPCs.Prophet
 
             for (int i = 0; i < tail.Count - 3; i++)
             {
-                ve.Add(new ColoredVertex(tail[i].position - Main.screenPosition + (tail[i + 1].position - tail[i].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 19,
+                ve.Add(new ColoredVertex(tail[i].position - Main.screenPosition + (tail[i + 1].position - tail[i].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 40,
                       new Vector3((((float)i) / tail.Count), 1, 1),
                       b));
-                ve.Add(new ColoredVertex(tail[i].position - Main.screenPosition + (tail[i + 1].position - tail[i].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 19,
+                ve.Add(new ColoredVertex(tail[i].position - Main.screenPosition + (tail[i + 1].position - tail[i].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 40,
                       new Vector3((((float)i) / tail.Count), 0, 1),
                       b));
 
             }
-            ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + (NPC.Center - tail[tail.Count - 1].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 19,
+            ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + (NPC.Center - tail[tail.Count - 1].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 40,
                       new Vector3((float)1, 1, 1),
                       b));
-            ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + (NPC.Center - tail[tail.Count - 1].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 19,
+            ve.Add(new ColoredVertex(NPC.Center - Main.screenPosition + (NPC.Center - tail[tail.Count - 1].position).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 40,
                   new Vector3((float)1, 0, 1),
                   b));
             SpriteBatch sb = Main.spriteBatch;
@@ -1058,6 +1001,11 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/Tail").Value;
                 gd.Textures[0] = tx;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                Texture2D ring = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/ring").Value;
+                if (tail.Count > 10)
+                {
+                    Main.EntitySpriteDraw(ring, tail[8].position - Main.screenPosition, null, Color.White, (tail[9].position - tail[8].position).ToRotation() - MathHelper.PiOver2, ring.Size() / 2f, NPC.scale, SpriteEffects.None);
+                }
             }
         }
         public override void OnKill()
