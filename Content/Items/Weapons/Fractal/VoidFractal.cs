@@ -19,8 +19,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 720;
-            Item.crit = 5;
+            Item.damage = 820;
+            Item.crit = 10;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
             Item.height = 60;
@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<VoidFractalHeld>();
             Item.shootSpeed = 12f;
-            Item.ArmorPenetration = 36;
+            Item.ArmorPenetration = 10;
         }
         public int atkType = 0;
         public override bool CanUseItem(Player player)
