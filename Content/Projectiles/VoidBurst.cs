@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 0)
             {
                 CEUtils.PlaySound("explosion", 1, Projectile.Center, 4);
-                CalamityMod.Particles.Particle pulse = new TeslaExplosion(Projectile.Center, Vector2.Zero, new Color(160, 120, 255), new Vector2(2f, 2f), 0, 0f, 0.18f, 46);
+                CalamityMod.Particles.Particle pulse = new PlasmaExplosion(Projectile.Center, Vector2.Zero, new Color(160, 120, 255), new Vector2(2f, 2f), 0, 0f, 0.18f, 46);
                 GeneralParticleHandler.SpawnParticle(pulse);
                 CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(180, 156, 255), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 2.2f, 30);
                 GeneralParticleHandler.SpawnParticle(explosion2);
