@@ -14,6 +14,7 @@ using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -37,9 +38,62 @@ namespace CalamityEntropy.Common
         public int slimeGodMaxLife = 0;
         public Vector2 LastPlayerPos;
         public Vector2 LastPlayerVel;
-
+        public static Color GetColorForNPCBossbarFromTexture(Color[] data)
+        {
+            int pixelCount = 0;
+            Dictionary<Color, int> dict = new();
+            foreach (Color clr in data)
+            {
+                if (clr.A != 0)
+                {
+                    if (dict.ContainsKey(clr))
+                    {
+                        dict[clr]++;
+                    }
+                    else
+                    {
+                        dict[clr] = 0;
+                    }
+                    pixelCount++;
+                }
+            }
+            if (pixelCount > 0)
+            {
+                Color c = Color.White;
+                int count = 0;
+                foreach (Color color in dict.Keys)
+                {
+                    if (dict[color] > count)
+                    {
+                        count = dict[color];
+                        c = color;
+                    }
+                }
+                return c;
+            }
+            return Color.Transparent;
+        }
         public override void PostDrawTiles()
         {
+            if (CalamityEntropy.SetupBossbarClrAuto)
+            {
+                CalamityEntropy.SetupBossbarClrAuto = false;
+                for (int i = 0; i < NPCLoader.NPCCount; i++)
+                {
+                    if (!EntropyBossbar.bossbarColor.ContainsKey(i) && ContentSamples.NpcsByNetId[i].boss)
+                    {
+                        Main.instance.LoadNPC(i);
+                        Texture2D tex = TextureAssets.Npc[i].Value;
+                        var pixData = new Color[tex.Width * tex.Height];
+                        tex.GetData(pixData);
+                        Color c = GetColorForNPCBossbarFromTexture(pixData);
+                        if (c.A > 0)
+                        {
+                            EntropyBossbar.bossbarColor[i] = c;
+                        }
+                    }
+                }
+            }
             if (mi)
             {
                 Main.instance.IsMouseVisible = true;
