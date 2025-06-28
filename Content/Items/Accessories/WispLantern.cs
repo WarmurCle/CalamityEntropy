@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateVanity(Player player)
         {
             player.Entropy().visualWispLantern = true;
-            player.statLifeMax2 -= 100;
+            player.GetDamage(DamageClass.Generic) -= 0.30f;
         }
         public override void AddRecipes()
         {
