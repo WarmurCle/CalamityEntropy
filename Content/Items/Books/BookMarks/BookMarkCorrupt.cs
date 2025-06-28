@@ -26,7 +26,6 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.attackSpeed += 0.12f;
             modifer.armorPenetration += 6;
         }
         public override Color tooltipColor => Color.Purple;
