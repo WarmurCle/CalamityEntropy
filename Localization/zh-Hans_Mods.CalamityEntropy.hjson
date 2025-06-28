@@ -1905,7 +1905,7 @@ Items: {
 			按住[KEY]向鼠标方向突进，期间免疫伤害
 			冷却由冲刺距离决定，提前松开按键可以提前结束冲刺，最多冲刺[DT]秒
 			'''
-		DisplayName: 预知之翼
+		DisplayName: 翱翔符文
 	}
 
 	BookMarkForesee: {

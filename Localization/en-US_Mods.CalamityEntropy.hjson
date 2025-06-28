@@ -1759,7 +1759,7 @@ Items: {
 			Cooling is determined by the sprint distance, 
 			releasing the button in advance can end the sprint in advance, with a maximum sprint time of [DT] seconds
 			'''
-		DisplayName: Foresee Wings
+		DisplayName: Soar Rune
 	}
 
 	BookMarkForesee: {
