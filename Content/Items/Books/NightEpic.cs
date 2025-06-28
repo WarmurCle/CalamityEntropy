@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 82;
+            Item.damage = 75;
             Item.useAnimation = Item.useTime = 18;
             Item.crit = 10;
             Item.mana = 8;
