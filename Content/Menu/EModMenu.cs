@@ -14,10 +14,13 @@ namespace CalamityEntropy.Content.Menu
         public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white");
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/startmenu");
         public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logo");
-        public override string DisplayName => "Calamity Entropy";
+        public override string DisplayName => "Calamity Entropy - Vortex";
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
-            Texture2D l1 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer1").Value;
+            Main.time = 27000;
+            Main.dayTime = true;
+            Texture2D mask = CEUtils.getExtraTex("menumask");
+            Texture2D l1 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/VoidVortex").Value;
             Texture2D l2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer2").Value;
             Texture2D l3 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer3").Value;
             Texture2D l4 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/layer4").Value;
@@ -32,9 +35,16 @@ namespace CalamityEntropy.Content.Menu
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 
-            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, MathHelper.ToRadians(counter * 0.12f), l1.Size() / 2, 1.4f, SpriteEffects.None, 0);
-
-
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.92f, MathHelper.ToRadians(counter * 0.04f), l1.Size() / 2, 0.8f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.94f, MathHelper.ToRadians(counter * 0.08f), l1.Size() / 2, 0.6f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.96f, MathHelper.ToRadians(counter * 0.14f), l1.Size() / 2, 0.4f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.98f, MathHelper.ToRadians(counter * 0.22f), l1.Size() / 2, 0.2f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 1f, MathHelper.ToRadians(counter * 0.34f), l1.Size() / 2, 0.1f, SpriteEffects.None, 0);
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            
+            spriteBatch.Draw(mask, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * 0.6f);
+            
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
 

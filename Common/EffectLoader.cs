@@ -473,33 +473,11 @@ namespace CalamityEntropy.Common
         {
             graphicsDevice.SetRenderTarget(screen3);
             graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null);
-
-            int theProphetType = ModContent.NPCType<TheProphet>();
             int cruiserEnergyBallType = ModContent.ProjectileType<CruiserEnergyBall>();
             int runeTorrentType = ModContent.ProjectileType<RuneTorrent>();
             int runeTorrentRangerType = ModContent.ProjectileType<RuneTorrentRanger>();
             int prophetVoidSpikeType = ModContent.ProjectileType<ProphetVoidSpike>();
 
-            foreach (NPC npc in Main.ActiveNPCs)
-            {
-                if (npc.type != theProphetType)
-                {
-                    continue;
-                }
-
-                if (npc.ModNPC is TheProphet tp)
-                {
-                    Main.spriteBatch.End();
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
-                    NPCLoader.PreDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
-                    tp.Draw();
-                    NPCLoader.PostDraw(npc, Main.spriteBatch, Main.screenPosition, Color.White);
-                    Main.spriteBatch.End();
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
-                }
-            }
-            Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
