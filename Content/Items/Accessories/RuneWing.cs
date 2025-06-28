@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public static int MaxCooldownTick = 30 * 60; //最大冲刺时间时的冷却（帧）
 
         public int AnimationTick => 4;
-        public int FallingFrame => 2;
+        public int FallingFrame => 0;
         public int MaxFrame => 5;
         public int SlowFallingFrame => 5;
         public override void SetStaticDefaults()
