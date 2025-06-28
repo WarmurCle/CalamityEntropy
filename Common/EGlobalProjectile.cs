@@ -19,7 +19,9 @@ using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Boss;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
+using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -105,6 +107,11 @@ namespace CalamityEntropy.Common
         public bool gh = false;
         public int ghcounter = 0;
         public int IndexOfTwistedTwinShootedThisProj = -1;
+
+        [VaultLoaden("CalamityEntropy/Assets/Extra/Voidsama")]
+        public static Asset<Texture2D> voidSamaSlash;
+        public static Asset<Texture2D> muraTex = null;
+
         public int OnProj { get { return IndexOfTwistedTwinShootedThisProj; } set { IndexOfTwistedTwinShootedThisProj = value; } }
         public int flagTT = 0;
         public Vector2 playerPosL;
@@ -725,6 +732,13 @@ namespace CalamityEntropy.Common
         public FieldInfo SSMFInfo = null;
         public override void PostDraw(Projectile projectile, Color lightColor)
         {
+            if (projectile.ModProjectile != null && projectile.ModProjectile is MurasamaSlash)
+            {
+                if (projectile.GetOwner().name.ToLower().Contains("polaris") || projectile.GetOwner().name.ToLower().Contains("chalost"))
+                {
+                    TextureAssets.Projectile[projectile.type] = muraTex;
+                }
+            }
             //修复部分射弹导致其他射弹不显示
             //不要在绘制完射弹把SpriteSortMode设置成Immediate
             if (projectile.ModProjectile != null)
@@ -787,6 +801,14 @@ namespace CalamityEntropy.Common
         public StarTrailParticle starTrailPt = null;
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
+            if(projectile.ModProjectile != null && projectile.ModProjectile is MurasamaSlash)
+            {
+                if(projectile.GetOwner().name.ToLower().Contains("polaris") || projectile.GetOwner().name.ToLower().Contains("chalost"))
+                {
+                    muraTex = TextureAssets.Projectile[projectile.type];
+                    TextureAssets.Projectile[projectile.type] = voidSamaSlash;
+                }
+            }
             this.projectile = projectile;
             if (IndexOfTwistedTwinShootedThisProj >= 0 && projectile.friendly)
             {
