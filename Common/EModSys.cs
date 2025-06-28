@@ -54,6 +54,10 @@ namespace CalamityEntropy.Common
                     {
                         dict[clr] = 0;
                     }
+                    if(clr.R + clr.G + clr.B >= 80)
+                    {
+                        dict[clr] += (clr.R + clr.G + clr.B) / 80;
+                    }
                     pixelCount++;
                 }
             }
