@@ -497,6 +497,7 @@ Items: {
 			The shield will deal damage to the enemies it touches,
 			When the magic shield is broken, it eliminates its own magic sickness and benefits, and returns to its full magic value,
 			When there is no shield, magic barrage can suck blood,
+			The shield can not be affected by your defence and dr
 			The higher your current magic value, the higher your blood sucking ability
 			+10% Magic Damage
 			'''
@@ -1117,6 +1118,7 @@ Items: {
 			'''
 			Randomly activate 1 to 3 accessories from your inventory
 			"Illuminate your future"
+			[c/ff0000:Sacifice 100 health point to you]
 			'''
 		DisplayName: Wisp Lantern
 	}
@@ -1126,8 +1128,8 @@ Items: {
 		Tooltip:
 			'''
 			+25% Damage
-			+45 Armor penetration
-			+8% Crit Chance
+			+100 Armor penetration
+			+15% Crit Chance
 			'''
 	}
 
@@ -1418,7 +1420,6 @@ Items: {
 		Tooltip:
 			'''
 			Chance to summon Shadow Tentacles upon hitting an enemy
-			+12% Attack Speed
 			+6 Armor Penetration
 			'''
 		DisplayName: Bookmark - Corrupt
@@ -1429,8 +1430,8 @@ Items: {
 		Tooltip:
 			'''
 			Chance to summon a Fountain of Blood from below upon hitting an enemy
-			+2 Life steal
-			+8 Crit Chance
+			+1 Life steal
+			+4 Crit Chance
 			'''
 	}
 
@@ -1518,9 +1519,9 @@ Items: {
 		DisplayName: Bookmark - Libra
 		Tooltip:
 			'''
-			+4% Damage
+			+10% Damage
 			+4% Attack Speed
-			+4% Crit Chance
+			+10% Crit Chance
 			+5% Projectile Speed
 			+1 Penetration
 			+4 Armor Penetration
@@ -2262,12 +2263,11 @@ MariviniumSet:
 	-30% Melee Damage Taken
 	+10 Minion Slot
 	+100% Summon Damage
-	+10% Whip Range
 	+5% Summon Crit
 	+5% Damage Reduce
-	+100 Armor Penetration
+	+40 Armor Penetration
 	if your crit chance is over 100%, convert excess crit chance into damage bonus
-	+140 Rogue Stealth
+	+130 Rogue Stealth
 	When standing, increase life regen
 	Immunity to most debuffs
 	When using true melee weapons, +15% Damage reduce and 25 defense
