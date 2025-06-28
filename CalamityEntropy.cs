@@ -77,6 +77,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -1485,11 +1486,48 @@ namespace CalamityEntropy
                     AddBossbarColor(fs, "TrojanSquirrel", new Color(147, 108, 85));
 
                 }
+                for (int i = 0; i < NPCLoader.NPCCount; i++)
+                {
+                    if(!EntropyBossbar.bossbarColor.ContainsKey(i) && ContentSamples.NpcsByNetId[i].boss)
+                    {
+                        Main.instance.LoadNPC(i);
+                        Texture2D tex = TextureAssets.Npc[i].Value;
+                        var pixData = new Color[tex.Width * tex.Height];
+                        tex.GetData(pixData);
+                        Color c = GetAverageColorFromTexture(pixData);
+                        if(c.A > 0)
+                        {
+                            EntropyBossbar.bossbarColor[i] = c;
+                        }
+                    }
+                }
             }
             catch
             {
                 Logger.Warn("CalamityEntropy: Other addons' bossbar color failed to setup");
             }
+        }
+        public static Color GetAverageColorFromTexture(Color[] data)
+        {
+            int r = 0;
+            int g = 0;
+            int b = 0;
+            int pixelCount = 0;
+            foreach (Color clr in data)
+            {
+                if(clr.A != 0)
+                {
+                    r += clr.R;
+                    g += clr.G;
+                    b += clr.B;
+                    pixelCount++;
+                }
+            }
+            if(pixelCount > 0)
+            {
+                return new Color((int)(r / pixelCount), (int)(g / pixelCount), (int)(b / pixelCount));
+            }
+            return Color.Transparent;
         }
         public static void AddBossbarColor(Mod mod, string name, Color color)
         {
