@@ -1118,7 +1118,7 @@ Items: {
 			'''
 			Randomly activate 1 to 3 accessories from your inventory
 			"Illuminate your future"
-			[c/ff0000:Sacifice 100 health point to you]
+			[c/ff0000:Sacifice 30% of damage to you]
 			'''
 		DisplayName: Wisp Lantern
 	}
@@ -2271,6 +2271,7 @@ MariviniumSet:
 	When standing, increase life regen
 	Immunity to most debuffs
 	When using true melee weapons, +15% Damage reduce and 25 defense
+	When using a whip, enhance summoner attributes
 	Stealth strike has a probability of causing an water explosion
 	Obtain 2 layers of shields, which will take 20 seconds to recover after being shattered
 	After shield shattered, treat 140 health points and increace your damage by 100% for 5 seconds
