@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
 using System;
@@ -35,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAmmo = AmmoID.Arrow;
             Item.autoReuse = true;
             Item.ArmorPenetration = 12;
-            Item.value = 52000000;
+            Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.rare = ModContent.RarityType<AbyssalBlue>();
 
         }
