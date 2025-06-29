@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class RuneWing : ModItem
+    public class RuneWing : ModItem, ISpecialDrawingWing
     {
         public static float HorSpeed = 7f;
         public static float AccMul = 1.2f;
@@ -19,6 +19,11 @@ namespace CalamityEntropy.Content.Items.Accessories
         public static int MAXDASHTIME = 30;//最大冲刺时间（帧）
         public static int DashVelo = 56; //冲刺速度（像素）
         public static int MaxCooldownTick = 30 * 60; //最大冲刺时间时的冷却（帧）
+
+        public int AnimationTick => 4;
+        public int FallingFrame => 0;
+        public int MaxFrame => 5;
+        public int SlowFallingFrame => 5;
         public override void SetStaticDefaults()
         {
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(wTime, HorSpeed, AccMul, false, 20, 2.8f);

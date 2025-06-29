@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.Materials;
+﻿using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
@@ -25,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
             Item.knockBack = 5.5f;
             Item.UseSound = null;
             Item.autoReuse = true;
-            Item.value = Item.buyPrice(155, 33, 15, 0);
+            Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.rare = ItemRarityID.Red;
             Item.shoot = ModContent.ProjectileType<NemesisProj>();
             Item.shootSpeed = 18f;

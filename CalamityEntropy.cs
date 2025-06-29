@@ -77,6 +77,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -1429,61 +1430,66 @@ namespace CalamityEntropy
 
             try
             {
-                if (ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
+                if (!Main.dedServ)
                 {
-                    AddBossbarColor(catalyst, "Astrageldon", new Color(220, 94, 210));
-                }
-                if (ModLoader.TryGetMod("NoxusBoss", out Mod nxb))
-                {
-                    AddBossbarColor(nxb, "AvatarRift", new Color(194, 60, 50));
-                    AddBossbarColor(nxb, "AvatarOfEmptiness", new Color(194, 60, 50));
-                    AddBossbarColor(nxb, "NamelessDeityBoss", new Color(255, 255, 255));
-                }
-                if (ModLoader.TryGetMod("CalamityHunt", out Mod calHunt))
-                {
-                    AddBossbarColor(calHunt, "Goozma", new Color(94, 76, 99));
-                }
-                if (ModLoader.TryGetMod("CalamityFables", out Mod cf))
-                {
-                    AddBossbarColor(cf, "Crabulon", new Color(86, 191, 255));
-                    AddBossbarColor(cf, "DesertScourge", new Color(172, 154, 146));
-                    AddBossbarColor(cf, "SirNautilus", new Color(155, 133, 99));
-                }
-                if (ModLoader.TryGetMod("InfernumMode", out Mod infernum))
-                {
-                    EntropyBossbar.bossbarColor[infernum.Find<ModNPC>("BereftVassal").Type] = new Color(225, 190, 130);
-                }
-                if (ModLoader.TryGetMod("SOTS", out Mod sots))
-                {
-                    AddBossbarColor(sots, "SubspaceSerpentHead", new Color(115, 114, 160));
-                    AddBossbarColor(sots, "PutridPinky1", Color.Pink);
-                    AddBossbarColor(sots, "PutridPinkyPhase2", Color.Pink);
-                    AddBossbarColor(sots, "Polaris", new Color(200, 250, 250));
-                    AddBossbarColor(sots, "NewPolaris", new Color(200, 250, 250));
-                    AddBossbarColor(sots, "Lux", new Color(255, 200, 230));
-                    AddBossbarColor(sots, "Glowmoth", new Color(255, 240, 200));
-                    AddBossbarColor(sots, "PharaohsCurse", Color.Gold);
-                    AddBossbarColor(sots, "UnusedAdvisorHead", new Color(238, 208, 255));
-                }
-                if (ModLoader.TryGetMod("FargowiltasSouls", out Mod fs))
-                {
-                    AddBossbarColor(fs, "AbomBoss", new Color(249, 226, 77));
-                    AddBossbarColor(fs, "BanishedBaron", new Color(230, 240, 242));
-                    AddBossbarColor(fs, "CosmosChampion", Color.DarkOrange);
-                    AddBossbarColor(fs, "EarthChampion", Color.Orange);
-                    AddBossbarColor(fs, "LifeChampion", Color.Gold);
-                    AddBossbarColor(fs, "NatureChampion", Color.Green);
-                    AddBossbarColor(fs, "ShadowChampion", new Color(143, 100, 234));
-                    AddBossbarColor(fs, "SpiritChampion", Color.DarkGoldenrod);
-                    AddBossbarColor(fs, "TerraChampion", Color.DarkGreen);
-                    AddBossbarColor(fs, "TimberChampion", new Color(230, 240, 242));
-                    AddBossbarColor(fs, "WillChampion", new Color(234, 213, 143));
-                    AddBossbarColor(fs, "CursedCoffin", Color.Yellow);
-                    AddBossbarColor(fs, "LifeChallenger", Color.Gold);
-                    AddBossbarColor(fs, "Magmaw", Color.Gray);
-                    AddBossbarColor(fs, "MutantBoss", AprilFool ? new Color(217, 142, 67) : new Color(100, 200, 255));
-                    AddBossbarColor(fs, "TrojanSquirrel", new Color(147, 108, 85));
+                    if (ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
+                    {
+                        AddBossbarColor(catalyst, "Astrageldon", new Color(220, 94, 210));
+                    }
+                    if (ModLoader.TryGetMod("NoxusBoss", out Mod nxb))
+                    {
+                        AddBossbarColor(nxb, "AvatarRift", new Color(194, 60, 50));
+                        AddBossbarColor(nxb, "AvatarOfEmptiness", new Color(194, 60, 50));
+                        AddBossbarColor(nxb, "NamelessDeityBoss", new Color(255, 255, 255));
+                    }
+                    if (ModLoader.TryGetMod("CalamityHunt", out Mod calHunt))
+                    {
+                        AddBossbarColor(calHunt, "Goozma", new Color(94, 76, 99));
+                    }
+                    if (ModLoader.TryGetMod("CalamityFables", out Mod cf))
+                    {
+                        AddBossbarColor(cf, "Crabulon", new Color(86, 191, 255));
+                        AddBossbarColor(cf, "DesertScourge", new Color(172, 154, 146));
+                        AddBossbarColor(cf, "SirNautilus", new Color(155, 133, 99));
+                    }
+                    if (ModLoader.TryGetMod("InfernumMode", out Mod infernum))
+                    {
+                        EntropyBossbar.bossbarColor[infernum.Find<ModNPC>("BereftVassal").Type] = new Color(225, 190, 130);
+                    }
+                    if (ModLoader.TryGetMod("SOTS", out Mod sots))
+                    {
+                        AddBossbarColor(sots, "SubspaceSerpentHead", new Color(115, 114, 160));
+                        AddBossbarColor(sots, "PutridPinky1", Color.Pink);
+                        AddBossbarColor(sots, "PutridPinkyPhase2", Color.Pink);
+                        AddBossbarColor(sots, "Polaris", new Color(200, 250, 250));
+                        AddBossbarColor(sots, "NewPolaris", new Color(200, 250, 250));
+                        AddBossbarColor(sots, "Lux", new Color(255, 200, 230));
+                        AddBossbarColor(sots, "Glowmoth", new Color(255, 240, 200));
+                        AddBossbarColor(sots, "PharaohsCurse", Color.Gold);
+                        AddBossbarColor(sots, "UnusedAdvisorHead", new Color(238, 208, 255));
+                    }
+                    if (ModLoader.TryGetMod("FargowiltasSouls", out Mod fs))
+                    {
+                        AddBossbarColor(fs, "AbomBoss", new Color(249, 226, 77));
+                        AddBossbarColor(fs, "BanishedBaron", new Color(230, 240, 242));
+                        AddBossbarColor(fs, "CosmosChampion", Color.DarkOrange);
+                        AddBossbarColor(fs, "EarthChampion", Color.Orange);
+                        AddBossbarColor(fs, "LifeChampion", Color.Gold);
+                        AddBossbarColor(fs, "NatureChampion", Color.Green);
+                        AddBossbarColor(fs, "ShadowChampion", new Color(143, 100, 234));
+                        AddBossbarColor(fs, "SpiritChampion", Color.DarkGoldenrod);
+                        AddBossbarColor(fs, "TerraChampion", Color.DarkGreen);
+                        AddBossbarColor(fs, "TimberChampion", new Color(230, 240, 242));
+                        AddBossbarColor(fs, "WillChampion", new Color(234, 213, 143));
+                        AddBossbarColor(fs, "CursedCoffin", Color.Yellow);
+                        AddBossbarColor(fs, "LifeChallenger", Color.Gold);
+                        AddBossbarColor(fs, "Magmaw", Color.Gray);
+                        AddBossbarColor(fs, "MutantBoss", AprilFool ? new Color(217, 142, 67) : new Color(100, 200, 255));
+                        AddBossbarColor(fs, "TrojanSquirrel", new Color(147, 108, 85));
 
+                    }
+                    
+                    Logger.Warn("CalamityEntropy: Bossbar Color setup succesfully");
                 }
             }
             catch
@@ -1491,6 +1497,8 @@ namespace CalamityEntropy
                 Logger.Warn("CalamityEntropy: Other addons' bossbar color failed to setup");
             }
         }
+        public static bool SetupBossbarClrAuto = true;
+        
         public static void AddBossbarColor(Mod mod, string name, Color color)
         {
             if (mod == null)
