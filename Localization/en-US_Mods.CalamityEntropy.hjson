@@ -1118,7 +1118,7 @@ Items: {
 			'''
 			Randomly activate 1 to 3 accessories from your inventory
 			"Illuminate your future"
-			[c/ff0000:Sacifice 30% of damage to you]
+			[c/ff0000:Sacifice 15% of damage to you]
 			'''
 		DisplayName: Wisp Lantern
 	}
