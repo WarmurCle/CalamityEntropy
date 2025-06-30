@@ -89,6 +89,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool PlayLoadSound = true;
         public float BarrelVelocity = 0;
         public bool Charging = true;
+        public bool flag = true;
         public override void AI()
         {
             Projectile.timeLeft = 3;
@@ -128,7 +129,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (LoadCounter <= 0)
                 {
                     FlywheelAddRot = 0;
-                    FlywheelRot += MathHelper.PiOver2;
+                    if (!flag)
+                    {
+                        FlywheelRot += MathHelper.PiOver2;
+                    }
+                    flag = false;
                     LoadedAmmo--;
                     if(LoadedAmmo < 0)
                     {
