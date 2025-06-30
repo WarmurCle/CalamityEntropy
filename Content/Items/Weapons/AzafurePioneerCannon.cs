@@ -126,54 +126,78 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
+                bool f = true;
                 if (LoadCounter <= 0)
                 {
                     FlywheelAddRot = 0;
                     if (!flag)
                     {
-                        FlywheelRot += MathHelper.PiOver2;
+                        FlywheelRot -= MathHelper.PiOver2;
                     }
                     flag = false;
                     LoadedAmmo--;
-                    if(LoadedAmmo < 0)
+                    if (LoadedAmmo < 0)
                     {
-                        Projectile.Kill();
-                        player.itemAnimation = player.itemTime = 0;
-                        return;
+                        if (Main.myPlayer == Projectile.owner)
+                        {
+                            if (Main.mouseLeft && !Main.LocalPlayer.mouseInterface)
+                            {
+                                Main.LocalPlayer.channel = true;
+                                counter = 0;
+                                shoot = true;
+                                steamSound = true;
+                                slSound = true;
+                                LoadedAmmo = 0;
+                                LoadCounter = 0;
+                                PlayLoadSound = true;
+                                Charging = true;
+                                flag = true;
+                                f = false;
+                            }
+                            else
+                            {
+                                Projectile.Kill();
+                                player.itemAnimation = player.itemTime = 0;
+                                return;
+                            }
+                        }
                     }
-                    LoadCounter = 16;
-                    BarrelVelocity += 22;
-                    if (Main.myPlayer == Projectile.owner)
+                    if (f)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 100, Projectile.velocity.RotatedBy(-2 * player.direction).normalize() * 16, ModContent.ProjectileType<AntiaircraftShell>(), 0, 0, Projectile.owner, 1);
-                    }
-                    for (int i = 0; i < 14; i++)
-                    {
-                        Color smokeColor = CalamityUtils.MulticolorLerp(Main.rand.NextFloat(), new Color[3] { Color.White, Color.Gray, Color.LightGray });
-                        smokeColor = Color.Lerp(smokeColor, Color.Gray, 0.6f) * 0.65f;
-                        HeavySmokeParticle smoke = new(Projectile.Center - Projectile.velocity.normalize() * 100, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 40, 1f, 1f, 0.03f, true, 0.075f);
-                        GeneralParticleHandler.SpawnParticle(smoke);
-                    }
-                    CEUtils.PlaySound("SteamAAG", 1, Projectile.Center);
-                    if(Main.myPlayer == Projectile.owner)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.rotation.ToRotationVector2() * 42, ModContent.ProjectileType<AzAGShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
-                    }
-                    player.velocity -= Projectile.velocity.normalize() * 2;
-                    EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 134, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
+                        LoadCounter = 16;
+                        BarrelVelocity += 22;
+                        if (Main.myPlayer == Projectile.owner)
+                        {
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 100, Projectile.velocity.RotatedBy(-2 * player.direction).normalize() * 16, ModContent.ProjectileType<AntiaircraftShell>(), 0, 0, Projectile.owner, 1);
+                        }
+                        for (int i = 0; i < 14; i++)
+                        {
+                            Color smokeColor = CalamityUtils.MulticolorLerp(Main.rand.NextFloat(), new Color[3] { Color.White, Color.Gray, Color.LightGray });
+                            smokeColor = Color.Lerp(smokeColor, Color.Gray, 0.6f) * 0.65f;
+                            HeavySmokeParticle smoke = new(Projectile.Center - Projectile.velocity.normalize() * 100, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 40, 1f, 1f, 0.03f, true, 0.075f);
+                            GeneralParticleHandler.SpawnParticle(smoke);
+                        }
+                        CEUtils.PlaySound("SteamAAG", 1, Projectile.Center);
+                        if (Main.myPlayer == Projectile.owner)
+                        {
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.rotation.ToRotationVector2() * 42, ModContent.ProjectileType<AzAGShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
+                        }
+                        player.velocity -= Projectile.velocity.normalize() * 2;
+                        EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 134, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
 
-                    CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
-                    CEUtils.SetShake(Projectile.Center, 2);
-                    for (int i = 0; i < 8; i++)
-                    {
-                        Vector2 top = Projectile.Center + Projectile.velocity.normalize() * 130;
-                        Vector2 sparkVelocity2 = Projectile.rotation.ToRotationVector2().RotateRandom(0.3f) * Main.rand.NextFloat(16f, 36f);
-                        int sparkLifetime2 = Main.rand.Next(6, 10);
-                        float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
-                        var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
+                        CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
+                        CEUtils.SetShake(Projectile.Center, 2);
+                        for (int i = 0; i < 8; i++)
+                        {
+                            Vector2 top = Projectile.Center + Projectile.velocity.normalize() * 130;
+                            Vector2 sparkVelocity2 = Projectile.rotation.ToRotationVector2().RotateRandom(0.3f) * Main.rand.NextFloat(16f, 36f);
+                            int sparkLifetime2 = Main.rand.Next(6, 10);
+                            float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
+                            var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                        LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                            LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                            GeneralParticleHandler.SpawnParticle(spark);
+                        }
                     }
                 }
                 else
