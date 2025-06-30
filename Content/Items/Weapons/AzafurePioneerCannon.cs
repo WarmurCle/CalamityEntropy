@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         PlayLoadSound = false;
                         CEUtils.PlaySound("Reload", 1, Projectile.Center);
                     }
-                    LoadCounter += player.GetTotalAttackSpeed(Projectile.DamageType) / 20f;
+                    LoadCounter += player.GetTotalAttackSpeed(Projectile.DamageType) / 24f;
                     FlywheelAddRot = CEUtils.GetRepeatedCosFromZeroToOne(LoadCounter, 1) * MathHelper.PiOver2;
                     if(LoadCounter > 1)
                     {
@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (LoadCounter <= 0)
                 {
                     FlywheelAddRot = 0;
-                    FlywheelRot -= MathHelper.PiOver2;
+                    FlywheelRot += MathHelper.PiOver2;
                     LoadedAmmo--;
                     if(LoadedAmmo < 0)
                     {
@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         return;
                     }
                     LoadCounter = 16;
-                    BarrelVelocity += 8;
+                    BarrelVelocity += 22;
                     if (Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.RotatedBy(-2 * player.direction).normalize() * 16, ModContent.ProjectileType<AntiaircraftShell>(), 0, 0, Projectile.owner, 1);
@@ -155,7 +155,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
                     CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
                     CEUtils.SetShake(Projectile.Center, 2);
-                    for (int i = 0; i < 16; i++)
+                    for (int i = 0; i < 8; i++)
                     {
                         Vector2 top = Projectile.Center + Projectile.velocity.normalize() * 130;
                         Vector2 sparkVelocity2 = Projectile.rotation.ToRotationVector2().RotateRandom(0.3f) * Main.rand.NextFloat(16f, 36f);
@@ -173,12 +173,12 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (FrameCount > 3)
                         FrameCount = 0;
                     LoadCounter -= player.GetTotalAttackSpeed(Projectile.DamageType);
-                    FlywheelAddRot = -CEUtils.GetRepeatedCosFromZeroToOne((LoadCounter / 16f), 2) * MathHelper.PiOver2;
+                    FlywheelAddRot = -CEUtils.GetRepeatedCosFromZeroToOne(1 - (LoadCounter / 16f), 2) * MathHelper.PiOver2;
                 }
             }
             BarrelOffset += BarrelVelocity;
             BarrelVelocity *= 0.88f;
-            BarrelOffset *= 0.86f;
+            BarrelOffset *= 0.82f;
             player.itemAnimation = player.itemTime = 3;
             Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY + new Vector2(0, -20);
             player.Calamity().mouseWorldListener = true;
