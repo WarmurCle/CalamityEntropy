@@ -113,6 +113,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         PlayLoadSound = true;
                         if(LoadedAmmo == MaxAmmo)
                         {
+                            Charging = false;
                             LoadCounter = 0;
                         }
                         if(!player.channel)
