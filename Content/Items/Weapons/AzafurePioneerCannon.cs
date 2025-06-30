@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         PlayLoadSound = false;
                         CEUtils.PlaySound("Reload", 1, Projectile.Center);
                     }
-                    LoadCounter += player.GetTotalAttackSpeed(DamageClass.Ranged) / 24f;
+                    LoadCounter += player.GetTotalAttackSpeed(DamageClass.Ranged) / Projectile.MaxUpdates / 24f;
                     FlywheelAddRot = CEUtils.GetRepeatedCosFromZeroToOne(LoadCounter, 1) * MathHelper.PiOver2;
                     if(LoadCounter > 1)
                     {
@@ -205,8 +205,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                     FrameCount = (int)(LoadCounter / 4f) + 1;
                     if (FrameCount > 3)
                         FrameCount = 0;
-                    LoadCounter -= player.GetTotalAttackSpeed(DamageClass.Ranged);
-                    FlywheelAddRot = -CEUtils.GetRepeatedCosFromZeroToOne(1 - (LoadCounter / 16f), 2) * MathHelper.PiOver2;
+                    LoadCounter -= player.GetTotalAttackSpeed(DamageClass.Ranged) / Projectile.MaxUpdates;
+                    FlywheelAddRot = -CEUtils.Parabola((1 - (LoadCounter / 16f)) * 0.5f, 1) * MathHelper.PiOver2;
                 }
             }
             BarrelOffset += BarrelVelocity;
