@@ -123,11 +123,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 if (LoadCounter <= 0)
                 {
+                    FlywheelAddRot = 0;
+                    FlywheelRot -= MathHelper.PiOver2;
                     LoadedAmmo--;
                     if(LoadedAmmo < 0)
                     {
                         Projectile.Kill();
                         player.itemAnimation = player.itemTime = 0;
+                        return;
                     }
                     LoadCounter = 16;
                     BarrelVelocity += 8;
@@ -170,11 +173,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (FrameCount > 3)
                         FrameCount = 0;
                     LoadCounter -= player.GetTotalAttackSpeed(Projectile.DamageType);
-                    FlywheelRot -= (16f / player.GetTotalAttackSpeed(Projectile.DamageType));
+                    FlywheelAddRot = -CEUtils.GetRepeatedCosFromZeroToOne((LoadCounter / 16f), 2) * MathHelper.PiOver2;
                 }
             }
             BarrelOffset += BarrelVelocity;
-            BarrelVelocity *= 0.84f;
+            BarrelVelocity *= 0.88f;
             BarrelOffset *= 0.86f;
             player.itemAnimation = player.itemTime = 3;
             Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY + new Vector2(0, -20);
