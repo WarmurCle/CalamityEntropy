@@ -2236,6 +2236,11 @@ Items: {
 		// DisplayName: Azafure Tesla Gun
 		// Tooltip: Launch tesla balls that will electrocute nearby enemies
 	}
+
+	AzafurePioneerCannon: {
+		// DisplayName: Azafure Pioneer Cannon
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2655,6 +2660,7 @@ Projectiles: {
 	// BlackKnife.DisplayName: Black Knife
 	// TeslaBall.DisplayName: Tesla Ball
 	// TeslaLightning.DisplayName: Tesla Lightning
+	// ApcHoldout.DisplayName: Apc Holdout
 }
 
 LegendTooltip: - Legend -

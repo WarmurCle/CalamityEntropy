@@ -2406,6 +2406,11 @@ Items: {
 		DisplayName: 阿萨福勒磁暴枪
 		Tooltip: 发射会电击附近敌怪的电磁球
 	}
+
+	AzafurePioneerCannon: {
+		DisplayName: 阿萨福勒先驱炮
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2825,6 +2830,7 @@ Projectiles: {
 	BlackKnife.DisplayName: 黑刃
 	TeslaBall.DisplayName: 磁暴能量球
 	TeslaLightning.DisplayName: 特斯拉球
+	// ApcHoldout.DisplayName: Apc Holdout
 }
 
 LegendTooltip: - 传奇物品 -
