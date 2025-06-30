@@ -22,6 +22,12 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static int Softlimitation(this int num, int limit)
+        {
+            if (num <= limit)
+                return num;
+            return (int)Math.Round(limit + Math.Sqrt(num - limit));
+        }
         public static DamageClass RogueDC => ModContent.GetInstance<CalamityMod.RogueDamageClass>();
         public static void SpawnExplotionHostile(IEntitySource source, Vector2 position, int damage, float r)
         {

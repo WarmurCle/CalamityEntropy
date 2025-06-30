@@ -35,6 +35,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.light = 0.4f;
             Projectile.ignoreWater = true;
             Projectile.width = Projectile.height = 46;
+            Projectile.timeLeft *= 2;
         }
         public override bool PreDraw(ref Color lightColor)
         {

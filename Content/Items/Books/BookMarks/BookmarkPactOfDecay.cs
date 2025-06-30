@@ -1,11 +1,13 @@
 ﻿using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Books.BookMarks
@@ -51,6 +53,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.Opacity = 0;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
+            Projectile.ArmorPenetration = 100;
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
@@ -108,6 +111,16 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             if (Main.rand.NextBool(6))
             {
                 base.OnHitNPC(target, hit, damageDone);
+            }
+            SoundStyle burn = new("CalamityMod/Sounds/Item/WeldingBurn");
+            SoundEngine.PlaySound(burn with { Volume = 0.25f, Pitch = 0.4f }, target.Center);
+            
+            GlowOrbParticle orb = new GlowOrbParticle(target.Center, new Vector2(6, 6).RotatedByRandom(100) * Main.rand.NextFloat(0.3f, 1.1f), false, 60, Main.rand.NextFloat(1.55f, 3.75f), Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f), true, true);
+            GeneralParticleHandler.SpawnParticle(orb);
+            if (Main.rand.NextBool())
+            {
+                GlowOrbParticle orb2 = new GlowOrbParticle(target.Center, new Vector2(6, 6).RotatedByRandom(100) * Main.rand.NextFloat(0.3f, 1.1f), false, 60, Main.rand.NextFloat(1.55f, 3.75f), Color.Black, false, true, false);
+                GeneralParticleHandler.SpawnParticle(orb2);
             }
         }
         public override bool PreDraw(ref Color lightColor)

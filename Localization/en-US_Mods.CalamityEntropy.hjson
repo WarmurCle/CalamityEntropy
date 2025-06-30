@@ -1297,7 +1297,11 @@ Items: {
 
 	BookMarkBrimstone: {
 		DisplayName: Bookmark - Brimstone
-		Tooltip: Summon a sulfur fire vortex that will fire a blood laser column towards the enemy during shooting
+		Tooltip: 
+		'''
+		Summon a brimstone vortex that will fire a blood laser column towards the enemy during shooting
+		Attack causes brimstone flame debuff
+		'''
 	}
 
 	BookMarkAerialite: {
@@ -1442,7 +1446,7 @@ Items: {
 
 	BookMarkIntergelactic: {
 		DisplayName: Bookmark - Intergelactic
-		Tooltip: Chance to summon nova slime when shooting
+		Tooltip: Summon nova slime when shooting
 	}
 
 	BookMarkAquarius: {
@@ -1492,7 +1496,6 @@ Items: {
 		Tooltip:
 			'''
 			+6% Damage
-			+2 Penetrate
 			+26% Shot Speed
 			'''
 	}

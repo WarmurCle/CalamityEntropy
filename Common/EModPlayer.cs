@@ -1009,10 +1009,9 @@ namespace CalamityEntropy.Common
                 {
                     if (p.Distance(Player.Center) <= 130)
                     {
-                        Player.lifeRegen += 16;
-                        Player.endurance += 0.1f;
+                        Player.lifeRegen += 8;
+                        Player.endurance += 0.05f;
                         Player.GetDamage(DamageClass.Generic) += 0.15f;
-                        Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
                     }
                 }
             }

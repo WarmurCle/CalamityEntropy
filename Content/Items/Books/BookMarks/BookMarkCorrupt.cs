@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 3 : 5))
             {
                 Vector2 shotDir = projectile.velocity.RotateRandom(1).normalize() * 14;
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, shotDir, 496, damageDone / 3, projectile.knockBack / 3, projectile.owner, 0, Main.rand.NextFloat(-0.1f, 0.1f)).ToProj().DamageType = projectile.DamageType;
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, shotDir, 496, (damageDone / 3).Softlimitation(125), projectile.knockBack / 3, projectile.owner, 0, Main.rand.NextFloat(-0.1f, 0.1f)).ToProj().DamageType = projectile.DamageType;
             }
 
         }

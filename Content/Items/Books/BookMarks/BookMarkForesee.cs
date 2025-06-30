@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 6))
+            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 6) && BMCooldowns.CheckCD(ref BMCooldowns.BMProphecy, 30)
             {
                 float jj = 360f / Main.rand.Next(3, 8);
                 if (projectile.HasEBookEffect<APlusBMEffect>())
@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
                 for (float j = 0; j < 354f; j += jj)
                 {
-                    int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<ProphecyRuneBM>(), (int)(projectile.damage * 0.24f), projectile.knockBack, projectile.owner, MathHelper.ToRadians(j), 0, Main.rand.Next(1, 12));
+                    int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<ProphecyRuneBM>(), ((int)(projectile.damage * 0.24f)).Softlimitation(200), projectile.knockBack, projectile.owner, MathHelper.ToRadians(j), 0, Main.rand.Next(1, 12));
                 }
             }
         }

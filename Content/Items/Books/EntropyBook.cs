@@ -10,6 +10,7 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.Items.Books
 {
@@ -256,7 +257,16 @@ namespace CalamityEntropy.Content.Items.Books
         public Item bookItem;
         public virtual float randomShootRotMax => 0.1f;
         public virtual bool canApplyShootCDModifer => true;
-        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1)
+        public int CauculateProjectileDamage(EBookStatModifer modifer, float mult = 1)
+        {
+            return (int)(Projectile.GetOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * mult * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
+        }
+        public int CauculateProjectileDamage(float mult = 1)
+        {
+            var modifer = GetProjectileModifer();
+            return (int)(Projectile.GetOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * mult * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
+        }
+        public EBookStatModifer GetProjectileModifer()
         {
             EBookStatModifer modifer = getBaseModifer();
             for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
@@ -267,9 +277,14 @@ namespace CalamityEntropy.Content.Items.Books
                     BookMarkLoader.ModifyStat(it, modifer);
                 }
             }
+            return modifer;
+        }
+        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1)
+        {
+            var modifer = GetProjectileModifer();
             Vector2 shootVel = (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax);
             float kb = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback);
-            int dmg = (int)(Projectile.GetOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * damageMul * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
+            int dmg = CauculateProjectileDamage(modifer, damageMul);
             bookItem.channel = false;
             if (ItemLoader.Shoot(bookItem, Projectile.GetOwner(), new Terraria.DataStructures.EntitySource_ItemUse_WithAmmo(Projectile.GetOwner(), bookItem, 0), pos, velocity * ContentSamples.ProjectilesByType[type].MaxUpdates, type, dmg, kb))
             {
@@ -574,7 +589,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 100;
+            Projectile.localNPCHitCooldown = 1000;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Magic;
@@ -697,6 +712,11 @@ namespace CalamityEntropy.Content.Items.Books
         public int segCounts = 100;
         public int penetrate = 1;
         public int quickTime = -1;
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.localNPCHitCooldown = hitCd;
+        }
         public virtual float width => 32 * Projectile.scale;
         public override bool ShouldUpdatePosition()
         {

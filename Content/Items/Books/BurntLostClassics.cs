@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.useAnimation = Item.useTime = 20;
             Item.crit = 5;
             Item.mana = 6;
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 15;
             Item.ArmorPenetration = 20;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BLC").Value;
@@ -51,6 +51,12 @@ namespace CalamityEntropy.Content.Items.Books
         public override EBookProjectileEffect getEffect()
         {
             return new BLCBookBaseEffect();
+        }
+        public override EBookStatModifer getBaseModifer()
+        {
+            var m = base.getBaseModifer();
+            m.Size += 0.25f;
+            return m;
         }
     }
 

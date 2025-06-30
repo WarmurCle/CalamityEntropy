@@ -1410,7 +1410,11 @@ Items: {
 
 	BookMarkBrimstone: {
 		DisplayName: 硫磺火书签
-		Tooltip: 攻击时概率在附近召唤硫磺火漩涡，向鼠标位置发射鲜血激光柱
+		Tooltip: 
+		'''
+		攻击时概率在附近召唤硫磺火漩涡，向鼠标位置发射鲜血激光柱
+		攻击造成硫磺火减益
+		'''
 	}
 
 	BookMarkAerialite: {
@@ -1559,7 +1563,7 @@ Items: {
 
 	BookMarkIntergelactic: {
 		DisplayName: 异宇星凝书签
-		Tooltip: 射击时概率生成新星史莱姆
+		Tooltip: 持续生成新星史莱姆
 	}
 
 	BookMarkAquarius: {
@@ -1609,7 +1613,6 @@ Items: {
 		Tooltip:
 			'''
 			+6%伤害
-			+2 穿透
 			+26% 弹速
 			'''
 	}

@@ -67,7 +67,6 @@ namespace CalamityEntropy.Content.Projectiles
         public float white = 1;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<GlacialState>(), 400);
             target.AddBuff(BuffID.Frostburn, 400);
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode);
             CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center + Projectile.velocity * 3, Vector2.Zero, new Color(170, 170, 255), new Vector2(2f, 2f), 0, 0.1f, 0.5f, 20);

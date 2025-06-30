@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 EParticle.NewParticle(new ULineParticle(4, 0.8f, 0.85f, 0.032f), target.Center + new Vector2(Main.rand.NextFloat(0, target.width) - (target.width / 2f), Main.rand.NextFloat(0, target.height) - (target.height / 2f)), new Vector2(0, -34), Color.Lerp(this.color, Color.LightBlue, 0.5f), 1, 1, true, BlendState.AlphaBlend, 0);
             }
-            if (target.velocity.Length() > 0.1f && target.type != NPCID.WallofFlesh)
+            if ((target.knockBackResist != 0 || target.velocity.Length() > 0.1f) && !target.boss)
             {
                 target.velocity += Projectile.velocity * (0.6f + 0.4f * target.knockBackResist);
             }

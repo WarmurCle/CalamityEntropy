@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * 4, ModContent.ProjectileType<BloodBeam>(), damageDone / 9, projectile.knockBack / 3, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * 4, ModContent.ProjectileType<BloodBeam>(), (damageDone / 9).Softlimitation(200), projectile.knockBack / 3, projectile.owner);
                 }
             }
         }

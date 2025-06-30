@@ -31,11 +31,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     }
     public class IGBMEffect : EBookProjectileEffect
     {
-        public override void OnProjectileSpawn(Projectile projectile, bool ownerClient)
+        public override void OnActive(EntropyBookHeldProjectile book)
         {
-            if (ownerClient && Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 6))
+            if (Main.GameUpdateCount % 30 == 0)
             {
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 0.6f, ModContent.ProjectileType<NovaSlimerProj>(), projectile.damage, projectile.knockBack, projectile.owner);
+                Projectile projectile = book.Projectile;
+                Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, projectile.velocity * 0.6f, ModContent.ProjectileType<NovaSlimerProj>(), book.CauculateProjectileDamage(), projectile.knockBack, projectile.owner);
             }
         }
     }

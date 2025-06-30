@@ -39,5 +39,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
             }
         }
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<CalamityMod.Buffs.DamageOverTime.BrimstoneFlames>(), 300);
+        }
     }
 }

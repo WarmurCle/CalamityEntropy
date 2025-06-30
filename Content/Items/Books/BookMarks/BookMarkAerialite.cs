@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             Vector2 shootPosition = projectile.Center + new Vector2(0, -900) + CEUtils.randomVec(128);
-            (Projectile.NewProjectile(projectile.GetSource_FromThis(), shootPosition, (target.Center - shootPosition).normalize() * Math.Max(projectile.velocity.Length() * 0.8f, 8), ModContent.ProjectileType<WelkinFeather2>(), damageDone / 7, projectile.knockBack / 3, projectile.owner).ToProj().ModProjectile as EBookBaseProjectile).homing = (projectile.ModProjectile as EBookBaseProjectile).homing;
+            (Projectile.NewProjectile(projectile.GetSource_FromThis(), shootPosition, (target.Center - shootPosition).normalize() * Math.Max(projectile.velocity.Length() * 0.8f, 8), ModContent.ProjectileType<WelkinFeather2>(), (damageDone / 7).Softlimitation(50), projectile.knockBack / 3, projectile.owner).ToProj().ModProjectile as EBookBaseProjectile).homing = (projectile.ModProjectile as EBookBaseProjectile).homing;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             if(Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 2 : 3))
-            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<AriesExplosion>(), damageDone / 8, 1, projectile.owner);
+            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<AriesExplosion>(), (damageDone / 8).Softlimitation(100), 1, projectile.owner);
         }
     }
 }
