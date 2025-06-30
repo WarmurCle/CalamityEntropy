@@ -917,7 +917,8 @@ namespace CalamityEntropy.Common
                         {
                             Player.wingTime += 2f;
                         }
-                        Player.lifeRegen *= 3;
+                        Player.lifeRegen *= 4;
+                        lifeRegenPerSec *= 3;
                         if ((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120)
                         {
                             npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 120);
