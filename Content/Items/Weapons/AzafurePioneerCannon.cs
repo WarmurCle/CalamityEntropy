@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 1250;
+            Item.damage = 1460;
             Item.crit = 10;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 194;
@@ -49,11 +49,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<ScoriaBar>(6)
-                .AddIngredient<DubiousPlating>(10)
-                .AddIngredient(ItemID.HellstoneBar, 18)
-                .AddIngredient(ItemID.MeteoriteBar, 6)
-                .AddTile(TileID.MythrilAnvil)
+            CreateRecipe().AddIngredient<AzafureAntiaircraftGun>()
+                .AddIngredient<DivineGeode>(6)
+                .AddIngredient(ItemID.LunarBar, 8)
                 .Register();
         }
     }
@@ -90,11 +88,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float FlywheelAddRot = 0;
         public bool PlayLoadSound = true;
         public float BarrelVelocity = 0;
+        public bool Charging = true;
         public override void AI()
         {
             Projectile.timeLeft = 3;
             Player player = Projectile.GetOwner();
-            if (player.channel)
+            if (player.channel || Charging)
             {
                 if (LoadedAmmo < MaxAmmo)
                 {
@@ -116,6 +115,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                         {
                             LoadCounter = 0;
                         }
+                        if(!player.channel)
+                        {
+                            Charging = false;
+                        }
                     }
                 }
             }
@@ -136,13 +139,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                     BarrelVelocity += 22;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.RotatedBy(-2 * player.direction).normalize() * 16, ModContent.ProjectileType<AntiaircraftShell>(), 0, 0, Projectile.owner, 1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 100, Projectile.velocity.RotatedBy(-2 * player.direction).normalize() * 16, ModContent.ProjectileType<AntiaircraftShell>(), 0, 0, Projectile.owner, 1);
                     }
                     for (int i = 0; i < 14; i++)
                     {
                         Color smokeColor = CalamityUtils.MulticolorLerp(Main.rand.NextFloat(), new Color[3] { Color.White, Color.Gray, Color.LightGray });
                         smokeColor = Color.Lerp(smokeColor, Color.Gray, 0.6f) * 0.65f;
-                        HeavySmokeParticle smoke = new(Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 40, 1f, 1f, 0.03f, true, 0.075f);
+                        HeavySmokeParticle smoke = new(Projectile.Center - Projectile.velocity.normalize() * 100, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 40, 1f, 1f, 0.03f, true, 0.075f);
                         GeneralParticleHandler.SpawnParticle(smoke);
                     }
                     CEUtils.PlaySound("SteamAAG", 1, Projectile.Center);
@@ -151,7 +154,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.rotation.ToRotationVector2() * 42, ModContent.ProjectileType<AzAGShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
                     }
                     player.velocity -= Projectile.velocity.normalize() * 2;
-                    EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 150, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
+                    EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 134, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
 
                     CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
                     CEUtils.SetShake(Projectile.Center, 2);
@@ -180,7 +183,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             BarrelVelocity *= 0.88f;
             BarrelOffset *= 0.82f;
             player.itemAnimation = player.itemTime = 3;
-            Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY + new Vector2(0, -20);
+            Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY - Projectile.velocity.normalize() * 32 + new Vector2(0, -20);
             player.Calamity().mouseWorldListener = true;
             float targetRot = (player.Calamity().mouseWorld - player.MountedCenter).ToRotation();
             Projectile.velocity = CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), targetRot, 4, true).ToRotationVector2() * player.HeldItem.shootSpeed;
