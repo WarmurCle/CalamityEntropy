@@ -2239,7 +2239,11 @@ Items: {
 
 	AzafurePioneerCannon: {
 		// DisplayName: Azafure Pioneer Cannon
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Hold LMB to charge and load ammo (max 5)
+			Release to unleash all loaded shots at once
+			''' */
 	}
 }
 
