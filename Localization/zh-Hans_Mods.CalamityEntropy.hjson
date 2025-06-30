@@ -2409,7 +2409,11 @@ Items: {
 
 	AzafurePioneerCannon: {
 		DisplayName: 阿萨福勒先驱炮
-		Tooltip: ""
+		Tooltip: 
+		'''
+		长按鼠标左键蓄力装填弹药，最多装填5发
+		松手后连续发射出装填的弹药
+		'''
 	}
 }
 
@@ -3638,7 +3642,7 @@ SlotInfo2: 存放物品
 LightModeTip: 警告：颜色以外的照明模式会导致灾熵的部分射弹和敌怪不显示，最好使用颜色照明
 KilledByBloodBoiling: 的血液沸腾了
 BloodBoiling: 血沸
-BloodBoilingDescr: 持续使用物品时增加攻速，但会对自身产生持续的伤害
+BloodBoilingDescr: 持续使用物品时增加攻速，但会对自身产生持续的伤害，该效果会随着使用时间增加
 PrefixHeavyDesc: +10% 下落速度
 
 InfernumIntros: {
