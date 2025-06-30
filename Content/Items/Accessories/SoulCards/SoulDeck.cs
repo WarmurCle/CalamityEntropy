@@ -23,6 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.Entropy().soulDeckInInv = true;
             player.Entropy().bitternessCard = true;
             player.Entropy().grudgeCard = true;
             player.Entropy().devouringCard = true;
