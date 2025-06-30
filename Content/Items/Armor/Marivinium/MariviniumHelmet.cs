@@ -41,7 +41,8 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.maxMinions += 10;
             player.Entropy().damageReduce += 0.05f;
             player.GetDamage(DamageClass.Summon) += 1;
-            player.whipRangeMultiplier += 0.1f;
+            player.whipRangeMultiplier += 0.2f;
+            player.GetAttackSpeed(DamageClass.Summon) += 0.2f;
             player.Entropy().summonCrit += 5;
             player.GetArmorPenetration(DamageClass.Generic) += 50;
             player.Entropy().MariviniumSet = true;
