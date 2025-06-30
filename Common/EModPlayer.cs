@@ -913,8 +913,11 @@ namespace CalamityEntropy.Common
                 {
                     if (!npc.friendly && npc.getRect().Intersects(Player.getRect()))
                     {
-                        Player.wingTime += 2f;
-                        Player.lifeRegen *= 2;
+                        if (Player.wingTime < Player.wingTimeMax * 2)
+                        {
+                            Player.wingTime += 2f;
+                        }
+                        Player.lifeRegen *= 3;
                         if ((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120)
                         {
                             npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 120);
