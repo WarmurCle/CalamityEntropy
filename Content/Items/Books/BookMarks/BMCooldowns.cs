@@ -1,4 +1,4 @@
-﻿
+﻿namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public static class BMCooldowns
     {
@@ -32,10 +32,11 @@
                 return false;
             }
 
-            if(reset)
+            if (reset)
             {
                 value = maxValue;
             }
             return true;
+        }
     }
 }
