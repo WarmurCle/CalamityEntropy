@@ -1297,11 +1297,11 @@ Items: {
 
 	BookMarkBrimstone: {
 		DisplayName: Bookmark - Brimstone
-		Tooltip: 
-		'''
-		Summon a brimstone vortex that will fire a blood laser column towards the enemy during shooting
-		Attack causes brimstone flame debuff
-		'''
+		Tooltip:
+			'''
+			Summon a brimstone vortex that will fire a blood laser column towards the enemy during shooting
+			Attack causes brimstone flame debuff
+			'''
 	}
 
 	BookMarkAerialite: {

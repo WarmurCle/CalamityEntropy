@@ -104,6 +104,7 @@ namespace CalamityEntropy.Content.Items.Books
         public int Time;
         public override void AI()
         {
+            base.AI();
             Time++;
             Player player = Main.player[base.Projectile.owner];
 

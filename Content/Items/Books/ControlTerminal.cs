@@ -188,7 +188,10 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (Projectile.ai[0] > 0)
             {
-                Projectile.velocity *= 0.8f;
+                if(Projectile.velocity.Length() > 6)
+                {
+                    Projectile.velocity = Projectile.velocity.normalize() * 6;
+                }
             }
             Projectile.ai[0]--;
             if (hitCount == 0)
@@ -218,6 +221,12 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 Projectile.velocity = r.ToRotationVector2() * 2;
             }
+            NoMoveTime--;
+        }
+        public int NoMoveTime = 0;
+        public override bool ShouldUpdatePosition()
+        {
+            return NoMoveTime <= 0;
         }
         public float TrailWidth(float completionRatio)
         {
@@ -249,9 +258,14 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
+            SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Custom/SwiftSlice") with { Pitch = 0.1f * Projectile.numHits, MaxInstances = 12 }, Projectile.Center);
             if (hitCount == 1)
             {
                 Projectile.ai[0] = 120;
+            }
+            if (Projectile.ai[0] <= 0)
+            {
+                NoMoveTime = 4;
             }
             if (Projectile.ai[0] < 6)
             {
