@@ -81,11 +81,11 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Projectile.ai[0] > 16)
                 {
+                    CEUtils.PlaySound("ofshoot", 1, Projectile.Center);
+                    owner.velocity += Projectile.velocity.normalize() * -6f * owner.Entropy().GetPressure();
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.GetOwner().velocity += Projectile.velocity.normalize() * -6f;
-                        Projectile.GetOwner().Calamity().GeneralScreenShakePower = 4;
-                        CEUtils.PlaySound("ofshoot", 1, Projectile.Center);
+                        owner.Calamity().GeneralScreenShakePower = 4;
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, Projectile.velocity.SafeNormalize(Vector2.Zero) * 5f, ModContent.ProjectileType<LightningBall>(), (int)(Projectile.damage * (Projectile.ai[0] >= maxTime ? 5f : 1)), Projectile.knockBack, Projectile.owner, 0, (Projectile.ai[0] >= maxTime ? 1 : 0));
                     }
                     eRotSpeed = owner.direction * -0.3f;

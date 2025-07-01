@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.rotation.ToRotationVector2() * 42, ModContent.ProjectileType<AzAGShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
                         }
-                        player.velocity -= Projectile.velocity.normalize() * 2;
+                        player.velocity -= Projectile.velocity.normalize() * 2 * player.Entropy().GetPressure();
                         EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 134, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
 
                         CEUtils.PlaySound("AAGShot", 1, Projectile.Center);

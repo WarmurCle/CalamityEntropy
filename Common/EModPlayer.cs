@@ -39,6 +39,15 @@ namespace CalamityEntropy.Common
 {
     public class EModPlayer : ModPlayer
     {
+        public float GetPressure()
+        {
+            float p = 1;
+            if(ModLoader.TryGetMod("CalamityOverhaul", out Mod cwr))
+            {
+                p = CWRWeakRef.CWRRef.GetPlayersPressure(Player);
+            }
+            return p;
+        }
         public float CooldownTimeMult = 1;
         public List<int> enabledLoreItems = new List<int>();
         public bool NihilityTwinLoreBonus = false;

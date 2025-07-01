@@ -127,7 +127,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (shoot)
             {
-                player.velocity -= Projectile.velocity.normalize() * 5;
+                player.velocity -= Projectile.velocity.normalize() * 5 * player.Entropy().GetPressure();
                 EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 150, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
 
                 CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
