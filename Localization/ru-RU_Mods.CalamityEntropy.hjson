@@ -2245,6 +2245,11 @@ Items: {
 			Release to unleash all loaded shots at once
 			''' */
 	}
+
+	ShadoidPotion: {
+		// Tooltip: ""
+		// DisplayName: Shadoid Potion
+	}
 }
 
 PrefixitemDesc:
@@ -3488,3 +3493,5 @@ InfernumIntros: {
 		Luminaris
 		''' */
 }
+
+// Donor: Donor
