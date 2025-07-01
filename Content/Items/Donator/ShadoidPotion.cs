@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Items;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -29,6 +30,17 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.consumable = true;
             Item.rare = ItemRarityID.Purple;
             Item.value = Item.buyPrice(0, 6, 50, 0);
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            for (int i = 0; i < tooltips.Count; i++)
+            {
+                if (tooltips[i].Name == "Consumable")
+                {
+                    tooltips.RemoveAt(i);
+                    break;
+                }
+            }
         }
         public override bool ConsumeItem(Player player)
         {
