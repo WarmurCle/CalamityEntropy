@@ -30,6 +30,16 @@ namespace CalamityEntropy.Content.ILEditing
 
             var _hook = EModHooks.Add(originalMethod, UpdateStealthGenHook);
 
+
+            originalMethod = typeof(CalamityPlayer)
+            .GetMethod("ConsumeStealthByAttacking",
+                      System.Reflection.BindingFlags.Public |
+                      System.Reflection.BindingFlags.Instance,
+                      null,
+            Type.EmptyTypes,
+            null);
+            _hook = EModHooks.Add(originalMethod, ConsumeStealthByAttackingHook);
+
             originalMethod = typeof(EyeOfCthulhuAI)
             .GetMethod("BuffedEyeofCthulhuAI",
                       System.Reflection.BindingFlags.Public |
@@ -77,8 +87,20 @@ namespace CalamityEntropy.Content.ILEditing
                 return orig(npc, mod);
             }
         }
+        public static void ConsumeStealthByAttackingHook(Action<CalamityPlayer> orig, CalamityPlayer self)
+        {
+            if(self.Player.TryGetModPlayer<EModPlayer>(out var emp) && emp.WeaponsNoCostRogueStealth)
+            {
+                return;
+            }
+            orig(self);
+        }
         private static float UpdateStealthGenHook(Func<CalamityPlayer, float> orig, CalamityPlayer self)
         {
+            if(self.Player.TryGetModPlayer<EModPlayer>(out var mp) && mp.NoNaturalStealthRegen)
+            {
+                return 0;
+            }
             return orig(self) * self.Player.Entropy().RogueStealthRegenMult;
         }
         private static bool canuseitem_hook(Func<ModItem, Player, bool> orig, ModItem self, Player player)

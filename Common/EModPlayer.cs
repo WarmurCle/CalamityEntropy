@@ -366,8 +366,11 @@ namespace CalamityEntropy.Common
         }
         public List<McAttributeRecord> McAttributes = null;
         public bool devouringCard = false;
+        public bool NoNaturalStealthRegen = false;
         public override void ResetEffects()
         {
+            NoNaturalStealthRegen = false;
+            WeaponsNoCostRogueStealth = false;
             vanityWing = null;
             wing = null;
             ilmeranAsylum = false;
@@ -1357,8 +1360,15 @@ namespace CalamityEntropy.Common
         public ProminenceTrail runeDashTrail = null;
         public int UICJ = 0;
         public int ilVortexType = -1;
+        public bool WeaponsNoCostRogueStealth = false;
         public override void PostUpdate()
         {
+
+            if (!Main.dedServ && hasAcc(ShadowMantle.ID) && Player.whoAmI == Main.myPlayer && CalamityKeybinds.SpectralVeilHotKey.JustReleased)
+            {
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 800, ModContent.ProjectileType<ShadowMantleSlash>(), (int)Player.GetTotalDamage<RogueDamageClass>().ApplyTo(1 + ShadowMantle.BaseDamage * Player.Calamity().rogueStealth), 0, Player.whoAmI);
+                
+            }
             if (ilVortexType == -1)
                 ilVortexType = ModContent.ProjectileType<IlmeranVortex>();
             if (ilmeranAsylum && Main.myPlayer == Player.whoAmI)

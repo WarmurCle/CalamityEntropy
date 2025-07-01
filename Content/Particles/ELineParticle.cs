@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Particles
             this.r = r;
         }
         public int counter = 0;
-        public override void PreDraw()
+        public override void Draw()
         {
             counter++;
             CEUtils.drawLine(this.Position, b, this.Color, width);

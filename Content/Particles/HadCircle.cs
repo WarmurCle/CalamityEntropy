@@ -40,11 +40,11 @@ namespace CalamityEntropy.Content.Particles
         public float scale2 = 1;
 
 
-        public override void PreDraw()
+        public override void Draw()
         {
             this.Scale *= this.scale2;
-            base.PreDraw();
-            base.PreDraw();
+            base.Draw();
+            base.Draw();
         }
     }
 }

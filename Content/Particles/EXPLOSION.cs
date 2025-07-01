@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public int frame = 0;
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/EXPLOSION").Value;
-        public override void PreDraw()
+        public override void Draw()
         {
             Texture2D tex = Texture;
             Rectangle rect = new Rectangle(frame % 11 * 240, (int)(frame / 11) * 135, 240, 135);
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public int frame = 0;
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/EXPLOSIONCOSMIC").Value;
-        public override void PreDraw()
+        public override void Draw()
         {
             Texture2D tex = Texture;
             Rectangle rect = new Rectangle(frame % 11 * 240, (int)(frame / 11) * 135, 240, 135);

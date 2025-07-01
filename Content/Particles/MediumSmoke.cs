@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Particles
         {
             return base.getOrigin() * new Vector2(1, 0.3333f);
         }
-        public override void PreDraw()
+        public override void Draw()
         {
             Color clr = this.Color;
             if (!this.glow)

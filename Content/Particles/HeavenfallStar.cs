@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Particles
             Color = Color.Lerp(InitialColor, Color.Transparent, (float)Math.Pow(LifetimeCompletion, 3D));
             Velocity *= 0.92f;
         }
-        public override void PreDraw()
+        public override void Draw()
         {
             Vector2 scaled = new Vector2(0.2f, 1.6f * xScale) * Scale;
             SpriteBatch spriteBatch = Main.spriteBatch;

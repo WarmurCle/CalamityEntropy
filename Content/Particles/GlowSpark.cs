@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Particles
             this.Position = Vector2.Lerp(TargetPos, SpawnPos, (this.Lifetime / (float)TimeLeftMax));
             Rotation = (TargetPos - SpawnPos).ToRotation();
         }
-        public override void PreDraw()
+        public override void Draw()
         {
 
             Color clr = this.Color;

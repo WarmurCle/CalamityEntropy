@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Particles
             base.AI();
             width = CEUtils.Parabola(Lifetime / (float)TimeLeftMax, 7);
         }
-        public override void PreDraw()
+        public override void Draw()
         {
             Texture2D tex = CEUtils.getExtraTex("a_circle");
             Main.spriteBatch.Draw(tex, Position - Main.screenPosition, null, Color, this.Rotation, tex.Size() / 2, new Vector2(Scale * 660 / tex.Width, width / tex.Height), SpriteEffects.None, 0);

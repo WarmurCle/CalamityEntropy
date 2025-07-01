@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Particles
         public float r = CEUtils.randomRot();
         public int dir = Main.rand.NextBool() ? 1 : -1;
 
-        public override void PreDraw()
+        public override void Draw()
         {
             Main.spriteBatch.EnterShaderRegion();
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Wind"));

@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Particles
             }
         }
 
-        public override void PreDraw()
+        public override void Draw()
         {
             if (odp.Count < 3)
             {

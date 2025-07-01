@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Particles
             this.alphaD = alphaDec;
         }
         public int counter = 0;
-        public override void PreDraw()
+        public override void Draw()
         {
             CEUtils.drawLine(this.Position, b, this.Color * this.Opacity, width * this.Opacity);
         }

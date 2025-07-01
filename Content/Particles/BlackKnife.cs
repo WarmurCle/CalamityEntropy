@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Particles
             }
             
         }
-        public override void PreDraw()
+        public override void Draw()
         {
             Texture2D tex = Texture;
             for (int i = 0; i < oldPos.Count; i++)

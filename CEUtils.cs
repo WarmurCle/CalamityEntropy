@@ -22,6 +22,33 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static bool IsPlayerStuck(Player player)
+        {
+            Rectangle playerHitbox = player.getRect();
+
+            for (int i = 0; i < 4; i++)
+            {
+                Point checkPoint = new Point(
+                    i < 2 ? playerHitbox.Left : playerHitbox.Right - 1,
+                    i % 2 == 0 ? playerHitbox.Top : playerHitbox.Bottom - 1);
+
+                if (WorldGen.SolidOrSlopedTile(Framing.GetTileSafely(checkPoint.X / 16, checkPoint.Y / 16)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        public static void FriendlySetDefaults(this Projectile Projectile, DamageClass dmgClass, bool tileCollide = false, int penetrate = 1)
+        {
+            Projectile.DamageType = dmgClass;
+            Projectile.width = 12;
+            Projectile.height = 12;
+            Projectile.friendly = true;
+            Projectile.penetrate = penetrate;
+            Projectile.tileCollide = tileCollide;
+        }
         public static int Softlimitation(this int num, int limit)
         {
             if (num <= limit)

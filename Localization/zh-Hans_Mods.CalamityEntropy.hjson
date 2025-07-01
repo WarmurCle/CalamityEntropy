@@ -2425,6 +2425,11 @@ Items: {
 			'''
 		DisplayName: “玲瓏小姐姐的关爱”
 	}
+
+	ShadowMantle: {
+		// Tooltip: ""
+		// DisplayName: Shadow Mantle
+	}
 }
 
 PrefixitemDesc:
@@ -2845,6 +2850,7 @@ Projectiles: {
 	TeslaBall.DisplayName: 磁暴能量球
 	TeslaLightning.DisplayName: 特斯拉球
 	// ApcHoldout.DisplayName: Apc Holdout
+	// ShadowMantleSlash.DisplayName: Shadow Mantle Slash
 }
 
 LegendTooltip: - 传奇物品 -

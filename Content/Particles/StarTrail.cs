@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Particles
             }
         }
 
-        public override void PreDraw()
+        public override void Draw()
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

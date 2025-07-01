@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public Color color1 = new Color(151, 0, 5);
         public Color color2 = new Color(255, 231, 66);
-        public override void PreDraw()
+        public override void Draw()
         {
             if (odp.Count < 3)
             {

@@ -2272,6 +2272,11 @@ Items: {
 			'''
 		DisplayName: Shadoid Potion
 	}
+
+	ShadowMantle: {
+		Tooltip: ""
+		DisplayName: Shadow Mantle
+	}
 }
 
 PrefixitemDesc:
@@ -2691,6 +2696,7 @@ Projectiles: {
 	TeslaBall.DisplayName: Tesla Ball
 	TeslaLightning.DisplayName: Tesla Lightning
 	ApcHoldout.DisplayName: Apc Holdout
+	ShadowMantleSlash.DisplayName: Shadow Mantle Slash
 }
 
 LegendTooltip: - Legend -
