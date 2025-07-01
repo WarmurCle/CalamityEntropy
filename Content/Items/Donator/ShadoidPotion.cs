@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.width = 40;
             Item.height = 40;
             Item.useTurn = true;
-            Item.maxStack = 9999;
+            Item.maxStack = 1;
             Item.healLife = 30;
             Item.useAnimation = 17;
             Item.useTime = 17;
