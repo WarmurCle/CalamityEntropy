@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 2 : 4) && BMCooldowns.CheckCD(ref BMCooldowns.BMAbyss, 30))
             {
-                int damage = projectile.damage / 8;
+                int damage = projectile.damage / 12;
                 Vector2 p = target.Center + CEUtils.randomRot().ToRotationVector2() * 300;
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), p, (target.Center - p).SafeNormalize(Vector2.One), ModContent.ProjectileType<AbyssBookmarkCrack>(), (int)projectile.GetOwner().GetTotalDamage(projectile.DamageType).ApplyTo(1000), projectile.knockBack, projectile.owner);
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 5;
