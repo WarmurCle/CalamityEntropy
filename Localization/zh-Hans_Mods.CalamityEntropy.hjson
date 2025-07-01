@@ -2415,6 +2415,16 @@ Items: {
 			松手后连续发射出装填的弹药
 			'''
 	}
+
+	ShadoidPotion: {
+		Tooltip:
+			'''
+			回复你的血量与飞行时间
+			回复的血量为最大生命值的1/3
+			不消耗
+			'''
+		DisplayName: "“玲瓏小姐姐的关爱”"
+	}
 }
 
 PrefixitemDesc:
@@ -3667,3 +3677,5 @@ InfernumIntros: {
 		幻光星蛾
 		'''
 }
+
+Donor: 捐赠者:

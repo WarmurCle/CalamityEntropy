@@ -2262,6 +2262,16 @@ Items: {
 			Release to unleash all loaded shots at once
 			'''
 	}
+
+	ShadoidPotion: {
+		Tooltip:
+			'''
+			Restores your HP and flight duration
+			Heals for 1/3 of max HP
+			No cost
+			'''
+		DisplayName: Shadoid Potion
+	}
 }
 
 PrefixitemDesc:
@@ -3504,3 +3514,5 @@ InfernumIntros: {
 		Luminaris
 		'''
 }
+
+Donor: Donor:

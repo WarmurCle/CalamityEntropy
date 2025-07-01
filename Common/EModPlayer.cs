@@ -8,6 +8,7 @@ using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Particles;
@@ -1653,6 +1654,14 @@ namespace CalamityEntropy.Common
                 if (Main.myPlayer == Player.whoAmI)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomVec(14), ModContent.ProjectileType<PhantomWyrm>(), (int)(Player.GetTotalDamage(DamageClass.Summon).ApplyTo(Ystralyn.PhantomDamage)), 1, Player.whoAmI);
+                }
+            }
+            int shadoidType = ModContent.ItemType<ShadoidPotion>();
+            for(int i = 0; i < Player.inventory.Length; i++)
+            {
+                if (Player.inventory[i].type == shadoidType)
+                {
+                    Player.inventory[i].healLife = Player.statLifeMax2 / 3;
                 }
             }
             foreach (Projectile p in Main.ActiveProjectiles)
