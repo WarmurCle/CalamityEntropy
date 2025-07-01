@@ -2264,12 +2264,12 @@ Items: {
 	}
 
 	ShadoidPotion: {
-		Tooltip: 
-		'''
-		Restores your HP and flight duration
-		Heals for 1/3 of max HP
-		No cost
-		'''
+		Tooltip:
+			'''
+			Restores your HP and flight duration
+			Heals for 1/3 of max HP
+			No cost
+			'''
 		DisplayName: Shadoid Potion
 	}
 }

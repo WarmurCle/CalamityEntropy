@@ -27,6 +27,7 @@ namespace CalamityEntropy.Content.Items.Donator
             if (entity.ModItem != null && entity.ModItem is IDonatorItem i) 
             {
                 TooltipLine tl = new TooltipLine(Mod, "CalamityEntropy:Donor", Mod.GetLocalization("Donor").Value + " " + i.DonatorName);
+                tl.OverrideColor = Color.Yellow;
                 tooltips.Add(tl);
             }
         }
