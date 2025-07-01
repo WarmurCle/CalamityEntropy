@@ -1371,7 +1371,7 @@ Items: {
 			'''
 			Launching boulders
 			+15% Damage
-			+3 Penetrate 
+			+1 Penetrate 
 			'''
 		DisplayName: Bookmark - Terra
 	}
@@ -2287,7 +2287,7 @@ MariviniumSet:
 	+100% Summon Damage
 	+5% Summon Crit
 	+5% Damage Reduce
-	+40 Armor Penetration
+	+50 Armor Penetration
 	if your crit chance is over 100%, convert excess crit chance into damage bonus
 	+130 Rogue Stealth
 	When standing, increase life regen
