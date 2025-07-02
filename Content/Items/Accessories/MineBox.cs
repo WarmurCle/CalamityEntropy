@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     public class MineBox : ModItem
     {
         public static int BaseDamage = 90;
-        public static float Dmg = 0.60f;
+        public static float Dmg = 0.06f;
         public override void SetDefaults()
         {
             Item.width = 38;
