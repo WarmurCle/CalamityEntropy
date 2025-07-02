@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             EGlobalNPC.AddVoidTouch(target, 80, 1.5f, 800, 18);
             if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 5) && BMCooldowns.CheckCD(ref BMCooldowns.BMVoid, 60))
             {
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidBurst>(), (int)projectile.GetOwner().GetTotalDamage(projectile.DamageType).ApplyTo(3000), 1, projectile.owner);
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidBurst>(), (int)projectile.GetOwner().GetTotalDamage(projectile.DamageType).ApplyTo(1250), 1, projectile.owner);
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 1, projectile.owner);
 
                 for (int i = 0; i < 74; i++)
