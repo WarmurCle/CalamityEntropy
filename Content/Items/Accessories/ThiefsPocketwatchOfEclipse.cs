@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -43,9 +44,16 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemID.Magiluminescence)
-                .AddIngredient(ItemID.GlowingMushroom, 8)
-                .AddIngredient(ItemID.SoulofNight, 4)
+            CreateRecipe()
+                .AddIngredient<SolarVeil>(8)
+                .AddIngredient<ExodiumCluster>(12)
+                .AddIngredient(ItemID.GoldWatch)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
+            CreateRecipe()
+                .AddIngredient<SolarVeil>(8)
+                .AddIngredient<ExodiumCluster>(12)
+                .AddIngredient(ItemID.PlatinumWatch)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
