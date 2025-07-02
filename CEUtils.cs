@@ -371,7 +371,7 @@ namespace CalamityEntropy
         {
             Texture2D glow = getExtraTex("Glow2");
             SpriteBatch sb = Main.spriteBatch;
-            var blend = sb.GraphicsDevice.BlendState;
+            var blend = sb.GraphicsDevice.BlendState == BlendState.Additive ? BlendState.Additive : BlendState.AlphaBlend;
             var sample = sb.GraphicsDevice.SamplerStates[0];
             var depth = sb.GraphicsDevice.DepthStencilState;
             var rasterizer = sb.GraphicsDevice.RasterizerState;

@@ -2863,9 +2863,9 @@ Projectiles: {
 	BlackKnife.DisplayName: 黑刃
 	TeslaBall.DisplayName: 磁暴能量球
 	TeslaLightning.DisplayName: 特斯拉球
-	// ApcHoldout.DisplayName: Apc Holdout
-	// ShadowMantleSlash.DisplayName: Shadow Mantle Slash
-	// BoobyMine.DisplayName: Booby Mine
+	ApcHoldout.DisplayName: 先驱炮
+	ShadowMantleSlash.DisplayName: 暗影斩击
+	BoobyMine.DisplayName: 诡雷
 }
 
 LegendTooltip: - 传奇物品 -
