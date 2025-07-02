@@ -1135,6 +1135,10 @@ namespace CalamityEntropy.Common
         {
             if (player != null)
             {
+                if(player.Entropy().hasAcc(MineBox.ID) && source is Projectile pr && pr.DamageType.CountsAsClass<ThrowingDamageClass>() && pr.Calamity().stealthStrike && BMCooldowns.CheckCD(ref BMCooldowns.MineBoxCd, 25))
+                {
+                    Projectile.NewProjectile(pr.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BoobyMine>(), (int)player.GetTotalDamage(pr.DamageType).ApplyTo(MineBox.BaseDamage), 0, player.whoAmI);
+                }
                 if (player.Entropy().grudgeCard)
                 {
                     if (Main.rand.NextBool(24))

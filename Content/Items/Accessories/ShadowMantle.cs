@@ -45,14 +45,14 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(86, 6)
+            CreateRecipe().AddIngredient(ItemID.ShadowScale, 6)
                 .AddIngredient(ItemID.Silk, 12)
-                .AddTile(86)
+                .AddTile(TileID.Loom)
                 .Register();
 
-            CreateRecipe().AddIngredient(1329, 6)
+            CreateRecipe().AddIngredient(ItemID.TissueSample, 6)
                 .AddIngredient(ItemID.Silk, 12)
-                .AddTile(86)
+                .AddTile(TileID.Loom)
                 .Register();
         }
     }

@@ -2435,6 +2435,15 @@ Items: {
 			'''
 		DisplayName: 暗影斗篷
 	}
+
+	MineBox: {
+		DisplayName: 诡雷匣
+		Tooltip:
+			'''
+			+[D]% 盗贼伤害
+			潜伏命中会产生一个延时爆炸的诡雷
+			'''
+	}
 }
 
 PrefixitemDesc:
@@ -2856,6 +2865,7 @@ Projectiles: {
 	TeslaLightning.DisplayName: 特斯拉球
 	// ApcHoldout.DisplayName: Apc Holdout
 	// ShadowMantleSlash.DisplayName: Shadow Mantle Slash
+	// BoobyMine.DisplayName: Booby Mine
 }
 
 LegendTooltip: - 传奇物品 -

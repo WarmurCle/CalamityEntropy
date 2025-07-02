@@ -2282,6 +2282,15 @@ Items: {
 			'''
 		DisplayName: Shadow Mantle
 	}
+
+	MineBox: {
+		DisplayName: Mine Box
+		Tooltip:
+			'''
+			+[D]% Rogue Damage
+			Stealth strikes will plant a delayed-explosion mine
+			'''
+	}
 }
 
 PrefixitemDesc:
@@ -2702,6 +2711,7 @@ Projectiles: {
 	TeslaLightning.DisplayName: Tesla Lightning
 	ApcHoldout.DisplayName: Apc Holdout
 	ShadowMantleSlash.DisplayName: Shadow Mantle Slash
+	BoobyMine.DisplayName: Booby Mine
 }
 
 LegendTooltip: - Legend -

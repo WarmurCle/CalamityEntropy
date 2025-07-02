@@ -8,7 +8,7 @@
         public static int BMSilva = 0;
         public static int BMVoid = 0;
         public static int BMAuric = 0;
-
+        public static int MineBoxCd = 0;
         public static void Update()
         {
             CountDown(ref BMLightCD);
@@ -17,6 +17,7 @@
             CountDown(ref BMSilva);
             CountDown(ref BMVoid);
             CountDown(ref BMAuric);
+            CountDown(ref MineBoxCd);
         }
         public static void CountDown(ref int value)
         {
