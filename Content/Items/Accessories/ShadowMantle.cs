@@ -45,6 +45,15 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void AddRecipes()
         {
+            CreateRecipe().AddIngredient(86, 6)
+                .AddIngredient(ItemID.Silk, 12)
+                .AddTile(86)
+                .Register();
+
+            CreateRecipe().AddIngredient(1329, 6)
+                .AddIngredient(ItemID.Silk, 12)
+                .AddTile(86)
+                .Register();
         }
     }
     public class ShadowMantleSlash : ModProjectile
