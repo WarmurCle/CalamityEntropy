@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
                     CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(Projectile.Center + rot.ToRotationVector2() * Main.rand.NextFloat(120, 230) * scale, smokeSpeed, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
                     GeneralParticleHandler.SpawnParticle(smoke);
                     */
-                    var smokeGlow = new HeavySmokeParticle(Projectile.Center + rot.ToRotationVector2() * Main.rand.NextFloat(145, 205) * scale, smokeSpeed, Main.hslToRgb(0.85f, 1, 0.8f), 20, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, true, 0.01f, true);
+                    var smokeGlow = new HeavySmokeParticle(Projectile.Center + rot.ToRotationVector2() * Main.rand.NextFloat(145, 205) * scale, smokeSpeed, new Color(60, 60, 200), 30, Main.rand.NextFloat(1f, 1.4f), 0.8f, 0.008f, true, 0.01f, true);
                     GeneralParticleHandler.SpawnParticle(smokeGlow);
                     
                 }
