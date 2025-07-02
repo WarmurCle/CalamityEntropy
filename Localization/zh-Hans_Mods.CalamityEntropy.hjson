@@ -2427,8 +2427,12 @@ Items: {
 	}
 
 	ShadowMantle: {
-		// Tooltip: ""
-		// DisplayName: Shadow Mantle
+		Tooltip:
+			'''
+			按下[K]([KEY])键消耗所有潜伏值向光标位置冲刺一段距离并斩击碰到的敌人
+			伤害取决于消耗的潜伏值
+			'''
+		DisplayName: 暗影斗篷
 	}
 }
 
@@ -3685,3 +3689,4 @@ InfernumIntros: {
 }
 
 Donor: 捐赠者:
+ShadowDashCD: 暗影突进冷却

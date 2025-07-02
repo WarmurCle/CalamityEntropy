@@ -2257,7 +2257,11 @@ Items: {
 	}
 
 	ShadowMantle: {
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Press [K]([KEY]) to consume all rogue stealh, sprint towards the cursor position for a distance, and slash the enemies encountered
+			Damage depends on stealth consumed
+			''' */
 		// DisplayName: Shadow Mantle
 	}
 }

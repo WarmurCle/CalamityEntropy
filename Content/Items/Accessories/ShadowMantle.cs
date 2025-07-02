@@ -1,8 +1,12 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using Terraria;
 using Terraria.ID;
@@ -13,6 +17,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     public class ShadowMantle : ModItem
     {
         public static float BaseDamage = 200;
+        public static int CooldownTicks = 15 * 60;
         public override void SetDefaults()
         {
             Item.width = 42;
@@ -21,8 +26,13 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
-
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Replace("[K]", CalamityKeybinds.SpectralVeilHotKey.DisplayName.Value);
+            tooltips.IntegrateHotkey(CalamityKeybinds.SpectralVeilHotKey);
+        }
+
         public static string ID = "ShadowMantle";
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -51,6 +61,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            CEUtils.PlaySound("SwiftSlice", 1, target.Center);
             EParticle.NewParticle(new MultiSlash() { xadd = 1f, lx = 1f, endColor = Color.Blue }, target.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, 0);
         }
         public bool MovePlayer = true;
@@ -69,17 +80,28 @@ namespace CalamityEntropy.Content.Items.Accessories
             }
             if (Projectile.timeLeft == 10)
             {
+                CEUtils.PlaySound("ShadowDash", 1, Projectile.Center);
+                player.Entropy().screenShift = 1;
+                player.Entropy().screenPos = player.Center;
                 Vector2 top = Projectile.Center;
                 Vector2 top2 = Projectile.Center + Projectile.velocity;
-                Vector2 sparkVelocity2 = Projectile.velocity * 0.05f;
+                Vector2 sparkVelocity2 = Projectile.velocity * 0.08f;
+                Vector2 rd = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2);
                 int sparkLifetime2 = 24;
                 float sparkScale2 = 1;
+                float rdp = 8;
+                float rdc = 0.8f;
                 Color sparkColor2 = Color.Lerp(Color.DarkBlue, Color.Purple, Main.rand.NextFloat(0, 1));
                 for (float i = 0; i < 1; i += 0.02f)
                 {
-                    var spark = new AltSparkParticle(top, sparkVelocity2 * (0.1f + i), false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
+                    var spark = new AltSparkParticle(top + rd * rdp, sparkVelocity2 * (0.1f + i) - rd * rdc, false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
                     GeneralParticleHandler.SpawnParticle(spark);
-                    spark = new AltSparkParticle(top2, -sparkVelocity2 * (0.1f + i), false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
+                    spark = new AltSparkParticle(top2 + rd * rdp, -sparkVelocity2 * (0.1f + i) - rd * rdc, false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
+
+                    spark = new AltSparkParticle(top - rd * rdp, sparkVelocity2 * (0.1f + i) + rd * rdc, false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
+                    spark = new AltSparkParticle(top2 - rd * rdp, -sparkVelocity2 * (0.1f + i) + rd * rdc, false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
 
@@ -99,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity, targetHitbox, 16);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity, targetHitbox, 32);
         }
     }
 }

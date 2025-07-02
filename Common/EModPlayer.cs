@@ -1366,8 +1366,13 @@ namespace CalamityEntropy.Common
 
             if (!Main.dedServ && hasAcc(ShadowMantle.ID) && Player.whoAmI == Main.myPlayer && CalamityKeybinds.SpectralVeilHotKey.JustReleased)
             {
-                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 800, ModContent.ProjectileType<ShadowMantleSlash>(), (int)Player.GetTotalDamage<RogueDamageClass>().ApplyTo(1 + ShadowMantle.BaseDamage * Player.Calamity().rogueStealth), 0, Player.whoAmI);
-                
+                if (Player.Calamity().rogueStealth > 0 && !Player.HasCooldown(ShadowDashCD.ID))
+                {
+                    Player.AddCooldown(ShadowDashCD.ID, ShadowMantle.CooldownTicks);
+                    immune = 16;
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 800, ModContent.ProjectileType<ShadowMantleSlash>(), (int)Player.GetTotalDamage<RogueDamageClass>().ApplyTo(1 + ShadowMantle.BaseDamage * Player.Calamity().rogueStealth), 0, Player.whoAmI);
+                    Player.Calamity().rogueStealth = 0;
+                }
             }
             if (ilVortexType == -1)
                 ilVortexType = ModContent.ProjectileType<IlmeranVortex>();

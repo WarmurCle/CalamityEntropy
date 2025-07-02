@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Particles
         public float lx = 3;
         public override void OnSpawn()
         {
-            this.Lifetime = 18;
+            this.Lifetime = 26;
         }
         public override void AI()
         {
