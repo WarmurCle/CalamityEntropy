@@ -2291,6 +2291,17 @@ Items: {
 			Stealth strikes will plant a delayed-explosion mine
 			'''
 	}
+
+	LurkersCharm: {
+		DisplayName: Lurkers Charm
+		Tooltip:
+			'''
+			+[A]% Rogue Damage
+			+[B]% Move Speed
+			+[C]% Stealth Regen
+			+[D]% damage reduce if your steath more than max stealth's 90%
+			'''
+	}
 }
 
 PrefixitemDesc:
