@@ -1034,6 +1034,13 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
+            if (hasAcc(LurkersCharm.ID))
+            {
+                if ((Player.Calamity().rogueStealth) > (Player.Calamity().rogueStealthMax * 0.8))
+                {
+                    Player.Entropy().damageReduce += LurkersCharm.endurance;
+                }
+            }
             float d = damageReduce - 1;
             if (Player.Entropy().enduranceCard)
             {

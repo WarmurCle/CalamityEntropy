@@ -2282,7 +2282,7 @@ Items: {
 			+[A]% Rogue Damage
 			+[B]% Move Speed
 			+[C]% Stealth Regen
-			+[D]% damage reduce if your steath more than max stealth's 90%
+			+[D]% damage reduce if your steath more than max stealth's 80%
 			''' */
 	}
 }

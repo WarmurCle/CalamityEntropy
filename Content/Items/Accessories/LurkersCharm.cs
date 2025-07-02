@@ -37,17 +37,14 @@ namespace CalamityEntropy.Content.Items.Accessories
             tooltips.Replace("[C]", stealthGen.ToPercent());
 
         }
-
+        public static string ID = "LurkersCharm";
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage<RogueDamageClass>() += damage;
             player.Entropy().moveSpeed += MoveSpeed;
             player.Entropy().RogueStealthRegenMult += stealthGen;
-            if(player.Calamity().rogueStealth > player.Calamity().rogueStealthMax * 0.8f)
-            {
-                player.Entropy().damageReduce += endurance;
-            }
+            player.Entropy().addEquip(ID, !hideVisual);
         }
         public override void AddRecipes()
         {
