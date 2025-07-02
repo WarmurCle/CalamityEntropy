@@ -44,9 +44,9 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.GetDamage<RogueDamageClass>() += damage;
             player.Entropy().moveSpeed += MoveSpeed;
             player.Entropy().RogueStealthRegenMult += stealthGen;
-            if(player.Calamity().rogueStealth > player.Calamity().rogueStealthMax * 0.9f)
+            if(player.Calamity().rogueStealth > player.Calamity().rogueStealthMax * 0.8f)
             {
-                player.endurance += endurance;
+                player.Entropy().damageReduce += endurance;
             }
         }
         public override void AddRecipes()

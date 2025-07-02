@@ -904,14 +904,19 @@ namespace CalamityEntropy.Common
             }
             Player.runAcceleration *= 1f + 0.14f * VoidCharge;
             Player.maxRunSpeed *= 1f + 0.5f * VoidCharge;
+            Player.accRunSpeed *= 1f + 0.5f * VoidCharge;
             Player.runAcceleration *= 1f + moveSpeed;
             Player.maxRunSpeed *= 1f + moveSpeed;
+            Player.accRunSpeed *= 1f + moveSpeed;
+
             if (CalamityEntropy.EntropyMode)
             {
-                Player.maxRunSpeed *= 0.96f;
+                Player.maxRunSpeed *= 0.98f;
+                Player.accRunSpeed *= 0.98f;
                 if (HitTCounter > 0)
                 {
                     Player.maxRunSpeed *= 0.96f;
+                    Player.accRunSpeed *= 0.96f;
                 }
             }
         }
