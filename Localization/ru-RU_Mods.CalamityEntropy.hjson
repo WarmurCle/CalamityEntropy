@@ -2290,7 +2290,7 @@ Items: {
 		// DisplayName: Thief's Pocketwatch Of Eclipse
 		/* Tooltip:
 			'''
-			+[A]%Damage
+			+[A]%Rogue Damage
 			+[B]%Movement Speed
 			+[C]%Rogue Stealth Recovery Speed
 			Rogue Stealth can be recharged once more
