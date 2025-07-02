@@ -2305,13 +2305,13 @@ Items: {
 
 	ThiefsPocketwatchOfEclipse: {
 		DisplayName: Thief's Pocketwatch Of Eclipse
-		Tooltip: 
-		'''
-		+[A]%Damage
-		+[B]%Movement Speed
-		+[C]%Rogue Stealth Recovery Speed
-		Rogue Stealth can be recharged once more
-		'''
+		Tooltip:
+			'''
+			+[A]%Damage
+			+[B]%Movement Speed
+			+[C]%Rogue Stealth Recovery Speed
+			Rogue Stealth can be recharged once more
+			'''
 	}
 }
 
