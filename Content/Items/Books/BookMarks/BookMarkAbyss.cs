@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 int damage = projectile.damage / 15;
                 Vector2 p = target.Center + CEUtils.randomRot().ToRotationVector2() * 300;
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), p, (target.Center - p).SafeNormalize(Vector2.One), ModContent.ProjectileType<AbyssBookmarkCrack>(250), (int)projectile.GetOwner().GetTotalDamage(projectile.DamageType).ApplyTo(300), projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), p, (target.Center - p).SafeNormalize(Vector2.One), ModContent.ProjectileType<AbyssBookmarkCrack>(), (int)projectile.GetOwner().GetTotalDamage(projectile.DamageType).ApplyTo(250), projectile.knockBack, projectile.owner);
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 5;
                 CEUtils.PlaySound("crack", 1, projectile.Center, 3);
             }
