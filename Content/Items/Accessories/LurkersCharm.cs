@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     public class LurkersCharm : ModItem
     {
         public static float damage = 0.1f;
-        public static float MoveSpeed = 0.05f;
+        public static float MoveSpeed = 0.08f;
         public static float endurance = 0.15f;
         public static float stealthGen = 0.12f;
         public override void SetDefaults()
@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Replace("[A]", damage.ToPercent());
-            tooltips.Replace("[B]", damage.ToPercent());
+            tooltips.Replace("[B]", MoveSpeed.ToPercent());
             tooltips.Replace("[D]", endurance.ToPercent());
             tooltips.Replace("[C]", stealthGen.ToPercent());
 
