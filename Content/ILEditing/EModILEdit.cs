@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.ILEditing
             {
                 return 0;
             }
-            return orig(self) * self.Player.Entropy().RogueStealthRegenMult;
+            return (orig(self) + self.Player.Entropy().RogueStealthRegen) * self.Player.Entropy().RogueStealthRegenMult;
         }
         private static bool canuseitem_hook(Func<ModItem, Player, bool> orig, ModItem self, Player player)
         {

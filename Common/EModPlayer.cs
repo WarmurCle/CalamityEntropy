@@ -369,6 +369,7 @@ namespace CalamityEntropy.Common
         public bool NoNaturalStealthRegen = false;
         public override void ResetEffects()
         {
+            RogueStealthRegen = 0;
             NoNaturalStealthRegen = false;
             WeaponsNoCostRogueStealth = false;
             vanityWing = null;
@@ -1361,9 +1362,9 @@ namespace CalamityEntropy.Common
         public int UICJ = 0;
         public int ilVortexType = -1;
         public bool WeaponsNoCostRogueStealth = false;
+        public float RogueStealthRegen = 0;
         public override void PostUpdate()
         {
-
             if (!Main.dedServ && hasAcc(ShadowMantle.ID) && Player.whoAmI == Main.myPlayer && CalamityKeybinds.SpectralVeilHotKey.JustReleased)
             {
                 if (Player.Calamity().rogueStealth > 0 && !Player.HasCooldown(ShadowDashCD.ID))
@@ -2205,7 +2206,10 @@ namespace CalamityEntropy.Common
         public float RogueStealthRegenMult = 1;
         public override void PostUpdateEquips()
         {
-
+            if (hasAcc(ShadowMantle.ID))
+            {
+                RogueStealthRegen += 0.04f * Player.velocity.Length();
+            }
             if (soulDicorder)
             {
                 Player.statDefense -= 14;
