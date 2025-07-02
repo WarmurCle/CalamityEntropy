@@ -260,7 +260,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 {
                     AIChangeCounter = 200;
                 }
-; NPC.netUpdate = true;
+                NPC.netUpdate = true;
             }
             if (ai == AIStyle.RoundShooting)
             {
