@@ -24,6 +24,7 @@ using CalamityEntropy.Content.UI.Poops;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
+using CalamityMod.Projectiles.Rogue;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -1388,6 +1389,10 @@ namespace CalamityEntropy.Common
                     if (ExtraStealth < Player.Calamity().rogueStealthMax)
                     {
                         ExtraStealth += Player.Calamity().rogueStealthMax * ((float)EModILEdit.updateStealthGenMethod.Invoke(Player.Calamity(), null) / 120f);
+                        if(ExtraStealth >= Player.Calamity().rogueStealthMax && Player.whoAmI == Main.myPlayer)
+                        {
+                            CEUtils.PlaySound("EclipseStealth");
+                        }
                     }
                 }
                 else
