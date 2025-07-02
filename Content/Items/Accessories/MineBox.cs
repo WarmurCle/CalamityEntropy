@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 GeneralParticleHandler.SpawnParticle(explosion2);
                 for(int i = 0; i < 32; i++)
                 {
-                    var spark = new AltSparkParticle(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(3, 12), false, Main.rand.Next(12, 20), Main.rand.NextFloat(0.8f, 1.4f), Color.Lerp(Color.Red, Color.Orange, Main.rand.NextFloat()));
+                    var spark = new AltSparkParticle(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(3, 12), false, Main.rand.Next(22, 32), Main.rand.NextFloat(0.8f, 1.4f), Color.Lerp(Color.Red, Color.Orange, Main.rand.NextFloat()));
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
 
