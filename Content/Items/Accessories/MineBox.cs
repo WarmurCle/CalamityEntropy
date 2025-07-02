@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void OnKill(int timeLeft)
         {
-            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 128, Projectile.DamageType);
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 116, Projectile.DamageType);
         }
         public override bool PreDraw(ref Color lightColor)
         {
