@@ -261,6 +261,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            EModILEdit.edgeTex = null;
             foreach (ICELoader setup in ILoaders)
             {
                 setup.UnLoadData();

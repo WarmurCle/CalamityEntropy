@@ -4,8 +4,11 @@ using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
+using CalamityMod.UI;
+using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.RuntimeDetour;
+using ReLogic.Content;
 using System;
 using System.Collections.Concurrent;
 using System.Reflection;
@@ -16,11 +19,20 @@ namespace CalamityEntropy.Content.ILEditing
 {
     public static class EModILEdit
     {
+        [VaultLoaden("CalamityEntropy/Assets/UI/ExtraStealth")]
+        public static Asset<Texture2D> extraStealthBar;
+        [VaultLoaden("CalamityEntropy/Assets/UI/ExtraStealthFull")]
+        public static Asset<Texture2D> extraStealthBarFull;
+
+        public static Asset<Texture2D> edgeTex;
+
+        public static MethodBase updateStealthGenMethod;
         private delegate float UpdateStealthGenDelegate(Func<CalamityPlayer, float> orig, CalamityPlayer self);
         private delegate float CALEOCAI_Delegate(Func<NPC, Mod, bool> orig, NPC npc, Mod mod);
         public static void load()
         {
-            var originalMethod = typeof(CalamityPlayer)
+            edgeTex = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/StealthMeter");
+            updateStealthGenMethod = typeof(CalamityPlayer)
             .GetMethod("UpdateStealthGenStats",
                       System.Reflection.BindingFlags.NonPublic |
                       System.Reflection.BindingFlags.Instance,
@@ -28,10 +40,10 @@ namespace CalamityEntropy.Content.ILEditing
             Type.EmptyTypes,
             null);
 
-            var _hook = EModHooks.Add(originalMethod, UpdateStealthGenHook);
+            var _hook = EModHooks.Add(updateStealthGenMethod, UpdateStealthGenHook);
 
 
-            originalMethod = typeof(CalamityPlayer)
+            var originalMethod = typeof(CalamityPlayer)
             .GetMethod("ConsumeStealthByAttacking",
                       System.Reflection.BindingFlags.Public |
                       System.Reflection.BindingFlags.Instance,
@@ -64,14 +76,34 @@ namespace CalamityEntropy.Content.ILEditing
 
             _hook = EModHooks.Add(originalMethod, addCdHook);
 
-            if(ModLoader.TryGetMod("AlchemistNPCLite", out var anpc))
+            originalMethod = typeof(StealthUI)
+                .GetMethod("DrawStealthBar", BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] { typeof(SpriteBatch), typeof(CalamityPlayer), typeof(Vector2) }, null);
+
+            _hook = EModHooks.Add(originalMethod, drawStealthBarHook);
+
+            if (ModLoader.TryGetMod("AlchemistNPCLite", out var anpc))
             {
                 ANPCSupport.ANPCShopAdd.LoadHook();
             }
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
-        
+        public static void drawStealthBarHook(Action<SpriteBatch, CalamityPlayer, Vector2> orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
+        {
+            orig(spriteBatch, modPlayer, screenPos);
+            var emp = modPlayer.Player.Entropy();
+            if (emp.ExtraStealth > 0)
+            {
+                float uiScale = Main.UIScale;
+                float offset = (edgeTex.Value.Width - extraStealthBar.Value.Width) * 0.5f;
+                float completionRatio = emp.ExtraStealth / modPlayer.rogueStealthMax;
+                Rectangle barRectangle = new Rectangle(0, 0, (int)(extraStealthBar.Value.Width * completionRatio), extraStealthBar.Value.Width);
+                bool full = emp.ExtraStealth > 0 && emp.ExtraStealth >= modPlayer.rogueStealthMax;
+                spriteBatch.Draw(full ? extraStealthBarFull.Value : extraStealthBar.Value, screenPos + new Vector2(offset * uiScale, 0), barRectangle, Color.White * modPlayer.stealthUIAlpha, 0f, CEUtils.RequestTex("CalamityMod/UI/MiscTextures/StealthMeterStrikeIndicator").Size() * 0.5f, uiScale, SpriteEffects.None, 0);
+            }
+        }
+
+
         public static CooldownInstance addCdHook(Func<Player, string, int, bool, CooldownInstance> orig, Player player, string id, int duration, bool overwrite)
         {
             return orig.Invoke(player, id, (int)(duration * player.Entropy().CooldownTimeMult), overwrite);
@@ -173,7 +205,6 @@ namespace CalamityEntropy.Content.ILEditing
 
         internal static void Add(Action<SpriteBatch> exitShaderRegion, object esrHook)
         {
-            throw new NotImplementedException();
         }
     }
 }

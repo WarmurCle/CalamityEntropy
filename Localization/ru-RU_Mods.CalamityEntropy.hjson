@@ -2285,6 +2285,11 @@ Items: {
 			+[D]% damage reduce if your steath more than max stealth's 80%
 			''' */
 	}
+
+	ThiefsPocketwatchOfEclipse: {
+		// DisplayName: Thiefs Pocketwatch Of Eclipse
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

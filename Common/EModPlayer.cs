@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
+using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
@@ -367,8 +368,11 @@ namespace CalamityEntropy.Common
         public List<McAttributeRecord> McAttributes = null;
         public bool devouringCard = false;
         public bool NoNaturalStealthRegen = false;
+        public bool ExtraStealthBar = false;
+        public float ExtraStealth = 0;
         public override void ResetEffects()
         {
+            ExtraStealthBar = false;
             RogueStealthRegen = 0;
             NoNaturalStealthRegen = false;
             WeaponsNoCostRogueStealth = false;
@@ -1377,6 +1381,40 @@ namespace CalamityEntropy.Common
         public float RogueStealthRegen = 0;
         public override void PostUpdate()
         {
+            if(ExtraStealthBar)
+            {
+                if (Player.Calamity().rogueStealth >= Player.Calamity().rogueStealthMax)
+                {
+                    if (ExtraStealth < Player.Calamity().rogueStealthMax)
+                    {
+                        ExtraStealth += (float)EModILEdit.updateStealthGenMethod.Invoke(Player.Calamity(), null);
+                    }
+                }
+                else
+                {
+                    if (ExtraStealth > 0)
+                    {
+                        if(ExtraStealth > Player.Calamity().rogueStealthMax - Player.Calamity().rogueStealth)
+                        {
+                            ExtraStealth -= Player.Calamity().rogueStealthMax - Player.Calamity().rogueStealth;
+                            Player.Calamity().rogueStealth = Player.Calamity().rogueStealthMax;
+                        }
+                        else
+                        {
+                            Player.Calamity().rogueStealth += ExtraStealth;
+                            ExtraStealth = 0;
+                        }
+                    }
+                }
+                if (ExtraStealth > Player.Calamity().rogueStealthMax)
+                {
+                    ExtraStealth = Player.Calamity().rogueStealthMax;
+                }
+            }
+            else
+            {
+                ExtraStealth = 0;
+            }
             if (!Main.dedServ && hasAcc(ShadowMantle.ID) && Player.whoAmI == Main.myPlayer && CalamityKeybinds.SpectralVeilHotKey.JustReleased)
             {
                 if (Player.Calamity().rogueStealth > 0 && !Player.HasCooldown(ShadowDashCD.ID))

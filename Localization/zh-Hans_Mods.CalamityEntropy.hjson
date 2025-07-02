@@ -2455,6 +2455,11 @@ Items: {
 			如果你的潜行值大于最大潜行值的80%，则+[D]%伤害减免 
 			'''
 	}
+
+	ThiefsPocketwatchOfEclipse: {
+		// DisplayName: Thiefs Pocketwatch Of Eclipse
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
