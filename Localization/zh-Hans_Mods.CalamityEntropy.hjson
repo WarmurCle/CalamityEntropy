@@ -2457,8 +2457,14 @@ Items: {
 	}
 
 	ThiefsPocketwatchOfEclipse: {
-		// DisplayName: Thiefs Pocketwatch Of Eclipse
-		// Tooltip: ""
+		DisplayName: 蚀之窃贼怀表
+		Tooltip: 
+		'''
+		+[A]%伤害
+		+[B]%移速
+		+[C]%潜伏值回复速度
+		潜伏值可以额外充能一次
+		'''
 	}
 }
 

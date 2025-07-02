@@ -1387,7 +1387,7 @@ namespace CalamityEntropy.Common
                 {
                     if (ExtraStealth < Player.Calamity().rogueStealthMax)
                     {
-                        ExtraStealth += (float)EModILEdit.updateStealthGenMethod.Invoke(Player.Calamity(), null);
+                        ExtraStealth += Player.Calamity().rogueStealthMax * ((float)EModILEdit.updateStealthGenMethod.Invoke(Player.Calamity(), null) / 120f);
                     }
                 }
                 else
