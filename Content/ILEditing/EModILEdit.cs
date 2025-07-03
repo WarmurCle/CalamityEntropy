@@ -97,6 +97,7 @@ namespace CalamityEntropy.Content.ILEditing
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
+        public static FieldInfo mouseTextCacheField = null;
         public static void drawStealthBarHook(Action<SpriteBatch, CalamityPlayer, Vector2> orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
         {
             var edgeTexField = typeof(StealthUI).GetField("edgeTexture", BindingFlags.Static | BindingFlags.NonPublic);
@@ -129,6 +130,33 @@ namespace CalamityEntropy.Content.ILEditing
             Rectangle mouseHitbox = new Rectangle((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y, 8, 8);
             Rectangle stealthBar = Utils.CenteredRectangle(screenPos, origTex.Size() * uiScale);
 
+            if (modPlayer.Player.Entropy().ExtraStealth > 0)
+            {
+                if (stealthBar.Intersects(mouseHitbox))
+                {
+                    if (!CalamityConfig.Instance.MeterPosLock)
+                        Main.LocalPlayer.mouseInterface = true;
+
+                    if (modPlayer.rogueStealthMax > 0f && modPlayer.stealthUIAlpha >= 0.5f)
+                    {
+                        string stealthStr = (100f * modPlayer.rogueStealth).ToString("n2") + "+" + (100f * modPlayer.Player.Entropy().ExtraStealth).ToString("n2");
+                        string maxStealthStr = (100f * modPlayer.rogueStealthMax).ToString("n2");
+                        string textToDisplay = $"{CalamityUtils.GetTextValue("UI.Stealth")}: {stealthStr}/{maxStealthStr}\n";
+
+                        if (!Main.keyState.IsKeyDown(Keys.LeftShift))
+                        {
+                            textToDisplay += CalamityUtils.GetTextValue("UI.StealthShiftText");
+                        }
+                        else
+                        {
+                            textToDisplay += CalamityUtils.GetTextValue("UI.StealthInfoText");
+                        }
+
+                        Main.instance.MouseText(textToDisplay, 0, 0, -1, -1, -1, -1);
+                        modPlayer.stealthUIAlpha = MathHelper.Lerp(modPlayer.stealthUIAlpha, 0.25f, 0.035f);
+                    }
+                }
+            }
             if (modPlayer.Player.Entropy().shadowPact)
             {
                 modPlayer.rogueStealth = num;
@@ -149,7 +177,7 @@ namespace CalamityEntropy.Content.ILEditing
                             textToDisplay += CalamityEntropy.Instance.GetLocalization("ShadowBarInfo");
                         }
 
-                        Main.instance.MouseText(textToDisplay, 0, 0, -1, -1, -1, -1);
+                        Main.instance.MouseText(textToDisplay, null, 0, 0, -1, -1, -1, -1, noOverride:true);
                     }
                 }
             }
@@ -172,7 +200,7 @@ namespace CalamityEntropy.Content.ILEditing
                             textToDisplay += CalamityEntropy.Instance.GetLocalization("SolarBarInfo");
                         }
 
-                        Main.instance.MouseText(textToDisplay, 0, 0, -1, -1, -1, -1);
+                        Main.instance.MouseText(textToDisplay, null, 0, 0, -1, -1, -1, -1, noOverride:true);
                     }
                 }
             }
