@@ -2332,6 +2332,18 @@ Items: {
 			When Stealth is full, your attack becomes a Stealth Strike and fires additional Solar Arrows
 			'''
 	}
+
+	ShadowPact: {
+		DisplayName: Shadow Pact
+		Tooltip:
+			'''
+			+[A]%Rogue Damage
+			Replaces Stealth with Shadow Gauge.
+			Shadow Gauge fills at a fixed rate.
+			When full, your attack consumes it to fire a homing Shadow Orb.
+			On hit, the orb spawns multiple Shadow Daggers.
+			'''
+	}
 }
 
 PrefixitemDesc:
@@ -2758,6 +2770,9 @@ Projectiles: {
 	WristTornado.DisplayName: Wrist Tornado
 	SolarArrowSpawner.DisplayName: Solar Arrow Spawner
 	SolarArrow.DisplayName: Solar Arrow
+	ShadowKnife.DisplayName: Shadow Knife
+	ShadowShoot.DisplayName: Shadow Shoot
+	ShadowSpawner.DisplayName: Shadow Spawner
 }
 
 LegendTooltip: - Legend -

@@ -113,7 +113,8 @@ namespace CalamityEntropy.Content.ILEditing
                 origBarFull = (Texture2D)barFullTexField.GetValue(null);
                 edgeTexField.SetValue(null, solarBarTex.Value);
             }
-            if(false)
+            float num = modPlayer.rogueStealth;
+            if(modPlayer.Player.Entropy().shadowPact)
             {
                 resetBarTex = true;
                 origTex = (Texture2D)edgeTexField.GetValue(null);
@@ -122,8 +123,13 @@ namespace CalamityEntropy.Content.ILEditing
                 edgeTexField.SetValue(null, shadowBarTex.Value);
                 barTexField.SetValue(null, shadowProg.Value);
                 barFullTexField.SetValue(null, shadowProgFull.Value);
+                modPlayer.rogueStealth = modPlayer.Player.Entropy().shadowStealth * modPlayer.rogueStealthMax;
             }
             orig(spriteBatch, modPlayer, screenPos);
+            if(modPlayer.Player.Entropy().shadowPact)
+            {
+                modPlayer.rogueStealth = num;
+            }
             if (resetBarTex)
             {
                 edgeTexField.SetValue(null, origTex);

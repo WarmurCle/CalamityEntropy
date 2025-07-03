@@ -373,8 +373,10 @@ namespace CalamityEntropy.Common
         public float ExtraStealth = 0;
         public bool worshipRelic = false;
         public int worshipStealthRegenTime = 0;
+        public bool shadowPact = false;
         public override void ResetEffects()
         {
+            shadowPact = false;
             worshipRelic = false;
             ExtraStealthBar = false;
             RogueStealthRegen = 0;
@@ -1387,8 +1389,28 @@ namespace CalamityEntropy.Common
         public float LastStealth = 0;
         public bool LastStealthStrikeAble = false;
         public bool ResetStealth = false;
+        public float shadowStealth = 0;
         public override void PostUpdate()
         {
+            if(shadowPact)
+            {
+                if (Player.Calamity().wearingRogueArmor)
+                {
+                    Player.Calamity().rogueStealth = 0.01f;
+                    if (shadowStealth < 1)
+                    {
+                        shadowStealth += 0.004f;
+                        if (shadowStealth >= 1)
+                        {
+                            shadowStealth = 1;
+                            if (Main.myPlayer == Player.whoAmI)
+                            {
+                                CEUtils.PlaySound("shadowStealth");
+                            }
+                        }
+                    }
+                }
+                }
             if(WeaponsNoCostRogueStealth && Player.Calamity().rogueStealth == 0 && LastStealth > 0 && !LastStealthStrikeAble)
             {
                 Player.Calamity().rogueStealth = LastStealth;

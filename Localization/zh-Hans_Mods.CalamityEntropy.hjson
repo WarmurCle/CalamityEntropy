@@ -2485,6 +2485,18 @@ Items: {
 			潜行值满时攻击会触发潜伏攻击同时发射一些耀阳矢
 			'''
 	}
+
+	ShadowPact: {
+		DisplayName: 暗影契约
+		Tooltip:
+			'''
+			+[A]%盗贼伤害
+			禁用潜行条，并改为暗影条
+			暗影条会以固定速度增长，充满时攻击会清空暗影条并发射一团追踪暗影球
+			暗影球击中后会生成一些暗影飞刀
+			暗影条不会为你提供伤害加成
+			'''
+	}
 }
 
 PrefixitemDesc:
@@ -2912,6 +2924,9 @@ Projectiles: {
 	// WristTornado.DisplayName: Wrist Tornado
 	// SolarArrowSpawner.DisplayName: Solar Arrow Spawner
 	// SolarArrow.DisplayName: Solar Arrow
+	// ShadowKnife.DisplayName: Shadow Knife
+	// ShadowShoot.DisplayName: Shadow Shoot
+	// ShadowSpawner.DisplayName: Shadow Spawner
 }
 
 LegendTooltip: - 传奇物品 -

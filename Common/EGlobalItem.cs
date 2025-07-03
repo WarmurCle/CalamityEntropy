@@ -505,7 +505,15 @@ namespace CalamityEntropy.Common
         }
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if(player.Entropy().worshipRelic && item.DamageType.CountsAsClass<ThrowingDamageClass>() && player.Calamity().StealthStrikeAvailable())
+            if (player.Entropy().shadowPact && item.DamageType.CountsAsClass<ThrowingDamageClass>())
+            {
+                if (player.Entropy().shadowStealth >= 1)
+                {
+                    CEUtils.PlaySound("shadowKnife");
+                    player.Entropy().shadowStealth = 0; Projectile.NewProjectile(source, position, velocity.normalize() * 12, ModContent.ProjectileType<ShadowShoot>(), ShadowPact.BaseDamage, 2, player.whoAmI);
+                }
+            }
+            if (player.Entropy().worshipRelic && item.DamageType.CountsAsClass<ThrowingDamageClass>() && player.Calamity().StealthStrikeAvailable())
             {
                 Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<SolarArrowSpawner>(), WorshipRelic.ArrowDamage, 2, player.whoAmI);
                 player.Entropy().ResetStealth = true;
