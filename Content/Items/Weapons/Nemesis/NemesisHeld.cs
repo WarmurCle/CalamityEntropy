@@ -33,22 +33,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
             ShootSpeed = 20;
             Length = 124;
         }
-
         public override void Shoot()
         {
             int type = ModContent.ProjectileType<NemesisProj>();
             if (Projectile.ai[0] == 2)
             {
-                if(Time >= 140 * updateCount - 1)
-                {
-                    if (Projectile.owner == Main.myPlayer)
-                    {
-                        if (Main.mouseRight)
-                        {
-                            Time--;
-                        }
-                    }
-                }
                 if (Time < 140 * updateCount)
                 {
                     return;
@@ -90,6 +79,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 
         public override bool PreInOwnerUpdate()
         {
+            if (Projectile.ai[0] == 2 && Time == 140 * updateCount && Main.myPlayer == Projectile.owner && Main.mouseRight)
+            {
+                Time--;
+            }
             if (Time == 0 && Projectile.ai[0] == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item71, Owner.position);
