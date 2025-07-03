@@ -25,6 +25,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
+            Projectile.Center = Projectile.GetOwner().Center;
             if(Projectile.timeLeft % 2 == 0 && Projectile.owner == Main.myPlayer)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (Main.MouseWorld - Projectile.GetOwner().Center).normalize().RotatedBy((float)Math.Cos(Main.GameUpdateCount * 0.4f) * 0.8f) * 8, ModContent.ProjectileType<SolarArrow>(), Projectile.damage, 1, Projectile.owner);
