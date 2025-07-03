@@ -40,12 +40,12 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.ShadowScale, 6)
-                .AddIngredient(ItemID.Silk, 8)
+                .AddIngredient(ItemID.Book, 4)
                 .AddTile(TileID.WorkBenches)
                 .Register();
 
             CreateRecipe().AddIngredient(ItemID.TissueSample, 6)
-                .AddIngredient(ItemID.Silk, 8)
+                .AddIngredient(ItemID.Book, 4)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }

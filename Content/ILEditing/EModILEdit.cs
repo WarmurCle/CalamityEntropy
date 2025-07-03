@@ -102,14 +102,13 @@ namespace CalamityEntropy.Content.ILEditing
             var barTexField = typeof(StealthUI).GetField("barTexture", BindingFlags.Static | BindingFlags.NonPublic);
             var barFullTexField = typeof(StealthUI).GetField("fullBarTexture", BindingFlags.Static | BindingFlags.NonPublic);
             bool resetBarTex = false;
-            Texture2D origTex = null;
+            Texture2D origTex = CEUtils.RequestTex("CalamityMod/UI/MiscTextures/StealthMeter");
             Texture2D origBar = null;
             Texture2D origBarFull = null;
             if (modPlayer.Player.Entropy().worshipRelic)
             {
                 resetBarTex = true;
                 origTex = (Texture2D)edgeTexField.GetValue(null);
-                origBar = (Texture2D)barTexField.GetValue(null);
                 origBarFull = (Texture2D)barFullTexField.GetValue(null);
                 edgeTexField.SetValue(null, solarBarTex.Value);
             }
@@ -117,7 +116,6 @@ namespace CalamityEntropy.Content.ILEditing
             if(modPlayer.Player.Entropy().shadowPact)
             {
                 resetBarTex = true;
-                origTex = (Texture2D)edgeTexField.GetValue(null);
                 origBar = (Texture2D)barTexField.GetValue(null);
                 origBarFull = (Texture2D)barFullTexField.GetValue(null);
                 edgeTexField.SetValue(null, shadowBarTex.Value);
