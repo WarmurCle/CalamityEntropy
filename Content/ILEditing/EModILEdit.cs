@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.ILEditing
             if (modPlayer.Player.Entropy().worshipRelic)
             {
                 resetBarTex = true;
-                origTex = (Texture2D)edgeTexField.GetValue(null);
+                origBar = (Texture2D)barTexField.GetValue(null);
                 origBarFull = (Texture2D)barFullTexField.GetValue(null);
                 edgeTexField.SetValue(null, solarBarTex.Value);
             }
