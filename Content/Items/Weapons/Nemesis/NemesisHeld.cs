@@ -167,7 +167,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
                 }
             }
         }
-
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (Projectile.ai[0] == 2 && Time <= 140 * updateCount)
+            {
+                return false;
+            }
+            return base.CanHitNPC(target);
+        }
         public override void DrawSwing(SpriteBatch spriteBatch, Color lightColor)
         {
             float newCharge = Time;
