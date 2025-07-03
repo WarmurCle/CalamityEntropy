@@ -17,9 +17,9 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class ThiefsPocketwatchOfEclipse : ModItem
     {
-        public static float damage = 0.2f;
-        public static float MoveSpeed = 0.15f;
-        public static float stealthGen = 0.25f;
+        public static float damage = 0.15f;
+        public static float MoveSpeed = 0.12f;
+        public static float stealthGen = 0.15f;
         public override void SetDefaults()
         {
             Item.width = 42;
