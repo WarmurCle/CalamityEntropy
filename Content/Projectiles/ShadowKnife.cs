@@ -67,7 +67,10 @@ namespace CalamityEntropy.Content.Projectiles
 
                 Projectile.velocity += v * 2f;
             }
-            ShadowMetaball.SpawnParticle(Projectile.Center + CEUtils.randomPointInCircle(8), CEUtils.randomPointInCircle(2), Main.rand.NextFloat(20, 28));
+            for (int i = 0; i < 4; i++)
+            {
+                ShadowMetaball.SpawnParticle(Projectile.Center + CEUtils.randomPointInCircle(8), CEUtils.randomPointInCircle(2), Main.rand.NextFloat(20, 28));
+            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

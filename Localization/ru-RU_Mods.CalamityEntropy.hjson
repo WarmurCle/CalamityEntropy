@@ -2320,6 +2320,7 @@ Items: {
 		// DisplayName: Shadow Pact
 		/* Tooltip:
 			'''
+			+[A]%Rogue Damage
 			Replaces Stealth with Shadow Gauge.
 			Shadow Gauge fills at a fixed rate.
 			When full, your attack consumes it to fire a homing Shadow Orb.
