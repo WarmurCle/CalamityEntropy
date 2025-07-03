@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     homing += 0.14f;
                 }
-                NPC targett = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200);
+                NPC targett = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 2400);
 
                 if (targett != null)
                 {
