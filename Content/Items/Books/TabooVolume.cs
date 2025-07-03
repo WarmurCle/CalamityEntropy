@@ -18,8 +18,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 140;
-            Item.useAnimation = Item.useTime = 16;
+            Item.damage = 60;
+            Item.useAnimation = Item.useTime = 66;
             Item.crit = 10;
             Item.mana = 8;
             Item.shootSpeed = 29;
@@ -51,17 +51,19 @@ namespace CalamityEntropy.Content.Items.Books
         public override EBookStatModifer getBaseModifer()
         {
             var m = base.getBaseModifer();
-            m.lifeSteal += 5;
+            m.lifeSteal += 2;
             m.PenetrateAddition += 2;
             m.armorPenetration += 40;
             return m;
         }
         public override float randomShootRotMax => 0.01f;
-        public override int baseProjectileType => ModContent.ProjectileType<BrimstoneHellblastFriendly>();
+        public bool SeekerShoot = false;
+        public override int baseProjectileType => SeekerShoot ? ModContent.ProjectileType<BrimstoneHellblastFriendly>() : ModContent.ProjectileType<BrimstoneGigaBlastFriendly>();
         public override EBookProjectileEffect getEffect()
         {
             return new TabooVolumeBookBaseEffect();
         }
+        public int seekerCd = 0;
         public override int frameChange => 3;
         public float seekerRotTarget = 0;
         public override void AI()
@@ -71,6 +73,16 @@ namespace CalamityEntropy.Content.Items.Books
             if (!active)
             {
                 seekerRotTarget += 0.04f;
+            }
+            else
+            {
+                if(seekerCd-- <= 0)
+                {
+                    seekerCd = this.GetShootCd() / 6;
+                    SeekerShoot = true;
+                    this.Shoot();
+                    SeekerShoot = false;
+                }
             }
             if (Main.GameUpdateCount % 15 == 0 && active)
             {
@@ -83,20 +95,28 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool Shoot()
         {
-            seekerRotTarget += MathHelper.ToRadians(60);
-            Vector2 pos = getSeekerPos()[(int)Projectile.localAI[0] % getSeekerPos().Count];
-            Vector2 opos = Projectile.Center;
-            float oRot = Projectile.rotation;
-            Vector2 oVel = Projectile.velocity;
-            Projectile.Center = pos;
-            Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
-            Projectile.velocity = Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
-            base.Shoot();
-            EParticle.NewParticle(new HadCircle2() { scale2 = 0.4f }, Projectile.Center, Vector2.Zero, Color.OrangeRed, 1, 1, true, BlendState.Additive, 0);
-            Projectile.rotation = oRot;
-            Projectile.Center = opos;
-            Projectile.velocity = oVel;
-            Projectile.localAI[0]++;
+            if(SeekerShoot)
+            {
+                seekerRotTarget += MathHelper.ToRadians(60);
+                var seekers = getSeekerPos();
+                Vector2 opos = Projectile.Center;
+                float oRot = Projectile.rotation;
+                Vector2 oVel = Projectile.velocity;
+                foreach (var sp in seekers)
+                {
+                    Projectile.Center = sp;
+                    Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
+                    Projectile.velocity = Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
+                    base.Shoot();
+                    EParticle.NewParticle(new HadCircle2() { scale2 = 0.4f }, Projectile.Center, Vector2.Zero, Color.OrangeRed, 1, 1, true, BlendState.Additive, 0);
+                }
+                Projectile.rotation = oRot;
+                Projectile.Center = opos;
+                Projectile.velocity = oVel;
+                Projectile.localAI[0]++;
+                return true;
+            }
+            
             return base.Shoot();
         }
         public override bool PreDraw(ref Color lightColor)

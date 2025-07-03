@@ -279,7 +279,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             return modifer;
         }
-        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1)
+        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null)
         {
             var modifer = GetProjectileModifer();
             Vector2 shootVel = (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax);
@@ -316,6 +316,7 @@ namespace CalamityEntropy.Content.Items.Books
                         bp.ProjectileEffects.Add(this.getEffect());
                     }
                 }
+                initAction?.Invoke(proj);
             }
             bookItem.channel = true;
         }
@@ -693,16 +694,16 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 effect.OnHitNPC(Projectile, target, damageDone);
             }
+            if (lifeSteal > 0)
+            {
+                Projectile.GetOwner()?.Entropy().TryHealMeWithCd(lifeSteal);
+            }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             foreach (var effect in this.ProjectileEffects)
             {
                 effect.ModifyHitNPC(Projectile, target, ref modifiers);
-            }
-            if (lifeSteal > 0)
-            {
-                Projectile.GetOwner()?.Entropy().TryHealMeWithCd(lifeSteal);
             }
         }
     }

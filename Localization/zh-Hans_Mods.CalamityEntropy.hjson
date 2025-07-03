@@ -2888,6 +2888,8 @@ Projectiles: {
 	ApcHoldout.DisplayName: 先驱炮
 	ShadowMantleSlash.DisplayName: 暗影斩击
 	BoobyMine.DisplayName: 诡雷
+	// BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
+	// BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
 }
 
 LegendTooltip: - 传奇物品 -

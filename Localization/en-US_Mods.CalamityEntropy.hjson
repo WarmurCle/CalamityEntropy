@@ -2734,6 +2734,8 @@ Projectiles: {
 	ApcHoldout.DisplayName: Apc Holdout
 	ShadowMantleSlash.DisplayName: Shadow Mantle Slash
 	BoobyMine.DisplayName: Booby Mine
+	BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
+	BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
 }
 
 LegendTooltip: - Legend -
