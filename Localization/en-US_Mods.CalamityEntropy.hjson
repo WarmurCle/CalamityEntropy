@@ -2315,11 +2315,11 @@ Items: {
 	}
 
 	GaleWristblades: {
-		Tooltip: 
-		'''
-		Rogue weapons grant 1 stack of Wind Pressure on hit, increasing attack speed and damage
-		At 5 stacks, the next attack consumes all stacks to unleash a small tornado
-		'''
+		Tooltip:
+			'''
+			Rogue weapons grant 1 stack of Wind Pressure on hit, increasing attack speed and damage
+			At 5 stacks, the next attack consumes all stacks to unleash a small tornado
+			'''
 		DisplayName: Gale Wristblades
 	}
 }

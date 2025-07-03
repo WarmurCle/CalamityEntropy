@@ -23,6 +23,14 @@ namespace CalamityEntropy.Content.ILEditing
         public static Asset<Texture2D> extraStealthBar;
         [VaultLoaden("CalamityEntropy/Assets/UI/ExtraStealthFull")]
         public static Asset<Texture2D> extraStealthBarFull;
+        [VaultLoaden("CalamityEntropy/Assets/UI/Shadowbar")]
+        public static Asset<Texture2D> shadowBarTex;
+        [VaultLoaden("CalamityEntropy/Assets/UI/ShadowBar1")]
+        public static Asset<Texture2D> shadowProg;
+        [VaultLoaden("CalamityEntropy/Assets/UI/ShadowBar2")]
+        public static Asset<Texture2D> shadowProgFull;
+        [VaultLoaden("CalamityEntropy/Assets/UI/SolarBar")]
+        public static Asset<Texture2D> solarBarTex;
 
         public static Asset<Texture2D> edgeTex;
 
@@ -90,7 +98,38 @@ namespace CalamityEntropy.Content.ILEditing
         }
         public static void drawStealthBarHook(Action<SpriteBatch, CalamityPlayer, Vector2> orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
         {
+            var edgeTexField = typeof(StealthUI).GetField("edgeTexture", BindingFlags.Static | BindingFlags.NonPublic);
+            var barTexField = typeof(StealthUI).GetField("barTexture", BindingFlags.Static | BindingFlags.NonPublic);
+            var barFullTexField = typeof(StealthUI).GetField("fullBarTexture", BindingFlags.Static | BindingFlags.NonPublic);
+            bool resetBarTex = false;
+            Texture2D origTex = null;
+            Texture2D origBar = null;
+            Texture2D origBarFull = null;
+            if (modPlayer.Player.Entropy().worshipRelic)
+            {
+                resetBarTex = true;
+                origTex = (Texture2D)edgeTexField.GetValue(null);
+                origBar = (Texture2D)barTexField.GetValue(null);
+                origBarFull = (Texture2D)barFullTexField.GetValue(null);
+                edgeTexField.SetValue(null, solarBarTex.Value);
+            }
+            if(false)
+            {
+                resetBarTex = true;
+                origTex = (Texture2D)edgeTexField.GetValue(null);
+                origBar = (Texture2D)barTexField.GetValue(null);
+                origBarFull = (Texture2D)barFullTexField.GetValue(null);
+                edgeTexField.SetValue(null, shadowBarTex.Value);
+                barTexField.SetValue(null, shadowProg.Value);
+                barFullTexField.SetValue(null, shadowProgFull.Value);
+            }
             orig(spriteBatch, modPlayer, screenPos);
+            if (resetBarTex)
+            {
+                edgeTexField.SetValue(null, origTex);
+                barTexField.SetValue(null, origBar);
+                barFullTexField.SetValue(null, origBarFull);
+            }
             var emp = modPlayer.Player.Entropy();
             if (emp.ExtraStealth > 0)
             {

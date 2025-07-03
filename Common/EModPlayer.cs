@@ -371,8 +371,11 @@ namespace CalamityEntropy.Common
         public bool NoNaturalStealthRegen = false;
         public bool ExtraStealthBar = false;
         public float ExtraStealth = 0;
+        public bool worshipRelic = false;
+        public int worshipStealthRegenTime = 0;
         public override void ResetEffects()
         {
+            worshipRelic = false;
             ExtraStealthBar = false;
             RogueStealthRegen = 0;
             NoNaturalStealthRegen = false;
@@ -1383,6 +1386,18 @@ namespace CalamityEntropy.Common
         public int GaleWristbladeCharge = 0;
         public override void PostUpdate()
         {
+            if(!worshipRelic)
+            {
+                worshipStealthRegenTime = 0;
+            }
+            if(worshipStealthRegenTime-- > 0)
+            {
+                Player.Calamity().rogueStealth += 0.08f / 30f;
+                if(Player.Calamity().rogueStealth > Player.Calamity().rogueStealthMax)
+                {
+                    Player.Calamity().rogueStealth = Player.Calamity().rogueStealthMax;
+                }
+            }
             if(!hasAcc(GaleWristblades.ID))
             {
                 GaleWristbladeCharge = 0;

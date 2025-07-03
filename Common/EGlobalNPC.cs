@@ -1137,6 +1137,10 @@ namespace CalamityEntropy.Common
             {
                 if(source is Projectile pr && pr.DamageType.CountsAsClass<ThrowingDamageClass>())
                 {
+                    if(player.Entropy().worshipRelic)
+                    {
+                        player.Entropy().worshipStealthRegenTime = 20;
+                    }
                     if(player.Entropy().hasAcc(GaleWristblades.ID))
                     {
                         player.Entropy().GaleWristbladeCharge++;
