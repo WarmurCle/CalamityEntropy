@@ -33,10 +33,10 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AddRecipes()
         {
 
-            CreateRecipe().AddIngredient<VoidOde>()
+            CreateRecipe().AddIngredient<ControlTerminal>()
                 .AddIngredient<Heresy>()
                 .AddIngredient<AshesofAnnihilation>(6)
-                .AddTile<SCalAltarLarge>()
+                .AddTile<DraedonsForge>()
                 .Register();
         }
     }
