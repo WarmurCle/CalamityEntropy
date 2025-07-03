@@ -2477,8 +2477,13 @@ Items: {
 	}
 
 	WorshipRelic: {
-		// DisplayName: Worship Relic
-		// Tooltip: ""
+		DisplayName: 日祀圣物
+		Tooltip:
+			'''
+			潜行值不再自然增长
+			使用盗贼武器击中敌怪后回复部分潜行值
+			潜行值满时攻击会触发潜伏攻击同时发射一些耀阳矢
+			'''
 	}
 }
 
@@ -2905,6 +2910,8 @@ Projectiles: {
 	// BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
 	// BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
 	// WristTornado.DisplayName: Wrist Tornado
+	// SolarArrowSpawner.DisplayName: Solar Arrow Spawner
+	// SolarArrow.DisplayName: Solar Arrow
 }
 
 LegendTooltip: - 传奇物品 -

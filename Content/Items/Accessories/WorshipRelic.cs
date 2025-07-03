@@ -5,6 +5,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Particles;
+using Humanizer.Localisation.DateToOrdinalWords;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class WorshipRelic : ModItem
     {
+        public static int ArrowDamage = 80;
         public override void SetDefaults()
         {
             Item.width = 42;
@@ -33,7 +35,13 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void AddRecipes()
         {
-
+            CreateRecipe()
+                .AddIngredient(ItemID.EyeoftheGolem)
+                .AddIngredient(ItemID.SoulofLight, 8)
+                .AddIngredient<ScoriaBar>(6)
+                .AddIngredient<SolarVeil>(4)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
     }
 }

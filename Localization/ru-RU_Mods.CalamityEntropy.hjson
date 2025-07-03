@@ -2308,7 +2308,12 @@ Items: {
 
 	WorshipRelic: {
 		// DisplayName: Worship Relic
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			tealth no longer regenerates passively.
+			Hitting enemies with Rogue weapons restores some Stealth.
+			When Stealth is full, your attack becomes a Stealth Strike and fires additional Solar Arrows
+			''' */
 	}
 }
 
@@ -2735,6 +2740,8 @@ Projectiles: {
 	// BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
 	// BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
 	// WristTornado.DisplayName: Wrist Tornado
+	// SolarArrowSpawner.DisplayName: Solar Arrow Spawner
+	// SolarArrow.DisplayName: Solar Arrow
 }
 
 LegendTooltip: - Legend -

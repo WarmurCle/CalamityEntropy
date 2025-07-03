@@ -507,6 +507,7 @@ namespace CalamityEntropy.Common
         {
             if(player.Entropy().worshipRelic && item.DamageType.CountsAsClass<ThrowingDamageClass>() && player.Calamity().StealthStrikeAvailable())
             {
+                Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<SolarArrowSpawner>(), WorshipRelic.ArrowDamage, 2, player.whoAmI);
                 player.Entropy().ResetStealth = true;
             }
             if(player.Entropy().GaleWristbladeCharge >= 5)
