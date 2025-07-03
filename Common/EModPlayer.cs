@@ -1384,15 +1384,29 @@ namespace CalamityEntropy.Common
         public bool WeaponsNoCostRogueStealth = false;
         public float RogueStealthRegen = 0;
         public int GaleWristbladeCharge = 0;
+        public float LastStealth = 0;
+        public bool LastStealthStrikeAble = false;
+        public bool ResetStealth = false;
         public override void PostUpdate()
         {
+            if(WeaponsNoCostRogueStealth && Player.Calamity().rogueStealth == 0 && LastStealth > 0 && !LastStealthStrikeAble)
+            {
+                Player.Calamity().rogueStealth = LastStealth;
+            }
+            LastStealth = Player.Calamity().rogueStealth;
+            LastStealthStrikeAble = Player.Calamity().StealthStrikeAvailable();
             if(!worshipRelic)
             {
                 worshipStealthRegenTime = 0;
             }
+            if (ResetStealth)
+            {
+                ResetStealth = false;
+                Player.Calamity().rogueStealth = 0;
+            }
             if(worshipStealthRegenTime-- > 0)
             {
-                Player.Calamity().rogueStealth += 0.08f / 30f;
+                Player.Calamity().rogueStealth += 0.32f / 30f * Player.Calamity().rogueStealthMax;
                 if(Player.Calamity().rogueStealth > Player.Calamity().rogueStealthMax)
                 {
                     Player.Calamity().rogueStealth = Player.Calamity().rogueStealthMax;
@@ -2283,6 +2297,12 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
+            if(worshipRelic)
+            {
+                Player.Calamity().stealthStrike75Cost = false;
+                Player.Calamity().stealthStrike85Cost = false;
+                Player.Calamity().stealthStrikeHalfCost = false;
+            }
             if (hasAcc(ShadowMantle.ID))
             {
                 RogueStealthRegen += 0.02f * Player.velocity.Length();

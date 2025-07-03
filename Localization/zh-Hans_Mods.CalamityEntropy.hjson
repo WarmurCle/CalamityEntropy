@@ -2475,6 +2475,11 @@ Items: {
 			'''
 		DisplayName: 疾风腕刺
 	}
+
+	WorshipRelic: {
+		// DisplayName: Worship Relic
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

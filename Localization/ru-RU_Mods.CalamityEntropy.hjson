@@ -2305,6 +2305,11 @@ Items: {
 			''' */
 		// DisplayName: Gale Wristblades
 	}
+
+	WorshipRelic: {
+		// DisplayName: Worship Relic
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
