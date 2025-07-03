@@ -510,18 +510,18 @@ namespace CalamityEntropy.Common
                 if (player.Entropy().shadowStealth >= 1)
                 {
                     CEUtils.PlaySound("shadowKnife");
-                    player.Entropy().shadowStealth = 0; Projectile.NewProjectile(source, position, velocity.normalize() * 12, ModContent.ProjectileType<ShadowShoot>(), ShadowPact.BaseDamage, 2, player.whoAmI);
+                    player.Entropy().shadowStealth = 0; Projectile.NewProjectile(source, position, velocity.normalize() * 12, ModContent.ProjectileType<ShadowShoot>(), (int)player.GetTotalDamage<RogueDamageClass>().ApplyTo(ShadowPact.BaseDamage), 2, player.whoAmI);
                 }
             }
             if (player.Entropy().worshipRelic && item.DamageType.CountsAsClass<ThrowingDamageClass>() && player.Calamity().StealthStrikeAvailable())
             {
-                Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<SolarArrowSpawner>(), WorshipRelic.ArrowDamage, 2, player.whoAmI);
+                Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<SolarArrowSpawner>(), (int)player.GetTotalDamage<RogueDamageClass>().ApplyTo(WorshipRelic.ArrowDamage), 2, player.whoAmI);
                 player.Entropy().ResetStealth = true;
             }
             if(player.Entropy().GaleWristbladeCharge >= 5)
             {
                 player.Entropy().GaleWristbladeCharge = 0;
-                Projectile.NewProjectile(source, position, velocity.normalize() * 8, ModContent.ProjectileType<WristTornado>(), GaleWristblades.BaseDamage, 2, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity.normalize() * 8, ModContent.ProjectileType<WristTornado>(), (int)player.GetTotalDamage<RogueDamageClass>().ApplyTo(GaleWristblades.BaseDamage), 2, player.whoAmI);
             }
             if(type == ModContent.ProjectileType<RockBulletShot>())
             {
