@@ -2319,7 +2319,7 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
-            if(worshipRelic)
+            if(worshipRelic || shadowPact)
             {
                 Player.Calamity().stealthStrike75Cost = false;
                 Player.Calamity().stealthStrike85Cost = false;
