@@ -152,7 +152,7 @@ namespace CalamityEntropy.Content.ILEditing
                             textToDisplay += CalamityUtils.GetTextValue("UI.StealthInfoText");
                         }
 
-                        Main.instance.MouseText(textToDisplay, 0, 0, -1, -1, -1, -1);
+                        Main.instance.MouseText(textToDisplay, null, 0, 0, -1, -1, -1, -1, noOverride:true);
                         modPlayer.stealthUIAlpha = MathHelper.Lerp(modPlayer.stealthUIAlpha, 0.25f, 0.035f);
                     }
                 }
