@@ -39,6 +39,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
             int type = ModContent.ProjectileType<NemesisProj>();
             if (Projectile.ai[0] == 2)
             {
+                if(Time >= 140 * updateCount - 1)
+                {
+                    if (Projectile.owner == Main.myPlayer)
+                    {
+                        if (Main.mouseRight)
+                        {
+                            Time--;
+                        }
+                    }
+                }
                 if (Time < 140 * updateCount)
                 {
                     return;
@@ -176,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
                     Texture2D barFG = ModContent.Request<Texture2D>(EffectLoader.AssetPath + "GenericBarFront", (AssetRequestMode)2).Value;
                     float barScale = 2f;
                     Vector2 barOrigin = barBG.Size() * 0.5f;
-                    Vector2 drawPos = Owner.Center + new Vector2(0, 60) - Main.screenPosition;
+                    Vector2 drawPos = Owner.MountedCenter + new Vector2(0, 60) - Main.screenPosition;
                     float sengs = 1 - (maxCharge - newCharge) / maxCharge;
                     Rectangle frameCrop = new Rectangle(0, 0, (int)(sengs * barFG.Width), barFG.Height);
                     Color color = Color.OrangeRed;
