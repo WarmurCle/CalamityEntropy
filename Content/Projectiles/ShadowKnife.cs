@@ -110,6 +110,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         private Vector2 lastPos = Vector2.Zero;
         public Vector2 spawnPos = Vector2.Zero;
+        public StarTrailParticle spt = null;
+        public StarTrailParticle spt2 = null;
         public override void AI()
         {
             if(counter == 0)
@@ -131,6 +133,22 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Dust.NewDustDirect(Projectile.Center + CEUtils.randomPointInCircle(8), 1, 1, Terraria.ID.DustID.CorruptTorch, 0, 0).noGravity = true;
                 }
+                if (spt == null)
+                {
+                    spt = new StarTrailParticle() { maxLength = 18 };
+                    EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.6f, 1, true, BlendState.Additive, 0);
+                }
+                spt.Velocity = Projectile.velocity * 0.2f;
+                spt.Lifetime = 30;
+                spt.Position = Projectile.Center;
+                if (spt2 == null)
+                {
+                    spt2 = new StarTrailParticle() { maxLength = 18 };
+                    EParticle.NewParticle(spt2, Projectile.Center, Vector2.Zero, Color.LightBlue, 0.4f, 1, true, BlendState.Additive, 0);
+                }
+                spt2.Velocity = Projectile.velocity * 0.2f;
+                spt2.Lifetime = 30;
+                spt2.Position = Projectile.Center;
             }
             Projectile.rotation = Projectile.ai[0] + MathHelper.Pi;
             lastPos = Projectile.Center;
