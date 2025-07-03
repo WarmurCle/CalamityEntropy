@@ -2313,6 +2313,15 @@ Items: {
 			Rogue Stealth can be recharged once more
 			'''
 	}
+
+	GaleWristblades: {
+		Tooltip: 
+		'''
+		Rogue weapons grant 1 stack of Wind Pressure on hit, increasing attack speed and damage
+		At 5 stacks, the next attack consumes all stacks to unleash a small tornado
+		'''
+		DisplayName: Gale Wristblades
+	}
 }
 
 PrefixitemDesc:
@@ -2736,6 +2745,7 @@ Projectiles: {
 	BoobyMine.DisplayName: Booby Mine
 	BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
 	BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
+	WristTornado.DisplayName: Wrist Tornado
 }
 
 LegendTooltip: - Legend -
@@ -2989,6 +2999,11 @@ Buffs: {
 	ProfNGuardBuff: {
 		DisplayName: Sulfer Cake
 		Description: ""
+	}
+
+	WindPressure: {
+		DisplayName: Wind Pressure
+		Description: The whirlwind winds around your weapon
 	}
 }
 

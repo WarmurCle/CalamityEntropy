@@ -2466,6 +2466,15 @@ Items: {
 			潜伏值可以额外充能一次
 			'''
 	}
+
+	GaleWristblades: {
+		Tooltip: 
+		'''
+		盗贼武器每次命中使你获得一层风压增益，增加部分攻速和伤害
+		风压满5层时再次攻击会清除该增益并发射一道小型龙卷风
+		'''
+		DisplayName: 疾风腕刺
+	}
 }
 
 PrefixitemDesc:
@@ -2890,6 +2899,7 @@ Projectiles: {
 	BoobyMine.DisplayName: 诡雷
 	// BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
 	// BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
+	// WristTornado.DisplayName: Wrist Tornado
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3143,6 +3153,11 @@ Buffs: {
 	ProfNGuardBuff: {
 		DisplayName: 天神与她的使徒们
 		Description: ""
+	}
+
+	WindPressure: {
+		DisplayName: 风压
+		Description: 你的武器上缠绕着旋风
 	}
 }
 

@@ -505,6 +505,11 @@ namespace CalamityEntropy.Common
         }
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            if(player.Entropy().GaleWristbladeCharge >= 5)
+            {
+                player.Entropy().GaleWristbladeCharge = 0;
+                Projectile.NewProjectile(source, position, velocity.normalize() * 8, ModContent.ProjectileType<WristTornado>(), GaleWristblades.BaseDamage, 2, player.whoAmI);
+            }
             if(type == ModContent.ProjectileType<RockBulletShot>())
             {
                 if (Main.rand.NextBool(6))

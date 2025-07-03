@@ -1135,9 +1135,17 @@ namespace CalamityEntropy.Common
         {
             if (player != null)
             {
-                if(player.Entropy().hasAcc(MineBox.ID) && source is Projectile pr && pr.DamageType.CountsAsClass<ThrowingDamageClass>() && pr.Calamity().stealthStrike && BMCooldowns.CheckCD(ref BMCooldowns.MineBoxCd, 25))
+                if(source is Projectile pr && pr.DamageType.CountsAsClass<ThrowingDamageClass>())
                 {
-                    Projectile.NewProjectile(pr.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BoobyMine>(), (int)player.GetTotalDamage(pr.DamageType).ApplyTo(MineBox.BaseDamage), 0, player.whoAmI);
+                    if(player.Entropy().hasAcc(GaleWristblades.ID))
+                    {
+                        player.Entropy().GaleWristbladeCharge++;
+                        player.Entropy().WindPressureTime = 600;
+                    }
+                    if (player.Entropy().hasAcc(MineBox.ID) && pr.Calamity().stealthStrike && BMCooldowns.CheckCD(ref BMCooldowns.MineBoxCd, 25))
+                    {
+                        Projectile.NewProjectile(pr.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BoobyMine>(), (int)player.GetTotalDamage(pr.DamageType).ApplyTo(MineBox.BaseDamage), 0, player.whoAmI);
+                    }
                 }
                 if (player.Entropy().grudgeCard)
                 {

@@ -2296,6 +2296,11 @@ Items: {
 			Rogue Stealth can be recharged once more
 			''' */
 	}
+
+	GaleWristblades: {
+		// Tooltip: ""
+		// DisplayName: Gale Wristblades
+	}
 }
 
 PrefixitemDesc:
@@ -2720,6 +2725,7 @@ Projectiles: {
 	// BoobyMine.DisplayName: Booby Mine
 	// BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
 	// BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
+	// WristTornado.DisplayName: Wrist Tornado
 }
 
 LegendTooltip: - Legend -
@@ -2973,6 +2979,11 @@ Buffs: {
 	ProfNGuardBuff: {
 		DisplayName: Серный торт
 		Description: ""
+	}
+
+	WindPressure: {
+		// DisplayName: Wind Pressure
+		// Description: Mods.CalamityEntropy.Buffs.WindPressure.Description
 	}
 }
 

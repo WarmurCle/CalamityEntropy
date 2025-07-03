@@ -1380,8 +1380,14 @@ namespace CalamityEntropy.Common
         public int ilVortexType = -1;
         public bool WeaponsNoCostRogueStealth = false;
         public float RogueStealthRegen = 0;
+        public int GaleWristbladeCharge = 0;
         public override void PostUpdate()
         {
+            if(!hasAcc(GaleWristblades.ID))
+            {
+                GaleWristbladeCharge = 0;
+            }
+
             if(ExtraStealthBar)
             {
                 if (Player.Calamity().rogueStealth >= Player.Calamity().rogueStealthMax)
@@ -2259,6 +2265,7 @@ namespace CalamityEntropy.Common
         public int MariviniumShieldCd = 12 * 60;
         public bool visualMagiShield = false;
         public float RogueStealthRegenMult = 1;
+        public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
             if (hasAcc(ShadowMantle.ID))
@@ -2276,6 +2283,17 @@ namespace CalamityEntropy.Common
             if (Player.HeldItem.prefix == ModContent.PrefixType<Vigorous>())
             {
                 Player.Entropy().RogueStealthRegenMult += 0.15f;
+            }
+            Player.GetDamage(DamageClass.Generic) += GaleWristbladeCharge * 0.03f;
+            Player.GetAttackSpeed<RogueDamageClass>() += GaleWristbladeCharge * 0.03f;
+            WindPressureTime--;
+            if(WindPressureTime <= 0)
+            {
+                GaleWristbladeCharge = 0;
+            }
+            if(GaleWristbladeCharge > 0)
+            {
+                Player.AddBuff(ModContent.BuffType<WindPressure>(), 10);
             }
             foreach (Projectile p in Main.ActiveProjectiles)
             {
