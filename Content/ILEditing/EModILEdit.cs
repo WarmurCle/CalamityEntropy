@@ -7,6 +7,7 @@ using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using CalamityMod.UI;
 using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoMod.RuntimeDetour;
 using ReLogic.Content;
 using System;
@@ -124,9 +125,56 @@ namespace CalamityEntropy.Content.ILEditing
                 modPlayer.rogueStealth = modPlayer.Player.Entropy().shadowStealth * modPlayer.rogueStealthMax;
             }
             orig(spriteBatch, modPlayer, screenPos);
-            if(modPlayer.Player.Entropy().shadowPact)
+            float uiScale = Main.UIScale;
+            Rectangle mouseHitbox = new Rectangle((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y, 8, 8);
+            Rectangle stealthBar = Utils.CenteredRectangle(screenPos, origTex.Size() * uiScale);
+
+            if (modPlayer.Player.Entropy().shadowPact)
             {
                 modPlayer.rogueStealth = num;
+                if (stealthBar.Intersects(mouseHitbox))
+                {
+                    if (modPlayer.Player.Entropy().shadowStealth > 0)
+                    {
+                        string stealthStr = (100f * modPlayer.Player.Entropy().shadowStealth).ToString("n2");
+                        string maxStealthStr = 100.ToString("n2");
+                        string textToDisplay = $"{CalamityEntropy.Instance.GetLocalization("ShadowBar")}: {stealthStr}/{maxStealthStr}\n";
+
+                        if (!Main.keyState.IsKeyDown(Keys.LeftShift))
+                        {
+                            textToDisplay += CalamityEntropy.Instance.GetLocalization("ShiftMoreInfo");
+                        }
+                        else
+                        {
+                            textToDisplay += CalamityEntropy.Instance.GetLocalization("ShadowBarInfo");
+                        }
+
+                        Main.instance.MouseText(textToDisplay, 0, 0, -1, -1, -1, -1);
+                    }
+                }
+            }
+            if(modPlayer.Player.Entropy().worshipRelic)
+            {
+                if (stealthBar.Intersects(mouseHitbox))
+                {
+                    if (modPlayer.rogueStealthMax > 0f && modPlayer.stealthUIAlpha >= 0.5f)
+                    {
+                        string stealthStr = (100f * modPlayer.rogueStealth).ToString("n2");
+                        string maxStealthStr = (100f * modPlayer.rogueStealthMax).ToString("n2");
+                        string textToDisplay = $"{CalamityEntropy.Instance.GetLocalization("SolarBar")}: {stealthStr}/{maxStealthStr}\n";
+
+                        if (!Main.keyState.IsKeyDown(Keys.LeftShift))
+                        {
+                            textToDisplay += CalamityEntropy.Instance.GetLocalization("ShiftMoreInfo");
+                        }
+                        else
+                        {
+                            textToDisplay += CalamityEntropy.Instance.GetLocalization("SolarBarInfo");
+                        }
+
+                        Main.instance.MouseText(textToDisplay, 0, 0, -1, -1, -1, -1);
+                    }
+                }
             }
             if (resetBarTex)
             {
@@ -137,7 +185,6 @@ namespace CalamityEntropy.Content.ILEditing
             var emp = modPlayer.Player.Entropy();
             if (emp.ExtraStealth > 0)
             {
-                float uiScale = Main.UIScale;
                 float offset = (edgeTex.Value.Width - extraStealthBar.Value.Width) * 0.5f;
                 float completionRatio = emp.ExtraStealth / modPlayer.rogueStealthMax;
                 Rectangle barRectangle = new Rectangle(0, 0, (int)(extraStealthBar.Value.Width * completionRatio), extraStealthBar.Value.Width);

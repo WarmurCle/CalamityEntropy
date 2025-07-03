@@ -2919,14 +2919,14 @@ Projectiles: {
 	ApcHoldout.DisplayName: 先驱炮
 	ShadowMantleSlash.DisplayName: 暗影斩击
 	BoobyMine.DisplayName: 诡雷
-	// BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
-	// BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
-	// WristTornado.DisplayName: Wrist Tornado
-	// SolarArrowSpawner.DisplayName: Solar Arrow Spawner
-	// SolarArrow.DisplayName: Solar Arrow
-	// ShadowKnife.DisplayName: Shadow Knife
-	// ShadowShoot.DisplayName: Shadow Shoot
-	// ShadowSpawner.DisplayName: Shadow Spawner
+	BrimstoneGigaBlastFriendly.DisplayName: 硫火爆炎
+	BrimstoneShootSmall.DisplayName: 硫火飞弹
+	WristTornado.DisplayName: 龙卷
+	SolarArrowSpawner.DisplayName: 耀阳矢
+	SolarArrow.DisplayName: 耀阳矢
+	ShadowKnife.DisplayName: 暗影飞刀
+	ShadowShoot.DisplayName: 暗影球
+	ShadowSpawner.DisplayName: 暗影飞刀
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3767,3 +3767,16 @@ InfernumIntros: {
 
 Donor: 捐赠者:
 ShadowDashCD: 暗影突进冷却
+ShiftMoreInfo: 按住“左Shift”查看关于此特殊充能条的更多信息
+ShadowBar: 暗影值
+SolarBar: 耀阳值
+ShadowBarInfo:
+	'''
+	以恒定速度增长
+	充满时攻击会释放一团暗影球，击中后会召唤许多暗影匕首贯穿目标
+	'''
+SolarBarInfo:
+	'''
+	使用盗贼武器击中目标后增长
+	充满时攻击会发射一些追踪的耀阳矢
+	'''

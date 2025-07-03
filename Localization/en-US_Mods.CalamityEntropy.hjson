@@ -3604,3 +3604,16 @@ InfernumIntros: {
 
 Donor: Donor:
 ShadowDashCD: Shadow Dash Cooldown
+ShiftMoreInfo: Hold Left Shift for more info
+ShadowBar: Shadow Bar
+SolarBar: Solar Bar
+ShadowBarInfo:
+	'''
+	Growing at a constant rate
+	When full, the attack will release the Shadow Ball that summons the Shadow Knife after hitting target
+	'''
+SolarBarInfo:
+	'''
+	After hitting the target with Rogue weapons, there is an increase in solar energy
+	When fully charged, the attack will release some tracking Solar Arrows
+	'''
