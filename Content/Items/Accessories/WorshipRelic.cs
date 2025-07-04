@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class WorshipRelic : ModItem
     {
-        public static int ArrowDamage = 80;
+        public static int ArrowDamage = 90;
         public override void SetDefaults()
         {
             Item.width = 42;
@@ -32,12 +32,13 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().worshipRelic = true;
             player.Entropy().NoNaturalStealthRegen = true;
             player.Entropy().WeaponsNoCostRogueStealth = true;
+            player.GetCritChance(CEUtils.RogueDC) -= 50;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.EyeoftheGolem)
-                .AddIngredient(ItemID.SoulofLight, 8)
+                .AddIngredient<ShadowPact>(1)
+                .AddIngredient<GloveofRecklessness>(1)
                 .AddIngredient<ScoriaBar>(6)
                 .AddIngredient<SolarVeil>(4)
                 .AddTile(TileID.MythrilAnvil)
