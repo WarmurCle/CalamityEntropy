@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class GaleWristblades : ModItem
     {
-        public static int BaseDamage = 20;
+        public static int BaseDamage = 12;
         public override void SetDefaults()
         {
             Item.width = 38;
