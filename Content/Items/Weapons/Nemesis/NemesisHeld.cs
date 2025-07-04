@@ -33,7 +33,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
             ShootSpeed = 20;
             Length = 124;
         }
-
         public override void Shoot()
         {
             int type = ModContent.ProjectileType<NemesisProj>();
@@ -80,6 +79,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 
         public override bool PreInOwnerUpdate()
         {
+            if (Projectile.ai[0] == 2 && Time == 140 * updateCount && Main.myPlayer == Projectile.owner && Main.mouseRight)
+            {
+                Time--;
+            }
             if (Time == 0 && Projectile.ai[0] == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item71, Owner.position);
@@ -164,7 +167,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
                 }
             }
         }
-
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (Projectile.ai[0] == 2 && Time <= 140 * updateCount)
+            {
+                return false;
+            }
+            return base.CanHitNPC(target);
+        }
         public override void DrawSwing(SpriteBatch spriteBatch, Color lightColor)
         {
             float newCharge = Time;
@@ -176,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
                     Texture2D barFG = ModContent.Request<Texture2D>(EffectLoader.AssetPath + "GenericBarFront", (AssetRequestMode)2).Value;
                     float barScale = 2f;
                     Vector2 barOrigin = barBG.Size() * 0.5f;
-                    Vector2 drawPos = Owner.Center + new Vector2(0, 60) - Main.screenPosition;
+                    Vector2 drawPos = Owner.MountedCenter + new Vector2(0, 60) - Main.screenPosition;
                     float sengs = 1 - (maxCharge - newCharge) / maxCharge;
                     Rectangle frameCrop = new Rectangle(0, 0, (int)(sengs * barFG.Width), barFG.Height);
                     Color color = Color.OrangeRed;

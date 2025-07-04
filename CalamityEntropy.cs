@@ -193,6 +193,7 @@ namespace CalamityEntropy
             On_Main.DrawTiles += drawtile;
             On_Projectile.FillWhipControlPoints += fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
+            
             On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;

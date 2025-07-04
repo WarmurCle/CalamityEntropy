@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 80, 1.5f, 800, 18);
-            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 5) && BMCooldowns.CheckCD(ref BMCooldowns.BMVoid, 60))
+            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 5) && CECooldowns.CheckCD(ref CECooldowns.BMVoid, 60))
             {
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidBurst>(), (int)projectile.GetOwner().GetTotalDamage(projectile.DamageType).ApplyTo(1250), 1, projectile.owner);
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 1, projectile.owner);

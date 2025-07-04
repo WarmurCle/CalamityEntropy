@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
@@ -26,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 6) && BMCooldowns.CheckCD(ref BMCooldowns.BMSilva, 40))
+            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 6) && CECooldowns.CheckCD(ref CECooldowns.BMSilva, 40))
             {
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, CEUtils.randomRot().ToRotationVector2() * 12, ModContent.ProjectileType<SilvaSoul>(), 0, projectile.knockBack, projectile.owner);
             }

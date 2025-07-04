@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
         {
             Item.height = 154;
             Item.width = 154;
-            Item.damage = 350;
+            Item.damage = 380;
             Item.DamageType = DamageClass.Melee;
             Item.useAnimation = Item.useTime = 20;
             Item.scale = 1;

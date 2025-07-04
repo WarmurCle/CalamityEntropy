@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -30,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 6) && BMCooldowns.CheckCD(ref BMCooldowns.BMLightCD, 100))
+            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 4 : 6) && CECooldowns.CheckCD(ref CECooldowns.BMLightCD, 100))
             {
                 (Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(30, 34), ModContent.ProjectileType<LightSoul>(), damageDone / 2, projectile.knockBack / 3, projectile.owner).ToProj().ModProjectile as EBookBaseProjectile).homing = 0;
             }

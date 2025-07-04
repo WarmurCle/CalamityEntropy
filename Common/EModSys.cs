@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Books.BookMarks;
-using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
@@ -174,7 +173,7 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdatePlayers()
         {
-            BMCooldowns.Update();
+            CECooldowns.Update();
             EBookUI.update();
             if (ModContent.GetInstance<RepMusicScene>().IsSceneEffectActive(Main.LocalPlayer))
             {

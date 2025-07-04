@@ -1137,18 +1137,21 @@ namespace CalamityEntropy.Common
             {
                 if(source is Projectile pr && pr.DamageType.CountsAsClass<ThrowingDamageClass>())
                 {
-                    if(player.Entropy().worshipRelic)
+                    if(!(pr.ModProjectile != null && (pr.ModProjectile is WristTornado || pr.ModProjectile is BoobyMine || pr.ModProjectile is SolarArrow)))
                     {
-                        player.Entropy().worshipStealthRegenTime = 20;
-                    }
-                    if(player.Entropy().hasAcc(GaleWristblades.ID))
-                    {
-                        player.Entropy().GaleWristbladeCharge++;
-                        player.Entropy().WindPressureTime = 600;
-                    }
-                    if (player.Entropy().hasAcc(MineBox.ID) && pr.Calamity().stealthStrike && BMCooldowns.CheckCD(ref BMCooldowns.MineBoxCd, 25))
-                    {
-                        Projectile.NewProjectile(pr.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BoobyMine>(), (int)player.GetTotalDamage(pr.DamageType).ApplyTo(MineBox.BaseDamage), 0, player.whoAmI);
+                        if (player.Entropy().worshipRelic)
+                        {
+                            player.Entropy().worshipStealthRegenTime = 20;
+                        }
+                        if (player.Entropy().hasAcc(GaleWristblades.ID) && CECooldowns.CheckCD("GaleWristblades", 30))
+                        {
+                            player.Entropy().GaleWristbladeCharge++;
+                            player.Entropy().WindPressureTime = 600;
+                        }
+                        if (player.Entropy().hasAcc(MineBox.ID) && pr.Calamity().stealthStrike && CECooldowns.CheckCD(ref CECooldowns.MineBoxCd, 60))
+                        {
+                            Projectile.NewProjectile(pr.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BoobyMine>(), (int)player.GetTotalDamage(pr.DamageType).ApplyTo(MineBox.BaseDamage), 0, player.whoAmI);
+                        }
                     }
                 }
                 if (player.Entropy().grudgeCard)
