@@ -4,6 +4,7 @@ using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.Ores;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -49,14 +50,14 @@ namespace CalamityEntropy.Content.Items.Accessories
                 .AddIngredient<AscendantSpiritEssence>(4)
                 .AddIngredient<DarksunFragment>(20)
                 .AddIngredient(ItemID.GoldWatch)
-                .AddTile(TileID.CosmicAnvil)
+                .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
             CreateRecipe()
                 .AddIngredient<LurkersCharm>(4)
                 .AddIngredient<AscendantSpiritEssence>(4)
                 .AddIngredient<DarksunFragment>(20)
                 .AddIngredient(ItemID.PlatinumWatch)
-                .AddTile(TileID.CosmicAnvil)
+                .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
         }
     }
