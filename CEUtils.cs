@@ -455,7 +455,16 @@ namespace CalamityEntropy
         }
         public static Vector2 GetSymmetryPoint(this Vector2 point, Vector2 linePoint1, Vector2 linePoint2)
         {
-            return CalamityUtils.ClosestPointOnLine(point, linePoint1, linePoint2) + CalamityUtils.ClosestPointOnLine(point, linePoint1, linePoint2) - point;
+            Vector2 lineVector = linePoint2 - linePoint1;
+            if (lineVector == Vector2.Zero)
+            {
+                return point;
+            }
+            Vector2 aToPoint = point - linePoint1;
+            float t = Vector2.Dot(aToPoint, lineVector) / lineVector.LengthSquared();
+            Vector2 projection = linePoint1 + t * lineVector;
+            Vector2 symmetryPoint = 2 * projection - point;
+            return symmetryPoint;
         }
         public static Rectangle getRectCentered(this Vector2 center, float w, float h)
         {

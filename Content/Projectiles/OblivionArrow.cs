@@ -154,7 +154,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public float TrailWidth(float completionRatio)
         {
-            return MathHelper.Lerp(0, 46 * Projectile.scale, completionRatio);
+            return MathHelper.Lerp(0, 16 * Projectile.scale, completionRatio);
         }
         float spawnrot = 0;
         public override bool PreDraw(ref Color lightColor)
@@ -191,10 +191,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 22,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 22,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();

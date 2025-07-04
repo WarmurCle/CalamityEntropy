@@ -1533,6 +1533,8 @@ namespace CalamityEntropy.Common
                 ;
                 itemLoot.AddIf(getsMO, ModContent.ItemType<MosHat>());
 
+                itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("ylg") || info.player.name.ToLower().Contains("烟玉")), ModContent.ItemType<YanyusHat>());
+
                 if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
                 {
                     ModItem i;

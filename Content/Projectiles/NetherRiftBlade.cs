@@ -5,11 +5,14 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -84,7 +87,7 @@ namespace CalamityEntropy.Content.Projectiles
             counter1++;
             if (rope == null)
             {
-                rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 92, 0, new Vector2(0, 0), 0.1f, 80, false);
+                rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 92, 0, new Vector2(0, 0), 0.02f, 100, false);
             }
             rope.segmentLength = CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 92f;
             rope.Start = Projectile.owner.ToPlayer().Center;
@@ -176,7 +179,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            EParticle.NewParticle(new TrailSparkParticle(), pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive); ;
+                            EParticle.spawnNew(new TrailSparkParticle(), pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive); ;
 
                         }
                     }
@@ -192,7 +195,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            EParticle.NewParticle(new TrailSparkParticle(), pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive);
+                            EParticle.spawnNew(new TrailSparkParticle(), pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive);
 
                         }
                     }
@@ -283,7 +286,7 @@ namespace CalamityEntropy.Content.Projectiles
             odp.Add(Projectile.Center);
 
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
-            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/SylvestaffStreak"));
+            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/SylvestaffStreak"));
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor2, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
 
             odp.RemoveAt(odp.Count - 1);
