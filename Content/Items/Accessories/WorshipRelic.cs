@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Particles;
 using Humanizer.Localisation.DateToOrdinalWords;
@@ -39,7 +38,6 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             CreateRecipe()
                 .AddIngredient<ShadowPact>(1)
-                .AddIngredient<GloveofRecklessness>(1)
                 .AddIngredient<ScoriaBar>(6)
                 .AddIngredient<SolarVeil>(4)
                 .AddTile(TileID.MythrilAnvil)
