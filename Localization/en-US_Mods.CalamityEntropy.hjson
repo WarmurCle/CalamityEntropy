@@ -2344,6 +2344,11 @@ Items: {
 			On hit, the orb spawns multiple Shadow Daggers.
 			'''
 	}
+
+	YanyusHat: {
+		DisplayName: YanYu's Hat
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
