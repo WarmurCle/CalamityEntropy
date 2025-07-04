@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Particles;
 using Humanizer.Localisation.DateToOrdinalWords;
