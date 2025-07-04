@@ -2497,9 +2497,10 @@ Items: {
 			暗影条不会为你提供伤害加成
 			'''
 	}
+
 	YanyusHat: {
 		DisplayName: 烟玉的帽子
-		Tooltip:""
+		Tooltip: ""
 	}
 }
 

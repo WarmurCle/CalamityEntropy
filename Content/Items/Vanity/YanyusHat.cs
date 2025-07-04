@@ -45,7 +45,6 @@ namespace CalamityEntropy.Content.Items.Vanity
             Item.value = CalamityMod.Items.CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.vanity = true;
-            Item.Calamity().devItem = true;
         }
 
         public override void UpdateVanity(Player player)
