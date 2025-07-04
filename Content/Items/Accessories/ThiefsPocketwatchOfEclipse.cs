@@ -17,8 +17,8 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class ThiefsPocketwatchOfEclipse : ModItem
     {
-        public static float damage = 0.15f;
-        public static float MoveSpeed = 0.12f;
+        public static float damage = 0.18f;
+        public static float MoveSpeed = 0.10f;
         public static float stealthGen = 0.15f;
         public override void SetDefaults()
         {
@@ -45,16 +45,18 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<SolarVeil>(8)
-                .AddIngredient<ExodiumCluster>(12)
+                .AddIngredient<LurkersCharm>(1)
+                .AddIngredient<AscendantSpiritEssence>(4)
+                .AddIngredient<DarksunFragment>(20)
                 .AddIngredient(ItemID.GoldWatch)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(TileID.CosmicAnvil)
                 .Register();
             CreateRecipe()
-                .AddIngredient<SolarVeil>(8)
-                .AddIngredient<ExodiumCluster>(12)
+                .AddIngredient<LurkersCharm>(4)
+                .AddIngredient<AscendantSpiritEssence>(4)
+                .AddIngredient<DarksunFragment>(20)
                 .AddIngredient(ItemID.PlatinumWatch)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(TileID.CosmicAnvil)
                 .Register();
         }
     }
