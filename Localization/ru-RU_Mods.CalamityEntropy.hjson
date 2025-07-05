@@ -2313,6 +2313,7 @@ Items: {
 			tealth no longer regenerates passively.
 			Hitting enemies with Rogue weapons restores some Stealth.
 			When Stealth is full, your attack becomes a Stealth Strike and fires additional Solar Arrows
+			-50% Rogue Crit
 			''' */
 	}
 
