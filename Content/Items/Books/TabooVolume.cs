@@ -18,8 +18,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 60;
-            Item.useAnimation = Item.useTime = 66;
+            Item.damage = 125;
+            Item.useAnimation = Item.useTime = 100;
             Item.crit = 10;
             Item.mana = 8;
             Item.shootSpeed = 29;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Books
             CreateRecipe().AddIngredient<VoidOde>()
                 .AddIngredient<Heresy>()
                 .AddIngredient<AshesofAnnihilation>(6)
-                .AddTile<SCalAltarLarge>()
+                .AddTile<DraedonsForge>()
                 .Register();
         }
     }

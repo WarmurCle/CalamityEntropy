@@ -49,7 +49,6 @@ namespace CalamityEntropy.Content.Items.Accessories
                 player.dashType = 0;
             }
             player.Entropy().AzafureChargeShieldItem = Item;
-            player.noKnockback = true;
         }
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {

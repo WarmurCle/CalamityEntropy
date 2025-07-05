@@ -16,8 +16,8 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class ShadowMantle : ModItem
     {
-        public static float BaseDamage = 200;
-        public static int CooldownTicks = 15 * 60;
+        public static float BaseDamage = 25;
+        public static int CooldownTicks = 30 * 60;
         public override void SetDefaults()
         {
             Item.width = 42;

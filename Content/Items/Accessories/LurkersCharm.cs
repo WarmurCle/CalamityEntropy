@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Accessories;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,10 +17,10 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class LurkersCharm : ModItem
     {
-        public static float damage = 0.1f;
-        public static float MoveSpeed = 0.08f;
-        public static float endurance = 0.15f;
-        public static float stealthGen = 0.12f;
+        public static float damage = 0.12f;
+        public static float MoveSpeed = 0.10f;
+        public static float endurance = 0.10f;
+        public static float stealthGen = 0.10f;
         public override void SetDefaults()
         {
             Item.width = 42;
@@ -49,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.Magiluminescence)
-                .AddIngredient(ItemID.GlowingMushroom, 8)
+                .AddIngredient<RogueEmblem>(1)
                 .AddIngredient(ItemID.SoulofNight, 4)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
