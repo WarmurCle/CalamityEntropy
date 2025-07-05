@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Vanity
 {
     public class YanyusHat : ModItem, IDonatorItem
     {
-        public string DonatorName => "烟玉YLG";
+        public string DonatorName => "烟玉YZG";
 
         public override void Load()
         {
