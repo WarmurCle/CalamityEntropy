@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Vanity.Luminar;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -40,6 +41,11 @@ namespace CalamityEntropy.Common.DrawLayers
             }
             Vector2 headPos = drawInfo.HeadPosition(true);
             drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, drawInfo.colorArmorHead, drawInfo.drawPlayer.headRotation, new Vector2(drawInfo.playerEffect == SpriteEffects.FlipHorizontally ? texture.Width - 28 : 28, texture.Height / 2f + 3), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
+
+            texture = CEUtils.getExtraTex("LuminarRing");
+            Vector2 headPos = drawInfo.HeadPosition(false);
+            drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, Color.White * (float)(Math.Cos(Main.GlobalTimeWrappedHourly) * 0.15f + 0.8f), drawInfo.drawPlayer.headRotation, new Vector2(texture.Width / 2, texture.Height + 22), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
+            
         }
 
     }

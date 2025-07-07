@@ -2796,6 +2796,7 @@ Projectiles: {
 	ShadowSpawner.DisplayName: Shadow Spawner
 	AntivoidSlash.DisplayName: Antivoid Slash
 	AntivoidDash.DisplayName: Antivoid Dash
+	LuminarGrave.DisplayName: Luminar Grave
 }
 
 LegendTooltip: - Legend -

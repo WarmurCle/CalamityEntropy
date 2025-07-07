@@ -403,6 +403,15 @@ namespace CalamityEntropy.Common
         public List<int> luminarHited = new List<int>();
         public override bool PreAI(Projectile projectile)
         {
+            if (ProjectileID.Sets.IsAGravestone[projectile.type] && projectile.GetOwner().head == EquipLoader.GetEquipSlot(Mod, "LuminarRing", EquipType.Head))
+            {
+                if (Main.myPlayer == projectile.owner)
+                {
+                    Projectile.NewProjectile(projectile.GetOwner().GetSource_Death(), projectile.Center, CEUtils.randomPointInCircle(8), ModContent.ProjectileType<LuminarGrave>(), 0, 0, projectile.owner);
+                }
+                projectile.active = false;
+                return false;
+            }
             if (LuminarArrow)
             {
                 if (starTrailPt == null || starTrailPt.Lifetime <= 0)

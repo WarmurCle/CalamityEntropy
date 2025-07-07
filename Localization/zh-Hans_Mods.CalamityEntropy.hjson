@@ -2952,6 +2952,7 @@ Projectiles: {
 	ShadowSpawner.DisplayName: 暗影飞刀
 	// AntivoidSlash.DisplayName: Antivoid Slash
 	// AntivoidDash.DisplayName: Antivoid Dash
+	// LuminarGrave.DisplayName: Luminar Grave
 }
 
 LegendTooltip: - 传奇物品 -
