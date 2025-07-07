@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if(yc == 0)
             {
-                yc = Main.rand.NextFloat(0.5f, 0.8f);
+                yc = Main.rand.NextFloat(0.3f, 0.8f);
             }
             Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = 14 * Projectile.MaxUpdates;
