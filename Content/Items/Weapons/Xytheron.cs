@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public float charge = 0;
 
-        public override bool AltFunctionUse(Player player) => true;
+        public override bool AltFunctionUse(Player player) => charge > 0;
 
         public override bool CanUseItem(Player player)
         {
@@ -55,6 +55,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (player.altFunctionUse == 2 && charge > 0)
             {
+                player.RemoveAllGrapplingHooks();
+                if (player.mount.Active)
+                    player.mount.Dismount(player);
                 Projectile.NewProjectile(source, position, velocity.SafeNormalize(Vector2.UnitX) * (42 + charge * 1.9f), type, (int)(damage / 2.8f * (charge + 1)), knockback, player.whoAmI, charge);
                 charge = 0;
             }

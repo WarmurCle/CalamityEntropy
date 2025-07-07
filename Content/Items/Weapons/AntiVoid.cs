@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Donator;
+﻿using CalamityEntropy.Content.Cooldowns;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
@@ -49,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool AltFunctionUse(Player player)
         {
-            return true;
+            return !player.HasCooldown(AntivoidDashCooldown.ID);
         }
         public override bool CanShoot(Player player)
         {
@@ -71,6 +72,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 type = ModContent.ProjectileType<AntivoidDash>();
                 damage *= 4;
+                player.AddCooldown(AntivoidDashCooldown.ID, 15);
+                player.RemoveAllGrapplingHooks();
+                if(player.mount.Active) 
+                    player.mount.Dismount(player);
             }
             else
             {
@@ -293,6 +298,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AI()
         {
+            if (Projectile.ai[1] == 0)
+            {
+                CEUtils.PlaySound("AntivoidDash", 1, Projectile.Center);
+            }
             var player = Projectile.GetOwner();
             player.Entropy().immune = 5;
             if(trail == null)
@@ -313,7 +322,13 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.Center = Projectile.Center;
             player.velocity = Projectile.velocity;
         }
-
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Projectile.ai[2]++ == 0)
+            {
+                CEUtils.PlaySound("AntivoidDashSlash", 1, target.Center);
+            }
+        }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.GetOwner().Center -= Projectile.velocity;
