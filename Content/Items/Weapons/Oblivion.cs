@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 80;
             Item.height = 80;
-            Item.damage = 55;
+            Item.damage = 52;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 2;
             Item.useAnimation = 2;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Arrow;
             Item.autoReuse = true;
-            Item.ArmorPenetration = 100;
+            Item.ArmorPenetration = 50;
             Item.noUseGraphic = true;
             Item.crit = 8;
         }

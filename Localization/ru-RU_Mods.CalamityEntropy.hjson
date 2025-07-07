@@ -2348,6 +2348,11 @@ Items: {
 		// DisplayName: Luminar Trousers
 		// Tooltip: ""
 	}
+
+	LunarMulse: {
+		// DisplayName: Lunar Mulse
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

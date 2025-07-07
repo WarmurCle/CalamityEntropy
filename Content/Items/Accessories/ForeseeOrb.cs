@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class ForeseeOrb : ModItem
     {
-        public static float DMG = 0.15f;
+        public static float DMG = 0.12f;
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Replace("{DMG}", DMG.ToPercent().ToString());

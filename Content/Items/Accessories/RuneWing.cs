@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public static int wTime = 170;
         public static int MAXDASHTIME = 30;//最大冲刺时间（帧）
         public static int DashVelo = 56; //冲刺速度（像素）
-        public static int MaxCooldownTick = 30 * 60; //最大冲刺时间时的冷却（帧）
+        public static int MaxCooldownTick = 40 * 60; //最大冲刺时间时的冷却（帧）
 
         public int AnimationTick => 4;
         public int FallingFrame => 0;

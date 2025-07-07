@@ -8,18 +8,13 @@ namespace CalamityEntropy.Content.Items
 {
     public class PowerBank : ModItem
     {
-        public static float CHARGE_PER_TICK = 0.05f;
-        public override void SetStaticDefaults()
-        {
-            ItemID.Sets.SortingPriorityBossSpawns[Type] = 17;
-        }
+        public static float CHARGE_PER_TICK = 0.02f;
         public override void SetDefaults()
         {
             Item.width = 56;
             Item.height = 56;
             Item.consumable = false;
             Item.rare = ItemRarityID.Orange;
-
         }
 
         public override void AddRecipes()
@@ -33,7 +28,7 @@ namespace CalamityEntropy.Content.Items
 
         public override void UpdateInventory(Player player)
         {
-            foreach (Item item in player.inventory)
+            foreach (Item item in player.inventory.Combine<Item>(player.miscEquips).Combine<Item>(player.armor))
             {
                 if (!item.IsAir)
                 {

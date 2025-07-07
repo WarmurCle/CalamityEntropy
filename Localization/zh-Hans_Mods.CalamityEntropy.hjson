@@ -2520,6 +2520,11 @@ Items: {
 		DisplayName: 幻光星裤
 		Tooltip: ""
 	}
+
+	LunarMulse: {
+		DisplayName: 月光蜜水
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

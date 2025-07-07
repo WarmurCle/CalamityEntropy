@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class PlagueInternalCombustionEngine : ModItem
     {
-        public static float ATKSpeed = 0.1f;
+        public static float ATKSpeed = 0.06f;
         public override void SetDefaults()
         {
             Item.width = 98;

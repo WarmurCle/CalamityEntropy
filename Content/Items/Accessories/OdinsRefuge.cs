@@ -13,6 +13,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
+    [AutoloadEquip(EquipType.Shield)]
     public class OdinsRefuge : ModItem
     {
 

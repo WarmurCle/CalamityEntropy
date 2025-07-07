@@ -8,8 +8,8 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
     public class IndigoCard : ModItem
     {
-        public static float WingTimeAddition = 0.15f;
-        public static float WingSpeedAddition = 0.1f;
+        public static float WingTimeAddition = 0.12f;
+        public static float WingSpeedAddition = 0.08f;
         public override void SetDefaults()
         {
             Item.width = 22;

@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityMod;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
@@ -17,17 +18,28 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
-
+            var modItem = Item.Calamity();
+            modItem.UsesCharge = true;
+            modItem.MaxCharge = 64f;
         }
         public static string ID = "RustyDetectorEquipment";
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.rocketBoots += 10;
-            player.noFallDmg = true;
-            player.jumpSpeedBoost += 1.6f;
-            player.maxRunSpeed *= 1.1f;
-            player.Entropy().addEquip(ID, !hideVisual);
+            if (Item.Calamity().Charge > 0)
+            {
+                if (player.controlJump)
+                {
+                    Item.Calamity().Charge -= 64f / (180 * 60f);
+                }
+                player.rocketBoots += 10;
+                player.noFallDmg = true;
+                player.jumpSpeedBoost += 1.6f;
+                player.maxRunSpeed *= 1.1f;
+                player.Entropy().addEquip(ID, !hideVisual);
+                if (Item.Calamity().Charge < 0)
+                    Item.Calamity().Charge = 0;
+            }
         }
         public override void UpdateVanity(Player player)
         {

@@ -22,6 +22,14 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static T[] Combine<T>(this T[] a, T[] b)
+        {
+            T[] ls = new T[a.Length + b.Length];
+            int c = 0;
+            foreach (var i in a) { ls[c] = i; c++; }
+            foreach (var i in b) { ls[c] = i; c++; }
+            return ls;
+        }
         public static bool IsPlayerStuck(Player player)
         {
             Rectangle playerHitbox = player.getRect();

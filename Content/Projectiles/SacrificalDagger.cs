@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.owner.ToPlayer().statLife < Projectile.owner.ToPlayer().statLifeMax2 && healCd <= 0)
-                Projectile.owner.ToPlayer().Heal(2);
+                Projectile.owner.ToPlayer().Entropy().TryHealMeWithCd(2, 2);
             healCd = 14;
         }
     }

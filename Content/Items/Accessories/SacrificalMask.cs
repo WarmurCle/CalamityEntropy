@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             if (player.ownedProjectileCounts[ModContent.ProjectileType<SacrificalDagger>()] < 8)
             {
-                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<SacrificalDagger>(), (int)player.GetBestClassDamage().ApplyTo(210), 1, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<SacrificalDagger>(), (int)player.GetTotalDamage<AverageDamageClass>().ApplyTo(180), 1, player.whoAmI);
             }
             player.Entropy().sacrMask = true;
         }

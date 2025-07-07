@@ -20,9 +20,9 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetDamage<GenericDamageClass>() += 0.25f;
+            player.GetDamage<GenericDamageClass>() += 0.24f;
             player.GetArmorPenetration<GenericDamageClass>() += 100;
-            player.GetCritChance(DamageClass.Generic) += 15;
+            player.GetCritChance(DamageClass.Generic) += 14;
         }
 
         public override void AddRecipes()
