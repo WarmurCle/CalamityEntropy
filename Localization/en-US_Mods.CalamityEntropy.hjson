@@ -3609,7 +3609,8 @@ InfernumIntros: {
 		'''
 }
 
-Donor: Donor:
+Donor: "Donor:"
+Owner: "Owner:"
 ShadowDashCD: Shadow Dash Cooldown
 ShiftMoreInfo: Hold Left Shift for more info
 ShadowBar: Shadow Bar
