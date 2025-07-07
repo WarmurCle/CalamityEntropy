@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if(player.altFunctionUse == 2)
             {
                 type = ModContent.ProjectileType<AntivoidDash>();
-                damage *= 4;
+                damage *= 2;
                 player.AddCooldown(AntivoidDashCooldown.ID, 15);
                 player.RemoveAllGrapplingHooks();
                 if(player.mount.Active) 
@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 velocity = CEUtils.randomRot().ToRotationVector2() * velocity.Length();
             }
-                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, Main.rand.NextBool() ? -1 : 1);
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, Main.rand.NextBool() ? -1 : 1);
             return false;
         }
 
@@ -327,12 +327,60 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (Projectile.ai[2]++ == 0)
             {
                 CEUtils.PlaySound("AntivoidDashSlash", 1, target.Center);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<AntivoidMark>(), Projectile.damage * 3, 0, Projectile.owner, target.whoAmI);
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.GetOwner().Center -= Projectile.velocity;
             return base.OnTileCollide(oldVelocity);
+        }
+    }
+
+    public class AntivoidMark : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Melee, false, -1);
+            Projectile.light = 1;
+            Projectile.timeLeft = 18;
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (Projectile.ai[1] < 16)
+                return false;
+            return null;
+        }
+        public override void AI()
+        {
+            Projectile.Center = ((int)Projectile.ai[0]).ToNPC().Center;
+            Projectile.ai[1]++;
+            if (Projectile.ai[1] == 15)
+            {
+                EParticle.spawnNew(new AbyssalLine() { xadd = 2f, lx = 3.6f }, Projectile.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, 0, 30);
+                EParticle.spawnNew(new AbyssalLine() { xadd = 1.6f, lx = 3f }, Projectile.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, 0, 30);
+                EParticle.spawnNew(new AbyssalLine() { xadd = 1.5f, lx = 2.2f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, 0, 30);
+            }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (Projectile.ai[1] > 16)
+            {
+                return false;
+            }
+            Texture2D tex = Projectile.GetTexture();
+            Vector2 drawPos = Projectile.Center + CEUtils.Parabola((Projectile.ai[1] / 16f), 64) * -Vector2.UnitY;
+            float p = CEUtils.Parabola(Projectile.ai[1] * 2f / 16f, 1);
+            float s = 1 + (1 - p) * 2;
+            float alpha = p;
+            Vector2 scale = new Vector2(s * (float)Math.Cos(Main.GameUpdateCount * 0.25f), s);
+
+            Main.EntitySpriteDraw(tex, drawPos - Main.screenPosition, null, Color.White * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None);
+            return false;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return CEUtils.LineThroughRect(Projectile.Center + new Vector2(-240, 0), Projectile.Center + new Vector2(240, 0), targetHitbox);
         }
     }
 }

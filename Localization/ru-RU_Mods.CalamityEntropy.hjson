@@ -2786,6 +2786,7 @@ Projectiles: {
 	// AntivoidSlash.DisplayName: Antivoid Slash
 	// AntivoidDash.DisplayName: Antivoid Dash
 	// LuminarGrave.DisplayName: Luminar Grave
+	// AntivoidMark.DisplayName: Antivoid Mark
 }
 
 LegendTooltip: - Legend -
