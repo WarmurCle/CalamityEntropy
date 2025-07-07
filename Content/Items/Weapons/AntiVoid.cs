@@ -15,9 +15,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AntiVoid : ModItem, IDonatorItem
+    public class AntiVoid : ModItem, IDevItem
     {
-        public string DonatorName => "ChaLost";
+        public string DevName => "ChaLost";
 
         public override void SetStaticDefaults()
         {

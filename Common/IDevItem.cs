@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Items.Donator
 {
     public interface IDevItem
     {
-        public string DonatorName { get; }
+        public string DevName { get; }
     }
     public class DevGItem : GlobalItem
     {
@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             if (entity.ModItem != null && entity.ModItem is IDevItem i)
             {
-                TooltipLine tl = new TooltipLine(Mod, "EntropyDonorName", Mod.GetLocalization("Owner").Value + " " + i.DonatorName);
+                TooltipLine tl = new TooltipLine(Mod, "EntropyDonorName", Mod.GetLocalization("Owner").Value + " " + i.DevName);
                 tl.OverrideColor = Color.Yellow;
                 tooltips.Add(tl);
             }
