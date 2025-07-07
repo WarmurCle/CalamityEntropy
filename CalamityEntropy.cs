@@ -78,6 +78,8 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.Graphics;
+using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -172,6 +174,7 @@ namespace CalamityEntropy
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
             EntropySkies.setUpSkies();
             EffectLoader.Load();
+            On_MapHeadRenderer.DrawPlayerHead += drawPlayerHeadHook;
             On_Lighting.AddLight_int_int_int_float += al_iiif;
             On_Lighting.AddLight_int_int_float_float_float += al_iifff;
             On_Lighting.AddLight_Vector2_float_float_float += al_vfff;
@@ -219,6 +222,23 @@ namespace CalamityEntropy
             }
 
 
+        }
+
+        private void drawPlayerHeadHook(On_MapHeadRenderer.orig_DrawPlayerHead orig, MapHeadRenderer self, Camera camera, Player drawPlayer, Vector2 position, float alpha, float scale, Color borderColor)
+        {
+            if(true)
+            {
+                int origHead = drawPlayer.head;
+                drawPlayer.head = EquipLoader.GetEquipSlot(CalamityEntropy.Instance, "AbyssLantern", EquipType.Head);
+
+                orig(self, camera, drawPlayer, position, alpha, scale, borderColor);
+
+                drawPlayer.head = origHead;
+            }
+            else
+            {
+                orig(self, camera, drawPlayer, position, alpha, scale, borderColor);
+            }
         }
 
         private void draw_cursor_hook(On_Main.orig_DrawCursor orig, Vector2 bonus, bool smart)
@@ -296,6 +316,7 @@ namespace CalamityEntropy
             screen = null;
             screen2 = null;
             EffectLoader.UnLoad();
+            On_MapHeadRenderer.DrawPlayerHead -= drawPlayerHeadHook;
             On_Lighting.AddLight_int_int_int_float -= al_iiif;
             On_Lighting.AddLight_int_int_float_float_float -= al_iifff;
             On_Lighting.AddLight_Vector2_float_float_float -= al_vfff;

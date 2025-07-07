@@ -2333,6 +2333,21 @@ Items: {
 		// DisplayName: YanYu's Hat
 		// Tooltip: ""
 	}
+
+	LuminarDress: {
+		// DisplayName: Luminar Dress
+		// Tooltip: ""
+	}
+
+	LuminarRing: {
+		// DisplayName: Luminar Ring
+		// Tooltip: ""
+	}
+
+	LuminarTrousers: {
+		// DisplayName: Luminar Trousers
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2764,6 +2779,7 @@ Projectiles: {
 	// ShadowShoot.DisplayName: Shadow Shoot
 	// ShadowSpawner.DisplayName: Shadow Spawner
 	// AntivoidSlash.DisplayName: Antivoid Slash
+	// AntivoidDash.DisplayName: Antivoid Dash
 }
 
 LegendTooltip: - Legend -

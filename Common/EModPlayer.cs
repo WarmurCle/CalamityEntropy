@@ -48,6 +48,7 @@ namespace CalamityEntropy.Common
             {
                 p = CWRWeakRef.CWRRef.GetPlayersPressure(Player);
             }
+            
             return p;
         }
         public float CooldownTimeMult = 1;
@@ -544,7 +545,7 @@ namespace CalamityEntropy.Common
                 plWingTrail.Lifetime = 30;
                 plWingTrail.Position = Player.MountedCenter + Player.gfxOffY * Vector2.UnitY + Player.velocity;
                 plWingTrail.Color = Color.White * plWingTrailAlpha;
-                if (Player.velocity.Y != 0 && !Player.dead)
+                if (Player.velocity.Y != 0 && !Player.dead && Player.head != EquipLoader.GetEquipSlot(Mod, "LuminarRing", EquipType.Head))
                 {
                     plWingTrailAlpha += (1 - plWingTrailAlpha) * 0.1f;
                 }

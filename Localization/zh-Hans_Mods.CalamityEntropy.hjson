@@ -2505,6 +2505,21 @@ Items: {
 		DisplayName: 烟玉的双角帽
 		Tooltip: ""
 	}
+
+	LuminarDress: {
+		DisplayName: 幻光星裙
+		Tooltip: ""
+	}
+
+	LuminarRing: {
+		DisplayName: 幻光星环
+		Tooltip: ""
+	}
+
+	LuminarTrousers: {
+		DisplayName: 幻光星裤
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2936,6 +2951,7 @@ Projectiles: {
 	ShadowShoot.DisplayName: 暗影球
 	ShadowSpawner.DisplayName: 暗影飞刀
 	// AntivoidSlash.DisplayName: Antivoid Slash
+	// AntivoidDash.DisplayName: Antivoid Dash
 }
 
 LegendTooltip: - 传奇物品 -

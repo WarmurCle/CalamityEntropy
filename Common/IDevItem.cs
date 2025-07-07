@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             if (entity.ModItem != null && entity.ModItem is IDevItem i)
             {
-                entity.Calamity().donorItem = true;
+                entity.Calamity().devItem = true;
             }
         }
 

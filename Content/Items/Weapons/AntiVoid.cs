@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
@@ -12,6 +13,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
@@ -36,12 +38,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 16;
             Item.autoReuse = true;
             Item.scale = 2f;
-            Item.DamageType = DamageClass.MeleeNoSpeed;
+            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.damage = 100;
             Item.knockBack = 4;
             Item.crit = 6;
             Item.shoot = ModContent.ProjectileType<AntivoidSlash>();
-            Item.shootSpeed = 16;
+            Item.shootSpeed = 12;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ModContent.RarityType<VoidPurple>();
         }
@@ -49,9 +51,32 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             return true;
         }
+        public override bool CanShoot(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                Item.useTime = 20;
+                Item.useAnimation = 20;
+            }
+            else
+            {
+                Item.useTime = 8;
+                Item.useAnimation = 16;
+            }
+            return base.CanShoot(player);
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, CEUtils.randomRot().ToRotationVector2() * velocity.Length(), type, damage, knockback, player.whoAmI, Main.rand.NextBool() ? -1 : 1);
+            if(player.altFunctionUse == 2)
+            {
+                type = ModContent.ProjectileType<AntivoidDash>();
+                damage *= 4;
+            }
+            else
+            {
+                velocity = CEUtils.randomRot().ToRotationVector2() * velocity.Length();
+            }
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, Main.rand.NextBool() ? -1 : 1);
             return false;
         }
 
@@ -250,6 +275,49 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void CutTiles()
         {
             Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (160 * lg) * Projectile.scale * scale, 54, DelegateMethods.CutTiles);
+        }
+    }
+
+    public class AntivoidDash : ModProjectile
+    {
+        public override string Texture => CEUtils.WhiteTexPath;
+        public AntivoidTrail trail;
+        public StarTrailParticle trail2;
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Melee, true, -1);
+            Projectile.width = Projectile.height = 16;
+            Projectile.MaxUpdates = 4;
+            Projectile.timeLeft = 60;
+        }
+
+        public override void AI()
+        {
+            var player = Projectile.GetOwner();
+            player.Entropy().immune = 5;
+            if(trail == null)
+            {
+                trail = new AntivoidTrail();
+                trail2 = new StarTrailParticle() { addPoint = false, maxLength = 60 };
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(40, 10, 80, 255), 1, 1, true, BlendState.NonPremultiplied);
+                EParticle.spawnNew(trail2, Projectile.Center, Vector2.UnitX * 0.1f, new Color(255, 20, 20, 255), 1, 1, true, BlendState.Additive);
+            }
+            trail.AddPoint(Projectile.Center + Projectile.velocity);
+            trail2.Position = (Projectile.Center + new Vector2(0, -10));
+            trail2.AddPoint(trail2.Position);
+            trail.Lifetime = trail2.Lifetime = 30;
+            if (Projectile.ai[1]++ > 20)
+            {
+                Projectile.velocity *= 0.98f;
+            }
+            player.Center = Projectile.Center;
+            player.velocity = Projectile.velocity;
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.GetOwner().Center -= Projectile.velocity;
+            return base.OnTileCollide(oldVelocity);
         }
     }
 }
