@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
@@ -14,8 +15,10 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AntiVoid : ModItem
+    public class AntiVoid : ModItem, IDonatorItem
     {
+        public string DonatorName => "ChaLost";
+
         public override void SetStaticDefaults()
         {
 

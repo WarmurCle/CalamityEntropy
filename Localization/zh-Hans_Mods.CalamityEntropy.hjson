@@ -1209,7 +1209,7 @@ Items: {
 	}
 
 	AntiVoid: {
-		Tooltip:""
+		Tooltip: ""
 		DisplayName: 反虚之锋
 	}
 
