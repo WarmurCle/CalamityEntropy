@@ -3774,8 +3774,8 @@ InfernumIntros: {
 		'''
 }
 
-Donor: "捐赠者："
-Owner: "所有者："
+Donor: 捐赠者：
+Owner: 所有者：
 ShadowDashCD: 暗影突进冷却
 ShiftMoreInfo: 按住“左Shift”查看关于此特殊充能条的更多信息
 ShadowBar: 暗影值
