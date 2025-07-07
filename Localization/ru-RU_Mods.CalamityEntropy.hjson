@@ -2763,6 +2763,7 @@ Projectiles: {
 	// ShadowKnife.DisplayName: Shadow Knife
 	// ShadowShoot.DisplayName: Shadow Shoot
 	// ShadowSpawner.DisplayName: Shadow Spawner
+	// AntivoidSlash.DisplayName: Antivoid Slash
 }
 
 LegendTooltip: - Legend -

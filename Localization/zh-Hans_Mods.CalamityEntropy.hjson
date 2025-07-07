@@ -1209,7 +1209,7 @@ Items: {
 	}
 
 	AntiVoid: {
-		Tooltip: 未完成
+		Tooltip:""
 		DisplayName: 反虚之锋
 	}
 
@@ -2935,6 +2935,7 @@ Projectiles: {
 	ShadowKnife.DisplayName: 暗影飞刀
 	ShadowShoot.DisplayName: 暗影球
 	ShadowSpawner.DisplayName: 暗影飞刀
+	// AntivoidSlash.DisplayName: Antivoid Slash
 }
 
 LegendTooltip: - 传奇物品 -
