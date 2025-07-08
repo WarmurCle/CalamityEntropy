@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.GetModPlayer<EModPlayer>().SacrificeCard = true;
             player.lifeRegen = (int)(player.lifeRegen * 0.4f);
             player.Entropy().lifeRegenPerSec = (int)(player.Entropy().lifeRegenPerSec * 0.4f);
-            player.GetDamage(DamageClass.Generic) += 0.2f;
+            player.GetDamage(DamageClass.Generic) += 0.1f;
         }
 
         public override void AddRecipes()
