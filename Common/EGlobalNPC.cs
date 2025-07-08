@@ -877,12 +877,13 @@ namespace CalamityEntropy.Common
             }
             if (shaders.Count > 0)
             {
-                Main.spriteBatch.EnterShaderRegion();
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shaders[0], Main.GameViewMatrix.TransformationMatrix);
                 shaders[shaders.Count - 1].CurrentTechnique.Passes[0].Apply();
 
                 needExitShader = true;
             }
-            return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
+            return true;
         }
         public float hdStrength = 0;
         public bool needExitShader = false;
