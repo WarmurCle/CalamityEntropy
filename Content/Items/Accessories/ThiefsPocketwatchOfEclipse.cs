@@ -52,13 +52,6 @@ namespace CalamityEntropy.Content.Items.Accessories
                 .AddIngredient(ItemID.GoldWatch)
                 .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
-            CreateRecipe()
-                .AddIngredient<LurkersCharm>(4)
-                .AddIngredient<AscendantSpiritEssence>(4)
-                .AddIngredient<DarksunFragment>(20)
-                .AddIngredient(ItemID.PlatinumWatch)
-                .AddTile(ModContent.TileType<CosmicAnvil>())
-                .Register();
         }
     }
 }

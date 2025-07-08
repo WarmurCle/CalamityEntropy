@@ -754,72 +754,27 @@ namespace CalamityEntropy
             return MathHelper.ToRadians(tz);
 
         }
-        public static float rotatedToAngle(float rNow, float rTo, float rotateSpeed, bool sameSpeed = true)
-        {
-            float angleNow = MathHelper.ToDegrees(rNow);
-            float angleTo = MathHelper.ToDegrees(rTo);
-            if (angleNow > 180)
-            {
-                while (angleNow > 180)
-                {
-                    angleNow -= 360;
-                }
-            }
-            if (angleNow < -180)
-            {
-                while (angleNow < -180)
-                {
-                    angleNow += 360;
-                }
-            }
-            if (angleTo > 180)
-            {
-                while (angleTo > 180)
-                {
-                    angleTo -= 360;
-                }
-            }
-            if (angleTo < -180)
-            {
-                while (angleTo < -180)
-                {
-                    angleTo += 360;
-                }
-            }
-            float tz = 0;
-            if (Math.Abs(angleNow + 360 - angleTo) < Math.Abs(angleTo - angleNow))
-            {
-                tz = angleTo - angleNow - 360;
-            }
-            else
-            {
-                if (Math.Abs(angleTo + 360 - angleNow) < Math.Abs(angleTo - angleNow))
-                {
-                    tz = angleTo + 360 - angleNow;
-                }
-                else
-                {
-                    tz = angleTo - angleNow;
-                }
-            }
-            if (sameSpeed)
-            {
-                if (tz > rotateSpeed)
-                {
-                    tz = rotateSpeed;
-                }
-                if (tz < (rotateSpeed * -1))
-                {
-                    tz = rotateSpeed * -1;
-                }
-            }
-            else
-            {
-                tz *= rotateSpeed;
-            }
-            return MathHelper.ToRadians(angleNow + tz);
 
+        public static float rotatedToAngle(float currentRadians, float targetRadians, float rotateSpeed, bool useFixedSpeed = true)
+        {
+            currentRadians = MathHelper.WrapAngle(currentRadians);
+            targetRadians = MathHelper.WrapAngle(targetRadians);
+            
+            float difference = targetRadians - currentRadians;
+            float turnAmount = MathHelper.WrapAngle(difference);
+            
+            if (useFixedSpeed)
+            {
+                turnAmount = MathHelper.Clamp(turnAmount, -rotateSpeed, rotateSpeed);
+            }
+            else
+            {
+                turnAmount *= MathHelper.Clamp(rotateSpeed, 0f, 1f);
+            }
+            
+            return currentRadians + turnAmount;
         }
+
         public static void wormFollow(int npc1, int npc2, int spacing = 48, bool type2 = false, float t2speed = 0.2f, float jrot = 0, float angleP = 0f)
         {
             if (type2)
