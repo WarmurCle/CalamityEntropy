@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnShoot(EntropyBookHeldProjectile book)
         {
-            book.ShootSingleProjectile(book.baseProjectileType, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center).normalize().RotatedByRandom(0.8f), 0.22f, 0.28f, initAction: (proj) => { if (proj.ModProjectile is EBookBaseLaser ebbl){ ebbl.quickTime = 30; });
+            book.ShootSingleProjectile(book.baseProjectileType, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center).normalize().RotatedByRandom(0.8f), 0.22f, 0.28f, initAction: (proj) => { if (proj.ModProjectile is EBookBaseLaser ebbl) { ebbl.quickTime = 30; } });
         }
     }
 }
