@@ -41,9 +41,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.scale = 2f;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.damage = 579;
+            Item.damage = 444;
             Item.knockBack = 4;
-            Item.crit = 66;
+            Item.crit = 44;
             Item.shoot = ModContent.ProjectileType<AntivoidSlash>();
             Item.shootSpeed = 12;
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
