@@ -98,7 +98,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<VoidBlade>()
                 .AddIngredient<TwistingNether>(4)
                 .AddIngredient<DarkPlasma>(4)
-                .AddIngredient<RuinousSoul>(4);
+                .AddIngredient<RuinousSoul>(4)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
     }
 
