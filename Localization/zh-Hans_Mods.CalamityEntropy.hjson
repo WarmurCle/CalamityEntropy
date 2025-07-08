@@ -1945,7 +1945,11 @@ Items: {
 
 	BlessingHeatDeath: {
 		DisplayName: 赐福 『热寂』
-		Tooltip: ""
+		Tooltip: 
+		'''
+		挖掘热寂石获取
+		“藏匿于世界之中，诞生自宇宙之源”
+		'''
 	}
 
 	BlessingLastStand: {
@@ -3652,10 +3656,8 @@ ArmorPrefixHeatDeathDescription:
 	'''
 	+50% 防御
 	你将造成1.5倍的伤害
-	+2 虚空之触
 	周围敌怪将受到虚空的侵蚀
 	[c/ff0000:攻击附带热寂，但你的血量会持续流失]
-	“所以，你是怎么拿到这玩意的”
 	'''
 PrefixEnchanted: 注魔
 PrefixEnchantedDesc: +4% 强化魔力
