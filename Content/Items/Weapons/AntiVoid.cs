@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 type = ModContent.ProjectileType<AntivoidDash>();
                 damage *= 2;
-                player.AddCooldown(AntivoidDashCooldown.ID, 15);
+                player.AddCooldown(AntivoidDashCooldown.ID, 15 * 60);
                 player.RemoveAllGrapplingHooks();
                 if(player.mount.Active) 
                     player.mount.Dismount(player);
@@ -326,7 +326,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Projectile.ai[2]++ == 0)
             {
-                CEUtils.PlaySound("AntivoidDashSlash", 1, target.Center);
+                CEUtils.PlaySound("AntivoidDashHit", 1, target.Center);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<AntivoidMark>(), Projectile.damage * 3, 0, Projectile.owner, target.whoAmI);
             }
         }
@@ -343,11 +343,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Projectile.FriendlySetDefaults(DamageClass.Melee, false, -1);
             Projectile.light = 1;
-            Projectile.timeLeft = 18;
+            Projectile.timeLeft = 42;
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if (Projectile.ai[1] < 16)
+            if (Projectile.ai[1] < 39)
                 return false;
             return null;
         }
@@ -355,25 +355,29 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Projectile.Center = ((int)Projectile.ai[0]).ToNPC().Center;
             Projectile.ai[1]++;
-            if (Projectile.ai[1] == 15)
+            if (Projectile.ai[1] == 24)
             {
-                EParticle.spawnNew(new AbyssalLine() { xadd = 2f, lx = 3.6f }, Projectile.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, 0, 30);
-                EParticle.spawnNew(new AbyssalLine() { xadd = 1.6f, lx = 3f }, Projectile.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, 0, 30);
-                EParticle.spawnNew(new AbyssalLine() { xadd = 1.5f, lx = 2.2f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, 0, 30);
+                CEUtils.PlaySound("AntivoidDashSlash", 1, Projectile.Center);
+            }
+            if (Projectile.ai[1] == 39)
+            {
+                EParticle.spawnNew(new AbyssalLine() { xadd = 2.4f, lx = 3.6f }, Projectile.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, 0, 30);
+                EParticle.spawnNew(new AbyssalLine() { xadd = 2f, lx = 3f }, Projectile.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, 0, 30);
+                EParticle.spawnNew(new AbyssalLine() { xadd = 2f, lx = 2.8f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, 0, 30);
             }
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Projectile.ai[1] > 16)
+            if (Projectile.ai[1] > 40)
             {
                 return false;
             }
             Texture2D tex = Projectile.GetTexture();
-            Vector2 drawPos = Projectile.Center + CEUtils.Parabola((Projectile.ai[1] / 16f), 64) * -Vector2.UnitY;
-            float p = CEUtils.Parabola(Projectile.ai[1] * 2f / 16f, 1);
+            Vector2 drawPos = Projectile.Center + CEUtils.Parabola((Projectile.ai[1] / 40f), 180) * -Vector2.UnitY;
+            float p = CEUtils.Parabola((Projectile.ai[1] * 0.5f) / 40f, 1);
             float s = 1 + (1 - p) * 2;
             float alpha = p;
-            Vector2 scale = new Vector2(s * (float)Math.Cos(Main.GameUpdateCount * 0.25f), s);
+            Vector2 scale = new Vector2(Math.Abs(s * (float)Math.Cos(Main.GameUpdateCount * 0.25f)), s);
 
             Main.EntitySpriteDraw(tex, drawPos - Main.screenPosition, null, Color.White * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None);
             return false;

@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Cooldowns
     {
         public static new string ID => "AntivoidDash";
         public override bool ShouldDisplay => true;
-        public override LocalizedText DisplayName => Language.GetOrRegister("Mods.CalamityEntropy.CdDS");
+        public override LocalizedText DisplayName => Language.GetOrRegister("Mods.CalamityEntropy.CdAntivoid");
         public override string Texture => "CalamityEntropy/Content/Cooldowns/AntivoidDashCooldown";
         public override Color OutlineColor => new Color(197, 165, 108);
         public override Color CooldownStartColor => Color.Pink;

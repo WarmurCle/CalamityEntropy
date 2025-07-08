@@ -3231,6 +3231,7 @@ Enabled: Enabled
 Disabled: Disabled
 CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
+CdAntivoid: Antivoid Dash Cooldown
 CruiserBestiary:
 	'''
 	A supreme predator born from the void, bearing a resemblance to that Devourer of Gods you once encountered.

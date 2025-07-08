@@ -13,7 +13,7 @@ float4 EffectFunction(float2 coords : TEXCOORD0) : COLOR0
     {
         z = (color2.r - 0.7) * 3;
     }
-    return ((color2 * float4(0.2, 0.06, 0.3, color2.r + z)) + (color1 * float4(1, 0.24, 0.586, color2.r + z)) * color2.r + color3 * float4(0.3, 0.2, 0.8, 0.2 * color3.r * (color2.r + z))) * float4(1, 1, 1, alpha);
+    return ((color2 * float4(0.2, 0.06, 0.3, color2.r + z)) + (float4(color1.r, color1.g, color1.b, color1.r) * float4(1, 0.24, 0.586, color2.r + z)) * color2.r + color3 * float4(0.3, 0.2, 0.8, 0.2 * color3.r * (color2.r + z))) * float4(1, 1, 1, alpha);
 }
 
 technique Technique1
