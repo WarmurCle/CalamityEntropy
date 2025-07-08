@@ -1945,11 +1945,11 @@ Items: {
 
 	BlessingHeatDeath: {
 		DisplayName: 赐福 『热寂』
-		Tooltip: 
-		'''
-		挖掘热寂石获取
-		“藏匿于世界之中，诞生自宇宙之源”
-		'''
+		Tooltip:
+			'''
+			挖掘热寂石获取
+			“藏匿于世界之中，诞生自宇宙之源”
+			'''
 	}
 
 	BlessingLastStand: {
