@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -40,12 +41,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.scale = 2f;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.damage = 100;
+            Item.damage = 1836;
             Item.knockBack = 4;
             Item.crit = 6;
             Item.shoot = ModContent.ProjectileType<AntivoidSlash>();
             Item.shootSpeed = 12;
-            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
+            Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
             Item.rare = ModContent.RarityType<VoidPurple>();
         }
         public override bool AltFunctionUse(Player player)
@@ -93,6 +94,11 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<VoidBlade>()
+                .AddIngredient<TwistingNether>(4)
+                .AddIngredient<DarkPlasma>(4)
+                .AddIngredient<RuinousSoul>(4);
         }
     }
 
