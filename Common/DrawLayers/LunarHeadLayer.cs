@@ -28,6 +28,7 @@ namespace CalamityEntropy.Common.DrawLayers
         {
             var player = drawInfo.drawPlayer;
             Texture2D texture = CEUtils.getExtraTex("LunarHairs/Stand" + ((Main.GameUpdateCount / 8) % 3).ToString());
+            
             if(player.velocity.Y > 0)
             {
                 texture = CEUtils.getExtraTex("LunarHairs/Fall");
@@ -41,6 +42,12 @@ namespace CalamityEntropy.Common.DrawLayers
             }
             Vector2 headPos = drawInfo.HeadPosition(true);
             drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, drawInfo.colorArmorHead, drawInfo.drawPlayer.headRotation, new Vector2(drawInfo.playerEffect == SpriteEffects.FlipHorizontally ? texture.Width - 28 : 28, texture.Height / 2f + 3), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
+
+            if(Main.GameUpdateCount % 320 > 310)
+            {
+                texture = CEUtils.getExtraTex("LunarHairs/Blink");
+                drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, drawInfo.colorArmorHead, drawInfo.drawPlayer.headRotation, new Vector2(drawInfo.playerEffect == SpriteEffects.FlipHorizontally ? texture.Width - 28 : 28, texture.Height / 2f + 3), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
+            }
 
             texture = CEUtils.getExtraTex("LuminarRing");
             headPos = drawInfo.HeadPosition(false);
