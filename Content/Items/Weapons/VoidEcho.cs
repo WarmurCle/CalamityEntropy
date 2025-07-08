@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = null;
             Item.shoot = ModContent.ProjectileType<VBSpawner>();
             Item.shootSpeed = 1f;
-            Item.mana = 110;
+            Item.mana = 300;
             Item.useStyle = -1;
             Item.noMelee = true;
             Item.Entropy().stroke = true;
