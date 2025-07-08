@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 250;
+            Item.damage = 200;
             Item.DamageType = DamageClass.Magic;
             Item.width = 96;
             Item.noUseGraphic = true;
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = null;
             Item.shoot = ModContent.ProjectileType<PrisonOfPermafrostCircle>();
             Item.shootSpeed = 1f;
-            Item.mana = 20;
+            Item.mana = 14;
             Item.useStyle = -1;
             Item.noMelee = true;
             Item.crit = 7;

@@ -861,7 +861,7 @@ Items: {
 		Tooltip:
 			'''
 			-60% Life Regen
-			+20% Damage
+			+10% Damage
 			'''
 	}
 

@@ -23,13 +23,13 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 185;
+            Item.damage = 105;
             Item.crit = 0;
             Item.DamageType = DamageClass.Summon;
             Item.width = 64;
             Item.height = 64;
-            Item.useTime = 16;
-            Item.useAnimation = 16;
+            Item.useTime = 9;
+            Item.useAnimation = 9;
             Item.knockBack = 2;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
             Item.shoot = ModContent.ProjectileType<PlanetKiller>();

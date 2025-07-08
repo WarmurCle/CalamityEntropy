@@ -41,9 +41,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.scale = 2f;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.damage = 1836;
+            Item.damage = 444;
             Item.knockBack = 4;
-            Item.crit = 6;
+            Item.crit = 44;
             Item.shoot = ModContent.ProjectileType<AntivoidSlash>();
             Item.shootSpeed = 12;
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
@@ -97,7 +97,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient<VoidBlade>()
                 .AddIngredient<TwistingNether>(4)
-                .AddIngredient<DarkPlasma>(4)
                 .AddIngredient<RuinousSoul>(4)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
