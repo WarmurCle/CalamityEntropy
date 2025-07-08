@@ -1492,14 +1492,6 @@ namespace CalamityEntropy.Common
                 ;
                 itemLoot.AddIf(getsDD, ModContent.ItemType<DreamCatcher>());
 
-                static bool getsDM(DropAttemptInfo info)
-                {
-                    string playerName = info.player.name;
-                    return playerName.ToLower().Contains("puslin");
-                }
-                ;
-                itemLoot.AddIf(getsDM, ModContent.ItemType<SilverFramedGlasses>());
-
 
                 static bool getsCHA(DropAttemptInfo info)
                 {
