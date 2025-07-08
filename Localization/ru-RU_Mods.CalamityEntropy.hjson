@@ -2353,6 +2353,11 @@ Items: {
 		// DisplayName: Lunar Mulse
 		// Tooltip: ""
 	}
+
+	CDRemove: {
+		// DisplayName: Test Item - Remove All Cooldowns
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

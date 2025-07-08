@@ -2530,6 +2530,11 @@ Items: {
 		DisplayName: 月光蜜水
 		Tooltip: ""
 	}
+
+	CDRemove: {
+		DisplayName: 测试物品-移除所有冷却
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
