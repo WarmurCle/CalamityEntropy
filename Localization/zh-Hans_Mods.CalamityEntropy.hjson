@@ -485,7 +485,7 @@ Items: {
 	}
 
 	DustyStar: {
-		Tooltip: 所有者：Polaris
+		Tooltip: ""
 		DisplayName: 尘封之星
 	}
 
@@ -841,11 +841,6 @@ Items: {
 
 	DreamCatcher: {
 		DisplayName: 捕梦网
-		Tooltip: 所有者：梦龙
-	}
-
-	UhrwerkHammer: {
-		DisplayName: 核心熔解
 		Tooltip: ""
 	}
 
@@ -866,7 +861,7 @@ Items: {
 
 	ToyKnife: {
 		DisplayName: 玩具刀
-		Tooltip: 所有者：Chalost
+		Tooltip: ""
 	}
 
 	DeusCore: {
@@ -1003,7 +998,7 @@ Items: {
 
 	Antler: {
 		DisplayName: 鹿角
-		Tooltip: 所有者：锯角
+		Tooltip: ""
 	}
 
 	ReincarnationBadge: {
@@ -1017,7 +1012,7 @@ Items: {
 	}
 
 	CrimsonNight: {
-		Tooltip: 所有者：Away Astral
+		Tooltip: ""
 		DisplayName: 绯夜
 	}
 

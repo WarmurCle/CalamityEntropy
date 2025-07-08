@@ -1,12 +1,15 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class MosHat : ModItem
+    public class MosHat : ModItem, IDonatorItem
     {
+        public string DonatorName => "momodzmz";
+
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)

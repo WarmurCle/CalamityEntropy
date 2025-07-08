@@ -764,11 +764,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	UhrwerkHammer: {
-		DisplayName: Kernschmelze
-		Tooltip: ""
-	}
-
 	AquaticFlute: {
 		Tooltip: ""
 		DisplayName: Aquatic Flute

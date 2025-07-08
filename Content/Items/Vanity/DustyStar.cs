@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityMod;
 using CalamityMod.Items.Materials;
 using System;
 using Terraria;
@@ -7,8 +8,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class DustyStar : ModItem
+    public class DustyStar : ModItem, IDevItem
     {
+        public string DevName => "Polaris";
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)

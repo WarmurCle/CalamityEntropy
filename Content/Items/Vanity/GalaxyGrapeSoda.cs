@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Pets;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Pets;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using Terraria;
@@ -7,8 +8,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class GalaxyGrapeSoda : ModItem
+    public class GalaxyGrapeSoda : ModItem, IDevItem
     {
+        public string DevName => "Fr9e_es";
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)

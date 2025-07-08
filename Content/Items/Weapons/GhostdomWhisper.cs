@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class GhostdomWhisper : ModItem
+    public class GhostdomWhisper : ModItem, IDevItem
     {
         public override void SetDefaults()
         {
@@ -32,9 +33,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAmmo = AmmoID.Arrow;
             Item.channel = true;
             Item.noUseGraphic = true;
-            Item.Calamity().devItem = true;
         }
         public bool cs = false;
+
+        public string DevName => "Polaris";
+
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return cs;

@@ -1,12 +1,14 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class ToyKnife : ModItem
+    public class ToyKnife : ModItem, IDevItem
     {
+        public string DevName => "ChaLost";
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)

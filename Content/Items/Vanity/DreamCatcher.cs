@@ -1,12 +1,14 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class DreamCatcher : ModItem
+    public class DreamCatcher : ModItem, IDonatorItem
     {
+        public string DonatorName => "DreamDragon";
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)

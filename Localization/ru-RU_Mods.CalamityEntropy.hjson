@@ -756,11 +756,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	UhrwerkHammer: {
-		DisplayName: Крах
-		Tooltip: ""
-	}
-
 	AquaticFlute: {
 		Tooltip: ""
 		DisplayName: Водная флейта

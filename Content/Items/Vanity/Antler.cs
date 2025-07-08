@@ -1,12 +1,14 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class Antler : ModItem
+    public class Antler : ModItem, IDevItem
     {
+        public string DevName => "锯角";
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)
@@ -42,7 +44,6 @@ namespace CalamityEntropy.Content.Items.Vanity
             Item.value = CalamityMod.Items.CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.vanity = true;
-            Item.Calamity().devItem = true;
         }
 
         public override void UpdateVanity(Player player)
