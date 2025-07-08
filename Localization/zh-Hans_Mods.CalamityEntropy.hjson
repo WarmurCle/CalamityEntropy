@@ -1209,7 +1209,12 @@ Items: {
 	}
 
 	AntiVoid: {
-		Tooltip: ""
+		Tooltip: 
+		'''
+		释放大量的符文斩
+		右键向光标位置进行一次中距离的冲刺，在击中的第一个目标除生成一个虚空标记
+		标记会在短时间后落下并释放横向斩击
+		'''
 		DisplayName: 反虚之锋
 	}
 
@@ -2955,10 +2960,10 @@ Projectiles: {
 	ShadowKnife.DisplayName: 暗影飞刀
 	ShadowShoot.DisplayName: 暗影球
 	ShadowSpawner.DisplayName: 暗影飞刀
-	// AntivoidSlash.DisplayName: Antivoid Slash
-	// AntivoidDash.DisplayName: Antivoid Dash
-	// LuminarGrave.DisplayName: Luminar Grave
-	// AntivoidMark.DisplayName: Antivoid Mark
+	AntivoidSlash.DisplayName: 返虚之锋符文斩
+	AntivoidDash.DisplayName: 返虚冲刺
+	LuminarGrave.DisplayName: 幻光碑石
+	AntivoidMark.DisplayName: 返虚之印
 }
 
 LegendTooltip: - 传奇物品 -

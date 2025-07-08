@@ -1104,8 +1104,13 @@ Items: {
 	}
 
 	AntiVoid: {
-		Tooltip: ""
-		DisplayName: Anti Void
+		Tooltip:
+		'''
+		Releases multiple Rune Slashes
+		Right-click dashes mid-range toward cursor, placing a Void Sigil on first target hit
+		After a brief delay, the sigil detonates with horizontal slashes
+		'''
+		DisplayName: Antivoid
 	}
 
 	AbyssLantern: {
