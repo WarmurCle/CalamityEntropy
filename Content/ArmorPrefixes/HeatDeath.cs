@@ -10,7 +10,6 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         public override void UpdateEquip(Player player, Item item)
         {
             player.GetDamage(DamageClass.Generic) *= 1.5f;
-            player.Entropy().AttackVoidTouch += 0.36f;
             player.Entropy().addEquip("HEATDEATH");
             if (Main.GameUpdateCount % 40 == 0)
             {
