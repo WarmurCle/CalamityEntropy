@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Projectiles
                             EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity * 22, Projectile.velocity * -0.6f, Color.LightGoldenrodYellow, 0.16f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
                         }
                     }
-                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), CanHit ? 0.8f : 0.06f, false);
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), CanHit ? 0.8f : 0.06f, false);
                 }
                 else
                 {

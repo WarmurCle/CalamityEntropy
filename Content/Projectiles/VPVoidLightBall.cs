@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Player target = ((int)Projectile.ai[2]).ToNPC().target.ToPlayer();
                     if (Projectile.ai[1] == 0)
                     {
-                        Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.12f, false);
+                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.12f, false);
                     }
                     if (counter <= 1)
                     {
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
                         }
                         else
                         {
-                            Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 1, false);
+                            Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 1, false);
                         }
 
                     }

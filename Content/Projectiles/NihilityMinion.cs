@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     else
                     {
-                        Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 70);
+                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 70f.ToRadians());
                     }
                     Projectile.velocity *= 0.92f;
                 }
@@ -154,7 +154,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.velocity *= 0.982f;
                     }
                 }
-                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.12f, false);
+                Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.12f, false);
             }
             Projectile.pushByOther(0.4f);
         }

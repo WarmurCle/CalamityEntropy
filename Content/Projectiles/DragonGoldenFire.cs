@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
                 v.Normalize();
 
                 Projectile.velocity += v * 0.09f;
-                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 3, true));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 3f.ToRadians(), true));
             }
 
 

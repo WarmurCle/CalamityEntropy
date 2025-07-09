@@ -451,7 +451,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 }
                 if (AIChangeCounter <= 200 && AIChangeCounter >= 180)
                 {
-                    NPC.rotation = CEUtils.rotatedToAngle(num1, num2, CEUtils.GetRepeatedCosFromZeroToOne(Utils.Remap(AIChangeCounter, 200, 180, 0, 1), 1), false);
+                    NPC.rotation = CEUtils.RotateTowardsAngle(num1, num2, CEUtils.GetRepeatedCosFromZeroToOne(Utils.Remap(AIChangeCounter, 200, 180, 0, 1), 1), false);
                 }
                 if (AIChangeCounter == 130)
                 {
@@ -460,12 +460,12 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 }
                 if (AIChangeCounter <= 130 && AIChangeCounter >= 110)
                 {
-                    NPC.rotation = CEUtils.rotatedToAngle(num1, num2, Utils.Remap(AIChangeCounter, 130, 110, 0, 1), false);
+                    NPC.rotation = CEUtils.RotateTowardsAngle(num1, num2, Utils.Remap(AIChangeCounter, 130, 110, 0, 1), false);
                 }
                 if (AIChangeCounter < 110 || (AIChangeCounter > 130 && AIChangeCounter < 180))
                 {
                     NPC.velocity = (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 40;
-                    NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2, 0.2f * enrange);
+                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (player.Center - NPC.Center).ToRotation() + MathHelper.PiOver2, 0.25f * enrange.ToRadians(), true);
                 }
             }
             if (ai == AIStyle.AstralSpike)

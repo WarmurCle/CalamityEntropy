@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     if (p >= 0)
                     {
                         Player player = p.ToPlayer();
-                        Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (player.Center + player.velocity * 12 - Projectile.Center).ToRotation(), 0.1f, false);
+                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (player.Center + player.velocity * 12 - Projectile.Center).ToRotation(), 0.1f, false);
                     }
                 }
             }

@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY + Projectile.rotation.ToRotationVector2() * 40 + new Vector2(0, -20);
                 player.Calamity().mouseWorldListener = true;
                 float targetRot = (player.Calamity().mouseWorld - player.MountedCenter).ToRotation();
-                Projectile.velocity = CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), targetRot, 4, true).ToRotationVector2() * player.HeldItem.shootSpeed;
+                Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), targetRot, 4f.ToRadians(), true).ToRotationVector2() * player.HeldItem.shootSpeed;
                 player.direction = Math.Sign(Projectile.velocity.X);
             }
             else

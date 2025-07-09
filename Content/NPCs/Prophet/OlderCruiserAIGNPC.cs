@@ -212,13 +212,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     {
                         if (this.phase == 1)
                         {
-                            NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.028f, false);
-                            NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 1.25f, true);
+                            NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.028f, false);
+                            NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 1.25f.ToRadians(), true);
                         }
                         else
                         {
-                            NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.025f, false);
-                            NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.7f, true);
+                            NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.025f, false);
+                            NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.7f.ToRadians(), true);
                         }
                         NPC.velocity = Utils.ToRotationVector2(NPC.rotation) * this.speed * this.speedMuti;
                         this.targetSpeed = 18f;
@@ -240,7 +240,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     {
                         NPC.velocity = Utils.ToRotationVector2(NPC.rotation) * this.speed * this.speedMuti;
                         this.targetSpeed = 30f;
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.2f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.2f.ToRadians(), true);
                         this.nrc++;
                         if (CEUtils.getDistance(NPC.Center, targetPlayerr.Center) > 1400f || this.nrc > 100)
                         {
@@ -368,7 +368,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             else
                             {
                                 this.targetSpeed = 16f;
-                                NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center + Utils.SafeNormalize(NPC.Center - targetPlayerr.Center, Vector2.One) * 1500f - NPC.Center), 0.08f, false);
+                                NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center + Utils.SafeNormalize(NPC.Center - targetPlayerr.Center, Vector2.One) * 1500f - NPC.Center), 0.08f, false);
                             }
                         }
                     }
@@ -439,7 +439,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     }
                     if (this.changeCounter > 400)
                     {
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.5f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.5f.ToRadians(), true);
                         NPC.velocity = Utils.ToRotationVector2(NPC.rotation) * this.speed;
                     }
                     else
@@ -454,8 +454,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     this.maxDistanceTarget = 1850;
                     if (NPC.ai[1] == 1f)
                     {
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.01f, false);
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.5f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.01f, false);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.5f.ToRadians(), true);
                         NPC.velocity = Utils.ToRotationVector2(NPC.rotation) * this.speed * this.speedMuti;
                         this.targetSpeed = 18f;
                         this.nrc++;
@@ -476,7 +476,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     {
                         NPC.velocity = Utils.ToRotationVector2(NPC.rotation) * this.speed * this.speedMuti;
                         this.targetSpeed = 30f;
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 1.7f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 1.7f.ToRadians(), true);
                         this.nrc++;
                         if (CEUtils.getDistance(NPC.Center, targetPlayerr.Center) > 1400f || this.nrc > 100)
                         {
@@ -493,13 +493,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     {
                         this.maxDistanceTarget = 6000;
                         this.targetSpeed = 80f;
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.2f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 0.2f.ToRadians(), true);
                     }
                     else if (this.changeCounter > 140)
                     {
                         this.maxDistanceTarget = 6000;
                         this.targetSpeed = 6f;
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 5f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 5f.ToRadians(), true);
                     }
                     else if (this.changeCounter > 80)
                     {
@@ -508,7 +508,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     else
                     {
                         this.targetSpeed = 0f;
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 1.7f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center - NPC.Center), 1.7f.ToRadians(), true);
                     }
                     if (this.changeCounter == 100 && Main.netMode != 1)
                     {
@@ -538,11 +538,11 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     }
                     if (this.changeCounter < 60)
                     {
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center + targetPlayerr.velocity * 15f - NPC.Center), 1.7f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center + targetPlayerr.velocity * 15f - NPC.Center), 1.7f.ToRadians(), true);
                     }
                     if (this.changeCounter > 140 && this.changeCounter < 200)
                     {
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center + targetPlayerr.velocity * 15f - NPC.Center), 1.7f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, Utils.ToRotation(targetPlayerr.Center + targetPlayerr.velocity * 15f - NPC.Center), 1.7f.ToRadians(), true);
                     }
                     if (this.changeCounter > 260)
                     {

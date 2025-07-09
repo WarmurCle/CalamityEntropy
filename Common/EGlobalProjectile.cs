@@ -591,7 +591,7 @@ namespace CalamityEntropy.Common
                 if (target != null && counter > 15)
                 {
                     gwHoming += (6 - gwHoming) * 0.0004f;
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), gwHoming * projectile.velocity.Length(), true));
+                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), gwHoming.ToRadians() * projectile.velocity.Length(), true));
                 }
             }
             if (projectile.Entropy().daTarget)

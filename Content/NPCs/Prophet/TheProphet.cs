@@ -152,7 +152,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public float rl = 0;
         public override void AI()
         {
-            rl = CEUtils.rotatedToAngle(rl, NPC.rotation, 0.1f, false);
+            rl = CEUtils.RotateTowardsAngle(rl, NPC.rotation, 0.1f, false);
             UpdateFins();
             if (!Main.dedServ)
             {
@@ -375,7 +375,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 {
                     NPC.velocity *= 0.96f;
                     NPC.velocity += (NPC.Center - target.Center).normalize().RotatedBy(MathHelper.PiOver2) * (NPC.Center.X < target.Center.X ? 0.1f : -0.1f);
-                    NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (target.Center - NPC.Center).ToRotation(), 0.6f, false);
+                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (target.Center - NPC.Center).ToRotation(), 0.6f, false);
                     if (AIChangeDelay >= 30 && AIChangeDelay % (phase == 1 ? 60 : 46) == 0)
                     {
                         TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 1000 / difficult);
@@ -710,7 +710,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     if (flag)
                     {
                         NPC.velocity = (target.Center + (NPC.Center - target.Center).normalize() * 160 - NPC.Center) * 0.08f;
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, NPC.velocity.ToRotation(), 0.06f, false);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, NPC.velocity.ToRotation(), 0.06f, false);
                     }
                 }
                 if (AIStyle == 8)//大激光

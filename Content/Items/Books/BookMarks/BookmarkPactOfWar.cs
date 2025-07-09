@@ -110,7 +110,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.velocity = (tpos - Projectile.Center);
             }
             tpos.X -= 400;
-            Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (Projectile.velocity.Length() > 4 && target == null ? Projectile.velocity.ToRotation() : (tpos - Projectile.Center).ToRotation()), 20, true);
+            Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (Projectile.velocity.Length() > 4 && target == null ? Projectile.velocity.ToRotation() : (tpos - Projectile.Center).ToRotation()), 20f.ToRadians(), true);
             if (target != null)
             {
                 Projectile.rotation = (target.Center - Projectile.Center).ToRotation();
@@ -187,9 +187,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 v2[i].pos = uposd - (uposd - v2[i].pos).SafeNormalize(-Vector2.UnitX) * 12;
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
-                v1[i].rot = CEUtils.rotatedToAngle(v1[i].rot, urotu, 0.76f, false);
+                v1[i].rot = CEUtils.RotateTowardsAngle(v1[i].rot, urotu, 0.76f, false);
                 v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12 * Projectile.scale;
-                v2[i].rot = CEUtils.rotatedToAngle(v2[i].rot, urotd, 0.76f, false);
+                v2[i].rot = CEUtils.RotateTowardsAngle(v2[i].rot, urotd, 0.76f, false);
                 v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12 * Projectile.scale;
 
                 if (i == 0)
@@ -270,7 +270,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.velocity = (tpos - Projectile.Center);
             }
             tpos.X += 400;
-            Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (Projectile.velocity.Length() > 4 && target == null ? Projectile.velocity.ToRotation() : (tpos - Projectile.Center).ToRotation()), 20, true);
+            Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (Projectile.velocity.Length() > 4 && target == null ? Projectile.velocity.ToRotation() : (tpos - Projectile.Center).ToRotation()), 20f.ToRadians(), true);
             if (target != null)
             {
                 Projectile.rotation = (target.Center - Projectile.Center).ToRotation();
@@ -347,9 +347,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 v2[i].pos = uposd - (uposd - v2[i].pos).SafeNormalize(-Vector2.UnitX) * 12;
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
-                v1[i].rot = CEUtils.rotatedToAngle(v1[i].rot, urotu, 0.76f, false);
+                v1[i].rot = CEUtils.RotateTowardsAngle(v1[i].rot, urotu, 0.76f, false);
                 v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12 * Projectile.scale;
-                v2[i].rot = CEUtils.rotatedToAngle(v2[i].rot, urotd, 0.76f, false);
+                v2[i].rot = CEUtils.RotateTowardsAngle(v2[i].rot, urotd, 0.76f, false);
                 v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12 * Projectile.scale;
 
                 if (i == 0)

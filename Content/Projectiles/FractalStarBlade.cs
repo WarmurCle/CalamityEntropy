@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
                 pg = counter / (46 * Projectile.MaxUpdates);
                 Projectile.rotation += rotSpeed * (1 - pg);
                 rotSpeed *= 0.99f;
-                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.022f * pg, false);
+                Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.022f * pg, false);
 
             }
             else

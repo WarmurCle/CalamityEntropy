@@ -196,7 +196,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     MoveToTarget(Position, 24, 0.3f);
                     AttackShooting(target);
-                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 8f, true);
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 8f.ToRadians(), true);
                 }
             }
             else
@@ -215,7 +215,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     SimpleStandBy(mypos, 0.3f);
                 }
-                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
+                Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
             }
             if (Projectile.owner == Main.myPlayer)
             {

@@ -63,15 +63,15 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         l += 0.01f;
                     }
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.6f * l, false));
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1.4f * l, true));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.6f * l, false));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1.4f * l.ToRadians(), true));
                     if (CEUtils.getDistance(Projectile.Center, target.Center) < 100)
                     {
                         if (c < 1)
                         {
                             c += 0.1f;
                         }
-                        Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), c, false));
+                        Projectile.velocity = new Vector2(Projectile.velocity.Length() + 2f, 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), c, false));
 
                     }
                 }

@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity *= 0.9f;
             }
 
-            Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
+            Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.3f, false);
 
         }
         public override bool PreDraw(ref Color lightColor)

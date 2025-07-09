@@ -65,8 +65,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
             tailP = bodyP + (tailP - bodyP).SafeNormalize(Vector2.Zero) * 32;
             float br = (Projectile.Center - bodyP).ToRotation();
             float tr = (bodyP - tailP).ToRotation();
-            br = CEUtils.rotatedToAngle(br, Projectile.rotation, 0.1f, false);
-            tr = CEUtils.rotatedToAngle(tr, br, 0.1f, false);
+            br = CEUtils.RotateTowardsAngle(br, Projectile.rotation, 0.1f, false);
+            tr = CEUtils.RotateTowardsAngle(tr, br, 0.1f, false);
             bodyP = Projectile.Center - br.ToRotationVector2() * 32;
             tailP = bodyP - tr.ToRotationVector2() * 32;
             if (CEUtils.getDistance(Projectile.Center, targetPos) > 1800)

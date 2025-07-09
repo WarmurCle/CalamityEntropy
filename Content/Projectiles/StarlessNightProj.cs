@@ -116,7 +116,7 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             Projectile.direction = (Main.MouseWorld - owner.Center).X > 0 ? 1 : -1;
                             float targetrot = (Main.MouseWorld - owner.Center).ToRotation() - 2.42f * Projectile.direction;
-                            Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, targetrot, 0.07f * meleeSpeed, false);
+                            Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetrot, 0.07f * meleeSpeed, false);
                         }
                     }
                     if (Projectile.ai[0] > 100 * updates)

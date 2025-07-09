@@ -21,12 +21,12 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
             {
                 Projectile.velocity *= 0.96f;
                 Projectile.velocity += ((t.Center + (Projectile.Center - t.Center).SafeNormalize(Vector2.Zero) * (140 + (t.width + t.height) / 2)) - Projectile.Center).SafeNormalize(Vector2.Zero) * 1f;
-                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (t.Center - Projectile.Center).ToRotation(), 0.2f, false);
+                Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (t.Center - Projectile.Center).ToRotation(), 0.2f, false);
 
             }
             else
             {
-                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.4f, false);
+                Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.4f, false);
             }
             if (counter == 88 && Main.myPlayer == Projectile.owner)
             {

@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 if (plr >= 0)
                 {
                     Player player = plr.ToPlayer();
-                    Projectile.velocity = CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (player.Center - Projectile.Center).ToRotation(), rotspeed).ToRotationVector2() * Projectile.velocity.Length();
+                    Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (player.Center - Projectile.Center).ToRotation(), rotspeed.ToRadians()).ToRotationVector2() * Projectile.velocity.Length();
                 }
                 if (Projectile.ai[0] > 440)
                 {

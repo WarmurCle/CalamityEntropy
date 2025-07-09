@@ -34,8 +34,8 @@ namespace CalamityEntropy.Content.Projectiles
                 NPC homing = Projectile.FindTargetWithinRange(900, true);
                 if (homing != null)
                 {
-                    Projectile.velocity = (CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (homing.Center - Projectile.Center).ToRotation(), 1 * homingSpeed)).ToRotationVector2() * Projectile.velocity.Length();
-                    Projectile.velocity = (CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (homing.Center - Projectile.Center).ToRotation(), 0.12f * homingSpeed, false)).ToRotationVector2() * Projectile.velocity.Length();
+                    Projectile.velocity = (CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (homing.Center - Projectile.Center).ToRotation(), 1 * homingSpeed.ToRadians())).ToRotationVector2() * Projectile.velocity.Length();
+                    Projectile.velocity = (CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (homing.Center - Projectile.Center).ToRotation(), 0.12f * homingSpeed, false)).ToRotationVector2() * Projectile.velocity.Length();
                 }
                 else
                 {

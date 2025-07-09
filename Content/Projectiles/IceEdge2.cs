@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
             }
-            Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.1f, false);
+            Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.1f, false);
 
         }
         public float op = 0;

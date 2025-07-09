@@ -64,9 +64,9 @@ namespace CalamityEntropy.Content.Projectiles
                 v2[i].pos = uposd - (uposd - v2[i].pos).SafeNormalize(-Vector2.UnitX) * 12;
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
-                v1[i].rot = CEUtils.rotatedToAngle(v1[i].rot, urotu, 0.67f, false);
+                v1[i].rot = CEUtils.RotateTowardsAngle(v1[i].rot, urotu, 0.67f, false);
                 v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12;
-                v2[i].rot = CEUtils.rotatedToAngle(v2[i].rot, urotd, 0.67f, false);
+                v2[i].rot = CEUtils.RotateTowardsAngle(v2[i].rot, urotd, 0.67f, false);
                 v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12;
 
             }

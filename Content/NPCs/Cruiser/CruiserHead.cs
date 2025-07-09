@@ -508,7 +508,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                     }
                     float rot = (oPos - bodies[i]).ToRotation();
-                    rot = CEUtils.rotatedToAngle(rot, oRot, 0.12f, false);
+                    rot = CEUtils.RotateTowardsAngle(rot, oRot, 0.12f, false);
 
                     int spacing = 80;
                     bodies[i] = oPos - rot.ToRotationVector2() * spacing * NPC.scale;
@@ -835,7 +835,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         if (ai == AIStyle.VoidSpike)
                         {
                             NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (46 - NPC.velocity.Length()) * 0.08f);
-                            NPC.velocity = CEUtils.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.0376f, false).ToRotationVector2() * NPC.velocity.Length();
+                            NPC.velocity = CEUtils.RotateTowardsAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.0376f, false).ToRotationVector2() * NPC.velocity.Length();
                             changeCounter++;
                             if (changeCounter == 40 || changeCounter == 60 || changeCounter == 80 || changeCounter == 100)
                             {
@@ -927,7 +927,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         if (ai == AIStyle.AroundSpawnVoidBomb)
                         {
                             NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (32 - NPC.velocity.Length()) * 0.08f);
-                            NPC.velocity = CEUtils.rotatedToAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.028f, false).ToRotationVector2() * NPC.velocity.Length();
+                            NPC.velocity = CEUtils.RotateTowardsAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.028f, false).ToRotationVector2() * NPC.velocity.Length();
 
                             changeCounter++;
                             if (changeCounter < 180)
@@ -1237,7 +1237,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     }
                 }
                 float rot = (oPos - bodies[i]).ToRotation();
-                rot = CEUtils.rotatedToAngle(rot, oRot, 0.12f, false);
+                rot = CEUtils.RotateTowardsAngle(rot, oRot, 0.12f, false);
 
                 int spacing = 80;
                 bodies[i] = oPos - rot.ToRotationVector2() * spacing * NPC.scale;

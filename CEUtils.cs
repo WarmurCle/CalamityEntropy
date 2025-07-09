@@ -755,7 +755,11 @@ namespace CalamityEntropy
 
         }
 
-        public static float rotatedToAngle(float currentRadians, float targetRadians, float rotateSpeed, bool useFixedSpeed = true)
+        public static float ToRadians(this float f)
+        {
+            return MathHelper.ToRadians(f);
+        }
+        public static float RotateTowardsAngle(float currentRadians, float targetRadians, float rotateSpeed, bool useFixedSpeed = true)
         {
             currentRadians = MathHelper.WrapAngle(currentRadians);
             targetRadians = MathHelper.WrapAngle(targetRadians);
@@ -782,9 +786,9 @@ namespace CalamityEntropy
                 NPC npc = Main.npc[npc1];
                 NPC targetNPC = Main.npc[npc2];
                 float rot = npc.rotation - jrot;
-                npc.rotation = rotatedToAngle(rot, targetNPC.rotation + angleP - jrot, t2speed, false) + jrot;
+                npc.rotation = RotateTowardsAngle(rot, targetNPC.rotation + angleP - jrot, t2speed, false) + jrot;
                 npc.Center = targetNPC.Center;
-                Vector2 displacement = (rotatedToAngle(rot, targetNPC.rotation + angleP - jrot, t2speed, false)).ToRotationVector2() * -1 * spacing;
+                Vector2 displacement = (RotateTowardsAngle(rot, targetNPC.rotation + angleP - jrot, t2speed, false)).ToRotationVector2() * -1 * spacing;
                 npc.Center += displacement;
             }
             else

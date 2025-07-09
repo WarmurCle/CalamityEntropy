@@ -576,7 +576,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         cell.velocity += (targetPos - cell.Center).SafeNormalize(Vector2.Zero) * 0.36f;
                         cell.ai[2] = 4;
                         NPC.velocity = NPC.rotation.ToRotationVector2() * 18f;
-                        NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (cell.Center - NPC.Center).ToRotation(), 0.07f, false);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (cell.Center - NPC.Center).ToRotation(), 0.07f, false);
                         if (aicounter == 1)
                         {
                             NPC.ai[2] = CEUtils.randomRot();
@@ -654,7 +654,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             }
                             else
                             {
-                                NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.09f, false);
+                                NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.09f, false);
                             }
                             cell.velocity += (targetPos - cell.Center).SafeNormalize(Vector2.Zero) * 0.36f;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -766,7 +766,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                             }
                             else
                             {
-                                NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.09f, false);
+                                NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.09f, false);
                             }
                             cell.velocity += (targetPos - cell.Center).SafeNormalize(Vector2.Zero) * 0.36f;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -870,15 +870,15 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                         if (aicounter < 40)
                         {
                             NPC.velocity = (targetPos - NPC.Center) * 0.009f;
-                            NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (NPC.Center - targetPos).ToRotation(), 4f, true);
+                            NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (NPC.Center - targetPos).ToRotation(), 4f.ToRadians(), true);
                         }
                         else
                         {
                             if (aicounter > 160)
                             {
-                                NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 1.4f, true);
+                                NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 1.4f.ToRadians(), true);
                             }
-                            NPC.rotation = CEUtils.rotatedToAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.01f, false);
+                            NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (targetPos - NPC.Center).ToRotation(), 0.01f, false);
                         }
                         if (aicounter == 40)
                         {

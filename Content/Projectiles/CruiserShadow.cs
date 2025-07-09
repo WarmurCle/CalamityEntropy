@@ -139,7 +139,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Projectile.velocity *= 0.9f;
                     Projectile.rotation = Projectile.velocity.ToRotation();
-                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (targetPos - Projectile.Center).ToRotation(), 36);
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (targetPos - Projectile.Center).ToRotation(), 36f.ToRadians());
 
                     Projectile.velocity = new Vector2(Projectile.velocity.Length() + 10, 0).RotatedBy(Projectile.rotation);
                 }
@@ -202,7 +202,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
                 float rot = (oPos - bodies[i]).ToRotation();
-                rot = CEUtils.rotatedToAngle(rot, oRot, 0.12f, false);
+                rot = CEUtils.RotateTowardsAngle(rot, oRot, 0.12f, false);
                 int spacing = 54;
                 bodies[i] = oPos - rot.ToRotationVector2() * spacing * Projectile.scale;
             }

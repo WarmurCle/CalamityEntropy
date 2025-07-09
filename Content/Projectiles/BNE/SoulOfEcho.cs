@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             if (Projectile.timeLeft < 30)
             {
                 Projectile.velocity *= 0.96f;
-                Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.09f, false);
+                Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.09f, false);
                 alpha -= 1f / 30f;
                 return;
             }
@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                 }
                 if (target != null)
                 {
-                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.09f, false);
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.09f, false);
 
                     Projectile.velocity = ((target.Center + (Projectile.Center - target.Center).SafeNormalize(Vector2.UnitX) * ((target.width + target.height) / 2f + 90)) - Projectile.Center) * 0.086f;
 
@@ -68,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
                         Projectile.velocity *= 0.97f;
                         Projectile.velocity += (Projectile.owner.ToPlayer().Center - Projectile.Center).SafeNormalize(Vector2.Zero);
                     }
-                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.09f, false);
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.09f, false);
                 }
             }
         }

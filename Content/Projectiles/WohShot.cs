@@ -139,7 +139,7 @@ namespace CalamityEntropy.Content.Projectiles
                 homingTime--;
                 Vector2 targetPos = new Vector2(Projectile.ai[1], Projectile.ai[2]);
 
-                float nr = CEUtils.rotatedToAngle(Projectile.velocity.ToRotation(), (targetPos - Projectile.Center).ToRotation(), 1.5f, true);
+                float nr = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (targetPos - Projectile.Center).ToRotation(), 1.5f.ToRadians(), true);
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(nr);
                 if (nr == Projectile.velocity.ToRotation())
                 {

@@ -60,8 +60,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 0.16f, false);
-                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 1.2f, true);
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 0.16f, false);
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (Main.MouseScreen + Main.screenPosition - player.Center).ToRotation(), 1.2f.ToRadians(), true);
 
                     Projectile.velocity = Projectile.rotation.ToRotationVector2();
                     Projectile.netUpdate = true;

@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Projectiles
                 rotSpeed *= 0.99f;
                 if (fTarget != null)
                 {
-                    Projectile.rotation = CEUtils.rotatedToAngle(Projectile.rotation, (fTarget.Center - Projectile.Center).ToRotation(), 0.022f * pg, false);
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (fTarget.Center - Projectile.Center).ToRotation(), 0.022f * pg, false);
                 }
             }
             if (counter == 46 * Projectile.MaxUpdates)

@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Projectiles
         public void update()
         {
             this.rot = (follow.Center - this.Center).ToRotation();
-            this.rot = CEUtils.rotatedToAngle(this.rot, follow.rot, rotC, false);
+            this.rot = CEUtils.RotateTowardsAngle(this.rot, follow.rot, rotC, false);
             this.Center = follow.Center - this.rot.ToRotationVector2() * spacing;
 
         }

@@ -207,8 +207,8 @@ namespace CalamityEntropy.Content.Items.Books
                         Projectile.ai[2] += 0.15f;
                     }
                     r = Projectile.velocity.ToRotation();
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1f, 0).RotatedBy(CEUtils.rotatedToAngle(r, (Projectile.GetOwner().Center - Projectile.Center).ToRotation(), 0.5f * Projectile.ai[2], false));
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.rotatedToAngle(r, (Projectile.GetOwner().Center - Projectile.Center).ToRotation(), 1f * Projectile.ai[2], true));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() + 1f, 0).RotatedBy(CEUtils.RotateTowardsAngle(r, (Projectile.GetOwner().Center - Projectile.Center).ToRotation(), 0.5f * Projectile.ai[2], false));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(r, (Projectile.GetOwner().Center - Projectile.Center).ToRotation(), (1f * Projectile.ai[2]).ToRadians(), true));
                     Projectile.velocity *= 0.97f;
                     if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) < Projectile.velocity.Length() * 1.2f)
                     {
