@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if(player.altFunctionUse == 2)
             {
                 type = ModContent.ProjectileType<AntivoidDash>();
-                damage *= 2;
+                damage *= 4;
                 player.AddCooldown(AntivoidDashCooldown.ID, 15 * 60);
                 player.RemoveAllGrapplingHooks();
                 if(player.mount.Active) 
