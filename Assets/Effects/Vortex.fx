@@ -1,4 +1,3 @@
-// 修改后的Vortex.fx
 sampler TextureSampler : register(s0);
 
 float2 Center;
@@ -7,6 +6,8 @@ float AspectRatio;
 float FadeOutDistance; // 渐隐开始的半径距离(0-1)
 float FadeOutWidth;    // 渐隐宽度
 float2 TexOffset;
+float enhanceLightAlpha;
+
 float4 PixelShaderFunction(float4 baseColor : COLOR0, float2 texCoord : TEXCOORD0) : COLOR0
 {
     // 调整坐标以考虑宽高比
@@ -36,6 +37,11 @@ float4 PixelShaderFunction(float4 baseColor : COLOR0, float2 texCoord : TEXCOORD
     
     // 采样纹理并应用透明度
     float4 color = tex2D(TextureSampler, adjustedTexCoord + TexOffset);
+    if(color.r > enhanceLightAlpha)
+    {
+        float z = enhanceLightAlpha + (color.r - enhanceLightAlpha) * 3.5;
+        color = float4(z, z, z, color.a);
+    }
     color *= float4(alpha, alpha, alpha, alpha);
     
     return color * baseColor;

@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -35,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
-            Projectile.width = Projectile.height = 100;
+            Projectile.width = Projectile.height = 56;
             Projectile.light = 0.2f;
         }
 
@@ -82,6 +83,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                             CEUtils.SyncProj(Projectile.whoAmI);
                             CEUtils.SyncProj(p.whoAmI);
                             CEUtils.PlaySound("charm", Main.rand.NextFloat(0.6f, 1.4f), Projectile.Center, volume: 0.4f);
+                            Projectile.Resize((int)(56 * Projectile.scale), (int)(56 * Projectile.scale));
                         }
                     }
                 }
@@ -124,7 +126,23 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override bool PreDraw(ref Color lightColor)
         {
+            Main.spriteBatch.End();
+            Effect effect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Vortex", AssetRequestMode.ImmediateLoad).Value;
+            effect.Parameters["Center"].SetValue(new Vector2(0.5f, 0.5f));
+            effect.Parameters["Strength"].SetValue(16);
+            effect.Parameters["AspectRatio"].SetValue(1);
+            effect.Parameters["TexOffset"].SetValue(new Vector2(Main.GlobalTimeWrappedHourly * 0.1f, -Main.GlobalTimeWrappedHourly * 0.07f));
+            float fadeOutDistance = 0.06f;
+            float fadeOutWidth = 0.3f;
+            effect.Parameters["FadeOutDistance"].SetValue(fadeOutDistance);
+            effect.Parameters["FadeOutWidth"].SetValue(fadeOutWidth);
+            effect.Parameters["enhanceLightAlpha"].SetValue(0.8f);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            effect.CurrentTechnique.Passes[0].Apply();
+            Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), Projectile.Center - Main.screenPosition, null, new Color(220, 220, 255), Main.GlobalTimeWrappedHourly * 2, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.2f * Projectile.scale, SpriteEffects.None, 0);
+            CEUtils.DrawGlow(Projectile.Center, Color.White * 0.7f, 0.9f);
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
+
             return false;
         }
     }
