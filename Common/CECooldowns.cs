@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Terraria;
 
 namespace CalamityEntropy.Common
 {
@@ -46,7 +47,7 @@ namespace CalamityEntropy.Common
         }
         public static void AddCooldown(string id, int time)
         {
-            cooldowns.Add(new CooldownShort(time, id));
+            cooldowns.Add(new CooldownShort(time.ApplyCdDec(Main.LocalPlayer), id));
         }
         public static bool HasCooldown(string id)
         {
