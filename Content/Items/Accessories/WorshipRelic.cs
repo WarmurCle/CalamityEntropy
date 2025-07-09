@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class WorshipRelic : ModItem
     {
-        public static int ArrowDamage = 85;
+        public static int ArrowDamage = 200;
         public override void SetDefaults()
         {
             Item.width = 42;
@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().worshipRelic = true;
             player.Entropy().NoNaturalStealthRegen = true;
             player.Entropy().WeaponsNoCostRogueStealth = true;
-            player.GetCritChance(CEUtils.RogueDC) -= 50;
+            player.GetCritChance(CEUtils.RogueDC) -= 80;
         }
         public override void AddRecipes()
         {
