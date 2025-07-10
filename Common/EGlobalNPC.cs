@@ -898,7 +898,7 @@ namespace CalamityEntropy.Common
             }
             if (Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneDungeon)
             {
-                if (Main.rand.NextBool(256))
+                if (Main.rand.NextBool(80))
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BookMarkBlackKnife>()));
                 }
