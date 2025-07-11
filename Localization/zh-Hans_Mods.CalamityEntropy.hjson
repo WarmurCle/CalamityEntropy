@@ -3538,20 +3538,20 @@ ArmorPrefixHardDescription: +10% 防御
 ArmorPrefixLightName: 轻便
 ArmorPrefixLightDescription:
 	'''
-	+10% 移动速度
-	+10% 飞行速度
+	+3% 移动速度
+	+5% 飞行速度
 	'''
 ArmorPrefixBrokenName: 破损
 ArmorPrefixBrokenDescription: -20% 防御
 ArmorPrefixGodForgedName: 神铸
 ArmorPrefixGodForgedDescription:
 	'''
-	+15% 防御
-	+2% 伤害减免
-	+4% 伤害
+	+8% 防御
+	+1% 伤害减免
+	+3% 伤害
 	'''
 ArmorPrefixGuardedName: 守护
-ArmorPrefixGuardedDescription: +20% 防御
+ArmorPrefixGuardedDescription: +15% 防御
 ArmorPrefixHeavyName: 沉重
 ArmorPrefixHeavyDescription: -10% 移动速度
 ArmorPrefixResilientName: 弹力
@@ -3567,34 +3567,33 @@ ArmorPrefixWaterWalkerDescription: 使你能够在水面上行走
 ArmorPrefixMiracleName: 奇迹
 ArmorPrefixMiracleDescription:
 	'''
-	+10% 防御
-	+1% 伤害减免
+	+5% 防御
 	+20% 盔甲光照
-	+4% 伤害
+	+2% 伤害
 	'''
 ArmorPrefixGreatName: 杰出
 ArmorPrefixGreatDescription:
 	'''
-	+12% 防御
-	+4% 伤害
+	+8% 防御
+	+2% 伤害
 	'''
 ArmorPrefixMassiveName: 厚重
 ArmorPrefixMassiveDescription:
 	'''
-	+35% 防御
-	-15% 移动速度
+	+25% 防御
+	-30% 移动速度
 	'''
 ArmorPrefixDestinedGreatnessName: 注定伟大
 ArmorPrefixDestinedGreatnessDescription:
 	'''
-	+4% 暴击率
-	+10% 防御
+	+2% 暴击率
+	+5% 防御
 	+1 幸运
 	'''
 ArmorPrefixRegenName: 再生
 ArmorPrefixRegenDescription: +1/s 每秒生命再生
 ArmorPrefixVoidTouchedName: 虚空之触
-ArmorPrefixVoidTouchedDescription: +0.3 虚空之触
+ArmorPrefixVoidTouchedDescription: +0.2 虚空之触
 ArmorPrefixBiochemistryName: 生化
 ArmorPrefixBiochemistryDescription: +15% 减益免疫概率
 ArmorPrefixVoidName: 虚空
@@ -3607,33 +3606,37 @@ ArmorPrefixVoidDescription:
 ArmorPrefixRecklessName: 鲁莽
 ArmorPrefixRecklessDescription:
 	'''
-	+7% 伤害
-	-40% 防御
+	+5% 伤害
+	-50% 防御
 	'''
 ArmorPrefixSacrificalName: 牺牲
 ArmorPrefixSacrificalDescription:
 	'''
-	+16% 伤害
-	-70% 防御
+	+10% 伤害
+	-99% 防御
 	'''
 ArmorPrefixSilenceName: 寂静
-ArmorPrefixSilenceDescription: +1 最大潜行值
+ArmorPrefixSilenceDescription: +2 最大潜行值
 ArmorPrefixMagicalName: 注魔
 ArmorPrefixMagicalDescription:
 	'''
-	+6 最大魔力值
-	-10% 魔力消耗
-	+10% 强化魔力
+	+10 最大魔力值
+	-5% 魔力消耗
+	+6% 强化魔力
 	'''
 ArmorPrefixEvokerName: 唤灵
-ArmorPrefixEvokerDescription: +1 召唤栏
+ArmorPrefixEvokerDescription: 
+	'''
+	+1 召唤栏
+	-15% 伤害
+	'''
 ArmorPrefixEndName: 末日
 ArmorPrefixEndDescription:
 	'''
 	+12% 防御
-	+10% 伤害
+	+5% 伤害
 	+20% 击退
-	+6% 暴击
+	+4% 暴击
 	+100% 接触伤害反伤
 	+0.1 虚空之触
 	'''
@@ -3641,13 +3644,13 @@ ArmorPrefixWizardName: 巫祝
 ArmorPrefixWizardDescription:
 	'''
 	+1 召唤栏
-	+2% 召唤伤害
+	-10% 伤害
 	'''
 ArmorPrefixLastStandName: 屹立不倒
 ArmorPrefixLastStandDescription:
 	'''
-	+30% 防御
-	+5% 伤害减免
+	+15% 防御
+	+2% 伤害减免
 	增加一次复活机会
 	该复活不可叠加
 	'''
