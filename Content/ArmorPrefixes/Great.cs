@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         }
         public override float AddDefense()
         {
-            return 0.05f;
+            return 0.08f;
         }
         public override int getRollChance()
         {
