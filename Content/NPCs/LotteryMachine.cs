@@ -334,9 +334,7 @@ namespace CalamityEntropy.Content.NPCs
                 g2.Add(new RewardPoolItem(ModContent.ItemType<TitanHeart>(), 3));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<UrsaSergeant>(), 1));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<TrapperBulb>(), 5));
-                g2.Add(new RewardPoolItem(ModContent.ItemType<Lumenyl>(), 30));
-                g2.Add(new RewardPoolItem(ModContent.ItemType<LivingShard>(), 5));
-                g2.Add(new RewardPoolItem(ModContent.ItemType<SolarVeil>(), 10));
+                g2.Add(new RewardPoolItem(ModContent.ItemType<SolarVeil>(), 2));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<AshesofCalamity>(), 1));
                 g2.Add(new RewardPoolItem(1508, 3));
                 g2.Add(new RewardPoolItem(391, 15));
@@ -353,16 +351,12 @@ namespace CalamityEntropy.Content.NPCs
                 p2.Add(new RewardPoolItem(3457, 10));
                 p2.Add(new RewardPoolItem(3458, 10));
                 p2.Add(new RewardPoolItem(3459, 10));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<MeldBlob>(), 30));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<PlagueCellCanister>(), 22));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<UnholyEssence>(), 2));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<EffulgentFeather>(), 3));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<StarbusterCore>(), 1));
+                p2.Add(new RewardPoolItem(ModContent.ItemType<MeldBlob>(), 1));
+                p2.Add(new RewardPoolItem(ModContent.ItemType<EffulgentFeather>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<TheFirstShadowflame>(), 1));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<EtherealExtorter>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<Baroclaw>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<InfectedJewel>(), 1));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<AstralBar>(), 2));
+                p2.Add(new RewardPoolItem(ModContent.ItemType<CryonicBar>(), 3));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<YharimsStimulants>(), 16));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<TheCamper>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<SHPC>(), 1));
@@ -381,7 +375,6 @@ namespace CalamityEntropy.Content.NPCs
                 p3.Add(new RewardPoolItem(ModContent.ItemType<AuguroftheElements>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalAxe>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<SanctifiedSpark>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<SealedSingularity>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalDisk>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<AbyssalDivingSuit>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<MirrorBlade>(), 1));
@@ -391,9 +384,8 @@ namespace CalamityEntropy.Content.NPCs
                 p3.Add(new RewardPoolItem(ModContent.ItemType<PlanetaryAnnihilation>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<TwistingNether>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ArmoredShell>(), 1));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<HadalMantle>(), 1));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<OccultSkullCrown>(), 1));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
+                p3.Add(new RewardPoolItem(ModContent.ItemType<OccultSkullCrown>(), 1));
+                p3.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
                 p3 = new RewardPool();
 
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Necroplasm>(), 30));
