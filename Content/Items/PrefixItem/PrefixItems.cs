@@ -48,6 +48,7 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         {
             CreateRecipe().
                 AddIngredient<YharonSoulFragment>(1)
+                AddIngredient<AshesofAnnihilation>(1)
                 .AddIngredient<ExoPrism>(1)
                 .Register();
         }
