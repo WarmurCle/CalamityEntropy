@@ -3377,20 +3377,20 @@ ArmorPrefixHardDescription: +10% defense
 ArmorPrefixLightName: Light
 ArmorPrefixLightDescription:
 	'''
-	+10% Move Speed
-	+10% Wing Speed
+	+3% Move Speed
+	+5% Wing Speed
 	'''
 ArmorPrefixBrokenName: Broken
 ArmorPrefixBrokenDescription: -20% Defense
 ArmorPrefixGodForgedName: God Forged
 ArmorPrefixGodForgedDescription:
 	'''
-	+15%Defense
-	+2% Damage Reduce
-	+4% Damage
+	+8%Defense
+	+1% Damage Reduce
+	+3% Damage
 	'''
 ArmorPrefixGuardedName: Guarded
-ArmorPrefixGuardedDescription: +20% Defense
+ArmorPrefixGuardedDescription: +15% Defense
 ArmorPrefixHeavyName: Heavy
 ArmorPrefixHeavyDescription: -10% Move Speed
 ArmorPrefixResilientName: Resilient
@@ -3406,34 +3406,33 @@ ArmorPrefixWaterWalkerDescription: Enable you to walk on the water surface
 ArmorPrefixMiracleName: Miracle
 ArmorPrefixMiracleDescription:
 	'''
-	+10% Defense
-	+1% Damage Reduce
+	+5% Defense
 	+20% Light
-	+4% Damage
+	+2% Damage
 	'''
 ArmorPrefixGreatName: Great
 ArmorPrefixGreatDescription:
 	'''
-	+12% Defense
-	+4% Damage
+	+8% Defense
+	+2% Damage
 	'''
 ArmorPrefixMassiveName: Massive
 ArmorPrefixMassiveDescription:
 	'''
-	+35% Defense
-	-15% Move Speed
+	+25% Defense
+	-30% Move Speed
 	'''
 ArmorPrefixDestinedGreatnessName: Destined Greatness
 ArmorPrefixDestinedGreatnessDescription:
 	'''
-	+4% Crit
-	+10% Defense
+	+2% Crit
+	+5% Defense
 	+1 Luck
 	'''
 ArmorPrefixRegenName: Regen
 ArmorPrefixRegenDescription: +1/s Life Regen
 ArmorPrefixVoidTouchedName: Void Touched
-ArmorPrefixVoidTouchedDescription: +0.3 Void Touch
+ArmorPrefixVoidTouchedDescription: +0.2 Void Touch
 ArmorPrefixBiochemistryName: Biochemistry
 ArmorPrefixBiochemistryDescription: +15% Debuff immunity probability
 ArmorPrefixVoidName: Void
@@ -3446,33 +3445,37 @@ ArmorPrefixVoidDescription:
 ArmorPrefixRecklessName: Reckless
 ArmorPrefixRecklessDescription:
 	'''
-	+7% Damage
-	-40% Defense
+	+5% Damage
+	-50% Defense
 	'''
 ArmorPrefixSacrificalName: Sacrifical
 ArmorPrefixSacrificalDescription:
 	'''
-	+16% Damage
-	-70% Defense
+	+10% Damage
+	-99% Defense
 	'''
 ArmorPrefixSilenceName: Silence
-ArmorPrefixSilenceDescription: +1% Max Stealth
+ArmorPrefixSilenceDescription: +2% Max Stealth
 ArmorPrefixMagicalName: Magical
 ArmorPrefixMagicalDescription:
 	'''
-	+6 Max Mana
-	-10% Mana Cost
-	+10% Enhanced Mana
+	+10 Max Mana
+	-5% Mana Cost
+	+6% Enhanced Mana
 	'''
 ArmorPrefixEvokerName: Evoker
-ArmorPrefixEvokerDescription: +1 Max Minion
+ArmorPrefixEvokerDescription: 
+	'''
+	+1 Max Minion
+	-15% Damage
+	'''
 ArmorPrefixEndName: End
 ArmorPrefixEndDescription:
 	'''
 	+12% Defense
-	+10% Damage
+	+5% Damage
 	+20% Knockback
-	+6% Crit
+	+4% Crit
 	+100% Reverse injury
 	+0.1 Void Touch
 	'''
@@ -3480,13 +3483,13 @@ ArmorPrefixWizardName: Wizard
 ArmorPrefixWizardDescription:
 	'''
 	+1 Max Minions
-	+2% Summon Damage
+	-10% Damage
 	'''
 ArmorPrefixLastStandName: Last Stand
 ArmorPrefixLastStandDescription:
 	'''
-	+30% Defense
-	+5% Damage Reduce
+	+15% Defense
+	+2% Damage Reduce
 	'''
 ArmorPrefixHeatDeathName: Heat Death
 ArmorPrefixHeatDeathDescription:
