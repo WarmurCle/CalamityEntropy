@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
         public override void UpdateEquip(Player player, Item item)
         {
             player.Calamity().wearingRogueArmor = true;
-            player.Calamity().rogueStealthMax += 0.01f;
+            player.Calamity().rogueStealthMax += 0.02f;
         }
         public override Color getColor()
         {
