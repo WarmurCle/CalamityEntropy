@@ -293,9 +293,9 @@ namespace CalamityEntropy.Content.NPCs
                 s1.Add(new RewardPoolItem(ModContent.ItemType<MurkyPaste>(), 4));
                 s1.Add(new RewardPoolItem(ModContent.ItemType<DubiousPlating>(), 4)); s1.Add(new RewardPoolItem(ModContent.ItemType<MysteriousCircuitry>(), 4));
                 s1.Add(new RewardPoolItem(ModContent.ItemType<StormlionMandible>(), 1)); s1.Add(new RewardPoolItem(ModContent.ItemType<StormjawStaff>(), 1));
-                s1.Add(new RewardPoolItem(ModContent.ItemType<BloodOrb>(), 20)); s1.Add(new RewardPoolItem(ItemID.Diamond, 5));
-                s1.Add(new RewardPoolItem(68, 8)); s1.Add(new RewardPoolItem(ModContent.ItemType<MurkyPaste>(), 10));
-                s1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));
+                s1.Add(new RewardPoolItem(ItemID.Diamond, 5));
+                s1.Add(new RewardPoolItem(68, 8)); 
+                s1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 10));
                 s1.Add(new RewardPoolItem(296, 1));
                 s1.Add(new RewardPoolItem(0, 1));
                 s1.Add(new RewardPoolItem(ItemID.Heart, 10));
