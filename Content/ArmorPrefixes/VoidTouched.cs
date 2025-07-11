@@ -6,7 +6,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void UpdateEquip(Player player, Item item)
         {
-            player.Entropy().AttackVoidTouch += 0.03f;
+            player.Entropy().AttackVoidTouch += 0.02f;
         }
         public override int getRollChance()
         {
