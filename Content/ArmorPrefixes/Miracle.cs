@@ -7,13 +7,12 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void UpdateEquip(Player player, Item item)
         {
-            player.Entropy().damageReduce += 0.01f;
             player.Entropy().light += 0.4f;
-            player.GetDamage(DamageClass.Generic) += 0.04f;
+            player.GetDamage(DamageClass.Generic) += 0.02f;
         }
         public override float AddDefense()
         {
-            return 0.1f;
+            return 0.05f;
         }
         public override int getRollChance()
         {
