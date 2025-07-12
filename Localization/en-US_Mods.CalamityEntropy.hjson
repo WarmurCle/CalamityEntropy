@@ -3077,12 +3077,12 @@ Buffs: {
 
 	PenMountBuff: {
 		DisplayName: Replica Pen
-		Description: 
-		'''
-		Spawn harmful trail when riding
-		Attack enemies when not riding
-		Apply Void Touch debuff on hited
-		'''
+		Description:
+			'''
+			Spawn harmful trail when riding
+			Attack enemies when not riding
+			Apply Void Touch debuff on hited
+			'''
 	}
 }
 

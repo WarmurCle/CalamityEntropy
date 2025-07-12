@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 480;
+            Projectile.timeLeft = 660;
             Projectile.MaxUpdates = 6;
             Projectile.ArmorPenetration = 12;
         }
@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     l += 0.007f;
                 }
-                Projectile.velocity = new Vector2(Projectile.velocity.Length() + 0.3f, 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f.ToRadians() * l, false));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length() + 0.3f, 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1f.ToRadians() * l, true));
                 if (Projectile.getRect().Intersects(target.getRect()))
                 {

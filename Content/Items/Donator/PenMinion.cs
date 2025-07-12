@@ -26,8 +26,10 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Projectile.FriendlySetDefaults(DamageClass.Magic, false, -1);
             Projectile.width = Projectile.height = 64;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 14;
         }
-
+        
         public override void AI()
         {   
             if(!Projectile.GetOwner().mount.Active && Projectile.GetOwner().miscEquips[3].type == ModContent.ItemType<TheReplicaofThePen>())
@@ -93,15 +95,15 @@ namespace CalamityEntropy.Content.Items.Donator
                         nts = false;
                     }
                     if (xz == 0){
-                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation() - ((float) (Math.PI / 4)), 10f);
+                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation() - ((float) (Math.PI / 4)), 10f.ToRadians());
                         Projectile.velocity += (Projectile.rotation + ((float) (Math.PI / 4))).ToRotationVector2() * 3.8f;
                     }
                     if(xz == 1){
-                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation() - ((float)(Math.PI / 4 + Math.PI)), 10f);
+                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation() - ((float)(Math.PI / 4 + Math.PI)), 10f.ToRadians());
                         Projectile.velocity += (Projectile.rotation + ((float)(Math.PI / 4 + Math.PI))).ToRotationVector2() * 3.8f;
                     }
                     if (xz == 2){
-                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation() + ((float) (Math.PI / 4)), 30f);
+                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation() + ((float) (Math.PI / 4)), 30f.ToRadians());
                         Projectile.velocity += (Projectile.rotation - ((float) (Math.PI / 4))).ToRotationVector2() * 3.8f;
                     }
                     Projectile.velocity *= 0.94f;
