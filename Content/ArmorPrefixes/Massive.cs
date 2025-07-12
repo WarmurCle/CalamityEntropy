@@ -6,11 +6,11 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void UpdateEquip(Player player, Item item)
         {
-            player.Entropy().moveSpeed -= 0.15f;
+            player.Entropy().moveSpeed -= 0.30f;
         }
         public override float AddDefense()
         {
-            return 0.35f;
+            return 0.25f;
         }
         public override int getRollChance()
         {
