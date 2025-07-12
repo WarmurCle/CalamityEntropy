@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.NPCs
                     {
                         int d = Main.rand.Next(lc.Count);
                         dns += lc[d];
-                        if(i < 7)
+                        if(i < 9)
                         {
                             dns += ", ";
                         }
