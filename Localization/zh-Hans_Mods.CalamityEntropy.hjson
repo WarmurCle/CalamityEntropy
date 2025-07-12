@@ -2981,8 +2981,8 @@ Projectiles: {
 	AntivoidDash.DisplayName: 返虚冲刺
 	LuminarGrave.DisplayName: 幻光碑石
 	AntivoidMark.DisplayName: 返虚之印
-	// InkTrail.DisplayName: Ink Trail
-	// PenMinion.DisplayName: Pen Minion
+	InkTrail.DisplayName: 墨水尾迹
+	PenMinion.DisplayName: 冲锋笔
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3347,6 +3347,7 @@ WyrmChat8: 在深渊的生活实在是太无聊了...
 WyrmChat9: 你说我和那位硫火女巫谁更强大
 WyrmChat10: 你问我当时为什么要袭击你...我的使命是保护那件圣物。
 WyrmChat11: 混沌能量总是让我感到不适。
+WyrmChatDonors: 感谢[0]的支持，感谢你们！
 loreCruiser:
 	'''
 	生命摄取能量以进行熵减。
@@ -3647,7 +3648,7 @@ ArmorPrefixMagicalDescription:
 	+6% 强化魔力
 	'''
 ArmorPrefixEvokerName: 唤灵
-ArmorPrefixEvokerDescription: 
+ArmorPrefixEvokerDescription:
 	'''
 	+1 召唤栏
 	-15% 伤害

@@ -13,6 +13,7 @@ using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Sounds;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -69,6 +70,27 @@ namespace CalamityEntropy.Content.NPCs
         {
             WeightedRandom<string> chat = new WeightedRandom<string>();
             {
+                if(Main.rand.NextBool(6))
+                {
+                    string dns = "";
+                    var lc = new List<string>();
+                    foreach(string s in Donators.Donors)
+                    {
+                        lc.Add(s);
+                    }
+                    for (int i = 0; i < 10; i++)
+                    {
+                        int d = Main.rand.Next(lc.Count);
+                        dns += lc[d];
+                        if(i < 7)
+                        {
+                            dns += ", ";
+                        }
+                        lc.RemoveAt(d);
+                    }
+                    chat.Add(Mod.GetLocalization("WyrmChatDonors").Value.Replace("[0]", dns));
+                    return chat;
+                }
                 if (!Main.bloodMoon && !Main.eclipse)
                 {
                     if (NPC.homeless)

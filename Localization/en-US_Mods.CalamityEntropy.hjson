@@ -3179,6 +3179,7 @@ WyrmChat8: Life in the abyss is just too boring.
 WyrmChat9: Do you think who is stronger between me and that Witch.
 WyrmChat10: You asked me why I attacked you at that time? My mission is to protect that sacred object.
 WyrmChat11: Chaos always makes me feel uncomfortable.
+WyrmChatDonors: Thank you to [0] for support, thank you all!
 loreCruiser:
 	'''
 	Life absorbs energy for entropy reduction.
@@ -3481,7 +3482,7 @@ ArmorPrefixMagicalDescription:
 	+6% Enhanced Mana
 	'''
 ArmorPrefixEvokerName: Evoker
-ArmorPrefixEvokerDescription: 
+ArmorPrefixEvokerDescription:
 	'''
 	+1 Max Minion
 	-15% Damage
