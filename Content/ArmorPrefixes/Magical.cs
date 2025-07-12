@@ -6,9 +6,9 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void UpdateEquip(Player player, Item item)
         {
-            player.Entropy().ManaCost -= 0.1f;
-            player.statManaMax2 += 6;
-            player.Entropy().enhancedMana += 0.1f;
+            player.Entropy().ManaCost -= 0.05f;
+            player.statManaMax2 += 10;
+            player.Entropy().enhancedMana += 0.06f;
         }
         public override Color getColor()
         {
