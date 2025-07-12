@@ -2539,11 +2539,12 @@ Items: {
 	}
 
 	TheReplicaofThePen: {
-		Tooltip: 
-		'''
-		骑乘时留下伤害性尾迹
-		不骑乘时自动攻击附近敌怪
-		'''
+		Tooltip:
+			'''
+			骑乘时留下伤害性尾迹
+			不骑乘时自动攻击附近敌怪
+			造成虚空之触减益
+			'''
 		DisplayName: 冲锋笔
 	}
 }
@@ -3243,8 +3244,8 @@ Buffs: {
 	}
 
 	PenMountBuff: {
-		// DisplayName: Pen Mount Buff
-		// Description: Mods.CalamityEntropy.Buffs.PenMountBuff.Description
+		// DisplayName: Replica Pen
+		// Description: ""
 	}
 }
 

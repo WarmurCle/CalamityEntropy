@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Donator
 {
 	public class TheReplicaofThePen : ModItem, IDonatorItem
 	{
-        public string DonatorName => "Àä¼¶";
+        public string DonatorName => "Dillion";
 		public override void SetDefaults() {
 			Item.width = 20;
 			Item.height = 30;

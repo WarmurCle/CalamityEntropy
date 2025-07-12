@@ -2356,7 +2356,7 @@ Items: {
 
 	TheReplicaofThePen: {
 		// Tooltip: ""
-		// DisplayName: The Replicaof The Pen
+		// DisplayName: The Replica of The Pen
 	}
 }
 
@@ -3055,8 +3055,8 @@ Buffs: {
 	}
 
 	PenMountBuff: {
-		// DisplayName: Pen Mount Buff
-		// Description: Mods.CalamityEntropy.Buffs.PenMountBuff.Description
+		// DisplayName: Replica Pen
+		// Description: ""
 	}
 }
 
