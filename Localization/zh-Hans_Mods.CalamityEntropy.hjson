@@ -2537,6 +2537,15 @@ Items: {
 		DisplayName: 测试物品-移除所有冷却
 		Tooltip: ""
 	}
+
+	TheReplicaofThePen: {
+		Tooltip: 
+		'''
+		骑乘时留下伤害性尾迹
+		不骑乘时自动攻击附近敌怪
+		'''
+		DisplayName: 冲锋笔
+	}
 }
 
 PrefixitemDesc:
@@ -2971,6 +2980,8 @@ Projectiles: {
 	AntivoidDash.DisplayName: 返虚冲刺
 	LuminarGrave.DisplayName: 幻光碑石
 	AntivoidMark.DisplayName: 返虚之印
+	// InkTrail.DisplayName: Ink Trail
+	// PenMinion.DisplayName: Pen Minion
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3229,6 +3240,11 @@ Buffs: {
 	WindPressure: {
 		DisplayName: 风压
 		Description: 你的武器上缠绕着旋风
+	}
+
+	PenMountBuff: {
+		// DisplayName: Pen Mount Buff
+		// Description: Mods.CalamityEntropy.Buffs.PenMountBuff.Description
 	}
 }
 

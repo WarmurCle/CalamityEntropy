@@ -2308,7 +2308,7 @@ Items: {
 			tealth no longer regenerates passively.
 			Hitting enemies with Rogue weapons restores some Stealth.
 			When Stealth is full, your attack becomes a Stealth Strike and fires additional Solar Arrows
-			-50% Rogue Crit
+			-80% Rogue Crit
 			''' */
 	}
 
@@ -2352,6 +2352,11 @@ Items: {
 	CDRemove: {
 		// DisplayName: Test Item - Remove All Cooldowns
 		// Tooltip: ""
+	}
+
+	TheReplicaofThePen: {
+		// Tooltip: ""
+		// DisplayName: The Replicaof The Pen
 	}
 }
 
@@ -2787,6 +2792,8 @@ Projectiles: {
 	// AntivoidDash.DisplayName: Antivoid Dash
 	// LuminarGrave.DisplayName: Luminar Grave
 	// AntivoidMark.DisplayName: Antivoid Mark
+	// InkTrail.DisplayName: Ink Trail
+	// PenMinion.DisplayName: Pen Minion
 }
 
 LegendTooltip: - Legend -
@@ -3045,6 +3052,11 @@ Buffs: {
 	WindPressure: {
 		// DisplayName: Wind Pressure
 		// Description: The whirlwind winds around your weapon
+	}
+
+	PenMountBuff: {
+		// DisplayName: Pen Mount Buff
+		// Description: Mods.CalamityEntropy.Buffs.PenMountBuff.Description
 	}
 }
 

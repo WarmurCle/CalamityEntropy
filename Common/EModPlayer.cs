@@ -772,7 +772,7 @@ namespace CalamityEntropy.Common
             {
                 rbDotDist += (-rbDotDist) * 0.06f;
             }
-            if (rBadgeActive || RuneDash > 0 || CruiserAntiGravTime > 0)
+            if (rBadgeActive || RuneDash > 0 || CruiserAntiGravTime > 0 || Player.mount.Type == ModContent.MountType<ReplicaPenMount>())
             {
                 resetTileSets = true;
                 tileSolid = (bool[])Main.tileSolid.Clone();
@@ -1393,7 +1393,19 @@ namespace CalamityEntropy.Common
         public float shadowStealth = 0;
         public override void PostUpdate()
         {
-            if(shadowPact)
+            if(Main.myPlayer == Player.whoAmI)
+            {
+                if (!Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<TheReplicaofThePen>() && Player.ownedProjectileCounts[ModContent.ProjectileType<PenMinion>()] < 1)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<PenMinion>(), 400, 1, Player.whoAmI);
+                }
+            }
+            if (Player.mount.Type == ModContent.MountType<ReplicaPenMount>())
+            {
+                Player.velocity.Y *= 0.986f;
+            }
+
+            if (shadowPact)
             {
                 if (Player.Calamity().wearingRogueArmor)
                 {
@@ -2498,6 +2510,13 @@ namespace CalamityEntropy.Common
 
         public override void SetControls()
         {
+            if (Player.mount.Type == ModContent.MountType<ReplicaPenMount>())
+            {
+                if (Player.controlUp)
+                {
+                    Player.controlJump = true;
+                }
+            }
             if (rBadgeActive)
             {
                 cDown = Player.controlDown;

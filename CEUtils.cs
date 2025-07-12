@@ -291,7 +291,7 @@ namespace CalamityEntropy
         {
             return new Vector2(
             (int)(drawInfo.Position.X - Main.screenPosition.X - (drawInfo.drawPlayer.bodyFrame.Width / 2) + (float)(drawInfo.drawPlayer.width / 2)),
-            (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawInfo.drawPlayer.height - (float)drawInfo.drawPlayer.bodyFrame.Height + 4f));
+            (int)(drawInfo.Position.Y - Main.screenPosition.Y + (drawInfo.drawPlayer.height + (drawInfo.drawPlayer.mount.Active ? drawInfo.drawPlayer.mount.HeightBoost : 0)) - (float)drawInfo.drawPlayer.bodyFrame.Height + 4f));
         }
         public static Vector2 HeadPosition(this PlayerDrawSet drawInfo, bool addBob = false, bool vanillaStyle = false)
         {

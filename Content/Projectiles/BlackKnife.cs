@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.tileCollide = true;
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = -1;
         }
         public int counter = 0;
         public float j = 1;
