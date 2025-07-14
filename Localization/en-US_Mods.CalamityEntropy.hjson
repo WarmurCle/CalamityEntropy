@@ -2398,13 +2398,13 @@ Items: {
 
 	ShadowRune: {
 		DisplayName: Shadow Rune
-		Tooltip: 
-		'''
-		Resets summon damage bonuses to zero and converts them to minion capacity at [0]%:1 ratio
-		Increases whip attack speed by [1]%
-		Reduces whip mark damage bonus
-		Grants significant armor penetration to minion attacks
-		'''
+		Tooltip:
+			'''
+			Resets summon damage bonuses to zero and converts them to minion capacity at [0]%:1 ratio
+			Increases whip attack speed by [1]%
+			Reduces whip mark damage bonus
+			Grants significant armor penetration to minion attacks
+			'''
 	}
 }
 
