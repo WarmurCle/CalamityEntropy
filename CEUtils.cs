@@ -30,6 +30,15 @@ namespace CalamityEntropy
             foreach (var i in b) { ls[c] = i; c++; }
             return ls;
         }
+        public static bool SetCartridge(this Item item, int m)
+        {
+            if(ModLoader.HasMod("CalamityOverhaul"))
+            {
+                CWRWeakRef.CWRRef.SetCartridge(item, m);
+                return true;
+            }
+            return false;
+        }
         public static bool IsPlayerStuck(Player player)
         {
             Rectangle playerHitbox = player.getRect();

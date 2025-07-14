@@ -1,6 +1,6 @@
-﻿using CalamityOverhaul.Content;
+﻿using CalamityOverhaul;
+using CalamityOverhaul.Content;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common
@@ -13,6 +13,12 @@ namespace CalamityEntropy.Common
             public static float GetPlayersPressure(Player plr)
             {
                 return plr.GetModPlayer<CWRPlayer>().PressureIncrease;
+            }
+
+            public static void SetCartridge(Item item, int m)
+            {
+                item.CWR().HasCartridgeHolder = true;
+                item.CWR().AmmoCapacity = m;
             }
         }
     }

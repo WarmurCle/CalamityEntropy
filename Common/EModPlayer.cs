@@ -1400,14 +1400,13 @@ namespace CalamityEntropy.Common
         public float shadowStealth = 0;
         public override void PostUpdate()
         {
-            if(shadowRune)
+            if (shadowRune)
             {
                 Player.maxMinions += (int)(Player.GetDamage(DamageClass.Summon).Additive * ShadowRune.SummonDmgToMinionSlot);
-                if (Player.GetDamage(DamageClass.Summon).Multiplicative != 0)
+                if (Player.GetDamage(DamageClass.Summon).Additive > 0)
                 {
-                    Player.GetDamage(DamageClass.Summon) /= Player.GetDamage(DamageClass.Summon).Multiplicative;
+                    Player.GetDamage(DamageClass.Summon) -= Player.GetDamage(DamageClass.Summon).Additive;
                 }
-                Player.GetDamage(DamageClass.Summon) -= Player.GetDamage(DamageClass.Summon).Additive;
             }
             if(Main.myPlayer == Player.whoAmI)
             {
