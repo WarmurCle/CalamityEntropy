@@ -93,10 +93,10 @@ namespace CalamityEntropy.Content.Items.Donator
                     Vector2 vel = velocity.RotateRandom(0.3f) * Main.rand.NextFloat(0.4f, 1.2f);
                     Projectile.NewProjectile(source, position, vel, type, damage, knockback, player.whoAmI);
                 }
-                CEUtils.PlaySound("typ2", 1, player.Center, volume: 0.7f);
+                CEUtils.PlaySound("typ2", 1, player.Center, volume: 0.9f);
                 return false;
             }
-            CEUtils.PlaySound("typ3", 1, player.Center, 1, 0.4f);
+            CEUtils.PlaySound("typ3", 1, player.Center, 1, 0.6f);
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0);
 
             return false;

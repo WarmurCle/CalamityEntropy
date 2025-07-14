@@ -1029,7 +1029,7 @@ namespace CalamityEntropy.Common
             {
                 if (target.Organic())
                 {
-                    CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: 0.28f);
+                    CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: 0.36f);
                 }
                 else
                 {
@@ -1044,7 +1044,7 @@ namespace CalamityEntropy.Common
                         LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                         GeneralParticleHandler.SpawnParticle(spark);
                     }
-                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: 0.16f);
+                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: 0.26f);
                 }
             }
             if (LuminarArrow)
