@@ -464,11 +464,11 @@ Items: {
 	}
 
 	GalaxyGrapeSoda: {
-		Tooltip: 
-		'''
-		“里面含有葡萄、神明的精华、还有黑檀圣卫和血化圣卫…?”
-		使你变成弑神者的样子
-		'''
+		Tooltip:
+			'''
+			“里面含有葡萄、神明的精华、还有黑檀圣卫和血化圣卫…?”
+			使你变成弑神者的样子
+			'''
 		DisplayName: 银河葡萄汽水
 	}
 
@@ -490,11 +490,11 @@ Items: {
 	}
 
 	DustyStar: {
-		Tooltip: 
-		'''
-		使你变成一个黄毛兽耳美少年
-		“记得给灾熵点个赞”
-		'''
+		Tooltip:
+			'''
+			使你变成一个黄毛兽耳美少年
+			“记得给灾熵点个赞”
+			'''
 		DisplayName: 尘封之星
 	}
 
@@ -656,31 +656,31 @@ Items: {
 	}
 
 	Interdimensionallens: {
-		Tooltip: 
-		'''
-		将游戏背景换成你的壁纸
-		如果无法获取到你的壁纸将会是一片空白
-		“投射出世界背后的样子”
-		'''
+		Tooltip:
+			'''
+			将游戏背景换成你的壁纸
+			如果无法获取到你的壁纸将会是一片空白
+			“投射出世界背后的样子”
+			'''
 		DisplayName: 异次元透镜
 	}
 
 	PowerBank: {
-		Tooltip: 
-		'''
-		放在物品栏时，自动为物品栏中所有可以充能的物品充能
-		“为什么我们不能把能源工厂，充能站和武器装在一起呢？”
-		'''
+		Tooltip:
+			'''
+			放在物品栏时，自动为物品栏中所有可以充能的物品充能
+			“为什么我们不能把能源工厂，充能站和武器装在一起呢？”
+			'''
 		DisplayName: 便携充能背包
 	}
 
 	RustyGrenade: {
 		DisplayName: 锈蚀榴弹
-		Tooltip: 
-		'''
-		视为火箭
-		“虽然很笨重，但似乎别无选择”
-		'''
+		Tooltip:
+			'''
+			视为火箭
+			“虽然很笨重，但似乎别无选择”
+			'''
 	}
 
 	RustExpeditioner: {
@@ -745,11 +745,11 @@ Items: {
 
 	AbyssalDragon: {
 		DisplayName: 幽渊魔龙杖
-		Tooltip: 
-		'''
-		发射幽渊魔龙和深渊之星
-		“当你凝视深渊...”
-		'''
+		Tooltip:
+			'''
+			发射幽渊魔龙和深渊之星
+			“当你凝视深渊...”
+			'''
 	}
 
 	ArchmagesHandmirror: {
@@ -784,11 +784,11 @@ Items: {
 
 	ArmorReforgStation: {
 		DisplayName: 盔甲锻造站
-		Tooltip: 
-		'''
-		用于重铸盔甲
-		它已被废除，虽仍能使用，但无法在正常流程内获取，转而使用一系列的词条物品以为盔甲加上词条
-		'''
+		Tooltip:
+			'''
+			用于重铸盔甲
+			它已被废除，虽仍能使用，但无法在正常流程内获取，转而使用一系列的词条物品以为盔甲加上词条
+			'''
 	}
 
 	OverloadFurnace: {
@@ -813,11 +813,11 @@ Items: {
 
 	MagneticController: {
 		DisplayName: 磁机遥控器
-		Tooltip: 
-		'''
-		召唤一个磁流灵为你战斗
-		“我们需要一个方铅手套”
-		'''
+		Tooltip:
+			'''
+			召唤一个磁流灵为你战斗
+			“我们需要一个方铅手套”
+			'''
 	}
 
 	Mercy: {
@@ -836,19 +836,19 @@ Items: {
 
 	LostSoul: {
 		DisplayName: 迷失游魂
-		Tooltip: 
-		'''
-		试着带着它通过一场boss战并保证它的安全
-		"保护他"
-		'''
+		Tooltip:
+			'''
+			试着带着它通过一场boss战并保证它的安全
+			"保护他"
+			'''
 	}
 
 	ShadowOfVoid: {
-		Tooltip: 
-		'''
-		召唤虚空中游荡的猎手追击敌人并持续发射虚空新星
-		“虚空的投影”
-		'''
+		Tooltip:
+			'''
+			召唤虚空中游荡的猎手追击敌人并持续发射虚空新星
+			“虚空的投影”
+			'''
 		DisplayName: 虚渺之像
 	}
 
@@ -884,10 +884,7 @@ Items: {
 
 	DreamCatcher: {
 		DisplayName: 捕梦网
-		Tooltip: 
-		'''
-		让你变成可爱的梦龙
-		'''
+		Tooltip: 让你变成可爱的梦龙
 	}
 
 	AquaticFlute: {
@@ -907,7 +904,7 @@ Items: {
 
 	ToyKnife: {
 		DisplayName: 玩具刀
-		Tooltip: "“让你变成这个模组的主创之一”"
+		Tooltip: “让你变成这个模组的主创之一”
 	}
 
 	DeusCore: {
@@ -1059,7 +1056,7 @@ Items: {
 	}
 
 	CrimsonNight: {
-		Tooltip: "让你变成Away"
+		Tooltip: 让你变成Away
 		DisplayName: 绯夜
 	}
 
@@ -1129,7 +1126,7 @@ Items: {
 	}
 
 	MosHat: {
-		Tooltip: "让你变成一个白毛美少女"
+		Tooltip: 让你变成一个白毛美少女
 		DisplayName: Mo的帽子
 	}
 
@@ -1153,11 +1150,11 @@ Items: {
 	}
 
 	Oblivion: {
-		Tooltip: 
-		'''
-		射出追踪的噬虚矢
-		“虚无”
-		'''
+		Tooltip:
+			'''
+			射出追踪的噬虚矢
+			“虚无”
+			'''
 		DisplayName: 虚噬
 	}
 
@@ -1270,7 +1267,7 @@ Items: {
 	}
 
 	AbyssLantern: {
-		Tooltip: "使你变成妖龙酱"
+		Tooltip: 使你变成妖龙酱
 		DisplayName: 深渊提灯
 	}
 
@@ -1296,7 +1293,7 @@ Items: {
 
 	WyrmTooth: {
 		DisplayName: 幻妖龙牙
-		Tooltip: "“光是看着就让人心惊胆战”"
+		Tooltip: “光是看着就让人心惊胆战”
 	}
 
 	Vitalfeather: {
@@ -1323,20 +1320,20 @@ Items: {
 	}
 
 	HadopelagicEchoII: {
-		Tooltip: 
-		'''
-		发射冥渊镭射和幻渊回音
-		“链接深渊深处”
-		'''
+		Tooltip:
+			'''
+			发射冥渊镭射和幻渊回音
+			“链接深渊深处”
+			'''
 		DisplayName: 冥渊回音II
 	}
 
 	StarlessNight: {
-		Tooltip: 
-		'''
-		击中后释放虚空新星
-		“砍碎太阳！”
-		'''
+		Tooltip:
+			'''
+			击中后释放虚空新星
+			“砍碎太阳！”
+			'''
 		DisplayName: 无星之夜
 	}
 
@@ -1475,11 +1472,11 @@ Items: {
 
 	AncientScriptures: {
 		DisplayName: 远古典籍
-		Tooltip: 
-		'''
-		发射符文弹
-		“古老的法师们将发书上附上不同的魔法书签以方便的切换魔法”
-		'''
+		Tooltip:
+			'''
+			发射符文弹
+			“古老的法师们将发书上附上不同的魔法书签以方便的切换魔法”
+			'''
 	}
 
 	BookMarkBrimstone: {
@@ -2650,7 +2647,7 @@ Items: {
 
 	ConsecratedRune: {
 		DisplayName: 神圣符文
-		Tooltip: "召唤一位至高存在跟随你"
+		Tooltip: 召唤一位至高存在跟随你
 	}
 }
 

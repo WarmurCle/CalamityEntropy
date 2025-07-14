@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center, CEUtils.GetCutTexRect(Projectile.GetTexture(), 6, ((counter / 4) % 6)), Color.White, Projectile.rotation, new Vector2(68, 75), Projectile.scale, Projectile.GetOwner().Center.X > Projectile.Center.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+            Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, CEUtils.GetCutTexRect(Projectile.GetTexture(), 6, ((counter / 4) % 6), false), Color.White, Projectile.rotation, new Vector2(68, 75), Projectile.scale, Projectile.GetOwner().Center.X > Projectile.Center.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             return false;
 
         }

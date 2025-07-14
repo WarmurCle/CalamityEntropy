@@ -3099,7 +3099,7 @@ Buffs: {
 
 	ConsecratedRefuge: {
 		// DisplayName: Consecrated Refuge
-		// Description: Mods.CalamityEntropy.Buffs.ConsecratedRefuge.Description
+		// Description: ""
 	}
 }
 
