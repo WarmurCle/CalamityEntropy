@@ -2569,6 +2569,11 @@ Items: {
 			[c/ff9900:从孤身一人到统御千军]
 			'''
 	}
+
+	LostChubbyBird: {
+		DisplayName: 迷路的小胖鸟
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

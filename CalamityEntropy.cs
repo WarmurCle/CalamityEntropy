@@ -148,7 +148,7 @@ namespace CalamityEntropy
 
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
-
+            CERecipeGroups.init();
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
             userInterface = new UserInterface();
@@ -292,6 +292,7 @@ namespace CalamityEntropy
                 }
             }
             ILoaders = null;
+            CERecipeGroups.unload();
             CEUtils.TexCache = null;
             BookMarkLoader.CustomBMEffectsByName = null;
             BookMarkLoader.CustomBMByID = null;

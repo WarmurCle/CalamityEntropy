@@ -42,6 +42,12 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient(ItemID.GoldBar, 8)
+                .AddIngredient(ItemID.CloudinaBottle)
+                .AddIngredient(ItemID.Chain, 4)
+                .AddTile(TileID.Anvils)
+                .Register();
+            CreateRecipe()
                 .AddIngredient(ItemID.PlatinumBar, 8)
                 .AddIngredient(ItemID.CloudinaBottle)
                 .AddIngredient(ItemID.Chain, 4)

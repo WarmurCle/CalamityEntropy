@@ -69,6 +69,24 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddIngredient<SeashineSword>()
                 .AddTile(TileID.Anvils)
                 .Register();
+
+            CreateRecipe().AddIngredient<BrokenHilt>()
+                .AddIngredient(ItemID.WoodenSword)
+                .AddIngredient(ItemID.PlatinumBroadsword)
+                .AddIngredient(ItemID.LightsBane)
+                .AddIngredient(ItemID.EnchantedSword)
+                .AddIngredient<SeashineSword>()
+                .AddTile(TileID.Anvils)
+                .Register();
+
+            CreateRecipe().AddIngredient<BrokenHilt>()
+                .AddIngredient(ItemID.WoodenSword)
+                .AddIngredient(ItemID.PlatinumBroadsword)
+                .AddIngredient(ItemID.BloodButcherer)
+                .AddIngredient(ItemID.EnchantedSword)
+                .AddIngredient<SeashineSword>()
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
     public class ShatteredFractalHeld : ModProjectile

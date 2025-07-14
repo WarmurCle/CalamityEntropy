@@ -21,6 +21,10 @@ namespace CalamityEntropy.Content.Items.PrefixItem
             CreateRecipe().AddIngredient(ItemID.GoldBar, 2)
                 .AddIngredient(ItemID.Ruby)
                 .Register();
+
+            CreateRecipe().AddIngredient(ItemID.PlatinumBar, 2)
+                .AddIngredient(ItemID.Ruby)
+                .Register();
         }
     }
 }

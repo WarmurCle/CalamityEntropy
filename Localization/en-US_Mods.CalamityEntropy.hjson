@@ -2406,6 +2406,11 @@ Items: {
 			Grants significant armor penetration to minion attacks
 			'''
 	}
+
+	LostChubbyBird: {
+		DisplayName: Lost Chubby Bird
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

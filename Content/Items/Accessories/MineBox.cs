@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             CreateRecipe()
                 .AddIngredient<DubiousPlating>(8)
-                .AddIngredient(ItemID.IronBar, 8)
+                .AddRecipeGroup(RecipeGroupID.IronBar, 8)
                 .AddIngredient(ItemID.Bomb, 6)
                 .AddTile(TileID.Anvils)
                 .Register();

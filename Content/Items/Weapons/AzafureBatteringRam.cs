@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<DubiousPlating>(15)
                 .AddIngredient<EnergyCore>(2)
                 .AddIngredient(ItemID.HellstoneBar, 18)
-                .AddIngredient(ItemID.IronBar, 20)
+                .AddRecipeGroup(RecipeGroupID.IronBar, 20)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
