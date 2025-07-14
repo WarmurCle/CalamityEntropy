@@ -2411,6 +2411,11 @@ Items: {
 		DisplayName: Lost Chubby Bird
 		Tooltip: ""
 	}
+
+	ConsecratedRune: {
+		DisplayName: Consecrated Rune
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2847,6 +2852,7 @@ Projectiles: {
 	InkTrail.DisplayName: Ink Trail
 	PenMinion.DisplayName: Pen Minion
 	ShadowRuneVanity.DisplayName: Shadow Rune Vanity
+	Pooney.DisplayName: Pooney
 }
 
 LegendTooltip: - Legend -
@@ -3110,6 +3116,11 @@ Buffs: {
 	PenMountBuff: {
 		DisplayName: Replica Pen
 		Description: I'm proud of you.
+	}
+
+	ConsecratedRefuge: {
+		DisplayName: Consecrated Refuge
+		Description: ""
 	}
 }
 

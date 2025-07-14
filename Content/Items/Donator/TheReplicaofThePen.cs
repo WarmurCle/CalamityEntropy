@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Donator
 {
 	public class TheReplicaofThePen : ModItem, IDonatorItem
 	{
-        public string DonatorName => "Dillion";
+        public string DonatorName => "¿‰º∂";
 		public override void SetDefaults() {
 			Item.width = 20;
 			Item.height = 30;
@@ -39,6 +39,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddIngredient<VoidBar>(6)
                 .AddIngredient<DarkPlasma>(4)
                 .AddIngredient<RuinousSoul>(2)
+                .AddIngredient(ItemID.Goggles)
                 .AddTile<CosmicAnvil>()
                 .Register();
         }

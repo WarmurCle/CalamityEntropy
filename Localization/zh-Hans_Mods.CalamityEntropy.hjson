@@ -244,7 +244,7 @@ Items: {
 
 	GodsSnack: {
 		DisplayName: 神明点心
-		Tooltip: 召唤一位弑神者
+		Tooltip: 召唤神吞酱
 	}
 
 	CruiserBag: {
@@ -259,7 +259,7 @@ Items: {
 
 	DivineRemnants: {
 		DisplayName: 神瘟残枝
-		Tooltip: 召唤一位星神
+		Tooltip: 召唤星神少女
 	}
 
 	VoidElytra: {
@@ -278,7 +278,7 @@ Items: {
 
 	BottleDarkMatter: {
 		DisplayName: 瓶装暗物质
-		Tooltip: 召唤一位小虚空
+		Tooltip: 召唤无尽虚空（更可爱一点）
 	}
 
 	DivineIntervention: {
@@ -336,7 +336,7 @@ Items: {
 
 	TheocracyPearlToy: {
 		DisplayName: 神权珍珠
-		Tooltip: 召唤一个虚空武神阿比斯
+		Tooltip: 召唤虚空武神阿比斯
 	}
 
 	CruiserTrophy: {
@@ -351,7 +351,7 @@ Items: {
 
 	VoidToy: {
 		DisplayName: 虚空珍珠
-		Tooltip: 召唤一个虚空伙伴
+		Tooltip: 召唤虚空伙伴
 	}
 
 	WingsOfHush: {
@@ -464,7 +464,11 @@ Items: {
 	}
 
 	GalaxyGrapeSoda: {
-		Tooltip: “里面含有葡萄、神明的精华、还有黑檀圣卫和血化圣卫…?”
+		Tooltip: 
+		'''
+		“里面含有葡萄、神明的精华、还有黑檀圣卫和血化圣卫…?”
+		使你变成弑神者的样子
+		'''
 		DisplayName: 银河葡萄汽水
 	}
 
@@ -486,7 +490,11 @@ Items: {
 	}
 
 	DustyStar: {
-		Tooltip: ""
+		Tooltip: 
+		'''
+		使你变成一个黄毛兽耳美少年
+		“记得给灾熵点个赞”
+		'''
 		DisplayName: 尘封之星
 	}
 
@@ -501,7 +509,7 @@ Items: {
 
 	KosRunePendant: {
 		DisplayName: 宇宙符文吊坠
-		Tooltip: 召唤噬神者和小小使徒
+		Tooltip: 召唤噬神者和小小三使徒
 	}
 
 	OdinsRefuge: {
@@ -648,18 +656,31 @@ Items: {
 	}
 
 	Interdimensionallens: {
-		Tooltip: 投射出世界背后的样子
+		Tooltip: 
+		'''
+		将游戏背景换成你的壁纸
+		如果无法获取到你的壁纸将会是一片空白
+		“投射出世界背后的样子”
+		'''
 		DisplayName: 异次元透镜
 	}
 
 	PowerBank: {
-		Tooltip: 放在物品栏时，自动为物品栏中所有可以充能的物品充能
+		Tooltip: 
+		'''
+		放在物品栏时，自动为物品栏中所有可以充能的物品充能
+		“为什么我们不能把能源工厂，充能站和武器装在一起呢？”
+		'''
 		DisplayName: 便携充能背包
 	}
 
 	RustyGrenade: {
 		DisplayName: 锈蚀榴弹
-		Tooltip: 视为火箭
+		Tooltip: 
+		'''
+		视为火箭
+		“虽然很笨重，但似乎别无选择”
+		'''
 	}
 
 	RustExpeditioner: {
@@ -667,6 +688,7 @@ Items: {
 			'''
 			使用火箭类弹药
 			子弹会下坠
+			“不怎么安全”
 			'''
 		DisplayName: 锈蚀远征者
 	}
@@ -723,7 +745,11 @@ Items: {
 
 	AbyssalDragon: {
 		DisplayName: 幽渊魔龙杖
-		Tooltip: 发射幽渊魔龙和深渊之星
+		Tooltip: 
+		'''
+		发射幽渊魔龙和深渊之星
+		“当你凝视深渊...”
+		'''
 	}
 
 	ArchmagesHandmirror: {
@@ -758,7 +784,11 @@ Items: {
 
 	ArmorReforgStation: {
 		DisplayName: 盔甲锻造站
-		Tooltip: 用于重铸盔甲
+		Tooltip: 
+		'''
+		用于重铸盔甲
+		它已被废除，虽仍能使用，但无法在正常流程内获取，转而使用一系列的词条物品以为盔甲加上词条
+		'''
 	}
 
 	OverloadFurnace: {
@@ -783,7 +813,11 @@ Items: {
 
 	MagneticController: {
 		DisplayName: 磁机遥控器
-		Tooltip: 召唤一个磁流灵为你战斗
+		Tooltip: 
+		'''
+		召唤一个磁流灵为你战斗
+		“我们需要一个方铅手套”
+		'''
 	}
 
 	Mercy: {
@@ -796,17 +830,25 @@ Items: {
 	}
 
 	CannedCarrion: {
-		Tooltip: 召唤小吞噬者
+		Tooltip: 召唤世吞酱
 		DisplayName: 腐肉罐头
 	}
 
 	LostSoul: {
 		DisplayName: 迷失游魂
-		Tooltip: '''"保护他"'''
+		Tooltip: 
+		'''
+		试着带着它通过一场boss战并保证它的安全
+		"保护他"
+		'''
 	}
 
 	ShadowOfVoid: {
-		Tooltip: 召唤虚空中游荡的猎手追击敌人并持续发射虚空新星
+		Tooltip: 
+		'''
+		召唤虚空中游荡的猎手追击敌人并持续发射虚空新星
+		“虚空的投影”
+		'''
 		DisplayName: 虚渺之像
 	}
 
@@ -842,7 +884,10 @@ Items: {
 
 	DreamCatcher: {
 		DisplayName: 捕梦网
-		Tooltip: ""
+		Tooltip: 
+		'''
+		让你变成可爱的梦龙
+		'''
 	}
 
 	AquaticFlute: {
@@ -862,7 +907,7 @@ Items: {
 
 	ToyKnife: {
 		DisplayName: 玩具刀
-		Tooltip: ""
+		Tooltip: "“让你变成这个模组的主创之一”"
 	}
 
 	DeusCore: {
@@ -1009,11 +1054,12 @@ Items: {
 			按下[KEY]键启用协调状态
 			该状态下，你不受重力影响
 			并推开周围射弹
+			“回归的熵增”
 			'''
 	}
 
 	CrimsonNight: {
-		Tooltip: ""
+		Tooltip: "让你变成Away"
 		DisplayName: 绯夜
 	}
 
@@ -1029,6 +1075,7 @@ Items: {
 			攻击有概率获得可投掷大便
 			按[KEY]投掷
 			“蓝门”
+			“撒批收收味”
 			'''
 		DisplayName: 碎安卡十字
 	}
@@ -1042,7 +1089,7 @@ Items: {
 		DisplayName: 海洋护符
 		Tooltip:
 			'''
-			召唤两只灾虫
+			召唤两只灾虫酱
 			"重逢"
 			'''
 	}
@@ -1082,7 +1129,7 @@ Items: {
 	}
 
 	MosHat: {
-		Tooltip: ""
+		Tooltip: "让你变成一个白毛美少女"
 		DisplayName: Mo的帽子
 	}
 
@@ -1106,7 +1153,11 @@ Items: {
 	}
 
 	Oblivion: {
-		Tooltip: 射出追踪的噬虚矢
+		Tooltip: 
+		'''
+		射出追踪的噬虚矢
+		“虚无”
+		'''
 		DisplayName: 虚噬
 	}
 
@@ -1180,6 +1231,7 @@ Items: {
 			暴击时概率获得一块能量甲壳
 			每块能量甲壳能抵挡你受到伤害的16%一次
 			最多同时拥有3块能量甲壳
+			“那虚空中不可名状的寄生生物身体的一部分”
 			'''
 		DisplayName: 噬虚魔壳
 	}
@@ -1190,6 +1242,7 @@ Items: {
 			持有时显示敌人中心位置
 			子弹打的越准，伤害越高，最多增加1倍
 			打的足够准必定暴击并造成虚空之触减益并治疗你
+			“青天亦为你颂歌”
 			'''
 		DisplayName: 苍穹
 	}
@@ -1201,6 +1254,7 @@ Items: {
 			召唤一个小型虚空噬菌体为你而战
 			每个小型噬菌体消耗2栏位
 			必要时噬菌体会吸附在敌人身上为你回血
+			“它们带来绝望”
 			'''
 	}
 
@@ -1210,12 +1264,13 @@ Items: {
 			释放大量的符文斩
 			右键向光标位置进行一次中距离的冲刺，在击中的第一个目标除生成一个虚空标记
 			标记会在短时间后落下并释放横向斩击
+			“切除现实”
 			'''
 		DisplayName: 反虚之锋
 	}
 
 	AbyssLantern: {
-		Tooltip: ""
+		Tooltip: "使你变成妖龙酱"
 		DisplayName: 深渊提灯
 	}
 
@@ -1224,7 +1279,7 @@ Items: {
 			'''
 			随机生效1至3个你背包中的饰品
 			“照亮你的前途”
-			[c/ff0000:同时献出你的一部分力量，降低你的伤害]
+			同时献出你的一部分力量，降低你的部分伤害
 			'''
 		DisplayName: 冥灵灯笼
 	}
@@ -1241,7 +1296,7 @@ Items: {
 
 	WyrmTooth: {
 		DisplayName: 幻妖龙牙
-		Tooltip: ""
+		Tooltip: "“光是看着就让人心惊胆战”"
 	}
 
 	Vitalfeather: {
@@ -1252,6 +1307,7 @@ Items: {
 			召唤物集中击打命中的敌人
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			“重生”
 			'''
 	}
 
@@ -1262,16 +1318,25 @@ Items: {
 			拍击时发射一圈虚空新星
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			“死兆”
 			'''
 	}
 
 	HadopelagicEchoII: {
-		Tooltip: 发射冥渊镭射和幻渊回音
+		Tooltip: 
+		'''
+		发射冥渊镭射和幻渊回音
+		“链接深渊深处”
+		'''
 		DisplayName: 冥渊回音II
 	}
 
 	StarlessNight: {
-		Tooltip: 击中后释放虚空新星
+		Tooltip: 
+		'''
+		击中后释放虚空新星
+		“砍碎太阳！”
+		'''
 		DisplayName: 无星之夜
 	}
 
@@ -1292,6 +1357,7 @@ Items: {
 			命中目标积攒充能
 			右键突进，根据充能对沿途敌怪造成伤害并留下深渊撕裂
 			突进时无敌
+			“渊之悲歌”
 			'''
 	}
 
@@ -1308,6 +1374,7 @@ Items: {
 			召唤物获得12%的暴击率
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			“沧茫幻象”
 			'''
 	}
 
@@ -1335,6 +1402,7 @@ Items: {
 			'''
 			射出追踪的水晶箭
 			攻击时概率生成能够协同攻击的水晶
+			“它曾被狂热信徒们称为‘渊光之弓’”
 			'''
 		DisplayName: 逝怨晶辉
 	}
@@ -1362,6 +1430,7 @@ Items: {
 			'''
 			召唤一条沧溟渊龙，冲撞敌人并撕裂空间
 			消耗5召唤栏
+			“冥之猛兽”
 			'''
 		DisplayName: 沧溟龙契
 	}
@@ -1406,7 +1475,11 @@ Items: {
 
 	AncientScriptures: {
 		DisplayName: 远古典籍
-		Tooltip: 发射符文弹
+		Tooltip: 
+		'''
+		发射符文弹
+		“古老的法师们将发书上附上不同的魔法书签以方便的切换魔法”
+		'''
 	}
 
 	BookMarkBrimstone: {
@@ -2574,6 +2647,11 @@ Items: {
 		DisplayName: 迷路的小胖鸟
 		Tooltip: ""
 	}
+
+	ConsecratedRune: {
+		DisplayName: 神圣符文
+		Tooltip: "召唤一位至高存在跟随你"
+	}
 }
 
 PrefixitemDesc:
@@ -2625,7 +2703,7 @@ Projectiles: {
 	Slash2.DisplayName: 大斩击
 	AtlasNuc.DisplayName: 核爆
 	AtlasItem.DisplayName: 奖品
-	LMSpawner.DisplayName: 生成
+	LMSpawner.DisplayName: 抽奖机生成器
 	WyrmChan.DisplayName: 妖龙酱
 	VoidStar.DisplayName: 虚空新星
 	CruiserLaserMouth.DisplayName: 虚无激光
@@ -2647,7 +2725,7 @@ Projectiles: {
 	BHExp.DisplayName: 黑洞爆炸
 	Rvshoot2.DisplayName: 启示录
 	CruiserLaser2.DisplayName: 巡游者激光
-	AstrumDeus.DisplayName: 游龙
+	AstrumDeus.DisplayName: 星神酱
 	AstralShot.DisplayName: 星辉射线
 	DarkFissure.DisplayName: 黑暗裂隙
 	DivingShield.DisplayName: 神圣护盾
@@ -2951,7 +3029,7 @@ Projectiles: {
 	ForeseeEye.DisplayName: 预言之眼
 	ProphecyMasterpieceHeld.DisplayName: 预知巨著
 	ForeseeWhipProj.DisplayName: 预知之鞭
-	EndlessChopping.DisplayName: Endless Chopping
+	EndlessChopping.DisplayName: 天罚
 	EndSkillOrbOnSpan.DisplayName: 斩击
 	EXNemesisProj.DisplayName: 天罚
 	NemesisAlt.DisplayName: 天罚
@@ -2964,7 +3042,7 @@ Projectiles: {
 	FinalFractalHeld.DisplayName: 幽邃分形
 	FinalFractalBlade.DisplayName: 幽邃分形
 	FinalFracRightClick.DisplayName: 幽邃分形
-	HealingSpirit.DisplayName: Healing Spirit
+	HealingSpirit.DisplayName: 治疗魂魄
 	ProfPetG1.DisplayName: 亵渎守卫
 	ProfPetG2.DisplayName: 亵渎守卫
 	ProfPetG3.DisplayName: 亵渎守卫
@@ -3010,7 +3088,8 @@ Projectiles: {
 	AntivoidMark.DisplayName: 返虚之印
 	InkTrail.DisplayName: 墨水尾迹
 	PenMinion.DisplayName: 冲锋笔
-	// ShadowRuneVanity.DisplayName: Shadow Rune Vanity
+	ShadowRuneVanity.DisplayName: 暗影符文
+	Pooney.DisplayName: 普尼
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3274,6 +3353,11 @@ Buffs: {
 	PenMountBuff: {
 		DisplayName: 冲锋笔
 		Description: 我为你感到骄傲
+	}
+
+	ConsecratedRefuge: {
+		DisplayName: 圣灵庇护
+		Description: 至高存在将会跟随你
 	}
 }
 
