@@ -375,8 +375,10 @@ namespace CalamityEntropy.Common
         public bool worshipRelic = false;
         public int worshipStealthRegenTime = 0;
         public bool shadowPact = false;
+        public bool shadowRune = false;
         public override void ResetEffects()
         {
+            shadowRune = false;
             shadowPact = false;
             worshipRelic = false;
             ExtraStealthBar = false;
@@ -937,6 +939,11 @@ namespace CalamityEntropy.Common
         public float WingTimeMult = 1;
         public override void PostUpdateMiscEffects()
         {
+            if(shadowRune)
+            {
+                Player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += ShadowRune.WhipAtkSpeedAddition;
+                
+            }
             if (obscureCard)
             {
                 foreach (NPC npc in Main.ActiveNPCs)
@@ -1393,6 +1400,15 @@ namespace CalamityEntropy.Common
         public float shadowStealth = 0;
         public override void PostUpdate()
         {
+            if(shadowRune)
+            {
+                Player.maxMinions += (int)(Player.GetDamage(DamageClass.Summon).Additive * ShadowRune.SummonDmgToMinionSlot);
+                if (Player.GetDamage(DamageClass.Summon).Multiplicative != 0)
+                {
+                    Player.GetDamage(DamageClass.Summon) /= Player.GetDamage(DamageClass.Summon).Multiplicative;
+                }
+                Player.GetDamage(DamageClass.Summon) -= Player.GetDamage(DamageClass.Summon).Additive;
+            }
             if(Main.myPlayer == Player.whoAmI)
             {
                 if (!Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<TheReplicaofThePen>() && Player.ownedProjectileCounts[ModContent.ProjectileType<PenMinion>()] < 1)

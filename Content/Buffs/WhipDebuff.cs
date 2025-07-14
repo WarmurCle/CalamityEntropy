@@ -124,6 +124,12 @@ namespace CalamityEntropy.Content.Buffs
                     modifiers.SetCrit();
                 }
             }
+
+            if(projectile.GetOwner().Entropy().shadowRune)
+            {
+                modifiers.FlatBonusDamage += -(modifiers.FlatBonusDamage.Value * 0.6f);
+                modifiers.ArmorPenetration += 128;
+            }
         }
 
         public override bool PreAI(NPC npc)

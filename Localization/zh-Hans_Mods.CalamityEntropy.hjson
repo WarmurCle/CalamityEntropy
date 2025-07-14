@@ -2547,6 +2547,27 @@ Items: {
 			'''
 		DisplayName: 冲锋笔
 	}
+
+	Typhoon: {
+		Tooltip:
+			'''
+			右键在机枪和霰弹模式之间切换
+			机枪模式以快的难以想象的速度持续开火
+			霰弹模式射出大量分散的子弹
+			'''
+		DisplayName: 飓风
+	}
+
+	ShadowRune: {
+		DisplayName: 暗影符文
+		Tooltip: 
+		'''
+		将召唤伤害加成归零并按照[0]%:1的比例增加仆从上限
+		增加鞭子[1]%的攻速
+		减少鞭子标记伤害加成
+		大量提高仆从攻击的护甲穿透
+		'''
+	}
 }
 
 PrefixitemDesc:
@@ -2983,6 +3004,7 @@ Projectiles: {
 	AntivoidMark.DisplayName: 返虚之印
 	InkTrail.DisplayName: 墨水尾迹
 	PenMinion.DisplayName: 冲锋笔
+	// ShadowRuneVanity.DisplayName: Shadow Rune Vanity
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3244,13 +3266,8 @@ Buffs: {
 	}
 
 	PenMountBuff: {
-		// DisplayName: Replica Pen
-		/* Description:
-			'''
-			Spawn harmful trail when riding
-			Attack enemies when not riding
-			Apply Void Touch debuff on hited
-			''' */
+		DisplayName: 冲锋笔
+		Description: 我为你感到骄傲
 	}
 }
 

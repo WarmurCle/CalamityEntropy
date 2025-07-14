@@ -2355,8 +2355,28 @@ Items: {
 	}
 
 	TheReplicaofThePen: {
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Spawn harmful trail when riding
+			Attack enemies when not riding
+			Apply Void Touch debuff on hited
+			''' */
 		// DisplayName: The Replica of The Pen
+	}
+
+	Typhoon: {
+		/* Tooltip:
+			'''
+			Right click to switch between machine gun and shotgun modes
+			Machine gun mode continuously fires at an unimaginable speed
+			Shot a large number of scattered bullets in shotgun mode
+			''' */
+		// DisplayName: Typhoon
+	}
+
+	ShadowRune: {
+		// DisplayName: Shadow Rune
+		// Tooltip: ""
 	}
 }
 
@@ -2794,6 +2814,7 @@ Projectiles: {
 	// AntivoidMark.DisplayName: Antivoid Mark
 	// InkTrail.DisplayName: Ink Trail
 	// PenMinion.DisplayName: Pen Minion
+	// ShadowRuneVanity.DisplayName: Shadow Rune Vanity
 }
 
 LegendTooltip: - Legend -
@@ -3056,12 +3077,7 @@ Buffs: {
 
 	PenMountBuff: {
 		// DisplayName: Replica Pen
-		/* Description:
-			'''
-			Spawn harmful trail when riding
-			Attack enemies when not riding
-			Apply Void Touch debuff on hited
-			''' */
+		// Description: I'm proud of you.
 	}
 }
 

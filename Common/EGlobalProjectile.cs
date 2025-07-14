@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Nemesis;
 using CalamityEntropy.Content.Particles;
@@ -380,6 +381,10 @@ namespace CalamityEntropy.Common
         }
         public override bool ShouldUpdatePosition(Projectile projectile)
         {
+            if(typhoonBullet)
+            {
+                return false;
+            }
             if (projectile.Entropy().daTarget)
             {
                 return false;
@@ -401,8 +406,35 @@ namespace CalamityEntropy.Common
         public bool init_ = true;
         public float maxSpd = -1;
         public List<int> luminarHited = new List<int>();
+        public bool bulletInit = true;
+        public bool typhoonBullet = false;
+        public Vector2 typVel = Vector2.Zero;
         public override bool PreAI(Projectile projectile)
         {
+            if(bulletInit)
+            {
+                bulletInit = false;
+                if(projectile.GetOwner().HeldItem.type == ModContent.ItemType<Typhoon>() && projectile.GetOwner().PickAmmo(projectile.GetOwner().HeldItem, out var pts, out var s, out var d, out var kb, out var ua, true) && pts == projectile.type)
+                {
+                    typVel = projectile.velocity;
+                    typhoonBullet = true;
+                }
+            }
+            if(typhoonBullet)
+            {
+                float targetDist = Vector2.Distance(projectile.GetOwner().Center, projectile.Center);
+
+                Vector3 DustLight = new Vector3(0.190f, 0.190f, 0.190f);
+                Lighting.AddLight(projectile.Center, DustLight * 2);
+
+                if (targetDist < 1400f)
+                {
+                    int positionVariation = 8;
+                    LineParticle spark = new LineParticle(projectile.Center + Main.rand.NextVector2Circular(positionVariation, positionVariation), -projectile.velocity * Main.rand.NextFloat(0.003f, 0.001f), false, 4, 1.45f, Color.Chocolate);
+                    GeneralParticleHandler.SpawnParticle(spark);
+                }
+                projectile.position += projectile.velocity;
+            }
             if (ProjectileID.Sets.IsAGravestone[projectile.type] && projectile.GetOwner().head == EquipLoader.GetEquipSlot(Mod, "LuminarRing", EquipType.Head))
             {
                 if (Main.myPlayer == projectile.owner)
@@ -993,6 +1025,28 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (typhoonBullet)
+            {
+                if (target.Organic())
+                {
+                    CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: 0.28f);
+                }
+                else
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Vector2 top = projectile.Center;
+                        Vector2 sparkVelocity2 = projectile.velocity.normalize().RotateRandom(0.3f) * Main.rand.NextFloat(16f, 36f);
+                        int sparkLifetime2 = Main.rand.Next(16, 26);
+                        float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
+                        var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
+
+                        LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: 0.16f);
+                }
+            }
             if (LuminarArrow)
             {
                 luminarHited.Add(target.whoAmI);
