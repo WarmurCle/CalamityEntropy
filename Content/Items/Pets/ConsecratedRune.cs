@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityMod.Items.Materials;
 using CalamityMod.Prefixes;
@@ -9,8 +10,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Pets
 {
-    public class ConsecratedRune : ModItem
+    public class ConsecratedRune : ModItem, IDevItem
     {
+        public string DevName => "锯角";
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.ZephyrFish);
