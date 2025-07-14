@@ -55,19 +55,25 @@ namespace CalamityEntropy.Content.Tiles
         }
         public override void SetStaticDefaults()
         {
-            RegisterItemDrop(ModContent.ItemType<AzafureMiner>());
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style4x2);
-            TileObjectData.newTile.LavaDeath = false;
-            TileObjectData.newTile.UsesCustomCanPlace = true;
+            Main.tileLighted[Type] = true;
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
+            Main.tileLavaDeath[Type] = false;
+            Main.tileWaterDeath[Type] = false;
+
+            AddMapEntry(new Color(190, 72, 81), VaultUtils.GetLocalizedItemName<AzafureMiner>());
+
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
             TileObjectData.newTile.Width = 4;
             TileObjectData.newTile.Height = 3;
             TileObjectData.newTile.Origin = new Point16(2, 2);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
-            TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop, 4, 0);
-            TileObjectData.addTile(Type);
-            Main.tileFrameImportant[(int)base.Type] = true;
-            AddMapEntry(Color.DarkGray, CalamityUtils.GetItemName<AzafureMiner>());
+            TileObjectData.newTile.AnchorBottom = new AnchorData(
+                AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide
+                , TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.CoordinateHeights = [16, 16, 16];
+            TileObjectData.newTile.LavaDeath = false;
 
+            TileObjectData.addTile(Type);
         }
 
         public override bool RightClick(int i, int j)
