@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool steamSound = true;
         public bool slSound = true;
         public int LoadedAmmo = 0;
-        public static int MaxAmmo = 5;
+        public static int MaxAmmo => Main.zenithWorld ? 591 : 5;
         public int FrameCount = 0;
         public float LoadCounter = 0;
         public float FlywheelRot = 0;

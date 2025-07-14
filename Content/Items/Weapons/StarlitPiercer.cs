@@ -74,9 +74,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.heldProj = Projectile.whoAmI;
             player.Calamity().mouseWorldListener = true;
             float cMax = player.itemTimeMax * Projectile.MaxUpdates;
-            float zMax = cMax * 0.22f;
+            float zMax = cMax * (Main.zenithWorld ? 0.06f : 0.22f);
             counter++;
-            if (counter <= zMax * 3)
+            if (counter <= zMax * (Main.zenithWorld ? 10 : 3))
             {
                 if (dCounter == 0)
                 {

@@ -80,9 +80,16 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         player.PickAmmo(player.HeldItem, out projID, out shootSpeed, out damage, out kb, out ammoID, false);
 
-                        for (int i = 0; i < 4; i++)
+                        if(Main.zenithWorld)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + CEUtils.randomPointInCircle(36) + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(-84, 84), Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed, projID, damage, kb, player.whoAmI);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed * 0.4f, ModContent.ProjectileType<SolarStormExplosionProj>(), damage * 4, kb * 2, player.whoAmI);
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + CEUtils.randomPointInCircle(36) + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(-84, 84), Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed, projID, damage, kb, player.whoAmI);
+                            }
                         }
                         var snd = SoundID.DD2_BallistaTowerShot;
                         snd.MaxInstances = 5;
@@ -109,8 +116,17 @@ namespace CalamityEntropy.Content.Projectiles
                     spawnParti = true;
                     steamTime = 22;
                     CEUtils.PlaySound("ProminenceShoot", 1, Projectile.Center);
-                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed * 0.4f, ModContent.ProjectileType<SolarStormExplosionProj>(), damage * 16, kb * 2, player.whoAmI);
-
+                    if (Main.zenithWorld)
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + CEUtils.randomPointInCircle(36) + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(-84, 84), Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed, projID, damage * 10, kb, player.whoAmI);
+                        }
+                    }
+                    else
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed * 0.4f, ModContent.ProjectileType<SolarStormExplosionProj>(), damage * 16, kb * 2, player.whoAmI);
+                    }
                 }
 
             }
