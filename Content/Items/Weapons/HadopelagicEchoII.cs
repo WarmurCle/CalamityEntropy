@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 126;
             Item.height = 66;
-            Item.damage = 16000;
+            Item.damage = 24000;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 30;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 16f;
             Item.mana = 40;
             Item.DamageType = DamageClass.Magic;
-            Item.ArmorPenetration = 80;
+            Item.ArmorPenetration = 100;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
