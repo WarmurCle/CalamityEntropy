@@ -2,6 +2,7 @@
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.NPCs.PrimordialWyrm;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -25,6 +26,23 @@ namespace CalamityEntropy.Content.Tiles
             AddMapEntry(new Color(134, 180, 240), CalamityUtils.GetItemName<AbyssalAltar>());
 
             DustType = (int)CalamityDusts.PurpleCosmilite;
+
+            AdjTiles = new int[] {
+                TileID.WorkBenches,
+                TileID.Chairs,
+                TileID.Tables,
+                TileID.Anvils,
+                TileID.MythrilAnvil,
+                ModContent.TileType<CosmicAnvil>(),
+                TileID.Furnaces,
+                TileID.Hellforge,
+                TileID.AdamantiteForge,
+                TileID.TinkerersWorkbench,
+                TileID.LunarCraftingStation,
+                TileID.DemonAltar,
+                ModContent.TileType<DraedonsForge>(),
+                ModContent.TileType<SCalAltarLarge>()
+            };
         }
 
         public override bool RightClick(int i, int j)

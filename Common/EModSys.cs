@@ -383,7 +383,7 @@ namespace CalamityEntropy.Common
                     recipe.DisableRecipe();
                 }
             }
-
+            Recipe.Create(ItemID.Leather).AddIngredient(ItemID.Cobweb, 10).AddTile(TileID.Loom).Register();
         }
 
         public override void PreUpdateProjectiles()

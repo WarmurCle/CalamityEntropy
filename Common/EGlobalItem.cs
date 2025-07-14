@@ -52,7 +52,7 @@ namespace CalamityEntropy.Common
         {
             this.position += this.velocity;
         }
-
+        
         public void draw(float alpha, Vector2 offset, Color color)
         {
             SpriteBatch sb = Main.spriteBatch;
@@ -95,6 +95,7 @@ namespace CalamityEntropy.Common
                 player.Entropy().wing = item;
             }
         }
+
 
         public override bool CanRightClick(Item item)
         {
