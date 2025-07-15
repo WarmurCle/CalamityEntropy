@@ -954,8 +954,8 @@ namespace CalamityEntropy.Common
                         {
                             Player.wingTime += 2f;
                         }
-                        Player.lifeRegen *= 4;
-                        lifeRegenPerSec *= 3;
+                        Player.lifeRegen += 20;
+                        lifeRegenPerSec += 6;
                         if ((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120)
                         {
                             npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 120);
@@ -1417,7 +1417,7 @@ namespace CalamityEntropy.Common
             }
             if (Player.mount.Type == ModContent.MountType<ReplicaPenMount>())
             {
-                Player.velocity.Y *= 0.986f;
+                Player.velocity.Y *= 0.996f;
             }
 
             if (shadowPact)
