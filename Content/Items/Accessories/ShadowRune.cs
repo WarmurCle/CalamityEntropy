@@ -13,8 +13,8 @@ namespace CalamityEntropy.Content.Items.Accessories
     public class ShadowRune : ModItem, IDonatorItem
     {
         public string DonatorName => "南巷";
-        public static float SummonDmgToMinionSlot = 5f;
-        public static float WhipAtkSpeedAddition = 0.25f;
+        public static float SummonDmgToMinionSlot = 6.66f;
+        public static float WhipAtkSpeedAddition = 1.0f;
 
         public override void SetDefaults()
         {

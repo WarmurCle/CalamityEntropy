@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Item.width = 136;
             Item.height = 52;
-            Item.damage = 26;
+            Item.damage = 22;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 1;
             Item.useAnimation = 1;
