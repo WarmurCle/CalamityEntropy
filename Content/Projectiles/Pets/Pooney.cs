@@ -58,6 +58,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             {
                 Projectile.timeLeft = 2;
             }
+            CEUtils.AddLight(Projectile.Center, Color.LightYellow, 4);
         }
 
 

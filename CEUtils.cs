@@ -22,6 +22,10 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static void AddLight(Vector2 position, Color lightColor, float mult = 1)
+        {
+            Lighting.AddLight(position, lightColor.R / 255f * mult, lightColor.G / 255f * mult, lightColor.B / 255f * mult);
+        }
         public static T[] Combine<T>(this T[] a, T[] b)
         {
             T[] ls = new T[a.Length + b.Length];
