@@ -1,0 +1,40 @@
+﻿using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Vanity.Luminar;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Common.DrawLayers
+{
+    public class SoraRingLayer : PlayerDrawLayer
+    {
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            if (drawInfo.shadow != 0f || drawInfo.drawPlayer.dead)
+                return false;
+            return drawInfo.drawPlayer.head == EquipLoader.GetEquipSlot(Mod, "MysteriousBook", EquipType.Head);
+        }
+
+        public override bool IsHeadLayer => true;
+
+        public override Position GetDefaultPosition()
+        {
+            return new BeforeParent(PlayerDrawLayers.Head);
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            var player = drawInfo.drawPlayer;
+            Texture2D texture;
+            Vector2 headPos;
+            
+            texture = CEUtils.getExtraTex("sRing");
+            headPos = drawInfo.HeadPosition(false);
+            drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, Color.White * (float)(Math.Cos(Main.GlobalTimeWrappedHourly) * 0.15f + 0.8f), drawInfo.drawPlayer.headRotation, new Vector2(texture.Width / 2, texture.Height + 10), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
+            
+        }
+
+    }
+}

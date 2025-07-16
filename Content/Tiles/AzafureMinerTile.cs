@@ -163,7 +163,7 @@ namespace CalamityEntropy.Content.Tiles
             }
         }
         public override int TargetTileID => ModContent.TileType<AzafureMinerTile>();
-        public override void Update()
+        private void CheckLists()
         {
             if (items == null || filters == null || filters.Count == 0 || items.Count == 0)
             {
@@ -178,6 +178,10 @@ namespace CalamityEntropy.Content.Tiles
                     items.Add(new Item());
                 }
             }
+        }
+        public override void Update()
+        {
+            CheckLists();
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 bool f = false;
@@ -313,6 +317,7 @@ namespace CalamityEntropy.Content.Tiles
         }
         public override void SendData(ModPacket data)
         {
+            CheckLists();
             for (int i = 0; i < FiltersCount; i++)
             {
                 Item item = filters[i];
@@ -331,6 +336,7 @@ namespace CalamityEntropy.Content.Tiles
 
         public override void ReceiveData(BinaryReader reader, int whoAmI)
         {
+            CheckLists();
             for (int i = 0; i < FiltersCount; i++)
             {
                 Item item = new Item(reader.ReadInt32());

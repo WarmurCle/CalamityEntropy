@@ -50,6 +50,7 @@ namespace CalamityEntropy.Common
         {
             if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
                 return;
+            
             if (loreEffects.ContainsKey(item.type))
             {
                 if (Main.LocalPlayer.Entropy().enabledLoreItems.Contains(item.type))
@@ -91,7 +92,10 @@ namespace CalamityEntropy.Common
             {
                 return null;
             }
-            LoreReworkSystem.ToggleLore(item);
+            if (Main.myPlayer == player.whoAmI)
+            {
+                LoreReworkSystem.ToggleLore(item);
+            }
             if (LoreReworkSystem.loreEffects[item.type].useSound.HasValue)
             {
                 SoundEngine.PlaySound(LoreReworkSystem.Enabled(item.type) ? LoreReworkSystem.loreEffects[item.type].useSound.Value : CEUtils.GetSound("AscendantOff"), player.Center);

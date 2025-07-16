@@ -3712,3 +3712,6 @@ SolarBarInfo:
 	After hitting the target with Rogue weapons, there is an increase in solar energy
 	When fully charged, the attack will release some tracking Solar Arrows
 	'''
+LorePerforatorsDesc: [0]% Chance to heal [1] after hitted
+LoreEaterofWorldsDesc: Immune to Cursed Inferno
+LoreBrainofCthulhuDesc: Immune to bleeding

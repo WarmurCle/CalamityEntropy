@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.BeesGame;
+﻿using CalamityEntropy.Common.LoreReworks;
+using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.ILEditing;
@@ -23,6 +24,7 @@ using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.Items.LoreItems;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Rogue;
 using Microsoft.Xna.Framework.Audio;
@@ -1189,7 +1191,13 @@ namespace CalamityEntropy.Common
             HitTCounter = 300;
             hitTimeCount = 0;
             JustHit = true;
-
+            if(LoreReworkSystem.Enabled<LorePerforators>())
+            {
+                if(Main.rand.NextFloat() < LEHiveCrimson.chance)
+                {
+                    Player.Heal(LEHiveCrimson.HealAmount);
+                }
+            }
         }
         public bool JustHit = false;
         public override bool FreeDodge(Player.HurtInfo info)

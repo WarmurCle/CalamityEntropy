@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Items
 {
     public class LuminarisLore : LoreItem
     {
-        public static float wingTimeAddition = 0.1f;
+        public static float wingTimeAddition = 0.05f;
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();

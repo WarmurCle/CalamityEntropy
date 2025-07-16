@@ -9,8 +9,8 @@ namespace CalamityEntropy.Common.LoreReworks
         public override int ItemType => ModContent.ItemType<LoreAwakening>();
         public override void UpdateEffects(Player player)
         {
-            player.Entropy().moveSpeed += 0.01f;
-            player.jumpSpeedBoost += 0.1f;
+            player.Entropy().moveSpeed += 0.005f;
+            player.jumpSpeedBoost += 0.05f;
         }
     }
 }

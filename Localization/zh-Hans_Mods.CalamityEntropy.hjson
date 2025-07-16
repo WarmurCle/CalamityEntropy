@@ -3955,3 +3955,6 @@ SolarBarInfo:
 	使用盗贼武器击中目标后增长
 	充满时攻击会触发潜伏攻击并额外发射一些追踪的耀阳矢
 	'''
+LorePerforatorsDesc: 受伤后有[0]%的概率回复[1]点血量
+LoreEaterofWorldsDesc: 使你免疫诅咒烈焰减益
+LoreBrainofCthulhuDesc: 使你免疫流血减益
