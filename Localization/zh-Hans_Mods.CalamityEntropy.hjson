@@ -2649,6 +2649,11 @@ Items: {
 		DisplayName: 神圣符文
 		Tooltip: 召唤一位至高存在跟随你
 	}
+
+	MysteriousBook: {
+		// Tooltip: ""
+		// DisplayName: Mysterious Book
+	}
 }
 
 PrefixitemDesc:
@@ -3887,7 +3892,7 @@ LoreCrimsonDesc: +{1}最大生命值
 LoreCrabulonDesc: 受伤后获得{1}秒的与菇共生增益
 LoreEyeofCthulhuDesc: 减少{1}%冲刺间隔
 LoreCorruptionDesc: 所受伤害减少{1}%
-LoreBrainofCthulhuDesc: +{1}%暴击率, 但是-{2}%伤害
+LoreBrainofCthulhuDesc: 使你免疫流血减益
 LoreQueenBeeDesc: +{2}%伤害, 但是-{1}%暴击率
 LuminarisLoreDesc: +{1}%最大飞行时间
 
@@ -3955,6 +3960,5 @@ SolarBarInfo:
 	使用盗贼武器击中目标后增长
 	充满时攻击会触发潜伏攻击并额外发射一些追踪的耀阳矢
 	'''
-LorePerforatorsDesc: "受伤后有[0]%的概率回复[1]点血量"
+LorePerforatorsDesc: 受伤后有[0]%的概率回复[1]点血量
 LoreEaterofWorldsDesc: 使你免疫诅咒烈焰减益
-LoreBrainofCthulhuDesc: 使你免疫流血减益

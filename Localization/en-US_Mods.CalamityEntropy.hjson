@@ -2416,6 +2416,11 @@ Items: {
 		DisplayName: Consecrated Rune
 		Tooltip: ""
 	}
+
+	MysteriousBook: {
+		Tooltip: ""
+		DisplayName: Mysterious Book
+	}
 }
 
 PrefixitemDesc:
@@ -3644,7 +3649,7 @@ LoreCrimsonDesc: +{1}max health
 LoreCrabulonDesc: Obtain mushy for {1} seconds after injury
 LoreEyeofCthulhuDesc: Reduce dash cooldown by {1}%
 LoreCorruptionDesc: Gain {1}% Damage Reduce
-LoreBrainofCthulhuDesc: +{1}%Crit, but -{2}% Damage
+LoreBrainofCthulhuDesc: Immune to bleeding
 LoreQueenBeeDesc: +{2}%Damage, but -{1}% Crit
 LuminarisLoreDesc: +{1}% Max Wing Time
 
@@ -3714,4 +3719,3 @@ SolarBarInfo:
 	'''
 LorePerforatorsDesc: "[0]% Chance to heal [1] after hitted"
 LoreEaterofWorldsDesc: Immune to Cursed Inferno
-LoreBrainofCthulhuDesc: Immune to bleeding

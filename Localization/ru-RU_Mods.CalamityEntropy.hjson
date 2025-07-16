@@ -2394,6 +2394,11 @@ Items: {
 		// DisplayName: Consecrated Rune
 		// Tooltip: ""
 	}
+
+	MysteriousBook: {
+		// Tooltip: ""
+		// DisplayName: Mysterious Book
+	}
 }
 
 PrefixitemDesc:
@@ -3689,5 +3694,5 @@ InfernumIntros: {
 	After hitting the target with Rogue weapons, there is an increase in solar energy
 	When fully charged, the attack will release some tracking Solar Arrows
 	''' */
-// LorePerforatorsDesc: Mods.CalamityEntropy.LorePerforatorsDesc
-// LoreEaterofWorldsDesc: Mods.CalamityEntropy.LoreEaterofWorldsDesc
+// LorePerforatorsDesc: "[0]% Chance to heal [1] after hitted"
+// LoreEaterofWorldsDesc: Immune to Cursed Inferno
