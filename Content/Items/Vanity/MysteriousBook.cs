@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Vanity
 {
     public class MysteriousBook : ModItem, IDonatorItem
     {
-        public string DonatorName => "心斩狂歌";
+        public string DonatorName => "Sora";
 
         public override void Load()
         {
