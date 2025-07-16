@@ -32,7 +32,7 @@ namespace CalamityEntropy.Common.DrawLayers
             
             texture = CEUtils.getExtraTex("sRing");
             headPos = drawInfo.HeadPosition(true);
-            drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, Color.White, drawInfo.drawPlayer.headRotation, new Vector2(texture.Width / 2 - 1, texture.Height + 24), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
+            drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, Color.White, drawInfo.drawPlayer.headRotation, new Vector2(texture.Width / 2 - 3 * player.direction, texture.Height + 20), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
             
         }
 
