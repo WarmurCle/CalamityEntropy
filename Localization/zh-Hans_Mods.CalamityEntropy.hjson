@@ -2651,7 +2651,7 @@ Items: {
 	}
 
 	MysteriousBook: {
-		Tooltip: "使你变成一位神秘的少女"
+		Tooltip: 使你变成一位神秘的少女
 		DisplayName: 神秘的书
 	}
 }
