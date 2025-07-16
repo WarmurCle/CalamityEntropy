@@ -433,18 +433,26 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             if (NPC.life <= 0 && DeathAnmCount <= 10)
             {
-                CEUtils.PlaySound("VoidAttack", 1, NPC.Center);
-                Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
-                for (int i = 0; i < 86; i++)
+                if(!Main.zenithWorld)
                 {
-                    Particle p = new Particle();
-                    p.position = NPC.Center;
-                    p.alpha = Main.rand.NextFloat(1f, 2f);
-                    p.shape = 4;
-                    p.vd = 0.97f;
-                    p.velocity = CEUtils.randomPointInCircle(16);
-                    VoidParticles.particles.Add(p);
+                    CEUtils.PlaySound("VoidAttack", 1, NPC.Center);
+                    for (int i = 0; i < 86; i++)
+                    {
+                        Particle p = new Particle();
+                        p.position = NPC.Center;
+                        p.alpha = Main.rand.NextFloat(1f, 2f);
+                        p.shape = 4;
+                        p.vd = 0.97f;
+                        p.velocity = CEUtils.randomPointInCircle(16);
+                        VoidParticles.particles.Add(p);
+                    }
                 }
+                else
+                {
+                    EParticle.spawnNew(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 10, 1, true, BlendState.AlphaBlend);
+                }
+                    Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
+               
             }
         }
         public float camLerp = 0;

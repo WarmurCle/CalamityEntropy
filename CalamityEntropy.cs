@@ -403,7 +403,7 @@ namespace CalamityEntropy
                             Vector2 center = new Vector2(36, 0).RotatedBy(rot);
                             center.Y = 0;
                             float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                            Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(shell, player.Center + player.gfxOffY * Vector2.UnitY - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
                         }
                         rot += MathHelper.TwoPi / count;
                     }
@@ -419,7 +419,7 @@ namespace CalamityEntropy
                             Vector2 center = new Vector2(48, 0).RotatedBy(rot);
                             center.Y = 0;
                             float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                            Main.spriteBatch.Draw(crystalShield, player.Center - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(crystalShield, player.Center + player.gfxOffY * Vector2.UnitY - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
                         }
                         rot += MathHelper.TwoPi / count;
                     }
@@ -476,7 +476,7 @@ namespace CalamityEntropy
                             Vector2 center = new Vector2(36, 0).RotatedBy(rot);
                             center.Y = 0;
                             float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                            Main.spriteBatch.Draw(shell, player.Center - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(shell, player.Center + player.gfxOffY * Vector2.UnitY - Main.screenPosition + center, null, Color.White * 0.8f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
                         }
                         rot += MathHelper.TwoPi / count;
                     }
@@ -492,7 +492,7 @@ namespace CalamityEntropy
                             Vector2 center = new Vector2(48, 0).RotatedBy(rot);
                             center.Y = 0;
                             float sizeX = Math.Abs(new Vector2(56, 0).RotatedBy(rot + 0.3f).X - new Vector2(56, 0).RotatedBy(rot - 0.3f).X);
-                            Main.spriteBatch.Draw(crystalShield, player.Center - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(crystalShield, player.Center + player.gfxOffY * Vector2.UnitY - Main.screenPosition + center, null, Color.White * 0.6f * ((((rot.ToRotationVector2().Y) + 1) * 0.5f) * 0.7f + 0.3f), 0, shell.Size() / 2, new Vector2(sizeX / shell.Width, 1), SpriteEffects.None, 0);
                         }
                         rot += MathHelper.TwoPi / count;
                     }
