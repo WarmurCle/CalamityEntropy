@@ -442,6 +442,17 @@ namespace CalamityEntropy.Content.Items.Books
                     player.itemTime = 3;
                     player.itemAnimation = 3;
                     player.channel = true;
+                    for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
+                    {
+                        Item item = Projectile.GetOwner().Entropy().EBookStackItems[i];
+                        if (BookMarkLoader.IsABookMark(item))
+                        {
+                            if(BookMarkLoader.GetEffect(item) != null)
+                            {
+                                BookMarkLoader.GetEffect(item).BookUpdate(Projectile, Main.myPlayer == Projectile.owner);
+                            }
+                        }
+                    }
                 }
                 if (!UIOpen)
                 {
@@ -858,6 +869,10 @@ namespace CalamityEntropy.Content.Items.Books
         public override void Unload()
         {
             instances = null;
+        }
+        public virtual void BookUpdate(Projectile projectile, bool ownerClient)
+        {
+
         }
         public static EBookProjectileEffect findByName(string name)
         {

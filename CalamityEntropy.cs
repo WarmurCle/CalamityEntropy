@@ -943,6 +943,7 @@ namespace CalamityEntropy
                         Action<Projectile, bool> updateProjectile = GetAction<Projectile, bool>(objects, "UpdateProjectile");
                         Action<Projectile, NPC, int> onHitNPC = GetAction<Projectile, NPC, int>(objects, "OnHitNPC");
                         Action<Projectile, NPC, NPC.HitModifiers> modifyHitNPC = GetAction<Projectile, NPC, NPC.HitModifiers>(objects, "ModifyHitNPC");
+                        Action<Projectile, bool> BookUpdate = GetAction<Projectile, bool>(objects, "BookUpdate");
 
                         BookMarkLoader.RegisterBookmarkEffect(
                             name,
@@ -951,7 +952,8 @@ namespace CalamityEntropy
                             onProjectileSpawn,
                             updateProjectile,
                             onHitNPC,
-                            modifyHitNPC
+                            modifyHitNPC,
+                            BookUpdate
                         );
                     }
                     if (str.ToLower().Equals("RegisterBookMark".ToLower()))

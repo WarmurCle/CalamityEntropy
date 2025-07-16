@@ -19,9 +19,10 @@ namespace CalamityEntropy.Common
                 Action<Projectile, bool> onProjectileSpawn = null,
                 Action<Projectile, bool> updateProjectile = null,
                 Action<Projectile, NPC, int> onHitNPC = null,
-                Action<Projectile, NPC, NPC.HitModifiers> modifyHitNPC = null)
+                Action<Projectile, NPC, NPC.HitModifiers> modifyHitNPC = null,
+                Action<Projectile, bool> bookUpdate = null)
         {
-            CustomBMEffectsByName[name] = new BookmarkEffectFunctionGroups(onShoot, onActive, onProjectileSpawn, updateProjectile, onHitNPC, modifyHitNPC);
+            CustomBMEffectsByName[name] = new BookmarkEffectFunctionGroups(onShoot, onActive, onProjectileSpawn, updateProjectile, onHitNPC, modifyHitNPC, bookUpdate);
         }
 
         public static void RegisterBookmark(int ItemType, Asset<Texture2D> tex, string effectName = "",
@@ -119,6 +120,15 @@ namespace CalamityEntropy.Common
                 CustomBMEffectsByName[Name].ModifyHitNPC?.Invoke(proj, npc, modifiers);
             }
         }
+        public static void BookUpdate(string Name, Projectile projectile, bool ownerClient)
+        {
+            if (CustomBMEffectsByName.ContainsKey(Name))
+            {
+                CustomBMEffectsByName[Name].BookUpdate?.Invoke(projectile, ownerClient);
+            }
+        }
+
+
         public static int GetMyMaxActiveBookMarks(this Player player, Item book)
         {
             return Math.Min(EBookUI.getMaxSlots(player, book), player.Entropy().EBookStackItems.Count);
@@ -255,7 +265,7 @@ namespace CalamityEntropy.Common
             public Action<Projectile, bool> UpdateProjectile;
             public Action<Projectile, NPC, int> OnHitNPC;
             public Action<Projectile, NPC, NPC.HitModifiers> ModifyHitNPC;
-            
+            public Action<Projectile, bool> BookUpdate;
 
             public BookmarkEffectFunctionGroups(
                 Action<ModProjectile> onShoot = null,
@@ -263,7 +273,8 @@ namespace CalamityEntropy.Common
                 Action<Projectile, bool> onProjectileSpawn = null,
                 Action<Projectile, bool> updateProjectile = null,
                 Action<Projectile, NPC, int> onHitNPC = null,
-                Action<Projectile, NPC, NPC.HitModifiers> modifyHitNPC = null
+                Action<Projectile, NPC, NPC.HitModifiers> modifyHitNPC = null,
+                Action<Projectile, bool> bookUpdate = null
                 )
             {
                 OnShoot = onShoot;
@@ -272,6 +283,7 @@ namespace CalamityEntropy.Common
                 UpdateProjectile = updateProjectile;
                 OnHitNPC = onHitNPC;
                 ModifyHitNPC = modifyHitNPC;
+                BookUpdate = bookUpdate;
             }
         }
         public class BookmarkEffect_OtherMod : EBookProjectileEffect
@@ -301,6 +313,11 @@ namespace CalamityEntropy.Common
             public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
             {
                 BookMarkLoader.ModifyHitNPC(this.BMOtherMod_Name, projectile, target, modifiers);
+            }
+
+            public override void BookUpdate(Projectile projectile, bool ownerClient)
+            {
+                BookMarkLoader.BookUpdate(this.BMOtherMod_Name, projectile, ownerClient);
             }
         }
         public class BookMarkTag
