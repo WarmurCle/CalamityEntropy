@@ -18,6 +18,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     {
         public float RogueDamage = 0.06f;
         public static int BaseDamage = 16;
+
         public override void SetDefaults()
         {
             Item.width = 42;
