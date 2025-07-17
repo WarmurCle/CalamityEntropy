@@ -1269,8 +1269,8 @@ Items: {
 			'''
 			+20% Damage
 			+20% Crit Chance
-			+25% Melee Speed
-			+300 Max Life
+			+30% Melee Speed
+			+250 Max Life
 			'''
 	}
 
@@ -1278,7 +1278,7 @@ Items: {
 		DisplayName: Marivinium Leggings
 		Tooltip:
 			'''
-			+15% Speed
+			+30% Speed
 			-20% Mana Cost
 			+20 Damage
 			+5 Crit Chance
@@ -2431,21 +2431,21 @@ PrefixitemDesc:
 MariviniumSet:
 	'''
 	Armor Bonus:
-	-30% Melee Damage Taken
+	Half Melee Damage Taken
 	+10 Minion Slot
 	+100% Summon Damage
 	+5% Summon Crit
-	+5% Damage Reduce
+	+10% Damage Reduce
 	+50 Armor Penetration
 	if your crit chance is over 100%, convert excess crit chance into damage bonus
-	+130 Rogue Stealth
+	+135 Rogue Stealth
 	When standing, increase life regen
 	Immunity to most debuffs
 	When using true melee weapons, +15% Damage reduce and 25 defense
 	When using a whip, enhance summoner attributes
 	Stealth strike has a probability of causing an water explosion
-	Obtain 2 layers of shields, which will take 20 seconds to recover after being shattered
-	After shield shattered, treat 140 health points and increace your damage by 100% for 5 seconds
+	Obtain 2 layers of shields, which will take 15 seconds to recover after being shattered
+	After shield shattered, treat 140 health points and double your damage for 5 seconds
 	'''
 DeathMode: Death Mode
 CdMantle: Holy Mantle Cooldown

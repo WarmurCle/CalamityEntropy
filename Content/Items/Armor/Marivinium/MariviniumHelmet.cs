@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
     [AutoloadEquip(EquipType.Head)]
     public class MariviniumHelmet : ModItem
     {
-        public static int ShieldCd = 20 * 60;
+        public static int ShieldCd = 15 * 60;
         public static int MaxShield = 2;
         public override void SetDefaults()
         {
@@ -37,9 +37,9 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
 
         public override void UpdateArmorSet(Player player)
         {
-            player.Entropy().meleeDamageReduce += 0.3f;
+            player.Entropy().meleeDamageReduce += 0.5f;
             player.maxMinions += 10;
-            player.Entropy().damageReduce += 0.05f;
+            player.Entropy().damageReduce += 0.10f;
             player.GetDamage(DamageClass.Summon) += 1;
             player.whipRangeMultiplier += 0.2f;
             player.GetAttackSpeed(DamageClass.Summon) += 0.2f;
@@ -49,12 +49,12 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
             {
                 player.Calamity().wearingRogueArmor = true;
-                player.Calamity().rogueStealthMax += 1.3f;
+                player.Calamity().rogueStealthMax += 1.35f;
             }
             if (player.velocity.Length() < 1)
             {
                 player.lifeRegen += 45;
-                player.Entropy().lifeRegenPerSec += 4;
+                player.Entropy().lifeRegenPerSec += 10;
             }
             ApplyBuffImmune(player);
             if (player.HeldItem.DamageType.CountsAsClass(ModContent.GetInstance<TrueMeleeDamageClass>()))
@@ -100,8 +100,8 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
         {
             player.GetDamage(DamageClass.Generic) += 0.2f;
             player.GetCritChance(DamageClass.Generic) += 20;
-            player.GetAttackSpeed(DamageClass.Melee) += 0.25f;
-            player.statLifeMax2 += 300;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.30f;
+            player.statLifeMax2 += 250;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
