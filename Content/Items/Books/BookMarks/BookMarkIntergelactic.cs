@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (s && projectile.ModProjectile is EntropyBookHeldProjectile book)
             {
-                if (Main.GameUpdateCount % 30 == 0)
+                if (Main.GameUpdateCount % 50 == 0)
                 {
                     Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, projectile.velocity * 0.6f, ModContent.ProjectileType<NovaSlimerProj>(), book.CauculateProjectileDamage(), projectile.knockBack, projectile.owner);
                 }

@@ -3442,6 +3442,8 @@ NPCs: {
 			DespawnMessage: 幻光星蛾已被击败
 		}
 	}
+
+	// AcropolisMachine.DisplayName: Acropolis Machine
 }
 
 WyrmChatNoHome: 我们现在要去哪？

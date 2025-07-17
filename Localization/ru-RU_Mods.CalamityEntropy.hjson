@@ -3187,6 +3187,8 @@ NPCs: {
 			// DespawnMessage: Luminaris has been defeated.
 		}
 	}
+
+	// AcropolisMachine.DisplayName: Acropolis Machine
 }
 
 WyrmChatNoHome: Куда мы идем теперь?

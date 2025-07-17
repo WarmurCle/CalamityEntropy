@@ -22,7 +22,33 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
-        public static void AddLight(Vector2 position, Color lightColor, float mult = 1)
+        public static Vector2 GetCircleIntersection(Vector2 vec1, float a, Vector2 vec2, float b)
+        {
+            float distance = Vector2.Distance(vec1, vec2);
+
+            if (distance > a + b || distance < Math.Abs(a - b))
+            {
+                Vector2 direction = Vector2.Normalize(vec2 - vec1);
+                return vec1 + direction * a;
+            }
+
+            float d = distance;
+            float l = (a * a - b * b + d * d) / (2 * d);
+            float h = (float)Math.Sqrt(a * a - l * l);
+
+            Vector2 p0 = vec1 + (l / d) * (vec2 - vec1);
+
+            Vector2 intersection1 = new Vector2(
+                p0.X + (h / d) * (vec2.Y - vec1.Y),
+                p0.Y - (h / d) * (vec2.X - vec1.X));
+
+            Vector2 intersection2 = new Vector2(
+                p0.X - (h / d) * (vec2.Y - vec1.Y),
+                p0.Y + (h / d) * (vec2.X - vec1.X));
+
+            return (intersection1.Y < intersection2.Y) ? intersection1 : intersection2;
+        }
+    public static void AddLight(Vector2 position, Color lightColor, float mult = 1)
         {
             Lighting.AddLight(position, lightColor.R / 255f * mult, lightColor.G / 255f * mult, lightColor.B / 255f * mult);
         }

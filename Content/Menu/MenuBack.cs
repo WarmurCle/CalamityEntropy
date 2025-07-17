@@ -28,25 +28,10 @@ namespace CalamityEntropy.Content.Menu
             }
         }
 
-        public override int ChooseFarTexture()
-        {
-            return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Assets/Extra/white");
-        }
-
-        public override int ChooseMiddleTexture()
-        {
-            return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Assets/Extra/white");
-        }
-
-        public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
-        {
-            return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Assets/Extra/white");
-        }
-
-        public override bool PreDrawCloseBackground(SpriteBatch spriteBatch)
-        {
-
-            return false;
-        }
+        private static readonly string TexPath = "CalamityMod/Backgrounds/BlankPixel";
+        public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) => BackgroundTextureLoader.GetBackgroundSlot(TexPath);
+        public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot(TexPath);
+        public override int ChooseMiddleTexture() => BackgroundTextureLoader.GetBackgroundSlot(TexPath);
+        public override bool PreDrawCloseBackground(SpriteBatch spriteBatch) => false;
     }
 }
