@@ -754,6 +754,18 @@ namespace CalamityEntropy.Content.Items.Books
                 base.OnHitNPC(target, hit, damageDone);
             }
         }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            writer.Write(quickTime);
+            writer.Write(penetrate);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            quickTime = reader.ReadInt32();
+            penetrate = reader.ReadInt32();
+        }
         public List<Vector2> cauculatePoints()
         {
             var points = new List<Vector2>();
