@@ -675,7 +675,6 @@ namespace CalamityEntropy.Content.Items.Books
         {
             if (init)
             {
-                gravity = 0;
                 init = false;
                 bool ownerClient = Main.myPlayer == Projectile.owner;
                 if (ownerClient)
