@@ -386,7 +386,7 @@ namespace CalamityEntropy.Common
                 {
                     recipe.requiredItem.RemoveAt(i);
                 }
-            }SylvBolt
+            }
         }
         public static void RemoveItemInRecipes(int itemtype, int type)
         {

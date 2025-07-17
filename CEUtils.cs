@@ -61,6 +61,10 @@ namespace CalamityEntropy
 
             return false;
         }
+        public static bool CheckSolidTile(Rectangle rect)
+        {
+            return Collision.SolidCollision(rect.TopLeft(), rect.Width, rect.Height);
+        }
         public static void FriendlySetDefaults(this Projectile Projectile, DamageClass dmgClass, bool tileCollide = false, int penetrate = 1)
         {
             Projectile.DamageType = dmgClass;
