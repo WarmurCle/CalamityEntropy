@@ -8,6 +8,7 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using static CalamityEntropy.CalamityEntropy;
 
 namespace CalamityEntropy
@@ -251,7 +252,7 @@ namespace CalamityEntropy
 
             else if (messageType == CEMessageType.SyncPlayer)
             {
-                ModPacket packet = Instance.GetPacket();
+                
 
                 int loreCount = reader.ReadInt32();
                 Player plr = whoAmI.ToPlayer();
@@ -260,13 +261,27 @@ namespace CalamityEntropy
                 {
                     plr.Entropy().enabledLoreItems.Add(reader.ReadInt32());
                 }
+                int bookmarkCount = reader.ReadInt32();
+                plr.Entropy().EBookStackItems = new();
+                for(int i = 0; i < bookmarkCount; i++)
+                {
+                    Item itm = new Item(reader.ReadInt32());
+                    ItemIO.Receive(itm, reader);
+                    plr.Entropy().EBookStackItems.Add(itm);
+                }
                 if (Main.dedServ)
                 {
+                    ModPacket packet = Instance.GetPacket();
                     packet.Write((byte)CEMessageType.SyncPlayer);
                     packet.Write(loreCount);
                     foreach (var i in plr.Entropy().enabledLoreItems)
                     {
                         packet.Write(i);
+                    }
+                    foreach (var item in plr.Entropy().EBookStackItems)
+                    {
+                        packet.Write(item.type);
+                        ItemIO.Send(item, packet);
                     }
                     packet.Send(-1, whoAmI);
                 }

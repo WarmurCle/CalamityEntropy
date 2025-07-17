@@ -11,6 +11,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
+using static CalamityEntropy.Common.BookMarkLoader;
 
 namespace CalamityEntropy.Content.Items.Books
 {
@@ -626,7 +627,7 @@ namespace CalamityEntropy.Content.Items.Books
             foreach (var effect in ProjectileEffects)
             {
                 writer.Write(effect.RegisterName());
-                //writer.Write(effect.BMOtherMod_Name);
+                writer.Write(effect.BMOtherMod_Name);
             }
         }
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -640,14 +641,15 @@ namespace CalamityEntropy.Content.Items.Books
             gravity = reader.ReadSingle();
 
             this.ProjectileEffects.Clear();
-            for (int i = 0; i < reader.ReadInt32(); i++)
+            int r = reader.ReadInt32();
+            for (int i = 0; i < r; i++)
             {
                 var bef = EBookProjectileEffect.findByName(reader.ReadString());
-                //string omN = reader.ReadString();
-                /*if (omN != string.Empty)
+                string omN = reader.ReadString();
+                if (omN != string.Empty)
                 {
                     bef = new BookmarkEffect_OtherMod() { BMOtherMod_Name = omN };
-                }*/
+                }
                 this.ProjectileEffects.Add(bef);
             }
             sync = true;
@@ -673,6 +675,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             if (init)
             {
+                gravity = 0;
                 init = false;
                 bool ownerClient = Main.myPlayer == Projectile.owner;
                 if (ownerClient)

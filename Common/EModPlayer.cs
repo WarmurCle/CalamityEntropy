@@ -2638,6 +2638,13 @@ namespace CalamityEntropy.Common
                 {
                     mp.Write(item);
                 }
+                mp.Write(this.EBookStackItems.Count);
+                foreach(var item in this.EBookStackItems)
+                {
+                    mp.Write(item.type);
+                    ItemIO.Send(item, mp);
+                }
+                mp.Send();
             }
         }
         public override void LoadData(TagCompound tag)
