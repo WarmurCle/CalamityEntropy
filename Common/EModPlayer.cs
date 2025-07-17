@@ -1410,7 +1410,6 @@ namespace CalamityEntropy.Common
         {
             if (shadowRune)
             {
-                Player.maxMinions += (int)(Player.GetDamage(DamageClass.Summon).Additive * ShadowRune.SummonDmgToMinionSlot);
                 if (Player.GetDamage(DamageClass.Summon).Additive > 0)
                 {
                     Player.GetDamage(DamageClass.Summon) -= Player.GetDamage(DamageClass.Summon).Additive;
@@ -2470,7 +2469,10 @@ namespace CalamityEntropy.Common
             {
                 lifeRegenPerSec = (int)(lifeRegenPerSec * 0.3f);
             }
-
+            if(shadowRune)
+            {
+                Player.maxMinions += (int)(Player.GetDamage(DamageClass.Summon).Additive * ShadowRune.SummonDmgToMinionSlot);
+            }
         }
         public override void ModifyScreenPosition()
         {

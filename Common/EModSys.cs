@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
@@ -6,7 +7,9 @@ using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod.Items.Placeables.FurnitureAuric;
+using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -374,16 +377,39 @@ namespace CalamityEntropy.Common
             slimeGodLast = sg;
 
         }
+
+        public static void RemoveItemInARecipe(Recipe recipe, int type)
+        {
+            for (int i = recipe.requiredItem.Count - 1; i >= 0; i--)
+            {
+                if(recipe.requiredItem[i].type == type)
+                {
+                    recipe.requiredItem.RemoveAt(i);
+                }
+            }SylvBolt
+        }
+        public static void RemoveItemInRecipes(int itemtype, int type)
+        {
+            for(int i = 0; i < Main.recipe.Length; i++)
+            {
+                Recipe recipe = Main.recipe[i];
+                if(recipe.createItem.type == itemtype)
+                {
+                    RemoveItemInARecipe(recipe, type);
+                }
+            }
+        }
+
         public override void PostAddRecipes()
         {
             foreach (var recipe in Main.recipe)
             {
-                if (recipe.createItem.type == ModContent.ItemType<AuricToilet>())
+                if (recipe.createItem.type == ModContent.ItemType<CalamityMod.Items.Placeables.FurnitureAuric.AuricToilet>())
                 {
-                    recipe.DisableRecipe();
+                    recipe.createItem.type = ModContent.ItemType<Content.Items.AuricToilet>();
                 }
             }
-            Recipe.Create(ItemID.Leather).AddIngredient(ItemID.Cobweb, 10).AddTile(TileID.Loom).Register();
+            RemoveItemInRecipes(ModContent.ItemType<Sylvestaff>(), ItemID.GenderChangePotion);
         }
 
         public override void PreUpdateProjectiles()
