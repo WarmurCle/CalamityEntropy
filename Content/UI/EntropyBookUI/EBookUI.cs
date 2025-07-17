@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 
@@ -87,6 +88,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
 
         public static void draw()
         {
+            bool sync = false;
             if (Main.LocalPlayer.Entropy().EBookStackItems == null)
             {
                 return;
@@ -147,6 +149,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                                 Main.mouseItem = Main.LocalPlayer.Entropy().EBookStackItems[i];
                                 Main.LocalPlayer.Entropy().EBookStackItems[i] = mouseItem;
                                 CEUtils.PlaySound("turnPage");
+                                sync = true;
                             }
                         }
                         if (Main.mouseRight && !lastMouseRight && slotDist > 100)
@@ -160,6 +163,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                                         ItemIO.Load(Main.LocalPlayer.inventory[ii], ItemIO.Save(Main.LocalPlayer.Entropy().EBookStackItems[i]));
                                         Main.LocalPlayer.Entropy().EBookStackItems[i].TurnToAir();
                                         CEUtils.PlaySound("turnPage");
+                                        sync = true;
                                         break;
                                     }
                                 }
@@ -175,6 +179,10 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                 }
                 lastMouseLeft = Main.mouseLeft;
                 lastMouseRight = Main.mouseRight;
+                if(sync)
+                {
+                    PlayerLoader.SyncPlayer(Main.LocalPlayer, -1, Main.myPlayer, false);
+                }
             }
         }
     }

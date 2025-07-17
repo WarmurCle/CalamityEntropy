@@ -128,6 +128,7 @@ namespace CalamityEntropy.Common
                         {
                             player.Entropy().EBookStackItems[i] = item.Clone();
                             item.TurnToAir();
+                            PlayerLoader.SyncPlayer(Main.LocalPlayer, -1, Main.myPlayer, false);
                         }
                     }
                 }
