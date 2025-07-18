@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.Particles
     public class EMediumSmoke : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/MediumSmoke").Value;
-        public int timeleftmax = 80;
+        public int timeleftmax => this.TimeLeftMax;
         public Color orgColor;
         public override void OnSpawn()
         {
@@ -23,12 +23,12 @@ namespace CalamityEntropy.Content.Particles
             base.AI();
             if (wl > 0)
             {
-                wl -= 0.1f;
+                wl -= 0.1f / (80f / timeleftmax);
             }
             this.Rotation += rotDir * 0.03f;
             this.Opacity = ((float)this.Lifetime / (float)timeleftmax);
-            this.Color = Color.Lerp(this.Color, Color.Black, 0.03f);
-            this.Velocity *= 0.9f;
+            this.Color = Color.Lerp(this.Color, new Color(30, 40, 30), 0.03f / (80f / timeleftmax));
+            this.Velocity *= 0.94f;
             this.Velocity = this.Velocity + new Vector2(0, -0.1f);
         }
         public override Vector2 getOrigin()
