@@ -9,6 +9,7 @@ using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.World;
+using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -54,16 +55,17 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     StandPoint += (targetPos - StandPoint).normalize() * ms * (NPC.velocity.Y > 0.5f ? 3 : 1);
                 }
                 NoMoveTime--;
-                float distToMove = 100;
+                float distToMove = 100 * NPC.scale;
                 if (((AcropolisMachine)NPC.ModNPC).Jumping)
                 {
-                    targetPos = NPC.Center + new Vector2(offset.X * 0.2f, 200);
+                    o = false;
+                    targetPos = NPC.Center + new Vector2(offset.X * 0.2f, 200) * NPC.scale;
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.2f;
                     return false;
                 }
-                if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, NPC.Center + NPC.velocity * 16 + offset) > distToMove))
+                if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi))) > distToMove) || CEUtils.getDistance(StandPoint, NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi))) > distToMove * 1.4f)
                 {
-                    targetPos = FindStandPoint(NPC.Center + NPC.velocity * 16 + offset + new Vector2(Math.Sign(NPC.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(NPC.velocity.X) * 28) : 0, 0), 50 * Scale, 40);
+                    targetPos = FindStandPoint(NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi)) + new Vector2(Math.Sign(NPC.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(NPC.velocity.X) * 28) : 0, 0), 60 * Scale * NPC.scale, 128);
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.2f;
                     if (NoMoveTime < 4)
                         NoMoveTime = 4;
@@ -78,28 +80,29 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 o = false;
                 for(int i = 0; i < MaxTry; i++)
                 {
-                    Vector2 pos = CEUtils.randomPointInCircle(MaxTry) * new Vector2(0.6f, 1f) + center;
-                    if(CanStandOn(pos))
+                    Vector2 pos = CEUtils.randomPointInCircle(MaxTry) * new Vector2(1f, 1f) + center;
+                    if(CEUtils.getDistance(pos, center) <= MaxOffset * 0.9f && CanStandOn(pos))
                     {
                         o = true;
                         Vector2 orgPos = pos;
-                        int c = 52;
+                        int c = 128;
                         while(CanStandOn(pos))
                         {
                             c--;
-                            pos.Y -= 2;
+                            pos.Y -= 2 * NPC.scale;
                             if(c <= 0)
                             {
                                 return orgPos;
                             }
                         }
-                        pos.Y += 2;
+                        pos.Y += 2 * NPC.scale;
                         return pos;
                     }
                 }
-                return NPC.Center + new Vector2(offset.X, 200);
+                return NPC.Center + new Vector2(offset.X, 200).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi));
             }
         }
+        public bool JFlag = false;
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 1;
@@ -144,6 +147,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 Music = MusicID.OtherworldlyBoss1;
             }
+            NPC.scale = 5f;
         }
         public static bool CanStandOn(Vector2 pos)
         {
@@ -162,10 +166,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 legs =
                 [
-                    new AcropolisLeg(NPC, new Vector2(-70, 120), 0.8f),
-                    new AcropolisLeg(NPC, new Vector2(70, 120), 0.8f),
-                    new AcropolisLeg(NPC, new Vector2(-130, 120), 1),
-                    new AcropolisLeg(NPC, new Vector2(130, 120), 1),
+                    new AcropolisLeg(NPC, new Vector2(-100, 120), 0.8f),
+                    new AcropolisLeg(NPC, new Vector2(100, 120), 0.8f),
+                    new AcropolisLeg(NPC, new Vector2(-140, 120), 1),
+                    new AcropolisLeg(NPC, new Vector2(140, 120), 1),
                 ];
             }
             foreach (var l in legs)
@@ -204,7 +208,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             if (Jumping)
             {
-                NPC.velocity.Y += 0.4f;
+                NPC.velocity.Y += 0.4f * NPC.scale;
             }
             else
             {
@@ -216,7 +220,53 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             else
             {
-                NPC.rotation = dir == 1 ? 0 : MathHelper.Pi;
+                Vector2 lr = Vector2.Zero;
+                Vector2 rr = Vector2.Zero;
+                int lc = 0;
+                int rc = 0;
+                foreach(var leg in legs)
+                {
+                    if(leg.offset.X < 0 && leg.OnTile)
+                    {
+                        lr += leg.StandPoint;
+                        lc++;
+                    }
+                    if (leg.offset.X > 0 && leg.OnTile)
+                    {
+                        rr += leg.StandPoint;
+                        rc++;
+                    }
+                }
+                
+                if(lc > 0 && rc > 0)
+                {   
+                    float r = ((rr / rc) - (lr / lc)).ToRotation();
+                    float maxr = MathHelper.ToRadians(60);
+                    if (r > maxr)
+                        r = maxr;
+                    if (r < -maxr)
+                    {
+                        r = -maxr;
+                    }
+                    if(dir < 0)
+                    {
+                        r += MathHelper.Pi;
+                    }
+                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, r, 0.1f, false);
+                }
+                else if (lc > rc)
+                {
+                    NPC.rotation += 0.1f;
+                }
+                else if (lc < rc)
+                {
+                    NPC.rotation -= 0.1f;
+                }
+                else
+                {
+                    float r = dir == 1 ? 0 : MathHelper.Pi;
+                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, r, 0.1f, false);
+                }
             }
         }
         public int JumpCD = 0;
@@ -263,42 +313,49 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         c++;
                     }
                 }
-                if (c > 2)
+                if (c >= 3)
                 {
                     flag = true;
-                }
-                if ((flag || CEUtils.CheckSolidTile(NPC.getRect())))
-                {
-                    if (player.Center.Y + 200 < NPC.Center.Y)
+                    if(JFlag)
                     {
-                        if (JumpCD <= 0)
+                        JFlag = false;
+                        if (NPC.velocity.Y > 0)
+                            NPC.velocity.Y = 0;
+                    }
+                }
+                if (flag || CEUtils.CheckSolidTile(NPC.getRect()))
+                {
+                    if (player.Center.Y + 200 * NPC.scale < NPC.Center.Y)
+                    {
+                        if (JumpCD <= -260)
                         {
                             Jumping = true;
-                            NPC.velocity = new Vector2(0.01f * (player.Center.X - NPC.Center.X), float.Max((player.Center.Y - NPC.Center.Y) * 0.08f, -30));
+                            NPC.velocity = new Vector2(0.01f * (player.Center.X - NPC.Center.X) / NPC.scale, float.Max((player.Center.Y - NPC.Center.Y) / NPC.scale * 0.08f, -30)) * NPC.scale;
                             JumpCD = 160;
                         }
                     }
-                    float yof = -90;
-                    if (NPC.Center.Y - yof + 90 > player.Center.Y)
+                    float yof = -90 * NPC.scale;
+                    if (NPC.Center.Y - yof + 90 * NPC.scale * NPC.scale > player.Center.Y)
                     {
-                        if (NPC.velocity.Y > 4)
+                        if (NPC.velocity.Y > 2 * NPC.scale)
                         {
-                            NPC.velocity.Y = 4;
+                            NPC.velocity.Y = 2 * NPC.scale;
                         }
                         if (NPC.velocity.Y > 0)
-                            NPC.velocity.Y *= 0.8f;
+                            NPC.velocity.Y *= 0.84f;
                     }
                     float v = 0.2f;
-                    if (Math.Abs(NPC.Center.Y + yof - player.Center.Y) > 150)
+                    if (Math.Abs(NPC.Center.Y + yof - player.Center.Y) > 150 * NPC.scale)
                     {
                         v = 1;
                     }
-                    if (Math.Abs(NPC.Center.Y + yof - player.Center.Y) < 14)
+                    if (Math.Abs(NPC.Center.Y + yof - player.Center.Y) < 14 * NPC.scale)
                     {
                         v = 0;
                         NPC.velocity.Y *= 0.8f;
                     }
-                    if (Math.Abs(yof + player.Center.Y - NPC.Center.Y) > 20)
+                    v *= NPC.scale;
+                    if (Math.Abs(yof + player.Center.Y - NPC.Center.Y) > 20 * NPC.scale)
                     {
                         if (player.Center.Y + yof > NPC.Center.Y)
                         {
@@ -307,18 +364,22 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         else
                         {
                             bool f = true;
+                            bool f2 = false;
                             foreach (var l in legs)
                             {
-                                if (l.OnTile && l.StandPoint.Y > NPC.Center.Y + 120)
+                                if (l.OnTile && l.StandPoint.Y > NPC.Center.Y + 110 * NPC.scale)
                                 {
                                     f = false;
-                                    break;
+                                }
+                                if(l.OnTile && l.StandPoint.Y > NPC.Center.Y + 130 * NPC.scale)
+                                {
+                                    f2 = true;
                                 }
                             }
                             if (f || CEUtils.CheckSolidTile(NPC.getRect()))
-                                NPC.velocity.Y -= 0.4f * enrange * v;
-                            else
-                                NPC.velocity.Y += 4f * enrange * v;
+                                NPC.velocity.Y -= 0.6f * enrange * v;
+                            else if(f2)
+                                NPC.velocity.Y += 2f * enrange * v;
                         }
                     }
                 }
@@ -328,9 +389,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     if (NPC.velocity.Y > 12)
                         NPC.velocity.Y = 12;
                 }
-                if (CEUtils.getDistance(NPC.Center, player.Center) > 300)
+                if (CEUtils.getDistance(NPC.Center, player.Center) > 100 * NPC.scale)
                 {
-                    NPC.velocity.X += Math.Sign(player.Center.X - NPC.Center.X) * 0.1f * enrange;
+                    NPC.velocity.X += Math.Sign(player.Center.X - NPC.Center.X) * 0.1f * enrange * NPC.scale;
                 }
                 
             }
@@ -349,23 +410,28 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 {
                     flag = true;
                 }
-                if (NPC.Center.Y < player.Center.Y && flag)
+                if ((NPC.velocity.Y > 0 || NPC.Center.Y < player.Center.Y) && flag)
                 {
                     Jumping = false;
                     NPC.velocity *= 0;
                 }
-                if(JumpCD < 20 || (NPC.velocity.Y > 0 && CEUtils.CheckSolidTile(NPC.getRect())) || NPC.velocity.Y > 4)
+                if(JumpCD < 20 || (NPC.velocity.Y > 0 && CEUtils.CheckSolidTile(NPC.getRect())) || NPC.velocity.Y > 2)
                 {
                     Jumping = false;
                     NPC.velocity *= 0;
                 }
+                JFlag = true;
             }
             if(NPC.velocity.X > 0)
             {
+                if(dir == -1)
+                    NPC.rotation += MathHelper.Pi;
                 dir = 1;
             }
             if(NPC.velocity.X < 0)
             {
+                if(dir == 1)
+                    NPC.rotation += MathHelper.Pi;
                 dir = -1;
             }
         }
@@ -406,7 +472,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 float l2 = 70 * NPC.scale * leg.Scale;
                 float l3 = 72 * NPC.scale * leg.Scale;
                 List<Vector2> points = new List<Vector2>();
-                points.Add(NPC.Center + new Vector2(Math.Sign(leg.offset.X) * 20, 60).RotatedBy(dir > 0 ? NPC.rotation : -MathHelper.Pi + NPC.rotation));
+                points.Add(NPC.Center + (new Vector2(Math.Sign(leg.offset.X) * 20, 60) * NPC.scale).RotatedBy(dir > 0 ? NPC.rotation : -MathHelper.Pi + NPC.rotation));
                 Vector2 e = CalculateLegJoints(points[0], leg.StandPoint, l1, l2, l3, out var p1, out var p2);
                 points.Add(p1);
                 points.Add(CEUtils.GetCircleIntersection(p1, l2, leg.StandPoint, l3));
@@ -419,34 +485,37 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             
             return false;
         }
-
+        public override bool ModifyCollisionData(Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox)
+        {
+            npcHitbox = npcHitbox.Center.ToVector2().getRectCentered((npcHitbox.Width * NPC.scale), (npcHitbox.Height * NPC.scale));
+        }
         public override void HitEffect(NPC.HitInfo hit)
         {
             if(NPC.life <= 0)
             {
                 for(int i = 0; i < 40; i++)
                 {
-                    EParticle.NewParticle(new EMediumSmoke(), NPC.Center + CEUtils.randomPointInCircle(60), CEUtils.randomPointInCircle(32), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
+                    EParticle.NewParticle(new EMediumSmoke(), NPC.Center + CEUtils.randomPointInCircle(60 * NPC.scale), CEUtils.randomPointInCircle(32 * NPC.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 4f) * NPC.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
                 }
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore0").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore1").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore2").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore3").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore6").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type); 
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore8").Type);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore9").Type);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore0").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore1").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore2").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore3").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore6").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale); 
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore8").Type, NPC.scale);
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore9").Type, NPC.scale);
             }
         }
         public Vector2 CalculateLegJoints(Vector2 Center, Vector2 legStandPoint, float l1, float l2, float l3, out Vector2 P1, out Vector2 P2)
