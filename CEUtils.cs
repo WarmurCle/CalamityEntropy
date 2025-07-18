@@ -109,7 +109,7 @@ namespace CalamityEntropy
         public static DamageClass RogueDC => ModContent.GetInstance<CalamityMod.RogueDamageClass>();
         public static void SpawnExplotionHostile(IEntitySource source, Vector2 position, int damage, float r)
         {
-            Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotion>(), damage, 0, -1, r);
+            Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotion>(), damage, 0, 0, r);
         }
         public static void SpawnExplotionFriendly(IEntitySource source, Player player, Vector2 position, int damage, float r, DamageClass damageClass)
         {

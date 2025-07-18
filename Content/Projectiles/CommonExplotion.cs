@@ -19,8 +19,6 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 3;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -29,6 +27,10 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return CEUtils.getDistance(projHitbox.Center.ToVector2(), targetHitbox.Center.ToVector2()) < Projectile.ai[0];
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return false;
         }
     }
 
@@ -46,6 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
+            Projectile.ignoreWater = true;
         }
         public override bool PreDraw(ref Color lightColor)
         {

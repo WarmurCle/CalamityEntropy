@@ -3092,6 +3092,7 @@ Projectiles: {
 	PenMinion.DisplayName: 冲锋笔
 	ShadowRuneVanity.DisplayName: 暗影符文
 	Pooney.DisplayName: 普尼
+	AcropolisTeslaBall.DisplayName: 特斯拉电球
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3443,7 +3444,7 @@ NPCs: {
 		}
 	}
 
-	// AcropolisMachine.DisplayName: Acropolis Machine
+	AcropolisMachine.DisplayName: 阿萨福勒卫城机甲
 }
 
 WyrmChatNoHome: 我们现在要去哪？

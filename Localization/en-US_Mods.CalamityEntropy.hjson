@@ -2858,6 +2858,7 @@ Projectiles: {
 	PenMinion.DisplayName: Pen Minion
 	ShadowRuneVanity.DisplayName: Shadow Rune Vanity
 	Pooney.DisplayName: Pooney
+	AcropolisTeslaBall.DisplayName: Acropolis Tesla Ball
 }
 
 LegendTooltip: - Legend -

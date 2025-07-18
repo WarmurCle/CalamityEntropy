@@ -93,7 +93,7 @@ Items: {
 			}
 
 			LunarPlank: {
-				// DisplayName: Лунная доска
+				// DisplayName: Lunar Plank
 				// Tooltip: ""
 			}
 		}
@@ -177,7 +177,7 @@ Items: {
 		CruiserLore.DisplayName: История - Крейсер
 		NihilityTwinLore.DisplayName: История - Ничтожные близнецы
 		ProphetLore.DisplayName: История - Пророк
-		// LuminarisLore.DisplayName: Люминарис
+		// LuminarisLore.DisplayName: Luminaris
 	}
 
 	BrokenChainsaw: {
@@ -554,7 +554,7 @@ Items: {
 
 	VoidFaquirEvokerHelm: {
 		DisplayName: Шлем Пустотного Факира-Призывателя
-		Tooltip: Увеличивает урон призывателя на +80%	
+		Tooltip: Увеличивает урон призывателя на +80%
 	}
 
 	VoidFaquirLurkerMask: {
@@ -2127,277 +2127,277 @@ Items: {
 	}
 
 	IlmeranAsylum: {
-		// DisplayName: Приют Ильмерана
+		// DisplayName: Ilmeran Asylum
 		/* Tooltip:
 			'''
-			Создаёт 3 вихря вокруг игрока
-			Снаряды, проходящие через вихри, наводятся на ближайших врагов, 
-			увеличивают свою силу и заряжают вихри.
-			Полностью заряженные вихри преследуют врагов и наносят урон.
-			-Режим Смерти-
+			Generates 3 vortexes around the player
+			Projectiles passing through vortexes will home in on nearby enemies, 
+			gain increased power, and charge the vortexes
+			Fully charged vortexes will pursue nearby enemies and deal damage
+			-Death Mode-
 			''' */
 	}
 
 	ProphetMusicBox2: {
 		// Tooltip: ""
-		// DisplayName: Музыкальная шкатулка Пророка 2
+		// DisplayName: Prophet Music Box2
 	}
 
 	StarlitPiercer: {
-		// Tooltip:Стреляет фантомными пулями при ударе
-		// DisplayName: Звездный Пронзатель
+		// Tooltip: Shoot phantom bullets during sudden spikes
+		// DisplayName: Starlit Piercer
 	}
 
 	LuminarisMusicBox: {
 		// Tooltip: ""
-		// DisplayName: Музыкальная шкатулка Люминарис
+		// DisplayName: Luminaris Music Box
 	}
 
 	LuminarisRelic: {
 		// Tooltip: ""
-		// DisplayName: Реликвия Люминарис
+		// DisplayName: Luminaris Relic
 	}
 
 	LuminarisBag: {
 		// Tooltip: ""
-		// DisplayName: Мешок с сокровищами (Люминарис)
+		// DisplayName: Luminaris Bag
 	}
 
 	IllusionaryDew: {
-		// Tooltip: Призывает Люминарис во время астрального заражения
-		// DisplayName: Миражная роса
+		// Tooltip: Summon Luminaris in astral infection
+		// DisplayName: Illusionary Dew
 	}
 
 	LuminarisTrophy: {
-		// DisplayName: Трофей Люминарис
+		// DisplayName: Luminaris Trophy
 		// Tooltip: ""
 	}
 
 	Luminar: {
-		// Tooltip: Выпускает самонаводящуюся фантомно-световую стрелу
-		// DisplayName: Люминар
+		// Tooltip: Shoot tracking phantom light arrow
+		// DisplayName: Luminar
 	}
 
 	StarSootInjector: {
 		// Tooltip: ""
-		// DisplayName: Инжектор звездной сажи
+		// DisplayName: Star Soot Injector
 	}
 
 	PhantomLightWing: {
 		/* Tooltip:
 			'''
-			Горизонтальная скорость: [A]
-			Множитель ускорения: [B]
-			Отличная вертикальная скорость
-			Время полёта: [C]
+			Horizontal speed: [A]
+			Acceleration multiplier: [B]
+			Excellent vertical speed
+			Flight time: [C]
 			''' */
-		// DisplayName: Крылья фантомного света
+		// DisplayName: Phantom Light Wings
 	}
 
 	AzafureAntiaircraftGun: {
-		// DisplayName: Зенитная пушка Азафур
+		// DisplayName: Azafure Antiaircraft Gun
 		// Tooltip: ""
 	}
 
 	RockBullet: {
-		// DisplayName: Каменная пуля
-		// Tooltip: Есть шанс заклинивания при стрельбе
+		// DisplayName: Rock Bullet
+		// Tooltip: There is a probability of jamming during shooting
 	}
 
 	TatteredGun: {
-		// DisplayName: Потрёпанный ствол
+		// DisplayName: Tattered Gun
 		/* Tooltip:
 			'''
-			При стрельбе существует вероятность заедания
-			"Это настоящее чудо"
+			There is a probability of jamming during shooting
+			"It is a miracle"
 			''' */
 	}
 
 	MoonlightSword: {
 		// Tooltip: ""
-		// DisplayName: Меч Лунного Сияния
+		// DisplayName: Moonlight Sword
 	}
 
 	BookMarkBlackKnife: {
 		/* Tooltip:
 			'''
-			После попадания по врагу может появиться чёрный меч
-			«ИДИ ИГРАТЬ В DELTARUNE»
+			There is a chance to spawn a black sword after hitting an enemy
+			"GO TO PLAY DELTARUNE"
 			''' */
-		// DisplayName: Bookmark - Черный нож
+		// DisplayName: Bookmark - Black Knife
 	}
 
 	AzafureTeslaGun: {
-		// DisplayName: Тесла-пушка Азафур
-		// Tooltip: Выпускает тесла-шары, поражающие электричеством окружающих врагов
+		// DisplayName: Azafure Tesla Gun
+		// Tooltip: Launch tesla balls that will electrocute nearby enemies
 	}
 
 	AzafurePioneerCannon: {
-		// DisplayName: Пионерская пушка Азафур
+		// DisplayName: Azafure Pioneer Cannon
 		/* Tooltip:
 			'''
-			Зажмите ЛКМ для зарядки и загрузки патронов (макс. 5)
-			Отпустите, чтобы одновременно выпустить все заряженные патроны
+			Hold LMB to charge and load ammo (max 5)
+			Release to unleash all loaded shots at once
 			''' */
 	}
 
 	ShadoidPotion: {
 		/* Tooltip:
 			'''
-			Восстанавливает здоровье и время полёта
-			Исцеляет на 1/3 от максимального здоровья
-			Не требует затрат
+			Restores your HP and flight duration
+			Heals for 1/3 of max HP
+			No cost
 			''' */
-		// DisplayName: Призрачное зелье
+		// DisplayName: Shadoid Potion
 	}
 
 	ShadowMantle: {
 		/* Tooltip:
 			'''
-			Увеличивает скорость восстановления скрытности разбойников при движении
-			Нажмите [K]([KEY]) чтобы потратить всю скрытность: вы совершите рывок к курсору и нанесёте удар всем врагам на пути
-			Урон зависит от количества использованной скрытности
+			Increase the speed of rogue stealth regen during movement
+			Press [K]([KEY]) to consume all rogue stealh, sprint towards the cursor position for a distance, and slash the enemies encountered
+			Damage depends on stealth consumed
 			''' */
-		// DisplayName: Теневая мантия
+		// DisplayName: Shadow Mantle
 	}
 
 	MineBox: {
-		// DisplayName: Ящик с минами
+		// DisplayName: Mine Box
 		/* Tooltip:
 			'''
-			+[D]% к урону разбойника
-			При нанесении скрытых ударов будет установлена мина замедленного действия
+			+[D]% Rogue Damage
+			Stealth strikes will plant a delayed-explosion mine
 			''' */
 	}
 
 	LurkersCharm: {
-		// DisplayName: Талисман Соглядатая
+		// DisplayName: Lurkers Charm
 		/* Tooltip:
 			'''
-			+[A]% к урону разбойника
-			+[B]% к скорости передвижения
-			+[C]% к регенерации скрытности
-			+[D]% Если скрытность выше 80%, урон по вам уменьшается
+			+[A]% Rogue Damage
+			+[B]% Move Speed
+			+[C]% Stealth Regen
+			+[D]% damage reduce if your steath more than max stealth's 80%
 			''' */
 	}
 
 	ThiefsPocketwatchOfEclipse: {
-		// DisplayName: Карманные часы Вора Затмения
+		// DisplayName: Thief's Pocketwatch Of Eclipse
 		/* Tooltip:
 			'''
-			+[A]% к урону разбойника
-			+[B]% к скорости передвижения
-			+[C]% к скорсти восстановления скрытности разбойника
-			Даёт дополнительную перезарядку скрытности
+			+[A]%Rogue Damage
+			+[B]%Movement Speed
+			+[C]%Rogue Stealth Recovery Speed
+			Rogue Stealth can be recharged once more
 			''' */
 	}
 
 	GaleWristblades: {
 		/* Tooltip:
 			'''
-			Оружие разбойника при попадании даёт 1 заряд Ветрового Давления, увеличивая скорость атаки и урон.
-			При накоплении 5 зарядов следующая атака расходует их все, вызывая небольшой торнадо.
+			Rogue weapons grant 1 stack of Wind Pressure on hit, increasing attack speed and damage
+			At 5 stacks, the next attack consumes all stacks to unleash a small tornado
 			''' */
-		// DisplayName: Наручные клинки Шквала
+		// DisplayName: Gale Wristblades
 	}
 
 	WorshipRelic: {
-		// DisplayName: Реликвия Поклонения
+		// DisplayName: Worship Relic
 		/* Tooltip:
 			'''
-			Скрытность больше не восстанавливается пассивно
-			Попадания по врагам оружием плута восстанавливают часть скрытности
-			При полной скрытности атака становится скрытым ударом и выпускает дополнительные солнечные стрелы
-			–80% к шансу критического удара разбойника
+			tealth no longer regenerates passively.
+			Hitting enemies with Rogue weapons restores some Stealth.
+			When Stealth is full, your attack becomes a Stealth Strike and fires additional Solar Arrows
+			-80% Rogue Crit
 			''' */
 	}
 
 	ShadowPact: {
-		// DisplayName: Теневой пакт
+		// DisplayName: Shadow Pact
 		/* Tooltip:
 			'''
-			+[A]% к урону разбойника
-			Заменяет скрытность на Индикатор Тени
-			Индикатор заполняется с фиксированной скоростью
-			Когда он полон, атака расходует его, выпуская самонаводящийся Теневой Шар
-			При попадании шар порождает несколько Теневых Кинжалов
+			+[A]%Rogue Damage
+			Replaces Stealth with Shadow Gauge.
+			Shadow Gauge fills at a fixed rate.
+			When full, your attack consumes it to fire a homing Shadow Orb.
+			On hit, the orb spawns multiple Shadow Daggers.
 			''' */
 	}
 
 	YanyusHat: {
-		// DisplayName: Шляпа ЯньЮ
+		// DisplayName: YanYu's Hat
 		// Tooltip: ""
 	}
 
 	LuminarDress: {
-		// DisplayName: Платье Люминар
+		// DisplayName: Luminar Dress
 		// Tooltip: ""
 	}
 
 	LuminarRing: {
-		// DisplayName: Нимб Люминар
+		// DisplayName: Luminar Ring
 		// Tooltip: ""
 	}
 
 	LuminarTrousers: {
-		// DisplayName: Штаны Люминар
+		// DisplayName: Luminar Trousers
 		// Tooltip: ""
 	}
 
 	LunarMulse: {
-		// DisplayName: Имульсия Люминар
+		// DisplayName: Lunar Mulse
 		// Tooltip: ""
 	}
 
 	CDRemove: {
-		// DisplayName: Тестовый предмет - Удалить все перезарядки
+		// DisplayName: Test Item - Remove All Cooldowns
 		// Tooltip: ""
 	}
 
 	TheReplicaofThePen: {
 		/* Tooltip:
 			'''
-			Создаёт опасный след при езде.
-			Атакует врагов, когда не находишься в седле
-			Накладывает дебафф «Прикосновение Пустоты» при попадании
+			Spawn harmful trail when riding
+			Attack enemies when not riding
+			Apply Void Touch debuff on hited
 			''' */
-		// DisplayName: Реплика пера
+		// DisplayName: The Replica of The Pen
 	}
 
 	Typhoon: {
 		/* Tooltip:
 			'''
-			ПКМ для переключения между режимами: пулемёт и дробовик
-			В режиме пулемёта ведётся непрерывная стрельба с невероятной скоростью
-			В режиме дробовика выпускается множество рассеянных пуль
+			Right click to switch between machine gun and shotgun modes
+			Machine gun mode continuously fires at an unimaginable speed
+			Shot a large number of scattered bullets in shotgun mode
 			''' */
-		// DisplayName: Тайфун
+		// DisplayName: Typhoon
 	}
 
 	ShadowRune: {
-		// DisplayName: Теневая руна
+		// DisplayName: Shadow Rune
 		/* Tooltip:
 			'''
-			Сбрасывает бонусы урона призывов до нуля и конвертирует их в вместимость прислужников по соотношению [0]%:1
-			Увеличивает скорость атаки кнута на [1]%
-			Уменьшает бонус урона от меток кнута
-			Обеспечивает значительное пробитие защиты для атак прислужников
+			Resets summon damage bonuses to zero and converts them to minion capacity at [0]%:1 ratio
+			Increases whip attack speed by [1]%
+			Reduces whip mark damage bonus
+			Grants significant armor penetration to minion attacks
 			''' */
 	}
 
 	LostChubbyBird: {
-		// DisplayName: Потерянная пухлая птичка
+		// DisplayName: Lost Chubby Bird
 		// Tooltip: ""
 	}
 
 	ConsecratedRune: {
-		// DisplayName: Освящённая руна
+		// DisplayName: Consecrated Rune
 		// Tooltip: ""
 	}
 
 	MysteriousBook: {
 		// Tooltip: ""
-		// DisplayName: Таинственная книга
+		// DisplayName: Mysterious Book
 	}
 }
 
@@ -2834,9 +2834,10 @@ Projectiles: {
 	// LuminarGrave.DisplayName: Luminar Grave
 	// AntivoidMark.DisplayName: Antivoid Mark
 	// InkTrail.DisplayName: Ink Trail
-	// PenMinion.DisplayName: Прислужник пера
-	// ShadowRuneVanity.DisplayName: Иллюзорная руна Тьмы
-	// Pooney.DisplayName: Пуни
+	// PenMinion.DisplayName: Pen Minion
+	// ShadowRuneVanity.DisplayName: Shadow Rune Vanity
+	// Pooney.DisplayName: Pooney
+	// AcropolisTeslaBall.DisplayName: Acropolis Tesla Ball
 }
 
 LegendTooltip: - Легенда -
@@ -3093,17 +3094,17 @@ Buffs: {
 	}
 
 	WindPressure: {
-		// DisplayName: Давление ветра
-		// Description: Вихревые потоки окружают твоё оружие
+		// DisplayName: Wind Pressure
+		// Description: The whirlwind winds around your weapon
 	}
 
 	PenMountBuff: {
-		// DisplayName: Реплика пера
-		// Description: Я горжусь тобой.
+		// DisplayName: Replica Pen
+		// Description: I'm proud of you.
 	}
 
 	ConsecratedRefuge: {
-		// DisplayName: Освящённое убежище
+		// DisplayName: Consecrated Refuge
 		// Description: ""
 	}
 }
@@ -3162,7 +3163,7 @@ NPCs: {
 	DespairStoneFriendly.DisplayName: Дружественный Камень Отчаяния
 	ScryllarFriendly.DisplayName: Союзный Скриллар
 	AeroSlimeFriendly.DisplayName: Союзный Аэро Слайм
-	SoulSlurperFriendly.DisplayName:Союзный Поглотитель Душ
+	SoulSlurperFriendly.DisplayName: Союзный Поглотитель Душ
 	SkyfinFriendly.DisplayName: Союзный Скайфин
 	IceClasperFriendly.DisplayName: Союзный Ледяной Клещ
 
@@ -3179,16 +3180,16 @@ NPCs: {
 	TopazJewel.DisplayName: Драгоценный камень с топазом
 
 	Luminaris: {
-		// DisplayName: Люминарис
+		// DisplayName: Luminaris
 
 		BossChecklistIntegration: {
-			// EntryName: Люминарис
-			// SpawnInfo: Используй [i:CalamityEntropy/IllusionaryDew] в биоме Астральной Инфекции для призыва.
-			// DespawnMessage: Люминарис был повержен.
+			// EntryName: Luminaris
+			// SpawnInfo: Use [i:CalamityEntropy/IllusionaryDew] in Astral Infection to summon.
+			// DespawnMessage: Luminaris has been defeated.
 		}
 	}
 
-	// AcropolisMachine.DisplayName: Машина Акрополя
+	// AcropolisMachine.DisplayName: Acropolis Machine
 }
 
 WyrmChatNoHome: Куда мы идем теперь?
@@ -3203,7 +3204,7 @@ WyrmChat8: Жизнь в бездне слишком скучна.
 WyrmChat9: Как думаешь, кто сильнее, я или эта Ведьма?
 WyrmChat10: Ты спросил меня, почему я напал на тебя тогда? Моя миссия — защитить этот священный объект.
 WyrmChat11: Хаос всегда заставляет меня чувствовать себя неуютно.
-// WyrmChatDonors: Благодарим [0] за поддержку, спасибо всем!
+// WyrmChatDonors: Thank you to [0] for support, thank you all!
 loreCruiser:
 	'''
 	Жизнь поглощает энергию для уменьшения энтропии.
@@ -3213,10 +3214,10 @@ loreCruiser:
 	'''
 /* loreLuminaris:
 	'''
-	Это было не естественное хищное существо, а воплощение астральной энергии.
-	Его крылья были сотканы из осколков разрушенных звёзд, а чешуя, которую оно разбрасывало, могла на время заставить близлежащие растения светиться жутким синим светом.
-	Легенды гласят, что оно когда-то было стражем Звёздных Полей, но после аномального всплеска энергии его сознание слилось с астральной силой, оставив его беспокойным и нестабильным.
-	Теперь оно атакует каждого, кто вторгается в его владения, стремясь «очистить» их сиянием звёзд.
+	It was not a natural predator, but rather an embodiment of astral energy.
+	Its wings were woven from fragments of shattered stars, and the scales it scattered could briefly make nearby plants glow with an eerie blue light.
+	Legends say it was once the guardian of the Starlit Fields, but after an anomalous surge of energy, its consciousness fused with the astral power, leaving it restless and unstable.
+	Now, it attacks any who intrude upon its domain, seeking to "purify" them with the radiance of the stars.
 	''' */
 UseToggle: Используйте этот предмет, чтобы включить или выключить специальные эффекты:
 loreCruiserEffect: Увеличьте максимальное количество жизни на 20 и маны на 50
@@ -3278,7 +3279,7 @@ Enabled: Включенный
 Disabled: Выключенный
 CdMoonlight: Лунный Щит
 CdDS: Перезарядка Божественного Щита
-// CdAntivoid: Перезарядка рывка Антипустоты
+// CdAntivoid: Antivoid Dash Cooldown
 CruiserBestiary:
 	'''
 	Верховный хищник, рожденный из пустоты, напоминающий того Пожирателя Богов, с которым ты когда-то сталкивался.
@@ -3296,7 +3297,7 @@ ProphetBestiary:
 	Жалкая, разбитая душа, обезумевшая от ужасной правды, скрытой за нашествием пустоты.
 	Связанная древними текстами, она бесконечно повторяет бессмысленные крики и шепоты, отчаянно — но тщетно — пытаясь передать увиденное.
 	'''
-// LuminarisBestiary: Моли, заражённые астральной сущностью, существуют с целью распространять астральную инфекцию.
+// LuminarisBestiary: Moths infected by astral exist with the purpose of spreading astral infection
 WorldGen.VoidOreSpawn: Из неба исходит энергия пустоты
 
 Tiles: {
@@ -3560,7 +3561,7 @@ DamageClasses: {
 hkLevel: Уровень
 ZoneGraveyard: Зона кладбища
 DownedBoss2: После победы над Пожирателем миров / Мозг Ктулху
-HaveOracleDeck:Когда колода Оракула будет в инвентаре
+HaveOracleDeck: Когда колода Оракула будет в инвентаре
 HaveTaintedDeck: Когда испорченная колода находится в инвентаре
 HaveSoulDeck: Когда колода душ будет в инвентаре
 DownloadBOI: Have played The Binding of Isaac: Repentance
@@ -3606,7 +3607,7 @@ AmmoSnowball: Снежок
 AmmoStake: Кол
 AmmoStyngerBolt: Болт Стингера
 AmmoBoulders: Валун
-// AmmoStarblightSoot: Звёздная сажа
+// AmmoStarblightSoot: Starblight Soot
 AmmoType: Тип боеприпасов
 UseAmmo: Использует боеприпасы
 OrbPunishDeath0: разлетелся на куски

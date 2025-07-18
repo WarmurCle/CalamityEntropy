@@ -104,6 +104,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public class Hand
         {
+            public float Seg1RotV = 0;
             public float Seg1Length = 0;
             public float Seg1Rot = 0;
             public float Seg2Rot = 0;
@@ -118,10 +119,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 Seg2Rot = seg2Rot;
                 this.offset = offset;
             }
-            
+            public Vector2 TopPos => seg1end + Seg2Rot.ToRotationVector2() * 60 * npc.scale;
             public void PointAPos(Vector2 pos)
             {
-                Seg1Rot = CEUtils.RotateTowardsAngle(Seg1Rot, (pos - (npc.Center + (offset * new Vector2(((AcropolisMachine)npc.ModNPC).dir, 1)).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)))).ToRotation(), 0.1f);
+                Seg1Rot = CEUtils.RotateTowardsAngle(Seg1Rot, (pos - (npc.Center + (offset * new Vector2(((AcropolisMachine)npc.ModNPC).dir, 1)).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)))).ToRotation(), 0.06f, false);
                 if(CEUtils.GetAngleBetweenVectors(Seg1Rot.ToRotationVector2(), -Vector2.UnitY) > Seg1MaxRadians * 2)
                 {
                     if(Seg1Rot > (MathHelper.PiOver2 + Seg1MaxRadians))
@@ -133,7 +134,12 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         Seg1Rot = (MathHelper.PiOver2 - Seg1MaxRadians);
                     }
                 }
-                Seg2Rot = CEUtils.RotateTowardsAngle(Seg2Rot, (pos - seg1end).ToRotation(), 0.1f);
+                Seg2Rot = CEUtils.RotateTowardsAngle(Seg2Rot, (pos - seg1end).ToRotation(), 0.06f, false);
+            }
+            public void Update()
+            {
+                Seg1Rot += Seg1RotV;
+                Seg1RotV *= 0.96f;
             }
             public Vector2 seg1end => npc.Center + (offset * new Vector2(((AcropolisMachine)npc.ModNPC).dir, 1) * npc.scale).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)) + Seg1Rot.ToRotationVector2() * Seg1Length;
         }
@@ -204,6 +210,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public List<AcropolisLeg> legs = null;
         public Hand cannon;
         public Hand harpoon;
+        public float TeslaCD = 120;
         public override void AI()
         {
             JumpCD--;
@@ -219,6 +226,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 cannon = new Hand(NPC, new Vector2(-80, -32), 66, MathHelper.PiOver2, MathHelper.PiOver2);
                 harpoon = new Hand(NPC, new Vector2(60, -18), 66, MathHelper.PiOver2, MathHelper.PiOver2);
             }
+            cannon.Update();
+            harpoon.Update();
             foreach (var l in legs)
             {
                 if (l.Update())
@@ -312,15 +321,25 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 else
                 {
                     float r = dir == 1 ? 0 : MathHelper.Pi;
-                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, r, 0.1f, false);
+                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, r, 0.3f, false);
                 }
             }
         }
         public int JumpCD = 0;
         public bool Jumping = false;
+        public float TeslaUpCD = 0;
+        public int JumpAndShoot = 0;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(CannonUpAtk);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            CannonUpAtk = reader.ReadInt32();
+        }
         public void AttackPlayer(Player player)
         {
-            float enrange = 1;
+            float enrange = 1 + (1 - (float)NPC.life / NPC.lifeMax);
             if (Main.expertMode)
             {
                 enrange += 0.1f;
@@ -343,14 +362,72 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             if (Main.getGoodWorld)
             {
-                enrange *= 1.1f;
+                enrange *= 1.2f;
             }
             if (Main.zenithWorld)
             {
                 enrange *= 1.4f;
             }
-            cannon.PointAPos(player.Center);
+            float d = CEUtils.getDistance(player.Center, NPC.Center);
+            if (CannonUpAtk-- > 0)
+            {
+                cannon.PointAPos(player.Center + new Vector2(0, -800));
+                if (CannonUpAtk < 140)
+                {
+                    TeslaUpCD -= enrange;
+                    if (TeslaUpCD <= 0)
+                    {
+                        TeslaUpCD = 12;
+                        Shoot<AcropolisTeslaBall>(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.6f) * 5, 1, 0, NPC.whoAmI);
+                        CEUtils.PlaySound("ofshoot", 1, cannon.TopPos);
+                        cannon.Seg1RotV = 0.06f * dir;
+                    }
+                }
+            }
+            else if (JumpAndShoot-- > 0)
+            {
+                cannon.PointAPos(player.Center + new Vector2(0, -30));
+                TeslaUpCD -= enrange;
+                if (TeslaUpCD <= 0)
+                {
+                    TeslaUpCD = 12;
+                    Shoot<AcropolisTeslaBall>(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.12f) * 5, 1, 0, NPC.whoAmI);
+                    CEUtils.PlaySound("ofshoot", 1, cannon.TopPos);
+                }
+            }
+            else
+            {
+                cannon.PointAPos(player.Center + new Vector2(0, -14) + new Vector2(0, d > 500 ? -(((d - 500) * 0.02f) * ((d - 500) * 0.02f)) : 0));
+            }
+            if(!Jumping)
+            {
+                JumpAndShoot = -1;
+            }
             harpoon.PointAPos(player.Center);
+            TeslaCD -= enrange;
+            if(TeslaCD <= 0)
+            {
+                if(Main.rand.NextBool(8))
+                {
+                    TeslaCD = 360;
+                    CannonUpAtk = 200;
+                }
+                else if(Main.rand.NextBool(8) && !Jumping)
+                {
+                    Jumping = true;
+                    NPC.velocity = new Vector2(12f * Math.Sign(player.Center.X - NPC.Center.X) / NPC.scale, -24) * NPC.scale;
+                    JumpCD = 200;
+                    JumpAndShoot = 200;
+                    TeslaCD = 360;
+                }
+                else
+                {
+                    TeslaCD = 160;
+                    Shoot<AcropolisTeslaBall>(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.1f) * 6, 1, 0, NPC.whoAmI);
+                    CEUtils.PlaySound("ofshoot", 1, cannon.TopPos);
+                    cannon.Seg1RotV = 0.2f * dir;
+                }
+            }
             if (!Jumping)
             {
                 bool flag = false;
@@ -459,15 +536,18 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 {
                     flag = true;
                 }
-                if ((NPC.velocity.Y > 0 || NPC.Center.Y < player.Center.Y) && flag)
+                if (JumpAndShoot <= 96)
                 {
-                    Jumping = false;
-                    NPC.velocity *= 0;
-                }
-                if(JumpCD < 20 || (NPC.velocity.Y > 0 && CEUtils.CheckSolidTile(NPC.getRect())) || NPC.velocity.Y > 2)
-                {
-                    Jumping = false;
-                    NPC.velocity *= 0;
+                    if (((NPC.velocity.Y > 0 && !(JumpAndShoot > 0)) || NPC.Center.Y < player.Center.Y) && flag)
+                    {
+                        Jumping = false;
+                        NPC.velocity *= 0;
+                    }
+                    if (JumpCD < 20 || (NPC.velocity.Y > 0 && CEUtils.CheckSolidTile(NPC.getRect()) && !(JumpAndShoot > 0)) || NPC.velocity.Y > 2)
+                    {
+                        Jumping = false;
+                        NPC.velocity *= 0;
+                    }
                 }
                 JFlag = true;
             }
@@ -494,6 +574,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public int phase = 1;
         public int dir = 1;
+        public int CannonUpAtk = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if(Main.zenithWorld)
@@ -515,8 +596,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             Texture2D t1 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Leg1");
             Texture2D t2 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Leg2");
             Texture2D t3 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Foot");
-            Main.EntitySpriteDraw(body, NPC.Center - screenPos, null, drawColor, NPC.rotation, body.Size() / 2f, NPC.scale, dir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None);
-
+            
             if (legs == null)
                 return false;
             foreach (var leg in legs)
@@ -540,12 +620,20 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             Texture2D cannon2 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Cannon");
             Texture2D harpoon1 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/HarpoonArm");
             Texture2D harpoon2 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/HarpoonLauncher");
-            //Texture2D harpoon3 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Harpoon");
-
+            Texture2D harpoon3 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Harpoon");
+            Texture2D shoulder = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Shoulder");
+            
+            Main.EntitySpriteDraw(harpoon1, (harpoon.offset * new Vector2(dir, 1) * NPC.scale).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)) + NPC.Center - Main.screenPosition, null, drawColor, harpoon.Seg1Rot, new Vector2(6, harpoon1.Height / 2f), NPC.scale, SpriteEffects.None);
+            if (true)
+            {
+                Main.EntitySpriteDraw(harpoon3, harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 90 + new Vector2(0, 10 * dir).RotatedBy(harpoon.Seg2Rot) - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(20, harpoon3.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            }
+            Main.EntitySpriteDraw(harpoon2, harpoon.seg1end - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(6, harpoon2.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            Main.EntitySpriteDraw(body, NPC.Center - screenPos, null, drawColor, NPC.rotation, body.Size() / 2f, NPC.scale, dir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             Main.EntitySpriteDraw(cannon1, (cannon.offset * new Vector2(dir, 1) * NPC.scale).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)) + NPC.Center - Main.screenPosition, null, drawColor, cannon.Seg1Rot, new Vector2(6, cannon1.Height / 2f), NPC.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(cannon2, cannon.seg1end - Main.screenPosition, null, drawColor, cannon.Seg2Rot, new Vector2(6, cannon2.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-            Main.EntitySpriteDraw(harpoon1, (harpoon.offset * new Vector2(dir, 1) * NPC.scale).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)) + NPC.Center - Main.screenPosition, null, drawColor, harpoon.Seg1Rot, new Vector2(6, harpoon1.Height / 2f), NPC.scale, SpriteEffects.None);
-            Main.EntitySpriteDraw(harpoon2, harpoon.seg1end - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(6, harpoon2.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+
+            Main.EntitySpriteDraw(shoulder, NPC.Center - screenPos, null, drawColor, NPC.rotation, shoulder.Size() / 2f, NPC.scale, dir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None);
 
             return false;
         }
