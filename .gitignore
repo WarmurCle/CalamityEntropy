@@ -363,3 +363,6 @@ FodyWeavers.xsd
 /CalamityEntropy.csproj
 /Properties/Resources.Designer.cs
 /Properties/Resources.resx
+
+# Rider干的
+.idea
