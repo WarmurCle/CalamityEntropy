@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                     Projectile.rotation = ShooterModProjectile.Projectile.rotation;
                     Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
-                    if (eb.active && eb.Projectile.active)
+                    if ((eb.active && eb.Projectile.active) || Projectile.owner != Main.myPlayer)
                     {
                         if (width2 < 1)
                         {

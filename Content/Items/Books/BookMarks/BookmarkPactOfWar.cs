@@ -73,9 +73,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         NPC target = null;
         public override void AI()
         {
-            if (Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 0)
+            if (Projectile.owner != Main.myPlayer || Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 0)
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 4;
             }
             if (sp)
             {
@@ -233,9 +233,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void AI()
         {
-            if (Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 0)
+            if (Projectile.owner != Main.myPlayer || Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 0)
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 4;
             }
             if (sp)
             {
