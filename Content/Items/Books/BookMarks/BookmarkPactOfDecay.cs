@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 target = null;
                 Projectile.Center = Projectile.GetOwner().Center;
             }
-            if (Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 1 && Projectile.timeLeft >= 19)
+            if ((Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 1 && Projectile.timeLeft >= 19) || Projectile.owner != Main.myPlayer)
             {
                 Projectile.timeLeft = 20;
             }
