@@ -35,7 +35,6 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         public override void SetDefaults()
         {
-            NPC.boss = true;
             NPC.width = 40;
             NPC.height = 40;
             NPC.damage = 30;
