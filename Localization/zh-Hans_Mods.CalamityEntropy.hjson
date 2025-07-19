@@ -2657,7 +2657,7 @@ Items: {
 
 	HellIndustrialComponents: {
 		DisplayName: 地狱工业构件
-		Tooltip: "一种精密的元件，由未知金属构成"
+		Tooltip: 一种精密的元件，由未知金属构成
 	}
 }
 
