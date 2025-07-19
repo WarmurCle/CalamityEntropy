@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.BiomeManagers;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.World;
@@ -34,7 +35,18 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             public Vector2 offset;
             public int NoMoveTime = 0;
             public Vector2 targetPos;
-            
+            public void NetSend(BinaryWriter writer)
+            {
+                writer.Write(NoMoveTime);
+                writer.WriteVector2(targetPos);
+                writer.WriteVector2(StandPoint);
+            }
+            public void NetReceive(BinaryReader reader)
+            {
+                NoMoveTime = reader.ReadInt32();
+                targetPos = reader.ReadVector2();
+                StandPoint = reader.ReadVector2();
+            }
             public AcropolisLeg(NPC npc, Vector2 offset, float scale = 1)
             {
                 NPC = npc;
@@ -136,6 +148,19 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 }
                 Seg2Rot = CEUtils.RotateTowardsAngle(Seg2Rot, (pos - seg1end).ToRotation(), 0.06f, false);
             }
+            public void NetSend(BinaryWriter writer)
+            {
+                writer.Write(Seg1Rot);
+                writer.Write(Seg2Rot);
+                writer.Write(Seg1RotV);
+            }
+            public void NetReceive(BinaryReader reader)
+            {
+                Seg1Rot = reader.ReadSingle();
+                Seg2Rot = reader.ReadSingle();
+                Seg1RotV = reader.ReadSingle();
+            }
+
             public void Update()
             {
                 Seg1Rot += Seg1RotV;
@@ -175,7 +200,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.height = 132;
             NPC.damage = 30;
             NPC.defense = 12;
-            NPC.lifeMax = 1400;
+            NPC.lifeMax = 3000;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = CEUtils.GetSound("chainsaw_break");
             NPC.value = 1600f;
@@ -183,7 +208,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.noTileCollide = true;
             NPC.noGravity = true;
             NPC.dontCountMe = true;
-            NPC.timeLeft *= 10;
+            NPC.timeLeft *= 5;
             if (!Main.dedServ)
             {
                 Music = MusicID.OtherworldlyBoss1;
@@ -197,6 +222,15 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 NPC.scale += 1.8f;
             }
+
+            NPC.Calamity().VulnerableToHeat = false;
+            NPC.Calamity().VulnerableToCold = true;
+            NPC.Calamity().VulnerableToWater = true;
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<BrimstoneCragsBiome>().Type };
+        }
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+            return spawnInfo.Player.Calamity().ZoneCalamity ? 0.03f : 0f;
         }
         public static bool CanStandOn(Vector2 pos)
         {
@@ -211,9 +245,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public Hand cannon;
         public Hand harpoon;
         public float TeslaCD = 120;
-        public override void AI()
+        public void SegCheck()
         {
-            JumpCD--;
             if (legs == null)
             {
                 legs =
@@ -223,11 +256,23 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     new AcropolisLeg(NPC, new Vector2(-140, 120), 1),
                     new AcropolisLeg(NPC, new Vector2(140, 120), 1),
                 ];
-                cannon = new Hand(NPC, new Vector2(-80, -32), 66, MathHelper.PiOver2, MathHelper.PiOver2);
+                cannon = new Hand(NPC, new Vector2(-80, -32), 76, MathHelper.PiOver2, MathHelper.PiOver2);
                 harpoon = new Hand(NPC, new Vector2(60, -18), 66, MathHelper.PiOver2, MathHelper.PiOver2);
             }
+        }
+        public override void AI()
+        {
+            JumpCD--;
+            SegCheck();
             cannon.Update();
             harpoon.Update();
+            if (_harpoon == -1 && (!(Main.netMode == NetmodeID.MultiplayerClient)))
+            {
+                _harpoon = NPC.NewNPC(NPC.GetSource_FromAI(), 0, 0, ModContent.NPCType<Harpoon>(), 0, NPC.whoAmI);
+                _harpoon.ToNPC().Center = HarpoonPos;
+                _harpoon.ToNPC().netSpam = 9;
+                _harpoon.ToNPC().netUpdate = true;
+            }
             foreach (var l in legs)
             {
                 if (l.Update())
@@ -250,17 +295,31 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 NPC.TargetClosest();
             }
-            if (NPC.HasValidTarget)
+            if (((float)NPC.life / NPC.lifeMax) < 0.98f)
             {
-                AttackPlayer(Main.player[NPC.target]);
+                NPC.noTileCollide = true;
+                if (NPC.HasValidTarget)
+                {
+                    AttackPlayer(Main.player[NPC.target]);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NPC.netSpam = 0;
+                        NPC.netUpdate = true;
+                    }
+                }
+                else
+                {
+                    NPC.velocity.X += 0.2f;
+                    if (CEUtils.CheckSolidTile(NPC.getRect()))
+                    {
+                        NPC.velocity.Y -= 0.4f;
+                    }
+                }
             }
             else
             {
-                NPC.velocity.X += 0.2f;
-                if (CEUtils.CheckSolidTile(NPC.getRect()))
-                {
-                    NPC.velocity.Y -= 0.4f;
-                }
+                NPC.noTileCollide = false;
+                NPC.velocity.Y += 0.4f;
             }
             if (Jumping)
             {
@@ -332,11 +391,54 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(CannonUpAtk);
+            cannon.NetSend(writer);
+            harpoon.NetSend(writer);
+            writer.Write(_harpoon);
+            writer.Write(legs.Count > 0);
+            if (legs.Count > 0)
+            {
+                foreach(var le in legs)
+                {
+                    le.NetSend(writer);
+                }
+            }
+            writer.Write(JumpCD);
+            writer.Write(Jumping);
+            writer.Write(TeslaCD);
+            writer.Write(HarpoonCD);
+            writer.Write(JumpAndShoot);
+            writer.Write(CannonUpAtk);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            SegCheck();
+            CannonUpAtk = reader.ReadInt32();
+            cannon.NetReceive(reader);
+            harpoon.NetReceive(reader);
+            _harpoon = reader.ReadInt32();
+            if(reader.ReadBoolean())
+            {
+                if (legs.Count > 0)
+                {
+                    foreach (var le in legs)
+                    {
+                        le.NetReceive(reader);
+                    }
+                }
+                else
+                {
+                    for(int a = 0; a < 4; a++)
+                        new AcropolisLeg(NPC, Vector2.Zero).NetReceive(reader);
+                }
+            }
+            JumpCD = reader.ReadInt32();
+            Jumping = reader.ReadBoolean();
+            TeslaCD = reader.ReadSingle();
+            HarpoonCD = reader.ReadSingle();
+            JumpAndShoot = reader.ReadInt32();
             CannonUpAtk = reader.ReadInt32();
         }
+        public int _harpoon = -1;
         public void AttackPlayer(Player player)
         {
             float enrange = 1 + (1 - (float)NPC.life / NPC.lifeMax);
@@ -403,7 +505,14 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 JumpAndShoot = -1;
             }
-            harpoon.PointAPos(player.Center);
+            if (HarpoonCharge <= 0 && HarpoonOnLauncher)
+            {
+                harpoon.PointAPos(player.Center);
+            }
+            else if(!HarpoonOnLauncher)
+            {
+                harpoon.PointAPos(_harpoon.ToNPC().Center);
+            }
             TeslaCD -= enrange;
             if(TeslaCD <= 0)
             {
@@ -412,7 +521,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     TeslaCD = 360;
                     CannonUpAtk = 200;
                 }
-                else if(Main.rand.NextBool(8) && !Jumping)
+                else if(Main.rand.NextBool(8) && !Jumping && HarpoonOnLauncher)
                 {
                     Jumping = true;
                     NPC.velocity = new Vector2(12f * Math.Sign(player.Center.X - NPC.Center.X) / NPC.scale, -24) * NPC.scale;
@@ -426,6 +535,24 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     Shoot<AcropolisTeslaBall>(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.1f) * 6, 1, 0, NPC.whoAmI);
                     CEUtils.PlaySound("ofshoot", 1, cannon.TopPos);
                     cannon.Seg1RotV = 0.2f * dir;
+                }
+            }
+            if (HarpoonOnLauncher)
+            {
+                HarpoonCD -= enrange;
+            }
+            if(HarpoonCD <= 0)
+            {
+                HarpoonCharge += 0.05f * enrange;
+                if(HarpoonCharge >= 1)
+                {
+                    HarpoonCharge = 0;
+                    HarpoonCD = 160;
+                    Harpoon hp = ((Harpoon)_harpoon.ToNPC().ModNPC);
+                    hp.Back = 40;
+                    hp.OnLauncher = false;
+                    _harpoon.ToNPC().velocity = harpoon.Seg2Rot.ToRotationVector2() * 36 * NPC.scale;
+                    harpoon.Seg1RotV = 0.3f * dir;
                 }
             }
             if (!Jumping)
@@ -451,7 +578,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 }
                 if (flag || CEUtils.CheckSolidTile(NPC.getRect()))
                 {
-                    if (player.Center.Y + 200 * NPC.scale < NPC.Center.Y)
+                    if (HarpoonOnLauncher && player.Center.Y + 200 * NPC.scale < NPC.Center.Y)
                     {
                         if (JumpCD <= -260)
                         {
@@ -481,7 +608,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         NPC.velocity.Y *= 0.8f;
                     }
                     v *= NPC.scale;
-                    if (Math.Abs(yof + player.Center.Y - NPC.Center.Y) > 20 * NPC.scale)
+                    if (HarpoonOnLauncher && Math.Abs(yof + player.Center.Y - NPC.Center.Y) > 20 * NPC.scale)
                     {
                         if (player.Center.Y + yof > NPC.Center.Y)
                         {
@@ -515,11 +642,13 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     if (NPC.velocity.Y > 12)
                         NPC.velocity.Y = 12;
                 }
-                if (CEUtils.getDistance(NPC.Center, player.Center) > 100 * NPC.scale)
+                if (HarpoonOnLauncher)
                 {
-                    NPC.velocity.X += Math.Sign(player.Center.X - NPC.Center.X) * 0.1f * enrange * NPC.scale;
+                    if (CEUtils.getDistance(NPC.Center, player.Center) > 100 * NPC.scale)
+                    {
+                        NPC.velocity.X += Math.Sign(player.Center.X - NPC.Center.X) * 0.1f * enrange * NPC.scale;
+                    }
                 }
-                
             }
             else
             {
@@ -564,6 +693,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 dir = -1;
             }
         }
+        public bool HarpoonOnLauncher => ((Harpoon)_harpoon.ToNPC().ModNPC).OnLauncher;
         public void Shoot<T>(Vector2 pos, Vector2 velocity, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0) where T : ModProjectile
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -575,6 +705,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public int phase = 1;
         public int dir = 1;
         public int CannonUpAtk = 0;
+        public float HarpoonCharge = 0;
+        public float HarpoonCD = 120;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if(Main.zenithWorld)
@@ -621,12 +753,18 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             Texture2D harpoon1 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/HarpoonArm");
             Texture2D harpoon2 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/HarpoonLauncher");
             Texture2D harpoon3 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Harpoon");
+            Texture2D harpoonOutline = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/HarpoonOutline");
+
             Texture2D shoulder = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Shoulder");
             
             Main.EntitySpriteDraw(harpoon1, (harpoon.offset * new Vector2(dir, 1) * NPC.scale).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)) + NPC.Center - Main.screenPosition, null, drawColor, harpoon.Seg1Rot, new Vector2(6, harpoon1.Height / 2f), NPC.scale, SpriteEffects.None);
-            if (true)
+            if (_harpoon < 0 || (((Harpoon)_harpoon.ToNPC().ModNPC).OnLauncher))
             {
-                Main.EntitySpriteDraw(harpoon3, harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 90 + new Vector2(0, 10 * dir).RotatedBy(harpoon.Seg2Rot) - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(20, harpoon3.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+                for(float r = 0; r <= 360; r += 60)
+                {
+                    Main.EntitySpriteDraw(harpoonOutline, MathHelper.ToRadians(r).ToRotationVector2() * 2 + harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 150 * NPC.scale + new Vector2(0, 10 * dir).RotatedBy(harpoon.Seg2Rot) * NPC.scale - Main.screenPosition, null, Color.OrangeRed * HarpoonCharge, harpoon.Seg2Rot, new Vector2(70, harpoon3.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+                }
+                Main.EntitySpriteDraw(harpoon3, harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 150 * NPC.scale + new Vector2(0, 10 * dir).RotatedBy(harpoon.Seg2Rot) * NPC.scale - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(70, harpoon3.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             }
             Main.EntitySpriteDraw(harpoon2, harpoon.seg1end - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(6, harpoon2.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             Main.EntitySpriteDraw(body, NPC.Center - screenPos, null, drawColor, NPC.rotation, body.Size() / 2f, NPC.scale, dir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None);
@@ -637,6 +775,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
             return false;
         }
+        public Vector2 HarpoonPos => harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 150 * NPC.scale + new Vector2(0, 10 * dir).RotatedBy(harpoon.Seg2Rot) * NPC.scale;
         public override bool ModifyCollisionData(Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox)
         {
             npcHitbox = npcHitbox.Center.ToVector2().getRectCentered((npcHitbox.Width * NPC.scale), (npcHitbox.Height * NPC.scale));
@@ -759,24 +898,11 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref EDownedBosses.downedLuminaris, -1);
+            NPC.SetEventFlagCleared(ref EDownedBosses.downedAcropolis, -1);
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<LuminarisBag>()));
-
-            npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ItemID.HealingPotion, 1, 5, 15), hideLootReport: true);
-
-
-            var normalOnly = npcLoot.DefineNormalOnlyDropSet();
-            {
-            }
-            npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<LuminarisRelic>());
-
-            npcLoot.Add(ModContent.ItemType<LuminarisTrophy>(), 10);
-
-            npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedLuminaris, ModContent.ItemType<LuminarisLore>());
+            npcLoot.Add(ModContent.ItemType<HellIndustrialComponents>(), 1, 12, 14);
         }
-
     }
 }

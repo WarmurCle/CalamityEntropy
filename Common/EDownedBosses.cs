@@ -13,6 +13,7 @@ namespace CalamityEntropy.Common
         public static bool EntropyMode = false;
         public static bool downedProphet = false;
         public static bool downedLuminaris = false;
+        public static bool downedAcropolis = false;
         public override void ClearWorld()
         {
             EntropyMode = false;
@@ -21,6 +22,7 @@ namespace CalamityEntropy.Common
             downedNihilityTwin = false;
             downedProphet = false;
             downedLuminaris = false;
+            downedAcropolis = false;
         }
 
         public override void SaveWorldData(TagCompound tag)
@@ -49,6 +51,10 @@ namespace CalamityEntropy.Common
             {
                 tag["downedLuminaris"] = true;
             }
+            if(downedAcropolis)
+            {
+                tag["downedAcropolis"] = true;
+            }
         }
 
         public override void LoadWorldData(TagCompound tag)
@@ -59,6 +65,7 @@ namespace CalamityEntropy.Common
             EntropyMode = tag.ContainsKey("EntropyMode");
             downedProphet = tag.ContainsKey("downedProphet");
             downedLuminaris = tag.ContainsKey("downedLuminaris");
+            downedAcropolis = tag.ContainsKey("downedAcropolis");
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -70,7 +77,9 @@ namespace CalamityEntropy.Common
             flags[2] = downedNihilityTwin;
             flags[3] = downedProphet;
             flags[4] = downedLuminaris;
+            flags[5] = downedAcropolis;
             flags2[0] = EntropyMode;
+
             writer.Write(flags);
             writer.Write(flags2);
 
@@ -86,6 +95,7 @@ namespace CalamityEntropy.Common
             downedNihilityTwin = flags[2];
             downedProphet = flags[3];
             downedLuminaris = flags[4];
+            downedAcropolis = flags[5];
             EntropyMode = flags2[0];
         }
     }

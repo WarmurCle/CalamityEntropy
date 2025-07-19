@@ -51,6 +51,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe().AddIngredient<AzafureAntiaircraftGun>()
                 .AddIngredient<DivineGeode>(6)
+                .AddIngredient<HellIndustrialComponents>(4)
                 .AddIngredient(ItemID.LunarBar, 8)
                 .Register();
         }

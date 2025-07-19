@@ -3209,8 +3209,16 @@ NPCs: {
 			DespawnMessage: Luminaris has been defeated.
 		}
 	}
+	AcropolisMachine: {
+		DisplayName: Acropolis Machine
 
-	AcropolisMachine.DisplayName: Acropolis Machine
+		BossChecklistIntegration: {
+			EntryName: Acropolis Machine
+			SpawnInfo: Naturally spawn in brimstone crags
+			DespawnMessage: Acropolis machine is scrapped
+		}
+	}
+	Harpoon.DisplayName: Harpoon
 }
 
 WyrmChatNoHome: Where are we going now?
@@ -3723,3 +3731,4 @@ SolarBarInfo:
 LorePerforatorsDesc: "[0]% Chance to heal [1] after hitted"
 LoreEaterofWorldsDesc: Immune to Cursed Inferno
 RPDonorName: 冷级
+Acropolis: ""

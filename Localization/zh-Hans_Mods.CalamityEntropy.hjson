@@ -3443,8 +3443,16 @@ NPCs: {
 			DespawnMessage: 幻光星蛾已被击败
 		}
 	}
+	AcropolisMachine: {
+		DisplayName: 阿萨福勒卫城机甲
 
-	AcropolisMachine.DisplayName: 阿萨福勒卫城机甲
+		BossChecklistIntegration: {
+			EntryName: 阿萨福勒卫城机甲
+			SpawnInfo: 在硫火之崖小概率生成
+			DespawnMessage: 阿萨福勒卫城机甲报废了！
+		}
+	}
+	Harpoon.DisplayName: 叉矛
 }
 
 WyrmChatNoHome: 我们现在要去哪？
@@ -3966,3 +3974,4 @@ SolarBarInfo:
 LorePerforatorsDesc: 受伤后有[0]%的概率回复[1]点血量
 LoreEaterofWorldsDesc: 使你免疫诅咒烈焰减益
 RPDonorName: 冷级
+Acropolis: "阿萨福勒量产的攻击型机甲，曾被用于大规模战争"

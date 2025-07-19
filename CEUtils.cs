@@ -867,11 +867,11 @@ namespace CalamityEntropy
         }
         public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, string texturePath, Color color)
         {
-            drawChain(startPos, endPos, spacing, ModContent.Request<Texture2D>(texturePath).Value, color);
+            drawChain(startPos, endPos, spacing, RequestTex(texturePath), color);
         }
         public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, string texturePath)
         {
-            drawChain(startPos, endPos, spacing, ModContent.Request<Texture2D>(texturePath).Value, Color.White);
+            drawChain(startPos, endPos, spacing, RequestTex(texturePath), Color.White);
         }
         public static void drawChain(Vector2 startPos, Vector2 endPos, int spacing, Texture2D texture)
         {

@@ -1264,6 +1264,24 @@ namespace CalamityEntropy
                 {
                     {
                         {
+                            string entryName = "AcropolisMechine";
+                            List<int> collection = new List<int>() { };
+                            Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
+                            {
+                                Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/AcropolisMachine").Value;
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 1, SpriteEffects.None, 0);
+                            };
+                            Func<bool> AcropDowned = () => EDownedBosses.downedAcropolis;
+                            AddBoss(bossChecklist, Instance, entryName, 9.505f, AcropDowned, ModContent.NPCType<Luminaris>(), new Dictionary<string, object>()
+                            {
+                                ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.AcropolisMachine.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.AcropolisMachine.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetText("Mods.CalamityEntropy.NPCs.AcropolisMachine.BossChecklistIntegration.DespawnMessage"),
+                                ["collectibles"] = collection,
+                                ["customPortrait"] = portrait
+                            });
+                        }
+                        {
                             string entryName = "Luminaris";
                             List<int> collection = new List<int>() { };
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>

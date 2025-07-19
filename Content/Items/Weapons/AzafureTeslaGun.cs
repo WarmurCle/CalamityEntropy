@@ -43,6 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient<AerialiteBar>(8)
                 .AddIngredient<DubiousPlating>(8)
+                .AddIngredient<HellIndustrialComponents>(4)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

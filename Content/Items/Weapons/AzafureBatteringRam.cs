@@ -42,8 +42,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<AerialiteBar>(5)
-                .AddIngredient<DubiousPlating>(15)
-                .AddIngredient<EnergyCore>(2)
+                .AddIngredient<DubiousPlating>(10)
+                .AddIngredient<HellIndustrialComponents>(4)
                 .AddIngredient(ItemID.HellstoneBar, 18)
                 .AddRecipeGroup(RecipeGroupID.IronBar, 20)
                 .AddTile(TileID.Anvils)

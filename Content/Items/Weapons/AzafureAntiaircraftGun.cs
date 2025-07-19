@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe().AddIngredient<ScoriaBar>(6)
                 .AddIngredient<DubiousPlating>(10)
                 .AddIngredient(ItemID.HellstoneBar, 18)
-                .AddIngredient(ItemID.MeteoriteBar, 6)
+                .AddIngredient<HellIndustrialComponents>(4)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
