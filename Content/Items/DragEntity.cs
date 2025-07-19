@@ -46,7 +46,10 @@ namespace CalamityEntropy.Content.Items
                     if (dragging != null)
                     {
                         dragging.Center = Main.MouseWorld + dragOffset;
-                        dragging.velocity = (Main.MouseWorld - lastMouse);
+                        if (dragging is NPC)
+                        {
+                            dragging.velocity = (Main.MouseWorld - lastMouse);
+                        }
                         lastMouse = Main.MouseWorld;
                     }
                 }
