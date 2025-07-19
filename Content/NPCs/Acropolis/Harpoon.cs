@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             if (OnLauncher)
                 return false;
-            CEUtils.drawChain(NPC.Center, ((AcropolisMachine)owner.ModNPC).HarpoonPos - ((AcropolisMachine)owner.ModNPC).harpoon.Seg2Rot.ToRotationVector2() * 60, 18, "CalamityEntropy/Content/NPCs/Acropolis/HarpoonChain");
+            CEUtils.drawChain(NPC.Center, ((AcropolisMachine)owner.ModNPC).HarpoonPos - ((AcropolisMachine)owner.ModNPC).harpoon.Seg2Rot.ToRotationVector2() * 60 * NPC.scale, 18, "CalamityEntropy/Content/NPCs/Acropolis/HarpoonChain");
             Texture2D harpoon3 = NPC.getTexture();
             Main.EntitySpriteDraw(harpoon3, NPC.Center - Main.screenPosition, null, drawColor, NPC.rotation, new Vector2(70, harpoon3.Height / 2f), NPC.scale, ((AcropolisMachine)owner.ModNPC).dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             return false;
