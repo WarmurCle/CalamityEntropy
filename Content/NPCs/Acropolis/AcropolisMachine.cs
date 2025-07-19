@@ -523,7 +523,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 JumpAndShoot = -1;
             }
-            if (HarpoonCharge <= 0 && HarpoonOnLauncher)
+            if (HarpoonCharge <= 0.8f && HarpoonOnLauncher)
             {
                 harpoon.PointAPos(player.Center);
             }
@@ -561,7 +561,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             if(HarpoonCD <= 0)
             {
-                HarpoonCharge += 0.05f * enrange;
+                HarpoonCharge += 0.01f * enrange;
                 if(HarpoonCharge >= 1)
                 {
                     HarpoonCharge = 0;
@@ -571,6 +571,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     hp.OnLauncher = false;
                     _harpoon.ToNPC().velocity = harpoon.Seg2Rot.ToRotationVector2() * 36 * NPC.scale;
                     harpoon.Seg1RotV = 0.3f * dir;
+                    CEUtils.PlaySound("chainsawHit", 1, NPC.Center);
                 }
             }
             if (!Jumping)
@@ -683,7 +684,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 {
                     flag = true;
                 }
-                if (JumpAndShoot <= 96)
+                if (JumpAndShoot <= 96 && NPC.ai[2] <= 0)
                 {
                     if (((NPC.velocity.Y > 0 && !(JumpAndShoot > 0)) || NPC.Center.Y < player.Center.Y) && flag)
                     {
@@ -709,6 +710,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 if(dir == 1)
                     NPC.rotation += MathHelper.Pi;
                 dir = -1;
+            }
+            if (NPC.ai[2]-- > 0)
+            {
+                NPC.velocity = (_harpoon.ToNPC().Center - NPC.Center).normalize() * 40;
             }
         }
         public bool HarpoonOnLauncher => ((Harpoon)_harpoon.ToNPC().ModNPC).OnLauncher;
