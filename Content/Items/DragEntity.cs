@@ -32,6 +32,7 @@ namespace CalamityEntropy.Content.Items
 
         public static Entity dragging = null;
         public static Vector2 dragOffset = Vector2.Zero;
+        public static Vector2 lastMouse = Vector2.Zero;
         public override void HoldItem(Player player)
         {
             if (Main.myPlayer == player.whoAmI)
@@ -45,6 +46,8 @@ namespace CalamityEntropy.Content.Items
                     if (dragging != null)
                     {
                         dragging.Center = Main.MouseWorld + dragOffset;
+                        dragging.velocity = (Main.MouseWorld - lastMouse);
+                        lastMouse = Main.MouseWorld;
                     }
                 }
             }

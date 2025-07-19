@@ -2659,6 +2659,11 @@ Items: {
 		DisplayName: 地狱工业构件
 		Tooltip: 一种精密的元件，由未知金属构成
 	}
+
+	DragEntity: {
+		Tooltip: ""
+		DisplayName: 测试物品-拖拽实体
+	}
 }
 
 PrefixitemDesc:

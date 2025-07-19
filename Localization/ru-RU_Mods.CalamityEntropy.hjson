@@ -2404,6 +2404,11 @@ Items: {
 		// DisplayName: Hell Industrial Components
 		// Tooltip: ""
 	}
+
+	DragEntity: {
+		// Tooltip: ""
+		// DisplayName: Drag Entity
+	}
 }
 
 PrefixitemDesc:
