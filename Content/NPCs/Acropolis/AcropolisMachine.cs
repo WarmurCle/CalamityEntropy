@@ -209,7 +209,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.noGravity = true;
             NPC.dontCountMe = true;
             NPC.timeLeft *= 12;
-            
+            NPC.lavaImmune = true;
             NPC.scale = 1f;
             if(Main.getGoodWorld)
             {
