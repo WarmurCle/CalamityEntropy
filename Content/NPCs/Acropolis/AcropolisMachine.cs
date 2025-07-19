@@ -227,7 +227,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return spawnInfo.Player.Calamity().ZoneCalamity ? 0.06f : 0f;
+            return (spawnInfo.Player.Calamity().ZoneCalamity && !NPC.AnyNPCs(Type)) ? 0.16f : 0f;
         }
         public static bool CanStandOn(Vector2 pos)
         {
