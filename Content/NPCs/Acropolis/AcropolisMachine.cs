@@ -192,10 +192,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 new FlavorTextBestiaryInfoElement("Mods.CalamityEntropy.Acropolis")
             });
         }
+        public bool SetBoss = true;
 
         public override void SetDefaults()
         {
-            NPC.boss = true;
             NPC.width = 142;
             NPC.height = 132;
             NPC.damage = 30;
@@ -209,10 +209,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.noGravity = true;
             NPC.dontCountMe = true;
             NPC.timeLeft *= 5;
-            if (!Main.dedServ)
-            {
-                Music = MusicID.OtherworldlyBoss1;
-            }
+            
             NPC.scale = 1f;
             if(Main.getGoodWorld)
             {
@@ -230,7 +227,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return spawnInfo.Player.Calamity().ZoneCalamity ? 0.03f : 0f;
+            return spawnInfo.Player.Calamity().ZoneCalamity ? 0.08f : 0f;
         }
         public static bool CanStandOn(Vector2 pos)
         {
@@ -289,14 +286,22 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     }
                 }
             }
-            if (NPC.life <= NPC.lifeMax / 2)
-                phase = 2;
+            
             if (!NPC.HasValidTarget)
             {
                 NPC.TargetClosest();
             }
             if (((float)NPC.life / NPC.lifeMax) < 0.98f)
             {
+                if(SetBoss)
+                {
+                    SetBoss = false;
+                    if (!Main.dedServ)
+                    {
+                        Music = MusicID.OtherworldlyBoss1;
+                    }
+                    NPC.boss = true;
+                }
                 NPC.noTileCollide = true;
                 if (NPC.HasValidTarget)
                 {
@@ -390,6 +395,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public int JumpAndShoot = 0;
         public override void SendExtraAI(BinaryWriter writer)
         {
+            writer.Write(NPC.boss);
             writer.Write(CannonUpAtk);
             cannon.NetSend(writer);
             harpoon.NetSend(writer);
@@ -412,6 +418,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             SegCheck();
+            NPC.boss = reader.ReadBoolean();
             CannonUpAtk = reader.ReadInt32();
             cannon.NetReceive(reader);
             harpoon.NetReceive(reader);

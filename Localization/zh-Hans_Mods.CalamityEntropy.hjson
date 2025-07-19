@@ -2654,6 +2654,11 @@ Items: {
 		Tooltip: 使你变成一位神秘的少女
 		DisplayName: 神秘的书
 	}
+
+	HellIndustrialComponents: {
+		DisplayName: 地狱工业构件
+		Tooltip: "一种精密的元件，由未知金属构成"
+	}
 }
 
 PrefixitemDesc:
@@ -3443,6 +3448,7 @@ NPCs: {
 			DespawnMessage: 幻光星蛾已被击败
 		}
 	}
+
 	AcropolisMachine: {
 		DisplayName: 阿萨福勒卫城机甲
 
@@ -3452,6 +3458,7 @@ NPCs: {
 			DespawnMessage: 阿萨福勒卫城机甲报废了！
 		}
 	}
+
 	Harpoon.DisplayName: 叉矛
 }
 
@@ -3974,4 +3981,4 @@ SolarBarInfo:
 LorePerforatorsDesc: 受伤后有[0]%的概率回复[1]点血量
 LoreEaterofWorldsDesc: 使你免疫诅咒烈焰减益
 RPDonorName: 冷级
-Acropolis: "阿萨福勒量产的攻击型机甲，曾被用于大规模战争"
+Acropolis: 阿萨福勒量产的攻击型机甲，曾被用于大规模战争
