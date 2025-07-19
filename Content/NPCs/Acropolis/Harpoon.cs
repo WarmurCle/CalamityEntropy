@@ -52,6 +52,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public NPC owner => ((int)NPC.ai[0]).ToNPC();
         public bool OnLauncher = true;
         public int Back = 0;
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return owner.boss;
+        }
         public override void AI()
         {
             if (NPC.ai[0] < 0 || !owner.active)

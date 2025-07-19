@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.noTileCollide = true;
             NPC.noGravity = true;
             NPC.dontCountMe = true;
-            NPC.timeLeft *= 5;
+            NPC.timeLeft *= 12;
             
             NPC.scale = 1f;
             if(Main.getGoodWorld)
@@ -227,7 +227,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return (spawnInfo.Player.Calamity().ZoneCalamity && !NPC.AnyNPCs(Type)) ? 0.16f : 0f;
+            return (spawnInfo.Player.Calamity().ZoneCalamity && !NPC.AnyNPCs(Type)) ? 0.2f : 0f;
         }
         public static bool CanStandOn(Vector2 pos)
         {
@@ -257,6 +257,11 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 harpoon = new Hand(NPC, new Vector2(60, -18), 66, MathHelper.PiOver2, MathHelper.PiOver2);
             }
         }
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return NPC.boss;
+        }
+        public int dcounter = 0;
         public override void AI()
         {
             JumpCD--;
@@ -311,13 +316,19 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         NPC.netSpam = 0;
                         NPC.netUpdate = true;
                     }
+                    dcounter = 0;
                 }
                 else
                 {
+                    dcounter++;
                     NPC.velocity.X += 0.2f;
                     if (CEUtils.CheckSolidTile(NPC.getRect()))
                     {
                         NPC.velocity.Y -= 0.4f;
+                    }
+                    if(dcounter > 290)
+                    {
+                        NPC.active = false;
                     }
                 }
             }
