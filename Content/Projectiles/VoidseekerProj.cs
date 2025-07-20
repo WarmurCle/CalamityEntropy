@@ -143,7 +143,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 sparkVelocity2 = (Projectile.rotation + (Projectile.velocity.X * (Projectile.Calamity().stealthStrike ? -1 : 1) > 0 ? -MathHelper.PiOver2 : MathHelper.PiOver2)).ToRotationVector2().RotatedByRandom(0.14f) * 20 * Main.rand.NextFloat(0.5f, 1.8f);
                 int sparkLifetime2 = Main.rand.Next(23, 35);
                 float sparkScale2 = Main.rand.NextFloat(0.95f, 1.8f);
-                Color sparkColor2 = Main.rand.NextBool(3) ? Color.Blue : Color.AliceBlue;
+                Color sparkColor2 = Main.rand.NextBool(3) ? Color.LightBlue : Color.AliceBlue;
                 if (Main.rand.NextBool())
                 {
                     AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : Color.Firebrick);
+                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), sparkColor2);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
             }

@@ -2666,8 +2666,8 @@ Items: {
 	}
 
 	OblivionThresher: {
-		// DisplayName: Oblivion Thresher
-		// Tooltip: ""
+		DisplayName: 虚漩巡锯
+		Tooltip: ""
 	}
 }
 

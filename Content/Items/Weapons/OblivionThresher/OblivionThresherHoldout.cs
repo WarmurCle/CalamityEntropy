@@ -1,5 +1,6 @@
 ﻿
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Audio;
@@ -29,16 +30,38 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         public float Xoffset = 0;
         public float Xvel = -10f;
         public bool Shoot = true;
+        public override bool? CanHitNPC(NPC target)
+        {
+            return !NoSawOnHoldout;
+        }
         public override void AI()
         {
+            if (Projectile.localAI[2] ++ == 0)
+            {
+                Projectile.rotation = Projectile.velocity.ToRotation();
+            }
+            Player player = Projectile.GetOwner();
+            
+            Projectile.rotation = CEUtils.RotateTowardsAngle(CEUtils.RotateTowardsAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.1f, false), (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.1f, true);
+            Projectile.Center = player.GetDrawCenter() - new Vector2(-Xoffset + 12, 0).RotatedBy(Projectile.rotation);
+            player.Calamity().mouseWorldListener = true;
+
+            Projectile.velocity = Projectile.rotation.ToRotationVector2() * player.HeldItem.shootSpeed;
+            player.heldProj = Projectile.whoAmI;
+            player.SetHandRot(Projectile.rotation);
+            if (Projectile.timeLeft <= 2)
+            {
+                return;
+            }
             Vector2 jpos = Projectile.Center + new Vector2(0, Projectile.velocity.X > 0 ? -10 : 10).RotatedBy(Projectile.rotation) + Projectile.rotation.ToRotationVector2() * 80;
 
-            Player player = Projectile.GetOwner();
+            
             if (!player.channel)
             {
                 if (ShootAnm-- < 0)
                 {
-                    Projectile.Kill();
+                    Projectile.timeLeft = 2;
+                    return;
                 }
                 else
                 {
@@ -46,14 +69,14 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                     {
                         if(Charge < 0.25f)
                         {
-                            Projectile.Kill();
+                            Projectile.timeLeft = 2;
                             return;
                         }
                         Shoot = false;
                         SoundStyle ShootSound = new("CalamityMod/Sounds/Item/SawShot", 2) { PitchVariance = 0.1f, Volume = 0.4f + Charge * 0.5f };
                         SoundEngine.PlaySound(ShootSound, Projectile.Center);
                         NoSawOnHoldout = true;
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), jpos, Projectile.velocity, ModContent.ProjectileType<OblivionThresherShoot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Charge);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), jpos, Projectile.velocity, ModContent.ProjectileType<OblivionThresherShoot>(), (int)(Projectile.damage * Charge), Projectile.knockBack, Projectile.owner, Charge);
                     }
                     if (SoundEngine.TryGetActiveSound(ChargeIdle, out var Il))
                         Il?.Stop();
@@ -63,15 +86,8 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 }
             }
             Projectile.timeLeft = 4;
-            player.itemTime = player.itemAnimation = 3; 
-            Projectile.rotation = (player.Calamity().mouseWorld - Projectile.Center).ToRotation();
-            Projectile.Center = player.GetDrawCenter() - new Vector2(-Xoffset + 12, 0).RotatedBy(Projectile.rotation);
-            player.Calamity().mouseWorldListener = true;
-            
-            Projectile.velocity = Projectile.rotation.ToRotationVector2() * player.HeldItem.shootSpeed;
-            player.heldProj = Projectile.whoAmI;
-            player.SetHandRot(Projectile.rotation);
-            
+            player.itemTime = player.itemAnimation = 3;
+
             if (Charge < 1)
             {
                 Charge += player.GetTotalAttackSpeed(Projectile.DamageType) / 120f;
@@ -115,6 +131,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             {
                 ERot = CEUtils.Parabola(Charge * 0.5f, 1) * 0.42f;
             }
+            HitSoundCD--;
         }
         public bool NoSawOnHoldout = false;
         public float Time => Projectile.ai[2];
@@ -150,28 +167,33 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             {
                 Color c = Color.Lerp(Color.White, Color.Blue, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 10f) * 0.5f + 0.5f);
 
-                Main.EntitySpriteDraw(j1, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * -0.6f, j1.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                Main.EntitySpriteDraw(j1, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * 0.6f, j1.Size() / 2f, Projectile.scale, SpriteEffects.None);
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
-                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.4f, Main.GameUpdateCount * -0.6f - MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 1.32f, SpriteEffects.None);
+                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.4f, Main.GameUpdateCount * 0.6f + MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 1.4f, SpriteEffects.None);
                 Main.spriteBatch.ExitShaderRegion();
             }
             if (Charge >= 0.5f)
             {
                 Color c = Color.Lerp(Color.Blue, Color.White, (float)Math.Cos(Main.GlobalTimeWrappedHourly * 10f) * 0.5f + 0.5f);
-                Main.EntitySpriteDraw(j2, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * 0.6f, j2.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                Main.EntitySpriteDraw(j2, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * -0.6f, j2.Size() / 2f, Projectile.scale, SpriteEffects.None);
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
-                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.4f, Main.GameUpdateCount * 0.6f + MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 0.84f, SpriteEffects.None);
+                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.4f, Main.GameUpdateCount * -0.6f - MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 0.84f, SpriteEffects.None);
                 Main.spriteBatch.ExitShaderRegion();
             }
             return false;
         }
+        public int HitSoundCD = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if(Charge < 1)
             {
                 Charge += 0.01f;
             }
-            CEUtils.PlaySound("slice", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.7f);
+            if (HitSoundCD <= 0)
+            {
+                HitSoundCD = 7;
+                CEUtils.PlaySound("slice", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.7f);
+            }
             for (int i = 0; i < 6; i++)
             {
                 Vector2 direction = target.Center;
@@ -192,7 +214,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.SourceDamage *= 0.6f;
+            modifiers.SourceDamage *= 0.4f * Charge;
         }
         public override void CutTiles()
         {
@@ -234,6 +256,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Projectile.FriendlySetDefaults(DamageClass.Ranged, false, -1);
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 7;
+            Projectile.timeLeft = 800;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -267,6 +290,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             {
                 DrawVortex(jpos, new Color(110, 100, 250), 1 * Charge);
                 DrawVortex(jpos, new Color(190, 200, 255) * Charge * 0.8f, 2.6f, 0.4f);
+                //DrawVortex(jpos, new Color(200, 190, 255) * Charge, 3.6f, 1f);
             }
             Texture2D j1 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE1");
             Texture2D j2 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE2");
@@ -275,17 +299,17 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             {
                 Color c = Color.Lerp(Color.White, Color.Blue, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 10f) * 0.5f + 0.5f);
 
-                Main.EntitySpriteDraw(j1, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * -0.6f, j1.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                Main.EntitySpriteDraw(j1, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * 0.6f, j1.Size() / 2f, Projectile.scale, SpriteEffects.None);
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
-                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.8f, Main.GameUpdateCount * -0.6f - MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 1.32f, SpriteEffects.None);
+                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.8f, Main.GameUpdateCount * 0.6f + MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 1.4f, SpriteEffects.None);
                 Main.spriteBatch.ExitShaderRegion();
             }
             if (Charge >= 0.5f)
             {
                 Color c = Color.Lerp(Color.Blue, Color.White, (float)Math.Cos(Main.GlobalTimeWrappedHourly * 10f) * 0.5f + 0.5f);
-                Main.EntitySpriteDraw(j2, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * 0.6f, j2.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                Main.EntitySpriteDraw(j2, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * -0.6f, j2.Size() / 2f, Projectile.scale, SpriteEffects.None);
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
-                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.8f, Main.GameUpdateCount * 0.6f + MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 0.84f, SpriteEffects.None);
+                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.8f, Main.GameUpdateCount * -0.6f - MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 0.84f, SpriteEffects.None);
                 Main.spriteBatch.ExitShaderRegion();
             }
             return false;
@@ -296,12 +320,23 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (Projectile.localAI[1] < 80)
+            {
+                if (Projectile.localAI[1] < 62)
+                {
+                    Projectile.localAI[1] += 6f;
+                }
+                else
+                {
+                    Projectile.localAI[1] = 62;
+                }
+            }
             if (Projectile.ai[1] + 1 != target.whoAmI && Projectile.ai[2] <= -10)
             {
                 Projectile.ai[1] = target.whoAmI + 1;
                 Projectile.ai[2] = 8;
             }
-            CEUtils.PlaySound("slice", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.7f);
+            CEUtils.PlaySound("slice", 1f + Projectile.numHits * 0.1f, Projectile.Center, volume: 0.7f);
             for (int i = 0; i < 6; i++)
             {
                 Vector2 direction = target.Center;
@@ -327,6 +362,33 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 70) * Projectile.scale * Projectile.ai[0], Projectile.velocity, Color.LightBlue, Projectile.scale * Projectile.ai[0] * Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0, 6);
             }
             Projectile.ai[2]--;
+            if (Projectile.ai[0] >= 0.5f)
+            {
+                if (Projectile.localAI[1]++ >= 80)
+                {
+                    if (Projectile.localAI[1] == 81 && Projectile.numHits > 0)
+                    {
+                        if (Main.myPlayer == Projectile.owner)
+                        {
+                            for (int i = 0; i < int.Min(10, (int)(Projectile.numHits * Projectile.ai[0])) * 2; i++)
+                            {
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomPointInCircle(26), ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
+                            }
+                        }
+                        CEUtils.PlaySound("voidseekercrit", 1f, Projectile.Center);
+                        CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(200, 136, 255), new Vector2(2f, 2f), 0, 0.2f, 1.2f * Projectile.scale * Projectile.ai[0] * (int.Min(Projectile.numHits, 10) / 10f), 36);
+                        GeneralParticleHandler.SpawnParticle(pulse);
+                    }
+                    Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 3f;
+                    Projectile.velocity *= 0.9f;
+                    if(CEUtils.getDistance(Projectile.GetOwner().Center, Projectile.Center) < Projectile.velocity.Length() * 4f)
+                    {
+                        CEUtils.PlaySound("Dizzy", 1f, Projectile.Center);
+                        Projectile.Kill();
+                    }
+                }
+            }
         }
+
     }
 }

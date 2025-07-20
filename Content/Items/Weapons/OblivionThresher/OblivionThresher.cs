@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         {
             Item.width = 84;
             Item.height = 46;
-            Item.damage = 127;
+            Item.damage = 622;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 30;
             Item.useAnimation = 30;
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<OblivionThresherHoldout>();
-            Item.shootSpeed = 16;
+            Item.shootSpeed = 24;
             Item.Calamity().canFirePointBlankShots = true;
         }
     }
