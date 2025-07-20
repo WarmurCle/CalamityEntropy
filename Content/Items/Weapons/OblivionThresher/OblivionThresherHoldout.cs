@@ -1,0 +1,332 @@
+﻿
+using CalamityEntropy.Content.Particles;
+using CalamityMod;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json.Linq;
+using ReLogic.Content;
+using ReLogic.Utilities;
+using System;
+using System.Runtime.InteropServices;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
+{
+    public class OblivionThresherHoldout : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Ranged, false, -1);
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 7;
+        }
+        public float Charge = 0;
+        public SlotId ChargeIdle;
+        public float ShootAnm = 30;
+        public float Xoffset = 0;
+        public float Xvel = -10f;
+        public bool Shoot = true;
+        public override void AI()
+        {
+            Vector2 jpos = Projectile.Center + new Vector2(0, Projectile.velocity.X > 0 ? -10 : 10).RotatedBy(Projectile.rotation) + Projectile.rotation.ToRotationVector2() * 80;
+
+            Player player = Projectile.GetOwner();
+            if (!player.channel)
+            {
+                if (ShootAnm-- < 0)
+                {
+                    Projectile.Kill();
+                }
+                else
+                {
+                    if(Shoot)
+                    {
+                        if(Charge < 0.25f)
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                        Shoot = false;
+                        SoundStyle ShootSound = new("CalamityMod/Sounds/Item/SawShot", 2) { PitchVariance = 0.1f, Volume = 0.4f + Charge * 0.5f };
+                        SoundEngine.PlaySound(ShootSound, Projectile.Center);
+                        NoSawOnHoldout = true;
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), jpos, Projectile.velocity, ModContent.ProjectileType<OblivionThresherShoot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Charge);
+                    }
+                    if (SoundEngine.TryGetActiveSound(ChargeIdle, out var Il))
+                        Il?.Stop();
+                    Xoffset += Xvel * Charge;
+                    Xvel *= 0.84f;
+                    Xoffset *= 0.84f;
+                }
+            }
+            Projectile.timeLeft = 4;
+            player.itemTime = player.itemAnimation = 3; 
+            Projectile.rotation = (player.Calamity().mouseWorld - Projectile.Center).ToRotation();
+            Projectile.Center = player.GetDrawCenter() - new Vector2(-Xoffset + 12, 0).RotatedBy(Projectile.rotation);
+            player.Calamity().mouseWorldListener = true;
+            
+            Projectile.velocity = Projectile.rotation.ToRotationVector2() * player.HeldItem.shootSpeed;
+            player.heldProj = Projectile.whoAmI;
+            player.SetHandRot(Projectile.rotation);
+            
+            if (Charge < 1)
+            {
+                Charge += player.GetTotalAttackSpeed(Projectile.DamageType) / 120f;
+            }
+            else
+            {
+                if (Main.rand.NextBool(3))
+                {
+                    Vector2 smokeVelocity = Vector2.UnitY * Main.rand.NextFloat(-7f, -12f);
+                    smokeVelocity = smokeVelocity.RotatedByRandom(MathHelper.Pi / 8f);
+                    Color smokeColor = Main.rand.NextBool() ? Color.AliceBlue : Color.LightBlue;
+
+                    var fullChargeSmoke = new HeavySmokeParticle(jpos + Main.rand.NextVector2CircularEdge(3f, 3f), smokeVelocity, smokeColor, 30, 0.65f, 0.5f, Main.rand.NextFloat(-0.2f, 0.2f), true);
+                    GeneralParticleHandler.SpawnParticle(fullChargeSmoke);
+                }
+            }
+            if (SoundEngine.TryGetActiveSound(ChargeIdle, out var Idle) && Idle.IsPlaying)
+                Idle.Position = jpos;
+            Projectile.ai[2]++;
+            if (Charge > 1)
+                Charge = 1;
+            if (Charge < 1)
+            {
+                if (Time == 2f && !NoSawOnHoldout)
+                {
+                    ChargeIdle = SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Custom/BuzzsawCharge") { Volume = 0.3f }, jpos);
+                }
+            }
+            else
+            {
+                if (Time == 122)
+                    ChargeIdle = SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Custom/BuzzsawIdle"), jpos);
+
+            }
+            
+            if (NoSawOnHoldout)
+            {
+                ERot *= 0.82f;
+            }
+            else
+            {
+                ERot = CEUtils.Parabola(Charge * 0.5f, 1) * 0.42f;
+            }
+        }
+        public bool NoSawOnHoldout = false;
+        public float Time => Projectile.ai[2];
+        public float ERot = 0;
+        public override void OnKill(int timeLeft)
+        {
+            if (SoundEngine.TryGetActiveSound(ChargeIdle, out var Idle))
+                Idle?.Stop();
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = Projectile.GetTexture();
+            Texture2D e1 = this.getTextureAlt("E1");
+            Texture2D e2 = this.getTextureAlt("E2");
+            Vector2 shakeOffset = CEUtils.randomPointInCircle(NoSawOnHoldout ? 0 : Charge * 3);
+            Main.EntitySpriteDraw(e1, Projectile.Center + shakeOffset + new Vector2(36, Projectile.velocity.X > 0 ? -20 : 4).RotatedBy(Projectile.rotation) * Projectile.scale - Main.screenPosition, null, lightColor, Projectile.rotation + Math.Sign(Projectile.velocity.X) * -ERot * Math.Sign(Projectile.velocity.X), new Vector2(8, 26), Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(e2, Projectile.Center + shakeOffset + new Vector2(36, Projectile.velocity.X > 0 ? -4 : 20).RotatedBy(Projectile.rotation) * Projectile.scale - Main.screenPosition, null, lightColor, Projectile.rotation + Math.Sign(Projectile.velocity.X) * ERot * Math.Sign(Projectile.velocity.X), new Vector2(8, 8), Projectile.scale, SpriteEffects.None);
+
+            Main.EntitySpriteDraw(tex, Projectile.Center + shakeOffset - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+
+            if (NoSawOnHoldout)
+                return false;
+            Vector2 jpos = Projectile.Center + shakeOffset + new Vector2(0, Projectile.velocity.X > 0 ? -10 : 10).RotatedBy(Projectile.rotation) + Projectile.rotation.ToRotationVector2() * 80;
+            if (Charge > 0)
+            {
+                DrawVortex(jpos, new Color(110, 100, 250), Charge * 0.8f);
+                DrawVortex(jpos, new Color(190, 200, 255) * Charge * 0.8f, 2.6f, 0.2f);
+            }
+            Texture2D j1 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE1");
+            Texture2D j2 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE2");
+            Texture2D s = CEUtils.getExtraTex("SemiCircularSmear");
+            if (Charge >= 1f)
+            {
+                Color c = Color.Lerp(Color.White, Color.Blue, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 10f) * 0.5f + 0.5f);
+
+                Main.EntitySpriteDraw(j1, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * -0.6f, j1.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.4f, Main.GameUpdateCount * -0.6f - MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 1.32f, SpriteEffects.None);
+                Main.spriteBatch.ExitShaderRegion();
+            }
+            if (Charge >= 0.5f)
+            {
+                Color c = Color.Lerp(Color.Blue, Color.White, (float)Math.Cos(Main.GlobalTimeWrappedHourly * 10f) * 0.5f + 0.5f);
+                Main.EntitySpriteDraw(j2, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * 0.6f, j2.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.4f, Main.GameUpdateCount * 0.6f + MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 0.84f, SpriteEffects.None);
+                Main.spriteBatch.ExitShaderRegion();
+            }
+            return false;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if(Charge < 1)
+            {
+                Charge += 0.01f;
+            }
+            CEUtils.PlaySound("slice", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.7f);
+            for (int i = 0; i < 6; i++)
+            {
+                Vector2 direction = target.Center;
+                Vector2 smokeSpeed = CEUtils.randomPointInCircle(6);
+                var smokeGlow = new HeavySmokeParticle(direction, smokeSpeed, new Color(60, 60, 200), 30, Main.rand.NextFloat(1f, 1.4f), 0.8f, 0.008f, true, 0.01f, true);
+                GeneralParticleHandler.SpawnParticle(smokeGlow);
+            }
+            float sparkCount = 64;
+            for (int i = 0; i < sparkCount; i++)
+            {
+                Vector2 sparkVelocity2 = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 26);
+                int sparkLifetime2 = Main.rand.Next(9, 12);
+                float sparkScale2 = Main.rand.NextFloat(1, 1.6f);
+                Color sparkColor2 = Color.Lerp(Color.LightSkyBlue, Color.AliceBlue, Main.rand.NextFloat());
+                LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.3f, target.height * 0.3f), sparkVelocity2, false, sparkLifetime2, sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
+            }
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.SourceDamage *= 0.6f;
+        }
+        public override void CutTiles()
+        {
+            Utils.PlotTileLine(Projectile.Center - new Vector2(120, 0) * Charge * Projectile.scale, Projectile.Center + new Vector2(120, 0) * Charge * Projectile.scale, 120 * Charge * Projectile.scale, DelegateMethods.CutTiles);
+
+        }
+        public void DrawVortex(Vector2 pos, Color color, float Size = 1, float glow = 1f)
+        {
+            Main.spriteBatch.End();
+            Effect effect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Vortex", AssetRequestMode.ImmediateLoad).Value;
+            effect.Parameters["Center"].SetValue(new Vector2(0.5f, 0.5f));
+            effect.Parameters["Strength"].SetValue(16);
+            effect.Parameters["AspectRatio"].SetValue(1);
+            effect.Parameters["TexOffset"].SetValue(new Vector2(Main.GlobalTimeWrappedHourly * 0.1f, -Main.GlobalTimeWrappedHourly * 0.07f));
+            float fadeOutDistance = 0.06f;
+            float fadeOutWidth = 0.3f;
+            effect.Parameters["FadeOutDistance"].SetValue(fadeOutDistance);
+            effect.Parameters["FadeOutWidth"].SetValue(fadeOutWidth);
+            effect.Parameters["enhanceLightAlpha"].SetValue(0.8f);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            effect.CurrentTechnique.Passes[0].Apply();
+            Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), pos - Main.screenPosition, null, color, Main.GlobalTimeWrappedHourly * 12, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.2f * Size, SpriteEffects.None, 0);
+            CEUtils.DrawGlow(pos, Color.White * 0.4f * glow, 0.8f * Size * glow);
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            Vector2 jpos = Projectile.Center + new Vector2(0, Projectile.velocity.X > 0 ? -10 : 10).RotatedBy(Projectile.rotation) + Projectile.rotation.ToRotationVector2() * 80;
+
+            return targetHitbox.Intersects(jpos.getRectCentered(Charge * 220 * Projectile.scale, Charge * 220 * Projectile.scale));
+        }
+        
+    }
+    public class OblivionThresherShoot : ModProjectile
+    {
+        public override string Texture => CEUtils.WhiteTexPath;
+        
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Ranged, false, -1);
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 7;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            float Charge = Projectile.ai[0];
+            return targetHitbox.Intersects(Projectile.Center.getRectCentered(Charge * 220 * Projectile.scale, Charge * 220 * Projectile.scale));
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            float Charge = Projectile.ai[0];
+            void DrawVortex(Vector2 pos, Color color, float Size = 1, float glow = 1f)
+            {
+                Main.spriteBatch.End();
+                Effect effect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Vortex", AssetRequestMode.ImmediateLoad).Value;
+                effect.Parameters["Center"].SetValue(new Vector2(0.5f, 0.5f));
+                effect.Parameters["Strength"].SetValue(16);
+                effect.Parameters["AspectRatio"].SetValue(1);
+                effect.Parameters["TexOffset"].SetValue(new Vector2(Main.GlobalTimeWrappedHourly * 0.1f, -Main.GlobalTimeWrappedHourly * 0.07f));
+                float fadeOutDistance = 0.06f;
+                float fadeOutWidth = 0.3f;
+                effect.Parameters["FadeOutDistance"].SetValue(fadeOutDistance);
+                effect.Parameters["FadeOutWidth"].SetValue(fadeOutWidth);
+                effect.Parameters["enhanceLightAlpha"].SetValue(0.8f);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                effect.CurrentTechnique.Passes[0].Apply();
+                Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), pos - Main.screenPosition, null, color, Main.GlobalTimeWrappedHourly * 12, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.2f * Size, SpriteEffects.None, 0);
+                CEUtils.DrawGlow(pos, Color.White * glow, Size * glow);
+            }
+            Vector2 shakeOffset = CEUtils.randomPointInCircle(Charge * 3);
+            Vector2 jpos = Projectile.Center + shakeOffset;
+            if (Charge > 0)
+            {
+                DrawVortex(jpos, new Color(110, 100, 250), 1 * Charge);
+                DrawVortex(jpos, new Color(190, 200, 255) * Charge * 0.8f, 2.6f, 0.4f);
+            }
+            Texture2D j1 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE1");
+            Texture2D j2 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE2");
+            Texture2D s = CEUtils.getExtraTex("SemiCircularSmear");
+            if (Charge >= 1f)
+            {
+                Color c = Color.Lerp(Color.White, Color.Blue, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 10f) * 0.5f + 0.5f);
+
+                Main.EntitySpriteDraw(j1, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * -0.6f, j1.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.8f, Main.GameUpdateCount * -0.6f - MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 1.32f, SpriteEffects.None);
+                Main.spriteBatch.ExitShaderRegion();
+            }
+            if (Charge >= 0.5f)
+            {
+                Color c = Color.Lerp(Color.Blue, Color.White, (float)Math.Cos(Main.GlobalTimeWrappedHourly * 10f) * 0.5f + 0.5f);
+                Main.EntitySpriteDraw(j2, jpos - Main.screenPosition, null, Color.White * 0.8f, Main.GameUpdateCount * 0.6f, j2.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.8f, Main.GameUpdateCount * 0.6f + MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 0.84f, SpriteEffects.None);
+                Main.spriteBatch.ExitShaderRegion();
+            }
+            return false;
+        }
+        public override bool ShouldUpdatePosition()
+        {
+            return Projectile.ai[2] <= 0;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Projectile.ai[1] + 1 != target.whoAmI && Projectile.ai[2] <= -10)
+            {
+                Projectile.ai[1] = target.whoAmI + 1;
+                Projectile.ai[2] = 8;
+            }
+            CEUtils.PlaySound("slice", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.7f);
+            for (int i = 0; i < 6; i++)
+            {
+                Vector2 direction = target.Center;
+                Vector2 smokeSpeed = CEUtils.randomPointInCircle(6);
+                var smokeGlow = new HeavySmokeParticle(direction, smokeSpeed, new Color(60, 60, 200), 30, Main.rand.NextFloat(1f, 1.4f), 0.8f, 0.008f, true, 0.01f, true);
+                GeneralParticleHandler.SpawnParticle(smokeGlow);
+            }
+            float sparkCount = 64;
+            for (int i = 0; i < sparkCount; i++)
+            {
+                Vector2 sparkVelocity2 = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 26);
+                int sparkLifetime2 = Main.rand.Next(9, 12);
+                float sparkScale2 = Main.rand.NextFloat(1, 1.6f);
+                Color sparkColor2 = Color.Lerp(Color.LightSkyBlue, Color.AliceBlue, Main.rand.NextFloat());
+                LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.3f, target.height * 0.3f), sparkVelocity2, false, sparkLifetime2, sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
+            }
+        }
+        public override void AI()
+        {
+            if (Main.GameUpdateCount % 3 == 0 && Projectile.ai[0] > 0.6f)
+            {
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 70) * Projectile.scale * Projectile.ai[0], Projectile.velocity, Color.LightBlue, Projectile.scale * Projectile.ai[0] * Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0, 6);
+            }
+            Projectile.ai[2]--;
+        }
+    }
+}

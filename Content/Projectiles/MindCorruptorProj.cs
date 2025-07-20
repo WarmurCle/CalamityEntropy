@@ -234,7 +234,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("slice", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 8);
+            CEUtils.PlaySound("slice", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 8, volume: 0.7f);
         }
     }
 }

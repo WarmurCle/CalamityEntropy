@@ -2664,6 +2664,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: 测试物品-拖拽实体
 	}
+
+	OblivionThresher: {
+		// DisplayName: Oblivion Thresher
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -3103,6 +3108,8 @@ Projectiles: {
 	ShadowRuneVanity.DisplayName: 暗影符文
 	Pooney.DisplayName: 普尼
 	AcropolisTeslaBall.DisplayName: 特斯拉电球
+	// OblivionThresherHoldout.DisplayName: Oblivion Thresher Holdout
+	// OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
 }
 
 LegendTooltip: - 传奇物品 -

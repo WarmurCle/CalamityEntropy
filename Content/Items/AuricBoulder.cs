@@ -29,8 +29,7 @@ namespace CalamityEntropy.Content.Items
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(gold: 4);
             Item.rare = ModContent.RarityType<Violet>();
-            Mod mbMod;
-            if (ModLoader.TryGetMod("MoreBoulders", out mbMod))
+            if (ModLoader.HasMod("MoreBoulders") && ModLoader.TryGetMod("MoreBoulders", out var mbMod))
             {
                 Item.shoot = ModContent.ProjectileType<AuricBoulderProjFriendly>();
                 Item.shootSpeed = 14;

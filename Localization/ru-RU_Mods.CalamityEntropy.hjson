@@ -2409,6 +2409,11 @@ Items: {
 		// Tooltip: ""
 		// DisplayName: Drag Entity
 	}
+
+	OblivionThresher: {
+		// DisplayName: Oblivion Thresher
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2848,6 +2853,8 @@ Projectiles: {
 	// ShadowRuneVanity.DisplayName: Shadow Rune Vanity
 	// Pooney.DisplayName: Pooney
 	// AcropolisTeslaBall.DisplayName: Acropolis Tesla Ball
+	// OblivionThresherHoldout.DisplayName: Oblivion Thresher Holdout
+	// OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
 }
 
 LegendTooltip: - Легенда -

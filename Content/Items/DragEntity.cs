@@ -50,10 +50,11 @@ namespace CalamityEntropy.Content.Items
                         {
                             dragging.velocity = (Main.MouseWorld - lastMouse);
                         }
-                        lastMouse = Main.MouseWorld;
+                        
                     }
                 }
             }
+            lastMouse = Main.MouseWorld;
         }
         public override bool? UseItem(Player player)
         {

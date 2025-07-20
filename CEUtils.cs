@@ -22,6 +22,23 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static void SetHandRot(this Player owner, float r)
+        {
+            if (r.ToRotationVector2().X > 0)
+            {
+                owner.direction = 1;
+                owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, r - (float)(Math.PI * 0.5f));
+            }
+            else
+            {
+                owner.direction = -1;
+                owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, r - (float)(Math.PI * 0.5f));
+            }
+        }
+        public static Vector2 GetDrawCenter(this Player player)
+        {
+            return player.MountedCenter + player.gfxOffY * Vector2.UnitY;
+        }
         public static Vector2 GetCircleIntersection(Vector2 vec1, float a, Vector2 vec2, float b)
         {
             float distance = Vector2.Distance(vec1, vec2);
