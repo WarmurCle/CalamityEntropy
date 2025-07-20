@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             }
             else
             {
-                if (Main.rand.NextBool(3))
+                if (Main.rand.NextBool(3) && !NoSawOnHoldout)
                 {
                     Vector2 smokeVelocity = Vector2.UnitY * Main.rand.NextFloat(-7f, -12f);
                     smokeVelocity = smokeVelocity.RotatedByRandom(MathHelper.Pi / 8f);
@@ -218,8 +218,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center - new Vector2(120, 0) * Charge * Projectile.scale, Projectile.Center + new Vector2(120, 0) * Charge * Projectile.scale, 120 * Charge * Projectile.scale, DelegateMethods.CutTiles);
-
+            Utils.PlotTileLine(Projectile.Center - new Vector2(120, 0) * Charge * Projectile.scale, Projectile.Center + new Vector2(120, 0) * Charge * Projectile.scale, 240 * Charge * Projectile.scale, DelegateMethods.CutTiles);
         }
         public void DrawVortex(Vector2 pos, Color color, float Size = 1, float glow = 1f)
         {
@@ -317,6 +316,11 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         public override bool ShouldUpdatePosition()
         {
             return Projectile.ai[2] <= 0;
+        }
+        public override void CutTiles()
+        {
+            float Charge = Projectile.ai[0];
+            Utils.PlotTileLine(Projectile.Center - new Vector2(120, 0) * Charge * Projectile.scale, Projectile.Center + new Vector2(120, 0) * Charge * Projectile.scale, 240 * Charge * Projectile.scale, DelegateMethods.CutTiles);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
