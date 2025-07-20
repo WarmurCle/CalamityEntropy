@@ -2436,6 +2436,16 @@ Items: {
 		DisplayName: Oblivion Thresher
 		Tooltip: ""
 	}
+
+	AcropolisRelic: {
+		DisplayName: Acropolis Relic
+		Tooltip: ""
+	}
+
+	AcropolisTrophy: {
+		DisplayName: Acropolis Trophy
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:

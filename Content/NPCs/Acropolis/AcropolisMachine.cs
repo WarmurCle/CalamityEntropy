@@ -268,6 +268,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public int dcounter = 0;
         public override void AI()
         {
+            NPC.chaseable = NPC.boss;
             JumpCD--;
             SegCheck();
             cannon.Update();
@@ -302,7 +303,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             if (((float)NPC.life / NPC.lifeMax) < 0.98f)
             {
-                if(SetBoss)
+                if (SetBoss)
                 {
                     SetBoss = false;
                     if (!Main.dedServ)
@@ -431,6 +432,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             writer.Write(JumpAndShoot);
             writer.Write(CannonUpAtk);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             SegCheck();

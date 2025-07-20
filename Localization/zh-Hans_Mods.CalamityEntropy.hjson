@@ -2669,6 +2669,16 @@ Items: {
 		DisplayName: 虚漩巡锯
 		Tooltip: ""
 	}
+
+	AcropolisRelic: {
+		DisplayName: 阿萨福勒卫城机甲圣物
+		Tooltip: ""
+	}
+
+	AcropolisTrophy: {
+		DisplayName: 阿萨福勒卫城机甲纪念章
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
