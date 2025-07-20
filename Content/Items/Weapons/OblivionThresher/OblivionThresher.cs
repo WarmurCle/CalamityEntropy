@@ -9,6 +9,10 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
 {
     public class OblivionThresher : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;

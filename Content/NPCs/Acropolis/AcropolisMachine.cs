@@ -219,11 +219,15 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 NPC.scale += 1.8f;
             }
-
+            NPC.boss = true;
             NPC.Calamity().VulnerableToHeat = false;
             NPC.Calamity().VulnerableToCold = true;
             NPC.Calamity().VulnerableToWater = true;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<BrimstoneCragsBiome>().Type };
+        }
+        public override bool CheckActive()
+        {
+            return false;
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -334,6 +338,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             else
             {
+                NPC.boss = false;
                 NPC.noTileCollide = false;
                 NPC.velocity.Y += 0.4f;
             }
@@ -925,7 +930,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ModContent.ItemType<HellIndustrialComponents>(), 1, 12, 14);
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HellIndustrialComponents>(), 1, 12, 14));
+            npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<AcropolisRelic>());
+            npcLoot.Add(ModContent.ItemType<AcropolisTrophy>(), 10);
         }
     }
 }
