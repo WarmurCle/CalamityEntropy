@@ -219,7 +219,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 NPC.scale += 1.8f;
             }
-            NPC.boss = true;
+            NPC.boss = false;
             NPC.Calamity().VulnerableToHeat = false;
             NPC.Calamity().VulnerableToCold = true;
             NPC.Calamity().VulnerableToWater = true;
@@ -813,7 +813,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            if(NPC.life <= 0)
+            if(NPC.life <= 0 && !Main.dedServ)
             {
                 if(Main.zenithWorld)
                 {
@@ -933,6 +933,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HellIndustrialComponents>(), 1, 12, 14));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DubiousPlating>(), 1, 14, 22));
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<AcropolisRelic>());
             npcLoot.Add(ModContent.ItemType<AcropolisTrophy>(), 10);
         }
