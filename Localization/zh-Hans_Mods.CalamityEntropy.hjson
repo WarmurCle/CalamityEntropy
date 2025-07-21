@@ -2667,7 +2667,14 @@ Items: {
 
 	OblivionThresher: {
 		DisplayName: 虚漩巡锯
-		Tooltip: ""
+		Tooltip:
+			'''
+			按住鼠标左键蓄力在前方生成一个漩涡锯片
+			松开后将锯片发射出去
+			足够大的锯片会在飞行一段时间后根据击中敌人的数量生成追踪虚空新星并折返
+			右键向前方突进一小段距离
+			如果蓄满的锯片在此时被接住，可以进行一次强化并再次发射出去，持续发射追踪的虚空新星
+			'''
 	}
 
 	AcropolisRelic: {
@@ -3120,6 +3127,8 @@ Projectiles: {
 	AcropolisTeslaBall.DisplayName: 特斯拉电球
 	// OblivionThresherHoldout.DisplayName: Oblivion Thresher Holdout
 	// OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
+	// OblivionCruiserDash.DisplayName: Oblivion Cruiser Dash
+	// OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4004,3 +4013,4 @@ LorePerforatorsDesc: 受伤后有[0]%的概率回复[1]点血量
 LoreEaterofWorldsDesc: 使你免疫诅咒烈焰减益
 RPDonorName: 冷级
 Acropolis: 阿萨福勒量产的攻击型机甲，曾被用于大规模战争
+OblivionThretherCooldown: 虚漩巡锯突进冷却

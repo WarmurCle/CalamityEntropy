@@ -2412,7 +2412,16 @@ Items: {
 
 	OblivionThresher: {
 		// DisplayName: Oblivion Thresher
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Hold down the left mouse button to charge and create a swirling sawblade in front of you
+			Release to launch the sawblade forward
+			A sufficiently large sawblade will, after flying for a while, 
+			generate homing Void Novas based on the number of enemies hit before returning
+			Right-click to dash a short distance forward
+			If a fully charged sawblade is caught at this moment, 
+			it can be empowered and launched again, continuously releasing homing Void Novas
+			''' */
 	}
 
 	AcropolisRelic: {
@@ -2865,6 +2874,8 @@ Projectiles: {
 	// AcropolisTeslaBall.DisplayName: Acropolis Tesla Ball
 	// OblivionThresherHoldout.DisplayName: Oblivion Thresher Holdout
 	// OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
+	// OblivionCruiserDash.DisplayName: Oblivion Cruiser Dash
+	// OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
 }
 
 LegendTooltip: - Легенда -
@@ -3738,3 +3749,4 @@ InfernumIntros: {
 // LoreEaterofWorldsDesc: Immune to Cursed Inferno
 // RPDonorName: 冷级
 // Acropolis: ""
+// OblivionThretherCooldown: Oblivion Threther Dash Cooldown

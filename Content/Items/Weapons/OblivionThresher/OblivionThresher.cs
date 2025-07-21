@@ -1,9 +1,12 @@
-﻿using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Content.Cooldowns;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Projectiles.Ranged;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         {
             Item.width = 84;
             Item.height = 46;
-            Item.damage = 622;
+            Item.damage = 1200;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 30;
             Item.useAnimation = 30;
@@ -43,6 +46,25 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 .AddIngredient<RuinousSoul>(4)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if(player.altFunctionUse == 2)
+            {
+                player.AddCooldown(OblivionThretherCooldown.ID, 320);
+            }
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return !player.HasCooldown(OblivionThretherCooldown.ID);
+        }
+
+        public override bool CanShoot(Player player)
+        {
+            Item.shoot = player.altFunctionUse == 2 ? ModContent.ProjectileType<OblivionCruiserDash>() : ModContent.ProjectileType<OblivionThresherHoldout>();
+            return base.CanShoot(player);
         }
     }
 }
