@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<CrystedgeWhipSpawner>(), 100, 3, 5, 72);
+            Item.DefaultToWhip(ModContent.ProjectileType<CrystedgeWhipSpawner>(), 50, 3, 5, 72);
             Item.rare = ItemRarityID.Pink;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.autoReuse = true;
