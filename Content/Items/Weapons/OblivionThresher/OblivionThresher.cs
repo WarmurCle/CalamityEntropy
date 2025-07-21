@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         {
             Item.width = 84;
             Item.height = 46;
-            Item.damage = 800;
+            Item.damage = 1600;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 30;
             Item.useAnimation = 30;
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 .AddIngredient<SuperradiantSlaughterer>()
                 .AddIngredient<VoidBar>(5)
                 .AddIngredient<RuinousSoul>(4)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
