@@ -2438,6 +2438,16 @@ Items: {
 		// Tooltip: ""
 		// DisplayName: Pineapple Dog
 	}
+
+	CelestialChronometer: {
+		// DisplayName: On Architecture of Time
+		/* Tooltip:
+			'''
+			Grows herbs beneath your feet
+			Grants 20% damage reduction while standing on the herbs
+			+5 HP/s life regeneration
+			''' */
+	}
 }
 
 PrefixitemDesc:

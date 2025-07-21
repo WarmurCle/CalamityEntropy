@@ -2691,6 +2691,18 @@ Items: {
 		Tooltip: ""
 		DisplayName: 菠萝狗
 	}
+
+	CelestialChronometer: {
+		DisplayName: 钦天司时
+		Tooltip:
+			'''
+			获得血血神圣杯的效果
+			在脚下长出草药
+			站在草药上提升20%伤害减免
+			+5 每秒回血
+			$黍梦连稻浪，蒲酒话升平
+			'''
+	}
 }
 
 PrefixitemDesc:
