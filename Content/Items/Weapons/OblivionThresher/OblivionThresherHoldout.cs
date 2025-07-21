@@ -575,7 +575,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             if(!OnJaw)
             {
                 Vector2 ver = Projectile.velocity * -0.24f;
-                BasePRT particle = new PRT_Light(Projectile.Center + CEUtils.randomPointInCircle(160 * Projectile.scale), ver
+                BasePRT particle = new PRT_Light(Projectile.Center + CEUtils.randomPointInCircle(120 * Projectile.scale), ver
                     , Main.rand.NextFloat(0.6f, 1f), Color.AliceBlue, 60, 0.6f);
                 PRTLoader.AddParticle(particle);
                 if(Projectile.timeLeft % 24 == 0)
