@@ -376,7 +376,7 @@ namespace CalamityEntropy
             if (addBob)
                 drawPosition += Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height] * drawInfo.drawPlayer.gravDir;
 
-            return drawPosition;
+            return drawPosition + new Vector2(0, drawInfo.drawPlayer.height - 42);
         }
         public static Vector2 randomPointInCircle(float r)
         {

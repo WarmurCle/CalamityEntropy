@@ -160,6 +160,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             else
             {
                 ERot = CEUtils.Parabola(Charge * 0.5f, 1) * 0.42f;
+                CEUtils.AddLight(Projectile.Center, Color.BlueViolet, Charge * 2);
             }
             HitSoundCD--;
         }
@@ -394,6 +395,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override void AI()
         {
+            CEUtils.AddLight(Projectile.Center, Color.BlueViolet, Projectile.ai[0] * 2);
             if (Main.GameUpdateCount % 3 == 0 && Projectile.ai[0] > 0.6f)
             {
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 70) * Projectile.scale * Projectile.ai[0], Projectile.velocity, Color.LightBlue, Projectile.scale * Projectile.ai[0] * Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0, 6);
@@ -447,7 +449,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            float Charge = 1.4f;
+            float Charge = 2f;
             return targetHitbox.Intersects(Projectile.Center.getRectCentered(Charge * 220 * Projectile.scale, Charge * 220 * Projectile.scale));
         }
         public override bool PreDraw(ref Color lightColor)
@@ -455,13 +457,13 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             float ap = (Projectile.timeLeft / 40f);
             if (ap > 1)
                 ap = 1;
-            float Charge = 1.4f * ap;
-            void DrawVortex(Vector2 pos, Color color, float Size = 1, float glow = 1f)
+            float Charge = 2f * ap;
+            void DrawVortex(Vector2 pos, Color color, float Size = 1, float glow = 1f, float dir = 1)
             {
                 Main.spriteBatch.End();
                 Effect effect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Vortex", AssetRequestMode.ImmediateLoad).Value;
                 effect.Parameters["Center"].SetValue(new Vector2(0.5f, 0.5f));
-                effect.Parameters["Strength"].SetValue(16);
+                effect.Parameters["Strength"].SetValue(16 * dir);
                 effect.Parameters["AspectRatio"].SetValue(1);
                 effect.Parameters["TexOffset"].SetValue(new Vector2(Main.GlobalTimeWrappedHourly * 0.1f, -Main.GlobalTimeWrappedHourly * 0.07f));
                 float fadeOutDistance = 0.06f;
@@ -471,16 +473,17 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 effect.Parameters["enhanceLightAlpha"].SetValue(0.8f);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
                 effect.CurrentTechnique.Passes[0].Apply();
-                Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), pos - Main.screenPosition, null, color, Main.GlobalTimeWrappedHourly * 12, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.2f * Size, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), pos - Main.screenPosition, null, color, Main.GlobalTimeWrappedHourly * 12 * dir, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.2f * Size, SpriteEffects.None, 0);
                 CEUtils.DrawGlow(pos, Color.White * glow, Size * glow);
             }
             Vector2 shakeOffset = CEUtils.randomPointInCircle(Charge * 3);
             Vector2 jpos = Projectile.Center + shakeOffset;
             if (Charge > 0)
             {
-                DrawVortex(jpos, new Color(110, 100, 250), 1 * Charge);
-                DrawVortex(jpos, new Color(190, 200, 255) * Charge * 0.8f, 2.6f * ap, 0.4f);
-                DrawVortex(jpos, new Color(150, 120, 255) * Charge, 3.6f, 1f);
+                DrawVortex(jpos, new Color(40, 30, 250), 1 * Charge);
+                DrawVortex(jpos, new Color(50, 40, 255) * Charge * 0.8f, 2.6f * ap, 0.4f);
+                DrawVortex(jpos, new Color(50, 40, 255) * Charge, 4.6f, 0.1f);
+                DrawVortex(jpos, new Color(50, 40, 255) * Charge, 3.6f, 0.1f, -1);
             }
             Texture2D j1 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE1");
             Texture2D j2 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE2");
@@ -537,6 +540,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override void AI()
         {
+            CEUtils.AddLight(Projectile.Center, Color.SkyBlue, 2);
             if(OnJaw)
             {
                 int t = ModContent.ProjectileType<OblivionThresherHoldout>();
