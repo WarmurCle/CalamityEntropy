@@ -190,7 +190,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             if (Charge > 0)
             {
                 DrawVortex(jpos, new Color(110, 100, 250), Charge * 0.8f);
-                DrawVortex(jpos, new Color(190, 200, 255) * Charge * 0.8f, 2.6f, 0.2f);
+                DrawVortex(jpos, new Color(110, 100, 255) * Charge * 0.8f, 2.6f, 0.2f);
             }
             Texture2D j1 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE1");
             Texture2D j2 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE2");
@@ -320,8 +320,8 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Vector2 jpos = Projectile.Center + shakeOffset;
             if (Charge > 0)
             {
-                DrawVortex(jpos, new Color(60, 50, 250), 1 * Charge);
-                DrawVortex(jpos, new Color(110, 100, 255) * Charge * 0.8f, 2.6f, 0.4f);
+                DrawVortex(jpos, new Color(120, 110, 250), 1 * Charge);
+                DrawVortex(jpos, new Color(120, 110, 255) * Charge * 0.8f, 2.6f, 0.4f);
                 //DrawVortex(jpos, new Color(200, 190, 255) * Charge, 3.6f, 1f);
             }
             Texture2D j1 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE1");
