@@ -2686,6 +2686,11 @@ Items: {
 		DisplayName: 阿萨福勒卫城机甲纪念章
 		Tooltip: ""
 	}
+
+	PineappleDog: {
+		Tooltip: ""
+		DisplayName: 菠萝狗
+	}
 }
 
 PrefixitemDesc:

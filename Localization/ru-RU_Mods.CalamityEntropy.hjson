@@ -2433,6 +2433,11 @@ Items: {
 		// DisplayName: Acropolis Trophy
 		// Tooltip: ""
 	}
+
+	PineappleDog: {
+		// Tooltip: ""
+		// DisplayName: Pineapple Dog
+	}
 }
 
 PrefixitemDesc:
