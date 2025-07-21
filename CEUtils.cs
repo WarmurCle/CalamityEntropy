@@ -4,6 +4,7 @@ using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -22,6 +23,28 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static Tile PlaceTile(int x, int y, ushort type)
+        {
+            int si = x;
+            int sj = y;
+            if (CEUtils.inWorld(si, sj))
+            {
+                Tile t = Main.tile[si, sj];
+                if(t.HasTile)
+                {
+                    return new Tile();
+                }
+                t.TileType = type;
+                t.HasTile = true;
+                WorldGen.SquareTileFrame(si, sj);
+
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendTileSquare(-1, si, sj);
+                return Main.tile[si, sj];
+
+            }
+            return new Tile();
+        }
         public static void SetHandRot(this Player owner, float r)
         {
             if (r.ToRotationVector2().X > 0)
