@@ -4,7 +4,6 @@ using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Projectiles.Ranged;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -44,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 .AddIngredient<SuperradiantSlaughterer>()
                 .AddIngredient<VoidBar>(5)
                 .AddIngredient<RuinousSoul>(4)
-                .AddTile(ModContent.TileType<CosmicAnvil>())
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
