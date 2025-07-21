@@ -27,6 +27,7 @@ namespace CalamityEntropy.Content.Items
             Item.DefaultToPlaceableTile(ModContent.TileType<VoidBarTile>());
             Item.value = Item.sellPrice(gold: 60);
             Item.rare = ModContent.RarityType<VoidPurple>();
+            Item.maxStack = 9999;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)

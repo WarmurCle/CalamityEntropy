@@ -20,6 +20,7 @@ namespace CalamityEntropy.Content.Items
         {
             Item.value = Item.sellPrice(silver: 4);
             Item.rare = ItemRarityID.Orange;
+            Item.maxStack = 9999;
         }
     }
 }

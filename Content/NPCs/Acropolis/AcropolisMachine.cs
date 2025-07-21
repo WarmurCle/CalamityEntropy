@@ -849,37 +849,30 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public Vector2 CalculateLegJoints(Vector2 Center, Vector2 legStandPoint, float l1, float l2, float l3, out Vector2 P1, out Vector2 P2)
         {
-            // 初始化输出
             P1 = Vector2.Zero;
             P2 = Vector2.Zero;
 
-            // 输入验证
             if (l1 <= 0 || l2 <= 0 || l3 <= 0)
             {
-                throw new ArgumentException("Leg segment lengths must be positive.");
+                return Center;
             }
 
-            // 计算目标点相对于根部的向量和距离
             Vector2 D = legStandPoint - Center;
             float dist = D.Length();
 
-            // 处理不可达情况
             Vector2 target = legStandPoint;
             if (dist > l1 + l2 + l3)
             {
                 target = Center + Vector2.Normalize(D) * (l1 + l2 + l3);
             }
 
-            // 计算第一节方向（朝下但偏向目标点）
-            Vector2 downDirection = new Vector2(0, 1); // 初始朝下
+            Vector2 downDirection = new Vector2(0, 1);
             Vector2 targetDirection = D.Length() > 0 ? Vector2.Normalize(D) : downDirection;
 
-            // 计算偏转角度（限制最大偏转角）
             float maxDeflectionAngle = MathHelper.ToRadians(68);
             float angleToTarget = (float)Math.Atan2(targetDirection.Y, targetDirection.X) - (float)Math.PI / 2; // 相对于Y轴正方向
             float deflectionAngle = MathHelper.Clamp(angleToTarget, -maxDeflectionAngle, maxDeflectionAngle);
 
-            // 旋转第一节方向
             float cosAngle = (float)Math.Cos(deflectionAngle);
             float sinAngle = (float)Math.Sin(deflectionAngle);
             Vector2 firstSegmentDirection = new Vector2(
@@ -887,13 +880,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 downDirection.X * sinAngle + downDirection.Y * cosAngle
             );
 
-            // 计算 P1
             P1 = Center + l1 * firstSegmentDirection;
 
-            // 计算 P2
-            // 第三节朝下，P2.Y = target.Y - l3
             float y2 = target.Y - l3;
-            // 第二节长度约束：|P2 - P1| = l2
             float deltaY = y2 - P1.Y;
             float deltaX;
             try
@@ -902,23 +891,19 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             catch
             {
-                // 如果无法满足长度约束，说明目标点不可达，调整P2到最近可达点
                 deltaX = 0;
-                y2 = P1.Y - l2; // 第二节完全朝上
+                y2 = P1.Y - l2;
             }
 
-            // 选择与目标点X坐标更接近的解
             float x2_positive = P1.X + deltaX;
             float x2_negative = P1.X - deltaX;
             float x2 = (Math.Abs(x2_positive - target.X) < Math.Abs(x2_negative - target.X)) ? x2_positive : x2_negative;
 
             P2 = new Vector2(x2, y2);
 
-            // 验证第三节长度约束
             float distP2ToTarget = Vector2.Distance(P2, target);
             if (Math.Abs(distP2ToTarget - l3) > 0.001f)
             {
-                // 如果第三节长度不满足，调整P2（第二节完全朝上，第三节朝下）
                 P2 = new Vector2(P1.X, P1.Y - l2);
                 target = new Vector2(P2.X, P2.Y + l3);
             }
