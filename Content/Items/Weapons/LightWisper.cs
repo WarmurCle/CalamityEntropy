@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 8)
                 .AddIngredient(ModContent.ItemType<CleansingBlaze>())
-                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 2)
+                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 2)
                 .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
         }
