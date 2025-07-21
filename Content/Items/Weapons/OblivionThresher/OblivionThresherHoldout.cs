@@ -399,9 +399,15 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 70) * Projectile.scale * Projectile.ai[0], Projectile.velocity, Color.LightBlue, Projectile.scale * Projectile.ai[0] * Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0, 6);
             }
             Projectile.ai[2]--;
-            if (Projectile.ai[0] >= 0.5f)
+            Projectile.localAI[1]++;
+            if (Projectile.localAI[1] > 82 && Projectile.GetOwner().ownedProjectileCounts[ModContent.ProjectileType<OblivionThresherShootAlt>()] > 0)
             {
-                if (Projectile.localAI[1]++ >= 80)
+                Projectile.velocity += (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).normalize() * 3f;
+                Projectile.velocity *= 0.9f;
+            }
+            else if (Projectile.ai[0] >= 0.5f)
+            {
+                if (Projectile.localAI[1] >= 80)
                 {
                     if (Projectile.localAI[1] == 81 && Projectile.numHits > 0)
                     {
@@ -533,8 +539,13 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         {
             if(OnJaw)
             {
-                Projectile e = null;
                 int t = ModContent.ProjectileType<OblivionThresherHoldout>();
+                if (Projectile.owner == Main.myPlayer && Projectile.GetOwner().ownedProjectileCounts[t] <= 0)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.GetOwner().Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherHoldout>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
+                Projectile e = null;
+                
                 foreach(var p in Main.ActiveProjectiles)
                 {
                     if(p.owner == Projectile.owner && p.type == t)
@@ -576,6 +587,11 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomPointInCircle(26), ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
                         }
                     }
+                }
+                if (Projectile.localAI[2]++ > 60)
+                {
+                    Projectile.velocity += (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).normalize() * 1f;
+                    Projectile.velocity *= 0.9f;
                 }
             }
             Projectile.velocity *= 0.96f;
