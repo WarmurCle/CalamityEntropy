@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -40,6 +41,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 8)
                 .AddIngredient(ModContent.ItemType<CleansingBlaze>())
                 .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 2)
+                .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
         }
     }
