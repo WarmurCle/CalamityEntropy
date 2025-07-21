@@ -15,7 +15,8 @@ namespace CalamityEntropy.Content.Items.Accessories
         public string DonatorName => "南巷";
         public static float SummonDmgToMinionSlot = 6.66f;
         public static float WhipAtkSpeedAddition = 1.0f;
-
+        public static float WhipRangeMultiplier = 0.5f;
+    
         public override void SetDefaults()
         {
             Item.width = 46;

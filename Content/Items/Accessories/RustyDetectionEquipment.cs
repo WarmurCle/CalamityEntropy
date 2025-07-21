@@ -32,10 +32,10 @@ namespace CalamityEntropy.Content.Items.Accessories
                 {
                     Item.Calamity().Charge -= 64f / (180 * 60f);
                 }
-                player.rocketBoots += 10;
+                player.rocketBoots += 15;
                 player.noFallDmg = true;
-                player.jumpSpeedBoost += 1.6f;
-                player.maxRunSpeed *= 1.1f;
+                player.jumpSpeedBoost += 1.75f;
+                player.maxRunSpeed *= 1.3f;
                 player.Entropy().addEquip(ID, !hideVisual);
                 if (Item.Calamity().Charge < 0)
                     Item.Calamity().Charge = 0;
@@ -50,6 +50,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             CreateRecipe().
                 AddIngredient(ModContent.ItemType<DubiousPlating>(), 20).
                 AddIngredient(ModContent.ItemType<MysteriousCircuitry>(), 15).
+                AddIngredient(ModContent.ItemType<HellIndustrialComponents>(),5).
                 AddIngredient(ModContent.ItemType<SuspiciousScrap>(), 1).
                 AddTile(TileID.Anvils).
                 Register();

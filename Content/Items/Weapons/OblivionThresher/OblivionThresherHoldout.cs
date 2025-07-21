@@ -588,7 +588,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                     {
                         for (int i = 0; i < 8; i++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomPointInCircle(26), ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomPointInCircle(26), ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 10, Projectile.knockBack, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
                         }
                     }
                 }

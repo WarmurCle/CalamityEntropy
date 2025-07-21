@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                             if (Projectile.owner == Main.myPlayer)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherHoldout>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherShootAlt>(), Projectile.damage * 6, Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherShootAlt>(), Projectile.damage * 2, Projectile.knockBack, Projectile.owner);
                             }
                             Projectile.Kill();
                             CEUtils.PlaySound("CastTriangles", 1, Projectile.Center);
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.SourceDamage *= 10;
+            modifiers.SourceDamage *= 1;
             modifiers.FinalDamage *= 2;
         }
         public void spawnParticles()
