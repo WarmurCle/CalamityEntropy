@@ -606,6 +606,9 @@ namespace CalamityEntropy.Common
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             if(npc.type == ModContent.NPCType<ToxicMinnow>() || npc.type == ModContent.NPCType<CannonballJellyfish>() || npc.type == ModContent.NPCType<Sulflounder>() || npc.type == ModContent.NPCType<Toxicatfish>())
+            {
+                npcLoot.Add(ModContent.ItemType<TerrorOfAbyss>(), 24);
+            }
             if (npc.type == ModContent.NPCType<ProfanedGuardianCommander>())
             {
                 npcLoot.Add(ModContent.ItemType<LavaPancake>(), 2);

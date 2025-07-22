@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Items.Donator
             CEUtils.SetShake(position, 4);
             p.GetGlobalProjectile<ScorchingGProj>().Active = true;
 
-            if(HitCount > 5)
+            if(HitCount > 6)
             {
                 HitCount = 0;
                 p.GetGlobalProjectile<ScorchingGProj>().Enhanced = true;
