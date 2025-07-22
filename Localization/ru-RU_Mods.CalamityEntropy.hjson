@@ -93,8 +93,8 @@ Items: {
 			}
 
 			LunarPlank: {
-				// DisplayName: Lunar Plank
-				// Tooltip: ""
+				DisplayName: Лунная плита
+				Tooltip: ""
 			}
 		}
 	}
