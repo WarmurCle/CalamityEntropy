@@ -25,9 +25,20 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 260;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 1;
+            
         }
+        public TrailParticle trail;
         public override void AI()
         {
+            if (!Main.dedServ) {
+                if (trail == null)
+                {
+                    trail = new TrailParticle() { maxLength = 16};
+                    EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.AliceBlue * 0.6f, 1, 1, true, BlendState.Additive);
+                }
+                trail.Lifetime = 30;
+                trail.AddPoint(Projectile.Center);
+            }
             if (Projectile.Calamity().stealthStrike)
             {
                 Projectile.scale = 2.4f;
@@ -35,16 +46,25 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.timeLeft < 246 && !Projectile.Calamity().stealthStrike)
             {
-                CalamityUtils.HomeInOnNPC(Projectile, true, 260, 14, 1f);
+                var target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 800);
+                if (target != null)
+                {
+                    Projectile.velocity += (target.Center - Projectile.Center).normalize() * 4f;
+                    Projectile.velocity *= 0.92f;
+                }
             }
             if (Main.GameUpdateCount % 2 == 0 || Projectile.Calamity().stealthStrike)
             {
-                EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 0.8f, 1, true, BlendState.AlphaBlend, 0);
+                if (Projectile.timeLeft <= 256)
+                {
+                    EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 0.8f, 1, true, BlendState.AlphaBlend, 0);
+                }
             }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            trail?.AddPoint(Projectile.Center);
             for (int i = 0; i < 6; i++)
             {
                 EParticle.NewParticle(new Particles.RuneParticle(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, 0.5f, 1, true, BlendState.AlphaBlend, 0);

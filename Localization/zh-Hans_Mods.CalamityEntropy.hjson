@@ -3162,6 +3162,7 @@ Projectiles: {
 	// OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
 	// TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
 	// ScorchingShell.DisplayName: Scorching Shell
+	// PFKnifeHeld.DisplayName: P F Knife Held
 }
 
 LegendTooltip: - 传奇物品 -
