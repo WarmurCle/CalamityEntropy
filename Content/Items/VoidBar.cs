@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items
             CreateRecipe(5).
                 AddIngredient<VoidOre>(60).
                 AddIngredient<VoidScales>().
-                AddTile<CosmicAnvil>().
+                AddTile(TileID.LunarCraftingStation).
                 Register();
         }
     }

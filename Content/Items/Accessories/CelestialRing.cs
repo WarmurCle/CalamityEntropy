@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 AddIngredient(ModContent.ItemType<DarkSunRing>()).
                 AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 6).
                 AddIngredient(ModContent.ItemType<AuricBar>(), 6)
-                .AddTile(ModContent.TileType<CosmicAnvil>()).
+                .AddTile(TileID.LunarCraftingStation).
                 Register();
         }
     }

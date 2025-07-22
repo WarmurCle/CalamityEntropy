@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Ammo
         {
             CreateRecipe(500)
                 .AddIngredient<VoidBar>()
-                .AddTile<CosmicAnvil>()
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }

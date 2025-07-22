@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<Deathwind>(), 1)
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 10)
                 .AddIngredient(ModContent.ItemType<DarkPlasma>(), 8)
-                .AddTile(ModContent.TileType<CosmicAnvil>())
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }

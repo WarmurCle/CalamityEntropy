@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<CosmicViperEngine>())
                 .AddIngredient(ModContent.ItemType<PoleWarper>())
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
-                .AddTile(ModContent.TileType<CosmicAnvil>()).Register();
+                .AddTile(TileID.LunarCraftingStation).Register();
         }
     }
 }

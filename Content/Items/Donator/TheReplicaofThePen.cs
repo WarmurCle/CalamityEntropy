@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddIngredient<DarkPlasma>(4)
                 .AddIngredient<RuinousSoul>(2)
                 .AddIngredient(ItemID.Goggles)
-                .AddTile<CosmicAnvil>()
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
 	}

@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
                 AddIngredient<Euangelion>().
                 AddIngredient<ExodiumCluster>(20).
                 AddIngredient<DarksunFragment>(5).
-                AddTile<CosmicAnvil>().
+                AddTile(TileID.LunarCraftingStation).
                 Register();
         }
     }

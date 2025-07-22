@@ -4,6 +4,7 @@ using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
@@ -37,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 AddIngredient(ModContent.ItemType<CryoStone>(), 1).
                 AddIngredient(ModContent.ItemType<VoidBar>(), 6).
                 AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 4).
-                AddTile(ModContent.TileType<CosmicAnvil>()).
+                AddTile(TileID.LunarCraftingStation).
                 Register();
         }
     }

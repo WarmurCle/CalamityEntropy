@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<CrescentMoon>())
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
-                .AddTile(ModContent.TileType<CosmicAnvil>()).Register();
+                .AddTile(TileID.LunarCraftingStation).Register();
         }
     }
 }

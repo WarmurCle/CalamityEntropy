@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe().AddIngredient(ModContent.ItemType<DefiledGreatsword>(), 1).
                 AddIngredient(ModContent.ItemType<VoidBar>(), 5).
                 AddIngredient(ModContent.ItemType<NightmareFuel>(), 10).
-                AddTile(ModContent.TileType<CosmicAnvil>()).Register();
+                AddTile(TileID.LunarCraftingStation).Register();
         }
 
         public override bool MeleePrefix()

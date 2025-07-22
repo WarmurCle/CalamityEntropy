@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 12).AddIngredient(ModContent.ItemType<ArmoredShell>(), 8).AddIngredient(ModContent.ItemType<CoreofCalamity>(), 1).AddIngredient(ItemID.Celeb2, 1).AddTile(ModContent.TileType<CosmicAnvil>()).Register();
+            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 12).AddIngredient(ModContent.ItemType<ArmoredShell>(), 8).AddIngredient(ModContent.ItemType<CoreofCalamity>(), 1).AddIngredient(ItemID.Celeb2, 1).AddTile(TileID.LunarCraftingStation).Register();
         }
         public override bool RangedPrefix()
         {

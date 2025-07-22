@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Ammo
         public override void AddRecipes()
         {
             CreateRecipe(100).AddIngredient(ModContent.ItemType<VoidBar>())
-                .AddTile(ModContent.TileType<CosmicAnvil>())
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }

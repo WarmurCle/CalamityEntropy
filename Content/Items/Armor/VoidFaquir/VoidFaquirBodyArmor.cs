@@ -41,9 +41,8 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 18)
                 .AddIngredient(ModContent.ItemType<RuinousSoul>(), 8)
-                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 4)
                 .AddIngredient(ModContent.ItemType<TwistingNether>(), 10)
-                .AddTile(ModContent.TileType<CosmicAnvil>())
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }

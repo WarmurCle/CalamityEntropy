@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 10)
                 .AddIngredient(ItemID.CrystalBall, 1)
-                .AddTile(ModContent.TileType<CosmicAnvil>())
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
         public override bool MagicPrefix()

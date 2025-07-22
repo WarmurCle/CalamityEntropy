@@ -4,6 +4,7 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
@@ -58,9 +59,8 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 14)
                 .AddIngredient(ModContent.ItemType<RuinousSoul>(), 6)
-                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 6)
                 .AddIngredient(ModContent.ItemType<TwistingNether>(), 8)
-                .AddTile(ModContent.TileType<CosmicAnvil>())
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }
