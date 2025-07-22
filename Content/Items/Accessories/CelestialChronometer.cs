@@ -84,11 +84,13 @@ namespace CalamityEntropy.Content.Items.Accessories
                 }
             }
             ContentSamples.ItemsByType[ModContent.ItemType<ChaliceOfTheBloodGod>()].ModItem.UpdateAccessory(player, hideVisual);
+            ContentSamples.ItemsByType[ModContent.ItemType<TheAbsorber>()].ModItem.UpdateAccessory(player, hideVisual);
+
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<ChaliceOfTheBloodGod>().AddIngredient(5295).AddIngredient<AscendantSpiritEssence>(2).AddTile(TileID.WorkBenches).Register();
+            CreateRecipe().AddIngredient<ChaliceOfTheBloodGod>().AddIngredient<TheAbsorber>().AddIngredient(5295).AddIngredient<AscendantSpiritEssence>(2).AddTile(TileID.WorkBenches).Register();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

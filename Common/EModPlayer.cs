@@ -1410,9 +1410,9 @@ namespace CalamityEntropy.Common
         {
             if (shadowRune)
             {
-                if (Player.GetDamage(DamageClass.Summon).Additive > 0)
+                if (Player.GetDamage(DamageClass.Summon).Additive > 1)
                 {
-                    Player.GetDamage(DamageClass.Summon) -= Player.GetDamage(DamageClass.Summon).Additive;
+                    Player.GetDamage(DamageClass.Summon) -= Player.GetDamage(DamageClass.Summon).Additive - 1;
                 }
             }
             if(Main.myPlayer == Player.whoAmI)

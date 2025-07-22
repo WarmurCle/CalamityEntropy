@@ -59,13 +59,11 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            HitCount++;
             var p = Projectile.NewProjectile(source, position, velocity, type, damage * (HitCount > 6 ? 4 : 1), knockback, player.whoAmI).ToProj();
             CEUtils.SetShake(position, 4);
             p.GetGlobalProjectile<ScorchingGProj>().Active = true;
-            if(p.penetrate > 0)
-            {
-                p.penetrate += 10;
-            }
+
             if(HitCount > 5)
             {
                 HitCount = 0;
@@ -165,10 +163,6 @@ namespace CalamityEntropy.Content.Items.Donator
             if(Enhanced)
             {
                 target.AddBuff(ModContent.BuffType<Dragonfire>(), 400);
-            }
-            if(Active && !Enhanced)
-            {
-                ScorchingShoot.HitCount++;
             }
         }
 

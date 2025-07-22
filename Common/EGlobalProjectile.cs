@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Nemesis;
@@ -372,7 +373,8 @@ namespace CalamityEntropy.Common
 
                         if (plr.HasBuff(ModContent.BuffType<SoyMilkBuff>()))
                         {
-                            projectile.extraUpdates = (projectile.extraUpdates + 1) * 3 - 1;
+                            if(!(projectile.ModProjectile is EntropyBookHeldProjectile))
+                                projectile.extraUpdates = (projectile.extraUpdates + 1) * 3 - 1;
                         }
                     }
 
