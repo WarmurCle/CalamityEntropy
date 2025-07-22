@@ -524,7 +524,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 90, 3.6f, 1000, 16);
-            CEUtils.PlaySound("slice", 1f + Projectile.numHits * 0.1f, Projectile.Center, 18,0.8f);
+            CEUtils.PlaySound("slice", 1f + Projectile.numHits * 0.1f, Projectile.Center, 18, 0.8f);
             for (int i = 0; i < 6; i++)
             {
                 Vector2 direction = target.Center;

@@ -79,8 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool playsound = true;
         public override void AI()
         {
-
-            float updates = Projectile.MaxUpdates + 1;
+            float updates = Projectile.MaxUpdates;
             if (Projectile.ai[0] == 0)
             {
                 Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
@@ -134,6 +133,12 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
+            
+            if (Projectile.ai[0] > 88 * updates)
+            {
+                alpha *= 0.96f;
+            }
+
             Projectile.ai[0] += meleeSpeed;
             odr.Add(Projectile.rotation);
             ods.Add(scaleD);
@@ -156,6 +161,7 @@ namespace CalamityEntropy.Content.Projectiles
             owner.itemTime = 2;
             owner.itemAnimation = 2;
         }
+        public float alpha = 1;
         public override bool ShouldUpdatePosition()
         {
             return false;
@@ -200,10 +206,9 @@ namespace CalamityEntropy.Content.Projectiles
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             List<ColoredVertex> ve = new List<ColoredVertex>();
-
             for (int i = 0; i < odr.Count; i++)
             {
-                Color b = new Color(100, 100, 100);
+                Color b = new Color(100, 100, 100) * alpha;
                 ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(708 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3((float)i / (float)odr.Count, 1, 1),
                       b));
@@ -219,7 +224,7 @@ namespace CalamityEntropy.Content.Projectiles
                 ve.Clear();
                 for (int i = 0; i < odr.Count; i++)
                 {
-                    Color b = new Color(255, 255, 255);
+                    Color b = new Color(255, 255, 255) * alpha;
                     ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(708 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
                           new Vector3((float)i / (float)odr.Count, 1, 1),
                           b));
