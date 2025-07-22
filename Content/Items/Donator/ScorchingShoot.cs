@@ -139,6 +139,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     flag = false;
                     projectile.MaxUpdates *= 2;
+                    projectile.penetrate = -1;
                 }
                 if (trail == null)
                 {

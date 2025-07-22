@@ -2711,10 +2711,7 @@ Items: {
 
 	ScorchingShoot: {
 		DisplayName: 烈日射击
-		Tooltip: 
-		'''
-		每击中6次发射一发高伤害烈日子弹
-		'''
+		Tooltip: 每击中6次发射一发高伤害烈日子弹
 	}
 }
 

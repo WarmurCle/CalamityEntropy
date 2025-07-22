@@ -190,8 +190,8 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Vector2 jpos = Projectile.Center + shakeOffset + new Vector2(0, Projectile.velocity.X > 0 ? -10 : 10).RotatedBy(Projectile.rotation) + Projectile.rotation.ToRotationVector2() * 80;
             if (Charge > 0)
             {
-                DrawVortex(jpos, new Color(110, 100, 250), Charge * 0.8f);
-                DrawVortex(jpos, new Color(190, 200, 255) * Charge * 0.8f, 2.6f, 0.2f);
+                DrawVortex(jpos, new Color(80, 70, 250), Charge * 0.8f);
+                DrawVortex(jpos, new Color(90, 80, 255) * Charge * 0.8f, 2.6f, 0.2f);
             }
             Texture2D j1 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE1");
             Texture2D j2 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE2");
@@ -224,7 +224,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             }
             if (HitSoundCD <= 0)
             {
-                HitSoundCD = 12;
+                HitSoundCD = 6;
                 CEUtils.PlaySound("slice", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.7f);
             }
             for (int i = 0; i < 6; i++)
@@ -325,9 +325,8 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Vector2 jpos = Projectile.Center + shakeOffset;
             if (Charge > 0)
             {
-                DrawVortex(jpos, new Color(110, 100, 250), 1 * Charge);
-                DrawVortex(jpos, new Color(190, 200, 255) * Charge * 0.8f, 2.6f, 0.4f);
-                //DrawVortex(jpos, new Color(200, 190, 255) * Charge, 3.6f, 1f);
+                DrawVortex(jpos, new Color(60, 50, 250), 1 * Charge);
+                DrawVortex(jpos, new Color(90, 110, 255) * Charge * 0.8f, 2.6f, 0.4f);
             }
             Texture2D j1 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE1");
             Texture2D j2 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE2");
@@ -452,7 +451,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            float Charge = 1.4f;
+            float Charge = 2f;
             return targetHitbox.Intersects(Projectile.Center.getRectCentered(Charge * 220 * Projectile.scale, Charge * 220 * Projectile.scale));
         }
         public override bool PreDraw(ref Color lightColor)
@@ -465,7 +464,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             float ap = (Projectile.timeLeft / 40f);
             if (ap > 1)
                 ap = 1;
-            float Charge = 1.4f * ap;
+            float Charge = 2f * ap;
             void DrawVortex(Vector2 pos, Color color, float Size = 1, float glow = 1f)
             {
                 Main.spriteBatch.End();
@@ -488,9 +487,9 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Vector2 jpos = Projectile.Center + shakeOffset;
             if (Charge > 0)
             {
-                DrawVortex(jpos, new Color(110, 100, 250), 1 * Charge);
-                DrawVortex(jpos, new Color(190, 200, 255) * Charge * 0.8f, 2.6f * ap, 0.4f);
-                DrawVortex(jpos, new Color(150, 120, 255) * Charge, 3.6f, 1f);
+                DrawVortex(jpos, new Color(60, 70, 250), 1 * Charge);
+                DrawVortex(jpos, new Color(70, 80, 255) * Charge * 0.8f, 2.6f * ap, 0.2f);
+                DrawVortex(jpos, new Color(80, 90, 255) * Charge, 3.6f, 0.2f);
             }
             Texture2D j1 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE1");
             Texture2D j2 = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/OblivionThresher/OblivionThresherShootE2");
@@ -525,7 +524,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             EGlobalNPC.AddVoidTouch(target, 90, 3.6f, 1000, 16);
-            CEUtils.PlaySound("slice", 1f + Projectile.numHits * 0.1f, Projectile.Center, volume: 0.7f);
+            CEUtils.PlaySound("slice", 1f + Projectile.numHits * 0.1f, Projectile.Center, 18,0.8f);
             for (int i = 0; i < 6; i++)
             {
                 Vector2 direction = target.Center;

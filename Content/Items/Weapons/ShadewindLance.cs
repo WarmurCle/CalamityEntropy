@@ -63,9 +63,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
-                .AddIngredient(ModContent.ItemType<PhantasmalRuin>(), 1)
-                .AddIngredient(ModContent.ItemType<DarksunFragment>(), 10)
-                .AddTile(ModContent.TileType<CosmicAnvil>())
+                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 8)
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }
