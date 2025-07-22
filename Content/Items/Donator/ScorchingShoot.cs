@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Items.Donator
             float animProgress = 1 - player.itemTime / (float)player.itemTimeMax;
             float rotation = (player.Center - player.Calamity().mouseWorld).ToRotation() * player.gravDir + MathHelper.PiOver2;
             if (animProgress < 0.5)
-                rotation += (-0.4f) * (float)Math.Pow((0.5f - animProgress) / 0.5f, 2) * player.direction;
+                rotation += (-0.22f) * (float)Math.Pow((0.5f - animProgress) / 0.5f, 2) * player.direction;
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
 
             if (animProgress > 0.5f)
