@@ -220,6 +220,7 @@ namespace CalamityEntropy.Common
             ProminenceArrow = binaryReader.ReadBoolean();
             IlmeranEnhanced = binaryReader.ReadBoolean();
             LuminarArrow = binaryReader.ReadBoolean();
+
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].ReadToValue(binaryReader);
@@ -630,7 +631,7 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
-            if (projectile.Entropy().IndexOfTwistedTwinShootedThisProj >= 0)
+            if (projectile.Entropy().IndexOfTwistedTwinShootedThisProj >= 0 && projectile.friendly)
             {
                 if (netsnc)
                 {

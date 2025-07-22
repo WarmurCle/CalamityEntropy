@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.Items.Weapons.OblivionThresher;
+using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.Particles;
@@ -497,6 +498,18 @@ namespace CalamityEntropy.Common
                 {
                     vs.Draw();
                 }
+                /*if(proj.ModProjectile is OblivionThresherHoldout vt)
+                {
+                    vt.DrawSaw(Vector2.Zero);
+                }
+                if (proj.ModProjectile is OblivionThresherShoot vt2)
+                {
+                    vt2.DrawSaw();
+                }
+                if (proj.ModProjectile is OblivionThresherShootAlt vt3)
+                {
+                    vt3.DrawSaw();
+                }*/
             }
 
             EParticle.DrawPixelShaderParticles();

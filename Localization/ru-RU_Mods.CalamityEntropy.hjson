@@ -2448,6 +2448,11 @@ Items: {
 			+5 HP/s life regeneration
 			''' */
 	}
+
+	TerrorOfAbyss: {
+		// DisplayName: Terror Of Abyss
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2891,6 +2896,7 @@ Projectiles: {
 	// OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
 	// OblivionCruiserDash.DisplayName: Oblivion Cruiser Dash
 	// OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
+	// TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
 }
 
 LegendTooltip: - Легенда -

@@ -35,6 +35,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<ShadowRuneVanity>(), 0, 0, player.whoAmI);
             }
+            player.whipRangeMultiplier *= 2;
         }
         public override void UpdateVanity(Player player)
         {

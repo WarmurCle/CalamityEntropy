@@ -2703,6 +2703,11 @@ Items: {
 			$黍梦连稻浪，蒲酒话升平
 			'''
 	}
+
+	TerrorOfAbyss: {
+		DisplayName: 渊惧之镰
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -3146,6 +3151,7 @@ Projectiles: {
 	// OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
 	// OblivionCruiserDash.DisplayName: Oblivion Cruiser Dash
 	// OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
+	// TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
 }
 
 LegendTooltip: - 传奇物品 -

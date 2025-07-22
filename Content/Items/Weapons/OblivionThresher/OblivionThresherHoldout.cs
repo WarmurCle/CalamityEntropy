@@ -4,16 +4,12 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Particles;
-using InnoVault;
 using InnoVault.PRT;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json.Linq;
 using ReLogic.Content;
 using ReLogic.Utilities;
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -184,8 +180,14 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
 
             Main.EntitySpriteDraw(tex, Projectile.Center + shakeOffset - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
 
+            
+            DrawSaw(shakeOffset);
+            return false;
+        }
+        public void DrawSaw(Vector2 shakeOffset)
+        {
             if (NoSawOnHoldout)
-                return false;
+                return ;
             Vector2 jpos = Projectile.Center + shakeOffset + new Vector2(0, Projectile.velocity.X > 0 ? -10 : 10).RotatedBy(Projectile.rotation) + Projectile.rotation.ToRotationVector2() * 80;
             if (Charge > 0)
             {
@@ -212,7 +214,6 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.4f, Main.GameUpdateCount * -0.6f - MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 0.84f, SpriteEffects.None);
                 Main.spriteBatch.ExitShaderRegion();
             }
-            return false;
         }
         public int HitSoundCD = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -297,6 +298,11 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            DrawSaw();
+            return false;
+        }
+        public void DrawSaw()
+        {
             float Charge = Projectile.ai[0];
             void DrawVortex(Vector2 pos, Color color, float Size = 1, float glow = 1f)
             {
@@ -344,7 +350,6 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.8f, Main.GameUpdateCount * -0.6f - MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 0.84f, SpriteEffects.None);
                 Main.spriteBatch.ExitShaderRegion();
             }
-            return false;
         }
         public override bool ShouldUpdatePosition()
         {
@@ -454,6 +459,11 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            DrawSaw();
+            return false;
+        }
+        public void DrawSaw()
+        {
             float ap = (Projectile.timeLeft / 40f);
             if (ap > 1)
                 ap = 1;
@@ -505,7 +515,6 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 Main.EntitySpriteDraw(s, jpos - Main.screenPosition, null, c * 0.8f, Main.GameUpdateCount * -0.6f - MathHelper.Pi * 0.6f, s.Size() / 2f, Projectile.scale * 0.84f, SpriteEffects.None);
                 Main.spriteBatch.ExitShaderRegion();
             }
-            return false;
         }
         public override bool ShouldUpdatePosition()
         {

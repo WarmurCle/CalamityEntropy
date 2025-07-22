@@ -9,6 +9,7 @@ using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
@@ -31,6 +32,7 @@ using CalamityMod.NPCs.ProfanedGuardians;
 using CalamityMod.NPCs.Providence;
 using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.NPCs.SulphurousSea;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
@@ -256,6 +258,14 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(VoidTouchLevel);
             binaryWriter.Write(VoidTouchTime);
             */
+        }
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
+        {
+            if(npc.type == ModContent.NPCType<PrimordialWyrmNPC>() && projectile.friendly)
+            {
+                return false;
+            }
+            return null;
         }
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
         {
@@ -595,6 +605,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            if(npc.type == ModContent.NPCType<ToxicMinnow>() || npc.type == ModContent.NPCType<CannonballJellyfish>() || npc.type == ModContent.NPCType<Sulflounder>() || npc.type == ModContent.NPCType<Toxicatfish>())
             if (npc.type == ModContent.NPCType<ProfanedGuardianCommander>())
             {
                 npcLoot.Add(ModContent.ItemType<LavaPancake>(), 2);
