@@ -107,6 +107,7 @@ namespace CalamityEntropy
         public static RenderTarget2D screen3 = null;
         public float screenShakeAmp = 0;
         public float cvcount = 0;
+        public static SoundEffect otLoop;
         public static bool ets = true;
         public static Texture2D pixel;
         public ArmorForgingStationUI armorForgingStationUI;
@@ -1390,6 +1391,7 @@ namespace CalamityEntropy
                 ofCharge = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ElectricLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 FableEye.sound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/prophetlaserloop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 UrnOfSoulsHoldout.loopSnd = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/flamethrower loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                otLoop = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ThretherLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             }
             EntropyBossbar.bossbarColor[NPCID.KingSlime] = new Color(90, 160, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<DesertScourgeHead>()] = new Color(216, 210, 175);
