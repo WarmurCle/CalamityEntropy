@@ -23,6 +23,10 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static void AddBuff<T>(this NPC npc, int time, bool quiet = false) where T : ModBuff
+        {
+            npc.AddBuff(ModContent.BuffType<T>(), time, quiet);
+        }
         public static Tile PlaceTile(int x, int y, ushort type)
         {
             int si = x;

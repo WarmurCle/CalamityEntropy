@@ -182,7 +182,7 @@ namespace CalamityEntropy.Common
         {
             return true;
         }
-        public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
+        public override void SendExtraAI(Projectile projectile, BitWriter _, BinaryWriter binaryWriter)
         {
             binaryWriter.Write(OnProj);
             binaryWriter.Write(IndexOfTwistedTwinShootedThisProj);
@@ -204,7 +204,7 @@ namespace CalamityEntropy.Common
                 DataSynchronous[key].Write(binaryWriter);
             }
         }
-        public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
+        public override void ReceiveExtraAI(Projectile projectile, BitReader _, BinaryReader binaryReader)
         {
             OnProj = binaryReader.ReadInt32();
             IndexOfTwistedTwinShootedThisProj = binaryReader.ReadInt32();

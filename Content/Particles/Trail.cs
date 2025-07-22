@@ -1,6 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityMod;
+using CalamityMod.Graphics.Primitives;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
@@ -61,6 +65,40 @@ namespace CalamityEntropy.Content.Particles
                 gd.Textures[0] = this.Texture;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             }
+        }
+    }
+    public class TrailGunShot : EParticle
+    {
+        internal Color ColorFunction(float completionRatio)
+        {
+            completionRatio = 1 - completionRatio;
+            float fadeOpacity = Math.Min(Lifetime / (float)trailLength, 1f);
+            return Color.PaleGoldenrod * fadeOpacity;
+        }
+        public int trailLength = 6;
+        internal float WidthFunction(float completionRatio)
+        {
+            float width = completionRatio * 8f;
+            return width > 0 ? width : 0;
+        }
+        public List<Vector2> trailPositions = new List<Vector2>();
+        public override void AI()
+        {
+            base.AI();
+            trailPositions.Add(Position);
+            if(trailPositions.Count > trailLength)
+            {
+                trailPositions.RemoveAt(0);
+            }
+        }
+
+        public override void Draw()
+        {
+            if(trailPositions is null)
+                return ;
+
+            GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/BasicTrail"));
+            PrimitiveRenderer.RenderTrail(trailPositions, new(WidthFunction, ColorFunction, (_) => Vector2.One * this.Scale * 0.5f, false, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), trailLength);
         }
     }
 }

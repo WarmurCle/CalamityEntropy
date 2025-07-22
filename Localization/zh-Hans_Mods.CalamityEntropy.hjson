@@ -2708,6 +2708,14 @@ Items: {
 		DisplayName: 渊惧之镰
 		Tooltip: ""
 	}
+
+	ScorchingShoot: {
+		DisplayName: 烈日射击
+		Tooltip: 
+		'''
+		每击中6次发射一发高伤害烈日子弹
+		'''
+	}
 }
 
 PrefixitemDesc:
@@ -3152,6 +3160,7 @@ Projectiles: {
 	// OblivionCruiserDash.DisplayName: Oblivion Cruiser Dash
 	// OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
 	// TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
+	// ScorchingShell.DisplayName: Scorching Shell
 }
 
 LegendTooltip: - 传奇物品 -
