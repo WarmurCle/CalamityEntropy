@@ -2870,9 +2870,9 @@ Projectiles: {
 	FinalFractalBlade.DisplayName: Final Fractal Blade
 	FinalFracRightClick.DisplayName: Final Frac Right Click
 	HealingSpirit.DisplayName: Healing Spirit
-	ProfPetG1.DisplayName: Prof Pet G1
-	ProfPetG2.DisplayName: Prof Pet G2
-	ProfPetG3.DisplayName: Prof Pet G3
+	ProfPetG1.DisplayName: Prof Pet
+	ProfPetG2.DisplayName: Prof Pet
+	ProfPetG3.DisplayName: Prof Pet
 	ProfPet.DisplayName: Prof Pet
 	LuminarisAstralShoot.DisplayName: Luminaris Astral Shoot
 	LuminarisVortex.DisplayName: Luminaris Vortex
@@ -2924,7 +2924,7 @@ Projectiles: {
 	OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
 	TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
 	ScorchingShell.DisplayName: Scorching Shell
-	PFKnifeHeld.DisplayName: P F Knife Held
+	PFKnifeHeld.DisplayName: Propechey Knife Held
 }
 
 LegendTooltip: - Legend -

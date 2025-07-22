@@ -3156,13 +3156,13 @@ Projectiles: {
 	ShadowRuneVanity.DisplayName: 暗影符文
 	Pooney.DisplayName: 普尼
 	AcropolisTeslaBall.DisplayName: 特斯拉电球
-	// OblivionThresherHoldout.DisplayName: Oblivion Thresher Holdout
-	// OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
-	// OblivionCruiserDash.DisplayName: Oblivion Cruiser Dash
-	// OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
-	// TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
-	// ScorchingShell.DisplayName: Scorching Shell
-	// PFKnifeHeld.DisplayName: P F Knife Held
+	OblivionThresherHoldout.DisplayName: 虚漩巡锯
+	OblivionThresherShoot.DisplayName: 虚漩巡锯锯片
+	OblivionCruiserDash.DisplayName: 虚漩巡锯突进
+	OblivionThresherShootAlt.DisplayName: 虚漩巡锯强化锯片
+	TerrorOfAbyssHeld.DisplayName: 渊惧之镰
+	ScorchingShell.DisplayName: 耀阳弹壳
+	PFKnifeHeld.DisplayName: 预言飞刀
 }
 
 LegendTooltip: - 传奇物品 -
