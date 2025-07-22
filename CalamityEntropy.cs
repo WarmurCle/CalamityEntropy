@@ -829,7 +829,7 @@ namespace CalamityEntropy
                 {
                     timeToAdd = (int)(timeToAdd * self.Entropy().CooldownTimeMult);
                 }
-                if (Main.debuff[type])
+                if (Main.debuff[type] && !cooldownBuffs.Contains(type))
                 {
                     timeToAdd = (int)(timeToAdd * self.Entropy().DebuffTime);
                 }
@@ -1208,7 +1208,7 @@ namespace CalamityEntropy
                 initializeIntro(ModContent.NPCType<Luminaris>(), new Color(190, 180, 220), Color.Purple, "Luminaris", 1);
             }
             CalEnchantsRegistry();
-            cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>() };
+            cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>(), BuffID.PotionSickness };
             RegistryDraedonDialogs();
             foreach (ICELoader setup in ILoaders)
             {

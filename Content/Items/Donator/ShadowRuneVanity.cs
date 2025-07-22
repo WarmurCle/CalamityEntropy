@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 Projectile.Kill();
             }
-                Projectile.Center += ((Projectile.GetOwner().Center + new Vector2(-40 * Projectile.GetOwner().direction, -20)) - Projectile.Center) * 0.1f;
+            Projectile.Center += ((Projectile.GetOwner().Center + new Vector2(-40 * Projectile.GetOwner().direction, -20)) - Projectile.Center) * 0.1f;
         }
 
         public override bool PreDraw(ref Color lightColor)

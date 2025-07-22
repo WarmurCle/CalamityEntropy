@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
     public class DevouringCard : ModItem
     {
-        public static float ArmorPene = 0.25f;
+        public static float ArmorPene = 0.3f;
         public override void SetDefaults()
         {
             Item.width = 22;

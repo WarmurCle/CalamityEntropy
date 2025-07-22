@@ -948,22 +948,28 @@ namespace CalamityEntropy.Common
             }
             if (obscureCard)
             {
+                bool f = false;
                 foreach (NPC npc in Main.ActiveNPCs)
                 {
                     if (!npc.friendly && npc.getRect().Intersects(Player.getRect()))
                     {
+                        f = true;
                         if (Player.wingTime < Player.wingTimeMax * 2)
                         {
                             Player.wingTime += 2f;
                         }
-                        Player.lifeRegen += 20;
-                        lifeRegenPerSec += 6;
+                        
                         if ((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120)
                         {
-                            npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 120);
+                            npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 600);
                         }
                         Dust.NewDust(Player.position, Player.width, Player.height, DustID.MagicMirror);
                     }
+                }
+                if(f)
+                {
+                    Player.lifeRegen += 25;
+                    lifeRegenPerSec += 6;
                 }
             }
             if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)

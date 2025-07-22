@@ -30,7 +30,10 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             var mp = player.GetModPlayer<EModPlayer>();
             mp.shadowRune = true;
-            player.Entropy().addEquipVisual("ShadowRune");
+            if (!hideVisual)
+            {
+                player.Entropy().addEquipVisual("ShadowRune");
+            }
             if (player.ownedProjectileCounts[ModContent.ProjectileType<ShadowRuneVanity>()] < 1)
             {
                 Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<ShadowRuneVanity>(), 0, 0, player.whoAmI);
