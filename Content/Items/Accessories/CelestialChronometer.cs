@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class CelestialChronometer : ModItem, IDonatorItem
     {
-        public string DonatorName => "…Ú‘∆√Œ";
+        public string DonatorName => "√â√≤√î√Ü√É√é";
         public override void SetDefaults()
         {
             Item.width = 40;
@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.accessory = true;
-            Item.defense = 50;
+            Item.defense = 18;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
