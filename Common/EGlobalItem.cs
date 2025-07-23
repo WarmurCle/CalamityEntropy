@@ -847,8 +847,25 @@ namespace CalamityEntropy.Common
             }
             if (line.Mod == "Terraria")
             {
+                if (item.type == ModContent.ItemType<TheFilthyContractWithMammon>() && line.Text.Contains("*"))
+                {
+                    return false;
+                }
                 if (line.Text.Contains("$"))
                 {
+                    if(item.type == ModContent.ItemType<TheFilthyContractWithMammon>())
+                    {
+                        float p = 1;
+                        Main.spriteBatch.Draw(CEUtils.getExtraTex("T1"), new Vector2(line.X, line.Y - 4) + new Vector2(p, p), Color.Red); Main.spriteBatch.Draw(CEUtils.getExtraTex("T1"), new Vector2(line.X, line.Y - 4), Color.Red);
+                        Main.spriteBatch.Draw(CEUtils.getExtraTex("T1"), new Vector2(line.X, line.Y - 4) + new Vector2(-p, p), Color.Red);
+                        Main.spriteBatch.Draw(CEUtils.getExtraTex("T1"), new Vector2(line.X, line.Y - 4) + new Vector2(p, -p), Color.Red);
+                        Main.spriteBatch.Draw(CEUtils.getExtraTex("T1"), new Vector2(line.X, line.Y - 4) + new Vector2(-p, -p), Color.Red);
+
+                        Main.spriteBatch.Draw(CEUtils.getExtraTex("T1"), new Vector2(line.X, line.Y - 4), Color.Black);
+
+                        
+                        return false;
+                    }
                     if(item.type == ModContent.ItemType<CelestialChronometer>())
                     {
                         string textall = line.Text.Replace("$", "");

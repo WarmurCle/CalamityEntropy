@@ -2465,6 +2465,7 @@ Items: {
 		DisplayName: On Architecture of Time
 		Tooltip:
 			'''
+			Having the effects of all its materials
 			Grows herbs beneath your feet
 			Grants 20% damage reduction while standing on the herbs
 			+5 HP/s life regeneration
@@ -2489,6 +2490,10 @@ Items: {
 			Left-click fires a Filth Ray
 			Right-click launches a Cursed Missile
 			Using another item cancels the effect and deals 6-666 damage to you based on duration
+			$
+			*
+			*
+			*
 			'''
 	}
 

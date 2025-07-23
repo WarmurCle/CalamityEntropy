@@ -1,11 +1,13 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -128,7 +130,7 @@ namespace CalamityEntropy.Content.Items.Donator
             if (player.channel)
             {
                 if (alpha < 1)
-                    alpha += 0.025f;
+                    alpha += 0.05f;
                 if (alpha >= 1)
                 {
                     if (Main.myPlayer == Projectile.owner)
@@ -137,7 +139,8 @@ namespace CalamityEntropy.Content.Items.Donator
                         {
                             if (Projectile.ai[1]++ % 5 == 0)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * Main.rand.NextFloat(-64, 64) + Projectile.velocity * 2, Projectile.velocity * 3, ModContent.ProjectileType<FilthyShootAlt>(), Projectile.damage * 4, Projectile.knockBack, Projectile.owner);
+                                SoundEngine.PlaySound(AstrumDeusHead.LaserSound, Projectile.Center);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity * 2 + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * Main.rand.NextFloat(-64, 64) + Projectile.velocity * 2, Projectile.velocity * 3, ModContent.ProjectileType<FilthyShootAlt>(), Projectile.damage * 4, Projectile.knockBack, Projectile.owner);
                             }
                         }
                         else
@@ -154,7 +157,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 if (alpha > 0)
                 {
-                    alpha -= 0.02f;
+                    alpha -= 0.1f;
                 }
                 else
                 {
@@ -209,6 +212,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
     public class FilthyProjectile : ModProjectile
     {
+        public StarTrailParticle trail;
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
@@ -218,30 +222,39 @@ namespace CalamityEntropy.Content.Items.Donator
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
+        public Vector2 tOfs;
         public override void AI()
         {
+            if(trail == null)
+            {
+                tOfs = CEUtils.randomPointInCircle(36);
+                trail = new StarTrailParticle() { maxLength = 24 };
+                EParticle.spawnNew(trail, Projectile.Center + tOfs, Projectile.velocity, Color.DarkRed, 1, 1, true, BlendState.NonPremultiplied, Projectile.velocity.ToRotation(), 30);
+            }
+            trail.Lifetime = 30;
+            trail.Position = Projectile.Center + tOfs;
+            trail.AddPoint(Projectile.Center + tOfs);
             Vector2 ver = Projectile.velocity;
             BasePRT particle = new PRT_Light(Projectile.Center + CEUtils.randomPointInCircle(32 * Projectile.scale), ver
-                , Main.rand.NextFloat(2f, 4f), Color.OrangeRed, 140, 1f);
+                , Main.rand.NextFloat(2f, 4f), Color.Red, 140, 1f);
             PRTLoader.AddParticle(particle);
             if (Main.rand.NextBool())
             {
-                LineParticle spark = new LineParticle(Projectile.Center + Projectile.velocity * 4 + CEUtils.randomPointInCircle(32), Projectile.velocity, false, 32, Main.rand.NextFloat(1, 2), Color.OrangeRed);
+                LineParticle spark = new LineParticle(Projectile.Center + Projectile.velocity * 4 + CEUtils.randomPointInCircle(32), Projectile.velocity, false, 32, Main.rand.NextFloat(1, 2), Color.DarkRed);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
             else
             {
-                var spark2 = new SparkParticle(Projectile.Center + CEUtils.randomPointInCircle(32), Projectile.velocity, true, 50, Main.rand.NextFloat(0.6f, 1.2f), Color.Orange);
+                var spark2 = new SparkParticle(Projectile.Center + CEUtils.randomPointInCircle(32), Projectile.velocity, true, 50, Main.rand.NextFloat(0.6f, 1.2f), Color.Red);
                 GeneralParticleHandler.SpawnParticle(spark2);
             }
-            EParticle.spawnNew(new GlowLightParticle() { lightColor = Color.Orange * 0.3f}, Projectile.Center + CEUtils.randomPointInCircle(42), Projectile.velocity, Color.White * 0.8f, Main.rand.NextFloat(1f, 2) * 0.8f, 1, true, BlendState.Additive);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for(int i = 0; i < 2; i++)
             {
                 float r = CEUtils.randomRot();
-                LineParticle spark = new LineParticle(Projectile.Center + r.ToRotationVector2() * -160, r.ToRotationVector2() * 32, false, 32, Main.rand.NextFloat(1, 2), Color.OrangeRed);
+                LineParticle spark = new LineParticle(Projectile.Center + r.ToRotationVector2() * -160, r.ToRotationVector2() * 32, false, 32, Main.rand.NextFloat(1, 2), Color.Red);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
             CEUtils.PlaySound("nvspark", 1, target.Center, 10);
@@ -270,16 +283,17 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             for (int i = 0; i < 10; i++)
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * (i / 10f) + CEUtils.randomPointInCircle(6), CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.09f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
+                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * (i / 10f) + CEUtils.randomPointInCircle(6), CEUtils.randomPointInCircle(0.5f), Color.Red, Main.rand.NextFloat(0.06f, 0.09f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
             }
             Lighting.AddLight(Projectile.Center, 0.25f, 0f, 0f);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Color impactColor = Color.OrangeRed;
+            Color impactColor = Color.Red;
             float impactParticleScale = 3;
             SparkleParticle impactParticle = new SparkleParticle(Projectile.Center, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 14, 0f, 3f);
             GeneralParticleHandler.SpawnParticle(impactParticle);
+            CEUtils.PlaySound("sf_hit1", 1, Projectile.Center);
         }
     }
 }
