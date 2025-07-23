@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.accessory = true;
-            Item.defense = 50;
+            Item.defense = 40;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -85,12 +85,12 @@ namespace CalamityEntropy.Content.Items.Accessories
             }
             ContentSamples.ItemsByType[ModContent.ItemType<ChaliceOfTheBloodGod>()].ModItem.UpdateAccessory(player, hideVisual);
             ContentSamples.ItemsByType[ModContent.ItemType<TheAbsorber>()].ModItem.UpdateAccessory(player, hideVisual);
-
+            ContentSamples.ItemsByType[ModContent.ItemType<Radiance>()].ModItem.UpdateAccessory(player, hideVisual);
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<ChaliceOfTheBloodGod>().AddIngredient<TheAbsorber>().AddIngredient(5295).AddIngredient<ShadowspecBar>(4).AddIngredient<AscendantSpiritEssence>(2).AddTile(TileID.WorkBenches).Register();
+            CreateRecipe().AddIngredient<ChaliceOfTheBloodGod>().AddIngredient<TheAbsorber>().AddIngredient<Radiance>().AddIngredient(5295).AddIngredient<ShadowspecBar>(4).AddIngredient<AscendantSpiritEssence>(2).AddTile(TileID.WorkBenches).Register();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

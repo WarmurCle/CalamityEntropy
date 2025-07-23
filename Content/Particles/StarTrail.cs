@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Particles
         public override void Draw()
         {
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, this.useAdditive ? BlendState.Additive : BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             Main.spriteBatch.Draw(Texture, this.Position - Main.screenPosition, null, this.Color * ((float)this.Lifetime / this.TimeLeftMax), this.Rotation, Texture.Size() / 2f, new Vector2(1.4f, 0.8f) * 0.22f * Scale, SpriteEffects.None, 0);
             if (odp.Count < 3)
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Particles
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             if (ve.Count >= 3)
             {
-                gd.Textures[0] = CEUtils.getExtraTex("Streak1");
+                gd.Textures[0] = CEUtils.getExtraTex("Streak1w");
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             }
         }

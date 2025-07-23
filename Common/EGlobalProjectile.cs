@@ -199,6 +199,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(ProminenceArrow);
             binaryWriter.Write(IlmeranEnhanced);
             binaryWriter.Write(LuminarArrow);
+            binaryWriter.Write(SmartArcEffect);
 
             foreach (var key in DataSynchronous.Keys)
             {
@@ -221,6 +222,7 @@ namespace CalamityEntropy.Common
             ProminenceArrow = binaryReader.ReadBoolean();
             IlmeranEnhanced = binaryReader.ReadBoolean();
             LuminarArrow = binaryReader.ReadBoolean();
+            SmartArcEffect = binaryReader.ReadBoolean();
 
             foreach (var key in DataSynchronous.Keys)
             {
@@ -384,7 +386,7 @@ namespace CalamityEntropy.Common
         }
         public override bool ShouldUpdatePosition(Projectile projectile)
         {
-            if(typhoonBullet)
+            if(typhoonBullet || OverrideBulletMoveAI)
             {
                 return false;
             }
@@ -411,16 +413,26 @@ namespace CalamityEntropy.Common
         public List<int> luminarHited = new List<int>();
         public bool bulletInit = true;
         public bool typhoonBullet = false;
+        public bool OverrideBulletMoveAI = false;
         public Vector2 typVel = Vector2.Zero;
+        public bool SmartArcEffect = false;
         public override bool PreAI(Projectile projectile)
         {
             if(bulletInit)
             {
                 bulletInit = false;
-                if(projectile.GetOwner().HeldItem.type == ModContent.ItemType<Typhoon>() && projectile.GetOwner().PickAmmo(projectile.GetOwner().HeldItem, out var pts, out var s, out var d, out var kb, out var ua, true) && pts == projectile.type)
                 {
-                    typVel = projectile.velocity;
-                    typhoonBullet = true;
+                    if (projectile.GetOwner().HeldItem.type == ModContent.ItemType<Typhoon>() && projectile.GetOwner().PickAmmo(projectile.GetOwner().HeldItem, out var pts, out var s, out var d, out var kb, out var ua, true) && pts == projectile.type)
+                    {
+                        typVel = projectile.velocity;
+                        typhoonBullet = true;
+                    }
+                }
+                {
+                    if (projectile.GetOwner().HeldItem.type == ModContent.ItemType<SmartArc>() && projectile.GetOwner().PickAmmo(projectile.GetOwner().HeldItem, out var pts, out var s, out var d, out var kb, out var ua, true) && pts == projectile.type)
+                    {
+                        OverrideBulletMoveAI = true;
+                    }
                 }
             }
             if(typhoonBullet)
@@ -438,6 +450,10 @@ namespace CalamityEntropy.Common
                 }
                 projectile.position += projectile.velocity;
             }
+            if(OverrideBulletMoveAI)
+            {
+                projectile.position += projectile.velocity;
+            }
             if (ProjectileID.Sets.IsAGravestone[projectile.type] && projectile.GetOwner().head == EquipLoader.GetEquipSlot(Mod, "LuminarRing", EquipType.Head))
             {
                 if (Main.myPlayer == projectile.owner)
@@ -446,6 +462,18 @@ namespace CalamityEntropy.Common
                 }
                 projectile.active = false;
                 return false;
+            }
+            if(SmartArcEffect)
+            {
+                Vector2 position = projectile.Center - projectile.velocity;
+                Vector2 velocity = projectile.velocity * 0.2f;
+                Vector2 top = position;
+                int sparkLifetime2 = Main.rand.Next(4, 6);
+                float sparkScale2 = Main.rand.NextFloat(0.64f, 0.8f);
+                var sparkColor2 = Color.Lerp(Color.DeepSkyBlue, Color.SkyBlue, Main.rand.NextFloat(0, 1));
+
+                LineParticle spark = new LineParticle(top, velocity, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             if (LuminarArrow)
             {

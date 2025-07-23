@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Books.BookMarks;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
@@ -34,6 +35,7 @@ using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.SlimeGod;
 using CalamityMod.NPCs.SulphurousSea;
 using CalamityMod.NPCs.SunkenSea;
+using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
@@ -605,6 +607,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            if(npc.type == ModContent.NPCType<SupremeCalamitas>())
+            {
+                npcLoot.Add(ModContent.ItemType<TheFilthyContractWithMammon>(), 3, 1, 1);
+            }
             if(npc.type == ModContent.NPCType<ToxicMinnow>() || npc.type == ModContent.NPCType<CannonballJellyfish>() || npc.type == ModContent.NPCType<Sulflounder>() || npc.type == ModContent.NPCType<Toxicatfish>())
             {
                 npcLoot.Add(ModContent.ItemType<TerrorOfAbyss>(), 24);

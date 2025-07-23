@@ -2696,7 +2696,7 @@ Items: {
 		DisplayName: 钦天司时
 		Tooltip:
 			'''
-			获得血神圣杯和阴阳吸星石的效果
+			获得血神圣杯，阴阳吸星石和辐辉的效果
 			在脚下长出草药
 			站在草药上提升20%伤害减免
 			+5 每秒回血
@@ -2716,6 +2716,26 @@ Items: {
 			每6发会发射一发高伤害烈日子弹，造成死亡标记减益
 			$解决一个需要被杀的人，方法实在太多
 			'''
+	}
+
+	TheFilthyContractWithMammon: {
+		DisplayName: 与玛门的污秽契约
+		Tooltip:
+			'''
+			收藏此物品以激活
+			激活时会受到20点伤害
+			激活时左键发射污秽射线，右键发射邪煞飞弹
+			使用其他物品会停止激活并根据使用时间对你造成6~666的伤害
+			$
+			*
+			*
+			*
+			'''
+	}
+
+	SmartArc: {
+		DisplayName: 智慧电弧
+		Tooltip: 散射棱晶弹
 	}
 }
 
@@ -3163,6 +3183,9 @@ Projectiles: {
 	TerrorOfAbyssHeld.DisplayName: 渊惧之镰
 	ScorchingShell.DisplayName: 耀阳弹壳
 	PFKnifeHeld.DisplayName: 预言飞刀
+	FilthyCircle.DisplayName: 污秽法阵
+	FilthyProjectile.DisplayName: 污秽射线
+	FilthyShootAlt.DisplayName: 邪煞弹
 }
 
 LegendTooltip: - 传奇物品 -

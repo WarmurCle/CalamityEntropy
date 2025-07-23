@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 }
                 if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi))) > distToMove) || CEUtils.getDistance(StandPoint, NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi))) > distToMove * 1.4f)
                 {
-                    targetPos = FindStandPoint(NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi)) + new Vector2(Math.Sign(NPC.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(NPC.velocity.X) * 28) : 0, 0), 60 * Scale * NPC.scale, 128);
+                    targetPos = FindStandPoint(NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi)) + new Vector2(Math.Sign(NPC.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(NPC.velocity.X) * 12) : 0, 0), 60 * Scale * NPC.scale, 128);
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.2f;
                     if (NoMoveTime < 4)
                         NoMoveTime = 4;
