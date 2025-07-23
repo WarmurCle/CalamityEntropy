@@ -2458,6 +2458,22 @@ Items: {
 		// DisplayName: Scorching Shoot
 		// Tooltip: ""
 	}
+
+	TheFilthyContractWithMammon: {
+		// DisplayName: The Filthy Contract With Mammon
+		/* Tooltip:
+			'''
+			Set to favourite to active and you will take 20 damage
+			Left-click fires a Filth Ray
+			Right-click launches a Cursed Missile
+			Using another item cancels the effect and deals 6-666 damage to you based on duration
+			''' */
+	}
+
+	SmartArc: {
+		// DisplayName: Smart Arc
+		// Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -2903,7 +2919,10 @@ Projectiles: {
 	// OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
 	// TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
 	// ScorchingShell.DisplayName: Scorching Shell
-	// PFKnifeHeld.DisplayName: P F Knife Held
+	// PFKnifeHeld.DisplayName: Propechey Knife Held
+	// FilthyCircle.DisplayName: Filthy Circle
+	// FilthyProjectile.DisplayName: Filthy Projectile
+	// FilthyShootAlt.DisplayName: Filthy Shoot Alt
 }
 
 LegendTooltip: - Легенда -

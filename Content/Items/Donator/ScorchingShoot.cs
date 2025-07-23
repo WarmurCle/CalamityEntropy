@@ -170,7 +170,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 if(Enhanced)
                 {
-                    Vector2 position = projectile.Center;
+                    Vector2 position = projectile.Center + CEUtils.randomPointInCircle(6);
                     Vector2 velocity = projectile.velocity * 0.2f;
                     Vector2 top = position;
                     Vector2 sparkVelocity2 = velocity.normalize().RotateRandom(0.02f) * Main.rand.NextFloat(16f, 36f);
@@ -185,6 +185,8 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override void OnKill(Projectile projectile, int timeLeft)
         {
+            if (!Active)
+                return ;
             if(trail != null)
             {
                 trail.Lifetime = 0;
@@ -192,6 +194,10 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if(!Active)
+            {
+                return ;
+            }
             if(Enhanced)
             {
                 target.AddBuff<MarkedforDeath>(600);
@@ -202,6 +208,8 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override bool? CanHitNPC(Projectile projectile, NPC target)
         {
+            if (!Active)
+                return null;
             if (NPCHited.Contains(target.whoAmI))
                 return false;
             return null;
