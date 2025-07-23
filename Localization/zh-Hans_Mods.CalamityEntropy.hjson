@@ -2737,6 +2737,11 @@ Items: {
 		DisplayName: 智慧电弧
 		Tooltip: 散射棱晶弹
 	}
+
+	LostHeirloom: {
+		DisplayName: 曾经失去的东西
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -4071,3 +4076,5 @@ LoreEaterofWorldsDesc: 使你免疫诅咒烈焰减益
 RPDonorName: 冷级
 Acropolis: 阿萨福勒量产的攻击型机甲，曾被用于大规模战争
 OblivionThretherCooldown: 虚漩巡锯突进冷却
+LilyDeath0: 被污秽所吞噬
+LilyDeath1: 的守护宝具破碎了

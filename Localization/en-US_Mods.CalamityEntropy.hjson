@@ -2501,6 +2501,11 @@ Items: {
 		DisplayName: Smart Arc
 		Tooltip: ""
 	}
+
+	LostHeirloom: {
+		DisplayName: Lost Heirloom
+		Tooltip: ""
+	}
 }
 
 PrefixitemDesc:
@@ -3825,3 +3830,5 @@ LoreEaterofWorldsDesc: Immune to Cursed Inferno
 RPDonorName: 冷级
 Acropolis: ""
 OblivionThretherCooldown: Oblivion Threther Dash Cooldown
+LilyDeath0: " was devoured by filth"
+LilyDeath1: "'s protective treasure is broken"

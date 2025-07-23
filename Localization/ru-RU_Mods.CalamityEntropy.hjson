@@ -2443,6 +2443,7 @@ Items: {
 		// DisplayName: On Architecture of Time
 		/* Tooltip:
 			'''
+			Having the effects of all its materials
 			Grows herbs beneath your feet
 			Grants 20% damage reduction while standing on the herbs
 			+5 HP/s life regeneration
@@ -2468,14 +2469,19 @@ Items: {
 			Right-click launches a Cursed Missile
 			Using another item cancels the effect and deals 6-666 damage to you based on duration
 			$
-
-
-
+			*
+			*
+			*
 			''' */
 	}
 
 	SmartArc: {
 		// DisplayName: Smart Arc
+		// Tooltip: ""
+	}
+
+	LostHeirloom: {
+		// DisplayName: Lost Heirloom
 		// Tooltip: ""
 	}
 }
@@ -3801,3 +3807,5 @@ InfernumIntros: {
 // RPDonorName: 冷级
 // Acropolis: ""
 // OblivionThretherCooldown: Oblivion Threther Dash Cooldown
+// LilyDeath0: " was devoured by filth"
+// LilyDeath1: "'s protective treasure is broken"

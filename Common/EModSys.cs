@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
@@ -14,10 +15,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
+using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.UI.ResourceSets;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.Map;
@@ -123,12 +126,14 @@ namespace CalamityEntropy.Common
         public static bool sayTip = true;
         public override void UpdateUI(GameTime gameTime)
         {
+            lhBarTarget = float.Lerp(lhBarTarget, ((float)Main.LocalPlayer.statLife / (float)Main.LocalPlayer.statLifeMax2), 0.1f);
+            lhBarTarget2 = float.Lerp(lhBarTarget2, lhBarTarget, 0.06f);
+
             if (Lighting.Mode != Terraria.Graphics.Light.LightMode.Color)
             {
                 if (sayTip)
                 {
                     sayTip = false;
-                    Main.NewText(Mod.GetLocalization("LightModeTip").Value, Color.Red);
                 }
             }
             noItemUse = false;
@@ -243,8 +248,59 @@ namespace CalamityEntropy.Common
                 }
             }
         }
+        public static float lhBarTarget2 = 1;
+        public static float lhBarTarget = 1;
+        public static float lhRedLerp = 0;
+        private static void DrawLifeBarText(SpriteBatch spriteBatch, Vector2 topLeftAnchor)
+        {
+            Vector2 vector = topLeftAnchor + new Vector2(130f, -24f);
+            Player localPlayer = Main.LocalPlayer;
+            Color color = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor);
+            string text = Lang.inter[0].Value + " " + localPlayer.statLifeMax2 + "/" + localPlayer.statLifeMax2;
+            Vector2 vector2 = FontAssets.MouseText.Value.MeasureString(text);
+            spriteBatch.DrawString(FontAssets.MouseText.Value, Lang.inter[0].Value, vector + new Vector2((0f - vector2.X) * 0.5f, 0f), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(FontAssets.MouseText.Value, localPlayer.statLife + "/" + localPlayer.statLifeMax2, vector + new Vector2(vector2.X * 0.5f, 0f), color, 0f, new Vector2(FontAssets.MouseText.Value.MeasureString(localPlayer.statLife + "/" + localPlayer.statLifeMax2).X, 0f), 1f, SpriteEffects.None, 0f);
+        }
+
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
+
+            for (int ei = 0; ei < layers.Count; ei++)
+            {
+                var l = layers[ei];
+
+                if (l.Name == "Vanilla: Resource Bars")
+                {
+                    var drawLHB = new LegacyGameInterfaceLayer("Lost Heirloom HB", () =>
+                    {
+                        if (Main.LocalPlayer.dead || !Main.LocalPlayer.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+                        { return true; }
+                        Texture2D t1 = CEUtils.getExtraTex("llBar1");
+                        Texture2D t2 = CEUtils.getExtraTex("llBar2");
+                        Texture2D t3 = CEUtils.getExtraTex("llBar3");
+
+                        Main.spriteBatch.Draw(t3, new Vector2(1100, 10), Color.White);
+                        Main.spriteBatch.DrawString(CalamityEntropy.efont2, Main.LocalPlayer.statLife.ToString(), new Vector2(1130, 34), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
+                        Main.spriteBatch.Draw(t1, new Vector2(1200, 38), Color.White);
+                        Main.spriteBatch.Draw(t2, new Vector2(1208, 44), new Rectangle(0, 0, (int)((float)t2.Width * lhBarTarget2), t2.Height), new Color(255, 160, 160));
+                        Main.spriteBatch.Draw(t2, new Vector2(1208, 44), new Rectangle(0, 0, (int)((float)t2.Width * lhBarTarget), t2.Height), Color.White);
+                        Vector2 vector = new Vector2(Main.screenWidth - 300 + 4, 15f);
+                        vector.Y += 6f;
+                        DrawLifeBarText(Main.spriteBatch, vector + new Vector2(-4f, 3f));
+                        typeof(FancyClassicPlayerResourcesDisplaySet).GetMethod("PrepareFields", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, new Type[] { typeof(Player) }).Invoke(((FancyClassicPlayerResourcesDisplaySet)((Dictionary<string, IPlayerResourcesDisplaySet>)Main.ResourceSetsManager.GetType().GetField("_sets", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(Main.ResourceSetsManager))["New"]), new object[] { Main.LocalPlayer });
+                        typeof(FancyClassicPlayerResourcesDisplaySet).GetMethod("DrawManaBar", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, new Type[] { typeof(SpriteBatch) }).Invoke(((FancyClassicPlayerResourcesDisplaySet)((Dictionary<string, IPlayerResourcesDisplaySet>)Main.ResourceSetsManager.GetType().GetField("_sets", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(Main.ResourceSetsManager))["New"]), new object[] { Main.spriteBatch });
+                        return true;
+                    }, InterfaceScaleType.UI);
+                    if (Main.LocalPlayer.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+                    {
+                        l.Active = false;
+                    }
+                    layers.Insert(ei,
+                        drawLHB
+                        );
+                    break;
+                }
+            }
             int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
             if (mouseIndex != -1)
             {

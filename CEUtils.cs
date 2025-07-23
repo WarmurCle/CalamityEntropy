@@ -462,9 +462,9 @@ namespace CalamityEntropy
             return item.type == ModContent.ItemType<T>();
         }
 
-        public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true)
+        public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true, Texture2D tex = null)
         {
-            Texture2D glow = getExtraTex("Glow2");
+            Texture2D glow = tex == null ? getExtraTex("Glow2") : tex;
             SpriteBatch sb = Main.spriteBatch;
             var blend = BlendState.AlphaBlend;
             var sample = sb.GraphicsDevice.SamplerStates[0];

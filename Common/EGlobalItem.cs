@@ -1643,7 +1643,8 @@ namespace CalamityEntropy.Common
                 itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("心斩狂歌")), ModContent.ItemType<LostChubbyBird>());
 
                 itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("nicholas")), ModContent.ItemType<PineappleDog>());
-                
+
+                itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("lily")||info.player.name.Contains("莉莉")), ModContent.ItemType<LostHeirloom>());
 
                 if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
                 {

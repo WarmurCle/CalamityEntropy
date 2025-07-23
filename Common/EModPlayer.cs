@@ -11,6 +11,7 @@ using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Particles;
@@ -200,6 +201,12 @@ namespace CalamityEntropy.Common
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
+            if(Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            {
+                var rs = PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("LilyDeath" + Main.rand.Next(2).ToString()).Value);
+                damageSource = rs;
+            }
+
             deusCoreBloodOut = 0;
             if (immune > 0)
             {
@@ -233,6 +240,25 @@ namespace CalamityEntropy.Common
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
+            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            {
+                var st = SoundID.PlayerKilled;
+                st.MaxInstances = 1;
+                st.Volume = 0;
+                SoundEngine.PlaySound(st);
+                CEUtils.PlaySound("llDeath", 1);
+                for(int i = 0; i < Main.gore.Length; i++)
+                {
+                    Main.gore[i].active = false;
+                }
+                for (int i = 0; i < Main.dust.Length; i++)
+                {
+                    if (Main.dust[i].type == DustID.Blood)
+                    {
+                        Main.dust[i].active = false;
+                    }
+                }
+            }
             voidcharge = 0; VoidInspire = 0; lastStandCd = 0; mantleCd = 0; magiShieldCd = 0; sJudgeCd = 2;
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
@@ -538,6 +564,7 @@ namespace CalamityEntropy.Common
         }
         public override void PreUpdate()
         {
+            
             if (hasAccVisual("PLWing") && (vanityWing == null || vanityWing.ModItem is PhantomLightWing))
             {
                 if (plWingTrail == null || plWingTrail.Lifetime <= 1)
@@ -1181,10 +1208,15 @@ namespace CalamityEntropy.Common
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             deusCoreAdd = 0;
+            
             modifiers.ModifyHurtInfo += EPHurtModifier;
             if (soulDicorder)
             {
                 modifiers.SourceDamage += 0.05f;
+            }
+            if(Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            {
+                modifiers.DisableSound();
             }
         }
         public int immune = 0;
@@ -1194,6 +1226,10 @@ namespace CalamityEntropy.Common
 
         public override void OnHurt(Player.HurtInfo info)
         {
+            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            {
+                CEUtils.PlaySound("llHurt", 1, Player.Center);
+            }
             HitTCounter = 300;
             hitTimeCount = 0;
             JustHit = true;
@@ -1414,6 +1450,10 @@ namespace CalamityEntropy.Common
         public float shadowStealth = 0;
         public override void PostUpdate()
         {
+            if(Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            {
+                CEUtils.AddLight(Player.Center, Color.White * 0.8f);
+            }
             if (shadowRune)
             {
                 if (Player.GetDamage(DamageClass.Summon).Additive > 1)

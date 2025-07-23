@@ -7,6 +7,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Pets;
+using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
@@ -202,6 +203,7 @@ namespace CalamityEntropy
             On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
+            
 
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
@@ -467,6 +469,15 @@ namespace CalamityEntropy
             }
             foreach (Player player in Main.ActivePlayers)
             {
+                if (player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+                {
+                    Color lightColor = Lighting.GetColor(new Point((int)(player.Center.X / 16), (int)(player.Center.Y / 16)));
+                    float gr = (255 * 3f - (lightColor.R + lightColor.G + lightColor.B));
+                    if (gr > 12)
+                    {
+                        CEUtils.DrawGlow(player.Center, Color.White * 0.5f, 5.2f);
+                    }
+                }
                 if (player.Entropy().nihShellCount > 0)
                 {
                     float rot = player.Entropy().CasketSwordRot * 0.2f;
