@@ -2731,7 +2731,7 @@ Items: {
 
 	SmartArc: {
 		DisplayName: 智慧电弧
-		Tooltip: "散射棱晶弹"
+		Tooltip: 散射棱晶弹
 	}
 }
 
