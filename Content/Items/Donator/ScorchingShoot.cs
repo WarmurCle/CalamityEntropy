@@ -33,10 +33,10 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Item.width = 136;
             Item.height = 52;
-            Item.damage = 1800;
+            Item.damage = 2200;
             Item.DamageType = DamageClass.Ranged;
-            Item.useTime = 56;
-            Item.useAnimation = 56;
+            Item.useTime = 46;
+            Item.useAnimation = 46;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 2f;

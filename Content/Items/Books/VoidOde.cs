@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.damage = 200;
-            Item.useAnimation = Item.useTime = 11;
+            Item.useAnimation = Item.useTime = 10;
             Item.crit = 10;
             Item.mana = 8;
             Item.shootSpeed = 44;
