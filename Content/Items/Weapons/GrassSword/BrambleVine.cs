@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             {
                 if (Projectile.ai[0] == 1)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.GetOwner().Center, Vector2.Zero, ModContent.ProjectileType<VineHookHit>(), Projectile.damage * 2, 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.GetOwner().Center, Vector2.Zero, ModContent.ProjectileType<VineHookHit>(), Projectile.damage * 4, 0, Projectile.owner);
                 }
                 HookNPC = target.whoAmI;
 
