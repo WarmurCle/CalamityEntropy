@@ -2759,7 +2759,7 @@ Items: {
 		'''
 	}
 }
-LOCKED: [已锁定]
+LOCKED: "[已锁定]"
 BCU1: 需击败史莱姆王
 BCU2: 需击败血肉宿主或腐巢意志
 BCU3: 需击败血肉墙
@@ -3216,11 +3216,11 @@ Projectiles: {
 	FilthyCircle.DisplayName: 污秽法阵
 	FilthyProjectile.DisplayName: 污秽射线
 	FilthyShootAlt.DisplayName: 邪煞弹
-	// BramblecleaveHeld.DisplayName: Bramblecleave Held
-	// BrambleVine.DisplayName: Bramble Vine
-	// VineHookHit.DisplayName: Vine Hook Hit
-	// BramblecleaveAlt.DisplayName: Bramblecleave Alt
-	// BrambleShoot.DisplayName: Bramble Shoot
+	BramblecleaveHeld.DisplayName: 苍郁之锋
+	BrambleVine.DisplayName: 苍郁藤蔓
+	VineHookHit.DisplayName: 藤蔓重击
+	BramblecleaveAlt.DisplayName: 苍郁之锋刀刃
+	BrambleShoot.DisplayName: 苍郁叶弹
 }
 
 LegendTooltip: - 传奇物品 -
