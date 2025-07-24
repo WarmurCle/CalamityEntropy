@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             }
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
-            if(odp.Count > 28)
+            if(odp.Count > 32)
             {
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
@@ -167,8 +167,6 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             }
             Texture2D trail = CEUtils.getExtraTex("MotionTrail2");
             List<ColoredVertex> ve = new List<ColoredVertex>();
-            float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
-            float progress = (counter / MaxUpdateTimes);
 
             for (int i = 0; i < odr.Count; i++)
             {
@@ -189,7 +187,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 shader.Parameters["color2"].SetValue((new Color(90, 255, 90)).ToVector4());
                 shader.Parameters["color1"].SetValue((new Color(60, 200, 60)).ToVector4());
-                shader.Parameters["alpha"].SetValue(1 - progress);
+                shader.Parameters["alpha"].SetValue(1);
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
 
                 gd.Textures[0] = trail;
