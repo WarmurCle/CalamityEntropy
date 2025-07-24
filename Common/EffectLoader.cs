@@ -29,16 +29,6 @@ namespace CalamityEntropy.Common
         private static Asset<Texture2D> cvmask;
         [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_blue_base")]
         private static Asset<Texture2D> planetarium_blue_base;
-        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_1")]
-        private static Asset<Texture2D> planetarium_starfield_1;
-        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_2")]
-        private static Asset<Texture2D> planetarium_starfield_2;
-        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_3")]
-        private static Asset<Texture2D> planetarium_starfield_3;
-        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_4")]
-        private static Asset<Texture2D> planetarium_starfield_4;
-        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_starfield_5")]
-        private static Asset<Texture2D> planetarium_starfield_5;
         [VaultLoaden("CalamityEntropy/Content/Projectiles/CruiserSlash")]
         private static Asset<Texture2D> cruiserSlash;
         [VaultLoaden("CalamityEntropy/Content/Projectiles/Cruiser/CruiserBlackholeBullet")]
@@ -708,11 +698,11 @@ namespace CalamityEntropy.Common
             cve.CurrentTechnique = cve.Techniques["Technique1"];
             cve.CurrentTechnique.Passes[0].Apply();
             cve.Parameters["tex1"].SetValue(planetarium_blue_base.Value);
-            cve.Parameters["tex2"].SetValue(planetarium_starfield_1.Value);
-            cve.Parameters["tex3"].SetValue(planetarium_starfield_2.Value);
-            cve.Parameters["tex4"].SetValue(planetarium_starfield_3.Value);
-            cve.Parameters["tex5"].SetValue(planetarium_starfield_4.Value);
-            cve.Parameters["tex6"].SetValue(planetarium_starfield_5.Value);
+            cve.Parameters["tex2"].SetValue(CEUtils.getExtraTex("Empty"));
+            cve.Parameters["tex3"].SetValue(CEUtils.getExtraTex("Empty"));
+            cve.Parameters["tex4"].SetValue(CEUtils.getExtraTex("Empty"));
+            cve.Parameters["tex5"].SetValue(CEUtils.getExtraTex("Empty"));
+            cve.Parameters["tex6"].SetValue(CEUtils.getExtraTex("Empty"));
             cve.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cve.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
             cve.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-Instance.cvcount / 6f, Instance.cvcount / 6f)) / Main.ScreenSize.ToVector2());

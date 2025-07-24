@@ -2379,7 +2379,8 @@ Items: {
 		/* Tooltip:
 			'''
 			Resets summon damage bonuses to zero and converts them to minion capacity at [0]%:1 ratio
-			Increases whip attack speed by [1]%
+			Hugely decrease other kinds of damage
+			Increases whip attack speed by [1]% and whip attack speed by 100%
 			Reduces whip mark damage bonus
 			Grants significant armor penetration to minion attacks
 			''' */
@@ -2482,6 +2483,11 @@ Items: {
 
 	LostHeirloom: {
 		// DisplayName: Lost Heirloom
+		// Tooltip: ""
+	}
+
+	Bramblecleave: {
+		// DisplayName: Bramblecleave
 		// Tooltip: ""
 	}
 }
@@ -2933,6 +2939,11 @@ Projectiles: {
 	// FilthyCircle.DisplayName: Filthy Circle
 	// FilthyProjectile.DisplayName: Filthy Projectile
 	// FilthyShootAlt.DisplayName: Filthy Shoot Alt
+	// BramblecleaveHeld.DisplayName: Bramblecleave Held
+	// BrambleVine.DisplayName: Bramble Vine
+	// VineHookHit.DisplayName: Vine Hook Hit
+	// BramblecleaveAlt.DisplayName: Bramblecleave Alt
+	// BrambleShoot.DisplayName: Bramble Shoot
 }
 
 LegendTooltip: - Легенда -

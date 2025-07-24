@@ -1,0 +1,171 @@
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
+using CalamityMod;
+using CalamityMod.Items;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.Items.Weapons.GrassSword
+{
+    public class BramblecleaveAlt : ModProjectile
+    {
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/GrassSword/Vine";
+        public override void SetDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 10000;
+            Projectile.FriendlySetDefaults(DamageClass.Melee, false, -1);
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 12;
+            Projectile.width = Projectile.height = 80;
+        }
+        public bool MouseRight = true;
+        public bool MouseLeft = false;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(MouseRight);
+            writer.Write(MouseLeft);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            MouseRight = reader.ReadBoolean();
+            MouseLeft = reader.ReadBoolean();
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, 1);
+            
+            float sparkCount = 20;
+            for (int i = 0; i < sparkCount; i++)
+            {
+                Vector2 sparkVelocity2 = Projectile.velocity * 0.6f + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(8, 20);
+                int sparkLifetime2 = 16;
+                float sparkScale2 = 0.7f;
+                sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.05f);
+                Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, Main.rand.NextFloat());
+
+                AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
+            }
+
+        }
+        public Vector2 LerpCenter = Vector2.Zero;
+        public override void AI()
+        {
+            Projectile.timeLeft = 5;
+            var player = Projectile.GetOwner();
+
+            if (Projectile.localAI[2]++ == 0)
+            {
+                LerpCenter = Projectile.Center;
+                Projectile.scale = 1.3f + 0.1f * Bramblecleave.GetLevel();
+            }
+            counter++;
+            Projectile.netUpdate = true;
+            player.Entropy().BrambleBarCharge -= 0.001f;
+            if(Main.myPlayer == Projectile.owner)
+            {
+                MouseLeft = Main.mouseLeft;
+                MouseRight = Main.mouseRight;
+                if (player.Entropy().BrambleBarCharge <= 0)
+                {
+                    MouseRight = false;
+                }
+            }
+            
+            player.itemTime = player.itemAnimation = 10;
+            if(counter > 20 && !MouseRight)
+            {
+                Projectile.velocity += (player.Center - Projectile.Center).normalize() * 10;
+                Projectile.velocity *= 0.9f; 
+                LerpCenter = Vector2.Lerp(LerpCenter, (player.Center + Projectile.Center) / 2f, 0.2f);
+
+                Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (Projectile.Center - player.Center).ToRotation(), 0.08f, false);
+                if(CEUtils.getDistance(Projectile.Center, player.Center) < Projectile.velocity.Length() * 1.4)
+                {
+                    Projectile.Kill();
+                }
+            }
+            else
+            {
+                if(MouseLeft)
+                {
+                    if(counter % 10 == 0)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<BrambleShoot>(), (int)(Projectile.damage * 0.7f), 2, Projectile.owner);
+                    }
+                    Projectile.velocity *= 0.93f;
+
+                    Projectile.velocity += (player.Calamity().mouseWorld - Projectile.Center).normalize() * 3;
+                    Projectile.rotation += 0.4f;
+                    LerpCenter = Vector2.Lerp(LerpCenter, (player.Center + Projectile.Center) / 2f, 0.02f);
+                }
+                else
+                {
+                    var target = CEUtils.FindTarget_HomingProj(Projectile, player.Calamity().mouseWorld, 400);
+                    if (target != null)
+                    {
+                        if (CEUtils.getDistance(Projectile.Center, target.Center) > 280)
+                        {
+                            Projectile.velocity *= 0.8f;
+                            Projectile.velocity += (target.Center - Projectile.Center).normalize() * 20;
+
+
+                        }
+                        else
+                        {
+                            if (Projectile.velocity.Length() < 46)
+                            {
+                                Projectile.velocity = Projectile.velocity.normalize() * 46;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Projectile.velocity *= 0.96f;
+                        if (CEUtils.getDistance(player.Calamity().mouseWorld, Projectile.Center) > 60)
+                        {
+                            Projectile.velocity += (player.Calamity().mouseWorld - Projectile.Center).normalize() * 4;
+                        }
+                    }
+                    Projectile.rotation = Projectile.velocity.ToRotation();
+                    LerpCenter = Vector2.Lerp(LerpCenter, Projectile.Center - Projectile.rotation.ToRotationVector2() * 500, 0.1f);
+
+                }
+            }
+        }
+        public float counter { get { return Projectile.ai[0]; } set { Projectile.ai[0] = value; } }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return projHitbox.Center.ToVector2().getRectCentered(140 * Projectile.scale, 140 * Projectile.scale).Intersects(targetHitbox);
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Projectile.GetOwner();
+            int Count = 46;
+
+            Texture2D draw = this.getTextureAlt("Alt2");
+            Vector2 last = Projectile.GetOwner().GetDrawCenter();
+            for (int i = 1; i < Count; i++)
+            {
+                Vector2 pos = CEUtils.Bezier(new List<Vector2>() { Projectile.GetOwner().GetDrawCenter(), LerpCenter, Projectile.Center}, (float)i / Count);
+                Main.EntitySpriteDraw(draw, pos - Main.screenPosition, null, Color.Lerp(lightColor, Color.White, 0.25f), (pos - last).ToRotation(), new Vector2(0, draw.Height / 2), 1, SpriteEffects.None);
+                last = pos;
+            }
+            Texture2D sword = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/GrassSword/Bramblecleave");
+            Main.EntitySpriteDraw(sword, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 64, null, Color.Lerp(lightColor, Color.White, 0.6f), Projectile.rotation + MathHelper.PiOver4, sword.Size() / 2f, 1.6f + 0.1f * Bramblecleave.GetLevel(), SpriteEffects.None);
+
+            return false;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+        }
+    }
+}

@@ -24,6 +24,7 @@ using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityMod;
+using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Particles;
@@ -142,6 +143,8 @@ namespace CalamityEntropy.Common
         public bool plagueEngine = false;
         public int bloodBoiling = 0;
         public int UsingItemCounter = 0;
+
+
         public class SpecialWingDrawingData
         {
             public int MaxFrame = 3;
@@ -1448,9 +1451,33 @@ namespace CalamityEntropy.Common
         public bool LastStealthStrikeAble = false;
         public bool ResetStealth = false;
         public float shadowStealth = 0;
+        public int BrambleBarAdd = 0;
+        public float BrambleBarCharge = 0;
+        public int BBarNoDecrease = 0;
         public override void PostUpdate()
         {
-            if(Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            if(BrambleBarAdd-- > 0)
+            {
+                if (BrambleBarCharge < 1)
+                {
+                    BrambleBarCharge += 0.002f;
+                }
+                BBarNoDecrease = 120;
+            }
+            else
+            {
+                if(BBarNoDecrease-- < 0)
+                {
+                    if(BrambleBarCharge > 0)
+                        BrambleBarCharge -= 0.002f;
+                    
+                }
+            }
+            if (BrambleBarCharge < 0)
+                BrambleBarCharge = 0;
+            if (BrambleBarCharge > 1)
+                BrambleBarCharge = 1;
+            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {
                 CEUtils.AddLight(Player.Center, Color.White * 0.8f);
             }

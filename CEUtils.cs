@@ -3,6 +3,7 @@ using CalamityEntropy.Content;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.PrefixItem;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
@@ -23,6 +24,10 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static void ExplotionParticleLOL(Vector2 pos)
+        {
+            EParticle.NewParticle(new RealisticExplosion(), pos, Vector2.Zero, Color.White, 2, 1, true, BlendState.Additive);
+        }
         public static void AddBuff<T>(this NPC npc, int time, bool quiet = false) where T : ModBuff
         {
             npc.AddBuff(ModContent.BuffType<T>(), time, quiet);
