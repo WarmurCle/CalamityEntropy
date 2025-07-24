@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             ProjectileID.Sets.DrawScreenCheckFluff[Type] = 10000;
             Projectile.FriendlySetDefaults(DamageClass.Melee, false, -1);
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 12;
+            Projectile.localNPCHitCooldown = 9;
             Projectile.width = Projectile.height = 80;
         }
         public bool MouseRight = true;
@@ -116,14 +116,12 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                         {
                             Projectile.velocity *= 0.8f;
                             Projectile.velocity += (target.Center - Projectile.Center).normalize() * 20;
-
-
                         }
                         else
                         {
-                            if (Projectile.velocity.Length() < 46)
+                            if (Projectile.velocity.Length() < 90)
                             {
-                                Projectile.velocity = Projectile.velocity.normalize() * 46;
+                                Projectile.velocity = Projectile.velocity.normalize() * 90;
                             }
                         }
                     }
@@ -166,6 +164,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
+            if(!MouseLeft)
+            {
+                modifiers.SourceDamage *= 1.8f;
+            }
         }
     }
 }

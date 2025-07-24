@@ -243,7 +243,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public bool Spin = false;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.GetOwner().Entropy().BrambleBarAdd = 6;
+            Projectile.GetOwner().Entropy().BrambleBarAdd = 20;
             CEUtils.PlaySound("GrassSwordHitMetal", Main.rand.NextFloat(0.7f, 1.3f) / Projectile.ai[1], target.Center, volume: 1f);
             if (target.Organic())
             {

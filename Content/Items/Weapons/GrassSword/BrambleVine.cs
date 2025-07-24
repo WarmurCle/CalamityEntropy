@@ -226,7 +226,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.SourceDamage *= 0.18f;
+            modifiers.SourceDamage *= Projectile.ai[0] == 0 ? 0.4f : 0.26f;
             if(HookNPC >= 0)
             {
                 modifiers.SourceDamage *= 0.5f;
