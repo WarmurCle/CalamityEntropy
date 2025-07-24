@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.LoreItems;
+using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -92,10 +94,17 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<LoreAwakening>()
+                .AddIngredient<PlantyMush>(10)
+                .AddIngredient(ItemID.JungleSpores, 6)
+                .AddTile(TileID.Anvils)
+                .Register();
+                
         }
         public static int GetLevel()
         {
-            return Main.LocalPlayer.inventory[9].stack;
+            //return Main.LocalPlayer.inventory[9].stack;
             int Level = 0;
             bool flag = true;
             void Check(bool f)
@@ -129,6 +138,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             return Level;
 
         }
+        
         public override void UpdateInventory(Player player)
         {
             Item.damage = GetLevel() * 7 + (int)float.Lerp(16, 6000, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
@@ -168,10 +178,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             tooltips.Replace("[C3]", Mod.GetLocalization("BCC3").Value);
             tooltips.Replace("[C4]", Mod.GetLocalization("BCC4").Value);
 
-            tooltips.Replace("[U1]", AllowLunge() ? "" : Mod.GetLocalization("LOCKED").Value + ": " + Mod.GetLocalization("BCU1").Value);
-            tooltips.Replace("[U2]", AllowPull() ? "" : Mod.GetLocalization("LOCKED").Value + ": " + Mod.GetLocalization("BCU2").Value);
-            tooltips.Replace("[U3]", AllowStick() ? "" : Mod.GetLocalization("LOCKED").Value + ": " + Mod.GetLocalization("BCU3").Value);
-            tooltips.Replace("[U4]", AllowSpin() ? "" : Mod.GetLocalization("LOCKED").Value + ": " + Mod.GetLocalization("BCU4").Value);
+            tooltips.Replace("[U1]", AllowLunge() ? "" : Mod.GetLocalization("LOCKED").Value + " " + Mod.GetLocalization("BCU1").Value);
+            tooltips.Replace("[U2]", AllowPull() ? "" : Mod.GetLocalization("LOCKED").Value + " " + Mod.GetLocalization("BCU2").Value);
+            tooltips.Replace("[U3]", AllowStick() ? "" : Mod.GetLocalization("LOCKED").Value + " " + Mod.GetLocalization("BCU3").Value);
+            tooltips.Replace("[U4]", AllowSpin() ? "" : Mod.GetLocalization("LOCKED").Value + " " + Mod.GetLocalization("BCU4").Value);
 
             for(int i = 0; i < tooltips.Count; i++)
             {

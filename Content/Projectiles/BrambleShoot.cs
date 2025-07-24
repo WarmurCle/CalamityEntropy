@@ -21,8 +21,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.width = 50;
-            Projectile.height = 50;
+            Projectile.width = 12;
+            Projectile.height = 12;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
@@ -34,7 +34,6 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void AI()
         {
-            Projectile.rotation += 0.16f;
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1400);
             if (target != null && drawcount > 9)
             {
@@ -42,9 +41,10 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 v = target.Center - Projectile.Center;
                 v.Normalize();
 
-                Projectile.velocity += v * 3;
+                Projectile.velocity += v * 4;
             }
             drawcount++;
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
         float drawcount = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -77,10 +77,13 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            base.Projectile.oldPos[0] = base.Projectile.position + base.Projectile.velocity.SafeNormalize(Vector2.Zero) * 50f;
-            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (float _) => base.Projectile.Size * 0.5f + base.Projectile.velocity), 80);
+            Main.spriteBatch.EnterShaderRegion();
+            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StreakGoop"));
+            GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
+            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            Main.spriteBatch.ExitShaderRegion();
             Texture2D value = CEUtils.getExtraTex("Leaf");
-            Main.EntitySpriteDraw(value, base.Projectile.Center - Main.screenPosition, null, Color.White, base.Projectile.rotation, value.Size() * 0.5f, base.Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(value, Projectile.position - Main.screenPosition, null, Color.White, Projectile.rotation, value.Size() * 0.5f, base.Projectile.scale, SpriteEffects.None);
             return false;
         }
     }

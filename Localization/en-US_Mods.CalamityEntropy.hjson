@@ -2510,31 +2510,29 @@ Items: {
 
 	Bramblecleave: {
 		DisplayName: Bramblecleave
-		Tooltip: 
-		'''
-		Her power grows with progression  
-		A sword blessed by the Primordial Goddess of Life  
-		Current Level: [LV] / 14  
-		When its power is sufficient, you can use the following skills:  
-		@[C1][U1]  
-		#[C2][U2]  
-		$[C3][U3]  
-		%[C4][U4] 
-		'''
+		Tooltip:
+			'''
+			Her power grows with progression  
+			A sword blessed by the Primordial Goddess of Life  
+			Current Level: [LV] / 14  
+			When its power is sufficient, you can use the following skills:  
+			@[C1][U1]  
+			#[C2][U2]  
+			$[C3][U3]  
+			%[C4][U4] 
+			'''
 	}
 }
-LOCKED: "[LOCKED]"
 
+LOCKED: ": [LOCKED]"
 BCU1: Requires defeating King Slime
 BCU2: Requires defeating Perforator or Hive Mind
 BCU3: Requires defeating Wall of Flesh
 BCU4: Requires defeating Plantera
-
 BCC1: Right-click to extend thorny vines after a brief wind-up
 BCC2: Holding right-click on a target pulls you toward it and deals impact damage. This skill consumes 20% of the Verdure Charge Bar. Left-click hits slightly recharge the bar
 BCC3: Right-click then quickly left-click to throw the weapon. The sword attaches to the struck target, granting continuous health regeneration and slowly recharging the bar
-BCC4: Double-tap and hold right-click to throw the weapon, causing it to rapidly pierce enemies near the cursor. Holding left-click spins the blade, releasing homing projectiles
-
+BCC4: Double-tap and hold right-click to throw the weapon, causing it to rapidly pierce enemies near the cursor and continuously consume charging energy. Holding left-click spins the blade, releasing homing projectiles
 PrefixitemDesc:
 	'''
 	Used to add a prefix to an armor
@@ -2985,7 +2983,7 @@ Projectiles: {
 	BrambleVine.DisplayName: Bramble Vine
 	VineHookHit.DisplayName: Vine Hook Hit
 	BramblecleaveAlt.DisplayName: BramblecleaveAlt
-	BrambleShoot.DisplayName: "Bramble Shoot"
+	BrambleShoot.DisplayName: Bramble Shoot
 }
 
 LegendTooltip: - Legend -

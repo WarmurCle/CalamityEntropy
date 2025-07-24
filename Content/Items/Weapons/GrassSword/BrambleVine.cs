@@ -151,7 +151,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                             progress = 0.5f;
                             MaxLength = CEUtils.getDistance(Projectile.Center, HookNPC.ToNPC().Center) - 160;
                             Length = MaxLength;
-                            CEUtils.PlaySound("FleshWhipHit", 1, HookNPC.ToNPC().Center);
+                            NPC target = HookNPC.ToNPC();
+                            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16);
+                            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16);
+
                         }
                         HookNPC = -2;
                         Projectile.netSpam = 0;
