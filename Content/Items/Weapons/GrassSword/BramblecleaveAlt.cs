@@ -138,7 +138,15 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
 
                 }
             }
+            odp.Add(Projectile.Center);
+            odr.Add(Projectile.rotation);
+            if(odp.Count > 28)
+            {
+                odp.RemoveAt(0);
+                odr.RemoveAt(0);
+            }
         }
+        public List<Vector2> odp = new List<Vector2>();
         public float counter { get { return Projectile.ai[0]; } set { Projectile.ai[0] = value; } }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -157,11 +165,48 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 Main.EntitySpriteDraw(draw, pos - Main.screenPosition, null, Color.Lerp(lightColor, Color.White, 0.25f), (pos - last).ToRotation(), new Vector2(0, draw.Height / 2), 1, SpriteEffects.None);
                 last = pos;
             }
+            Texture2D trail = CEUtils.getExtraTex("MotionTrail2");
+            List<ColoredVertex> ve = new List<ColoredVertex>();
+            float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
+            float progress = (counter / MaxUpdateTimes);
+
+            for (int i = 0; i < odr.Count; i++)
+            {
+                Color b = new Color(220, 255, 200);
+                ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (new Vector2(58 * Projectile.scale, 0).RotatedBy(odr[i])),
+                      new Vector3((i) / ((float)odr.Count - 1), 1, 1),
+                      b));
+                ve.Add(new ColoredVertex(odp[i] - Main.screenPosition,
+                      new Vector3((i) / ((float)odr.Count - 1), 0, 1),
+                      b));
+            }
+            if (ve.Count >= 3)
+            {
+                var gd = Main.graphics.GraphicsDevice;
+                SpriteBatch sb = Main.spriteBatch;
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail", AssetRequestMode.ImmediateLoad).Value;
+                sb.End();
+                sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                shader.Parameters["color2"].SetValue((new Color(90, 255, 90)).ToVector4());
+                shader.Parameters["color1"].SetValue((new Color(60, 200, 60)).ToVector4());
+                shader.Parameters["alpha"].SetValue(1 - progress);
+                shader.CurrentTechnique.Passes["EffectPass"].Apply();
+
+                gd.Textures[0] = trail;
+                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                trail = CEUtils.getExtraTex("SplitTrail");
+                gd.Textures[0] = trail;
+                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+
+                Main.spriteBatch.ExitShaderRegion();
+            }
             Texture2D sword = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/GrassSword/Bramblecleave");
-            Main.EntitySpriteDraw(sword, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 64, null, Color.Lerp(lightColor, Color.White, 0.6f), Projectile.rotation + MathHelper.PiOver4, sword.Size() / 2f, 1.6f + 0.1f * Bramblecleave.GetLevel(), SpriteEffects.None);
+            Main.EntitySpriteDraw(sword, Projectile.Center - Main.screenPosition, null, Color.Lerp(lightColor, Color.White, 0.6f), Projectile.rotation + MathHelper.PiOver4, sword.Size() / 2f, 1.6f + 0.1f * Bramblecleave.GetLevel(), SpriteEffects.None);
 
             return false;
         }
+        List<float> odr = new List<float>();
+        public float trailAlpha = 0;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if(!MouseLeft)
