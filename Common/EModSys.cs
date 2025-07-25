@@ -265,10 +265,12 @@ namespace CalamityEntropy.Common
         public static float bbar = 0;
         public static void DrawBrambleBar()
         {
+            Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
             Texture2D bar = CEUtils.getExtraTex("BrambleBar");
             bbar = float.Lerp(bbar, Main.LocalPlayer.Entropy().BrambleBarCharge, 0.16f);
-            Main.spriteBatch.Draw(bar, Main.ScreenSize.ToVector2() / 2f * new Vector2(1, 0.28f) + new Vector2(0, -100), new Rectangle(0, 0, 66, 34), Color.White, 0, new Vector2(33, 17), 1, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(bar, Main.ScreenSize.ToVector2() / 2f * new Vector2(1, 0.28f) + new Vector2(0, -100), new Rectangle(12, 36, (int)(42 * bbar), 8), Color.White, 0, new Vector2(21, 5), 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bar, Main.ScreenSize.ToVector2() / 2f * new Vector2(1, 0.28f) + new Vector2(0, -100), new Rectangle(0, 0, 66, 34), Color.White, 0, new Vector2(33, 17), 1.4f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bar, Main.ScreenSize.ToVector2() / 2f * new Vector2(1, 0.28f) + new Vector2(0, -100), new Rectangle(12, 36, (int)(42 * bbar), 8), Color.White, 0, new Vector2(21, 5), 1.4f, SpriteEffects.None, 0);
+            Main.spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {

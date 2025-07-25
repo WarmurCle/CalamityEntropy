@@ -2760,7 +2760,7 @@ Items: {
 	}
 
 	BLUE: {
-		Tooltip: "真的能吃吗..."
+		Tooltip: 真的能吃吗...
 		DisplayName: 魔法海洋布丁
 	}
 }
