@@ -214,7 +214,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             {
                 Vector2 pos = Vector2.Lerp(Projectile.Center, Projectile.Center + Projectile.velocity.normalize() * l, (float)i / Count);
                 Texture2D draw = i == Count ? v2 : v1;
-                Main.EntitySpriteDraw(draw, pos - Main.screenPosition, null, Color.Lerp(lightColor, Color.White, 0.25f), Projectile.velocity.ToRotation(), new Vector2(0, draw.Height / 2), new Vector2(pr * dScale * 2, (float)Math.Sqrt(float.Min(1 / pr, 2)) * dScale), Count % 2 == 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+                Main.EntitySpriteDraw(draw, pos - Main.screenPosition, null, Lighting.GetColor((int)(pos.X / 16), (int)(pos.Y / 16)), Projectile.velocity.ToRotation(), new Vector2(0, draw.Height / 2), new Vector2(pr * dScale * 2, (float)Math.Sqrt(float.Min(1 / pr, 2)) * dScale), Count % 2 == 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
                 e = pos;
             }
             if (Projectile.ai[0] == 2)

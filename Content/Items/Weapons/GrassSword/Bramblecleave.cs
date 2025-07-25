@@ -143,7 +143,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         
         public override void UpdateInventory(Player player)
         {
-            Item.damage = GetLevel() * 7 + (int)float.Lerp(16, 6000, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
+            Item.damage = GetLevel() * 10 + (int)float.Lerp(26, 6100, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
 
             Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
             if(player.HeldItem == Item)
