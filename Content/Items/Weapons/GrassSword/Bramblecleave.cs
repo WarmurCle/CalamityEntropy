@@ -40,6 +40,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<BramblecleaveHeld>();
             Item.shootSpeed = 12f;
+            Item.Entropy().Legend = true;
+            Item.Calamity().CannotBeEnchanted = true;
         }
         public int useCounter = 0;
         public int atkType = 1;

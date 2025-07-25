@@ -2522,6 +2522,11 @@ Items: {
 			%[C4][U4] 
 			'''
 	}
+
+	BLUE: {
+		Tooltip: ""
+		DisplayName: B L U E
+	}
 }
 
 LOCKED: ": [LOCKED]"

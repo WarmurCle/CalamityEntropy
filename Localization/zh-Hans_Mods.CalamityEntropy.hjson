@@ -2758,6 +2758,11 @@ Items: {
 			%[C4][U4]
 			'''
 	}
+
+	BLUE: {
+		Tooltip: "真的能吃吗..."
+		DisplayName: 魔法海洋布丁
+	}
 }
 
 LOCKED: ：[已锁定]

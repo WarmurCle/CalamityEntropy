@@ -202,7 +202,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
 
                 Main.spriteBatch.ExitShaderRegion();
             }
-            Texture2D sword = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/GrassSword/Bramblecleave");
+            Texture2D sword = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/GrassSword/SwordTex");
             Main.EntitySpriteDraw(sword, Projectile.Center - Main.screenPosition, null, Color.Lerp(lightColor, Color.White, 0.6f), Projectile.rotation + MathHelper.PiOver4, sword.Size() / 2f, 1.6f + 0.1f * Bramblecleave.GetLevel(), SpriteEffects.None);
 
             return false;
