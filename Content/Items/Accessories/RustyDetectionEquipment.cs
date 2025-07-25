@@ -50,7 +50,6 @@ namespace CalamityEntropy.Content.Items.Accessories
             CreateRecipe().
                 AddIngredient(ModContent.ItemType<DubiousPlating>(), 20).
                 AddIngredient(ModContent.ItemType<MysteriousCircuitry>(), 15).
-                AddIngredient(ModContent.ItemType<HellIndustrialComponents>(),5).
                 AddIngredient(ModContent.ItemType<SuspiciousScrap>(), 1).
                 AddTile(TileID.Anvils).
                 Register();

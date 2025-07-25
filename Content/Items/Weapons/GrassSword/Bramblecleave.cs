@@ -339,13 +339,13 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                         {
                             RightHold = false;
                         }
-                        if(Main.mouseLeft)
+                        if(Main.mouseLeft && Bramblecleave.AllowStick())
                         {
                             LeftClicked = true;
                             counter = MaxUpdateTimes + 1;
                             NoDraw = true;
                         }
-                        if(!RightHold && Main.mouseRight)
+                        if(!RightHold && Main.mouseRight && Bramblecleave.AllowSpin())
                         {
                             Spin = true;
                             counter = MaxUpdateTimes + 1;
