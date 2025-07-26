@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Check(NPC.downedMoonlord);
             Check(DownedBossSystem.downedProvidence);
             Check(DownedBossSystem.downedDoG);
-            Check(DownedBossSystem.downedCalamitas);
+            Check(DownedBossSystem.downedYharon);
             Check(DownedBossSystem.downedExoMechs);
 
             return Level;
