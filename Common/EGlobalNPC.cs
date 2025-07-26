@@ -95,20 +95,6 @@ namespace CalamityEntropy.Common
         public int TDRCounter = 3 * 60 * 60;
         public override void SetStaticDefaults()
         {
-            //---演示手动注册NPC无敌帧---//
-
-            //荒漠灾虫：以头部作为源 NPC
-            VaultUtils.LoadenNPCStaticImmunityData(
-                npcSourceID: NPCType<DesertScourgeHead>(), 
-                npcIDs: [NPCType<DesertScourgeBody>(), NPCType<DesertScourgeTail>()],
-                staticImmuneCool: 10);
-            //渊海灾虫：以头部作为源 NPC
-            VaultUtils.LoadenNPCStaticImmunityData(
-                npcSourceID: NPCType<AquaticScourgeHead>(),
-                npcIDs: [NPCType<AquaticScourgeBody>(), NPCType<AquaticScourgeBodyAlt>(), NPCType<AquaticScourgeTail>()],
-                staticImmuneCool: 10
-            );
-
             //---如果希望注册原版NPC，解除下面的注释查看效果---///
             //VaultUtils.LoadenNPCStaticImmunityData(
             //    npcSourceID: NPCID.TheDestroyer,
