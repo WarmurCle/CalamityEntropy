@@ -11,6 +11,7 @@ using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
+using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
@@ -21,9 +22,11 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Events;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
+using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Crabulon;
+using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.DevourerofGods;
 using CalamityMod.NPCs.HiveMind;
 using CalamityMod.NPCs.NormalNPCs;
@@ -39,6 +42,8 @@ using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
+using InnoVault;
+using InnoVault.GameSystem;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -59,7 +64,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace CalamityEntropy.Common
 {
-    public class EGlobalNPC : GlobalNPC
+    public class EGlobalNPC : GlobalNPC, ICELoader
     {
         public int VoidTouchTime = 0;
         public float VoidTouchLevel = 0;
@@ -88,6 +93,31 @@ namespace CalamityEntropy.Common
         public int EclipsedImprintTime = 0;
         public int friendFinderOwner = 0;
         public int TDRCounter = 3 * 60 * 60;
+        public override void SetStaticDefaults()
+        {
+            //---演示手动注册NPC无敌帧---//
+
+            //荒漠灾虫：以头部作为源 NPC
+            VaultUtils.LoadenNPCStaticImmunityData(
+                npcSourceID: NPCType<DesertScourgeHead>(), 
+                npcIDs: [NPCType<DesertScourgeBody>(), NPCType<DesertScourgeTail>()],
+                staticImmuneCool: 10);
+            //渊海灾虫：以头部作为源 NPC
+            VaultUtils.LoadenNPCStaticImmunityData(
+                npcSourceID: NPCType<AquaticScourgeHead>(),
+                npcIDs: [NPCType<AquaticScourgeBody>(), NPCType<AquaticScourgeBodyAlt>(), NPCType<AquaticScourgeTail>()],
+                staticImmuneCool: 10
+            );
+
+            //---如果希望注册原版NPC，解除下面的注释查看效果---///
+            //VaultUtils.LoadenNPCStaticImmunityData(
+            //    npcSourceID: NPCID.TheDestroyer,
+            //    npcIDs: [NPCID.TheDestroyerBody, NPCID.TheDestroyerTail],
+            //    staticImmuneCool: 10
+            //);
+
+            //---如果希望手动调整源NPC的无敌帧，使用 VaultUtils.SetStaticImmunity，在合适的时机将无敌帧设置为0即可取消无敌状态---//
+        }
         public List<Vector2> getAbyssalCirclePointsRelative(NPC npc, float distAdd = 0, float c = 1)
         {
             float dist = (npc.width + npc.height) / 2f + 30 - (float)Math.Cos(Main.GlobalTimeWrappedHourly) * 12 + distAdd;
