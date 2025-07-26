@@ -13,6 +13,7 @@ using CalamityMod.Events;
 using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
+using InnoVault.GameSystem;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -29,6 +30,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     [AutoloadBossHead]
+    [StaticImmunity(staticImmunityCooldown: 6)]
     public class CruiserHead : ModNPC
     {
         public float ProgressDraw = 0;

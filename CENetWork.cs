@@ -249,7 +249,6 @@ namespace CalamityEntropy
                     packet.Send(-1, wai);
                 }
             }
-
             else if (messageType == CEMessageType.SyncPlayer)
             {
                 

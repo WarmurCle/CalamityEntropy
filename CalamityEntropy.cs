@@ -200,7 +200,7 @@ namespace CalamityEntropy
             On_Projectile.FillWhipControlPoints += fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
             
-            On_Player.ApplyDamageToNPC += applydamagetonpc;
+            //On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
             
@@ -346,7 +346,7 @@ namespace CalamityEntropy
             On_Main.DrawTiles -= drawtile;
             On_Projectile.FillWhipControlPoints -= fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings -= get_whip_settings_hook;
-            On_Player.ApplyDamageToNPC -= applydamagetonpc;
+            //On_Player.ApplyDamageToNPC -= applydamagetonpc;
             On_Main.DrawCursor -= draw_cursor_hook;
             On_Main.DrawThickCursor -= draw_thick_cursor_hook;
         }
@@ -358,13 +358,6 @@ namespace CalamityEntropy
                 return orig(smart);
             }
             return Vector2.Zero;
-        }
-
-        private void applydamagetonpc(On_Player.orig_ApplyDamageToNPC orig, Player self, NPC n, int damage, float knockback, int direction, bool crit, DamageClass damageType, bool damageVariation)
-        {
-            orig(self, n, damage, knockback, direction, crit, damageType, damageVariation);
-            n.gimmune().readySyncDashImmune = true;
-            n.gimmune().sdPlayer = self;
         }
 
         private void add_buff_npc(On_NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
