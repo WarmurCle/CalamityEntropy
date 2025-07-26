@@ -12,6 +12,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.GameContent.Animations.IL_Actions.Sprites;
 
 namespace CalamityEntropy.Content.Items.Weapons.GrassSword
 {
@@ -228,6 +229,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
     {
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/GrassSword/Bramblecleave";
         List<float> odr = new List<float>();
+        List<float> ods = new List<float>();
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -248,6 +250,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Projectile.timeLeft = 100000;
             Projectile.MaxUpdates = 16;
         }
+        public float rotRP = Main.rand.NextFloat(-0.2f, 0.2f);
         public float counter = 0;
         public float scale = 1;
         public float alpha = 0;
@@ -297,6 +300,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 }
             }
         }
+        public float rScale = 1;
+        public float slashP = Main.rand.NextFloat(0.5f, 1);
         public override void AI()
         {
             CEUtils.AddLight(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Color.LightGreen, Projectile.scale);
@@ -320,7 +325,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 }
             }
             float p = Main.rand.NextFloat();
-            
+            rScale = 1;
             Projectile.timeLeft = 3;
             float RotF = 4.2f * Projectile.ai[1];
             alpha = 1;
@@ -330,16 +335,11 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             if (Projectile.ai[2] == 0)
             {
                 RightHold = false;
-                if (progress <= 0.5f)
-                {
-                    Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + CEUtils.Parabola(progress, RotF + cr)) * Projectile.ai[0];
-                }
-                else
-                {
-                    Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * 0.5f + cr - CEUtils.GetRepeatedCosFromZeroToOne(2 * (progress - 0.5f), 1) * cr) * Projectile.ai[0];
-                }
+                float rot = progress <= 0.5f ? ((RotF * -0.5f + CEUtils.Parabola(progress, RotF + cr)) * Projectile.ai[0]) : ((RotF * 0.5f + cr - CEUtils.GetRepeatedCosFromZeroToOne(2 * (progress - 0.5f), 1) * cr) * Projectile.ai[0]);
+                Vector2 v = rot.ToRotationVector2() * new Vector2(1, slashP / Projectile.ai[1]);
+                Projectile.rotation = v.ToRotation() + Projectile.velocity.ToRotation() + rotRP;
                 Projectile.Center = Projectile.GetOwner().GetDrawCenter();
-
+                rScale = v.Length();
 
             }
             else
@@ -475,15 +475,18 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 {
                     SpawnParticle();
                     odr.Add(Projectile.rotation);
+                    ods.Add(rScale);
                     if (odr.Count > 80)
                     {
                         odr.RemoveAt(0);
+                        ods.RemoveAt(0);
                     }
                 }
                 else
                 {
                     if (odr.Count > 0)
                     {
+                        ods.RemoveAt(0);
                         odr.RemoveAt(0);
                     }
                 }
@@ -531,7 +534,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = new Color(220, 255, 200);
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(116 * Projectile.scale * scale, 0).RotatedBy(odr[i])),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(116 * Projectile.scale * scale * ods[i], 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                       b));
                 ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
@@ -567,7 +570,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
 
             float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
 
-            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale, effect);
+            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale * rScale, effect);
 
             return false;
         }
@@ -579,11 +582,11 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 120 * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 120 * Projectile.scale * scale * rScale, targetHitbox, 64);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 120 * Projectile.scale * scale, 54, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 120 * Projectile.scale * scale * rScale, 54, DelegateMethods.CutTiles);
         }
     }
 
