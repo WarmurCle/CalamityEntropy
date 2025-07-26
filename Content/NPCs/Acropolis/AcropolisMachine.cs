@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.noTileCollide = true;
             NPC.noGravity = true;
             NPC.dontCountMe = true;
-            NPC.timeLeft *= 100;
+            NPC.timeLeft *= 12;
             NPC.lavaImmune = true;
             NPC.scale = 1f;
             if(Main.getGoodWorld)
@@ -227,7 +227,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override bool CheckActive()
         {
-            return false;
+            return !NPC.boss;
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -313,7 +313,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     NPC.boss = true;
                 }
                 NPC.noTileCollide = true;
-                if (NPC.HasValidTarget)
+                if (NPC.HasValidTarget && NPC.target.ToPlayer().Distance(NPC.Center) < 3000)
                 {
                     AttackPlayer(Main.player[NPC.target]);
                     if (Main.netMode == NetmodeID.Server)

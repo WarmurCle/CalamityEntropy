@@ -148,8 +148,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             switch(level)
             {
                 case 0: dmg = 26;break;
-                    case 1: dmg = 36; break;
-
+                case 1: dmg = 36; break;
+                case 2: dmg = 48; break;
+                case 3: dmg = 60; break;
+                case 4: dmg = 120; break;
             }
 
 
