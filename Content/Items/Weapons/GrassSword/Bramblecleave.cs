@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.IO;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.GrassSword
@@ -144,6 +143,15 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public override void UpdateInventory(Player player)
         {
             Item.damage = GetLevel() * 10 + (int)float.Lerp(26, 6100, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
+            int level = GetLevel();
+            int dmg = Item.damage;
+            switch(level)
+            {
+                case 0: dmg = 26;break;
+                    case 1: dmg = 36; break;
+
+            }
+
 
             Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
             if(player.HeldItem == Item)
