@@ -151,8 +151,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 case 1: dmg = 36; break;
                 case 2: dmg = 46; break;
                 case 3: dmg = 50; break;
-                case 4: dmg = 64; break;
-                case 5: dmg = 90; break;
+                case 4: dmg = 76; break;
+                case 5: dmg = 165; break;
+                case 6: dmg = 180; break;
+                case 7: dmg = 220; break;
             }
 
 

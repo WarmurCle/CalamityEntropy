@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items
             CreateRecipe().
                 AddIngredient(ModContent.ItemType<StarblightSoot>(), 6).
                 AddIngredient(ItemID.FallenStar, 2).
-                AddTile(TileID.MythrilAnvil).
+                AddTile(TileID.WorkBenches).
                 Register();
         }
     }

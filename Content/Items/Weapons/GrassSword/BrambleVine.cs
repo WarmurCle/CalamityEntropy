@@ -127,14 +127,14 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 }
                 else if (Projectile.ai[0] == 2)
                 {
-                    if ((Main.myPlayer != Projectile.owner || Main.mouseLeft) && Projectile.localAI[1]++ <= 60 * 16 && CEUtils.getDistance(HookNPC.ToNPC().Center, Projectile.Center) < 400 + (Bramblecleave.GetLevel() * 60) * 1f)
+                    if ((Main.myPlayer != Projectile.owner || Main.mouseLeft) && Projectile.localAI[1]++ <= 60 * 16 && CEUtils.getDistance(HookNPC.ToNPC().Center, Projectile.Center) < (400 + (Bramblecleave.GetLevel() * 60) * 1f) * 1.4f)
                     {
                         if (Projectile.localAI[1] % 20 == 0)
                         {
                             player.Heal(Bramblecleave.GetLevel() / 2);
                         }
                         float lg = (HookNPC.ToNPC().Center - player.Center).Length();
-                        Vector2 vj = (HookNPC.ToNPC().Center - player.Center).normalize() * lg * lg * 0.0000007f * ((400 + Bramblecleave.GetLevel() * 60) / (400 + 14f * 60));
+                        Vector2 vj = (HookNPC.ToNPC().Center - player.Center).normalize() * lg * lg * 0.00000085f * (1 - (400 + Bramblecleave.GetLevel() * 60) / (400 + 14f * 60));
                         player.velocity += vj;
                         HookNPC.ToNPC().velocity -= vj * HookNPC.ToNPC().knockBackResist;
                         Projectile.rotation = (HookNPC.ToNPC().Center - Projectile.Center).ToRotation();
@@ -199,7 +199,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             float dScale = 1 + (Bramblecleave.GetLevel() * 0.02f);
             Player player = Projectile.GetOwner();
             int Count = (int)Math.Ceiling(((400 + Bramblecleave.GetLevel() * 60) / (dScale * 68f)));
-            
+            if (Projectile.ai[0] == 2)
+            {
+                Count += (int)(Count * 0.4f);
+            }
             Texture2D v1 = Projectile.GetTexture();
             Texture2D v2 = this.getTextureAlt();
             float pr = CEUtils.Parabola(progress, 1);
