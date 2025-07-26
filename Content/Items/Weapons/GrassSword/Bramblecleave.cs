@@ -327,10 +327,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             float p = Main.rand.NextFloat();
             rScale = 1;
             Projectile.timeLeft = 3;
-            float RotF = 4.2f * Projectile.ai[1];
+            float RotF = 4.5f;
             alpha = 1;
             scale = 1f * Projectile.ai[1];
-            float cr = MathHelper.ToRadians(30) * Projectile.ai[1];
+            float cr = MathHelper.ToRadians(30);
 
             if (Projectile.ai[2] == 0)
             {
@@ -506,7 +506,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             float sparkScale2 = 0.6f * Main.rand.NextFloat();
             sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.06f);
             Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, Main.rand.NextFloat());
-            Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 116 * scale * Projectile.scale;
+            Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 116 * scale * Projectile.scale * rScale;
             if (Main.rand.NextBool())
             {
                 AltSparkParticle spark = new AltSparkParticle(pos, sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
@@ -517,7 +517,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 LineParticle spark = new LineParticle(pos, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.LightGreen : Color.LimeGreen);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
-            EParticle.spawnNew(new GlowLightParticle() { lightColor = Color.LightGreen * 0.5f, HideTime = 16 }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 100 * scale * Projectile.scale * Main.rand.NextFloat(0.25f, 1), sparkVelocity2 * 0.2f, Color.LawnGreen, Main.rand.NextFloat(0.1f, 0.2f) * scale * Projectile.scale, 1, true, BlendState.Additive, 0, 20);
+            EParticle.spawnNew(new GlowLightParticle() { lightColor = Color.LightGreen * 0.5f, HideTime = 16 }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 100 * scale * Projectile.scale * rScale * Main.rand.NextFloat(0.25f, 1), sparkVelocity2 * 0.2f, Color.LawnGreen, Main.rand.NextFloat(0.1f, 0.2f) * scale * Projectile.scale, 1, true, BlendState.Additive, 0, 20);
         }
         public override bool PreDraw(ref Color lightColor)
         {
