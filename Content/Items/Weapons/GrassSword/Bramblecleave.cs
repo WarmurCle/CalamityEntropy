@@ -143,7 +143,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         
         public override void UpdateInventory(Player player)
         {
-            Item.damage = GetLevel() * 10 + (int)float.Lerp(24, 2400, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
+            Item.damage = GetLevel() * 10 + (int)float.Lerp(24, 1400, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
             int level = GetLevel();
             int dmg = Item.damage;
             switch(level)
@@ -156,6 +156,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 case 5: dmg = 165; break;
                 case 6: dmg = 180; break;
                 case 7: dmg = 220; break;
+                case 8: dmg = 280; break;
+                case 9: dmg = 325; break;
             }
 
 
@@ -184,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public static bool AllowSpin()
         {
-            return GetLevel() > 8;
+            return GetLevel() > 7;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
