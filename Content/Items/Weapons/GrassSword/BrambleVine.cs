@@ -69,6 +69,11 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public float MaxLength = -1;
         public override void AI()
         {
+            if(Projectile.GetOwner().dead)
+            {
+                Projectile.Kill();
+                return;
+            }
             if (MaxLength == -1)
             {
                 MaxLength = 400 + (Bramblecleave.GetLevel() * 60);

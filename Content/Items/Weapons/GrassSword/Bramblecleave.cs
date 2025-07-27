@@ -308,6 +308,11 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         {
             CEUtils.AddLight(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Color.LightGreen, Projectile.scale);
             Player owner = Projectile.GetOwner();
+            if (owner.dead)
+            {
+                Projectile.Kill();
+                return;
+            }
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates * Projectile.ai[1];
             if (Projectile.ai[2] == 1)
             {

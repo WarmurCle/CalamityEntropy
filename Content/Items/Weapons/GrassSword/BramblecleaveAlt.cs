@@ -60,6 +60,11 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public Vector2 LerpCenter = Vector2.Zero;
         public override void AI()
         {
+            if (Projectile.GetOwner().dead)
+            {
+                Projectile.Kill();
+                return;
+            }
             Projectile.timeLeft = 5;
             var player = Projectile.GetOwner();
 
