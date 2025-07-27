@@ -3518,6 +3518,11 @@ Configs: {
 			Label: Специальный эффект историй
 			Tooltip: ""
 		}
+
+		BramblecleaveAlwaysUnlockAllSkill: {
+			// Label: Bramblecleave Always Unlock All Skill
+			// Tooltip: ""
+		}
 	}
 }
 

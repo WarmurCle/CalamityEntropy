@@ -3636,6 +3636,11 @@ Configs: {
 			Label: Lore Special Effect
 			Tooltip: ""
 		}
+
+		BramblecleaveAlwaysUnlockAllSkill: {
+			Label: Bramblecleave Always Unlock All Skill
+			Tooltip: ""
+		}
 	}
 }
 

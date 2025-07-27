@@ -3875,6 +3875,11 @@ Configs: {
 			Label: 传颂之物特殊效果
 			Tooltip: 为灾厄的传颂之物添加特殊效果
 		}
+
+		BramblecleaveAlwaysUnlockAllSkill: {
+			// Label: Bramblecleave Always Unlock All Skill
+			// Tooltip: ""
+		}
 	}
 }
 

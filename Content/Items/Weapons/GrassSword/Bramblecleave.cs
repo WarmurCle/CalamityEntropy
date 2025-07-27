@@ -587,6 +587,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
 
             Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale * rScale, effect);
+            Main.spriteBatch.ExitShaderRegion();
 
             return false;
         }
