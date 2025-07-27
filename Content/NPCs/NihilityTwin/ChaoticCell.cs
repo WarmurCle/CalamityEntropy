@@ -1,6 +1,9 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod.Items;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -83,8 +86,24 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         {
             NPC.realLife = reader.ReadInt32();
         }
+
+        public List<CCTentacle> tentacles;
         public override void AI()
         {
+            if(tentacles == null)
+            {
+                int c = 0;
+                tentacles = new List<CCTentacle>();
+                for(float i = 0; i < 358; i += 45f)
+                {
+                    c++;
+                    tentacles.Add(new CCTentacle(MathHelper.ToRadians(i), c % 2 == 0 ? 94 : 78));
+                }
+            }
+            foreach(var t in tentacles)
+            {
+                t.Update(NPC);
+            }
             if (NPC.ai[2] > 0)
             {
                 if (al < 1)
@@ -110,10 +129,6 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             if (init)
             {
                 init = false;
-                for (int i = 1; i <= 4; i++)
-                {
-                    ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/NihilityTwin/ChaoticCell" + i.ToString());
-                }
             }
             if (Main.GameUpdateCount % 5 == 0)
             {
@@ -144,6 +159,38 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         }
         public int frame = 1;
         public float al = 0;
+        public class CCTentacle
+        {
+            public float rot;
+            public List<Vector2> points;
+            public List<float> pointRots;
+            public float Length;
+            public void Update(NPC npc)
+            {
+                pointRots[0] = npc.rotation + rot + (float)(Math.Cos(npc.localAI[2]++ * 0.008f) * 0.3f);
+                points[0] = npc.Center + (pointRots[0] + npc.rotation).ToRotationVector2() * 30;
+                
+                for (int i = 1; i < points.Count; i++)
+                {
+                    pointRots[i] = (points[i] - points[i - 1]).ToRotation();
+                    points[i] = points[i - 1] + (points[i] - points[i - 1]).normalize() * Length / 8f;
+                    pointRots[i] = CEUtils.RotateTowardsAngle(pointRots[i], pointRots[i - 1], 0.6f, false);
+                    points[i] = points[i - 1] + pointRots[i].ToRotationVector2() * Length / 8f;
+                }
+            }
+            public CCTentacle(float r, float l)
+            {
+                rot = r;
+                Length = l;
+                pointRots = new List<float>();
+                points = new List<Vector2>();
+                for(int i = 0; i < 12; i++)
+                {
+                    points.Add(Vector2.Zero);
+                    pointRots.Add(0);
+                }
+            }
+        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (NPC.realLife >= 0)
@@ -161,8 +208,40 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 return false;
             }
-            Texture2D tex = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/NihilityTwin/ChaoticCell" + frame.ToString()).Value;
+            Texture2D tex = NPC.getTexture();
             Color color = Color.White;
+
+            if(tentacles != null)
+            {
+                foreach(var tent in tentacles)
+                {
+                    List<ColoredVertex> ve = new List<ColoredVertex>();
+                    Color b = Color.White;
+                    List<Vector2> points = tent.points;
+                    float lc = 1;
+                    float jn = 0;
+
+                    for (int i = 1; i < points.Count; i++)
+                    {
+                        jn = (float)(i - 1) / (points.Count - 2);
+                        ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * lc,
+                              new Vector3(jn, 1, 1),
+                              b));
+                        ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * lc,
+                              new Vector3(jn, 0, 1),
+                              b));
+                    }
+
+                    SpriteBatch sb = Main.spriteBatch;
+                    GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                    if (ve.Count >= 3)
+                    {
+                        gd.Textures[0] = CEUtils.RequestTex($"CalamityEntropy/Content/NPCs/NihilityTwin/H{(tent.Length > 80 ? "1" : "2")}");
+                        gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    }
+                }
+            }
+
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
