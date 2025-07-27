@@ -4215,3 +4215,11 @@ Acropolis: 阿萨福勒量产的攻击型机甲，曾被用于大规模战争
 OblivionThretherCooldown: 虚漩巡锯突进冷却
 LilyDeath0: 被污秽所吞噬
 LilyDeath1: 的守护宝具破碎了
+TheVoid: 虚空
+
+Biomes: {
+	VoidDummyBoime: {
+		// DisplayName: Void Dummy Boime
+		// TownNPCDialogueName: the Void Dummy Boime
+	}
+}

@@ -80,6 +80,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
 using Terraria.ID;
@@ -93,6 +94,7 @@ namespace CalamityEntropy
     {
 
         internal static List<ICELoader> ILoaders { get; private set; }
+        public static CESpawnConditionBestiaryInfoElement theVoid_SCBIE;
         public static ref bool EntropyMode => ref EDownedBosses.EntropyMode;
         public static bool AprilFool = false;
         public static List<int> calDebuffIconDisplayList = new List<int>();
@@ -132,7 +134,7 @@ namespace CalamityEntropy
         public override void Load()
         {
             CEUtils.TexCache = new Dictionary<string, Texture2D>();
-
+            theVoid_SCBIE = new CESpawnConditionBestiaryInfoElement(this.GetLocalizationKey("TheVoid"), 0, "CalamityEntropy/Assets/VoidBack");
             BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
             BookMarkLoader.CustomBMByID = new Dictionary<int, BookMarkLoader.BookMarkTag>();
             Instance = this;
@@ -286,6 +288,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            theVoid_SCBIE = null;
             EModILEdit.edgeTex = null;
             if (ILoaders != null)
             {

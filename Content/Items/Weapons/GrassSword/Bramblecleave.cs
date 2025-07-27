@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.LoreItems;
@@ -174,19 +175,27 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public static bool AllowLunge()
         {
-            return GetLevel() > 0;
+            if (ModContent.GetInstance<ServerConfig>().BramblecleaveAlwaysUnlockAllSkill)
+                return true;
+            return NPC.downedSlimeKing;
         }
         public static bool AllowPull()
         {
-            return GetLevel() > 2;
+            if (ModContent.GetInstance<ServerConfig>().BramblecleaveAlwaysUnlockAllSkill)
+                return true;
+            return DownedBossSystem.downedHiveMind || DownedBossSystem.downedPerforator;
         }
         public static bool AllowStick()
         {
-            return GetLevel() > 4;
+            if (ModContent.GetInstance<ServerConfig>().BramblecleaveAlwaysUnlockAllSkill)
+                return true;
+            return Main.hardMode;
         }
         public static bool AllowSpin()
         {
-            return GetLevel() > 7;
+            if (ModContent.GetInstance<ServerConfig>().BramblecleaveAlwaysUnlockAllSkill)
+                return true;
+            return NPC.downedPlantBoss;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

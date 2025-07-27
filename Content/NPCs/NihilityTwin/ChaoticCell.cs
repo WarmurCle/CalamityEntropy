@@ -1,4 +1,6 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Biomes;
+using CalamityEntropy.Content.Buffs;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,7 +31,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 Scale = 0.48f,
                 PortraitScale = 0.56f,
-                CustomTexturePath = "CalamityEntropy/Assets/Extra/CCBes",
+                CustomTexturePath = null,
                 PortraitPositionXOverride = 0,
                 PortraitPositionYOverride = 0
             };
@@ -76,6 +78,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.Entropy().VoidTouchDR = 0.5f;
             NPC.dontCountMe = true;
             NPC.netAlways = true;
+            SpawnModBiomes = new int[] { ModContent.GetInstance<VoidDummyBoime>().Type };
         }
         public bool init = true;
         public override void SendExtraAI(BinaryWriter writer)
@@ -167,15 +170,19 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             public float Length;
             public void Update(NPC npc)
             {
-                pointRots[0] = npc.rotation + rot + (float)(Math.Cos(npc.localAI[2]++ * 0.008f) * 0.3f);
-                points[0] = npc.Center + (pointRots[0] + npc.rotation).ToRotationVector2() * 30;
+                pointRots[0] = npc.rotation + rot + (float)(Math.Cos(npc.localAI[2]++ * 0.008f) * 0.6f);
+                points[0] = npc.Center + (npc.rotation + rot).ToRotationVector2() * 30 * (npc.IsABestiaryIconDummy ? 0.5f : 1);
                 
                 for (int i = 1; i < points.Count; i++)
                 {
                     pointRots[i] = (points[i] - points[i - 1]).ToRotation();
-                    points[i] = points[i - 1] + (points[i] - points[i - 1]).normalize() * Length / 8f;
-                    pointRots[i] = CEUtils.RotateTowardsAngle(pointRots[i], pointRots[i - 1], 0.6f, false);
-                    points[i] = points[i - 1] + pointRots[i].ToRotationVector2() * Length / 8f;
+                    points[i] = points[i - 1] + (points[i] - points[i - 1]).normalize() * Length / 8f * (npc.IsABestiaryIconDummy ? 0.5f : 1);
+                    pointRots[i] = CEUtils.RotateTowardsAngle(pointRots[i], pointRots[i - 1], 0.4f, false);
+                    if (CEUtils.GetAngleBetweenVectors(pointRots[i - 1].ToRotationVector2(), pointRots[i].ToRotationVector2()) > 0.2f)
+                    {
+                        pointRots[i] = CEUtils.RotateTowardsAngle(pointRots[i], pointRots[i - 1], CEUtils.GetAngleBetweenVectors(pointRots[i - 1].ToRotationVector2(), pointRots[i].ToRotationVector2()) - 0.2f);
+                    }
+                    points[i] = points[i - 1] + pointRots[i].ToRotationVector2() * Length / 8f * (npc.IsABestiaryIconDummy ? 0.5f : 1);
                 }
             }
             public CCTentacle(float r, float l)
@@ -193,6 +200,59 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            if (tentacles == null)
+            {
+                int c = 0;
+                tentacles = new List<CCTentacle>();
+                for (float i = 0; i < 358; i += 45f)
+                {
+                    c++;
+                    tentacles.Add(new CCTentacle(MathHelper.ToRadians(i), c % 2 == 0 ? 94 : 78));
+                }
+            }
+            Texture2D tex = NPC.getTexture();
+            
+            if (NPC.IsABestiaryIconDummy)
+            {
+                foreach(var t in tentacles)
+                {
+                    t.Update(NPC);
+                }
+                if (tentacles != null)
+                {
+                    foreach (var tent in tentacles)
+                    {
+                        List<ColoredVertex> ve = new List<ColoredVertex>();
+                        Color b = Color.White;
+                        List<Vector2> points = tent.points;
+                        float lc = 1;
+                        float jn = 0;
+
+                        for (int i = 1; i < points.Count; i++)
+                        {
+                            jn = (float)(i - 1) / (points.Count - 2);
+                            ve.Add(new ColoredVertex(points[i] - screenPos + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6 * lc,
+                                  new Vector3(jn, 1, 1),
+                                  b));
+                            ve.Add(new ColoredVertex(points[i] - screenPos + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 6 * lc,
+                                  new Vector3(jn, 0, 1),
+                                  b));
+                        }
+
+                        SpriteBatch sb = Main.spriteBatch;
+                        GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                        if (ve.Count >= 3)
+                        {
+                            gd.Textures[0] = CEUtils.RequestTex($"CalamityEntropy/Content/NPCs/NihilityTwin/H{(tent.Length > 80 ? "1" : "2")}");
+                            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                        }
+                    }
+                }
+
+                spriteBatch.Draw(tex, NPC.Center - screenPos, null, Color.White, NPC.rotation, tex.Size() / 2, 0.5f, SpriteEffects.None, 0);
+
+                return false;
+            }
             if (NPC.realLife >= 0)
             {
                 if (owner.ModNPC is NihilityActeriophage na)
@@ -208,12 +268,59 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 return false;
             }
-            Texture2D tex = NPC.getTexture();
             Color color = Color.White;
 
-            if(tentacles != null)
+            
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            if (al > 0)
             {
-                foreach(var tent in tentacles)
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (tentacles != null)
+                        {
+                            foreach (var tent in tentacles)
+                            {
+                                List<ColoredVertex> ve = new List<ColoredVertex>();
+                                Color b = Color.White * al;
+                                List<Vector2> points = tent.points;
+                                float lc = 1;
+                                float jn = 0;
+
+                                for (int ij = 1; ij < points.Count; ij++)
+                                {
+                                    jn = (float)(ij - 1) / (points.Count - 2);
+                                    ve.Add(new ColoredVertex(points[ij] - Main.screenPosition + MathHelper.ToRadians(i * (360f / 8f)).ToRotationVector2() * 4 + (points[ij] - points[ij - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * lc,
+                                          new Vector3(jn, 1, 1),
+                                          b));
+                                    ve.Add(new ColoredVertex(points[ij] - Main.screenPosition + MathHelper.ToRadians(i * (360f / 8f)).ToRotationVector2() * 4 + (points[ij] - points[ij - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * lc,
+                                          new Vector3(jn, 0, 1),
+                                          b));
+                                }
+
+                                SpriteBatch sb = Main.spriteBatch;
+                                GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                                if (ve.Count >= 3)
+                                {
+                                    gd.Textures[0] = CEUtils.RequestTex($"CalamityEntropy/Content/NPCs/NihilityTwin/H{(tent.Length > 80 ? "1" : "2")}");
+                                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                                }
+                            }
+                        }
+                        Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + MathHelper.ToRadians(i * (360f / 8f)).ToRotationVector2() * 4, null, Color.White * al, NPC.rotation, tex.Size() / 2, NPC.scale, SpriteEffects.None);
+                    }
+                }
+            }
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            if (tentacles != null)
+            {
+                foreach (var tent in tentacles)
                 {
                     List<ColoredVertex> ve = new List<ColoredVertex>();
                     Color b = Color.White;
@@ -241,21 +348,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     }
                 }
             }
-
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + MathHelper.ToRadians(i * (360f / 8f)).ToRotationVector2() * 4, null, Color.White * al, NPC.rotation, tex.Size() / 2, NPC.scale, SpriteEffects.None);
-                }
-            }
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, color, NPC.rotation, tex.Size() / 2, NPC.scale, SpriteEffects.None);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
 

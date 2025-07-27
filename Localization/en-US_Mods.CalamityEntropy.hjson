@@ -3964,3 +3964,11 @@ Acropolis: ""
 OblivionThretherCooldown: Oblivion Threther Dash Cooldown
 LilyDeath0: " was devoured by filth"
 LilyDeath1: "'s protective treasure is broken"
+TheVoid: The Void
+
+Biomes: {
+	VoidDummyBoime: {
+		DisplayName: Void Dummy Boime
+		TownNPCDialogueName: the Void Dummy Boime
+	}
+}

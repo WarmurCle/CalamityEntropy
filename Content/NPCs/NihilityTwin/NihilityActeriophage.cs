@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Biomes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -41,7 +42,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 PortraitScale = 0.7f,
                 CustomTexturePath = "CalamityEntropy/Assets/Extra/NABes",
                 PortraitPositionXOverride = 0,
-                PortraitPositionYOverride = 0
+                PortraitPositionYOverride = -14
             };
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
@@ -92,6 +93,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.Entropy().VoidTouchDR = 0.5f;
             NPC.dontCountMe = true;
             NPC.netAlways = true;
+            SpawnModBiomes = new int[] { ModContent.GetInstance<VoidDummyBoime>().Type };
         }
 
         public override void BossLoot(ref string name, ref int potionType)

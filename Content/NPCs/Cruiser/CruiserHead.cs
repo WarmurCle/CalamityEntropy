@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Biomes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -174,6 +175,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CruiserBoss");
             }
+            SpawnModBiomes = new int[] { ModContent.GetInstance<VoidDummyBoime>().Type };
         }
 
         public override void BossLoot(ref string name, ref int potionType)
@@ -1294,7 +1296,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPosition, Color drawColor)
         {
             if (NPC.IsABestiaryIconDummy)
-                return true;
+                return false;
 
             if (!candraw && !(phase == 1))
             {

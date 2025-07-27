@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.BiomeManagers;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.World;
@@ -109,6 +110,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/LuminarisBoss");
             }
+            SpawnModBiomes = new int[] { ModContent.GetInstance<AstralInfectionBiome>().Type };
         }
         public int frameCounter = 0;
         public Vector2 oldPos = Vector2.Zero;
