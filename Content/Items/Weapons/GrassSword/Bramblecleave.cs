@@ -144,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         
         public override void UpdateInventory(Player player)
         {
-            Item.damage = GetLevel() * 10 + (int)float.Lerp(24, 1400, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
+            Item.damage = GetLevel() * 10 + (int)float.Lerp(24, 900, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
             int level = GetLevel();
             int dmg = Item.damage;
             switch(level)
@@ -158,7 +158,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 case 6: dmg = 180; break;
                 case 7: dmg = 220; break;
                 case 8: dmg = 280; break;
-                case 9: dmg = 325; break;
+                case 9: dmg = 300; break;
+                case 10: dmg = 400; break;
             }
 
 
