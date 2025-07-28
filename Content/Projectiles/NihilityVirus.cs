@@ -112,17 +112,19 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.timeLeft = 4;
 
-            if (Owner.channel)
+            if (DownLeft && Projectile.ai[0] == 0)
             {
+                FindTarget();
                 Projectile.velocity = (InMousePos - Projectile.Center) * 0.12f;
                 //这个检查防止弹幕的第一帧和玩家重叠，导致角度计算出现不变的0度弧度
-                if (Projectile.Center == Owner.Center) 
+                if (Projectile.Center == Owner.Center)
                 {
                     Projectile.position += Projectile.velocity;
                 }
             }
             else
             {
+                targets.Clear();
                 Projectile.position += Owner.velocity;
                 Projectile.ChasingBehavior(Owner.Center, 36);
                 if (Projectile.Distance(Owner.Center) < Projectile.width)
@@ -130,6 +132,8 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.Kill();
                 }
             }
+
+            NetUpdate();
 
             Owner.direction = Projectile.Center.X + Projectile.velocity.X > Owner.Center.X ? 1 : -1;
             Owner.itemTime = 9;
@@ -140,27 +144,22 @@ namespace CalamityEntropy.Content.Projectiles
             if (Main.GameUpdateCount % 12 == 0)
             {
                 Owner.manaRegenDelay = 30;
+                Projectile.ai[0] = 0;
                 if (!Owner.CheckMana(Owner.HeldItem.mana, true))
                 {
-                    Projectile.Kill();
+                    Projectile.ai[0] = 1;
                 }
             }
 
             Projectile.rotation += 0.16f * Owner.direction;
             CEUtils.recordOldPosAndRots(Projectile, ref odp, ref odr, 12);
 
-            FindTarget();
-
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter > 3)
+            if (VaultUtils.isServer) 
             {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                if (Projectile.frame >= 4)
-                {
-                    Projectile.frame = 0;
-                }
+                return;
             }
+
+            VaultUtils.ClockFrame(ref Projectile.frame, 3, 3);
 
             if (sound == null)
             {
@@ -176,9 +175,11 @@ namespace CalamityEntropy.Content.Projectiles
             modifiers.SourceDamage *= 1 + (8 - targets.Count) / 8f;
         }
 
-        public void Drawlightning(int index, float width, float lightSize) {
+        public void Drawlightning(int index, float width, float lightSize)
+        {
             var points = lightnings[index].GetPoints();
-            if (points == null || points.Count < 2) {
+            if (points == null || points.Count < 2)
+            {
                 return;
             }
 
@@ -186,67 +187,89 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied, SamplerState.LinearWrap);
 
             vertexCache.Clear();
-            float p = -Main.GlobalTimeWrappedHourly * 2f;
-            float scale = 16f * Projectile.scale * lightSize;
+            float p = -Main.GlobalTimeWrappedHourly * 2.5f;
+            float scale = 16f * Projectile.scale * lightSize * (1f + 0.1f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 5f)); //脉动效果
 
-            //引入路径随机性
+            //增强路径随机性，模拟扭曲
             List<Vector2> randomizedPoints = new List<Vector2>(points);
-            for (int i = 1; i < randomizedPoints.Count - 1; i++) {
-                randomizedPoints[i] += new Vector2(Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f));
+            for (int i = 1; i < randomizedPoints.Count - 1; i++)
+            {
+                float glitch = Main.rand.NextFloat(-8f, 8f); //更大随机偏移
+                randomizedPoints[i] += new Vector2(glitch, glitch * 0.5f);
+                //模拟分支效果
+                if (Main.rand.NextBool(10) && i < randomizedPoints.Count - 2)
+                {
+                    Vector2 randSmd = new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)) * lightSize * 2.6f;
+                    randomizedPoints.Insert(i + 1, randomizedPoints[i] + randSmd);
+                }
             }
 
-            for (int i = 1; i < randomizedPoints.Count; i++) {
+            for (int i = 1; i < randomizedPoints.Count; i++)
+            {
                 Vector2 dir = randomizedPoints[i] - randomizedPoints[i - 1];
                 Vector2 offset = dir.SafeNormalize(Vector2.Zero).RotatedBy(MathHelper.PiOver2) * scale;
 
                 Vector2 basePos = randomizedPoints[i] - Main.screenPosition;
-                //添加颜色渐变和闪烁效果
-                float brightness = 0.8f + 0.2f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 10f + i);
-                Color b = new Color(255, 255, 255, (float)(i / (float)randomizedPoints.Count) * brightness);
+                //紫色主题渐变与毛刺效果
+                float brightness = 0.7f + 0.3f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 12f + i); //更快闪烁
+                float alpha = (float)(i / (float)randomizedPoints.Count);
+                Color b = new Color(180, 100, 255, alpha * brightness); //紫色主题
 
                 vertexCache.Add(new ColoredVertex(basePos + offset, new Vector3(p, 1, 1), b));
                 vertexCache.Add(new ColoredVertex(basePos - offset, new Vector3(p, 0, 1), b));
 
-                p += (dir.Length() / lightning.Width) * 0.5f; //调整流动速度
+                p += (dir.Length() / lightning.Width) * 0.6f; //调整流动速度
             }
 
-            if (vertexCache.Count >= 3) {
+            if (vertexCache.Count >= 3)
+            {
                 Main.graphics.GraphicsDevice.Textures[0] = lightning;
                 Main.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleStrip, vertexCache.ToArray(), 0, vertexCache.Count - 2);
             }
 
-            //增强光球效果，添加光晕
+            //增强光球效果，添加腐蚀粒子
             Texture2D light = CEUtils.getExtraTex("lightball");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Vector2 endPos = randomizedPoints[^1] - Main.screenPosition;
-            //绘制光晕
-            Main.spriteBatch.Draw(light, endPos, null, new Color(120, 120, 200, 0.3f), 0f, light.Size() / 2f, width * 0.18f * lightSize, SpriteEffects.None, 0f);
+            //绘制多层光晕，模拟腐蚀
+            Main.spriteBatch.Draw(light, endPos, null, new Color(150, 50, 255, 0.2f), 0f, light.Size() / 2f, width * 0.25f * lightSize, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(light, endPos, null, new Color(180, 100, 255, 0.4f), 0f, light.Size() / 2f, width * 0.18f * lightSize, SpriteEffects.None, 0f);
             //绘制主光球
-            Main.spriteBatch.Draw(light, endPos, null, new Color(120, 120, 200), 0f, light.Size() / 2f, width * 0.12f * lightSize, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(light, endPos, null, new Color(200, 150, 255), 0f, light.Size() / 2f, width * 0.12f * lightSize, SpriteEffects.None, 0f);
+            //添加腐蚀粒子效果
+            //for (int i = 0; i < 13; i++)
+            //{
+            //    Vector2 particleOffset = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * Main.rand.Next(11, 62) * lightSize;
+            //    float particleScale = Main.rand.NextFloat(0.05f, 0.1f) * lightSize;
+            //    Main.spriteBatch.Draw(light, endPos + particleOffset, null, new Color(180, 100, 255, 0.3f), 0f, light.Size() / 2f, particleScale, SpriteEffects.None, 0f);
+            //}
 
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend); //恢复默认混合状态
         }
 
-        public override bool PreDraw(ref Color lightColor) {
+        public override bool PreDraw(ref Color lightColor)
+        {
             Player player = Projectile.GetOwner();
             Vector2 opos = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
             Vector2 dir = (Projectile.Center - opos).SafeNormalize(Vector2.Zero);
             Vector2 handPos = opos + dir * 120f * player.HeldItem.scale;
 
             lightnings[8].Update(handPos, Projectile.Center);
-            Drawlightning(8, 1.6f, 2.5f); //调整参数以更自然
+            Drawlightning(8, 1.6f, 1.5f); //紫色主题主闪电
 
             int lc = 0;
             Vector2 projCenter = Projectile.Center;
 
-            foreach (NPC npc in targets) {
+            foreach (NPC npc in targets)
+            {
                 Vector2 npcCenter = npc.Center;
-                if (Vector2.DistanceSquared(lightnings[lc].Point2, npcCenter) > 24 * 24) {
+                if (Vector2.DistanceSquared(lightnings[lc].Point2, npcCenter) > 24 * 24)
+                {
                     for (int i = 0; i < 48; i++)
                         lightnings[lc].Update(projCenter, npcCenter);
                 }
                 lightnings[lc].Update(projCenter, npcCenter);
-                Drawlightning(lc, 2f - (targets.Count * 0.2f), 1.2f); //调整宽度和光球大小
+                Drawlightning(lc, 2f - (targets.Count * 0.18f), 1.6f); //调整宽度和光球大小
                 lc++;
             }
 
@@ -256,12 +279,14 @@ namespace CalamityEntropy.Content.Projectiles
 
             float apStep = 1f / odp.Count;
             float ap = 0f;
-            for (int i = 0; i < odp.Count; i++) {
+            for (int i = 0; i < odp.Count; i++)
+            {
                 Main.spriteBatch.Draw(tex, odp[i] - Main.screenPosition, frame, Color.White * ap * 0.4f, odr[i], origin, 1f, SpriteEffects.None, 0f);
                 ap += apStep;
             }
 
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, Color.White, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame
+                , new Color(200, 150, 255), Projectile.rotation, origin, Projectile.scale, SpriteEffects.None);
 
             return false;
         }
