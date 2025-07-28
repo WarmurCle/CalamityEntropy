@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 PortraitScale = 0.56f,
                 CustomTexturePath = "CalamityEntropy/Assets/BCL/Prophet",
                 PortraitPositionXOverride = 0,
-                PortraitPositionYOverride = 46
+                PortraitPositionYOverride = 0
             };
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
@@ -96,6 +96,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
             {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheDungeon,
                 new FlavorTextBestiaryInfoElement("Mods.CalamityEntropy.ProphetBestiary")
             });
         }

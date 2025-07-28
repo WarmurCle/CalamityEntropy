@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
@@ -7,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
+    [StaticImmunity(typeof(CruiserHead))]
     public class CruiserBody : ModNPC
     {
         public override void SetStaticDefaults()

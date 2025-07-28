@@ -323,18 +323,18 @@ Items: {
 	}
 
 	WisdomCard: {
-		Tooltip: -[COST]% стоимости маны
 		DisplayName: 『Мудрость』
+		Tooltip: -[COST]% стоимости маны
 	}
 
 	TemperanceCard: {
-		Tooltip: +[T] слот призыва
 		DisplayName: 『Умеренность』
+		Tooltip: +[T] слот призыва
 	}
 
 	RadianceCard: {
-		Tooltip: +[LR]% к регенерации здоровья
 		DisplayName: 『Сияние』
+		Tooltip: +[LR]% к регенерации здоровья
 	}
 
 	OracleDeck: {
@@ -355,33 +355,33 @@ Items: {
 	}
 
 	MetropolisCard: {
-		Tooltip: +10 к максимальной скрытности
 		DisplayName: 『Метрополис』
+		Tooltip: +10 к максимальной скрытности
 	}
 
 	InspirationCard: {
-		Tooltip: +20% к скорости передвижения
 		DisplayName: 『Вдохновение』
+		Tooltip: +20% к скорости передвижения
 	}
 
 	EntityCard: {
-		Tooltip: + 10% К скорости атаки ближнего боя
 		DisplayName: 『Сущность』
+		Tooltip: + 10% К скорости атаки ближнего боя
 	}
 
 	EnduranceCard: {
-		Tooltip: -5% к получению урона
 		DisplayName: 『Выносливость』
+		Tooltip: -5% к получению урона
 	}
 
 	BrillianceCard: {
-		Tooltip: +20% регенерации здоровья
 		DisplayName: 『Великолепие』
+		Tooltip: +20% регенерации здоровья
 	}
 
 	AuraCard: {
-		Tooltip: +5% к шансу критического удара
 		DisplayName: 『Аура』
+		Tooltip: +5% к шансу критического удара
 	}
 
 	ThreadOfFate: {
@@ -573,11 +573,6 @@ Items: {
 			+32% к урону стрелка
 			+30% к шансу критического урона стрелка
 			'''
-	}
-
-	GreedCard: {
-		DisplayName: 『Жадность』
-		Tooltip: +2% урона для каждого слота миньона
 	}
 
 	GhostdomWhisper: {
@@ -799,6 +794,11 @@ Items: {
 	Voidshade: {
 		Tooltip: ""
 		DisplayName: Тень бездны
+	}
+
+	GreedCard: {
+		DisplayName: 『Жадность』
+		Tooltip: +2% урона для каждого слота миньона
 	}
 
 	Barren: {
@@ -2057,8 +2057,8 @@ Items: {
 	}
 
 	IndigoCard: {
-		Tooltip: +[T]% скорость полета и [T2]% максимальное время полета
 		DisplayName: 『Индиго』
+		Tooltip: +[T]% скорость полета и [T2]% максимальное время полета
 	}
 
 	BitternessCard: {
@@ -2379,7 +2379,8 @@ Items: {
 		/* Tooltip:
 			'''
 			Resets summon damage bonuses to zero and converts them to minion capacity at [0]%:1 ratio
-			Increases whip attack speed by [1]%
+			Hugely decrease other kinds of damage
+			Increases whip attack speed by [1]% and whip attack speed by 100%
 			Reduces whip mark damage bonus
 			Grants significant armor penetration to minion attacks
 			''' */
@@ -2484,8 +2485,37 @@ Items: {
 		// DisplayName: Lost Heirloom
 		// Tooltip: ""
 	}
+
+	Bramblecleave: {
+		// DisplayName: Bramblecleave
+		/* Tooltip:
+			'''
+			Her power grows with progression  
+			A sword blessed by the Primordial Goddess of Life  
+			Current Level: [LV] / 14  
+			When her power is sufficient, you can use the following skills:  
+			@[C1][U1]  
+			#[C2][U2]  
+			$[C3][U3]  
+			%[C4][U4] 
+			''' */
+	}
+
+	BLUE: {
+		// Tooltip: ""
+		// DisplayName: B L U E
+	}
 }
 
+// LOCKED: ": [LOCKED]"
+// BCU1: Requires defeating King Slime
+// BCU2: Requires defeating Perforator or Hive Mind
+// BCU3: Requires defeating Wall of Flesh
+// BCU4: Requires defeating Plantera
+// BCC1: Right-click to extend thorny vines after a brief wind-up
+// BCC2: Holding right-click on a target pulls you toward it and deals impact damage. This skill consumes 20% of the Verdure Charge Bar. Left-click hits slightly recharge the bar
+// BCC3: Right-click then quickly left-click to throw the weapon. The sword attaches to the struck target, granting continuous health regeneration and slowly recharging the bar
+// BCC4: Double-tap and hold right-click to throw the weapon, causing it to rapidly pierce enemies near the cursor and continuously consume charging energy. Holding left-click spins the blade, releasing homing projectiles
 PrefixitemDesc:
 	'''
 	Используется для добавления префикса к броне
@@ -2933,6 +2963,11 @@ Projectiles: {
 	// FilthyCircle.DisplayName: Filthy Circle
 	// FilthyProjectile.DisplayName: Filthy Projectile
 	// FilthyShootAlt.DisplayName: Filthy Shoot Alt
+	// BramblecleaveHeld.DisplayName: Bramblecleave Held
+	// BrambleVine.DisplayName: Bramble Vine
+	// VineHookHit.DisplayName: Vine Hook Hit
+	// BramblecleaveAlt.DisplayName: BramblecleaveAlt
+	// BrambleShoot.DisplayName: Bramble Shoot
 }
 
 LegendTooltip: - Легенда -
@@ -3483,6 +3518,11 @@ Configs: {
 			Label: Специальный эффект историй
 			Tooltip: ""
 		}
+
+		BramblecleaveAlwaysUnlockAllSkill: {
+			// Label: Bramblecleave Always Unlock All Skill
+			// Tooltip: ""
+		}
 	}
 }
 
@@ -3809,3 +3849,11 @@ InfernumIntros: {
 // OblivionThretherCooldown: Oblivion Threther Dash Cooldown
 // LilyDeath0: " was devoured by filth"
 // LilyDeath1: "'s protective treasure is broken"
+// TheVoid: The Void
+
+Biomes: {
+	VoidDummyBoime: {
+		// DisplayName: Void Dummy Boime
+		// TownNPCDialogueName: the Void Dummy Boime
+	}
+}
