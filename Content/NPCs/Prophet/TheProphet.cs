@@ -101,6 +101,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             });
         }
 
+        public override void DrawBehind(int index)
+        {
+            Main.instance.DrawCacheNPCsOverPlayers.Add(index);
+        }
         public override void SetDefaults()
         {
             NPC.boss = true;
