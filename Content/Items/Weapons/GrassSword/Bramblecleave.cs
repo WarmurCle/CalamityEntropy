@@ -25,12 +25,12 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override void SetDefaults()
         {
-            Item.damage = 7;
+            Item.damage = 20;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
