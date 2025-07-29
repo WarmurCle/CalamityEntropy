@@ -2632,9 +2632,9 @@ BCU2: Requires defeating Perforator or Hive Mind
 BCU3: Requires defeating Wall of Flesh
 BCU4: Requires defeating Plantera
 BCC1: Right-click to extend thorny vines after a brief wind-up
-BCC2: Holding right-click on a target pulls you toward it and deals impact damage. This skill consumes 20% of the Verdure Charge Bar. Left-click hits slightly recharge the bar
-BCC3: Right-click then quickly left-click to throw the weapon. The sword attaches to the struck target, granting continuous health regeneration and slowly recharging the bar
-BCC4: Double-tap and hold right-click to throw the weapon, causing it to rapidly pierce enemies near the cursor and continuously consume charging energy. Holding left-click spins the blade, releasing homing projectiles
+BCC2: Holding right-click on a target pulls you toward it and deals impact damage. \nThis skill consumes 20% of the Verdure Charge Bar. Left-click hits slightly recharge the bar
+BCC3: Right-click then quickly left-click to throw the weapon. The sword attaches to the struck target, \ngranting continuous health regeneration and slowly recharging the bar
+BCC4: Double-tap and hold right-click to throw the weapon, causing it to rapidly pierce enemies near the cursor and continuously consume charging energy. \nHolding left-click spins the blade, releasing homing projectiles
 PrefixitemDesc:
 	'''
 	Used to add a prefix to an armor

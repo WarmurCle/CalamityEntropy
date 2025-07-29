@@ -157,6 +157,12 @@ namespace CalamityEntropy.Common
                 }
             }
         }
+
+        public override void GetHealMana(Item item, Player player, bool quickHeal, ref int healValue)
+        {
+            healValue += (int)(healValue * player.Entropy().ManaExtraHeal);
+        }
+
         public override bool ConsumeItem(Item item, Player player)
         {
             if (BookMarkLoader.IsABookMark(item) && EBookUI.active)

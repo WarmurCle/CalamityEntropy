@@ -407,8 +407,10 @@ namespace CalamityEntropy.Common
         public int worshipStealthRegenTime = 0;
         public bool shadowPact = false;
         public bool shadowRune = false;
+        public float ManaExtraHeal = 0f;
         public override void ResetEffects()
         {
+            ManaExtraHeal = 0;
             shadowRune = false;
             shadowPact = false;
             worshipRelic = false;
