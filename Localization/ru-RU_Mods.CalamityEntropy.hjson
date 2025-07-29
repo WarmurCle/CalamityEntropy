@@ -336,18 +336,18 @@ Items: {
 	}
 
 	WisdomCard: {
-		Tooltip: -[COST]% стоимости маны
 		DisplayName: 『Мудрость』
+		Tooltip: -[COST]% стоимости маны
 	}
 
 	TemperanceCard: {
-		Tooltip: +[T] слот призыва
 		DisplayName: 『Умеренность』
+		Tooltip: +[T] слот призыва
 	}
 
 	RadianceCard: {
-		Tooltip: +[LR]% к регенерации здоровья
 		DisplayName: 『Сияние』
+		Tooltip: +[LR]% к регенерации здоровья
 	}
 
 	OracleDeck: {
@@ -368,33 +368,33 @@ Items: {
 	}
 
 	MetropolisCard: {
-		Tooltip: +10 к максимальной скрытности
 		DisplayName: 『Метрополис』
+		Tooltip: +10 к максимальной скрытности
 	}
 
 	InspirationCard: {
-		Tooltip: +20% к скорости передвижения
 		DisplayName: 『Вдохновение』
+		Tooltip: +20% к скорости передвижения
 	}
 
 	EntityCard: {
-		Tooltip: + 10% к скорости атаки ближнего боя
 		DisplayName: 『Сущность』
+		Tooltip: + 10% К скорости атаки ближнего боя
 	}
 
 	EnduranceCard: {
-		Tooltip: -5% к получению урона
 		DisplayName: 『Выносливость』
+		Tooltip: -5% к получению урона
 	}
 
 	BrillianceCard: {
-		Tooltip: +20% к регенерации здоровья
 		DisplayName: 『Великолепие』
+		Tooltip: +20% регенерации здоровья
 	}
 
 	AuraCard: {
-		Tooltip: +5% к шансу критического удара
 		DisplayName: 『Аура』
+		Tooltip: +5% к шансу критического удара
 	}
 
 	ThreadOfFate: {
@@ -596,6 +596,7 @@ Items: {
 		DisplayName: 『Жадность』
 		Tooltip: +2% урона за каждый слот прислужника
 	}
+
 
 	GhostdomWhisper: {
 		Tooltip:
@@ -875,6 +876,11 @@ Items: {
 			«Режу пространство!»
 			'''
 		DisplayName: Тень бездны
+	}
+
+	GreedCard: {
+		DisplayName: 『Жадность』
+		Tooltip: +2% урона для каждого слота миньона
 	}
 
 	Barren: {
@@ -2227,8 +2233,8 @@ Items: {
 	}
 
 	IndigoCard: {
-		Tooltip: +[T]% скорость полета и [T2]% максимальное время полета
 		DisplayName: 『Индиго』
+		Tooltip: +[T]% скорость полета и [T2]% максимальное время полета
 	}
 
 	BitternessCard: {
@@ -3693,6 +3699,11 @@ Configs: {
 			Label: Специальный эффект историй
 			Tooltip: ""
 		}
+
+		BramblecleaveAlwaysUnlockAllSkill: {
+			// Label: Bramblecleave Always Unlock All Skill
+			// Tooltip: ""
+		}
 	}
 }
 
@@ -4022,3 +4033,11 @@ InfernumIntros: {
 // OblivionThretherCooldown: Откат рывка Жнеца Забвения
 // LilyDeath0: " was devoured by filth"
 // LilyDeath1: "'s protective treasure is broken"
+// TheVoid: The Void
+
+Biomes: {
+	VoidDummyBoime: {
+		// DisplayName: Void Dummy Boime
+		// TownNPCDialogueName: the Void Dummy Boime
+	}
+}

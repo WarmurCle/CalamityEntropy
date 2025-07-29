@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Biomes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -13,6 +14,7 @@ using CalamityMod.Events;
 using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
+using InnoVault.GameSystem;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -29,6 +31,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     [AutoloadBossHead]
+    [StaticImmunity(staticImmunityCooldown: 6)]
     public class CruiserHead : ModNPC
     {
         public float ProgressDraw = 0;
@@ -172,6 +175,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CruiserBoss");
             }
+            SpawnModBiomes = new int[] { ModContent.GetInstance<VoidDummyBoime>().Type };
         }
 
         public override void BossLoot(ref string name, ref int potionType)
@@ -1292,7 +1296,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPosition, Color drawColor)
         {
             if (NPC.IsABestiaryIconDummy)
-                return true;
+                return false;
 
             if (!candraw && !(phase == 1))
             {

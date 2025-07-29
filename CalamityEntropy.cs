@@ -80,6 +80,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
 using Terraria.ID;
@@ -93,6 +94,7 @@ namespace CalamityEntropy
     {
 
         internal static List<ICELoader> ILoaders { get; private set; }
+        public static CESpawnConditionBestiaryInfoElement theVoid_SCBIE;
         public static ref bool EntropyMode => ref EDownedBosses.EntropyMode;
         public static bool AprilFool = false;
         public static List<int> calDebuffIconDisplayList = new List<int>();
@@ -132,7 +134,7 @@ namespace CalamityEntropy
         public override void Load()
         {
             CEUtils.TexCache = new Dictionary<string, Texture2D>();
-
+            theVoid_SCBIE = new CESpawnConditionBestiaryInfoElement(this.GetLocalizationKey("TheVoid"), 0, "CalamityEntropy/Assets/VoidBack");
             BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
             BookMarkLoader.CustomBMByID = new Dictionary<int, BookMarkLoader.BookMarkTag>();
             Instance = this;
@@ -200,7 +202,7 @@ namespace CalamityEntropy
             On_Projectile.FillWhipControlPoints += fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
             
-            On_Player.ApplyDamageToNPC += applydamagetonpc;
+            //On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
             
@@ -286,6 +288,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            theVoid_SCBIE = null;
             EModILEdit.edgeTex = null;
             if (ILoaders != null)
             {
@@ -346,7 +349,7 @@ namespace CalamityEntropy
             On_Main.DrawTiles -= drawtile;
             On_Projectile.FillWhipControlPoints -= fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings -= get_whip_settings_hook;
-            On_Player.ApplyDamageToNPC -= applydamagetonpc;
+            //On_Player.ApplyDamageToNPC -= applydamagetonpc;
             On_Main.DrawCursor -= draw_cursor_hook;
             On_Main.DrawThickCursor -= draw_thick_cursor_hook;
         }
@@ -358,13 +361,6 @@ namespace CalamityEntropy
                 return orig(smart);
             }
             return Vector2.Zero;
-        }
-
-        private void applydamagetonpc(On_Player.orig_ApplyDamageToNPC orig, Player self, NPC n, int damage, float knockback, int direction, bool crit, DamageClass damageType, bool damageVariation)
-        {
-            orig(self, n, damage, knockback, direction, crit, damageType, damageVariation);
-            n.gimmune().readySyncDashImmune = true;
-            n.gimmune().sdPlayer = self;
         }
 
         private void add_buff_npc(On_NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
@@ -473,7 +469,7 @@ namespace CalamityEntropy
                 {
                     Color lightColor = Lighting.GetColor(new Point((int)(player.Center.X / 16), (int)(player.Center.Y / 16)));
                     float gr = (255 * 3f - (lightColor.R + lightColor.G + lightColor.B));
-                    if (gr > 12)
+                    if (gr > 6)
                     {
                         CEUtils.DrawGlow(player.Center, Color.White * 0.5f, 5.2f);
                     }

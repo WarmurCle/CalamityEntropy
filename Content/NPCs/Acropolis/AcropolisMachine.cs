@@ -198,9 +198,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             NPC.width = 142;
             NPC.height = 132;
-            NPC.damage = 30;
-            NPC.defense = 12;
-            NPC.lifeMax = 3000;
+            NPC.damage = 19;
+            NPC.defense = 6;
+            NPC.lifeMax = 960;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = CEUtils.GetSound("chainsaw_break");
             NPC.value = 1600f;
@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.noTileCollide = true;
             NPC.noGravity = true;
             NPC.dontCountMe = true;
-            NPC.timeLeft *= 1000;
+            NPC.timeLeft *= 12;
             NPC.lavaImmune = true;
             NPC.scale = 1f;
             if(Main.getGoodWorld)
@@ -227,7 +227,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override bool CheckActive()
         {
-            return false;
+            return !NPC.boss;
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -313,7 +313,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     NPC.boss = true;
                 }
                 NPC.noTileCollide = true;
-                if (NPC.HasValidTarget)
+                if (NPC.HasValidTarget && NPC.target.ToPlayer().Distance(NPC.Center) < 3000)
                 {
                     AttackPlayer(Main.player[NPC.target]);
                     if (Main.netMode == NetmodeID.Server)

@@ -330,18 +330,30 @@ Items: {
 	}
 
 	WisdomCard: {
-		Tooltip: -[COST]% Mana Cost
-		DisplayName: 『Wisdom』
+		DisplayName: Oracle Card 『Wisdom』
+		Tooltip:
+			'''
+			-[COST]% Mana Cost  
+			"Reason prevails, victory follows"  
+			'''
 	}
 
 	TemperanceCard: {
-		Tooltip: +[T] Minion Slot
-		DisplayName: 『Temperance』
+		DisplayName: Oracle Card 『Temperance』
+		Tooltip:
+			'''
+			+[T] Summon Slot  
+			"Restrain desire, command legions"  
+			'''
 	}
 
 	RadianceCard: {
-		Tooltip: +[LR]% Life Regen
-		DisplayName: 『Radiance』
+		DisplayName: Oracle Card 『Radiance』
+		Tooltip:
+			'''
+			+[LR]% Life Regeneration  
+			"Emit light, mend the soul"  
+			'''
 	}
 
 	OracleDeck: {
@@ -362,33 +374,57 @@ Items: {
 	}
 
 	MetropolisCard: {
-		Tooltip: +10 Max Stealth
-		DisplayName: 『Metropolis』
+		DisplayName: Oracle Card 『Metropolis』
+		Tooltip:
+			'''
+			+10 Max Stealth  
+			"Lush palaces, hidden in depth"  
+			'''
 	}
 
 	InspirationCard: {
-		Tooltip: +20% Move Speed
-		DisplayName: 『Inspiration』
+		DisplayName: Oracle Card 『Inspiration』
+		Tooltip:
+			'''
+			+20% Movement Speed  
+			"Epiphany strikes, swift as wind"  
+			'''
 	}
 
 	EntityCard: {
-		Tooltip: + 10% Melee Attack Speed
-		DisplayName: 『Entity』
+		DisplayName: Oracle Card 『Entity』
+		Tooltip:
+			'''
+			+10% Melee Attack Speed  
+			"Flesh as blade, swift as shadow"  
+			'''
 	}
 
 	EnduranceCard: {
-		Tooltip: -5% Damage Taken
-		DisplayName: 『Endurance』
+		DisplayName: Oracle Card 『Endurance』
+		Tooltip:
+			'''
+			-5% Damage Taken  
+			"Tempered steel, unshaken as mountains"  
+			'''
 	}
 
 	BrillianceCard: {
-		Tooltip: +20% Life Regen
-		DisplayName: 『Brilliance』
+		DisplayName: Oracle Card 『Brilliance』
+		Tooltip:
+			'''
+			+50% Light Radius  
+			"Light eternal, darkness recedes"  
+			'''
 	}
 
 	AuraCard: {
-		Tooltip: +5% Crit Chance
-		DisplayName: 『Aura』
+		DisplayName: Oracle Card 『Aura』
+		Tooltip:
+			'''
+			+5% Critical Strike Chance  
+			"A flash of insight, a fatal strike"  
+			'''
 	}
 
 	ThreadOfFate: {
@@ -581,11 +617,6 @@ Items: {
 			+32% Ranged Damage
 			+30% Ranged Crit Chance
 			'''
-	}
-
-	GreedCard: {
-		DisplayName: 『Greed』
-		Tooltip: +2% damage for each summon slots
 	}
 
 	GhostdomWhisper: {
@@ -810,64 +841,89 @@ Items: {
 		DisplayName: Voidshade
 	}
 
-	Barren: {
-		DisplayName: 『Barren』
+	GreedCard: {
+		DisplayName: Phantom Card 『Greed』
 		Tooltip:
 			'''
-			Rogue Projectile obtain micro tracking
-			-25% Rogue damage & crit
+			+2% damage per Summon Slot
+			"Abyss of Avarice"
+			'''
+	}
+
+	Barren: {
+		DisplayName: Phantom Card 『Barren』
+		Tooltip:
+			'''
+			Rogue projectiles gain homing, but deal 25% less Rogue damage and critical strike chance
+			"Hunt of the Withered"
 			'''
 	}
 
 	Confuse: {
-		DisplayName: 『Confuse』
-		Tooltip: Attack to exert deceive debuff in enemies that Reduce their movement speed
+		DisplayName: Phantom Card 『Confuse』
+		Tooltip:
+			'''
+			Attacks inflict Blind, reducing enemy movement speed
+			"Mind-Draining Shackles"
+			'''
 	}
 
 	Fool: {
-		DisplayName: 『Fool』
+		DisplayName: Phantom Card 『Fool』
 		Tooltip:
 			'''
 			+20% Mana Cost
 			+20% Magic Damage
+			"Flames of Mad Wit"
 			'''
 	}
 
 	Frail: {
-		DisplayName: 『Frail』
+		DisplayName: Phantom Card 『Frail』
 		Tooltip:
 			'''
 			+15% Damage
-			+10% Damage taken 
+			Take 10% more damage
+			"Edge of Fragility"
 			'''
 	}
 
 	Nothing: {
-		DisplayName: 『Nothing』
-		Tooltip: +6 Void Touch
+		DisplayName: Phantom Card 『Void』
+		Tooltip:
+			'''
+			Attacks inflict Void Touch debuff
+			"Catalyst of Annihilation"
+			'''
 	}
 
 	Perplexed: {
-		DisplayName: 『Perplexed』
+		DisplayName: Phantom Card 『Perplexed』
 		Tooltip:
 			'''
-			-5% Crit
+			-5% Critical Strike Chance
 			+16% Attack Speed
+			"Speed of the Troubled Mind"
 			'''
 	}
 
 	Sacrifice: {
-		DisplayName: 『Sacrifice』
+		DisplayName: Phantom Card 『Sacrifice』
 		Tooltip:
 			'''
-			-60% Life Regen
+			-60% Regeneration Rate
 			+10% Damage
+			"Power of Blood Debt"
 			'''
 	}
 
 	Tarnish: {
-		DisplayName: 『Tarnish』
-		Tooltip: Launch shadow flames during attack
+		DisplayName: Phantom Card 『Tarnish』
+		Tooltip:
+			'''
+			Attacks release Darkflame
+			"Corrosive Embers"
+			'''
 	}
 
 	TaintedDeck: {
@@ -2049,53 +2105,94 @@ Items: {
 	}
 
 	RequiemCard: {
-		DisplayName: 『Requiem』
-		Tooltip: Reduce most of the cooling by [T]%
+		DisplayName: Soul Card 『Requiem』
+		Tooltip:
+			'''
+			Reduces most cooldowns by [T]%
+			"Song of the Dead, Cooldown as Poetry"
+			(Cooldown flows like a mournful elegy)
+			'''
 	}
 
 	GrudgeCard: {
-		DisplayName: 『Grudge』
-		Tooltip: Hitting enemies may release souls that fly to you, healing you and providing temporary armor
+		DisplayName: Soul Card 『Grudge』
+		Tooltip:
+			'''
+			Hitting enemies may release souls that fly to you, healing and granting temporary armor
+			"Hatred Lingers, Blood Repays"
+			(Wraiths cling, feeding vitality)
+			'''
 	}
 
 	ObscureCard: {
-		DisplayName: 『Obscurity』
-		Tooltip: Restores flight time when touching enemy hitboxes and inflicts Soul Disorder debuff
+		DisplayName: Soul Card 『Obscurity』
+		Tooltip:
+			'''
+			Contact with enemy hitboxes greatly increases health regen, restores flight time and inflicts Soul Disarray
+			"Touch Heals, Shadows Consume"
+			(Near foes mend wounds, the nether corrodes)
+			'''
 	}
 
 	PurificationCard: {
-		DisplayName: 『Purification』
-		Tooltip: Reduces duration of all debuffs by [T]%
+		DisplayName: Soul Card 『Purification』
+		Tooltip:
+			'''
+			Reduces duration of all debuffs by [T]%
+			"Flame of Absolution, Burning Impurities"
+			(Cleansing fire purges all taint)
+			'''
 	}
 
 	WisperCard: {
-		DisplayName: 『Whisper』
-		Tooltip: Extends invincibility duration by /[T]%
+		DisplayName: Soul Card 『Whisper』
+		Tooltip:
+			'''
+			Extends invincibility duration by [T]%
+			"Ghostly Murmurs, Fleeting Intangibility"
+			(Eternal whispers in your ear)
+			'''
 	}
 
 	MourningCard: {
-		DisplayName: 『Mourning』
-		Tooltip: When armor, damage, crit chance, and regen decrease, slow down the rate of attribute reduction
+		DisplayName: Soul Card 『Mourning』
+		Tooltip:
+			'''
+			Slows the rate of decline when Armor, Damage, Crit Chance, Damage Reduction or Health Regen decrease
+			"Eternal Grief, Decay Delayed"
+			(Sorrow clings, fear departs)
+			'''
 	}
 
 	IndigoCard: {
-		Tooltip: +[T]%flight speed and [T2]% Max flight time
-		DisplayName: 『Indigo』
+		DisplayName: Soul Card 『Indigo』
+		Tooltip:
+			'''
+			Increases flight speed by [T]% and flight time by [T2]
+			"Azure Souls Soar, Gone With Wind"
+			(Indigo specters accelerate through air)
+			'''
 	}
 
 	BitternessCard: {
-		DisplayName: 『Woe』
+		DisplayName: Soul Card 『Woe』
 		Tooltip:
 			'''
-			The lower the health value, the higher the damage reduction
-			The higher the health value, the higher the damage
-			Maximum increase of [1]% damage and [2]% damage reduce
+			Lower health grants more damage reduction, higher health grants more damage
+			Up to [1]% more damage and [2]% damage reduction
+			"Wounded Fury, Born From Death"
+			(Blood loss brings resilience, fullness brings rage)
 			'''
 	}
 
 	DevouringCard: {
-		DisplayName: 『Soulrend』
-		Tooltip: Ignore [1]% of enemys' armor
+		DisplayName: Soul Card 『Soulrend』
+		Tooltip:
+			'''
+			Attacks ignore [1]% of target's armor
+			"Starved Specters Gnaw, Armor Crumbles"
+			(Wraiths feast upon enemy defenses)
+			'''
 	}
 
 	CursedThread: {
@@ -3539,6 +3636,11 @@ Configs: {
 			Label: Lore Special Effect
 			Tooltip: ""
 		}
+
+		BramblecleaveAlwaysUnlockAllSkill: {
+			Label: Bramblecleave Always Unlock All Skill
+			Tooltip: ""
+		}
 	}
 }
 
@@ -3867,3 +3969,11 @@ Acropolis: ""
 OblivionThretherCooldown: Oblivion Threther Dash Cooldown
 LilyDeath0: " was devoured by filth"
 LilyDeath1: "'s protective treasure is broken"
+TheVoid: The Void
+
+Biomes: {
+	VoidDummyBoime: {
+		DisplayName: Void Dummy Boime
+		TownNPCDialogueName: the Void Dummy Boime
+	}
+}

@@ -379,18 +379,30 @@ Items: {
 	}
 
 	WisdomCard: {
-		Tooltip: -[COST]%魔力消耗
 		DisplayName: 神谕卡片『智慧』
+		Tooltip:
+			'''
+			-[COST]%魔力消耗
+			“理性思考，便可取胜”
+			'''
 	}
 
 	TemperanceCard: {
-		Tooltip: +[T] 召唤栏
 		DisplayName: 神谕卡片『克己』
+		Tooltip:
+			'''
+			+[T] 召唤栏
+			“克制欲望，方得万众”
+			'''
 	}
 
 	RadianceCard: {
-		Tooltip: +[LR]%生命恢复
 		DisplayName: 神谕卡片『光芒』
+		Tooltip:
+			'''
+			+[LR]%生命恢复
+			“散发光芒，治愈灵魂”
+			'''
 	}
 
 	OracleDeck: {
@@ -410,33 +422,57 @@ Items: {
 	}
 
 	MetropolisCard: {
-		Tooltip: +10 最大潜行值
 		DisplayName: 神谕卡片『都市』
+		Tooltip:
+			'''
+			+10 最大潜行值
+			“繁茂宫殿，窃藏于深”
+			'''
 	}
 
 	InspirationCard: {
-		Tooltip: +20%移动速度
 		DisplayName: 神谕卡片『启迪』
+		Tooltip:
+			'''
+			+20%移动速度
+			“灵光乍现，步履如风”
+			'''
 	}
 
 	EntityCard: {
-		Tooltip: +10% 近战攻击速度
 		DisplayName: 神谕卡片『实体』
+		Tooltip:
+			'''
+			+10% 近战攻击速度
+			“血肉为刃，疾如残影”
+			'''
 	}
 
 	EnduranceCard: {
-		Tooltip: -5%受到的伤害
 		DisplayName: 神谕卡片『坚忍』
+		Tooltip:
+			'''
+			-5%受到的伤害
+			“千锤百炼，不动如山”
+			'''
 	}
 
 	BrillianceCard: {
-		Tooltip: +50%光照
 		DisplayName: 神谕卡片『辉煌』
+		Tooltip:
+			'''
+			+50%光照
+			“光明永驻，黑暗退散”
+			'''
 	}
 
 	AuraCard: {
-		Tooltip: +5%暴击
 		DisplayName: 神谕卡片『灵光』
+		Tooltip:
+			'''
+			+5%暴击
+			“刹那顿悟，一击必杀”
+			'''
 	}
 
 	ThreadOfFate: {
@@ -638,11 +674,6 @@ Items: {
 			+32% 远程伤害
 			+30% 远程暴击率
 			'''
-	}
-
-	GreedCard: {
-		DisplayName: 幻影卡片『贪婪』
-		Tooltip: 每有一个召唤栏，+2%伤害
 	}
 
 	GhostdomWhisper: {
@@ -939,14 +970,31 @@ Items: {
 		DisplayName: 虚影薄锋
 	}
 
+	GreedCard: {
+		DisplayName: 幻影卡片『贪婪』
+		Tooltip:
+			'''
+			每有一个召唤栏，+2%伤害
+			“贪欲之渊”
+			'''
+	}
+
 	Barren: {
 		DisplayName: 幻影卡片『荒芜』
-		Tooltip: 盗贼弹幕获得追踪能力，但是减少25%盗贼伤害和暴击率
+		Tooltip:
+			'''
+			盗贼弹幕获得追踪能力，但是减少25%盗贼伤害和暴击率
+			“凋零之狩”
+			'''
 	}
 
 	Confuse: {
 		DisplayName: 幻影卡片『迷惑』
-		Tooltip: 攻击使敌人中蒙蔽debuff，减少其移动速度
+		Tooltip:
+			'''
+			攻击使敌人中蒙蔽debuff，减少其移动速度
+			“吮脑之锢”
+			'''
 	}
 
 	Fool: {
@@ -955,6 +1003,7 @@ Items: {
 			'''
 			+20%魔力消耗
 			+20%魔法伤害
+			“狂智之焰”
 			'''
 	}
 
@@ -963,13 +1012,18 @@ Items: {
 		Tooltip:
 			'''
 			+15%伤害
-			受到的伤害增加10% 
+			受到的伤害增加10%
+			“脆刃之锋”
 			'''
 	}
 
 	Nothing: {
 		DisplayName: 幻影卡片『虚无』
-		Tooltip: 攻击附带虚空之触减益
+		Tooltip:
+			'''
+			攻击附带虚空之触减益
+			“湮灭触媒”
+			'''
 	}
 
 	Perplexed: {
@@ -978,6 +1032,7 @@ Items: {
 			'''
 			-5% 暴击率
 			+16% 攻击速度
+			“乱心之速”
 			'''
 	}
 
@@ -987,12 +1042,17 @@ Items: {
 			'''
 			-60%再生速度
 			+10%伤害
+			“血偿之力”
 			'''
 	}
 
 	Tarnish: {
 		DisplayName: 幻影卡片『晦暗』
-		Tooltip: 攻击时发射暗隐火焰
+		Tooltip:
+			'''
+			攻击时发射暗隐火焰
+			“暗蚀之炎”
+			'''
 	}
 
 	TaintedDeck: {
@@ -2283,37 +2343,72 @@ Items: {
 
 	RequiemCard: {
 		DisplayName: 灵魂卡片『魂歌』
-		Tooltip: 将大部分冷却减少[T]%
+		Tooltip:
+			'''
+			将大部分冷却减少[T]%
+			"亡者之歌，冷却成诗"
+			（冷却缩减如哀歌般流淌）
+			'''
 	}
 
 	GrudgeCard: {
 		DisplayName: 灵魂卡片『怨念』
-		Tooltip: 击中敌人有时候会迸发出灵魂，灵魂会飞向你并为你回血并提供临时护甲
+		Tooltip:
+			'''
+			击中敌人有时候会迸发出灵魂，灵魂会飞向你并为你回血并提供临时护甲
+			"恨意未消，噬血回魂"
+			（怨灵缠身，反哺生机）
+			'''
 	}
 
 	ObscureCard: {
 		DisplayName: 灵魂卡片『幽冥』
-		Tooltip: 接触敌人碰撞箱时大幅增加生命再生，回复飞行时间并造成灵魂紊乱减益
+		Tooltip:
+			'''
+			接触敌人碰撞箱时大幅增加生命再生，回复飞行时间并造成灵魂紊乱减益
+			"触之即愈，魂影蚀骨"
+			（近敌愈伤，幽冥蚀敌）
+			'''
 	}
 
 	PurificationCard: {
 		DisplayName: 灵魂卡片『净化』
-		Tooltip: 将所有debuff的时间减短[T]%
+		Tooltip:
+			'''
+			将所有减益的时间减短[T]%
+			"涤罪之焰，焚秽存净"
+			（净化减益，焚尽污秽）
+			'''
 	}
 
 	WisperCard: {
 		DisplayName: 灵魂卡片『低语』
-		Tooltip: 延长[T]%的无敌时间
+		Tooltip:
+			'''
+			延长[T]%的无敌时间
+			"幽声呢喃，刹那虚化"
+			（耳畔低语,遁入永恒）
+			'''
 	}
 
 	MourningCard: {
 		DisplayName: 灵魂卡片『悲恸』
-		Tooltip: 当护甲、伤害、暴击率、伤害减免、生命恢复属性下降时，减缓属性减少的速度
+		Tooltip:
+			'''
+			当护甲、伤害、暴击率、伤害减免、生命恢复属性下降时，减缓属性减少的速度
+			"哀伤永驻，衰败迟延"
+			（悲痛缠身，不再畏惧）
+			'''
 	}
 
 	IndigoCard: {
-		Tooltip: 增加[T]%飞行速度和[T2]飞行时间
 		DisplayName: 灵魂卡片『靛蓝』
+		Tooltip:
+			'''
+			增加[T]%飞行速度和[T2]飞行时间
+			"蓝魂掠空，逝者如风"
+			（靛色魂影，加速翱翔）
+			'''
 	}
 
 	BitternessCard: {
@@ -2322,12 +2417,19 @@ Items: {
 			'''
 			生命值越低，减伤越高，生命值越高，伤害越高
 			最多增加[1]%伤害和[2]%减伤
+			"愈伤愈怒，向死而生"
+			（血低则韧，血满则狂）
 			'''
 	}
 
 	DevouringCard: {
 		DisplayName: 灵魂卡片『噬魂』
-		Tooltip: 攻击无视目标[1]%的护甲
+		Tooltip:
+			'''
+			攻击无视目标[1]%的护甲
+			"饥魂啃噬，破甲蚀防"
+			（恶灵啃食敌人护甲）
+			'''
 	}
 
 	CursedThread: {
@@ -3773,6 +3875,11 @@ Configs: {
 			Label: 传颂之物特殊效果
 			Tooltip: 为灾厄的传颂之物添加特殊效果
 		}
+
+		BramblecleaveAlwaysUnlockAllSkill: {
+			// Label: Bramblecleave Always Unlock All Skill
+			// Tooltip: ""
+		}
 	}
 }
 
@@ -4113,3 +4220,11 @@ Acropolis: 阿萨福勒量产的攻击型机甲，曾被用于大规模战争
 OblivionThretherCooldown: 虚漩巡锯突进冷却
 LilyDeath0: 被污秽所吞噬
 LilyDeath1: 的守护宝具破碎了
+TheVoid: 虚空
+
+Biomes: {
+	VoidDummyBoime: {
+		// DisplayName: Void Dummy Boime
+		// TownNPCDialogueName: the Void Dummy Boime
+	}
+}

@@ -1,6 +1,8 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Biomes;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Utilities;
+using CalamityMod.BiomeManagers;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -61,6 +63,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.Entropy().VoidTouchDR = 0.5f;
             NPC.dontCountMe = true;
             NPC.netAlways = true;
+            SpawnModBiomes = new int[] { ModContent.GetInstance<VoidDummyBoime>().Type };
         }
         public bool init = true;
         Rope rope = null;
