@@ -22,10 +22,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 32;
             Item.height = 34;
-            Item.damage = 160;
+            Item.damage = 125;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 18;
+            Item.useAnimation = Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 2f;
             Item.UseSound = CEUtils.GetSound("powerwhip");

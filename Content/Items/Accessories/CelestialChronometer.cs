@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class CelestialChronometer : ModItem, IDonatorItem
     {
-        public string DonatorName => "ÉòÔÆÃÎ";
+        public string DonatorName => "丰川祥子";
         public override void SetDefaults()
         {
             Item.width = 40;
