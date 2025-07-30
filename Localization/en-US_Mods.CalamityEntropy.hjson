@@ -2624,6 +2624,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: B L U E
 	}
+
+	Vast: {
+		DisplayName: Vast
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"

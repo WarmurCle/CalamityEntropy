@@ -33,6 +33,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -161,10 +162,25 @@ namespace CalamityEntropy.Common
         public override void GetHealMana(Item item, Player player, bool quickHeal, ref int healValue)
         {
             healValue += (int)(healValue * player.Entropy().ManaExtraHeal);
+            if(player.Entropy().hasAcc("VastLV2"))
+            {
+                healValue = (int)((CalCI ? 0.25f : 0.75f) * healValue);
+            }
         }
 
+        public static bool CalCI = false;
         public override bool ConsumeItem(Item item, Player player)
         {
+            
+            if (player.Entropy().hasAcc("VastLV2") && item.healMana > 0)
+            {
+                CalCI = true;
+                int h = item.healMana;
+                ItemLoader.GetHealMana(item, player, true, ref h);
+                CalCI = false;
+                player.Entropy().ManaRegenPer30Tick = h / 10;
+                player.Entropy().ManaRegenTime = 60 * 5 + 5;
+            }
             if (BookMarkLoader.IsABookMark(item) && EBookUI.active)
             {
                 return false;

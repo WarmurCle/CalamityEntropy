@@ -336,18 +336,18 @@ Items: {
 	}
 
 	WisdomCard: {
-		Tooltip: -[COST]% стоимости маны
 		DisplayName: 『Мудрость』
+		Tooltip: -[COST]% стоимости маны
 	}
 
 	TemperanceCard: {
-		Tooltip: +[T] слот призыва
 		DisplayName: 『Умеренность』
+		Tooltip: +[T] слот призыва
 	}
 
 	RadianceCard: {
-		Tooltip: +[LR]% к регенерации здоровья
 		DisplayName: 『Сияние』
+		Tooltip: +[LR]% к регенерации здоровья
 	}
 
 	OracleDeck: {
@@ -368,33 +368,33 @@ Items: {
 	}
 
 	MetropolisCard: {
-		Tooltip: +10 к максимальной скрытности
 		DisplayName: 『Метрополис』
+		Tooltip: +10 к максимальной скрытности
 	}
 
 	InspirationCard: {
-		Tooltip: +20% к скорости передвижения
 		DisplayName: 『Вдохновение』
+		Tooltip: +20% к скорости передвижения
 	}
 
 	EntityCard: {
-		Tooltip: + 10% к скорости атаки ближнего боя
 		DisplayName: 『Сущность』
+		Tooltip: + 10% к скорости атаки ближнего боя
 	}
 
 	EnduranceCard: {
-		Tooltip: -5% к получению урона
 		DisplayName: 『Выносливость』
+		Tooltip: -5% к получению урона
 	}
 
 	BrillianceCard: {
-		Tooltip: +20% к регенерации здоровья
 		DisplayName: 『Великолепие』
+		Tooltip: +20% к регенерации здоровья
 	}
 
 	AuraCard: {
-		Tooltip: +5% к шансу критического удара
 		DisplayName: 『Аура』
+		Tooltip: +5% к шансу критического удара
 	}
 
 	ThreadOfFate: {
@@ -421,7 +421,8 @@ Items: {
 	}
 
 	GalaxyGrapeSoda: {
-		Tooltip: '''
+		Tooltip:
+			'''
 			«Внутри содержатся виноград, эссенция богов, а также святые стражи из черного дерева и крови…?»
 			Превращает тебя в образ убийцы богов.
 			'''
@@ -444,7 +445,8 @@ Items: {
 	}
 
 	DustyStar: {
-		Tooltip: '''
+		Tooltip:
+			'''
 			Превращает тебя в светловолосого красавца с животными ушками.
 			«Не забудь поставить лайк Зиашаню»
 			'''
@@ -456,7 +458,7 @@ Items: {
 		Tooltip:
 			'''
 			Призывает Маленького Божественного Ассасина
-    			«Пусть клинок и мал, но остроты ему не занимать»
+			 			«Пусть клинок и мал, но остроты ему не занимать»
 			'''
 	}
 
@@ -592,11 +594,6 @@ Items: {
 			'''
 	}
 
-	GreedCard: {
-		DisplayName: 『Жадность』
-		Tooltip: +2% урона за каждый слот прислужника
-	}
-
 	GhostdomWhisper: {
 		Tooltip:
 			'''
@@ -618,7 +615,7 @@ Items: {
 
 	RustyGrenade: {
 		DisplayName: Ржавая граната
-		Tooltip: 
+		Tooltip:
 			'''
 			Считается ракетой
 			«Хоть и громоздко, но, похоже, выбора нет.»
@@ -626,7 +623,8 @@ Items: {
 	}
 
 	RustExpeditioner: {
-		Tooltip: '''
+		Tooltip:
+			'''
 			Использует ракетные боеприпасы
 			Пули падают вниз
 			«Не слишком безопасно.»
@@ -636,7 +634,8 @@ Items: {
 
 	VoidDevastator: {
 		DisplayName: Разрушитель пустоты
-		Tooltip: '''
+		Tooltip:
+			'''
 			Использует ракетные боеприпасы, не наносит урон союзникам
 			Стреляет ракетами с различными эффектами
 			«Огонь по пустоте!»
@@ -645,7 +644,8 @@ Items: {
 
 	GodSlayerRocket: {
 		DisplayName: Ракета Убийцы Богов
-		Tooltip: '''
+		Tooltip:
+			'''
 			Считается ракетой, не наносит урон союзникам
 			При попадании вызывает мощный взрыв и накладывает на ближайших врагов дебафф «Касание Пустоты»
 			«Разнеси богов на куски!»
@@ -653,7 +653,8 @@ Items: {
 	}
 
 	RailPulseBow: {
-		Tooltip: '''
+		Tooltip:
+			'''
 			Стреляет стрелами с электрическим зарядом
 			«Фуу~ Жжзь!»
 			'''
@@ -684,7 +685,7 @@ Items: {
 
 	AbyssalDragon: {
 		DisplayName: Дракон бездны
-		Tooltip: 
+		Tooltip:
 			'''
 			Выпускает Тёмного Дракона Бездны и Звезду Бездны
 			«Когда ты смотришь в бездну...»
@@ -702,7 +703,7 @@ Items: {
 
 	SlimeYoyo: {
 		DisplayName: Слизневое Йо-Йо
-		Tooltip: 
+		Tooltip:
 			'''
 			Супер гибкий и упругий йо-йо
 			Наносит тройной урон при первом броске
@@ -724,7 +725,8 @@ Items: {
 
 	ArmorReforgStation: {
 		DisplayName: Станция перековки брони
-		Tooltip: '''
+		Tooltip:
+			'''
 			Используется для перековки брони
 			Этот предмет устарел: он всё ещё работает, но не доступен в обычном прохождении
 			Вместо него используется набор предметов с эффектами для наложения свойств на броню
@@ -732,7 +734,8 @@ Items: {
 	}
 
 	OverloadFurnace: {
-		Tooltip: '''
+		Tooltip:
+			'''
 			Зарядите и выпустите шар молнии, который при попадании разряжается электричеством.
 			«Жжж!»
 			'''
@@ -752,7 +755,7 @@ Items: {
 
 	MagneticController: {
 		DisplayName: Магнитный контроллер
-		Tooltip: 
+		Tooltip:
 			'''
 			Призывает магнитного духа, который сражается за тебя.
 			«Нам нужна квадратная перчатка»
@@ -875,6 +878,11 @@ Items: {
 			«Режу пространство!»
 			'''
 		DisplayName: Тень бездны
+	}
+
+	GreedCard: {
+		DisplayName: 『Жадность』
+		Tooltip: +2% урона за каждый слот прислужника
 	}
 
 	Barren: {
@@ -1142,7 +1150,7 @@ Items: {
 
 	NihilityHorn: {
 		DisplayName: Рог пустоты
-		Tooltip: 
+		Tooltip:
 			'''
 			Призывает Близнецов Пустоты  
 			«Этот звук способен открыть проход в Пустоту»
@@ -1412,7 +1420,7 @@ Items: {
 
 	AncientScriptures: {
 		DisplayName: Древнее писание
-		Tooltip: 
+		Tooltip:
 			'''
 			Выстреливает руническими снарядами
 			«Древние маги прикрепляли к книгам разные закладки, чтобы удобно переключать заклинания»
@@ -2227,8 +2235,8 @@ Items: {
 	}
 
 	IndigoCard: {
-		Tooltip: +[T]% скорость полета и [T2]% максимальное время полета
 		DisplayName: 『Индиго』
+		Tooltip: +[T]% скорость полета и [T2]% максимальное время полета
 	}
 
 	BitternessCard: {
@@ -2680,6 +2688,11 @@ Items: {
 	BLUE: {
 		Tooltip: ""
 		DisplayName: B L U E
+	}
+
+	Vast: {
+		// DisplayName: Vast
+		// Tooltip: ""
 	}
 }
 
@@ -3693,6 +3706,11 @@ Configs: {
 			Label: Специальный эффект историй
 			Tooltip: ""
 		}
+
+		BramblecleaveAlwaysUnlockAllSkill: {
+			// Label: Bramblecleave Always Unlock All Skill
+			// Tooltip: ""
+		}
 	}
 }
 
@@ -4022,3 +4040,11 @@ Acropolis: ""
 OblivionThretherCooldown: Откат рывка Жнеца Забвения
 LilyDeath0: " was devoured by filth"
 LilyDeath1: "'s protective treasure is broken"
+// TheVoid: The Void
+
+Biomes: {
+	VoidDummyBoime: {
+		// DisplayName: Void Dummy Boime
+		// TownNPCDialogueName: the Void Dummy Boime
+	}
+}

@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;
         }
-
+        
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip("Vast", !hideVisual);
@@ -36,8 +36,66 @@ namespace CalamityEntropy.Content.Items.Donator
                     player.GetCritChance(DamageClass.Magic) += 4;
                 }
             }
-
+            if(NPC.downedBoss2)
+            {
+                player.Entropy().addEquip("VastLV2");
+            }
+            if(DownedBossSystem.downedSlimeGod)
+            {
+                player.Entropy().addEquip("VastLV3");
+            }
+            if (DownedBossSystem.downedCryogen || DownedBossSystem.downedBrimstoneElemental)
+            {
+                player.Entropy().addEquip("VastLV4");
+            }
+            if (EDownedBosses.downedProphet)
+            {
+                player.Entropy().addEquip("VastLV5");
+            }
             player.manaCost -= ManaCostDecrease;
+        }
+    }
+    public class VastMPlayer : ModPlayer
+    {
+        public int ManaCostCount = 0;
+        public int ExtraManaLv = 0;
+        public int ExtraManaTime = 0;
+        public bool BossClearFlag = false;
+        public float GetEnhancedMana => 6 * ExtraManaLv;
+        public override void PostUpdate()
+        {
+            if(!Player.Entropy().hasAcc("VastLV3"))
+            {
+                ExtraManaLv = 0;
+                ExtraManaTime = 0;
+                return;
+            }
+            if (!BossClearFlag && Main.CurrentFrameFlags.AnyActiveBossNPC)
+            {
+                ExtraManaTime = 0;
+            }
+            BossClearFlag = Main.CurrentFrameFlags.AnyActiveBossNPC;
+            if (ManaCostCount > Player.Entropy().manaNorm / 2)
+            {
+                ExtraManaLv += (ExtraManaLv < 5 ? 1 : 0);
+                ExtraManaTime = 12 * 60;
+                if(ExtraManaLv == 5)
+                {
+                    ExtraManaTime = 60 * 60 * 5;
+                }
+                ManaCostCount -= Player.Entropy().manaNorm / 2;
+            }
+            if(ExtraManaTime-- <= 0)
+            {
+                ExtraManaLv = 0;
+            }
+            if (Player.Entropy().hasAcc("VastLV4")) {
+                Player.endurance += Player.statManaMax2 - Player.Entropy().manaNorm * 0.005f;
+            }
+        }
+        public override void OnConsumeMana(Item item, int manaConsumed)
+        {
+            ManaCostCount++;
         }
     }
 }

@@ -408,6 +408,8 @@ namespace CalamityEntropy.Common
         public bool shadowPact = false;
         public bool shadowRune = false;
         public float ManaExtraHeal = 0f;
+        public int ManaRegenPer30Tick = 0;
+        public int ManaRegenTime = 0;
         public override void ResetEffects()
         {
             ManaExtraHeal = 0;
@@ -1231,6 +1233,11 @@ namespace CalamityEntropy.Common
 
         public override void OnHurt(Player.HurtInfo info)
         {
+            if(hasAcc("VastLV2") && ManaRegenTime > 0)
+            {
+                immune = 60 * 4;
+                Player.AddBuff(ModContent.BuffType<ManaPray>(), 60 * 10);
+            }
             if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {
                 CEUtils.PlaySound("llHurt", 1, Player.Center);
@@ -1458,6 +1465,14 @@ namespace CalamityEntropy.Common
         public int BBarNoDecrease = 0;
         public override void PostUpdate()
         {
+            if(ManaRegenTime-- > 0 && ManaRegenTime % 30 == 2)
+            {
+                Player.statMana += ManaRegenPer30Tick;
+                if(Player.statMana > Player.statManaMax2)
+                {
+                    Player.statMana = Player.statManaMax2;
+                }
+            }
             if(BrambleBarAdd-- > 0)
             {
                 if (BrambleBarCharge < 1)
@@ -2540,6 +2555,7 @@ namespace CalamityEntropy.Common
             {
                 enhancedMana += 0.3f;
             }
+            enhancedMana += Player.GetModPlayer<VastMPlayer>().GetEnhancedMana;
             if (EvilDeck)
             {
                 lifeRegenPerSec = (int)(lifeRegenPerSec * 0.3f);

@@ -1172,6 +1172,10 @@ namespace CalamityEntropy.Common
         {
             if (player != null)
             {
+                if(player.Entropy().hasAcc("VastLV5") && hit.Crit)
+                {
+                    npc.AddBuff<SoulDisorder>(360);
+                }
                 if(source is Projectile pr && pr.DamageType.CountsAsClass<ThrowingDamageClass>())
                 {
                     if(!(pr.ModProjectile != null && (pr.ModProjectile is WristTornado || pr.ModProjectile is BoobyMine || pr.ModProjectile is SolarArrow)))

@@ -2865,6 +2865,11 @@ Items: {
 		Tooltip: 真的能吃吗...
 		DisplayName: 魔法海洋布丁
 	}
+
+	Vast: {
+		// DisplayName: Vast
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]

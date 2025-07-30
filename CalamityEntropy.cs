@@ -27,6 +27,7 @@ using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Events;
@@ -205,7 +206,6 @@ namespace CalamityEntropy
             //On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
-            
 
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
@@ -823,6 +823,13 @@ namespace CalamityEntropy
 
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
+            if(self.Entropy().hasAcc("VastLV4"))
+            {
+                if(type == BuffID.ManaSickness || type == ModContent.BuffType<ManaBurn>())
+                {
+                    timeToAdd /= 2;
+                }
+            }
             if (type != ModContent.BuffType<AdrenalineMode>() && type != ModContent.BuffType<RageMode>())
             {
                 if (Main.debuff[type])
