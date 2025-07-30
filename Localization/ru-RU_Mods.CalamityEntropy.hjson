@@ -184,7 +184,7 @@ Items: {
 		CruiserLore.DisplayName: История - Крейсер
 		NihilityTwinLore.DisplayName: История - Близнецов Пустоты
 		ProphetLore.DisplayName: История - Пророк
-		// LuminarisLore.DisplayName: История - Фантомной Моли
+		LuminarisLore.DisplayName: История - Фантомной Моли
 	}
 
 	BrokenChainsaw: {
@@ -2297,294 +2297,294 @@ Items: {
 	}
 
 	IlmeranAsylum: {
-		// DisplayName: Убежище Илмерана
-		/* Tooltip:
+		DisplayName: Убежище Илмерана
+		Tooltip:
 			'''
 			Создаёт 3 вихря вокруг игрока
 			Снаряды, проходящие через вихри, наводятся на ближайших врагов, усиливаются и заряжают вихри
 			Полностью заряженные вихри преследуют врагов и наносят урон
 			- Смерть -
-			''' */
+			'''
 	}
 
 	ProphetMusicBox2: {
-		// Tooltip: ""
-		// DisplayName: Шкатулка музыки (Пророк 2)
+		Tooltip: ""
+		DisplayName: Шкатулка музыки (Пророк 2)
 	}
 
 	StarlitPiercer: {
-		// Tooltip: Призывает фантомные пули при ударе
-		// DisplayName: Звёздный Пронзатель
+		Tooltip: Призывает фантомные пули при ударе
+		DisplayName: Звёздный Пронзатель
 	}
 
 	LuminarisMusicBox: {
-		// Tooltip: ""
-		// DisplayName: Музыкальная шкатулка (Фантомная Моль)
+		Tooltip: ""
+		DisplayName: Музыкальная шкатулка (Фантомная Моль)
 	}
 
 	LuminarisRelic: {
-		// Tooltip: ""
-		// DisplayName: Реликвия Фантомной Моли
+		Tooltip: ""
+		DisplayName: Реликвия Фантомной Моли
 	}
 
 	LuminarisBag: {
-		// Tooltip: ""
-		// DisplayName: Мешок с сокровищами (Фантомная Моль)
+		Tooltip: ""
+		DisplayName: Мешок с сокровищами (Фантомная Моль)
 	}
 
 	IllusionaryDew: {
-		// Tooltip: Призывает Фантомную Моль в биоме Астральной Инфекции
-		// DisplayName: Фантомная звёздная роса
+		Tooltip: Призывает Фантомную Моль в биоме Астральной Инфекции
+		DisplayName: Фантомная звёздная роса
 	}
 
 	LuminarisTrophy: {
-		// DisplayName: Трофей Фантомной Моли
-		// Tooltip: ""
+		DisplayName: Трофей Фантомной Моли
+		Tooltip: ""
 	}
 
 	Luminar: {
-		// Tooltip: Стреляет фантомной стрелой света с самонаведением
-		// DisplayName: Люминар
+		Tooltip: Стреляет фантомной стрелой света с самонаведением
+		DisplayName: Люминар
 	}
 
 	StarSootInjector: {
-		// Tooltip: Выпускает пыль Фантомной Моли
-		// DisplayName: Инъектор звёздной сажи
+		Tooltip: Выпускает пыль Фантомной Моли
+		DisplayName: Инъектор звёздной сажи
 	}
 
 	PhantomLightWing: {
-		/* Tooltip:
+		Tooltip:
 			'''
 			Горизонтальная скорость: [A]
 			Множитель ускоренияr: [B]
 			Отличная вертикальная скорость
 			Время полёта: [C]
-			''' */
-		// DisplayName: Фантомные крылья света
+			'''
+		DisplayName: Фантомные крылья света
 	}
 
 	AzafureAntiaircraftGun: {
-		// DisplayName: Зенитная пушка Азафура
-		// Tooltip: ""
+		DisplayName: Зенитная пушка Азафура
+		Tooltip: ""
 	}
 
 	RockBullet: {
-		// DisplayName: Каменная пуля
-		// Tooltip: Во время стрельбы возможна осечка
+		DisplayName: Каменная пуля
+		Tooltip: Во время стрельбы возможна осечка
 	}
 
 	TatteredGun: {
-		// DisplayName: Обветшалый ствол
-		/* Tooltip:
+		DisplayName: Обветшалый ствол
+		Tooltip:
 			'''
 			Существует вероятность осечки при стрельбе
 			"Чудо, что он вообще стреляет"
-			''' */
+			'''
 	}
 
 	MoonlightSword: {
-		// Tooltip: ""
-		// DisplayName: Лунный меч
+		Tooltip: ""
+		DisplayName: Лунный меч
 	}
 
 	BookMarkBlackKnife: {
-		/* Tooltip:
+		Tooltip:
 			'''
 			Есть шанс призвать чёрный меч после попадания по врагу
 			"ИДИ ИГРАТЬ В DELTARUNE"
-			''' */
-		// DisplayName: Закладка - Черный нож
+			'''
+		DisplayName: Закладка - Черный нож
 	}
 
 	AzafureTeslaGun: {
-		// DisplayName: Тесла-винтовка Азафура
-		// Tooltip: Стреляет шарами Теслы, которые поражают ближайших врагов электрическим током
+		DisplayName: Тесла-винтовка Азафура
+		Tooltip: Стреляет шарами Теслы, которые поражают ближайших врагов электрическим током
 	}
 
 	AzafurePioneerCannon: {
-		// DisplayName: Пушкa Первопроходца Азафура
-		/* Tooltip:
+		DisplayName: Пушкa Первопроходца Азафура
+		Tooltip:
 			'''
 			Удерживайте ЛКМ, чтобы зарядить и накопить снаряды (максимум 5)
 			Отпустите ЛКМ, чтобы выпустить все заряженные выстрелы
-			''' */
+			'''
 	}
 
 	ShadoidPotion: {
-		/* Tooltip:
+		Tooltip:
 			'''
 			Восстанавливает здоровье и время полёта
 			Лечит на 1/3 от максимального здоровья
 			Без затрат
-			''' */
-		// DisplayName: Теневидное Зелье
+			'''
+		DisplayName: Теневидное Зелье
 	}
 
 	ShadowMantle: {
-		/* Tooltip:
+		Tooltip:
 			'''
 			Увеличивает скорость восстановления скрытности разбойника во время движения
 			Нажмите [K]([KEY]) чтобы расходовать всю скрытность, рывком броситься к курсору и поразить всех встреченных врагов
 			Урон зависит от количества израсходованной скрытности
-			''' */
-		// DisplayName: Плащ Тени
+			'''
+		DisplayName: Плащ Тени
 	}
 
 	MineBox: {
-		// DisplayName: Ящик с минами
-		/* Tooltip:
+		DisplayName: Ящик с минами
+		Tooltip:
 			'''
 			+[D]% к разбойному урону
 			При нанесении скрытых ударов будет установлена мина замедленного действия
-			''' */
+			'''
 	}
 
 	LurkersCharm: {
-		// DisplayName: Амулет Соглядатая
-		/* Tooltip:
+		DisplayName: Амулет Соглядатая
+		Tooltip:
 			'''
 			+[A]% к разбойному урону
 			+[B]% к скорости передвижения
 			+[C]% к восстановлению скрытности
 			[c/dfe7cb: В отличие от механики Calamity, ускоренное восстановление скрытности не уменьшает урон разбойника]
 			+[D]% уменьшение урона, если ваша скрытность выше 80% от максимума
-			''' */
+			'''
 	}
 
 	ThiefsPocketwatchOfEclipse: {
-		// DisplayName: Карманные часы Вора Затмения
-		/* Tooltip:
+		DisplayName: Карманные часы Вора Затмения
+		Tooltip:
 			'''
 			+[A]% к урону разбойника
 			+[B]% к скорости передвижения
 			+[C]% к скорости восстановления скрытности разбойника
 			[c/dfe7cb: В отличие от механики Calamity, ускоренное восстановление скрытности не снижает урон разбойника]
 			Скрытность разбойника может быть восстановлена ещё один раз
-			''' */
+			'''
 	}
 
 	GaleWristblades: {
-		/* Tooltip:
+		Tooltip:
 			'''
 			Оружие разбойника при попадании даёт 1 заряд Ветрового Давления, увеличивающего скорость атаки и урон
 			При 5 зарядах следующий удар расходует все заряды и выпускает небольшой торнадо
-			''' */
-		// DisplayName: Кистевые лезвия Ветра
+			'''
+		DisplayName: Кистевые лезвия Ветра
 	}
 
 	WorshipRelic: {
-		// DisplayName: Реликвия Поклонения
-		/* Tooltip:
+		DisplayName: Реликвия Поклонения
+		Tooltip:
 			'''
 			Скрытность больше не восстанавливается пассивно
 			Попадания по врагам оружием разбойника восстанавливают часть скрытности
 			При полном запасе скрытности ваша атака становится Ударом из Тени и выпускает дополнительные Солнечные стрелы
 			-80% к шансу критического удара разбойника
-			''' */
+			'''
 	}
 
 	ShadowPact: {
-		// DisplayName: Shadow Pact
-		/* Tooltip:
+		DisplayName: Shadow Pact
+		Tooltip:
 			'''
 			+[A]% к урону разбойника
 			Заменяет скрытность на индикатор Тени
 			Индикатор Тени заполняется с постоянной скоростью
 			При полном заполнении ваша атака расходует его, выпуская самонаводящийся Теневой Шар
 			При попадании шар создаёт несколько Теневых Кинжалов
-			''' */
+			'''
 	}
 
 	YanyusHat: {
-		// DisplayName: Шляпа YanYu's
-		// Tooltip: ""
+		DisplayName: Шляпа YanYu's
+		Tooltip: ""
 	}
 
 	LuminarDress: {
-		// DisplayName: Платье Luminar
-		// Tooltip: ""
+		DisplayName: Платье Luminar
+		Tooltip: ""
 	}
 
 	LuminarRing: {
-		// DisplayName: Нимб Luminar
-		// Tooltip: ""
+		DisplayName: Нимб Luminar
+		Tooltip: ""
 	}
 
 	LuminarTrousers: {
-		// DisplayName: Брюки Luminar
-		// Tooltip: ""
+		DisplayName: Брюки Luminar
+		Tooltip: ""
 	}
 
 	LunarMulse: {
-		// DisplayName: Имульсия Luminar
-		// Tooltip: ""
+		DisplayName: Имульсия Luminar
+		Tooltip: ""
 	}
 
 	CDRemove: {
-		// DisplayName: Test Item - Remove All Cooldowns
-		// Tooltip: ""
+		DisplayName: Test Item - Remove All Cooldowns
+		Tooltip: ""
 	}
 
 	TheReplicaofThePen: {
-		/* Tooltip:
+		Tooltip:
 			'''
 			Оставляет вредоносный след при езде
 			Атакует врагов, когда вы не в седле
 			При попадании накладывает дебафф «Прикосновение Пустоты»
-			''' */
-		// DisplayName: Реплика Перa
+			'''
+		DisplayName: Реплика Перa
 	}
 
 	Typhoon: {
-		/* Tooltip:
+		Tooltip:
 			'''
 			Нажмите ПКМ, чтобы переключаться между режимами: пулемёт и дробовик
 			В режиме пулемёта ведётся непрерывный огонь с невероятной скоростью
 			В режиме дробовика выпускается большое количество разлетающихся пуль
-			''' */
-		// DisplayName: Тайфун
+			'''
+		DisplayName: Тайфун
 	}
 
 	ShadowRune: {
-		// DisplayName: Руна Тени
-		/* Tooltip:
+		DisplayName: Руна Тени
+		Tooltip:
 			'''
 			Обнуляет бонусы урона призывов и конвертирует их в вместимость прислужников по соотношению [0]%:1
 			Сильно снижает другие виды урона
 			Увеличивает скорость атаки кнута на [1]% и дополнительно на 100%
 			Уменьшает бонус урона от меток кнута
 			Даёт значительное пробивание защиты атакам прислужников
-			''' */
+			'''
 	}
 
 	LostChubbyBird: {
-		// DisplayName: Потерявшаяся пухлая птичка
-		// Tooltip: ""
+		DisplayName: Потерявшаяся пухлая птичка
+		Tooltip: ""
 	}
 
 	ConsecratedRune: {
-		// DisplayName: Священная руна
-		// Tooltip: Призывает Верховное Существо, которое будет следовать за тобой
+		DisplayName: Священная руна
+		Tooltip: Призывает Верховное Существо, которое будет следовать за тобой
 	}
 
 	MysteriousBook: {
-		// Tooltip: Превращает тебя в загадочную девушку
-		// DisplayName: Таинственная книга
+		Tooltip: Превращает тебя в загадочную девушку
+		DisplayName: Таинственная книга
 	}
 
 	HellIndustrialComponents: {
-		// DisplayName: Промышленные компоненты Ада
-		// Tooltip: Тонкий компонент, изготовленный из неизвестного металла
+		DisplayName: Промышленные компоненты Ада
+		Tooltip: Тонкий компонент, изготовленный из неизвестного металла
 	}
 
 	DragEntity: {
-		// Tooltip: ""
-		// DisplayName: Drag Entity
+		Tooltip: ""
+		DisplayName: Drag Entity
 	}
 
 	OblivionThresher: {
-		// DisplayName: Косилка Забвения
-		/* Tooltip:
+		DisplayName: Косилка Забвения
+		Tooltip:
 			'''
 			Удерживайте ЛКМ, чтобы зарядить и создать вращающуюся пилу перед собой, которая способна убить дружественных НПС
 			Отпустите кнопку, чтобы запустить пилу вперёд
@@ -2593,44 +2593,44 @@ Items: {
 			ПКМ — рывок вперёд на короткое расстояние
 			Если в момент рывка поймать полностью заряженную пилу,
 			её можно усилить и запустить снова, непрерывно выпускающею самонаводящиеся Вихри Пустоты
-			''' */
+			'''
 	}
 
 	AcropolisRelic: {
-		// DisplayName: Реликвия Акрополя
-		// Tooltip: ""
+		DisplayName: Реликвия Акрополя
+		Tooltip: ""
 	}
 
 	AcropolisTrophy: {
-		// DisplayName: Трофей Акрополя
-		// Tooltip: ""
+		DisplayName: Трофей Акрополя
+		Tooltip: ""
 	}
 
 	PineappleDog: {
-		// Tooltip: ""
-		// DisplayName: Pineapple Dog
+		Tooltip: ""
+		DisplayName: Pineapple Dog
 	}
 
 	CelestialChronometer: {
-		// DisplayName: Об Архитектуре Времени
-		/* Tooltip:
+		DisplayName: Об Архитектуре Времени
+		Tooltip:
 			'''
 			Обладает эффектами всех своих компонентов
 			Под ногами вырастают лечебные травы
 			Стоя на траве, получаешь +20% к снижению получаемого урона
 			+5 к восстановлению здоровья в секунду
 			$Шум рисовых волн, разговоры за пивом о мире и благополучии
-			''' */
+			'''
 	}
 
 	TerrorOfAbyss: {
-		// DisplayName: Ужас Бездны
-		// Tooltip: ""
+		DisplayName: Ужас Бездны
+		Tooltip: ""
 	}
 
 	ScorchingShoot: {
-		// DisplayName: Испепеляющий Выстрел
-		// Tooltip:
+		DisplayName: Испепеляющий Выстрел
+		Tooltip:
 			'''
 			Каждые 6 выстрелов выпускается одна мощная пуля Жаркого Солнца, накладывающая дебафф «Метка Смерти»
 			$Существует слишком много способов избавиться от человека, которого нужно убить
@@ -2638,8 +2638,8 @@ Items: {
 	}
 
 	TheFilthyContractWithMammon: {
-		// DisplayName: Грязный Контракт с Маммоном
-		/* Tooltip:
+		DisplayName: Грязный Контракт с Маммоном
+		Tooltip:
 			'''
 			Добавьте в избранное, чтобы активировать — вы получите 20 урона
 			ЛКМ — выпускает Луч Скверны
@@ -2649,22 +2649,22 @@ Items: {
 			*
 			*
 			*
-			''' */
+			'''
 	}
 
 	SmartArc: {
-		// DisplayName: Умная дуга
-		// Tooltip: Рассеянный Призматический Выстрел
+		DisplayName: Умная дуга
+		Tooltip: Рассеянный Призматический Выстрел
 	}
 
 	LostHeirloom: {
-		// DisplayName: Потерянная семейная реликвия
-		// Tooltip: ""
+		DisplayName: Потерянная семейная реликвия
+		Tooltip: ""
 	}
 
 	Bramblecleave: {
-		// DisplayName: Шипорез
-		/* Tooltip:
+		DisplayName: Шипорез
+		Tooltip:
 			'''
 			Её сила растёт по мере прогресса
 			Меч, благословлённый Первозданной Богиней Жизни
@@ -2674,24 +2674,24 @@ Items: {
 			#[C2][U2]  
 			$[C3][U3]  
 			%[C4][U4] 
-			''' */
+			'''
 	}
 
 	BLUE: {
-		// Tooltip: ""
-		// DisplayName: B L U E
+		Tooltip: ""
+		DisplayName: B L U E
 	}
 }
 
-// LOCKED: ": [ЗАБЛОКИРОВАНО]"
-// BCU1: Требуется победить Короля Слизней
-// BCU2: Требуется победить Перфоратора или Разума Улья
-// BCU3: Требуется победить Стену Плоти
-// BCU4: Требуется победить Плантеру
-// BCC1: ПКМ — после короткой подготовки выпускает колючие лозы
-// BCC2: Удерживание ПКМ на цели притягивает вас к ней и наносит урон от удара. Навык расходует 20% шкалы Заряда Растительности. Удары ЛКМ немного восстанавливают заряд
-// BCC3: ПКМ, затем быстро ЛКМ — бросок оружия. Меч прикрепляется к цели, давая непрерывную регенерацию здоровья и медленно восстанавливая заряд
-// BCC4: Двойное нажатие и удержание ПКМ — бросок оружия, которое стремительно пронзает врагов рядом с курсором, постоянно расходуя заряд. Удерживание ЛКМ вращает клинок, выпуская самонаводящиеся снаряды
+LOCKED: ": [ЗАБЛОКИРОВАНО]"
+BCU1: Требуется победить Короля Слизней
+BCU2: Требуется победить Перфоратора или Разума Улья
+BCU3: Требуется победить Стену Плоти
+BCU4: Требуется победить Плантеру
+BCC1: ПКМ — после короткой подготовки выпускает колючие лозы
+BCC2: Удерживание ПКМ на цели притягивает вас к ней и наносит урон от удара. Навык расходует 20% шкалы Заряда Растительности. Удары ЛКМ немного восстанавливают заряд
+BCC3: ПКМ, затем быстро ЛКМ — бросок оружия. Меч прикрепляется к цели, давая непрерывную регенерацию здоровья и медленно восстанавливая заряд
+BCC4: Двойное нажатие и удержание ПКМ — бросок оружия, которое стремительно пронзает врагов рядом с курсором, постоянно расходуя заряд. Удерживание ЛКМ вращает клинок, выпуская самонаводящиеся снаряды
 PrefixitemDesc:
 	'''
 	Используется для добавления префикса к броне
@@ -3084,65 +3084,65 @@ Projectiles: {
 	ProfPetG2.DisplayName: Prof Pet G2
 	ProfPetG3.DisplayName: Prof Pet G3
 	ProfPet.DisplayName: Prof Pet
-	// LuminarisAstralShoot.DisplayName: Luminaris Astral Shoot
-	// LuminarisVortex.DisplayName: Luminaris Vortex
-	// LuminarisSpikeBlue.DisplayName: Luminaris Spike Blue
-	// LuminarisSpikeRed.DisplayName: Luminaris Spike Red
-	// LuminarisTriangleShootRed.DisplayName: Luminaris Triangle Shoot Red
-	// LuminarisTriangleShootBlue.DisplayName: Luminaris Triangle Shoot Blue
-	// StarlitPiercerHeld.DisplayName: Starlit Piercer Held
-	// FriendlyAstralShoot.DisplayName: Friendly Astral Shoot
-	// IlmeranVortex.DisplayName: Ilmeran Vortex
-	// StarSootSmoke.DisplayName: Star Soot Smoke
-	// Starblight.DisplayName: Звёздная язва
-	// AzAAGunHoldout.DisplayName: Antiaircraft Gun Holdout
-	// AntiaircraftShell.DisplayName: Antiaircraft Shell
-	// AzAGShot.DisplayName: Antiaircraft Shot
-	// RockBulletShot.DisplayName: Rock Bullet Shot
-	// LunarPlankThrow.DisplayName: Lunar Plank Throw
-	// CommonExplotion.DisplayName: Explotion
-	// CommonExplotionFriendly.DisplayName: Explotion
-	// StarblightRogue.DisplayName: Звёздная язва
-	// MoonlightSwordHeld.DisplayName: Moonlight Sword Held
-	// MoonlightShoot.DisplayName: Moonlight Shoot
-	// BlackKnife.DisplayName: Black Knife
-	// TeslaBall.DisplayName: Tesla Ball
-	// TeslaLightning.DisplayName: Tesla Lightning
-	// ApcHoldout.DisplayName: Apc Holdout
-	// ShadowMantleSlash.DisplayName: Shadow Mantle Slash
-	// BoobyMine.DisplayName: Booby Mine
-	// BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
-	// BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
-	// WristTornado.DisplayName: Wrist Tornado
-	// SolarArrowSpawner.DisplayName: Solar Arrow Spawner
-	// SolarArrow.DisplayName: Solar Arrow
-	// ShadowKnife.DisplayName: Shadow Knife
-	// ShadowShoot.DisplayName: Shadow Shoot
-	// ShadowSpawner.DisplayName: Shadow Spawner
-	// AntivoidSlash.DisplayName: Удар Антибездны
-	// AntivoidDash.DisplayName: Рывок Антибездны
-	// LuminarGrave.DisplayName: Luminar Grave
-	// AntivoidMark.DisplayName: Метка Антибездны
-	// InkTrail.DisplayName: Ink Trail
-	// PenMinion.DisplayName: Pen Minion
-	// ShadowRuneVanity.DisplayName: Shadow Rune Vanity
-	// Pooney.DisplayName: Pooney
-	// AcropolisTeslaBall.DisplayName: Acropolis Tesla Ball
-	// OblivionThresherHoldout.DisplayName: Oblivion Thresher Holdout
-	// OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
-	// OblivionCruiserDash.DisplayName: Oblivion Cruiser Dash
-	// OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
-	// TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
-	// ScorchingShell.DisplayName: Scorching Shell
-	// PFKnifeHeld.DisplayName: Propechey Knife Held
-	// FilthyCircle.DisplayName: Filthy Circle
-	// FilthyProjectile.DisplayName: Filthy Projectile
-	// FilthyShootAlt.DisplayName: Filthy Shoot Alt
-	// BramblecleaveHeld.DisplayName: Bramblecleave Held
-	// BrambleVine.DisplayName: Bramble Vine
-	// VineHookHit.DisplayName: Vine Hook Hit
-	// BramblecleaveAlt.DisplayName: BramblecleaveAlt
-	// BrambleShoot.DisplayName: Bramble Shoot
+	LuminarisAstralShoot.DisplayName: Luminaris Astral Shoot
+	LuminarisVortex.DisplayName: Luminaris Vortex
+	LuminarisSpikeBlue.DisplayName: Luminaris Spike Blue
+	LuminarisSpikeRed.DisplayName: Luminaris Spike Red
+	LuminarisTriangleShootRed.DisplayName: Luminaris Triangle Shoot Red
+	LuminarisTriangleShootBlue.DisplayName: Luminaris Triangle Shoot Blue
+	StarlitPiercerHeld.DisplayName: Starlit Piercer Held
+	FriendlyAstralShoot.DisplayName: Friendly Astral Shoot
+	IlmeranVortex.DisplayName: Ilmeran Vortex
+	StarSootSmoke.DisplayName: Star Soot Smoke
+	Starblight.DisplayName: Звёздная язва
+	AzAAGunHoldout.DisplayName: Antiaircraft Gun Holdout
+	AntiaircraftShell.DisplayName: Antiaircraft Shell
+	AzAGShot.DisplayName: Antiaircraft Shot
+	RockBulletShot.DisplayName: Rock Bullet Shot
+	LunarPlankThrow.DisplayName: Lunar Plank Throw
+	CommonExplotion.DisplayName: Explotion
+	CommonExplotionFriendly.DisplayName: Explotion
+	StarblightRogue.DisplayName: Звёздная язва
+	MoonlightSwordHeld.DisplayName: Moonlight Sword Held
+	MoonlightShoot.DisplayName: Moonlight Shoot
+	BlackKnife.DisplayName: Black Knife
+	TeslaBall.DisplayName: Tesla Ball
+	TeslaLightning.DisplayName: Tesla Lightning
+	ApcHoldout.DisplayName: Apc Holdout
+	ShadowMantleSlash.DisplayName: Shadow Mantle Slash
+	BoobyMine.DisplayName: Booby Mine
+	BrimstoneGigaBlastFriendly.DisplayName: Brimstone Giga Blast Friendly
+	BrimstoneShootSmall.DisplayName: Brimstone Shoot Small
+	WristTornado.DisplayName: Wrist Tornado
+	SolarArrowSpawner.DisplayName: Solar Arrow Spawner
+	SolarArrow.DisplayName: Solar Arrow
+	ShadowKnife.DisplayName: Shadow Knife
+	ShadowShoot.DisplayName: Shadow Shoot
+	ShadowSpawner.DisplayName: Shadow Spawner
+	AntivoidSlash.DisplayName: Удар Антибездны
+	AntivoidDash.DisplayName: Рывок Антибездны
+	LuminarGrave.DisplayName: Luminar Grave
+	AntivoidMark.DisplayName: Метка Антибездны
+	InkTrail.DisplayName: Ink Trail
+	PenMinion.DisplayName: Pen Minion
+	ShadowRuneVanity.DisplayName: Shadow Rune Vanity
+	Pooney.DisplayName: Pooney
+	AcropolisTeslaBall.DisplayName: Acropolis Tesla Ball
+	OblivionThresherHoldout.DisplayName: Oblivion Thresher Holdout
+	OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
+	OblivionCruiserDash.DisplayName: Oblivion Cruiser Dash
+	OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
+	TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
+	ScorchingShell.DisplayName: Scorching Shell
+	PFKnifeHeld.DisplayName: Propechey Knife Held
+	FilthyCircle.DisplayName: Filthy Circle
+	FilthyProjectile.DisplayName: Filthy Projectile
+	FilthyShootAlt.DisplayName: Filthy Shoot Alt
+	BramblecleaveHeld.DisplayName: Bramblecleave Held
+	BrambleVine.DisplayName: Bramble Vine
+	VineHookHit.DisplayName: Vine Hook Hit
+	BramblecleaveAlt.DisplayName: BramblecleaveAlt
+	BrambleShoot.DisplayName: Bramble Shoot
 }
 
 LegendTooltip: - Легенда -
@@ -3399,18 +3399,18 @@ Buffs: {
 	}
 
 	WindPressure: {
-		// DisplayName: Давление ветра
-		// Description: Вихрь вьется вокруг вашего оружия
+		DisplayName: Давление ветра
+		Description: Вихрь вьется вокруг вашего оружия
 	}
 
 	PenMountBuff: {
-		// DisplayName: Реплика пера
-		// Description: Я горжусь тобой.
+		DisplayName: Реплика пера
+		Description: Я горжусь тобой.
 	}
 
 	ConsecratedRefuge: {
-		// DisplayName: Освящённое Пристанище
-		// Description: «Верховное Существо будет следовать за тобой»
+		DisplayName: Освящённое Пристанище
+		Description: «Верховное Существо будет следовать за тобой»
 	}
 }
 
@@ -3485,26 +3485,26 @@ NPCs: {
 	TopazJewel.DisplayName: Драгоценный камень с топазом
 
 	Luminaris: {
-		// DisplayName: Фантомная Моль
+		DisplayName: Фантомная Моль
 
 		BossChecklistIntegration: {
-			// EntryName: Фантомная Моль
-			// SpawnInfo: Используй [i:CalamityEntropy/IllusionaryDew] в биоме астральной инфекции
-			// DespawnMessage: Фантомная Моль потерпела поражение.
+			EntryName: Фантомная Моль
+			SpawnInfo: Используй [i:CalamityEntropy/IllusionaryDew] в биоме астральной инфекции
+			DespawnMessage: Фантомная Моль потерпела поражение.
 		}
 	}
 
 	AcropolisMachine: {
-		// DisplayName: Акрополь
+		DisplayName: Акрополь
 
 		BossChecklistIntegration: {
-			// EntryName: Акрополь
-			// SpawnInfo: Естественно появляется в серных скалах
-			// DespawnMessage: Машина Акрополя сдана в утиль.
+			EntryName: Акрополь
+			SpawnInfo: Естественно появляется в серных скалах
+			DespawnMessage: Машина Акрополя сдана в утиль.
 		}
 	}
 
-	// Harpoon.DisplayName: Гарпун
+	Harpoon.DisplayName: Гарпун
 }
 
 WyrmChatNoHome: Куда мы идем теперь?
@@ -3519,7 +3519,7 @@ WyrmChat8: Жизнь в бездне слишком скучна.
 WyrmChat9: Как думаешь, кто сильнее, я или эта Ведьма?
 WyrmChat10: Ты спросил меня, почему я напал на тебя тогда? Моя миссия — защитить этот священный объект.
 WyrmChat11: Хаос всегда заставляет меня чувствовать себя неуютно.
-// WyrmChatDonors: Thank you to [0] for support, thank you all!
+WyrmChatDonors: Thank you to [0] for support, thank you all!
 loreCruiser:
 	'''
 	Жизнь поглощает энергию для уменьшения энтропии.
@@ -3527,13 +3527,13 @@ loreCruiser:
 	Является ли это инстинктом самосохранения или им движет более благородная цель?
 	Если не остановить это, возможно, однажды мир вернется к вечной тишине.
 	'''
-/* loreLuminaris:
+loreLuminaris:
 	'''
 	Это был не обычный хищник, а воплощение астральной энергии.
 	Его крылья были сотканы из осколков разбитых звёзд, а рассыпающаяся с него чешуя на время заставляла светиться окружающие растения жутким синим светом.
 	Легенды гласят, что когда-то он был хранителем Звёздных Полей, но после аномального всплеска энергии его сознание слилось с астральной силой, сделав его беспокойным и нестабильным.
 	Теперь он атакует любого, кто осмелится вторгнуться на его территорию, стремясь «очистить» их сиянием звёзд.
-	''' */
+	'''
 UseToggle: Используйте этот предмет, чтобы включить или выключить специальные эффекты:
 loreCruiserEffect: Увеличьте максимальное количество жизни на 20 и маны на 50
 loreNihTwin:
@@ -3594,7 +3594,7 @@ Enabled: Включенный
 Disabled: Выключенный
 CdMoonlight: Лунный Щит
 CdDS: Перезарядка Божественного Щита
-// CdAntivoid: Откат рывка Антибездны
+CdAntivoid: Откат рывка Антибездны
 CruiserBestiary:
 	'''
 	Верховный хищник, рожденный из пустоты, напоминающий того Пожирателя Богов, с которым ты когда-то сталкивался.
@@ -3612,7 +3612,7 @@ ProphetBestiary:
 	Жалкая, разбитая душа, обезумевшая от ужасной правды, скрытой за нашествием пустоты.
 	Связанная древними текстами, она бесконечно повторяет бессмысленные крики и шепоты, отчаянно — но тщетно — пытаясь передать увиденное.
 	'''
-// LuminarisBestiary: Моли, заражённые астралом, существуют с целью распространять астральное заражение.
+LuminarisBestiary: Моли, заражённые астралом, существуют с целью распространять астральное заражение.
 WorldGen.VoidOreSpawn: Из неба исходит энергия пустоты
 
 Tiles: {
@@ -3925,7 +3925,7 @@ AmmoSnowball: Снежок
 AmmoStake: Кол
 AmmoStyngerBolt: Болт Стингера
 AmmoBoulders: Валун
-// AmmoStarblightSoot: Звёздная сажа
+AmmoStarblightSoot: Звёздная сажа
 AmmoType: Тип боеприпасов
 UseAmmo: Использует боеприпасы
 OrbPunishDeath0: Разлетелся на куски
@@ -3949,7 +3949,7 @@ LoreEyeofCthulhuDesc: Уменьшает перезарядку рывка на 
 LoreCorruptionDesc: Даёт {1}% к снижению получаемого урона
 LoreBrainofCthulhuDesc: +{1}% критического удара, но -{2}% Урона
 LoreQueenBeeDesc: +{2}% Урона, но -{1}% критического удара
-// LuminarisLoreDesc: +{1}% Максимальное время полета крыльев
+LuminarisLoreDesc: +{1}% Максимальное время полета крыльев
 
 DraedonDialogs: {
 	Void: {
@@ -3992,11 +3992,11 @@ InfernumIntros: {
 		Shattered Soul
 		The Prophet
 		'''
-	/* Luminaris:
+	Luminaris:
 		'''
 		Nyxmothis
 		Luminaris
-		''' */
+		'''
 }
 
 Donor: Donor:
