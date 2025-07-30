@@ -336,18 +336,18 @@ Items: {
 	}
 
 	WisdomCard: {
-		DisplayName: 『Мудрость』
 		Tooltip: -[COST]% стоимости маны
+		DisplayName: 『Мудрость』
 	}
 
 	TemperanceCard: {
-		DisplayName: 『Умеренность』
 		Tooltip: +[T] слот призыва
+		DisplayName: 『Умеренность』
 	}
 
 	RadianceCard: {
-		DisplayName: 『Сияние』
 		Tooltip: +[LR]% к регенерации здоровья
+		DisplayName: 『Сияние』
 	}
 
 	OracleDeck: {
@@ -368,33 +368,33 @@ Items: {
 	}
 
 	MetropolisCard: {
-		DisplayName: 『Метрополис』
 		Tooltip: +10 к максимальной скрытности
+		DisplayName: 『Метрополис』
 	}
 
 	InspirationCard: {
-		DisplayName: 『Вдохновение』
 		Tooltip: +20% к скорости передвижения
+		DisplayName: 『Вдохновение』
 	}
 
 	EntityCard: {
+		Tooltip: + 10% к скорости атаки ближнего боя
 		DisplayName: 『Сущность』
-		Tooltip: + 10% К скорости атаки ближнего боя
 	}
 
 	EnduranceCard: {
-		DisplayName: 『Выносливость』
 		Tooltip: -5% к получению урона
+		DisplayName: 『Выносливость』
 	}
 
 	BrillianceCard: {
+		Tooltip: +20% к регенерации здоровья
 		DisplayName: 『Великолепие』
-		Tooltip: +20% регенерации здоровья
 	}
 
 	AuraCard: {
-		DisplayName: 『Аура』
 		Tooltip: +5% к шансу критического удара
+		DisplayName: 『Аура』
 	}
 
 	ThreadOfFate: {
@@ -596,7 +596,6 @@ Items: {
 		DisplayName: 『Жадность』
 		Tooltip: +2% урона за каждый слот прислужника
 	}
-
 
 	GhostdomWhisper: {
 		Tooltip:
@@ -876,11 +875,6 @@ Items: {
 			«Режу пространство!»
 			'''
 		DisplayName: Тень бездны
-	}
-
-	GreedCard: {
-		DisplayName: 『Жадность』
-		Tooltip: +2% урона для каждого слота миньона
 	}
 
 	Barren: {
@@ -2233,8 +2227,8 @@ Items: {
 	}
 
 	IndigoCard: {
-		DisplayName: 『Индиго』
 		Tooltip: +[T]% скорость полета и [T2]% максимальное время полета
+		DisplayName: 『Индиго』
 	}
 
 	BitternessCard: {
@@ -3699,11 +3693,6 @@ Configs: {
 			Label: Специальный эффект историй
 			Tooltip: ""
 		}
-
-		BramblecleaveAlwaysUnlockAllSkill: {
-			// Label: Bramblecleave Always Unlock All Skill
-			// Tooltip: ""
-		}
 	}
 }
 
@@ -4010,34 +3999,26 @@ InfernumIntros: {
 		''' */
 }
 
-// Donor: Donor:
-// Owner: Owner:
-// ShadowDashCD: Откат Теневого Рывка
-// ShiftMoreInfo: Зажмите Shift для деталей
-// ShadowBar: Теневая полоса
-// SolarBar: Солнечная полоса
-/* ShadowBarInfo:
+Donor: Donor:
+Owner: Owner:
+ShadowDashCD: Откат Теневого Рывка
+ShiftMoreInfo: Зажмите Shift для деталей
+ShadowBar: Теневая полоса
+SolarBar: Солнечная полоса
+ShadowBarInfo:
 	'''
 	Заполняется с постоянной скоростью
 	Когда шкала заполнена, атака выпустит Теневой Шар, который при попадании по цели призывает Теневой Кинжал
-	''' */
-/* SolarBarInfo:
+	'''
+SolarBarInfo:
 	'''
 	После попадания по цели оружием Разбойника увеличивается солнечная энергия
 	Когда заряд достигает максимума, атака выпускает несколько самонаводящихся Солнечных Стрел
-	''' */
-// LorePerforatorsDesc: "[0]% шанс восстановить [1] здоровья при получении урона"
-// LoreEaterofWorldsDesc: Иммунитет к пролятому огню
-// RPDonorName: 冷级
-// Acropolis: ""
-// OblivionThretherCooldown: Откат рывка Жнеца Забвения
-// LilyDeath0: " was devoured by filth"
-// LilyDeath1: "'s protective treasure is broken"
-// TheVoid: The Void
-
-Biomes: {
-	VoidDummyBoime: {
-		// DisplayName: Void Dummy Boime
-		// TownNPCDialogueName: the Void Dummy Boime
-	}
-}
+	'''
+LorePerforatorsDesc: "[0]% шанс восстановить [1] здоровья при получении урона"
+LoreEaterofWorldsDesc: Иммунитет к пролятому огню
+RPDonorName: 冷级
+Acropolis: ""
+OblivionThretherCooldown: Откат рывка Жнеца Забвения
+LilyDeath0: " was devoured by filth"
+LilyDeath1: "'s protective treasure is broken"
