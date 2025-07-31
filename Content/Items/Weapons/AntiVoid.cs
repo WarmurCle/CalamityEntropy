@@ -135,7 +135,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.SetShake(target.Center, 6, 3000);
-            CEUtils.PlaySound("antivoidhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center);
+            CEUtils.PlaySound("antivoidhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: CEUtils.WeapSound);
             Color impactColor = Color.LightBlue;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
 
@@ -178,7 +178,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             counter++;
             if (init)
             {
-                CEUtils.PlaySound("antivoiduse", Main.rand.NextFloat(0.7f, 1.4f), Projectile.Center);
+                CEUtils.PlaySound("antivoiduse", Main.rand.NextFloat(0.7f, 1.4f), Projectile.Center, volume: CEUtils.WeapSound);
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;
             }
@@ -307,7 +307,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Projectile.ai[1] == 0)
             {
-                CEUtils.PlaySound("AntivoidDash", 1, Projectile.Center);
+                CEUtils.PlaySound("AntivoidDash", 1, Projectile.Center, volume: CEUtils.WeapSound);
             }
             var player = Projectile.GetOwner();
             player.Entropy().immune = 5;
@@ -333,7 +333,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Projectile.ai[2]++ == 0)
             {
-                CEUtils.PlaySound("AntivoidDashHit", 1, target.Center);
+                CEUtils.PlaySound("AntivoidDashHit", 1, target.Center, volume: CEUtils.WeapSound);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<AntivoidMark>(), Projectile.damage * 3, 0, Projectile.owner, target.whoAmI);
             }
         }
@@ -364,7 +364,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.ai[1]++;
             if (Projectile.ai[1] == 24)
             {
-                CEUtils.PlaySound("AntivoidDashSlash", 1, Projectile.Center);
+                CEUtils.PlaySound("AntivoidDashSlash", 1, Projectile.Center, volume: CEUtils.WeapSound);
             }
             if (Projectile.ai[1] == 39)
             {

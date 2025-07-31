@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float offset = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.7f, 1.3f), target.Center);
+            CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.7f, 1.3f), target.Center, volume: CEUtils.WeapSound * 0.8f);
             for (int i = 0; i < 3; i++)
             {
                 EParticle.NewParticle(new StarTrailParticle(), target.Center, Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(16, 36), Color.White, Main.rand.NextFloat(0.6f, 1.6f), 1, true, BlendState.Additive, 0);
@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 if (dCounter == 0)
                 {
-                    CEUtils.PlaySound("powerwhip", 1.6f, Projectile.Center);
+                    CEUtils.PlaySound("powerwhip", 1.6f, Projectile.Center, volume: CEUtils.WeapSound);
                     if (Projectile.owner == Main.myPlayer)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity * 3, Projectile.velocity * 1.2f, ModContent.ProjectileType<FriendlyAstralShoot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

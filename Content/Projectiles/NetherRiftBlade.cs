@@ -164,11 +164,11 @@ namespace CalamityEntropy.Content.Projectiles
                             soundplay = false;
                             if (Main.rand.NextBool(2))
                             {
-                                CEUtils.PlaySound("spin1", 1f);
+                                CEUtils.PlaySound("spin1", 1f, Projectile.Center, volume: CEUtils.WeapSound);
                             }
                             else
                             {
-                                CEUtils.PlaySound("spin2", 1f);
+                                CEUtils.PlaySound("spin2", 1f, Projectile.Center, volume: CEUtils.WeapSound);
                             }
                         }
                     }
@@ -248,11 +248,11 @@ namespace CalamityEntropy.Content.Projectiles
                         soundplay = false;
                         if (Main.rand.NextBool(2))
                         {
-                            CEUtils.PlaySound("spin1", 1f);
+                            CEUtils.PlaySound("spin1", 1f, Projectile.Center, volume: CEUtils.WeapSound);
                         }
                         else
                         {
-                            CEUtils.PlaySound("spin2", 1f);
+                            CEUtils.PlaySound("spin2", 1f, Projectile.Center, volume: CEUtils.WeapSound);
                         }
                     }
                 }
@@ -457,7 +457,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.localAI[0] = 16 * Projectile.MaxUpdates;
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 14;
                 Projectile.netUpdate = true;
-                CEUtils.PlaySound("scatter", 1, Projectile.Center);
+                CEUtils.PlaySound("scatter", 1, Projectile.Center, volume: CEUtils.WeapSound);
                 Projectile.ai[2] = 74;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner, 0).ToProj().hostile = false;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<NetherRiftCrack>(), Projectile.damage, 1, Projectile.owner);

@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             CalamityEntropy.SpawnHeavenSpark(target.Center, CEUtils.randomRot(), Main.rand.NextFloat(0.9f, 1.2f) * (Projectile.ai[0] > 79 ? 1.5f : 1), 0.8f, new Color(60, 60, 200), 30);
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);
-            CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center);
+            CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center, volume: CEUtils.WeapSound);
             for (int i = 0; i < 36; i++)
             {
                 EParticle.NewParticle(new Particles.RuneParticle(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
