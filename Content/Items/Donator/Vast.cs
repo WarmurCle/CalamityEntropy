@@ -1,6 +1,7 @@
 using CalamityEntropy.Common;
 using CalamityMod;
 using CalamityMod.Items;
+using log4net.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,8 +13,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
-    public class Vast : ModItem
+    public class Vast : ModItem, IDonatorItem
     {
+        public string DonatorName => "null";
         public override void SetDefaults()
         {
             Item.width = 40;
@@ -22,7 +24,55 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;
         }
-        
+        public static int Level()
+        {
+            int l = 0;
+            if (NPC.downedSlimeKing || NPC.downedBoss1 || NPC.downedBoss2 || DownedBossSystem.downedDesertScourge)
+            {
+                l = 1;
+            }
+            if (NPC.downedBoss2)
+            {
+                l = 2;
+            }
+            if (DownedBossSystem.downedSlimeGod)
+            {
+                l = 3;
+            }
+            if (DownedBossSystem.downedCryogen || DownedBossSystem.downedBrimstoneElemental)
+            {
+                l = 4;
+            }
+            if (EDownedBosses.downedProphet)
+            {
+                l = 5;
+            }
+            if (NPC.downedMoonlord)
+            {
+                l = 6;
+            }
+            return l;
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            for (int i = tooltips.Count - 1; i >= 0; i--)
+            {
+                if(tooltips[i].Mod == "Terraria" && tooltips[i].Text.StartsWith("#"))
+                {
+                    bool hide = true;
+                    if(int.TryParse(tooltips[i].Text[1].ToString(), out int n))
+                    {
+                        if(Level() >= n)
+                        {  hide = false; }
+                    }
+                    tooltips[i].Text = tooltips[i].Text.Substring(2);
+                    if(hide)
+                    {
+                        tooltips.RemoveAt(i);
+                    }
+                }
+            }
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip("Vast", !hideVisual);
@@ -51,7 +101,10 @@ namespace CalamityEntropy.Content.Items.Donator
             if (EDownedBosses.downedProphet)
             {
                 player.Entropy().addEquip("VastLV5");
-                
+            }
+            if(NPC.downedMoonlord)
+            {
+
             }
             player.manaCost -= ManaCostDecrease;
         }

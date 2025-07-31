@@ -2627,7 +2627,36 @@ Items: {
 
 	Vast: {
 		DisplayName: Vast
-		Tooltip: ""
+		Tooltip:
+			'''
+			The strength and effects of this accessory increase with progression.
+			Current Effects:
+
+			8% reduced mana consumption
+			Automatically uses mana potions
+
+			#1Mana potions restore 10% more mana
+			#1While under the effects of Arcane Might, gain +4% magic critical strike chance
+
+			#2Automatically uses mana potions, with 75% of the restoration applied instantly and the remaining 25% recovered over 5 seconds.
+			#2If you take damage exceeding 80 points during this period, the restoration is interrupted, 
+			#2extending invincibility frames and briefly accelerating health regeneration.
+			#2"The tide of magic pulses through your veins..."
+
+			#3After consuming mana equivalent to 50% of your maximum mana, gain 6% Empowered Mania (stacks up to 5 times).
+
+			#4Effects of Mana Sickness and Mana Burn are halved.
+
+			#4Every 2 stacks of Empowered Mania grant 0.1% damage reduction.
+
+			#4Enhances health regeneration when hit while restoring mana.
+
+			#5Critical hits inflict the Soul Disarray debuff on the target.
+
+			#5Upon mana depletion, attacks switch from consuming mana to restoring mana for 6 seconds, while also applying the Mana Scorch debuff for 5 seconds. Taking damage during this period extends invincibility frames.
+
+			#6At full stacks of Manaflow, each mana depletion grants +2% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
+			'''
 	}
 }
 
@@ -3359,6 +3388,26 @@ Buffs: {
 	ConsecratedRefuge: {
 		DisplayName: Consecrated Refuge
 		Description: ""
+	}
+
+	ManaAwaken: {
+		DisplayName: Mana Awaken
+		Description: Mods.CalamityEntropy.Buffs.ManaAwaken.Description
+	}
+
+	ManaCaress: {
+		DisplayName: Mana Caress
+		Description: Mods.CalamityEntropy.Buffs.ManaCaress.Description
+	}
+
+	ManaPray: {
+		DisplayName: Mana Pray
+		Description: Mods.CalamityEntropy.Buffs.ManaPray.Description
+	}
+
+	ManaVein: {
+		DisplayName: Mana Vein
+		Description: Mods.CalamityEntropy.Buffs.ManaVein.Description
 	}
 }
 

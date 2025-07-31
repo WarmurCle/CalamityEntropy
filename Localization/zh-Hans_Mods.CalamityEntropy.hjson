@@ -2867,8 +2867,26 @@ Items: {
 	}
 
 	Vast: {
-		// DisplayName: Vast
-		// Tooltip: ""
+		DisplayName: 无垠
+		Tooltip:
+			'''
+			该饰品的强度和效果随进度增加
+			当前效果：
+			8%魔力消耗减免
+			自动使用魔力药水
+			#1魔力药水恢复量增加10%
+			#1拥有魔能增益时，增加4%魔法暴击率
+			#2自动使用魔力药水，其恢复量有75%比例立即生效，剩余25%在5秒内逐步恢复，
+			#2期间受到超过80点的伤害会使此恢复中断，使此次受击无敌帧延长并短暂加速回血
+			#2“潮水般的魔力在你的血液中脉动…”
+			#3每消耗等同于魔力值上限50%的魔力后，获得6%强化魔力，最多可叠加5层。
+			#4魔力病与魔力烧蚀的影响减半。
+			#4每2点强化魔力能够提供0.1%的伤害减免。
+			#4增加回复魔力时受击后的回血效果
+			#5暴击会对目标造成灵魂紊乱减益；
+			#5魔力耗尽后，攻击从消耗魔力转为恢复魔力，持续6秒，同时获得5秒魔力烧蚀减益，期间受到伤害会使此次受击无敌帧延长
+			#6魔流满层之后，每次耗尽魔力会获得2%魔法暴击率和3%魔法暴击伤害加成，最多叠加5次
+			'''
 	}
 }
 
@@ -3601,6 +3619,26 @@ Buffs: {
 	ConsecratedRefuge: {
 		DisplayName: 圣灵庇护
 		Description: 至高存在将会跟随你
+	}
+
+	ManaAwaken: {
+		// DisplayName: Mana Awaken
+		// Description: Mods.CalamityEntropy.Buffs.ManaAwaken.Description
+	}
+
+	ManaCaress: {
+		// DisplayName: Mana Caress
+		// Description: Mods.CalamityEntropy.Buffs.ManaCaress.Description
+	}
+
+	ManaPray: {
+		// DisplayName: Mana Pray
+		// Description: Mods.CalamityEntropy.Buffs.ManaPray.Description
+	}
+
+	ManaVein: {
+		// DisplayName: Mana Vein
+		// Description: Mods.CalamityEntropy.Buffs.ManaVein.Description
 	}
 }
 
