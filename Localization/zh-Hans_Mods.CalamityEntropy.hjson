@@ -3889,6 +3889,11 @@ Configs: {
 			Tooltip: " 展示某些物品额外的信息，如护甲穿透、弹药类型等"
 		}
 
+		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
+			// Label: Marivinium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
+			// Tooltip: ""
+		}
+
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
 			Tooltip: ""
 			Label: 渊洋神迹套装只在手持盗贼武器时提供潜行条

@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
             NPCHitCounts[target.whoAmI]++;
             CalamityEntropy.Instance.screenShakeAmp = 6;
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner);
-            CEUtils.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, volume: 0.7f);
+            CEUtils.PlaySound("he" + (Main.rand.NextBool() ? 1 : 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, volume: 0.7f * CEUtils.WeapSound);
             if (spawnVoidStarCount > 0)
             {
                 for (int i = 0; i < 6; i++)
@@ -88,12 +88,12 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] >= 64 * updates && playsound1)
             {
                 playsound1 = false;
-                CEUtils.PlaySound("sn_swing", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center);
+                CEUtils.PlaySound("sn_swing", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center, volume: CEUtils.WeapSound);
             }
             if (Projectile.ai[0] >= 74 * updates && playsound2)
             {
                 playsound2 = false;
-                CEUtils.PlaySound("sn_swing", Main.rand.NextFloat(0.8f, 1f), Projectile.Center);
+                CEUtils.PlaySound("sn_swing", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, volume: CEUtils.WeapSound);
             }
             Projectile.Center = owner.MountedCenter + owner.gfxOffY * Vector2.UnitY;
             Projectile.rotation += rotSpeed * meleeSpeed;

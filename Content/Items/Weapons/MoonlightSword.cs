@@ -87,8 +87,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool shoot = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("swing" + Main.rand.Next(1, 4).ToString(), 1, target.Center);
-            CEUtils.PlaySound("SwordHit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.06f, Projectile.Center);
+            CEUtils.PlaySound("swing" + Main.rand.Next(1, 4).ToString(), 1, target.Center, volume: CEUtils.WeapSound);
+            CEUtils.PlaySound("SwordHit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.06f, Projectile.Center, volume: CEUtils.WeapSound);
         }
         public override void AI()
         {
@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             counter++;
             if (init)
             {
-                CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.08f, Projectile.Center);
+                CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.08f, Projectile.Center, volume: CEUtils.WeapSound);
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;
                 if(Main.myPlayer == Projectile.owner)
