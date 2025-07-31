@@ -274,15 +274,15 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.GetOwner().Entropy().BrambleBarAdd = 20;
-            CEUtils.PlaySound("GrassSwordHitMetal", Main.rand.NextFloat(0.7f, 1.3f) / Projectile.ai[1], target.Center, volume: 1f);
+            CEUtils.PlaySound("GrassSwordHitMetal", Main.rand.NextFloat(0.7f, 1.3f) / Projectile.ai[1], target.Center, volume: CEUtils.WeapSound);
             if (target.Organic())
             {
             }
             else
             {
-                CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f) / Projectile.ai[1], target.Center, 6);
+                CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f) / Projectile.ai[1], target.Center, 6, volume: CEUtils.WeapSound);
             }
-            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1 / Projectile.ai[1], target.Center, 16);
+            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1 / Projectile.ai[1], target.Center, 16, volume: CEUtils.WeapSound);
             Color impactColor = Color.LightGreen;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
 
@@ -332,7 +332,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             counter++;
             if (init)
             {
-                CEUtils.PlaySound("powerwhip", Projectile.ai[2] == 0 ? 1.75f / Projectile.ai[1] : 0.6f, Projectile.Center);
+                CEUtils.PlaySound("powerwhip", Projectile.ai[2] == 0 ? 1.75f / Projectile.ai[1] : 0.6f, Projectile.Center, volume: CEUtils.WeapSound);
                 Projectile.scale = 1.6f + 0.1f * Bramblecleave.GetLevel();
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;

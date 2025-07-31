@@ -3735,6 +3735,11 @@ Configs: {
 			Tooltip: ""
 			Label: Комплект брони Маривиния предоставляет шкалу скрытности только при использовании оружия разбойника.
 		}
+
+		EntropyMeleeWeaponSoundVolume: {
+			// Label: Entropy Melee Weapon Sound Volume
+			// Tooltip: ""
+		}
 	}
 
 	ServerConfig: {

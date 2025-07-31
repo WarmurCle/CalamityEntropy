@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 Projectile.scale *= owner.HeldItem.scale;
                 if (Projectile.ai[0] == 0)
                 {
-                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.6f);
+                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.6f * CEUtils.WeapSound);
                 }
                 init = false;
             }
@@ -166,7 +166,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     if (progress > 0.46 && shoot)
                     {
                         shoot = false;
-                        CEUtils.PlaySound("zypshot2", 1, Projectile.Center);
+                        CEUtils.PlaySound("zypshot2", 1, Projectile.Center, volume: CEUtils.WeapSound);
                         if (Main.myPlayer == Projectile.owner)
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 2, ModContent.ProjectileType<ElementalFractalThrown>(), (int)(Projectile.damage * 1.6f), Projectile.knockBack * 2, Projectile.owner);
                     }
@@ -232,8 +232,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound || Projectile.ai[0] == 0)
             {
                 playHitSound = false;
-                CEUtils.PlaySound("sf_hit", 1, Projectile.Center);
-                CEUtils.PlaySound("FractalHit", 1, Projectile.Center);
+                CEUtils.PlaySound("sf_hit", 1, Projectile.Center, volume: CEUtils.WeapSound);
+                CEUtils.PlaySound("FractalHit", 1, Projectile.Center, volume: CEUtils.WeapSound);
 
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings

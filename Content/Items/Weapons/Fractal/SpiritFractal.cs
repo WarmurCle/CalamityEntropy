@@ -114,12 +114,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 Projectile.scale *= owner.HeldItem.scale;
                 if (Projectile.ai[0] == 2)
                 {
-                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
+                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f * CEUtils.WeapSound);
                     Projectile.scale *= 1.3f;
                 }
                 if (Projectile.ai[0] < 2)
                 {
-                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f * CEUtils.WeapSound);
                 }
                 init = false;
             }
@@ -217,8 +217,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound || Projectile.ai[0] == 2)
             {
                 playHitSound = false;
-                CEUtils.PlaySound("sf_hit", 1, Projectile.Center);
-                CEUtils.PlaySound("FractalHit", 1, Projectile.Center);
+                CEUtils.PlaySound("sf_hit", 1, Projectile.Center, volume: CEUtils.WeapSound);
+                CEUtils.PlaySound("FractalHit", 1, Projectile.Center, volume: CEUtils.WeapSound);
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
             {

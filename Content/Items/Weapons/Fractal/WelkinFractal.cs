@@ -103,11 +103,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 Projectile.scale *= owner.HeldItem.scale;
                 if (Projectile.ai[0] == 2)
                 {
-                    CEUtils.PlaySound("powerwhip", 1, Projectile.Center, volume: 0.6f);
+                    CEUtils.PlaySound("powerwhip", 1, Projectile.Center, volume: 0.6f * CEUtils.WeapSound);
                 }
                 if (Projectile.ai[0] < 2)
                 {
-                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f * CEUtils.WeapSound);
                 }
                 init = false;
             }
@@ -123,7 +123,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.normalize() * 10, ModContent.ProjectileType<FractalBeam>(), Projectile.damage * 2, Projectile.knockBack, Projectile.owner);
                     }
-                    CEUtils.PlaySound("sf_shoot", 1, Projectile.Center);
+                    CEUtils.PlaySound("sf_shoot", 1, Projectile.Center, volume: CEUtils.WeapSound);
                 }
                 float l = (float)(Math.Cos(progress * MathHelper.Pi - MathHelper.PiOver2));
                 Projectile.rotation = Projectile.velocity.ToRotation();
@@ -184,10 +184,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound)
             {
                 playHitSound = false;
-                CEUtils.PlaySound(Projectile.ai[0] == 2 ? "sf_hit1" : "sf_hit", 1, Projectile.Center);
+                CEUtils.PlaySound(Projectile.ai[0] == 2 ? "sf_hit1" : "sf_hit", 1, Projectile.Center, volume: CEUtils.WeapSound);
                 if (Projectile.ai[0] != 2)
                 {
-                    CEUtils.PlaySound("FractalHit", 1, Projectile.Center);
+                    CEUtils.PlaySound("FractalHit", 1, Projectile.Center, volume: CEUtils.WeapSound);
                 }
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings

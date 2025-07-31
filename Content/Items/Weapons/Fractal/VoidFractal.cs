@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             if (player.altFunctionUse == 2)
             {
-                CEUtils.PlaySound("VoidAnticipation", 1, position);
+                CEUtils.PlaySound("VoidAnticipation", 1, position, volume: CEUtils.WeapSound);
                 player.AddBuff(BuffID.ChaosState, 15 * 60);
                 Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 30, 0, player.whoAmI);
                 return false;
@@ -135,18 +135,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 Projectile.scale *= owner.HeldItem.scale;
                 if (Projectile.ai[0] == 2)
                 {
-                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
+                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f * CEUtils.WeapSound);
                     Projectile.scale *= 1.3f;
-                    CEUtils.PlaySound("CastTriangles", 1, Projectile.Center);
+                    CEUtils.PlaySound("CastTriangles", 1, Projectile.Center, volume: CEUtils.WeapSound);
 
                 }
                 if (Projectile.ai[0] < 2)
                 {
-                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f * CEUtils.WeapSound);
                 }
                 if (Projectile.ai[0] == 3)
                 {
-                    CEUtils.PlaySound("sf_use", 0.75f, Projectile.Center, volume: 1);
+                    CEUtils.PlaySound("sf_use", 0.75f, Projectile.Center, volume: CEUtils.WeapSound);
                 }
                 init = false;
             }
@@ -268,13 +268,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (playHitSound || Projectile.ai[0] == 2)
             {
                 playHitSound = false;
-                CEUtils.PlaySound("sf_hit", 1, Projectile.Center);
-                CEUtils.PlaySound("FractalHit", 1, Projectile.Center);
+                CEUtils.PlaySound("sf_hit", 1, Projectile.Center, volume: CEUtils.WeapSound);
+                CEUtils.PlaySound("FractalHit", 1, Projectile.Center, volume: CEUtils.WeapSound);
 
                 if (Projectile.ai[0] == 3)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, new Vector2(0, 8).RotatedByRandom(1), ModContent.ProjectileType<FractalLaser>(), Projectile.damage / 9, 0, Projectile.owner);
-                    CEUtils.PlaySound("VoidAttack", 1, Projectile.Center);
+                    CEUtils.PlaySound("VoidAttack", 1, Projectile.Center, volume: CEUtils.WeapSound);
                 }
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings

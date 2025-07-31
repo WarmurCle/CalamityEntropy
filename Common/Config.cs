@@ -25,6 +25,12 @@ namespace CalamityEntropy.Common
         [DefaultValue(true)]
         public bool ChainsawShakeScreen { get; set; }
 
+        [DefaultValue(1f)]
+        [Range(0f, 2f)]
+        [Increment(0.05f)]
+        public float EntropyMeleeWeaponSoundVolume { get; set; }
+
+
         [DefaultValue(true)]
         public bool MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons { get; set; }
 

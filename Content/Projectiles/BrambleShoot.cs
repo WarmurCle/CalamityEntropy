@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.scale *= 2;
             }
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.position, 1400);
-            if (target != null && drawcount > 9)
+            if (target != null && drawcount > 16)
             {
                 Projectile.velocity *= 0.94f;
                 Vector2 v = target.Center - Projectile.position;
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
             CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.position, Vector2.Zero, new Color(0, 255, 0), new Vector2(2f, 2f), 0, 0f, 0.2f, 8);
             GeneralParticleHandler.SpawnParticle(pulse);
 
-            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, 1);
+            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, CEUtils.WeapSound);
 
             float sparkCount = 16;
             for (int i = 0; i < sparkCount; i++)

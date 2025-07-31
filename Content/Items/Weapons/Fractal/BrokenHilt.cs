@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             counter++;
             if (init)
             {
-                CEUtils.PlaySound("HiltAttack", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                CEUtils.PlaySound("HiltAttack", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f * CEUtils.WeapSound);
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;
             }

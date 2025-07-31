@@ -123,7 +123,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
                 Dust.NewDust(target.Center, 16, 16, DustID.Firework_Yellow, rand.Next(-3, 4), rand.Next(-3, 4));
             }
             Player Owner = Main.player[Projectile.owner];
-            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient) { Volume = 0.3f };
+            SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient) { Volume = 0.3f * CEUtils.WeapSound };
             if (soundCd <= 0)
             {
                 SoundEngine.PlaySound(hitSound, Projectile.Center);

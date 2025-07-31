@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             if (player.altFunctionUse == 2)
             {
-                CEUtils.PlaySound("VoidAnticipation", 1, position);
+                CEUtils.PlaySound("VoidAnticipation", 1, position, volume: CEUtils.WeapSound);
                 player.AddBuff(BuffID.ChaosState, 5 * 60);
                 Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 30, 0, player.whoAmI, 1);
                 return false;
@@ -262,17 +262,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 Projectile.scale *= owner.HeldItem.scale;
                 if (Projectile.ai[0] == 2)
                 {
-                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f);
-                    CEUtils.PlaySound("CastTriangles", 1, Projectile.Center);
+                    CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f * CEUtils.WeapSound);
+                    CEUtils.PlaySound("CastTriangles", 1, Projectile.Center, volume: CEUtils.WeapSound);
 
                 }
                 if (Projectile.ai[0] < 2)
                 {
-                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f);
+                    CEUtils.PlaySound("sf_use", 1 + Projectile.ai[0] * 0.12f, Projectile.Center, volume: 0.6f * CEUtils.WeapSound);
                 }
                 if (Projectile.ai[0] == 3)
                 {
-                    CEUtils.PlaySound("sf_use", 0.75f, Projectile.Center, volume: 1);
+                    CEUtils.PlaySound("sf_use", 0.75f, Projectile.Center, volume: CEUtils.WeapSound);
                 }
                 init = false;
             }
@@ -288,7 +288,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity.normalize() * 1100, Projectile.velocity.normalize() * 10, ModContent.ProjectileType<FractalLaser>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                     }
                     CalamityEntropy.FlashEffectStrength = 0.3f;
-                    CEUtils.PlaySound("sf_shoot", 1, Projectile.Center);
+                    CEUtils.PlaySound("sf_shoot", 1, Projectile.Center, volume: CEUtils.WeapSound);
                 }
                 float l = (float)(Math.Cos(progress * MathHelper.Pi - MathHelper.PiOver2));
                 Projectile.rotation = Projectile.velocity.ToRotation();
@@ -402,14 +402,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                         , Main.rand.NextFloat(1.3f, 1.7f), new Color(220, 180, 255), 60, 0.15f);
                     PRTLoader.AddParticle(particle);
                 }
-                CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 100);
+                CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 64, volume: CEUtils.WeapSound);
             }
             EGlobalNPC.AddVoidTouch(target, 40, 1.4f, 600, 16);
             if (playHitSound)
             {
                 playHitSound = false;
-                CEUtils.PlaySound("sf_hit", 1, Projectile.Center);
-                CEUtils.PlaySound("FractalHit", 1, Projectile.Center);
+                CEUtils.PlaySound("sf_hit", 1, Projectile.Center, volume: CEUtils.WeapSound);
+                CEUtils.PlaySound("FractalHit", 1, Projectile.Center, volume: CEUtils.WeapSound);
 
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
@@ -621,7 +621,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center);
+            CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center, volume: CEUtils.WeapSound);
         }
         public int texType = -1;
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/Fractal/FinalFractalGlow";

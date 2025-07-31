@@ -3392,22 +3392,22 @@ Buffs: {
 
 	ManaAwaken: {
 		DisplayName: Mana Awaken
-		Description: Mods.CalamityEntropy.Buffs.ManaAwaken.Description
+		Description: Mana in your body is awaking
 	}
 
 	ManaCaress: {
 		DisplayName: Mana Caress
-		Description: Mods.CalamityEntropy.Buffs.ManaCaress.Description
+		Description: Accelerate life recovery
 	}
 
 	ManaPray: {
 		DisplayName: Mana Pray
-		Description: Mods.CalamityEntropy.Buffs.ManaPray.Description
+		Description: Accelerate life recovery
 	}
 
 	ManaVein: {
 		DisplayName: Mana Vein
-		Description: Mods.CalamityEntropy.Buffs.ManaVein.Description
+		Description: Increase magic crit and crit damage
 	}
 }
 
@@ -3669,6 +3669,11 @@ Configs: {
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
 			Tooltip: ""
 			Label: Marivium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
+		}
+
+		EntropyMeleeWeaponSoundVolume: {
+			Label: Entropy Melee Weapon Sound Volume
+			Tooltip: ""
 		}
 	}
 

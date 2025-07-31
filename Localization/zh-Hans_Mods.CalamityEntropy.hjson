@@ -3622,23 +3622,23 @@ Buffs: {
 	}
 
 	ManaAwaken: {
-		// DisplayName: Mana Awaken
-		// Description: Mods.CalamityEntropy.Buffs.ManaAwaken.Description
+		DisplayName: 魔醒梦
+		Description: 你体内的魔能正在苏醒
 	}
 
 	ManaCaress: {
-		// DisplayName: Mana Caress
-		// Description: Mods.CalamityEntropy.Buffs.ManaCaress.Description
+		DisplayName: 魔爱抚
+		Description: 加速生命恢复
 	}
 
 	ManaPray: {
-		// DisplayName: Mana Pray
-		// Description: Mods.CalamityEntropy.Buffs.ManaPray.Description
+		DisplayName: 魔祝祷
+		Description: 稍微加速生命恢复
 	}
 
 	ManaVein: {
-		// DisplayName: Mana Vein
-		// Description: Mods.CalamityEntropy.Buffs.ManaVein.Description
+		DisplayName: 魔纹
+		Description: 增加魔法暴击和暴击伤害
 	}
 }
 
@@ -3889,14 +3889,14 @@ Configs: {
 			Tooltip: " 展示某些物品额外的信息，如护甲穿透、弹药类型等"
 		}
 
-		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			Label: Marivinium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
-			Tooltip: ""
-		}
-
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
 			Tooltip: ""
 			Label: 渊洋神迹套装只在手持盗贼武器时提供潜行条
+		}
+
+		EntropyMeleeWeaponSoundVolume: {
+			Label: 灾熵近战武器音效大小
+			Tooltip: ""
 		}
 	}
 

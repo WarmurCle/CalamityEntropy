@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Projectiles.Chainsaw
             Projectile.ai[2]++;
             if (Projectile.ai[2] > 280 * Projectile.MaxUpdates)
             {
-                CEUtils.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f);
+                CEUtils.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f * CEUtils.WeapSound);
                 player.itemTime = 120;
                 Projectile.Kill();
             }

@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
 
             }
 
-            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, HookNPC >= 0 ? 0.3f : 1);
+            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, CEUtils.WeapSound * (HookNPC >= 0 ? 0.3f : 1));
             
             float sparkCount = 16;
             for (int i = 0; i < sparkCount; i++)
