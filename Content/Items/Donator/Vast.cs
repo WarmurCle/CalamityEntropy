@@ -51,6 +51,7 @@ namespace CalamityEntropy.Content.Items.Donator
             if (EDownedBosses.downedProphet)
             {
                 player.Entropy().addEquip("VastLV5");
+                
             }
             player.manaCost -= ManaCostDecrease;
         }
@@ -61,9 +62,15 @@ namespace CalamityEntropy.Content.Items.Donator
         public int ExtraManaLv = 0;
         public int ExtraManaTime = 0;
         public bool BossClearFlag = false;
+        public int ManaVeinLV = 0;
         public float GetEnhancedMana => 6 * ExtraManaLv;
         public override void PostUpdate()
         {
+            var player = Player;
+            if(!Player.HasBuff<ManaVein>())
+            {
+                ManaVeinLV = 0;
+            }
             if(!Player.Entropy().hasAcc("VastLV3"))
             {
                 ExtraManaLv = 0;
@@ -73,6 +80,7 @@ namespace CalamityEntropy.Content.Items.Donator
             if (!BossClearFlag && Main.CurrentFrameFlags.AnyActiveBossNPC)
             {
                 ExtraManaTime = 0;
+                Player.ClearBuff(ModContent.BuffType<ManaVein>());
             }
             BossClearFlag = Main.CurrentFrameFlags.AnyActiveBossNPC;
             if (ManaCostCount > Player.Entropy().manaNorm / 2)
@@ -92,10 +100,37 @@ namespace CalamityEntropy.Content.Items.Donator
             if (Player.Entropy().hasAcc("VastLV4")) {
                 Player.endurance += Player.statManaMax2 - Player.Entropy().manaNorm * 0.005f;
             }
+            if (Player.Entropy().hasAcc("VastLV5"))
+            {
+                if (player.HeldItem.mana > 0 && player.statMana < player.GetManaCost(player.HeldItem))
+                {
+                    player.AddBuff(ModContent.BuffType<ManaAwaken>(), 6 * 60);
+                    player.AddBuff(BuffID.ManaSickness, 10 * 60);
+                    if (NPC.downedMoonlord)
+                    {
+                        if (ExtraManaLv == 5)
+                        {
+                            ManaVeinLV += (ManaVeinLV < 5 ? 1 : 0);
+                            Player.AddBuff(ModContent.BuffType<ManaVein>(), ManaVeinLV == 5 ? 10 * 60 * 60 : 8 * 60);
+                            if (ManaVeinLV == 5)
+                            {
+                                ExtraManaTime = 10 * 60 * 60;
+                            }
+                        }
+                    }
+                }
+            }
+            Player.GetCritChance(DamageClass.Magic) += ManaVeinLV * 2;
+            var v = Player.GetCritDamage(DamageClass.Magic);
+            v += 0.03f * ManaVeinLV;
         }
         public override void OnConsumeMana(Item item, int manaConsumed)
         {
             ManaCostCount++;
+            if(Player.HasBuff<ManaAwaken>())
+            {
+                Player.HealMana(manaConsumed * 2);
+            }
         }
     }
 }

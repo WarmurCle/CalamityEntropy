@@ -508,10 +508,17 @@ namespace CalamityEntropy.Common
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-
+            
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
-            if (projectile.owner >= 0)
+            if (projectile.owner >= 0 && projectile.friendly)
             {
+                foreach (var v in projectile.GetOwner().Entropy().CritDamage)
+                {
+                    if(projectile.DamageType.CountsAsClass(v.Key))
+                    {
+                        modifiers.CritDamage += v.Value.Value - 1;
+                    }
+                }
                 if (projectile.GetOwner().Entropy().hasAcc("HEATDEATH"))
                 {
                     npc.AddBuff(ModContent.BuffType<HeatDeath>(), 8 * 60);

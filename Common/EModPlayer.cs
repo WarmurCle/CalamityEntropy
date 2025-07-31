@@ -410,8 +410,10 @@ namespace CalamityEntropy.Common
         public float ManaExtraHeal = 0f;
         public int ManaRegenPer30Tick = 0;
         public int ManaRegenTime = 0;
+        public Dictionary<DamageClass, AddableFloat> CritDamage;
         public override void ResetEffects()
         {
+            CritDamage = new Dictionary<DamageClass, AddableFloat>();
             ManaExtraHeal = 0;
             shadowRune = false;
             shadowPact = false;
@@ -1233,10 +1235,10 @@ namespace CalamityEntropy.Common
 
         public override void OnHurt(Player.HurtInfo info)
         {
-            if(hasAcc("VastLV2") && ManaRegenTime > 0)
+            if((hasAcc("VastLV2") && ManaRegenTime > 0) || Player.HasBuff<ManaAwaken>())
             {
                 immune = 60 * 4;
-                Player.AddBuff(ModContent.BuffType<ManaPray>(), 60 * 10);
+                Player.AddBuff(hasAcc("VastLV4") ? ModContent.BuffType<ManaCaress>() : ModContent.BuffType<ManaPray>(), 60 * 10);
             }
             if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {

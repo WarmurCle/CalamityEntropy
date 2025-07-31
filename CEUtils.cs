@@ -24,6 +24,23 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static AddableFloat GetCritDamage(this Player player, DamageClass dmgClass)
+        {
+            if (!player.Entropy().CritDamage.ContainsKey(dmgClass)) {
+                var v = AddableFloat.Zero;
+                v += 1;
+                player.Entropy().CritDamage.Add(dmgClass, v);
+
+            }
+            return player.Entropy().CritDamage[dmgClass];
+        }
+        
+        public static void HealMana(this Player player, int amount)
+        {
+            player.statMana += amount;
+            if (player.statMana > player.statManaMax2)
+                player.statMana = player.statManaMax2;
+        }
         public static void ExplotionParticleLOL(Vector2 pos)
         {
             EParticle.NewParticle(new RealisticExplosion(), pos, Vector2.Zero, Color.White, 2, 1, true, BlendState.Additive);
