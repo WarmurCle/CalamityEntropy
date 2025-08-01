@@ -4272,7 +4272,8 @@ TheVoid: 虚空
 
 Biomes: {
 	VoidDummyBoime: {
-		// DisplayName: Void Dummy Boime
-		// TownNPCDialogueName: the Void Dummy Boime
+		DisplayName: 虚空
+		TownNPCDialogueName: Void
 	}
 }
+NearShimmer: 靠近微光湖

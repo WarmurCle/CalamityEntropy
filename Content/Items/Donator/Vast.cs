@@ -108,6 +108,13 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             player.manaCost -= ManaCostDecrease;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.ManaFlower)
+                .AddIngredient(ItemID.ManaCrystal)
+                .AddCondition(Mod.GetLocalization("NearShimmer", () => "Near shimmer"), () => (Main.LocalPlayer.ZoneShimmer));
+        }
     }
     public class VastMPlayer : ModPlayer
     {

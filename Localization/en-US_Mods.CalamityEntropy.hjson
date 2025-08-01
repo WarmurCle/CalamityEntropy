@@ -4032,7 +4032,7 @@ TheVoid: The Void
 
 Biomes: {
 	VoidDummyBoime: {
-		DisplayName: Void Dummy Boime
-		TownNPCDialogueName: the Void Dummy Boime
+		DisplayName: The Void
+		TownNPCDialogueName: Void
 	}
 }
