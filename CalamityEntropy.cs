@@ -467,12 +467,7 @@ namespace CalamityEntropy
             {
                 if (player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
                 {
-                    Color lightColor = Lighting.GetColor(new Point((int)(player.Center.X / 16), (int)(player.Center.Y / 16)));
-                    float gr = (255 * 3f - (lightColor.R + lightColor.G + lightColor.B));
-                    if (gr > 6)
-                    {
-                        CEUtils.DrawGlow(player.Center, Color.White * 0.5f, 5.2f);
-                    }
+                    CEUtils.DrawGlow(player.Center, Color.White * 0.2f, 5.2f);
                 }
                 if (player.Entropy().nihShellCount > 0)
                 {

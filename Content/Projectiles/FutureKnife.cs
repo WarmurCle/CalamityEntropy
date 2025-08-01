@@ -16,15 +16,15 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = CEUtils.RogueDC;
-            Projectile.width = 34;
-            Projectile.height = 34;
+            Projectile.width = 64;
+            Projectile.height = 64;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 260;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 1;
+            Projectile.localNPCHitCooldown = 0;
             
         }
         public TrailParticle trail;

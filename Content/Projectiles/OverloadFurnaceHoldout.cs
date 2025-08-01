@@ -116,12 +116,12 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.ai[0] += 1 * owner.GetAttackSpeed(DamageClass.Magic) * (1 + owner.Entropy().WeaponBoost * 0.6f);
                 if (Projectile.ai[0] >= maxTime)
                 {
+                    SoundStyle s = SoundID.DD2_BetsyFireballShot;
+                    SoundEngine.PlaySound(s, Projectile.Center);
                     float a = 0;
                     for (int i = 0; i < 36; i++)
                     {
                         a += MathHelper.ToRadians(10);
-                        SoundStyle s = SoundID.DD2_BetsyFireballShot;
-                        SoundEngine.PlaySound(s, Projectile.Center);
                         Dust.NewDust(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale * Projectile.scale, 1, 1, DustID.Smoke, a.ToRotationVector2().X * 0.4f, a.ToRotationVector2().Y * 0.4f);
                         EParticle.NewParticle(new ULineParticle(4, 0.8f, 0.85f, 0.064f), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(7, 16), Color.Lerp(Color.White, Color.Red, Main.rand.NextFloat(0, 1)), 1, 1, true, BlendState.AlphaBlend, 0);
                     }

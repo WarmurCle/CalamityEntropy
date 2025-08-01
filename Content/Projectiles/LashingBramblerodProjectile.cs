@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.SetDefaults();
             Projectile.MaxUpdates = 6;
             this.segments = 30;
-            this.rangeMult = 3.2f;
+            this.rangeMult = 1.6f;
         }
         public override string getTagEffectName => "LashingBramblerod";
         public override SoundStyle? WhipSound => SoundID.Grass;
