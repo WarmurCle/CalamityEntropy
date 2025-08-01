@@ -19,13 +19,12 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 35;
+            Item.damage = 24;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
-            Item.height = 60;
-            Item.useTime = 28;
-            Item.useAnimation = 28;
-            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.height = 48;
+            Item.useTime = Item.useAnimation = 18;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
@@ -81,8 +80,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("antivoidhit", 1, target.Center);
-            target.AddBuff(ModContent.BuffType<HeavyBleeding>(), 400);
-            target.AddBuff(ModContent.BuffType<CrushDepth>(), 400);
+            target.AddBuff(ModContent.BuffType<HeavyBleeding>(), 520);
+            target.AddBuff(ModContent.BuffType<CrushDepth>(), 520);
             float sparkCount = 42;
             for (int i = 0; i < sparkCount; i++)
             {
@@ -114,7 +113,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.PlaySound("Dizzy", 1 + Projectile.ai[0] * 0.08f, Projectile.Center);
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;
-
+                
             }
             Projectile.timeLeft = 3;
             float RotF = 4.4f;
@@ -160,7 +159,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                if (odr.Count > 0)
+                if(odr.Count > 0)
                 {
                     odr.RemoveAt(0);
                 }

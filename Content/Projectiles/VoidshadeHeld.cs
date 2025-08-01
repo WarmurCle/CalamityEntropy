@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,36 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.owner.ToPlayer().velocity *= -0.05f;
                 Projectile.owner.ToPlayer().Entropy().voidshadeBoostTime = 90;
             }
+            else
+            {
+                CEUtils.PlaySound("antivoidhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: CEUtils.WeapSound);
+                Color impactColor = Color.LightBlue;
+                float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
+
+                SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, Color.Blue, impactParticleScale, 8, 0, 2.5f);
+                GeneralParticleHandler.SpawnParticle(impactParticle);
+
+
+                float sparkCount = 32;
+                for (int i = 0; i < sparkCount; i++)
+                {
+                    float p = Main.rand.NextFloat();
+                    Vector2 sparkVelocity2 = (target.Center - Projectile.Center).normalize().RotatedByRandom(p * 0.4f) * Main.rand.NextFloat(12, 36 * (2 - p));
+                    int sparkLifetime2 = (int)((2 - p) * 7);
+                    float sparkScale2 = 0.6f + (1 - p);
+                    Color sparkColor2 = Color.Lerp(Color.DeepSkyBlue, Color.Purple, p);
+                    if (Main.rand.NextBool())
+                    {
+                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                    else
+                    {
+                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.AliceBlue : Color.SkyBlue);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                }
+            }
         }
         public bool st = true;
         public bool vsboost = false;
@@ -96,13 +127,13 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.direction = (Projectile.velocity.X > 0 ? 1 : -1);
                     Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(16 * Projectile.direction);
                 }
-                if (counter < 20)
+                if (counter < 12)
                 {
                     cspeed += 0.01f * speed;
                 }
                 else
                 {
-                    cspeed -= 0.014f * speed;
+                    cspeed -= 0.004f * speed;
                 }
                 Projectile.Center = player.Center + Projectile.rotation.ToRotationVector2() * c * 18 * getScale() - Projectile.rotation.ToRotationVector2() * 60 * getScale();
                 c += cspeed * speed;
@@ -112,7 +143,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Projectile.Kill();
                 }
-                if (counter < 36)
+                if (counter < 44)
                 {
                     oldPos.Add(Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-10) * Projectile.direction) * 130 * getScale() * Projectile.scale);
 
@@ -134,7 +165,7 @@ namespace CalamityEntropy.Content.Projectiles
                     st = false;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity * 0.8f, ModContent.ProjectileType<VoidImpact>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity * 0.52f, ModContent.ProjectileType<VoidImpact>(), (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
                     }
                 }
                 if (!init)
@@ -166,7 +197,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 counter += speed;
 
-                if (counter < 12)
+                if (counter < 8)
                 {
                     if (attackType == 0)
                     {
@@ -174,12 +205,12 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     else
                     {
-                        rotSpeed += 0.046f * Projectile.direction * speed;
+                        rotSpeed += 0.06f * Projectile.direction * speed;
                     }
                 }
                 else
                 {
-                    rotSpeed *= (float)Math.Pow(0.74f, 1.0 / speed);
+                    rotSpeed *= (float)Math.Pow(0.9f, 1.0 / speed);
                 }
                 if (counter > 60)
                 {
@@ -203,7 +234,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.Center = player.RotatedRelativePoint(player.MountedCenter);
                 player.heldProj = Projectile.whoAmI;
 
-                if (counter < 22)
+                if (counter < 36)
                 {
                     if (counter % 2 == 1)
                     {

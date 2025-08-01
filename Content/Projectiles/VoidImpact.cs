@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityMod;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -19,22 +21,29 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.width = 116;
             Projectile.height = 116;
             Projectile.friendly = true;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 100;
-            Projectile.extraUpdates = 2;
+            Projectile.extraUpdates = 5;
             Projectile.scale = 2;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.damage = (int)(Projectile.damage * 0.9f);
+            CEUtils.PlaySound("flashback", 1.4f, Projectile.Center, 3, CEUtils.WeapSound * 0.4f);
+            float[] rots = new float[] { MathHelper.PiOver4, -MathHelper.PiOver4, MathHelper.PiOver4 * 3, MathHelper.PiOver4 * -3 };
+            for (int i = 0; i < rots.Length; i++)
+            {
+                float r = rots[i] + Projectile.rotation;
+                EParticle.spawnNew(new VoidImpactParticle(), target.Center, r.ToRotationVector2() * 9, Color.White, 1.8f, 1, true, BlendState.AlphaBlend, r, 46);
+                EParticle.spawnNew(new VoidImpactParticle(), target.Center, r.ToRotationVector2() * 12, Color.White, 2f, 1, true, BlendState.AlphaBlend, r, 46);
+            }
         }
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
             oldPos.Add(Projectile.Center);
-            if (oldPos.Count > 12)
+            if (oldPos.Count > 64)
             {
                 oldPos.RemoveAt(0);
             }
@@ -54,11 +63,15 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < oldPos.Count; i++)
             {
                 scale += 1f / oldPos.Count;
-                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, lightColor * ((float)i / (float)oldPos.Count) * 0.6f, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, lightColor * ((float)i / (float)oldPos.Count) * 0.6f, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2 * 0.6f, SpriteEffects.None, 0);
             }
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2, SpriteEffects.None, 0);
-
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2 * 0.8f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2 * 0.6f, SpriteEffects.None, 0);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
+
         }
     }
 

@@ -16,10 +16,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 360;
+            Item.damage = 1400;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 14;
+            Item.useAnimation = Item.useTime = 60;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.ArmorPenetration = 50;
             Item.knockBack = 1f;
@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
 
 
-        public override float StealthDamageMultiplier => 1f;
+        public override float StealthDamageMultiplier => 0.3f;
         public override float StealthVelocityMultiplier => 1.5f;
         public override float StealthKnockbackMultiplier => 3f;
 

@@ -16,25 +16,24 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = CEUtils.RogueDC;
-            Projectile.width = 34;
-            Projectile.height = 34;
+            Projectile.width = 64;
+            Projectile.height = 64;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 260;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 1;
-
+            Projectile.localNPCHitCooldown = 0;
+            
         }
         public TrailParticle trail;
         public override void AI()
         {
-            if (!Main.dedServ)
-            {
+            if (!Main.dedServ) {
                 if (trail == null)
                 {
-                    trail = new TrailParticle() { maxLength = 16 };
+                    trail = new TrailParticle() { maxLength = 16};
                     EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.AliceBlue * 0.6f, 1, 1, true, BlendState.Additive);
                 }
                 trail.Lifetime = 30;

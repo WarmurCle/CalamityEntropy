@@ -686,7 +686,7 @@ namespace CalamityEntropy.Common
             }
             if (projectile.arrow && projectile.owner >= 0)
             {
-                if (projectile.owner.ToPlayer().HeldItem.type == ModContent.ItemType<Kinanition>())
+                if (projectile.owner.ToPlayer().HeldItem.type == ModContent.ItemType<Kinanition>() && projectile.ModProjectile is not LightningSpear)
                 {
                     projectile.Entropy().Lightning = true;
                 }
@@ -1060,7 +1060,7 @@ namespace CalamityEntropy.Common
             {
                 if (target.Organic())
                 {
-                    CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: 0.36f);
+                    CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 4, volume: 0.36f);
                 }
                 else
                 {
@@ -1075,7 +1075,7 @@ namespace CalamityEntropy.Common
                         LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                         GeneralParticleHandler.SpawnParticle(spark);
                     }
-                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, volume: 0.26f);
+                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 4, volume: 0.26f);
                 }
             }
             if (LuminarArrow)
