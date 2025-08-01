@@ -103,8 +103,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             {
                 if(MouseLeft)
                 {
-                    if(counter % 32 == 0)
+                    Projectile.ai[2] += player.GetTotalAttackSpeed(Projectile.DamageType);
+                    if (Projectile.ai[2] >= 32)
                     {
+                        Projectile.ai[2] = 0;
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<BrambleShoot>(), (int)(Projectile.damage * 0.7f), 2, Projectile.owner);
                     }
                     Projectile.velocity *= 0.88f;
@@ -125,9 +127,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                         }
                         else
                         {
-                            if (Projectile.velocity.Length() < 25)
+                            float s = 25 * player.GetTotalAttackSpeed(Projectile.DamageType);
+                            if (Projectile.velocity.Length() < s)
                             {
-                                Projectile.velocity = Projectile.velocity.normalize() * 25;
+                                Projectile.velocity = Projectile.velocity.normalize() * s;
                             }
                         }
                     }

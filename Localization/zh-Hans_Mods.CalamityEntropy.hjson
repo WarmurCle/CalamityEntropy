@@ -3925,8 +3925,8 @@ Configs: {
 		}
 
 		BramblecleaveAlwaysUnlockAllSkill: {
-			// Label: Bramblecleave Always Unlock All Skill
-			// Tooltip: ""
+			Label: 禁用苍郁之锋技能锁定
+			Tooltip: "启用后，苍郁之锋所有技能能在游戏初期使用，伤害取决于武器的面板伤害，适合给那些想在游戏初期就体验这些技能的玩家"
 		}
 	}
 }
