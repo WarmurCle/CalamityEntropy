@@ -154,7 +154,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation += 0.16f * Owner.direction;
             CEUtils.recordOldPosAndRots(Projectile, ref odp, ref odr, 12);
 
-            if (VaultUtils.isServer) 
+            if (VaultUtils.isServer)
             {
                 return;
             }

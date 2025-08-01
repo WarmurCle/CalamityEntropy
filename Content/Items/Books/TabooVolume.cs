@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 180;
+            Item.damage = 150;
             Item.useAnimation = Item.useTime = 100;
             Item.crit = 10;
             Item.mana = 8;
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             else
             {
-                if(seekerCd-- <= 0)
+                if (seekerCd-- <= 0)
                 {
                     seekerCd = this.GetShootCd() / 6;
                     SeekerShoot = true;
@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool Shoot()
         {
-            if(SeekerShoot)
+            if (SeekerShoot)
             {
                 seekerRotTarget += MathHelper.ToRadians(60);
                 var seekers = getSeekerPos();
@@ -116,7 +116,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.localAI[0]++;
                 return true;
             }
-            
+
             return base.Shoot();
         }
         public override bool PreDraw(ref Color lightColor)

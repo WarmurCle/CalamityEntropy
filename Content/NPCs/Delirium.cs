@@ -121,11 +121,11 @@ namespace CalamityEntropy.Content.NPCs
         }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
-           /* binaryWriter.Write(delirium);
-            binaryWriter.Write(counter);
-            binaryWriter.Write(npc.lifeMax);
-            binaryWriter.Write(npc.life);
-            binaryWriter.Write(npc.damage);*/
+            /* binaryWriter.Write(delirium);
+             binaryWriter.Write(counter);
+             binaryWriter.Write(npc.lifeMax);
+             binaryWriter.Write(npc.life);
+             binaryWriter.Write(npc.damage);*/
         }
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)

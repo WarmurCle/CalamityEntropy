@@ -41,8 +41,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, CEUtils.WeapSound);
-            
+            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, 1);
+
             float sparkCount = 20;
             for (int i = 0; i < sparkCount; i++)
             {
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             counter++;
             Projectile.netUpdate = true;
             player.Entropy().BrambleBarCharge -= 0.0002f;
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 MouseLeft = Main.mouseLeft;
                 MouseRight = Main.mouseRight;
@@ -85,28 +85,26 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                     MouseRight = false;
                 }
             }
-            
+
             player.itemTime = player.itemAnimation = 10;
-            if(counter > 20 && !MouseRight)
+            if (counter > 20 && !MouseRight)
             {
                 Projectile.velocity += (player.Center - Projectile.Center).normalize() * 1.3f;
-                Projectile.velocity *= 0.94f; 
+                Projectile.velocity *= 0.94f;
                 LerpCenter = Vector2.Lerp(LerpCenter, (player.Center + Projectile.Center) / 2f, 0.1f);
 
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (Projectile.Center - player.Center).ToRotation(), 0.08f, false);
-                if(CEUtils.getDistance(Projectile.Center, player.Center) < Projectile.velocity.Length() * 2.5f + 60)
+                if (CEUtils.getDistance(Projectile.Center, player.Center) < Projectile.velocity.Length() * 2.5f + 60)
                 {
                     Projectile.Kill();
                 }
             }
             else
             {
-                if(MouseLeft)
+                if (MouseLeft)
                 {
-                    Projectile.ai[2] += player.GetTotalAttackSpeed(Projectile.DamageType);
-                    if (Projectile.ai[2] >= 32)
+                    if (counter % 32 == 0)
                     {
-                        Projectile.ai[2] = 0;
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<BrambleShoot>(), (int)(Projectile.damage * 0.7f), 2, Projectile.owner);
                     }
                     Projectile.velocity *= 0.88f;
@@ -127,10 +125,9 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                         }
                         else
                         {
-                            float s = 25 * player.GetTotalAttackSpeed(Projectile.DamageType);
-                            if (Projectile.velocity.Length() < s)
+                            if (Projectile.velocity.Length() < 25)
                             {
-                                Projectile.velocity = Projectile.velocity.normalize() * s;
+                                Projectile.velocity = Projectile.velocity.normalize() * 25;
                             }
                         }
                     }
@@ -151,7 +148,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
             player.heldProj = Projectile.whoAmI;
-            if(odp.Count > 36)
+            if (odp.Count > 36)
             {
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
@@ -173,7 +170,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Vector2 last = Projectile.GetOwner().GetDrawCenter();
             for (int i = 1; i < Count; i++)
             {
-                Vector2 pos = CEUtils.Bezier(new List<Vector2>() { Projectile.GetOwner().GetDrawCenter(), LerpCenter, Projectile.Center}, (float)i / Count);
+                Vector2 pos = CEUtils.Bezier(new List<Vector2>() { Projectile.GetOwner().GetDrawCenter(), LerpCenter, Projectile.Center }, (float)i / Count);
                 Main.EntitySpriteDraw(draw, pos - Main.screenPosition, null, Color.Lerp(lightColor, Color.White, 0.25f), (pos - last).ToRotation(), new Vector2(0, draw.Height / 2), 1, SpriteEffects.None);
                 last = pos;
             }
@@ -219,7 +216,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public float trailAlpha = 0;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if(!MouseLeft)
+            if (!MouseLeft)
             {
                 modifiers.SourceDamage *= 1.8f;
             }

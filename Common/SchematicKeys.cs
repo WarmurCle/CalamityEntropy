@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using CalamityMod.TileEntities;
+﻿using CalamityMod.TileEntities;
 using CalamityMod.Tiles.DraedonStructures;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

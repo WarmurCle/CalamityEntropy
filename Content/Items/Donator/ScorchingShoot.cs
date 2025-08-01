@@ -144,16 +144,16 @@ namespace CalamityEntropy.Content.Items.Donator
         public List<int> NPCHited = new List<int>();
         public override void AI(Projectile projectile)
         {
-            if(Active)
+            if (Active)
             {
                 if (flag)
                 {
                     flag = false;
-                    if(projectile.penetrate > 0)
+                    if (projectile.penetrate > 0)
                         projectile.penetrate = Enhanced ? -1 : projectile.penetrate + 6;
-                    if(Enhanced)
+                    if (Enhanced)
                         projectile.MaxUpdates *= 2;
-                    
+
                 }
             }
             if (Active)
@@ -168,7 +168,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     trail.Position = projectile.Center + projectile.velocity * projectile.MaxUpdates;
                     trail.Lifetime = 60;
                 }
-                if(Enhanced)
+                if (Enhanced)
                 {
                     Vector2 position = projectile.Center + CEUtils.randomPointInCircle(6);
                     Vector2 velocity = projectile.velocity * 0.2f;
@@ -186,19 +186,19 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void OnKill(Projectile projectile, int timeLeft)
         {
             if (!Active)
-                return ;
-            if(trail != null)
+                return;
+            if (trail != null)
             {
                 trail.Lifetime = 0;
             }
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(!Active)
+            if (!Active)
             {
-                return ;
+                return;
             }
-            if(Enhanced)
+            if (Enhanced)
             {
                 target.AddBuff<MarkedforDeath>(600);
                 target.AddBuff(ModContent.BuffType<Dragonfire>(), 400);

@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Projectile.velocity.X *= 0.98f;
-            
+
             Projectile.velocity.Y += 0.52f;
             Projectile.rotation += Projectile.velocity.X * 0.06f;
             Projectile.Opacity = Projectile.timeLeft > 60 ? 1 : (float)Projectile.timeLeft / 60f;
@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if(oldVelocity.Y != 0 && Projectile.velocity.Y == 0)
+            if (oldVelocity.Y != 0 && Projectile.velocity.Y == 0)
             {
                 Projectile.velocity.Y = oldVelocity.Y * -0.5f;
             }
@@ -42,11 +42,11 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Projectile.ai[0] > 0 ? this.getTextureAlt() :Projectile.GetTexture();
+            Texture2D tex = Projectile.ai[0] > 0 ? this.getTextureAlt() : Projectile.GetTexture();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             return false;
         }
-        
+
     }
 
 

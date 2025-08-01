@@ -31,11 +31,11 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.tileCollide = Projectile.velocity.Length() > 4;
             oldPos.Add(Projectile.Center);
-            if(oldPos.Count > 16)
+            if (oldPos.Count > 16)
             {
                 oldPos.RemoveAt(0);
             }
-            if (Projectile.ai[2] ++ > 60)
+            if (Projectile.ai[2]++ > 60)
             {
                 Projectile.velocity.Y += 0.02f;
             }
@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             float scale = 1 * Projectile.scale;
             DrawEnergyBall(Projectile.Center, scale, Projectile.Opacity);
-            for(int i = 0; i < oldPos.Count; i++)
+            for (int i = 0; i < oldPos.Count; i++)
             {
                 float c = (i + 1f) / oldPos.Count;
                 DrawEnergyBall(oldPos[i], scale * c, Projectile.Opacity * c);

@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public override void AI()
         {
             PullCD--;
-            if (NPC.localAI[1] ++ == 0)
+            if (NPC.localAI[1]++ == 0)
             {
                 if (NPC.velocity.X == 0)
                     NPC.velocity.X = 0.02f;
@@ -75,9 +75,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             NPC.scale = owner.scale;
             NPC.damage = owner.damage;
-            if(owner.ModNPC is AcropolisMachine am)
+            if (owner.ModNPC is AcropolisMachine am)
             {
-                if(OnLauncher)
+                if (OnLauncher)
                 {
                     NPC.Center = am.HarpoonPos;
                     NPC.rotation = am.harpoon.Seg2Rot;
@@ -92,12 +92,12 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         sVel = NPC.velocity;
                     }
                     NPC.rotation = (NPC.Center - am.harpoon.seg1end).ToRotation();
-                    if(!Stuck && Back-- < 0)
+                    if (!Stuck && Back-- < 0)
                     {
                         NPC.noTileCollide = true;
                         NPC.velocity += (am.HarpoonPos - NPC.Center).normalize() * 8 * NPC.scale;
                         NPC.velocity *= 0.9f;
-                        if(CEUtils.getDistance(NPC.Center, am.HarpoonPos) <= NPC.velocity.Length() + 6)
+                        if (CEUtils.getDistance(NPC.Center, am.HarpoonPos) <= NPC.velocity.Length() + 6)
                         {
                             OnLauncher = true;
                             NPC.velocity *= 0;
@@ -105,15 +105,15 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     }
                     else if (owner.HasValidTarget)
                     {
-                        if(NPC.noTileCollide && CEUtils.getDistance(owner.Center, owner.target.ToPlayer().Center) > 500)
+                        if (NPC.noTileCollide && CEUtils.getDistance(owner.Center, owner.target.ToPlayer().Center) > 500)
                         {
                             if (CEUtils.getDistance(owner.Center, NPC.Center) > 600)
                             {
                                 if (CEUtils.getDistance(NPC.Center, owner.target.ToPlayer().Center) < 400)
                                 {
-                                    if(CEUtils.CheckSolidTile(NPC.getRect()))
+                                    if (CEUtils.CheckSolidTile(NPC.getRect()))
                                     {
-                                        if(!Stuck && !am.Jumping && PullCD <= 0)
+                                        if (!Stuck && !am.Jumping && PullCD <= 0)
                                         {
                                             PullCD = 12 * 60;
                                             Stuck = true;
@@ -125,7 +125,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                                 }
                             }
                         }
-                        if(Stuck)
+                        if (Stuck)
                         {
                             NPC.velocity *= 0;
                             if (CEUtils.getDistance(owner.Center, NPC.Center) > 400)

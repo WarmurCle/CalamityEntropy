@@ -22,7 +22,7 @@ namespace CalamityEntropy
             }
             public static void LoadShop()
             {
-                if(NPCShopDatabase.TryGetNPCShop(NPCShopDatabase.GetShopName(ModContent.NPCType<Operator>(), "ModBags1"), out var calBagsShop))
+                if (NPCShopDatabase.TryGetNPCShop(NPCShopDatabase.GetShopName(ModContent.NPCType<Operator>(), "ModBags1"), out var calBagsShop))
                 {
                     var shop = (NPCShop)calBagsShop;
                     shop.AddModItemToShop(CalamityEntropy.Instance, "LuminarisBag", 4000000, () => EDownedBosses.downedLuminaris);

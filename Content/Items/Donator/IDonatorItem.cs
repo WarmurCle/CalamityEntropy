@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override void ModifyTooltips(Item entity, List<TooltipLine> tooltips)
         {
-            if (entity.ModItem != null && entity.ModItem is IDonatorItem i) 
+            if (entity.ModItem != null && entity.ModItem is IDonatorItem i)
             {
                 TooltipLine tl = new TooltipLine(Mod, "EntropyDonorName", Mod.GetLocalization("Donor").Value + " " + Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(i.DonatorName)));
                 tl.OverrideColor = Color.Yellow;

@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            for(int i = 1; i < odp.Count; i++)
+            for (int i = 1; i < odp.Count; i++)
             {
                 if (CEUtils.LineThroughRect(odp[i - 1], odp[i], targetHitbox, 30))
                 {

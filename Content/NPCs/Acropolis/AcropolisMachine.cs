@@ -83,26 +83,26 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         NoMoveTime = 4;
                     return true;
                 }
-                
+
                 return false;
             }
             public float ms;
             public Vector2 FindStandPoint(Vector2 center, float MaxOffset, float MaxTry = 64)
             {
                 o = false;
-                for(int i = 0; i < MaxTry; i++)
+                for (int i = 0; i < MaxTry; i++)
                 {
                     Vector2 pos = CEUtils.randomPointInCircle(MaxTry) * new Vector2(1f, 1f) + center;
-                    if(CEUtils.getDistance(pos, center) <= MaxOffset * 0.9f && CanStandOn(pos))
+                    if (CEUtils.getDistance(pos, center) <= MaxOffset * 0.9f && CanStandOn(pos))
                     {
                         o = true;
                         Vector2 orgPos = pos;
                         int c = 128;
-                        while(CanStandOn(pos))
+                        while (CanStandOn(pos))
                         {
                             c--;
                             pos.Y -= 2 * NPC.scale;
-                            if(c <= 0)
+                            if (c <= 0)
                             {
                                 return orgPos;
                             }
@@ -135,9 +135,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             public void PointAPos(Vector2 pos)
             {
                 Seg1Rot = CEUtils.RotateTowardsAngle(Seg1Rot, (pos - (npc.Center + (offset * new Vector2(((AcropolisMachine)npc.ModNPC).dir, 1)).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)))).ToRotation(), 0.06f, false);
-                if(CEUtils.GetAngleBetweenVectors(Seg1Rot.ToRotationVector2(), -Vector2.UnitY) > Seg1MaxRadians * 2)
+                if (CEUtils.GetAngleBetweenVectors(Seg1Rot.ToRotationVector2(), -Vector2.UnitY) > Seg1MaxRadians * 2)
                 {
-                    if(Seg1Rot > (MathHelper.PiOver2 + Seg1MaxRadians))
+                    if (Seg1Rot > (MathHelper.PiOver2 + Seg1MaxRadians))
                     {
                         Seg1Rot = (MathHelper.PiOver2 + Seg1MaxRadians);
                     }
@@ -211,11 +211,11 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.timeLeft *= 12;
             NPC.lavaImmune = true;
             NPC.scale = 1f;
-            if(Main.getGoodWorld)
+            if (Main.getGoodWorld)
             {
                 NPC.scale += 0.2f;
             }
-            if(Main.zenithWorld)
+            if (Main.zenithWorld)
             {
                 NPC.scale += 1.8f;
             }
@@ -239,7 +239,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public bool CanStandOn(int x, int y)
         {
-            if(!CEUtils.inWorld(x, y)) return false;
+            if (!CEUtils.inWorld(x, y)) return false;
             return CanStandOn(new Vector2(x, y) * 16f);
         }
         public List<AcropolisLeg> legs = null;
@@ -296,7 +296,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     }
                 }
             }
-            
+
             if (!NPC.HasValidTarget)
             {
                 NPC.TargetClosest();
@@ -331,7 +331,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     {
                         NPC.velocity.Y -= 0.4f;
                     }
-                    if(dcounter > 290)
+                    if (dcounter > 290)
                     {
                         NPC.active = false;
                     }
@@ -351,7 +351,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 NPC.velocity *= 0.97f;
             }
-            if(Jumping)
+            if (Jumping)
             {
                 NPC.rotation = (Math.Abs(NPC.velocity.X * 0.04f).ToRotationVector2() * new Vector2(dir, 1)).ToRotation();
             }
@@ -361,9 +361,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 Vector2 rr = Vector2.Zero;
                 int lc = 0;
                 int rc = 0;
-                foreach(var leg in legs)
+                foreach (var leg in legs)
                 {
-                    if(leg.offset.X < 0 && leg.OnTile)
+                    if (leg.offset.X < 0 && leg.OnTile)
                     {
                         lr += leg.StandPoint;
                         lc++;
@@ -374,9 +374,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         rc++;
                     }
                 }
-                
-                if(lc > 0 && rc > 0)
-                {   
+
+                if (lc > 0 && rc > 0)
+                {
                     float r = ((rr / rc) - (lr / lc)).ToRotation();
                     float maxr = MathHelper.ToRadians(60);
                     if (r > maxr)
@@ -385,7 +385,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     {
                         r = -maxr;
                     }
-                    if(dir < 0)
+                    if (dir < 0)
                     {
                         r += MathHelper.Pi;
                     }
@@ -420,7 +420,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             writer.Write(legs.Count > 0);
             if (legs.Count > 0)
             {
-                foreach(var le in legs)
+                foreach (var le in legs)
                 {
                     le.NetSend(writer);
                 }
@@ -441,7 +441,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             cannon.NetReceive(reader);
             harpoon.NetReceive(reader);
             _harpoon = reader.ReadInt32();
-            if(reader.ReadBoolean())
+            if (reader.ReadBoolean())
             {
                 if (legs.Count > 0)
                 {
@@ -452,7 +452,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 }
                 else
                 {
-                    for(int a = 0; a < 4; a++)
+                    for (int a = 0; a < 4; a++)
                         new AcropolisLeg(NPC, Vector2.Zero).NetReceive(reader);
                 }
             }
@@ -526,7 +526,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 cannon.PointAPos(player.Center + new Vector2(0, -14) + new Vector2(0, d > 500 ? -(((d - 500) * 0.02f) * ((d - 500) * 0.02f)) : 0));
             }
-            if(!Jumping)
+            if (!Jumping)
             {
                 JumpAndShoot = -1;
             }
@@ -534,19 +534,19 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 harpoon.PointAPos(player.Center);
             }
-            else if(!HarpoonOnLauncher)
+            else if (!HarpoonOnLauncher)
             {
                 harpoon.PointAPos(_harpoon.ToNPC().Center);
             }
             TeslaCD -= enrange;
-            if(TeslaCD <= 0)
+            if (TeslaCD <= 0)
             {
-                if(Main.rand.NextBool(8))
+                if (Main.rand.NextBool(8))
                 {
                     TeslaCD = 360;
                     CannonUpAtk = 200;
                 }
-                else if(Main.rand.NextBool(8) && !Jumping && HarpoonOnLauncher)
+                else if (Main.rand.NextBool(8) && !Jumping && HarpoonOnLauncher)
                 {
                     Jumping = true;
                     NPC.velocity = new Vector2(12f * Math.Sign(player.Center.X - NPC.Center.X) / NPC.scale, -24) * NPC.scale;
@@ -566,10 +566,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 HarpoonCD -= enrange;
             }
-            if(HarpoonCD <= 0)
+            if (HarpoonCD <= 0)
             {
                 HarpoonCharge += 0.01f * enrange;
-                if(HarpoonCharge >= 1)
+                if (HarpoonCharge >= 1)
                 {
                     HarpoonCharge = 0;
                     HarpoonCD = 160;
@@ -595,7 +595,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 if (c >= 3)
                 {
                     flag = true;
-                    if(JFlag)
+                    if (JFlag)
                     {
                         JFlag = false;
                         if (NPC.velocity.Y > 0)
@@ -650,14 +650,14 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                                 {
                                     f = false;
                                 }
-                                if(l.OnTile && l.StandPoint.Y > NPC.Center.Y + 130 * NPC.scale)
+                                if (l.OnTile && l.StandPoint.Y > NPC.Center.Y + 130 * NPC.scale)
                                 {
                                     f2 = true;
                                 }
                             }
                             if (f || CEUtils.CheckSolidTile(NPC.getRect()))
                                 NPC.velocity.Y -= 0.6f * enrange * v;
-                            else if(f2)
+                            else if (f2)
                                 NPC.velocity.Y += 2f * enrange * v;
                         }
                     }
@@ -706,15 +706,15 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 }
                 JFlag = true;
             }
-            if(NPC.velocity.X > 0)
+            if (NPC.velocity.X > 0)
             {
-                if(dir == -1)
+                if (dir == -1)
                     NPC.rotation += MathHelper.Pi;
                 dir = 1;
             }
-            if(NPC.velocity.X < 0)
+            if (NPC.velocity.X < 0)
             {
-                if(dir == 1)
+                if (dir == 1)
                     NPC.rotation += MathHelper.Pi;
                 dir = -1;
             }
@@ -739,7 +739,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public float HarpoonCD = 120;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if(Main.zenithWorld)
+            if (Main.zenithWorld)
             {
                 drawColor = Main.DiscoColor;
             }
@@ -758,7 +758,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             Texture2D t1 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Leg1");
             Texture2D t2 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Leg2");
             Texture2D t3 = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Foot");
-            
+
             if (legs == null)
                 return false;
             foreach (var leg in legs)
@@ -786,11 +786,11 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             Texture2D harpoonOutline = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/HarpoonOutline");
 
             Texture2D shoulder = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Shoulder");
-            
+
             Main.EntitySpriteDraw(harpoon1, (harpoon.offset * new Vector2(dir, 1) * NPC.scale).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)) + NPC.Center - Main.screenPosition, null, drawColor, harpoon.Seg1Rot, new Vector2(6, harpoon1.Height / 2f), NPC.scale, SpriteEffects.None);
             if (_harpoon < 0 || (((Harpoon)_harpoon.ToNPC().ModNPC).OnLauncher))
             {
-                for(float r = 0; r <= 360; r += 60)
+                for (float r = 0; r <= 360; r += 60)
                 {
                     Main.EntitySpriteDraw(harpoonOutline, MathHelper.ToRadians(r).ToRotationVector2() * 2 + harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 150 * NPC.scale + new Vector2(0, 10 * dir).RotatedBy(harpoon.Seg2Rot) * NPC.scale - Main.screenPosition, null, Color.OrangeRed * HarpoonCharge, harpoon.Seg2Rot, new Vector2(70, harpoon3.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
                 }
@@ -813,13 +813,13 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            if(NPC.life <= 0 && !Main.dedServ)
+            if (NPC.life <= 0 && !Main.dedServ)
             {
-                if(Main.zenithWorld)
+                if (Main.zenithWorld)
                 {
                     EParticle.spawnNew(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 5 * NPC.scale, 1, true, BlendState.AlphaBlend);
                 }
-                else 
+                else
                 {
                     for (int i = 0; i < 40; i++)
                     {
@@ -842,7 +842,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
                 Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
                 Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale); 
+                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
                 Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore8").Type, NPC.scale);
                 Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore9").Type, NPC.scale);
             }

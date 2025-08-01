@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Ammo
             Item.width = 8;
             Item.height = 8;
             Item.maxStack = Item.CommonMaxStack;
-            Item.consumable = true; 
+            Item.consumable = true;
             Item.knockBack = 1f;
             Item.value = 0;
             Item.rare = ItemRarityID.Gray;

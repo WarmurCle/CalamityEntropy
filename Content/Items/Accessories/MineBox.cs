@@ -69,13 +69,13 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void AI()
         {
             Projectile.light = (1 - Projectile.timeLeft / 90f);
-            if(Projectile.timeLeft == 1)
+            if (Projectile.timeLeft == 1)
             {
                 CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.Orange, new Vector2(2f, 2f), 0, 0.1f, 0.78f, 46);
                 GeneralParticleHandler.SpawnParticle(pulse);
                 CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, Color.OrangeRed, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.63f, 30);
                 GeneralParticleHandler.SpawnParticle(explosion2);
-                for(int i = 0; i < 32; i++)
+                for (int i = 0; i < 32; i++)
                 {
                     var spark = new AltSparkParticle(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(3, 12), false, Main.rand.Next(22, 32), Main.rand.NextFloat(0.8f, 1.4f), Color.Lerp(Color.Red, Color.Orange, Main.rand.NextFloat()));
                     GeneralParticleHandler.SpawnParticle(spark);

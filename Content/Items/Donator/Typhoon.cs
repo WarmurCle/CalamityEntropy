@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override bool CanUseItem(Player player)
         {
-            if(mode == 0)
+            if (mode == 0)
             {
                 Item.useAnimation = Item.useTime = 1;
             }
@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (mode == 1)
             {
-                for(int i = 0; i < 60; i++)
+                for (int i = 0; i < 60; i++)
                 {
                     Vector2 vel = velocity.RotateRandom(0.3f) * Main.rand.NextFloat(0.4f, 1.2f);
                     Projectile.NewProjectile(source, position, vel, type, damage, knockback, player.whoAmI);

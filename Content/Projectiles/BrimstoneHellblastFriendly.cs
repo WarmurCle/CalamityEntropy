@@ -175,7 +175,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             var t = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 3600);
             int num = -1;
-            if(t != null) num = t.whoAmI;
+            if (t != null) num = t.whoAmI;
             if (!withinRange && num != -1)
             {
                 float num2 = base.Projectile.velocity.Length();
@@ -285,9 +285,9 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int i = 0; i < num; i++)
                 {
                     Vector2 velocity = spinningpoint.RotatedBy(num2 * (float)i);
-                    if(this.ShooterModProjectile is EntropyBookHeldProjectile ebook)
+                    if (this.ShooterModProjectile is EntropyBookHeldProjectile ebook)
                     {
-                        ebook.ShootSingleProjectile(type, Projectile.Center, velocity, 0.4f, initAction:(projectile) => { projectile.ai[0] = 0f; projectile.ai[1] = Projectile.ai[1]; projectile.ai[2] = num3 * 1.5f; }, shotSpeedMul:0.7f);
+                        ebook.ShootSingleProjectile(type, Projectile.Center, velocity, 0.4f, initAction: (projectile) => { projectile.ai[0] = 0f; projectile.ai[1] = Projectile.ai[1]; projectile.ai[2] = num3 * 1.5f; }, shotSpeedMul: 0.7f);
                     }
                 }
             }
@@ -353,7 +353,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             ctr++;
-            if(flag)
+            if (flag)
             {
                 flag = false;
                 this.homing += 0.6f;

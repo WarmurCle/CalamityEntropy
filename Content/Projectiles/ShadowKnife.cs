@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Projectile.Center = ((int)Projectile.ai[0]).ToNPC().Center;
-            if(Projectile.timeLeft % 4 == 0 && Projectile.owner == Main.myPlayer)
+            if (Projectile.timeLeft % 4 == 0 && Projectile.owner == Main.myPlayer)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ShadowKnife>(), Projectile.damage, 1, Projectile.owner, (Projectile.timeLeft / 64f) * MathHelper.TwoPi);
             }
@@ -114,20 +114,20 @@ namespace CalamityEntropy.Content.Projectiles
         public StarTrailParticle spt2 = null;
         public override void AI()
         {
-            if(counter == 0)
+            if (counter == 0)
             {
                 lastPos = spawnPos = Projectile.Center;
             }
             counter++;
-            if(counter <= 24f)
+            if (counter <= 24f)
             {
                 Projectile.Center = spawnPos + Projectile.ai[0].ToRotationVector2() * CEUtils.Parabola(counter / 24f, 220);
             }
-            if(counter == 24)
+            if (counter == 24)
             {
                 Projectile.velocity = Projectile.Center - lastPos;
             }
-            if(counter > 12)
+            if (counter > 12)
             {
                 for (int i = 0; i < 6; i++)
                 {

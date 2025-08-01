@@ -50,7 +50,7 @@ namespace CalamityEntropy.Common
         {
             if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
                 return;
-            
+
             if (loreEffects.ContainsKey(item.type))
             {
                 if (Main.LocalPlayer.Entropy().enabledLoreItems.Contains(item.type))

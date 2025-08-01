@@ -27,6 +27,7 @@ namespace CalamityEntropy
         PickUpPoop,
         SyncEntropyMode,
         RuneDashSync,
+        SendDashNPCDoUpdate,
         SyncPlayer = 255
     }
 
@@ -249,10 +250,12 @@ namespace CalamityEntropy
                     packet.Send(-1, wai);
                 }
             }
+            else if (messageType == CEMessageType.SendDashNPCDoUpdate)
+            {
+                DashHitbyNPCSys.HandlerDashNPCDoUpdateNet(reader, whoAmI);
+            }
             else if (messageType == CEMessageType.SyncPlayer)
             {
-                
-
                 int loreCount = reader.ReadInt32();
                 Player plr = whoAmI.ToPlayer();
                 plr.Entropy().enabledLoreItems.Clear();
@@ -262,7 +265,7 @@ namespace CalamityEntropy
                 }
                 int bookmarkCount = reader.ReadInt32();
                 plr.Entropy().EBookStackItems = new();
-                for(int i = 0; i < bookmarkCount; i++)
+                for (int i = 0; i < bookmarkCount; i++)
                 {
                     Item itm = new Item(reader.ReadInt32());
                     ItemIO.Receive(itm, reader);

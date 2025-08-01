@@ -294,7 +294,7 @@ namespace CalamityEntropy.Content.NPCs
                 s1.Add(new RewardPoolItem(ModContent.ItemType<DubiousPlating>(), 4)); s1.Add(new RewardPoolItem(ModContent.ItemType<MysteriousCircuitry>(), 4));
                 s1.Add(new RewardPoolItem(ModContent.ItemType<StormlionMandible>(), 1)); s1.Add(new RewardPoolItem(ModContent.ItemType<StormjawStaff>(), 1));
                 s1.Add(new RewardPoolItem(ItemID.Diamond, 5));
-                s1.Add(new RewardPoolItem(68, 8)); 
+                s1.Add(new RewardPoolItem(68, 8));
                 s1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 10));
                 s1.Add(new RewardPoolItem(296, 1));
                 s1.Add(new RewardPoolItem(0, 1));
@@ -305,9 +305,9 @@ namespace CalamityEntropy.Content.NPCs
 
                 g1 = new RewardPool();
                 g1.Add(new RewardPoolItem(ModContent.ItemType<SulphuricScale>(), 1)); g1.Add(new RewardPoolItem(1320, 1));
-                g1.Add(new RewardPoolItem(ModContent.ItemType<DemonicBoneAsh>(), 2)); 
+                g1.Add(new RewardPoolItem(ModContent.ItemType<DemonicBoneAsh>(), 2));
                 g1.Add(new RewardPoolItem(ItemID.LifeCrystal, 4));
-                g1.Add(new RewardPoolItem(ModContent.ItemType<AshenStalactite>(), 1)); 
+                g1.Add(new RewardPoolItem(ModContent.ItemType<AshenStalactite>(), 1));
                 g1.Add(new RewardPoolItem(ModContent.ItemType<RottenDogtooth>(), 1));
                 g1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2)); s1.Add(new RewardPoolItem(ItemID.PoopBlock, 50));
                 g1.Add(new RewardPoolItem(0, 1));

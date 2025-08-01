@@ -149,13 +149,13 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
             Player player = Main.player[Projectile.owner];
 
             player.zephyrfish = false;
-            if(DownedBossSystem.downedAstrumDeus)
+            if (DownedBossSystem.downedAstrumDeus)
             {
                 Lighting.AddLight(Projectile.Center, 1.2f, 1f, 1.2f);
             }
             else
             {
-                if(Main.hardMode)
+                if (Main.hardMode)
                 {
                     Lighting.AddLight(Projectile.Center, 0.6f, 0.5f, 0.6f);
                 }
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Deus
                     Lighting.AddLight(Projectile.Center, 0.4f, 0.4f, 0.4f);
                 }
             }
-                return true;
+            return true;
         }
         public int shotCd = 0;
 

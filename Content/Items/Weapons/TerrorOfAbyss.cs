@@ -19,12 +19,12 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 10;
+            Item.damage = 35;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = 50;
-            Item.useAnimation = 50;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 3;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.PlaySound("Dizzy", 1 + Projectile.ai[0] * 0.08f, Projectile.Center);
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;
-                
+
             }
             Projectile.timeLeft = 3;
             float RotF = 4.4f;
@@ -160,7 +160,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                if(odr.Count > 0)
+                if (odr.Count > 0)
                 {
                     odr.RemoveAt(0);
                 }

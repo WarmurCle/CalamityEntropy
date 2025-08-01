@@ -52,24 +52,24 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             {
                 return false;
             }
-            if(player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2)
             {
                 bool flag = false;
-                foreach(NPC n in Main.ActiveNPCs)
+                foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if(!n.friendly && !n.dontTakeDamage)
+                    if (!n.friendly && !n.dontTakeDamage)
                     {
-                        if(CEUtils.LineThroughRect(position, position + velocity.normalize() * 1600, n.Hitbox, 30))
+                        if (CEUtils.LineThroughRect(position, position + velocity.normalize() * 1600, n.Hitbox, 30))
                         {
                             flag = true;
                             break;
                         }
                     }
                 }
-                if(!flag)
+                if (!flag)
                 {
                     NPC target = CEUtils.FindTarget_HomingProj(player, Main.MouseWorld, 600);
-                    if(target == null)
+                    if (target == null)
                     {
                         flag = true;
                     }
@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 .AddIngredient(ItemID.JungleSpores, 6)
                 .AddTile(TileID.Anvils)
                 .Register();
-                
+
         }
         public static int GetLevel()
         {
@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             bool flag = true;
             void Check(bool f)
             {
-                if(f && flag)
+                if (f && flag)
                 {
                     Level++;
                 }
@@ -141,15 +141,15 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             return Level;
 
         }
-        
+
         public override void UpdateInventory(Player player)
         {
-            Item.damage = GetLevel() * 10 + (int)float.Lerp(24, 3000, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
+            Item.damage = GetLevel() * 10 + (int)float.Lerp(24, 900, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
             int level = GetLevel();
             int dmg = Item.damage;
-            switch(level)
+            switch (level)
             {
-                case 0: dmg = 24;break;
+                case 0: dmg = 24; break;
                 case 1: dmg = 36; break;
                 case 2: dmg = 46; break;
                 case 3: dmg = 50; break;
@@ -160,15 +160,11 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 case 8: dmg = 280; break;
                 case 9: dmg = 300; break;
                 case 10: dmg = 460; break;
-                case 11: dmg = 600; break;
-                case 12: dmg = 777;break;
-                case 13: dmg = 1000; break;
-                case 14: dmg = 1250;break;
             }
 
 
             Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
-            if(player.HeldItem == Item)
+            if (player.HeldItem == Item)
             {
                 player.Entropy().BBarNoDecrease = 120;
                 player.Calamity().mouseWorldListener = true;
@@ -215,10 +211,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             tooltips.Replace("[U3]", AllowStick() ? "" : Mod.GetLocalization("LOCKED").Value + " " + Mod.GetLocalization("BCU3").Value);
             tooltips.Replace("[U4]", AllowSpin() ? "" : Mod.GetLocalization("LOCKED").Value + " " + Mod.GetLocalization("BCU4").Value);
 
-            for(int i = 0; i < tooltips.Count; i++)
+            for (int i = 0; i < tooltips.Count; i++)
             {
                 var tt = tooltips[i];
-                if(tt.Text.StartsWith("@"))
+                if (tt.Text.StartsWith("@"))
                 {
                     tt.Text = tt.Text.Replace("@", "");
                     tt.OverrideColor = AllowLunge() ? Color.Yellow : Color.Gray;
@@ -278,15 +274,15 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.GetOwner().Entropy().BrambleBarAdd = 20;
-            CEUtils.PlaySound("GrassSwordHitMetal", Main.rand.NextFloat(0.7f, 1.3f) / Projectile.ai[1], target.Center, 4, volume: CEUtils.WeapSound);
+            CEUtils.PlaySound("GrassSwordHitMetal", Main.rand.NextFloat(0.7f, 1.3f) / Projectile.ai[1], target.Center, volume: 1f);
             if (target.Organic())
             {
             }
             else
             {
-                CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f) / Projectile.ai[1], target.Center, 4, volume: CEUtils.WeapSound);
+                CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f) / Projectile.ai[1], target.Center, 6);
             }
-            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1 / Projectile.ai[1], target.Center, 4, volume: CEUtils.WeapSound);
+            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1 / Projectile.ai[1], target.Center, 16);
             Color impactColor = Color.LightGreen;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
 
@@ -336,13 +332,13 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             counter++;
             if (init)
             {
-                CEUtils.PlaySound("powerwhip", Projectile.ai[2] == 0 ? 1.75f / Projectile.ai[1] : 0.6f, Projectile.Center, volume: CEUtils.WeapSound);
+                CEUtils.PlaySound("powerwhip", Projectile.ai[2] == 0 ? 1.75f / Projectile.ai[1] : 0.6f, Projectile.Center);
                 Projectile.scale = 1.6f + 0.1f * Bramblecleave.GetLevel();
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    
+
                 }
             }
             float p = Main.rand.NextFloat();
@@ -367,19 +363,19 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             {
                 if (Projectile.ai[2] == 1)
                 {
-                    if(Main.myPlayer == Projectile.owner && progress < 1)
+                    if (Main.myPlayer == Projectile.owner && progress < 1)
                     {
                         if (!Main.mouseRight)
                         {
                             RightHold = false;
                         }
-                        if(Main.mouseLeft && Bramblecleave.AllowStick())
+                        if (Main.mouseLeft && Bramblecleave.AllowStick())
                         {
                             LeftClicked = true;
                             counter = MaxUpdateTimes + 1;
                             NoDraw = true;
                         }
-                        if(!RightHold && Main.mouseRight && Bramblecleave.AllowSpin())
+                        if (!RightHold && Main.mouseRight && Bramblecleave.AllowSpin())
                         {
                             Spin = true;
                             counter = MaxUpdateTimes + 1;
@@ -388,7 +384,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                     }
                     Projectile.Center = Projectile.GetOwner().GetDrawCenter() - Projectile.velocity.normalize() * (CEUtils.Parabola(progress * 0.5f, 32) + 24);
                     Projectile.rotation = Projectile.velocity.ToRotation();
-                    if(progress <= 1)
+                    if (progress <= 1)
                     {
                         Vector2 position = Projectile.Center;
                         Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((owner.Calamity().mouseWorld - Projectile.Center).ToRotation());
@@ -434,10 +430,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             owner.itemAnimation = 2;
             if (counter > MaxUpdateTimes)
             {
-                
+
                 if (Projectile.ai[2] == 1)
                 {
-                    if (Projectile.localAI[1] ++ == 0)
+                    if (Projectile.localAI[1]++ == 0)
                     {
                         if (Main.myPlayer == Projectile.owner)
                         {
@@ -477,7 +473,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                         Projectile.Center = Projectile.GetOwner().GetDrawCenter() - Projectile.velocity.normalize() * (CEUtils.Parabola((float.Clamp(progress - 1, 0, 1)) * 0.46f, 64) - 32 + 24);
 
                     }
-                    if(progress > 2.4f)
+                    if (progress > 2.4f)
                     {
                         NoDraw = true;
                     }
@@ -512,7 +508,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                     }
                 }
             }
-            
+
         }
         public override bool ShouldUpdatePosition()
         {
@@ -542,7 +538,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if(NoDraw)
+            if (NoDraw)
             {
                 return false;
             }

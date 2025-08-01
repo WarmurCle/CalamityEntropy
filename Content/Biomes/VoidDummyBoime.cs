@@ -1,8 +1,6 @@
-using CalamityEntropy.Content.NPCs.Cruiser;
+﻿using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
-using CalamityMod.Systems;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Biomes

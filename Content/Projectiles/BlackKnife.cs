@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             NPC target = ((int)(Projectile.ai[0])).ToNPC();
-            if(!target.active || target.dontTakeDamage)
+            if (!target.active || target.dontTakeDamage)
             {
                 Projectile.Kill();
             }
@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
                 counter++;
                 float d = (target.width + target.height) * 0.5f + 200;
                 w = (int)d;
-                if(counter > 60)
+                if (counter > 60)
                 {
                     clr = Color.White;
                 }
@@ -48,18 +48,18 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     clr = Color.Lerp(Color.White, Color.Red, counter / 60f);
                 }
-                if(counter == 60)
+                if (counter == 60)
                 {
                     clr = Color.White;
                     white = 5;
                 }
-                if(counter == 65)
+                if (counter == 65)
                 {
                     CEUtils.PlaySound("Dizzy", 1, Projectile.Center);
                     EParticle.spawnNew(new BlackKnifeParticle(), Projectile.Center, Projectile.rotation.ToRotationVector2() * 260, Color.Red, Projectile.scale * 0.8f, 1, true, BlendState.AlphaBlend, Projectile.rotation);
                     EParticle.spawnNew(new BlackKnifeSlash(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.ai[1], 6);
                 }
-                if(counter > 70)
+                if (counter > 70)
                 {
                     Projectile.Kill();
                 }

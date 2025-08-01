@@ -96,23 +96,23 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 BarrelOffset = 0;
             }
-            if(progress > 0.6f && slSound)
+            if (progress > 0.6f && slSound)
             {
                 slSound = false;
                 CEUtils.PlaySound("shellLand", 1, Projectile.Center);
             }
-            if(progress > 0.2f)
+            if (progress > 0.2f)
             {
                 if (steamSound)
                 {
                     steamSound = false;
-                    if(Main.myPlayer == Projectile.owner)
+                    if (Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.RotatedBy(-2 * player.direction).normalize() * 16, ModContent.ProjectileType<AntiaircraftShell>(), 0, 0, Projectile.owner);
                     }
-                    for(int i = 0; i < 14; i++)
+                    for (int i = 0; i < 14; i++)
                     {
-                        Color smokeColor = CalamityUtils.MulticolorLerp(Main.rand.NextFloat(), new Color[3] {Color.White, Color.Gray, Color.LightGray});
+                        Color smokeColor = CalamityUtils.MulticolorLerp(Main.rand.NextFloat(), new Color[3] { Color.White, Color.Gray, Color.LightGray });
                         smokeColor = Color.Lerp(smokeColor, Color.Gray, 0.6f) * 0.65f;
                         HeavySmokeParticle smoke = new(Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 40, 1f, 1f, 0.03f, true, 0.075f);
                         GeneralParticleHandler.SpawnParticle(smoke);
@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     CEUtils.PlaySound("AAGLB", 1, Projectile.Center);
                 }
             }
-            if(shoot && Main.myPlayer == Projectile.owner)
+            if (shoot && Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.rotation.ToRotationVector2() * 42, ModContent.ProjectileType<AzAGShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
             }
@@ -168,11 +168,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            Texture2D alt = this.getTextureAlt(); 
+            Texture2D alt = this.getTextureAlt();
 
             Main.EntitySpriteDraw(alt, Projectile.Center - Projectile.rotation.ToRotationVector2() * BarrelOffset * Projectile.scale - Main.screenPosition, null, lightColor, Projectile.rotation, alt.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-            
+
             return false;
         }
     }
@@ -228,7 +228,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            for(float i = 0; i < 1; i+= 0.2f)
+            for (float i = 0; i < 1; i += 0.2f)
             {
                 EParticle.spawnNew(new Smoke() { timeleftmax = 16, Lifetime = 16 }, Projectile.Center + CEUtils.randomPointInCircle(4) - Projectile.velocity * i, Projectile.velocity * 0.6f + CEUtils.randomPointInCircle(0.4f), Color.OrangeRed, Main.rand.NextFloat(0.04f, 0.06f), 1, true, BlendState.Additive, CEUtils.randomRot());
             }

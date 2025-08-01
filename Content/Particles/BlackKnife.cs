@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Particles
                     oldPos.RemoveAt(0);
                 }
             }
-            
+
         }
         public override void Draw()
         {

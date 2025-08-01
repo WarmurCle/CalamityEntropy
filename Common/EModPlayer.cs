@@ -48,11 +48,11 @@ namespace CalamityEntropy.Common
         public float GetPressure()
         {
             float p = 1;
-            if(ModLoader.TryGetMod("CalamityOverhaul", out Mod cwr))
+            if (ModLoader.TryGetMod("CalamityOverhaul", out Mod cwr))
             {
                 p = CWRWeakRef.CWRRef.GetPlayersPressure(Player);
             }
-            
+
             return p;
         }
         public float CooldownTimeMult = 1;
@@ -204,7 +204,7 @@ namespace CalamityEntropy.Common
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
-            if(Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {
                 var rs = PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("LilyDeath" + Main.rand.Next(2).ToString()).Value);
                 damageSource = rs;
@@ -250,7 +250,7 @@ namespace CalamityEntropy.Common
                 st.Volume = 0;
                 SoundEngine.PlaySound(st);
                 CEUtils.PlaySound("llDeath", 1);
-                for(int i = 0; i < Main.gore.Length; i++)
+                for (int i = 0; i < Main.gore.Length; i++)
                 {
                     Main.gore[i].active = false;
                 }
@@ -573,7 +573,7 @@ namespace CalamityEntropy.Common
         }
         public override void PreUpdate()
         {
-            
+
             if (hasAccVisual("PLWing") && (vanityWing == null || vanityWing.ModItem is PhantomLightWing))
             {
                 if (plWingTrail == null || plWingTrail.Lifetime <= 1)
@@ -977,10 +977,10 @@ namespace CalamityEntropy.Common
         public float WingTimeMult = 1;
         public override void PostUpdateMiscEffects()
         {
-            if(shadowRune)
+            if (shadowRune)
             {
                 Player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += ShadowRune.WhipAtkSpeedAddition;
-                
+
             }
             if (obscureCard)
             {
@@ -994,7 +994,7 @@ namespace CalamityEntropy.Common
                         {
                             Player.wingTime += 2f;
                         }
-                        
+
                         if ((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120)
                         {
                             npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 600);
@@ -1002,7 +1002,7 @@ namespace CalamityEntropy.Common
                         Dust.NewDust(Player.position, Player.width, Player.height, DustID.MagicMirror);
                     }
                 }
-                if(f)
+                if (f)
                 {
                     Player.lifeRegen += 25;
                     lifeRegenPerSec += 6;
@@ -1217,13 +1217,13 @@ namespace CalamityEntropy.Common
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             deusCoreAdd = 0;
-            
+
             modifiers.ModifyHurtInfo += EPHurtModifier;
             if (soulDicorder)
             {
                 modifiers.SourceDamage += 0.05f;
             }
-            if(Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {
                 modifiers.DisableSound();
             }
@@ -1235,7 +1235,7 @@ namespace CalamityEntropy.Common
 
         public override void OnHurt(Player.HurtInfo info)
         {
-            if((hasAcc("VastLV2") && ManaRegenTime > 0) || Player.HasBuff<ManaAwaken>())
+            if ((hasAcc("VastLV2") && ManaRegenTime > 0) || Player.HasBuff<ManaAwaken>())
             {
                 immune = 60 * 4;
                 Player.AddBuff(hasAcc("VastLV4") ? ModContent.BuffType<ManaCaress>() : ModContent.BuffType<ManaPray>(), 60 * 10);
@@ -1247,9 +1247,9 @@ namespace CalamityEntropy.Common
             HitTCounter = 300;
             hitTimeCount = 0;
             JustHit = true;
-            if(LoreReworkSystem.Enabled<LorePerforators>())
+            if (LoreReworkSystem.Enabled<LorePerforators>())
             {
-                if(Main.rand.NextFloat() < LEHiveCrimson.chance)
+                if (Main.rand.NextFloat() < LEHiveCrimson.chance)
                 {
                     Player.Heal(LEHiveCrimson.HealAmount);
                 }
@@ -1467,15 +1467,15 @@ namespace CalamityEntropy.Common
         public int BBarNoDecrease = 0;
         public override void PostUpdate()
         {
-            if(ManaRegenTime-- > 0 && ManaRegenTime % 30 == 2)
+            if (ManaRegenTime-- > 0 && ManaRegenTime % 30 == 2)
             {
                 Player.statMana += ManaRegenPer30Tick;
-                if(Player.statMana > Player.statManaMax2)
+                if (Player.statMana > Player.statManaMax2)
                 {
                     Player.statMana = Player.statManaMax2;
                 }
             }
-            if(BrambleBarAdd-- > 0)
+            if (BrambleBarAdd-- > 0)
             {
                 if (BrambleBarCharge < 1)
                 {
@@ -1485,11 +1485,11 @@ namespace CalamityEntropy.Common
             }
             else
             {
-                if(BBarNoDecrease-- < 0)
+                if (BBarNoDecrease-- < 0)
                 {
-                    if(BrambleBarCharge > 0)
+                    if (BrambleBarCharge > 0)
                         BrambleBarCharge -= 0.002f;
-                    
+
                 }
             }
             if (BrambleBarCharge < 0)
@@ -1507,7 +1507,7 @@ namespace CalamityEntropy.Common
                     Player.GetDamage(DamageClass.Summon) -= Player.GetDamage(DamageClass.Summon).Additive - 1;
                 }
             }
-            if(Main.myPlayer == Player.whoAmI)
+            if (Main.myPlayer == Player.whoAmI)
             {
                 if (!Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<TheReplicaofThePen>() && Player.ownedProjectileCounts[ModContent.ProjectileType<PenMinion>()] < 1)
                 {
@@ -1537,14 +1537,14 @@ namespace CalamityEntropy.Common
                         }
                     }
                 }
-                }
-            if(WeaponsNoCostRogueStealth && Player.Calamity().rogueStealth == 0 && LastStealth > 0 && !LastStealthStrikeAble)
+            }
+            if (WeaponsNoCostRogueStealth && Player.Calamity().rogueStealth == 0 && LastStealth > 0 && !LastStealthStrikeAble)
             {
                 Player.Calamity().rogueStealth = LastStealth;
             }
             LastStealth = Player.Calamity().rogueStealth;
             LastStealthStrikeAble = Player.Calamity().StealthStrikeAvailable();
-            if(!worshipRelic)
+            if (!worshipRelic)
             {
                 worshipStealthRegenTime = 0;
             }
@@ -1553,27 +1553,27 @@ namespace CalamityEntropy.Common
                 ResetStealth = false;
                 Player.Calamity().rogueStealth = 0;
             }
-            if(worshipStealthRegenTime-- > 0)
+            if (worshipStealthRegenTime-- > 0)
             {
                 Player.Calamity().rogueStealth += 0.1f / 30f * Player.Calamity().rogueStealthMax;
-                if(Player.Calamity().rogueStealth > Player.Calamity().rogueStealthMax)
+                if (Player.Calamity().rogueStealth > Player.Calamity().rogueStealthMax)
                 {
                     Player.Calamity().rogueStealth = Player.Calamity().rogueStealthMax;
                 }
             }
-            if(!hasAcc(GaleWristblades.ID))
+            if (!hasAcc(GaleWristblades.ID))
             {
                 GaleWristbladeCharge = 0;
             }
 
-            if(ExtraStealthBar)
+            if (ExtraStealthBar)
             {
                 if (Player.Calamity().rogueStealth >= Player.Calamity().rogueStealthMax)
                 {
                     if (ExtraStealth < Player.Calamity().rogueStealthMax)
                     {
                         ExtraStealth += Player.Calamity().rogueStealthMax * ((float)EModILEdit.updateStealthGenMethod.Invoke(Player.Calamity(), null) / 120f);
-                        if(ExtraStealth >= Player.Calamity().rogueStealthMax && Player.whoAmI == Main.myPlayer)
+                        if (ExtraStealth >= Player.Calamity().rogueStealthMax && Player.whoAmI == Main.myPlayer)
                         {
                             CEUtils.PlaySound("EclipseStealth");
                         }
@@ -1583,7 +1583,7 @@ namespace CalamityEntropy.Common
                 {
                     if (ExtraStealth > 0)
                     {
-                        if(ExtraStealth > Player.Calamity().rogueStealthMax - Player.Calamity().rogueStealth)
+                        if (ExtraStealth > Player.Calamity().rogueStealthMax - Player.Calamity().rogueStealth)
                         {
                             ExtraStealth -= Player.Calamity().rogueStealthMax - Player.Calamity().rogueStealth;
                             Player.Calamity().rogueStealth = Player.Calamity().rogueStealthMax;
@@ -1921,7 +1921,7 @@ namespace CalamityEntropy.Common
                 }
             }
             int shadoidType = ModContent.ItemType<ShadoidPotion>();
-            for(int i = 0; i < Player.inventory.Length; i++)
+            for (int i = 0; i < Player.inventory.Length; i++)
             {
                 if (Player.inventory[i].type == shadoidType)
                 {
@@ -2446,7 +2446,7 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
-            if(worshipRelic || shadowPact)
+            if (worshipRelic || shadowPact)
             {
                 Player.Calamity().stealthStrike75Cost = false;
                 Player.Calamity().stealthStrike85Cost = false;
@@ -2471,11 +2471,11 @@ namespace CalamityEntropy.Common
             Player.GetDamage(DamageClass.Generic) += GaleWristbladeCharge * 0.03f;
             Player.GetAttackSpeed<RogueDamageClass>() += GaleWristbladeCharge * 0.03f;
             WindPressureTime--;
-            if(WindPressureTime <= 0)
+            if (WindPressureTime <= 0)
             {
                 GaleWristbladeCharge = 0;
             }
-            if(GaleWristbladeCharge > 0)
+            if (GaleWristbladeCharge > 0)
             {
                 Player.AddBuff(ModContent.BuffType<WindPressure>(), 10);
             }
@@ -2562,7 +2562,7 @@ namespace CalamityEntropy.Common
             {
                 lifeRegenPerSec = (int)(lifeRegenPerSec * 0.3f);
             }
-            if(shadowRune)
+            if (shadowRune)
             {
                 Player.maxMinions += (int)(Player.GetDamage(DamageClass.Summon).Additive * ShadowRune.SummonDmgToMinionSlot);
             }
@@ -2732,7 +2732,7 @@ namespace CalamityEntropy.Common
                     mp.Write(item);
                 }
                 mp.Write(this.EBookStackItems.Count);
-                foreach(var item in this.EBookStackItems)
+                foreach (var item in this.EBookStackItems)
                 {
                     mp.Write(item.type);
                     ItemIO.Send(item, mp);

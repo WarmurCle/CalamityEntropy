@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             oldPos.Add(Projectile.Center);
-            if(oldPos.Count > 16)
+            if (oldPos.Count > 16)
             {
                 oldPos.RemoveAt(0);
             }
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             l--;
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 4, ModContent.ProjectileType<TeslaLightning>(), Projectile.damage / 3, 0, Projectile.owner, npc.Center.X, npc.Center.Y);
-                            if(l <= 0)
+                            if (l <= 0)
                             {
                                 break;
                             }
@@ -65,9 +65,9 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
             }
             int t = ModContent.ProjectileType<TeslaLightning>();
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.type == t && p.owner == Projectile.owner)
+                if (p.type == t && p.owner == Projectile.owner)
                 {
                     p.Kill();
                 }
@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             float scale = 1 * Projectile.scale;
             DrawEnergyBall(Projectile.Center, scale, Projectile.Opacity);
-            for(int i = 0; i < oldPos.Count; i++)
+            for (int i = 0; i < oldPos.Count; i++)
             {
                 float c = (i + 1f) / oldPos.Count;
                 DrawEnergyBall(oldPos[i], scale * c, Projectile.Opacity * c);

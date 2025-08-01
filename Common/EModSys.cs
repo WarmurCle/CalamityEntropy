@@ -136,6 +136,7 @@ namespace CalamityEntropy.Common
                 }
                 Main.spriteBatch.End();
             }
+
         }
         public int ptype = -1;
         public static List<int> NeedTiles = new List<int>() { 41, 43, 44 };
@@ -436,7 +437,7 @@ namespace CalamityEntropy.Common
                         drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.Entropy().revelationCharge, new Color(255, 255, 190));
                         baroffsety += 20;
                     }
-                    if(Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Bramblecleave>())
+                    if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Bramblecleave>())
                     {
                         DrawBrambleBar();
                     }
@@ -556,7 +557,7 @@ namespace CalamityEntropy.Common
         {
             for (int i = recipe.requiredItem.Count - 1; i >= 0; i--)
             {
-                if(recipe.requiredItem[i].type == type)
+                if (recipe.requiredItem[i].type == type)
                 {
                     recipe.requiredItem.RemoveAt(i);
                 }
@@ -564,10 +565,10 @@ namespace CalamityEntropy.Common
         }
         public static void RemoveItemInRecipes(int itemtype, int type)
         {
-            for(int i = 0; i < Main.recipe.Length; i++)
+            for (int i = 0; i < Main.recipe.Length; i++)
             {
                 Recipe recipe = Main.recipe[i];
-                if(recipe.createItem.type == itemtype)
+                if (recipe.createItem.type == itemtype)
                 {
                     RemoveItemInARecipe(recipe, type);
                 }

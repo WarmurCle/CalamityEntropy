@@ -54,7 +54,7 @@ namespace CalamityEntropy.Common
         {
             this.position += this.velocity;
         }
-        
+
         public void draw(float alpha, Vector2 offset, Color color)
         {
             SpriteBatch sb = Main.spriteBatch;
@@ -162,7 +162,7 @@ namespace CalamityEntropy.Common
         public override void GetHealMana(Item item, Player player, bool quickHeal, ref int healValue)
         {
             healValue += (int)(healValue * player.Entropy().ManaExtraHeal);
-            if(player.Entropy().hasAcc("VastLV2"))
+            if (player.Entropy().hasAcc("VastLV2"))
             {
                 healValue = (int)((CalCI ? 0.25f : 0.75f) * healValue);
             }
@@ -171,7 +171,7 @@ namespace CalamityEntropy.Common
         public static bool CalCI = false;
         public override bool ConsumeItem(Item item, Player player)
         {
-            
+
             if (player.Entropy().hasAcc("VastLV2") && item.healMana > 0)
             {
                 CalCI = true;
@@ -543,12 +543,12 @@ namespace CalamityEntropy.Common
                 Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<SolarArrowSpawner>(), (int)player.GetTotalDamage<RogueDamageClass>().ApplyTo(WorshipRelic.ArrowDamage), 2, player.whoAmI);
                 player.Entropy().ResetStealth = true;
             }
-            if(player.Entropy().GaleWristbladeCharge >= 5)
+            if (player.Entropy().GaleWristbladeCharge >= 5)
             {
                 player.Entropy().GaleWristbladeCharge = 0;
                 Projectile.NewProjectile(source, position, velocity.normalize() * 8, ModContent.ProjectileType<WristTornado>(), (int)player.GetTotalDamage<RogueDamageClass>().ApplyTo(GaleWristblades.BaseDamage), 2, player.whoAmI);
             }
-            if(type == ModContent.ProjectileType<RockBulletShot>())
+            if (type == ModContent.ProjectileType<RockBulletShot>())
             {
                 if (Main.rand.NextBool(6))
                 {
@@ -875,7 +875,7 @@ namespace CalamityEntropy.Common
                 }
                 if (line.Text.Contains("$"))
                 {
-                    if(item.type == ModContent.ItemType<TheFilthyContractWithMammon>())
+                    if (item.type == ModContent.ItemType<TheFilthyContractWithMammon>())
                     {
                         float p = 1;
                         Main.spriteBatch.Draw(CEUtils.getExtraTex("T1"), new Vector2(line.X, line.Y - 4) + new Vector2(p, p), Color.Red); Main.spriteBatch.Draw(CEUtils.getExtraTex("T1"), new Vector2(line.X, line.Y - 4), Color.Red);
@@ -885,10 +885,10 @@ namespace CalamityEntropy.Common
 
                         Main.spriteBatch.Draw(CEUtils.getExtraTex("T1"), new Vector2(line.X, line.Y - 4), Color.Black);
 
-                        
+
                         return false;
                     }
-                    if(item.type == ModContent.ItemType<CelestialChronometer>())
+                    if (item.type == ModContent.ItemType<CelestialChronometer>())
                     {
                         string textall = line.Text.Replace("$", "");
                         float xa = 0; var font = FontAssets.MouseText.Value;
@@ -931,7 +931,7 @@ namespace CalamityEntropy.Common
 
                         return false;
                     }
-                    if(item.type == ModContent.ItemType<ScorchingShoot>())
+                    if (item.type == ModContent.ItemType<ScorchingShoot>())
                     {
                         string textall = line.Text.Replace("$", "");
                         float xa = 0; var font = FontAssets.MouseText.Value;
@@ -1666,7 +1666,7 @@ namespace CalamityEntropy.Common
 
                 itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("nicholas")), ModContent.ItemType<PineappleDog>());
 
-                itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("lily")||info.player.name.Contains("莉莉")), ModContent.ItemType<LostHeirloom>());
+                itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("lily") || info.player.name.Contains("莉莉")), ModContent.ItemType<LostHeirloom>());
 
                 if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
                 {

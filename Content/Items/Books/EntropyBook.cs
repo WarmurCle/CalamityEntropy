@@ -443,7 +443,7 @@ namespace CalamityEntropy.Content.Items.Books
                     player.itemTime = 3;
                     player.itemAnimation = 3;
                     player.channel = true;
-                    
+
                 }
                 if (!UIOpen)
                 {
@@ -507,7 +507,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
-            if(active)
+            if (active)
             {
                 for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Projectile.GetOwner(), bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
                 {

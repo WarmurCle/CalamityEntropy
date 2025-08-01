@@ -93,17 +93,17 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         public List<CCTentacle> tentacles;
         public override void AI()
         {
-            if(tentacles == null)
+            if (tentacles == null)
             {
                 int c = 0;
                 tentacles = new List<CCTentacle>();
-                for(float i = 0; i < 358; i += 45f)
+                for (float i = 0; i < 358; i += 45f)
                 {
                     c++;
                     tentacles.Add(new CCTentacle(MathHelper.ToRadians(i), c % 2 == 0 ? 94 : 78));
                 }
             }
-            foreach(var t in tentacles)
+            foreach (var t in tentacles)
             {
                 t.Update(NPC);
             }
@@ -172,7 +172,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 pointRots[0] = npc.rotation + rot + (float)(Math.Cos(npc.localAI[2]++ * 0.008f) * 0.6f);
                 points[0] = npc.Center + (npc.rotation + rot).ToRotationVector2() * 30 * (npc.IsABestiaryIconDummy ? 0.5f : 1);
-                
+
                 for (int i = 1; i < points.Count; i++)
                 {
                     pointRots[i] = (points[i] - points[i - 1]).ToRotation();
@@ -191,7 +191,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 Length = l;
                 pointRots = new List<float>();
                 points = new List<Vector2>();
-                for(int i = 0; i < 12; i++)
+                for (int i = 0; i < 12; i++)
                 {
                     points.Add(Vector2.Zero);
                     pointRots.Add(0);
@@ -211,10 +211,10 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 }
             }
             Texture2D tex = NPC.getTexture();
-            
+
             if (NPC.IsABestiaryIconDummy)
             {
-                foreach(var t in tentacles)
+                foreach (var t in tentacles)
                 {
                     t.Update(NPC);
                 }
@@ -270,7 +270,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
             Color color = Color.White;
 
-            
+
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

@@ -57,11 +57,11 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             mouthRot *= 0.88f;
             spawnParticles();
             int t = ModContent.ProjectileType<OblivionThresherShoot>();
-            foreach(var p in Main.ActiveProjectiles)
+            foreach (var p in Main.ActiveProjectiles)
             {
-                if(p.owner == Projectile.owner && p.type == t)
+                if (p.owner == Projectile.owner && p.type == t)
                 {
-                    if(p.ModProjectile is OblivionThresherShoot ots)
+                    if (p.ModProjectile is OblivionThresherShoot ots)
                     {
                         if (p.ai[0] >= 1f && p.localAI[1] > 80 && p.Colliding(p.Hitbox, Projectile.Hitbox))
                         {
@@ -69,8 +69,8 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                             p.Kill();
                             if (Projectile.owner == Main.myPlayer)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherHoldout>(),(int)(Projectile.damage * 2.5f) , Projectile.knockBack, Projectile.owner);
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherShootAlt>(),(int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherHoldout>(), (int)(Projectile.damage * 2.5f), Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherShootAlt>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner);
                             }
                             Projectile.Kill();
                             CEUtils.PlaySound("CastTriangles", 1, Projectile.Center);

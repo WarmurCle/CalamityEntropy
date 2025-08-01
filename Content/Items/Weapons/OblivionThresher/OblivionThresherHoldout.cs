@@ -1,4 +1,4 @@
-
+﻿
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -37,12 +37,12 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override void AI()
         {
-            if (Projectile.localAI[2] ++ == 0)
+            if (Projectile.localAI[2]++ == 0)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
             }
             Player player = Projectile.GetOwner();
-            
+
             Projectile.rotation = CEUtils.RotateTowardsAngle(CEUtils.RotateTowardsAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.1f, false), (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.1f, true);
             Projectile.Center = player.GetDrawCenter() - new Vector2(-Xoffset + 12, 0).RotatedBy(Projectile.rotation);
             player.Calamity().mouseWorldListener = true;
@@ -92,9 +92,9 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 }
                 else
                 {
-                    if(Shoot)
+                    if (Shoot)
                     {
-                        if(Charge < 0.25f && !ho)
+                        if (Charge < 0.25f && !ho)
                         {
                             Projectile.timeLeft = 2;
                             return;
@@ -134,7 +134,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Projectile.ai[2]++;
             if (Charge > 1)
                 Charge = 1;
-            if(ChargeIdle == null && !(Main.dedServ) && player.channel)
+            if (ChargeIdle == null && !(Main.dedServ) && player.channel)
             {
                 ChargeIdle = new LoopSound(FableEye.sound);
                 ChargeIdle.play();
@@ -143,10 +143,10 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             if (ChargeIdle != null && player.channel)
             {
                 ChargeIdle.setVolume_Dist(jpos, 200, 1600, 0.4f);
-                ChargeIdle.instance.Pitch =  1.4f * Charge - 1;
+                ChargeIdle.instance.Pitch = 1.4f * Charge - 1;
                 ChargeIdle.timeleft = 3;
             }
-            
+
             if (NoSawOnHoldout)
             {
                 ERot *= 0.82f;
@@ -173,14 +173,14 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
 
             Main.EntitySpriteDraw(tex, Projectile.Center + shakeOffset - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
 
-            
+
             DrawSaw(shakeOffset);
             return false;
         }
         public void DrawSaw(Vector2 shakeOffset)
         {
             if (NoSawOnHoldout)
-                return ;
+                return;
             Vector2 jpos = Projectile.Center + shakeOffset + new Vector2(0, Projectile.velocity.X > 0 ? -10 : 10).RotatedBy(Projectile.rotation) + Projectile.rotation.ToRotationVector2() * 80;
             if (Charge > 0)
             {
@@ -271,12 +271,12 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
 
             return targetHitbox.Intersects(jpos.getRectCentered(Charge * 220 * Projectile.scale, Charge * 220 * Projectile.scale));
         }
-        
+
     }
     public class OblivionThresherShoot : ModProjectile
     {
         public override string Texture => CEUtils.WhiteTexPath;
-        
+
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Ranged, false, -1);
@@ -422,7 +422,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                     }
                     Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 3f;
                     Projectile.velocity *= 0.9f;
-                    if(CEUtils.getDistance(Projectile.GetOwner().Center, Projectile.Center) < Projectile.velocity.Length() * 4f)
+                    if (CEUtils.getDistance(Projectile.GetOwner().Center, Projectile.Center) < Projectile.velocity.Length() * 4f)
                     {
                         CEUtils.PlaySound("Dizzy", 1f, Projectile.Center);
                         Projectile.Kill();
@@ -541,7 +541,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public override void AI()
         {
-            if(OnJaw)
+            if (OnJaw)
             {
                 int t = ModContent.ProjectileType<OblivionThresherHoldout>();
                 if (Projectile.owner == Main.myPlayer && Projectile.GetOwner().ownedProjectileCounts[t] <= 0)
@@ -549,24 +549,24 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.GetOwner().Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherHoldout>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
                 Projectile e = null;
-                
-                foreach(var p in Main.ActiveProjectiles)
+
+                foreach (var p in Main.ActiveProjectiles)
                 {
-                    if(p.owner == Projectile.owner && p.type == t)
+                    if (p.owner == Projectile.owner && p.type == t)
                     {
                         e = p;
                         break;
                     }
                 }
-                if(e != null && e.ModProjectile is OblivionThresherHoldout ot)
+                if (e != null && e.ModProjectile is OblivionThresherHoldout ot)
                 {
                     Projectile.Center = ot.WPos;
                 }
                 Projectile.timeLeft = 340;
             }
-            if(Main.myPlayer == Projectile.owner && OnJaw)
+            if (Main.myPlayer == Projectile.owner && OnJaw)
             {
-                if(Main.mouseLeft)
+                if (Main.mouseLeft)
                 {
                     Projectile.velocity = (Main.MouseWorld - Projectile.Center).normalize() * 26;
                     Projectile.netUpdate = true;
@@ -576,13 +576,13 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                     Projectile.GetOwner().velocity = Projectile.velocity * -0.4f;
                 }
             }
-            if(!OnJaw)
+            if (!OnJaw)
             {
                 Vector2 ver = Projectile.velocity * -0.24f;
                 BasePRT particle = new PRT_Light(Projectile.Center + CEUtils.randomPointInCircle(120 * Projectile.scale), ver
                     , Main.rand.NextFloat(0.6f, 1f), Color.AliceBlue, 60, 0.6f);
                 PRTLoader.AddParticle(particle);
-                if(Projectile.timeLeft % 24 == 0)
+                if (Projectile.timeLeft % 24 == 0)
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {
@@ -622,4 +622,4 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
 }
 
 
-        
+

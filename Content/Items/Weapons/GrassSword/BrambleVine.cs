@@ -50,8 +50,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
 
             }
 
-            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, CEUtils.WeapSound * (HookNPC >= 0 ? 0.3f : 1));
-            
+            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, HookNPC >= 0 ? 0.3f : 1);
+
             float sparkCount = 16;
             for (int i = 0; i < sparkCount; i++)
             {
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public float MaxLength = -1;
         public override void AI()
         {
-            if(Projectile.GetOwner().dead)
+            if (Projectile.GetOwner().dead)
             {
                 Projectile.Kill();
                 return;
@@ -88,16 +88,16 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Length = CEUtils.Parabola(progress, MaxLength);
             if (Projectile.ai[0] == 1 && HookNPC < 0)
             {
-                if(Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner)
                 {
-                    if(!Main.mouseRight)
+                    if (!Main.mouseRight)
                     {
                         HookNPC = -2;
                         Projectile.ai[0] = 0;
                     }
                 }
             }
-            
+
             if (HookNPC >= 0 && HookNPC.ToNPC().active && !HookNPC.ToNPC().dontTakeDamage)
             {
                 if (Projectile.ai[0] == 1)
@@ -174,18 +174,18 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 }
             }
             int t = ModContent.ProjectileType<VineHookHit>();
-            if(HookNPC < 0)
+            if (HookNPC < 0)
             {
-                foreach(var proj in Main.ActiveProjectiles)
+                foreach (var proj in Main.ActiveProjectiles)
                 {
-                    if(proj.owner == Projectile.owner && proj.type == t)
+                    if (proj.owner == Projectile.owner && proj.type == t)
                     {
                         proj.Kill();
                     }
                 }
             }
             Projectile.Center = player.GetDrawCenter() + (Projectile.ai[0] == 2 ? Vector2.Zero : new Vector2(20, 6).RotatedBy(Projectile.velocity.ToRotation()) * (1 + 0.1f * Bramblecleave.GetLevel()));
-            if(progress > 1)
+            if (progress > 1)
             {
                 Projectile.Kill();
                 return;
@@ -235,13 +235,13 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.SourceDamage *= Projectile.ai[0] == 0 ? 0.42f : 0.32f;
-            if(HookNPC >= 0)
+            if (HookNPC >= 0)
             {
                 modifiers.SourceDamage *= 0.7f;
             }
         }
-        
-        
+
+
     }
     public class VineHookHit : ModProjectile
     {

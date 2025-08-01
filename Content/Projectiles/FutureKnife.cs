@@ -25,15 +25,16 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 260;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 1;
-            
+
         }
         public TrailParticle trail;
         public override void AI()
         {
-            if (!Main.dedServ) {
+            if (!Main.dedServ)
+            {
                 if (trail == null)
                 {
-                    trail = new TrailParticle() { maxLength = 16};
+                    trail = new TrailParticle() { maxLength = 16 };
                     EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.AliceBlue * 0.6f, 1, 1, true, BlendState.Additive);
                 }
                 trail.Lifetime = 30;
