@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<VoidFractalHeld>();
             Item.shootSpeed = 12f;
-            Item.ArmorPenetration = 10;
+            Item.ArmorPenetration = 30;
         }
         public int atkType = 0;
         public override bool CanUseItem(Player player)

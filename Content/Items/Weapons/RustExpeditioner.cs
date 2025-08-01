@@ -21,7 +21,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.height = 20;
             Item.damage = 18;
             Item.knockBack = 4f;
-            Item.crit = 5;
             Item.UseSound = SoundID.Item61;
             Item.value = Item.buyPrice(gold: 3);
             Item.rare = ItemRarityID.Orange;
