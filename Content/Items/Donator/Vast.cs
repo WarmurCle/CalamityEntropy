@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Donator
 {
     public class Vast : ModItem, IDonatorItem
     {
-        public string DonatorName => "null";
+        public string DonatorName => "Azuta";
         public override void SetDefaults()
         {
             Item.width = 40;
