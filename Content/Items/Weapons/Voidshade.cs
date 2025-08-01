@@ -31,6 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.damage = 100;
             Item.knockBack = 4;
+            Item.UseSound = CEUtils.GetSound("powerwhip");
             Item.crit = 6;
             Item.shoot = ModContent.ProjectileType<VoidshadeHeld>();
             Item.shootSpeed = 16;

@@ -4098,7 +4098,9 @@ LilyDeath1: "'s protective treasure is broken"
 
 Biomes: {
 	VoidDummyBoime: {
-		// DisplayName: Void Dummy Boime
-		// TownNPCDialogueName: the Void Dummy Boime
+		// DisplayName: The Void
+		// TownNPCDialogueName: Void
 	}
 }
+
+// NearShimmer: Near shimmer
