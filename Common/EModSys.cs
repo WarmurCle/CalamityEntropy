@@ -136,7 +136,6 @@ namespace CalamityEntropy.Common
                 }
                 Main.spriteBatch.End();
             }
-
         }
         public int ptype = -1;
         public static List<int> NeedTiles = new List<int>() { 41, 43, 44 };

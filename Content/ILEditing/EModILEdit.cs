@@ -4,14 +4,21 @@ using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
+using CalamityMod.Schematics;
 using CalamityMod.UI;
+using CalamityMod.World;
 using InnoVault;
+using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
+
 using ReLogic.Content;
 using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.ModLoader;
@@ -90,14 +97,18 @@ namespace CalamityEntropy.Content.ILEditing
 
             _hook = EModHooks.Add(originalMethod, drawStealthBarHook);
 
+
             if (ModLoader.TryGetMod("AlchemistNPCLite", out var anpc))
             {
                 ANPCSupport.ANPCShopAdd.LoadHook();
             }
 
+            StoreForbiddenArchivePositionHook.LoadHook();
+
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
         public static FieldInfo mouseTextCacheField = null;
+
         public static void drawStealthBarHook(Action<SpriteBatch, CalamityPlayer, Vector2> orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
         {
             var edgeTexField = typeof(StealthUI).GetField("edgeTexture", BindingFlags.Static | BindingFlags.NonPublic);
@@ -260,6 +271,47 @@ namespace CalamityEntropy.Content.ILEditing
                 return true;
             }
             return orig(self, player);
+        }
+    }
+    public static class StoreForbiddenArchivePositionHook
+    {
+        public static void LoadHook()
+        {
+            var method = typeof(DungeonArchive).GetMethod("PlaceArchive", BindingFlags.Static | BindingFlags.Public);
+            MonoModHooks.Modify(method, sfahook);
+        }
+
+        private static void sfahook(ILContext il)
+        {
+            ILCursor cursor = new(il);
+
+            int xLocalIndex = 0;
+            int yLocalIndex = 0;
+            ConstructorInfo pointConstructor = typeof(Point).GetConstructor([typeof(int), typeof(int)]);
+            MethodInfo placementMethod = typeof(SchematicManager).GetMethods().First(m => m.Name == "PlaceSchematic");
+
+            // Find the first instance of the schematic placement call. There are three, but they all take the same information so it doesn't matter which one is used as a reference.
+            cursor.GotoNext(i => i.MatchLdstr(SchematicKeys.BlueArchiveKey));
+
+            // Find the part of the method call where the placement Point type is made, and read off the IL indices for the X and Y coordinates with intent to store them elsewhere.
+            cursor.GotoNext(i => i.MatchNewobj(pointConstructor));
+            cursor.GotoPrev(i => i.MatchLdloc(out yLocalIndex));
+            cursor.GotoPrev(i => i.MatchLdloc(out xLocalIndex));
+
+            // Go back to the beginning of the method and store the placement position so that it isn't immediately discarded after world generation- Ceaseless Void's natural spawning needs it.
+            // This needs to be done at each of hte three schematic placement variants since sometimes post-compilation optimizations can scatter about return instructions.
+            cursor.Index = 0;
+            for (int i = 0; i < 3; i++)
+            {
+                cursor.GotoNext(i => i.MatchLdftn(out _));
+                cursor.GotoNext(MoveType.After, i => i.MatchCallOrCallvirt(out _));
+                cursor.Emit(OpCodes.Ldloc, xLocalIndex);
+                cursor.Emit(OpCodes.Ldloc, yLocalIndex);
+                cursor.EmitDelegate((int x, int y) =>
+                {
+                    EDownedBosses.ForbiddenArchiveCenter = new(x, y);
+                });
+            }
         }
     }
     public static class EModHooks
