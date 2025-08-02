@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.PlaySound("spark", 1, Projectile.Center, 1);
             }
             Vector2 end = new Vector2(Projectile.ai[0], Projectile.ai[1]);
-            if(points == null || Projectile.localAI[0] % 5 == 0)
+            if (points == null || Projectile.localAI[0] % 5 == 0)
             {
                 points = LightningGenerator.GenerateLightning(Projectile.Center, end, 36, 6);
             }
@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override string Texture => "CalamityEntropy/Assets/Extra/white";
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if(points == null) return false;
+            if (points == null) return false;
             for (int i = 1; i < points.Count; i++)
             {
                 if (CEUtils.LineThroughRect(points[i - 1], points[i], targetHitbox, 4))

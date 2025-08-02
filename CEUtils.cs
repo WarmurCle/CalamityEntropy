@@ -27,7 +27,8 @@ namespace CalamityEntropy
         public static float WeapSound => ModContent.GetInstance<Config>().EntropyMeleeWeaponSoundVolume;
         public static AddableFloat GetCritDamage(this Player player, DamageClass dmgClass)
         {
-            if (!player.Entropy().CritDamage.ContainsKey(dmgClass)) {
+            if (!player.Entropy().CritDamage.ContainsKey(dmgClass))
+            {
                 var v = AddableFloat.Zero;
                 v += 1;
                 player.Entropy().CritDamage.Add(dmgClass, v);
@@ -35,7 +36,7 @@ namespace CalamityEntropy
             }
             return player.Entropy().CritDamage[dmgClass];
         }
-        
+
         public static void HealMana(this Player player, int amount)
         {
             player.statMana += amount;
@@ -57,7 +58,7 @@ namespace CalamityEntropy
             if (CEUtils.inWorld(si, sj))
             {
                 Tile t = Main.tile[si, sj];
-                if(t.HasTile)
+                if (t.HasTile)
                 {
                     return new Tile();
                 }
@@ -115,7 +116,7 @@ namespace CalamityEntropy
 
             return (intersection1.Y < intersection2.Y) ? intersection1 : intersection2;
         }
-    public static void AddLight(Vector2 position, Color lightColor, float mult = 1)
+        public static void AddLight(Vector2 position, Color lightColor, float mult = 1)
         {
             Lighting.AddLight(position, lightColor.R / 255f * mult, lightColor.G / 255f * mult, lightColor.B / 255f * mult);
         }
@@ -129,7 +130,7 @@ namespace CalamityEntropy
         }
         public static bool SetCartridge(this Item item, int m)
         {
-            if(ModLoader.HasMod("CalamityOverhaul"))
+            if (ModLoader.HasMod("CalamityOverhaul"))
             {
                 CWRWeakRef.CWRRef.SetCartridge(item, m);
                 return true;
@@ -873,10 +874,10 @@ namespace CalamityEntropy
         {
             currentRadians = MathHelper.WrapAngle(currentRadians);
             targetRadians = MathHelper.WrapAngle(targetRadians);
-            
+
             float difference = targetRadians - currentRadians;
             float turnAmount = MathHelper.WrapAngle(difference);
-            
+
             if (useFixedSpeed)
             {
                 turnAmount = MathHelper.Clamp(turnAmount, -rotateSpeed, rotateSpeed);
@@ -885,7 +886,7 @@ namespace CalamityEntropy
             {
                 turnAmount *= MathHelper.Clamp(rotateSpeed, 0f, 1f);
             }
-            
+
             return currentRadians + turnAmount;
         }
 

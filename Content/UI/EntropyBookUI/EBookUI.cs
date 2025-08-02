@@ -179,7 +179,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                 }
                 lastMouseLeft = Main.mouseLeft;
                 lastMouseRight = Main.mouseRight;
-                if(sync)
+                if (sync)
                 {
                     PlayerLoader.SyncPlayer(Main.LocalPlayer, -1, Main.myPlayer, false);
                 }

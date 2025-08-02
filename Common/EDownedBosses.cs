@@ -14,7 +14,6 @@ namespace CalamityEntropy.Common
         public static bool downedProphet = false;
         public static bool downedLuminaris = false;
         public static bool downedAcropolis = false;
-        public static Point ForbiddenArchiveCenter = new Point(-1, -1);
         public override void ClearWorld()
         {
             EntropyMode = false;
@@ -24,7 +23,6 @@ namespace CalamityEntropy.Common
             downedProphet = false;
             downedLuminaris = false;
             downedAcropolis = false;
-            ForbiddenArchiveCenter = new Point(-1, -1);
         }
 
         public override void SaveWorldData(TagCompound tag)
@@ -53,16 +51,10 @@ namespace CalamityEntropy.Common
             {
                 tag["downedLuminaris"] = true;
             }
-            if(downedAcropolis)
+            if (downedAcropolis)
             {
                 tag["downedAcropolis"] = true;
             }
-            tag["DungeonArchiveCenterX"] = ForbiddenArchiveCenter.X;
-            tag["DungeonArchiveCenterY"] = ForbiddenArchiveCenter.Y;
-        }
-        public static Vector2 GetDungeonArchiveCenterPos()
-        {
-            return ForbiddenArchiveCenter.ToVector2() * 16 + new Vector2(8, 1288);
         }
 
         public override void LoadWorldData(TagCompound tag)
@@ -74,14 +66,6 @@ namespace CalamityEntropy.Common
             downedProphet = tag.ContainsKey("downedProphet");
             downedLuminaris = tag.ContainsKey("downedLuminaris");
             downedAcropolis = tag.ContainsKey("downedAcropolis");
-            if(tag.ContainsKey("DungeonArchiveCenterX") && tag.ContainsKey("DungeonArchiveCenterY"))
-            {
-                ForbiddenArchiveCenter = new(tag.GetInt("DungeonArchiveCenterX"), tag.GetInt("DungeonArchiveCenterY"));
-            }
-            else
-            {
-                ForbiddenArchiveCenter = new(-1, -1);
-            }
         }
 
         public override void NetSend(BinaryWriter writer)

@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             trailPositions.Add(Position);
-            if(trailPositions.Count > trailLength)
+            if (trailPositions.Count > trailLength)
             {
                 trailPositions.RemoveAt(0);
             }
@@ -94,8 +94,8 @@ namespace CalamityEntropy.Content.Particles
 
         public override void Draw()
         {
-            if(trailPositions is null)
-                return ;
+            if (trailPositions is null)
+                return;
 
             GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/BasicTrail"));
             PrimitiveRenderer.RenderTrail(trailPositions, new(WidthFunction, ColorFunction, (_) => Vector2.One * this.Scale * 0.5f, false, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), trailLength);

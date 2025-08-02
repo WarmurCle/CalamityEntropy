@@ -23,8 +23,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 1500;
-            Item.crit = 15;
+            Item.damage = 1400;
+            Item.crit = 10;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 194;
             Item.height = 42;
@@ -106,19 +106,19 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                     LoadCounter += player.GetTotalAttackSpeed(DamageClass.Ranged) / Projectile.MaxUpdates / 24f;
                     FlywheelAddRot = CEUtils.GetRepeatedCosFromZeroToOne(LoadCounter, 1) * MathHelper.PiOver2;
-                    if(LoadCounter > 1)
+                    if (LoadCounter > 1)
                     {
                         LoadedAmmo++;
                         LoadCounter -= 1;
                         FlywheelAddRot = 0;
                         FlywheelRot += MathHelper.PiOver2;
                         PlayLoadSound = true;
-                        if(LoadedAmmo == MaxAmmo)
+                        if (LoadedAmmo == MaxAmmo)
                         {
                             Charging = false;
                             LoadCounter = 0;
                         }
-                        if(!player.channel)
+                        if (!player.channel)
                         {
                             Charging = false;
                         }
@@ -229,10 +229,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            Texture2D alt = this.getTextureAlt(); 
+            Texture2D alt = this.getTextureAlt();
 
             Main.EntitySpriteDraw(alt, Projectile.Center - Projectile.rotation.ToRotationVector2() * BarrelOffset * Projectile.scale - Main.screenPosition, null, lightColor, Projectile.rotation, alt.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-            Rectangle frame = new Rectangle(0, tex.Height / 4 * FrameCount, tex.Width, tex.Height / 4);  
+            Rectangle frame = new Rectangle(0, tex.Height / 4 * FrameCount, tex.Width, tex.Height / 4);
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, lightColor, Projectile.rotation, tex.Size() / new Vector2(2, 8), Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             Texture2D Flywheel = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/Flywheel");
             Main.EntitySpriteDraw(Flywheel, Projectile.Center - Main.screenPosition - new Vector2(58, 0).RotatedBy(Projectile.rotation) * Projectile.scale, null, lightColor, Projectile.rotation - (FlywheelAddRot + FlywheelRot) * (Projectile.velocity.X > 0 ? 1 : -1), Flywheel.Size() / 2f, Projectile.scale, SpriteEffects.None);

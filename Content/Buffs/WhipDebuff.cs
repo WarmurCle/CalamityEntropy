@@ -125,7 +125,7 @@ namespace CalamityEntropy.Content.Buffs
                 }
             }
 
-            if(projectile.GetOwner().Entropy().shadowRune)
+            if (projectile.GetOwner().Entropy().shadowRune)
             {
                 modifiers.FlatBonusDamage += -(modifiers.FlatBonusDamage.Value * 0.6f);
                 modifiers.ArmorPenetration += 128;

@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Buffs.Mounts;
 using CalamityMod.Dusts;
@@ -17,21 +17,22 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
-	public class TheReplicaofThePen : ModItem, IDonatorItem
-	{
+    public class TheReplicaofThePen : ModItem, IDonatorItem
+    {
         public string DonatorName => Mod.GetLocalization("RPDonorName").Value;
-		public override void SetDefaults() {
-			Item.width = 20;
-			Item.height = 30;
-			Item.useTime = 20;
-			Item.useAnimation = 20;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.value = Item.sellPrice(platinum: 2);
-			Item.rare = ModContent.RarityType<VoidPurple>();
-			Item.UseSound = SoundID.Item79;
-			Item.noMelee = true;
-			Item.mountType = ModContent.MountType<ReplicaPenMount>();
-		}
+        public override void SetDefaults()
+        {
+            Item.width = 20;
+            Item.height = 30;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.value = Item.sellPrice(platinum: 2);
+            Item.rare = ModContent.RarityType<VoidPurple>();
+            Item.UseSound = SoundID.Item79;
+            Item.noMelee = true;
+            Item.mountType = ModContent.MountType<ReplicaPenMount>();
+        }
 
         public override void AddRecipes()
         {
@@ -43,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
-	}
+    }
     public class PenMountBuff : ModBuff
     {
         public override void SetStaticDefaults()
@@ -118,7 +119,7 @@ namespace CalamityEntropy.Content.Items.Donator
             MountData.swimFrameDelay = MountData.inAirFrameDelay;
             MountData.swimFrameStart = MountData.inAirFrameStart;
 
-            
+
 
             if (!Main.dedServ)
             {

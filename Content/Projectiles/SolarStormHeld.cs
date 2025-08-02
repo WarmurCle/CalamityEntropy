@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         player.PickAmmo(player.HeldItem, out projID, out shootSpeed, out damage, out kb, out ammoID, false);
 
-                        if(Main.zenithWorld)
+                        if (Main.zenithWorld)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed * 0.4f, ModContent.ProjectileType<SolarStormExplosionProj>(), damage * 4, kb * 2, player.whoAmI);
                         }

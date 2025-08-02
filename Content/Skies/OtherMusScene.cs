@@ -30,6 +30,6 @@ namespace CalamityEntropy.Content.Skies
         {
             return player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped;
         }
-        public override int Music => (Main.dayTime && Main.LocalPlayer.ZoneForest && !Main.LocalPlayer.ZoneJungle && !Main.LocalPlayer.ZoneSnow) ? MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/LMus1") : (!Main.dayTime && Main.LocalPlayer.townNPCs > 2 ? MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/LMus2")  : -1);
+        public override int Music => (Main.dayTime && Main.LocalPlayer.ZoneForest && !Main.LocalPlayer.ZoneJungle && !Main.LocalPlayer.ZoneSnow) ? MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/LMus1") : (!Main.dayTime && Main.LocalPlayer.townNPCs > 2 ? MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/LMus2") : -1);
     }
 }

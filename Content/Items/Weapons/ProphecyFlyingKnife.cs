@@ -68,7 +68,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     Projectile.NewProjectile(source, position, velocity.RotatedBy((i / 9f) * r - r * 0.5f) * c, type, (int)(damage * 0.8f), knockback, player.whoAmI);
                 }
             }
-            
+
             atkType *= -1;
             return false;
         }

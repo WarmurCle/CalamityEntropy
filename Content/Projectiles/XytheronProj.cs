@@ -48,8 +48,8 @@ namespace CalamityEntropy.Content.Projectiles
         public int addcharge = 3;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("xhit", Main.rand.NextFloat(0.8f, 1.1f), Projectile.Center, 3, volume: 0.25f * CEUtils.WeapSound);
-            CEUtils.PlaySound("DevourerDeathImpact", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, 3, volume: 0.25f * CEUtils.WeapSound);
+            CEUtils.PlaySound("xhit", Main.rand.NextFloat(0.8f, 1.1f), Projectile.Center, 8, volume: 0.32f);
+            CEUtils.PlaySound("DevourerDeathImpact", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, 8, volume: 0.32f);
             CalamityEntropy.Instance.screenShakeAmp = 5;
             for (int i = 0; i < 3; i++)
             {
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation += rotSpeed * meleeSpeed * 0.32f;
             if (Projectile.ai[0] >= 74 && playsound)
             {
-                CEUtils.PlaySound("xswing", Main.rand.NextFloat(0.9f, 1.4f), Projectile.Center, 8, 0.8f * CEUtils.WeapSound);
+                CEUtils.PlaySound("xswing", Main.rand.NextFloat(0.9f, 1.4f), Projectile.Center, 8, 0.8f);
                 playsound = false;
             }
             if (Projectile.ai[0] < 60 * updates)
@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            
+
             if (Projectile.ai[0] > 88 * updates)
             {
                 alpha *= 0.96f;

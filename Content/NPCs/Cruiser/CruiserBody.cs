@@ -18,27 +18,13 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
         }
-        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
-        {
-            ((int)NPC.ai[1]).ToNPC().ModNPC.ModifyHitByProjectile(projectile, ref modifiers);
-            if (NPC.ai[0] < 500)
-            {
-                modifiers.SourceDamage *= ((float)NPC.ai[0] / 500f);
-            }
-        }
-        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
-        {
-            modifiers.SourceDamage *= ((int)NPC.ai[1]).ToNPC().Entropy().damageMul;
-            if (NPC.ai[0] < 500)
-            {
-                modifiers.SourceDamage *= ((float)NPC.ai[0] / 500f);
-            }
-        }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.width);
             writer.Write(NPC.height);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.width = reader.ReadInt32();

@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Particles
         public Vector2 size = Vector2.One;
         public override void Draw()
         {
-            if(frame >= 0 && frame <= 16)
+            if (frame >= 0 && frame <= 16)
             {
                 Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Particles/realisticexplosion/spr_realisticexplosion_" + frame.ToString());
                 Main.spriteBatch.Draw(tex, this.Position - Main.screenPosition, null, this.Color, 0, tex.Size() / 2f, size * Scale, SpriteEffects.None, 0);
@@ -24,12 +24,12 @@ namespace CalamityEntropy.Content.Particles
         public override void AI()
         {
             frame++;
-            if(frame == 0)
+            if (frame == 0)
             {
                 CEUtils.PlaySound("badexplosion", 0.8f, Position);
             }
             base.AI();
-            if(frame > 16)
+            if (frame > 16)
             {
                 this.Lifetime = 0;
             }

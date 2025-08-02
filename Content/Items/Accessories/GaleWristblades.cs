@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D tex = Projectile.GetTexture();
-            for(float i = 0; i <= 1; i += 0.01f)
+            for (float i = 0; i <= 1; i += 0.01f)
             {
                 Main.spriteBatch.Draw(tex, Projectile.Center + new Vector2(0, -44 + i * 128) - Main.screenPosition, null, Color.White * (1.01f - i) * Projectile.Opacity, Main.GlobalTimeWrappedHourly * 10 + i * 4, tex.Size() / 2f, (1.02f - i), SpriteEffects.None, 0);
             }

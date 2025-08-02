@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.useTime = 17;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.UseSound = SoundID.Item3;
-            Item.potion = true; 
+            Item.potion = true;
             Item.consumable = true;
             Item.rare = ItemRarityID.Purple;
             Item.value = Item.buyPrice(0, 6, 50, 0);

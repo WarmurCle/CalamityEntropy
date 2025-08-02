@@ -70,11 +70,11 @@ namespace CalamityEntropy.Content.NPCs
         {
             WeightedRandom<string> chat = new WeightedRandom<string>();
             {
-                if(Main.rand.NextBool(6))
+                if (Main.rand.NextBool(6))
                 {
                     string dns = "";
                     var lc = new List<string>();
-                    foreach(string s in Donators.Donors)
+                    foreach (string s in Donators.Donors)
                     {
                         lc.Add(s);
                     }
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.NPCs
                     {
                         int d = Main.rand.Next(lc.Count);
                         dns += lc[d];
-                        if(i < 9)
+                        if (i < 9)
                         {
                             dns += ", ";
                         }

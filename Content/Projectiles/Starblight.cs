@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (spt == null)
             {
-                spt = new StarTrailParticle() { maxLength = 18};
+                spt = new StarTrailParticle() { maxLength = 18 };
                 EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.LightBlue, 1.8f, 1, true, BlendState.Additive, 0);
             }
             spt.Velocity = Projectile.velocity;

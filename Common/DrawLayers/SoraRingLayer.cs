@@ -29,11 +29,11 @@ namespace CalamityEntropy.Common.DrawLayers
             var player = drawInfo.drawPlayer;
             Texture2D texture;
             Vector2 headPos;
-            
+
             texture = CEUtils.getExtraTex("sRing");
             headPos = drawInfo.HeadPosition(true);
             drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, Color.White, drawInfo.drawPlayer.headRotation, new Vector2(texture.Width / 2 - 3 * player.direction, texture.Height + 20), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
-            
+
         }
 
     }

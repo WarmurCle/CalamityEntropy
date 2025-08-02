@@ -202,7 +202,7 @@ namespace CalamityEntropy
             On_Main.DrawTiles += drawtile;
             On_Projectile.FillWhipControlPoints += fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
-            
+
             //On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
@@ -232,7 +232,7 @@ namespace CalamityEntropy
 
         private void drawPlayerHeadHook(On_MapHeadRenderer.orig_DrawPlayerHead orig, MapHeadRenderer self, Camera camera, Player drawPlayer, Vector2 position, float alpha, float scale, Color borderColor)
         {
-            if(true)
+            if (true)
             {
                 int origHead = drawPlayer.head;
                 drawPlayer.head = EquipLoader.GetEquipSlot(CalamityEntropy.Instance, "AbyssLantern", EquipType.Head);
@@ -818,9 +818,9 @@ namespace CalamityEntropy
 
         private void add_buff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
-            if(self.Entropy().hasAcc("VastLV4"))
+            if (self.Entropy().hasAcc("VastLV4"))
             {
-                if(type == BuffID.ManaSickness || type == ModContent.BuffType<ManaBurn>())
+                if (type == BuffID.ManaSickness || type == ModContent.BuffType<ManaBurn>())
                 {
                     timeToAdd /= 2;
                 }
@@ -998,7 +998,7 @@ namespace CalamityEntropy
                         Func<Item, Item, bool> func = null;
                         if (objects.TryGetValue("CanBeEquipWithFunc", out var cbew_func))
                         {
-                            if(cbew_func is Func<Item, Item, bool> fc)
+                            if (cbew_func is Func<Item, Item, bool> fc)
                             {
                                 func = fc;
                             }
@@ -1547,7 +1547,7 @@ namespace CalamityEntropy
                         AddBossbarColor(fs, "TrojanSquirrel", new Color(147, 108, 85));
 
                     }
-                    
+
                     Logger.Warn("CalamityEntropy: Bossbar Color setup succesfully");
                 }
             }
@@ -1557,7 +1557,7 @@ namespace CalamityEntropy
             }
         }
         public static bool SetupBossbarClrAuto = true;
-        
+
         public static void AddBossbarColor(Mod mod, string name, Color color)
         {
             if (mod == null)

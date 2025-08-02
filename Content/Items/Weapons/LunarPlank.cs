@@ -194,7 +194,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 }
                 CEUtils.PlaySound(Main.rand.NextBool() ? "scholarStaffImpact" : "scholarStaffImpact2", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 200, Projectile.DamageType);
-                for(int i = 0; i < 6; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 26), ModContent.ProjectileType<StarblightRogue>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
                 }

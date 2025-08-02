@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Items.Donator;
+﻿using CalamityEntropy.Content.Items.Donator;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 }
             }
             player.Entropy().lifeRegenPerSec += 5;
-            if(CEUtils.inWorld((int)c.X, (int)c.Y) && Main.tile[(int)c.X, (int)c.Y].HasTile)
+            if (CEUtils.inWorld((int)c.X, (int)c.Y) && Main.tile[(int)c.X, (int)c.Y].HasTile)
             {
                 int type = Main.tile[(int)c.X, (int)c.Y].TileType;
                 if (type >= 82 && type <= 84)
@@ -95,9 +95,9 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            foreach(var t in tooltips)
+            foreach (var t in tooltips)
             {
-                if(t.Mod == "Terraria")
+                if (t.Mod == "Terraria")
                 {
                     if (t.Text.Contains("$"))
                     {

@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Items
                         {
                             dragging.velocity = (Main.MouseWorld - lastMouse);
                         }
-                        
+
                     }
                 }
             }
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items
                     dragging = npc;
                     dragOffset = npc.Center - Main.MouseWorld;
                     return true;
-                } 
+                }
             }
             foreach (Projectile proj in Main.ActiveProjectiles)
             {

@@ -279,7 +279,7 @@ namespace CalamityEntropy.Common
         }
         public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
-            if(npc.type == ModContent.NPCType<PrimordialWyrmNPC>() && projectile.friendly)
+            if (npc.type == ModContent.NPCType<PrimordialWyrmNPC>() && projectile.friendly)
             {
                 return false;
             }
@@ -508,13 +508,13 @@ namespace CalamityEntropy.Common
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            
+
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
             if (projectile.owner >= 0 && projectile.friendly)
             {
                 foreach (var v in projectile.GetOwner().Entropy().CritDamage)
                 {
-                    if(projectile.DamageType.CountsAsClass(v.Key))
+                    if (projectile.DamageType.CountsAsClass(v.Key))
                     {
                         modifiers.CritDamage += v.Value.Value - 1;
                     }
@@ -630,11 +630,11 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if(npc.type == ModContent.NPCType<SupremeCalamitas>())
+            if (npc.type == ModContent.NPCType<SupremeCalamitas>())
             {
                 npcLoot.Add(ModContent.ItemType<TheFilthyContractWithMammon>(), 3, 1, 1);
             }
-            if(npc.type == ModContent.NPCType<ToxicMinnow>() || npc.type == ModContent.NPCType<CannonballJellyfish>() || npc.type == ModContent.NPCType<Sulflounder>() || npc.type == ModContent.NPCType<Toxicatfish>())
+            if (npc.type == ModContent.NPCType<ToxicMinnow>() || npc.type == ModContent.NPCType<CannonballJellyfish>() || npc.type == ModContent.NPCType<Sulflounder>() || npc.type == ModContent.NPCType<Toxicatfish>())
             {
                 npcLoot.Add(ModContent.ItemType<TerrorOfAbyss>(), 24);
             }
@@ -1179,13 +1179,13 @@ namespace CalamityEntropy.Common
         {
             if (player != null)
             {
-                if(player.Entropy().hasAcc("VastLV5") && hit.Crit)
+                if (player.Entropy().hasAcc("VastLV5") && hit.Crit)
                 {
                     npc.AddBuff<SoulDisorder>(360);
                 }
-                if(source is Projectile pr && pr.DamageType.CountsAsClass<ThrowingDamageClass>())
+                if (source is Projectile pr && pr.DamageType.CountsAsClass<ThrowingDamageClass>())
                 {
-                    if(!(pr.ModProjectile != null && (pr.ModProjectile is WristTornado || pr.ModProjectile is BoobyMine || pr.ModProjectile is SolarArrow)))
+                    if (!(pr.ModProjectile != null && (pr.ModProjectile is WristTornado || pr.ModProjectile is BoobyMine || pr.ModProjectile is SolarArrow)))
                     {
                         if (player.Entropy().worshipRelic)
                         {

@@ -14,8 +14,9 @@ using CalamityMod.Events;
 using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
+using CalamityOverhaul;
+using InnoVault;
 using InnoVault.GameSystem;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -437,7 +438,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             if (NPC.life <= 0 && DeathAnmCount <= 10)
             {
-                if(!Main.zenithWorld)
+                if (!Main.zenithWorld)
                 {
                     CEUtils.PlaySound("VoidAttack", 1, NPC.Center);
                     for (int i = 0; i < 86; i++)
@@ -455,8 +456,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     EParticle.spawnNew(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 10, 1, true, BlendState.AlphaBlend);
                 }
-                    Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
-               
+                Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
+
             }
         }
         public float camLerp = 0;
@@ -1417,6 +1418,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
             return false;
         }
+
         public override void PostDraw(SpriteBatch sbb, Vector2 screenPos, Color drawColor)
         {
             Main.spriteBatch.ExitShaderRegion();
@@ -1433,7 +1435,5 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
 
         }
-
-
     }
 }

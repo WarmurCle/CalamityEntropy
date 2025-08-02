@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public int UsingTime = 0;
         public override void UpdateInventory(Player player)
         {
-            if(!Active && Item.favorited)
+            if (!Active && Item.favorited)
             {
                 Active = true;
                 player.Hurt(PlayerDeathReason.ByPlayerItem(player.whoAmI, Item), 20, 0);
@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     UsingTime++;
                 }
-                if(UsingTime > 0 && player.Entropy().UsingItemCounter > 0 && player.HeldItem != Item)
+                if (UsingTime > 0 && player.Entropy().UsingItemCounter > 0 && player.HeldItem != Item)
                 {
                     Active = false;
                 }
@@ -68,14 +68,14 @@ namespace CalamityEntropy.Content.Items.Donator
             else
             {
                 TextureAssets.Item[Type] = CEUtils.getExtraTexAsset("TheFilthyContractWithMammon");
-                if(UsingTime > 0)
+                if (UsingTime > 0)
                 {
                     int dmg = UsingTime / 6;
-                    if(dmg < 6)
+                    if (dmg < 6)
                     {
                         dmg = 6;
                     }
-                    if(dmg > 666)
+                    if (dmg > 666)
                     {
                         dmg = 666;
                     }
@@ -105,7 +105,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Projectile.FriendlySetDefaults(DamageClass.Magic, false, -1);
             Projectile.width = Projectile.height = 64;
-            
+
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 Projectile.rotation = Projectile.velocity.ToRotation();
             }
             Player player = Projectile.GetOwner();
-            if(Main.myPlayer == Projectile.owner && Main.mouseRight && r)
+            if (Main.myPlayer == Projectile.owner && Main.mouseRight && r)
             {
                 player.channel = true;
             }
@@ -167,7 +167,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     }
                 }
             }
-            
+
             player.Calamity().mouseWorldListener = true;
             player.itemAnimation = player.itemTime = 4;
             Projectile.Center = player.GetDrawCenter();
@@ -225,7 +225,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public Vector2 tOfs;
         public override void AI()
         {
-            if(trail == null)
+            if (trail == null)
             {
                 tOfs = CEUtils.randomPointInCircle(36);
                 trail = new StarTrailParticle() { maxLength = 24 };
@@ -251,7 +251,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 float r = CEUtils.randomRot();
                 LineParticle spark = new LineParticle(Projectile.Center + r.ToRotationVector2() * -160, r.ToRotationVector2() * 32, false, 32, Main.rand.NextFloat(1, 2), Color.Red);

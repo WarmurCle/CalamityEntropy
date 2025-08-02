@@ -1,7 +1,6 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityMod;
 using CalamityMod.Items;
-using log4net.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,9 +12,8 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
-    public class Vast : ModItem, IDonatorItem
+    public class Vast : ModItem
     {
-        public string DonatorName => "Azuta";
         public override void SetDefaults()
         {
             Item.width = 40;
@@ -24,55 +22,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;
         }
-        public static int Level()
-        {
-            int l = 0;
-            if (NPC.downedSlimeKing || NPC.downedBoss1 || NPC.downedBoss2 || DownedBossSystem.downedDesertScourge)
-            {
-                l = 1;
-            }
-            if (NPC.downedBoss2)
-            {
-                l = 2;
-            }
-            if (DownedBossSystem.downedSlimeGod)
-            {
-                l = 3;
-            }
-            if (DownedBossSystem.downedCryogen || DownedBossSystem.downedBrimstoneElemental)
-            {
-                l = 4;
-            }
-            if (EDownedBosses.downedProphet)
-            {
-                l = 5;
-            }
-            if (NPC.downedMoonlord)
-            {
-                l = 6;
-            }
-            return l;
-        }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            for (int i = tooltips.Count - 1; i >= 0; i--)
-            {
-                if(tooltips[i].Mod == "Terraria" && tooltips[i].Text.StartsWith("#"))
-                {
-                    bool hide = true;
-                    if(int.TryParse(tooltips[i].Text[1].ToString(), out int n))
-                    {
-                        if(Level() >= n)
-                        {  hide = false; }
-                    }
-                    tooltips[i].Text = tooltips[i].Text.Substring(2);
-                    if(hide)
-                    {
-                        tooltips.RemoveAt(i);
-                    }
-                }
-            }
-        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip("Vast", !hideVisual);
@@ -86,11 +36,11 @@ namespace CalamityEntropy.Content.Items.Donator
                     player.GetCritChance(DamageClass.Magic) += 4;
                 }
             }
-            if(NPC.downedBoss2)
+            if (NPC.downedBoss2)
             {
                 player.Entropy().addEquip("VastLV2");
             }
-            if(DownedBossSystem.downedSlimeGod)
+            if (DownedBossSystem.downedSlimeGod)
             {
                 player.Entropy().addEquip("VastLV3");
             }
@@ -101,9 +51,6 @@ namespace CalamityEntropy.Content.Items.Donator
             if (EDownedBosses.downedProphet)
             {
                 player.Entropy().addEquip("VastLV5");
-            }
-            if(NPC.downedMoonlord)
-            {
 
             }
             player.manaCost -= ManaCostDecrease;
@@ -128,11 +75,11 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void PostUpdate()
         {
             var player = Player;
-            if(!Player.HasBuff<ManaVein>())
+            if (!Player.HasBuff<ManaVein>())
             {
                 ManaVeinLV = 0;
             }
-            if(!Player.Entropy().hasAcc("VastLV3"))
+            if (!Player.Entropy().hasAcc("VastLV3"))
             {
                 ExtraManaLv = 0;
                 ExtraManaTime = 0;
@@ -148,17 +95,18 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 ExtraManaLv += (ExtraManaLv < 5 ? 1 : 0);
                 ExtraManaTime = 12 * 60;
-                if(ExtraManaLv == 5)
+                if (ExtraManaLv == 5)
                 {
                     ExtraManaTime = 60 * 60 * 5;
                 }
                 ManaCostCount -= Player.Entropy().manaNorm / 2;
             }
-            if(ExtraManaTime-- <= 0)
+            if (ExtraManaTime-- <= 0)
             {
                 ExtraManaLv = 0;
             }
-            if (Player.Entropy().hasAcc("VastLV4")) {
+            if (Player.Entropy().hasAcc("VastLV4"))
+            {
                 Player.endurance += Player.statManaMax2 - Player.Entropy().manaNorm * 0.005f;
             }
             if (Player.Entropy().hasAcc("VastLV5"))
@@ -188,7 +136,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void OnConsumeMana(Item item, int manaConsumed)
         {
             ManaCostCount++;
-            if(Player.HasBuff<ManaAwaken>())
+            if (Player.HasBuff<ManaAwaken>())
             {
                 Player.HealMana(manaConsumed * 2);
             }

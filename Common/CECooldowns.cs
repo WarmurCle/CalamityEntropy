@@ -7,8 +7,8 @@ namespace CalamityEntropy.Common
     {
         public int Time;
         public string ID;
-        public CooldownShort(int time, string id) 
-        { 
+        public CooldownShort(int time, string id)
+        {
             Time = time;
             ID = id;
         }
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Common
         public static int BMVoid = 0;
         public static int BMAuric = 0;
         public static int MineBoxCd = 0;
-        
+
         public static void Update()
         {
             CountDown(ref BMLightCD);

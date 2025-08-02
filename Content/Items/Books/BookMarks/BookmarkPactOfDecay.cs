@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             SoundStyle burn = new("CalamityMod/Sounds/Item/WeldingBurn");
             SoundEngine.PlaySound(burn with { Volume = 0.25f, Pitch = 0.4f }, target.Center);
-            
+
             GlowOrbParticle orb = new GlowOrbParticle(target.Center, new Vector2(6, 6).RotatedByRandom(100) * Main.rand.NextFloat(0.3f, 1.1f), false, 60, Main.rand.NextFloat(1.55f, 3.75f), Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f), true, true);
             GeneralParticleHandler.SpawnParticle(orb);
             if (Main.rand.NextBool())

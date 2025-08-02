@@ -148,7 +148,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public void UpdateFins()
         {
             finRotCounter += NPC.velocity.Length() * 0.001f + 0.008f;
-            if(finRotCounter > 1)
+            if (finRotCounter > 1)
             {
                 finRotCounter--;
             }
@@ -972,7 +972,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/Prophet/Wing2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value
                 };
             }
-            float rotj = finRotCounter <= 0.4f ? CEUtils.GetRepeatedCosFromZeroToOne(finRotCounter / 0.4f, 1) : 1-CEUtils.GetRepeatedCosFromZeroToOne((finRotCounter - 0.4f) / 0.6f, 1);
+            float rotj = finRotCounter <= 0.4f ? CEUtils.GetRepeatedCosFromZeroToOne(finRotCounter / 0.4f, 1) : 1 - CEUtils.GetRepeatedCosFromZeroToOne((finRotCounter - 0.4f) / 0.6f, 1);
             Main.EntitySpriteDraw(fintexs[1], NPC.Center + new Vector2(-20, -20).RotatedBy(NPC.rotation) - Main.screenPosition, null, Color.White, rl - rotj, fintexs[1].Size(), NPC.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(fintexs[1], NPC.Center + new Vector2(-20, 20).RotatedBy(rl) - Main.screenPosition, null, Color.White, rl + rotj, fintexs[1].Size() * new Vector2(1, 0), NPC.scale, SpriteEffects.FlipVertically);
             Main.EntitySpriteDraw(fintexs[0], NPC.Center + new Vector2(0, -20).RotatedBy(rl) - Main.screenPosition, null, Color.White, rl - 1 + rotj, new Vector2(fintexs[0].Width * 0.5f, fintexs[0].Height), NPC.scale, SpriteEffects.None);

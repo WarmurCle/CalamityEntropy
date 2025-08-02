@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.damage = 100;
-            Item.useAnimation = Item.useTime = 84;
+            Item.useAnimation = Item.useTime = 100;
             Item.crit = 10;
             Item.mana = 36;
             Item.shootSpeed = 40;
@@ -188,7 +188,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (Projectile.ai[0] > 0)
             {
-                if(Projectile.velocity.Length() > 6)
+                if (Projectile.velocity.Length() > 6)
                 {
                     Projectile.velocity = Projectile.velocity.normalize() * 6;
                 }

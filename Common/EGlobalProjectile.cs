@@ -375,7 +375,7 @@ namespace CalamityEntropy.Common
 
                         if (plr.HasBuff(ModContent.BuffType<SoyMilkBuff>()))
                         {
-                            if(!(projectile.ModProjectile is EntropyBookHeldProjectile))
+                            if (!(projectile.ModProjectile is EntropyBookHeldProjectile))
                                 projectile.extraUpdates = (projectile.extraUpdates + 1) * 3 - 1;
                         }
                     }
@@ -386,7 +386,7 @@ namespace CalamityEntropy.Common
         }
         public override bool ShouldUpdatePosition(Projectile projectile)
         {
-            if(typhoonBullet || OverrideBulletMoveAI)
+            if (typhoonBullet || OverrideBulletMoveAI)
             {
                 return false;
             }
@@ -418,7 +418,7 @@ namespace CalamityEntropy.Common
         public bool SmartArcEffect = false;
         public override bool PreAI(Projectile projectile)
         {
-            if(bulletInit)
+            if (bulletInit)
             {
                 bulletInit = false;
                 {
@@ -435,7 +435,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if(typhoonBullet)
+            if (typhoonBullet)
             {
                 float targetDist = Vector2.Distance(projectile.GetOwner().Center, projectile.Center);
 
@@ -450,7 +450,7 @@ namespace CalamityEntropy.Common
                 }
                 projectile.position += projectile.velocity;
             }
-            if(OverrideBulletMoveAI)
+            if (OverrideBulletMoveAI)
             {
                 projectile.position += projectile.velocity;
             }
@@ -463,7 +463,7 @@ namespace CalamityEntropy.Common
                 projectile.active = false;
                 return false;
             }
-            if(SmartArcEffect)
+            if (SmartArcEffect)
             {
                 Vector2 position = projectile.Center - projectile.velocity;
                 Vector2 velocity = projectile.velocity * 0.2f;
@@ -874,9 +874,9 @@ namespace CalamityEntropy.Common
         public StarTrailParticle starTrailPt = null;
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
-            if(projectile.ModProjectile != null && projectile.ModProjectile is MurasamaSlash)
+            if (projectile.ModProjectile != null && projectile.ModProjectile is MurasamaSlash)
             {
-                if(projectile.GetOwner().name.ToLower().Contains("polaris") || projectile.GetOwner().name.ToLower().Contains("chalost"))
+                if (projectile.GetOwner().name.ToLower().Contains("polaris") || projectile.GetOwner().name.ToLower().Contains("chalost"))
                 {
                     muraTex = TextureAssets.Projectile[projectile.type];
                     TextureAssets.Projectile[projectile.type] = voidSamaSlash;

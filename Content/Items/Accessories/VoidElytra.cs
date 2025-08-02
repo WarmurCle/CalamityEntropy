@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 }
 
             }
-            
+
             return base.WingUpdate(player, inUse);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

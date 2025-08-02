@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Vanity
 
             Item.accessory = true;
             Item.vanity = true;
-            
+
             Item.value = Item.buyPrice(0, 1, 0, 0);
 
             Item.rare = ItemRarityID.Green;

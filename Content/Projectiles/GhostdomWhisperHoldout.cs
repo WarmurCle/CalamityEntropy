@@ -110,7 +110,7 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             gw2.cs = false;
                         }
-                        for(int i = 0; i < (Main.zenithWorld ? 3 : 1); i++)
+                        for (int i = 0; i < (Main.zenithWorld ? 3 : 1); i++)
                         {
                             int p = Projectile.NewProjectile(player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, ammoID), Projectile.Center, new Vector2(shootSpeed, 0).RotatedBy(Projectile.rotation).RotatedByRandom(Main.zenithWorld ? 0.4f : 0) * (Projectile.ai[1] / (float)maxCharge), projID, (int)(damage * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1.8f : 1) * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj == -1 ? 1 : TwistedTwinMinion.damageMul)), kb * (Projectile.ai[1] / (float)maxCharge), Projectile.owner);
                             p.ToProj().scale = 1.6f * Projectile.scale;

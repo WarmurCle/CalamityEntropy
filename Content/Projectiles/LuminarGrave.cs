@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             return false;
         }
-        
+
     }
 
 
