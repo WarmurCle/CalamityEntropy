@@ -188,7 +188,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             vertexCache.Clear();
             float p = -Main.GlobalTimeWrappedHourly * 2.5f;
-            float scale = 16f * Projectile.scale * lightSize * (1f + 0.1f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 5f)); //脉动效果
+            float scale = 10f * Projectile.scale * lightSize * (1f + 0.1f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 5f)) * width; //脉动效果
 
             //增强路径随机性，模拟扭曲
             List<Vector2> randomizedPoints = new List<Vector2>(points);
