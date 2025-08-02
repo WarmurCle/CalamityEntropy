@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
@@ -196,6 +197,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<ArmorCrunch>(300);
             CEUtils.PlaySound("ystn_hit", 0.8f, Projectile.Center);
             for (int i = 0; i < 16; i++)
             {
