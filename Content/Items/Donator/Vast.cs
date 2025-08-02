@@ -113,7 +113,8 @@ namespace CalamityEntropy.Content.Items.Donator
             CreateRecipe()
                 .AddIngredient(ItemID.ManaFlower)
                 .AddIngredient(ItemID.ManaCrystal)
-                .AddCondition(Mod.GetLocalization("NearShimmer", () => "Near shimmer"), () => (Main.LocalPlayer.ZoneShimmer));
+                .AddCondition(Mod.GetLocalization("NearShimmer", () => "Near shimmer"), () => (Main.LocalPlayer.ZoneShimmer))
+                .Register();
         }
     }
     public class VastMPlayer : ModPlayer

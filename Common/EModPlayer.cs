@@ -1467,7 +1467,15 @@ namespace CalamityEntropy.Common
         public int BBarNoDecrease = 0;
         public override void PostUpdate()
         {
-            if(ManaRegenTime-- > 0 && ManaRegenTime % 30 == 2)
+            if(hasAcc(AzafureDetectionEquipment.ID))
+            {
+                if (Player.controlJump && Player.wingTime > 0f && Player.jump == 0 && Player.controlUp)
+                {
+                    Player.wingTime -= Player.wingTimeMax / 300f;
+                    Player.velocity.Y -= 0.4f;
+                }
+            }
+            if (ManaRegenTime-- > 0 && ManaRegenTime % 30 == 2)
             {
                 Player.statMana += ManaRegenPer30Tick;
                 if(Player.statMana > Player.statManaMax2)

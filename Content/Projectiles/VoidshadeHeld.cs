@@ -297,6 +297,10 @@ namespace CalamityEntropy.Content.Projectiles
             SpriteBatch sb = Main.spriteBatch;
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             Texture2D trail;
+            if(attackType == 3)
+            {
+                goto drawBlade;
+            }
             var r = Main.rand;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -316,10 +320,10 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (36 * oldScale[i] + 60 * oldScale[i] * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] - 80 * oldScale[i] * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (36 * oldScale[i] + 60 * oldScale[i] - 60 * oldScale[i] * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 0, 1),
                           b));
                 }
@@ -347,10 +351,10 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                 {
-                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (36 * oldScale[i] + 60 * oldScale[i] * (1 - (float)(i) / (float)oldRots.Count) * 0.5f),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (42 * oldScale[i] + 80 * oldScale[i] - 80 * oldScale[i] * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2() * (36 * oldScale[i] + 60 * oldScale[i] - 60 * oldScale[i] * (1 - ((float)(i) / (float)oldRots.Count)) * 0.5f),
                           new Vector3(i / (float)oldRots.Count + trailOffset, 0, 1),
                           b));
                 }
@@ -365,6 +369,7 @@ namespace CalamityEntropy.Content.Projectiles
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
+        drawBlade:
             if (counter <= 60)
             {
                 Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;

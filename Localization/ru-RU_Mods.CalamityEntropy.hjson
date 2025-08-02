@@ -2723,6 +2723,17 @@ Items: {
 			#6At full stacks of Manaflow, each mana depletion grants +2% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
 			''' */
 	}
+
+	AzafureDetectionEquipment: {
+		// DisplayName: Azafure Detection Equipment
+		/* Tooltip:
+			'''
+			Improve your jumping speed
+			Give you a slight push forward
+			Increase partial movement speed
+			Hold [UP] when flying to accelerate
+			''' */
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"

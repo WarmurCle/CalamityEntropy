@@ -2611,7 +2611,7 @@ Items: {
 			'''
 			Her power grows with progression  
 			A sword blessed by the Primordial Goddess of Life  
-			Current Level: [LV] / 14  
+			Current Level: [LV] / 15
 			When her power is sufficient, you can use the following skills:  
 			@[C1][U1]  
 			#[C2][U2]  
@@ -2656,6 +2656,17 @@ Items: {
 			#5Upon mana depletion, attacks switch from consuming mana to restoring mana for 6 seconds, while also applying the Mana Scorch debuff for 5 seconds. Taking damage during this period extends invincibility frames.
 
 			#6At full stacks of Manaflow, each mana depletion grants +2% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
+			'''
+	}
+
+	AzafureDetectionEquipment: {
+		DisplayName: Azafure Detection Equipment
+		Tooltip:
+			'''
+			Improve your jumping speed
+			Give you a slight push forward
+			Increase partial movement speed
+			Hold [UP] when flying to accelerate
 			'''
 	}
 }

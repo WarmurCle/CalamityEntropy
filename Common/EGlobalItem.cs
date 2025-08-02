@@ -218,6 +218,8 @@ namespace CalamityEntropy.Common
             acceleration *= 1 + player.Entropy().VoidCharge * 0.25f;
 
         }
+
+
         public override void UpdateEquip(Item item, Player player)
         {
             if (item.type == ItemID.SantaHat)

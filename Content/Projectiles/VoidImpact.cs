@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.width = 116;
             Projectile.height = 116;
             Projectile.friendly = true;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 100;
@@ -38,21 +38,30 @@ namespace CalamityEntropy.Content.Projectiles
                 EParticle.spawnNew(new VoidImpactParticle(), target.Center, r.ToRotationVector2() * 9, Color.White, 1.8f, 1, true, BlendState.AlphaBlend, r, 46);
                 EParticle.spawnNew(new VoidImpactParticle(), target.Center, r.ToRotationVector2() * 12, Color.White, 2f, 1, true, BlendState.AlphaBlend, r, 46);
             }
+            Projectile.damage = 0;
         }
         public override void AI()
         {
+            if (Projectile.ai[2] == 0)
+                Projectile.ai[2] = 1;
             Projectile.rotation = Projectile.velocity.ToRotation();
             oldPos.Add(Projectile.Center);
             if (oldPos.Count > 64)
             {
                 oldPos.RemoveAt(0);
             }
+            if (Projectile.damage == 0)
+            {
+                Projectile.ai[2] *= 0.98f;
+                Projectile.velocity *= 0.97f;
+            }
         }
 
         public List<Vector2> oldPos = new List<Vector2>();
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = Color.White;
+            lightColor = Color.White * Projectile.ai[2];
+            
             if (Projectile.timeLeft < 30)
             {
                 lightColor *= ((float)Projectile.timeLeft / 30f);
@@ -63,12 +72,12 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < oldPos.Count; i++)
             {
                 scale += 1f / oldPos.Count;
-                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, lightColor * ((float)i / (float)oldPos.Count) * 0.6f, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2 * 0.6f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, lightColor * ((float)i / (float)oldPos.Count) * 0.6f, Projectile.rotation, tex.Size() / 2, Projectile.scale * Projectile.ai[2] * scale * scale2 * 0.6f, SpriteEffects.None, 0);
             }
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2 * 0.8f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2 * 0.6f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2 * Projectile.ai[2], SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2 * 0.8f * Projectile.ai[2], SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale * scale * scale2 * 0.6f * Projectile.ai[2], SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;
 

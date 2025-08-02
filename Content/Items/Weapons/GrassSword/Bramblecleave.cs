@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 }
             }
 
-            //All 14 levels
+            //All 15 levels
             Check(NPC.downedSlimeKing);
             Check(NPC.downedBoss1);
             Check(DownedBossSystem.downedHiveMind || DownedBossSystem.downedPerforator);
@@ -137,6 +137,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Check(DownedBossSystem.downedDoG);
             Check(DownedBossSystem.downedYharon);
             Check(DownedBossSystem.downedExoMechs);
+            Check(DownedBossSystem.downedCalamitas);
 
             return Level;
 
@@ -164,7 +165,9 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 case 12: dmg = 777;break;
                 case 13: dmg = 1000; break;
                 case 14: dmg = 1250;break;
+                case 15: dmg = 1600; break;
             }
+            Item.damage = dmg;
 
 
             Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
