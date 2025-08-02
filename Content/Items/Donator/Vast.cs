@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (Player.Entropy().hasAcc("VastLV4"))
             {
-                Player.endurance += Player.statManaMax2 - Player.Entropy().manaNorm * 0.005f;
+                Player.endurance += (Player.statManaMax2 - Player.Entropy().manaNorm) * 0.005f;
             }
             if (Player.Entropy().hasAcc("VastLV5"))
             {
