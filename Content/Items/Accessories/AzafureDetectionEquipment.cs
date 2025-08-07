@@ -22,10 +22,10 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.rocketBoots += 200;
+            player.rocketBoots += 60;
             player.noFallDmg = true;
-            player.jumpSpeedBoost += 3f;
-            player.maxRunSpeed *= 1.36f;
+            player.jumpSpeedBoost += 1.75f;
+            player.maxRunSpeed *= 1.15f;
             player.Entropy().addEquip(ID, !hideVisual);
         }
         public override void UpdateVanity(Player player)
