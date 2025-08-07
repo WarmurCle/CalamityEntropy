@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     {
         public static float damage = 0.18f;
         public static float MoveSpeed = 0.10f;
-        public static float stealthGen = 0.15f;
+        public static float stealthGen = 0.10f;
         public override void SetDefaults()
         {
             Item.width = 42;
