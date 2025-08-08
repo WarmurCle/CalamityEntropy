@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.NPCs.Prophet;
+using CalamityEntropy.Content.NPCs.SpiritFountain;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.Tiles;
@@ -113,9 +114,11 @@ namespace CalamityEntropy.Common
             }
             if (ptype == -1)
                 ptype = ModContent.NPCType<TheProphet>();
+            if (sftype == -1)
+                sftype = ModContent.NPCType<SpiritFountain>();
 
             List<int> HighLightWallTypes = new List<int>() { 94, 98, 96, 95, 99, 97 };
-            DWAlpha = float.Lerp(DWAlpha, NPC.AnyNPCs(ptype) ? 1 : 0, 0.1f);
+            DWAlpha = float.Lerp(DWAlpha, NPC.AnyNPCs(sftype) ? 0.2f : (NPC.AnyNPCs(ptype) ? 1 : 0), 0.1f);
             if (DWAlpha > 0.02f)
             {
                 DrawWallsHL(HighLightWallTypes);
@@ -139,6 +142,7 @@ namespace CalamityEntropy.Common
 
         }
         public int ptype = -1;
+        public int sftype = -1;
         public static List<int> NeedTiles = new List<int>() { 41, 43, 44 };
         public void DrawWallsHL(List<int> types)
         {

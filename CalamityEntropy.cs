@@ -118,6 +118,7 @@ namespace CalamityEntropy
         public UserInterface userInterface;
         public static DynamicSpriteFont efont1;
         public static DynamicSpriteFont efont2;
+        public static DynamicSpriteFont efont3;
         public static float cutScreenVel = 0;
         public static float cutScreen = 0;
         public static float cutScreenRot = 0;
@@ -154,6 +155,7 @@ namespace CalamityEntropy
 
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
+            efont3 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/MaruMonica", AssetRequestMode.ImmediateLoad).Value;
             CERecipeGroups.init();
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
@@ -226,7 +228,6 @@ namespace CalamityEntropy
                 PlayerDashEffect dashEffect = (PlayerDashEffect)Activator.CreateInstance(type);
                 PlayerDashManager.TryAddDash(dashEffect);
             }
-
 
         }
 
@@ -316,6 +317,7 @@ namespace CalamityEntropy
             WallpaperHelper.wallpaper = null;
             efont1 = null;
             efont2 = null;
+            efont3 = null;
             CheckProjs = null;
             CheckNPCs = null;
             kscreen = null;
@@ -546,16 +548,18 @@ namespace CalamityEntropy
         public int pocType = -1;
         private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
         {
-            orig(self, gameTime);
-            EModSys.mi = false;
-            if (LoopSoundManager.sounds != null)
+            if (orig != null && self != null && gameTime != null) 
             {
-                if (LoopSoundManager.sounds.Count > 0)
+                orig(self, gameTime);
+                EModSys.mi = false;
+                if (LoopSoundManager.sounds != null)
                 {
-                    for (int i = 0; i < LoopSoundManager.sounds.Count; i++)
+                    if (LoopSoundManager.sounds.Count > 0)
                     {
-                        var sound = LoopSoundManager.sounds[i];
-                        sound.stop();
+                        for (int i = 0; i < LoopSoundManager.sounds.Count; i++)
+                        {
+                            var sound = LoopSoundManager.sounds[i];
+                            sound.stop(); }
                     }
                     LoopSoundManager.sounds.Clear();
                 }
@@ -1208,6 +1212,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
+            
             if (ModLoader.TryGetMod("InfernumMode", out var _))
             {
                 InfFont.InfernumFont.SetFont();

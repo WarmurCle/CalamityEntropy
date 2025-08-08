@@ -479,7 +479,7 @@ namespace CalamityEntropy
         }
         public static Vector2 randomPoint(this Rectangle rect)
         {
-            return new Vector2(Main.rand.NextFloat(rect.X, rect.Width), Main.rand.NextFloat(rect.Y, rect.Height));
+            return new Vector2(Main.rand.NextFloat(rect.X, rect.X + rect.Width), Main.rand.NextFloat(rect.Y, rect.Y + rect.Height));
         }
         public static bool Is<T>(this Item item) where T : ModItem
         {

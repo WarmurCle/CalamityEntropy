@@ -1,7 +1,9 @@
 ﻿using CalamityEntropy.Content.Items.Weapons.OblivionThresher;
+using CalamityEntropy.Content.Menu;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.Prophet;
+using CalamityEntropy.Content.NPCs.SpiritFountain;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
@@ -9,6 +11,7 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
+using CalamityMod;
 using InnoVault;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
