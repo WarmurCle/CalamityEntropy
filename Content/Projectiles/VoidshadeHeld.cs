@@ -297,7 +297,7 @@ namespace CalamityEntropy.Content.Projectiles
             SpriteBatch sb = Main.spriteBatch;
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             Texture2D trail;
-            if(attackType == 3)
+            if (attackType == 3)
             {
                 goto drawBlade;
             }
