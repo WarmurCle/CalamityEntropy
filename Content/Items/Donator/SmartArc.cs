@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Item.width = 68;
             Item.height = 28;
-            Item.damage = 4;
+            Item.damage = 2;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 40;
             Item.useAnimation = 40;
@@ -38,9 +38,8 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.shoot = ProjectileID.Bullet;
             Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Bullet;
-            Item.crit = 14;
+            Item.crit = 5;
             Item.Calamity().canFirePointBlankShots = true;
-            Item.ArmorPenetration = 16;
         }
         public int mode = 0;
         public override Vector2? HoldoutOffset()

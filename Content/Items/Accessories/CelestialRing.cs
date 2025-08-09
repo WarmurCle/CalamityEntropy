@@ -32,8 +32,6 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().CRing = true;
             player.Entropy().lifeRegenPerSec += 2;
             player.maxMinions += 2;
-            player.accMerman = true;
-            player.hideMerman = hideVisual;
         }
 
         public override void AddRecipes()

@@ -127,7 +127,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public bool BossClearFlag = false;
         public int ManaVeinLV = 0;
         public int LastMana = 0;
-        public float GetEnhancedMana => 0.06f * ExtraManaLv;
+        public float GetEnhancedMana => 0.04f * ExtraManaLv;
         public override void PostUpdate()
         {
             if(LastMana < Player.statMana)
@@ -159,10 +159,10 @@ namespace CalamityEntropy.Content.Items.Donator
             if (ManaCostCount > 150 + Player.statManaMax / 10)
             {
                 ExtraManaLv += (ExtraManaLv < 5 ? 1 : 0);
-                ExtraManaTime = 30 * 60;
+                ExtraManaTime = 15 * 60;
                 if (ExtraManaLv == 5)
                 {
-                    ExtraManaTime = 60 * 60 * 5;
+                    ExtraManaTime = 15 * 60 * 5;
                 }
                 ManaCostCount -= 150 + Player.statManaMax / 10;
             }
@@ -186,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 if (NPC.downedMoonlord)
                 {
-                    Player.GetCritChance(DamageClass.Magic) += ExtraManaLv * 2;
+                    Player.GetCritChance(DamageClass.Magic) += ExtraManaLv * 1;
                     var v = Player.GetCritDamage(DamageClass.Magic);
                     v += 0.03f * ExtraManaLv;
                 }

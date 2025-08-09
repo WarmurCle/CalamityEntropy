@@ -32,10 +32,10 @@ namespace CalamityEntropy.Content.Items.Accessories
                 {
                     Item.Calamity().Charge -= 64f / (180 * 60f);
                 }
-                player.rocketBoots += 15;
+                player.rocketBoots += 30;
                 player.noFallDmg = true;
-                player.jumpSpeedBoost += 1.75f;
-                player.maxRunSpeed *= 1.3f;
+                player.jumpSpeedBoost += 1.5f;
+                player.maxRunSpeed *= 1.05f;
                 player.Entropy().addEquip(ID, !hideVisual);
                 if (Item.Calamity().Charge < 0)
                     Item.Calamity().Charge = 0;
