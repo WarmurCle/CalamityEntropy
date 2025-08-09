@@ -142,7 +142,6 @@ namespace CalamityEntropy.Content.Tiles
         public Vector2 OffsetPos;
         private Vector2 currentOffset = Vector2.Zero;
         private Vector2 targetOffset = Vector2.Zero;
-        private float shakeSpeed = 0.1f; //抖动平滑速度
         public static readonly Dictionary<int, bool> ItemIsOre = [];
         public override void SetStaticProperty()
         {
