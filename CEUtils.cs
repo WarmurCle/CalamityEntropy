@@ -763,7 +763,11 @@ namespace CalamityEntropy
         }
         public static EGlobalNPC Entropy(this NPC npc)
         {
-            return npc.GetGlobalNPC<EGlobalNPC>();
+            if (npc.TryGetGlobalNPC<EGlobalNPC>(out var rs))
+            {
+                return rs;
+            }
+            return new EGlobalNPC();
         }
         public static NPC ToNPC(this int ins)
         {

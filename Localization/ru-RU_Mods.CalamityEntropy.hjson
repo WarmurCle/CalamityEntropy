@@ -2734,6 +2734,11 @@ Items: {
 			Hold [UP] when flying to accelerate
 			''' */
 	}
+
+	FadingRoseateReverie: {
+		// DisplayName: Fading Roseate Reverie
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"

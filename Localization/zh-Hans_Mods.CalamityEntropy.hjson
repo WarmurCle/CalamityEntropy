@@ -2895,6 +2895,11 @@ Items: {
 			飞行时按住[UP]消耗飞行时间加速推进
 			'''
 	}
+
+	FadingRoseateReverie: {
+		DisplayName: 残绯幻梦
+		Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
