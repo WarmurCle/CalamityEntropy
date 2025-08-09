@@ -570,7 +570,7 @@ Items: {
 	VoidFaquirBodyArmor: {
 		Tooltip:
 			'''
-			+5% Damage
+			+10% Damage
 			+5% Crit Chance
 			+5 Armor Penetration
 			'''
@@ -2643,11 +2643,11 @@ Items: {
 			#2extending invincibility frames and briefly accelerating health regeneration.
 			#2"The tide of magic pulses through your veins..."
 
-			#3After consuming mana equivalent to 50% of your maximum mana, gain 6% Empowered Mania (stacks up to 5 times).
+			#3After consuming mana equivalent to 50% of your maximum mana, gain 4% Empowered Mania (stacks up to 5 times).
 
 			#4Effects of Mana Sickness and Mana Burn are halved.
 
-			#4Every 2 stacks of Empowered Mania grant 0.1% damage reduction.
+			#4Every 2 stacks of Empowered Mania grant 0.05% damage reduction.
 
 			#4Enhances health regeneration when hit while restoring mana.
 
@@ -2655,7 +2655,7 @@ Items: {
 
 			#5Upon mana depletion, attacks switch from consuming mana to restoring mana for 6 seconds, while also applying the Mana Scorch debuff for 5 seconds. Taking damage during this period extends invincibility frames.
 
-			#6At full stacks of Manaflow, each mana depletion grants +2% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
+			#6At full stacks of Manaflow, each mana depletion grants +1% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
 			'''
 	}
 
@@ -2688,7 +2688,7 @@ PrefixitemDesc:
 MariviniumSet:
 	'''
 	Armor Bonus:
-	Half Melee Damage Taken
+	+20% Melee Damage Reduce
 	+10 Minion Slot
 	+100% Summon Damage
 	+5% Summon Crit
