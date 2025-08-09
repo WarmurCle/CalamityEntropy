@@ -76,6 +76,11 @@ namespace CalamityEntropy.Content.Tiles
             TileObjectData.addTile(Type);
         }
 
+        public override void MouseOver(int i, int j)
+        {
+            Main.LocalPlayer.SetMouseOverByTile<AzafureMiner>();
+        }
+
         public override bool RightClick(int i, int j)
         {
             if (VaultUtils.SafeGetTopLeft(i, j, out var point))
@@ -143,6 +148,7 @@ namespace CalamityEntropy.Content.Tiles
         public Vector2 OffsetPos;
         private Vector2 currentOffset = Vector2.Zero;
         private Vector2 targetOffset = Vector2.Zero;
+        private Vector2 targetOffset2 = Vector2.Zero;
         public static readonly Dictionary<int, bool> ItemIsOre = [];
         public readonly static HashSet<int> gemIDs = [ItemID.Ruby, ItemID.Sapphire, ItemID.Diamond, ItemID.Emerald, ItemID.Topaz, ItemID.Amethyst];
         public override void SetStaticProperty()
@@ -152,12 +158,11 @@ namespace CalamityEntropy.Content.Tiles
                 HashSet<int> oreTileIDs = [];
                 for (int i = 0; i < TileLoader.TileCount; i++)
                 {
-                    var tile = new Tile();
-                    tile.TileType = (ushort)i;
-                    if (TileID.Sets.Ore[i])
+                    if (!TileID.Sets.Ore[i])
                     {
-                        oreTileIDs.Add(i);
+                        continue;
                     }
+                    oreTileIDs.Add(i);
                 }
 
                 for (int i = 0; i < ItemLoader.ItemCount; i++)
@@ -172,9 +177,9 @@ namespace CalamityEntropy.Content.Tiles
                 }
 
             }
-            catch
+            catch(System.Exception ex)
             {
-
+                CalamityEntropy.Instance.Logger.Error($"AzMinerTP.SetStaticProperty: An Error Has Occurred {ex.Message}");
             }
         }
         public override void SetProperty()
@@ -264,7 +269,7 @@ namespace CalamityEntropy.Content.Tiles
             if (IsWork)
             {
                 //随机目标抖动点，范围 ±1.5
-                targetOffset = new Vector2(
+                targetOffset = targetOffset2 + new Vector2(
                     Main.rand.NextFloat(-8f, 8f),
                     Main.rand.NextFloat(-4f, 10f)
                 );
@@ -274,10 +279,12 @@ namespace CalamityEntropy.Content.Tiles
             }
             else
             {
+                targetOffset2 = Vector2.Zero;
                 //非工作时平滑回到0
                 currentOffset = Vector2.Lerp(currentOffset, Vector2.Zero, 0.1f);
             }
 
+            targetOffset2 *= 0.6f;
             OffsetPos = new Vector2((int)currentOffset.X, (int)currentOffset.Y);
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -405,24 +412,32 @@ namespace CalamityEntropy.Content.Tiles
                 NetMessage.SendTileSquare(-1, x, y);
             }
 
-            //粒子效果
-            if (Main.rand.NextBool(12))
-            {
-                EParticle.NewParticle(
-                    new EMediumSmoke(),
-                    this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0),
-                    new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)),
-                    Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()),
-                    Main.rand.NextFloat(0.8f, 1.4f),
-                    1,
-                    true,
-                    BlendState.AlphaBlend,
-                    CEUtils.randomRot()
-                );
-            }
 
+            if (!Main.rand.NextBool(12))
+            {
+                return;
+            }
+            //粒子效果
+            EParticle.NewParticle(
+                new EMediumSmoke(),
+                this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0),
+                new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)),
+                Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()),
+                Main.rand.NextFloat(0.8f, 1.4f),
+                1,
+                true,
+                BlendState.AlphaBlend,
+                CEUtils.randomRot()
+            );
             //淫叫
-            SoundEngine.PlaySound(SoundID.Tink with { PitchRange = (-0.1f, 2f)}, CenterInWorld);
+            SoundEngine.PlaySound(SoundID.Tink with { PitchRange = (-0.1f, 2f) }, CenterInWorld);
+
+            if (targetOffset2.Length() > 1f) 
+            {
+                return;
+            }
+            //蹦跶一下
+            targetOffset2 += new Vector2(0, -116);
         }
         public override void SendData(ModPacket data)
         {
