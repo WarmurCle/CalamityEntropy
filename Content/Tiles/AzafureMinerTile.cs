@@ -17,7 +17,6 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.ObjectData;
 using Terraria.UI;
 
 namespace CalamityEntropy.Content.Tiles
@@ -150,19 +149,23 @@ namespace CalamityEntropy.Content.Tiles
                 HashSet<int> oreTileIDs = [];
                 for (int i = 0; i < TileLoader.TileCount; i++)
                 {
-                    if (TileID.Sets.Ore[i])
+                    var tile = new Tile();
+                    tile.TileType = (ushort)i;
+                    if (TileID.Sets.Ore[i] || CERecipeGroups.gems.ContainsItem(tile.GetTileDrop()))
                     {
                         oreTileIDs.Add(i);
                     }
+                    
                 }
 
                 for (int i = 0; i < ItemLoader.ItemCount; i++)
                 {
                     Item item = new Item(i);
-                    if (item.type == ItemID.None && !(CERecipeGroups.gems.ContainsItem(i)))
+                    if (item.type == ItemID.None)
                     {
                         continue;
                     }
+                    
                     ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile));
                 }
                 
@@ -296,15 +299,20 @@ namespace CalamityEntropy.Content.Tiles
             for (int i = 0; i < 3; i++)
             {
                 Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
-                if (!TileID.Sets.Ore[Main.tile[p.X, p.Y].TileType])
+                
+
+                Tile t = Main.tile[p.X, p.Y];
+                if(!t.HasTile)
                 {
                     continue;
                 }
 
-                Tile t = Main.tile[p.X, p.Y];
                 int itemtype = t.GetTileDrop(p.X, p.Y);
 
-
+                if (!ItemIsOre.ContainsKey(itemtype))
+                {
+                    continue;
+                }
                 if (!types.Contains(itemtype))
                 {
                     continue;
@@ -319,7 +327,7 @@ namespace CalamityEntropy.Content.Tiles
                             continue;
                         }
 
-                        if (!TileID.Sets.Ore[Main.tile[p.X + x, p.Y + y].TileType])
+                        if (!ItemIsOre.ContainsKey(Main.tile[p.X + x, p.Y + y].GetTileDrop()))
                         {
                             continue;
                         }
