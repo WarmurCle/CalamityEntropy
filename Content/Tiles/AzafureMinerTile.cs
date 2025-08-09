@@ -1,15 +1,14 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Particles;
-using CalamityMod;
 using InnoVault;
 using InnoVault.TileProcessors;
+using InnoVault.UIHandles;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using ReLogic.Graphics;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -84,9 +83,49 @@ namespace CalamityEntropy.Content.Tiles
                 if (tp == null)
                     return false;
                 AzMinerUI.tp = (AzMinerTP)tp;
-                AzMinerUI.Active = true;
+                UIHandleLoader.GetUIHandleOfType<AzMinerUI>().Active = !UIHandleLoader.GetUIHandleOfType<AzMinerUI>().Active;
                 Main.playerInventory = true;
+                SoundEngine.PlaySound(SoundID.MenuOpen with { Pitch = 0.3f });
                 return true;
+            }
+            return false;
+        }
+
+        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            if (!VaultUtils.SafeGetTopLeft(i, j, out var point))
+            {
+                return false;
+            }
+            if (!TileProcessorLoader.ByPositionGetTP(point, out AzMinerTP azMinerTP))
+            {
+                return false;
+            }
+
+            Tile t = Main.tile[i, j];
+            int frameXPos = t.TileFrameX;
+            int frameYPos = t.TileFrameY;
+            Texture2D tex = TextureAssets.Tile[Type].Value;
+            Vector2 offset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange) + azMinerTP.OffsetPos;
+            Vector2 drawOffset = new Vector2(i * 16 - Main.screenPosition.X, j * 16 - Main.screenPosition.Y) + offset;
+            Color drawColor = Lighting.GetColor(i, j);
+            if (!azMinerTP.IsWork)
+            {
+                drawColor.R /= 2;
+                drawColor.G /= 2;
+                drawColor.B /= 2;
+                drawColor.A = 255;
+            }
+
+            if (!t.IsHalfBlock && t.Slope == 0)
+            {
+                spriteBatch.Draw(tex, drawOffset, new Rectangle(frameXPos, frameYPos, 16, 16)
+                    , drawColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+            }
+            else if (t.IsHalfBlock)
+            {
+                spriteBatch.Draw(tex, drawOffset + Vector2.UnitY * 8f, new Rectangle(frameXPos, frameYPos, 16, 16)
+                    , drawColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
             }
             return false;
         }
@@ -94,10 +133,60 @@ namespace CalamityEntropy.Content.Tiles
 
     public class AzMinerTP : TileProcessor
     {
+        public override int TargetTileID => ModContent.TileType<AzafureMinerTile>();
         public List<Item> filters;
         public List<Item> items;
         public static int FiltersCount = 6;
         public static int ItemsCount = 35;
+        public bool IsWork;
+        public Vector2 OffsetPos;
+        private Vector2 currentOffset = Vector2.Zero;
+        private Vector2 targetOffset = Vector2.Zero;
+        private float shakeSpeed = 0.1f; //抖动平滑速度
+        public static readonly Dictionary<int, bool> ItemIsOre = [];
+        public override void SetStaticProperty()
+        {
+            try
+            {
+                HashSet<int> oreTileIDs = [];
+                for (int i = 0; i < TileLoader.TileCount; i++)
+                {
+                    if (TileID.Sets.Ore[i])
+                    {
+                        oreTileIDs.Add(i);
+                    }
+                }
+
+                for (int i = 0; i < ItemLoader.ItemCount; i++)
+                {
+                    Item item = new Item(i);
+                    if (item.type == ItemID.None)
+                    {
+                        continue;
+                    }
+                    ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile));
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        public override void SetProperty()
+        {
+            IsWork = true;
+            filters = new List<Item>();
+            items = new List<Item>();
+            for (int i = 0; i < FiltersCount; i++)
+            {
+                filters.Add(new Item());
+            }
+            for (int i = 0; i < ItemsCount; i++)
+            {
+                items.Add(new Item());
+            }
+        }
+
         public override void LoadData(TagCompound tag)
         {
             filters = new List<Item>();
@@ -126,6 +215,7 @@ namespace CalamityEntropy.Content.Tiles
                 }
             }
         }
+
         public override void SaveData(TagCompound tag)
         {
             TagCompound itemSaves = new TagCompound();
@@ -143,6 +233,7 @@ namespace CalamityEntropy.Content.Tiles
             }
             tag.Add("items", itemSaves);
         }
+
         public override void OnKill()
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -162,162 +253,156 @@ namespace CalamityEntropy.Content.Tiles
                 }
             }
         }
-        public override int TargetTileID => ModContent.TileType<AzafureMinerTile>();
-        private void CheckLists()
-        {
-            if (items == null || filters == null || filters.Count == 0 || items.Count == 0)
-            {
-                filters = new List<Item>();
-                items = new List<Item>();
-                for (int i = 0; i < FiltersCount; i++)
-                {
-                    filters.Add(new Item());
-                }
-                for (int i = 0; i < ItemsCount; i++)
-                {
-                    items.Add(new Item());
-                }
-            }
-        }
+
         public override void Update()
         {
-            CheckLists();
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (IsWork)
             {
-                bool f = false;
-                List<int> types = new List<int>();
-                foreach (Item item in filters)
+                //随机目标抖动点，范围 ±1.5
+                targetOffset = new Vector2(
+                    Main.rand.NextFloat(-8f, 8f),
+                    Main.rand.NextFloat(-4f, 10f)
+                );
+
+                //让 currentOffset 缓慢向 targetOffset 逼近，产生平滑抖动效果
+                currentOffset = Vector2.Lerp(currentOffset, targetOffset, 0.1f);
+            }
+            else
+            {
+                //非工作时平滑回到0
+                currentOffset = Vector2.Lerp(currentOffset, Vector2.Zero, 0.1f);
+            }
+
+            OffsetPos = new Vector2((int)currentOffset.X, (int)currentOffset.Y);
+
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                return;
+            }
+
+            bool didMine = false;
+            List<int> types = new List<int>();
+            IsWork = false;
+            foreach (Item item in filters)
+            {
+                if (item.type == ItemID.None)
                 {
-                    types.Add(item.type);
+                    continue;
                 }
-                for (int i = 0; i < 3; i++)
+                types.Add(item.type);
+                IsWork = true;
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
+                if (!TileID.Sets.Ore[Main.tile[p.X, p.Y].TileType])
                 {
-                    Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
-                    if (TileID.Sets.Ore[Main.tile[p.X, p.Y].TileType])
+                    continue;
+                }
+
+                Tile t = Main.tile[p.X, p.Y];
+                int itemtype = t.GetTileDrop(p.X, p.Y);
+
+
+                if (!types.Contains(itemtype))
+                {
+                    continue;
+                }
+
+                for (int x = -14; x < 15; x++)
+                {
+                    for (int y = -14; y < 15; y++)
                     {
-                        Tile t = Main.tile[p.X, p.Y];
-                        if (method == null)
-                        {
-                            method = typeof(WorldGen).GetMethod("KillTile_GetItemDrops", BindingFlags.Static | BindingFlags.NonPublic,
-                                null,
-                                new System.Type[]
-                                {
-                    typeof(int), typeof(int), typeof(Tile), typeof(int).MakeByRefType(),
-                    typeof(int).MakeByRefType(), typeof(int).MakeByRefType(),
-                    typeof(int).MakeByRefType(), typeof(bool)
-                                },
-                                null);
-                        }
-                        int itemtype = t.GetTileDorp();
-                        if (itemtype <= 0)
-                        {
-                            object[] parameters = new object[]
-                            {
-                p.X, p.Y, t, null, null, null, null, false
-                            };
-                            method.Invoke(null, parameters);
-                            itemtype = (int)parameters[3];
-                        }
-                        if (!types.Contains(itemtype))
+                        if (!CEUtils.inWorld(p.X + x, p.Y + y))
                         {
                             continue;
                         }
-                        for (int x = -14; x < 15; x++)
+
+                        if (!TileID.Sets.Ore[Main.tile[p.X + x, p.Y + y].TileType])
                         {
-                            for (int y = -14; y < 15; y++)
-                            {
-                                if (CEUtils.inWorld(p.X + x, p.Y + y))
-                                {
-                                    if (TileID.Sets.Ore[Main.tile[p.X + x, p.Y + y].TileType])
-                                        if (MineOre(p.X + x, p.Y + y))
-                                        {
-                                            f = true;
-                                        }
-                                }
-                            }
+                            continue;
                         }
+
+                        if (!MineOre(p.X + x, p.Y + y))
+                        {
+                            continue;
+                        }
+                        didMine = true;
                     }
                 }
-                if (f)
-                {
-                    this.SendData();
-                }
             }
+
+            if (!didMine)
+            {
+                return;
+            }
+
+            SendData();
         }
-        public static MethodBase method;
+
         public bool MineOre(int x, int y)
         {
             Tile t = Main.tile[x, y];
-            if (method == null)
-            {
-                method = typeof(WorldGen).GetMethod("KillTile_GetItemDrops", BindingFlags.Static | BindingFlags.NonPublic,
-                    null,
-                    new System.Type[]
-                    {
-                    typeof(int), typeof(int), typeof(Tile), typeof(int).MakeByRefType(),
-                    typeof(int).MakeByRefType(), typeof(int).MakeByRefType(),
-                    typeof(int).MakeByRefType(), typeof(bool)
-                    },
-                    null);
-            }
-            int itemtype = t.GetTileDorp();
+            int itemtype = t.GetTileDrop(x, y);
             if (itemtype <= 0)
             {
-                object[] parameters = new object[]
-                {
-                x, y, t, null, null, null, null, false
-                };
-                method.Invoke(null, parameters);
-                itemtype = (int)parameters[3];
+                return false;
             }
-            if (itemtype > 0)
+            foreach (var i in filters)
             {
-                foreach (var i in filters)
+                if (i.type != itemtype)
                 {
-                    if (i.type == itemtype)
+                    continue;
+                }
+                foreach (var c in items)
+                {
+                    if (c.type != itemtype || c.stack >= c.maxStack)
                     {
-                        foreach (var c in items)
-                        {
-                            if (c.type == itemtype && c.stack < c.maxStack)
-                            {
-                                c.stack++;
-                                Main.tile[x, y].ClearTile();
-                                if (Main.dedServ)
-                                {
-                                    NetMessage.SendTileSquare(-1, x, y);
-                                }
-                                if (Main.rand.NextBool(12))
-                                {
-                                    EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
-                                }
-                                return true;
-                            }
-                        }
-                        foreach (var c in items)
-                        {
-                            if (c.IsAir)
-                            {
-                                c.SetDefaults(itemtype);
-                                Main.tile[x, y].ClearTile();
-                                if (Main.dedServ)
-                                {
-                                    NetMessage.SendTileSquare(-1, x, y);
-                                }
-                                if (Main.rand.NextBool(12))
-                                {
-                                    EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0), new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
-                                }
-                                return true;
-                            }
-                        }
+                        continue;
                     }
+                    c.stack++;
+                    Main.tile[x, y].ClearTile();
+                    if (Main.dedServ)
+                    {
+                        NetMessage.SendTileSquare(-1, x, y);
+                    }
+                    if (Main.rand.NextBool(12))
+                    {
+                        EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0)
+                            , new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0)
+                            , Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1
+                            , true, BlendState.AlphaBlend, CEUtils.randomRot());
+                    }
+                    return true;
+                }
+                foreach (var c in items)
+                {
+                    if (!c.IsAir)
+                    {
+                        continue;
+                    }
+                    c.SetDefaults(itemtype);
+                    Main.tile[x, y].ClearTile();
+                    if (Main.dedServ)
+                    {
+                        NetMessage.SendTileSquare(-1, x, y);
+                    }
+                    if (Main.rand.NextBool(12))
+                    {
+                        EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0)
+                            , new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0)
+                            , Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1
+                            , true, BlendState.AlphaBlend, CEUtils.randomRot());
+                    }
+                    return true;
                 }
             }
             return false;
         }
         public override void SendData(ModPacket data)
         {
-            CheckLists();
+            data.Write(IsWork);
             for (int i = 0; i < FiltersCount; i++)
             {
                 Item item = filters[i];
@@ -336,7 +421,7 @@ namespace CalamityEntropy.Content.Tiles
 
         public override void ReceiveData(BinaryReader reader, int whoAmI)
         {
-            CheckLists();
+            IsWork = reader.ReadBoolean();
             for (int i = 0; i < FiltersCount; i++)
             {
                 Item item = new Item(reader.ReadInt32());
@@ -354,7 +439,7 @@ namespace CalamityEntropy.Content.Tiles
         }
     }
 
-    public static class AzMinerUI
+    public class AzMinerUI : UIHandle
     {
         [VaultLoaden("CalamityEntropy/Assets/UI/Miner/AzafureMinerUI")]
         private static Asset<Texture2D> UIBarTex;
@@ -362,21 +447,78 @@ namespace CalamityEntropy.Content.Tiles
         private static Asset<Texture2D> UISlotTex;
         [VaultLoaden("CalamityEntropy/Assets/UI/Miner/UISlot2")]
         private static Asset<Texture2D> UISlotFilterTex;
-        public static bool Active = false;
+        private static bool IsActive;
+        public override bool Active {
+            get {
+                return IsActive || sengs > 0;
+            }
+            set => IsActive = value;
+        }
         public static AzMinerTP tp = null;
         public static List<UISlot> filters;
         public static List<UISlot> items;
-        public static Vector2 baseCenter = Main.ScreenSize.ToVector2() / 2f;
-
-        public static void Update()
+        private bool onDrag;
+        private bool onTopDarg;
+        private Vector2 dragOffset;
+        private static float sengs = 0;
+        public override void Update()
         {
-            if (!Active || tp == null)
+            if (!IsActive)
+            {
+                if (sengs > 0f)
+                {
+                    sengs -= 0.1f;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (sengs < 1f)
+            {
+                sengs += 0.1f;
+            }
+
+            sengs = MathHelper.Clamp(sengs, 0f, 1f);
+
+            if (tp == null)
             {
                 return;
             }
+
+            if (sengs < 1f) {
+                DrawPosition = Vector2.Lerp(DrawPosition, new Vector2(UIBarTex.Width() * sengs, Main.screenHeight / 2), 0.2f);
+            }
+            
+            UIHitBox = (DrawPosition - UIBarTex.Size() / 2).GetRectangle(UIBarTex.Size());
+            hoverInMainPage = UIHitBox.Intersects(MouseHitBox);
+            if (hoverInMainPage) {
+                player.mouseInterface = true;
+                if (keyLeftPressState == KeyPressState.Held && !onTopDarg) {
+                    if (!onDrag) {
+                        dragOffset = DrawPosition - MousePosition;
+                    }
+                    onDrag = true;
+                }
+            }
+
+            if (onDrag) {
+                player.mouseInterface = true;
+                DrawPosition = MousePosition + dragOffset;
+
+                //限制 UI 位置不超出屏幕
+                Vector2 halfSize = UIBarTex.Size() / 2f;
+                DrawPosition.X = MathHelper.Clamp(DrawPosition.X, halfSize.X, Main.screenWidth - halfSize.X);
+                DrawPosition.Y = MathHelper.Clamp(DrawPosition.Y, halfSize.Y, Main.screenHeight - halfSize.Y);
+
+                if (keyLeftPressState == KeyPressState.Released || onTopDarg) {
+                    onDrag = false;
+                }
+            }
+
             if (!Main.playerInventory || tp.CenterInWorld.Distance(Main.LocalPlayer.Center) > 20 * 10)
             {
-                Active = false;
+                IsActive = false;
                 return;
             }
             foreach (UISlot s in filters)
@@ -389,36 +531,44 @@ namespace CalamityEntropy.Content.Tiles
             }
 
         }
-        public static void Draw()
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            if (!Active || tp == null)
+            if (!Active)
             {
                 return;
             }
-            Main.spriteBatch.Draw(UIBarTex.Value, baseCenter, null, Color.White, 0, UIBarTex.Value.Size() / 2f, 1, SpriteEffects.None, 0);
+
+            if (tp == null)
+            {
+                return;
+            }
+
+            Color drawColor = Color.White * sengs;
+
+            Main.spriteBatch.Draw(UIBarTex.Value, DrawPosition, null, drawColor, 0, UIBarTex.Value.Size() / 2f, sengs, SpriteEffects.None, 0);
             foreach (var slot in filters)
             {
                 Texture2D tex = UISlotFilterTex.Value;
-                Main.spriteBatch.Draw(tex, baseCenter + slot.pos, null, Color.White, 0, tex.Size() / 2f, 1, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, DrawPosition + slot.pos * sengs, null, drawColor, 0, tex.Size() / 2f, 1, SpriteEffects.None, 0);
                 if (slot.getItem().IsAir)
                 {
                     continue;
                 }
                 slot.CheckHover();
-                ItemSlot.DrawItemIcon(slot.getItem(), 1, Main.spriteBatch, slot.pos + baseCenter, 1, 128, Color.White);
-                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.getItem().stack.ToString(), slot.pos + baseCenter + new Vector2(-15, 6), Color.White, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
+                ItemSlot.DrawItemIcon(slot.getItem(), 1, Main.spriteBatch, slot.pos * sengs + DrawPosition, 1, 128, drawColor);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.getItem().stack.ToString(), slot.pos + DrawPosition + new Vector2(-15, 6), drawColor, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
             }
             foreach (var slot in items)
             {
                 Texture2D tex = UISlotTex.Value;
-                Main.spriteBatch.Draw(tex, baseCenter + slot.pos, null, Color.White, 0, tex.Size() / 2f, 1, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, DrawPosition + slot.pos, null, drawColor, 0, tex.Size() / 2f, 1, SpriteEffects.None, 0);
                 if (slot.getItem().IsAir)
                 {
                     continue;
                 }
                 slot.CheckHover();
-                ItemSlot.DrawItemIcon(slot.getItem(), 1, Main.spriteBatch, slot.pos + baseCenter, 1, 128, Color.White);
-                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.getItem().stack.ToString(), slot.pos + baseCenter + new Vector2(-15, 6), Color.White, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
+                ItemSlot.DrawItemIcon(slot.getItem(), 1, Main.spriteBatch, slot.pos + DrawPosition, 1, 128, drawColor);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.getItem().stack.ToString(), slot.pos + DrawPosition + new Vector2(-15, 6), drawColor, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
             }
         }
         public class UISlot
@@ -429,10 +579,7 @@ namespace CalamityEntropy.Content.Tiles
             public int X = 20;
             public int Y = 20;
             public bool mlLast = false;
-            public Rectangle GetRect()
-            {
-                return (baseCenter + pos).getRectCentered(X * 2, Y * 2);
-            }
+            public Rectangle GetRect() => (UIHandleLoader.GetUIHandleOfType<AzMinerUI>().DrawPosition + pos).getRectCentered(X * 2, Y * 2);
             public Item getItem()
             {
                 if (type == 0)
@@ -454,72 +601,87 @@ namespace CalamityEntropy.Content.Tiles
                     }
                 }
             }
-            public void Update()
+            private void DoUpdate()
             {
-                if (Main.MouseScreen.getRectCentered(1, 1).Intersects(this.GetRect()))
+                if (!Main.MouseScreen.getRectCentered(1, 1).Intersects(this.GetRect()))
                 {
-                    Main.LocalPlayer.mouseInterface = true;
-                    if (getItem().IsAir && type == 0 && Main.mouseItem.IsAir)
+                    return;
+                }
+                Main.LocalPlayer.mouseInterface = true;
+                if (getItem().IsAir && type == 0 && Main.mouseItem.IsAir)
+                {
+                    Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo2").Value);
+                }
+                if (Main.mouseItem.IsAir && getItem().IsAir)
+                {
+                    return;
+                }
+                if (mlLast || !Main.mouseLeft)
+                {
+                    return;
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                {
+                    SoundEngine.PlaySound(SoundID.Grab);
+                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Loot(), getItem(), getItem().stack);
+                    if (type == 0)
                     {
-                        Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo2").Value);
+                        tp.filters[itemIndex].TurnToAir();
                     }
-                    if (!(Main.mouseItem.IsAir && getItem().IsAir))
+                    else
                     {
-                        if (!mlLast && Main.mouseLeft)
+                        tp.items[itemIndex].TurnToAir();
+                    }
+
+                }
+                else
+                {
+                    if (Main.mouseItem.type == getItem().type)
+                    {
+                        SoundEngine.PlaySound(SoundID.Grab);
+                        if (type == 0)
                         {
-                            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
-                            {
-                                SoundEngine.PlaySound(SoundID.Grab);
-                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Loot(), getItem(), getItem().stack);
-                                if (type == 0)
-                                {
-                                    tp.filters[itemIndex].TurnToAir();
-                                }
-                                else
-                                {
-                                    tp.items[itemIndex].TurnToAir();
-                                }
+                            tp.filters[itemIndex].stack += Main.mouseItem.stack;
+                        }
+                        else
+                        {
+                            tp.items[itemIndex].stack += Main.mouseItem.stack;
+                        }
+                        Main.mouseItem.TurnToAir();
+                    }
+                    else
+                    {
+                        // 判断鼠标物品是否为矿石
+                        bool mouseIsOre = AzMinerTP.ItemIsOre.TryGetValue(Main.mouseItem.type, out bool isOre) && isOre;
 
-                            }
-                            else
-                            {
-                                if (Main.mouseItem.type == getItem().type)
-                                {
-                                    SoundEngine.PlaySound(SoundID.Grab);
-                                    if (type == 0)
-                                    {
-                                        tp.filters[itemIndex].stack += Main.mouseItem.stack;
-                                    }
-                                    else
-                                    {
-                                        tp.items[itemIndex].stack += Main.mouseItem.stack;
-                                    }
-                                    Main.mouseItem.TurnToAir();
-                                }
-                                else
-                                {
+                        if (!mouseIsOre && Main.mouseItem.type != ItemID.None)
+                        {
+                            SoundEngine.PlaySound(SoundID.MenuTick);
+                            Main.NewText("只能放入矿石！", Color.Red);
+                            return;
+                        }
 
-                                    SoundEngine.PlaySound(SoundID.Grab);
-                                    Item mouse = Main.mouseItem.Clone();
-                                    if (type == 0)
-                                    {
-                                        Main.mouseItem = tp.filters[itemIndex].Clone();
-                                        tp.filters[itemIndex] = mouse;
-                                    }
-                                    else
-                                    {
-                                        Main.mouseItem = tp.items[itemIndex].Clone();
-                                        tp.items[itemIndex] = mouse;
-                                    }
-                                }
-                            }
-                            tp.SendData();
+                        SoundEngine.PlaySound(SoundID.Grab);
+                        Item mouse = Main.mouseItem.Clone();
+                        if (type == 0)
+                        {
+                            Main.mouseItem = tp.filters[itemIndex].Clone();
+                            tp.filters[itemIndex] = mouse;
+                        }
+                        else
+                        {
+                            Main.mouseItem = tp.items[itemIndex].Clone();
+                            tp.items[itemIndex] = mouse;
                         }
                     }
                 }
+                tp.SendData();
+            }
+            public void Update()
+            {
+                DoUpdate();
                 mlLast = Main.mouseLeft;
             }
         }
-
     }
 }

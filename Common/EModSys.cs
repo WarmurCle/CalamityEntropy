@@ -252,7 +252,6 @@ namespace CalamityEntropy.Common
             {
                 CalamityEntropy.Instance.userInterface?.Update(gameTime);
             }
-            AzMinerUI.Update();
         }
 
         public override void PostUpdateDusts()
@@ -477,15 +476,6 @@ namespace CalamityEntropy.Common
                 delegate
                 {
                     EBookUI.draw();
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer(
-                "CalamityEntropy: Azafure Miner UI",
-                delegate
-                {
-                    AzMinerUI.Draw();
                     return true;
                 },
                 InterfaceScaleType.UI)
