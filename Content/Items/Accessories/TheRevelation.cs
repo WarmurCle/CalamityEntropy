@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().revelation = true; 
+            player.Entropy().revelation = true;
             if (player.controlJump && player.wingTime > 0f && player.jump == 0)
             {
                 bool hovering = player.TryingToHoverDown && !player.merman;

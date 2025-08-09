@@ -3131,6 +3131,9 @@ Projectiles: {
 	VineHookHit.DisplayName: Vine Hook Hit
 	BramblecleaveAlt.DisplayName: BramblecleaveAlt
 	BrambleShoot.DisplayName: Bramble Shoot
+	SRDamageRect.DisplayName: S R Damage Rect
+	SpiritBullet.DisplayName: Spirit Bullet
+	SpiritLaser.DisplayName: Spirit Laser
 }
 
 LegendTooltip: - Legend -
@@ -3513,6 +3516,8 @@ NPCs: {
 	}
 
 	Harpoon.DisplayName: Harpoon
+	SpiritFountain.DisplayName: Spirit Fountain
+	SpiritRing.DisplayName: Spirit Ring
 }
 
 WyrmChatNoHome: Where are we going now?

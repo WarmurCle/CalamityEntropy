@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White * Projectile.ai[2];
-            
+
             if (Projectile.timeLeft < 30)
             {
                 lightColor *= ((float)Projectile.timeLeft / 30f);

@@ -138,8 +138,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                         {
                             player.Heal(Bramblecleave.GetLevel() / 2);
                         }
-                        float lg = (HookNPC.ToNPC().Center - player.Center).Length();
-                        Vector2 vj = (HookNPC.ToNPC().Center - player.Center).normalize() * lg * lg * 0.00000085f * (1 - (400 + Bramblecleave.GetLevel() * 60) / (400 + 14f * 60));
+                        float lg = CEUtils.getDistance(HookNPC.ToNPC().Center, player.Center);
+                        Vector2 vj = (HookNPC.ToNPC().Center - player.Center).normalize() * lg * lg * 0.000005f * (1.1f - (400f + Bramblecleave.GetLevel() * 60) / (400 + 15f * 60));
                         player.velocity += vj;
                         HookNPC.ToNPC().velocity -= vj * HookNPC.ToNPC().knockBackResist;
                         Projectile.rotation = (HookNPC.ToNPC().Center - Projectile.Center).ToRotation();

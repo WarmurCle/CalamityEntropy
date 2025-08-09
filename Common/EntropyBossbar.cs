@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
+using CalamityEntropy.Content.NPCs.SpiritFountain;
 using CalamityMod;
 using CalamityMod.NPCs.ProfanedGuardians;
 using CalamityMod.NPCs.Providence;
@@ -105,8 +106,8 @@ namespace CalamityEntropy.Common
                 turnColorBtm = Color.Red;
             }
             buttomColor = Color.Lerp(buttomColor, turnColorBtm, 0.1f);
-
-            if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
+            bool immune = npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore) && !(npc.ModNPC is SpiritFountain);
+            if (immune)
             {
                 barColor = Color.Lerp(barColor, new Color(200, 106, 205), 0.1f);
             }
@@ -148,12 +149,12 @@ namespace CalamityEntropy.Common
             }
             if (prog == 0)
             {
-                if (!npc.dontTakeDamage || npc.ModNPC is SlimeGodCore)
+                if (!immune)
                 {
                     barColor = getNpcBarColor(npc);
                 }
             }
-            if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
+            if (immune)
             {
                 comboTime = 0;
             }
@@ -243,7 +244,7 @@ namespace CalamityEntropy.Common
             spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
 
-            if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore) && !namelessDeity)
+            if (immune && !namelessDeity)
             {
                 spriteBatch.Draw(barLocked, center, new Rectangle(0, 0, 18 + (int)(500 * prog), bar1.Height), Color.Lerp(barColor, Color.White, 0.36f), 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
 

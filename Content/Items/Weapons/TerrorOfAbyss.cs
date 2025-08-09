@@ -113,7 +113,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.PlaySound("Dizzy", 1 + Projectile.ai[0] * 0.08f, Projectile.Center);
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;
-                
+
             }
             Projectile.timeLeft = 3;
             float RotF = 4.4f;
@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                if(odr.Count > 0)
+                if (odr.Count > 0)
                 {
                     odr.RemoveAt(0);
                 }

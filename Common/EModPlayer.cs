@@ -1467,7 +1467,7 @@ namespace CalamityEntropy.Common
         public int BBarNoDecrease = 0;
         public override void PostUpdate()
         {
-            if(hasAcc(AzafureDetectionEquipment.ID))
+            if (hasAcc(AzafureDetectionEquipment.ID))
             {
                 if (Player.controlJump && Player.wingTime > 0f && Player.jump == 0 && Player.controlUp)
                 {

@@ -14,8 +14,6 @@ using CalamityMod.Events;
 using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
-using CalamityOverhaul;
-using InnoVault;
 using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
