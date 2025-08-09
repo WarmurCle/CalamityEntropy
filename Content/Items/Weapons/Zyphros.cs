@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 12f;
             Item.useAmmo = AmmoID.Arrow;
             Item.autoReuse = true;
-            Item.ArmorPenetration = 12;
+            Item.ArmorPenetration = 100;
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.rare = ModContent.RarityType<AbyssalBlue>();
 
