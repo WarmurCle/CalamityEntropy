@@ -150,22 +150,22 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             int dmg = Item.damage;
             switch (level)
             {
-                case 0: dmg = 24; break;
-                case 1: dmg = 36; break;
-                case 2: dmg = 46; break;
-                case 3: dmg = 50; break;
-                case 4: dmg = 76; break;
-                case 5: dmg = 165; break;
-                case 6: dmg = 180; break;
-                case 7: dmg = 220; break;
-                case 8: dmg = 280; break;
-                case 9: dmg = 300; break;
-                case 10: dmg = 460; break;
-                case 11: dmg = 600; break;
-                case 12: dmg = 777; break;
-                case 13: dmg = 1000; break;
-                case 14: dmg = 1250; break;
-                case 15: dmg = 1600; break;
+                case 0: dmg = 10; break;
+                case 1: dmg = 30; break;
+                case 2: dmg = 35; break;
+                case 3: dmg = 45; break;
+                case 4: dmg = 55; break;
+                case 5: dmg = 80; break;
+                case 6: dmg = 90; break;
+                case 7: dmg = 100; break;
+                case 8: dmg = 130; break;
+                case 9: dmg = 160; break;
+                case 10: dmg = 350; break;
+                case 11: dmg = 510; break;
+                case 12: dmg = 1000; break;
+                case 13: dmg = 1250; break;
+                case 14: dmg = 1400; break;
+                case 15: dmg = 1900; break;
             }
             Item.damage = dmg;
 
