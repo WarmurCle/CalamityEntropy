@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
     public class WisperCard : ModItem
     {
-        public static float ImmuneAdd = 0.25f;
+        public static float ImmuneAdd = 0.2f;
         public override void SetDefaults()
         {
             Item.width = 22;
