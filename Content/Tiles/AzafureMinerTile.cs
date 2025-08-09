@@ -9,6 +9,7 @@ using ReLogic.Content;
 using ReLogic.Graphics;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -143,6 +144,7 @@ namespace CalamityEntropy.Content.Tiles
         private Vector2 currentOffset = Vector2.Zero;
         private Vector2 targetOffset = Vector2.Zero;
         public static readonly Dictionary<int, bool> ItemIsOre = [];
+        public readonly static HashSet<int> gemIDs = [ItemID.Ruby, ItemID.Sapphire, ItemID.Diamond, ItemID.Emerald, ItemID.Topaz, ItemID.Amethyst];
         public override void SetStaticProperty()
         {
             try
@@ -152,11 +154,10 @@ namespace CalamityEntropy.Content.Tiles
                 {
                     var tile = new Tile();
                     tile.TileType = (ushort)i;
-                    if (TileID.Sets.Ore[i] || CERecipeGroups.gems.ContainsItem(tile.GetTileDrop()))
+                    if (TileID.Sets.Ore[i])
                     {
                         oreTileIDs.Add(i);
                     }
-                    
                 }
 
                 for (int i = 0; i < ItemLoader.ItemCount; i++)
@@ -166,10 +167,10 @@ namespace CalamityEntropy.Content.Tiles
                     {
                         continue;
                     }
-                    
-                    ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile));
+
+                    ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile) || gemIDs.Contains(i));
                 }
-                
+
             }
             catch
             {
@@ -300,10 +301,10 @@ namespace CalamityEntropy.Content.Tiles
             for (int i = 0; i < 3; i++)
             {
                 Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
-                
+
 
                 Tile t = Main.tile[p.X, p.Y];
-                if(!t.HasTile)
+                if (!t.HasTile)
                 {
                     continue;
                 }
@@ -328,7 +329,7 @@ namespace CalamityEntropy.Content.Tiles
                             continue;
                         }
 
-                        if (!ItemIsOre.ContainsKey(Main.tile[p.X + x, p.Y + y].GetTileDrop()))
+                        if (!ItemIsOre.ContainsKey(Main.tile[p.X + x, p.Y + y].GetTileDrop(p.X + x, p.Y + y)))
                         {
                             continue;
                         }
@@ -353,61 +354,75 @@ namespace CalamityEntropy.Content.Tiles
         public bool MineOre(int x, int y)
         {
             Tile t = Main.tile[x, y];
-            int itemtype = t.GetTileDrop(x, y);
-            if (itemtype <= 0)
+            int itemType = t.GetTileDrop(x, y);
+            if (itemType <= 0)
             {
                 return false;
             }
-            foreach (var i in filters)
+
+            //先检查矿石是否在过滤器里
+            bool matchesFilter = filters.Any(f => f.type == itemType);
+            if (!matchesFilter)
             {
-                if (i.type != itemtype)
+                return false;
+            }
+
+            //先尝试堆叠已有物品
+            foreach (var slot in items)
+            {
+                if (slot.type != itemType || slot.stack >= slot.maxStack)
                 {
                     continue;
                 }
-                foreach (var c in items)
-                {
-                    if (c.type != itemtype || c.stack >= c.maxStack)
-                    {
-                        continue;
-                    }
-                    c.stack++;
-                    Main.tile[x, y].ClearTile();
-                    if (Main.dedServ)
-                    {
-                        NetMessage.SendTileSquare(-1, x, y);
-                    }
-                    if (Main.rand.NextBool(12))
-                    {
-                        EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0)
-                            , new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0)
-                            , Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1
-                            , true, BlendState.AlphaBlend, CEUtils.randomRot());
-                    }
-                    return true;
-                }
-                foreach (var c in items)
-                {
-                    if (!c.IsAir)
-                    {
-                        continue;
-                    }
-                    c.SetDefaults(itemtype);
-                    Main.tile[x, y].ClearTile();
-                    if (Main.dedServ)
-                    {
-                        NetMessage.SendTileSquare(-1, x, y);
-                    }
-                    if (Main.rand.NextBool(12))
-                    {
-                        EParticle.NewParticle(new EMediumSmoke(), this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0)
-                            , new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0)
-                            , Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1
-                            , true, BlendState.AlphaBlend, CEUtils.randomRot());
-                    }
-                    return true;
-                }
+                slot.stack++;
+                PerformMineEffects(x, y);
+                return true;
             }
+
+            //再尝试放到空格
+            foreach (var slot in items)
+            {
+                if (!slot.IsAir)
+                {
+                    continue;
+                }
+                slot.SetDefaults(itemType);
+                PerformMineEffects(x, y);
+                return true;
+            }
+
             return false;
+        }
+
+        /// <summary>
+        /// 执行采矿后通用的视觉/音效/网络同步
+        /// </summary>
+        private void PerformMineEffects(int x, int y)
+        {
+            Main.tile[x, y].ClearTile();
+            if (Main.dedServ)
+            {
+                NetMessage.SendTileSquare(-1, x, y);
+            }
+
+            //粒子效果
+            if (Main.rand.NextBool(12))
+            {
+                EParticle.NewParticle(
+                    new EMediumSmoke(),
+                    this.CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0),
+                    new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)),
+                    Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()),
+                    Main.rand.NextFloat(0.8f, 1.4f),
+                    1,
+                    true,
+                    BlendState.AlphaBlend,
+                    CEUtils.randomRot()
+                );
+            }
+
+            //淫叫
+            SoundEngine.PlaySound(SoundID.Tink with { PitchRange = (-0.1f, 2f)}, CenterInWorld);
         }
         public override void SendData(ModPacket data)
         {
@@ -457,8 +472,10 @@ namespace CalamityEntropy.Content.Tiles
         [VaultLoaden("CalamityEntropy/Assets/UI/Miner/UISlot2")]
         private static Asset<Texture2D> UISlotFilterTex;
         private static bool IsActive;
-        public override bool Active {
-            get {
+        public override bool Active
+        {
+            get
+            {
                 return IsActive || sengs > 0;
             }
             set => IsActive = value;
@@ -495,23 +512,28 @@ namespace CalamityEntropy.Content.Tiles
                 return;
             }
 
-            if (sengs < 1f) {
+            if (sengs < 1f)
+            {
                 DrawPosition = Vector2.Lerp(DrawPosition, new Vector2(UIBarTex.Width() * sengs, Main.screenHeight / 2), 0.2f);
             }
-            
+
             UIHitBox = (DrawPosition - UIBarTex.Size() / 2).GetRectangle(UIBarTex.Size());
             hoverInMainPage = UIHitBox.Intersects(MouseHitBox);
-            if (hoverInMainPage) {
+            if (hoverInMainPage)
+            {
                 player.mouseInterface = true;
-                if (keyLeftPressState == KeyPressState.Held && !onTopDarg) {
-                    if (!onDrag) {
+                if (keyLeftPressState == KeyPressState.Held && !onTopDarg)
+                {
+                    if (!onDrag)
+                    {
                         dragOffset = DrawPosition - MousePosition;
                     }
                     onDrag = true;
                 }
             }
 
-            if (onDrag) {
+            if (onDrag)
+            {
                 player.mouseInterface = true;
                 DrawPosition = MousePosition + dragOffset;
 
@@ -520,7 +542,8 @@ namespace CalamityEntropy.Content.Tiles
                 DrawPosition.X = MathHelper.Clamp(DrawPosition.X, halfSize.X, Main.screenWidth - halfSize.X);
                 DrawPosition.Y = MathHelper.Clamp(DrawPosition.Y, halfSize.Y, Main.screenHeight - halfSize.Y);
 
-                if (keyLeftPressState == KeyPressState.Released || onTopDarg) {
+                if (keyLeftPressState == KeyPressState.Released || onTopDarg)
+                {
                     onDrag = false;
                 }
             }
@@ -559,25 +582,25 @@ namespace CalamityEntropy.Content.Tiles
             {
                 Texture2D tex = UISlotFilterTex.Value;
                 Main.spriteBatch.Draw(tex, DrawPosition + slot.pos * sengs, null, drawColor, 0, tex.Size() / 2f, 1, SpriteEffects.None, 0);
-                if (slot.getItem().IsAir)
+                if (slot.GetItem().IsAir)
                 {
                     continue;
                 }
                 slot.CheckHover();
-                ItemSlot.DrawItemIcon(slot.getItem(), 1, Main.spriteBatch, slot.pos * sengs + DrawPosition, 1, 128, drawColor);
-                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.getItem().stack.ToString(), slot.pos + DrawPosition + new Vector2(-15, 6), drawColor, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
+                ItemSlot.DrawItemIcon(slot.GetItem(), 1, Main.spriteBatch, slot.pos * sengs + DrawPosition, 1, 128, drawColor);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.GetItem().stack.ToString(), slot.pos + DrawPosition + new Vector2(-15, 6), drawColor, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
             }
             foreach (var slot in items)
             {
                 Texture2D tex = UISlotTex.Value;
                 Main.spriteBatch.Draw(tex, DrawPosition + slot.pos, null, drawColor, 0, tex.Size() / 2f, 1, SpriteEffects.None, 0);
-                if (slot.getItem().IsAir)
+                if (slot.GetItem().IsAir)
                 {
                     continue;
                 }
                 slot.CheckHover();
-                ItemSlot.DrawItemIcon(slot.getItem(), 1, Main.spriteBatch, slot.pos + DrawPosition, 1, 128, drawColor);
-                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.getItem().stack.ToString(), slot.pos + DrawPosition + new Vector2(-15, 6), drawColor, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
+                ItemSlot.DrawItemIcon(slot.GetItem(), 1, Main.spriteBatch, slot.pos + DrawPosition, 1, 128, drawColor);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.GetItem().stack.ToString(), slot.pos + DrawPosition + new Vector2(-15, 6), drawColor, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
             }
         }
         public class UISlot
@@ -589,7 +612,7 @@ namespace CalamityEntropy.Content.Tiles
             public int Y = 20;
             public bool mlLast = false;
             public Rectangle GetRect() => (UIHandleLoader.GetUIHandleOfType<AzMinerUI>().DrawPosition + pos).getRectCentered(X * 2, Y * 2);
-            public Item getItem()
+            public Item GetItem()
             {
                 if (type == 0)
                 {
@@ -604,9 +627,9 @@ namespace CalamityEntropy.Content.Tiles
             {
                 if (Main.MouseScreen.getRectCentered(1, 1).Intersects(this.GetRect()))
                 {
-                    if (Main.mouseItem.IsAir && !getItem().IsAir)
+                    if (Main.mouseItem.IsAir && !GetItem().IsAir)
                     {
-                        CEUtils.showItemTooltip(getItem());
+                        CEUtils.showItemTooltip(GetItem());
                     }
                 }
             }
@@ -617,11 +640,11 @@ namespace CalamityEntropy.Content.Tiles
                     return;
                 }
                 Main.LocalPlayer.mouseInterface = true;
-                if (getItem().IsAir && type == 0 && Main.mouseItem.IsAir)
+                if (GetItem().IsAir && type == 0 && Main.mouseItem.IsAir)
                 {
                     Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo2").Value);
                 }
-                if (Main.mouseItem.IsAir && getItem().IsAir)
+                if (Main.mouseItem.IsAir && GetItem().IsAir)
                 {
                     return;
                 }
@@ -632,7 +655,7 @@ namespace CalamityEntropy.Content.Tiles
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
                     SoundEngine.PlaySound(SoundID.Grab);
-                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Loot(), getItem(), getItem().stack);
+                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Loot(), GetItem(), GetItem().stack);
                     if (type == 0)
                     {
                         tp.filters[itemIndex].TurnToAir();
@@ -645,18 +668,35 @@ namespace CalamityEntropy.Content.Tiles
                 }
                 else
                 {
-                    if (Main.mouseItem.type == getItem().type)
+                    bool setMouseAir = true;
+                    if (Main.mouseItem.type == GetItem().type)
                     {
                         SoundEngine.PlaySound(SoundID.Grab);
-                        if (type == 0)
+
+                        Item targetSlot = (type == 0) ? tp.filters[itemIndex] : tp.items[itemIndex];
+
+                        int total = targetSlot.stack + Main.mouseItem.stack;
+                        if (total > targetSlot.maxStack)
                         {
-                            tp.filters[itemIndex].stack += Main.mouseItem.stack;
+                            // 计算多余的数量
+                            int overflow = total - targetSlot.maxStack;
+
+                            // 填满当前槽位
+                            targetSlot.stack = targetSlot.maxStack;
+                            setMouseAir = false;
+                            Main.mouseItem.stack = overflow;
                         }
                         else
                         {
-                            tp.items[itemIndex].stack += Main.mouseItem.stack;
+                            // 正常合并
+                            targetSlot.stack = total;
                         }
-                        Main.mouseItem.TurnToAir();
+
+                        if (setMouseAir)
+                        {
+                            // 清空鼠标
+                            Main.mouseItem.TurnToAir();
+                        }
                     }
                     else
                     {
@@ -670,17 +710,31 @@ namespace CalamityEntropy.Content.Tiles
                             return;
                         }
 
+                        // 如果直接替换，先判断目标槽位是否有物品并检查堆叠逻辑
                         SoundEngine.PlaySound(SoundID.Grab);
                         Item mouse = Main.mouseItem.Clone();
+
+                        Item targetSlot;
                         if (type == 0)
                         {
-                            Main.mouseItem = tp.filters[itemIndex].Clone();
+                            targetSlot = tp.filters[itemIndex];
+                            Main.mouseItem = targetSlot.Clone();
                             tp.filters[itemIndex] = mouse;
                         }
                         else
                         {
-                            Main.mouseItem = tp.items[itemIndex].Clone();
+                            targetSlot = tp.items[itemIndex];
+                            Main.mouseItem = targetSlot.Clone();
                             tp.items[itemIndex] = mouse;
+                        }
+
+                        // 检查替换物品是否超过堆叠上限（极端情况）
+                        if (targetSlot.stack > targetSlot.maxStack)
+                        {
+                            int overflow = targetSlot.stack - targetSlot.maxStack;
+                            targetSlot.stack = targetSlot.maxStack;
+
+                            Main.mouseItem.stack = overflow;
                         }
                     }
                 }
