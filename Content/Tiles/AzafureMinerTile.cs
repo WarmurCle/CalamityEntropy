@@ -159,12 +159,13 @@ namespace CalamityEntropy.Content.Tiles
                 for (int i = 0; i < ItemLoader.ItemCount; i++)
                 {
                     Item item = new Item(i);
-                    if (item.type == ItemID.None)
+                    if (item.type == ItemID.None && !(CERecipeGroups.gems.ContainsItem(i)))
                     {
                         continue;
                     }
                     ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile));
                 }
+                
             }
             catch
             {
@@ -656,7 +657,7 @@ namespace CalamityEntropy.Content.Tiles
                         if (!mouseIsOre && Main.mouseItem.type != ItemID.None)
                         {
                             SoundEngine.PlaySound(SoundID.MenuTick);
-                            Main.NewText("只能放入矿石！", Color.Red);
+                            Main.NewText(CalamityEntropy.Instance.GetLocalization("AzMinerOreWarning").Value, Color.Red);
                             return;
                         }
 
