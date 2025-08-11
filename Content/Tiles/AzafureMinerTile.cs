@@ -10,6 +10,7 @@ using ReLogic.Graphics;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -20,13 +21,22 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using Terraria.UI;
+using static System.Net.WebRequestMethods;
 
 namespace CalamityEntropy.Content.Tiles
 {
     public class AzafureMinerTile : ModTile
     {
+        public static Dictionary<int, int> GemToItemTable;
         public override void Load()
         {
+            GemToItemTable = new();
+            GemToItemTable[ItemID.RubyStoneBlock] = ItemID.Ruby;
+            GemToItemTable[ItemID.SapphireStoneBlock] = ItemID.Sapphire;
+            GemToItemTable[ItemID.DiamondStoneBlock] = ItemID.Diamond;
+            GemToItemTable[ItemID.EmeraldStoneBlock] = ItemID.Emerald;
+            GemToItemTable[ItemID.TopazStoneBlock] = ItemID.Topaz;
+            GemToItemTable[ItemID.AmethystStoneBlock] = ItemID.Amethyst;
             AzMinerUI.items = new List<AzMinerUI.UISlot>();
             AzMinerUI.filters = new List<AzMinerUI.UISlot>();
             for (int i = 0; i < AzMinerTP.FiltersCount; i++)
@@ -50,6 +60,7 @@ namespace CalamityEntropy.Content.Tiles
         }
         public override void Unload()
         {
+            GemToItemTable = null;
             AzMinerUI.filters = null;
             AzMinerUI.items = null;
         }
@@ -263,6 +274,7 @@ namespace CalamityEntropy.Content.Tiles
                 }
             }
         }
+        public static MethodBase method = null;
 
         public override void Update()
         {
@@ -308,25 +320,56 @@ namespace CalamityEntropy.Content.Tiles
             for (int i = 0; i < 3; i++)
             {
                 Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
-
+                p = new Point((int)(Main.LocalPlayer.Center.X / 16), (int)(Main.LocalPlayer.Center.Y / 16 - 8));
 
                 Tile t = Main.tile[p.X, p.Y];
                 if (!t.HasTile)
                 {
                     continue;
                 }
-
-                int itemtype = t.GetTileDrop(p.X, p.Y);
-
-                if (!ItemIsOre.ContainsKey(itemtype))
+                if (method == null)
+                {
+                    method = typeof(WorldGen).GetMethod("KillTile_GetItemDrops", BindingFlags.Static | BindingFlags.NonPublic,
+                                   null,
+                                   new System.Type[]
+                                   {
+                    typeof(int), typeof(int), typeof(Tile), typeof(int).MakeByRefType(),
+                    typeof(int).MakeByRefType(), typeof(int).MakeByRefType(),
+                    typeof(int).MakeByRefType(), typeof(bool)
+                                   },
+                                   null);
+                }
+                
+                bool CanMine(Tile t)
+                {
+                    int style = TileObjectData.GetTileStyle(t);
+                    int itemtype = TileLoader.GetItemDropFromTypeAndStyle(t.TileType, style < 0 ? 0 : style);
+                    if (itemtype <= 0)
+                    {
+                        object[] parameters = new object[]
+                        {
+                p.X, p.Y, t, null, null, null, null, false
+                        };
+                        method.Invoke(null, parameters);
+                        itemtype = (int)parameters[3];
+                    }
+                    if (AzafureMinerTile.GemToItemTable.ContainsKey(itemtype))
+                        itemtype = AzafureMinerTile.GemToItemTable[itemtype];
+                    if (!ItemIsOre.ContainsKey(itemtype))
+                    {
+                        return false;
+                    }
+                    if (!types.Contains(itemtype))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                if(!CanMine(t))
                 {
                     continue;
                 }
-                if (!types.Contains(itemtype))
-                {
-                    continue;
-                }
-
+                
                 for (int x = -14; x < 15; x++)
                 {
                     for (int y = -14; y < 15; y++)
@@ -335,13 +378,13 @@ namespace CalamityEntropy.Content.Tiles
                         {
                             continue;
                         }
-
-                        if (!ItemIsOre.ContainsKey(Main.tile[p.X + x, p.Y + y].GetTileDrop(p.X + x, p.Y + y)))
+                        
+                        if (!CanMine(Main.tile[p.X + x, p.Y + y]))
                         {
                             continue;
                         }
-
-                        if (!MineOre(p.X + x, p.Y + y))
+                        
+                        if (!MineOre(p.X + x, p.Y + y, types))
                         {
                             continue;
                         }
@@ -358,17 +401,24 @@ namespace CalamityEntropy.Content.Tiles
             SendData();
         }
 
-        public bool MineOre(int x, int y)
+        public bool MineOre(int x, int y, List<int> types)
         {
             Tile t = Main.tile[x, y];
-            int itemType = t.GetTileDrop(x, y);
+            int itemType = TileLoader.GetItemDropFromTypeAndStyle(t.TileType, 0);
             if (itemType <= 0)
             {
-                return false;
+                object[] parameters = new object[]
+                        {
+                x, y, t, null, null, null, null, false
+                        };
+                method.Invoke(null, parameters);
+                itemType = (int)parameters[3];
             }
+            if (AzafureMinerTile.GemToItemTable.ContainsKey(itemType))
+                itemType = AzafureMinerTile.GemToItemTable[itemType];
 
             //先检查矿石是否在过滤器里
-            bool matchesFilter = filters.Any(f => f.type == itemType);
+            bool matchesFilter = types.Contains(itemType);
             if (!matchesFilter)
             {
                 return false;
