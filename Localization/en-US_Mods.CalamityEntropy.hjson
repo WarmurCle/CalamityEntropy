@@ -2704,6 +2704,11 @@ Items: {
 		DisplayName: Kitsunes Mask
 		Tooltip: ""
 	}
+
+	TestItem: {
+		DisplayName: Test Item
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
