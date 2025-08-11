@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Particles;
 using InnoVault;
 using InnoVault.TileProcessors;
@@ -83,13 +84,18 @@ namespace CalamityEntropy.Content.Tiles
 
         public override bool RightClick(int i, int j)
         {
-            if (VaultUtils.SafeGetTopLeft(i, j, out var point))
+            if (TileProcessorLoader.AutoPositionGetTP<AzMinerTP>(i, j, out var azMinerTP))
             {
-                TileProcessorLoader.ByPositionGetTP(point, out var tp);
-                if (tp == null)
-                    return false;
-                AzMinerUI.tp = (AzMinerTP)tp;
-                UIHandleLoader.GetUIHandleOfType<AzMinerUI>().Active = !UIHandleLoader.GetUIHandleOfType<AzMinerUI>().Active;
+                if (AzMinerUI.tp == azMinerTP)
+                {//相同，说明是点击同一个建筑，进行开关逻辑
+                    AzMinerUI.Instance.Active = !AzMinerUI.Instance.Active;
+                }
+                else 
+                {//不相同，说明是交叉点击不同建筑，进行切换逻辑保持开启状态
+                    AzMinerUI.Instance.Active = true;
+                }
+
+                AzMinerUI.tp = azMinerTP;
                 Main.playerInventory = true;
                 SoundEngine.PlaySound(SoundID.MenuOpen with { Pitch = 0.3f });
                 return true;
@@ -150,7 +156,6 @@ namespace CalamityEntropy.Content.Tiles
         private Vector2 targetOffset = Vector2.Zero;
         private Vector2 targetOffset2 = Vector2.Zero;
         public static readonly Dictionary<int, bool> ItemIsOre = [];
-        public readonly static HashSet<int> gemIDs = [ItemID.Ruby, ItemID.Sapphire, ItemID.Diamond, ItemID.Emerald, ItemID.Topaz, ItemID.Amethyst];
         public override void SetStaticProperty()
         {
             try
@@ -173,10 +178,10 @@ namespace CalamityEntropy.Content.Tiles
                         continue;
                     }
 
-                    ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile) || gemIDs.Contains(i));
+                    ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile) || Common.EGlobalItem.GemItemIDToTileIDMap.ContainsKey(i));
                 }
             }
-            catch(System.Exception ex)
+            catch (System.Exception ex)
             {
                 CalamityEntropy.Instance.Logger.Error($"AzMinerTP.SetStaticProperty: An Error Has Occurred {ex.Message}");
             }
@@ -288,8 +293,10 @@ namespace CalamityEntropy.Content.Tiles
 
             List<int> types = [];
             IsWork = false;
-            foreach (Item item in filters) {
-                if (item.type == ItemID.None) {
+            foreach (Item item in filters)
+            {
+                if (item.type == ItemID.None)
+                {
                     continue;
                 }
                 types.Add(item.type);
@@ -357,11 +364,16 @@ namespace CalamityEntropy.Content.Tiles
 
         public bool MineOre(int x, int y)
         {
-            Tile t = Main.tile[x, y];
-            int itemType = t.GetTileDrop(x, y);
+            Tile tile = Main.tile[x, y];
+            int itemType = tile.GetTileDrop(x, y);
             if (itemType <= 0)
             {
                 return false;
+            }
+
+            if (EGlobalItem.GemTileIDToItemIDMap.TryGetValue(tile.TileType, out int dropID))
+            {
+                itemType = dropID;
             }
 
             //先检查矿石是否在过滤器里
@@ -429,7 +441,7 @@ namespace CalamityEntropy.Content.Tiles
             //淫叫
             SoundEngine.PlaySound(SoundID.Tink with { PitchRange = (-0.1f, 2f) }, CenterInWorld);
 
-            if (targetOffset2.Length() > 1f) 
+            if (targetOffset2.Length() > 1f)
             {
                 return;
             }
@@ -492,15 +504,22 @@ namespace CalamityEntropy.Content.Tiles
             }
             set => IsActive = value;
         }
+        public static AzMinerUI Instance => UIHandleLoader.GetUIHandleOfType<AzMinerUI>();
         public static AzMinerTP tp = null;
         public static List<UISlot> filters;
         public static List<UISlot> items;
+        internal int dontDragTime;
         private bool onDrag;
         private bool onTopDarg;
         private Vector2 dragOffset;
         private static float sengs = 0;
         public override void Update()
         {
+            if (dontDragTime > 0)
+            {
+                dontDragTime--;
+            }
+
             if (!IsActive)
             {
                 if (sengs > 0f)
@@ -531,21 +550,34 @@ namespace CalamityEntropy.Content.Tiles
 
             UIHitBox = (DrawPosition - UIBarTex.Size() / 2).GetRectangle(UIBarTex.Size());
             hoverInMainPage = UIHitBox.Intersects(MouseHitBox);
-            if (hoverInMainPage)
+
+            if (!Main.playerInventory || tp.CenterInWorld.Distance(Main.LocalPlayer.Center) > 20 * 10)
             {
+                IsActive = false;
+                return;
+            }
+
+            foreach (UISlot s in filters)
+            {
+                s.Update();
+            }
+            foreach (UISlot s in items)
+            {
+                s.Update();
+            }
+
+            if (hoverInMainPage) {
                 player.mouseInterface = true;
-                if (keyLeftPressState == KeyPressState.Held && !onTopDarg)
-                {
-                    if (!onDrag)
-                    {
+                if (keyLeftPressState == KeyPressState.Pressed) {
+                    if (!onDrag) {
                         dragOffset = DrawPosition - MousePosition;
                     }
-                    onDrag = true;
+
+                    onDrag = dontDragTime <= 0;
                 }
             }
 
-            if (onDrag)
-            {
+            if (onDrag) {
                 player.mouseInterface = true;
                 DrawPosition = MousePosition + dragOffset;
 
@@ -554,24 +586,9 @@ namespace CalamityEntropy.Content.Tiles
                 DrawPosition.X = MathHelper.Clamp(DrawPosition.X, halfSize.X, Main.screenWidth - halfSize.X);
                 DrawPosition.Y = MathHelper.Clamp(DrawPosition.Y, halfSize.Y, Main.screenHeight - halfSize.Y);
 
-                if (keyLeftPressState == KeyPressState.Released || onTopDarg)
-                {
+                if (keyLeftPressState == KeyPressState.Released) {
                     onDrag = false;
                 }
-            }
-
-            if (!Main.playerInventory || tp.CenterInWorld.Distance(Main.LocalPlayer.Center) > 20 * 10)
-            {
-                IsActive = false;
-                return;
-            }
-            foreach (UISlot s in filters)
-            {
-                s.Update();
-            }
-            foreach (UISlot s in items)
-            {
-                s.Update();
             }
 
         }
@@ -623,7 +640,7 @@ namespace CalamityEntropy.Content.Tiles
             public int X = 20;
             public int Y = 20;
             public bool mlLast = false;
-            public Rectangle GetRect() => (UIHandleLoader.GetUIHandleOfType<AzMinerUI>().DrawPosition + pos).getRectCentered(X * 2, Y * 2);
+            public Rectangle GetRect() => (Instance.DrawPosition + pos).getRectCentered(X * 2, Y * 2);
             public Item GetItem()
             {
                 if (type == 0)
@@ -660,10 +677,14 @@ namespace CalamityEntropy.Content.Tiles
                 {
                     return;
                 }
-                if (mlLast || !Main.mouseLeft)
+
+                if (Instance.keyLeftPressState != KeyPressState.Pressed)
                 {
                     return;
                 }
+
+                Instance.dontDragTime = 2;
+
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
                     SoundEngine.PlaySound(SoundID.Grab);
