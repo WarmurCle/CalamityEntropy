@@ -172,6 +172,10 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             mAmp = reader.ReadSingle();
             mCounter = reader.ReadSingle();
         }
+        public override bool CheckActive()
+        {
+            return false;
+        }
         public override bool CheckDead()
         {
             return true;
@@ -456,6 +460,15 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 if(num1 > (phase == 3 ? 1.66f: 1.36f))
                 {
                     num1 = 0;
+                    ai = AIStyle.Lasers;
+                    aiTimer = 0;
+                }
+            }
+            if(ai == AIStyle.Lasers)
+            {
+                column1.offset.X *= 0.9f;
+                if(aiTimer > 460)
+                {
                     ai = AIStyle.Moving;
                     aiTimer = 0;
                 }

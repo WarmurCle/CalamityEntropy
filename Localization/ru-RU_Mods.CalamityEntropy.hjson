@@ -2739,6 +2739,26 @@ Items: {
 		// DisplayName: Fading Roseate Reverie
 		// Tooltip: ""
 	}
+
+	KitsunesFan: {
+		// DisplayName: Kitsunes Fan
+		// Tooltip: ""
+	}
+
+	BloodstainedShirt: {
+		// DisplayName: Bloodstained Shirt
+		// Tooltip: ""
+	}
+
+	KitsunesMask: {
+		// DisplayName: Kitsunes Mask
+		// Tooltip: ""
+	}
+
+	ScarletKilt: {
+		// DisplayName: Scarlet Kilt
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"

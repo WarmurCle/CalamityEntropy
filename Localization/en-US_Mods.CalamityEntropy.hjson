@@ -2674,6 +2674,26 @@ Items: {
 		DisplayName: Fading Roseate Reverie
 		Tooltip: ""
 	}
+
+	Kitsune'sFan: {
+		DisplayName: Kitsune's Fan
+		Tooltip: ""
+	}
+
+	BloodstainedShirt: {
+		DisplayName: Bloodstained Shirt
+		Tooltip: ""
+	}
+
+	Kitsune'sMask: {
+		DisplayName: Kitsune's Mask
+		Tooltip: ""
+	}
+
+	ScarletKilt: {
+		DisplayName: Scarlet Kilt
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"

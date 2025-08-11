@@ -73,23 +73,23 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         public bool BMRCd = false;
         public override void AI()
         {
-            if(flag)
+            if (flag)
             {
                 flag = false;
                 NPC.Opacity = 0;
             }
-            if(NPC.Opacity < 1)
+            if (NPC.Opacity < 1)
             {
                 NPC.Opacity += 0.05f;
             }
-            
 
-            if(!owner.active || owner.ModNPC is not SpiritFountain)
+
+            if (!owner.active || owner.ModNPC is not SpiritFountain)
             {
                 NPC.active = false;
                 return;
             }
-            
+
             NPC.scale = owner.scale;
             NPC.Entropy().VoidTouchDR = owner.Entropy().VoidTouchDR;
             NPC.defense = owner.defense;
@@ -100,15 +100,18 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             NPC.life = owner.life;
             NPC.damage = owner.damage;
             NPC.width = (int)float.Lerp(46, 160, CEUtils.GetRepeatedCosFromZeroToOne(Math.Abs(NPC.rotation.ToRotationVector2().X), 1));
-            if(fountain.ClearMyProjs > 0)
+            bool DontSetPos = false;
+            bool DontSetRot = false;
+
+            if (fountain.ClearMyProjs > 0)
             {
                 SRHandle = 5;
             }
-            if(Lerping)
+            if (Lerping)
             {
                 LProgress += 0.02f;
                 columnOffset = float.Lerp(LFrom, LTo, CEUtils.GetRepeatedCosFromZeroToOne(LProgress, 1));
-                if(LProgress >= 1)
+                if (LProgress >= 1)
                 {
                     Lerping = false;
                     LProgress = 0;
@@ -116,10 +119,10 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 }
             }
             NPC.height = (int)float.Lerp(46, 160, CEUtils.GetRepeatedCosFromZeroToOne(Math.Abs(NPC.rotation.ToRotationVector2().Y), 1));
-            
+
             if (SRHandle-- < 0)
             {
-                if(Main.netMode != NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<SRDamageRect>(), NPC.damage / 6, 2, -1, NPC.whoAmI);
                 }
@@ -137,7 +140,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 if (fountain.aiTimer == 10)
                 {
                     LerpTo(Main.rand.NextFloat(-1800, 1800));
-                    if(fountain.phase == 3)
+                    if (fountain.phase == 3)
                     {
                         LerpTo(Index * 1200);
                     }
@@ -153,7 +156,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                         NPC.velocity = (owner.target.ToPlayer().Center - NPC.Center).normalize() * 28f;
                         NPC.velocity.Y = float.Clamp(NPC.velocity.Y, -4 * fountain.phase, 4 * fountain.phase);
                         NPC.velocity.X = Math.Sign(NPC.velocity.X) * (fountain.phase == 3 ? 24 : 34);
-                        if(fountain.phase == 3)
+                        if (fountain.phase == 3)
                         {
                             NPC.velocity.Y = 0;
                         }
@@ -164,13 +167,13 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                         TrailLength = float.Lerp(TrailLength, 128, 0.1f);
                         if (NPC.localAI[1]++ > 35)
                         {
-                            if(fountain.phase == 3)
+                            if (fountain.phase == 3)
                             {
                                 NPC.damage = 0;
                             }
                             if (NPC.localAI[1] > 30 && NPC.localAI[1] <= 120 && fountain.phase == 3)
                             {
-                                
+
                                 NPC.velocity *= 0.2f;
                                 if (NPC.localAI[1] == 120)
                                 {
@@ -240,10 +243,51 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     NPC.localAI[1] = 0;
                 }
             }
+            if (fountain.ai == SpiritFountain.AIStyle.Lasers)
+            {
+                DontSetRot = true;
+                int targetTime = fountain.phase == 3 ? 88 : (fountain.phase == 2 ? 100 : 114);
+                if(fountain.aiTimer < 416 || Lerping || AlphaLaserWarning > 0)
+                {
+                    if (fountain.aiTimer % (targetTime + 28) == 0)
+                    {
+                        LerpTo(Main.rand.NextFloat(-1200, 1200));
+                    }
+                    if (fountain.aiTimer % (targetTime + 28) <= targetTime)
+                    {
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (target.Center.X > NPC.Center.X ? MathHelper.PiOver2 : -MathHelper.PiOver2), 0.24f, false);
+                    }
+                    else
+                    {
+                        NPC.rotation = target.Center.X > NPC.Center.X ? MathHelper.PiOver2 : -MathHelper.PiOver2;
+                    }
+                    if (fountain.aiTimer % (targetTime + 28) <= targetTime - 12)
+                    {
+                        AlphaLaserWarning = float.Lerp(AlphaLaserWarning, 1, 0.04f);
+                    }
+                    else
+                    {
+                        AlphaLaserWarning = float.Lerp(AlphaLaserWarning, 0, 0.04f);
+                    }
+                    if (fountain.aiTimer % (targetTime + 28) == 1 + targetTime)
+                    {
+                        AlphaLaserWarning = 0;
+                        fountain.Shoot(ModContent.ProjectileType<SpiritLaser>(), NPC.Center, (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 5, -0.8f);
+                    }
+                    
+                }
+                else
+                {
+                    AlphaLaserWarning = 0;
+                }
+            }
+
             if (OnColumn)
             {
-                NPC.Center = owner.Center + column.offset + column.rotation.ToRotationVector2() * columnOffset;
-                NPC.rotation = column.rotation + MathHelper.PiOver2;
+                if(!DontSetPos)
+                    NPC.Center = owner.Center + column.offset + column.rotation.ToRotationVector2() * columnOffset;
+                if(!DontSetRot)
+                    NPC.rotation = column.rotation + MathHelper.PiOver2;
             }
             color = Color.Lerp(color, drawColorLerp, 0.1f);
             TCounter += 0.16f * (NPC.whoAmI % 2 == 0 ? 1 : -1);
