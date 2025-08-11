@@ -231,6 +231,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         public int ClearMyProjs = 0;
         public float num1 = 0;
         public int phase = 1;
+        public float enrage = 1;
         public override void AI()
         {
             float phase1_2 = 0.9f;
@@ -267,7 +268,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             }
 
             ClearMyProjs--;
-            float enrage = 1;
+            enrage = 1;
             if (Main.masterMode)
             {
                 enrage += 0.2f;

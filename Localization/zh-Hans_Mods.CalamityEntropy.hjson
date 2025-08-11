@@ -2901,9 +2901,9 @@ Items: {
 		Tooltip: ""
 	}
 
-	KitsunesFan: {
-		DisplayName: 墨狐绯扇
-		Tooltip: ""
+	"Kitsune'sFan": {
+		// DisplayName: Kitsune's Fan
+		// Tooltip: ""
 	}
 
 	BloodstainedShirt: {
@@ -2911,13 +2911,23 @@ Items: {
 		Tooltip: ""
 	}
 
-	KitsunesMask: {
-		DisplayName: 墨狐之相
-		Tooltip: ""
+	"Kitsune'sMask": {
+		// DisplayName: Kitsune's Mask
+		// Tooltip: ""
 	}
 
 	ScarletKilt: {
 		DisplayName: 赤绯袴
+		Tooltip: ""
+	}
+
+	KitsunesFan: {
+		DisplayName: 墨狐绯扇
+		Tooltip: ""
+	}
+
+	KitsunesMask: {
+		DisplayName: 墨狐之相
 		Tooltip: ""
 	}
 }

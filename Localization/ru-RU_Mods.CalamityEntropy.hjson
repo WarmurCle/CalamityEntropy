@@ -2740,8 +2740,8 @@ Items: {
 		// Tooltip: ""
 	}
 
-	KitsunesFan: {
-		// DisplayName: Kitsunes Fan
+	"Kitsune'sFan": {
+		// DisplayName: Kitsune's Fan
 		// Tooltip: ""
 	}
 
@@ -2750,13 +2750,23 @@ Items: {
 		// Tooltip: ""
 	}
 
-	KitsunesMask: {
-		// DisplayName: Kitsunes Mask
+	"Kitsune'sMask": {
+		// DisplayName: Kitsune's Mask
 		// Tooltip: ""
 	}
 
 	ScarletKilt: {
 		// DisplayName: Scarlet Kilt
+		// Tooltip: ""
+	}
+
+	KitsunesFan: {
+		// DisplayName: Kitsunes Fan
+		// Tooltip: ""
+	}
+
+	KitsunesMask: {
+		// DisplayName: Kitsunes Mask
 		// Tooltip: ""
 	}
 }

@@ -102,7 +102,10 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             NPC.width = (int)float.Lerp(46, 160, CEUtils.GetRepeatedCosFromZeroToOne(Math.Abs(NPC.rotation.ToRotationVector2().X), 1));
             bool DontSetPos = false;
             bool DontSetRot = false;
-
+            if(fountain.aiTimer == 1)
+            {
+                AlphaLaserWarning = 0;
+            }
             if (fountain.ClearMyProjs > 0)
             {
                 SRHandle = 5;
@@ -246,7 +249,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             if (fountain.ai == SpiritFountain.AIStyle.Lasers)
             {
                 DontSetRot = true;
-                int targetTime = fountain.phase == 3 ? 88 : (fountain.phase == 2 ? 100 : 114);
+                int targetTime = (int)(fountain.phase == 3 ? 82 : (fountain.phase == 2 ? 98 : 120) / fountain.enrage);
                 if(fountain.aiTimer < 416 || Lerping || AlphaLaserWarning > 0)
                 {
                     if (fountain.aiTimer % (targetTime + 28) == 0)
@@ -255,11 +258,11 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     }
                     if (fountain.aiTimer % (targetTime + 28) <= targetTime)
                     {
-                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (target.Center.X > NPC.Center.X ? MathHelper.PiOver2 : -MathHelper.PiOver2), 0.24f, false);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (target.Center.X > NPC.Center.X ? MathHelper.PiOver2 : -MathHelper.PiOver2) + ((fountain.phase - 1) * (NPC.whoAmI * 1.73523f).ToRotationVector2().ToRotation() * 0.08f), 0.24f, false);
                     }
                     else
                     {
-                        NPC.rotation = target.Center.X > NPC.Center.X ? MathHelper.PiOver2 : -MathHelper.PiOver2;
+                        NPC.rotation = (target.Center.X > NPC.Center.X ? MathHelper.PiOver2 : -MathHelper.PiOver2) + ((fountain.phase - 1) * (NPC.whoAmI * 1.73523f).ToRotationVector2().ToRotation() * 0.08f);
                     }
                     if (fountain.aiTimer % (targetTime + 28) <= targetTime - 12)
                     {
