@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Particles;
+using InfernumMode.Content.BehaviorOverrides.BossAIs.Plantera;
 using InnoVault;
 using InnoVault.TileProcessors;
 using InnoVault.UIHandles;
@@ -8,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using ReLogic.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,17 +30,17 @@ namespace CalamityEntropy.Content.Tiles
     {
         public override void Load()
         {
-            AzMinerUI.items = new List<AzMinerUI.UISlot>();
-            AzMinerUI.filters = new List<AzMinerUI.UISlot>();
+            AzMinerUI.Items = new List<AzMinerUISlot>();
+            AzMinerUI.Filters = new List<AzMinerUISlot>();
             for (int i = 0; i < AzMinerTP.FiltersCount; i++)
             {
-                AzMinerUI.filters.Add(new AzMinerUI.UISlot() { pos = new Vector2(-168, -115 + (240f / AzMinerTP.FiltersCount) * i), X = 20, Y = 20, itemIndex = i });
+                AzMinerUI.Filters.Add(new AzMinerUISlot() { OffsetPos = new Vector2(-168, -115 + (240f / AzMinerTP.FiltersCount) * i), X = 20, Y = 20, itemIndex = i });
             }
             int z = 0;
             Vector2 pos = new Vector2(-110, -100);
             for (int i = 0; i < AzMinerTP.ItemsCount; i++)
             {
-                AzMinerUI.items.Add(new AzMinerUI.UISlot() { pos = new Vector2(pos.X, pos.Y), type = 1, itemIndex = i });
+                AzMinerUI.Items.Add(new AzMinerUISlot() { OffsetPos = new Vector2(pos.X, pos.Y), type = 1, itemIndex = i });
                 z++;
                 pos.X += 50;
                 if (z >= 7)
@@ -51,8 +53,8 @@ namespace CalamityEntropy.Content.Tiles
         }
         public override void Unload()
         {
-            AzMinerUI.filters = null;
-            AzMinerUI.items = null;
+            AzMinerUI.Filters = null;
+            AzMinerUI.Items = null;
         }
         public override void SetStaticDefaults()
         {
@@ -86,16 +88,16 @@ namespace CalamityEntropy.Content.Tiles
         {
             if (TileProcessorLoader.AutoPositionGetTP<AzMinerTP>(i, j, out var azMinerTP))
             {
-                if (AzMinerUI.tp == azMinerTP)
+                if (AzMinerUI.AzMinerTP == azMinerTP)
                 {//相同，说明是点击同一个建筑，进行开关逻辑
                     AzMinerUI.Instance.Active = !AzMinerUI.Instance.Active;
                 }
-                else 
+                else
                 {//不相同，说明是交叉点击不同建筑，进行切换逻辑保持开启状态
                     AzMinerUI.Instance.Active = true;
                 }
 
-                AzMinerUI.tp = azMinerTP;
+                AzMinerUI.AzMinerTP = azMinerTP;
                 Main.playerInventory = true;
                 SoundEngine.PlaySound(SoundID.MenuOpen with { Pitch = 0.3f });
                 return true;
@@ -256,14 +258,14 @@ namespace CalamityEntropy.Content.Tiles
             {
                 if (!item.IsAir)
                 {
-                    Item.NewItem(Item.GetSource_None(), this.CenterInWorld.getRectCentered(40, 40), item.Clone(), noGrabDelay: true);
+                    VaultUtils.SpwanItem(this.FromObjectGetParent(), HitBox, item.Clone());
                 }
             }
             foreach (var item in items)
             {
                 if (!item.IsAir)
                 {
-                    Item.NewItem(Item.GetSource_None(), this.CenterInWorld.getRectCentered(40, 40), item.Clone(), noGrabDelay: true);
+                    VaultUtils.SpwanItem(this.FromObjectGetParent(), HitBox, item.Clone());
                 }
             }
         }
@@ -324,7 +326,7 @@ namespace CalamityEntropy.Content.Tiles
 
                 //if (!ItemIsOre.ContainsKey(itemtype))
                 //{
-                //    continue;//这个判定目前是不需要的，因为types里面的肯定都是矿物物品
+                //   continue;//这个判定目前是不需要的，因为types里面的肯定都是矿物物品
                 //}
                 if (!types.Contains(itemtype))
                 {
@@ -410,9 +412,9 @@ namespace CalamityEntropy.Content.Tiles
             return false;
         }
 
-        /// <summary>
-        /// 执行采矿后通用的视觉/音效/网络同步
-        /// </summary>
+        ///<summary>
+        ///执行采矿后通用的视觉/音效/网络同步
+        ///</summary>
         private void PerformMineEffects(int x, int y)
         {
             Main.tile[x, y].ClearTile();
@@ -490,29 +492,30 @@ namespace CalamityEntropy.Content.Tiles
     public class AzMinerUI : UIHandle
     {
         [VaultLoaden("CalamityEntropy/Assets/UI/Miner/AzafureMinerUI")]
-        private static Asset<Texture2D> UIBarTex;
+        internal static Asset<Texture2D> UIBarTex;
         [VaultLoaden("CalamityEntropy/Assets/UI/Miner/UISlot")]
-        private static Asset<Texture2D> UISlotTex;
-        [VaultLoaden("CalamityEntropy/Assets/UI/Miner/UISlot2")]
-        private static Asset<Texture2D> UISlotFilterTex;
+        internal static Asset<Texture2D> UISlotTex;
         private static bool IsActive;
         public override bool Active
         {
             get
             {
+                if (AzMinerTP == null || !AzMinerTP.Active) {
+                    IsActive = false;
+                }
                 return IsActive || sengs > 0;
             }
             set => IsActive = value;
         }
         public static AzMinerUI Instance => UIHandleLoader.GetUIHandleOfType<AzMinerUI>();
-        public static AzMinerTP tp = null;
-        public static List<UISlot> filters;
-        public static List<UISlot> items;
+        public static AzMinerTP AzMinerTP { get; set; } = null;
+        public static List<AzMinerUISlot> Filters { get; set; }
+        public static List<AzMinerUISlot> Items { get; set; }
+        private float hoverSengs;
         internal int dontDragTime;
         private bool onDrag;
-        private bool onTopDarg;
         private Vector2 dragOffset;
-        private static float sengs = 0;
+        internal static float sengs = 0;
         public override void Update()
         {
             if (dontDragTime > 0)
@@ -536,9 +539,19 @@ namespace CalamityEntropy.Content.Tiles
                 sengs += 0.1f;
             }
 
-            sengs = MathHelper.Clamp(sengs, 0f, 1f);
+            if (!hoverInMainPage) {
+                if (hoverSengs > 0f) {
+                    hoverSengs -= 0.1f;
+                }
+            }
+            else if (hoverSengs < 1f) {
+                hoverSengs += 0.1f;
+            }
 
-            if (tp == null)
+            sengs = MathHelper.Clamp(sengs, 0f, 1f);
+            hoverSengs = MathHelper.Clamp(hoverSengs, 0f, 1f);
+
+            if (AzMinerTP == null)
             {
                 return;
             }
@@ -551,17 +564,31 @@ namespace CalamityEntropy.Content.Tiles
             UIHitBox = (DrawPosition - UIBarTex.Size() / 2).GetRectangle(UIBarTex.Size());
             hoverInMainPage = UIHitBox.Intersects(MouseHitBox);
 
-            if (!Main.playerInventory || tp.CenterInWorld.Distance(Main.LocalPlayer.Center) > 20 * 10)
+            if (!Main.playerInventory || AzMinerTP.CenterInWorld.Distance(Main.LocalPlayer.Center) > 20 * 10)
             {
                 IsActive = false;
                 return;
             }
 
-            foreach (UISlot s in filters)
+            if (onDrag) {
+                player.mouseInterface = true;
+                DrawPosition = MousePosition + dragOffset;
+
+                if (keyLeftPressState == KeyPressState.Released) {
+                    onDrag = false;
+                }
+            }
+
+            //限制 UI 位置不超出屏幕
+            Vector2 halfSize = UIBarTex.Size() / 2f;
+            DrawPosition.X = MathHelper.Clamp(DrawPosition.X, halfSize.X, Main.screenWidth - halfSize.X);
+            DrawPosition.Y = MathHelper.Clamp(DrawPosition.Y, halfSize.Y, Main.screenHeight - halfSize.Y);
+
+            foreach (AzMinerUISlot s in Filters)
             {
                 s.Update();
             }
-            foreach (UISlot s in items)
+            foreach (AzMinerUISlot s in Items)
             {
                 s.Update();
             }
@@ -576,21 +603,6 @@ namespace CalamityEntropy.Content.Tiles
                     onDrag = dontDragTime <= 0;
                 }
             }
-
-            if (onDrag) {
-                player.mouseInterface = true;
-                DrawPosition = MousePosition + dragOffset;
-
-                //限制 UI 位置不超出屏幕
-                Vector2 halfSize = UIBarTex.Size() / 2f;
-                DrawPosition.X = MathHelper.Clamp(DrawPosition.X, halfSize.X, Main.screenWidth - halfSize.X);
-                DrawPosition.Y = MathHelper.Clamp(DrawPosition.Y, halfSize.Y, Main.screenHeight - halfSize.Y);
-
-                if (keyLeftPressState == KeyPressState.Released) {
-                    onDrag = false;
-                }
-            }
-
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -599,185 +611,264 @@ namespace CalamityEntropy.Content.Tiles
                 return;
             }
 
-            if (tp == null)
+            if (AzMinerTP == null)
             {
                 return;
             }
 
             Color drawColor = Color.White * sengs;
-
+            //看起来不怎么好看，所以取消掉
+            //Main.spriteBatch.Draw(UIBarTex.Value, DrawPosition, null, Color.Gold with { A = 0 }, 0
+            //   , UIBarTex.Value.Size() / 2f, sengs + 0.01f * hoverSengs, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(UIBarTex.Value, DrawPosition, null, drawColor, 0, UIBarTex.Value.Size() / 2f, sengs, SpriteEffects.None, 0);
-            foreach (var slot in filters)
+            foreach (var slot in Filters)
             {
-                Texture2D tex = UISlotFilterTex.Value;
-                Main.spriteBatch.Draw(tex, DrawPosition + slot.pos * sengs, null, drawColor, 0, tex.Size() / 2f, 1, SpriteEffects.None, 0);
-                if (slot.GetItem().IsAir)
-                {
-                    continue;
-                }
-                slot.CheckHover();
-                ItemSlot.DrawItemIcon(slot.GetItem(), 1, Main.spriteBatch, slot.pos * sengs + DrawPosition, 1, 128, drawColor);
-                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.GetItem().stack.ToString(), slot.pos + DrawPosition + new Vector2(-15, 6), drawColor, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
+                slot.Draw(spriteBatch);
             }
-            foreach (var slot in items)
+            foreach (var slot in Items)
             {
-                Texture2D tex = UISlotTex.Value;
-                Main.spriteBatch.Draw(tex, DrawPosition + slot.pos, null, drawColor, 0, tex.Size() / 2f, 1, SpriteEffects.None, 0);
-                if (slot.GetItem().IsAir)
-                {
-                    continue;
-                }
-                slot.CheckHover();
-                ItemSlot.DrawItemIcon(slot.GetItem(), 1, Main.spriteBatch, slot.pos + DrawPosition, 1, 128, drawColor);
-                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, slot.GetItem().stack.ToString(), slot.pos + DrawPosition + new Vector2(-15, 6), drawColor, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
+                slot.Draw(spriteBatch);
             }
         }
-        public class UISlot
+    }
+
+    public class AzMinerUISlot : UIHandle
+    {
+        public int itemIndex = 0;
+        public int type = 0;
+        public Vector2 OffsetPos = new Vector2();
+        public int X = 20;
+        public int Y = 20;
+        public bool mlLast = false;
+        private float hoverSengs;
+        private bool hoverRightHeld;
+        private int lastHoverSlot = -1;
+        public Item Item {
+            get {
+                if (type == 0) {
+                    return AzMinerUI.AzMinerTP.filters[itemIndex];
+                }
+                else {
+                    return AzMinerUI.AzMinerTP.items[itemIndex];
+                }
+            }
+            set {
+                if (type == 0) {
+                    AzMinerUI.AzMinerTP.filters[itemIndex] = value;
+                }
+                else {
+                    AzMinerUI.AzMinerTP.items[itemIndex] = value;
+                }
+            }
+        }
+
+        public override void Update() {
+            //更新位置和鼠标交互区域
+            DrawPosition = AzMinerUI.Instance.DrawPosition + OffsetPos;
+            UIHitBox = (DrawPosition - AzMinerUI.UISlotTex.Size() / 2)
+                .GetRectangle(AzMinerUI.UISlotTex.Size());
+
+            hoverInMainPage = UIHitBox.Intersects(MouseHitBox);
+
+            if (!hoverInMainPage) {
+                hoverSengs = Math.Max(0f, hoverSengs - 0.1f);
+                hoverRightHeld = false;
+                return;
+            }
+            hoverSengs = Math.Min(1f, hoverSengs + 0.1f);
+
+            Main.LocalPlayer.mouseInterface = true;
+
+            //显示物品信息
+            if (Main.mouseItem.IsAir && !Item.IsAir) {
+                CEUtils.showItemTooltip(Item);
+            }
+
+            //空槽提示
+            if (Item.IsAir && type == 0 && Main.mouseItem.IsAir) {
+                Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo2").Value);
+            }
+
+            //Shift合并
+            if (!Item.IsAir && Main.keyState.PressingShift()) {
+                TryMergeStacks();
+            }
+
+            //空物品格直接退出
+            if (Main.mouseItem.IsAir && Item.IsAir) {
+                return;
+            }
+
+            //鼠标右键操作（滑动加堆叠 + 单击）
+            HandleRightClick();
+
+            //鼠标左键操作
+            HandleLeftClick();
+
+            AzMinerUI.AzMinerTP.SendData();
+        }
+
+        private void HandleRightClick() {
+            int currentSlot = itemIndex; //当前格子索引
+
+            //如果滑动到了新的格子，重置去抖状态
+            if (currentSlot != lastHoverSlot) {
+                hoverRightHeld = false;
+                lastHoverSlot = currentSlot;
+            }
+
+            if (Main.mouseItem.IsAir) {
+                return;
+            }
+
+            bool canAdd = Item.IsAir || (Item.type == Main.mouseItem.type && Item.stack < Item.maxStack && Main.mouseItem.stack > 0);
+
+            if (!canAdd) {
+                return;
+            }
+
+            if (keyRightPressState == KeyPressState.Held && hoverInMainPage) {
+                if (!hoverRightHeld) {
+                    AddOneFromMouse();
+                    hoverRightHeld = true;
+                }
+            }
+            else if (keyRightPressState == KeyPressState.Pressed) {
+                AddOneFromMouse();
+                hoverRightHeld = true;
+            }
+        }
+
+        private void HandleLeftClick() {
+            if (keyLeftPressState != KeyPressState.Pressed)
+                return;
+
+            AzMinerUI.Instance.dontDragTime = 2;
+
+            //Shift 丢出物品
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) {
+                SoundEngine.PlaySound(SoundID.Grab);
+                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Loot(), Item, Item.stack);
+                ClearSlot();
+                return;
+            }
+
+            //左键正常堆叠/交换
+            if (Main.mouseItem.type == Item.type) {
+                MergeWithMouse();
+            }
+            else {
+                //只能放矿石
+                if (!IsOre(Main.mouseItem) && Main.mouseItem.type != ItemID.None) {
+                    SoundEngine.PlaySound(SoundID.MenuTick);
+                    Main.NewText(CalamityEntropy.Instance.GetLocalization("AzMinerOreWarning").Value, Color.Red);
+                    return;
+                }
+                SwapWithMouse();
+            }
+        }
+
+        private void AddOneFromMouse() {
+            SoundEngine.PlaySound(SoundID.Grab);
+            if (Item.IsAir) {
+                Item = Main.mouseItem.Clone();
+                Item.stack = 1;
+            }
+            else {
+                Item.stack++;
+            }
+
+            Main.mouseItem.stack--;
+            if (Main.mouseItem.stack <= 0)
+                Main.mouseItem.TurnToAir();
+        }
+
+        private void MergeWithMouse() {
+            SoundEngine.PlaySound(SoundID.Grab);
+            Item targetSlot = GetSlotRef();
+            int total = targetSlot.stack + Main.mouseItem.stack;
+
+            if (total > targetSlot.maxStack) {
+                int overflow = total - targetSlot.maxStack;
+                targetSlot.stack = targetSlot.maxStack;
+                Main.mouseItem.stack = overflow;
+            }
+            else {
+                targetSlot.stack = total;
+                Main.mouseItem.TurnToAir();
+            }
+        }
+
+        private void SwapWithMouse() {
+            SoundEngine.PlaySound(SoundID.Grab);
+            Item targetSlot = GetSlotRef();
+
+            Item temp = targetSlot.Clone();
+            targetSlot.SetDefaults(Main.mouseItem.type);
+            targetSlot.stack = Main.mouseItem.stack;
+
+            Main.mouseItem = temp;
+        }
+
+        private void TryMergeStacks() {
+            bool merged = false;
+            foreach (var slot in AzMinerUI.Items) {
+                if (slot.itemIndex == itemIndex || Item.type != slot.Item.type)
+                    continue;
+
+                if (Item.stack >= Item.maxStack)
+                    continue;
+
+                int total = Item.stack + slot.Item.stack;
+                if (total > Item.maxStack) {
+                    Item.stack = Item.maxStack;
+                    slot.Item.stack = total - Item.maxStack;
+                }
+                else {
+                    Item.stack = total;
+                    slot.Item.TurnToAir();
+                }
+                merged = true;
+            }
+
+            if (merged)
+                SoundEngine.PlaySound(SoundID.Grab);
+        }
+
+        private void ClearSlot() {
+            if (type == 0) {
+                AzMinerUI.AzMinerTP.filters[itemIndex].TurnToAir();
+            } 
+            else {
+                AzMinerUI.AzMinerTP.items[itemIndex].TurnToAir();
+            }
+                
+        }
+
+        private Item GetSlotRef() {
+            return type == 0
+                ? AzMinerUI.AzMinerTP.filters[itemIndex]
+                : AzMinerUI.AzMinerTP.items[itemIndex];
+        }
+
+        private bool IsOre(Item item) {
+            return AzMinerTP.ItemIsOre.TryGetValue(item.type, out bool isOre) && isOre;
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            public int itemIndex = 0;
-            public int type = 0;
-            public Vector2 pos = new Vector2();
-            public int X = 20;
-            public int Y = 20;
-            public bool mlLast = false;
-            public Rectangle GetRect() => (Instance.DrawPosition + pos).getRectCentered(X * 2, Y * 2);
-            public Item GetItem()
-            {
-                if (type == 0)
-                {
-                    return tp.filters[itemIndex];
-                }
-                else
-                {
-                    return tp.items[itemIndex];
-                }
+            Texture2D tex = AzMinerUI.UISlotTex.Value;
+            if (AzMinerUI.sengs >= 1f) {
+                Main.spriteBatch.Draw(tex, DrawPosition, null, Color.Gold with { A = 0 }, 0, tex.Size() / 2f, 1 + 0.1f * hoverSengs, SpriteEffects.None, 0);
             }
-            public void CheckHover()
-            {
-                if (Main.MouseScreen.getRectCentered(1, 1).Intersects(this.GetRect()))
-                {
-                    if (Main.mouseItem.IsAir && !GetItem().IsAir)
-                    {
-                        CEUtils.showItemTooltip(GetItem());
-                    }
-                }
+            
+            Main.spriteBatch.Draw(tex, DrawPosition, null, Color.White * AzMinerUI.sengs, 0, tex.Size() / 2f, AzMinerUI.sengs, SpriteEffects.None, 0);
+            if (Item.IsAir) {
+                return;
             }
-            private void DoUpdate()
-            {
-                if (!Main.MouseScreen.getRectCentered(1, 1).Intersects(this.GetRect()))
-                {
-                    return;
-                }
-                Main.LocalPlayer.mouseInterface = true;
-                if (GetItem().IsAir && type == 0 && Main.mouseItem.IsAir)
-                {
-                    Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo2").Value);
-                }
-                if (Main.mouseItem.IsAir && GetItem().IsAir)
-                {
-                    return;
-                }
 
-                if (Instance.keyLeftPressState != KeyPressState.Pressed)
-                {
-                    return;
-                }
-
-                Instance.dontDragTime = 2;
-
-                if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
-                {
-                    SoundEngine.PlaySound(SoundID.Grab);
-                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Loot(), GetItem(), GetItem().stack);
-                    if (type == 0)
-                    {
-                        tp.filters[itemIndex].TurnToAir();
-                    }
-                    else
-                    {
-                        tp.items[itemIndex].TurnToAir();
-                    }
-
-                }
-                else
-                {
-                    bool setMouseAir = true;
-                    if (Main.mouseItem.type == GetItem().type)
-                    {
-                        SoundEngine.PlaySound(SoundID.Grab);
-
-                        Item targetSlot = (type == 0) ? tp.filters[itemIndex] : tp.items[itemIndex];
-
-                        int total = targetSlot.stack + Main.mouseItem.stack;
-                        if (total > targetSlot.maxStack)
-                        {
-                            // 计算多余的数量
-                            int overflow = total - targetSlot.maxStack;
-
-                            // 填满当前槽位
-                            targetSlot.stack = targetSlot.maxStack;
-                            setMouseAir = false;
-                            Main.mouseItem.stack = overflow;
-                        }
-                        else
-                        {
-                            // 正常合并
-                            targetSlot.stack = total;
-                        }
-
-                        if (setMouseAir)
-                        {
-                            // 清空鼠标
-                            Main.mouseItem.TurnToAir();
-                        }
-                    }
-                    else
-                    {
-                        // 判断鼠标物品是否为矿石
-                        bool mouseIsOre = AzMinerTP.ItemIsOre.TryGetValue(Main.mouseItem.type, out bool isOre) && isOre;
-
-                        if (!mouseIsOre && Main.mouseItem.type != ItemID.None)
-                        {
-                            SoundEngine.PlaySound(SoundID.MenuTick);
-                            Main.NewText(CalamityEntropy.Instance.GetLocalization("AzMinerOreWarning").Value, Color.Red);
-                            return;
-                        }
-
-                        // 如果直接替换，先判断目标槽位是否有物品并检查堆叠逻辑
-                        SoundEngine.PlaySound(SoundID.Grab);
-                        Item mouse = Main.mouseItem.Clone();
-
-                        Item targetSlot;
-                        if (type == 0)
-                        {
-                            targetSlot = tp.filters[itemIndex];
-                            Main.mouseItem = targetSlot.Clone();
-                            tp.filters[itemIndex] = mouse;
-                        }
-                        else
-                        {
-                            targetSlot = tp.items[itemIndex];
-                            Main.mouseItem = targetSlot.Clone();
-                            tp.items[itemIndex] = mouse;
-                        }
-
-                        // 检查替换物品是否超过堆叠上限（极端情况）
-                        if (targetSlot.stack > targetSlot.maxStack)
-                        {
-                            int overflow = targetSlot.stack - targetSlot.maxStack;
-                            targetSlot.stack = targetSlot.maxStack;
-
-                            Main.mouseItem.stack = overflow;
-                        }
-                    }
-                }
-                tp.SendData();
-            }
-            public void Update()
-            {
-                DoUpdate();
-                mlLast = Main.mouseLeft;
-            }
+            ItemSlot.DrawItemIcon(Item, 1, Main.spriteBatch, DrawPosition, 1 + 0.2f * hoverSengs, 128, Color.White * AzMinerUI.sengs);
+            Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Item.stack.ToString(), DrawPosition + new Vector2(-15, 6), Color.White * AzMinerUI.sengs, 0, Vector2.Zero, 0.7f + 0.2f * hoverSengs, SpriteEffects.None, 0);
         }
     }
 }
