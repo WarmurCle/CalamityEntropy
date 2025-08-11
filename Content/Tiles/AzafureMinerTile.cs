@@ -187,7 +187,7 @@ namespace CalamityEntropy.Content.Tiles
                     ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile) || gemIDs.Contains(i));
                 }
             }
-            catch(System.Exception ex)
+            catch (System.Exception ex)
             {
                 CalamityEntropy.Instance.Logger.Error($"AzMinerTP.SetStaticProperty: An Error Has Occurred {ex.Message}");
             }
@@ -300,8 +300,10 @@ namespace CalamityEntropy.Content.Tiles
 
             List<int> types = [];
             IsWork = false;
-            foreach (Item item in filters) {
-                if (item.type == ItemID.None) {
+            foreach (Item item in filters)
+            {
+                if (item.type == ItemID.None)
+                {
                     continue;
                 }
                 types.Add(item.type);
@@ -317,14 +319,19 @@ namespace CalamityEntropy.Content.Tiles
 
             for (int i = 0; i < 3; i++)
             {
+<<<<<<< HEAD
                 Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
                 p = new Point((int)(Main.LocalPlayer.Center.X / 16), (int)(Main.LocalPlayer.Center.Y / 16 - 8));
+=======
+                Point16 p = new Point16(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
+>>>>>>> 07b661dd0d0adb7b5129a71f130cab237aae2da3
 
                 Tile t = Main.tile[p.X, p.Y];
                 if (!t.HasTile)
                 {
                     continue;
                 }
+<<<<<<< HEAD
                 if (method == null)
                 {
                     method = typeof(WorldGen).GetMethod("KillTile_GetItemDrops", BindingFlags.Static | BindingFlags.NonPublic,
@@ -337,7 +344,7 @@ namespace CalamityEntropy.Content.Tiles
                                    },
                                    null);
                 }
-                
+
                 bool CanMine(Tile t)
                 {
                     int style = TileObjectData.GetTileStyle(t);
@@ -363,11 +370,25 @@ namespace CalamityEntropy.Content.Tiles
                     }
                     return true;
                 }
-                if(!CanMine(t))
+                if (!CanMine(t))
                 {
                     continue;
                 }
-                
+
+
+=======
+                int itemtype = t.GetTileDrop(p.X, p.Y);
+
+                //if (!ItemIsOre.ContainsKey(itemtype))
+                //{
+                //    continue;//这个判定目前是不需要的，因为types里面的肯定都是矿物物品
+                //}
+                if (!types.Contains(itemtype))
+                {
+                    continue;
+                }
+
+>>>>>>> 07b661dd0d0adb7b5129a71f130cab237aae2da3
                 for (int x = -14; x < 15; x++)
                 {
                     for (int y = -14; y < 15; y++)
@@ -376,12 +397,12 @@ namespace CalamityEntropy.Content.Tiles
                         {
                             continue;
                         }
-                        
+
                         if (!CanMine(Main.tile[p.X + x, p.Y + y]))
                         {
                             continue;
                         }
-                        
+
                         if (!MineOre(p.X + x, p.Y + y, types))
                         {
                             continue;
@@ -480,7 +501,7 @@ namespace CalamityEntropy.Content.Tiles
             //淫叫
             SoundEngine.PlaySound(SoundID.Tink with { PitchRange = (-0.1f, 2f) }, CenterInWorld);
 
-            if (targetOffset2.Length() > 1f) 
+            if (targetOffset2.Length() > 1f)
             {
                 return;
             }
