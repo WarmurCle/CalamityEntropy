@@ -23,7 +23,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.ArmorPenetration = 86;
             Item.knockBack = 1f;
             Item.UseSound = null;
             Item.autoReuse = true;
@@ -31,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<AquashardThrow>();
-            Item.shootSpeed = 36f;
+            Item.shootSpeed = 40f;
             Item.DamageType = CEUtils.RogueDC;
         }
 
