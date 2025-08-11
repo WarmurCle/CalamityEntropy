@@ -2930,6 +2930,11 @@ Items: {
 		DisplayName: 墨狐之相
 		Tooltip: ""
 	}
+
+	TestItem: {
+		// DisplayName: Test Item
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]

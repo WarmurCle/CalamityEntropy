@@ -175,7 +175,6 @@ namespace CalamityEntropy.Content.Tiles
 
                     ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile) || gemIDs.Contains(i));
                 }
-
             }
             catch(System.Exception ex)
             {
@@ -185,8 +184,8 @@ namespace CalamityEntropy.Content.Tiles
         public override void SetProperty()
         {
             IsWork = true;
-            filters = new List<Item>();
-            items = new List<Item>();
+            filters = [];
+            items = [];
             for (int i = 0; i < FiltersCount; i++)
             {
                 filters.Add(new Item());
@@ -199,8 +198,8 @@ namespace CalamityEntropy.Content.Tiles
 
         public override void LoadData(TagCompound tag)
         {
-            filters = new List<Item>();
-            items = new List<Item>();
+            filters = [];
+            items = [];
             if (tag.ContainsKey("items"))
             {
                 TagCompound isave = tag.Get<TagCompound>("items");
@@ -228,7 +227,7 @@ namespace CalamityEntropy.Content.Tiles
 
         public override void SaveData(TagCompound tag)
         {
-            TagCompound itemSaves = new TagCompound();
+            TagCompound itemSaves = [];
             int c = 0;
             foreach (Item item in filters)
             {
@@ -287,28 +286,26 @@ namespace CalamityEntropy.Content.Tiles
             targetOffset2 *= 0.6f;
             OffsetPos = new Vector2((int)currentOffset.X, (int)currentOffset.Y);
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                return;
-            }
-
-            bool didMine = false;
-            List<int> types = new List<int>();
+            List<int> types = [];
             IsWork = false;
-            foreach (Item item in filters)
-            {
-                if (item.type == ItemID.None)
-                {
+            foreach (Item item in filters) {
+                if (item.type == ItemID.None) {
                     continue;
                 }
                 types.Add(item.type);
                 IsWork = true;
             }
 
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                return;
+            }
+
+            bool didMine = false;
+
             for (int i = 0; i < 3; i++)
             {
-                Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
-
+                Point16 p = new Point16(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
 
                 Tile t = Main.tile[p.X, p.Y];
                 if (!t.HasTile)
@@ -318,10 +315,10 @@ namespace CalamityEntropy.Content.Tiles
 
                 int itemtype = t.GetTileDrop(p.X, p.Y);
 
-                if (!ItemIsOre.ContainsKey(itemtype))
-                {
-                    continue;
-                }
+                //if (!ItemIsOre.ContainsKey(itemtype))
+                //{
+                //    continue;//这个判定目前是不需要的，因为types里面的肯定都是矿物物品
+                //}
                 if (!types.Contains(itemtype))
                 {
                     continue;
