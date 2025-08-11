@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Pink;
             Item.shoot = ModContent.ProjectileType<AbyssalPiercerThrow>();
-            Item.shootSpeed = 36f;
+            Item.shootSpeed = 40f;
             Item.DamageType = CEUtils.RogueDC;
         }
 
