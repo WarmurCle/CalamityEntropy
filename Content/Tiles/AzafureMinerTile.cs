@@ -186,6 +186,7 @@ namespace CalamityEntropy.Content.Tiles
 
                     ItemIsOre.Add(i, oreTileIDs.Contains(item.createTile) || gemIDs.Contains(i));
                 }
+
             }
             catch (System.Exception ex)
             {
@@ -195,8 +196,8 @@ namespace CalamityEntropy.Content.Tiles
         public override void SetProperty()
         {
             IsWork = true;
-            filters = [];
-            items = [];
+            filters = new List<Item>();
+            items = new List<Item>();
             for (int i = 0; i < FiltersCount; i++)
             {
                 filters.Add(new Item());
@@ -209,8 +210,8 @@ namespace CalamityEntropy.Content.Tiles
 
         public override void LoadData(TagCompound tag)
         {
-            filters = [];
-            items = [];
+            filters = new List<Item>();
+            items = new List<Item>();
             if (tag.ContainsKey("items"))
             {
                 TagCompound isave = tag.Get<TagCompound>("items");
@@ -238,7 +239,7 @@ namespace CalamityEntropy.Content.Tiles
 
         public override void SaveData(TagCompound tag)
         {
-            TagCompound itemSaves = [];
+            TagCompound itemSaves = new TagCompound();
             int c = 0;
             foreach (Item item in filters)
             {
@@ -298,7 +299,13 @@ namespace CalamityEntropy.Content.Tiles
             targetOffset2 *= 0.6f;
             OffsetPos = new Vector2((int)currentOffset.X, (int)currentOffset.Y);
 
-            List<int> types = [];
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                return;
+            }
+
+            bool didMine = false;
+            List<int> types = new List<int>();
             IsWork = false;
             foreach (Item item in filters)
             {
@@ -310,28 +317,16 @@ namespace CalamityEntropy.Content.Tiles
                 IsWork = true;
             }
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                return;
-            }
-
-            bool didMine = false;
-
             for (int i = 0; i < 3; i++)
             {
-<<<<<<< HEAD
                 Point p = new Point(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
                 p = new Point((int)(Main.LocalPlayer.Center.X / 16), (int)(Main.LocalPlayer.Center.Y / 16 - 8));
-=======
-                Point16 p = new Point16(Main.rand.Next(Main.maxTilesX), Main.rand.Next(Main.maxTilesY));
->>>>>>> 07b661dd0d0adb7b5129a71f130cab237aae2da3
 
                 Tile t = Main.tile[p.X, p.Y];
                 if (!t.HasTile)
                 {
                     continue;
                 }
-<<<<<<< HEAD
                 if (method == null)
                 {
                     method = typeof(WorldGen).GetMethod("KillTile_GetItemDrops", BindingFlags.Static | BindingFlags.NonPublic,
@@ -375,20 +370,6 @@ namespace CalamityEntropy.Content.Tiles
                     continue;
                 }
 
-
-=======
-                int itemtype = t.GetTileDrop(p.X, p.Y);
-
-                //if (!ItemIsOre.ContainsKey(itemtype))
-                //{
-                //    continue;//这个判定目前是不需要的，因为types里面的肯定都是矿物物品
-                //}
-                if (!types.Contains(itemtype))
-                {
-                    continue;
-                }
-
->>>>>>> 07b661dd0d0adb7b5129a71f130cab237aae2da3
                 for (int x = -14; x < 15; x++)
                 {
                     for (int y = -14; y < 15; y++)
