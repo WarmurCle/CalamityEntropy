@@ -391,24 +391,24 @@ namespace CalamityEntropy.Content.NPCs
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Necroplasm>(), 30));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<AuricOre>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<CosmicWorm>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<SupremeHealingPotion>(), 10));
+                p3.Add(new RewardPoolItem(ModContent.ItemType<SupremeHealingPotion>(), 3));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<EidolicWail>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<PhosphorescentGauntlet>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Murasama>(), 1));
                 p3.Add(new RewardPoolItem(ItemID.LastPrism, 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<PristineFury>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Deathwind>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<PrisonOfPermafrost>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
 
                 p4 = new RewardPool();
+                p4.Add(new RewardPoolItem(ModContent.ItemType<PrisonOfPermafrost>(), 1));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<CodebreakerBase>(), 1));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<YharimsCrystal>(), 1));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<AscendantSpiritEssence>(), 15));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<AuricOre>(), 100));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<Vehemence>(), 1));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<Sacrifice>(), 1));
-                p4.Add(new RewardPoolItem(ModContent.ItemType<YharonSoulFragment>(), 25));
+                p4.Add(new RewardPoolItem(ModContent.ItemType<YharonSoulFragment>(), 15));
                 p4.Add(new RewardPoolItem(ModContent.ItemType<AuricBar>(), 10));
                 p4.Add(new RewardPoolItem(ItemID.Zenith, 1));
 
