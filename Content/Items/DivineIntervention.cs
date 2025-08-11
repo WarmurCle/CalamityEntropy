@@ -36,8 +36,8 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(ModContent.BuffType<DivingShieldCooldown>(), 3600, true, false);
-            player.AddCooldown(DivingCd.ID, 3600);
+            player.AddBuff(ModContent.BuffType<DivingShieldCooldown>(), 18000, true, false);
+            player.AddCooldown(DivingCd.ID, 18000);
             return true;
         }
 
