@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Particles;
-using InfernumMode.Content.BehaviorOverrides.BossAIs.Plantera;
 using InnoVault;
 using InnoVault.TileProcessors;
 using InnoVault.UIHandles;
@@ -495,18 +494,6 @@ namespace CalamityEntropy.Content.Tiles
         internal static Asset<Texture2D> UIBarTex;
         [VaultLoaden("CalamityEntropy/Assets/UI/Miner/UISlot")]
         internal static Asset<Texture2D> UISlotTex;
-        private static bool IsActive;
-        public override bool Active
-        {
-            get
-            {
-                if (AzMinerTP == null || !AzMinerTP.Active) {
-                    IsActive = false;
-                }
-                return IsActive || sengs > 0;
-            }
-            set => IsActive = value;
-        }
         public static AzMinerUI Instance => UIHandleLoader.GetUIHandleOfType<AzMinerUI>();
         public static AzMinerTP AzMinerTP { get; set; } = null;
         public static List<AzMinerUISlot> Filters { get; set; }
@@ -516,6 +503,16 @@ namespace CalamityEntropy.Content.Tiles
         private bool onDrag;
         private Vector2 dragOffset;
         internal static float sengs = 0;
+        private static bool IsActive;
+        public override bool Active {
+            get {
+                if (AzMinerTP == null || !AzMinerTP.Active) {
+                    IsActive = false;
+                }
+                return IsActive || sengs > 0;
+            }
+            set => IsActive = value;
+        }
         public override void Update()
         {
             if (dontDragTime > 0)
@@ -634,6 +631,7 @@ namespace CalamityEntropy.Content.Tiles
 
     public class AzMinerUISlot : UIHandle
     {
+        public override LayersModeEnum LayersMode => LayersModeEnum.None;
         public int itemIndex = 0;
         public int type = 0;
         public Vector2 OffsetPos = new Vector2();
