@@ -16,6 +16,8 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class XytheronProj : ModProjectile
     {
+        public static List<float> MotifList;
+        public static int soundCount = 0;
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/Xytheron";
         List<float> odr = new List<float>();
         List<float> ods = new List<float>();
@@ -93,7 +95,21 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation += rotSpeed * meleeSpeed * 0.32f;
             if (Projectile.ai[0] >= 74 && playsound)
             {
-                CEUtils.PlaySound("xswing", Main.rand.NextFloat(0.9f, 1.4f), Projectile.Center, 8, 0.8f);
+                MotifList = new List<float>() { 1, 0, 0, 0, 0.6f, 1, 0.8f, 1, 1.18f, 0, 0.9f, 1, 0, 0, 0, 0, 0, 1f, 0.9f, 0.8f, 0.7f, 0.84f, 0, 1, 0.95f, 1.05f, 1.2f, 0, 1.2f, 1.3f, 1.2f, 0, 1.1f, 1, 0.8f, 0, 1f, 0, 0.7f, 0, 0, 1.05f, 0, 1.1f, 0, 0, 1.2f, 1f, 0.9f, 0, 0, 0, 0 };
+                float pitch = Main.rand.NextFloat(0.9f, 1.4f);
+                if(Main.zenithWorld)
+                {
+                    pitch = MotifList[soundCount];
+                    soundCount++;
+                    if (soundCount >= MotifList.Count)
+                    {
+                        soundCount = 0;
+                    }
+                }
+                if (pitch > 0)
+                {
+                    CEUtils.PlaySound("xswing", pitch, Projectile.Center, 8, 0.8f);
+                }
                 playsound = false;
             }
             if (Projectile.ai[0] < 60 * updates)
