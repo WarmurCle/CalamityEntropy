@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityEntropy.Content.Items.Vanity;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
@@ -33,12 +34,10 @@ namespace CalamityEntropy.Content.UI
             Asset<Texture2D> asset = context.texture;
             string fancyFolder = "Images/UI/PlayerResourceSets/FancyClassic/";
             string barsFolder = "Images/UI/PlayerResourceSets/HorizontalBars/";
-
+            bool blackMask = Main.LocalPlayer.GetModPlayer<VanityModPlayer>().vanityEquipped == "KitsunesFan";
 
             if (LifeTexturePath() != string.Empty)
             {
-
-
                 if (asset == TextureAssets.Heart || asset == TextureAssets.Heart2 || CompareAssets(asset, fancyFolder + "Heart_Fill") || CompareAssets(asset, fancyFolder + "Heart_Fill_B"))
                 {
                     if ((context.resourceNumber + 1) * 30 <= Main.LocalPlayer.Entropy().MagiShield)
@@ -60,6 +59,13 @@ namespace CalamityEntropy.Content.UI
                             context.Draw();
                         }
                     }
+                    if (blackMask)
+                    {
+                        context.color = Color.Black * 0.5f;
+                        context.texture = ModContent.Request<Texture2D>($"{baseFolder}HeartWhite");
+                        context.Draw();
+                        context.color = Color.White;
+                    }
                     if (context.resourceNumber == 0 && Main.LocalPlayer.Entropy().HolyShield)
                     {
                         context.texture = ModContent.Request<Texture2D>($"{baseFolder}mantle");
@@ -68,6 +74,7 @@ namespace CalamityEntropy.Content.UI
                         Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
                         context.Draw();
                     }
+                    
 
                 }
                 else if (CompareAssets(asset, barsFolder + "HP_Fill") || CompareAssets(asset, barsFolder + "HP_Fill_Honey"))
@@ -85,6 +92,13 @@ namespace CalamityEntropy.Content.UI
                             context.Draw();
                         }
                     }
+                    if (blackMask)
+                    {
+                        context.color = Color.Black * 0.5f;
+                        context.texture = ModContent.Request<Texture2D>($"{baseFolder}BarWhite");
+                        context.Draw();
+                        context.color = Color.White;
+                    }
                     if (context.resourceNumber == 2 && Main.LocalPlayer.Entropy().HolyShield)
                     {
                         context.texture = ModContent.Request<Texture2D>($"{baseFolder}mantle");
@@ -94,24 +108,46 @@ namespace CalamityEntropy.Content.UI
                         context.Draw();
                     }
 
+
                 }
             }
-            if (ManaTexturePath() != string.Empty && Main.LocalPlayer.Entropy().enhancedMana > 0)
+            if (ManaTexturePath() != string.Empty)
             {
                 if (asset == TextureAssets.Mana || CompareAssets(asset, fancyFolder + "Star_Fill"))
                 {
-                    if ((context.resourceNumber + 1) * 20 > Main.LocalPlayer.Entropy().manaNorm)
+                    if (Main.LocalPlayer.Entropy().enhancedMana > 0)
                     {
-                        context.texture = ModContent.Request<Texture2D>(ManaTexturePath() + "Star");
-                        context.Draw();
+                        if ((context.resourceNumber + 1) * 20 > Main.LocalPlayer.Entropy().manaNorm)
+                        {
+                            context.texture = ModContent.Request<Texture2D>(ManaTexturePath() + "Star");
+                            context.Draw();
+                        }
                     }
+                    if (blackMask)
+                    {
+                        context.color = Color.Black * 0.8f;
+                        context.texture = ModContent.Request<Texture2D>($"{baseFolder}StarWhite");
+                        context.Draw();
+                        context.color = Color.White;
+                    }
+                    
                 }
                 else if (CompareAssets(asset, barsFolder + "MP_Fill"))
                 {
-                    if ((context.resourceNumber + 1) * 20 > Main.LocalPlayer.Entropy().manaNorm)
+                    if (Main.LocalPlayer.Entropy().enhancedMana > 0)
                     {
-                        context.texture = ModContent.Request<Texture2D>(ManaTexturePath() + "Bar");
+                        if ((context.resourceNumber + 1) * 20 > Main.LocalPlayer.Entropy().manaNorm)
+                        {
+                            context.texture = ModContent.Request<Texture2D>(ManaTexturePath() + "Bar");
+                            context.Draw();
+                        }
+                    }
+                    if (blackMask)
+                    {
+                        context.color = Color.Black * 0.5f;
+                        context.texture = ModContent.Request<Texture2D>($"{baseFolder}BarWhite");
                         context.Draw();
+                        context.color = Color.White;
                     }
                 }
             }
