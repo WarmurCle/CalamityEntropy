@@ -26,6 +26,7 @@ namespace CalamityEntropy.Content.Items.Vanity.KM
             Item.height = 48;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Pink;
+            Item.vanity = true;
         }
         public override void AddRecipes()
         {
