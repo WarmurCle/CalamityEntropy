@@ -2935,6 +2935,11 @@ Items: {
 		// DisplayName: Test Item
 		// Tooltip: ""
 	}
+
+	TrueMoonlightSword: {
+		// DisplayName: True Moonlight Sword
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3401,6 +3406,8 @@ Projectiles: {
 	SRDamageRect.DisplayName: 冥魂泉
 	SpiritBullet.DisplayName: 冥火弹
 	// SpiritLaser.DisplayName: Spirit Laser
+	// TrueMoonlightShoot.DisplayName: True Moonlight Shoot
+	// TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
 }
 
 LegendTooltip: - 传奇物品 -

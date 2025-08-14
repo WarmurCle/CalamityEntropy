@@ -2774,6 +2774,11 @@ Items: {
 		// DisplayName: Test Item
 		// Tooltip: ""
 	}
+
+	TrueMoonlightSword: {
+		// DisplayName: True Moonlight Sword
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3239,6 +3244,8 @@ Projectiles: {
 	// SRDamageRect.DisplayName: S R Damage Rect
 	// SpiritBullet.DisplayName: Spirit Bullet
 	// SpiritLaser.DisplayName: Spirit Laser
+	// TrueMoonlightShoot.DisplayName: True Moonlight Shoot
+	// TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
 }
 
 LegendTooltip: - Легенда -
