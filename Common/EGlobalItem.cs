@@ -77,13 +77,29 @@ namespace CalamityEntropy.Common
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
         public float[] wispColor = null;
+        public readonly static Dictionary<int, int> GemItemIDToTileIDMap = new() {
+            {ItemID.Ruby, TileID.Ruby },
+            {ItemID.Sapphire, TileID.Sapphire },
+            {ItemID.Diamond, TileID.Diamond },
+            {ItemID.Emerald, TileID.Emerald },
+            {ItemID.Topaz, TileID.Topaz },
+            {ItemID.Amethyst, TileID.Topaz },
+        };
+        public readonly static Dictionary<int, int> GemTileIDToItemIDMap = new() {
+            {TileID.Ruby, ItemID.Ruby },
+            {TileID.Sapphire, ItemID.Sapphire },
+            {TileID.Diamond, ItemID.Diamond },
+            {TileID.Emerald, ItemID.Emerald },
+            {TileID.Topaz, ItemID.Topaz },
+            {TileID.Amethyst, ItemID.Topaz },
+        };
         public override void SetDefaults(Item entity)
         {
             if (entity.type == ModContent.ItemType<StarblightSoot>())
             {
                 entity.ammo = 3728;
             }
-            if (entity.type == 1325)
+            if (entity.type == ItemID.ChainKnife)
             {
                 entity.damage = 32;
                 entity.shootSpeed *= 1.25f;
