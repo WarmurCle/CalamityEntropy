@@ -2937,8 +2937,8 @@ Items: {
 	}
 
 	TrueMoonlightSword: {
-		// DisplayName: True Moonlight Sword
-		// Tooltip: ""
+		DisplayName: 真·皎月刃
+		Tooltip: ""
 	}
 }
 
