@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public const int ShieldSlamDamage = 70;
         public const float ShieldSlamKnockback = 8f;
         public const int ShieldSlamIFrames = 12;
-        public static int DashDelay = 25;
+        public static int DashDelay = 30;
         public float charge = 0;
         public float maxCharge = 3.6f;
         public override void SetDefaults()
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.width = 60;
             Item.height = 54;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-            Item.defense = 10;
+            Item.defense = 4;
             Item.accessory = true;
             Item.rare = ModContent.RarityType<DarkOrange>();
         }
