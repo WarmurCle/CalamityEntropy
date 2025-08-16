@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<AbyssDragonProj>();
             Item.shootSpeed = 20f;
-            Item.mana = 10;
+            Item.mana = 7;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
         }
