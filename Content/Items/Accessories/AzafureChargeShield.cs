@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public const int ShieldSlamDamage = 45;
         public const float ShieldSlamKnockback = 6f;
         public const int ShieldSlamIFrames = 12;
-        public static int DashDelay = 45;
+        public static int DashDelay = 30;
         public float charge = 0;
         public float maxCharge = 3.6f;
         public override void SetDefaults()
