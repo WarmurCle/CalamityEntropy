@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     {
         public override void SetDefaults()
         {
-            Item.width = 36;
+            Item.width = 40;
             Item.defense = 6;
             Item.height = 46;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;

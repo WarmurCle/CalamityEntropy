@@ -19,8 +19,8 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Shield)]
     public class AzafureChargeShield : ModItem
     {
-        public const int ShieldSlamDamage = 68;
-        public const float ShieldSlamKnockback = 6f;
+        public const int ShieldSlamDamage = 70;
+        public const float ShieldSlamKnockback = 8f;
         public const int ShieldSlamIFrames = 12;
         public static int DashDelay = 25;
         public float charge = 0;
