@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Events;
 using CalamityMod.BiomeManagers;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
@@ -98,6 +99,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             NPC.Calamity().DR = 0.1f;
             NPC.defense = 10;
             NPC.lifeMax = 22000;
+            if (BossRushEvent.BossRushActive)
+            {
+                NPC.lifeMax += 250000;
+            }
             NPC.HitSound = SoundID.NPCHit32;
             NPC.DeathSound = SoundID.NPCDeath22;
             NPC.value = 1600f;
