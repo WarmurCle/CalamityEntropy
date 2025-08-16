@@ -3796,11 +3796,6 @@ Configs: {
 			Tooltip: Отображение дополнительной информации о некоторых предметах, таких как бронепробиваемость, тип боеприпасов и т.д
 		}
 
-		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			Label: Комплект брони Маривиния предоставляет шкалу скрытности только при использовании оружия разбойника.
-			Tooltip: ""
-		}
-
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
 			Tooltip: ""
 			Label: Комплект брони Маривиния предоставляет шкалу скрытности только при использовании оружия разбойника.
@@ -3812,8 +3807,8 @@ Configs: {
 		}
 
 		ScreenWarpEffects: {
-			// Label: Screen Warp Effects
-			// Tooltip: ""
+			// Label: Screen Effects
+			// Tooltip: Do or do not draw the screen wrap and cut screen effect
 		}
 	}
 

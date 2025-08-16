@@ -3959,14 +3959,15 @@ Configs: {
 			Tooltip: ""
 			Label: 渊洋神迹套装只在手持盗贼武器时提供潜行条
 		}
-		ScreenWarpEffects: {
-			Tooltip: "是否绘制扭曲切屏等特效"
-			Label: 屏幕特效
-		}
 
 		EntropyMeleeWeaponSoundVolume: {
 			Label: 灾熵近战武器音效大小
 			Tooltip: ""
+		}
+
+		ScreenWarpEffects: {
+			Label: 屏幕特效
+			Tooltip: 是否绘制扭曲切屏等特效
 		}
 	}
 

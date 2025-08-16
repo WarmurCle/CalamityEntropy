@@ -3744,7 +3744,7 @@ Configs: {
 
 		ScreenWarpEffects: {
 			Label: Screen Effects
-			Tooltip: "Do or do not draw the screen wrap and cut screen effect"
+			Tooltip: Do or do not draw the screen wrap and cut screen effect
 		}
 	}
 
