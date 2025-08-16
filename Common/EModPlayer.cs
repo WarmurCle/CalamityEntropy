@@ -1004,8 +1004,8 @@ namespace CalamityEntropy.Common
                 }
                 if (f)
                 {
-                    Player.lifeRegen += 25;
-                    lifeRegenPerSec += 6;
+                    Player.lifeRegen += 16;
+                    lifeRegenPerSec += 4;
                 }
             }
             if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
@@ -1802,8 +1802,7 @@ namespace CalamityEntropy.Common
             itemTime--;
             if (Player.HasBuff<VoidVirus>())
             {
-                Player.statDefense -= 38;
-                Player.lifeRegen = 0;
+                Player.statDefense -= 15;
                 lifeRegenPerSec = 0;
             }
             if (VFHelmSummoner)
@@ -2577,7 +2576,7 @@ namespace CalamityEntropy.Common
             }
             if (shadowRune)
             {
-                Player.maxMinions += (int)(Player.GetDamage(DamageClass.Summon).Additive * ShadowRune.SummonDmgToMinionSlot);
+                Player.maxMinions += (int)((Player.GetDamage(DamageClass.Summon).Additive - 1.0f) * ShadowRune.SummonDmgToMinionSlot);
             }
         }
         public override void ModifyScreenPosition()

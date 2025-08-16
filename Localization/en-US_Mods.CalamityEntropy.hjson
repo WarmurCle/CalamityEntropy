@@ -249,6 +249,7 @@ Items: {
 			'''
 			Shoot a Divine Shield
 			Rebound projectile in contact with the projectile
+			This effect has a 3 minutes cooldown time
 			'''
 	}
 
