@@ -267,7 +267,7 @@ namespace CalamityEntropy.Common
             CalamityEntropy.cutScreen += CalamityEntropy.cutScreenVel;
             if (CalamityEntropy.cutScreen > 0)
             {
-                CalamityEntropy.cutScreenVel -= 1.16f;
+                CalamityEntropy.cutScreenVel -= 0.5f;
             }
             if (CalamityEntropy.cutScreen < 0)
             {

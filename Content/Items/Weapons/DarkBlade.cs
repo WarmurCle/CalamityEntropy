@@ -31,8 +31,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 108;
             Item.height = 108;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
             Item.crit = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
@@ -84,8 +84,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
-            Projectile.timeLeft = 16 * 80;
-            Projectile.MaxUpdates = 16;
+            Projectile.timeLeft = 1000;
+            Projectile.MaxUpdates = 2;
         }
         public float rotRP = Main.rand.NextFloat(-0.2f, 0.2f);
         public float counter = 0;
@@ -116,6 +116,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float rp = 0;
         public override void AI()
         {
+            if(Projectile.timeLeft <= 3)
+            {
+                return;
+            }
+            Projectile.timeLeft++;
             Player owner = Projectile.GetOwner();
             if (owner.dead)
             {
@@ -134,17 +139,15 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     for(float i = -1; i <= 1; i += 1)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), owner.Center, new Vector2(owner.direction * -2, 0).RotatedBy(i * 0.6f), ModContent.ProjectileType<DarkBladeShoot>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), owner.Center, new Vector2(owner.direction * -2, 0).RotatedBy(i * 0.6f), ModContent.ProjectileType<DarkBladeShoot>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, i);
                     }
                 }
             }
-            Projectile.Center = Projectile.GetOwner().GetDrawCenter() - Projectile.velocity.normalize() * 60;
+            Projectile.Center = Projectile.GetOwner().GetDrawCenter() - Projectile.velocity.normalize() * 10;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (progress <= 1)
-            {
-                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((owner.Calamity().mouseWorld - Projectile.Center).ToRotation());
 
-            }
+            Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((owner.Calamity().mouseWorld - Projectile.Center).ToRotation());
+
 
             if (Projectile.velocity.X > 0)
             {
@@ -159,6 +162,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
+            /*
             if(counter == MaxUpdateTimes)
             {
                 Vector2 sparkVelocity2 = Projectile.velocity * 1.12f;
@@ -174,26 +178,21 @@ namespace CalamityEntropy.Content.Items.Weapons
                 spark = new AltSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 30, sparkVelocity2, false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
                 GeneralParticleHandler.SpawnParticle(spark);
 
-            }
+            }*/
             if (counter > MaxUpdateTimes)
             {
-                if (progress >= 2.5f)
+                if (progress >= 1f)
                 {
-                    owner.itemTime = 0;
-                    owner.itemAnimation = 0;
-                    Projectile.Kill();
+                    owner.itemTime = 1;
+                    owner.itemAnimation = 1;
+                    Projectile.timeLeft = 3;
                     return;
-                }
-                else
-                {
-                    Projectile.Center = Projectile.GetOwner().GetDrawCenter() - Projectile.velocity.normalize() * (CEUtils.Parabola((float.Clamp(progress - 1, 0, 1)) * 0.46f, 64) - 32 + 24);
                 }
                 if (progress > 2.4f)
                 {
                     NoDraw = true;
                 }
             }
-            Projectile.Center += Projectile.velocity.normalize() * 18;
 
         }
         public override bool ShouldUpdatePosition()
@@ -225,11 +224,6 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
-            float progress = (counter / MaxUpdateTimes);
-
-            if (progress < 0.94f)
-                return false;
             return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 130 * Projectile.scale * scale * rScale, targetHitbox, 64);
         }
         public override void CutTiles()
@@ -256,8 +250,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
-            Projectile.timeLeft = 10000;
-            Projectile.MaxUpdates = 24;
+            Projectile.timeLeft = 80 * 26;
+            Projectile.MaxUpdates = 26;
         }
         public float counter = 0;
         public float scale = 1;
@@ -280,58 +274,72 @@ namespace CalamityEntropy.Content.Items.Weapons
                 AltSparkParticle spark = new AltSparkParticle(Projectile.Center, sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
+            Projectile.damage = (int)(Projectile.damage * 0.8f);
         }
         public override void AI()
         {
             if(init)
             {
                 init = false;
-
+                if (Projectile.ai[0] == 0)
+                {
+                    Projectile.scale *= 1.25f;
+                    Projectile.damage = (int)(Projectile.damage * 1.25f);
+                }
                 offsetVel = Projectile.velocity;
                 Projectile.rotation = (-Projectile.velocity).ToRotation();
             }
             Player player = Projectile.GetOwner();
             counter++;
-            if (counter < 18 * Projectile.MaxUpdates)
+            if (counter < 22 * Projectile.MaxUpdates)
             {
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.004f, false);
                 offsetVel *= 0.987f;
                 offsetToPlr += offsetVel;
                 Projectile.Center = player.Center + offsetToPlr;
-                /*if (counter % Projectile.MaxUpdates == 0)
+                if (counter % (Projectile.MaxUpdates) == 0)
                 {
-                    EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center, Vector2.Zero, Color.White, Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4);
-                    EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center - Projectile.velocity * Projectile.MaxUpdates / 2, Vector2.Zero, Color.White, Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4);
-                }*/
+                    EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center, Vector2.Zero, Color.White, Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4, 12);
+                }
             }
             else
             {
                 if (shoot)
                 {
+                    
                     shoot = false;
                     Projectile.velocity = (player.Calamity().mouseWorld - Projectile.Center).normalize() * 4;
                     Projectile.rotation = Projectile.velocity.ToRotation();
+                    if (Projectile.ai[0] == 0)
+                    {
+                        //CalamityEntropy.cutScreenVel = 2.6f;
+                        //CalamityEntropy.cutScreenCenter = Projectile.Center;
+                        //CalamityEntropy.cutScreenRot = Projectile.velocity.ToRotation();
+                    }
                 }
-                if (counter % Projectile.MaxUpdates == 0)
+                if (CEUtils.getDistance(Projectile.Center, Main.LocalPlayer.Center) < 2000)
                 {
-                    EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center, Vector2.Zero, new Color(255, 40, 40), Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4);
-                    EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center - Projectile.velocity * Projectile.MaxUpdates / 2, Vector2.Zero, new Color(255, 40, 40), Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4);
-                }
-                if(Main.rand.NextBool(8))
-                {
-                    int sparkLifetime2 = 42;
-                    var sparkVelocity2 = Projectile.velocity * 1.4f;
-                    var sparkColor2 = Color.Red;
-                    var sparkScale2 = Main.rand.NextFloat(0.1f, 0.6f);
-                    var spark = new AltSparkParticle(Projectile.Center - Projectile.velocity.normalize() * 18, sparkVelocity2, false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    if (counter % Projectile.MaxUpdates == 0)
+                    {
+                        EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center, Vector2.Zero, new Color(255, 40, 40), Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4, 20);
+                        EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center + Projectile.velocity * Projectile.MaxUpdates / 2, Vector2.Zero, new Color(255, 40, 40), Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4, 20);
+                    }
+                    if (Main.rand.NextBool(8))
+                    {
+                        int sparkLifetime2 = 42;
+                        var sparkVelocity2 = Projectile.velocity * 1.4f;
+                        var sparkColor2 = Color.Red;
+                        var sparkScale2 = Main.rand.NextFloat(0.1f, 0.6f);
+                        var spark = new AltSparkParticle(Projectile.Center - Projectile.velocity.normalize() * 18, sparkVelocity2, false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
                 }
             }
             
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if (counter < 18 * Projectile.MaxUpdates)
+            if (counter < 22 * Projectile.MaxUpdates)
                 return false;
             return null;
         }

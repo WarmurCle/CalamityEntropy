@@ -3732,11 +3732,6 @@ Configs: {
 			Tooltip: Display additional information about certain items like armor penetration, ammo type, etc
 		}
 
-		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			Label: Marivinium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
-			Tooltip: ""
-		}
-
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
 			Tooltip: ""
 			Label: Marivium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
@@ -3745,6 +3740,11 @@ Configs: {
 		EntropyMeleeWeaponSoundVolume: {
 			Label: Entropy Melee Weapon Sound Volume
 			Tooltip: ""
+		}
+
+		ScreenWarpEffects: {
+			Label: Screen Effects
+			Tooltip: "Do or do not draw the screen wrap and cut screen effect"
 		}
 	}
 

@@ -3810,6 +3810,11 @@ Configs: {
 			// Label: Entropy Melee Weapon Sound Volume
 			// Tooltip: ""
 		}
+
+		ScreenWarpEffects: {
+			// Label: Screen Warp Effects
+			// Tooltip: ""
+		}
 	}
 
 	ServerConfig: {
