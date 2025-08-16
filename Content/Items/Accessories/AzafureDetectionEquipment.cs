@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void SetDefaults()
         {
             Item.width = 36;
-            Item.defense = 6;
+            Item.defense = 4;
             Item.height = 46;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.rocketBoots += 90;
             player.noFallDmg = true;
             player.jumpSpeedBoost += 1.8f;
-            player.maxRunSpeed *= 1.25f;
+            player.maxRunSpeed *= 1.15f;
             player.Entropy().addEquip(ID, !hideVisual);
         }
         public override void UpdateVanity(Player player)
