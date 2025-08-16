@@ -19,10 +19,10 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Shield)]
     public class AzafureChargeShield : ModItem
     {
-        public const int ShieldSlamDamage = 68;
+        public const int ShieldSlamDamage = 45;
         public const float ShieldSlamKnockback = 6f;
         public const int ShieldSlamIFrames = 12;
-        public static int DashDelay = 25;
+        public static int DashDelay = 45;
         public float charge = 0;
         public float maxCharge = 3.6f;
         public override void SetDefaults()
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.width = 60;
             Item.height = 54;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-            Item.defense = 10;
+            Item.defense = 4;
             Item.accessory = true;
             Item.rare = ModContent.RarityType<DarkOrange>();
         }
