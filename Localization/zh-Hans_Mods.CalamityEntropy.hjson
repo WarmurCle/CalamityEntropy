@@ -2940,6 +2940,11 @@ Items: {
 		DisplayName: 真·皎月刃
 		Tooltip: ""
 	}
+
+	DarkBlade: {
+		DisplayName: 暗黑刀刃
+		Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3408,6 +3413,8 @@ Projectiles: {
 	// SpiritLaser.DisplayName: Spirit Laser
 	// TrueMoonlightShoot.DisplayName: True Moonlight Shoot
 	// TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
+	// DarkBladeHeld.DisplayName: Dark Blade Held
+	// DarkBladeShoot.DisplayName: Dark Blade Shoot
 }
 
 LegendTooltip: - 传奇物品 -

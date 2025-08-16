@@ -2715,6 +2715,11 @@ Items: {
 		DisplayName: True Moonlight Sword
 		Tooltip: ""
 	}
+
+	DarkBlade: {
+		DisplayName: Dark Blade
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3182,6 +3187,8 @@ Projectiles: {
 	SpiritLaser.DisplayName: Spirit Laser
 	TrueMoonlightShoot.DisplayName: True Moonlight Shoot
 	TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
+	DarkBladeHeld.DisplayName: Dark Blade Held
+	DarkBladeShoot.DisplayName: Dark Blade Shoot
 }
 
 LegendTooltip: - Legend -
