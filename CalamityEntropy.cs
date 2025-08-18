@@ -106,9 +106,6 @@ namespace CalamityEntropy
         public static Effect cve;
         public static Effect cve2;
         public static Effect cab = null;
-        public static RenderTarget2D screen = null;
-        public static RenderTarget2D screen2 = null;
-        public static RenderTarget2D screen3 = null;
         public float screenShakeAmp = 0;
         public float cvcount = 0;
         public static SoundEffect otLoop;
@@ -181,7 +178,7 @@ namespace CalamityEntropy
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserBody>());
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
             EntropySkies.setUpSkies();
-            EffectLoader.Load();
+
             On_MapHeadRenderer.DrawPlayerHead += drawPlayerHeadHook;
             On_Lighting.AddLight_int_int_int_float += al_iiif;
             On_Lighting.AddLight_int_int_float_float_float += al_iifff;
@@ -304,9 +301,7 @@ namespace CalamityEntropy
             CEUtils.TexCache = null;
             BookMarkLoader.CustomBMEffectsByName = null;
             BookMarkLoader.CustomBMByID = null;
-            screen = null;
-            screen2 = null;
-            screen3 = null;
+
             Proj_ID_To_Instance = null;
             EModHooks.UnLoadData();
             LoopSoundManager.unload();
@@ -326,9 +321,7 @@ namespace CalamityEntropy
             cve2 = null;
             Instance = null;
             pixel = null;
-            screen = null;
-            screen2 = null;
-            EffectLoader.UnLoad();
+
             On_MapHeadRenderer.DrawPlayerHead -= drawPlayerHeadHook;
             On_Lighting.AddLight_int_int_int_float -= al_iiif;
             On_Lighting.AddLight_int_int_float_float_float -= al_iifff;

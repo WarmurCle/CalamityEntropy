@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -134,8 +135,8 @@ namespace CalamityEntropy.Content.Skies
             {
                 spriteBatch.End();
                 GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-                RenderTarget2D screen = CalamityEntropy.screen;
-                RenderTarget2D screen2 = CalamityEntropy.screen2;
+                RenderTarget2D screen = EffectLoader.screen;
+                RenderTarget2D screen2 = EffectLoader.screen2;
                 graphicsDevice.SetRenderTarget(screen2);
                 graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
