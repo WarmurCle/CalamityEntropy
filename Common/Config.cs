@@ -23,6 +23,9 @@ namespace CalamityEntropy.Common
         public bool ItemAdditionalInfo { get; set; }
 
         [DefaultValue(true)]
+        public bool ScreenWarpEffects { get; set; }
+
+        [DefaultValue(true)]
         public bool ChainsawShakeScreen { get; set; }
 
         [DefaultValue(1f)]
@@ -42,7 +45,7 @@ namespace CalamityEntropy.Common
         [DefaultValue(false)]
         public bool RepBossMusicReplaceCalamityMusic { get; set; }
 
-
+        
 
     }
 }

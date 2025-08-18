@@ -288,7 +288,7 @@ Items: {
 			发射一个神圣护盾
 			弹反接触到的弹幕
 			对击中的敌人造成伤害
-			120秒冷却时间
+			3分钟冷却时间
 			'''
 	}
 
@@ -2935,6 +2935,16 @@ Items: {
 		// DisplayName: Test Item
 		// Tooltip: ""
 	}
+
+	TrueMoonlightSword: {
+		DisplayName: 真·皎月刃
+		Tooltip: ""
+	}
+
+	DarkBlade: {
+		DisplayName: 暗黑刀刃
+		Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3401,6 +3411,10 @@ Projectiles: {
 	SRDamageRect.DisplayName: 冥魂泉
 	SpiritBullet.DisplayName: 冥火弹
 	// SpiritLaser.DisplayName: Spirit Laser
+	// TrueMoonlightShoot.DisplayName: True Moonlight Shoot
+	// TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
+	// DarkBladeHeld.DisplayName: Dark Blade Held
+	// DarkBladeShoot.DisplayName: Dark Blade Shoot
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3941,11 +3955,6 @@ Configs: {
 			Tooltip: " 展示某些物品额外的信息，如护甲穿透、弹药类型等"
 		}
 
-		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			// Label: Marivinium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
-			// Tooltip: ""
-		}
-
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
 			Tooltip: ""
 			Label: 渊洋神迹套装只在手持盗贼武器时提供潜行条
@@ -3954,6 +3963,11 @@ Configs: {
 		EntropyMeleeWeaponSoundVolume: {
 			Label: 灾熵近战武器音效大小
 			Tooltip: ""
+		}
+
+		ScreenWarpEffects: {
+			Label: 屏幕特效
+			Tooltip: 是否绘制扭曲切屏等特效
 		}
 	}
 

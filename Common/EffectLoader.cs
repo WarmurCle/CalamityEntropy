@@ -792,7 +792,8 @@ namespace CalamityEntropy.Common
         private static void DrawSlashEffects(GraphicsDevice graphicsDevice)
         {
             if (screen == null || screen2 == null) return;
-
+            if (!ModContent.GetInstance<Config>().ScreenWarpEffects)
+                return;
             graphicsDevice.SetRenderTarget(screen);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -937,6 +938,8 @@ namespace CalamityEntropy.Common
             {
                 return;
             }
+            if (!ModContent.GetInstance<Config>().ScreenWarpEffects)
+                return;
 
             graphicsDevice.SetRenderTarget(screen);
             graphicsDevice.Clear(Color.Transparent);

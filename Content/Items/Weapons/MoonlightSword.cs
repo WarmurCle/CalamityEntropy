@@ -87,8 +87,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool shoot = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("swing" + Main.rand.Next(1, 4).ToString(), 1, target.Center);
-            CEUtils.PlaySound("SwordHit" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.06f, Projectile.Center);
+            CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(0.7f, 1.3f), target.Center);
         }
         public override void AI()
         {

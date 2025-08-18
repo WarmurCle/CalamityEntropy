@@ -249,6 +249,7 @@ Items: {
 			'''
 			Shoot a Divine Shield
 			Rebound projectile in contact with the projectile
+			This effect has a 3 minutes cooldown time
 			'''
 	}
 
@@ -2709,6 +2710,16 @@ Items: {
 		DisplayName: Test Item
 		Tooltip: ""
 	}
+
+	TrueMoonlightSword: {
+		DisplayName: True Moonlight Sword
+		Tooltip: ""
+	}
+
+	DarkBlade: {
+		DisplayName: Dark Blade
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3174,6 +3185,10 @@ Projectiles: {
 	SRDamageRect.DisplayName: S R Damage Rect
 	SpiritBullet.DisplayName: Spirit Bullet
 	SpiritLaser.DisplayName: Spirit Laser
+	TrueMoonlightShoot.DisplayName: True Moonlight Shoot
+	TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
+	DarkBladeHeld.DisplayName: Dark Blade Held
+	DarkBladeShoot.DisplayName: Dark Blade Shoot
 }
 
 LegendTooltip: - Legend -
@@ -3717,11 +3732,6 @@ Configs: {
 			Tooltip: Display additional information about certain items like armor penetration, ammo type, etc
 		}
 
-		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			Label: Marivinium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
-			Tooltip: ""
-		}
-
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
 			Tooltip: ""
 			Label: Marivium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
@@ -3730,6 +3740,11 @@ Configs: {
 		EntropyMeleeWeaponSoundVolume: {
 			Label: Entropy Melee Weapon Sound Volume
 			Tooltip: ""
+		}
+
+		ScreenWarpEffects: {
+			Label: Screen Effects
+			Tooltip: Do or do not draw the screen wrap and cut screen effect
 		}
 	}
 
