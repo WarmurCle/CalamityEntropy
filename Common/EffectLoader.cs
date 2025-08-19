@@ -78,17 +78,14 @@ namespace CalamityEntropy.Common
         }
 
 
-        public override void EndCaptureDraw(RenderTarget2D screen) => CE_EffectHandler();
+        public override void EndCaptureDraw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, RenderTarget2D screen) => CE_EffectHandler(graphicsDevice);
 
         //首先纹理在使用前尽量缓存为静态的，Request函数并非性能的最佳选择，尤其是在每帧调用甚至循环调用中的高频访问
         //这不是最佳的选择，要我说EndCapture就应该去死，该他妈的沉没在历史的粪坑中。万物都有自己的道理唯独它没有
         //如果有机会，我会把Red绑上十字架然后用白磷火刑慢慢的把他净化，神皇会赞许我的行为的，因为那帮家伙全他妈的是异端邪祟
         //----HoCha113 2025-5-6
-        private static void CE_EffectHandler()
+        private static void CE_EffectHandler(GraphicsDevice graphicsDevice)
         {
-            //获取渲染资源
-            GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-
             //初始化
             InitializeEffectHandler();
 
