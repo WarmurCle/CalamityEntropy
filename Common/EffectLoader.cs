@@ -63,7 +63,7 @@ namespace CalamityEntropy.Common
             screen3 = null;
         }
 
-        public override void OnResolutionChanged(Vector2 screenPos)
+        public override void OnResolutionChanged(Vector2 screenSize)
         {
             DisposeScreen();
             screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
