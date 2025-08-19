@@ -20,11 +20,12 @@ namespace CalamityEntropy.Content.BeesGame
         }
         public static PlayerBee player;
         public static int gameCounter = 0;
-        public static void init()
+        public static void Init()
         {
             gameCounter = 0;
             projectiles = new List<BeeGameProjectile>();
             enemies = new List<BeeGameEnemy>();
+            screen?.Dispose();
             screen = new RenderTarget2D(Main.graphics.GraphicsDevice, maxWidth, maxHeight);
             player = new PlayerBee();
             x = 0;
