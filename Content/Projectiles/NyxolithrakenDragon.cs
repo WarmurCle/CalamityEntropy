@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework.Graphics;
@@ -155,7 +155,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
+            target.AddBuff(ModContent.BuffType<WhisperingDeath>(), 300);
             if (CrackCd <= 0)
             {
                 Projectile.ai[2] = 28;
