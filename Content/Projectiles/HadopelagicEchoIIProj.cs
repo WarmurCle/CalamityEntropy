@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
                             gfxXAdd = 4f;
                             if (Main.myPlayer == Projectile.owner)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), topPos, Projectile.velocity * 40, ModContent.ProjectileType<HadopelagicWail>(), (int)owner.GetTotalDamage(Projectile.DamageType).ApplyTo((int)(Projectile.damage * 1.16f)), Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), topPos, Projectile.velocity * 40, ModContent.ProjectileType<HadopelagicWail>(), (int)owner.GetTotalDamage(Projectile.DamageType).ApplyTo((int)(Projectile.damage * 1.50f)), Projectile.knockBack, Projectile.owner);
                             }
                             shootCd = 50;
                             CEUtils.PlaySound("he2", 1, Projectile.Center);
