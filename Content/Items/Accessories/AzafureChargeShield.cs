@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.width = 60;
             Item.height = 54;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-            Item.defense = 4;
+            Item.defense = 10; //么的别动这行
             Item.accessory = true;
             Item.rare = ModContent.RarityType<DarkOrange>();
         }
