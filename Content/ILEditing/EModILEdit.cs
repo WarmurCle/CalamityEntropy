@@ -8,7 +8,6 @@ using CalamityMod.Schematics;
 using CalamityMod.UI;
 using CalamityMod.World;
 using InnoVault;
-using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Mono.Cecil.Cil;
@@ -39,15 +38,13 @@ namespace CalamityEntropy.Content.ILEditing
         public static Asset<Texture2D> shadowProgFull;
         [VaultLoaden("CalamityEntropy/Assets/UI/SolarBar")]
         public static Asset<Texture2D> solarBarTex;
-
+        [VaultLoaden("@CalamityMod/UI/MiscTextures/StealthMeter")]
         public static Asset<Texture2D> edgeTex;
-
         public static MethodBase updateStealthGenMethod;
         private delegate float UpdateStealthGenDelegate(Func<CalamityPlayer, float> orig, CalamityPlayer self);
         private delegate float CALEOCAI_Delegate(Func<NPC, Mod, bool> orig, NPC npc, Mod mod);
         public static void load()
         {
-            edgeTex = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/StealthMeter");
             updateStealthGenMethod = typeof(CalamityPlayer)
             .GetMethod("UpdateStealthGenStats",
                       System.Reflection.BindingFlags.NonPublic |

@@ -1,9 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Weapons.OblivionThresher;
-using CalamityEntropy.Content.Menu;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
-using CalamityEntropy.Content.NPCs.Prophet;
-using CalamityEntropy.Content.NPCs.SpiritFountain;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
@@ -11,22 +7,21 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
-using CalamityMod;
 using InnoVault;
 using InnoVault.PRT;
+using InnoVault.RenderHandles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using static CalamityEntropy.CalamityEntropy;
 
 namespace CalamityEntropy.Common
 {
     [VaultLoaden("CalamityEntropy/Assets/Effects/")]
-    internal class EffectLoader
+    internal class EffectLoader : RenderHandle
     {
         [VaultLoaden("CalamityEntropy/Assets/Extra/cvmask")]
         private static Asset<Texture2D> cvmask;
@@ -54,18 +49,9 @@ namespace CalamityEntropy.Common
         internal static float twistStrength = 0f;
         public const string AssetPath = "CalamityEntropy/Assets/";
         public const string AssetPath2 = "Assets/";
-        public static void Load()
-        {
-            Main.OnResolutionChanged += Main_OnResolutionChanged;
-            On_FilterManager.EndCapture += CE_EffectHandler;
-        }
-
-        public static void UnLoad()
-        {
-            Main.OnResolutionChanged -= Main_OnResolutionChanged;
-            On_FilterManager.EndCapture -= CE_EffectHandler;
-        }
-
+        public static RenderTarget2D screen = null;
+        public static RenderTarget2D screen2 = null;
+        public static RenderTarget2D screen3 = null;
         // 确保旧的RenderTarget2D对象被正确释放
         private static void DisposeScreen()
         {
@@ -77,8 +63,7 @@ namespace CalamityEntropy.Common
             screen3 = null;
         }
 
-        //在改变屏幕时更新这些字段的值，而不是每帧不断的释放更新浪费性能
-        private static void Main_OnResolutionChanged(Vector2 obj)
+        public override void OnResolutionChanged(Vector2 screenSize)
         {
             DisposeScreen();
             screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
@@ -86,23 +71,15 @@ namespace CalamityEntropy.Common
             screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
         }
 
+
+        public override void EndCaptureDraw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, RenderTarget2D screenSwap) => CE_EffectHandler(graphicsDevice);
+
         //首先纹理在使用前尽量缓存为静态的，Request函数并非性能的最佳选择，尤其是在每帧调用甚至循环调用中的高频访问
         //这不是最佳的选择，要我说EndCapture就应该去死，该他妈的沉没在历史的粪坑中。万物都有自己的道理唯独它没有
         //如果有机会，我会把Red绑上十字架然后用白磷火刑慢慢的把他净化，神皇会赞许我的行为的，因为那帮家伙全他妈的是异端邪祟
         //----HoCha113 2025-5-6
-        private static void CE_EffectHandler(On_FilterManager.orig_EndCapture orig, FilterManager self,
-        RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
+        private static void CE_EffectHandler(GraphicsDevice graphicsDevice)
         {
-            if (Main.gameMenu)
-            {
-                //调用原始方法
-                orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
-                return;
-            }
-
-            //获取渲染资源
-            GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-
             //初始化
             InitializeEffectHandler();
 
@@ -147,9 +124,6 @@ namespace CalamityEntropy.Common
 
             //绘制黑色遮罩
             DrawBlackMask();
-
-            //调用原始方法
-            orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
         }
 
         private static void DrawRandomEffect(GraphicsDevice graphicsDevice)
