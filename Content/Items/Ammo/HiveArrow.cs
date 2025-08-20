@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Ammo
         {
             Item.width = 14;
             Item.height = 36;
-            Item.damage = 2;
+            Item.damage = 1;
             Item.DamageType = DamageClass.Ranged;
             Item.rare = ItemRarityID.Orange;
             Item.maxStack = Item.CommonMaxStack;
@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Ammo
             Item.knockBack = 1f;
             Item.value = Item.sellPrice(copper: 26);
             Item.shoot = ModContent.ProjectileType<HiveArrowProjectile>();
-            Item.shootSpeed = 1f;
+            Item.shootSpeed = 2f;
             Item.ammo = AmmoID.Arrow;
         }
 
