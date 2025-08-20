@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles
             target.AddBuff(BuffID.Poisoned, 6 * 60);
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 15), ModContent.ProjectileType<SmallBee>(), damageDone / 30, Projectile.knockBack / 2, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 15), ModContent.ProjectileType<SmallBee>(), damageDone / 20, Projectile.knockBack / 2, Projectile.owner);
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
