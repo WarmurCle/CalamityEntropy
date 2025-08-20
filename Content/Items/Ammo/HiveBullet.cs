@@ -20,11 +20,11 @@ namespace CalamityEntropy.Content.Items.Ammo
             Item.width = 8;
             Item.height = 8;
             Item.maxStack = Item.CommonMaxStack;
-            Item.consumable = true; Item.knockBack = 1f;
+            Item.consumable = true; Item.knockBack = 2f;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<HiveBulletProjectile>();
-            Item.shootSpeed = 4.0f;
+            Item.shootSpeed = 6.0f;
             Item.ammo = AmmoID.Bullet;
         }
 
