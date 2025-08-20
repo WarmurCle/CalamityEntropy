@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class RuneWing : ModItem, ISpecialDrawingWing
     {
-        public static float HorSpeed = 7f;
+        public static float HorSpeed = 7.5f;
         public static float AccMul = 1.2f;
         public static int wTime = 170;
         public static int MAXDASHTIME = 30;//最大冲刺时间（帧）
