@@ -255,6 +255,10 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.TryGetOwner(out var owner))
                 {
+                    if(owner.Entropy().fruitCake)
+                    {
+                        projectile.CritChance = Main.rand.Next(101);
+                    }
                     if (owner.Entropy().Godhead)
                     {
                         if (!projectile.minion && projectile.damage > 0)
@@ -1056,6 +1060,20 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (projectile.friendly && projectile.DamageType.CountsAsClass(DamageClass.Ranged))
+            {
+                if (projectile.GetOwner().Entropy().fruitCake)
+                {
+                    if (Main.rand.NextBool(84))
+                    {
+                        int buffIndex = Main.rand.Next(BuffLoader.BuffCount);
+                        if (Main.debuff[buffIndex] && !BuffLoader.GetBuff(buffIndex).GetType().Namespace.Contains("DamageOverTime"))
+                        {
+                            target.AddBuff(buffIndex, 120);
+                        }
+                    }
+                }
+            }
             if (typhoonBullet)
             {
                 if (target.Organic())

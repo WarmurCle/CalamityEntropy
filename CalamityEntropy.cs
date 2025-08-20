@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
@@ -74,6 +75,7 @@ using CalamityMod.UI.CalamitasEnchants;
 using InnoVault;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
 using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
@@ -89,6 +91,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using Terraria.UI;
+using static System.Net.Mime.MediaTypeNames;
 namespace CalamityEntropy
 {
     public partial class CalamityEntropy : Mod
@@ -204,6 +207,7 @@ namespace CalamityEntropy
             On_Main.DrawTiles += drawtile;
             On_Projectile.FillWhipControlPoints += fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
+            On_Player.PickAmmo_Item_refInt32_refSingle_refBoolean_refInt32_refSingle_refInt32_bool += pickammoHook;
 
             //On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
@@ -229,6 +233,18 @@ namespace CalamityEntropy
                 PlayerDashManager.TryAddDash(dashEffect);
             }
 
+        }
+
+        private void pickammoHook(On_Player.orig_PickAmmo_Item_refInt32_refSingle_refBoolean_refInt32_refSingle_refInt32_bool orig, Player player, Item item, ref int projToShoot, ref float speed, ref bool canShoot, ref int totalDamage, ref float KnockBack, out int usedAmmoItemId, bool dontConsume)
+        {
+            orig(player, item, ref projToShoot, ref speed, ref canShoot, ref totalDamage, ref KnockBack, out usedAmmoItemId, dontConsume);
+            if (item.useAmmo != AmmoID.None && player.Entropy().fruitCake)
+            {
+                if (Fruitcake.ammoList.ContainsKey(item.useAmmo))
+                {
+                    projToShoot = ContentSamples.ItemsByType[Fruitcake.ammoList[item.useAmmo].random<int>()].shoot;
+                }
+            }
         }
 
         private void drawPlayerHeadHook(On_MapHeadRenderer.orig_DrawPlayerHead orig, MapHeadRenderer self, Camera camera, Player drawPlayer, Vector2 position, float alpha, float scale, Color borderColor)

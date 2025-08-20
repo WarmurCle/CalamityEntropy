@@ -2784,6 +2784,11 @@ Items: {
 		// DisplayName: Dark Blade
 		// Tooltip: ""
 	}
+
+	Fruitcake: {
+		// DisplayName: Fruitcake
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"

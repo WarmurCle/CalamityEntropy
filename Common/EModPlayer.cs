@@ -411,8 +411,11 @@ namespace CalamityEntropy.Common
         public int ManaRegenPer30Tick = 0;
         public int ManaRegenTime = 0;
         public Dictionary<DamageClass, AddableFloat> CritDamage;
+        public bool fruitCake;
+
         public override void ResetEffects()
         {
+            fruitCake = false;
             CritDamage = new Dictionary<DamageClass, AddableFloat>();
             ManaExtraHeal = 0;
             shadowRune = false;

@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
@@ -11,6 +12,7 @@ using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
+using CalamityMod.Items.Ammo;
 using CalamityMod.Items.Placeables.FurnitureAuric;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs.SlimeGod;
@@ -90,6 +92,29 @@ namespace CalamityEntropy.Common
                 return c;
             }
             return Color.Transparent;
+
+        }
+        public override void PostSetupContent()
+        {
+            Fruitcake.ammoList = new();
+            List<int> AmmoIds = new List<int>();
+            for(int i = 0; i < ItemLoader.ItemCount; i++)
+            {
+                if(i == ModContent.ItemType<MortarRound>() || i == ModContent.ItemType<RubberMortarRound>())
+                {
+                    continue;
+                }
+                if (ContentSamples.ItemsByType[i].ammo != AmmoID.None)
+                {
+                    if(!AmmoIds.Contains(ContentSamples.ItemsByType[i].ammo))
+                    {
+                        AmmoIds.Add(ContentSamples.ItemsByType[i].ammo);
+                        Fruitcake.ammoList[ContentSamples.ItemsByType[i].ammo] = new();
+                    }
+                    Fruitcake.ammoList[ContentSamples.ItemsByType[i].ammo].Add(i);
+                }
+            }
+            
         }
         public override void PostDrawTiles()
         {

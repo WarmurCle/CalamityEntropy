@@ -25,6 +25,10 @@ namespace CalamityEntropy
     public static class CEUtils
     {
         public static float WeapSound => ModContent.GetInstance<Config>().EntropyMeleeWeaponSoundVolume;
+        public static T random<T>(this List<T> list)
+        {
+            return list[Main.rand.Next(list.Count)];
+        }
         public static AddableFloat GetCritDamage(this Player player, DamageClass dmgClass)
         {
             if (!player.Entropy().CritDamage.ContainsKey(dmgClass))

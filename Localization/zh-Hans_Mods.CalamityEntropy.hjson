@@ -2945,6 +2945,17 @@ Items: {
 		DisplayName: 暗黑刀刃
 		Tooltip: ""
 	}
+
+	Fruitcake: {
+		DisplayName: 水果蛋糕
+		Tooltip: 
+		'''
+		将你的射弹暴击率设为随机的1~100
+		使用消耗弹药的武器时，随机选取同类型的弹药并保持原有伤害
+		命中时小概率造成短时间随机debuff
+		“彩虹效果，但闻起来像火药！”
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
