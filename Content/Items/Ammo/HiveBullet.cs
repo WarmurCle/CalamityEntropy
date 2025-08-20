@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Ammo
 
         public override void SetDefaults()
         {
-            Item.damage = 1;
+            Item.damage = -10;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 8;
             Item.height = 8;
@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Ammo
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<HiveBulletProjectile>();
-            Item.shootSpeed = 4.5f;
+            Item.shootSpeed = 4.0f;
             Item.ammo = AmmoID.Bullet;
         }
 
