@@ -41,6 +41,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddIngredient(ItemID.MechanicalLens)
                 .AddIngredient(ItemID.Nanites)
                 .AddIngredient(ItemID.Glass)
+                .AddIngredient(ItemID.RifleScope)
+                .AddIngredient(ItemID.TitaniumBar, 4)
                 .Register();
         }
     }

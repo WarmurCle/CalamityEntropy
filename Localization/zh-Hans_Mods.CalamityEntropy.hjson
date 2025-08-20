@@ -2201,7 +2201,7 @@ Items: {
 	}
 
 	CondensedBullet: {
-		Tooltip: 射出无限穿透的射线
+		Tooltip: 射出凝元射线
 		DisplayName: 凝元弹
 	}
 
@@ -2958,8 +2958,12 @@ Items: {
 	}
 
 	SmartScope: {
-		// DisplayName: Smart Scope
-		// Tooltip: ""
+		DisplayName: 智慧瞄准镜
+		Tooltip:
+			'''
+			对敌人按下鼠标中键锁定该敌人
+			使用枪械类武器时子弹必定命中
+			'''
 	}
 }
 

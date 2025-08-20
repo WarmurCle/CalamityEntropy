@@ -1971,7 +1971,7 @@ Items: {
 	}
 
 	CondensedBullet: {
-		Tooltip: ""
+		Tooltip: Launch condensed lasers
 		DisplayName: Condensed Bullet
 	}
 
@@ -2733,7 +2733,11 @@ Items: {
 
 	SmartScope: {
 		DisplayName: Smart Scope
-		Tooltip: ""
+		Tooltip:
+			'''
+			Press the middle mouse button to lock the enemy
+			When using firearms, the bullet must hit the target
+			'''
 	}
 }
 

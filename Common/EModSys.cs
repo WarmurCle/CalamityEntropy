@@ -118,14 +118,7 @@ namespace CalamityEntropy.Common
         }
         public override void PostDrawTiles()
         {
-            if(!Main.dedServ && Main.LocalPlayer.Entropy().hasAcc(SmartScope.ID))
-            {
-                if(SmartScope.target != null)
-                {
-                    var tx = CEUtils.getExtraTex("SS_Target");
-                    Main.spriteBatch.Draw(tx, SmartScope.target.Center - Main.screenPosition, null, Color.White, 0, tx.Size() / 2f, 1, SpriteEffects.None, 0);
-                }
-            }
+            
             if (CalamityEntropy.SetupBossbarClrAuto)
             {
                 CalamityEntropy.SetupBossbarClrAuto = false;
@@ -159,6 +152,17 @@ namespace CalamityEntropy.Common
             if (mi)
             {
                 Main.instance.IsMouseVisible = true;
+            }
+            if (!Main.dedServ && Main.LocalPlayer.Entropy().hasAcc(SmartScope.ID))
+            {
+                if (SmartScope.target != null)
+                {
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+                    var tx = CEUtils.getExtraTex("SS_Target");
+                    Main.spriteBatch.Draw(tx, SmartScope.target.Center - Main.screenPosition, null, Color.White, 0, tx.Size() / 2f, 1, SpriteEffects.None, 0);
+                    Main.spriteBatch.End();
+                }
             }
             if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<EventideSniper>())
             {

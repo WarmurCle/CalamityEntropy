@@ -22,8 +22,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.penetrate = -1;
-            Projectile.timeLeft = 2000;
+            Projectile.penetrate = 3;
+            Projectile.timeLeft = 120;
             Projectile.tileCollide = true;
             Projectile.MaxUpdates = 500;
             Projectile.usesLocalNPCImmunity = true;
