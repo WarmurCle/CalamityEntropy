@@ -1,0 +1,47 @@
+﻿using CalamityEntropy.Common;
+using CalamityMod;
+using CalamityMod.Events;
+using CalamityMod.Items;
+using CalamityMod.Items.SummonItems;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.Items.Donator
+{
+    public class SmartScope : ModItem, IDonatorItem
+    {
+        public static NPC target = null;
+        public string DonatorName => "a3a4";
+        public override void SetDefaults()
+        {
+            Item.width = 40;
+            Item.height = 40;
+            Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
+            Item.rare = ItemRarityID.Yellow;
+            Item.accessory = true;
+        }
+        public static string ID = "SmartScope";
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.Entropy().addEquip(ID, !hideVisual);
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Wire, 10)
+                .AddIngredient(ItemID.MechanicalLens)
+                .AddIngredient(ItemID.Nanites)
+                .AddIngredient(ItemID.Glass)
+                .Register();
+        }
+    }
+}

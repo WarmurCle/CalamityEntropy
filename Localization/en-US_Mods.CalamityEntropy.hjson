@@ -2723,12 +2723,17 @@ Items: {
 
 	Fruitcake: {
 		DisplayName: Fruitcake
-		Tooltip: 
-		'''
-		Set your projectile's crit chance to a random range of 1-100
-		When using weapons that consume ammunition, randomly select ammunition of the same type and maintain the original damage
-		Short term random debuff caused by low probability of hit
-		'''
+		Tooltip:
+			'''
+			Set your projectile's crit chance to a random range of 1-100
+			When using weapons that consume ammunition, randomly select ammunition of the same type and maintain the original damage
+			Short term random debuff caused by low probability of hit
+			'''
+	}
+
+	SmartScope: {
+		DisplayName: Smart Scope
+		Tooltip: ""
 	}
 }
 

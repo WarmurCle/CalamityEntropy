@@ -118,6 +118,14 @@ namespace CalamityEntropy.Common
         }
         public override void PostDrawTiles()
         {
+            if(!Main.dedServ && Main.LocalPlayer.Entropy().hasAcc(SmartScope.ID))
+            {
+                if(SmartScope.target != null)
+                {
+                    var tx = CEUtils.getExtraTex("SS_Target");
+                    Main.spriteBatch.Draw(tx, SmartScope.target.Center - Main.screenPosition, null, Color.White, 0, tx.Size() / 2f, 1, SpriteEffects.None, 0);
+                }
+            }
             if (CalamityEntropy.SetupBossbarClrAuto)
             {
                 CalamityEntropy.SetupBossbarClrAuto = false;

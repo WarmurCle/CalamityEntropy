@@ -31,6 +31,7 @@ using CalamityMod.Particles;
 using CalamityMod.Projectiles.Rogue;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -1489,6 +1490,17 @@ namespace CalamityEntropy.Common
                 if (Player.statMana > Player.statManaMax2)
                 {
                     Player.statMana = Player.statManaMax2;
+                }
+            }
+            if(hasAcc(SmartScope.ID) && Main.myPlayer == Player.whoAmI)
+            {
+                if(SmartScope.target != null && !SmartScope.target.active)
+                {
+                    SmartScope.target = null;
+                }
+                if(Mouse.GetState().MiddleButton == ButtonState.Pressed)
+                {
+                    SmartScope.target = CEUtils.FindTarget_HomingProj(Player, Main.MouseWorld, 800, (i) => i.ToNPC().realLife < 0);
                 }
             }
             if (BrambleBarAdd-- > 0)
