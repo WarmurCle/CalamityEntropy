@@ -13,8 +13,8 @@ namespace CalamityEntropy.Content.Items.Accessories
     public class ShadowRune : ModItem, IDonatorItem
     {
         public string DonatorName => "南巷";
-        public static float SummonDmgToMinionSlot = 6.66f;
-        public static float WhipAtkSpeedAddition = 1.0f;
+        public static float SummonDmgToMinionSlot = 8.33f;
+        public static float WhipAtkSpeedAddition = 0.5f;
 
         public override void SetDefaults()
         {
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<ShadowRuneVanity>(), 0, 0, player.whoAmI);
             }
-            player.whipRangeMultiplier *= 2;
+            player.whipRangeMultiplier *= 1.5f;
         }
         public override void UpdateVanity(Player player)
         {
