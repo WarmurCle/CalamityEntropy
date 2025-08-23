@@ -306,7 +306,7 @@ namespace CalamityEntropy.Common
             cve2.Parameters["tex0"].SetValue(Main.screenTargetSwap);
             cve2.Parameters["tex1"].SetValue(VoidBack.Value);
             cve2.Parameters["time"].SetValue(Instance.cvcount / 50f);
-            cve2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(1920, 1080));
+            cve2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
             Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
             Main.spriteBatch.End();
         }
@@ -364,7 +364,7 @@ namespace CalamityEntropy.Common
             cab.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1", AssetRequestMode.ImmediateLoad).Value);
             cab.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cab.Parameters["scrsize"].SetValue(screen.Size());
-            cab.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(1920, 1080));
+            cab.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
             Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
 
             Main.spriteBatch.End();

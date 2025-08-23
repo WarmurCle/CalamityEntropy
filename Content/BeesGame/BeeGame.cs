@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.BeesGame
             Texture2D b1 = Load("back_front");
             Texture2D b2 = Load("back_behind");
             SpriteBatch spriteBatch = Main.spriteBatch;
-            spriteBatch.Draw(sky, new Rectangle(0, 0, 1920, 1080), Color.White);
+            spriteBatch.Draw(sky, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
             spriteBatch.Draw(b2, new Vector2(-x / 2 % b2.Width, 0), Color.White);
             spriteBatch.Draw(b2, new Vector2(-x / 2 % b2.Width + b2.Width, 0), Color.White);
 

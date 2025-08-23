@@ -710,7 +710,7 @@ namespace CalamityEntropy.Common
                                 int num3 = 3 * player.Entropy().WeaponBoost;
                                 int[] array = new int[num3];
                                 int num4 = 0;
-                                Rectangle value = new Rectangle((int)player.Center.X - 960, (int)player.Center.Y - 540, 1920, 1080);
+                                Rectangle value = new Rectangle((int)player.Center.X - 960, (int)player.Center.Y - 540, Main.screenWidth, Main.screenHeight);
                                 ActiveEntityIterator<NPC>.Enumerator enumerator = Main.ActiveNPCs.GetEnumerator();
                                 while (enumerator.MoveNext())
                                 {
