@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.Projectile.timeLeft = Lifetime;
             base.Projectile.usesIDStaticNPCImmunity = true;
             base.Projectile.idStaticNPCHitCooldown = 3;
-            Projectile.ArmorPenetration = 50;
+            Projectile.ArmorPenetration = 20;
         }
 
         public override void AI()
