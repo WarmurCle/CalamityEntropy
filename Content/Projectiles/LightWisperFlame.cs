@@ -29,12 +29,12 @@ namespace CalamityEntropy.Content.Projectiles
             base.Projectile.ignoreWater = true;
             base.Projectile.tileCollide = false;
             base.Projectile.DamageType = DamageClass.Ranged;
-            base.Projectile.penetrate = 16;
+            base.Projectile.penetrate = 20;
             base.Projectile.MaxUpdates = 4;
             base.Projectile.timeLeft = Lifetime;
             base.Projectile.usesIDStaticNPCImmunity = true;
             base.Projectile.idStaticNPCHitCooldown = 3;
-            Projectile.ArmorPenetration = 14;
+            Projectile.ArmorPenetration = 50;
         }
 
         public override void AI()
@@ -103,11 +103,6 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (base.Projectile.numHits > 0)
-            {
-                base.Projectile.damage = (int)((float)base.Projectile.damage * 0.75f);
-            }
-
             if (base.Projectile.damage < 1)
             {
                 base.Projectile.damage = 1;
