@@ -20,9 +20,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DefaultToRangedWeapon(ProjectileID.RocketI, AmmoID.Rocket, singleShotTime: 20, shotVelocity: 28, hasAutoReuse: true);
             Item.width = 152;
             Item.height = 48;
-            Item.damage = 600;
+            Item.damage = 700;
             Item.knockBack = 4f;
-            Item.crit = 15;
+            Item.crit = 5;
             Item.UseSound = SoundID.Item11;
             Item.value = Item.buyPrice(gold: 80);
             Item.rare = ItemRarityID.Orange;
