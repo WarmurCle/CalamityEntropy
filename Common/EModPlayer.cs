@@ -26,9 +26,11 @@ using CalamityEntropy.Content.UI.Poops;
 using CalamityMod;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.Cooldowns;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Rogue;
+using InnoVault.Trails;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -1469,8 +1471,82 @@ namespace CalamityEntropy.Common
         public int BrambleBarAdd = 0;
         public float BrambleBarCharge = 0;
         public int BBarNoDecrease = 0;
+        public bool dashing = false;
+        public AntivoidTrail avTrail = null;
+        public bool NDFlag = false;
+        public bool ResetRot = false;
         public override void PostUpdate()
         {
+            if(ResetRot)
+            {
+                ResetRot = false;
+                Player.fullRotation = 0;
+            }
+            if (Player.dashDelay < 0)
+            {
+                dashing = true;
+            }
+            else
+            {
+                dashing = false;
+            }
+            if ((Player.GetModPlayer<SCDashMP>().Cooldown > 0 || !hasAcc(ShadeCloak.ID)) && !NDFlag)
+            {
+            }
+            else
+            {
+                if (Player.dashDelay < 0)
+                {
+                    if(avTrail == null || avTrail.Lifetime <= 0)
+                    {
+                        avTrail = new AntivoidTrail();
+                        EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 150), 1f, 1, true, BlendState.NonPremultiplied);
+                        avTrail.maxLength = 30;
+                    }
+                    ResetRot = true;
+                    Player.fullRotation = (new Vector2(Math.Abs(Player.velocity.X), Player.velocity.Y).ToRotation()) * Player.direction;
+                    avTrail.Lifetime = 30;
+                    if (Player.GetModPlayer<SCDashMP>().flag)
+                    {
+                        Player.GetModPlayer<SCDashMP>().Cooldown = 158;
+                        Player.GetModPlayer<SCDashMP>().flag = false;
+                        CEUtils.PlaySound("Dizzy", 1, Player.Center);
+                        for(int i = 0; i < 12; i++)
+                        {
+                            EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied);
+                        }
+                        NDFlag = true;
+
+                    }
+                    else
+                    {
+                        Player.velocity.X /= 1.4f;
+                    }
+                    for (int i = 0; i < Main.rand.Next(2); i++)
+                    {
+                        EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
+                            + CEUtils.randomPointInCircle(56), -(Player.velocity.normalize().RotatedByRandom(0.08f)) * 24, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 14);
+                    }
+                    if (Player.Entropy().immune < 6)
+                        Player.Entropy().immune = 6;
+                    Player.velocity.X *= 1.4f;
+                }
+                else
+                {
+                    Player.GetModPlayer<SCDashMP>().flag = true;
+                    NDFlag = false;
+                }
+
+            }
+            if (avTrail != null)
+            {
+                avTrail.AddPoint(Player.Center);
+            }
+            if (Player.GetModPlayer<SCDashMP>().Cooldown > 2 || !dashing)
+            {
+                Player.GetModPlayer<SCDashMP>().Cooldown--;
+            }
+
             float mhrot = 0.64f + (float)Math.Cos(Main.GameUpdateCount * 0.04f) * 0.16f;
             float v = Player.velocity.Length();
 
