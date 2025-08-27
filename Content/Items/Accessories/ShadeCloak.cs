@@ -38,6 +38,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void AddRecipes()
         {
+            //CreateRecipe().AddIngredient(ItemID.);
         }
     }
     public class SCDashMP : ModPlayer

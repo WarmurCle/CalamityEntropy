@@ -1472,7 +1472,7 @@ namespace CalamityEntropy.Common
         public float BrambleBarCharge = 0;
         public int BBarNoDecrease = 0;
         public bool dashing = false;
-        public AntivoidTrail avTrail = null;
+        public DashBeam avTrail = null;
         public bool NDFlag = false;
         public bool ResetRot = false;
         public override void PostUpdate()
@@ -1490,7 +1490,7 @@ namespace CalamityEntropy.Common
             {
                 dashing = false;
             }
-            if ((Player.GetModPlayer<SCDashMP>().Cooldown > 0 || !hasAcc(ShadeCloak.ID)) && !NDFlag)
+            if ((Player.GetModPlayer<SCDashMP>().Cooldown > 0 || !hasAccVisual(ShadeCloak.ID)) && !NDFlag)
             {
             }
             else
@@ -1499,7 +1499,7 @@ namespace CalamityEntropy.Common
                 {
                     if(avTrail == null || avTrail.Lifetime <= 0)
                     {
-                        avTrail = new AntivoidTrail();
+                        avTrail = new DashBeam();
                         EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 150), 1f, 1, true, BlendState.NonPremultiplied);
                         avTrail.maxLength = 30;
                     }
@@ -1510,7 +1510,7 @@ namespace CalamityEntropy.Common
                     {
                         Player.GetModPlayer<SCDashMP>().Cooldown = 158;
                         Player.GetModPlayer<SCDashMP>().flag = false;
-                        CEUtils.PlaySound("Dizzy", 1, Player.Center);
+                        CEUtils.PlaySound("Dash2", 1, Player.Center);
                         for(int i = 0; i < 12; i++)
                         {
                             EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied);
@@ -1520,16 +1520,28 @@ namespace CalamityEntropy.Common
                     }
                     else
                     {
-                        Player.velocity.X /= 1.4f;
+                        if (hasAcc(ShadeCloak.ID))
+                        {
+                            Player.velocity.X /= 1.4f;
+                        }
                     }
-                    for (int i = 0; i < Main.rand.Next(2); i++)
+                    if (Player.GetModPlayer<SCDashMP>().Cooldown > 136)
                     {
-                        EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
-                            + CEUtils.randomPointInCircle(56), -(Player.velocity.normalize().RotatedByRandom(0.08f)) * 24, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 14);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
+                                + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 14);
+                        }
+                        if (hasAcc(ShadeCloak.ID))
+                            Player.velocity = new Vector2(Math.Sign(Player.velocity.X), 0) * Player.velocity.Length();
                     }
-                    if (Player.Entropy().immune < 6)
-                        Player.Entropy().immune = 6;
-                    Player.velocity.X *= 1.4f;
+                    if (hasAcc(ShadeCloak.ID))
+                    {
+                        if (Player.Entropy().immune < 6)
+                            Player.Entropy().immune = 6;
+                        Player.velocity.X *= 1.4f;
+                        
+                    }
                 }
                 else
                 {
@@ -1540,7 +1552,7 @@ namespace CalamityEntropy.Common
             }
             if (avTrail != null)
             {
-                avTrail.AddPoint(Player.Center);
+                avTrail.AddPoint(Player.Center + Player.velocity * 2);
             }
             if (Player.GetModPlayer<SCDashMP>().Cooldown > 2 || !dashing)
             {

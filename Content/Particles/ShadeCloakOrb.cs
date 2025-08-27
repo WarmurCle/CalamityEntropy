@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Particles
                 {
                     sz = 1 - (i / (float)odp.Count);
                 }
-                Main.spriteBatch.Draw(Texture, odp[i] + worldPos - Main.screenPosition, null, this.Color, Rotation, getOrigin(),this.Scale * 0.16f * sz, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(Texture, odp[i] + worldPos - Main.screenPosition, null, this.Color * 0.32f, Rotation, getOrigin(),this.Scale * 0.12f * sz, SpriteEffects.None, 0);
             }
         }
     }
