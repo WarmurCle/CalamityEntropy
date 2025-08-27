@@ -38,7 +38,10 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void AddRecipes()
         {
-            //CreateRecipe().AddIngredient(ItemID.);
+            CreateRecipe().AddIngredient(ItemID.SoulofNight, 8)
+                .AddIngredient<SolarVeil>(12)
+                .AddIngredient<DepthCells>(4)
+                .AddIngredient(ItemID.Ectoplasm, 8);
         }
     }
     public class SCDashMP : ModPlayer
