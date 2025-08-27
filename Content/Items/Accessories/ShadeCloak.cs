@@ -25,6 +25,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
+            Item.expert = true;
         }
         public static string ID = "ShadeCloak";
 
@@ -38,10 +39,10 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemID.SoulofNight, 8)
+            /*CreateRecipe().AddIngredient(ItemID.SoulofNight, 8)
                 .AddIngredient<SolarVeil>(12)
                 .AddIngredient<DepthCells>(4)
-                .AddIngredient(ItemID.Ectoplasm, 8);
+                .AddIngredient(ItemID.Ectoplasm, 8);*/
         }
     }
     public class SCDashMP : ModPlayer

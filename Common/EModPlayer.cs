@@ -1530,7 +1530,7 @@ namespace CalamityEntropy.Common
                         for (int i = 0; i < 4; i++)
                         {
                             EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
-                                + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 14);
+                                + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
                         }
                         if (hasAcc(ShadeCloak.ID))
                             Player.velocity = new Vector2(Math.Sign(Player.velocity.X), 0) * Player.velocity.Length();

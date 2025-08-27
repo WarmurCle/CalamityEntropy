@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Particles
                 base.AI();
                 this.Opacity = this.Lifetime / (float)this.TimeLeftMax;
                 this.Velocity = this.Rotation.ToRotationVector2() * this.Velocity.Length();
-                this.Rotation = this.Rotation + (float)(Math.Sin(c)) * 0.05f;
+                this.Rotation = this.Rotation + (float)(Math.Sin(c)) * 0.065f;
                 Velocity *= 0.98f;
                 c += 0.46f;
                 odpl.Insert(0, this.Position + Velocity.RotatedBy(MathHelper.PiOver2).normalize() * this.Scale * 13);
