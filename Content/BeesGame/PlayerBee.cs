@@ -53,14 +53,14 @@ namespace CalamityEntropy.Content.BeesGame
                 position.Y = 16;
                 velocity.Y = 0;
             }
-            if (position.X > 1920 - 16)
+            if (position.X > Main.screenWidth - 16)
             {
-                position.X = 1920 - 16;
+                position.X = Main.screenWidth - 16;
                 velocity.X = 0;
             }
-            if (position.Y > 1080 - 16)
+            if (position.Y > Main.screenHeight - 16)
             {
-                position.Y = 1080 - 16;
+                position.Y = Main.screenHeight - 16;
                 velocity.Y = 0;
             }
             position += velocity;

@@ -27,8 +27,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<UpdraftTome>()
-                .AddIngredient(ItemID.HallowedBar, 6)
-                .AddIngredient(ItemID.SoulofLight, 4)
+                .AddIngredient(ItemID.UnicornHorn, 6)
+                .AddIngredient(ItemID.SoulofLight, 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 100;
+            Item.damage = 150;
             Item.useAnimation = Item.useTime = 100;
             Item.crit = 10;
             Item.mana = 36;
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Books
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<VoidOde>()
+            CreateRecipe().AddIngredient<ProphecyMasterpiece>()
                 .AddIngredient<ExoPrism>(5)
                 .AddTile<DraedonsForge>()
                 .Register();
