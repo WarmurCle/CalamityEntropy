@@ -19,12 +19,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 95;
+            Item.damage = 90;
             Item.crit = 7;
             Item.DamageType = DamageClass.Melee;
             Item.width = 60;
             Item.height = 40;
-            Item.useTime = Item.useAnimation = 30;
+            Item.useTime = Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;

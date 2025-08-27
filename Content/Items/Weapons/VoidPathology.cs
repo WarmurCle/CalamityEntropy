@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 104;
             Item.height = 104;
-            Item.damage = 180;
+            Item.damage = 200;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 26;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<Violet>();
             Item.shoot = ModContent.ProjectileType<NihilityVirus>();
             Item.shootSpeed = 16f;
-            Item.mana = 12;
+            Item.mana = 6;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
             Item.useTurn = false;
