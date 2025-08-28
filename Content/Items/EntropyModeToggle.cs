@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Common;
+using CalamityMod.Items;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -29,8 +30,15 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool? UseItem(Player player)
         {
+            if (player.altFunctionUse == 2)
+            {
+                EDownedBosses.TDR = !EDownedBosses.TDR;
+                Main.NewText(EDownedBosses.TDR ? "Enabled TDR" : "Disabled TDR");
+                return true;
+            }
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
+                
                 CalamityEntropy.EntropyMode = !CalamityEntropy.EntropyMode;
 
                 if (Main.netMode == NetmodeID.SinglePlayer)
@@ -52,6 +60,10 @@ namespace CalamityEntropy.Content.Items
                     packet.Send();
                 }
             }
+            return true;
+        }
+        public override bool AltFunctionUse(Player player)
+        {
             return true;
         }
 

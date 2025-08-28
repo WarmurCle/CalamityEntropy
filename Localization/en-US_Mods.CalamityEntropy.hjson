@@ -1674,6 +1674,7 @@ Items: {
 			Active/Deactive Entropy Mode
 			More challenging, Less Health, Less Damage
 			[c/ff0000: Note: This mode is not part of the official recommended process , and the balance adjustments Disaster Entropy do not take this mode into account]
+			Right click use to only toggle TDR
 			'''
 		DisplayName: Entropy Mode Toggle
 	}

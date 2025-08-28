@@ -11,6 +11,7 @@ namespace CalamityEntropy.Common
         public static bool downedAbyssalWraith = false;
         public static bool downedNihilityTwin = false;
         public static bool EntropyMode = false;
+        public static bool TDR = false;
         public static bool downedProphet = false;
         public static bool downedLuminaris = false;
         public static bool downedAcropolis = false;
@@ -32,6 +33,10 @@ namespace CalamityEntropy.Common
             if (EntropyMode)
             {
                 tag["EntropyMode"] = true;
+            }
+            if (TDR)
+            {
+                tag["TDR"] = true;
             }
             if (downedCruiser)
             {
@@ -74,6 +79,7 @@ namespace CalamityEntropy.Common
             downedProphet = tag.ContainsKey("downedProphet");
             downedLuminaris = tag.ContainsKey("downedLuminaris");
             downedAcropolis = tag.ContainsKey("downedAcropolis");
+            TDR = tag.ContainsKey("TDR");
             if (tag.ContainsKey("DungeonArchiveCenterX") && tag.ContainsKey("DungeonArchiveCenterY"))
             {
                 ForbiddenArchiveCenter = new(tag.GetInt("DungeonArchiveCenterX"), tag.GetInt("DungeonArchiveCenterY"));
@@ -95,7 +101,7 @@ namespace CalamityEntropy.Common
             flags[4] = downedLuminaris;
             flags[5] = downedAcropolis;
             flags2[0] = EntropyMode;
-            
+            flags2[1] = TDR;
 
             writer.Write(flags);
             writer.Write(flags2);
@@ -115,6 +121,7 @@ namespace CalamityEntropy.Common
             downedLuminaris = flags[4];
             downedAcropolis = flags[5];
             EntropyMode = flags2[0];
+            TDR = flags2[1];
             ForbiddenArchiveCenter = new Point(reader.ReadInt32(), reader.ReadInt32());
         }
     }

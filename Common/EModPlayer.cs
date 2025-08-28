@@ -1508,12 +1508,12 @@ namespace CalamityEntropy.Common
                     avTrail.Lifetime = 30;
                     if (Player.GetModPlayer<SCDashMP>().flag)
                     {
-                        Player.GetModPlayer<SCDashMP>().Cooldown = 158;
+                        Player.GetModPlayer<SCDashMP>().Cooldown = 158.ApplyCdDec(Player);
                         Player.GetModPlayer<SCDashMP>().flag = false;
                         CEUtils.PlaySound("Dash2", 1, Player.Center);
                         for(int i = 0; i < 12; i++)
                         {
-                            EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied);
+                            EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
                         }
                         NDFlag = true;
 
@@ -1525,7 +1525,7 @@ namespace CalamityEntropy.Common
                             Player.velocity.X /= 1.4f;
                         }
                     }
-                    if (Player.GetModPlayer<SCDashMP>().Cooldown > 136)
+                    if (Player.GetModPlayer<SCDashMP>().Cooldown > 160.ApplyCdDec(Player) - 24)
                     {
                         for (int i = 0; i < 4; i++)
                         {

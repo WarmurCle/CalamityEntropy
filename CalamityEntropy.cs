@@ -681,7 +681,7 @@ namespace CalamityEntropy
                     }
                     hit.Damage = (int)(hit.Damage * aw.getDR());
                 }
-                if (self.boss && EntropyMode)
+                if (self.boss && (EntropyMode || EDownedBosses.TDR))
                 {
                     if (hit.Damage > self.lifeMax * 0.1f)
                     {
