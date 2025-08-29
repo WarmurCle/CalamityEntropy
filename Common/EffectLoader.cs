@@ -51,28 +51,19 @@ namespace CalamityEntropy.Common
         internal static float twistStrength = 0f;
         public const string AssetPath = "CalamityEntropy/Assets/";
         public const string AssetPath2 = "Assets/";
-        public static RenderTarget2D screen = null;
-        public static RenderTarget2D screen2 = null;
-        public static RenderTarget2D screen3 = null;
-        //确保旧的RenderTarget2D对象被正确释放
-        private static void DisposeScreen()
-        {
-            screen?.Dispose();
-            screen = null;
-            screen2?.Dispose();
-            screen2 = null;
-            screen3?.Dispose();
-            screen3 = null;
-        }
+        public const int MaxScreenSlot = 4;
+        public override int ScreenSlot => MaxScreenSlot;
+        public static EffectLoader This { get; private set; }
+        public static RenderTarget2D Screen0 => This.ScreenTargets[0];
+        public static RenderTarget2D Screen1 => This.ScreenTargets[1];
+        public static RenderTarget2D Screen2 => This.ScreenTargets[2];
+        public static RenderTarget2D Screen3 => This.ScreenTargets[3];
+        /// <summary>
+        /// 如果没有必要，尽量避免直接访问这个屏幕中间值，可能会影响到与其他模组的交互效果，推荐在<see cref="EndCaptureDraw"/> 通过参数 screenSwap 使用它
+        /// </summary>
+        public static RenderTarget2D StaticScreenSwap => RenderHandleLoader.ScreenSwap;
 
-        public override void OnResolutionChanged(Vector2 screenSize)
-        {
-            DisposeScreen();
-            screen = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-            screen2 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-            screen3 = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-        }
-
+        public override void Load() => This = this;
 
         public override void EndCaptureDraw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, RenderTarget2D screenSwap) => CE_EffectHandler(graphicsDevice);
 
@@ -84,9 +75,6 @@ namespace CalamityEntropy.Common
         {
             //初始化
             InitializeEffectHandler();
-
-            //初始化那些他妈的屏幕字段
-            EnsureRenderTargets(graphicsDevice);
 
             //绘制初始屏幕
             DrawInitialScreen(graphicsDevice);
@@ -130,7 +118,7 @@ namespace CalamityEntropy.Common
 
         private static void DrawRandomEffect(GraphicsDevice graphicsDevice)
         {
-            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.SetRenderTarget(Screen0);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -307,7 +295,7 @@ namespace CalamityEntropy.Common
             cve2.Parameters["tex1"].SetValue(VoidBack.Value);
             cve2.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cve2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
-            Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
             Main.spriteBatch.End();
         }
 
@@ -317,7 +305,7 @@ namespace CalamityEntropy.Common
             if (cab == null)
                 cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
 
-            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.SetRenderTarget(Screen0);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -354,7 +342,7 @@ namespace CalamityEntropy.Common
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
-            Main.spriteBatch.Draw(screen, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
@@ -363,7 +351,7 @@ namespace CalamityEntropy.Common
             cab.Parameters["clr"].SetValue(new Color(12, 50, 160).ToVector4());
             cab.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1", AssetRequestMode.ImmediateLoad).Value);
             cab.Parameters["time"].SetValue(Instance.cvcount / 50f);
-            cab.Parameters["scrsize"].SetValue(screen.Size());
+            cab.Parameters["scrsize"].SetValue(Screen0.Size());
             cab.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
             Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
 
@@ -385,16 +373,9 @@ namespace CalamityEntropy.Common
             }
         }
 
-        private static void EnsureRenderTargets(GraphicsDevice graphicsDevice)
-        {
-            screen ??= new RenderTarget2D(graphicsDevice, Main.screenWidth, Main.screenHeight);
-            screen2 ??= new RenderTarget2D(graphicsDevice, Main.screenWidth, Main.screenHeight);
-            screen3 ??= new RenderTarget2D(graphicsDevice, Main.screenWidth, Main.screenHeight);
-        }
-
         private static void DrawInitialScreen(GraphicsDevice graphicsDevice)
         {
-            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.SetRenderTarget(Screen0);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -403,7 +384,7 @@ namespace CalamityEntropy.Common
 
         private static void DrawNPCsAndProjectiles(GraphicsDevice graphicsDevice)
         {
-            graphicsDevice.SetRenderTarget(screen3);
+            graphicsDevice.SetRenderTarget(Screen2);
             graphicsDevice.Clear(Color.Transparent);
             int cruiserEnergyBallType = ModContent.ProjectileType<CruiserEnergyBall>();
             int runeTorrentType = ModContent.ProjectileType<RuneTorrent>();
@@ -449,7 +430,7 @@ namespace CalamityEntropy.Common
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
 
             List<IAdditivePRT> prtAdditives = new List<IAdditivePRT>();
@@ -484,18 +465,18 @@ namespace CalamityEntropy.Common
             shader.CurrentTechnique.Passes[0].Apply();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader);
-            Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
+            Main.spriteBatch.Draw(Screen2, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
 
         private static void DrawProjectileEffects(GraphicsDevice graphicsDevice)
         {
-            if (screen == null)
+            if (Screen0 == null)
             {
                 return;
             }
 
-            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.SetRenderTarget(Screen0);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -586,7 +567,7 @@ namespace CalamityEntropy.Common
 
         private static void DrawParticleEffects(GraphicsDevice graphicsDevice)
         {
-            graphicsDevice.SetRenderTarget(screen2);
+            graphicsDevice.SetRenderTarget(Screen1);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
@@ -602,12 +583,12 @@ namespace CalamityEntropy.Common
 
             Main.spriteBatch.End();
 
-            graphicsDevice.SetRenderTarget(screen3);
+            graphicsDevice.SetRenderTarget(Screen2);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone);
             kscreen2.CurrentTechnique = kscreen2.Techniques["Technique1"];
             kscreen2.CurrentTechnique.Passes[0].Apply();
-            kscreen2.Parameters["tex0"].SetValue(screen2);
+            kscreen2.Parameters["tex0"].SetValue(Screen1);
             kscreen2.Parameters["tex1"].SetValue(CEUtils.getExtraTex("EternityStreak"));
             kscreen2.Parameters["offset"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
             kscreen2.Parameters["i"].SetValue(0.04f);
@@ -632,7 +613,7 @@ namespace CalamityEntropy.Common
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
-            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
@@ -647,18 +628,18 @@ namespace CalamityEntropy.Common
             cve.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cve.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
             cve.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-Instance.cvcount / 6f, Instance.cvcount / 6f)) / Main.ScreenSize.ToVector2());
-            Main.spriteBatch.Draw(screen3, Vector2.Zero, Color.White);
+            Main.spriteBatch.Draw(Screen2, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
 
         private static void DrawPlayerAndProjectileEffects(GraphicsDevice graphicsDevice)
         {
-            if (screen2 == null)
+            if (Screen1 == null)
             {
                 return;
             }
 
-            graphicsDevice.SetRenderTarget(screen2);
+            graphicsDevice.SetRenderTarget(Screen1);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -739,17 +720,17 @@ namespace CalamityEntropy.Common
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            Main.spriteBatch.Draw(screen2, Vector2.Zero, Color.White);
+            Main.spriteBatch.Draw(Screen1, Vector2.Zero, Color.White);
             Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
 
         private static void DrawSlashEffects(GraphicsDevice graphicsDevice)
         {
-            if (screen == null || screen2 == null) return;
+            if (Screen0 == null || Screen1 == null) return;
             if (!ModContent.GetInstance<Config>().ScreenWarpEffects)
                 return;
-            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.SetRenderTarget(Screen0);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -818,7 +799,7 @@ namespace CalamityEntropy.Common
             kscreen.CurrentTechnique.Passes[0].Apply();
             kscreen.Parameters["tex0"].SetValue(Main.screenTargetSwap);
             kscreen.Parameters["i"].SetValue(0.1f);
-            Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
 
@@ -826,7 +807,7 @@ namespace CalamityEntropy.Common
         {
             if (FlashEffectStrength > 0)
             {
-                graphicsDevice.SetRenderTarget(screen);
+                graphicsDevice.SetRenderTarget(Screen0);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
                 Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -835,13 +816,13 @@ namespace CalamityEntropy.Common
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
                 graphicsDevice.Clear(Color.Transparent);
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                Main.spriteBatch.Draw(screen, Vector2.Zero, Color.White);
+                Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
 
                 for (float i = 1; i <= 16; i++)
                 {
-                    Main.spriteBatch.Draw(screen, screen.Size() / 2, null, Color.White * ((16f / i) * 0.1f * FlashEffectStrength), 0, screen.Size() / 2, 1 + FlashEffectStrength * 0.08f * i, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(Screen0, Screen0.Size() / 2, null, Color.White * ((16f / i) * 0.1f * FlashEffectStrength), 0, Screen0.Size() / 2, 1 + FlashEffectStrength * 0.08f * i, SpriteEffects.None, 0);
                 }
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -896,7 +877,7 @@ namespace CalamityEntropy.Common
             if (!ModContent.GetInstance<Config>().ScreenWarpEffects)
                 return;
 
-            graphicsDevice.SetRenderTarget(screen);
+            graphicsDevice.SetRenderTarget(Screen0);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -905,7 +886,7 @@ namespace CalamityEntropy.Common
             CEUtils.drawLine(cutScreenCenter, cutScreenCenter + cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 9000, Color.Black, 9000);
             Main.spriteBatch.End();
 
-            graphicsDevice.SetRenderTarget(screen2);
+            graphicsDevice.SetRenderTarget(Screen1);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
@@ -922,8 +903,8 @@ namespace CalamityEntropy.Common
             blur.Parameters["resolution"].SetValue(Main.ScreenSize.ToVector2());
             blur.Parameters["blurAmount"].SetValue(cutScreen * 0.036f);
             blur.CurrentTechnique.Passes[0].Apply();
-            Main.spriteBatch.Draw(screen, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(screen2, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Screen0, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Screen1, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             Main.spriteBatch.End();
         }
 
