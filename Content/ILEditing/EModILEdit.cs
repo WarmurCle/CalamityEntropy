@@ -1,9 +1,12 @@
 ﻿using CalamityEntropy.Common;
 using CalamityMod;
+using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
+using CalamityMod.Items.Accessories;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
+using CalamityMod.Projectiles.Summon;
 using CalamityMod.Schematics;
 using CalamityMod.UI;
 using CalamityMod.World;
@@ -17,9 +20,12 @@ using MonoMod.RuntimeDetour;
 using ReLogic.Content;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameInput;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.ILEditing
@@ -94,6 +100,10 @@ namespace CalamityEntropy.Content.ILEditing
 
             _hook = EModHooks.Add(originalMethod, drawStealthBarHook);
 
+            originalMethod = typeof(CalamityPlayer)
+                .GetMethod("ProcessTriggers", BindingFlags.Instance | BindingFlags.Public, null, new Type[] { typeof(TriggersSet)}, null);
+
+            _hook = EModHooks.Add(originalMethod, processTriggersHook);
 
             if (ModLoader.TryGetMod("AlchemistNPCLite", out var anpc))
             {
@@ -106,6 +116,51 @@ namespace CalamityEntropy.Content.ILEditing
         }
         public static FieldInfo mouseTextCacheField = null;
 
+        public static void processTriggersHook(Action<CalamityPlayer, TriggersSet> orig, CalamityPlayer calPlayer, TriggersSet ts)
+        {
+            bool flag = false;
+            if (CalamityKeybinds.AngelicAllianceHotKey.JustPressed && calPlayer.angelicAlliance && Main.myPlayer == calPlayer.Player.whoAmI && !calPlayer.divineBless && !calPlayer.Player.HasCooldown(CalamityMod.Cooldowns.DivineBless.ID))
+            {
+                flag = true;
+                var Player = calPlayer.Player;
+
+                int seconds = CalamityUtils.SecondsToFrames(15f);
+                Player.AddBuff(ModContent.BuffType<CalamityMod.Buffs.StatBuffs.DivineBless>(), seconds, false);
+                SoundEngine.PlaySound(AngelicAlliance.ActivationSound, Player.Center);
+
+                // Spawn an archangel for every minion you have
+                List<int> angelAmtList = new();
+                for (int projIndex = 0; projIndex < Main.maxProjectiles; projIndex++)
+                {
+                    Projectile proj = Main.projectile[projIndex];
+                    if (proj.minionSlots <= 0f || !proj.CountsAsClass<SummonDamageClass>())
+                        continue;
+
+                    if (proj.active && proj.owner == Player.whoAmI)
+                        angelAmtList.Add(projIndex);
+                }
+
+                var source = Player.GetSource_Accessory(calPlayer.FindAccessory(ModContent.ItemType<AngelicAlliance>()));
+                for (int projIndex = 0; projIndex < angelAmtList.Count; projIndex++)
+                {
+                    Projectile proj = Main.projectile[angelAmtList[projIndex]];
+                    float start = 360f / angelAmtList.Count;
+                    int damage = Player.ApplyArmorAccDamageBonusesTo(proj.damage / 10);
+
+                    Projectile.NewProjectile(source, new Vector2((int)(Player.Center.X + (Math.Sin(projIndex * start) * 300)), (int)(Player.Center.Y + (Math.Cos(projIndex * start) * 300))), Vector2.Zero, ModContent.ProjectileType<AngelicAllianceArchangel>(), damage, proj.knockBack / 10f, Player.whoAmI, Main.rand.Next(180), projIndex * start);
+                    Player.statLife += 2;
+                    Player.HealEffect(2);
+                    if (Player.statLife > Player.statLifeMax2)
+                        Player.statLife = Player.statLifeMax2;
+                }
+                calPlayer.angelicAlliance = false;
+            }
+            orig(calPlayer, ts);
+            if(flag)
+            {
+                calPlayer.angelicAlliance = true;
+            }
+        }
         public static void drawStealthBarHook(Action<SpriteBatch, CalamityPlayer, Vector2> orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
         {
             var edgeTexField = typeof(StealthUI).GetField("edgeTexture", BindingFlags.Static | BindingFlags.NonPublic);
@@ -319,11 +374,15 @@ namespace CalamityEntropy.Content.ILEditing
         {
             if (method == null)
             {
-                throw new ArgumentException("The MethodBase passed in is Null");
+                CalamityEntropy.Instance.Logger.Warn($"CalamityEntropy: Error when add hook to {method.Name}: The MethodBase passed in is Null");
+                return null;
+                //throw new ArgumentException("The MethodBase passed in is Null");
             }
             if (hookDelegate == null)
             {
-                throw new ArgumentException("The HookDelegate passed in is Null");
+                CalamityEntropy.Instance.Logger.Warn($"CalamityEntropy: Error when add hook to {method.Name}: The HookDelegate passed in is Null");
+                return null;
+                //throw new ArgumentException("The HookDelegate passed in is Null");
             }
 
             Hook hook = new Hook(method, hookDelegate);
