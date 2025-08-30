@@ -48,6 +48,11 @@ namespace CalamityEntropy.Common
         public static Asset<Effect> StarsTrail;
         public static Asset<Effect> RTShader;
         public static Asset<Effect> WarpShader;
+        public static Effect kscreen;
+        public static Effect kscreen2;
+        public static Effect cvoid;
+        public static Effect cvoid2;
+        public static Effect cabyss;
         internal static float twistStrength = 0f;
         public const string AssetPath = "CalamityEntropy/Assets/";
         public const string AssetPath2 = "Assets/";
@@ -289,12 +294,12 @@ namespace CalamityEntropy.Common
             graphicsDevice.Clear(Color.Transparent);
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
-            cve2.CurrentTechnique = cve2.Techniques["Technique1"];
-            cve2.CurrentTechnique.Passes[0].Apply();
-            cve2.Parameters["tex0"].SetValue(Main.screenTargetSwap);
-            cve2.Parameters["tex1"].SetValue(VoidBack.Value);
-            cve2.Parameters["time"].SetValue(Instance.cvcount / 50f);
-            cve2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
+            cvoid2.CurrentTechnique = cvoid2.Techniques["Technique1"];
+            cvoid2.CurrentTechnique.Passes[0].Apply();
+            cvoid2.Parameters["tex0"].SetValue(Main.screenTargetSwap);
+            cvoid2.Parameters["tex1"].SetValue(VoidBack.Value);
+            cvoid2.Parameters["time"].SetValue(Instance.cvcount / 50f);
+            cvoid2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
             Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
             Main.spriteBatch.End();
         }
@@ -302,9 +307,6 @@ namespace CalamityEntropy.Common
 
         private static void DrawAbyssalEffect(GraphicsDevice graphicsDevice)
         {
-            if (cab == null)
-                cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
-
             graphicsDevice.SetRenderTarget(Screen0);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -346,13 +348,13 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
-            cab.CurrentTechnique = cab.Techniques["Technique1"];
-            cab.CurrentTechnique.Passes[0].Apply();
-            cab.Parameters["clr"].SetValue(new Color(12, 50, 160).ToVector4());
-            cab.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1", AssetRequestMode.ImmediateLoad).Value);
-            cab.Parameters["time"].SetValue(Instance.cvcount / 50f);
-            cab.Parameters["scrsize"].SetValue(Screen0.Size());
-            cab.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
+            cabyss.CurrentTechnique = cabyss.Techniques["Technique1"];
+            cabyss.CurrentTechnique.Passes[0].Apply();
+            cabyss.Parameters["clr"].SetValue(new Color(12, 50, 160).ToVector4());
+            cabyss.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/AwSky1", AssetRequestMode.ImmediateLoad).Value);
+            cabyss.Parameters["time"].SetValue(Instance.cvcount / 50f);
+            cabyss.Parameters["scrsize"].SetValue(Screen0.Size());
+            cabyss.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
             Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
 
             Main.spriteBatch.End();
@@ -617,17 +619,17 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-            cve.CurrentTechnique = cve.Techniques["Technique1"];
-            cve.CurrentTechnique.Passes[0].Apply();
-            cve.Parameters["tex1"].SetValue(planetarium_blue_base.Value);
-            cve.Parameters["tex2"].SetValue(CEUtils.getExtraTex("Empty"));
-            cve.Parameters["tex3"].SetValue(CEUtils.getExtraTex("Empty"));
-            cve.Parameters["tex4"].SetValue(CEUtils.getExtraTex("Empty"));
-            cve.Parameters["tex5"].SetValue(CEUtils.getExtraTex("Empty"));
-            cve.Parameters["tex6"].SetValue(CEUtils.getExtraTex("Empty"));
-            cve.Parameters["time"].SetValue(Instance.cvcount / 50f);
-            cve.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
-            cve.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-Instance.cvcount / 6f, Instance.cvcount / 6f)) / Main.ScreenSize.ToVector2());
+            cvoid.CurrentTechnique = cvoid.Techniques["Technique1"];
+            cvoid.CurrentTechnique.Passes[0].Apply();
+            cvoid.Parameters["tex1"].SetValue(planetarium_blue_base.Value);
+            cvoid.Parameters["tex2"].SetValue(CEUtils.getExtraTex("Empty"));
+            cvoid.Parameters["tex3"].SetValue(CEUtils.getExtraTex("Empty"));
+            cvoid.Parameters["tex4"].SetValue(CEUtils.getExtraTex("Empty"));
+            cvoid.Parameters["tex5"].SetValue(CEUtils.getExtraTex("Empty"));
+            cvoid.Parameters["tex6"].SetValue(CEUtils.getExtraTex("Empty"));
+            cvoid.Parameters["time"].SetValue(Instance.cvcount / 50f);
+            cvoid.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
+            cvoid.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-Instance.cvcount / 6f, Instance.cvcount / 6f)) / Main.ScreenSize.ToVector2());
             Main.spriteBatch.Draw(Screen2, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
