@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
             Projectile.MaxUpdates = 4;
             Projectile.friendly = false;
         }
-        
+
         public override void AI()
         {
             oldPos.Add(Projectile.Center);
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (((int)(Projectile.ai[0])).ToNPC().ModNPC is SpiritFountain sf)
             {
-                if(sf.ClearMyProjs > 0)
+                if (sf.ClearMyProjs > 0)
                 {
                     Projectile.Kill();
                 }

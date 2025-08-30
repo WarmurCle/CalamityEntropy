@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.UI
                         Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
                         context.Draw();
                     }
-                    
+
 
                 }
                 else if (CompareAssets(asset, barsFolder + "HP_Fill") || CompareAssets(asset, barsFolder + "HP_Fill_Honey"))
@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.UI
                         context.Draw();
                         context.color = Color.White;
                     }
-                    
+
                 }
                 else if (CompareAssets(asset, barsFolder + "MP_Fill"))
                 {

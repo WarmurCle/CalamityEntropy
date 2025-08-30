@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
                 for (int zz = 0; zz < 8; zz++)
                 {
                     var p = LightningGenerator.GenerateLightning(Projectile.Center, Projectile.Center + Projectile.velocity * 500 + CEUtils.randomPointInCircle(64 * (Projectile.ai[0] + 1)), 16, 6);
-                    for(int i = 1; i < p.Count; i++)
+                    for (int i = 1; i < p.Count; i++)
                     {
                         p[i] += CEUtils.randomPointInCircle(50 * (Projectile.ai[0] + 1));
                     }
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
         {
             return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity * 500, targetHitbox, 46);
         }
-        
+
         public float PrimitiveWidthFunction(float completionRatio) => (new Vector2(1, 0).RotatedBy((completionRatio + 0.14f) * MathHelper.Pi)).Y * Projectile.scale * 26 * ((36f - Projectile.ai[0]) / 36f) * CEUtils.Parabola(1 - Projectile.timeLeft / 16f, 1);
 
         public Color PrimitiveColorFunction(float completionRatio)
@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
                 PrimitiveRenderer.RenderTrail(points, new PrimitiveSettings(PrimitiveWidthFunction, PrimitiveColorFunction, (_) => Projectile.Size * 0.2f * lw, false,
                     shader: GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"]), 10);
             }
-            
+
             return false;
         }
     }

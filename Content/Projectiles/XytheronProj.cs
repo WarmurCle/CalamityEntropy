@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 MotifList = new List<float>() { 1, 0, 0, 0, 0.6f, 1, 0.8f, 1, 1.18f, 0, 0.9f, 1, 0, 0, 0, 0, 0, 1f, 0.9f, 0.8f, 0.7f, 0.84f, 0, 1, 0.95f, 1.05f, 1.2f, 0, 1.2f, 1.3f, 1.2f, 0, 1.1f, 1, 0.8f, 0, 1f, 0, 0.7f, 0, 0, 1.05f, 0, 1.1f, 0, 0, 1.2f, 1f, 0.9f, 0, 0, 0, 0 };
                 float pitch = Main.rand.NextFloat(0.9f, 1.4f);
-                if(Main.zenithWorld)
+                if (Main.zenithWorld)
                 {
                     pitch = MotifList[soundCount];
                     soundCount++;

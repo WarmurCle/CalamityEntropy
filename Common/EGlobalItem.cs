@@ -548,7 +548,7 @@ namespace CalamityEntropy.Common
         }
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
+
             if (player.Entropy().shadowPact && item.DamageType.CountsAsClass<ThrowingDamageClass>())
             {
                 if (player.Entropy().shadowStealth >= 1)
@@ -847,7 +847,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            
+
             return true;
         }
 

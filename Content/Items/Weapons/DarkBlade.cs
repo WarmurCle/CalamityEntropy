@@ -116,7 +116,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float rp = 0;
         public override void AI()
         {
-            if(Projectile.timeLeft <= 3)
+            if (Projectile.timeLeft <= 3)
             {
                 return;
             }
@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 init = false;
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    for(float i = -1; i <= 1; i += 1)
+                    for (float i = -1; i <= 1; i += 1)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), owner.Center, new Vector2(owner.direction * -2, 0).RotatedBy(i * 0.6f), ModContent.ProjectileType<DarkBladeShoot>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, i);
                     }
@@ -278,7 +278,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AI()
         {
-            if(init)
+            if (init)
             {
                 init = false;
                 if (Projectile.ai[0] == 0)
@@ -306,7 +306,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 if (shoot)
                 {
-                    
+
                     shoot = false;
                     Projectile.velocity = (player.Calamity().mouseWorld - Projectile.Center).normalize() * 4;
                     Projectile.rotation = Projectile.velocity.ToRotation();
@@ -335,7 +335,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                 }
             }
-            
+
         }
         public override bool? CanHitNPC(NPC target)
         {

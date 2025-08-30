@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Particles
                 Rotation = Velocity.ToRotation();
             }
             int ac = 1;
-            if(odpl.Count == 0)
+            if (odpl.Count == 0)
             {
                 ac = 8;
                 Lifetime += ac;
@@ -53,7 +53,8 @@ namespace CalamityEntropy.Content.Particles
         public int dir = Main.rand.NextBool() ? 1 : -1;
 
         public override void Draw()
-        {;
+        {
+            ;
             Texture2D trail = Texture;
             List<ColoredVertex> ve = new List<ColoredVertex>();
 

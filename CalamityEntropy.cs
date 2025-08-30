@@ -538,7 +538,7 @@ namespace CalamityEntropy
         public int pocType = -1;
         private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
         {
-            if (orig != null && self != null && gameTime != null) 
+            if (orig != null && self != null && gameTime != null)
             {
                 orig(self, gameTime);
                 EModSys.mi = false;
@@ -549,7 +549,8 @@ namespace CalamityEntropy
                         for (int i = 0; i < LoopSoundManager.sounds.Count; i++)
                         {
                             var sound = LoopSoundManager.sounds[i];
-                            sound.stop(); }
+                            sound.stop();
+                        }
                     }
                     LoopSoundManager.sounds.Clear();
                 }
@@ -1202,7 +1203,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
-            
+
             if (ModLoader.TryGetMod("InfernumMode", out var _))
             {
                 InfFont.InfernumFont.SetFont();

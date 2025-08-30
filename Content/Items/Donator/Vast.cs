@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 l = 6;
             }
-            if(DownedBossSystem.downedPolterghast)
+            if (DownedBossSystem.downedPolterghast)
             {
                 l = 7;
             }
@@ -130,11 +130,11 @@ namespace CalamityEntropy.Content.Items.Donator
         public float GetEnhancedMana => 0.04f * ExtraManaLv;
         public override void PostUpdate()
         {
-            if(LastMana < Player.statMana)
+            if (LastMana < Player.statMana)
             {
                 LastMana = Player.statMana;
             }
-            if(Player.statMana < LastMana)
+            if (Player.statMana < LastMana)
             {
                 ManaCostCount += LastMana - Player.statMana;
                 LastMana = Player.statMana;
@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     /*player.AddBuff(ModContent.BuffType<ManaAwaken>(), 6 * 60);
                     player.AddBuff(BuffID.ManaSickness, 10 * 60);*/
-                    
+
                 }
                 if (NPC.downedMoonlord)
                 {
@@ -191,15 +191,15 @@ namespace CalamityEntropy.Content.Items.Donator
                     v += 0.03f * ExtraManaLv;
                 }
             }
-            for(int i = 0; i < ExtraManaLv; i++)
+            for (int i = 0; i < ExtraManaLv; i++)
             {
-                if(Main.rand.NextBool())
+                if (Main.rand.NextBool())
                 {
                     GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Player.Center + new Vector2(Main.rand.NextFloat(-3, 3), Player.height / 2) + CEUtils.randomVec(1), CEUtils.randomVec(1), new Color(100, 100, 255), 40, 0.16f, 1, 0.1f, true, 0, true));
 
                 }
             }
-            if(ExtraManaLv >= 5)
+            if (ExtraManaLv >= 5)
             {
                 GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(CEUtils.randomPoint(Player.getRect()), Player.velocity * 0.2f + CEUtils.randomVec(1), new Color(100, 100, 255), 40, 0.2f, 1, 0.1f, true, 0, true));
             }

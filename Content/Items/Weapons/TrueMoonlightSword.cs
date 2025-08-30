@@ -256,7 +256,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.Opacity = Projectile.timeLeft / 30f;
-            
+
             Projectile.velocity *= 0.96f;
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -270,7 +270,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             List<ColoredVertex> ve = new List<ColoredVertex>();
             List<Vector2> p1 = new List<Vector2>();
             List<Vector2> p2 = new List<Vector2>();
-            for(float i = -1; i <= 1; i += 0.01f)
+            for (float i = -1; i <= 1; i += 0.01f)
             {
                 p2.Add(((i * 1f).ToRotationVector2() * new Vector2(1.2f, 1)).RotatedBy(Projectile.rotation) * 10);
                 p1.Add(((i * 1.6f).ToRotationVector2() * new Vector2(1.2f, 1)).RotatedBy(Projectile.rotation) * 256);
@@ -300,7 +300,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
 
                 gd.Textures[0] = trail;
-                
+
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
             }

@@ -504,9 +504,12 @@ namespace CalamityEntropy.Content.Tiles
         private Vector2 dragOffset;
         internal static float sengs = 0;
         private static bool IsActive;
-        public override bool Active {
-            get {
-                if (AzMinerTP == null || !AzMinerTP.Active) {
+        public override bool Active
+        {
+            get
+            {
+                if (AzMinerTP == null || !AzMinerTP.Active)
+                {
                     IsActive = false;
                 }
                 return IsActive || sengs > 0;
@@ -536,12 +539,15 @@ namespace CalamityEntropy.Content.Tiles
                 sengs += 0.1f;
             }
 
-            if (!hoverInMainPage) {
-                if (hoverSengs > 0f) {
+            if (!hoverInMainPage)
+            {
+                if (hoverSengs > 0f)
+                {
                     hoverSengs -= 0.1f;
                 }
             }
-            else if (hoverSengs < 1f) {
+            else if (hoverSengs < 1f)
+            {
                 hoverSengs += 0.1f;
             }
 
@@ -567,11 +573,13 @@ namespace CalamityEntropy.Content.Tiles
                 return;
             }
 
-            if (onDrag) {
+            if (onDrag)
+            {
                 player.mouseInterface = true;
                 DrawPosition = MousePosition + dragOffset;
 
-                if (keyLeftPressState == KeyPressState.Released) {
+                if (keyLeftPressState == KeyPressState.Released)
+                {
                     onDrag = false;
                 }
             }
@@ -590,10 +598,13 @@ namespace CalamityEntropy.Content.Tiles
                 s.Update();
             }
 
-            if (hoverInMainPage) {
+            if (hoverInMainPage)
+            {
                 player.mouseInterface = true;
-                if (keyLeftPressState == KeyPressState.Pressed) {
-                    if (!onDrag) {
+                if (keyLeftPressState == KeyPressState.Pressed)
+                {
+                    if (!onDrag)
+                    {
                         dragOffset = DrawPosition - MousePosition;
                     }
 
@@ -641,26 +652,34 @@ namespace CalamityEntropy.Content.Tiles
         private float hoverSengs;
         private bool hoverRightHeld;
         private int lastHoverSlot = -1;
-        public Item Item {
-            get {
-                if (type == 0) {
+        public Item Item
+        {
+            get
+            {
+                if (type == 0)
+                {
                     return AzMinerUI.AzMinerTP.filters[itemIndex];
                 }
-                else {
+                else
+                {
                     return AzMinerUI.AzMinerTP.items[itemIndex];
                 }
             }
-            set {
-                if (type == 0) {
+            set
+            {
+                if (type == 0)
+                {
                     AzMinerUI.AzMinerTP.filters[itemIndex] = value;
                 }
-                else {
+                else
+                {
                     AzMinerUI.AzMinerTP.items[itemIndex] = value;
                 }
             }
         }
 
-        public override void Update() {
+        public override void Update()
+        {
             //更新位置和鼠标交互区域
             DrawPosition = AzMinerUI.Instance.DrawPosition + OffsetPos;
             UIHitBox = (DrawPosition - AzMinerUI.UISlotTex.Size() / 2)
@@ -668,7 +687,8 @@ namespace CalamityEntropy.Content.Tiles
 
             hoverInMainPage = UIHitBox.Intersects(MouseHitBox);
 
-            if (!hoverInMainPage) {
+            if (!hoverInMainPage)
+            {
                 hoverSengs = Math.Max(0f, hoverSengs - 0.1f);
                 hoverRightHeld = false;
                 return;
@@ -678,22 +698,26 @@ namespace CalamityEntropy.Content.Tiles
             Main.LocalPlayer.mouseInterface = true;
 
             //显示物品信息
-            if (Main.mouseItem.IsAir && !Item.IsAir) {
+            if (Main.mouseItem.IsAir && !Item.IsAir)
+            {
                 CEUtils.showItemTooltip(Item);
             }
 
             //空槽提示
-            if (Item.IsAir && type == 0 && Main.mouseItem.IsAir) {
+            if (Item.IsAir && type == 0 && Main.mouseItem.IsAir)
+            {
                 Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo2").Value);
             }
 
             //Shift合并
-            if (!Item.IsAir && Main.keyState.PressingShift()) {
+            if (!Item.IsAir && Main.keyState.PressingShift())
+            {
                 TryMergeStacks();
             }
 
             //空物品格直接退出
-            if (Main.mouseItem.IsAir && Item.IsAir) {
+            if (Main.mouseItem.IsAir && Item.IsAir)
+            {
                 return;
             }
 
@@ -706,45 +730,54 @@ namespace CalamityEntropy.Content.Tiles
             AzMinerUI.AzMinerTP.SendData();
         }
 
-        private void HandleRightClick() {
+        private void HandleRightClick()
+        {
             int currentSlot = itemIndex; //当前格子索引
 
             //如果滑动到了新的格子，重置去抖状态
-            if (currentSlot != lastHoverSlot) {
+            if (currentSlot != lastHoverSlot)
+            {
                 hoverRightHeld = false;
                 lastHoverSlot = currentSlot;
             }
 
-            if (Main.mouseItem.IsAir) {
+            if (Main.mouseItem.IsAir)
+            {
                 return;
             }
 
             bool canAdd = Item.IsAir || (Item.type == Main.mouseItem.type && Item.stack < Item.maxStack && Main.mouseItem.stack > 0);
 
-            if (!canAdd) {
+            if (!canAdd)
+            {
                 return;
             }
 
-            if (keyRightPressState == KeyPressState.Held && hoverInMainPage) {
-                if (!hoverRightHeld) {
+            if (keyRightPressState == KeyPressState.Held && hoverInMainPage)
+            {
+                if (!hoverRightHeld)
+                {
                     AddOneFromMouse();
                     hoverRightHeld = true;
                 }
             }
-            else if (keyRightPressState == KeyPressState.Pressed) {
+            else if (keyRightPressState == KeyPressState.Pressed)
+            {
                 AddOneFromMouse();
                 hoverRightHeld = true;
             }
         }
 
-        private void HandleLeftClick() {
+        private void HandleLeftClick()
+        {
             if (keyLeftPressState != KeyPressState.Pressed)
                 return;
 
             AzMinerUI.Instance.dontDragTime = 2;
 
             //Shift 丢出物品
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) {
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+            {
                 SoundEngine.PlaySound(SoundID.Grab);
                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Loot(), Item, Item.stack);
                 ClearSlot();
@@ -752,12 +785,15 @@ namespace CalamityEntropy.Content.Tiles
             }
 
             //左键正常堆叠/交换
-            if (Main.mouseItem.type == Item.type) {
+            if (Main.mouseItem.type == Item.type)
+            {
                 MergeWithMouse();
             }
-            else {
+            else
+            {
                 //只能放矿石
-                if (!IsOre(Main.mouseItem) && Main.mouseItem.type != ItemID.None) {
+                if (!IsOre(Main.mouseItem) && Main.mouseItem.type != ItemID.None)
+                {
                     SoundEngine.PlaySound(SoundID.MenuTick);
                     Main.NewText(CalamityEntropy.Instance.GetLocalization("AzMinerOreWarning").Value, Color.Red);
                     return;
@@ -766,13 +802,16 @@ namespace CalamityEntropy.Content.Tiles
             }
         }
 
-        private void AddOneFromMouse() {
+        private void AddOneFromMouse()
+        {
             SoundEngine.PlaySound(SoundID.Grab);
-            if (Item.IsAir) {
+            if (Item.IsAir)
+            {
                 Item = Main.mouseItem.Clone();
                 Item.stack = 1;
             }
-            else {
+            else
+            {
                 Item.stack++;
             }
 
@@ -781,23 +820,27 @@ namespace CalamityEntropy.Content.Tiles
                 Main.mouseItem.TurnToAir();
         }
 
-        private void MergeWithMouse() {
+        private void MergeWithMouse()
+        {
             SoundEngine.PlaySound(SoundID.Grab);
             Item targetSlot = GetSlotRef();
             int total = targetSlot.stack + Main.mouseItem.stack;
 
-            if (total > targetSlot.maxStack) {
+            if (total > targetSlot.maxStack)
+            {
                 int overflow = total - targetSlot.maxStack;
                 targetSlot.stack = targetSlot.maxStack;
                 Main.mouseItem.stack = overflow;
             }
-            else {
+            else
+            {
                 targetSlot.stack = total;
                 Main.mouseItem.TurnToAir();
             }
         }
 
-        private void SwapWithMouse() {
+        private void SwapWithMouse()
+        {
             SoundEngine.PlaySound(SoundID.Grab);
             Item targetSlot = GetSlotRef();
 
@@ -808,9 +851,11 @@ namespace CalamityEntropy.Content.Tiles
             Main.mouseItem = temp;
         }
 
-        private void TryMergeStacks() {
+        private void TryMergeStacks()
+        {
             bool merged = false;
-            foreach (var slot in AzMinerUI.Items) {
+            foreach (var slot in AzMinerUI.Items)
+            {
                 if (slot.itemIndex == itemIndex || Item.type != slot.Item.type)
                     continue;
 
@@ -818,11 +863,13 @@ namespace CalamityEntropy.Content.Tiles
                     continue;
 
                 int total = Item.stack + slot.Item.stack;
-                if (total > Item.maxStack) {
+                if (total > Item.maxStack)
+                {
                     Item.stack = Item.maxStack;
                     slot.Item.stack = total - Item.maxStack;
                 }
-                else {
+                else
+                {
                     Item.stack = total;
                     slot.Item.TurnToAir();
                 }
@@ -833,35 +880,42 @@ namespace CalamityEntropy.Content.Tiles
                 SoundEngine.PlaySound(SoundID.Grab);
         }
 
-        private void ClearSlot() {
-            if (type == 0) {
+        private void ClearSlot()
+        {
+            if (type == 0)
+            {
                 AzMinerUI.AzMinerTP.filters[itemIndex].TurnToAir();
-            } 
-            else {
+            }
+            else
+            {
                 AzMinerUI.AzMinerTP.items[itemIndex].TurnToAir();
             }
-                
+
         }
 
-        private Item GetSlotRef() {
+        private Item GetSlotRef()
+        {
             return type == 0
                 ? AzMinerUI.AzMinerTP.filters[itemIndex]
                 : AzMinerUI.AzMinerTP.items[itemIndex];
         }
 
-        private bool IsOre(Item item) {
+        private bool IsOre(Item item)
+        {
             return AzMinerTP.ItemIsOre.TryGetValue(item.type, out bool isOre) && isOre;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             Texture2D tex = AzMinerUI.UISlotTex.Value;
-            if (AzMinerUI.sengs >= 1f) {
+            if (AzMinerUI.sengs >= 1f)
+            {
                 Main.spriteBatch.Draw(tex, DrawPosition, null, Color.Gold with { A = 0 }, 0, tex.Size() / 2f, 1 + 0.1f * hoverSengs, SpriteEffects.None, 0);
             }
-            
+
             Main.spriteBatch.Draw(tex, DrawPosition, null, Color.White * AzMinerUI.sengs, 0, tex.Size() / 2f, AzMinerUI.sengs, SpriteEffects.None, 0);
-            if (Item.IsAir) {
+            if (Item.IsAir)
+            {
                 return;
             }
 

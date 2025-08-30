@@ -95,7 +95,7 @@ namespace CalamityEntropy.Common
             flags[4] = downedLuminaris;
             flags[5] = downedAcropolis;
             flags2[0] = EntropyMode;
-            
+
 
             writer.Write(flags);
             writer.Write(flags2);

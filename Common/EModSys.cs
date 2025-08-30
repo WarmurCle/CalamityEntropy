@@ -98,15 +98,15 @@ namespace CalamityEntropy.Common
         {
             Fruitcake.ammoList = new();
             List<int> AmmoIds = new List<int>();
-            for(int i = 0; i < ItemLoader.ItemCount; i++)
+            for (int i = 0; i < ItemLoader.ItemCount; i++)
             {
-                if(i == ModContent.ItemType<MortarRound>() || i == ModContent.ItemType<RubberMortarRound>())
+                if (i == ModContent.ItemType<MortarRound>() || i == ModContent.ItemType<RubberMortarRound>())
                 {
                     continue;
                 }
                 if (ContentSamples.ItemsByType[i].ammo != AmmoID.None)
                 {
-                    if(!AmmoIds.Contains(ContentSamples.ItemsByType[i].ammo))
+                    if (!AmmoIds.Contains(ContentSamples.ItemsByType[i].ammo))
                     {
                         AmmoIds.Add(ContentSamples.ItemsByType[i].ammo);
                         Fruitcake.ammoList[ContentSamples.ItemsByType[i].ammo] = new();
@@ -114,11 +114,11 @@ namespace CalamityEntropy.Common
                     Fruitcake.ammoList[ContentSamples.ItemsByType[i].ammo].Add(i);
                 }
             }
-            
+
         }
         public override void PostDrawTiles()
         {
-            
+
             if (CalamityEntropy.SetupBossbarClrAuto)
             {
                 CalamityEntropy.SetupBossbarClrAuto = false;
