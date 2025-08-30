@@ -1,7 +1,9 @@
-﻿using CalamityMod.Items;
+using CalamityEntropy.Content.Projectiles;
+using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -21,6 +23,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Color tooltipColor => Color.LightBlue;
         public override void ModifyStat(EBookStatModifer modifer)
         {
+            modifer.armorPenetration += 10;
             modifer.Homing += 1.2f;
             modifer.HomingRange += 0.5f;
         }
