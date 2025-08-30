@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Texture2D UITexture => BookMark.GetUITexture("Mechanical");
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.Homing += 0.35f;
+            modifer.Homing += 0.45f;
         }
         public override Color tooltipColor => Color.LightGray;
         public override EBookProjectileEffect getEffect()
