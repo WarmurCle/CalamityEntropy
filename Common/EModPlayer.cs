@@ -892,7 +892,7 @@ namespace CalamityEntropy.Common
             {
                 foreach (Projectile p in Main.projectile)
                 {
-                    if (p.active && p.owner == Player.whoAmI)
+                    if (p.friendly && p.active && p.owner == Player.whoAmI)
                     {
                         p.Kill();
                     }
