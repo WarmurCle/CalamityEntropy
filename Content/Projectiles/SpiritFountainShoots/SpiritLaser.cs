@@ -36,7 +36,6 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
         }
         public override void AI()
         {
-            Projectile.damage = 2;
             if (Projectile.ai[2] == 0)
             {
                 SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/MagnaCannonChargeFull") { Pitch = 2 }, Projectile.Center);

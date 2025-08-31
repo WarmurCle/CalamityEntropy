@@ -208,7 +208,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             Moving,
             Boomerang,
             Lasers,
-            RingFountains
+            RingFountains,
+            PhaseTranse1
         }
         public AIStyle ai = AIStyle.SpawnAnimation;
         public void Shoot(int type, Vector2 pos, Vector2 velo, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0)
@@ -225,6 +226,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             return false;
         }
         public bool SpawnSpirits = true;
+        public bool SpawnSpirits2 = true;
         public float Counter = 0;
         public float c1LastPos = 0;
         public Vector2 starePoint = Vector2.Zero;
@@ -380,6 +382,30 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 starePoint = Main.LocalPlayer.Center;
 
             }
+            if(phase > 3)
+            {
+                if (SpawnSpirits2)
+                {
+                    aiTimer = 0;
+                    ai = AIStyle.PhaseTranse1;
+                    column2.rotation = 0;
+                    SpawnSpirits2 = false;
+                    CenterRing = (int)Math.Ceiling(SpiritCount / 2f);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        for (int i = 0; i < SpiritCount; i++)
+                        {
+                            int idx = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritRing>(), 0, NPC.whoAmI, float.Lerp(-1, 1, i / (float)(SpiritCount - 1)), 1);
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, idx);
+                                Main.npc[idx].netUpdate = true;
+                            }
+                        }
+                    }
+                    
+                }
+            }
             if (ai == AIStyle.Moving)
             {
                 FountainSpeed = float.Lerp(FountainSpeed, 8, 0.06f);
@@ -477,13 +503,26 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             if (ai == AIStyle.RingFountains)
             {
                 column1.offset.X *= 0.9f;
-                if (aiTimer > 260)
+                if (aiTimer > 340)
                 {
                     ai = AIStyle.Moving;
                     aiTimer = 0;
                 }
             }
-
+            if(ai == AIStyle.PhaseTranse1)
+            {
+                DontTakeDmg = true;
+                column1.offset *= 0;
+                column2.alpha = float.Lerp(column2.alpha, 0.6f, 0.04f);
+                aiTimer++;
+                if (aiTimer > 140)
+                {
+                    DontTakeDmg = false;
+                    aiTimer = 0;
+                    ai = AIStyle.Moving;
+                    column2.alpha = 0.6f;
+                }
+            }
             NPC.localAI[2] = NPC.HasValidTarget ? 0 : NPC.localAI[2] + 1;
             if (NPC.localAI[2] > 600 || (NPC.HasValidTarget && !NPC.target.ToPlayer().Center.getRectCentered(10, 10).Intersects(NPC.Center.getRectCentered(150 * 16, 150 * 16))))
             {

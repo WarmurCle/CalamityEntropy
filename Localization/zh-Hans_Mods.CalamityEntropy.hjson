@@ -1781,10 +1781,7 @@ Items: {
 
 	BookMarkGemini: {
 		DisplayName: 双子座书签
-		Tooltip: 
-			'''
-			射弹强追踪并且获得10点护甲穿透
-			'''
+		Tooltip: 射弹强追踪并且获得10点护甲穿透
 	}
 
 	BookMarkScorpio: {
@@ -3448,6 +3445,7 @@ Projectiles: {
 	// TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
 	// DarkBladeHeld.DisplayName: Dark Blade Held
 	// DarkBladeShoot.DisplayName: Dark Blade Shoot
+	// SpiritWave.DisplayName: Spirit Wave
 }
 
 LegendTooltip: - 传奇物品 -

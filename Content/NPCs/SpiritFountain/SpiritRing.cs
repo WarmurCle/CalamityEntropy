@@ -138,6 +138,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 TrailLength = float.Lerp(TrailLength, 68, 0.05f);
             }
             Player target = owner.HasValidTarget ? owner.target.ToPlayer() : Main.player[0];
+
             if (fountain.ai == SpiritFountain.AIStyle.Boomerang)
             {
                 if (fountain.aiTimer == 10)
@@ -180,7 +181,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                                 NPC.velocity *= 0.2f;
                                 if (NPC.localAI[1] == 120)
                                 {
-                                    fountain.Shoot(ModContent.ProjectileType<SpiritLaser>(), NPC.Center, (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 5, -0.8f);
+                                    fountain.Shoot(ModContent.ProjectileType<SpiritLaser>(), NPC.Center, (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 5);
                                 }
                                 if (NPC.localAI[1] < 90)
                                 {
@@ -275,7 +276,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     if (fountain.aiTimer % (targetTime + 28) == 1 + targetTime)
                     {
                         AlphaLaserWarning = 0;
-                        fountain.Shoot(ModContent.ProjectileType<SpiritLaser>(), NPC.Center, (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 5, -0.8f);
+                        fountain.Shoot(ModContent.ProjectileType<SpiritLaser>(), NPC.Center, (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 5);
                     }
 
                 }
@@ -293,7 +294,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 if(fountain.aiTimer == 1)
                 {
                     NPC.rotation = 0;
-                    NPC.velocity = new Vector2(Main.rand.NextFloat(-60, 60), -12);
+                    NPC.velocity = new Vector2(Main.rand.NextFloat(-30, 30), -12);
                 }
                 if (fountain.aiTimer > 1)
                 {
@@ -301,26 +302,42 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     {
                         NPC.velocity *= 0;
                         NPC.rotation = 0;
-                        if (fountain.aiTimer > 160)
+                        if (fountain.aiTimer > 100)
                         {
-                            if (fountain.aiTimer < 240)
+                            if (fountain.aiTimer < 160)
                             {
-                                AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 1, 0.04f);
+                                AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 0.5f, 0.06f);
                             }
                             else
                             {
-                                if(fountain.aiTimer == 240)
+                                if(fountain.aiTimer == 200)
                                 {
-
+                                    fountain.Shoot(ModContent.ProjectileType<SpiritWave>(), NPC.Center, Vector2.Zero);
+                                }
+                                if(fountain.aiTimer > 200)
+                                {
+                                    if(fountain.aiTimer > 230)
+                                    {
+                                        AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 0, 0.1f);
+                                    }
+                                    else
+                                    {
+                                        AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 1, 0.1f);
+                                    }
+                                }
+                                if(fountain.aiTimer > 260)
+                                {
+                                    NPC.Center = Vector2.Lerp(NPC.Center, owner.Center + column.offset + column.rotation.ToRotationVector2() * columnOffset, 0.1f);
                                 }
                             }
                         }
                     }
                     else
                     {
+                        NPC.width = NPC.height = 20;
                         NPC.rotation += NPC.velocity.X * 0.004f;
                         NPC.velocity.X *= 0.98f;
-                        NPC.velocity.Y += 0.8f;
+                        NPC.velocity.Y += 0.6f;
                         NPC.noTileCollide = false;
                         NPC.damage = 0;
                     }
@@ -329,6 +346,13 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             else
             {
                 AlphaWaveWarning = 0;
+            }
+            if (fountain.ai == SpiritFountain.AIStyle.PhaseTranse1)
+            {
+                float targetofs = Index * 1900 + (float)Math.Sin(fountain.Counter * 0.02f) * 400;
+                columnOffset = float.Lerp(columnOffset, targetofs, 0.05f);
+                TrailLength = float.Lerp(TrailLength, 74, 0.05f);
+                NPC.damage = 0;
             }
 
             if (OnColumn)
@@ -360,7 +384,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 var ofs = rt.ToRotationVector2() * r;
                 ofs.Y *= 0.25f;
                 ofs = ofs.RotatedBy(NPC.rotation);
-                sb.Draw(glow, NPC.Center + ofs - Main.screenPosition, null, color * NPC.Opacity * 0.6f * (NPC.damage > 0 ? 1 : 0.5f), 0, glow.Size() * 0.5f, s * 0.2f, SpriteEffects.None, 0);
+                sb.Draw(glow, NPC.Center + ofs - Main.screenPosition, null, color * NPC.Opacity * 0.6f * column.alpha * (NPC.damage > 0 ? 1 : 0.5f), 0, glow.Size() * 0.5f, s * 0.2f, SpriteEffects.None, 0);
                 rt += MathHelper.ToRadians(4) * (NPC.whoAmI % 2 == 0 ? 1 : -1);
             }
             sb.End();
@@ -374,11 +398,12 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             yx += 0.036f;
             if(AlphaWaveWarning > 0.01f)
             {
+                Texture2D glow = CEUtils.getExtraTex("a_circle");
                 Texture2D tex = CEUtils.getExtraTex("LTLine");
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-                Main.spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, null, Color.White * AlphaWaveWarning, NPC.rotation - MathHelper.PiOver2, new Vector2(0, tex.Height / 2f), new Vector2(5, 1.2f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(glow, NPC.Center - Main.screenPosition, null, Color.White * AlphaWaveWarning, NPC.rotation, glow.Size() / 2f, new Vector2(3, 1.2f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, null, Color.White * AlphaWaveWarning * 0.8f, NPC.rotation - MathHelper.PiOver2, new Vector2(0, tex.Height / 2f), new Vector2(2f,  6.5f), SpriteEffects.None, 0);
             }
             if (AlphaLaserWarning > 0.01f)
             {
@@ -398,7 +423,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     float p = -Main.GlobalTimeWrappedHourly * 2;
                     for (int i = 1; i < points.Count; i++)
                     {
-                        float wd = (0.9f + 0.12f * (float)Math.Cos(i * 0.3f + Main.GlobalTimeWrappedHourly * 10)) * AlphaLaserWarning;
+                        float wd = (0.9f + 0.12f * (float)Math.Cos(i * 0.6f + Main.GlobalTimeWrappedHourly * 10)) * AlphaLaserWarning;
                         Color b = new Color(200, 200, 255) * wd;
                         ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * NPC.scale * w * wd,
                               new Vector3((float)i / points.Count, 1, 1),
@@ -438,9 +463,13 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         {
             return false;
         }
+        public override bool? CanFallThroughPlatforms()
+        {
+            return true;
+        }
         public int SRHandle = 3;
     }
-
+    
     public class SRDamageRect : ModProjectile
     {
         public override string Texture => CEUtils.WhiteTexPath;

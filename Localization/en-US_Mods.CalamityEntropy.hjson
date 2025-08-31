@@ -1590,7 +1590,7 @@ Items: {
 
 	BookMarkGemini: {
 		DisplayName: Bookmark - Gemini
-		Tooltip: 
+		Tooltip:
 			'''
 			Projectile homing
 			+10 Armor Penetration
@@ -3221,6 +3221,7 @@ Projectiles: {
 	TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
 	DarkBladeHeld.DisplayName: Dark Blade Held
 	DarkBladeShoot.DisplayName: Dark Blade Shoot
+	SpiritWave.DisplayName: Spirit Wave
 }
 
 LegendTooltip: - Legend -

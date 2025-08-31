@@ -2789,7 +2789,6 @@ Items: {
 		// DisplayName: Fruitcake
 		/* Tooltip:
 			'''
-			Set your projectile's crit chance to a random range of 1-100
 			When using weapons that consume ammunition, randomly select ammunition of the same type and maintain the original damage
 			Short term random debuff caused by low probability of hit
 			''' */
@@ -2801,6 +2800,7 @@ Items: {
 			'''
 			Press the middle mouse button to lock the enemy
 			When using firearms, the bullet must hit the target
+			Reduce bullet damage appropriately
 			''' */
 	}
 
@@ -3281,6 +3281,7 @@ Projectiles: {
 	// TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
 	// DarkBladeHeld.DisplayName: Dark Blade Held
 	// DarkBladeShoot.DisplayName: Dark Blade Shoot
+	// SpiritWave.DisplayName: Spirit Wave
 }
 
 LegendTooltip: - Легенда -
