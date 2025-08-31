@@ -959,9 +959,9 @@ namespace CalamityEntropy.Common
             {
                 Player.maxRunSpeed *= MaliciousCode.CALAMITY__OVERHAUL ? 0.8f : 0.85f;
             }
-            Player.runAcceleration *= 1f + 0.14f * VoidCharge;
-            Player.maxRunSpeed *= 1f + 0.5f * VoidCharge;
-            Player.accRunSpeed *= 1f + 0.5f * VoidCharge;
+            Player.runAcceleration *= 1f + 0.1f * VoidCharge;
+            Player.maxRunSpeed *= 1f + 0.2f * VoidCharge;
+            Player.accRunSpeed *= 1f + 0.25f * VoidCharge;
             Player.runAcceleration *= 1f + moveSpeed;
             Player.maxRunSpeed *= 1f + moveSpeed;
             Player.accRunSpeed *= 1f + moveSpeed;
@@ -1477,7 +1477,7 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public override void PostUpdate()
         {
-            if(ResetRot)
+            if (ResetRot)
             {
                 ResetRot = false;
                 Player.fullRotation = 0;
@@ -1497,7 +1497,7 @@ namespace CalamityEntropy.Common
             {
                 if (Player.dashDelay < 0)
                 {
-                    if(avTrail == null || avTrail.Lifetime <= 0)
+                    if (avTrail == null || avTrail.Lifetime <= 0)
                     {
                         avTrail = new DashBeam();
                         EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 150), 1f, 1, true, BlendState.NonPremultiplied);
@@ -1511,7 +1511,7 @@ namespace CalamityEntropy.Common
                         Player.GetModPlayer<SCDashMP>().Cooldown = 158.ApplyCdDec(Player);
                         Player.GetModPlayer<SCDashMP>().flag = false;
                         CEUtils.PlaySound("Dash2", 1, Player.Center);
-                        for(int i = 0; i < 12; i++)
+                        for (int i = 0; i < 12; i++)
                         {
                             EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
                         }
@@ -1540,7 +1540,7 @@ namespace CalamityEntropy.Common
                         if (Player.Entropy().immune < 6)
                             Player.Entropy().immune = 6;
                         Player.velocity.X *= 1.4f;
-                        
+
                     }
                 }
                 else
@@ -1580,13 +1580,13 @@ namespace CalamityEntropy.Common
                     Player.statMana = Player.statManaMax2;
                 }
             }
-            if(hasAcc(SmartScope.ID) && Main.myPlayer == Player.whoAmI)
+            if (hasAcc(SmartScope.ID) && Main.myPlayer == Player.whoAmI)
             {
-                if(SmartScope.target != null && !SmartScope.target.active)
+                if (SmartScope.target != null && !SmartScope.target.active)
                 {
                     SmartScope.target = null;
                 }
-                if(Mouse.GetState().MiddleButton == ButtonState.Pressed)
+                if (Mouse.GetState().MiddleButton == ButtonState.Pressed)
                 {
                     SmartScope.target = CEUtils.FindTarget_HomingProj(Player, Main.MouseWorld, 800, (i) => i.ToNPC().realLife < 0);
                 }

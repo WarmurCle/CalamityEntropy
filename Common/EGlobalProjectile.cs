@@ -255,10 +255,6 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.TryGetOwner(out var owner))
                 {
-                    if(owner.Entropy().fruitCake)
-                    {
-                        projectile.CritChance = Main.rand.Next(101);
-                    }
                     if (owner.Entropy().Godhead)
                     {
                         if (!projectile.minion && projectile.damage > 0)
@@ -765,16 +761,16 @@ namespace CalamityEntropy.Common
 
         public override void PostAI(Projectile projectile)
         {
-            if(projectile.friendly && projectile.DamageType == DamageClass.Ranged && projectile.GetOwner().HeldItem.useAmmo == AmmoID.Bullet)
+            if (projectile.friendly && projectile.DamageType == DamageClass.Ranged && projectile.GetOwner().HeldItem.useAmmo == AmmoID.Bullet)
             {
-                if(projectile.GetOwner().Entropy().hasAcc(SmartScope.ID) && projectile.numHits < 1)
+                if (projectile.GetOwner().Entropy().hasAcc(SmartScope.ID) && projectile.numHits < 1)
                 {
-                    if(SmartScope.target != null)
+                    if (SmartScope.target != null)
                     {
                         projectile.velocity = (SmartScope.target.Center - projectile.Center).normalize() * projectile.velocity.Length();
                     }
                 }
-            }    
+            }
             if (evRu && EventideShot)
             {
                 evRu = false;

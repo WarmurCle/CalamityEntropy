@@ -1,9 +1,9 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles.Cruiser;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;

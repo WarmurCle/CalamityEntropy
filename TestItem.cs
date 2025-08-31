@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
+﻿using InnoVault;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
-using InnoVault;
 using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy
 {
@@ -12,11 +12,13 @@ namespace CalamityEntropy
         public override string Texture => "CalamityEntropy/icon";
 
         //private bool old;
-        public override bool IsLoadingEnabled(Mod mod) {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
             return false;
         }
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Item.width = 80;
             Item.height = 80;
             Item.damage = 9999;
@@ -33,22 +35,27 @@ namespace CalamityEntropy
             Item.rare = ItemRarityID.Yellow;
         }
 
-        public override void UpdateInventory(Player player) {
-            
+        public override void UpdateInventory(Player player)
+        {
+
         }
 
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) {
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
             return false;
         }
 
-        public override bool AltFunctionUse(Player player) {
+        public override bool AltFunctionUse(Player player)
+        {
             return true;
         }
 
-        public override void HoldItem(Player player) {
+        public override void HoldItem(Player player)
+        {
         }
         //int tpIndex = 0;
-        public override bool? UseItem(Player player) {
+        public override bool? UseItem(Player player)
+        {
             Point16 point = Main.MouseWorld.ToTileCoordinates16();
             Framing.GetTileSafely(point).GetTileDrop(point.X, point.Y).LoggerDomp();
             return true;

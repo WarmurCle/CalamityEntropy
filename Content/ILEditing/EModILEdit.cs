@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.ILEditing
             _hook = EModHooks.Add(originalMethod, drawStealthBarHook);
 
             originalMethod = typeof(CalamityPlayer)
-                .GetMethod("ProcessTriggers", BindingFlags.Instance | BindingFlags.Public, null, new Type[] { typeof(TriggersSet)}, null);
+                .GetMethod("ProcessTriggers", BindingFlags.Instance | BindingFlags.Public, null, new Type[] { typeof(TriggersSet) }, null);
 
             _hook = EModHooks.Add(originalMethod, processTriggersHook);
 
@@ -156,7 +156,7 @@ namespace CalamityEntropy.Content.ILEditing
                 calPlayer.angelicAlliance = false;
             }
             orig(calPlayer, ts);
-            if(flag)
+            if (flag)
             {
                 calPlayer.angelicAlliance = true;
             }

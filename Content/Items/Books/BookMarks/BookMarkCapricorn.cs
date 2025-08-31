@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Color tooltipColor => Color.LightBlue;
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.attackSpeed += (float)Math.Min(1, (float)Main.LocalPlayer.GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime / 1400f) * 0.4f;
+            modifer.attackSpeed += (float)Math.Min(1, (float)Main.LocalPlayer.GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime / 1400f) * 0.25f;
         }
     }
 

@@ -102,7 +102,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             NPC.width = (int)float.Lerp(46, 160, CEUtils.GetRepeatedCosFromZeroToOne(Math.Abs(NPC.rotation.ToRotationVector2().X), 1));
             bool DontSetPos = false;
             bool DontSetRot = false;
-            if(fountain.aiTimer == 1)
+            if (fountain.aiTimer == 1)
             {
                 AlphaLaserWarning = 0;
             }
@@ -250,7 +250,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             {
                 DontSetRot = true;
                 int targetTime = (int)(fountain.phase == 3 ? 82 : (fountain.phase == 2 ? 98 : 120) / fountain.enrage);
-                if(fountain.aiTimer < 416 || Lerping || AlphaLaserWarning > 0)
+                if (fountain.aiTimer < 416 || Lerping || AlphaLaserWarning > 0)
                 {
                     if (fountain.aiTimer % (targetTime + 28) == 0)
                     {
@@ -277,7 +277,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                         AlphaLaserWarning = 0;
                         fountain.Shoot(ModContent.ProjectileType<SpiritLaser>(), NPC.Center, (NPC.rotation - MathHelper.PiOver2).ToRotationVector2() * 5, -0.8f);
                     }
-                    
+
                 }
                 else
                 {
@@ -287,14 +287,14 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
 
             if (OnColumn)
             {
-                if(!DontSetPos)
+                if (!DontSetPos)
                     NPC.Center = owner.Center + column.offset + column.rotation.ToRotationVector2() * columnOffset;
-                if(!DontSetRot)
+                if (!DontSetRot)
                     NPC.rotation = column.rotation + MathHelper.PiOver2;
             }
             color = Color.Lerp(color, drawColorLerp, 0.1f);
             TCounter += 0.16f * (NPC.whoAmI % 2 == 0 ? 1 : -1);
-            
+
         }
         public Color drawColorLerp = Color.AliceBlue;
         public Color color = Color.AliceBlue;
@@ -306,7 +306,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             var sb = Main.spriteBatch;
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
-            
+
             for (float i = 0; i < (int)TrailLength; i++)
             {
                 float s = (1 + i) / TrailLength;
@@ -338,7 +338,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 {
                     List<ColoredVertex> ve = new List<ColoredVertex>();
-                    
+
                     float w = 12;
                     float p = -Main.GlobalTimeWrappedHourly * 2;
                     for (int i = 1; i < points.Count; i++)
@@ -363,7 +363,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 }
             }
             DrawTrail(90, TCounter);
-            
+
             return false;
         }
         public float yx = 0;
@@ -409,12 +409,12 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             var o = ((int)(Projectile.ai[0])).ToNPC();
             Projectile.damage = o.damage / 6;
             Projectile.Center = (o.Center);
-            if(o.active && o.ModNPC is SpiritRing sr)
+            if (o.active && o.ModNPC is SpiritRing sr)
             {
                 Projectile.timeLeft = 5;
                 Projectile.rotation = o.rotation;
                 sr.SRHandle = 3;
-                if(sr.fountain.ClearMyProjs > 0)
+                if (sr.fountain.ClearMyProjs > 0)
                 {
                     Projectile.Kill();
                 }

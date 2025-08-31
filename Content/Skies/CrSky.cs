@@ -131,12 +131,12 @@ namespace CalamityEntropy.Content.Skies
             dp = new Vector2((Main.screenPosition.X * -0.5f * c + counter * -0.3f * c) % txd.Width, (Main.screenPosition.Y * -0.5f * c + counter * 0.1f * c) % txd.Height);
             spriteBatch.Draw(txd, new Vector2(-528, -528), new Rectangle((int)-dp.X, (int)-dp.Y, Main.screenWidth + 2024, Main.screenHeight + 1920), ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
-            if (drawAWMask && EffectLoader.screen != null && EffectLoader.screen2 != null && !EffectLoader.screen.IsDisposed && !EffectLoader.screen2.IsDisposed)
+            if (drawAWMask && EffectLoader.Screen0 != null && EffectLoader.Screen1 != null && !EffectLoader.Screen0.IsDisposed && !EffectLoader.Screen1.IsDisposed)
             {
                 spriteBatch.End();
                 GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-                RenderTarget2D screen = EffectLoader.screen;
-                RenderTarget2D screen2 = EffectLoader.screen2;
+                RenderTarget2D screen = EffectLoader.Screen0;
+                RenderTarget2D screen2 = EffectLoader.Screen1;
                 graphicsDevice.SetRenderTarget(screen2);
                 graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);

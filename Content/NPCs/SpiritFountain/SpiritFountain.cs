@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         public float trailDrawOffset = 0;
         public float alpha = 1;
         public float scale = 1;
-        
+
         public FountainColumn(float a)
         {
             alpha = a;
@@ -100,11 +100,11 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 NPC.damage += 4;
                 SpiritCount += 2;
             }
-            if(CalamityWorld.revenge)
+            if (CalamityWorld.revenge)
             {
                 SpiritCount += 2;
             }
-            if(CalamityWorld.death)
+            if (CalamityWorld.death)
             {
                 SpiritCount += 2;
             }
@@ -213,7 +213,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         public AIStyle ai = AIStyle.SpawnAnimation;
         public void Shoot(int type, Vector2 pos, Vector2 velo, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0)
         {
-            if(Main.netMode != NetmodeID.MultiplayerClient)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 6 * damageMult), 3, -1, ai0, ai1, ai2);
         }
         public int aiTimer = 0;
@@ -293,11 +293,11 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             {
                 enrage += 0.15f;
             }
-            foreach(var plr in Main.ActivePlayers)
+            foreach (var plr in Main.ActivePlayers)
             {
-                if(Main.netMode != NetmodeID.Server)
+                if (Main.netMode != NetmodeID.Server)
                 {
-                    if(column1.alpha > 0.1f && CEUtils.LineThroughRect(NPC.Center + column1.GetPointAtMe(-2000), NPC.Center + column1.GetPointAtMe(2000), plr.getRect(), (int)(100 * NPC.scale)))
+                    if (column1.alpha > 0.1f && CEUtils.LineThroughRect(NPC.Center + column1.GetPointAtMe(-2000), NPC.Center + column1.GetPointAtMe(2000), plr.getRect(), (int)(100 * NPC.scale)))
                     {
                         plr.AddBuff(ModContent.BuffType<SoulDisorder>(), 10);
                     }
@@ -378,7 +378,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             else
             {
                 starePoint = Main.LocalPlayer.Center;
-                
+
             }
             if (ai == AIStyle.Moving)
             {
@@ -412,7 +412,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 {
                     EyeAlphaT = 1;
                     NPC.dontTakeDamage = false;
-                    
+
                     if (Counter % (int)(80 / enrage) == 0)
                     {
                         for (float i = 0; i < 350; i += 45f)
@@ -434,8 +434,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                         }
                     }
                 }
-                
-                if(aiTimer > 700)
+
+                if (aiTimer > 700)
                 {
                     aiTimer = 0;
                     ai = AIStyle.Boomerang;
@@ -446,11 +446,11 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 mCounter = 0;
                 mAmp = 0;
             }
-            if(ai == AIStyle.Boomerang)
+            if (ai == AIStyle.Boomerang)
             {
                 column1.offset.X = float.Lerp(column1.offset.X, ((float)Math.Cos(Main.GameUpdateCount * 0.02f) * 100), 0.03f);
                 column1.rotation = -MathHelper.PiOver2;
-                if(aiTimer > 80)
+                if (aiTimer > 80)
                 {
                     num1 += phase == 3 ? 0.005f : 0.003f;
                 }
@@ -458,17 +458,17 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 {
                     num1 = 0;
                 }
-                if(num1 > (phase == 3 ? 1.66f: 1.36f))
+                if (num1 > (phase == 3 ? 1.66f : 1.36f))
                 {
                     num1 = 0;
                     ai = AIStyle.Lasers;
                     aiTimer = 0;
                 }
             }
-            if(ai == AIStyle.Lasers)
+            if (ai == AIStyle.Lasers)
             {
                 column1.offset.X *= 0.9f;
-                if(aiTimer > 460)
+                if (aiTimer > 460)
                 {
                     ai = AIStyle.Moving;
                     aiTimer = 0;
@@ -526,7 +526,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
 
             Main.spriteBatch.ExitShaderRegion();
 
-            if(ai == AIStyle.SpawnAnimation && aiTimer < 90)
+            if (ai == AIStyle.SpawnAnimation && aiTimer < 90)
             {
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
                 Main.spriteBatch.Draw(CEUtils.getExtraTex("MegaStreakBacking2"), NPC.Center - Main.screenPosition, null, Color.AliceBlue, MathHelper.PiOver2, CEUtils.getExtraTex("MegaStreakBacking2").Size() / 2f, new Vector2(24, CEUtils.Parabola(aiTimer / 90f, 4)), SpriteEffects.None, 0);

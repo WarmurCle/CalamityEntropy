@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 l = 6;
             }
-            if(DownedBossSystem.downedPolterghast)
+            if (DownedBossSystem.downedPolterghast)
             {
                 l = 7;
             }

@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Particles
         {
             Vector2 lp = Position;
             base.AI();
-            if(Lifetime < 8)
+            if (Lifetime < 8)
             {
                 Velocity *= 0;
                 Position = Vector2.Lerp(Position, Vector2.Zero, (1 - (Lifetime / 8f)) * 0.8f);
@@ -28,11 +28,11 @@ namespace CalamityEntropy.Content.Particles
             {
                 Velocity *= 0.98f;
             }
-            for(float i = 0.1f; i <= 1; i += 0.1f)
+            for (float i = 0.1f; i <= 1; i += 0.1f)
             {
                 AddPoint(Vector2.Lerp(lp, Position, i));
             }
-            
+
         }
         public void AddPoint(Vector2 pos)
         {
@@ -46,14 +46,14 @@ namespace CalamityEntropy.Content.Particles
         public override void Draw()
         {
             Vector2 worldPos = PlayerIndex.ToPlayer().Center;
-            for(int i = 0; i < odp.Count; i++)
+            for (int i = 0; i < odp.Count; i++)
             {
                 float sz = (i + 1) / (float)odp.Count;
-                if(Lifetime > 60)
+                if (Lifetime > 60)
                 {
                     sz = 1 - (i / (float)odp.Count);
                 }
-                Main.spriteBatch.Draw(Texture, odp[i] + worldPos - Main.screenPosition, null, this.Color * 0.32f, Rotation, getOrigin(),this.Scale * 0.12f * sz, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(Texture, odp[i] + worldPos - Main.screenPosition, null, this.Color * 0.32f, Rotation, getOrigin(), this.Scale * 0.12f * sz, SpriteEffects.None, 0);
             }
         }
     }

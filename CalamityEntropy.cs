@@ -75,15 +75,12 @@ using CalamityMod.UI.CalamitasEnchants;
 using InnoVault;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
 using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.GameContent;
-using Terraria.GameContent.Bestiary;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
 using Terraria.ID;
@@ -91,12 +88,10 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using Terraria.UI;
-using static System.Net.Mime.MediaTypeNames;
 namespace CalamityEntropy
 {
     public partial class CalamityEntropy : Mod
     {
-
         internal static List<ICELoader> ILoaders { get; private set; }
         public static CESpawnConditionBestiaryInfoElement theVoid_SCBIE;
         public static ref bool EntropyMode => ref EDownedBosses.EntropyMode;
@@ -104,11 +99,6 @@ namespace CalamityEntropy
         public static List<int> calDebuffIconDisplayList = new List<int>();
         public static CalamityEntropy Instance;
         public static int noMusTime = 0;
-        public static Effect kscreen;
-        public static Effect kscreen2;
-        public static Effect cve;
-        public static Effect cve2;
-        public static Effect cab = null;
         public float screenShakeAmp = 0;
         public float cvcount = 0;
         public static SoundEffect otLoop;
@@ -163,11 +153,6 @@ namespace CalamityEntropy
             userInterface.SetState(armorForgingStationUI);
             EnchantmentManager.ItemUpgradeRelationship[ModContent.ItemType<VoidEcho>()] = ModContent.ItemType<Mercy>();
             ets = true;
-            kscreen = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/kscreen", AssetRequestMode.ImmediateLoad).Value;
-            kscreen2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/kscreen2", AssetRequestMode.ImmediateLoad).Value;
-            cve = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid", AssetRequestMode.ImmediateLoad).Value;
-            cab = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cabyss", AssetRequestMode.ImmediateLoad).Value;
-            cve2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/cvoid2", AssetRequestMode.ImmediateLoad).Value;
             pixel = CEUtils.getExtraTex("white");
 
             AbyssalWraith.loadHead();
@@ -331,10 +316,6 @@ namespace CalamityEntropy
             efont3 = null;
             CheckProjs = null;
             CheckNPCs = null;
-            kscreen = null;
-            kscreen2 = null;
-            cve = null;
-            cve2 = null;
             Instance = null;
             pixel = null;
 
@@ -557,7 +538,7 @@ namespace CalamityEntropy
         public int pocType = -1;
         private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
         {
-            if (orig != null && self != null && gameTime != null) 
+            if (orig != null && self != null && gameTime != null)
             {
                 orig(self, gameTime);
                 EModSys.mi = false;
@@ -568,7 +549,8 @@ namespace CalamityEntropy
                         for (int i = 0; i < LoopSoundManager.sounds.Count; i++)
                         {
                             var sound = LoopSoundManager.sounds[i];
-                            sound.stop(); }
+                            sound.stop();
+                        }
                     }
                     LoopSoundManager.sounds.Clear();
                 }
@@ -1221,7 +1203,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
-            
+
             if (ModLoader.TryGetMod("InfernumMode", out var _))
             {
                 InfFont.InfernumFont.SetFont();

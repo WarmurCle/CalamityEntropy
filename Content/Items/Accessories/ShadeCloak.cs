@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public int Cooldown = 0;
         public override void PostUpdate()
         {
-            
+
         }
     }
 }
