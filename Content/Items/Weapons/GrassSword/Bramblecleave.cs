@@ -297,12 +297,12 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             GeneralParticleHandler.SpawnParticle(impactParticle);
 
 
-            float sparkCount = 32 + Bramblecleave.GetLevel() / 2;
+            float sparkCount = 16 + Bramblecleave.GetLevel() / 2;
             for (int i = 0; i < sparkCount; i++)
             {
                 float p = Main.rand.NextFloat();
                 Vector2 sparkVelocity2 = (target.Center - Projectile.Center).normalize().RotatedByRandom(p * 0.4f) * Main.rand.NextFloat(6, 20 * (2 - p)) * (1 + Bramblecleave.GetLevel() * 0.1f) * 0.7f;
-                sparkVelocity2 = sparkVelocity2.RotatedBy(Projectile.ai[0] * 0.3f * Projectile.ai[1]) * Projectile.ai[1];
+                sparkVelocity2 = sparkVelocity2.RotatedBy((Projectile.ai[1] > 1 ? 0 : 1) * 0.42f * Projectile.ai[0]) * Projectile.ai[1];
                 int sparkLifetime2 = (int)((2 - p) * 16);
                 float sparkScale2 = 0.6f + (1 - p);
                 sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.06f);

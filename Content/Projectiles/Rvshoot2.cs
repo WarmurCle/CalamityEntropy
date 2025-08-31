@@ -42,9 +42,8 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
-
                 }
-                Projectile.velocity = Vector2.Zero;
+                Projectile.velocity *= 0;
             }
             else
             {
@@ -66,8 +65,8 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity += v * 3f;
                 }
             }
-            Projectile.rotation += 0.3f;
-            exps *= 0.9f;
+            Projectile.rotation += htd ? ((Projectile.whoAmI % 2 == 0 ? 1 : -1)*0.1f) : 0.3f;
+            exps *= 0.8f;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -111,7 +110,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/E_Exp").Value;
 
-                    Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * exps, 0, new Vector2(tx.Height, tx.Width) / 2, new Vector2((1 - exps) * 2f, (1 - exps) * 2f), SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White * exps, Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, new Vector2((1 - exps) * 2f, (1 - exps) * 2f), SpriteEffects.None, 0);
                 }
             }
             return false;

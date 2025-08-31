@@ -56,10 +56,10 @@ namespace CalamityEntropy.Content.Projectiles
             speed -= 2;
             Projectile.ai[0]++;
             Projectile.rotation += 0.3f;
-            if (Projectile.ai[0] % 2 == 0 && speed > 0)
+            if (Projectile.ai[0] % 1 == 0 && speed > 0)
             {
-                Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(90)) * 0.1f, ModContent.ProjectileType<EmpyreanStellarDetritus>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(-90)) * 0.1f, ModContent.ProjectileType<EmpyreanStellarDetritus>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(180 + Main.GameUpdateCount * 16)) * 0.05f, ModContent.ProjectileType<EmpyreanStellarDetritus>(), (int)(Projectile.damage * 0.26f), Projectile.knockBack, Projectile.owner).ToProj().timeLeft /= 3;
+                Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(0 + Main.GameUpdateCount * 16)) * 0.05f, ModContent.ProjectileType<EmpyreanStellarDetritus>(), (int)(Projectile.damage * 0.26f), Projectile.knockBack, Projectile.owner).ToProj().timeLeft /= 3;
 
             }
         }

@@ -61,7 +61,7 @@ namespace CalamityEntropy.Common
             Color b = color * alpha;
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/style3").Value;
             sb.Draw(tx, this.position + offset, null, b, this.velocity.ToRotation(), new Vector2(tx.Width, tx.Height) / 2, 0.3f, SpriteEffects.None, 0);
-
+            sb.Draw(tx, this.position + offset, null, b, this.velocity.ToRotation(), new Vector2(tx.Width, tx.Height) / 2, 0.3f, SpriteEffects.None, 0);
         }
     }
 
@@ -1339,6 +1339,7 @@ namespace CalamityEntropy.Common
                     particles1.Add(pt);
                 }
 
+                Main.spriteBatch.UseBlendState_UI(BlendState.Additive);
                 foreach (S3Particle p in particles1)
                 {
                     p.update();
@@ -1360,9 +1361,10 @@ namespace CalamityEntropy.Common
                     {
                         alpha = 1;
                     }
-                    p.draw(alpha * 0.5f, new Vector2(line.X, line.Y), namecolor);
+                    p.draw(alpha, new Vector2(line.X, line.Y), namecolor);
 
                 }
+                Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
                 foreach (S3Particle p in particles1)
                 {
                     if (p.position.Y < -30)
