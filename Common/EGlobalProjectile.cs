@@ -255,10 +255,6 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.TryGetOwner(out var owner))
                 {
-                    if (owner.Entropy().fruitCake)
-                    {
-                        projectile.CritChance = Main.rand.Next(101);
-                    }
                     if (owner.Entropy().Godhead)
                     {
                         if (!projectile.minion && projectile.damage > 0)
