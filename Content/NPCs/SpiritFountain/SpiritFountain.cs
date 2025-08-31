@@ -470,6 +470,15 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 column1.offset.X *= 0.9f;
                 if (aiTimer > 460)
                 {
+                    ai = AIStyle.RingFountains;
+                    aiTimer = 0;
+                }
+            }
+            if (ai == AIStyle.RingFountains)
+            {
+                column1.offset.X *= 0.9f;
+                if (aiTimer > 260)
+                {
                     ai = AIStyle.Moving;
                     aiTimer = 0;
                 }

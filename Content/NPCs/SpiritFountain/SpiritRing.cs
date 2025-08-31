@@ -284,6 +284,52 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     AlphaLaserWarning = 0;
                 }
             }
+            NPC.noTileCollide = true;
+
+            if(fountain.ai == SpiritFountain.AIStyle.RingFountains)
+            {
+                DontSetPos = true;
+                DontSetRot = true;
+                if(fountain.aiTimer == 1)
+                {
+                    NPC.rotation = 0;
+                    NPC.velocity = new Vector2(Main.rand.NextFloat(-60, 60), -12);
+                }
+                if (fountain.aiTimer > 1)
+                {
+                    if (NPC.velocity.Y == 0) 
+                    {
+                        NPC.velocity *= 0;
+                        NPC.rotation = 0;
+                        if (fountain.aiTimer > 160)
+                        {
+                            if (fountain.aiTimer < 240)
+                            {
+                                AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 1, 0.04f);
+                            }
+                            else
+                            {
+                                if(fountain.aiTimer == 240)
+                                {
+
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        NPC.rotation += NPC.velocity.X * 0.004f;
+                        NPC.velocity.X *= 0.98f;
+                        NPC.velocity.Y += 0.8f;
+                        NPC.noTileCollide = false;
+                        NPC.damage = 0;
+                    }
+                }
+            }
+            else
+            {
+                AlphaWaveWarning = 0;
+            }
 
             if (OnColumn)
             {
@@ -322,10 +368,19 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
 
         }
         public float AlphaLaserWarning = 0;
+        public float AlphaWaveWarning = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             yx += 0.036f;
-            if (AlphaLaserWarning > 0)
+            if(AlphaWaveWarning > 0.01f)
+            {
+                Texture2D tex = CEUtils.getExtraTex("LTLine");
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+                Main.spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, null, Color.White * AlphaWaveWarning, NPC.rotation - MathHelper.PiOver2, new Vector2(0, tex.Height / 2f), new Vector2(5, 1.2f), SpriteEffects.None, 0);
+            }
+            if (AlphaLaserWarning > 0.01f)
             {
                 List<Vector2> points = new();
                 for (float i = 0; i <= 1; i += 0.005f)
