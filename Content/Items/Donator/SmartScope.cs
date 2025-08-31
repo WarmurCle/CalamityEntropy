@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip(ID, !hideVisual);
-            player.GetDamage(DamageClass.Generic) *= 0.75f;
+            player.GetDamage(DamageClass.Generic) *= 0.85f;
         }
         public override void AddRecipes()
         {
