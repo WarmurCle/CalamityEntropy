@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         public static int CRIT = 10;
         public static float STEALTH = 0.05f;
         public static int MINIONADD = 1;
-        public static int ArmorPenet = 5;
+        public static int ArmorPenet = 10;
         public static float MELEEAS = 0.05f;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
