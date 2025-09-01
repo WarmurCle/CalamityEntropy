@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             NPC.Entropy().damageMul = 0.1f;
             if (!Main.dedServ)
             {
-                //Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/");
+                Music = MusicID.OtherworldlyTowers;//MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/");
             }
         }
 
@@ -503,7 +503,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             if (ai == AIStyle.RingFountains)
             {
                 column1.offset.X *= 0.9f;
-                if (aiTimer > 340)
+                if (aiTimer > 280)
                 {
                     ai = AIStyle.Moving;
                     aiTimer = 0;

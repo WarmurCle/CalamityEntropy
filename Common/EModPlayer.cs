@@ -2837,22 +2837,25 @@ namespace CalamityEntropy.Common
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            if (fromWho == Main.myPlayer)
+            if (Main.netMode != NetmodeID.SinglePlayer)
             {
-                var mp = Mod.GetPacket();
-                mp.Write((byte)255);
-                mp.Write(enabledLoreItems.Count);
-                foreach (var item in enabledLoreItems)
+                if (fromWho == Main.myPlayer)
                 {
-                    mp.Write(item);
+                    var mp = Mod.GetPacket();
+                    mp.Write((byte)255);
+                    mp.Write(enabledLoreItems.Count);
+                    foreach (var item in enabledLoreItems)
+                    {
+                        mp.Write(item);
+                    }
+                    mp.Write(this.EBookStackItems.Count);
+                    foreach (var item in this.EBookStackItems)
+                    {
+                        mp.Write(item.type);
+                        ItemIO.Send(item, mp);
+                    }
+                    mp.Send();
                 }
-                mp.Write(this.EBookStackItems.Count);
-                foreach (var item in this.EBookStackItems)
-                {
-                    mp.Write(item.type);
-                    ItemIO.Send(item, mp);
-                }
-                mp.Send();
             }
         }
         public override void LoadData(TagCompound tag)
