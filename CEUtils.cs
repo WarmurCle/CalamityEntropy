@@ -608,11 +608,11 @@ namespace CalamityEntropy
             s.MaxInstances = maxIns;
             return s;
         }
-        public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 6, float volume = 1)
+        public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 6, float volume = 1, string path = "CalamityEntropy/Assets/Sounds/")
         {
             if (!Main.dedServ)
             {
-                SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/" + name);
+                SoundStyle s = new SoundStyle(path + name);
                 s.Pitch = pitch - 1;
                 s.Volume = volume;
                 s.MaxInstances = maxIns;

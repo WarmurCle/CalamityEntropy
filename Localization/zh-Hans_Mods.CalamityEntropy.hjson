@@ -2981,6 +2981,11 @@ Items: {
 		DisplayName: 繁茂芸编
 		Tooltip: 发射出能造成多次伤害的藤蔓
 	}
+
+	MiracleWreckage: {
+		DisplayName: 神迹残骸
+		Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3454,6 +3459,8 @@ Projectiles: {
 	// SpiritWave.DisplayName: Spirit Wave
 	// LushGrassclassicsHeld.DisplayName: Lush Grassclassics Held
 	// LushVine.DisplayName: Lush Vine
+	// MiracleShoot.DisplayName: Miracle Shoot
+	// MiracleWreckageHeld.DisplayName: Miracle Wreckage Held
 }
 
 LegendTooltip: - 传奇物品 -

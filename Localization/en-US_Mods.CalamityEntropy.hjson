@@ -2757,6 +2757,11 @@ Items: {
 		DisplayName: Lush Grassclassics
 		Tooltip: ""
 	}
+
+	MiracleWreckage: {
+		DisplayName: Miracle Wreckage
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3229,6 +3234,8 @@ Projectiles: {
 	SpiritWave.DisplayName: Spirit Wave
 	LushGrassclassicsHeld.DisplayName: Lush Grassclassics Held
 	LushVine.DisplayName: Lush Vine
+	MiracleShoot.DisplayName: Miracle Shoot
+	MiracleWreckageHeld.DisplayName: Miracle Wreckage Held
 }
 
 LegendTooltip: - Legend -
