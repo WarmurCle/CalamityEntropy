@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 12;
+            Item.damage = 7;
             Item.shootSpeed = 24;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<LushGrassclassicsHeld>();
