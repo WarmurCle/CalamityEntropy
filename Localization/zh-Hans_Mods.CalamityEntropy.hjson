@@ -1601,6 +1601,7 @@ Items: {
 			'''
 			发射时概率召唤探测器攻击敌人
 			射弹可以追踪附近的敌人
+			使射弹带有微追踪
 			'''
 	}
 
@@ -2975,6 +2976,11 @@ Items: {
 			一件虚空缔造的斗篷，能让使用者暂时的浸润到虚空中并穿过一切
 			'''
 	}
+
+	LushGrassclassics: {
+		DisplayName: 繁茂芸编
+		Tooltip: 发射出能造成多次伤害的藤蔓
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3446,6 +3452,8 @@ Projectiles: {
 	// DarkBladeHeld.DisplayName: Dark Blade Held
 	// DarkBladeShoot.DisplayName: Dark Blade Shoot
 	// SpiritWave.DisplayName: Spirit Wave
+	// LushGrassclassicsHeld.DisplayName: Lush Grassclassics Held
+	// LushVine.DisplayName: Lush Vine
 }
 
 LegendTooltip: - 传奇物品 -

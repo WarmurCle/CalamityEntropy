@@ -2752,6 +2752,11 @@ Items: {
 			This effect requires 3 seconds of cooling
 			'''
 	}
+
+	LushGrassclassics: {
+		DisplayName: Lush Grassclassics
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3222,6 +3227,8 @@ Projectiles: {
 	DarkBladeHeld.DisplayName: Dark Blade Held
 	DarkBladeShoot.DisplayName: Dark Blade Shoot
 	SpiritWave.DisplayName: Spirit Wave
+	LushGrassclassicsHeld.DisplayName: Lush Grassclassics Held
+	LushVine.DisplayName: Lush Vine
 }
 
 LegendTooltip: - Legend -

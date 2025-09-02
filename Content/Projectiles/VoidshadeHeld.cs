@@ -315,7 +315,7 @@ namespace CalamityEntropy.Content.Projectiles
                           new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
                           b));
                     ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + oldRots[i].ToRotationVector2().RotatedBy(-MathHelper.PiOver2) * 16 * Projectile.scale * getScale() * ((float)(oldPos.Count - i - 1) / (float)oldPos.Count),
-                          new Vector3(i / (float)oldRots.Count + trailOffset, 1, 1),
+                          new Vector3(i / (float)oldRots.Count + trailOffset, 0, 1),
                           b));
                 }
                 else
