@@ -84,6 +84,9 @@ namespace CalamityEntropy.Common
             //绘制初始屏幕
             DrawInitialScreen(graphicsDevice);
 
+            //准备像素着色器
+            PreparePixelShader(graphicsDevice);
+
             //绘制 NPC 和投射物
             DrawNPCsAndProjectiles(graphicsDevice);
 
@@ -383,17 +386,22 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
-
-        private static void DrawNPCsAndProjectiles(GraphicsDevice graphicsDevice)
+        public static void PreparePixelShader(GraphicsDevice graphicsDevice)
         {
+            DrawInitialScreen(graphicsDevice);
             graphicsDevice.SetRenderTarget(Screen2);
             graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
+
+        }
+        private static void DrawNPCsAndProjectiles(GraphicsDevice graphicsDevice)
+        {
+            
             int cruiserEnergyBallType = ModContent.ProjectileType<CruiserEnergyBall>();
             int runeTorrentType = ModContent.ProjectileType<RuneTorrent>();
             int runeTorrentRangerType = ModContent.ProjectileType<RuneTorrentRanger>();
             int prophetVoidSpikeType = ModContent.ProjectileType<ProphetVoidSpike>();
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
                 if (proj.type == cruiserEnergyBallType && proj.ModProjectile is CruiserEnergyBall ceb)
@@ -429,11 +437,7 @@ namespace CalamityEntropy.Common
             EParticle.DrawPixelShaderParticles();
             Main.spriteBatch.End();
 
-            graphicsDevice.SetRenderTarget(Main.screenTarget);
-            graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
-            Main.spriteBatch.End();
+            
 
             List<IAdditivePRT> prtAdditives = new List<IAdditivePRT>();
             foreach (var prt in PRTLoader.PRT_InGame_World_Inds)
@@ -459,8 +463,14 @@ namespace CalamityEntropy.Common
             }
         }
 
-        private static void ApplyPixelShader(GraphicsDevice graphicsDevice)
+        public static void ApplyPixelShader(GraphicsDevice graphicsDevice)
         {
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
             Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
             shader.CurrentTechnique = shader.Techniques["Technique1"];
             shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2() / Main.GameViewMatrix.Zoom);
