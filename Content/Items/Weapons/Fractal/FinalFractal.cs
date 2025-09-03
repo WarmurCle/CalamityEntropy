@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<VoidFractal>()
-                .AddIngredient<ShadowspecBar>(6)
+                .AddIngredient<AshesofAnnihilation>(2)
                 .AddIngredient<WyrmTooth>(6)
                 .AddIngredient(ItemID.Zenith)
                 .AddTile<AbyssalAltarTile>()

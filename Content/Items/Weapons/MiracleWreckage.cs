@@ -2,7 +2,9 @@
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Particles;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -19,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 2068;
+            Item.damage = 2368;
             Item.DamageType = ModContent.GetInstance<MeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
@@ -49,6 +51,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool MeleePrefix()
         {
             return true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<DevilsDevastation>().AddIngredient<AshesofAnnihilation>(6).AddIngredient<GalactusBlade>().AddTile<CosmicAnvil>().Register();
         }
     }
     public class MiracleWreckageHeld : ModProjectile
@@ -120,7 +127,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(1f, 1.12f), target.Center, 4, 1f * CEUtils.WeapSound, path:"CalamityMod/Sounds/Item/");
             for(int i = 0; i < 32; i++)
             {
-                Color clr = Main.rand.NextBool() ? new Color(180, 160, 250) : new Color(210, 160, 255);
+                Color clr = Main.rand.NextBool() ? new Color(240, 240, 255) : new Color(210, 160, 255);
                 EParticle.NewParticle(new ShadeDashParticle() { c1 = clr, c2 = clr, TL = 12 }, target.Center + CEUtils.randomPointInCircle(26),
                     (target.Center - Projectile.Center).normalize().RotatedByRandom(0.2f) * Main.rand.NextFloat(10, 64), Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
                 ;

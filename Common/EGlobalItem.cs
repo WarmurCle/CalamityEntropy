@@ -1620,6 +1620,15 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<StarterBag>())
             {
+                static bool getsDev(DropAttemptInfo info)
+                {
+                    string playerName = info.player.name;
+                    foreach(string str in Donators.Donors)
+                        if(playerName.ToLower().Contains(str.ToLower())) return true;
+                    return false;
+                }
+                ;
+                itemLoot.AddIf(getsDev, ModContent.ItemType<TheocracyMark>());
                 static bool getsDH(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;

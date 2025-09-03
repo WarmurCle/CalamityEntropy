@@ -2986,6 +2986,11 @@ Items: {
 		DisplayName: 神迹残骸
 		Tooltip: ""
 	}
+
+	TheocracyMark: {
+		DisplayName: 神权印章
+		Tooltip: "[c/ff5432:感谢所有灾厄熵的开发者和支持者！]"
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3461,6 +3466,7 @@ Projectiles: {
 	// LushVine.DisplayName: Lush Vine
 	// MiracleShoot.DisplayName: Miracle Shoot
 	// MiracleWreckageHeld.DisplayName: Miracle Wreckage Held
+	// Theostring.DisplayName: Theostring
 }
 
 LegendTooltip: - 传奇物品 -

@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AltarOfTheAccursedItem>())
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 4)
-                .AddIngredient(ModContent.ItemType<ShadowspecBar>(), 1)
+                .AddIngredient(ModContent.ItemType<AshesofAnnihilation>(), 2)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

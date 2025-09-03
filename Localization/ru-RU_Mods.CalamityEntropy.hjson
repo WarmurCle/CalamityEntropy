@@ -2822,6 +2822,11 @@ Items: {
 		// DisplayName: Miracle Wreckage
 		// Tooltip: ""
 	}
+
+	TheocracyMark: {
+		// DisplayName: Theocracy Mark
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3296,6 +3301,7 @@ Projectiles: {
 	// LushVine.DisplayName: Lush Vine
 	// MiracleShoot.DisplayName: Miracle Shoot
 	// MiracleWreckageHeld.DisplayName: Miracle Wreckage Held
+	// Theostring.DisplayName: Theostring
 }
 
 LegendTooltip: - Легенда -
