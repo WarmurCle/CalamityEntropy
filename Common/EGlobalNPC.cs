@@ -93,6 +93,7 @@ namespace CalamityEntropy.Common
         public int EclipsedImprintTime = 0;
         public int friendFinderOwner = 0;
         public int TDRCounter = 3 * 60 * 60;
+        public int HitCounter = 0;
         public override void SetStaticDefaults()
         {
             //---如果希望注册原版NPC，解除下面的注释查看效果---///
@@ -183,6 +184,17 @@ namespace CalamityEntropy.Common
         }
         public override void PostAI(NPC npc)
         {
+            HitCounter++;
+            if(npc.ModNPC != null && npc.ModNPC is PrimordialWyrmHead && HitCounter > 120)
+            {
+                if(Main.GameUpdateCount % 30 == 0)
+                {
+                    if(npc.life < npc.lifeMax - 6000)
+                    {
+                        npc.life += 6000;
+                    }
+                }
+            }
             if (TDRCounter > 0)
             {
                 TDRCounter--;
@@ -1177,6 +1189,7 @@ namespace CalamityEntropy.Common
         public int noelctime = 0;
         public void onHurt(NPC npc, int damage, Player player, Entity source, NPC.HitInfo hit)
         {
+            HitCounter = 0;
             if (player != null)
             {
                 if (player.Entropy().hasAcc("VastLV5") && hit.Crit)

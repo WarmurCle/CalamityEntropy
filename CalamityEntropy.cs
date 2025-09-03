@@ -671,21 +671,6 @@ namespace CalamityEntropy
                     }
                     hit.Damage = (int)(hit.Damage * (self.life < (self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) ? (1 / (1 + ((self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) - self.life) * (14f / self.lifeMax))) : 1));
                 }
-                else
-                {
-                    if (self.ModNPC is PrimordialWyrmHead)
-                    {
-                        if (hit.Damage > self.lifeMax * 0.05f)
-                        {
-                            hit.Damage = (int)(self.lifeMax * 0.05f);
-                        }
-                        float mult = (self.life < (self.Entropy().TDRCounter / (1f * 60 * 60) * self.lifeMax) ? (1 / (1 + ((self.Entropy().TDRCounter / (1f * 60 * 60) * self.lifeMax) - self.life) * (14f / self.lifeMax))) : 1);
-                        if (mult > 1)
-                            mult = 1;
-                        hit.Damage = (int)(hit.Damage * mult);
-
-                    }
-                }
             }
             return orig(self, hit, fromNet, noPlayerInteraction);
         }
