@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.useAnimation = Item.useTime = 100;
             Item.crit = 15;
             Item.mana = 36;
-            Item.shootSpeed = 40;
+            Item.shootSpeed = 45;
             Item.rare = ModContent.RarityType<Violet>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
         }
