@@ -293,7 +293,7 @@ namespace CalamityEntropy.Content.Items.Books
                 proj.penetrate += modifer.PenetrateAddition;
                 proj.CritChance = bookItem.crit + (int)modifer.Crit;
                 proj.scale *= modifer.Size * scaleMul;
-                proj.ArmorPenetration += (int)(Projectile.GetOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration);
+                proj.ArmorPenetration += (int)(Projectile.GetOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration + bookItem.ArmorPenetration);
                 if (proj.ModProjectile is EBookBaseProjectile bp)
                 {
                     bp.ShooterModProjectile = this;
