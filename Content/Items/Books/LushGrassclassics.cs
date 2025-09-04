@@ -180,9 +180,10 @@ namespace CalamityEntropy.Content.Items.Books
                 vertexs.Add(new ColoredVertex(OldPos[i] - Main.screenPosition + OldRots[i].ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -8 * Projectile.scale, new Vector3(tc, 1, 1), color));
                 
             }
+            Color color_ = Lighting.GetColor((Projectile.Center / 16f).ToPoint());
             tc += CEUtils.getDistance(lastPos, Projectile.Center) / (24f * Projectile.scale);
-            vertexs.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 8 * Projectile.scale, new Vector3(tc, 0, 1), color));
-            vertexs.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -8 * Projectile.scale, new Vector3(tc, 1, 1), color));
+            vertexs.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 8 * Projectile.scale, new Vector3(tc, 0, 1), color_));
+            vertexs.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -8 * Projectile.scale, new Vector3(tc, 1, 1), color_));
 
             if (vertexs.Count > 3)
             {
