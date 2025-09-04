@@ -75,7 +75,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 14)
                 .AddIngredient(ModContent.ItemType<Drataliornus>(), 1)
-                .AddIngredient(ModContent.ItemType<ShadowspecBar>(), 5)
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }

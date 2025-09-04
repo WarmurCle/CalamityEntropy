@@ -2752,6 +2752,21 @@ Items: {
 			This effect requires 3 seconds of cooling
 			'''
 	}
+
+	LushGrassclassics: {
+		DisplayName: Lush Grassclassics
+		Tooltip: ""
+	}
+
+	MiracleWreckage: {
+		DisplayName: Miracle Wreckage
+		Tooltip: ""
+	}
+
+	TheocracyMark: {
+		DisplayName: Theocracy Mark
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3222,6 +3237,11 @@ Projectiles: {
 	DarkBladeHeld.DisplayName: Dark Blade Held
 	DarkBladeShoot.DisplayName: Dark Blade Shoot
 	SpiritWave.DisplayName: Spirit Wave
+	LushGrassclassicsHeld.DisplayName: Lush Grassclassics Held
+	LushVine.DisplayName: Lush Vine
+	MiracleShoot.DisplayName: Miracle Shoot
+	MiracleWreckageHeld.DisplayName: Miracle Wreckage Held
+	Theostring.DisplayName: Theostring
 }
 
 LegendTooltip: - Legend -

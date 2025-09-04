@@ -42,7 +42,6 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             CreateRecipe()
                 .AddIngredient<OmegaBlueTentacles>()
                 .AddIngredient<WyrmTooth>(4)
-                .AddIngredient<ShadowspecBar>(5)
                 .AddTile<AbyssalAltarTile>()
                 .Register();
         }

@@ -21,6 +21,8 @@ namespace CalamityEntropy.Content.Particles
             this.Lifetime = 14;
         }
         public float c = Main.rand.NextFloat() * MathHelper.TwoPi;
+        public Color c1 = new Color(40, 40, 40, 255);
+        public Color c2 = new Color(0, 0, 0, 255);
         public override void AI()
         {
             if (Lifetime == TimeLeftMax)
@@ -43,13 +45,14 @@ namespace CalamityEntropy.Content.Particles
                 c += 0.46f;
                 odpl.Insert(0, this.Position + Velocity.RotatedBy(MathHelper.PiOver2).normalize() * this.Scale * 13);
                 odpr.Insert(0, this.Position - Velocity.RotatedBy(MathHelper.PiOver2).normalize() * this.Scale * 13);
-                if (odpl.Count > 160)
+                if (odpl.Count > TL)
                 {
                     odpl.RemoveAt(odpl.Count - 1);
                     odpr.RemoveAt(odpr.Count - 1);
                 }
             }
         }
+        public int TL = 160;
         public int dir = Main.rand.NextBool() ? 1 : -1;
 
         public override void Draw()
@@ -75,8 +78,8 @@ namespace CalamityEntropy.Content.Particles
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/ShadeDashParticle", AssetRequestMode.ImmediateLoad).Value;
                 sb.End();
                 sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                shader.Parameters["color1"].SetValue((new Color(40, 40, 40, 255)).ToVector4());
-                shader.Parameters["color2"].SetValue((new Color(0, 0, 0, 255)).ToVector4());
+                shader.Parameters["color1"].SetValue(c1.ToVector4());
+                shader.Parameters["color2"].SetValue(c2.ToVector4());
                 shader.Parameters["alpha"].SetValue(Lifetime / (float)TimeLeftMax);
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
 

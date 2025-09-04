@@ -665,9 +665,9 @@ namespace CalamityEntropy
                 }
                 if (self.boss && (EntropyMode || EDownedBosses.TDR))
                 {
-                    if (hit.Damage > self.lifeMax * 0.1f)
+                    if (hit.Damage > self.lifeMax * 0.035f)
                     {
-                        hit.Damage = (int)(self.lifeMax * 0.1f);
+                        hit.Damage = (int)(self.lifeMax * 0.035f);
                     }
                     hit.Damage = (int)(hit.Damage * (self.life < (self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) ? (1 / (1 + ((self.Entropy().TDRCounter / (3f * 60 * 60) * self.lifeMax) - self.life) * (14f / self.lifeMax))) : 1));
                 }

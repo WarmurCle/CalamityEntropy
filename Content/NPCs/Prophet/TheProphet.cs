@@ -699,16 +699,16 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             {
                                 if (AIChangeDelay % 40 == 20)
                                 {
-                                    for (int i = 0; i <= (phase == 1 ? 1 : 2); i++)
+                                    for (int i = 0; i <= (phase == 1 ? 2 : 4); i++)
                                     {
                                         if (i == 0)
                                         {
-                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize() * 110, ModContent.ProjectileType<ProphetLightning>(), NPC.damage / 6, 4);
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize() * 16, ModContent.ProjectileType<ProphetLightning>(), NPC.damage / 6, 4);
                                         }
                                         else
                                         {
-                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * (phase == 1 ? 0.38f : 0.32f)) * 110, ModContent.ProjectileType<ProphetLightning>(), NPC.damage / 6, 4);
-                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * -(phase == 1 ? 0.38f : 0.32f)) * 110, ModContent.ProjectileType<ProphetLightning>(), NPC.damage / 6, 4);
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * (phase == 1 ? 0.38f : 0.32f)) * 16, ModContent.ProjectileType<ProphetLightning>(), NPC.damage / 6, 4);
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedBy(i * -(phase == 1 ? 0.38f : 0.32f)) * 16, ModContent.ProjectileType<ProphetLightning>(), NPC.damage / 6, 4);
                                         }
                                     }
                                 }

@@ -304,19 +304,19 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                         NPC.rotation = 0;
                         if (fountain.aiTimer > 100)
                         {
-                            if (fountain.aiTimer < 160)
+                            if (fountain.aiTimer < 150)
                             {
                                 AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 0.5f, 0.06f);
                             }
                             else
                             {
-                                if(fountain.aiTimer == 200)
+                                if(fountain.aiTimer == 150)
                                 {
                                     fountain.Shoot(ModContent.ProjectileType<SpiritWave>(), NPC.Center, Vector2.Zero);
                                 }
-                                if(fountain.aiTimer > 200)
+                                if(fountain.aiTimer > 150)
                                 {
-                                    if(fountain.aiTimer > 230)
+                                    if(fountain.aiTimer > 170)
                                     {
                                         AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 0, 0.1f);
                                     }
@@ -325,8 +325,9 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                                         AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 1, 0.1f);
                                     }
                                 }
-                                if(fountain.aiTimer > 260)
+                                if(fountain.aiTimer > 220)
                                 {
+                                    NPC.damage = 0;
                                     NPC.Center = Vector2.Lerp(NPC.Center, owner.Center + column.offset + column.rotation.ToRotationVector2() * columnOffset, 0.1f);
                                 }
                             }
@@ -384,7 +385,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 var ofs = rt.ToRotationVector2() * r;
                 ofs.Y *= 0.25f;
                 ofs = ofs.RotatedBy(NPC.rotation);
-                sb.Draw(glow, NPC.Center + ofs - Main.screenPosition, null, color * NPC.Opacity * 0.6f * column.alpha * (NPC.damage > 0 ? 1 : 0.5f), 0, glow.Size() * 0.5f, s * 0.2f, SpriteEffects.None, 0);
+                sb.Draw(glow, NPC.Center + ofs - Main.screenPosition, null, color * NPC.Opacity * 0.7f * (NPC.damage > 0 ? 1 : 0.5f), 0, glow.Size() * 0.5f, s * 0.2f, SpriteEffects.None, 0);
                 rt += MathHelper.ToRadians(4) * (NPC.whoAmI % 2 == 0 ? 1 : -1);
             }
             sb.End();

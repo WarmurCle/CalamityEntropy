@@ -146,7 +146,10 @@ namespace CalamityEntropy.Common
                         {
                             player.Entropy().EBookStackItems[i] = item.Clone();
                             item.TurnToAir();
-                            PlayerLoader.SyncPlayer(Main.LocalPlayer, -1, Main.myPlayer, false);
+                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            {
+                                PlayerLoader.SyncPlayer(Main.LocalPlayer, -1, Main.myPlayer, false);
+                            }
                         }
                     }
                 }
@@ -1617,6 +1620,15 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<StarterBag>())
             {
+                static bool getsDev(DropAttemptInfo info)
+                {
+                    string playerName = info.player.name;
+                    foreach(string str in Donators.Donors)
+                        if(playerName.ToLower().Contains(str.ToLower())) return true;
+                    return false;
+                }
+                ;
+                itemLoot.AddIf(getsDev, ModContent.ItemType<TheocracyMark>());
                 static bool getsDH(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;

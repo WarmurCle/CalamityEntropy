@@ -1,6 +1,7 @@
 using CalamityMod;
 using CalamityMod.Items.Placeables.DraedonStructures;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,6 +10,11 @@ namespace CalamityEntropy.Content.Items
     public class PowerBank : ModItem
     {
         public static float CHARGE_PER_TICK = 0.02f;
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.AnimatesAsSoul[Type] = true;
+            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(4, 14));
+        }
         public override void SetDefaults()
         {
             Item.width = 56;

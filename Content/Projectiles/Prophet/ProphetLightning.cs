@@ -44,12 +44,13 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             {
                 Projectile.Center -= Projectile.velocity;
                 Vector2 p = Projectile.Center;
-                for (int i = 0; i < 24; i++)
+                for (int i = 0; i < 240; i++)
                 {
-                    points.Add(p);
-                    pointVels.Add(CEUtils.randomPointInCircle(9));
-                    p += Projectile.velocity;
-                    Projectile.velocity = Projectile.velocity.RotatedByRandom(0.5f);
+                    Vector2 rd = CEUtils.randomPointInCircle(32);
+                    points.Add(p + rd * 1.64f);
+                    pointVels.Add(-rd * 0.1f);
+                    p += Projectile.velocity * 0.8f;
+                    Projectile.velocity = Projectile.velocity.RotatedByRandom(0.2f);
                 }
             }
             Projectile.ai[0]++;
@@ -63,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 for (int i = 0; i < points.Count; i++)
                 {
                     points[i] += pointVels[i];
-                    pointVels[i] *= 0.9f;
+                    pointVels[i] *= 0.94f;
                 }
             }
 
@@ -114,15 +115,15 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 for (int i = 1; i < points.Count; i++)
                 {
                     ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 26 * width,
-                          new Vector3((float)(i + 1) / points.Count, 1, 1),
+                          new Vector3(i * 0.1f + -16 * Main.GlobalTimeWrappedHourly, 1, 1),
                         b));
                     ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 26 * width,
-                          new Vector3((float)(i + 1) / points.Count, 0, 1),
+                          new Vector3(i * 0.1f + -16 * Main.GlobalTimeWrappedHourly, 0, 1),
                           b));
                     lr = (points[i] - points[i - 1]).ToRotation();
                 }
                 a = 1;
-                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.LinearWrap);
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
