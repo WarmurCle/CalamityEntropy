@@ -1316,7 +1316,7 @@ namespace CalamityEntropy
                                 sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 1, SpriteEffects.None, 0);
                             };
                             Func<bool> prophet = () => EDownedBosses.downedProphet;
-                            AddBoss(bossChecklist, Instance, entryName, 11.85f, prophet, ModContent.NPCType<TheProphet>(), new Dictionary<string, object>()
+                            AddBoss(bossChecklist, Instance, entryName, 12.02f, prophet, ModContent.NPCType<TheProphet>(), new Dictionary<string, object>()
                             {
                                 ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.TheProphet.BossChecklistIntegration.EntryName"),
                                 ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.TheProphet.BossChecklistIntegration.SpawnInfo"),
@@ -1356,7 +1356,7 @@ namespace CalamityEntropy
                                 sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.7f, SpriteEffects.None, 0);
                             };
                             Func<bool> cruiser = () => EDownedBosses.downedCruiser;
-                            AddBoss(bossChecklist, Instance, entryName, 21.7f, cruiser, segments, new Dictionary<string, object>()
+                            AddBoss(bossChecklist, Instance, entryName, 22.1f, cruiser, segments, new Dictionary<string, object>()
                             {
                                 ["displayName"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.EntryName"),
                                 ["spawnInfo"] = Language.GetTextValue("Mods.CalamityEntropy.NPCs.Cruiser.BossChecklistIntegration.SpawnInfo"),
@@ -1377,7 +1377,7 @@ namespace CalamityEntropy
                                 sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 1.3f, SpriteEffects.None, 0);
                             };
                             string entryName = "PrimordialWyrm";
-                            AddBoss(bossChecklist, ModContent.GetInstance<CalamityMod.CalamityMod>(), entryName, 23.5f, wyd, segments2, new Dictionary<string, object>()
+                            AddBoss(bossChecklist, ModContent.GetInstance<CalamityMod.CalamityMod>(), entryName, 24.5f, wyd, segments2, new Dictionary<string, object>()
                             {
                                 ["displayName"] = Language.GetText("Mods.CalamityMod.NPCs.PrimordialWyrmHead.DisplayName"),
                                 ["spawnInfo"] = this.GetLocalization("PWSpawnInfo"),

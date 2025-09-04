@@ -14,10 +14,10 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 220;
-            Item.useAnimation = Item.useTime = 10;
+            Item.damage = 120;
+            Item.useAnimation = Item.useTime = 7;
             Item.crit = 10;
-            Item.mana = 8;
+            Item.mana = 6;
             Item.shootSpeed = 44;
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;

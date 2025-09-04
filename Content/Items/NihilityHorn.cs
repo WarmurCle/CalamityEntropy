@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items
             CreateRecipe().
                 AddIngredient(ModContent.ItemType<ExodiumCluster>(), 6).
                 AddIngredient(ModContent.ItemType<Voidstone>(), 6).
-                AddTile(TileID.WorkBenches).
+                AddTile(TileID.LunarCraftingStation).
                 Register();
         }
     }
