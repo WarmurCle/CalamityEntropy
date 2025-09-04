@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.SetDefaults();
             Item.damage = 8;
             Item.shootSpeed = 24;
-            Item.ArmorPenetration = 16;
+            Item.ArmorPenetration = 10;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<LushGrassclassicsHeld>();
         public override int SlotCount => 1;
@@ -25,9 +25,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.JungleSpores, 6)
+                .AddIngredient(ItemID.JungleSpores, 2)
                 .AddIngredient(ItemID.Vine, 2)
-                .AddIngredient(ItemID.Stinger, 4)
+                .AddIngredient(ItemID.Stinger, 3)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }

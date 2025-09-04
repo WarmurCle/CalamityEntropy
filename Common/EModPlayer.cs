@@ -943,12 +943,12 @@ namespace CalamityEntropy.Common
             }
             if (VFSet)
             {
-                Player.maxRunSpeed *= 1.05f;
+                Player.maxRunSpeed *= 1.12f;
             }
             if (VFHelmRogue)
             {
-                Player.runAcceleration *= 0.50f;
-                Player.maxRunSpeed *= 1.14f;
+                Player.runAcceleration *= 1.05f;
+                Player.maxRunSpeed *= 1.15f;
             }
             if (CRing)
             {
@@ -959,9 +959,9 @@ namespace CalamityEntropy.Common
             {
                 Player.maxRunSpeed *= MaliciousCode.CALAMITY__OVERHAUL ? 0.8f : 0.85f;
             }
-            Player.runAcceleration *= 1f + 0.1f * VoidCharge;
-            Player.maxRunSpeed *= 1f + 0.2f * VoidCharge;
-            Player.accRunSpeed *= 1f + 0.25f * VoidCharge;
+            Player.runAcceleration *= 1f + 0.02f * VoidCharge;
+            Player.maxRunSpeed *= 1f + 0.15f * VoidCharge;
+            Player.accRunSpeed *= 1f + 0.04f * VoidCharge;
             Player.runAcceleration *= 1f + moveSpeed;
             Player.maxRunSpeed *= 1f + moveSpeed;
             Player.accRunSpeed *= 1f + moveSpeed;
