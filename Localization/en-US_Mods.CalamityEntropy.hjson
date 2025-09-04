@@ -599,7 +599,7 @@ Items: {
 
 	VoidFaquirEvokerHelm: {
 		DisplayName: Void Faquir Evoker Helm
-		Tooltip: +80% Summon Damage
+		Tooltip: +25% Summon Damage
 	}
 
 	VoidFaquirLurkerMask: {
