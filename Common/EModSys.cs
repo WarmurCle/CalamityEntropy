@@ -283,6 +283,10 @@ namespace CalamityEntropy.Common
                     sayTip = false;
                 }
             }
+            if (Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro || Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy)
+            {
+                Lighting.Mode = Terraria.Graphics.Light.LightMode.Color;
+            }
             noItemUse = false;
             counter += 1f;
             if (ArmorForgingStationUI.Visible)
