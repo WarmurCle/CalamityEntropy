@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
         {
             Player player = Main.player[Projectile.owner];
             target.AddBuff(ModContent.BuffType<Dragonfire>(), 180);
-            player.ApplyDamageToNPC(target, player.GetShootState().WeaponDamage / 5, 0f, 0
+            player.ApplyDamageToNPC(target, player.GetShootState().WeaponDamage / 3, 0f, 0
                 , false, DamageClass.Default, true);
             float thirdDustScale = Main.rand.NextFloat(2, 4);
             Vector2 dustRotation = (target.rotation - MathHelper.PiOver2).ToRotationVector2();
