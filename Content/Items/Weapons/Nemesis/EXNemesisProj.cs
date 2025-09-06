@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityMod.Buffs.DamageOverTime;
 using InnoVault;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
@@ -82,7 +83,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire3, 600);
+            target.AddBuff(BuffID.BetsysCurse, 150);
+            target.AddBuff(ModContent.BuffType<Dragonfire>(), 180);
         }
 
         public override bool PreDraw(ref Color lightColor)
