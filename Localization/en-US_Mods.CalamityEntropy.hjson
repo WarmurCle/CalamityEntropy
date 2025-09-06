@@ -2766,6 +2766,11 @@ Items: {
 		DisplayName: Theocracy Mark
 		Tooltip: ""
 	}
+
+	AzafureFurnace: {
+		DisplayName: Azafure Furnace
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3241,6 +3246,9 @@ Projectiles: {
 	MiracleShoot.DisplayName: Miracle Shoot
 	MiracleWreckageHeld.DisplayName: Miracle Wreckage Held
 	Theostring.DisplayName: Theostring
+	AzafureFurnaceEnergyBall.DisplayName: Azafure Furnace Energy Ball
+	AzafureFurnaceHoldout.DisplayName: Azafure Furnace Holdout
+	FurnaceBlast.DisplayName: Furnace Blast
 }
 
 LegendTooltip: - Legend -

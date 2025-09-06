@@ -2992,6 +2992,11 @@ Items: {
 		DisplayName: 神权印章
 		Tooltip: "[c/ff5432:感谢所有灾厄熵的开发者和支持者！]"
 	}
+
+	AzafureFurnace: {
+		DisplayName: 阿萨福勒电熔炉
+		Tooltip: "射出追踪的能量球，击中后炸开"
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3457,17 +3462,20 @@ Projectiles: {
 	BrambleShoot.DisplayName: 苍郁叶弹
 	SRDamageRect.DisplayName: 冥魂泉
 	SpiritBullet.DisplayName: 冥火弹
-	// SpiritLaser.DisplayName: Spirit Laser
-	// TrueMoonlightShoot.DisplayName: True Moonlight Shoot
-	// TrueMoonlightSwordHeld.DisplayName: True Moonlight Sword Held
-	// DarkBladeHeld.DisplayName: Dark Blade Held
-	// DarkBladeShoot.DisplayName: Dark Blade Shoot
-	// SpiritWave.DisplayName: Spirit Wave
-	// LushGrassclassicsHeld.DisplayName: Lush Grassclassics Held
-	// LushVine.DisplayName: Lush Vine
-	// MiracleShoot.DisplayName: Miracle Shoot
-	// MiracleWreckageHeld.DisplayName: Miracle Wreckage Held
-	// Theostring.DisplayName: Theostring
+	SpiritLaser.DisplayName: 空冥光束
+	TrueMoonlightShoot.DisplayName: 真皎月斩
+	TrueMoonlightSwordHeld.DisplayName: 真皎月刃
+	DarkBladeHeld.DisplayName: 黑暗刀刃
+	DarkBladeShoot.DisplayName: 黑刃
+	SpiritWave.DisplayName: 魂涌泉
+	LushGrassclassicsHeld.DisplayName: 繁茂芸编
+	LushVine.DisplayName: 荆棘
+	MiracleShoot.DisplayName: 神迹刃
+	MiracleWreckageHeld.DisplayName: 神迹残骸
+	Theostring.DisplayName: 神权飘带
+	AzafureFurnaceEnergyBall.DisplayName: 阿萨福勒能量球
+	AzafureFurnaceHoldout.DisplayName: 阿萨福勒电熔炉
+	FurnaceBlast.DisplayName: 熔炉脉冲
 }
 
 LegendTooltip: - 传奇物品 -
