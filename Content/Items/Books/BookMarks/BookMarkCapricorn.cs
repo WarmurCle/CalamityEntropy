@@ -1,4 +1,6 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.UI.EntropyBookUI;
+using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -30,6 +32,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     public class CapricornBookmarkRecordPlayer : ModPlayer
     {
         public int EBookUsingTime = 0;
+        public float SandStormCharge = 0;
         public override void PostUpdate()
         {
             bool isUsing = false;
@@ -50,9 +53,33 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     EBookUsingTime++;
                 }
             }
+            bool ssbm = false;
             if (!isUsing)
             {
+                if(EBookUsingTime > 11 && book != null && book.ModProjectile is EntropyBookHeldProjectile e && Main.myPlayer == Player.whoAmI)
+                {
+                    for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, e.bookItem), Player.Entropy().EBookStackItems.Count); i++)
+                    {
+                        Item it = Player.Entropy().EBookStackItems[i];
+                        if (BookMarkLoader.IsABookMark(it))
+                        {
+                            if (BookMarkLoader.GetEffect(it) is SandstormBMEffect)
+                            {
+                                ssbm = true;
+                                BookmarkSandstorm.ShootProjectile(int.Min(EBookUsingTime, 300) / 12, Player, e);
+                            }
+                        }
+                    }
+                }
                 EBookUsingTime = 0;
+            }
+            if(ssbm)
+            {
+                SandStormCharge = float.Min(1, EBookUsingTime / 300f);
+            }
+            else
+            {
+                SandStormCharge = 0;
             }
         }
     }

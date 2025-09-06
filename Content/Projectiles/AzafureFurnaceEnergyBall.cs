@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FurnaceBlast>(), 0, 0, Projectile.owner, Projectile.ai[1]);
-                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage * 2, 140, Projectile.DamageType);
+                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage * 2, 240, Projectile.DamageType);
             }
             SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/ExoTwinsEject"), Projectile.Center);
             if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) < 1200)

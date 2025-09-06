@@ -30,6 +30,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float eRotSpeed = 0;
         public int EAnmTime = -1;
         public LoopSound chargeSnd = null;
+        public List<ShineParticle> ps = new();
 
         public override void AI()
         {
@@ -125,9 +126,15 @@ namespace CalamityEntropy.Content.Projectiles
                         Dust.NewDust(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, 1, 1, DustID.Smoke, a.ToRotationVector2().X * 0.4f, a.ToRotationVector2().Y * 0.4f);
                         EParticle.NewParticle(new ULineParticle(4, 0.8f, 0.85f, 0.064f), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(7, 16), Color.Lerp(Color.White, Color.Red, Main.rand.NextFloat(0, 1)), 1, 1, true, BlendState.AlphaBlend, 0);
                     }
-                    EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, Vector2.Zero, Color.White, 0.6f, 1, true, BlendState.Additive, 0, 12);
-                    EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, Vector2.Zero, Color.OrangeRed, 0.9f, 1, true, BlendState.Additive, 0, 12);
+                    ps.Add(new ShineParticle());
+                    ps.Add(new ShineParticle());
+                    EParticle.spawnNew(ps[0], Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, Vector2.Zero, Color.White, 0.6f, 1, true, BlendState.Additive, 0, 12);
+                    EParticle.spawnNew(ps[1], Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, Vector2.Zero, Color.OrangeRed, 0.9f, 1, true, BlendState.Additive, 0, 12);
                 }
+            }
+            foreach(var pt in ps)
+            {
+                pt.Position = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale;
             }
             if (Main.myPlayer == Projectile.owner)
             {

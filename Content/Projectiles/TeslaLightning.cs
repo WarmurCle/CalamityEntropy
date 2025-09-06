@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics.Primitives;
@@ -152,11 +153,17 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
+            Vector2 end = new Vector2(Projectile.ai[0], Projectile.ai[1]);
             if (Projectile.localAI[0] == 0)
             {
                 CEUtils.PlaySound("spark", 1, Projectile.Center, 1);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.16f, 1, true, BlendState.Additive, 0, 18);
+                EParticle.spawnNew(new ShineParticle(), end, Vector2.Zero, Color.White, 0.16f, 1, true, BlendState.Additive, 0, 18);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.16f, 1, true, BlendState.Additive, 0, 18);
+                EParticle.spawnNew(new ShineParticle(), end, Vector2.Zero, Color.White, 0.16f, 1, true, BlendState.Additive, 0, 18);
+
             }
-            Vector2 end = new Vector2(Projectile.ai[0], Projectile.ai[1]);
+
             if (points == null || Projectile.localAI[0] % 5 == 0)
             {
                 points = LightningGenerator.GenerateLightning(Projectile.Center, end, 36, 6);

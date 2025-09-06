@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
                 List<Vector2> points = GP(0);
-                List<Vector2> pointsOutside = GP(140 * Scale);
+                List<Vector2> pointsOutside = GP(240 * Scale);
                 int i;
                 for (i = 0; i < points.Count; i++)
                 {
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
                 List<Vector2> points = GP(0, -1);
-                List<Vector2> pointsOutside = GP(100 * Scale, -1);
+                List<Vector2> pointsOutside = GP(200 * Scale, -1);
                 int i;
                 for (i = 0; i < points.Count; i++)
                 {
@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
                 List<Vector2> points = GP(0, 0.6f);
-                List<Vector2> pointsOutside = GP(140 * Scale, -1);
+                List<Vector2> pointsOutside = GP(240 * Scale, -1);
                 int i;
                 for (i = 0; i < points.Count; i++)
                 {
