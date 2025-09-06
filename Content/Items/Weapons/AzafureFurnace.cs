@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<AzafureFurnaceHoldout>();
             Item.knockBack = 5f;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Pink;
             Item.UseSound = null;
             Item.autoReuse = false;
             Item.shootSpeed = 22f;
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noUseGraphic = true;
             var modItem = Item.Calamity();
             modItem.UsesCharge = true;
-            Item.mana = 6;
+            Item.mana = 10;
             modItem.MaxCharge = 200f;
             modItem.ChargePerUse = 0.08f;
         }

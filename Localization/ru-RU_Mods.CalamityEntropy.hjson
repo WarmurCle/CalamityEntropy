@@ -2831,6 +2831,11 @@ Items: {
 		// DisplayName: Azafure Furnace
 		// Tooltip: ""
 	}
+
+	AzafurePulseWand: {
+		// DisplayName: Azafure Pulse Wand
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3309,6 +3314,8 @@ Projectiles: {
 	// AzafureFurnaceEnergyBall.DisplayName: Azafure Furnace Energy Ball
 	// AzafureFurnaceHoldout.DisplayName: Azafure Furnace Holdout
 	// FurnaceBlast.DisplayName: Furnace Blast
+	// AzafurePulseWandHeld.DisplayName: Azafure Pulse Wand Held
+	// TeslaLightningRed.DisplayName: Tesla Lightning Red
 }
 
 LegendTooltip: - Легенда -

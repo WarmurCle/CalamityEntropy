@@ -2995,7 +2995,16 @@ Items: {
 
 	AzafureFurnace: {
 		DisplayName: 阿萨福勒电熔炉
-		Tooltip: "射出追踪的能量球，击中后炸开"
+		Tooltip: 射出追踪的能量球，击中后炸开
+	}
+
+	AzafurePulseWand: {
+		DisplayName: 阿萨福勒脉冲杖
+		Tooltip: 
+		'''
+		按住鼠标左键扫描周围的目标，最多标记6个目标
+		搜开后电击所有标记的目标
+		'''
 	}
 }
 
@@ -3476,6 +3485,8 @@ Projectiles: {
 	AzafureFurnaceEnergyBall.DisplayName: 阿萨福勒能量球
 	AzafureFurnaceHoldout.DisplayName: 阿萨福勒电熔炉
 	FurnaceBlast.DisplayName: 熔炉脉冲
+	// AzafurePulseWandHeld.DisplayName: Azafure Pulse Wand Held
+	// TeslaLightningRed.DisplayName: Tesla Lightning Red
 }
 
 LegendTooltip: - 传奇物品 -
