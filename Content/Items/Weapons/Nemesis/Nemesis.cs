@@ -1,5 +1,7 @@
 ﻿using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
@@ -9,16 +11,17 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 {
-    internal class Nemesis : ModItem, ICELoader
+    public class Nemesis : ModItem, IDevItem
     {
+        public string DevName => "锯角";
         private int fireIndex;
         public override void SetDefaults()
         {
             Item.height = 154;
             Item.width = 154;
-            Item.damage = 380;
+            Item.damage = 360;
             Item.DamageType = DamageClass.Melee;
-            Item.useAnimation = Item.useTime = 20;
+            Item.useAnimation = Item.useTime = 18;
             Item.scale = 1;
             Item.useTurn = true;
             Item.useStyle = ItemUseStyleID.Swing;
