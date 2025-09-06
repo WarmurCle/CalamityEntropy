@@ -54,9 +54,23 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
             }
             bool ssbm = false;
+            if (EBookUsingTime > 11 && book != null && book.ModProjectile is EntropyBookHeldProjectile ebk && Main.myPlayer == Player.whoAmI)
+            {
+                for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, ebk.bookItem), Player.Entropy().EBookStackItems.Count); i++)
+                {
+                    Item it = Player.Entropy().EBookStackItems[i];
+                    if (BookMarkLoader.IsABookMark(it))
+                    {
+                        if (BookMarkLoader.GetEffect(it) is SandstormBMEffect)
+                        {
+                            ssbm = true;
+                        }
+                    }
+                }
+            }
             if (!isUsing)
             {
-                if(EBookUsingTime > 11 && book != null && book.ModProjectile is EntropyBookHeldProjectile e && Main.myPlayer == Player.whoAmI)
+                if(EBookUsingTime > 29 && book != null && book.ModProjectile is EntropyBookHeldProjectile e && Main.myPlayer == Player.whoAmI)
                 {
                     for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, e.bookItem), Player.Entropy().EBookStackItems.Count); i++)
                     {
@@ -65,8 +79,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         {
                             if (BookMarkLoader.GetEffect(it) is SandstormBMEffect)
                             {
-                                ssbm = true;
-                                BookmarkSandstorm.ShootProjectile(int.Min(EBookUsingTime, 300) / 12, Player, e);
+                                BookmarkSandstorm.ShootProjectile(int.Min(EBookUsingTime, 300) / 30, Player, e);
                             }
                         }
                     }

@@ -22,15 +22,34 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Texture2D UITexture => BookMark.GetUITexture("Sandstorm");
         public override EBookProjectileEffect getEffect()
         {
-            return new RoyalBMEffect();
+            return new SandstormBMEffect();
         }
-
-        public override Color tooltipColor => Color.Yellow;
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient(ItemID.SandBlock, 40)
+                .AddIngredient(ItemID.AntlionMandible)
+                .AddTile(TileID.WorkBenches)
+                .Register();
+        }
+        public override Color tooltipColor => new Color(246, 201, 122);
         public static void ShootProjectile(int count, Player player, EntropyBookHeldProjectile book)
         {
+            if (count > 0)
+                CEUtils.PlaySound("corruptwhip_hit2", 1, player.Center, 10, count / 4f + 0.4f);
             for(int i = 0; i < count; i++)
             {
-                book.ShootSingleProjectile(ModContent.ProjectileType<SandBullet>(), player.MountedCenter, (Main.MouseWorld - player.MountedCenter).normalize() * 16 + CEUtils.randomPointInCircle(8), 0.12f);
+                int dustAmt = 16;
+                for (int j = 0; j < dustAmt; j++)
+                {
+                    Vector2 vel = (Main.MouseWorld - player.MountedCenter).normalize().RotatedByRandom(0.22f) * 24 * Main.rand.NextFloat(0.3f, 1);
+                    Vector2 dustRotate = vel;
+                    int sand = Dust.NewDust(player.Center + vel * 4, 0, 0, (int)CalamityDusts.SulphurousSeaAcid, 0, 0, 0, default, 1.2f);
+                    Main.dust[sand].noGravity = true;
+                    Main.dust[sand].noLight = true;
+                    Main.dust[sand].scale *= 1.4f;
+                    Main.dust[sand].velocity = vel;
+                }
+                book.ShootSingleProjectile(ModContent.ProjectileType<SandBullet>(), player.MountedCenter, (Main.MouseWorld - player.MountedCenter).normalize() * 12 + CEUtils.randomPointInCircle(2) + new Vector2(0, -2), 0.24f, 1, 1, (proj) => proj.damage = proj.damage.Softlimitation(4));
             }
         }
     }
@@ -51,7 +70,6 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.tileCollide = true;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 300;
-            Projectile.aiStyle = ProjAIStyleID.Arrow;
             Projectile.alpha = 255;
         }
 
@@ -91,8 +109,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Main.dust[sandyDust].noGravity = true;
                 Main.dust[sandyDust].velocity *= 0f;
             }
+            if (Projectile.localAI[0] > 14)
+                Projectile.velocity.Y += 0.9f;
         }
-
+        
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);

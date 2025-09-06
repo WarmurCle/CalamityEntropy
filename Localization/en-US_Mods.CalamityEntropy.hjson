@@ -2776,6 +2776,11 @@ Items: {
 		DisplayName: Azafure Pulse Wand
 		Tooltip: ""
 	}
+
+	BookmarkSandstorm: {
+		DisplayName: Bookmark - Sandstorm
+		Tooltip: "Launch sand bullet when stop attacking"
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3256,6 +3261,7 @@ Projectiles: {
 	FurnaceBlast.DisplayName: Furnace Blast
 	AzafurePulseWandHeld.DisplayName: Azafure Pulse Wand Held
 	TeslaLightningRed.DisplayName: Tesla Lightning Red
+	SandBullet.DisplayName: Sand Bullet
 }
 
 LegendTooltip: - Legend -
