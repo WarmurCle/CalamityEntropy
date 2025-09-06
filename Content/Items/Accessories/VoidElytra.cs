@@ -14,9 +14,9 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class VoidElytra : ModItem
     {
-        public static float HorSpeed = 10;
+        public static float HorSpeed = 12;
         public static float AccMul = 3;
-        public static int wTime = 290;
+        public static int wTime = 340;
         public override void SetStaticDefaults()
         {
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(wTime, HorSpeed, AccMul, false, 20, 3f);
