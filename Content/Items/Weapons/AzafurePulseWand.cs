@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 24;
             Item.height = 24;
-            Item.damage = 126;
+            Item.damage = 60;
             Item.DamageType = DamageClass.Magic;
             Item.useTime = 36;
             Item.useAnimation = 36;
@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (Helding)
             {
-                Projectile.timeLeft = 4;
+                Projectile.timeLeft = 36;
                 Charge++;
                 if (AttackR < 1200)
                 {
@@ -148,11 +148,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            if (Helding || RPulseAlpha > 0.1f)
-            {
-                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition - Projectile.rotation.ToRotationVector2() * 20, null, Color.White, Projectile.rotation + MathHelper.PiOver4, new Vector2(0, tex.Height), Projectile.scale, SpriteEffects.None, 0); ;
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition - Projectile.rotation.ToRotationVector2() * 20, null, Color.White, Projectile.rotation + MathHelper.PiOver4, new Vector2(0, tex.Height), Projectile.scale, SpriteEffects.None, 0); ;
             
-            }
+            
 
             Texture2D pulse = CEUtils.getExtraTex("HollowCircleSoftEdge");
             
