@@ -25,8 +25,8 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<GravityGazeHoldout>();
-            Item.shootSpeed = 16f;
-            Item.mana = 10;
+            Item.shootSpeed = 22f;
+            Item.mana = 3;
             Item.DamageType = DamageClass.Magic;
         }
         public override void AddRecipes()

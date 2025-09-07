@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 24;
             Item.height = 24;
-            Item.damage = 60;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Magic;
             Item.useTime = 36;
             Item.useAnimation = 36;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 22f;
             Item.channel = true;
             Item.noUseGraphic = true;
-            Item.mana = 14;
+            Item.mana = 12;
         }
 
         public override void AddRecipes()
