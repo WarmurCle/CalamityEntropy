@@ -27,14 +27,14 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.rare = ModContent.RarityType<PureGreen>();
             Item.shoot = ModContent.ProjectileType<EyeOfOthersideHoldout>();
             Item.shootSpeed = 16f;
-            Item.mana = 5;
+            Item.mana = 3;
             Item.DamageType = DamageClass.Magic;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<Necroplasm>(), 5)
-                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 1)
+                .AddIngredient(ModContent.ItemType<Necroplasm>(), 15)
+                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 5)
                 .AddIngredient(ItemID.CrystalBall, 1)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
