@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 24;
             Item.height = 24;
-            Item.damage = 90;
+            Item.damage = 50;
             Item.DamageType = DamageClass.Magic;
             Item.useTime = 3;
             Item.useAnimation = 3;
@@ -25,12 +25,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = null;
             Item.autoReuse = false;
-            Item.shootSpeed = 22f;
+            Item.shootSpeed = 25f;
             Item.channel = true;
             Item.noUseGraphic = true;
             var modItem = Item.Calamity();
             modItem.UsesCharge = true;
-            Item.mana = 10;
+            Item.mana = 15;
             modItem.MaxCharge = 200f;
             modItem.ChargePerUse = 0.08f;
         }
@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe().
                 AddIngredient(ModContent.ItemType<OverloadFurnace>()).
                 AddIngredient(ModContent.ItemType<HellIndustrialComponents>(), 4).
-                AddIngredient(ItemID.SoulofLight, 2).
+                AddIngredient(ItemID.SoulofNight, 10).
                 AddTile(TileID.MythrilAnvil).
                 Register();
         }
