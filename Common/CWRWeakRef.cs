@@ -14,7 +14,6 @@ namespace CalamityEntropy.Common
             {
                 return plr.GetModPlayer<CWRPlayer>().PressureIncrease;
             }
-
             public static void SetCartridge(Item item, int m)
             {
                 item.CWR().HasCartridgeHolder = true;
