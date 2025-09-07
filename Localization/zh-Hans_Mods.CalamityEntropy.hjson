@@ -3009,7 +3009,7 @@ Items: {
 
 	BookmarkSandstorm: {
 		DisplayName: 沙暴书签
-		Tooltip: "停止攻击后根据使用时间喷射沙弹"
+		Tooltip: 停止攻击后根据使用时间喷射沙弹
 	}
 }
 

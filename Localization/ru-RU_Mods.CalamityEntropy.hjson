@@ -2838,8 +2838,8 @@ Items: {
 	}
 
 	BookmarkSandstorm: {
-		// DisplayName: Bookmark Sandstorm
-		// Tooltip: ""
+		// DisplayName: Bookmark - Sandstorm
+		// Tooltip: Launch sand bullet when stop attacking
 	}
 }
 

@@ -2779,7 +2779,7 @@ Items: {
 
 	BookmarkSandstorm: {
 		DisplayName: Bookmark - Sandstorm
-		Tooltip: "Launch sand bullet when stop attacking"
+		Tooltip: Launch sand bullet when stop attacking
 	}
 }
 
