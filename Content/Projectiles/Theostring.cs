@@ -29,7 +29,12 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void AI()
         {
-            if(!Projectile.GetOwner().GetModPlayer<VanityModPlayer>().TheocracyMark)
+            if (Projectile.GetOwner().dead)
+            {
+                Projectile.Kill();
+                return;
+            }
+            if (!Projectile.GetOwner().GetModPlayer<VanityModPlayer>().TheocracyMark)
             {
                 return;
             }

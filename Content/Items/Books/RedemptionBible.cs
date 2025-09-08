@@ -118,6 +118,11 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AI()
         {
             base.AI();
+            if(Projectile.GetOwner().dead)
+            {
+                Projectile.Kill();
+                return;
+            }
             if (Main.myPlayer == Projectile.owner)
             {
                 if (mouse != Main.MouseWorld)
