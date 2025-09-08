@@ -18,6 +18,10 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Main.projFrames[Projectile.type] = 1;
         }
+        public override void ApplyHoming()
+        {
+            
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -49,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else
             {
-                NPC target = Projectile.FindTargetWithinRange(1000, false);
+                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200);
                 if (target != null)
                 {
                     if (l < 6)
