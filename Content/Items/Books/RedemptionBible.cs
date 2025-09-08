@@ -211,6 +211,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Projectile.width = Projectile.height = 36;
+            Projectile.timeLeft = 300;
         }
         public override void AI()
         {
