@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
             t4.AddPoint(Projectile.Center + Projectile.velocity.RotatedBy(Projectile.localAI[1] * 0.1f - MathHelper.PiOver2).normalize() * (16 * Projectile.scale));
             Main.dust[Dust.NewDust(Projectile.Center + CEUtils.randomPointInCircle(12), 0, 0, DustID.GemRuby, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f)].noGravity = true;
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 800);
-            if(target != null && Projectile.localAI[1] > 16)
+            if(target != null && Projectile.localAI[1] > 60)
             {
                 Projectile.velocity += (target.Center - Projectile.Center).normalize() * 0.08f;
                 Projectile.velocity *= 0.99f;
