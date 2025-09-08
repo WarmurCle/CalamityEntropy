@@ -24,9 +24,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 660;
+            Projectile.timeLeft = 180;
             Projectile.MaxUpdates = 6;
-            Projectile.ArmorPenetration = 12;
         }
         public int counter = 0;
         public bool std = false;
@@ -61,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     CEUtils.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.3f);
                     Projectile.Kill();
-                    if (Projectile.GetOwner().Entropy().TryHealMeWithCd(Projectile.GetOwner().statLifeMax2 / 260 + 1, 4))
+                    if (Projectile.GetOwner().Entropy().TryHealMeWithCd(Projectile.GetOwner().statLifeMax2 / 400 + 1, 4))
                     {
                         Projectile.GetOwner().Entropy().temporaryArmor += GrudgeCard.TempDefense;
                     }
