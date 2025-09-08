@@ -30,6 +30,7 @@ using CalamityMod.Cooldowns;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Rogue;
+using CalamityMod.Projectiles.Typeless;
 using InnoVault.Trails;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -1497,6 +1498,7 @@ namespace CalamityEntropy.Common
             {
                 if (Player.dashDelay < 0)
                 {
+                    
                     if (avTrail == null || avTrail.Lifetime <= 0)
                     {
                         avTrail = new DashBeam();
@@ -1537,6 +1539,19 @@ namespace CalamityEntropy.Common
                     }
                     if (hasAcc(ShadeCloak.ID))
                     {
+                        Player.RemoveAllGrapplingHooks();
+                        int whtype = ModContent.ProjectileType<WulfrumHook>();
+                        if (Player.ownedProjectileCounts[whtype] > 0)
+                        {
+                            foreach (var p in Main.ActiveProjectiles)
+                            {
+                                if (p.owner == Player.whoAmI && p.type == whtype)
+                                {
+                                    p.active = false;
+                                    break;
+                                }
+                            }
+                        }
                         if (Player.Entropy().immune < 6)
                             Player.Entropy().immune = 6;
                         Player.velocity.X *= 1.4f;
