@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.pickSpeed *= 1.2f;
             player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
             player.Entropy().CRing = true;
-            player.lifeRegen += 3;
+            player.lifeRegen += 5;
             player.maxMinions += 2;
         }
 
