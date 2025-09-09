@@ -53,8 +53,8 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             }
             if (player.velocity.Length() < 1)
             {
-                player.lifeRegen += 45;
-                player.Entropy().lifeRegenPerSec += 10;
+                player.lifeRegen += 15;
+                player.Entropy().lifeRegenPerSec += 1;
             }
             ApplyBuffImmune(player);
             if (player.HeldItem.DamageType.CountsAsClass(ModContent.GetInstance<TrueMeleeDamageClass>()))
