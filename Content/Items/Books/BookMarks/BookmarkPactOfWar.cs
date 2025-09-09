@@ -39,10 +39,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnActive(EntropyBookHeldProjectile book)
         {
             int projtype1 = ModContent.ProjectileType<WarPactApollo>();
-            book.ShootSingleProjectile(projtype1, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.1f, 1);
+            book.ShootSingleProjectile(projtype1, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.5f, 1);
 
             int projtype2 = ModContent.ProjectileType<WarPactArtemis>();
-            book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.1f, 1);
+            book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.5f, 1);
 
         }
 
@@ -117,7 +117,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             if (target != null && Projectile.ai[0]++ % 40 <= 20 && Projectile.ai[0] % 4 == 0)
             {
-                (this.ShooterModProjectile as EntropyBookHeldProjectile).ShootSingleProjectile(ModContent.ProjectileType<ExoShot1>(), Projectile.Center, (target.Center + target.velocity * 4 - Projectile.Center), 1.5f, 1, 2f);
+                (this.ShooterModProjectile as EntropyBookHeldProjectile).ShootSingleProjectile(ModContent.ProjectileType<ExoShot1>(), Projectile.Center, (target.Center + target.velocity * 4 - Projectile.Center), 0.9f, 1, 2f);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
