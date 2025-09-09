@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 600;
             Projectile.MaxUpdates = 6;
         }
         public int counter = 0;
