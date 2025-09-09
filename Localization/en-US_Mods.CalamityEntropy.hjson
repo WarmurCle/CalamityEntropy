@@ -99,12 +99,12 @@ Items: {
 
 			AzafureSurgeRod: {
 				DisplayName: Azafure Surge Rod
-				Tooltip: 
-				'''
-				Insert into target after hitting.
-				After a period of time, burst lightning towards other nearby targets
-				Stealth strikes will throw large amount of it and hover in the air and track nearby targets
-				'''
+				Tooltip:
+					'''
+					Insert into target after hitting.
+					After a period of time, burst lightning towards other nearby targets
+					Stealth strikes will throw large amount of it and hover in the air and track nearby targets
+					'''
 			}
 		}
 	}
