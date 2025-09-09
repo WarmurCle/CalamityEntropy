@@ -59,6 +59,7 @@ namespace CalamityEntropy.Common
 
             return p;
         }
+        public float alpha = 1f;
         public float CooldownTimeMult = 1;
         public List<int> enabledLoreItems = new List<int>();
         public bool NihilityTwinLoreBonus = false;

@@ -131,6 +131,15 @@ Items: {
 				DisplayName: 幻光石板
 				Tooltip: ""
 			}
+
+			AzafureSurgeRod: {
+				DisplayName: 阿萨福勒电涌钎
+				Tooltip: 
+				'''
+				击中后插在目标上，一段时间后朝附近的其他目标迸发出闪电
+				潜伏攻击会丢出更多投掷物，悬停在空中并追踪附近目标
+				'''
+			}
 		}
 	}
 
@@ -3493,6 +3502,8 @@ Projectiles: {
 	// AzafurePulseWandHeld.DisplayName: Azafure Pulse Wand Held
 	// TeslaLightningRed.DisplayName: Tesla Lightning Red
 	// SandBullet.DisplayName: Sand Bullet
+	// AzafureSurgeRodHeldEffect.DisplayName: Azafure Surge Rod Held Effect
+	// AzafureSurgeRodThrow.DisplayName: Azafure Surge Rod Throw
 }
 
 LegendTooltip: - 传奇物品 -

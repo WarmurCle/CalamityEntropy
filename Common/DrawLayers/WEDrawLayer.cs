@@ -10,6 +10,10 @@ namespace CalamityEntropy.Common.DrawLayers
     {
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
+            if (drawInfo.colorArmorBody.A != 0)
+            {
+                drawInfo.drawPlayer.Entropy().alpha = drawInfo.colorArmorBody.A / 255f;
+            }
             if (drawInfo.shadow != 0f || drawInfo.drawPlayer.dead)
                 return false;
             return drawInfo.drawPlayer.Entropy().hasAccVisual(RustyDetectionEquipment.ID);

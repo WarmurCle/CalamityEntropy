@@ -101,6 +101,11 @@ Items: {
 				DisplayName: Лунная плита
 				Tooltip: ""
 			}
+
+			AzafureSurgeRod: {
+				// DisplayName: Azafure Surge Rod
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -3322,6 +3327,8 @@ Projectiles: {
 	// AzafurePulseWandHeld.DisplayName: Azafure Pulse Wand Held
 	// TeslaLightningRed.DisplayName: Tesla Lightning Red
 	// SandBullet.DisplayName: Sand Bullet
+	// AzafureSurgeRodHeldEffect.DisplayName: Azafure Surge Rod Held Effect
+	// AzafureSurgeRodThrow.DisplayName: Azafure Surge Rod Throw
 }
 
 LegendTooltip: - Легенда -

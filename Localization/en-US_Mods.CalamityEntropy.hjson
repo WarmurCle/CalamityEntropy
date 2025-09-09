@@ -96,6 +96,16 @@ Items: {
 				DisplayName: Lunar Plank
 				Tooltip: ""
 			}
+
+			AzafureSurgeRod: {
+				DisplayName: Azafure Surge Rod
+				Tooltip: 
+				'''
+				Insert into target after hitting.
+				After a period of time, burst lightning towards other nearby targets
+				Stealth strikes will throw large amount of it and hover in the air and track nearby targets
+				'''
+			}
 		}
 	}
 
@@ -3262,6 +3272,8 @@ Projectiles: {
 	AzafurePulseWandHeld.DisplayName: Azafure Pulse Wand Held
 	TeslaLightningRed.DisplayName: Tesla Lightning Red
 	SandBullet.DisplayName: Sand Bullet
+	AzafureSurgeRodHeldEffect.DisplayName: Azafure Surge Rod Held Effect
+	AzafureSurgeRodThrow.DisplayName: Azafure Surge Rod Throw
 }
 
 LegendTooltip: - Legend -
