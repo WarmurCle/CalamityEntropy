@@ -34,15 +34,15 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<MiracleBlight>(), 460);
+            target.AddBuff(ModContent.BuffType<MiracleBlight>(), 180);
         }
         public override void OnActive(EntropyBookHeldProjectile book)
         {
             int projtype1 = ModContent.ProjectileType<WarPactApollo>();
-            book.ShootSingleProjectile(projtype1, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.3f, 1);
+            book.ShootSingleProjectile(projtype1, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.1f, 1);
 
             int projtype2 = ModContent.ProjectileType<WarPactArtemis>();
-            book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.3f, 1);
+            book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.1f, 1);
 
         }
 
