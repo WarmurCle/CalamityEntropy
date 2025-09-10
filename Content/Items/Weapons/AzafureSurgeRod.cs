@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<AzafureSurgeRodThrow>();
-            Item.shootSpeed = 20f;
+            Item.shootSpeed = 36f;
             Item.DamageType = CEUtils.RogueDC;
         }
 
@@ -214,7 +214,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 return false;
             }
-            return true;
+            return null;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

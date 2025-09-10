@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
                         GeneralParticleHandler.SpawnParticle(explosion2);
                         Projectile.Kill();
                         target.damage = (int)(target.damage * 0.4f);
-                        Projectile.GetOwner()?.Entropy().TryHealMeWithCd(Projectile.GetOwner().statLifeMax2 / 400 + 1);
+                        Projectile.GetOwner()?.Entropy().TryHealMeWithCd(Projectile.GetOwner().statLifeMax2 / 240 + 1);
                         return;
                     }
                 }

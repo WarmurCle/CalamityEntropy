@@ -1,8 +1,9 @@
-﻿[h1] 灾厄:熵 [/h1]
+﻿[h1]灾厄:熵[/h1]
 
-本模组为灾厄模组的拓展模组，旨在在灾厄流程中添加更多武器和物品，并加入新的流程
 
--本mod添加了-
+[h2]本模组为灾厄模组的拓展模组，旨在在灾厄流程中添加更多武器和物品，并加入新的流程[/h2]
+
+[h2]-本mod添加了-[/h2]
 
 四个新BOSS
 
@@ -26,7 +27,9 @@
 
 未来会不断加入更多新的内容
 
-[h1] 制作人员名单 [/h1]
+
+
+[h2]制作人员名单[/h2]
 
 Polaris：主创，代码，概念设计
 
@@ -42,7 +45,9 @@ Polaris：主创，代码，概念设计
 
 Badbf-海啸: 音乐（虚无双子）
 
-[h2] 鸣谢名单 [/h2]
+
+
+[h2]鸣谢名单[/h2]
 
 感谢 Hadrian（FRANCIUMKILLA）制作的巡游者和先知的BGM
 
@@ -52,21 +57,25 @@ Badbf-海啸: 音乐（虚无双子）
 
 感谢 HoCha113 提供的部分代码援助
 
-[h1] 问题反馈与讨论 [/h1]
+
+
+[h2]问题反馈与讨论[/h2]
 
 错误报告：https://github.com/WarmurCle/CalamityEntropy/issues
 
 请提供日志或者截图
 
-[h1]其他[/h1]
 
-也试试[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3161388997] Calamity Overhaul Mod [/url]！我们未来会有许多有趣的联动！
+
+[h2]其他[/h2]
+
+也试试Calamity Overhaul Mod！我们未来会有许多有趣的联动！
 
 此外，本mod添加了一种新的血条样式，原版、灾厄以及大部分灾厄附属的boss都有其专属的血条颜色
 
 可以与其他大部分灾厄附属一起开启，不会出现较大问题
 
-灾熵官方Discord服务器: https://discord.com/invite/Mnmzd34Fda
+灾熵官方Discord服务器:https://discord.com/invite/Mnmzd34Fda
 
 灾熵官方QQ讨论群：1016738628, 在这里你可以联系到开发者们并参与讨论
 
