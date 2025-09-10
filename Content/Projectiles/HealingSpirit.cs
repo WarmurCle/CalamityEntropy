@@ -24,9 +24,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 660;
+            Projectile.timeLeft = 900;
             Projectile.MaxUpdates = 6;
-            Projectile.ArmorPenetration = 12;
         }
         public int counter = 0;
         public bool std = false;

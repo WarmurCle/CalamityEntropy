@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnActive(EntropyBookHeldProjectile book)
         {
             int projtype = ModContent.ProjectileType<DecayPactMaelstrom>();
-            book.ShootSingleProjectile(projtype, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.8f, 1);
+            book.ShootSingleProjectile(projtype, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.7f, 1);
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
