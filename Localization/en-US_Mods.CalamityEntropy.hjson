@@ -708,7 +708,7 @@ Items: {
 		Tooltip:
 			'''
 			+15% damage
-			+2sHP/s Life Regen
+			+2.5HP/s Life Regen
 			+2 Max Minions
 			+75% Minions Knockback
 			+5% Crit Chance
