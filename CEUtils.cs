@@ -171,6 +171,8 @@ namespace CalamityEntropy
             Projectile.friendly = true;
             Projectile.penetrate = penetrate;
             Projectile.tileCollide = tileCollide;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 12;
         }
         public static int Softlimitation(this int num, int limit)
         {

@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 42;
             Item.height = 42;
-            Item.damage = 46;
+            Item.damage = 28;
             Item.ArmorPenetration = 10;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             SoundEngine.PlaySound(Item.UseSound, position); SoundEngine.PlaySound(Item.UseSound, position);
             if (player.Calamity().StealthStrikeAvailable())
             {
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     int p = Projectile.NewProjectile(source, position, velocity + CEUtils.randomPointInCircle(9), type, damage, knockback, player.whoAmI, 0f, 1f);
                     if (p.WithinBounds(Main.maxProjectiles))
