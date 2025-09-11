@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 7))
             {
-                Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<BlackKnife>(), damageDone, projectile.knockBack, projectile.owner, target.whoAmI, CEUtils.randomRot());
+                Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<BlackKnife>(), damageDone * 2, projectile.knockBack, projectile.owner, target.whoAmI, CEUtils.randomRot());
             }
         }
     }

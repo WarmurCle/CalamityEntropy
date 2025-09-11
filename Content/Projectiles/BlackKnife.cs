@@ -26,20 +26,37 @@ namespace CalamityEntropy.Content.Projectiles
         public Color clr = Color.White;
         public int white = 0;
         public int w = 0;
+        public Vector2 center = Vector2.Zero;
+        public bool onNPC = true;
+        public int wah = 0;
         public override void AI()
         {
+            if (Projectile.localAI[1]++ == 0)
+                CEUtils.PlaySound("darkbladespawn", 1, Projectile.Center);
             NPC target = ((int)(Projectile.ai[0])).ToNPC();
+            if (onNPC)
+            {
+                center = target.Center;
+                wah = target.width + target.height;
+            }
             if (!target.active || target.dontTakeDamage)
             {
-                Projectile.Kill();
+                onNPC = false;
             }
-            else
             {
                 Projectile.rotation = Projectile.ai[1] + MathHelper.Pi;
                 white--;
                 counter++;
-                float d = (target.width + target.height) * 0.5f + 200;
-                w = (int)d;
+                float d = (wah) * 0.5f + 200;
+                if(counter < 60)
+                {
+                    d += CEUtils.GetRepeatedCosFromZeroToOne(counter / 60f, 2) * 80;
+                }
+                else
+                {
+                    d += 80;
+                }
+                    w = (int)d;
                 if (counter > 60)
                 {
                     clr = Color.White;
@@ -57,13 +74,13 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     CEUtils.PlaySound("Dizzy", 1, Projectile.Center);
                     EParticle.spawnNew(new BlackKnifeParticle(), Projectile.Center, Projectile.rotation.ToRotationVector2() * 260, Color.Red, Projectile.scale * 0.8f, 1, true, BlendState.AlphaBlend, Projectile.rotation);
-                    EParticle.spawnNew(new BlackKnifeSlash(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.ai[1], 6);
+                    EParticle.spawnNew(new BlackKnifeSlash(), center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.ai[1], 6);
                 }
                 if (counter > 70)
                 {
                     Projectile.Kill();
                 }
-                Projectile.Center = target.Center + Projectile.ai[1].ToRotationVector2() * d * j;
+                Projectile.Center = center + Projectile.ai[1].ToRotationVector2() * d * j;
             }
 
         }

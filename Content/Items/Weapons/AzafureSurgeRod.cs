@@ -263,6 +263,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             return false;
         }
+        public override bool ShouldUpdatePosition()
+        {
+            return false;
+        }
         public float counter { get { return Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
         public override void AI()
         {
