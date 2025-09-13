@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 8;
+            Item.damage = 10;
             Item.shootSpeed = 24;
             Item.ArmorPenetration = 10;
         }
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.localNPCHitCooldown = 5;
+            Projectile.localNPCHitCooldown = 8;
             Projectile.light = 0;
             Projectile.tileCollide = true;
             Projectile.width = Projectile.height = 8;
