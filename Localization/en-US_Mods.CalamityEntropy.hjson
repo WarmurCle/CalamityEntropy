@@ -2046,6 +2046,7 @@ Items: {
 	PlagueInternalCombustionEngine: {
 		Tooltip:
 			'''
+			Increase your life renge
 			Hitting enemies with true melee weapons restores health and grants temporary armor.
 			+{AttackSpeed}% true melee attack speed
 			'''
@@ -2750,6 +2751,7 @@ Items: {
 			'''
 			Press the middle mouse button to lock the enemy
 			When using firearms, the bullet must hit the target
+			Ranged damage x 0.75
 			'''
 	}
 

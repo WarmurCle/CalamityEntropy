@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 100;
             Item.height = 70;
-            Item.damage = 14;
+            Item.damage = 15;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 8;
             Item.useAnimation = 8;
@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAmmo = AmmoID.Bullet;
             Item.crit = 8;
             Item.Calamity().canFirePointBlankShots = true;
-            Item.ArmorPenetration = 15;
+            Item.ArmorPenetration = 30;
         }
         public override Vector2? HoldoutOffset()
         {

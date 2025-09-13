@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using CalamityMod;
+using CalamityMod.Buffs.StatDebuffs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,7 +35,6 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-            Projectile.ArmorPenetration = 80;
             Projectile.timeLeft = 3;
         }
         public override void SendExtraAI(BinaryWriter writer)
@@ -165,6 +166,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int soundCd = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 180);
             if (soundCd <= 0)
             {
                 SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/swing4"); s.Pitch = 1 - timej;

@@ -22,6 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.Entropy().plagueEngine = true;
             player.GetAttackSpeed(DamageClass.Melee) += ATKSpeed;
+            player.lifeRegen += 4;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -31,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public static void ApplyTrueMeleeEffect(Player player)
         {
-            if (player.Entropy().TryHealMeWithCd(3, 1))
+            if (player.Entropy().TryHealMeWithCd(1, 6))
             {
                 player.Entropy().temporaryArmor += 1f;
             }
