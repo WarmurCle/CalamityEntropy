@@ -15,8 +15,8 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 380;
-            Item.crit = 10;
+            Item.damage = 420;
+            Item.crit = 15;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 142;
             Item.noUseGraphic = true;
@@ -29,7 +29,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.UseSound = null;
             Item.channel = true;
-            Item.ArmorPenetration = 40;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<PoTProj>();
             Item.shootSpeed = 6f;
