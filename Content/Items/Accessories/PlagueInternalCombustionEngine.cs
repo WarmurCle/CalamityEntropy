@@ -22,12 +22,12 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.Entropy().plagueEngine = true;
             player.GetAttackSpeed(DamageClass.Melee) += ATKSpeed;
+            player.lifeRegen += 2;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Replace("{AttackSpeed}", ATKSpeed.ToPercent());
-            player.lifeRegen += 2;
         }
 
         public static void ApplyTrueMeleeEffect(Player player)
