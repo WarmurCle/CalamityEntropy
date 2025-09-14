@@ -78,10 +78,10 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
                     {
                         a += 1f / (float)odp.Count;
 
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 9 * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
                             b * a));
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 9 * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
                               b * a));
                         lr = (odp[i] - odp[i - 1]).ToRotation();
@@ -105,10 +105,10 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
                     {
                         a += 1f / (float)odp.Count;
 
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6 * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
                             b * a));
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 6 * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
                               b * a));
                         lr = (odp[i] - odp[i - 1]).ToRotation();

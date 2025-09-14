@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     ai = AIStyle.Dashing;
                     Projectile.velocity = (target.Center + (target.Center - Projectile.Center).normalize() * 260 - Projectile.Center) / 20f;
                 }
-                if (Projectile.localAI[2]++ % 16 == 0 && Main.myPlayer == Projectile.owner)
+                if (Projectile.localAI[2]++ % 16 == 4 && Main.myPlayer == Projectile.owner)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomPointInCircle(28), ModContent.ProjectileType<LuminarisMinionAstralShoot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }

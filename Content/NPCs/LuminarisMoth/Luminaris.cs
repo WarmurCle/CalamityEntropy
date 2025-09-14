@@ -1022,11 +1022,12 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
 
             var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
-                normalOnly.Add(ModContent.ItemType<StarlitPiercer>(), new Fraction(4, 5));
-                normalOnly.Add(ModContent.ItemType<Luminar>(), new Fraction(4, 5));
-                normalOnly.Add(ModContent.ItemType<StarSootInjector>(), new Fraction(4, 5));
-                normalOnly.Add(ModContent.ItemType<PhantomLightWing>(), new Fraction(4, 5));
-                normalOnly.Add(ModContent.ItemType<LunarPlank>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<StarlitPiercer>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<Luminar>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<StarSootInjector>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<PhantomLightWing>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<BottledStarlightCocoon>(), new Fraction(3, 5));
+                normalOnly.Add(ModContent.ItemType<LunarPlank>(), new Fraction(3, 5));
                 normalOnly.Add(ModContent.ItemType<StarblightSoot>(), 1, 42, 64);
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<LuminarisRelic>());
