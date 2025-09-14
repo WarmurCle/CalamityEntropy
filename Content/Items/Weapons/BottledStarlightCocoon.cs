@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.minionSlots = 3;
             Projectile.ArmorPenetration = 20;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = 80;
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -127,6 +127,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Player player = Projectile.GetOwner();
             Projectile.MinionCheck<StarlightMoth>();
+            if (Projectile.localAI[0] ++ < 3)
+            {
+                Projectile.timeLeft++;
+                return;
+            }
             if (Projectile.Distance(player.Center) > 8000)
             {
                 Projectile.Center = player.Center + CEUtils.randomPointInCircle(128);
@@ -186,7 +191,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.localAI[1]++;
                 if (Projectile.localAI[1] >= 0)
                 {
-                    if (Projectile.Distance(target.Center) > 600)
+                    if (Projectile.Distance(target.Center) > 500)
                     {
                         Projectile.localAI[1] = 0;
                         Projectile.velocity *= 0.94f;
@@ -206,7 +211,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (Projectile.localAI[1] > 0)
                 {
                     ai = AIStyle.Dashing;
-                    Projectile.velocity = (target.Center + (target.Center - Projectile.Center).normalize() * 260 - Projectile.Center) / 20f;
+                    CEUtils.PlaySound("SwordHit0", 1.4f, Projectile.Center, 4, 0.8f);
+                    Projectile.velocity = (target.Center + (target.Center - Projectile.Center).normalize() * 460 - Projectile.Center) / 16f;
                 }
                 if (Projectile.localAI[2]++ % 16 == 4 && Main.myPlayer == Projectile.owner)
                 {
@@ -216,7 +222,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if(ai == AIStyle.Dashing)
             {
-                if(Projectile.localAI[1]++ > 20)
+                if(Projectile.localAI[1]++ > 16)
                 {
                     Projectile.localAI[1] = -180;
                     ai = AIStyle.Shooting;

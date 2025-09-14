@@ -28,6 +28,8 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
         public float counter = 0;
         public override void AI()
         {
+            if (counter == 0)
+                CEUtils.PlaySound("ksLand", 2f, Projectile.Center, 16, 0.2f);
             counter++;
             if (counter > 8)
             {
