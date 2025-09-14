@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 44;
             Item.height = 44;
-            Item.damage = 64;
+            Item.damage = 72;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 20;
@@ -25,8 +25,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ItemRarityID.Yellow;
             Item.shoot = ModContent.ProjectileType<UrnOfSoulsHoldout>();
             Item.shootSpeed = 6f;
-            Item.mana = 10;
-            Item.ArmorPenetration = 46;
+            Item.mana = 8;
+            Item.ArmorPenetration = 32;
             Item.DamageType = DamageClass.Magic;
         }
         public override bool MagicPrefix()

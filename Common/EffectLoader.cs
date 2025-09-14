@@ -122,6 +122,49 @@ namespace CalamityEntropy.Common
 
             //绘制黑色遮罩
             DrawBlackMask();
+
+            //旋转屏幕
+            DrawScreenRotation(graphicsDevice);
+        }
+        public static float ScreenRotAmp = 0;
+        private static void DrawScreenRotation(GraphicsDevice graphicsDevice)
+        {
+            bool enabled = false;
+            if(!ModContent.GetInstance<Config>().ScreenWarpEffects)
+            {
+                enabled = false;
+            }
+            if(enabled)
+            {
+                ScreenRotAmp += (1 - ScreenRotAmp) * 0.01f;
+            }
+            else
+            {
+                ScreenRotAmp *= 0.95f;
+            }
+            if (ScreenRotAmp > 0.001f)
+            {
+                Texture2D mask = CEUtils.getExtraTex("HollowCircleMask");
+
+                float rotation = (float)Math.Sin(Main.GameUpdateCount * 0.02f) * 0.6f;
+
+                graphicsDevice.SetRenderTarget(Screen0);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+
+
+                graphicsDevice.SetRenderTarget(Main.screenTarget);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, rotation * (ScreenRotAmp < 0.45f ? 0 : ((ScreenRotAmp - 0.45f) / 0.55f)), Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer);
+                float a = (ScreenRotAmp < 0.5f) ? (ScreenRotAmp * 2) : 1;
+                Main.spriteBatch.Draw(mask, Main.ScreenSize.ToVector2() / 2, null, new Color(210, 255, 255, (int)(255 * a)), 0, mask.Size() / 2f, Main.GameViewMatrix.Zoom.X * 1.6f + (1 - a) * 2, SpriteEffects.None, 0);
+                Main.spriteBatch.End();
+            }
         }
 
         private static void DrawRandomEffect(GraphicsDevice graphicsDevice)

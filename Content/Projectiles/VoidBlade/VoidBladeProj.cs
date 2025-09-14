@@ -157,9 +157,8 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
         {
             if (soundCd <= 0)
             {
-                soundCd = 2;
-                SoundEffect se = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/da3").Value;
-                if (se != null) { se.Play(Main.soundVolume, 0, 0); }
+                soundCd = 5;
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/da3") { MaxInstances = 1, Volume = CEUtils.WeapSound}, target.Center);
             }
             target.immune[Projectile.owner] = 3;
             if (Projectile.owner == Main.myPlayer)
