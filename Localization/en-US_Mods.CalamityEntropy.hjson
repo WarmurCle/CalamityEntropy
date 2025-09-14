@@ -3464,7 +3464,7 @@ Buffs: {
 	}
 
 	WyrmWhipDebuff: {
-		Description: Mods.CalamityEntropy.Buffs.WyrmWhipDebuff.Description
+		Description: ""
 		DisplayName: Wyrm Whip Debuff
 	}
 
@@ -3475,7 +3475,7 @@ Buffs: {
 
 	VoidVirus: {
 		DisplayName: Void Virus
-		Description: Mods.CalamityEntropy.Buffs.VoidVirus.Description
+		Description: ""
 	}
 
 	NyxolithrakenBuff: {
@@ -3513,7 +3513,7 @@ Buffs: {
 	}
 
 	SoulDisorder: {
-		Description: Mods.CalamityEntropy.Buffs.SoulDisorder.Description
+		Description: ""
 		DisplayName: Soul Disorder
 	}
 
@@ -3579,7 +3579,7 @@ Buffs: {
 
 	StarlightMoth: {
 		DisplayName: Starlight Moth
-		Description: Mods.CalamityEntropy.Buffs.StarlightMoth.Description
+		Description: "Starlight moth will fight for you."
 	}
 }
 

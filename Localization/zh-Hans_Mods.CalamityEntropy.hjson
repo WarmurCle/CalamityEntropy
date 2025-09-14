@@ -3515,8 +3515,8 @@ Projectiles: {
 	SandBullet.DisplayName: 沙弹
 	AzafureSurgeRodHeldEffect.DisplayName: 阿萨福勒电涌钎
 	AzafureSurgeRodThrow.DisplayName: 阿萨福勒电涌钎
-	// StarlightMothMinion.DisplayName: Starlight Moth Minion
-	// LuminarisMinionAstralShoot.DisplayName: Luminaris Minion Astral Shoot
+	StarlightMothMinion.DisplayName: 枯星蛾
+	LuminarisMinionAstralShoot.DisplayName: 枯星弹
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3808,8 +3808,8 @@ Buffs: {
 	}
 
 	StarlightMoth: {
-		// DisplayName: Starlight Moth
-		// Description: Mods.CalamityEntropy.Buffs.StarlightMoth.Description
+		DisplayName: 枯星蛾
+		Description: 枯星蛾将保护你
 	}
 }
 
