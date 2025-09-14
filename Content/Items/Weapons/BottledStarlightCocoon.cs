@@ -10,6 +10,7 @@ using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Summon;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -123,6 +124,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             ai = (AIStyle)reader.ReadByte();
         }
         public Vector2 vec = Vector2.Zero;
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize(), false, 10, 2, Color.White, new Vector2(0.02f, 0.02f), true, false));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize(), false, 10, 2, Color.Blue, new Vector2(0.016f, 0.016f), true, false));
+        }
         public override void AI()
         {
             Player player = Projectile.GetOwner();
@@ -233,7 +239,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 trail = new StarTrailParticle();
                 trail.addPoint = false;
-                EParticle.NewParticle(trail, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive);
+                trail.maxLength = 12;
+
+                EParticle.NewParticle(trail, Projectile.Center, Vector2.Zero, Color.White, 1.2f, 1, true, BlendState.Additive);
             }
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             trail.Position = Projectile.Center + Projectile.velocity;

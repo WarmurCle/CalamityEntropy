@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -13,14 +14,14 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.width = 36;
+            Projectile.height = 36;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.scale = 1f;
+            Projectile.scale = 0.8f;
             Projectile.timeLeft = 300;
             Projectile.localNPCHitCooldown = 20;
             Projectile.usesLocalNPCImmunity = true;
@@ -36,12 +37,17 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
                 NPC target = Projectile.FindMinionTarget();
                 if (target != null)
                 {
-                    Projectile.velocity += (target.Center - Projectile.Center).normalize() * 4;
-                    Projectile.velocity *= 0.94f;
+                    float homing = 0.4f;
+                    if(CEUtils.getDistance(target.Center, Projectile.Center) < 360)
+                    {
+                        homing = Utils.Remap(CEUtils.getDistance(target.Center, Projectile.Center), 0, 360, 12, 0.4f);
+                    }
+                    Projectile.velocity += (target.Center - Projectile.Center).normalize() * homing * 4;
+                    Projectile.velocity *= 1 - homing * 0.052f;
                 }
             }
             odp.Add(Projectile.Center);
-            if (odp.Count > 14)
+            if (odp.Count > 6)
             {
                 odp.RemoveAt(0);
             }
@@ -60,6 +66,10 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             return false;
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Projectile.velocity * 0.01f, Color.AliceBlue, new Vector2(0.7f, 1), Projectile.velocity.ToRotation(), 0.08f, 0.36f, 16));
+        }
 
         public void drawT()
         {
@@ -80,10 +90,10 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
                     {
                         a += 1f / (float)odp.Count;
 
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 9 * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6 * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
                             b * a));
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 9 * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 6 * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
                               b * a));
                         lr = (odp[i] - odp[i - 1]).ToRotation();
@@ -107,10 +117,10 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
                     {
                         a += 1f / (float)odp.Count;
 
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6 * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 4 * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 1, 1),
                             b * a));
-                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 6 * ((i - 1f) / (odp.Count - 2f)),
+                        ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 4 * ((i - 1f) / (odp.Count - 2f)),
                               new Vector3((float)(i + 1) / odp.Count + Main.GlobalTimeWrappedHourly, 0, 1),
                               b * a));
                         lr = (odp[i] - odp[i - 1]).ToRotation();
