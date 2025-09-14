@@ -3639,7 +3639,7 @@ Buffs: {
 
 	StarlightMoth: {
 		// DisplayName: Starlight Moth
-		// Description: Mods.CalamityEntropy.Buffs.StarlightMoth.Description
+		// Description: Starlight moth will fight for you.
 	}
 }
 

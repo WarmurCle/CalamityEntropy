@@ -3579,7 +3579,7 @@ Buffs: {
 
 	StarlightMoth: {
 		DisplayName: Starlight Moth
-		Description: "Starlight moth will fight for you."
+		Description: Starlight moth will fight for you.
 	}
 }
 

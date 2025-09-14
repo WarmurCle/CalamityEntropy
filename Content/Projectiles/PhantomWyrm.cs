@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float rot { get; set; }
         public Vector2 Center { get; set; }
         public iWyrmSeg follow;
-        public int spacing = 40;
+        public int spacing = 48;
         public float rotC = 0.14f;
         public void update()
         {
@@ -173,7 +173,8 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tail = CEUtils.getExtraTex("pw_tail");
             Texture2D body1 = CEUtils.getExtraTex("pw_body");
             Texture2D body2 = CEUtils.getExtraTex("pw_bodyalt");
-            Main.spriteBatch.Draw(head, Projectile.Center - Main.screenPosition, null, Color.White * 0.6f * alpha, Projectile.rotation, head.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            Main.spriteBatch.Draw(head, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f * alpha, Projectile.rotation, head.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             for (int i = 0; i < segs.Count; i++)
             {
                 Texture2D draw = tail;
@@ -181,8 +182,9 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     draw = (i % 2 == 0) ? body1 : body2;
                 }
-                Main.spriteBatch.Draw(draw, segs[i].Center - Main.screenPosition, null, Color.White * 0.6f * alpha, segs[i].rot, draw.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(draw, segs[i].Center - Main.screenPosition, null, Color.White * 0.8f * alpha, segs[i].rot, draw.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             }
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }

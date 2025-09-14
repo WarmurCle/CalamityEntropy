@@ -2583,8 +2583,7 @@ namespace CalamityEntropy.Common
                 {
                     if (p.ai[1] == 1)
                     {
-                        Player.lifeRegen += 10;
-                        lifeRegenPerSec += 2;
+                        Player.lifeRegen += 12;
                     }
                 }
             }
