@@ -3020,6 +3020,17 @@ Items: {
 		DisplayName: 沙暴书签
 		Tooltip: 停止攻击后根据使用时间喷射沙弹
 	}
+
+	BottledStarlightCocoon: {
+		DisplayName: 瓶中星茧
+		Tooltip:
+			'''
+			召唤一直枯星蛾为你战斗
+			没有目标时它会围绕你并为你提供生命回复
+			按住命令仆从（[KEY]）键可以手动进入该模式
+			消耗3召唤栏
+			'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3504,6 +3515,8 @@ Projectiles: {
 	SandBullet.DisplayName: 沙弹
 	AzafureSurgeRodHeldEffect.DisplayName: 阿萨福勒电涌钎
 	AzafureSurgeRodThrow.DisplayName: 阿萨福勒电涌钎
+	// StarlightMothMinion.DisplayName: Starlight Moth Minion
+	// LuminarisMinionAstralShoot.DisplayName: Luminaris Minion Astral Shoot
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3793,6 +3806,11 @@ Buffs: {
 		DisplayName: 魔纹
 		Description: 增加魔法暴击和暴击伤害
 	}
+
+	StarlightMoth: {
+		// DisplayName: Starlight Moth
+		// Description: Mods.CalamityEntropy.Buffs.StarlightMoth.Description
+	}
 }
 
 Uh: 呃啊~
@@ -3963,6 +3981,7 @@ Keybinds: {
 	KeepPoop.DisplayName: 保留大便
 	VetrasylsEyeBlock.DisplayName: 维塔希尔之瞳格挡
 	RuneDash.DisplayName: 符文之翼冲刺
+	CommandMinions.DisplayName: 命令仆从
 }
 
 ProphetLoreEffect:

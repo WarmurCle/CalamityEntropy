@@ -2851,6 +2851,17 @@ Items: {
 		// DisplayName: Bookmark - Sandstorm
 		// Tooltip: Launch sand bullet when stop attacking
 	}
+
+	BottledStarlightCocoon: {
+		// DisplayName: Bottled Starlight Cocoon
+		/* Tooltip:
+			'''
+			Summon the starlight moth to fight for you
+			When there is no target, it will surround you and provide you with life recovery
+			Hold Command Servant ([KEY]) key to manually enter this mode
+			Consume 3 summoning bars
+			''' */
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3334,6 +3345,8 @@ Projectiles: {
 	// SandBullet.DisplayName: Sand Bullet
 	// AzafureSurgeRodHeldEffect.DisplayName: Azafure Surge Rod Held Effect
 	// AzafureSurgeRodThrow.DisplayName: Azafure Surge Rod Throw
+	// StarlightMothMinion.DisplayName: Starlight Moth Minion
+	// LuminarisMinionAstralShoot.DisplayName: Luminaris Minion Astral Shoot
 }
 
 LegendTooltip: - Легенда -
@@ -3623,6 +3636,11 @@ Buffs: {
 		// DisplayName: Mana Vein
 		// Description: Increase magic crit and crit damage
 	}
+
+	StarlightMoth: {
+		// DisplayName: Starlight Moth
+		// Description: Mods.CalamityEntropy.Buffs.StarlightMoth.Description
+	}
 }
 
 Uh: ""
@@ -3796,6 +3814,7 @@ Keybinds: {
 	KeepPoop.DisplayName: Подобрать какашку
 	VetrasylsEyeBlock.DisplayName: Щит Ока Ветрасиля
 	RuneDash.DisplayName: Рывок крыльями руны
+	// CommandMinions.DisplayName: Command Minions
 }
 
 ProphetLoreEffect:

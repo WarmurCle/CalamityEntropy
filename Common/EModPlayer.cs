@@ -2577,6 +2577,17 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is StarlightMothMinion smm)
+                {
+                    if (p.ai[1] == 1)
+                    {
+                        Player.lifeRegen += 10;
+                        lifeRegenPerSec += 2;
+                    }
+                }
+            }
             if (worshipRelic || shadowPact)
             {
                 Player.Calamity().stealthStrike75Cost = false;

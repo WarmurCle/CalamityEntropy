@@ -11,11 +11,13 @@ namespace CalamityEntropy.Common
         public static ModKeybind RuneDashHotKey { get; private set; }
         public static ModKeybind ThrowPoopHotKey { get; set; }
         public static ModKeybind PoopHoldHotKey { get; set; }
+        public static ModKeybind CommandMinions { get; set; }
         public override void Load()
         {
             RetrieveVoidAnnihilateHotKey = KeybindLoader.RegisterKeybind(Mod, "RetrieveVoidAnnihilate", "J");
             VetrasylsEyeBlockHotKey = KeybindLoader.RegisterKeybind(Mod, "VetrasylsEyeBlock", "C");
-            RuneDashHotKey = KeybindLoader.RegisterKeybind(Mod, "RuneDash", "J");
+            RuneDashHotKey = KeybindLoader.RegisterKeybind(Mod, "RuneDash", "K");
+            CommandMinions = KeybindLoader.RegisterKeybind(Mod, "CommandMinions", "N");
             string MyGameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games");
             string Isaac1 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance").Replace("/", "\\");
             string Isaac2 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance+").Replace("/", "\\");

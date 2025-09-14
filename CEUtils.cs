@@ -24,6 +24,29 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static void MinionCheck<T>(this Projectile proj) where T : ModBuff
+        {
+            Player player = proj.GetOwner();
+            
+            if (player.HasBuff<T>())
+            {
+                proj.timeLeft = 4;
+            }
+            else
+            {
+                proj.Kill();
+            }
+        }
+        public static NPC FindMinionTarget(this Projectile projectile, int radians = 3000)
+        {
+            Player player = projectile.GetOwner();
+            if(player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
+            {
+                return player.MinionAttackTargetNPC.ToNPC();
+            }
+            NPC npc = FindTarget_HomingProj(projectile, projectile.Center, radians);
+            return npc;
+        }
         public static float WeapSound => ModContent.GetInstance<Config>().EntropyMeleeWeaponSoundVolume;
         public static T random<T>(this List<T> list)
         {
