@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class PlagueInternalCombustionEngine : ModItem
     {
-        public static float ATKSpeed = 0.10f;
+        public static float ATKSpeed = 0.12f;
         public override void SetDefaults()
         {
             Item.width = 98;
@@ -32,9 +32,9 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public static void ApplyTrueMeleeEffect(Player player)
         {
-            if (player.Entropy().TryHealMeWithCd(12, 1))
+            if (player.Entropy().TryHealMeWithCd(8, 30))
             {
-                player.Entropy().temporaryArmor += 1.4f;
+                player.Entropy().temporaryArmor += 2.5f;
             }
         }
     }
