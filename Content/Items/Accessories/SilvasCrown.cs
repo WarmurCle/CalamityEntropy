@@ -27,7 +27,6 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Calamity().nextHitDealsDefenseDamage = false;
 
             player.Entropy().SCrown = true;
-            player.GetDamage(DamageClass.Generic) *= 0.5f;
         }
 
     }

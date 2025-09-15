@@ -756,16 +756,26 @@ namespace CalamityEntropy.Common
             return true;
         }
 
-
+        public bool SSFlag = true;
         public bool evRu = true;
-
+        public bool SmartScopeHoming = false;
+        public static int SSCD = 3;
         public override void PostAI(Projectile projectile)
         {
             if (projectile.friendly && projectile.DamageType == DamageClass.Ranged && projectile.GetOwner().HeldItem.useAmmo == AmmoID.Bullet)
             {
                 if (projectile.GetOwner().Entropy().hasAcc(SmartScope.ID) && projectile.numHits < 1)
                 {
-                    if (SmartScope.target != null)
+                    if(SSFlag)
+                    {
+                        SSFlag = false;
+                        if(!(SSCD <= 0))
+                        {
+                            SmartScopeHoming = true;
+                            SSCD--;
+                        }
+                    }
+                    if (SmartScope.target != null && SmartScopeHoming)
                     {
                         projectile.velocity = (SmartScope.target.Center - projectile.Center).normalize() * projectile.velocity.Length();
                     }
@@ -1084,7 +1094,7 @@ namespace CalamityEntropy.Common
             {
                 if (target.Organic())
                 {
-                    CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 4, volume: 0.36f);
+                    CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 3, volume: 0.36f);
                 }
                 else
                 {
@@ -1099,7 +1109,7 @@ namespace CalamityEntropy.Common
                         LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                         GeneralParticleHandler.SpawnParticle(spark);
                     }
-                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 4, volume: 0.26f);
+                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 3, volume: 0.26f);
                 }
             }
             if (LuminarArrow)

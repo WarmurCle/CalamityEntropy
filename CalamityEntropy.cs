@@ -133,7 +133,7 @@ namespace CalamityEntropy
             Proj_ID_To_Instance = new Dictionary<int, Projectile>();
             DateTime today = DateTime.Now;
             AprilFool = today.Month == 4 && today.Day == 1;
-
+            CEUtils.SoundStyles = new Dictionary<string, Terraria.Audio.SoundStyle>();
 
             ILoaders = VaultUtils.GetSubInterface<ICELoader>();
             foreach (ICELoader setup in ILoaders)
@@ -287,6 +287,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            CEUtils.SoundStyles = null;
             theVoid_SCBIE = null;
             EModILEdit.edgeTex = null;
             if (ILoaders != null)

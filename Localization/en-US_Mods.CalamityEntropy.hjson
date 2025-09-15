@@ -690,7 +690,7 @@ Items: {
 			'''
 			+ 8 Life Regen/s
 			Remove defense damage.
-			[c/ff0000:Your damage is reduced to 1/2 of its original value]
+			You can't hit critically
 			-Death Mode-
 			'''
 	}
@@ -1185,7 +1185,6 @@ Items: {
 			'''
 			Randomly activate 1 to 3 accessories from your inventory
 			"Illuminate your future"
-			[c/ff0000:Sacifice 15% of damage to you]
 			'''
 		DisplayName: Wisp Lantern
 	}

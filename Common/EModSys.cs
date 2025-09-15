@@ -639,6 +639,11 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateProjectiles()
         {
+            CEUtils.Update();
+            if(EGlobalProjectile.SSCD < 3)
+            {
+                EGlobalProjectile.SSCD++;
+            }
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.ModNPC is FriendFindNPC)

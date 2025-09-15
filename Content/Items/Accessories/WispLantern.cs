@@ -22,7 +22,6 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.Entropy().visualWispLantern = !hideVisual;
             player.Entropy().accWispLantern = true;
-            player.GetDamage(DamageClass.Generic) -= 0.15f;
         }
         public override void UpdateVanity(Player player)
         {
