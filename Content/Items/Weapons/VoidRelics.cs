@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 86;
+            Item.damage = 80;
             Item.crit = 0;
             Item.DamageType = DamageClass.Summon;
             Item.width = 64;
@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = s;
             Item.autoReuse = true;
             Item.noMelee = true;
-            Item.mana = 10;
+            Item.mana = 5;
             Item.buffType = ModContent.BuffType<VoidStorm>();
             Item.rare = ModContent.RarityType<DarkBlue>();
             Item.Entropy().stroke = true;
