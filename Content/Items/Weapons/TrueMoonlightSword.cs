@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 68;
+            Item.damage = 65;
             Item.DamageType = ModContent.GetInstance<MeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
@@ -239,10 +239,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.height = 360;
             Projectile.MaxUpdates = 4;
             Projectile.friendly = true;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 8;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 90;
+            Projectile.timeLeft = 120;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
