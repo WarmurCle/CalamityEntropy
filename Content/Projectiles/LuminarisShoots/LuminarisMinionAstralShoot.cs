@@ -3,6 +3,7 @@ using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
@@ -14,6 +15,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.width = 36;
             Projectile.height = 36;
             Projectile.friendly = true;
