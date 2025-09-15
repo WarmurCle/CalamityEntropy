@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 18;
             Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 4;
+            Item.knockBack = 1;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = null;
