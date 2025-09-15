@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 32;
             Item.crit = 0;
             Item.DamageType = DamageClass.Summon;
             Item.width = 90;
