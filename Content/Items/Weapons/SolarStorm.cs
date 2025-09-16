@@ -13,6 +13,11 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class SolarStorm : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.AnimatesAsSoul[Type] = true;
+            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(4, 10));
+        }
         public override void SetDefaults()
         {
             Item.width = 80;

@@ -29,7 +29,6 @@ namespace CalamityEntropy.Content.Items
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<VoidPurple>();
-            Item.shoot = ModContent.ProjectileType<TargetSetProj>();
             Item.shootSpeed = 20f;
         }
 

@@ -206,8 +206,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D tex = Projectile.GetTexture();
             Texture2D glow = this.getTextureGlow();
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
-            Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
+            Rectangle frame = CEUtils.GetCutTexRect(tex, 10, ((int)Main.GameUpdateCount / 4) % 10, false);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, lightColor, Projectile.rotation, new Vector2(55, 71), Projectile.scale, SpriteEffects.None);
+            //Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             DrawChargingEnergyBall(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Main.rand.NextFloat(0.8f, 1.2f) * float.Min(1, ((float)shotCounter / maxChargeTime)) * 1.8f, float.Min(1, (float)shotCounter / maxChargeTime * 6));
             return false;
         }
