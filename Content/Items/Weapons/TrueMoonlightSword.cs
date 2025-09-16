@@ -18,14 +18,14 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 68;
+            Item.damage = 70;
             Item.DamageType = ModContent.GetInstance<MeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
             Item.useTime = 18;
             Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 4;
+            Item.knockBack = 1;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = null;
@@ -239,10 +239,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.height = 360;
             Projectile.MaxUpdates = 4;
             Projectile.friendly = true;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 8;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 90;
+            Projectile.timeLeft = 120;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
