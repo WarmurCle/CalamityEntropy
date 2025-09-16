@@ -633,64 +633,27 @@ namespace CalamityEntropy
             s.MaxInstances = maxIns;
             return s;
         }
-        public static SoundStyle lastPlayed = new();
-        public static string lastPlayedSoundName = "";
         public static Dictionary<string, SoundStyle> SoundStyles;
-        public class PlayingSound
-        {
-            public string name;
-            public int TimeLeft = 16;
-            public PlayingSound(string nme, int timeLeft)
-            {
-                this.name = nme;
-                TimeLeft = timeLeft;
-            }
-        }
         public static void Update()
         {
-            for(int i = playingSounds.Count - 1; i >= 0; i--)
-            {
-                playingSounds[i].TimeLeft--;
-                if (playingSounds[i].TimeLeft <= 0)
-                {
-                    playingSounds.RemoveAt(i);
-                }
-            }
         }
-        public static List<PlayingSound> playingSounds = new();
         public static void PlaySound(string name, float pitch = 1, Vector2? pos = null, int maxIns = 6, float volume = 1, string path = "CalamityEntropy/Assets/Sounds/")
         {
             if (!Main.dedServ)
             {
-                string n = path + name;
-                int sum = 0;
-                foreach (var p in playingSounds)
+                if (!SoundStyles.ContainsKey(path + name))
                 {
-                    if (p.name == n)
-                        sum++;
+                    SoundStyles[path + name] = new SoundStyle(path + name);
                 }
-                if (sum < maxIns)
-                {
-                    playingSounds.Add(new PlayingSound(n, 16));
-                    if (!SoundStyles.ContainsKey(path + name))
-                    {
-                        SoundStyles[path + name] = new SoundStyle(path + name);
-                    }
-                    SoundStyle s = SoundStyles[path + name];
-                    if (lastPlayedSoundName == path + name)
-                    {
-                        s = lastPlayed;
-                    }
-                    s.Pitch = pitch - 1;
-                    s.Volume = volume;
-                    s.MaxInstances = maxIns;
-                    s.LimitsArePerVariant = true;
-                    lastPlayed = s;
-                    lastPlayedSoundName = path + name;
-                    SoundEngine.PlaySound(in s, pos);
-                }
+                SoundStyle s = SoundStyles[path + name];
+                s.Pitch = pitch - 1;
+                s.Volume = volume;
+                s.MaxInstances = maxIns;
+                s.LimitsArePerVariant = true;
+                SoundEngine.PlaySound(in s, pos);
             }
         }
+        
         public static void UseSampleState_UI(this SpriteBatch sb, SamplerState sampler)
         {
             sb.End();
