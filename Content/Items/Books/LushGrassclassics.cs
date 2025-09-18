@@ -16,7 +16,6 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.damage = 6;
-            Item.crit=5;
             Item.shootSpeed = 24;
             Item.ArmorPenetration = 15;
         }
