@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.damage = 6;
-            Item.crit=1
+            Item.crit=5
             Item.shootSpeed = 24;
             Item.ArmorPenetration = 15;
         }
@@ -29,6 +29,15 @@ namespace CalamityEntropy.Content.Items.Books
                 .AddIngredient(ItemID.JungleSpores, 2)
                 .AddIngredient(ItemID.Vine, 2)
                 .AddIngredient(ItemID.Stinger, 3)
+                .AddIngredient(ItemID.ShadowScale, 8)
+                .AddTile(TileID.WorkBenches)
+                .Register();
+                
+            CreateRecipe()
+                .AddIngredient(ItemID.JungleSpores, 2)
+                .AddIngredient(ItemID.Vine, 2)
+                .AddIngredient(ItemID.Stinger, 3)
+                .AddIngredient(ItemID.TissueSample, 8)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }
