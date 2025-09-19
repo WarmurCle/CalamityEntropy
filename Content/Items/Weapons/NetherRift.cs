@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<CrescentMoon>())
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
                 .AddTile(TileID.LunarCraftingStation).Register();
         }
     }
