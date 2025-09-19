@@ -38,9 +38,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 8)
+            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 5)
                 .AddIngredient(ModContent.ItemType<CleansingBlaze>())
-                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 2)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
