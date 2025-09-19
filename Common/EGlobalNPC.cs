@@ -1140,10 +1140,7 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == ModContent.NPCType<CeaselessVoid>())
             {
-                if (Main.rand.NextDouble() < 0.3f)
-                {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BottleDarkMatter>(), 1));
-                }
+                Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BottleDarkMatter>(), 1));
             }
             if (npc.type == ModContent.NPCType<RavagerBody>())
             {
