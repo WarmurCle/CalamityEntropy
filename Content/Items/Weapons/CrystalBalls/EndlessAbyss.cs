@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 10)
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
                 .AddIngredient(ItemID.CrystalBall, 1)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
