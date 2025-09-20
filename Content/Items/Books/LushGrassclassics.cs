@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.width = Projectile.height = 8;
             Projectile.penetrate = 8;
         }
-        public int Penet = 6;
+        public int Penet = 8;
         public List<int> hitedNPC = new();
         public override bool PreAI()
         {
