@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 98;
             Item.height = 46;
-            Item.damage = 340;
+            Item.damage = 300;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 3;
             Item.useAnimation = 18;
@@ -38,9 +38,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 8)
+            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 5)
                 .AddIngredient(ModContent.ItemType<CleansingBlaze>())
-                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 2)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }

@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
 
             CreateRecipe().AddIngredient<AshTranscript>()
-                .AddIngredient<VoidBar>(8)
+                .AddIngredient<VoidBar>(5)
                 .AddTile<CosmicAnvil>()
                 .Register();
         }

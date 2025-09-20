@@ -18,7 +18,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<LoreAwakening>())
-                .AddIngredient(ItemID.Leather, 6)
+                .AddIngredient(ItemID.Wood, 10)
+                .AddIngredient(ItemID.FallenStar, 3)
                 .AddIngredient(ItemID.ManaCrystal, 1)
                 .AddTile(TileID.WorkBenches)
                 .Register();

@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.SetDefaults();
             Item.damage = 9;
             Item.shootSpeed = 24;
-            Item.ArmorPenetration = 10;
+            Item.ArmorPenetration = 15;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<LushGrassclassicsHeld>();
         public override int SlotCount => 1;
@@ -28,6 +28,15 @@ namespace CalamityEntropy.Content.Items.Books
                 .AddIngredient(ItemID.JungleSpores, 2)
                 .AddIngredient(ItemID.Vine, 2)
                 .AddIngredient(ItemID.Stinger, 3)
+                .AddIngredient(ItemID.ShadowScale, 8)
+                .AddTile(TileID.WorkBenches)
+                .Register();
+                
+            CreateRecipe()
+                .AddIngredient(ItemID.JungleSpores, 2)
+                .AddIngredient(ItemID.Vine, 2)
+                .AddIngredient(ItemID.Stinger, 3)
+                .AddIngredient(ItemID.TissueSample, 8)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }
@@ -64,9 +73,9 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.light = 0;
             Projectile.tileCollide = true;
             Projectile.width = Projectile.height = 8;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 8;
         }
-        public int Penet = 3;
+        public int Penet = 8;
         public List<int> hitedNPC = new();
         public override bool PreAI()
         {

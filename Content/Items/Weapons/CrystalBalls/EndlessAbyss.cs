@@ -34,14 +34,14 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<EndlessAbyssHoldout>();
             Item.shootSpeed = 16f;
-            Item.mana = 7;
+            Item.mana = 4;
             Item.DamageType = DamageClass.Magic;
 
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 10)
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
                 .AddIngredient(ItemID.CrystalBall, 1)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();

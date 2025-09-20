@@ -1140,10 +1140,7 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == ModContent.NPCType<CeaselessVoid>())
             {
-                if (Main.rand.NextDouble() < 0.3f)
-                {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BottleDarkMatter>(), 1));
-                }
+                Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BottleDarkMatter>(), 1));
             }
             if (npc.type == ModContent.NPCType<RavagerBody>())
             {
@@ -1225,7 +1222,7 @@ namespace CalamityEntropy.Common
                 }
                 if (player.Entropy().grudgeCard)
                 {
-                    if (Main.rand.NextBool(18))
+                    if (Main.rand.NextBool(50))
                     {
                         Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, CEUtils.randomPointInCircle(10), ModContent.ProjectileType<HealingSpirit>(), 0, 0, player.whoAmI);
                     }
