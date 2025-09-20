@@ -1007,7 +1007,6 @@ namespace CalamityEntropy.Common
                         if ((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120)
                         {
                             npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 600);
-                            npc.AddBuff(ModContent.BuffType<ArmorCrunch>(), 600);
                         }
                         Dust.NewDust(Player.position, Player.width, Player.height, DustID.MagicMirror);
                     }
