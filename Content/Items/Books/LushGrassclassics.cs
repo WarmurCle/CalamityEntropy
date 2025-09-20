@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 6;
+            Item.damage = 9;
             Item.shootSpeed = 24;
             Item.ArmorPenetration = 15;
         }
