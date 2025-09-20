@@ -998,6 +998,7 @@ namespace CalamityEntropy.Common
                     if (!npc.friendly && npc.getRect().Intersects(Player.getRect()))
                     {
                         f = true;
+                        npc.AddBuff(ModContent.BuffType<GreenJellyRegen>(), 300);
                         if (Player.wingTime < Player.wingTimeMax * 2)
                         {
                             Player.wingTime += 2f;
@@ -1006,6 +1007,7 @@ namespace CalamityEntropy.Common
                         if ((!npc.HasBuff<SoulDisorder>()) || npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SoulDisorder>())] < 120)
                         {
                             npc.AddBuff(ModContent.BuffType<SoulDisorder>(), 600);
+                            npc.AddBuff(ModContent.BuffType<ArmorCrunch>(), 600);
                         }
                         Dust.NewDust(Player.position, Player.width, Player.height, DustID.MagicMirror);
                     }
