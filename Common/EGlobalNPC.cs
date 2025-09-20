@@ -1222,7 +1222,7 @@ namespace CalamityEntropy.Common
                 }
                 if (player.Entropy().grudgeCard)
                 {
-                    if (Main.rand.NextBool(60))
+                    if (Main.rand.NextBool(50))
                     {
                         Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, CEUtils.randomPointInCircle(10), ModContent.ProjectileType<HealingSpirit>(), 0, 0, player.whoAmI);
                     }
