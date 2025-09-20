@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 10)
-                .AddIngredient(ModContent.ItemType<ReaperTooth>(), 8)
+                .AddIngredient(ModContent.ItemType<ReaperTooth>(), 4)
                 .AddIngredient(ModContent.ItemType<DeathhailStaff>())
                 .AddIngredient(ModContent.ItemType<ClamorNoctus>())
                 .AddTile(ModContent.TileType<CosmicAnvil>())
