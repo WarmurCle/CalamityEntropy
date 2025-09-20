@@ -998,7 +998,7 @@ namespace CalamityEntropy.Common
                     if (!npc.friendly && npc.getRect().Intersects(Player.getRect()))
                     {
                         f = true;
-                        npc.AddBuff(ModContent.BuffType<GreenJellyRegen>(), 600);
+                        Player.AddBuff(ModContent.BuffType<GreenJellyRegen>(), 600);
                         if (Player.wingTime < Player.wingTimeMax * 2)
                         {
                             Player.wingTime += 2f;
