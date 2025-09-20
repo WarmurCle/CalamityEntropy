@@ -61,6 +61,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient(ModContent.ItemType<PhantasmalRuin>())
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 10)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
