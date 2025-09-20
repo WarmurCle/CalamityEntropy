@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.light = 0;
             Projectile.tileCollide = true;
             Projectile.width = Projectile.height = 8;
-            Projectile.penetrate = 6;
+            Projectile.penetrate = 8;
         }
         public int Penet = 6;
         public List<int> hitedNPC = new();
