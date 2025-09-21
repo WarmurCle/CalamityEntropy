@@ -1083,7 +1083,7 @@ namespace CalamityEntropy.Common
                     if (Main.rand.NextBool(84))
                     {
                         int buffIndex = Main.rand.Next(BuffLoader.BuffCount);
-                        if (Main.debuff[buffIndex] && !BuffLoader.GetBuff(buffIndex).GetType().Namespace.Contains("DamageOverTime"))
+                        if (Main.debuff[buffIndex] && BuffLoader.GetBuff(buffIndex) != null && !BuffLoader.GetBuff(buffIndex).GetType().Namespace.Contains("DamageOverTime"))
                         {
                             target.AddBuff(buffIndex, 120);
                         }
