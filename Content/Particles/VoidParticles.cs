@@ -12,6 +12,7 @@ namespace CalamityEntropy.Content.Particles
         public int shape = 0;
         public float rotation = 0;
         public float ad = 0.014f;
+        public bool multShrink = false;
     }
     public static class VoidParticles
     {
@@ -22,13 +23,17 @@ namespace CalamityEntropy.Content.Particles
             {
 
                 p.position += p.velocity;
-                p.alpha -= p.ad;
+                if (p.multShrink)
+                {
+                    p.alpha *= p.ad;
+                }
+                else { p.alpha -= p.ad; }
                 p.velocity *= p.vd;
             }
 
             for (int i = particles.Count - 1; i >= 0; i--)
             {
-                if (particles[i].alpha < 0.05f)
+                if (particles[i].alpha < 0.02f)
                 {
                     particles.RemoveAt(i);
                 }

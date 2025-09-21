@@ -3029,6 +3029,15 @@ Items: {
 			消耗3召唤栏
 			'''
 	}
+
+	AzafureRailgun: {
+		DisplayName: 阿萨福勒轨道炮
+		Tooltip: 
+		'''
+		蓄力然后发射一发强力的电磁弹
+		蓄力过程中释放将根据蓄力程度发射一些较小的追踪子弹
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3515,6 +3524,9 @@ Projectiles: {
 	AzafureSurgeRodThrow.DisplayName: 阿萨福勒电涌钎
 	StarlightMothMinion.DisplayName: 枯星蛾
 	LuminarisMinionAstralShoot.DisplayName: 枯星弹
+	// AzafureRailgunHeld.DisplayName: Azafure Railgun Held
+	// RailgunChargeShot.DisplayName: Railgun Charge Shot
+	// RailgunSmallShot.DisplayName: Railgun Small Shot
 }
 
 LegendTooltip: - 传奇物品 -

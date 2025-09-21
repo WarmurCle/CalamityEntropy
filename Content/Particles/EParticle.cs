@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Particles
         public float Rotation = 0;
         public float Scale = 1;
         public bool PixelShader = false;
-
+        public int UpdateTimes = 1;
         public static List<EParticle> particles = new List<EParticle>();
         public static void DrawPixelShaderParticles()
         {
@@ -169,7 +169,8 @@ namespace CalamityEntropy.Content.Particles
         {
             for (int i = particles.Count - 1; i >= 0; i--)
             {
-                particles[i].AI();
+                for(int u = 0; u < particles[i].UpdateTimes; u++)
+                    particles[i].AI();
             }
             for (int i = particles.Count - 1; i >= 0; i--)
             {

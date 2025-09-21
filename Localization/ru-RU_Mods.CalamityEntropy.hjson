@@ -2862,6 +2862,11 @@ Items: {
 			Consume 3 summoning bars
 			''' */
 	}
+
+	AzafureRailgun: {
+		// DisplayName: Azafure Railgun
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3347,6 +3352,9 @@ Projectiles: {
 	// AzafureSurgeRodThrow.DisplayName: Azafure Surge Rod Throw
 	// StarlightMothMinion.DisplayName: Starlight Moth Minion
 	// LuminarisMinionAstralShoot.DisplayName: Luminaris Minion Astral Shoot
+	// AzafureRailgunHeld.DisplayName: Azafure Railgun Held
+	// RailgunChargeShot.DisplayName: Railgun Charge Shot
+	// RailgunSmallShot.DisplayName: Railgun Small Shot
 }
 
 LegendTooltip: - Легенда -

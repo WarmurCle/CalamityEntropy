@@ -197,6 +197,15 @@ namespace CalamityEntropy
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 12;
         }
+        public static void HeldProjSetDefaults(this Projectile Projectile, DamageClass dmgClass)
+        {
+            Projectile.DamageType = dmgClass;
+            Projectile.width = 2;
+            Projectile.height = 2;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+        }
         public static int Softlimitation(this int num, int limit)
         {
             if (num <= limit)

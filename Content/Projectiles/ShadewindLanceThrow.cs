@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Particle = CalamityEntropy.Content.Particles.Particle;
 
@@ -180,6 +181,19 @@ namespace CalamityEntropy.Content.Projectiles
                         GeneralParticleHandler.SpawnParticle(smokeGlow);
                     }
                 }
+                /*for (int i = 0; i < 32; i++)
+                {
+                    VoidParticles.particles.Add(new Particle() {multShrink = true, alpha = 0.4f,ad = 0.86f , position = Projectile.Center + CEUtils.randomPointInCircle(6) + Projectile.velocity * i / 32f});
+                }
+                if (Projectile.ai[0] % 5 == 0)
+                {
+                    for(float r = 0; r < 359; r += 4)
+                    {
+                        for(int i = 0; i < 2; i++)
+                            VoidParticles.particles.Add(new Particle() { alpha = 0.4f, ad = 0.86f, multShrink = true, position = Projectile.Center + CEUtils.randomPointInCircle(4) + ((MathHelper.ToRadians(r).ToRotationVector2() * 56) * new Vector2(0.3f, 1)).RotatedBy(Projectile.velocity.ToRotation()) });
+
+                    }
+                }*/
             }
 
             Projectile.ai[0]++;

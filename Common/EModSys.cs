@@ -119,7 +119,6 @@ namespace CalamityEntropy.Common
         }
         public override void PostDrawTiles()
         {
-
             if (CalamityEntropy.SetupBossbarClrAuto)
             {
                 CalamityEntropy.SetupBossbarClrAuto = false;

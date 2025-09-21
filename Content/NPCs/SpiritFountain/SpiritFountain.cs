@@ -58,6 +58,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         public FountainColumn column1 = new FountainColumn(0);
         public FountainColumn column2 = new FountainColumn(0);
         public int CenterRing = 0;
+        public int GatheringAnimation = 300;
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 1;
@@ -326,6 +327,25 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     Vector2 pos = EDownedBosses.GetDungeonArchiveCenterPos();
                     NPC.Center = pos.X < 10 ? (NPC.HasValidTarget ? NPC.target.ToPlayer().Center : Main.player[0].Center) : pos;
                     starePoint = NPC.Center;
+                }
+                if(GatheringAnimation == 300)
+                {
+                    EParticle.spawnNew(new ShineParticle() { flag = true}, NPC.Center, Vector2.Zero, Color.AliceBlue, 5, 1, true, BlendState.Additive, 0, 320);
+                    EParticle.spawnNew(new ShineParticle() { flag = true }, NPC.Center, Vector2.Zero, Color.White, 3.6f, 1, true, BlendState.Additive, 0, 320);
+                }
+                
+                if (GatheringAnimation-- > 0)
+                {
+                    if (GatheringAnimation > 70)
+                    {
+                        if (Main.rand.NextFloat() < 0.2f + (1 - (GatheringAnimation - 100) / 200f))
+                        {
+                            float rr = CEUtils.randomRot();
+                            EParticle.spawnNew(new HomingSpiritParticle() { TargetPos = NPC.Center }, NPC.Center + rr.ToRotationVector2() * 1600, rr.ToRotationVector2().RotatedByRandom(0.4f).RotatedBy(2.7f * (Main.rand.NextBool() ? 1 : -1)) * Main.rand.NextFloat(12, 16), Color.AliceBlue, 1, 1, true, BlendState.Additive);
+                        }
+                    }
+                    aiTimer = 0;
+                    return;
                 }
                 if (aiTimer > 40)
                 {
