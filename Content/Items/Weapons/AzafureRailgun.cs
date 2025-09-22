@@ -22,14 +22,14 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 82;
             Item.height = 32;
             Item.useTime = 50;
             Item.useAnimation = 50;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 16;
+            Item.knockBack = 14;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ModContent.RarityType<DarkOrange>();
             Item.UseSound = null;
@@ -120,7 +120,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         int bulletCounts = 1 + (int)(Charge * 9);
                         for(int i = 0; i < bulletCounts; i++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), FirePos, Projectile.velocity.RotatedByRandom(0.2f) * Main.rand.NextFloat(0.6f, 1) * 2.6f * (0.3f + 0.7f*Charge), ModContent.ProjectileType<RailgunSmallShot>(), (int)(Charge * Projectile.damage / bulletCounts), Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), FirePos, Projectile.velocity.RotatedByRandom((1 - Charge)) * Main.rand.NextFloat(0.6f, 1) * 2.6f * (0.3f + 0.7f*Charge), ModContent.ProjectileType<RailgunSmallShot>(), (int)(Charge * Projectile.damage / bulletCounts), Projectile.knockBack / 10, Projectile.owner);
                         }
                     }
                 }
@@ -141,7 +141,19 @@ namespace CalamityEntropy.Content.Items.Weapons
             float size = Charge;
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(250, 250, 250), Projectile.rotation, tex.Size() * 0.5f, size * 0.25f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(255, 80, 80), Projectile.rotation, tex.Size() * 0.5f, size * 0.4f, SpriteEffects.None, 0);
+            Texture2D line = CEUtils.RequestTex("CalamityEntropy/Content/Particles/CrLine");
+            float offset = (1.24f - Charge) * 12;
+            //Main.spriteBatch.End();
+            //GraphicsDevice gdv = Main.graphics.GraphicsDevice;
+            //EffectLoader.PreparePixelShader(gdv);
+            //Main.spriteBatch.End();
+            //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+
+            Main.spriteBatch.Draw(line, FirePos - Main.screenPosition + new Vector2(0, offset).RotatedBy(Projectile.rotation), null, (Charge >= 1 ? Color.OrangeRed : Color.Firebrick) * Charge, Projectile.rotation, new Vector2(0, 10), new Vector2(0.1f, 0.4f), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(line, FirePos - Main.screenPosition - new Vector2(0, offset).RotatedBy(Projectile.rotation), null, (Charge >= 1 ? Color.OrangeRed : Color.Firebrick) * Charge, Projectile.rotation, new Vector2(0, 10), new Vector2(0.1f, 0.4f), SpriteEffects.None, 0);
+
             Main.spriteBatch.End();
+            //EffectLoader.ApplyPixelShader(gdv);
             Main.spriteBatch.begin_();
             return false;
         }
@@ -168,8 +180,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.ai[1]++ % 24 == 0)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) * 0.6f, ModContent.ProjectileType<RailgunSmallShot>(), Projectile.damage / 10, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) * 0.6f, ModContent.ProjectileType<RailgunSmallShot>(), Projectile.damage / 10, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) * 0.6f, ModContent.ProjectileType<RailgunSmallShot>(), Projectile.damage / 8, Projectile.knockBack / 10, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) * 0.6f, ModContent.ProjectileType<RailgunSmallShot>(), Projectile.damage / 8, Projectile.knockBack / 10, Projectile.owner);
             }
             if (trail == null)
             {
@@ -252,7 +264,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.damage = 1;
             Projectile.velocity *= 0.98f;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 160);
+            NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 600);
             if(target != null)
             {
                 Projectile.velocity *= 0.92f;

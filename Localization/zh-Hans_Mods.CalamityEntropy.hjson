@@ -1319,6 +1319,7 @@ Items: {
 			召唤一个小型虚空噬菌体为你而战
 			每个小型噬菌体消耗2栏位
 			必要时噬菌体会吸附在敌人身上为你回血
+			按下命令仆从键([KEY])以在任何时候让噬菌体进入吸附模式
 			“它们带来绝望”
 			'''
 	}
@@ -3038,6 +3039,11 @@ Items: {
 			蓄力过程中释放将根据蓄力程度发射一些较小的追踪子弹
 			'''
 	}
+
+	AzafureDroneRemote: {
+		DisplayName: 阿萨福勒无人机遥控器
+		Tooltip: 召唤一架会朝敌人发射导弹的无人机
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3524,9 +3530,11 @@ Projectiles: {
 	AzafureSurgeRodThrow.DisplayName: 阿萨福勒电涌钎
 	StarlightMothMinion.DisplayName: 枯星蛾
 	LuminarisMinionAstralShoot.DisplayName: 枯星弹
-	// AzafureRailgunHeld.DisplayName: Azafure Railgun Held
-	// RailgunChargeShot.DisplayName: Railgun Charge Shot
-	// RailgunSmallShot.DisplayName: Railgun Small Shot
+	AzafureRailgunHeld.DisplayName: 阿萨福勒轨道炮
+	RailgunChargeShot.DisplayName: 轨道炮蓄力弹
+	RailgunSmallShot.DisplayName: 轨道炮分裂弹
+	AzafureDroneMinion.DisplayName: 阿萨福勒无人机
+	AzafureDroneBullet.DisplayName: 无人机导弹
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3820,6 +3828,11 @@ Buffs: {
 	StarlightMoth: {
 		DisplayName: 枯星蛾
 		Description: 枯星蛾将保护你
+	}
+
+	AzafureDrone: {
+		// DisplayName: Azafure Drone
+		// Description: Mods.CalamityEntropy.Buffs.AzafureDrone.Description
 	}
 }
 

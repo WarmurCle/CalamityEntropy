@@ -36,6 +36,8 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
         public int damageo = -1;
         public override void AI()
         {
+            hs.Volume = 0.6f * CEUtils.WeapSound;
+            hitSound.Volume = 0.2f * CEUtils.WeapSound;
             if (damageo == -1)
             {
                 damageo = Projectile.damage;
@@ -158,7 +160,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             if (soundCd <= 0)
             {
                 soundCd = 5;
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/da3") { MaxInstances = 1, Volume = CEUtils.WeapSound}, target.Center);
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/da3") { MaxInstances = 1, Volume = 0.4f * CEUtils.WeapSound}, target.Center);
             }
             target.immune[Projectile.owner] = 3;
             if (Projectile.owner == Main.myPlayer)

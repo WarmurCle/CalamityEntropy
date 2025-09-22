@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
             CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.position, Vector2.Zero, new Color(0, 255, 0), new Vector2(2f, 2f), 0, 0f, 0.2f, 8);
             GeneralParticleHandler.SpawnParticle(pulse);
 
-            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, CEUtils.WeapSound);
+            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, CEUtils.WeapSound * 0.6f);
 
             float sparkCount = 16;
             for (int i = 0; i < sparkCount; i++)

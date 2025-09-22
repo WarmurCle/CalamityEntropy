@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -68,7 +69,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (target == null || !target.active)
             {
-                target = CEUtils.findTarget(player, Projectile, 1800, false);
+                target = Projectile.FindMinionTarget();
             }
             if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
             {
@@ -81,6 +82,8 @@ namespace CalamityEntropy.Content.Projectiles
             if (target != null)
             {
                 bool needHealOwner = player.statLife < player.statLifeMax - 50 - Projectile.ai[2];
+                if (Main.myPlayer == Projectile.owner && CEKeybinds.CommandMinions.Current)
+                    needHealOwner = true;
                 if (needHealOwner)
                 {
                     Projectile.ai[1] = 0;

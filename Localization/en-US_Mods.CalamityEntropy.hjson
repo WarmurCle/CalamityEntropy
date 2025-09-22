@@ -1162,6 +1162,7 @@ Items: {
 			Summon a tiny Nihility Bacteriophage.
 			Each Nihility Bacteriophage needs 2 summon slots.
 			Nihility Bacteriophage will stick to enemies and heal you when necessary
+			You can also hold Command Servants Hotkey([KEY]) to enter this mode
 			'''
 	}
 
@@ -2806,6 +2807,11 @@ Items: {
 		DisplayName: Azafure Railgun
 		Tooltip: ""
 	}
+
+	AzafureDroneRemote: {
+		DisplayName: Azafure Drone Remote
+		Tooltip: Summon a drone that can launch missiles at the enemy
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3294,6 +3300,8 @@ Projectiles: {
 	AzafureRailgunHeld.DisplayName: Azafure Railgun Held
 	RailgunChargeShot.DisplayName: Railgun Charge Shot
 	RailgunSmallShot.DisplayName: Railgun Small Shot
+	AzafureDroneMinion.DisplayName: Azafure Drone Minion
+	AzafureDroneBullet.DisplayName: Azafure Drone Bullet
 }
 
 LegendTooltip: - Legend -
@@ -3587,6 +3595,11 @@ Buffs: {
 	StarlightMoth: {
 		DisplayName: Starlight Moth
 		Description: Starlight moth will fight for you.
+	}
+
+	AzafureDrone: {
+		DisplayName: Azafure Drone
+		Description: Mods.CalamityEntropy.Buffs.AzafureDrone.Description
 	}
 }
 

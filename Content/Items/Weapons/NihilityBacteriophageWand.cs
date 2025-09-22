@@ -1,7 +1,10 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -15,6 +18,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.IntegrateHotkey(CEKeybinds.CommandMinions);
         }
 
         public override void SetDefaults()
