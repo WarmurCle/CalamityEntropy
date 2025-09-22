@@ -3831,8 +3831,8 @@ Buffs: {
 	}
 
 	AzafureDrone: {
-		// DisplayName: Azafure Drone
-		// Description: Mods.CalamityEntropy.Buffs.AzafureDrone.Description
+		DisplayName: 地狱工业无人机
+		Description:  阿萨福勒轰炸无人机会为你战斗
 	}
 }
 

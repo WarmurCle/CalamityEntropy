@@ -3594,12 +3594,12 @@ Buffs: {
 
 	StarlightMoth: {
 		DisplayName: Starlight Moth
-		Description: Starlight moth will fight for you.
+		Description: Starlight moth will fight for you
 	}
 
 	AzafureDrone: {
 		DisplayName: Azafure Drone
-		Description: Mods.CalamityEntropy.Buffs.AzafureDrone.Description
+		Description: "Azafure Drone will fight for you"
 	}
 }
 
