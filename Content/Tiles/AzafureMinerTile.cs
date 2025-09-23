@@ -157,7 +157,7 @@ namespace CalamityEntropy.Content.Tiles
         private Vector2 targetOffset = Vector2.Zero;
         private Vector2 targetOffset2 = Vector2.Zero;
         public static readonly Dictionary<int, bool> ItemIsOre = [];
-        public override void SetStaticProperty()
+        public override void SetStaticDefaults()
         {
             try
             {
@@ -184,7 +184,7 @@ namespace CalamityEntropy.Content.Tiles
             }
             catch (System.Exception ex)
             {
-                CalamityEntropy.Instance.Logger.Error($"AzMinerTP.SetStaticProperty: An Error Has Occurred {ex.Message}");
+                CalamityEntropy.Instance.Logger.Error($"AzMinerTP.SetStaticDefaults: An Error Has Occurred {ex.Message}");
             }
         }
         public override void SetProperty()
