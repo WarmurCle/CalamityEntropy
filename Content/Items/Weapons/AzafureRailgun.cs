@@ -142,15 +142,24 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(250, 250, 250), Projectile.rotation, tex.Size() * 0.5f, size * 0.25f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(255, 80, 80), Projectile.rotation, tex.Size() * 0.5f, size * 0.4f, SpriteEffects.None, 0);
             Texture2D line = CEUtils.RequestTex("CalamityEntropy/Content/Particles/CrLine");
-            float offset = (1.24f - Charge) * 12;
+            float offset = (1.14f - Charge) * 46;
             //Main.spriteBatch.End();
             //GraphicsDevice gdv = Main.graphics.GraphicsDevice;
             //EffectLoader.PreparePixelShader(gdv);
             //Main.spriteBatch.End();
             //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
-
-            Main.spriteBatch.Draw(line, FirePos - Main.screenPosition + new Vector2(0, offset).RotatedBy(Projectile.rotation), null, (Charge >= 1 ? Color.OrangeRed : Color.Firebrick) * Charge, Projectile.rotation, new Vector2(0, 10), new Vector2(0.1f, 0.4f), SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(line, FirePos - Main.screenPosition - new Vector2(0, offset).RotatedBy(Projectile.rotation), null, (Charge >= 1 ? Color.OrangeRed : Color.Firebrick) * Charge, Projectile.rotation, new Vector2(0, 10), new Vector2(0.1f, 0.4f), SpriteEffects.None, 0);
+            float Mxl = 1;
+            for(float i = 0; i <= 1; i += 0.0025f)
+            {
+                Mxl = i;
+                Vector2 tpos = FirePos + Projectile.rotation.ToRotationVector2() * i * 800;
+                if(!CEUtils.isAir(tpos))
+                {
+                    break;
+                }
+            }
+            Main.spriteBatch.Draw(line, FirePos - Main.screenPosition + new Vector2(0, offset).RotatedBy(Projectile.rotation), null, (Charge >= 1 ? Color.OrangeRed : Color.Firebrick) * Charge, Projectile.rotation, new Vector2(0, 10), new Vector2(0.14f * Mxl, 0.4f), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(line, FirePos - Main.screenPosition - new Vector2(0, offset).RotatedBy(Projectile.rotation), null, (Charge >= 1 ? Color.OrangeRed : Color.Firebrick) * Charge, Projectile.rotation, new Vector2(0, 10), new Vector2(0.14f * Mxl, 0.4f), SpriteEffects.None, 0);
 
             Main.spriteBatch.End();
             //EffectLoader.ApplyPixelShader(gdv);
