@@ -1243,10 +1243,14 @@ namespace CalamityEntropy.Common
 
         public override void OnHurt(Player.HurtInfo info)
         {
-            if ((hasAcc("VastLV2") && ManaRegenTime > 0) || Player.HasBuff<ManaAwaken>())
+            if (Player.statLife - info.Damage > 0)
             {
-                immune = 60 * 4;
-                Player.AddBuff(hasAcc("VastLV4") ? ModContent.BuffType<ManaCaress>() : ModContent.BuffType<ManaPray>(), 60 * 10);
+                if ((hasAcc("VastLV2") && ManaRegenTime > 0) || Player.HasBuff<ManaAwaken>())
+                {
+                    immune = 240;
+                    ManaRegenTime = 0;
+                    Player.AddBuff(hasAcc("VastLV4") ? ModContent.BuffType<ManaCaress>() : ModContent.BuffType<ManaPray>(), 60 * 10);
+                }
             }
             if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {
@@ -2240,13 +2244,16 @@ namespace CalamityEntropy.Common
                 scHealCD = 60;
                 Player.Heal(8);
             }
-            if (Player.statLife < Player.statLifeMax2 && lifeRegenPerSec > 0)
+            if (!Player.dead)
             {
-                lifeRegenCD--;
-                if (lifeRegenCD <= 0)
+                if (Player.statLife < Player.statLifeMax2 && lifeRegenPerSec > 0)
                 {
-                    lifeRegenCD = 60;
-                    Player.Heal(lifeRegenPerSec);
+                    lifeRegenCD--;
+                    if (lifeRegenCD <= 0)
+                    {
+                        lifeRegenCD = 60;
+                        Player.Heal(lifeRegenPerSec);
+                    }
                 }
             }
             vfcd--;

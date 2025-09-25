@@ -29,32 +29,35 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().addEquip("Vast", !hideVisual);
-            float ManaCostDecrease = 0f;
-            player.manaFlower = true;
-            if (player.HasBuff(BuffID.ManaRegeneration))
+            if (true)
             {
-                player.GetCritChance(DamageClass.Magic) += 4;
-            }
+                player.Entropy().addEquip("Vast", !hideVisual);
+                float ManaCostDecrease = 0f;
+                player.manaFlower = true;
+                if (player.HasBuff(BuffID.ManaRegeneration))
+                {
+                    player.GetCritChance(DamageClass.Magic) += 4;
+                }
 
-            if (NPC.downedBoss2)
-            {
-                player.Entropy().addEquip("VastLV2");
-            }
-            if (DownedBossSystem.downedSlimeGod)
-            {
-                player.Entropy().addEquip("VastLV3");
-            }
-            if (DownedBossSystem.downedCryogen || DownedBossSystem.downedBrimstoneElemental)
-            {
-                player.Entropy().addEquip("VastLV4");
-            }
-            if (EDownedBosses.downedProphet)
-            {
-                player.Entropy().addEquip("VastLV5");
+                if (NPC.downedBoss2)
+                {
+                    player.Entropy().addEquip("VastLV2");
+                }
+                if (DownedBossSystem.downedSlimeGod)
+                {
+                    player.Entropy().addEquip("VastLV3");
+                }
+                if (DownedBossSystem.downedCryogen || DownedBossSystem.downedBrimstoneElemental)
+                {
+                    player.Entropy().addEquip("VastLV4");
+                }
+                if (EDownedBosses.downedProphet)
+                {
+                    player.Entropy().addEquip("VastLV5");
 
+                }
+                player.manaCost -= ManaCostDecrease;
             }
-            player.manaCost -= ManaCostDecrease;
         }
         public override void AddRecipes()
         {
@@ -130,6 +133,8 @@ namespace CalamityEntropy.Content.Items.Donator
         public float GetEnhancedMana => 0.04f * ExtraManaLv;
         public override void PostUpdate()
         {
+            if (Player.dead)
+                return;
             if (LastMana < Player.statMana)
             {
                 LastMana = Player.statMana;
