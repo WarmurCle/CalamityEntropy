@@ -44,6 +44,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
 
         public override void AI()
         {
+            if (Projectile.ai[0] == 0)
+                Content.Particles.EParticle.spawnNew(new Content.Particles.CruiserWarn(), Projectile.Center, Projectile.velocity * 6, Color.White * 0.6f, 0.016f * Projectile.velocity.Length(), 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
             Projectile.ai[0]++;
             if (Projectile.ai[2] == 1 && Projectile.ai[0] < 60)
             {
