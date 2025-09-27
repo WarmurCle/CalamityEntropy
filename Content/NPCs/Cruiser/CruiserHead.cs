@@ -721,20 +721,20 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         {
                             if (NPC.velocity.Length() < 36)
                             {
-                                NPC.velocity *= 1.046f;
+                                NPC.velocity *= 1.02f;
                             }
                             NPC.velocity += (target.Center - NPC.Center).normalize() * 0.1f;
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.08f);
-                            NPC.velocity *= 0.998f;
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.03f);
+                            NPC.velocity *= 0.999f;
                             changeCounter++;
-                            if (changeCounter > 500 || NPC.Distance(target.Center) < 440)
+                            if (changeCounter > 600 || NPC.Distance(target.Center) < 600)
                             {
                                 changeAi();
                             }
                         }
                         if (ai == AIStyle.StayAwayAndShootVoidStar)
                         {
-                            if (NPC.velocity.Length() < 40)
+                            if (NPC.velocity.Length() < 50)
                             {
                                 NPC.velocity *= 1.1f;
                             }
@@ -749,7 +749,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             }
                             if (changeCounter > 70)
                             {
-                                NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.07f);
+                                NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.05f);
                                 if (NPC.velocity.Length() < 30)
                                 {
                                     NPC.velocity *= 1.02f;
@@ -765,7 +765,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.08f);
                                 NPC.velocity *= 0.998f;
                             }
-                            if (changeCounter > 170)
+                            if (changeCounter > 240)
                             {
                                 changeAi();
                             }
@@ -784,7 +784,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             {
                                 changeAi();
                             }
-                            NPC.velocity += (target.Center - NPC.Center).normalize() * (NPC.Distance(target.Center) > 700 ? 3 : 1);
+                            NPC.velocity += (target.Center - NPC.Center).normalize() * (NPC.Distance(target.Center) > 700 ? 2.4f : 1);
                             NPC.velocity *= 0.92f;
                         }
                         if (ai == AIStyle.VoidResidue)
@@ -803,7 +803,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             changeCounter++;
                             if (changeCounter < 100 && NPC.Distance(target.Center) > 800)
                             {
-                                NPC.velocity *= 0.98f;
+                                NPC.velocity *= 0.95f;
                                 NPC.velocity += (target.Center - NPC.Center).normalize() * 1f;
                             }
                             else
@@ -854,7 +854,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 {
                                     for (float i = 0; i < 360; i += 30)
                                     {
-                                        Shoot(ModContent.ProjectileType<VoidSpike>(), NPC.Center, MathHelper.ToRadians(i).ToRotationVector2() * 8);
+                                        Shoot(ModContent.ProjectileType<VoidSpike>(), NPC.Center, MathHelper.ToRadians(i).ToRotationVector2() * 5);
                                     }
                                 }
                             }
@@ -985,9 +985,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 }
                             }
                             changeCounter++;
-                            if (changeCounter < 100 && NPC.Distance(target.Center) > 800)
+                            if (changeCounter < 100 && NPC.Distance(target.Center) > 900)
                             {
-                                NPC.velocity *= 0.98f;
+                                NPC.velocity *= 0.95f;
                                 NPC.velocity += (target.Center - NPC.Center).normalize() * 1f;
                             }
                             else
@@ -1141,33 +1141,34 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
                         int num = 10;
                         int counts = 3;
-                        float speed = 22;
+                        float speed = 14;
                         if (CalamityWorld.revenge)
                         {
                             num = 10;
                             counts = 3;
-                            speed = 25;
+                            speed = 18;
                         }
                         if (CalamityWorld.death)
                         {
                             num = 10;
                             counts = 4;
-                            speed = 26;
+                            speed = 20;
                         }
                         if (Main.expertMode)
                         {
                             num += 1;
-                            speed *= 1.1f;
+                            speed *= 1.08f;
                         }
                         if (Main.masterMode)
                         {
                             num += 1;
-                            speed *= 1.15f;
+                            speed *= 1.13f;
                         }
                         if (ai == AIStyle.AroundPlayerAndShootVoidStar)
                         {
                             counts -= 1;
                             num /= 2;
+                            speed *= 0.7f;
                         }
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
