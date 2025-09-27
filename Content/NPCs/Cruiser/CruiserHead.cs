@@ -719,15 +719,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if (ai == AIStyle.TryToClosePlayer)
                         {
-                            if (NPC.velocity.Length() < 36)
+                            if (NPC.velocity.Length() < 32)
                             {
-                                NPC.velocity *= 1.02f;
+                                NPC.velocity *= 1.01f;
                             }
                             NPC.velocity += (target.Center - NPC.Center).normalize() * 0.1f;
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.03f);
-                            NPC.velocity *= 0.999f;
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), 0.02f);
+                            NPC.velocity *= 0.996f;
                             changeCounter++;
-                            if (changeCounter > 600 || NPC.Distance(target.Center) < 600)
+                            if (changeCounter > 600 || NPC.Distance(target.Center) < 600 + NPC.velocity.Length())
                             {
                                 changeAi();
                             }
