@@ -54,7 +54,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<HellIndustrialComponents>(6)
                 .AddIngredient<MysteriousCircuitry>()
                 .AddIngredient(ItemID.HealingPotion)
-                .AddIngredient<PlasmaRod>();
+                .AddIngredient<PlasmaRod>()
+                .Register();
         }
     }
     public class AzafureHealingTowerSentry : ModProjectile
