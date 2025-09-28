@@ -194,6 +194,7 @@ namespace CalamityEntropy
             //On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
+            On_Player.UpdateItemDye += update_item_dye;
 
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
@@ -215,6 +216,22 @@ namespace CalamityEntropy
                 PlayerDashManager.TryAddDash(dashEffect);
             }
 
+        }
+        public static int tmtype = -1;
+        private void update_item_dye(On_Player.orig_UpdateItemDye orig, Player self, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
+        {
+            if (tmtype < 0)
+                tmtype = ModContent.ItemType<TheocracyMark>();
+            if(!armorItem.IsAir)
+            {
+                armorItem.Entropy().DyeType = dyeItem.type;
+            }
+            if (!armorItem.IsAir && armorItem.type == tmtype)
+            {
+                self.GetModPlayer<VanityModPlayer>().TheocrazyDye = dyeItem.IsAir ? 0 : dyeItem.dye;
+                self.GetModPlayer<VanityModPlayer>().TheocrazyDyeItemID = dyeItem.type;
+            }
+            orig(self, isNotInVanitySlot, isSetToHidden, armorItem, dyeItem);
         }
 
         private void pickammoHook(On_Player.orig_PickAmmo_Item_refInt32_refSingle_refBoolean_refInt32_refSingle_refInt32_bool orig, Player player, Item item, ref int projToShoot, ref float speed, ref bool canShoot, ref int totalDamage, ref float KnockBack, out int usedAmmoItemId, bool dontConsume)
@@ -345,6 +362,7 @@ namespace CalamityEntropy
             //On_Player.ApplyDamageToNPC -= applydamagetonpc;
             On_Main.DrawCursor -= draw_cursor_hook;
             On_Main.DrawThickCursor -= draw_thick_cursor_hook;
+            On_Player.UpdateItemDye -= update_item_dye;
         }
 
         private Vector2 draw_thick_cursor_hook(On_Main.orig_DrawThickCursor orig, bool smart)

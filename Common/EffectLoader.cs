@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.Items.Vanity;
+using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -7,6 +8,7 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
+using CalamityMod.Projectiles.Magic;
 using InnoVault;
 using InnoVault.PRT;
 using InnoVault.RenderHandles;
@@ -14,7 +16,9 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Terraria;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using static CalamityEntropy.CalamityEntropy;
 
@@ -506,24 +510,86 @@ namespace CalamityEntropy.Common
             }
         }
 
-        public static void ApplyPixelShader(GraphicsDevice graphicsDevice)
+        public static void ApplyPixelShader(GraphicsDevice graphicsDevice, int dye = 0, Entity dyeEnt = null, bool GameZoom = false)
         {
-            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.SetRenderTarget(Screen1);
             graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
-            Main.spriteBatch.End();
-
             Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
             shader.CurrentTechnique = shader.Techniques["Technique1"];
             shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2() / Main.GameViewMatrix.Zoom);
+            if(GameZoom)
+                shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
             shader.CurrentTechnique.Passes[0].Apply();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader);
             Main.spriteBatch.Draw(Screen2, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
-        }
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
 
+            Main.spriteBatch.End();
+            Effect dyeShader = null;
+            if (dye != 0)
+            {
+                //GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(dye), dyeEnt, new Terraria.DataStructures.DrawData(Screen1, Vector2.Zero, Color.White));
+
+                dyeShader = GameShaders.Armor.GetShaderFromItemId(dye).Shader;
+            }
+            Matrix m = Main.GameViewMatrix.ZoomMatrix;
+            if(GameZoom)
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, m);
+            else
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null);
+
+            if (dye != 0)
+            {
+                GameShaders.Armor.GetShaderFromItemId(dye).Apply(null, new(Screen1, Vector2.Zero, Color.White));
+            }
+            Main.spriteBatch.Draw(Screen1, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+        }
+        public static Texture2D ScaleTexture(Texture2D originalTexture, float scale, GraphicsDevice graphicsDevice)
+        {
+            // 计算新尺寸
+            int newWidth = (int)(originalTexture.Width * scale);
+            int newHeight = (int)(originalTexture.Height * scale);
+
+            // 创建渲染目标
+            RenderTarget2D renderTarget = new RenderTarget2D(
+                graphicsDevice,
+                newWidth,
+                newHeight,
+                false,
+                SurfaceFormat.Color,
+                DepthFormat.None);
+
+            // 保存当前渲染状态
+            RenderTarget2D originalTarget = (RenderTarget2D)graphicsDevice.GetRenderTargets()[0].RenderTarget;
+            Viewport originalViewport = graphicsDevice.Viewport;
+
+            // 设置新的渲染目标
+            graphicsDevice.SetRenderTarget(renderTarget);
+            graphicsDevice.Clear(Color.Transparent);
+
+            // 使用SpriteBatch绘制缩放后的纹理
+            SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                             SamplerState.LinearClamp, DepthStencilState.None,
+                             RasterizerState.CullCounterClockwise);
+
+            spriteBatch.Draw(originalTexture, new Rectangle(0, 0, newWidth, newHeight), Color.White);
+
+            spriteBatch.End();
+
+            // 恢复原始状态
+            graphicsDevice.SetRenderTarget(originalTarget);
+            graphicsDevice.Viewport = originalViewport;
+
+            return renderTarget;
+        }
         private static void DrawProjectileEffects(GraphicsDevice graphicsDevice)
         {
             if (Screen0 == null)
