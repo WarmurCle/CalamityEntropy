@@ -2881,7 +2881,7 @@ Items: {
 
 	AzafureHealingTowerRemote: {
 		// DisplayName: Azafure Healing Tower Remote
-		// Tooltip: ""
+		// Tooltip: Deploy a healing tower to restore health to nearby players, and use lasers to attack nearby enemies and monsters during idle time
 	}
 }
 

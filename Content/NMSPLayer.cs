@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content
+namespace CalamityEntropy.Content.UI
 {
     public class NMSPLayer : ModPlayer
     {
