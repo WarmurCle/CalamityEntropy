@@ -149,7 +149,7 @@ namespace CalamityEntropy.Common
         public int bloodBoiling = 0;
         public int UsingItemCounter = 0;
         public float MHVanityRot = 0;
-
+        public int JetpackDye = -1;
         public class SpecialWingDrawingData
         {
             public int MaxFrame = 3;

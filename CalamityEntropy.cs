@@ -218,11 +218,17 @@ namespace CalamityEntropy
 
         }
         public static int tmtype = -1;
+        public static int retype = -1;
+        public static int aetype = -1;
         private void update_item_dye(On_Player.orig_UpdateItemDye orig, Player self, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
         {
-            if (tmtype < 0)
+            if (tmtype < 1)
                 tmtype = ModContent.ItemType<TheocracyMark>();
-            if(!armorItem.IsAir)
+            if (retype < 1)
+                retype = ModContent.ItemType<RustyDetectionEquipment>();
+            if (aetype < 1)
+                aetype = ModContent.ItemType<AzafureDetectionEquipment>();
+            if (!armorItem.IsAir)
             {
                 armorItem.Entropy().DyeType = dyeItem.type;
             }
@@ -230,6 +236,10 @@ namespace CalamityEntropy
             {
                 self.GetModPlayer<VanityModPlayer>().TheocrazyDye = dyeItem.IsAir ? 0 : dyeItem.dye;
                 self.GetModPlayer<VanityModPlayer>().TheocrazyDyeItemID = dyeItem.type;
+            }
+            if (!armorItem.IsAir && (armorItem.type == retype || armorItem.type == aetype))
+            {
+                self.Entropy().JetpackDye = dyeItem.dye;
             }
             orig(self, isNotInVanitySlot, isSetToHidden, armorItem, dyeItem);
         }

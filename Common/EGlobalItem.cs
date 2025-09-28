@@ -77,6 +77,7 @@ namespace CalamityEntropy.Common
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
         public float[] wispColor = null;
+        
         public readonly static Dictionary<int, int> GemItemIDToTileIDMap = new() {
             {ItemID.Ruby, TileID.Ruby },
             {ItemID.Sapphire, TileID.Sapphire },

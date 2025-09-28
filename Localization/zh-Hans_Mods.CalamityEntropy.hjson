@@ -3063,6 +3063,11 @@ Items: {
 			DisplayName: 神权染料
 			Tooltip: ""
 		}
+
+		RoaringDye: {
+			DisplayName: 呼啸染料
+			Tooltip: ""
+		}
 	}
 }
 

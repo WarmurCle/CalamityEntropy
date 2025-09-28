@@ -2834,6 +2834,11 @@ Items: {
 			DisplayName: Theocrazy Dye
 			Tooltip: ""
 		}
+
+		RoaringDye: {
+			DisplayName: Roaring Dye
+			Tooltip: ""
+		}
 	}
 }
 
