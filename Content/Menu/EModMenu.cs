@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Menu
 
             if (counter % 15 == 0)
             {
-                MenuParticle particle = new MenuParticle(new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), CEUtils.randomRot().ToRotationVector2() * 1, new Vector2(1.5f, 1), 460);
+                MenuParticle particle = new MenuParticle(new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), CEUtils.randomRot().ToRotationVector2() * 1, new Vector2(1.5f, 1), 660);
                 MenuParticle.particles.Add(particle);
                 particle.pos += particle.velocity * 2;
             }
@@ -146,7 +146,7 @@ namespace CalamityEntropy.Content.Menu
                 alpha += 0.01f;
             }
             this.pos += this.velocity;
-            this.velocity = this.velocity.RotatedBy(MathHelper.ToRadians(0.2f) + MathHelper.ToRadians(1) * (2 / (float)CEUtils.getDistance(pos, center)));
+            this.velocity = this.velocity.RotatedBy(MathHelper.ToRadians(-0.7f * (timeleft / 660f)) + MathHelper.ToRadians(1) * (2 / (float)CEUtils.getDistance(pos, center)));
             timeleft--;
             this.velocity *= 1.002f;
         }
@@ -160,7 +160,7 @@ namespace CalamityEntropy.Content.Menu
                 op = (float)timeleft / 60f;
             }
             op *= alpha;
-            Main.spriteBatch.Draw(tx, pos, null, Color.LightBlue * op, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.1f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tx, pos, null, Color.AliceBlue * op * 0.8f, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.1f, SpriteEffects.None, 0);
         }
         public static List<MenuParticle> particles = new List<MenuParticle>();
     }

@@ -3058,6 +3058,11 @@ Items: {
 			DisplayName: 灵魂染料
 			Tooltip: ""
 		}
+
+		VoidCruiseDye: {
+			DisplayName: 神权染料
+			Tooltip: ""
+		}
 	}
 }
 

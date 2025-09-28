@@ -2829,6 +2829,11 @@ Items: {
 			DisplayName: Spirit Dye
 			Tooltip: ""
 		}
+
+		VoidCruiseDye: {
+			DisplayName: Theocrazy Dye
+			Tooltip: ""
+		}
 	}
 }
 

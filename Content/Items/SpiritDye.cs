@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items
 
         public override void SafeSetDefaults()
         {
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 2, 50, 0);
         }
 
