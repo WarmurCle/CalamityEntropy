@@ -3043,6 +3043,15 @@ Items: {
 		DisplayName: 阿萨福勒无人机遥控器
 		Tooltip: 召唤一架会朝敌人发射导弹的无人机
 	}
+
+	AzafureHealingTowerRemote: {
+		DisplayName: 阿萨福勒治疗塔遥控
+		Tooltip: 
+		'''
+		部署一台治疗塔，为附近的玩家回复生命值，并在空闲时使用激光攻击附近敌怪
+		哨兵
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3534,6 +3543,7 @@ Projectiles: {
 	RailgunSmallShot.DisplayName: 轨道炮分裂弹
 	AzafureDroneMinion.DisplayName: 阿萨福勒无人机
 	AzafureDroneBullet.DisplayName: 无人机导弹
+	// AzafureHealingTowerSentry.DisplayName: Azafure Healing Tower Sentry
 }
 
 LegendTooltip: - 传奇物品 -
