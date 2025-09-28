@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.damage = 5;
             Item.mana = 10;
             Item.useTime = Item.useAnimation = 25;
-            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useStyle = ItemUseStyleID.RaiseLamp;
             Item.noMelee = true;
             Item.knockBack = 4f;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
