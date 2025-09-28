@@ -2818,6 +2818,11 @@ Items: {
 		DisplayName: Azafure Drone Remote
 		Tooltip: Summon a drone that can launch missiles at the enemy
 	}
+
+	AzafureHealingTowerRemote: {
+		DisplayName: Azafure Healing Tower Remote
+		Tooltip: Deploy a healing tower to restore health to nearby players, and use lasers to attack nearby enemies and monsters during idle time
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3323,6 +3328,7 @@ Projectiles: {
 	RailgunSmallShot.DisplayName: Railgun Small Shot
 	AzafureDroneMinion.DisplayName: Azafure Drone Minion
 	AzafureDroneBullet.DisplayName: Azafure Drone Bullet
+	AzafureHealingTowerSentry.DisplayName: Azafure Healing Tower Sentry
 }
 
 LegendTooltip: - Legend -

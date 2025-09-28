@@ -11,7 +11,8 @@ namespace CalamityEntropy.Content.Items.Vanity
 
         //当前装备的时装，留空为未装备
         public string vanityEquipped = "";
-
+        public int TheocrazyDye = -1;
+        public int TheocrazyDyeItemID = -1;
         public bool TheocracyMark = false;
         public override void PostUpdate()
         {

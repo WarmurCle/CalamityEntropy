@@ -342,6 +342,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             else
             {
+                NPC.defense = 30;
+                NPC.Calamity().DR = 0.08f;
                 aiRound++;
                 if (aiRound >= 9)
                 {

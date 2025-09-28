@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Tiles;
+using CalamityEntropy.Content.UI;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -219,7 +220,8 @@ namespace CalamityEntropy
         }
         public static void SpawnExplotionFriendly(IEntitySource source, Player player, Vector2 position, int damage, float r, DamageClass damageClass)
         {
-            Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotionFriendly>(), damage, 0, player.whoAmI, r).ToProj().DamageType = damageClass;
+            if(Main.myPlayer == player.whoAmI)
+                Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotionFriendly>(), damage, 0, player.whoAmI, r).ToProj().DamageType = damageClass;
         }
         public static void SetShake(Vector2 center, float strength, float MaxDist = 4000)
         {

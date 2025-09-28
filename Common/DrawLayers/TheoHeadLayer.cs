@@ -31,7 +31,7 @@ namespace CalamityEntropy.Common.DrawLayers
             Texture2D texture = CEUtils.getExtraTex("TheoHead");
 
             Vector2 headPos = drawInfo.HeadPosition(true);
-            drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, drawInfo.colorArmorHead, drawInfo.drawPlayer.headRotation, new Vector2(drawInfo.playerEffect == SpriteEffects.FlipHorizontally ? texture.Width - 38 : 38, texture.Height / 2f - 1), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
+            drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, drawInfo.colorArmorHead, drawInfo.drawPlayer.headRotation, new Vector2(drawInfo.playerEffect == SpriteEffects.FlipHorizontally ? texture.Width - 38 : 38, texture.Height / 2f - 1), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.GetModPlayer<VanityModPlayer>().TheocrazyDye });
 
         }
 

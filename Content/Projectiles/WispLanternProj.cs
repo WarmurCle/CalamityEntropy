@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles

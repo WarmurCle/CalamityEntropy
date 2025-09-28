@@ -188,6 +188,8 @@ namespace CalamityEntropy.Common
         }
 
         public static bool CalCI = false;
+        public int DyeType = 0;
+
         public override bool ConsumeItem(Item item, Player player)
         {
 
