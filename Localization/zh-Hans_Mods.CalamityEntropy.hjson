@@ -3052,6 +3052,13 @@ Items: {
 			哨兵
 			'''
 	}
+
+	Dyes: {
+		SpiritDye: {
+			DisplayName: 灵魂染料
+			Tooltip: ""
+		}
+	}
 }
 
 LOCKED: ：[已锁定]
