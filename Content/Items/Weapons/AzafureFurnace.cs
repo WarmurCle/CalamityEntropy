@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using Terraria.ID;
 using Terraria.ModLoader;
 

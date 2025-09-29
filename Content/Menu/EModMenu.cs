@@ -27,9 +27,9 @@ namespace CalamityEntropy.Content.Menu
             Texture2D pixel = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
             drawColor = Color.White;
             counter++;
-            logoScale = 1;
+            logoScale = 0.8f;
             logoRotation = 0;
-            logoDrawCenter += new Vector2(36, (float)Math.Cos(counter * 0.008f) * 16 + 30);
+            logoDrawCenter += new Vector2(0, (float)Math.Cos(counter * 0.02f) * 24 + 8);
             spriteBatch.Draw(pixel, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Color(1, 2, 32));
 
             spriteBatch.End();
@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Menu
                 float rot = 0;
                 for (int j = 0; j < 8; j++)
                 {
-                    spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logool").Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i * 0.5f), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
+                    spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logool").Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
                     rot += MathHelper.ToRadians(45);
                 }
             }

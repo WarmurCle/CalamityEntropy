@@ -1,15 +1,5 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Donator;
-using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
-using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityEntropy.Content.Items.Donator;
 using CalamityMod.Items;
-using CalamityMod.Items.Armor.OmegaBlue;
-using CalamityMod.Items.Materials;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

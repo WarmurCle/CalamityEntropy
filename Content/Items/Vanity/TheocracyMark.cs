@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Vanity
 
             Item.accessory = true;
             Item.vanity = true;
-            
+
             Item.value = Item.buyPrice(0, 25, 0, 0);
 
             Item.rare = ModContent.RarityType<Golden>();

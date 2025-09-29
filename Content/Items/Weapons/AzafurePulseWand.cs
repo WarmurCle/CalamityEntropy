@@ -87,17 +87,17 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (!player.channel)
             {
-                if(Helding)
+                if (Helding)
                 {
                     Projectile.timeLeft = 36;
                     if (Charge > 20)
                     {
-                        foreach(NPC npc in targetNpcs)
+                        foreach (NPC npc in targetNpcs)
                         {
                             if (npc.active)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), topPos, Vector2.Zero, ModContent.ProjectileType<TeslaLightningRed>(), Projectile.damage, 0, Projectile.owner, npc.Center.X, npc.Center.Y).ToProj().DamageType = Projectile.DamageType; ;
-                                for(int i = 0; i < 8; i++)
+                                for (int i = 0; i < 8; i++)
                                 {
                                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 24), false, Main.rand.Next(6, 10), Main.rand.NextFloat(0.9f, 2), new Color(240, 240, 255)));
                                 }
@@ -138,7 +138,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 RPulseAlpha *= 0.94f;
             }
             RVel *= 0.996f;
-            
+
             AttackR += RVel;
         }
         public override bool? CanHitNPC(NPC target)
@@ -149,23 +149,23 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition - Projectile.rotation.ToRotationVector2() * 20, null, Color.White, Projectile.rotation + MathHelper.PiOver4, new Vector2(0, tex.Height), Projectile.scale, SpriteEffects.None, 0); ;
-            
-            
+
+
 
             Texture2D pulse = CEUtils.getExtraTex("HollowCircleSoftEdge");
-            
+
             Main.spriteBatch.End();
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             EffectLoader.PreparePixelShader(gd);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             if (Helding)
             {
-                foreach(NPC npc in targetNpcs)
+                foreach (NPC npc in targetNpcs)
                 {
-                    if(npc.active)
+                    if (npc.active)
                     {
                         List<Vector2> lol = new List<Vector2>();
-                        for(int i = 0; i < 9; i++)
+                        for (int i = 0; i < 9; i++)
                         {
                             lol.Add(npc.Center + CEUtils.randomPointInCircle(32));
                         }

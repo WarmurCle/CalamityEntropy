@@ -1,8 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Vanity;
-using CalamityEntropy.Content.Items.Vanity.Luminar;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;

@@ -1,5 +1,4 @@
-﻿using CalamityMod;
-using CalamityMod.Items.LoreItems;
+﻿using CalamityMod.Items.LoreItems;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;

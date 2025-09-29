@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityMod;
 using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -160,7 +159,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             if (soundCd <= 0)
             {
                 soundCd = 5;
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/da3") { MaxInstances = 1, Volume = 0.4f * CEUtils.WeapSound}, target.Center);
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/da3") { MaxInstances = 1, Volume = 0.4f * CEUtils.WeapSound }, target.Center);
             }
             target.immune[Projectile.owner] = 3;
             if (Projectile.owner == Main.myPlayer)

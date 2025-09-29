@@ -11,7 +11,6 @@ using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs;
-using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
@@ -22,11 +21,9 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Events;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
-using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Crabulon;
-using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.DevourerofGods;
 using CalamityMod.NPCs.HiveMind;
 using CalamityMod.NPCs.NormalNPCs;
@@ -42,9 +39,6 @@ using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
-using InnoVault;
-using InnoVault.GameSystem;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
@@ -185,11 +179,11 @@ namespace CalamityEntropy.Common
         public override void PostAI(NPC npc)
         {
             HitCounter++;
-            if(npc.ModNPC != null && npc.ModNPC is PrimordialWyrmHead && HitCounter > 120)
+            if (npc.ModNPC != null && npc.ModNPC is PrimordialWyrmHead && HitCounter > 120)
             {
-                if(Main.GameUpdateCount % 30 == 0)
+                if (Main.GameUpdateCount % 30 == 0)
                 {
-                    if(npc.life < npc.lifeMax - 6000)
+                    if (npc.life < npc.lifeMax - 6000)
                     {
                         npc.life += 6000;
                     }
@@ -524,7 +518,7 @@ namespace CalamityEntropy.Common
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
             if (projectile.owner >= 0 && projectile.friendly)
             {
-                if(projectile.GetOwner().Entropy().SCrown)
+                if (projectile.GetOwner().Entropy().SCrown)
                 {
                     modifiers.DisableCrit();
                 }
@@ -575,7 +569,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            if(player.Entropy().SCrown)
+            if (player.Entropy().SCrown)
             {
                 modifiers.DisableCrit();
             }

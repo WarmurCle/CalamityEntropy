@@ -5,7 +5,6 @@ using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
@@ -28,7 +27,7 @@ namespace CalamityEntropy
         public static void MinionCheck<T>(this Projectile proj) where T : ModBuff
         {
             Player player = proj.GetOwner();
-            
+
             if (player.HasBuff<T>())
             {
                 proj.timeLeft = 4;
@@ -41,7 +40,7 @@ namespace CalamityEntropy
         public static NPC FindMinionTarget(this Projectile projectile, int radians = 3000)
         {
             Player player = projectile.GetOwner();
-            if(player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
+            if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
             {
                 return player.MinionAttackTargetNPC.ToNPC();
             }
@@ -220,7 +219,7 @@ namespace CalamityEntropy
         }
         public static void SpawnExplotionFriendly(IEntitySource source, Player player, Vector2 position, int damage, float r, DamageClass damageClass)
         {
-            if(Main.myPlayer == player.whoAmI)
+            if (Main.myPlayer == player.whoAmI)
                 Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotionFriendly>(), damage, 0, player.whoAmI, r).ToProj().DamageType = damageClass;
         }
         public static void SetShake(Vector2 center, float strength, float MaxDist = 4000)
@@ -664,7 +663,7 @@ namespace CalamityEntropy
                 SoundEngine.PlaySound(in s, pos);
             }
         }
-        
+
         public static void UseSampleState_UI(this SpriteBatch sb, SamplerState sampler)
         {
             sb.End();

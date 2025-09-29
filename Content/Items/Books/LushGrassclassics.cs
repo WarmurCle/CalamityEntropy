@@ -1,6 +1,4 @@
 ﻿using CalamityMod;
-using CalamityMod.Items.LoreItems;
-using InnoVault.Trails;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -79,12 +77,12 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if(Counter < 18)
+            if (Counter < 18)
             {
                 Counter = 18;
             }
             SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 Dust.NewDust(Projectile.Center + Projectile.velocity, 1, 1, DustID.Grass);
             }
@@ -109,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Books
                     Counter = 18;
                 }
             }
-            
+
         }
         public override void AI()
         {
@@ -171,7 +169,7 @@ namespace CalamityEntropy.Content.Items.Books
             List<ColoredVertex> vertexs = new List<ColoredVertex>();
             float tc = 0;
             Vector2 lastPos = Projectile.Center;
-            for(int i = 0; i < OldPos.Count; i++)
+            for (int i = 0; i < OldPos.Count; i++)
             {
                 tc += CEUtils.getDistance(lastPos, OldPos[i]) / (24f * Projectile.scale);
                 lastPos = OldPos[i];

@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Items.Books;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

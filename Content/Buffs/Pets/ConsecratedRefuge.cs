@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Projectiles.Pets;
-using CalamityMod.Prefixes;
 using Terraria;
 using Terraria.ModLoader;
 

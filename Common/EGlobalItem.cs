@@ -33,7 +33,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -77,7 +76,7 @@ namespace CalamityEntropy.Common
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
         public float[] wispColor = null;
-        
+
         public readonly static Dictionary<int, int> GemItemIDToTileIDMap = new() {
             {ItemID.Ruby, TileID.Ruby },
             {ItemID.Sapphire, TileID.Sapphire },
@@ -1669,8 +1668,8 @@ namespace CalamityEntropy.Common
                 static bool getsDev(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
-                    foreach(string str in Donators.Donors)
-                        if(playerName.ToLower().Contains(str.ToLower())) return true;
+                    foreach (string str in Donators.Donors)
+                        if (playerName.ToLower().Contains(str.ToLower())) return true;
                     return false;
                 }
                 ;

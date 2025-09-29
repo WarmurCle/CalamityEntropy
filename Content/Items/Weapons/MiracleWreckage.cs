@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -86,11 +85,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 counter++;
                 offset += velocity;
-                if(counter > 4)
+                if (counter > 4)
                 {
                     alpha *= 0.7f;
                 }
-                
+
             }
         }
         public List<MWParticle> particles = new List<MWParticle>();
@@ -124,8 +123,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool shoot = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(1f, 1.12f), target.Center, 4, 1f * CEUtils.WeapSound, path:"CalamityMod/Sounds/Item/");
-            for(int i = 0; i < 32; i++)
+            CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(1f, 1.12f), target.Center, 4, 1f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
+            for (int i = 0; i < 32; i++)
             {
                 Color clr = Main.rand.NextBool() ? new Color(240, 240, 255) : new Color(210, 160, 255);
                 EParticle.NewParticle(new ShadeDashParticle() { c1 = clr, c2 = clr, TL = 12 }, target.Center + CEUtils.randomPointInCircle(26),
@@ -148,10 +147,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             counter++;
             if (init)
             {
-                CEUtils.PlaySound("HalleysInfernoShoot", Projectile.ai[1] == 0 ? 1.1f : 1.22f, Projectile.Center, volume:0.46f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
+                CEUtils.PlaySound("HalleysInfernoShoot", Projectile.ai[1] == 0 ? 1.1f : 1.22f, Projectile.Center, volume: 0.46f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
                 Projectile.scale *= owner.HeldItem.scale;
                 init = false;
-                
+
             }
             Projectile.timeLeft = 3;
             float RotF = 5.4f;
@@ -167,7 +166,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     particles.RemoveAt(i);
                 }
-                
+
             }
             for (int i = 0; i < 1; i++)
             {

@@ -1,15 +1,9 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.LuminarisShoots;
-using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,7 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -132,7 +125,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Player player = Projectile.GetOwner();
             Projectile.MinionCheck<AzafureDrone>();
-            if (Projectile.localAI[0] ++ < 3)
+            if (Projectile.localAI[0]++ < 3)
             {
                 Projectile.timeLeft++;
                 return;
@@ -145,20 +138,20 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 dir = 1;
             }
-            if(Projectile.velocity.X < 0.1f)
+            if (Projectile.velocity.X < 0.1f)
             {
                 dir = -1;
             }
             NPC target = Projectile.FindMinionTarget(1000);
             if (target != null)
                 dir = -Math.Sign(Projectile.Center.X - target.Center.X);
-            if(FireCooldown > 0)
+            if (FireCooldown > 0)
             {
                 if (target != null || FireCooldown > 1)
                 {
                     FireCooldown--;
                 }
-                if(FireCooldown <= 0)
+                if (FireCooldown <= 0)
                 {
                     ReadyToFire = 30;
                 }
@@ -177,10 +170,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             else
             {
                 Projectile.velocity *= 0.94f;
-                if(ReadyToFire > 0)
+                if (ReadyToFire > 0)
                 {
                     ReadyToFire--;
-                    if(ReadyToFire <= 0)
+                    if (ReadyToFire <= 0)
                     {
                         ReadyToFire = -1;
                         FireCooldown = 60;
@@ -188,7 +181,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(0, 6), ModContent.ProjectileType<AzafureDroneBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
-                        for(int i = 0; i < 12; i++)
+                        for (int i = 0; i < 12; i++)
                         {
                             var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Firework_Yellow);
                             d.scale = 0.8f;
@@ -210,11 +203,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             float offset = (10 - FireCooldown) / 10f;
             if (offset > 1)
                 offset = 1;
-            if(FireCooldown > 10)
+            if (FireCooldown > 10)
             {
                 offset = 0;
             }
-            if(FireCooldown <= 0)
+            if (FireCooldown <= 0)
             {
                 offset = 1;
             }
@@ -249,7 +242,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     if (counter == 64)
                     {
-                        for(int i = 0; i < 8; i++)
+                        for (int i = 0; i < 8; i++)
                         {
                             GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(1) * -8, Color.White, 16, 0.3f, 0.3f, Main.rand.NextFloat(-0.006f, 0.006f), true));
                         }

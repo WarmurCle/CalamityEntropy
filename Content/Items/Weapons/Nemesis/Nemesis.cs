@@ -1,7 +1,5 @@
-﻿using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityEntropy.Content.Items.Donator;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;

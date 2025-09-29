@@ -8,7 +8,6 @@ using CalamityMod.Particles;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ReLogic.Utilities;
 using System;
 using System.IO;
 using Terraria;

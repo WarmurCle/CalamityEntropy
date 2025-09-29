@@ -1,9 +1,6 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Particles;
 using System;
 using Terraria;
 using Terraria.DataStructures;

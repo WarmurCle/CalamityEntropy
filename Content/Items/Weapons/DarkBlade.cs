@@ -1,20 +1,15 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Donator;
+﻿using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.LoreItems;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.GameContent.Animations.IL_Actions.Sprites;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {

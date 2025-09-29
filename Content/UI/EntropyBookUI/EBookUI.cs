@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Books;
-using CalamityEntropy.Content.Items.Books.BookMarks;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;

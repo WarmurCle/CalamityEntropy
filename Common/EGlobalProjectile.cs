@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Items.Weapons.Nemesis;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
@@ -766,10 +765,10 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.GetOwner().Entropy().hasAcc(SmartScope.ID) && projectile.numHits < 1)
                 {
-                    if(SSFlag)
+                    if (SSFlag)
                     {
                         SSFlag = false;
-                        if(!(SSCD <= 0))
+                        if (!(SSCD <= 0))
                         {
                             SmartScopeHoming = true;
                             SSCD--;

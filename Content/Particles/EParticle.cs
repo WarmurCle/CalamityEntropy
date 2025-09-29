@@ -169,7 +169,7 @@ namespace CalamityEntropy.Content.Particles
         {
             for (int i = particles.Count - 1; i >= 0; i--)
             {
-                for(int u = 0; u < particles[i].UpdateTimes; u++)
+                for (int u = 0; u < particles[i].UpdateTimes; u++)
                     particles[i].AI();
             }
             for (int i = particles.Count - 1; i >= 0; i--)

@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity += v * 3f;
                 }
             }
-            Projectile.rotation += htd ? ((Projectile.whoAmI % 2 == 0 ? 1 : -1)*0.1f) : 0.3f;
+            Projectile.rotation += htd ? ((Projectile.whoAmI % 2 == 0 ? 1 : -1) * 0.1f) : 0.3f;
             exps *= 0.8f;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

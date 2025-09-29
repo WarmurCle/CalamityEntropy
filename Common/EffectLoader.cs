@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Vanity;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -8,7 +7,6 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
-using CalamityMod.Projectiles.Magic;
 using InnoVault;
 using InnoVault.PRT;
 using InnoVault.RenderHandles;
@@ -16,7 +14,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
@@ -134,11 +131,11 @@ namespace CalamityEntropy.Common
         private static void DrawScreenRotation(GraphicsDevice graphicsDevice)
         {
             bool enabled = false;
-            if(!ModContent.GetInstance<Config>().ScreenWarpEffects)
+            if (!ModContent.GetInstance<Config>().ScreenWarpEffects)
             {
                 enabled = false;
             }
-            if(enabled)
+            if (enabled)
             {
                 ScreenRotAmp += (1 - ScreenRotAmp) * 0.01f;
             }
@@ -443,7 +440,7 @@ namespace CalamityEntropy.Common
         }
         private static void DrawNPCsAndProjectiles(GraphicsDevice graphicsDevice)
         {
-            
+
             int cruiserEnergyBallType = ModContent.ProjectileType<CruiserEnergyBall>();
             int runeTorrentType = ModContent.ProjectileType<RuneTorrent>();
             int runeTorrentRangerType = ModContent.ProjectileType<RuneTorrentRanger>();
@@ -484,7 +481,7 @@ namespace CalamityEntropy.Common
             EParticle.DrawPixelShaderParticles();
             Main.spriteBatch.End();
 
-            
+
 
             List<IAdditivePRT> prtAdditives = new List<IAdditivePRT>();
             foreach (var prt in PRTLoader.PRT_InGame_World_Inds)
@@ -517,7 +514,7 @@ namespace CalamityEntropy.Common
             Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
             shader.CurrentTechnique = shader.Techniques["Technique1"];
             shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2() / Main.GameViewMatrix.Zoom);
-            if(GameZoom)
+            if (GameZoom)
                 shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
             shader.CurrentTechnique.Passes[0].Apply();
 
@@ -538,7 +535,7 @@ namespace CalamityEntropy.Common
                 dyeShader = GameShaders.Armor.GetShaderFromItemId(dye).Shader;
             }
             Matrix m = Main.GameViewMatrix.ZoomMatrix;
-            if(GameZoom)
+            if (GameZoom)
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, m);
             else
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null);

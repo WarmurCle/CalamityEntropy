@@ -1,19 +1,14 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.NPCs.SpiritFountain;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Map;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
@@ -118,9 +113,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         CEUtils.PlaySound("shockBlast", 1.5f - 0.5f * Charge, FirePos, volume: Charge);
                         int bulletCounts = 1 + (int)(Charge * 9);
-                        for(int i = 0; i < bulletCounts; i++)
+                        for (int i = 0; i < bulletCounts; i++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), FirePos, Projectile.velocity.RotatedByRandom((1 - Charge)) * Main.rand.NextFloat(0.6f, 1) * 2.6f * (0.3f + 0.7f*Charge), ModContent.ProjectileType<RailgunSmallShot>(), (int)(Charge * Projectile.damage / bulletCounts), Projectile.knockBack / 10, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), FirePos, Projectile.velocity.RotatedByRandom((1 - Charge)) * Main.rand.NextFloat(0.6f, 1) * 2.6f * (0.3f + 0.7f * Charge), ModContent.ProjectileType<RailgunSmallShot>(), (int)(Charge * Projectile.damage / bulletCounts), Projectile.knockBack / 10, Projectile.owner);
                         }
                     }
                 }
@@ -149,16 +144,16 @@ namespace CalamityEntropy.Content.Items.Weapons
             //Main.spriteBatch.End();
             //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
             float Mxl = 1;
-            for(float i = 0; i <= 1; i += 0.0025f)
+            for (float i = 0; i <= 1; i += 0.0025f)
             {
                 Mxl = i;
                 Vector2 tpos = FirePos + Projectile.rotation.ToRotationVector2() * i * 800;
-                if(!CEUtils.isAir(tpos))
+                if (!CEUtils.isAir(tpos))
                 {
                     break;
                 }
             }
-            if(Mxl > Charge)
+            if (Mxl > Charge)
             {
                 Mxl = Charge;
             }
@@ -278,12 +273,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.velocity *= 0.98f;
             Projectile.rotation = Projectile.velocity.ToRotation();
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 600);
-            if(target != null)
+            if (target != null)
             {
                 Projectile.velocity *= 0.92f;
                 Projectile.velocity += (target.Center - Projectile.Center).normalize() * 2f;
             }
-            if(trail == null)
+            if (trail == null)
             {
                 trail = new TrailParticle();
                 trail.maxLength = 32;

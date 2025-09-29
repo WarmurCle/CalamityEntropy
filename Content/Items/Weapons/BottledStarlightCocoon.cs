@@ -1,15 +1,9 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
-using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,7 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -99,7 +92,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool? CanHitNPC(NPC target)
         {
             if (ai != AIStyle.Dashing)
-                return false; 
+                return false;
             return null;
         }
         public override bool? CanCutTiles()
@@ -132,7 +125,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Player player = Projectile.GetOwner();
             Projectile.MinionCheck<StarlightMoth>();
-            if (Projectile.localAI[0] ++ < 3)
+            if (Projectile.localAI[0]++ < 3)
             {
                 Projectile.timeLeft++;
                 return;
@@ -154,7 +147,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             NPC target = Projectile.FindMinionTarget();
             if (target != null)
             {
-                if(!f && ai == AIStyle.AroundOwner)
+                if (!f && ai == AIStyle.AroundOwner)
                 {
                     ai = AIStyle.Shooting;
                 }
@@ -225,16 +218,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                 }
 
             }
-            if(ai == AIStyle.Dashing)
+            if (ai == AIStyle.Dashing)
             {
-                if(Projectile.localAI[1]++ > 16)
+                if (Projectile.localAI[1]++ > 16)
                 {
                     Projectile.localAI[1] = -180;
                     ai = AIStyle.Shooting;
                     Projectile.velocity *= 0.45f;
                 }
             }
-            if(trail == null || trail.Lifetime <= 0)
+            if (trail == null || trail.Lifetime <= 0)
             {
                 trail = new StarTrailParticle();
                 trail.addPoint = false;
@@ -251,7 +244,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public StarTrailParticle trail = null;
         public void SetAI(AIStyle t)
         {
-            if(_ai != t && Main.myPlayer == Projectile.owner)
+            if (_ai != t && Main.myPlayer == Projectile.owner)
             {
                 _ai = t;
                 CEUtils.SyncProj(Projectile.whoAmI);

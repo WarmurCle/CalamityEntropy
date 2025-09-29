@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
@@ -14,7 +13,7 @@ namespace CalamityEntropy.Content.Particles
         public override void AI()
         {
             base.AI();
-            if(this.Lifetime < 26)
+            if (this.Lifetime < 26)
                 this.Opacity *= 0.9f;
         }
     }

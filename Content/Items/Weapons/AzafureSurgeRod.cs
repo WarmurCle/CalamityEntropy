@@ -91,14 +91,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Projectile.localAI[0]++ == 0)
             {
-                if(Projectile.Calamity().stealthStrike)
+                if (Projectile.Calamity().stealthStrike)
                 {
                     Projectile.tileCollide = false;
                 }
                 int ht = ModContent.ProjectileType<AzafureSurgeRodHeldEffect>();
-                foreach(var proj in Main.ActiveProjectiles)
+                foreach (var proj in Main.ActiveProjectiles)
                 {
-                    if(proj.owner == Projectile.owner && proj.type == ht)
+                    if (proj.owner == Projectile.owner && proj.type == ht)
                     {
                         proj.Kill();
                     }
@@ -106,12 +106,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (StickOnNPC && (stick == null || !stick.active))
                 StickOnNPC = false;
-            if(StickOnNPC)
+            if (StickOnNPC)
             {
                 Projectile.Center = stick.Center + StickPos.RotatedBy(stick.rotation);
                 Projectile.rotation = stick.rotation + yr;
             }
-            else if(StickOnGround)
+            else if (StickOnGround)
             {
 
             }
@@ -120,9 +120,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (Projectile.Calamity().stealthStrike)
                 {
                     Projectile.velocity *= 0.93f;
-                    if(target == null || !target.active)
+                    if (target == null || !target.active)
                         target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 340);
-                    if(target != null)
+                    if (target != null)
                     {
                         Projectile.velocity *= 0.9f;
                         Projectile.velocity += (target.Center - Projectile.Center).normalize() * 9f;
@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         filter = (i) => i != stick.whoAmI;
                     }
                     NPC npc = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 400, filter);
-                    if(npc == null)
+                    if (npc == null)
                     {
                         npc = stick;
                     }
@@ -171,7 +171,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (Projectile.Calamity().stealthStrike)
                 tex = this.getTextureAlt();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4, new Vector2(36, 12), Projectile.scale, SpriteEffects.None);
-            if(StrikeCounter >= 0)
+            if (StrikeCounter >= 0)
             {
                 float wa = 1 - StrikeCounter / 52f;
                 tex = this.getTextureGlow();
@@ -192,7 +192,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             writer.WriteVector2(StickPos);
             writer.Write(yr);
             writer.Write(StickOnNPC);
-            if(StickOnNPC)
+            if (StickOnNPC)
             {
                 writer.Write(stick.whoAmI);
             }
@@ -203,14 +203,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             StickPos = reader.ReadVector2();
             yr = reader.ReadSingle();
             StickOnNPC = reader.ReadBoolean();
-            if(StickOnNPC)
+            if (StickOnNPC)
             {
                 stick = reader.ReadInt32().ToNPC();
             }
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if(StickOnGround || StickOnNPC)
+            if (StickOnGround || StickOnNPC)
             {
                 return false;
             }
@@ -218,7 +218,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(!StickOnGround && !StickOnNPC)
+            if (!StickOnGround && !StickOnNPC)
             {
                 StickOnNPC = true;
                 StickPos = Projectile.Center - target.Center;
@@ -271,7 +271,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            if(player.HeldItem.ModItem is AzafureSurgeRod)
+            if (player.HeldItem.ModItem is AzafureSurgeRod)
             {
                 Projectile.timeLeft = 4;
             }
@@ -286,13 +286,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                 progress = 1;
             player.Calamity().mouseWorldListener = true;
             Projectile.Center = player.GetDrawCenter();
-            if(progress > 0.4f)
+            if (progress > 0.4f)
             {
                 float rj = 2.5f;
                 float p = (progress - 0.5f) * 2;
                 player.direction = (player.Calamity().mouseWorld - Projectile.Center).X > 0 ? 1 : -1;
                 Projectile.rotation = (player.Calamity().mouseWorld - Projectile.Center).ToRotation() - (player.direction * (CEUtils.GetRepeatedCosFromZeroToOne(p, 2) * rj));
-                
+
                 player.SetHandRot(Projectile.rotation);
                 player.direction = (player.Calamity().mouseWorld - Projectile.Center).X > 0 ? 1 : -1;
                 player.heldProj = Projectile.whoAmI;

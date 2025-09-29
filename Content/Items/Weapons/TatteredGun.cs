@@ -1,7 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using CalamityMod;
-using CalamityMod.Items;
-using System;
+﻿using CalamityMod;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

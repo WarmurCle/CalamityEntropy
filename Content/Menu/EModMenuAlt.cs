@@ -36,9 +36,9 @@ namespace CalamityEntropy.Content.Menu
             float xoffset = (float)Math.Cos(counter * 0.004f);
 
             counter++;
-            logoScale = 1;
+            logoScale = 0.8f;
             logoRotation = 0;
-            logoDrawCenter += new Vector2(36, (float)Math.Cos(counter * 0.008f) * 4 + 30);
+            logoDrawCenter += new Vector2(0, (float)Math.Cos(counter * 0.02f) * 18 + 8);
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
@@ -46,17 +46,17 @@ namespace CalamityEntropy.Content.Menu
             spriteBatch.Draw(pixel, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Color(1, 2, 32));
 
             spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
-            
+
             spriteBatch.Draw(l5, new Vector2(Main.screenWidth / 2 - xoffset * 2, Main.screenHeight / 2 + fl * 8), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
             spriteBatch.Draw(l6, new Vector2(Main.screenWidth / 2 - xoffset * 2, Main.screenHeight / 2 + fl * 8), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
-          
+
             spriteBatch.Draw(l3, new Vector2(Main.screenWidth / 2 - xoffset * 4, Main.screenHeight / 2 - fl * 14), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
             spriteBatch.Draw(l4, new Vector2(Main.screenWidth / 2 - xoffset * 4, Main.screenHeight / 2 - fl * 14), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
             Vector2 pa1 = new Vector2(-xoffset * 4, -fl * 14) + new Vector2(-340, -84) * (Main.screenWidth / 1920f) + Main.ScreenSize.ToVector2() / 2f;
             Vector2 pa2 = new Vector2(-xoffset * 6, fl * 18) + new Vector2(-260, 0) * (Main.screenWidth / 1920f) + Main.ScreenSize.ToVector2() / 2f;
             Vector2 pb1 = new Vector2(-xoffset * 4, -fl * 14) + new Vector2(314, -80) * (Main.screenWidth / 1920f) + Main.ScreenSize.ToVector2() / 2f;
             Vector2 pb2 = new Vector2(-xoffset * 6, fl * 18) + new Vector2(120, 0) * (Main.screenWidth / 1920f) + Main.ScreenSize.ToVector2() / 2f;
-            
+
             spriteBatch.Draw(l10, pa1, null, Color.White, (pa2 - pa1).ToRotation(), l10.Size() / 2 * new Vector2(0, 1), CEUtils.getDistance(pa1, pa2) / l10.Width, SpriteEffects.None, 0);
             spriteBatch.Draw(l11, pb1, null, Color.White, (pb2 - pb1).ToRotation(), l10.Size() / 2 * new Vector2(0, 1), CEUtils.getDistance(pb1, pb2) / l11.Width, SpriteEffects.FlipVertically, 0);
 
@@ -74,12 +74,12 @@ namespace CalamityEntropy.Content.Menu
             {
                 particles.Add(new() { pos = new Vector2(Main.rand.NextFloat(-400, Main.screenWidth), -20), vel = new Vector2(Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(0, 5)) });
             }
-            foreach(var p in particles)
+            foreach (var p in particles)
             {
                 p.Update();
                 Main.spriteBatch.Draw(CEUtils.pixelTex, p.pos, null, new Color(30, 30, 120) * p.alpha, 0, CEUtils.pixelTex.Size() / 2f, 8 * p.scale * p.alpha, SpriteEffects.None, 0);
             }
-            for(int i = particles.Count - 1; i >= 0; i--)
+            for (int i = particles.Count - 1; i >= 0; i--)
             {
                 if (particles[i].alpha <= 0 || particles[i].pos.X > Main.screenWidth + 20)
                 {
@@ -97,10 +97,6 @@ namespace CalamityEntropy.Content.Menu
             }
 
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
-
-            spriteBatch.Draw(logo, logoDrawCenter, null, Color.White, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
@@ -110,7 +106,7 @@ namespace CalamityEntropy.Content.Menu
                 float rot = 0;
                 for (int j = 0; j < 8; j++)
                 {
-                    spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logool").Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i * 0.5f), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
+                    spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logool").Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
                     rot += MathHelper.ToRadians(45);
                 }
             }

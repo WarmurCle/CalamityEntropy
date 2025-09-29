@@ -1,32 +1,18 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Biomes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.SpiritFountainShoots;
-using CalamityEntropy.Content.Tiles;
 using CalamityMod;
-using CalamityMod.Events;
 using CalamityMod.Items.Potions;
-using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.Particles;
 using CalamityMod.World;
-using CalamityOverhaul;
-using InnoVault;
 using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -328,12 +314,12 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     NPC.Center = pos.X < 10 ? (NPC.HasValidTarget ? NPC.target.ToPlayer().Center : Main.player[0].Center) : pos;
                     starePoint = NPC.Center;
                 }
-                if(GatheringAnimation == 300)
+                if (GatheringAnimation == 300)
                 {
-                    EParticle.spawnNew(new ShineParticle() { flag = true}, NPC.Center, Vector2.Zero, Color.AliceBlue, 5, 1, true, BlendState.Additive, 0, 320);
+                    EParticle.spawnNew(new ShineParticle() { flag = true }, NPC.Center, Vector2.Zero, Color.AliceBlue, 5, 1, true, BlendState.Additive, 0, 320);
                     EParticle.spawnNew(new ShineParticle() { flag = true }, NPC.Center, Vector2.Zero, Color.White, 3.6f, 1, true, BlendState.Additive, 0, 320);
                 }
-                
+
                 if (GatheringAnimation-- > 0)
                 {
                     if (GatheringAnimation > 70)
@@ -402,7 +388,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 starePoint = Main.LocalPlayer.Center;
 
             }
-            if(phase > 3)
+            if (phase > 3)
             {
                 if (SpawnSpirits2)
                 {
@@ -423,7 +409,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                             }
                         }
                     }
-                    
+
                 }
             }
             if (ai == AIStyle.Moving)
@@ -529,7 +515,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     aiTimer = 0;
                 }
             }
-            if(ai == AIStyle.PhaseTranse1)
+            if (ai == AIStyle.PhaseTranse1)
             {
                 DontTakeDmg = true;
                 column1.offset *= 0;

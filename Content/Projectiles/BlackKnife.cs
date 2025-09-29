@@ -1,8 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -48,7 +46,7 @@ namespace CalamityEntropy.Content.Projectiles
                 white--;
                 counter++;
                 float d = (wah) * 0.5f + 200;
-                if(counter < 60)
+                if (counter < 60)
                 {
                     d += CEUtils.GetRepeatedCosFromZeroToOne(counter / 60f, 2) * 80;
                 }
@@ -56,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     d += 80;
                 }
-                    w = (int)d;
+                w = (int)d;
                 if (counter > 60)
                 {
                     clr = Color.White;

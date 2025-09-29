@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
                     EParticle.spawnNew(ps[1], Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, Vector2.Zero, Color.OrangeRed, 0.9f, 1, true, BlendState.Additive, 0, 12);
                 }
             }
-            foreach(var pt in ps)
+            foreach (var pt in ps)
             {
                 pt.Position = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale;
             }

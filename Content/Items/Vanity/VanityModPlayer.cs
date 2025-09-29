@@ -16,11 +16,11 @@ namespace CalamityEntropy.Content.Items.Vanity
         public bool TheocracyMark = false;
         public override void PostUpdate()
         {
-            if(TheocracyMark)
+            if (TheocracyMark)
             {
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<Theostring>()] < 1)
                 {
-                    if(Main.myPlayer == Player.whoAmI)
+                    if (Main.myPlayer == Player.whoAmI)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Theostring>(), 0, 0, Player.whoAmI, -1);
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Theostring>(), 0, 0, Player.whoAmI, 1);
@@ -45,11 +45,11 @@ namespace CalamityEntropy.Content.Items.Vanity
             }
             if (vanityEquipped != "")
             {
-                
+
                 Player.legs = EquipLoader.GetEquipSlot(Mod, vanityEquipped, EquipType.Legs);
                 Player.body = EquipLoader.GetEquipSlot(Mod, vanityEquipped, EquipType.Body);
                 Player.head = EquipLoader.GetEquipSlot(Mod, vanityEquipped, EquipType.Head);
-                
+
             }
         }
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
