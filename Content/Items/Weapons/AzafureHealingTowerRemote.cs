@@ -1,10 +1,7 @@
 using CalamityEntropy.Content.Particles;
-using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
-using CalamityMod.Projectiles.Summon;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -84,9 +81,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Player healing = null;
             float dist = 900;
             int p = -1;
-            foreach(Player plr in Main.ActivePlayers)
+            foreach (Player plr in Main.ActivePlayers)
             {
-                if(CEUtils.getDistance(plr.Center, Projectile.Center) < dist && plr.statLife < plr.statLifeMax2)
+                if (CEUtils.getDistance(plr.Center, Projectile.Center) < dist && plr.statLife < plr.statLifeMax2)
                 {
                     dist = CEUtils.getDistance(plr.Center, Projectile.Center);
                     p = plr.whoAmI;
@@ -98,14 +95,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             bool flag = false;
 
-            
+
             if (CheckCD > 0)
                 CheckCD--;
-            if(healing != null)
+            if (healing != null)
             {
                 flag = true;
                 AttackMode = false;
-                if(CheckCD <= 0)
+                if (CheckCD <= 0)
                 {
                     CheckCD = (int)(12f * (100f / player.GetTotalDamage(DamageClass.Summon).ApplyTo(100f)));
                     healing.Heal(1);
@@ -129,9 +126,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                 }
             }
-            if(flag)
+            if (flag)
             {
-                if(LineWidth < 1)
+                if (LineWidth < 1)
                 {
                     LineWidth += 0.1f;
                 }
@@ -140,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                if(LineWidth > 0)
+                if (LineWidth > 0)
                 {
                     LineWidth *= 0.7f;
                 }
@@ -164,7 +161,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, 0, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
-            if(LineWidth > 0.01f)
+            if (LineWidth > 0.01f)
             {
                 Vector2 laserStart = Projectile.Center + new Vector2(10, -28);
                 Texture2D ball = CEUtils.getExtraTex("BasicCircle");

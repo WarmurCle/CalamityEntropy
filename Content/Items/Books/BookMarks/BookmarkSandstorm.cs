@@ -1,7 +1,6 @@
 ﻿using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
-using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
@@ -36,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (count > 0)
                 CEUtils.PlaySound("corruptwhip_hit2", 1, player.Center, 10, count / 4f + 0.4f);
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 int dustAmt = 16;
                 for (int j = 0; j < dustAmt; j++)
@@ -112,7 +111,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             if (Projectile.localAI[0] > 14)
                 Projectile.velocity.Y += 0.9f;
         }
-        
+
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);

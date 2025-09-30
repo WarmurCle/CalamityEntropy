@@ -10,7 +10,6 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 using static CalamityEntropy.Common.BookMarkLoader;
 
 namespace CalamityEntropy.Content.Items.Books

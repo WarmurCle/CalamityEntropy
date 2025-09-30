@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Tiles;
+﻿using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;

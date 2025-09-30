@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Particles;

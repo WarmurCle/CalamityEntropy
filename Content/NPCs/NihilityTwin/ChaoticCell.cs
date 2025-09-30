@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Biomes;
 using CalamityEntropy.Content.Buffs;
 using CalamityMod;
-using CalamityMod.Items;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System;

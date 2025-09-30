@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Items.Donator;
-using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

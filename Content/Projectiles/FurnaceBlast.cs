@@ -1,9 +1,7 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser
@@ -27,9 +25,9 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public float Counter = 0;
         public override void AI()
         {
-            Counter+= 0.035f;
+            Counter += 0.035f;
             Scale = CEUtils.Parabola(Counter, 1);
-            if(Counter >= 1)
+            if (Counter >= 1)
             {
                 Scale = 0;
                 Projectile.Kill();

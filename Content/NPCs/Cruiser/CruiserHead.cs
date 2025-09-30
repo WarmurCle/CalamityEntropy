@@ -735,7 +735,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             }
                             NPC.velocity += (target.Center - NPC.Center).normalize() * Utils.Remap(NPC.Distance(target.Center), 0, 700, 1f, 3f);
                             NPC.velocity *= Utils.Remap(NPC.Distance(target.Center), 0, 700, 0.98f, 0.97f);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize()*NPC.velocity.Length(), Utils.Remap(NPC.Distance(target.Center), 0, 1000, 0f, 0.1f));
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, (target.Center - NPC.Center).normalize() * NPC.velocity.Length(), Utils.Remap(NPC.Distance(target.Center), 0, 1000, 0f, 0.1f));
                             changeCounter++;
                             if (changeCounter > 600 || NPC.Distance(target.Center) < 700 + NPC.velocity.Length())
                             {

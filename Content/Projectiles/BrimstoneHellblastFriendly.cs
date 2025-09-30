@@ -6,8 +6,6 @@ using CalamityMod.NPCs;
 using CalamityMod.NPCs.CalClone;
 using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Boss;
-using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;

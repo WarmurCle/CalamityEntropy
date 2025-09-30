@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
@@ -15,7 +14,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {

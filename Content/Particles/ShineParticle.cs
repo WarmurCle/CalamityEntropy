@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Particles
                 Opacity = 1;
                 if (Lifetime > 32)
                 {
-                    for(int i = 0; i < (Lifetime - 32) / 16; i++)
+                    for (int i = 0; i < (Lifetime - 32) / 16; i++)
                         Main.dust[Dust.NewDust(Position, 0, 0, DustID.MagicMirror)].velocity = CEUtils.randomPointInCircle(Scale * 3);
                 }
             }

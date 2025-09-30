@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void ApplyHoming()
         {
-            
+
         }
         public override void SetDefaults()
         {

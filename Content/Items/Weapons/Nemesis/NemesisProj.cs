@@ -1,6 +1,6 @@
-﻿using InnoVault;
+﻿using CalamityMod.Buffs.DamageOverTime;
+using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
-using CalamityMod.Buffs.DamageOverTime;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;

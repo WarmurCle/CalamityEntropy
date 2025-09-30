@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             if (!isUsing)
             {
-                if(EBookUsingTime > 29 && book != null && book.ModProjectile is EntropyBookHeldProjectile e && Main.myPlayer == Player.whoAmI)
+                if (EBookUsingTime > 29 && book != null && book.ModProjectile is EntropyBookHeldProjectile e && Main.myPlayer == Player.whoAmI)
                 {
                     for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, e.bookItem), Player.Entropy().EBookStackItems.Count); i++)
                     {
@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
                 EBookUsingTime = 0;
             }
-            if(ssbm)
+            if (ssbm)
             {
                 SandStormCharge = float.Min(1, EBookUsingTime / 300f);
             }

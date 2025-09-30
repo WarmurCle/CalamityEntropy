@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -66,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             var gdv = Main.graphics.GraphicsDevice;
-            
+
             Color cl = Color.Lerp(Color.Black, Color.White, Projectile.ai[0] / 30f);
             float c = 0;
 
@@ -123,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 }
             }
-            
+
             return false;
         }
 

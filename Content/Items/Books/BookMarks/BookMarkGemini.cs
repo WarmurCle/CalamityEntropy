@@ -1,9 +1,7 @@
-using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {

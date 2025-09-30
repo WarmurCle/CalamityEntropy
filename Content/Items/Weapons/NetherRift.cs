@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

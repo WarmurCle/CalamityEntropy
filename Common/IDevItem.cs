@@ -1,9 +1,6 @@
 ﻿using CalamityMod;
-using CalamityMod.Items;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator

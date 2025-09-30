@@ -4,7 +4,6 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Accessories.Wings;
 using CalamityMod.Items.DraedonMisc;
 using CalamityMod.Items.Fishing.AstralCatches;
 using CalamityMod.Items.Materials;

@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Vanity.KM;
-using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

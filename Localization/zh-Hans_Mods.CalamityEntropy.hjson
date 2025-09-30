@@ -3052,6 +3052,23 @@ Items: {
 			哨兵
 			'''
 	}
+
+	Dyes: {
+		SpiritDye: {
+			DisplayName: 灵魂染料
+			Tooltip: ""
+		}
+
+		VoidCruiseDye: {
+			DisplayName: 神权染料
+			Tooltip: ""
+		}
+
+		RoaringDye: {
+			DisplayName: 呼啸染料
+			Tooltip: ""
+		}
+	}
 }
 
 LOCKED: ：[已锁定]

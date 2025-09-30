@@ -1,16 +1,9 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
-using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Graphics.Primitives;
-using CalamityMod.NPCs.TownNPCs;
 using Microsoft.Xna.Framework.Graphics;
-using SteelSeries.GameSense;
-using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles

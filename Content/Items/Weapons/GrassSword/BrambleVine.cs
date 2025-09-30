@@ -1,15 +1,9 @@
-﻿using CalamityEntropy.Content.Particles;
-using CalamityMod;
-using CalamityMod.Items;
+﻿using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.GrassSword

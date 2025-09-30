@@ -5,14 +5,11 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles

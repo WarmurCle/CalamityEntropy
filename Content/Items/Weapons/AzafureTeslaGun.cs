@@ -1,15 +1,10 @@
-﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
 using CalamityMod.Rarities;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 

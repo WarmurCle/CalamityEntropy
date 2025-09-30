@@ -2,7 +2,6 @@
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

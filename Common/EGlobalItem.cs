@@ -33,7 +33,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -77,6 +76,7 @@ namespace CalamityEntropy.Common
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
         public float[] wispColor = null;
+
         public readonly static Dictionary<int, int> GemItemIDToTileIDMap = new() {
             {ItemID.Ruby, TileID.Ruby },
             {ItemID.Sapphire, TileID.Sapphire },
@@ -1156,6 +1156,49 @@ namespace CalamityEntropy.Common
 
                     return false;
                 }
+                if (item.rare == ModContent.RarityType<Golden>())
+                {
+                    float xa = 0; var font = FontAssets.MouseText.Value;
+                    float h = 0;
+                    for (int i = 0; i < line.Text.Length; i++)
+                    {
+                        string text = line.Text[i].ToString();
+
+                        Vector2 size = font.MeasureString(text);
+                        float yofs;
+                        if (size.Y > h)
+                        {
+                            h = size.Y;
+                        }
+                        Color color = new Color(120, 120, 240);
+                        yofs = 0;
+                        Color strokeColord = new Color(250, 200, 10);
+
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+
+
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs), color);
+
+                        xa += size.X + 2;
+
+                    }
+                    SpriteBatch sb = Main.spriteBatch;
+                    sb.End();
+                    sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+                    Texture2D glow = CEUtils.getExtraTex("Glow");
+                    sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(210, 180, 120) * 0.8f, 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.34f), SpriteEffects.None, 0);
+                    sb.End();
+                    sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+
+                    return false;
+                }
                 if (item.rare == ModContent.RarityType<GlowGreen>() || item.rare == ModContent.RarityType<GlowPurple>() || item.rare == ModContent.RarityType<SkyBlue>())
                 {
                     float xa = 0;
@@ -1625,8 +1668,8 @@ namespace CalamityEntropy.Common
                 static bool getsDev(DropAttemptInfo info)
                 {
                     string playerName = info.player.name;
-                    foreach(string str in Donators.Donors)
-                        if(playerName.ToLower().Contains(str.ToLower())) return true;
+                    foreach (string str in Donators.Donors)
+                        if (playerName.ToLower().Contains(str.ToLower())) return true;
                     return false;
                 }
                 ;
@@ -1644,6 +1687,8 @@ namespace CalamityEntropy.Common
                 }
                 ;
                 itemLoot.AddIf(getsDH, ModContent.ItemType<DustyStar>());
+                itemLoot.AddIf(getsDH, ItemID.Ruby, 8);
+                itemLoot.AddIf(getsDH, ModContent.ItemType<VoidCruiseDye>(), 3);
                 itemLoot.AddIf(getsWyrm, ModContent.ItemType<AbyssLantern>());
                 static bool getsAH(DropAttemptInfo info)
                 {

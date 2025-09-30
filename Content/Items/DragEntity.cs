@@ -1,14 +1,6 @@
-﻿using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Pets;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.NPCs.Cruiser;
-using CalamityMod;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.GameContent.ItemDropRules;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static CalamityEntropy.Common.EGlobalItem;
 
 namespace CalamityEntropy.Content.Items
 {

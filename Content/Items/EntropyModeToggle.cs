@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Items
             }
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                
+
                 CalamityEntropy.EntropyMode = !CalamityEntropy.EntropyMode;
 
                 if (Main.netMode == NetmodeID.SinglePlayer)

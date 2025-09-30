@@ -1,23 +1,6 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
-using CalamityMod.World;
-using Microsoft.CodeAnalysis;
+﻿using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 

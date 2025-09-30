@@ -1,9 +1,7 @@
-﻿using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Particles;
+﻿using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
@@ -40,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
                 if (target != null)
                 {
                     float homing = 0.4f;
-                    if(CEUtils.getDistance(target.Center, Projectile.Center) < 360)
+                    if (CEUtils.getDistance(target.Center, Projectile.Center) < 360)
                     {
                         homing = Utils.Remap(CEUtils.getDistance(target.Center, Projectile.Center), 0, 360, 12, 0.4f);
                     }

@@ -1,6 +1,4 @@
 ﻿using CalamityEntropy.Content.Items.Donator;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Placeables.FurnitureAbyss;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

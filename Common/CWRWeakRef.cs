@@ -1,5 +1,4 @@
-﻿using CalamityOverhaul;
-using CalamityOverhaul.Content;
+﻿using CalamityOverhaul.Content;
 using Terraria;
 using Terraria.ModLoader;
 

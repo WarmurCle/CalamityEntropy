@@ -24,14 +24,10 @@ using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityMod;
-using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Cooldowns;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Rogue;
 using CalamityMod.Projectiles.Typeless;
-using InnoVault.Trails;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -149,7 +145,7 @@ namespace CalamityEntropy.Common
         public int bloodBoiling = 0;
         public int UsingItemCounter = 0;
         public float MHVanityRot = 0;
-
+        public int JetpackDye = -1;
         public class SpecialWingDrawingData
         {
             public int MaxFrame = 3;
@@ -1503,7 +1499,7 @@ namespace CalamityEntropy.Common
             {
                 if (Player.dashDelay < 0)
                 {
-                    
+
                     if (avTrail == null || avTrail.Lifetime <= 0)
                     {
                         avTrail = new DashBeam();
@@ -2584,9 +2580,9 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is StarlightMothMinion smm)
+                if (p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is StarlightMothMinion smm)
                 {
                     if (p.ai[1] == 1)
                     {

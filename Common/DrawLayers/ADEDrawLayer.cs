@@ -24,7 +24,7 @@ namespace CalamityEntropy.Common.DrawLayers
         {
             Texture2D tex = CEUtils.getExtraTex("ADEVisual");
             Vector2 offset = drawInfo.GetFrameOrigin() + new Vector2(drawInfo.drawPlayer.width, drawInfo.drawPlayer.height * 0.5f);
-            drawInfo.DrawDataCache.Add(new DrawData(tex, offset + new Vector2(-12 * drawInfo.drawPlayer.direction, 4), null, drawInfo.colorArmorBody, 0, tex.Size() * 0.5f, 1, drawInfo.drawPlayer.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) { shader = drawInfo.drawPlayer.cBody });
+            drawInfo.DrawDataCache.Add(new DrawData(tex, offset + new Vector2(-12 * drawInfo.drawPlayer.direction, 4), null, drawInfo.colorArmorBody, 0, tex.Size() * 0.5f, 1, drawInfo.drawPlayer.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) { shader = drawInfo.drawPlayer.Entropy().JetpackDye });
         }
 
     }

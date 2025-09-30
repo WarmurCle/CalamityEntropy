@@ -7,7 +7,6 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Armor.OmegaBlue;
-using CalamityMod.Items.Materials;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

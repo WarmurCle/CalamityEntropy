@@ -2,8 +2,6 @@
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityMod.Items.Materials;
-using CalamityMod.Prefixes;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

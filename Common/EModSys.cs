@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Books.BookMarks;
+﻿using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
@@ -9,16 +8,12 @@ using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.NPCs.SpiritFountain;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Skies;
-using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Items.Ammo;
-using CalamityMod.Items.Placeables.FurnitureAuric;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs.SlimeGod;
-using CalamityMod.Projectiles.Magic;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
@@ -28,12 +23,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.GameContent.Drawing;
 using Terraria.GameContent.UI.ResourceSets;
 using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -639,7 +632,7 @@ namespace CalamityEntropy.Common
         public override void PostUpdateProjectiles()
         {
             CEUtils.Update();
-            if(EGlobalProjectile.SSCD < 3)
+            if (EGlobalProjectile.SSCD < 3)
             {
                 EGlobalProjectile.SSCD++;
             }

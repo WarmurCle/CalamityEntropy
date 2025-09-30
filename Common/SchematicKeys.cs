@@ -1,14 +1,4 @@
-﻿using CalamityMod.TileEntities;
-using CalamityMod.Tiles.DraedonStructures;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace CalamityEntropy.Common
+﻿namespace CalamityEntropy.Common
 {
     public static class SchematicKeys
     {

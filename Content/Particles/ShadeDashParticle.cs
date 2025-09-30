@@ -1,12 +1,9 @@
 ﻿using CalamityMod;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles

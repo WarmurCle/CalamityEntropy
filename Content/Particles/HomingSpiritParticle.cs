@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 
@@ -19,14 +18,14 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             Lifetime = 5;
-            if(Opc < 1)
+            if (Opc < 1)
             {
                 Opc += 0.05f;
             }
             h = 0.6f + Utils.Remap(CEUtils.getDistance(Position, TargetPos), 0, 900, 1, 0);
             Velocity *= 1f - h * 0.012f;
             Velocity += (TargetPos - Position).normalize() * 0.056f * h;
-            if(CEUtils.getDistance(Position, TargetPos) < Velocity.Length() * 1.1f + 64)
+            if (CEUtils.getDistance(Position, TargetPos) < Velocity.Length() * 1.1f + 64)
             {
                 Lifetime = 0;
                 Velocity *= 0;
