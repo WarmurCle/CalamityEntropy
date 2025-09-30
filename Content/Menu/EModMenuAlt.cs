@@ -45,13 +45,13 @@ namespace CalamityEntropy.Content.Menu
 
             spriteBatch.Draw(pixel, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Color(1, 2, 32));
 
-            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White, 0, l1.Size() / 2, Main.ScreenSize.ToVector2() / l1.Size(), SpriteEffects.None, 0);
 
-            spriteBatch.Draw(l5, new Vector2(Main.screenWidth / 2 - xoffset * 2, Main.screenHeight / 2 + fl * 8), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
-            spriteBatch.Draw(l6, new Vector2(Main.screenWidth / 2 - xoffset * 2, Main.screenHeight / 2 + fl * 8), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l5, new Vector2(Main.screenWidth / 2 - xoffset * 2, Main.screenHeight / 2 + fl * 8), null, Color.White, 0, l1.Size() / 2, Main.ScreenSize.ToVector2() / l1.Size(), SpriteEffects.None, 0);
+            spriteBatch.Draw(l6, new Vector2(Main.screenWidth / 2 - xoffset * 2, Main.screenHeight / 2 + fl * 8), null, Color.White, 0, l1.Size() / 2, Main.ScreenSize.ToVector2() / l1.Size(), SpriteEffects.None, 0);
 
-            spriteBatch.Draw(l3, new Vector2(Main.screenWidth / 2 - xoffset * 4, Main.screenHeight / 2 - fl * 14), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
-            spriteBatch.Draw(l4, new Vector2(Main.screenWidth / 2 - xoffset * 4, Main.screenHeight / 2 - fl * 14), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l3, new Vector2(Main.screenWidth / 2 - xoffset * 4, Main.screenHeight / 2 - fl * 14), null, Color.White, 0, l1.Size() / 2, Main.ScreenSize.ToVector2() / l1.Size(), SpriteEffects.None, 0);
+            spriteBatch.Draw(l4, new Vector2(Main.screenWidth / 2 - xoffset * 4, Main.screenHeight / 2 - fl * 14), null, Color.White, 0, l1.Size() / 2, Main.ScreenSize.ToVector2() / l1.Size(), SpriteEffects.None, 0);
             Vector2 pa1 = new Vector2(-xoffset * 4, -fl * 14) + new Vector2(-340, -84) * (Main.screenWidth / 1920f) + Main.ScreenSize.ToVector2() / 2f;
             Vector2 pa2 = new Vector2(-xoffset * 6, fl * 18) + new Vector2(-260, 0) * (Main.screenWidth / 1920f) + Main.ScreenSize.ToVector2() / 2f;
             Vector2 pb1 = new Vector2(-xoffset * 4, -fl * 14) + new Vector2(314, -80) * (Main.screenWidth / 1920f) + Main.ScreenSize.ToVector2() / 2f;
@@ -60,12 +60,12 @@ namespace CalamityEntropy.Content.Menu
             spriteBatch.Draw(l10, pa1, null, Color.White, (pa2 - pa1).ToRotation(), l10.Size() / 2 * new Vector2(0, 1), CEUtils.getDistance(pa1, pa2) / l10.Width, SpriteEffects.None, 0);
             spriteBatch.Draw(l11, pb1, null, Color.White, (pb2 - pb1).ToRotation(), l10.Size() / 2 * new Vector2(0, 1), CEUtils.getDistance(pb1, pb2) / l11.Width, SpriteEffects.FlipVertically, 0);
 
-            spriteBatch.Draw(l7, new Vector2(Main.screenWidth / 2 - xoffset * 6, Main.screenHeight / 2 + fl * 18), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
-            spriteBatch.Draw(l8, new Vector2(Main.screenWidth / 2 - xoffset * 6, Main.screenHeight / 2 + fl * 18), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
-            spriteBatch.Draw(l9, new Vector2(Main.screenWidth / 2 - xoffset * 6, Main.screenHeight / 2 + fl * 18), null, Color.White, 0, l1.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l7, new Vector2(Main.screenWidth / 2 - xoffset * 6, Main.screenHeight / 2 + fl * 18), null, Color.White, 0, l1.Size() / 2, Main.ScreenSize.ToVector2() / l1.Size(), SpriteEffects.None, 0);
+            spriteBatch.Draw(l8, new Vector2(Main.screenWidth / 2 - xoffset * 6, Main.screenHeight / 2 + fl * 18), null, Color.White, 0, l1.Size() / 2, Main.ScreenSize.ToVector2() / l1.Size(), SpriteEffects.None, 0);
+            spriteBatch.Draw(l9, new Vector2(Main.screenWidth / 2 - xoffset * 6, Main.screenHeight / 2 + fl * 18), null, Color.White, 0, l1.Size() / 2, Main.ScreenSize.ToVector2() / l1.Size(), SpriteEffects.None, 0);
 
 
-            spriteBatch.Draw(l2, new Vector2(Main.screenWidth / 2 + xoffset * 32, Main.screenHeight / 2), null, Color.White, 0, l2.Size() / 2, Main.screenWidth / 2560f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l2, new Vector2(Main.screenWidth / 2 + xoffset * 32, Main.screenHeight / 2), null, Color.White, 0, l2.Size() / 2, Main.ScreenSize.ToVector2() / l1.Size(), SpriteEffects.None, 0);
 
             Texture2D logo = Logo.Value;
             spriteBatch.End();
