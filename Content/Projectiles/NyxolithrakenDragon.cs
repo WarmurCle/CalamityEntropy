@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (target == null || !target.active || target.dontTakeDamage || CEUtils.getDistance(Projectile.Center, target.Center) > 3000)
             {
-                target = CEUtils.findTarget(player, Projectile, 1800, false);
+                target = CEUtils.findTarget(player, Projectile, 2400, false);
             }
             if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
             {
