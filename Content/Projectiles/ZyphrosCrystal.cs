@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 0.16f;
-            Projectile.timeLeft = 600 * 4;
+            Projectile.timeLeft = 450 * 4;
             Projectile.extraUpdates = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 160;
