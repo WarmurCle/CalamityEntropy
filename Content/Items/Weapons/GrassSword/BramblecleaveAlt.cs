@@ -214,7 +214,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         {
             if (!MouseLeft)
             {
-                modifiers.SourceDamage *= 0.9f;
+                modifiers.SourceDamage *= 1.0f;
             }
         }
     }
