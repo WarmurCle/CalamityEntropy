@@ -2909,20 +2909,11 @@ Items: {
 		Tooltip: ""
 	}
 
-	"Kitsune'sFan": {
-		// DisplayName: Kitsune's Fan
-		// Tooltip: ""
-	}
-
 	BloodstainedShirt: {
 		DisplayName: 染血肌襦袢
 		Tooltip: ""
 	}
 
-	"Kitsune'sMask": {
-		// DisplayName: Kitsune's Mask
-		// Tooltip: ""
-	}
 
 	ScarletKilt: {
 		DisplayName: 赤绯袴
@@ -2937,11 +2928,6 @@ Items: {
 	KitsunesMask: {
 		DisplayName: 墨狐之相
 		Tooltip: ""
-	}
-
-	TestItem: {
-		// DisplayName: Test Item
-		// Tooltip: ""
 	}
 
 	TrueMoonlightSword: {
@@ -3068,6 +3054,15 @@ Items: {
 			DisplayName: 呼啸染料
 			Tooltip: ""
 		}
+	}
+
+	ReallocateIndicatorData: {
+		DisplayName: "ARID模块"
+		Tooltip: 
+		'''
+		根据手持物品随机对你的属性加成进行修改
+		它的全称是"阿萨福勒『指标再分配』模块"
+		'''
 	}
 }
 
@@ -4502,3 +4497,16 @@ Biomes: {
 
 NearShimmer: 靠近微光湖
 AzMinerOreWarning: 只有矿石能被放入！
+RIDModifies:
+	'''
+	基于[[ITEMNAME]]:
+	[1]%伤害
+	[2]%攻速
+	[9]%暴击率
+	[3]防御
+	[4]%伤害减免
+	[5]最大生命
+	[6]最大魔力
+	[7]%移动与飞行速度
+	[8]%飞行时间
+	'''

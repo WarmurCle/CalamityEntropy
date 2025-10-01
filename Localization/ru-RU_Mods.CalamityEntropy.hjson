@@ -2900,6 +2900,11 @@ Items: {
 			// Tooltip: ""
 		}
 	}
+
+	ReallocateIndicatorData: {
+		// DisplayName: Reallocate Indicator Data
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -4324,3 +4329,16 @@ Biomes: {
 
 // NearShimmer: Near shimmer
 // AzMinerOreWarning: Only ores can be inserted!
+/* RIDModifies:
+	'''
+	For [[ITEMNAME]]:
+	+[1]% Damage
+	+[2]% Attack Speed
+	+[9]% Crit Chance
+	+[3] Defense
+	+[4]% Damage Reduce
+	+[5] Max Life
+	+[6] Max Mana
+	+[7]% Movement & Flight Speed
+	+[8]% Wing Time
+	''' */

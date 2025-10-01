@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Menu
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 
-            spriteBatch.Draw(l4, Main.ScreenSize.ToVector2() / 2 + new Vector2(0, 64), null, Color.Black, 0, l4.Size() / 2, 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(l4, Main.ScreenSize.ToVector2() / 2 + new Vector2(-280, 70), null, Color.Black, 0, l4.Size() / 2, 1, SpriteEffects.None, 0);
 
 
             spriteBatch.Draw(l2, new Rectangle(0, (int)((float)Math.Cos(counter * 0.01f) * 42), Main.screenWidth, Main.screenHeight), Color.White * (0.7f + (float)Math.Cos(counter * 0.01f) * 0.1f));

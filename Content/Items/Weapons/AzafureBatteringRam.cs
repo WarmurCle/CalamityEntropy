@@ -19,8 +19,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.damage = 23;
             Item.crit = 4;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.width = 194;
-            Item.height = 42;
+            Item.width = 86;
+            Item.height = 28;
             Item.useTime = 46;
             Item.useAnimation = 46;
             Item.useStyle = ItemUseStyleID.Shoot;
