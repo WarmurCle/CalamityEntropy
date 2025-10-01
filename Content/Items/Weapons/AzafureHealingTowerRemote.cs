@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 AttackMode = false;
                 if (CheckCD <= 0)
                 {
-                    CheckCD = (int)(12f * (100f / player.GetTotalDamage(DamageClass.Summon).ApplyTo(100f)));
+                    CheckCD = (int)(15f * (100f / player.GetTotalDamage(DamageClass.Summon).ApplyTo(100f)));
                     healing.Heal(1);
                     for (int i = 0; i < 3; i++)
                         EParticle.spawnNew(new HealingParticle(), healing.position + CEUtils.randomPoint(new Rectangle(-6, -6, 12 + healing.width, 12 + healing.height)), new Vector2(0, -2), Color.White, 0.8f, 1, true, BlendState.AlphaBlend);
@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     LaserTargetPos = attack.Center;
                     if (CheckCD <= 0)
                     {
-                        CheckCD = 8;
+                        CheckCD = 10;
                         CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, attack.Center + attack.velocity, Projectile.damage, 42, Projectile.DamageType);
                     }
                 }

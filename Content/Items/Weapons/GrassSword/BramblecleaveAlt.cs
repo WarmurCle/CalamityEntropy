@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 {
                     if (counter % 32 == 0)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<BrambleShoot>(), (int)(Projectile.damage * 0.7f), 2, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<BrambleShoot>(), (int)(Projectile.damage * 0.2f), 2, Projectile.owner);
                     }
                     Projectile.velocity *= 0.88f;
 
@@ -214,7 +214,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         {
             if (!MouseLeft)
             {
-                modifiers.SourceDamage *= 1.8f;
+                modifiers.SourceDamage *= 1.0f;
             }
         }
     }

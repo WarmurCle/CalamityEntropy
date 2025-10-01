@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 15000;
+            Item.damage = 12500;
             Item.crit = 20;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 86;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.shoot = ModContent.ProjectileType<XytheronProj>();
             Item.shootSpeed = 16f;
-            Item.ArmorPenetration = 50;
+            Item.ArmorPenetration = 100;
             Item.autoReuse = true;
         }
 

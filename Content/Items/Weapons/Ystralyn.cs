@@ -13,10 +13,10 @@ namespace CalamityEntropy.Content.Items.Weapons
     public class Ystralyn : ModItem
     {
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(DragonWhipDebuff.TagDamage);
-        public static int PhantomDamage = 2400;
+        public static int PhantomDamage = 1600;
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<YstralynProj>(), 1000, 2, 4, 27);
+            Item.DefaultToWhip(ModContent.ProjectileType<YstralynProj>(), 800, 2, 4, 27);
             Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.autoReuse = true;
