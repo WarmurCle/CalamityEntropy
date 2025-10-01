@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
     {
         public float Dmg;
         public float Asp;
-        public int Def;
+        public float Def;
         public float DR;
         public int HP;
         public int Mana;
@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
                 List<float> ModifyMap = FloatListGenerator.GenerateFloatList(seed, 9, sum, -0.26f, 0.26f);
                 float Dmg = ModifyMap[0];
                 float Asp = ModifyMap[1] * 0.6f;
-                int Def = (int)(ModifyMap[2] * 256);
+                float Def = ModifyMap[2] * 0.7f;
                 float DR = ModifyMap[3] * 0.38f;
                 int HP = (int)(ModifyMap[4] * 300);
                 int Mana = (int)(ModifyMap[5] * 300);
@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
             DamageClass dc = DamageClass.Generic;
             player.GetDamage(dc) += mp.Dmg;
             player.GetAttackSpeed(dc) += mp.Asp;
-            player.statDefense += mp.Def;
+            player.statDefense *= (1 + mp.Def);
             player.endurance += mp.DR;
             player.statLifeMax2 += mp.HP;
             player.statManaMax2 += mp.Mana;
@@ -113,7 +113,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
                 var mp = Main.LocalPlayer.GetModPlayer<RIDAtrPlayer>();
                 tt = tt.Replace("[1]", NegCheck(mp.Dmg.ToPercent()));
                 tt = tt.Replace("[2]", NegCheck(mp.Asp.ToPercent()));
-                tt = tt.Replace("[3]", NegCheckI(mp.Def));
+                tt = tt.Replace("[3]", NegCheck(mp.Def.ToPercent()));
                 tt = tt.Replace("[4]", NegCheck(mp.DR.ToPercent()));
                 tt = tt.Replace("[5]", NegCheckI(mp.HP));
                 tt = tt.Replace("[6]", NegCheckI(mp.Mana));

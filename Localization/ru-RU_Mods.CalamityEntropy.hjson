@@ -2902,8 +2902,12 @@ Items: {
 	}
 
 	ReallocateIndicatorData: {
-		// DisplayName: Reallocate Indicator Data
-		// Tooltip: ""
+		// DisplayName: ARID Module
+		/* Tooltip:
+			'''
+			Randomly modify your stat bonuses based on the handheld item
+			Its full name is "Azafure Reallocate Indicator Data Module"
+			''' */
 	}
 }
 
@@ -4332,13 +4336,13 @@ Biomes: {
 /* RIDModifies:
 	'''
 	For [[ITEMNAME]]:
-	+[1]% Damage
-	+[2]% Attack Speed
-	+[9]% Crit Chance
-	+[3] Defense
-	+[4]% Damage Reduce
-	+[5] Max Life
-	+[6] Max Mana
-	+[7]% Movement & Flight Speed
-	+[8]% Wing Time
+	[1]% Damage
+	[2]% Attack Speed
+	[9]% Crit Chance
+	[3]% Defense
+	[4]% Damage Reduce
+	[5] Max Life
+	[6] Max Mana
+	[7]% Movement & Flight Speed
+	[8]% Wing Time
 	''' */
