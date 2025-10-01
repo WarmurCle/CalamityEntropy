@@ -42,36 +42,33 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
         {
             float MaxDeviation = 0.4f;
             int seed = player.HeldItem.type * 2 + 7;
-            if(Main.zenithWorld)
+            if (Main.zenithWorld)
             {
                 seed += player.position.ToPoint().GetHashCode();
             }
-            if (seed > 0)
-            {
-                float sum = new UnifiedRandom(seed).NextFloat(MaxDeviation / -3f, MaxDeviation / 2f);
+            float sum = new UnifiedRandom(seed).NextFloat(MaxDeviation / -4f, MaxDeviation / 2f);
 
-                List<float> ModifyMap = FloatListGenerator.GenerateFloatList(seed, 9, sum, -0.26f, 0.26f);
-                float Dmg = ModifyMap[0];
-                float Asp = ModifyMap[1] * 0.6f;
-                float Def = ModifyMap[2] * 0.7f;
-                float DR = ModifyMap[3] * 0.38f;
-                float HP = ModifyMap[4];
-                float Mana = ModifyMap[5];
-                float SPD = ModifyMap[6];
-                float WingTime = ModifyMap[7] * 2f;
-                int Crit = (int)(ModifyMap[8] * 100);
+            List<float> ModifyMap = FloatListGenerator.GenerateFloatList(seed, 9, sum, -0.26f, 0.26f);
+            float Dmg = ModifyMap[0];
+            float Asp = ModifyMap[1] * 0.6f;
+            float Def = ModifyMap[2] * 0.7f;
+            float DR = ModifyMap[3] * 0.38f;
+            float HP = ModifyMap[4];
+            float Mana = ModifyMap[5];
+            float SPD = ModifyMap[6];
+            float WingTime = ModifyMap[7] * 2f;
+            int Crit = (int)(ModifyMap[8] * 100);
 
-                var mp = player.GetModPlayer<RIDAtrPlayer>();
-                mp.Dmg = Dmg;
-                mp.Asp = Asp;
-                mp.Def = Def;
-                mp.DR = DR;
-                mp.HP = HP;
-                mp.Mana = Mana;
-                mp.SPD = SPD;
-                mp.WingTime = WingTime;
-                mp.Crit = Crit;
-            }
+            var mp = player.GetModPlayer<RIDAtrPlayer>();
+            mp.Dmg = Dmg;
+            mp.Asp = Asp;
+            mp.Def = Def;
+            mp.DR = DR;
+            mp.HP = HP;
+            mp.Mana = Mana;
+            mp.SPD = SPD;
+            mp.WingTime = WingTime;
+            mp.Crit = Crit;
         }
 
         public override void AddRecipes()

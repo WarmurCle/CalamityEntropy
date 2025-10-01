@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Items.Donator
                         {
                             if (Projectile.ai[1]++ % 5 == 0)
                             {
-                                AltSound.Volume = 0.4f;
+                                AltSound.Volume = 0.2f;
                                 SoundEngine.PlaySound(AltSound, Projectile.Center);
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity * 2 + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * Main.rand.NextFloat(-64, 64) + Projectile.velocity * 2, Projectile.velocity * 3, ModContent.ProjectileType<FilthyShootAlt>(), Projectile.damage * 4, Projectile.knockBack, Projectile.owner);
                             }
@@ -259,7 +259,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 LineParticle spark = new LineParticle(Projectile.Center + r.ToRotationVector2() * -160, r.ToRotationVector2() * 32, false, 32, Main.rand.NextFloat(1, 2), Color.Red);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
-            CEUtils.PlaySound("nvspark", 1, target.Center, 10);
+            CEUtils.PlaySound("nvspark", 1, target.Center, 10, 0.7f);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -286,6 +286,7 @@ namespace CalamityEntropy.Content.Items.Donator
             for (int i = 0; i < 10; i++)
             {
                 EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * (i / 10f) + CEUtils.randomPointInCircle(6), CEUtils.randomPointInCircle(0.5f), Color.Red, Main.rand.NextFloat(0.06f, 0.09f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
+                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * (i / 10f) + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(0.2f), new Color(255, 160, 160), Main.rand.NextFloat(0.06f, 0.09f) * 0.66f, 0.5f, true, BlendState.Additive, CEUtils.randomRot());
             }
             Lighting.AddLight(Projectile.Center, 0.25f, 0f, 0f);
         }
@@ -295,7 +296,7 @@ namespace CalamityEntropy.Content.Items.Donator
             float impactParticleScale = 3;
             SparkleParticle impactParticle = new SparkleParticle(Projectile.Center, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 14, 0f, 3f);
             GeneralParticleHandler.SpawnParticle(impactParticle);
-            CEUtils.PlaySound("sf_hit1", 1, Projectile.Center);
+            CEUtils.PlaySound("sf_hit1", 1, Projectile.Center, volume:0.4f);
         }
     }
 }

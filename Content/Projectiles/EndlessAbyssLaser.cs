@@ -4,6 +4,7 @@ using CalamityMod;
 using CalamityMod.NPCs.ExoMechs.Ares;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -185,43 +186,8 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Main.spriteBatch.End();
             var effect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/abyssallaser", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            effect.Parameters["yofs"].SetValue(yx);
-
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, effect, Main.GameViewMatrix.TransformationMatrix);
-            {
-                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/MegaStreakBacking2b").Value;
-                List<ColoredVertex> ve = new List<ColoredVertex>();
-                Color b = new Color(255, 60, 60);
-                float p = -Main.GlobalTimeWrappedHourly;
-                for (int i = 1; i < points.Count; i++)
-                {
-                    float wd = 1;
-                    if (i < 360)
-                    {
-                        wd = new Vector2(1, 0).RotatedBy((i / 360f) * MathHelper.PiOver2).Y;
-                    }
-                    wd += i * 0.001f;
-                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 32 * Projectile.scale * w * wd,
-                          new Vector3(p, 1, 1),
-                          b));
-                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 32 * Projectile.scale * w * wd,
-                          new Vector3(p, 0, 1),
-                          b));
-                    p += (CEUtils.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
-                }
-
-
-                SpriteBatch sb = Main.spriteBatch;
-                GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                if (ve.Count >= 3)
-                {
-                    gd.Textures[0] = tx;
-                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
-                }
-            }
             effect.Parameters["yofs"].SetValue(-yx);
             {
-                Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, effect, Main.GameViewMatrix.TransformationMatrix);
 
                 effect.CurrentTechnique.Passes["fableeyelaser"].Apply();
@@ -238,10 +204,12 @@ namespace CalamityEntropy.Content.Projectiles
                         wd = new Vector2(1, 0).RotatedBy((i / 360f) * MathHelper.PiOver2).Y;
                     }
                     wd += i * 0.001f;
-                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 15 * Projectile.scale * w * wd,
+                    if (wd < 1)
+                        wd = 1;
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 16 * (1 + 0.16f * (float)(Math.Sin(i * 0.02f))) * Projectile.scale * w * wd,
                           new Vector3(p, 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 15 * Projectile.scale * w * wd,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 16 * (1 + 0.16f * (float)(Math.Sin(i * 0.02f))) * Projectile.scale * w * wd,
                           new Vector3(p, 0, 1),
                           b));
                     p += (CEUtils.getDistance(points[i], points[i - 1]) / tx.Width) * 0.32f;
@@ -255,7 +223,45 @@ namespace CalamityEntropy.Content.Projectiles
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
+                Main.spriteBatch.End();
             }
+            effect.Parameters["yofs"].SetValue(yx);
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, effect, Main.GameViewMatrix.TransformationMatrix);
+            {
+                Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StreakFire").Value;
+                List<ColoredVertex> ve = new List<ColoredVertex>();
+                Color b = new Color(255, 60, 60);
+                float p = -Main.GlobalTimeWrappedHourly;
+                for (int i = 1; i < points.Count; i++)
+                {
+                    float wd = 1;
+                    if (i < 360)
+                    {
+                        wd = new Vector2(1, 0).RotatedBy((i / 360f) * MathHelper.PiOver2).Y;
+                    }
+                    wd += i * 0.001f;
+                    if (wd < 1f)
+                        wd = 1f;
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 27 * (1 + 0.3f * (float)(Math.Sin(i * 0.02f))) * Projectile.scale * w * wd,
+                          new Vector3(p, 1, 1),
+                          b));
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 27 * (1 + 0.3f * (float)(Math.Sin(i * 0.02f))) * Projectile.scale * w * wd,
+                          new Vector3(p, 0, 1),
+                          b));
+                    p += (CEUtils.getDistance(points[i], points[i - 1]) / tx.Width) * 0.3f;
+                }
+
+
+                SpriteBatch sb = Main.spriteBatch;
+                GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                if (ve.Count >= 3)
+                {
+                    gd.Textures[0] = tx;
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                }
+            }
+            
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
