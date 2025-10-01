@@ -1,11 +1,13 @@
 ﻿using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Particles;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -66,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = 7;
             base.OnHitNPC(target, hit, damageDone);
             CEUtils.PlaySound("FleshWhipHit", Main.rand.NextFloat(0.8f, 1.2f), EndPoint);
-            target.AddBuff(ModContent.BuffType<Burningblood>(), 600);
+            target.AddBuff(ModContent.BuffType<BurningBlood>(), 600);
             for (int i = 0; i < 3; i++)
             {
                 Color impactColor = Main.rand.NextBool(3) ? Color.LightCoral : Color.Crimson;
