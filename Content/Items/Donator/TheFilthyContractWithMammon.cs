@@ -112,6 +112,7 @@ namespace CalamityEntropy.Content.Items.Donator
             return false;
         }
         public bool r = true;
+        public static SoundStyle AltSound = new SoundStyle("CalamityMod/Sounds/Custom/AstrumDeus/AstrumDeusLaser");
         public override void AI()
         {
             if (Projectile.localAI[0]++ == 0)
@@ -139,7 +140,8 @@ namespace CalamityEntropy.Content.Items.Donator
                         {
                             if (Projectile.ai[1]++ % 5 == 0)
                             {
-                                SoundEngine.PlaySound(AstrumDeusHead.LaserSound, Projectile.Center);
+                                AltSound.Volume = 0.4f;
+                                SoundEngine.PlaySound(AltSound, Projectile.Center);
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity * 2 + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * Main.rand.NextFloat(-64, 64) + Projectile.velocity * 2, Projectile.velocity * 3, ModContent.ProjectileType<FilthyShootAlt>(), Projectile.damage * 4, Projectile.knockBack, Projectile.owner);
                             }
                         }

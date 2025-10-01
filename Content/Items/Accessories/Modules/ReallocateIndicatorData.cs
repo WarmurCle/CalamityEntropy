@@ -22,8 +22,8 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
         public float Asp;
         public float Def;
         public float DR;
-        public int HP;
-        public int Mana;
+        public float HP;
+        public float Mana;
         public float SPD;
         public float WingTime;
         public int Crit;
@@ -40,8 +40,12 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
         }
         public static void CalculateStatsForPlayer(Player player)
         {
-            float MaxDeviation = 0.5f;
-            int seed = player.HeldItem.type * 2 + 17;
+            float MaxDeviation = 0.4f;
+            int seed = player.HeldItem.type * 2 + 7;
+            if(Main.zenithWorld)
+            {
+                seed += player.position.ToPoint().GetHashCode();
+            }
             if (seed > 0)
             {
                 float sum = new UnifiedRandom(seed).NextFloat(MaxDeviation / -3f, MaxDeviation / 2f);
@@ -51,8 +55,8 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
                 float Asp = ModifyMap[1] * 0.6f;
                 float Def = ModifyMap[2] * 0.7f;
                 float DR = ModifyMap[3] * 0.38f;
-                int HP = (int)(ModifyMap[4] * 300);
-                int Mana = (int)(ModifyMap[5] * 300);
+                float HP = ModifyMap[4];
+                float Mana = ModifyMap[5];
                 float SPD = ModifyMap[6];
                 float WingTime = ModifyMap[7] * 2f;
                 int Crit = (int)(ModifyMap[8] * 100);
@@ -90,8 +94,8 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
             player.GetAttackSpeed(dc) += mp.Asp;
             player.statDefense *= (1 + mp.Def);
             player.endurance += mp.DR;
-            player.statLifeMax2 += mp.HP;
-            player.statManaMax2 += mp.Mana;
+            player.statLifeMax2 = (int)(player.statLifeMax2 * (1 + mp.HP));
+            player.statManaMax2 = (int)(player.statManaMax2 * (1 + mp.Mana));
             player.Entropy().moveSpeed += mp.SPD;
             player.Entropy().WingSpeed += mp.SPD;
             player.Entropy().WingTimeMult += mp.WingTime;
@@ -115,8 +119,8 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
                 tt = tt.Replace("[2]", NegCheck(mp.Asp.ToPercent()));
                 tt = tt.Replace("[3]", NegCheck(mp.Def.ToPercent()));
                 tt = tt.Replace("[4]", NegCheck(mp.DR.ToPercent()));
-                tt = tt.Replace("[5]", NegCheckI(mp.HP));
-                tt = tt.Replace("[6]", NegCheckI(mp.Mana));
+                tt = tt.Replace("[5]", NegCheck(mp.HP.ToPercent()));
+                tt = tt.Replace("[6]", NegCheck(mp.Mana.ToPercent()));
                 tt = tt.Replace("[7]", NegCheck(mp.SPD.ToPercent()));
                 tt = tt.Replace("[8]", NegCheck(mp.WingTime.ToPercent()));
                 tt = tt.Replace("[9]", NegCheckI(mp.Crit));

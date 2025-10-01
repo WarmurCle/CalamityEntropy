@@ -4295,8 +4295,8 @@ RIDModifies:
 	[9]% Crit Chance
 	[3]% Defense
 	[4]% Damage Reduce
-	[5] Max Life
-	[6] Max Mana
+	[5]% Max Life
+	[6]% Max Mana
 	[7]% Movement & Flight Speed
 	[8]% Wing Time
 	'''
