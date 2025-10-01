@@ -261,7 +261,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center - Projectile.velocity * 3, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
                 }
-                counter = 50;
+                Projectile.ai[0] = 50;
                 Projectile.velocity += new Vector2(0, 0.1f);
                 Projectile.velocity *= 0.996f;
                 Projectile.rotation = Projectile.velocity.ToRotation();
