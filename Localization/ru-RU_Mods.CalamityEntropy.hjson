@@ -2756,18 +2756,8 @@ Items: {
 		// Tooltip: ""
 	}
 
-	"Kitsune'sFan": {
-		// DisplayName: Kitsune's Fan
-		// Tooltip: ""
-	}
-
 	BloodstainedShirt: {
 		// DisplayName: Bloodstained Shirt
-		// Tooltip: ""
-	}
-
-	"Kitsune'sMask": {
-		// DisplayName: Kitsune's Mask
 		// Tooltip: ""
 	}
 
@@ -2783,11 +2773,6 @@ Items: {
 
 	KitsunesMask: {
 		// DisplayName: Kitsunes Mask
-		// Tooltip: ""
-	}
-
-	TestItem: {
-		// DisplayName: Test Item
 		// Tooltip: ""
 	}
 
@@ -2907,6 +2892,15 @@ Items: {
 			'''
 			Randomly modify your stat bonuses based on the handheld item
 			Its full name is "Azafure Reallocate Indicator Data Module"
+			''' */
+	}
+
+	AzafureProtectiveCannon: {
+		// DisplayName: Azafure Protective Cannon
+		/* Tooltip:
+			'''
+			Strike the target location at a fixed point, causing range damage
+			20 second cooling
 			''' */
 	}
 }
@@ -3400,6 +3394,7 @@ Projectiles: {
 	// AzafureDroneMinion.DisplayName: Azafure Drone Minion
 	// AzafureDroneBullet.DisplayName: Azafure Drone Bullet
 	// AzafureHealingTowerSentry.DisplayName: Azafure Healing Tower Sentry
+	// AzafureProtectiveCannonShot.DisplayName: Azafure Protective Cannon Shot
 }
 
 LegendTooltip: - Легенда -
@@ -4346,3 +4341,4 @@ Biomes: {
 	[7]% Movement & Flight Speed
 	[8]% Wing Time
 	''' */
+// ProtectiveCannonCooldown: Azafure Protective Cannon Cooldown

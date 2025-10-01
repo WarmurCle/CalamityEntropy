@@ -2909,19 +2909,9 @@ Items: {
 		Tooltip: ""
 	}
 
-	"Kitsune'sFan": {
-		// DisplayName: Kitsune's Fan
-		// Tooltip: ""
-	}
-
 	BloodstainedShirt: {
 		DisplayName: 染血肌襦袢
 		Tooltip: ""
-	}
-
-	"Kitsune'sMask": {
-		// DisplayName: Kitsune's Mask
-		// Tooltip: ""
 	}
 
 	ScarletKilt: {
@@ -2937,11 +2927,6 @@ Items: {
 	KitsunesMask: {
 		DisplayName: 墨狐之相
 		Tooltip: ""
-	}
-
-	TestItem: {
-		// DisplayName: Test Item
-		// Tooltip: ""
 	}
 
 	TrueMoonlightSword: {
@@ -3076,6 +3061,15 @@ Items: {
 			'''
 			根据手持物品随机对你的属性加成进行修改
 			它的全称是"阿萨福勒『指标再分配』模块"
+			'''
+	}
+
+	AzafureProtectiveCannon: {
+		DisplayName: 阿萨福勒城防炮发讯器
+		Tooltip:
+			'''
+			定点打击目标位置，造成范围伤害
+			20秒冷却
 			'''
 	}
 }
@@ -3567,6 +3561,7 @@ Projectiles: {
 	AzafureDroneMinion.DisplayName: 阿萨福勒无人机
 	AzafureDroneBullet.DisplayName: 无人机导弹
 	// AzafureHealingTowerSentry.DisplayName: Azafure Healing Tower Sentry
+	// AzafureProtectiveCannonShot.DisplayName: Azafure Protective Cannon Shot
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4521,3 +4516,4 @@ RIDModifies:
 	[7]%移动与飞行速度
 	[8]%飞行时间
 	'''
+ProtectiveCannonCooldown: 城防炮冷却

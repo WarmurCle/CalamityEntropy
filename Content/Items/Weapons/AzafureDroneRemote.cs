@@ -32,8 +32,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.damage = 20;
             Item.DamageType = DamageClass.Summon;
-            Item.width = 90;
-            Item.height = 88;
+            Item.width = 22;
+            Item.height = 30;
             Item.useTime = 16;
             Item.useAnimation = 16;
             Item.knockBack = 2;

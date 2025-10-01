@@ -7,16 +7,16 @@ namespace CalamityEntropy.Content.Particles
     {
         public override void OnSpawn()
         {
-            this.Lifetime = 20;
+            this.Lifetime = 40;
         }
         public int frame = -1;
         public override Texture2D Texture => CEUtils.pixelTex;
         public Vector2 size = Vector2.One;
         public override void Draw()
         {
-            if (frame >= 0 && frame <= 16)
+            if (frame >= 0 && frame <= 32)
             {
-                Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Particles/realisticexplosion/spr_realisticexplosion_" + frame.ToString());
+                Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Particles/realisticexplosion/spr_realisticexplosion_" + (frame / 2).ToString());
                 Main.spriteBatch.Draw(tex, this.Position - Main.screenPosition, null, this.Color, 0, tex.Size() / 2f, size * Scale, SpriteEffects.None, 0);
             }
         }
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Particles
                 CEUtils.PlaySound("badexplosion", 0.8f, Position);
             }
             base.AI();
-            if (frame > 16)
+            if (frame > 32)
             {
                 this.Lifetime = 0;
             }
