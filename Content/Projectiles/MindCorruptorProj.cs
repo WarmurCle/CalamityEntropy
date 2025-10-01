@@ -178,6 +178,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.netUpdate = true;
             CEUtils.PlaySound("corruptwhip_hit2", 1, target.Center);
+            target.AddBuff(ModContent.BuffType<Brainrot>(), 600);
         }
         public override bool? CanHitNPC(NPC target)
         {
