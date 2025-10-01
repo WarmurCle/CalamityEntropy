@@ -3560,8 +3560,8 @@ Projectiles: {
 	RailgunSmallShot.DisplayName: 轨道炮分裂弹
 	AzafureDroneMinion.DisplayName: 阿萨福勒无人机
 	AzafureDroneBullet.DisplayName: 无人机导弹
-	// AzafureHealingTowerSentry.DisplayName: Azafure Healing Tower Sentry
-	// AzafureProtectiveCannonShot.DisplayName: Azafure Protective Cannon Shot
+	AzafureHealingTowerSentry.DisplayName: 阿萨福勒治疗塔
+	AzafureProtectiveCannonShot.DisplayName: 阿萨福勒城防炮
 }
 
 LegendTooltip: - 传奇物品 -

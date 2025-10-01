@@ -1,6 +1,4 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Cooldowns;
+﻿using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -8,9 +6,6 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -27,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 800;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Summon;
             Item.width = 44;
             Item.height = 38;
@@ -47,6 +42,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public static int Cooldown = 20 * 60;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            damage *= 16;
             player.AddCooldown(ProtectiveCannonCooldown.ID, Cooldown);
             position = Main.MouseWorld + new Vector2(-600, -2000);
             Vector2 vel = (Main.MouseWorld - position) / 10f;
@@ -75,11 +71,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
             Projectile.width = Projectile.height = 12;
-            Projectile.timeLeft = 130;
+            Projectile.timeLeft = 70;
         }
         public override bool ShouldUpdatePosition()
         {
-            return Projectile.localAI[0] > 119;
+            return Projectile.localAI[0] > 59;
         }
         public override void AI()
         {
@@ -88,12 +84,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.PlaySound("Alarm", 1, Projectile.GetOwner().Center);
                 EParticle.spawnNew(new APRCAlarm(), new Vector2(Projectile.ai[0], Projectile.ai[1]), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, Projectile.timeLeft / Projectile.MaxUpdates);
             }
-            if (Projectile.localAI[0] == 120)
+            if (Projectile.localAI[0] == 60)
                 CEUtils.PlaySound("aprclaunch", 1, Projectile.GetOwner().Center);
-            for (float i = 0; i < 1; i += 0.1f)
+
+            if (ShouldUpdatePosition())
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center - Projectile.velocity * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.08f), 0.6f, true, BlendState.Additive, CEUtils.randomRot());
-                EParticle.NewParticle(new EMediumSmoke(), Projectile.Center - Projectile.velocity * i, new Vector2(Main.rand.NextFloat(-0.2f, 0.2f), Main.rand.NextFloat(-0.2f, 0.2f)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
+                for (float i = 0; i < 1; i += 0.1f)
+                {
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center - Projectile.velocity * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.08f), 0.6f, true, BlendState.Additive, CEUtils.randomRot());
+                    EParticle.NewParticle(new EMediumSmoke(), Projectile.Center - Projectile.velocity * i, new Vector2(Main.rand.NextFloat(-0.2f, 0.2f), Main.rand.NextFloat(-0.2f, 0.2f)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
+                }
             }
 
         }
@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.PlaySound("pulseBlast", 0.6f, Projectile.Center, 4, 1.4f);
             GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 3.2f, 20));
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 7.6f, 1, true, BlendState.Additive, 0, 24);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 6f, 1, true, BlendState.Additive, 0, 24);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 5.4f, 1, true, BlendState.Additive, 0, 24);
             if (Projectile.owner == Main.myPlayer)
             {
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 278, Projectile.DamageType);
