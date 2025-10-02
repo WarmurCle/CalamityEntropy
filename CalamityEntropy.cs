@@ -88,6 +88,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using Terraria.UI;
+using Terraria.Utilities;
 namespace CalamityEntropy
 {
     public partial class CalamityEntropy : Mod
@@ -195,6 +196,7 @@ namespace CalamityEntropy
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
             On_Player.UpdateItemDye += update_item_dye;
+            
 
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));

@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool ShouldUpdatePosition()
         {
-            return Projectile.localAI[0] > 59;
+            return Projectile.localAI[0] > 60;
         }
         public override void AI()
         {
@@ -92,14 +92,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (float i = 0; i < 1; i += 0.1f)
                 {
                     EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center - Projectile.velocity * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.08f), 0.6f, true, BlendState.Additive, CEUtils.randomRot());
-                    EParticle.NewParticle(new EMediumSmoke(), Projectile.Center - Projectile.velocity * i, new Vector2(Main.rand.NextFloat(-0.2f, 0.2f), Main.rand.NextFloat(-0.2f, 0.2f)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
+                    EParticle.NewParticle(new EMediumSmoke(), Projectile.Center + Projectile.velocity * i, new Vector2(Main.rand.NextFloat(-0.2f, 0.2f), Main.rand.NextFloat(-0.2f, 0.2f)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                 }
             }
-
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
         public override void OnKill(int timeLeft)
         {
-            Projectile.Center -= Projectile.velocity;
             CEUtils.PlaySound("explosionbig", 1, Projectile.Center, 4, 1.4f);
             CEUtils.PlaySound("pulseBlast", 0.6f, Projectile.Center, 4, 1.4f);
             GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 3.2f, 20));
