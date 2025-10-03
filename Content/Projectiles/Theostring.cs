@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.timeLeft = 3;
             var player = Projectile.owner.ToPlayer();
-            Projectile.Center = player.MountedCenter + Vector2.UnitY * player.gfxOffY + new Vector2(-26 * Projectile.ai[0], -16).RotatedBy(player.fullRotation) - player.velocity;
+            Projectile.Center = player.MountedCenter + Vector2.UnitY * player.gfxOffY + new Vector2(-26 * Projectile.ai[0], -16).RotatedBy(player.fullRotation + player.headRotation) - player.velocity;
             if (rope == null)
             {
                 rope = new Rope(Projectile.Center, 6, 5, new Vector2(0, 0.1f), 0.2f, 30, false);

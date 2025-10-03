@@ -717,7 +717,14 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 NPC.velocity = (_harpoon.ToNPC().Center - NPC.Center).normalize() * 40;
             }
         }
-        public bool HarpoonOnLauncher => ((Harpoon)_harpoon.ToNPC().ModNPC).OnLauncher;
+        public bool HarpoonOnLauncher { get
+            {
+                if (_harpoon.ToNPC().ModNPC is Harpoon) {
+                    return ((Harpoon)_harpoon.ToNPC().ModNPC).OnLauncher;
+                }
+                return false;
+            } 
+        }; 
         public void Shoot<T>(Vector2 pos, Vector2 velocity, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0) where T : ModProjectile
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
