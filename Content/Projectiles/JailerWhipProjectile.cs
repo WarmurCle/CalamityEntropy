@@ -21,8 +21,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.DefaultToWhip();
 
-            Projectile.WhipSettings.Segments = 24;
-            Projectile.WhipSettings.RangeMultiplier = 2f;
+            Projectile.WhipSettings.Segments = 18;
+            Projectile.WhipSettings.RangeMultiplier = 1.5f;
         }
 
         public override bool PreAI()
