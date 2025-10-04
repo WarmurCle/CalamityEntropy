@@ -28,6 +28,7 @@ namespace CalamityEntropy
         SyncEntropyMode,
         RuneDashSync,
         SendDashNPCDoUpdate,
+        DestroyChest,
         SyncPlayer = 255
     }
 
@@ -253,6 +254,16 @@ namespace CalamityEntropy
             else if (messageType == CEMessageType.SendDashNPCDoUpdate)
             {
                 DashHitbyNPCSys.HandlerDashNPCDoUpdateNet(reader, whoAmI);
+            }
+            else if (messageType == CEMessageType.DestroyChest)
+            {
+                if(Main.dedServ)
+                {
+                    Player player = reader.ReadInt32().ToPlayer();
+                    int x = reader.ReadInt32();
+                    int y = reader.ReadInt32();
+                    CEUtils.CheckChestDestroy(player, x, y);
+                }
             }
             else if (messageType == CEMessageType.SyncPlayer)
             {

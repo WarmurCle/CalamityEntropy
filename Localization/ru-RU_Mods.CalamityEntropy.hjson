@@ -2903,6 +2903,11 @@ Items: {
 			20 second cooling
 			''' */
 	}
+
+	AzafureTBMTerminal: {
+		// DisplayName: Azafure TBM Terminal
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3395,6 +3400,7 @@ Projectiles: {
 	// AzafureDroneBullet.DisplayName: Azafure Drone Bullet
 	// AzafureHealingTowerSentry.DisplayName: Azafure Healing Tower Sentry
 	// AzafureProtectiveCannonShot.DisplayName: Azafure Protective Cannon Shot
+	// ATBMProjectile.DisplayName: ATBM Projectile
 }
 
 LegendTooltip: - Легенда -

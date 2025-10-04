@@ -3072,6 +3072,17 @@ Items: {
 			20秒冷却
 			'''
 	}
+
+	AzafureTBMTerminal: {
+		DisplayName: 阿萨福勒盾构机终端
+		Tooltip:
+			'''
+			操控一架盾构机，距离玩家过远会变得难以控制
+			操控状态下使用移动键来控制移动，按住跳跃键来进行挖掘，再次使用此物品以停止操纵
+			镐力取决于你物品栏中镐力最高的镐子
+			会自动拾取附近物品进入你的物品栏
+			'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3562,6 +3573,7 @@ Projectiles: {
 	AzafureDroneBullet.DisplayName: 无人机导弹
 	AzafureHealingTowerSentry.DisplayName: 阿萨福勒治疗塔
 	AzafureProtectiveCannonShot.DisplayName: 阿萨福勒城防炮
+	ATBMProjectile.DisplayName: 阿萨福勒盾构机
 }
 
 LegendTooltip: - 传奇物品 -

@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Atbm;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Pets;
@@ -191,6 +192,7 @@ namespace CalamityEntropy
             On_Projectile.FillWhipControlPoints += fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
             On_Player.PickAmmo_Item_refInt32_refSingle_refBoolean_refInt32_refSingle_refInt32_bool += pickammoHook;
+            On_LegacyPlayerRenderer.DrawPlayer += render_player;
 
             //On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
@@ -219,6 +221,19 @@ namespace CalamityEntropy
             }
 
         }
+
+        private void render_player(On_LegacyPlayerRenderer.orig_DrawPlayer orig, LegacyPlayerRenderer self, Camera camera, Player drawPlayer, Vector2 position, float rotation, Vector2 rotationOrigin, float shadow, float scale)
+        {
+            bool hide = false;
+            if (Main.netMode == NetmodeID.MultiplayerClient && !Main.gameMenu && drawPlayer.GetModPlayer<AtbmPlayer>().Active && !drawPlayer.GetModPlayer<AtbmPlayer>().CanDraw)
+            {
+                hide = true;
+            }
+            if (!hide) { 
+                orig(self, camera, drawPlayer, position, rotation, rotationOrigin, shadow, scale);
+            }
+        }
+
         public static int tmtype = -1;
         public static int retype = -1;
         public static int aetype = -1;
@@ -375,6 +390,7 @@ namespace CalamityEntropy
             On_Main.DrawCursor -= draw_cursor_hook;
             On_Main.DrawThickCursor -= draw_thick_cursor_hook;
             On_Player.UpdateItemDye -= update_item_dye;
+            On_LegacyPlayerRenderer.DrawPlayer -= render_player;
         }
 
         private Vector2 draw_thick_cursor_hook(On_Main.orig_DrawThickCursor orig, bool smart)
@@ -672,10 +688,11 @@ namespace CalamityEntropy
 
         private Rectangle modifyRect(On_Player.orig_getRect orig, Player self)
         {
-            /*if (self.Entropy().MariviniumSet)
+            if (self.GetModPlayer<AtbmPlayer>().Active && Main.netMode != NetmodeID.SinglePlayer)
             {
-                return orig(self).Center.ToVector2().getRectCentered(10, 10);
-            }*/
+                return self.GetModPlayer<AtbmPlayer>().opos.getRectCentered(self.width, self.height);
+            }
+
             return orig(self);
         }
 

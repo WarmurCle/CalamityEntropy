@@ -2843,6 +2843,19 @@ Items: {
 			20 second cooling
 			'''
 	}
+
+	AzafureTBMTerminal: {
+		DisplayName: Azafure TBM Terminal
+		Tooltip: 
+		'''
+		Operate a tunnel boring machine‌
+			It will become difficult to control if too far from the player
+			While operating, use movement keys to control its movement, 
+			hold the jump key to dig, and use this item again to stop operating
+			Pickaxe power depends on the highest pickaxe power in your inventory
+			Automatically picks up nearby items into your inventory
+		'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3350,6 +3363,7 @@ Projectiles: {
 	AzafureDroneBullet.DisplayName: Azafure Drone Bullet
 	AzafureHealingTowerSentry.DisplayName: Azafure Healing Tower Sentry
 	AzafureProtectiveCannonShot.DisplayName: Azafure Protective Cannon Shot
+	ATBMProjectile.DisplayName: ATBM Projectile
 }
 
 LegendTooltip: - Legend -

@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.VoidFaquir;
+using CalamityEntropy.Content.Items.Atbm;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Pets;
@@ -541,6 +542,8 @@ namespace CalamityEntropy.Common
 
         public override bool CanUseItem(Item item, Player player)
         {
+            if (player.GetModPlayer<AtbmPlayer>().Active && item.ModItem is not AzafureTBMTerminal)
+                return false;
             if ((player.HasBuff<VoidVirus>() || (CalamityEntropy.EntropyMode && player.Entropy().HitTCounter > 0)) && item.healLife > 0)
             {
                 return false;

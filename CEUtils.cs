@@ -19,11 +19,107 @@ using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static bool TryKillTileAndChest(int x, int y, Player player)
+        {
+            bool t = TryKillTile(x, y, player);
+            bool c = CheckChestDestroy(player, x, y);
+            return t || c;
+        }
+        public static bool TryKillTile(int x, int y, Player player)
+        {
+            Tile tile = Main.tile[x, y];
+            if (tile.HasTile && !Main.tileHammer[Main.tile[x, y].TileType])
+            {
+                if (player.HasEnoughPickPowerToHurtTile(x, y))
+                {
+                    if (TileID.Sets.Grass[tile.TileType] || TileID.Sets.GrassSpecial[tile.TileType] || Main.tileMoss[tile.TileType] || TileID.Sets.tileMossBrick[tile.TileType])
+                    {
+                        player.PickTile(x, y, 10000);
+                    }
+                    player.PickTile(x, y, 10000);
+                }
+            }
+            return !Main.tile[x, y].HasTile;
+        }
+        public static bool CheckChestDestroy(Player player, int i, int j)
+        {
+            if(Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                ModPacket mp = CalamityEntropy.Instance.GetPacket();
+                mp.Write((byte)CEMessageType.DestroyChest);
+                mp.Write(player.whoAmI);
+                mp.Write(i);
+                mp.Write(j);
+                mp.Send();
+                return true;
+            }
+            var tile = Main.tile[i, j];
+            if (!TileID.Sets.IsAContainer[tile.TileType])
+                return false;
+
+            var origin = GetTileOrigin(i, j);
+            int chestIndex = Chest.FindChest(origin.X, origin.Y);
+            if (chestIndex == -1 || !Main.chest.IndexInRange(chestIndex))
+                return false;
+
+            var chest = Main.chest[chestIndex];
+            if (Chest.IsLocked(chest.x, chest.y) || chest?.item is null)
+            {
+                return false;
+            }
+
+            for (int k = 0; k < chest.item.Length; k++)
+                if (!chest.item[k].IsAir)
+                    SpawnTileBreakItem(i, j, ref chest.item[k], "ChestBroken");
+            TryKillTile(i, j, player);
+            if(Main.dedServ)
+            {
+                NetMessage.SendTileSquare(-1, i, j);
+            }
+            return true;
+        }
+        public static Point16 GetTileOrigin(int i, int j)
+        {
+            Tile tile = Framing.GetTileSafely(i, j);
+            TileObjectData tileData = TileObjectData.GetTileData(tile.TileType, 0);
+            if (tileData == null)
+            {
+                return Point16.NegativeOne;
+            }
+            int frameX = tile.TileFrameX;
+            int frameY = tile.TileFrameY;
+            int subX = frameX % tileData.CoordinateFullWidth;
+            int subY = frameY % tileData.CoordinateFullHeight;
+
+            Point16 coord = new(i, j);
+            Point16 frame = new(subX / 18, subY / 18);
+
+            return coord - frame;
+        }
+        public static void SpawnTileBreakItem(int x, int y, ref Item item, string? context = null) =>
+            SpawnTileBreakItem(new Point16(x, y), ref item, context);
+
+        public static void SpawnTileBreakItem(Point16 tileCoords, ref Item item, string? context = null)
+        {
+            var position = tileCoords.ToWorldCoordinates();
+            int i = Item.NewItem(new EntitySource_TileBreak(tileCoords.X, tileCoords.Y, context), (int)position.X, (int)position.Y, 32, 32,
+                item.type);
+            item.position = Main.item[i].position;
+            Main.item[i] = item;
+            var drop = Main.item[i];
+            item = new Item();
+            drop.velocity.Y = -2f;
+            drop.velocity.X = Main.rand.NextFloat(-4f, 4f);
+            drop.favorited = false;
+            drop.newAndShiny = false;
+        }
+
         public static void MinionCheck<T>(this Projectile proj) where T : ModBuff
         {
             Player player = proj.GetOwner();
