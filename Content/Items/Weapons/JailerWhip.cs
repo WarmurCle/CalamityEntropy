@@ -23,6 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe().AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 2)
                 .AddIngredient(ItemID.Chain, 6)
                 .AddIngredient(ItemID.Silk, 4)
+                .AddIngredient(ItemID.HellstoneBar, 5)
                 .AddTile(TileID.Anvils).Register();
         }
 
