@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<HellIndustrialComponents>(6)
                 .AddIngredient<MysteriousCircuitry>()
                 .AddIngredient(ItemID.HealingPotion)
-                .AddIngredient<PlasmaRod>()
+                .AddIngredient<TileID.Anvils>()
                 .Register();
         }
     }
