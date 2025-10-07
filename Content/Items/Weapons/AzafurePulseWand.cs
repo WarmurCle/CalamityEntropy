@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<AerialiteBar>(5)
                 .AddIngredient<HellIndustrialComponents>(4)
                 .AddIngredient<PlasmaRod>()
-                .AddTile(TileID.WorkBenches)
+                .AddTile(TileID.Anvils)
                 .Register();
         }
 
