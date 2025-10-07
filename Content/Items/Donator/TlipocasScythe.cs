@@ -80,8 +80,64 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             tooltips.Add(new TooltipLine(Mod, "Description", Mod.GetLocalization(Main.zenithWorld ? "TScytheZenithDesc" : "TScytheDesc").Value) { OverrideColor = Color.Crimson });
 
-            tooltips.Add(new TooltipLine(Mod, "NextGoal", Mod.GetLocalization(GetLevel() == 16 ? "TSLEnd" : ("TSL" + (GetLevel() + 1).ToString())).Value) { OverrideColor = Color.Yellow });
+            string Get(string key)
+            {
+                return Mod.GetLocalization(key).Value;
+            }
+            bool flag = NPC.downedBoss1;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc", 
+                Get("TSA1") + (flag ? "" : Get("LOCKED") + " " + Get("TSU1")))
+                { OverrideColor = (flag ? Color.Yellow : Color.Gray)});
 
+            flag = DownedBossSystem.downedSlimeGod;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc", Get("TSA1B"))
+                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            flag = AllowThrow();
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA2") + (flag ? "" : Get("LOCKED") + " " + Get("TSU2")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            flag = DownedBossSystem.downedBrimstoneElemental;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc", Get("TSA2B"))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            flag = EDownedBosses.downedProphet;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA3") + (flag ? "" : Get("LOCKED") + " " + Get("TSU3")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            flag = EDownedBosses.downedProphet;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA4") + (flag ? "" : Get("LOCKED") + " " + Get("TSU4")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            flag = EDownedBosses.downedNihilityTwin;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA5") + (flag ? "" : Get("LOCKED") + " " + Get("TSU5")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            flag = DownedBossSystem.downedDoG;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA6") + (flag ? "" : Get("LOCKED") + " " + Get("TSU6")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            flag = DownedBossSystem.downedYharon;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA7") + (flag ? "" : Get("LOCKED") + " " + Get("TSU7")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            flag = EDownedBosses.downedCruiser;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA8") + (flag ? "" : Get("LOCKED") + " " + Get("TSU8")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            flag = DownedBossSystem.downedCalamitas;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA9") + (flag ? "" : Get("LOCKED") + " " + Get("TSU9")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+
+            tooltips.Add(new TooltipLine(Mod, "NextGoal", Mod.GetLocalization(GetLevel() == 16 ? "TSLEnd" : ("TSL" + (GetLevel() + 1).ToString())).Value) { OverrideColor = Color.Yellow });
         }
         public override void UpdateInventory(Player player)
         {
@@ -303,7 +359,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             if(DownedBossSystem.downedCalamitas)
             {
-                float dmgMult = Utils.Remap(CEUtils.getDistance(target, Projectile.Center), 160, 300, 1.35f, 1);
+                float dmgMult = Utils.Remap(CEUtils.getDistance(target.Center, Projectile.Center), 160, 300, 1.35f, 1);
                 modifiers.FinalDamage *= dmgMult;
             }
         }
@@ -566,7 +622,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             if (DownedBossSystem.downedCalamitas)
             {
-                float dmgMult = Utils.Remap(CEUtils.getDistance(target, Projectile.Center), 160, 300, 1.35f, 1);
+                float dmgMult = Utils.Remap(CEUtils.getDistance(target.Center, Projectile.Center), 160, 300, 1.35f, 1);
                 modifiers.FinalDamage *= dmgMult;
             }
         }
