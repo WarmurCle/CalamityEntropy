@@ -239,7 +239,12 @@ namespace CalamityEntropy.Common
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/holyshield_shatter") { Volume = 0.6f }, Player.Center);
                 return false;
             }
-
+            if(!Player.HasCooldown(ScytheReviveCooldown.ID) && Player.HeldItem.ModItem is TlipocasScythe && TlipocasScythe.AllowRevive())
+            {
+                Player.AddCooldown(ScytheReviveCooldown.ID, 5 * 60 * 60);
+                Player.statLife = Player.statLifeMax2 / 2;
+                return false;
+            }
             return true;
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -869,7 +874,7 @@ namespace CalamityEntropy.Common
                     HolyShield = true;
                 }
             }
-            screenShift = screenShift + (0 - screenShift) * 0.06f;
+            screenShift *= 0.9f;
             if (immune > 0)
             {
                 Player.immune = true;
@@ -919,7 +924,7 @@ namespace CalamityEntropy.Common
         }
         public List<Vector2> daPoints = new List<Vector2>();
         public Vector2 daLastP = Vector2.Zero;
-
+        
         public override void PostUpdateRunSpeeds()
         {
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<WyrmDash>()] > 0)

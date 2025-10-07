@@ -111,6 +111,11 @@ Items: {
 					Stealth strikes will throw large amount of it and hover in the air and track nearby targets
 					''' */
 			}
+
+			TlipocasScythe: {
+				// DisplayName: Tlipocas Scythe
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -3409,6 +3414,9 @@ Projectiles: {
 	// AzafureHealingTowerSentry.DisplayName: Azafure Healing Tower Sentry
 	// AzafureProtectiveCannonShot.DisplayName: Azafure Protective Cannon Shot
 	// ATBMProjectile.DisplayName: ATBM Projectile
+	// TlipocasScytheHeld.DisplayName: Tlipocas Scythe Held
+	// TSSlash.DisplayName: T S Slash
+	// TlipocasScytheThrow.DisplayName: Tlipocas Scythe Throw
 }
 
 LegendTooltip: - Легенда -
@@ -4356,3 +4364,5 @@ Biomes: {
 	[8]% Wing Time
 	''' */
 // ProtectiveCannonCooldown: Azafure Protective Cannon Cooldown
+// TlipocasScytheSlashCooldown: Dash Cooldown
+// TeleportSlashCooldown: Slash Cooldown

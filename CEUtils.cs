@@ -209,6 +209,18 @@ namespace CalamityEntropy
                 owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, r - (float)(Math.PI * 0.5f));
             }
         }
+        public static void SetHandRotWithDir(this Player owner, float r, int dir)
+        {
+            owner.direction = dir;
+            if (r.ToRotationVector2().X > 0)
+            {
+                owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, r - (float)(Math.PI * 0.5f));
+            }
+            else
+            {
+                owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, r - (float)(Math.PI * 0.5f));
+            }
+        }
         public static Vector2 GetDrawCenter(this Player player)
         {
             return player.MountedCenter + player.gfxOffY * Vector2.UnitY;
@@ -491,6 +503,15 @@ namespace CalamityEntropy
         {
             float j = 0.6f;
             return (float)((Math.Cos(v * (MathHelper.Pi + j) - MathHelper.Pi) * 0.5f + 0.5f) / Math.Cos(j));
+        }
+        public static float GetRepeatedParaFromZeroToOne(float v, int repeat)
+        {
+            v = float.Clamp(v, 0, 1);
+            if (repeat <= 1)
+            {
+                return Parabola(v * 0.5f, 1);
+            }
+            return GetRepeatedParaFromZeroToOne(Parabola(v * 0.5f, 1), repeat - 1);
         }
         public static float GetRepeatedCosFromZeroToOne(float v, int repeat)
         {

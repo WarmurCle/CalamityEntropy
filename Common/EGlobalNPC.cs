@@ -294,6 +294,10 @@ namespace CalamityEntropy.Common
         }
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
         {
+            if (target.ownedProjectileCounts[ModContent.ProjectileType<TSSlash>()] > 0)
+            {
+                return false;
+            }
             if (AnimaTrapped > 0)
             {
                 return false;
