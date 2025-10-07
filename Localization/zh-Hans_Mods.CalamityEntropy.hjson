@@ -764,7 +764,7 @@ Items: {
 	JailerWhip: {
 		Tooltip:
 			'''
-			召唤物获得5%暴击率
+			召唤物获得4%暴击率
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			'''
