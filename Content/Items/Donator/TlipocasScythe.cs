@@ -7,7 +7,9 @@ using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
+using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs.Perforator;
@@ -290,6 +292,12 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<Voidstone>(10)
+                .AddIngredient<BloodOrb>(10)
+                .AddIngredient(ItemID.Deathweed)
+                .AddIngredient<LoreAwakening>()
+                .AddTile(TileID.Anvils).Register();
         }
     }
     
