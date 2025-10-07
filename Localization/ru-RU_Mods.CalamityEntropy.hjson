@@ -3417,6 +3417,7 @@ Projectiles: {
 	// TlipocasScytheHeld.DisplayName: Tlipocas Scythe Held
 	// TSSlash.DisplayName: T S Slash
 	// TlipocasScytheThrow.DisplayName: Tlipocas Scythe Throw
+	// BloodCrack.DisplayName: Blood Crack
 }
 
 LegendTooltip: - Легенда -
@@ -3715,6 +3716,11 @@ Buffs: {
 	AzafureDrone: {
 		// DisplayName: Azafure Drone
 		// Description: Azafure Drone will fight for you
+	}
+
+	VoidEmpowerment: {
+		// DisplayName: Void Empowerment
+		// Description: Mods.CalamityEntropy.Buffs.VoidEmpowerment.Description
 	}
 }
 
@@ -4366,3 +4372,4 @@ Biomes: {
 // ProtectiveCannonCooldown: Azafure Protective Cannon Cooldown
 // TlipocasScytheSlashCooldown: Dash Cooldown
 // TeleportSlashCooldown: Slash Cooldown
+// ScytheReviveCooldown: Scythe Revive Cooldown

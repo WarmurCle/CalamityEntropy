@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.NPCs.AbyssalWraith;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -54,6 +55,7 @@ namespace CalamityEntropy.Common
         public static Effect cvoid;
         public static Effect cvoid2;
         public static Effect cabyss;
+        public static Effect cblood;
         internal static float twistStrength = 0f;
         public const string AssetPath = "CalamityEntropy/Assets/";
         public const string AssetPath2 = "Assets/";
@@ -105,6 +107,8 @@ namespace CalamityEntropy.Common
 
             //深渊类型Shader
             DrawAbyssalEffect(graphicsDevice);
+
+            DrawBloodEffect(graphicsDevice);
 
             //我也不知道叫啥的特效 虚寂之翼用了
             DrawRandomEffect(graphicsDevice);
@@ -351,7 +355,60 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.End();
         }
 
+        private static void DrawBloodEffect(GraphicsDevice graphicsDevice)
+        {
+            bool f = false;
+            foreach(var p in Main.ActiveProjectiles)
+            {
+                if (p.ModProjectile != null && p.ModProjectile is BloodCrack)
+                {
+                    f = true;
+                }
+            }
+            if (!f)
+            {
+                return;
+            }
+            graphicsDevice.SetRenderTarget(Screen0);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
 
+
+            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.Clear(Color.Transparent);
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
+
+            foreach (Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.ModProjectile is BloodCrack ac)
+                {
+                    ac.draw();
+                }
+            }
+            DrawParticleEffectsAlt();
+
+            Main.spriteBatch.End();
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+            Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+            cblood.CurrentTechnique = cblood.Techniques["Technique1"];
+            cblood.CurrentTechnique.Passes[0].Apply();
+            cblood.Parameters["clr"].SetValue(new Color(100, 0, 0).ToVector4());
+            cblood.Parameters["tex1"].SetValue(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/BlurryPerlinNoise", AssetRequestMode.ImmediateLoad).Value);
+            cblood.Parameters["time"].SetValue(Instance.cvcount / 50f);
+            cblood.Parameters["scrsize"].SetValue(Screen0.Size());
+            cblood.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
+            Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+
+            Main.spriteBatch.End();
+        }
         private static void DrawAbyssalEffect(GraphicsDevice graphicsDevice)
         {
             graphicsDevice.SetRenderTarget(Screen0);

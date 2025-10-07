@@ -7,6 +7,7 @@ using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs.Perforator;
@@ -75,8 +76,23 @@ namespace CalamityEntropy.Content.Items.Donator
             return Level;
 
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Add(new TooltipLine(Mod, "Description", Mod.GetLocalization(Main.zenithWorld ? "TScytheZenithDesc" : "TScytheDesc").Value) { OverrideColor = Color.Crimson });
+
+            tooltips.Add(new TooltipLine(Mod, "NextGoal", Mod.GetLocalization(GetLevel() == 16 ? "TSLEnd" : ("TSL" + (GetLevel() + 1).ToString())).Value) { OverrideColor = Color.Yellow });
+
+        }
         public override void UpdateInventory(Player player)
         {
+            if(player.name.ToLower() == "tlipoca")
+            {
+                Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
+            }
+            else if(Main.zenithWorld)
+            {
+                Item.SetNameOverride(Mod.GetLocalization("TScytheZenithName").Value);
+            }
             if (throwType == -1)
                 throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
             Item.useTime = Item.useAnimation = 44 - GetLevel();
@@ -149,7 +165,11 @@ namespace CalamityEntropy.Content.Items.Donator
             if (AllowDash() && player.controlUp && !player.HasCooldown(TlipocasScytheSlashCooldown.ID))
             {
                 player.AddCooldown(TlipocasScytheSlashCooldown.ID, 7 * 60);
-                Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 5, knockback, player.whoAmI, swing == 0 ? 1 : -1);
+                Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 5, knockback, player.whoAmI);
+                if(DownedBossSystem.downedPolterghast)
+                {
+                    Projectile.NewProjectile(source, position + velocity.normalize() * 400 * (DashUpgrade() ? 1.33f : 1), velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 5, knockback, player.whoAmI, 0, 1);
+                }
             }
             else
             {
@@ -182,6 +202,12 @@ namespace CalamityEntropy.Content.Items.Donator
             Projectile.penetrate = -1;
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if(!TlipocasScythe.DashImmune())
+                return false;
+            return null;
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("slice", 1, target.Center);
@@ -204,7 +230,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 CEUtils.PlaySound("AbyssalBladeLaunch", 1, Projectile.Center);
             }
             Player player = Projectile.GetOwner();
-            if (MovePlayer)
+            if (Projectile.ai[1] == 0 && MovePlayer)
             {
                 Vector2 odp = player.Center;
                 player.Center = Vector2.Lerp(Projectile.Center + Projectile.velocity, Projectile.Center, Projectile.timeLeft / 10f);
@@ -216,18 +242,44 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (Projectile.timeLeft == 10)
             {
-                player.Entropy().screenShift = 1;
-                player.Entropy().screenPos = player.Center;
-                Vector2 top = Projectile.Center;
-                Vector2 sparkVelocity2 = Projectile.velocity * 0.08f;
-                Vector2 rd = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2);
-                int sparkLifetime2 = 24;
-                float sparkScale2 = 1.5f;
-                for (float i = 0; i < 1; i += 0.01f)
+                if (Projectile.ai[1] == 0)
                 {
-                    Color sparkColor2 = Color.Lerp(Color.Red, Color.DarkRed, Main.rand.NextFloat(0, 1));
-                    var spark = new AltSparkParticle(top + CEUtils.randomPointInCircle(32), sparkVelocity2 * Main.rand.NextFloat(), false, (int)(sparkLifetime2), sparkScale2 * Main.rand.NextFloat(0.6f, 1), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    if(DownedBossSystem.downedDoG)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity / 16f, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 16, 0, Projectile.owner);
+                    }
+                    player.Entropy().screenShift = 1;
+                    player.Entropy().screenPos = player.Center;
+                    Vector2 top = Projectile.Center;
+                    Vector2 sparkVelocity2 = Projectile.velocity * 0.08f;
+                    Vector2 rd = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2);
+                    int sparkLifetime2 = 24;
+                    float sparkScale2 = 1.5f;
+                    for (float i = 0; i < 1; i += 0.01f)
+                    {
+                        Color sparkColor2 = Color.Lerp(Color.Red, Color.DarkRed, Main.rand.NextFloat(0, 1));
+                        var spark = new AltSparkParticle(top + CEUtils.randomPointInCircle(32), sparkVelocity2 * Main.rand.NextFloat(), false, (int)(sparkLifetime2), sparkScale2 * Main.rand.NextFloat(0.6f, 1), sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                }
+                else
+                {
+                    if (DownedBossSystem.downedDoG)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 16, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 16, 0, Projectile.owner);
+                    }
+                    Vector2 top = Projectile.Center;
+                    Vector2 sparkVelocity2 = Projectile.velocity * 0.04f;
+                    Vector2 rd = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2);
+                    int sparkLifetime2 = 24;
+                    float sparkScale2 = 1.5f;
+                    for (float i = 0; i < 1; i += 0.01f)
+                    {
+                        Color sparkColor2 = Color.Lerp(Color.Red, Color.DarkRed, Main.rand.NextFloat(0, 1));
+                        var spark = new AltSparkParticle(top + CEUtils.randomPointInCircle(32), sparkVelocity2.RotatedBy(MathHelper.PiOver2 * (Main.rand.NextBool() ? 1 : -1)) * Main.rand.NextFloat(), false, (int)(sparkLifetime2), sparkScale2 * Main.rand.NextFloat(0.6f, 1), sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
                 }
             }
         }
@@ -236,6 +288,10 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
+            if (Projectile.ai[1] != 0)
+            {
+                return CEUtils.LineThroughRect(Projectile.Center - Projectile.velocity.RotatedBy(MathHelper.PiOver2 * 0.5f), Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2 * 0.5f), targetHitbox, 32);
+            }
             return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity, targetHitbox, 32);
         }
     }
@@ -243,6 +299,14 @@ namespace CalamityEntropy.Content.Items.Donator
     public class TlipocasScytheHeld : ModProjectile
     {
         public override string Texture => "CalamityEntropy/Content/Items/Donator/TlipocasScythe";
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if(DownedBossSystem.downedCalamitas)
+            {
+                float dmgMult = Utils.Remap(CEUtils.getDistance(target, Projectile.Center), 160, 300, 1.35f, 1);
+                modifiers.FinalDamage *= dmgMult;
+            }
+        }
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(CEUtils.RogueDC, false, -1);
@@ -269,6 +333,15 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 SoundEngine.PlaySound(PerforatorHive.DeathSound, target.Center);
                 Item.NewItem(target.GetSource_Death(), target.getRect(), new Item(ItemID.SilverCoin, 10));
+                Item.NewItem(target.GetSource_Death(), target.getRect(), new Item(ModContent.ItemType<BloodOrb>(), 2));
+                if(NPC.downedPlantBoss)
+                {
+                    Item.NewItem(target.GetSource_Death(), target.getRect(), new Item(1508, 2));
+                }
+                if(NPC.downedMoonlord)
+                {
+                    Item.NewItem(target.GetSource_Death(), target.getRect(), new Item(ModContent.ItemType<Necroplasm>(), 2));
+                }
             }
             if (flagS)
             {
@@ -283,6 +356,15 @@ namespace CalamityEntropy.Content.Items.Donator
                     CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f) / Projectile.ai[1], target.Center, 6);
                 }
             }
+            if(EDownedBosses.downedCruiser)
+            {
+                EGlobalNPC.AddVoidTouch(target, 60, 5, 1000, 12);
+            }
+            if(DownedBossSystem.downedCalamitas)
+            {
+                target.AddBuff<VulnerabilityHex>(60 * 5);
+            }
+            else
             if (DownedBossSystem.downedRavager)
             {
                 if (DownedBossSystem.downedProvidence)
@@ -314,19 +396,40 @@ namespace CalamityEntropy.Content.Items.Donator
                 float sparkScale2 = 0.6f + (1 - p);
                 sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.06f);
                 Color sparkColor2 = Color.Lerp(Color.DarkRed, Color.IndianRed, p);
-                if (Main.rand.NextBool())
+                if (Projectile.GetOwner().HasBuff<VoidEmpowerment>())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    sparkColor2 = Color.Lerp(Color.DeepSkyBlue, Color.Purple, p);
+                    if (Main.rand.NextBool())
+                    {
+                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                    else
+                    {
+                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.SlateBlue : Color.SkyBlue);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : Color.DarkRed);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    if (Main.rand.NextBool())
+                    {
+                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                    else
+                    {
+                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : Color.DarkRed);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
                 }
             }
             EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 120, 120), 1, 1, true, BlendState.Additive, 0, 6);
 
+        }
+        public override bool ShouldUpdatePosition()
+        {
+            return false;
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -335,6 +438,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void AI()
         {
             Player player = Projectile.GetOwner();
+            player.itemTime = player.itemAnimation = 2;
             float progress = (counter / (player.itemAnimationMax * Projectile.MaxUpdates));
             counter++;
             if(counter > Projectile.MaxUpdates * 4)
@@ -427,8 +531,9 @@ namespace CalamityEntropy.Content.Items.Donator
 
                     sb.End();
                     sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
-                    shader.Parameters["color1"].SetValue((Color.Firebrick).ToVector4());
-                    shader.Parameters["color2"].SetValue((Color.OrangeRed).ToVector4());
+                    shader.Parameters["color1"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? Color.Purple : Color.Firebrick).ToVector4());
+                    shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(160, 160, 255) : Color.OrangeRed).ToVector4());
+
                     shader.Parameters["uTime"].SetValue(Main.GameUpdateCount * 2);
                     shader.Parameters["alpha"].SetValue(1);
                     shader.CurrentTechnique.Passes["EffectPass"].Apply();
@@ -457,6 +562,14 @@ namespace CalamityEntropy.Content.Items.Donator
     public class TlipocasScytheThrow : ModProjectile
     {
         public override string Texture => "CalamityEntropy/Content/Items/Donator/TlipocasScythe";
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (DownedBossSystem.downedCalamitas)
+            {
+                float dmgMult = Utils.Remap(CEUtils.getDistance(target, Projectile.Center), 160, 300, 1.35f, 1);
+                modifiers.FinalDamage *= dmgMult;
+            }
+        }
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(CEUtils.RogueDC, false, -1);
@@ -493,6 +606,15 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f) / Projectile.ai[1], target.Center, 6, CEUtils.WeapSound * 0.4f);
             }
+            if (EDownedBosses.downedCruiser)
+            {
+                EGlobalNPC.AddVoidTouch(target, 60, 5, 1000, 12);
+            }
+            if (DownedBossSystem.downedCalamitas)
+            {
+                target.AddBuff<VulnerabilityHex>(60 * 5);
+            }
+            else
             if (DownedBossSystem.downedRavager)
             {
                 if (DownedBossSystem.downedProvidence)
@@ -524,15 +646,32 @@ namespace CalamityEntropy.Content.Items.Donator
                 float sparkScale2 = 0.6f + (1 - p);
                 sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.06f);
                 Color sparkColor2 = Color.Lerp(Color.DarkRed, Color.IndianRed, p);
-                if (Main.rand.NextBool())
+                if (Projectile.GetOwner().HasBuff<VoidEmpowerment>())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    sparkColor2 = Color.Lerp(Color.DeepSkyBlue, Color.Purple, p);
+                    if (Main.rand.NextBool())
+                    {
+                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                    else
+                    {
+                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.SlateBlue : Color.SkyBlue);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : Color.DarkRed);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    if (Main.rand.NextBool())
+                    {
+                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                    else
+                    {
+                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : Color.DarkRed);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
                 }
             }
             EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 120, 120), 1, 1, true, BlendState.Additive, 0, 6);
@@ -553,7 +692,8 @@ namespace CalamityEntropy.Content.Items.Donator
             Player player = Projectile.GetOwner();
             ProjScale = 1.4f + TlipocasScythe.GetLevel() * 0.02f;
             counter++;
-            if(counter > 16 * (StickOnMouse ? 66 : 16))
+            player.itemTime = player.itemAnimation = 2;
+            if (counter > 16 * (StickOnMouse ? 66 : 16))
             {
                 Projectile.velocity *= 0.996f;
                 Projectile.velocity += (player.Center - Projectile.Center).normalize() * 0.05f;
@@ -586,14 +726,14 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 if(Main.mouseLeft && !player.HasCooldown(TeleportSlashCooldown.ID))
                 {
-                    player.AddCooldown(TeleportSlashCooldown.ID, 15 * 60);
+                    player.AddCooldown(TeleportSlashCooldown.ID, (EDownedBosses.downedCruiser ? 10 : 15) * 60);
                     player.Entropy().screenShift = 1f;
                     player.Entropy().screenPos = player.Center;
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).normalize() * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 16, Projectile.knockBack, player.whoAmI, 1, 1);
                     if(DownedBossSystem.downedPolterghast)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).normalize() * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 16, Projectile.knockBack, player.whoAmI, 1, 1, 1);
-                        EParticle.spawnNew(new PlayerShadowBlack() { plr = player }, player.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend); ;
+                        EParticle.spawnNew(new PlayerShadowBlack() { plr = player }, player.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, 60);
                     }
                     Projectile.Kill();
                     player.Center = Projectile.Center;
@@ -638,8 +778,8 @@ namespace CalamityEntropy.Content.Items.Donator
 
                     sb.End();
                     sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
-                    shader.Parameters["color1"].SetValue((Color.Firebrick).ToVector4());
-                    shader.Parameters["color2"].SetValue((Color.OrangeRed).ToVector4());
+                    shader.Parameters["color1"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? Color.Purple : Color.Firebrick).ToVector4());
+                    shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(160, 160, 255) : Color.OrangeRed).ToVector4());
                     shader.Parameters["uTime"].SetValue(Main.GameUpdateCount * 2);
                     shader.Parameters["alpha"].SetValue(1);
                     shader.CurrentTechnique.Passes["EffectPass"].Apply();
@@ -662,5 +802,80 @@ namespace CalamityEntropy.Content.Items.Donator
         public float alpha = 1;
         public float ProjScale = 1;
         public float scale = 1;
+    }
+    public class BloodCrack : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.DamageType = CEUtils.RogueDC;
+            Projectile.width = 1;
+            Projectile.height = 1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.light = 0f;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+            Projectile.ArmorPenetration = 128;
+            Projectile.timeLeft = 48;
+        }
+        public List<Vector2> points = new List<Vector2>();
+        int d = 0;
+        public override void AI()
+        {
+            d++;
+            if (d > 16)
+            {
+                Projectile.velocity *= 0;
+            }
+            else
+            {
+                Vector2 o = (points.Count > 0 ? points[points.Count - 1] : Projectile.Center - Projectile.velocity);
+                Vector2 nv = Projectile.Center + CEUtils.randomVec(4);
+                for (float i = 0.1f; i <= 1; i += 0.1f)
+                {
+                    points.Add(Vector2.Lerp(o, nv, i));
+                }
+            }
+        }
+        public override string Texture => "CalamityEntropy/Assets/Extra/white";
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (points.Count < 1)
+            {
+                return false;
+            }
+            for (int i = 1; i < points.Count; i++)
+            {
+                if (CEUtils.LineThroughRect(points[i - 1], points[i], targetHitbox, 30))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+
+            return false;
+        }
+
+        public void draw()
+        {
+            if (points.Count < 1)
+            {
+                return;
+            }
+            Texture2D px = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
+            float jd = 1;
+            float lw = Projectile.timeLeft / 30f;
+            Color color = Color.White;
+            for (int i = 1; i < points.Count; i++)
+            {
+                Vector2 jv = Vector2.Zero;
+                CEUtils.drawLine(Main.spriteBatch, px, points[i - 1], points[i] + jv, color * jd, 1f * lw * (new Vector2(-16, 0).RotatedBy(MathHelper.ToRadians(180 * ((float)i / points.Count)))).Y, 3);
+            }
+        }
     }
 }

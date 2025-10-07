@@ -108,7 +108,7 @@ Items: {
 			}
 
 			TlipocasScythe: {
-				DisplayName: Tlipocas Scythe
+				DisplayName: Tlipoca's Scythe
 				Tooltip: ""
 			}
 		}
@@ -3372,6 +3372,7 @@ Projectiles: {
 	TlipocasScytheHeld.DisplayName: Tlipocas Scythe Held
 	TSSlash.DisplayName: T S Slash
 	TlipocasScytheThrow.DisplayName: Tlipocas Scythe Throw
+	BloodCrack.DisplayName: Blood Crack
 }
 
 LegendTooltip: - Legend -
@@ -3670,6 +3671,11 @@ Buffs: {
 	AzafureDrone: {
 		DisplayName: Azafure Drone
 		Description: Azafure Drone will fight for you
+	}
+
+	VoidEmpowerment: {
+		DisplayName: Void Empowerment
+		Description: ""
 	}
 }
 
@@ -4321,3 +4327,156 @@ ProtectiveCannonCooldown: Azafure Protective Cannon Cooldown
 TlipocasScytheSlashCooldown: Dash Cooldown
 TeleportSlashCooldown: Slash Cooldown
 ScytheReviveCooldown: Scythe Revive Cooldown
+TScytheZenithName: Night Master's Scythe
+TScytheSpecialName: Scarlet
+TScytheZenithDesc:
+'''
+"Crown me, my king, and the world will welcome the end of the night."
+'''
+TScytheDesc:
+'''
+"A scarlet scythe with tlipoca's soul adhering."
+'''
+TSL1:
+'''
+The evil big eyes seem to have ill intentions towards we...
+Let's go kill him!
+'''
+TSL2:
+'''
+Strange spirits resembling brains and worms?
+Can I take it home to make a specimen？
+'''
+TSL3:
+'''
+God of slime? It looks sticky, dirty, and bubbling...
+Shall we give it a bath？
+'''
+TSL4:
+'''
+A flesh and blood creation sealed with the spirit of the gods?
+It seems that completing this task can bring a lot of souls...
+'''
+TSL5:
+'''
+Many souls are floating in the brimstone crag, howling in sorrow...
+Continuously talking about a catastrophe from a hundred years ago...
+Let's end their pain!
+'''
+TSL6:
+'''
+There is a terrifying red monster hovering in the night sky,
+I can only feel madness from his soul. Or...Is that really a soul?
+'''
+TSL7:
+'''
+There're so much spirits in the dungeon...
+Hey，there's a sealed spirit with strange scent.
+I can't help but want to communicate with them!
+'''
+TSL8:
+'''
+How many strands of soul are attached to twisted flesh and blood? 
+Some Disgusting, drive them back to their dreams!
+'''
+TSL9:
+'''
+These crazy cultists emit an aura similar to that prophet...
+What are they worshiping? 
+It feels like sending them to worship the Grim Reaper is a good idea.
+'''
+TSL10:
+'''
+A huge, multi eyed octopus? Is this a monster that came out of a dream?
+'''
+TSL11:
+'''
+The faceless man wearing a purple cloak carried a lantern with a prophetic aura ..
+I'm a little curious, I want to grab the lantern!
+'''
+TSL12:
+'''
+In the enchanted dungeon, these souls can never rest in peace.
+It's so pitiful, let's take it away!
+'''
+TSL13:
+'''
+There is a purple serpent.
+It want to devour the soul of we!
+Don't even try this!
+'''
+TSL14:
+'''
+The strange lantern pointed towards this spatial fissure.
+What will it bring?
+'''
+TSL15:
+'''
+A witch and a robot came to here，
+Snatch their souls and my goal might be achieved！
+'''
+TSL16:
+'''
+The cultist asked us to use the discord wand in the abyss...
+What will happen?
+'''
+TSLEnd:
+'''
+Finally paid off the debt, the task was perfectly completed!
+'''
+TSA1:
+'''
+Hold Up and attack will push a certain distance towards the mouse direction
+'''
+TSA1B:
+'''
+After killing slime god,
+Gain invincible time and deal damage to the targets you come into contact with
+'''
+TSU1: Need to kill Eye of Cthulhu
+TSA2: Press LMB to throw the scythe and causing multiple injuries
+TSA2B: 
+'''
+After killing Brimstone Elemental,
+Press LMB when throwing to teleport to the mouse and launch a larger slash
+This skill has a 15 second cooldown time.
+The cooling time will shrink to 10 after killing Cruiser
+'''
+TSU2: Need to kill any evil boss
+TSA3:
+'''
+When throw out, press RMB to let the scythe follow your curser.
+Stealth strikes will heal you with 15
+'''
+TSU3: Need to kill Prophet
+TSA4:
+'''
+Teleport slash will empowerment your weapon with void.
+This will last for 15 seconds. After killing Cruiser, it will gain to 30 sec.
+The damage you cause will increase by 25% when empowering.
+'''
+TSU4: Need to kill Void Twins
+TSA5: 
+'''
+Leave a shadow when teleport strike
+Shadow will strike with you.
+Slash dash will generate an additional slash perpendicular to the original sprint
+Increase the healing value when steal strike.
+'''
+TSU5: Need to kill Polterghast
+TSA6: Leave rift when slash dash. The rift will continuously causing harm
+TSU6: Need to kill Devourer of Gods
+TSA7: 
+'''
+Resist a fatal injury and restore your health to half of your maximum health
+Need 5 min to cooling
+'''
+TSU7: Need to kill Yharon
+TSA8: Attack will cause void touch
+TSU8: Need to kill Cruiser
+TSA9: 
+'''
+The closer the distance to the target, the higher the damage caused,
+with a maximum additional damage of 35%
+'''
+TSU9: Need to kill Calamitas
