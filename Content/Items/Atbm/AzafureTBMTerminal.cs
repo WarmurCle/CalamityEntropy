@@ -6,6 +6,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using Humanizer;
+using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
 using System;
@@ -185,8 +186,8 @@ namespace CalamityEntropy.Content.Items.Atbm
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Generic;
-            Projectile.width = 32;
-            Projectile.height = 32;
+            Projectile.width = 26;
+            Projectile.height = 26;
             Projectile.friendly = true;
             Projectile.aiStyle = -1;
             Projectile.hostile = false;
@@ -204,13 +205,14 @@ namespace CalamityEntropy.Content.Items.Atbm
         }
         public bool InGround = false;
         public bool Active => mplayer.ControlJump;
+        public bool backing = false;
         public override void AI()
         {
             Projectile.netUpdate = true;
             Projectile.netSpam = 0;
             if (segs.Count == 0)
             {
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     segs.Add(new Seg(Projectile.Center - Projectile.velocity.normalize() * 30 * i, Projectile.velocity.ToRotation(), 30));
                 }
@@ -224,18 +226,30 @@ namespace CalamityEntropy.Content.Items.Atbm
             }
             if (CEUtils.inWorld((Projectile.Center / 16).ToPoint().X, (Projectile.Center / 16).ToPoint().Y) && Main.tile[(Projectile.Center / 16).ToPoint()].WallType != WallID.None)
                 InGround = true;
-            float MoveSpeed = Active ? 0.3f : 0.9f;
+            float MoveSpeed = Active ? 0.6f : 1.4f;
             Vector2 moveVect = Projectile.rotation.ToRotationVector2() * MoveSpeed * 0.6f + 0.4f * new Vector2(((mplayer.ControlA ? -1 : 0) + (mplayer.ControlD ? 1 : 0)) * MoveSpeed, ((mplayer.ControlW ? -1 : 0) + (mplayer.ControlS ? 1 : 0)) * MoveSpeed);
-
             Vector2 pct = Main.netMode == NetmodeID.MultiplayerClient ? mplayer.opos : player.Center;
+            bool b = false;
+            if (!(mplayer.ControlA || mplayer.ControlS || mplayer.ControlW || mplayer.ControlD))
+            {
+                moveVect *= 0;
+                if (player.controlTorch)
+                {
+                    b = true;
+                    backing = true;
+                    moveVect = Projectile.rotation.ToRotationVector2() * -MoveSpeed * 0.2f;
+                }
+            }
+            if(backing && !b)
+            {
+                Projectile.velocity *= 0;
+            }
+            backing = b;
             if (Projectile.Distance(pct) > 12000)
             {
                 moveVect *= (Utils.Remap(Projectile.Distance(pct), 12000, 20000, 1, 0));
             }
-            if (!(mplayer.ControlA || mplayer.ControlS || mplayer.ControlW || mplayer.ControlD))
-            {
-                moveVect *= 0;
-            }
+            
             if(InGround)
             {
                 Projectile.velocity += moveVect;
@@ -247,10 +261,10 @@ namespace CalamityEntropy.Content.Items.Atbm
             }
             else
             {
-                Projectile.velocity *= 0.97f;
-                Projectile.velocity += new Vector2(0, 0.35f);
+                Projectile.velocity *= 0.996f;
+                Projectile.velocity += new Vector2(0, 0.46f);
             }
-            if(Projectile.velocity.Length() > 0.01f)
+            if(Projectile.velocity.Length() > 0.01f && !backing)
             {
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.1f, false);
             }
@@ -260,17 +274,57 @@ namespace CalamityEntropy.Content.Items.Atbm
                 segs[i].Follow(segs[i - 1].Position, segs[i - 1].Rotation);
             }
             SpawnLighting();
-            counter += Projectile.velocity.Length() * (Active ? 2 : 1) * 0.1f + (Active ? 0.25f : 0);
-            if(counter > 1)
+            counter += Projectile.velocity.Length() * (Active ? 2 : 1) * 0.025f + (Active ? 0.25f : 0);
+            while(counter > 1)
             {
                 counter--;
-                Frame++;
+                Frame += (backing ? -1 : 1);
                 if(Frame > 4)
                 {
                     Frame = 0;
                 }
+                if(Frame < 0)
+                {
+                    Frame = 4;
+                }
             }
             PickUpNearbyItems();
+            List<Rectangle> CantGoThrough = new();
+            for(int i = -3; i <= 3; i++)
+            {
+                for(int j = -3; j <= 3; j++)
+                {
+                    Point p = (Projectile.Center / 16f + new Vector2(i, j)).ToPoint();
+                    if (!CEUtils.inWorld(p.X, p.Y) || !Main.tile[p].IsTileSolid())
+                        continue;
+                    if (!player.HasEnoughPickPowerToHurtTile(p.X, p.Y))
+                    {
+                        CantGoThrough.Add(new Rectangle(p.X * 16, p.Y * 16, 16, 16));
+                    }
+                }
+            }
+            
+            Rectangle myRect = (Projectile.Center + Projectile.velocity * 2).getRectCentered(Projectile.width, Projectile.height);
+            foreach (Rectangle r in CantGoThrough)
+            {
+                if(myRect.Intersects(r))
+                {
+                    bool h = Math.Abs(r.Center.X - myRect.Center.X) > Math.Abs(r.Center.Y - myRect.Center.Y);
+                    if (h) {
+                        Projectile.velocity.Y = 0;
+                    }
+                    else
+                    {
+                        Projectile.velocity.X = 0;
+                    }
+                }
+            }
+            Projectile.position += Projectile.velocity;
+
+        }
+        public override bool ShouldUpdatePosition()
+        {
+            return false;
         }
         public void PickUpNearbyItems()
         {
@@ -286,7 +340,14 @@ namespace CalamityEntropy.Content.Items.Atbm
         {
             for (int i = 0; i < 12; i++)
             {
-                EParticle.NewParticle(new EMediumSmoke(), Projectile.Center + CEUtils.randomPointInCircle(12 * Projectile.scale), CEUtils.randomPointInCircle(12 * Projectile.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.4f, 1f) * Projectile.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 70);
+                EParticle.NewParticle(new EMediumSmoke(), Projectile.Center + CEUtils.randomPointInCircle(12 * Projectile.scale), CEUtils.randomPointInCircle(12 * Projectile.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1f) * Projectile.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 70);
+            }
+            foreach(var s in segs)
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    EParticle.NewParticle(new EMediumSmoke(), s.Position + CEUtils.randomPointInCircle(12 * Projectile.scale), CEUtils.randomPointInCircle(12 * Projectile.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1f) * Projectile.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 70);
+                }
             }
             CEUtils.PlaySound("chainsaw_break", 1, Projectile.Center);
         }
@@ -296,8 +357,11 @@ namespace CalamityEntropy.Content.Items.Atbm
             {
                 List<Point> pos = new List<Point>();
                 pos.Add(((Projectile.Center + Projectile.rotation.ToRotationVector2() * 8) / 16f).ToPoint());
-                pos.Add(((Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * 8) / 16f).ToPoint());
-                pos.Add(((Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * 8) / 16f).ToPoint());
+                pos.Add(((Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * 10) / 16f).ToPoint());
+                pos.Add(((Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * 10) / 16f).ToPoint());
+                pos.Add(((Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 10) / 16f).ToPoint());
+                pos.Add(((Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver2) * 10) / 16f).ToPoint());
+
                 bool flag = false;
                 foreach (Point p in pos)
                 {
@@ -358,6 +422,8 @@ namespace CalamityEntropy.Content.Items.Atbm
         public void SpawnLighting()
         {
             float rot = Projectile.velocity.ToRotation();
+            if (backing)
+                rot = Projectile.rotation;
             for (float i = 0; i < 700; i += 10)
             {
                 CEUtils.AddLight(Projectile.Center + Projectile.velocity + rot.ToRotationVector2() * i, Color.White * 0.14f, float.Max(4, i * 0.06f));

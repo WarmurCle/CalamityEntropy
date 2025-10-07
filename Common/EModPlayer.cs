@@ -413,9 +413,11 @@ namespace CalamityEntropy.Common
         public int ManaRegenTime = 0;
         public Dictionary<DamageClass, AddableFloat> CritDamage;
         public bool fruitCake;
+        public bool roaringDye = false;
 
         public override void ResetEffects()
         {
+            roaringDye = false;
             fruitCake = false;
             CritDamage = new Dictionary<DamageClass, AddableFloat>();
             ManaExtraHeal = 0;
@@ -1479,6 +1481,10 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public override void PostUpdate()
         {
+            if (roaringDye && Main.GameUpdateCount % 4 == 0)
+            {
+                EParticle.spawnNew(new PlayerShadow() { plr = Player }, Player.position, new Vector2(Player.direction * -4, 0), Color.White, 1, 1, true, BlendState.AlphaBlend);
+            }
             if (ResetRot)
             {
                 ResetRot = false;

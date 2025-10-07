@@ -2846,15 +2846,15 @@ Items: {
 
 	AzafureTBMTerminal: {
 		DisplayName: Azafure TBM Terminal
-		Tooltip: 
-		'''
-		Operate a tunnel boring machine‌
-			It will become difficult to control if too far from the player
-			While operating, use movement keys to control its movement, 
-			hold the jump key to dig, and use this item again to stop operating
-			Pickaxe power depends on the highest pickaxe power in your inventory
-			Automatically picks up nearby items into your inventory
-		'''
+		Tooltip:
+			'''
+			Operate a tunnel boring machine‌
+				It will become difficult to control if too far from the player
+				While operating, use movement keys to control its movement, 
+				hold the jump key to dig, and use this item again to stop operating
+				Pickaxe power depends on the highest pickaxe power in your inventory
+				Automatically picks up nearby items into your inventory
+			'''
 	}
 }
 

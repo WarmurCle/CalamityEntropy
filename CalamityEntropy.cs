@@ -249,6 +249,10 @@ namespace CalamityEntropy
             {
                 armorItem.Entropy().DyeType = dyeItem.type;
             }
+            if (!dyeItem.IsAir && dyeItem.ModItem != null && dyeItem.ModItem is RoaringDye)
+            {
+                self.Entropy().roaringDye = true;
+            }
             if (!armorItem.IsAir && armorItem.type == tmtype)
             {
                 self.GetModPlayer<VanityModPlayer>().TheocrazyDye = dyeItem.IsAir ? 0 : dyeItem.dye;

@@ -8,7 +8,8 @@ namespace CalamityEntropy.Common.DrawLayers
     {
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            if (drawInfo.shadow != 0f || drawInfo.drawPlayer.dead)
+            var drawPlayer = drawInfo.drawPlayer;
+            if (drawPlayer.dead)
                 return false;
             return drawInfo.drawPlayer.head == EquipLoader.GetEquipSlot(Mod, "MysteriousBook", EquipType.Head);
         }

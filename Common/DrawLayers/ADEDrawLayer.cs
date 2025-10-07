@@ -10,7 +10,7 @@ namespace CalamityEntropy.Common.DrawLayers
     {
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            if (drawInfo.shadow != 0f || drawInfo.drawPlayer.dead)
+            if (drawInfo.drawPlayer.dead)
                 return false;
             return drawInfo.drawPlayer.Entropy().hasAccVisual(AzafureDetectionEquipment.ID);
         }
