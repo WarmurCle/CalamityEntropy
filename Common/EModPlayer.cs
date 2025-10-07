@@ -243,6 +243,7 @@ namespace CalamityEntropy.Common
             {
                 Player.AddCooldown(ScytheReviveCooldown.ID, 5 * 60 * 60);
                 Player.statLife = Player.statLifeMax2 / 2;
+                CEUtils.PlaySound("beast_lavaball_rise1", 1, Player.Center);
                 return false;
             }
             return true;

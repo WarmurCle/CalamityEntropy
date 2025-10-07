@@ -137,10 +137,33 @@ namespace CalamityEntropy.Content.Items.Donator
                 Get("TSA9") + (flag ? "" : Get("LOCKED") + " " + Get("TSU9")))
             { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-            tooltips.Add(new TooltipLine(Mod, "NextGoal", Mod.GetLocalization(GetLevel() == 16 ? "TSLEnd" : ("TSL" + (GetLevel() + 1).ToString())).Value) { OverrideColor = Color.Yellow });
+            tooltips.Add(new TooltipLine(Mod, "NextGoal", Mod.GetLocalization(GetLevel() == 16 ? "TSLEnd" : ("TSL" + (GetLevel() + 1).ToString())).Value) { OverrideColor = Color.HotPink });
         }
         public override void UpdateInventory(Player player)
         {
+            int dmg = 20;
+            int lv = GetLevel();
+            switch(lv)
+            {
+                case 0: dmg = 20; break;
+                case 1: dmg = 36; break;
+                case 2: dmg = 40; break;
+                case 3: dmg = 60; break;
+                case 4: dmg = 80; break;
+                case 5: dmg = 140; break;
+                case 6: dmg = 180; break;
+                case 7: dmg = 220; break;
+                case 8: dmg = 300;  break;
+                case 9: dmg = 400;  break;
+                case 10: dmg = 500;  break;
+                case 11: dmg = 600;  break;
+                case 12: dmg = 800;  break;
+                case 13: dmg = 1200;  break;
+                case 14: dmg = 1800;  break;
+                case 15: dmg = 2200;  break;
+                case 16: dmg = 3000;  break;
+            }
+            Item.damage = dmg;
             if(player.name.ToLower() == "tlipoca")
             {
                 Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
@@ -176,7 +199,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.shootSpeed = 8f;
             Item.ArmorPenetration = 32;
             Item.shoot = ModContent.ProjectileType<TlipocasScytheHeld>();
-            Item.Entropy().tooltipStyle = 3;
+            Item.Entropy().tooltipStyle = 4;
             Item.Entropy().NameColor = new Color(160, 0, 0);
             Item.Entropy().stroke = true;
             Item.Entropy().strokeColor = new Color(90, 0, 0);
@@ -217,14 +240,19 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 velocity *= 0.46f;
                 type = throwType;
+                damage /= 3;
             }
             if (AllowDash() && player.controlUp && !player.HasCooldown(TlipocasScytheSlashCooldown.ID))
             {
                 player.AddCooldown(TlipocasScytheSlashCooldown.ID, 7 * 60);
-                Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 5, knockback, player.whoAmI);
-                if(DownedBossSystem.downedPolterghast)
+                int p = Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 2, knockback, player.whoAmI);
+                if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {
-                    Projectile.NewProjectile(source, position + velocity.normalize() * 400 * (DashUpgrade() ? 1.33f : 1), velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 5, knockback, player.whoAmI, 0, 1);
+                    Main.projectile[p].Calamity().stealthStrike = true;
+                }
+                if (DownedBossSystem.downedPolterghast)
+                {
+                    Projectile.NewProjectile(source, position + velocity.normalize() * 400 * (DashUpgrade() ? 1.33f : 1), velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 2, knockback, player.whoAmI, 0, 1);
                 }
             }
             else
@@ -236,11 +264,30 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     Main.projectile[p].Calamity().stealthStrike = true;
                 }
+                CostStealthForPlr(player);
+
                 swing = 1 - swing;
             }
             return false;
         }
-
+        public void CostStealthForPlr(Player player)
+        {
+            if (player.Calamity().StealthStrikeAvailable())
+            {
+                float cost = 1;
+                if (player.Calamity().stealthStrike85Cost)
+                    cost = 0.85f;
+                if (player.Calamity().stealthStrike75Cost)
+                    cost = 0.75f;
+                if (player.Calamity().stealthStrikeHalfCost)
+                    cost = 0.5f;
+                player.Calamity().rogueStealth -= player.Calamity().rogueStealthMax * cost;
+            }
+            else
+            {
+                player.Calamity().rogueStealth = 0;
+            }
+        }
         public override void AddRecipes()
         {
         }
@@ -302,7 +349,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     if(DownedBossSystem.downedDoG)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity / 16f, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 16, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity / 16f, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 36, 0, Projectile.owner);
                     }
                     player.Entropy().screenShift = 1;
                     player.Entropy().screenPos = player.Center;
@@ -322,8 +369,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     if (DownedBossSystem.downedDoG)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 16, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 16, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 36, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 36, 0, Projectile.owner);
                     }
                     Vector2 top = Projectile.Center;
                     Vector2 sparkVelocity2 = Projectile.velocity * 0.04f;
@@ -357,6 +404,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override string Texture => "CalamityEntropy/Content/Items/Donator/TlipocasScythe";
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
+            modifiers.SourceDamage *= 2;
             if(DownedBossSystem.downedCalamitas)
             {
                 float dmgMult = Utils.Remap(CEUtils.getDistance(target.Center, Projectile.Center), 160, 300, 1.35f, 1);
@@ -497,11 +545,9 @@ namespace CalamityEntropy.Content.Items.Donator
             player.itemTime = player.itemAnimation = 2;
             float progress = (counter / (player.itemAnimationMax * Projectile.MaxUpdates));
             counter++;
-            if(counter > Projectile.MaxUpdates * 4)
-            {
-                if (Projectile.ai[2] == 0)
-                    player.heldProj = Projectile.whoAmI;
-            }
+            if (Projectile.ai[2] == 0)
+                player.heldProj = Projectile.whoAmI;
+            
             int dir = (int)Projectile.ai[0] * Math.Sign(Projectile.velocity.X);
 
             float ySc = 0.6f;
@@ -799,6 +845,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     counter = 0;
                     StickOnMouse = true;
                     CEUtils.SyncProj(Projectile.whoAmI);
+                    Projectile.damage /= 3;
                 }
                 RightLast = Main.mouseRight;
             }
