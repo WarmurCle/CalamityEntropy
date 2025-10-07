@@ -1311,7 +1311,7 @@ namespace CalamityEntropy.Common
                 }
                 return true;
             }
-            if (HolyShield && info.Damage > 20)
+            if (HolyShield && info.Damage > 120)
             {
                 immune = 120;
                 HolyShield = false;

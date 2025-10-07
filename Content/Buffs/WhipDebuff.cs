@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Buffs
 {
     public class JailerWhipDebuff : ModBuff
     {
-        public static readonly int TagDamage = 5;
+        public static readonly int TagDamage = 7;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Buffs
     }
     public class WyrmWhipDebuff : ModBuff
     {
-        public static readonly float TagDamageMul = 0.15f;
         public static readonly int TagDamage = 90;
+        public static readonly float TagDamageMul = 0.15f;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Buffs
             if (npc.HasBuff<JailerWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += JailerWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(20))
+                if (Main.rand.NextBool(25))
                 {
                     modifiers.SetCrit();
                 }
