@@ -30,7 +30,6 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     [AutoloadBossHead]
-    [StaticImmunity(staticImmunityCooldown: 6)]
     public class CruiserHead : ModNPC
     {
         public float ProgressDraw = 0;
@@ -118,7 +117,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
-            NPC.Calamity().DR = 0.18f;
+            NPC.Calamity().DR = 0.2f;
             NPC.boss = true;
             NPC.width = 100;
             NPC.height = 100;

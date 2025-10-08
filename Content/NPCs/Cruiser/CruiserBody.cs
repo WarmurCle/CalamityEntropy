@@ -8,7 +8,6 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
-    [StaticImmunity(typeof(CruiserHead))]
     public class CruiserBody : ModNPC
     {
         public override void SetStaticDefaults()
@@ -69,6 +68,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.Calamity().DR = Main.npc[(int)NPC.ai[1]].Calamity().DR;
             NPC.dontTakeDamage = Main.npc[(int)NPC.ai[1]].dontTakeDamage;
             NPC.ai[0] += 1;
+            NPC.life = Main.npc[(int)NPC.ai[1]].life;
+            NPC.lifeMax = Main.npc[(int)NPC.ai[1]].lifeMax;
             if (NPC.ai[0] < 5)
             {
                 return;

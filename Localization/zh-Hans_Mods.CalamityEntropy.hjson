@@ -4635,3 +4635,62 @@ TSA8: 攻击造成虚空之触
 TSU8: 需击败巡游者
 TSA9: 与目标之间的距离越近，造成的伤害越高，最高额外造成35%伤害
 TSU9: 需击败至尊灾厄
+
+6: {
+	Projectiles: {
+		// VoidMark.DisplayName: Void Mark
+		// VoidBladeProj.DisplayName: Void Blade Proj
+		// VoidBladeHit.DisplayName: Void Blade Hit
+		// Slash.DisplayName: Slash
+		// Rvshoot.DisplayName: Rvshoot
+		// RevelationThrow.DisplayName: Revelation Throw
+		// RevelationMelee.DisplayName: Revelation Melee
+		// PrisonOfPermafrostCircle.DisplayName: Prison Of Permafrost Circle
+		// LightningSpear.DisplayName: Lightning Spear
+		// LightningBolt.DisplayName: Lightning Bolt
+		// Lcircle.DisplayName: Lcircle
+		// Impact.DisplayName: Impact
+		// Icicle.DisplayName: Icicle
+		// IceSpikeSmall.DisplayName: Ice Spike Small
+		// IceSpike.DisplayName: Ice Spike
+		// IceEdge.DisplayName: Ice Edge
+	}
+
+	Items: {
+		VoidRelics: {
+			// Tooltip: ""
+			// DisplayName: Void Relics
+		}
+
+		VoidBlade: {
+			// Tooltip: ""
+			// DisplayName: Void Blade
+		}
+
+		Weapons: {
+			Rogue: {
+				Revelation: {
+					// Tooltip: ""
+					// DisplayName: Revelation
+				}
+			}
+		}
+
+		PrisonOfPermafrost: {
+			// Tooltip: ""
+			// DisplayName: Prison Of Permafrost
+		}
+
+		Kinanition: {
+			// Tooltip: ""
+			// DisplayName: Kinanition
+		}
+	}
+
+	Buffs: {
+		VoidStorm: {
+			// Description: Mods.CalamityEntropy06.Buffs.VoidStorm.Description
+			// DisplayName: Void Storm
+		}
+	}
+}

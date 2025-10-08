@@ -4511,3 +4511,62 @@ Biomes: {
 	with a maximum additional damage of 35%
 	''' */
 // TSU9: Need to kill Calamitas
+
+6: {
+	Projectiles: {
+		// VoidMark.DisplayName: Void Mark
+		// VoidBladeProj.DisplayName: Void Blade Proj
+		// VoidBladeHit.DisplayName: Void Blade Hit
+		// Slash.DisplayName: Slash
+		// Rvshoot.DisplayName: Rvshoot
+		// RevelationThrow.DisplayName: Revelation Throw
+		// RevelationMelee.DisplayName: Revelation Melee
+		// PrisonOfPermafrostCircle.DisplayName: Prison Of Permafrost Circle
+		// LightningSpear.DisplayName: Lightning Spear
+		// LightningBolt.DisplayName: Lightning Bolt
+		// Lcircle.DisplayName: Lcircle
+		// Impact.DisplayName: Impact
+		// Icicle.DisplayName: Icicle
+		// IceSpikeSmall.DisplayName: Ice Spike Small
+		// IceSpike.DisplayName: Ice Spike
+		// IceEdge.DisplayName: Ice Edge
+	}
+
+	Items: {
+		VoidRelics: {
+			// Tooltip: ""
+			// DisplayName: Void Relics
+		}
+
+		VoidBlade: {
+			// Tooltip: ""
+			// DisplayName: Void Blade
+		}
+
+		Weapons: {
+			Rogue: {
+				Revelation: {
+					// Tooltip: ""
+					// DisplayName: Revelation
+				}
+			}
+		}
+
+		PrisonOfPermafrost: {
+			// Tooltip: ""
+			// DisplayName: Prison Of Permafrost
+		}
+
+		Kinanition: {
+			// Tooltip: ""
+			// DisplayName: Kinanition
+		}
+	}
+
+	Buffs: {
+		VoidStorm: {
+			// Description: Mods.CalamityEntropy06.Buffs.VoidStorm.Description
+			// DisplayName: Void Storm
+		}
+	}
+}
