@@ -144,7 +144,7 @@ namespace CalamityEntropy.Common
         public bool plagueEngine = false;
         public int bloodBoiling = 0;
         public int UsingItemCounter = 0;
-        public float MHVanityRot = 0;
+        public float VanityTailRot = 0;
         public int JetpackDye = -1;
         public class SpecialWingDrawingData
         {
@@ -1591,7 +1591,7 @@ namespace CalamityEntropy.Common
             float v = Player.velocity.Length();
 
             mhrot = Vector2.Lerp(mhrot.ToRotationVector2(), Player.velocity.normalize() * new Vector2(Player.direction, 1), (float)(1 - Math.Exp(-0.1 * v))).ToRotation();
-            MHVanityRot = CEUtils.RotateTowardsAngle(MHVanityRot, mhrot, 0.2f, false);
+            VanityTailRot = CEUtils.RotateTowardsAngle(VanityTailRot, mhrot, 0.2f, false);
             if (hasAcc(AzafureDetectionEquipment.ID))
             {
                 if (Player.controlJump && Player.wingTime > 0f && Player.jump == 0 && Player.controlUp)

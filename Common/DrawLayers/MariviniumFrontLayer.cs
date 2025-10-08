@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common.DrawLayers
 {
-    public class MariviniumBackLayer : PlayerDrawLayer
+    public class MariviniumFrontLayer : PlayerDrawLayer
     {
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
@@ -16,15 +16,15 @@ namespace CalamityEntropy.Common.DrawLayers
 
         public override Position GetDefaultPosition()
         {
-            return new BeforeParent(PlayerDrawLayers.ArmorLongCoat);
+            return new AfterParent(PlayerDrawLayers.ArmOverItem);
         }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
-            Texture2D back = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Marivinium/Back").Value;
+            Texture2D front = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Marivinium/Front").Value;
             Player player = drawInfo.drawPlayer;
             Vector2 offset = drawInfo.GetFrameOrigin() + new Vector2(drawInfo.drawPlayer.width, drawInfo.drawPlayer.height - 16) + Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height] * drawInfo.drawPlayer.gravDir;
-            drawInfo.DrawDataCache.Add(new DrawData(back, offset, null, drawInfo.colorArmorBody, player.fullRotation, (back.Size() / 2f), 1, drawInfo.drawPlayer.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) { shader = drawInfo.drawPlayer.cBody });
+            drawInfo.DrawDataCache.Add(new DrawData(front, offset, null, drawInfo.colorArmorBody, player.fullRotation, (front.Size() / 2f), 1, drawInfo.drawPlayer.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) { shader = drawInfo.drawPlayer.cBody });
 
         }
 

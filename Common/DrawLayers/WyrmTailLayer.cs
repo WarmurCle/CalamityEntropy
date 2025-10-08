@@ -5,13 +5,13 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common.DrawLayers
 {
-    public class MHTailLayer : PlayerDrawLayer
+    public class WyrmTailLayer : PlayerDrawLayer
     {
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
             if (drawInfo.drawPlayer.dead)
                 return false;
-            return drawInfo.drawPlayer.legs == EquipLoader.GetEquipSlot(Mod, "ScarletKilt", EquipType.Legs) || drawInfo.drawPlayer.legs == EquipLoader.GetEquipSlot(Mod, "KitsunesFan", EquipType.Legs);
+            return drawInfo.drawPlayer.legs == EquipLoader.GetEquipSlot(Mod, "MariviniumLeggings", EquipType.Legs);
         }
 
         public override Position GetDefaultPosition()
@@ -22,7 +22,7 @@ namespace CalamityEntropy.Common.DrawLayers
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
             var player = drawInfo.drawPlayer;
-            Texture2D texture = CEUtils.getExtraTex("MHTail");
+            Texture2D texture = CEUtils.getExtraTex("WyrmTail");
 
             Vector2 dpos = drawInfo.HeadPosition();
             dpos += new Vector2(player.direction * -8, 16).RotatedBy(player.fullRotation);

@@ -439,6 +439,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public bool Canhit = false;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            CEUtils.SetShake(target.Center, Projectile.Calamity().stealthStrike ? 8 : 4);
             if (Projectile.ai[1] == 1 && TlipocasScythe.AllowVoidEmpowerment())
             {
                 int VETime = EDownedBosses.downedCruiser ? 30 : 15;
@@ -711,7 +712,8 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(Projectile.numHits == 1)
+            CEUtils.SetShake(target.Center, Projectile.Calamity().stealthStrike ? 8 : 4);
+            if (Projectile.numHits == 1)
             {
                 if (TlipocasScythe.AllowSpin() && Projectile.Calamity().stealthStrike)
                 {
