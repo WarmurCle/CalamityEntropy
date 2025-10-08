@@ -851,7 +851,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if(Main.myPlayer == Projectile.owner)
             {
-                if(Main.mouseLeft && !player.HasCooldown(TeleportSlashCooldown.ID))
+                if(Main.mouseLeft && !player.HasCooldown(TeleportSlashCooldown.ID) && DownedBossSystem.downedBrimstoneElemental)
                 {
                     player.AddCooldown(TeleportSlashCooldown.ID, (EDownedBosses.downedCruiser ? 10 : 15) * 60);
                     player.Entropy().screenShift = 1f;
