@@ -268,7 +268,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Projectile.timeLeft = 100000;
             Projectile.MaxUpdates = 16;
         }
-        public float rotRP = Main.rand.NextFloat(-0.2f, 0.2f);
+        public float rotRP = Main.rand.NextFloat(-0.1f, 0.1f);
         public float counter = 0;
         public float scale = 1;
         public float alpha = 0;
@@ -319,7 +319,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             }
         }
         public float rScale = 1;
-        public float slashP = Main.rand.NextFloat(0.5f, 1);
+        public float slashP = 0.6f;
         public override void AI()
         {
             CEUtils.AddLight(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Color.LightGreen, Projectile.scale);
@@ -353,7 +353,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             float RotF = 4.5f;
             alpha = 1;
             scale = 1f * Projectile.ai[1];
-            float cr = MathHelper.ToRadians(30);
+            float cr = MathHelper.ToRadians(10);
 
             if (Projectile.ai[2] == 0)
             {

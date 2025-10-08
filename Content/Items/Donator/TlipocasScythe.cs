@@ -575,7 +575,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             float r = 3.6f;
             float r1 = 0.5f;
-            float r2 = 0.6f;
+            float r2 = 0.8f;
             float pn = 0.36f;
             if(progress >= pn && flag)
             {
@@ -589,9 +589,13 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             else 
             {
-                Projectile.rotation = (-r/2f - r1 + CEUtils.GetRepeatedParaFromZeroToOne((progress - pn) / (1 - pn), 4) * (r + r2)) * dir;
+                Projectile.rotation = (-r/2f - r1 + (CEUtils.GetRepeatedParaFromZeroToOne((progress - pn) / (1 - pn), 3) * 0.6f + 0.4f * CEUtils.GetRepeatedParaFromZeroToOne((progress - pn) / (1 - pn), 2)) * (r + r2)) * dir;
             }
             scale = (Projectile.rotation.ToRotationVector2() * new Vector2(1, ySc)).Length();
+            if(progress > 0.8f)
+            {
+                ProjScale *= (1 - (progress - 0.8f) / 0.2f) * 0.2f + 0.8f;
+            }
             Projectile.rotation = (Projectile.rotation.ToRotationVector2() * new Vector2(1, ySc)).ToRotation() + Projectile.velocity.ToRotation();
             if(progress > 1)
             {
@@ -599,12 +603,15 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (Projectile.ai[2] == 0)
                 player.SetHandRotWithDir(Projectile.rotation, Math.Sign(Projectile.velocity.X));
-            oldScale.Add(scale);
-            oldRots.Add(Projectile.rotation);
-            if(oldRots.Count > 50)
+            if (progress > pn)
             {
-                oldRots.RemoveAt(0);
-                oldScale.RemoveAt(0);
+                oldScale.Add(scale);
+                oldRots.Add(Projectile.rotation);
+                if (oldRots.Count > 120)
+                {
+                    oldRots.RemoveAt(0);
+                    oldScale.RemoveAt(0);
+                }
             }
             if (Projectile.ai[2] == 0)
                 Projectile.Center = player.MountedCenter + new Vector2(player.direction * -12, 0);
