@@ -40,6 +40,8 @@ namespace CalamityEntropy.Content.Items.Donator
         public override float StealthDamageMultiplier => 4f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 2f;
+
+        public int SpeedUpTime = 0;
         public static int GetLevel()
         {
             //return Main.LocalPlayer.inventory[9].stack;
@@ -176,7 +178,8 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (throwType == -1)
                 throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
-            Item.useTime = Item.useAnimation = 44 - GetLevel();
+            Item.useTime = Item.useAnimation = (44 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
+            SpeedUpTime--;
         }
         public override void HoldItem(Player player)
         {
@@ -265,6 +268,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[p].Calamity().stealthStrike = true;
+                    SpeedUpTime = 60 + Item.useTime;
                 }
                 CostStealthForPlr(player);
 
