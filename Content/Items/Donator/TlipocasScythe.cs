@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Donator
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
         public string DonatorName => "Kino";
-        public override float StealthDamageMultiplier => 4f;
+        public override float StealthDamageMultiplier => 1f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 2f;
 
@@ -179,11 +179,11 @@ namespace CalamityEntropy.Content.Items.Donator
             if (throwType == -1)
                 throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
             Item.useTime = Item.useAnimation = (44 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
-            SpeedUpTime--;
         }
         public override void HoldItem(Player player)
         {
             UpdateInventory(player);
+            SpeedUpTime--;
         }
         public override void SetDefaults()
         {
@@ -268,7 +268,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[p].Calamity().stealthStrike = true;
-                    SpeedUpTime = 60 + Item.useTime;
+                    SpeedUpTime = Item.useTime + (int)(Item.useTime * 0.35f);
                 }
                 CostStealthForPlr(player);
 
@@ -522,7 +522,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     }
                     else
                     {
-                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.SlateBlue : Color.SkyBlue);
+                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Color.Purple);
                         GeneralParticleHandler.SpawnParticle(spark);
                     }
                 }
@@ -567,9 +567,9 @@ namespace CalamityEntropy.Content.Items.Donator
             ProjScale *= (1 + Projectile.ai[1] * 0.5f);
             if (Projectile.ai[1] == 1)
             {
-                if (progress < 0.36f)
+                if (progress < 0.1f)
                 {
-                    counter = (int)(0.36f * player.itemAnimationMax * Projectile.MaxUpdates + 1);
+                    counter = (int)(0.1f * player.itemAnimationMax * Projectile.MaxUpdates + 1);
                 }
             }
             if(Projectile.Calamity().stealthStrike)
@@ -777,7 +777,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     }
                     else
                     {
-                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.SlateBlue : Color.SkyBlue);
+                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Color.Purple);
                         GeneralParticleHandler.SpawnParticle(spark);
                     }
                 }
