@@ -614,7 +614,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
             }
             if (Projectile.ai[2] == 0)
-                Projectile.Center = player.MountedCenter + new Vector2(player.direction * -12, 0);
+                Projectile.Center = player.MountedCenter + new Vector2(player.direction * -6, 0);
 
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

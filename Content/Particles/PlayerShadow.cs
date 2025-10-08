@@ -45,34 +45,38 @@ namespace CalamityEntropy.Content.Particles
         public Player clone = null;
         public override void Draw()
         {
-            clone ??= new Player();
-            clone.CopyVisuals(plr);
-            clone.skinColor = Color.Black;
-            clone.shirtColor = Color.Black;
-            clone.underShirtColor = Color.Black;
-            clone.pantsColor = Color.Black;
-            clone.shoeColor = Color.Black;
-            clone.hairColor = Color.Black;
-            clone.eyeColor = Color.Red;
-            for (int i = 0; i < clone.dye.Length; i++)
+            if (clone == null)
             {
-                if (clone.dye[i].type != ItemID.ShadowDye)
+                clone = new Player();
+
+                clone.CopyVisuals(plr);
+                clone.skinColor = Color.Black;
+                clone.shirtColor = Color.Black;
+                clone.underShirtColor = Color.Black;
+                clone.pantsColor = Color.Black;
+                clone.shoeColor = Color.Black;
+                clone.hairColor = Color.Black;
+                clone.eyeColor = Color.Red;
+                for (int i = 0; i < clone.dye.Length; i++)
                 {
-                    clone.dye[i].SetDefaults(ItemID.ShadowDye);
+                    if (clone.dye[i].type != ItemID.ShadowDye)
+                    {
+                        clone.dye[i].SetDefaults(ItemID.ShadowDye);
+                    }
                 }
+                clone.ResetEffects();
+                clone.ResetVisibleAccessories();
+                clone.DisplayDollUpdate();
+                clone.UpdateSocialShadow();
+                clone.UpdateDyes();
+                clone.PlayerFrame();
+                if (plr.ItemAnimationActive && plr.altFunctionUse != 2)
+                    clone.bodyFrame = plr.bodyFrame;
+                else
+                    clone.bodyFrame.Y = 0;
+                clone.legFrame.Y = 0;
+                clone.direction = plr.direction;
             }
-            clone.ResetEffects();
-            clone.ResetVisibleAccessories();
-            clone.DisplayDollUpdate();
-            clone.UpdateSocialShadow();
-            clone.UpdateDyes();
-            clone.PlayerFrame();
-            if (plr.ItemAnimationActive && plr.altFunctionUse != 2)
-                clone.bodyFrame = plr.bodyFrame;
-            else
-                clone.bodyFrame.Y = 0;
-            clone.legFrame.Y = 0;
-            clone.direction = plr.direction;
             Main.PlayerRenderer.DrawPlayer(Main.Camera, clone, Position, 0f, clone.fullRotationOrigin, 1 - Opacity, 1f);
 
         }
