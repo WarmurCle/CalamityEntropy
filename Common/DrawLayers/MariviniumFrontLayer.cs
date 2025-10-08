@@ -11,7 +11,7 @@ namespace CalamityEntropy.Common.DrawLayers
         {
             if (drawInfo.drawPlayer.dead)
                 return false;
-            return drawInfo.drawPlayer.Entropy().mariviniumBody;
+            return drawInfo.drawPlayer.body == EquipLoader.GetEquipSlot(Mod, "MariviniumBodyArmor", EquipType.Body);
         }
 
         public override Position GetDefaultPosition()

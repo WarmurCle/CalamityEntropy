@@ -1587,7 +1587,7 @@ namespace CalamityEntropy.Common
                 Player.GetModPlayer<SCDashMP>().Cooldown--;
             }
 
-            float mhrot = 0.64f + (float)Math.Cos(Main.GameUpdateCount * 0.04f) * 0.16f;
+            float mhrot = (Player.legs == EquipLoader.GetEquipSlot(Mod, "MariviniumLeggings", EquipType.Legs) ? 0f : 0.64f) + (float)Math.Cos(Main.GameUpdateCount * 0.04f) * 0.16f;
             float v = Player.velocity.Length();
 
             mhrot = Vector2.Lerp(mhrot.ToRotationVector2(), Player.velocity.normalize() * new Vector2(Player.direction, 1), (float)(1 - Math.Exp(-0.1 * v))).ToRotation();
