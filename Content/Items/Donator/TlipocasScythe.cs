@@ -183,7 +183,10 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void HoldItem(Player player)
         {
             UpdateInventory(player);
-            SpeedUpTime--;
+            if(SpeedUpTime > 0)
+                SpeedUpTime--;
+            if (SpeedUpTime < 0)
+                SpeedUpTime = 0;
         }
         public override void SetDefaults()
         {
@@ -268,7 +271,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[p].Calamity().stealthStrike = true;
-                    SpeedUpTime = Item.useTime + (int)(Item.useTime * 0.35f);
+                    int ut = 44 - GetLevel();
+                    SpeedUpTime += ut + (int)(ut * 0.35f);
                 }
                 CostStealthForPlr(player);
 
@@ -820,7 +824,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 Projectile.velocity *= 0.996f;
                 Projectile.velocity += (player.Center - Projectile.Center).normalize() * 0.05f;
-                if(CEUtils.getDistance(Projectile.Center, player.Center) < Projectile.velocity.Length() + 64)
+                if(CEUtils.getDistance(Projectile.Center, player.Center) < Projectile.velocity.Length() + 128)
                 {
                     Projectile.Kill();
                 }
@@ -852,10 +856,10 @@ namespace CalamityEntropy.Content.Items.Donator
                     player.AddCooldown(TeleportSlashCooldown.ID, (EDownedBosses.downedCruiser ? 10 : 15) * 60);
                     player.Entropy().screenShift = 1f;
                     player.Entropy().screenPos = player.Center;
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).normalize() * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 16, Projectile.knockBack, player.whoAmI, 1, 1);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).SafeNormalize((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX)) * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 16, Projectile.knockBack, player.whoAmI, 1, 1);
                     if(DownedBossSystem.downedPolterghast)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).normalize() * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 16, Projectile.knockBack, player.whoAmI, 1, 1, 1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).SafeNormalize((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX)) * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 16, Projectile.knockBack, player.whoAmI, 1, 1, 1);
                         EParticle.spawnNew(new PlayerShadowBlack() { plr = player }, player.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, 60);
                     }
                     Projectile.Kill();

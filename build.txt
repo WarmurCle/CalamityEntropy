@@ -1,6 +1,6 @@
 displayName = Calamity Entropy
 author = Polaris
-version = 1.741
+version = 1.742
 modReferences = CalamityMod, InnoVault
 loadAfter = CalamityMod
 weakReferences = InfernumMode, AlchemistNPCLite, CalamityOverhaul

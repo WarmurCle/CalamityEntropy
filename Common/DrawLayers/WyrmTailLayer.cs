@@ -25,7 +25,7 @@ namespace CalamityEntropy.Common.DrawLayers
             Texture2D texture = CEUtils.getExtraTex("WyrmTail");
 
             Vector2 dpos = drawInfo.HeadPosition();
-            dpos += new Vector2(0, 18).RotatedBy(player.fullRotation);
+            dpos += new Vector2(0, 16).RotatedBy(player.fullRotation) + Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height] * drawInfo.drawPlayer.gravDir;
             float rot = player.Entropy().VanityTailRot;
 
             drawInfo.DrawDataCache.Add(new DrawData(texture, dpos, null, drawInfo.colorArmorLegs, drawInfo.drawPlayer.fullRotation + rot * drawInfo.drawPlayer.direction, new Vector2(drawInfo.playerEffect == SpriteEffects.FlipHorizontally ? 0 : texture.Width, texture.Height / 2f), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cLegs });
