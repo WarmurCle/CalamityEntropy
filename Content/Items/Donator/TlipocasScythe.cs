@@ -877,7 +877,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Projectile.Center.getRectCentered((int)(130 * ProjScale), (int)(130 * ProjScale)).Intersects(targetHitbox);
+            return Projectile.Center.getRectCentered((int)(142 * ProjScale), (int)(142 * ProjScale)).Intersects(targetHitbox);
         }
         public override bool PreDraw(ref Color lightColor)
         {
