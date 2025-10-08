@@ -83,6 +83,19 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                     slotDist = 0;
                 }
             }
+            if(!Main.dedServ && !BookmarkInsertCondition.Instance.IsCompleted)
+            {
+                if(active)
+                {
+                    foreach(var i in Main.LocalPlayer.Entropy().EBookStackItems)
+                    {
+                        if(BookMarkLoader.IsABookMark(i))
+                        {
+                            BookmarkInsertCondition.Instance.Complete();
+                        }
+                    }
+                }
+            }
         }
 
         public static void draw()

@@ -4570,3 +4570,8 @@ Biomes: {
 		}
 	}
 }
+
+// "Achievements.Bookmark Insert!.FriendlyName": Bookmark  Insert!
+// "This is a description": Mods.CalamityEntropy.This is a description
+// AchievementBookmarkInsertName: Good reading habits
+// AchievementBookmarkInsertDesc: Insert any bookmark into an entropy book

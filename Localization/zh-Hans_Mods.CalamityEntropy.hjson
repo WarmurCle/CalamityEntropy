@@ -4694,3 +4694,8 @@ TSU9: 需击败至尊灾厄
 		}
 	}
 }
+
+// "Achievements.Bookmark Insert!.FriendlyName": Bookmark  Insert!
+// "This is a description": Mods.CalamityEntropy.This is a description
+AchievementBookmarkInsertName: 良好的阅读习惯
+AchievementBookmarkInsertDesc: 将任意书签放入一本熵语之书

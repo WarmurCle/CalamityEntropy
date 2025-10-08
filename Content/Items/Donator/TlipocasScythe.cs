@@ -601,9 +601,9 @@ namespace CalamityEntropy.Content.Items.Donator
                 Projectile.rotation = (-r/2f - r1 + (CEUtils.GetRepeatedParaFromZeroToOne((progress - pn) / (1 - pn), 3) * 0.6f + 0.4f * CEUtils.GetRepeatedParaFromZeroToOne((progress - pn) / (1 - pn), 2)) * (r + r2)) * dir;
             }
             scale = (Projectile.rotation.ToRotationVector2() * new Vector2(1, ySc)).Length();
-            if(progress > 0.8f)
+            if(progress > 0.7f)
             {
-                ProjScale *= (1 - (progress - 0.8f) / 0.2f) * 0.2f + 0.8f;
+                ProjScale *= (1 - (progress - 0.7f) / 0.3f) * 0.2f + 0.8f;
             }
             Projectile.rotation = (Projectile.rotation.ToRotationVector2() * new Vector2(1, ySc)).ToRotation() + Projectile.velocity.ToRotation();
             if(progress > 1)
