@@ -1392,7 +1392,7 @@ Items: {
 		Tooltip:
 			'''
 			发射冥渊镭射和幻渊回音
-			“链接深渊深处”
+			[c/c8cbff:“链接深渊深处”]
 			'''
 		DisplayName: 冥渊回音II
 	}
@@ -1423,13 +1423,13 @@ Items: {
 			命中目标积攒充能
 			右键突进，根据充能对沿途敌怪造成伤害并留下深渊撕裂
 			突进时无敌
-			“渊之悲歌”
+			[c/c8cbff:“渊之悲歌”]
 			'''
 	}
 
 	AbyssalAltar: {
 		DisplayName: 深渊祭坛
-		Tooltip: ""
+		Tooltip: "[c/c8cbff:曾被用于唤醒深渊中的可怖巨兽]"
 	}
 
 	Ystralyn: {
@@ -1441,7 +1441,7 @@ Items: {
 			{$CommonItemTooltip.SummonTagDamage}
 			召唤攻击额外造成15%伤害
 			{$CommonItemTooltip.Whips}
-			“沧茫幻象”
+			[c/c8cbff:“沧茫幻象”]
 			'''
 	}
 
@@ -1469,7 +1469,7 @@ Items: {
 			'''
 			射出追踪的水晶箭
 			攻击时概率生成能够协同攻击的水晶
-			“它曾被狂热信徒们称为‘渊光之弓’”
+			[c/c8cbff:“它曾被狂热信徒们称为‘渊光之弓’”]
 			'''
 		DisplayName: 逝怨晶辉
 	}
@@ -1497,7 +1497,7 @@ Items: {
 			'''
 			召唤一条沧溟渊龙，冲撞敌人并撕裂空间
 			消耗5召唤栏
-			“冥之猛兽”
+			[c/c8cbff:“冥之猛兽”]
 			'''
 		DisplayName: 沧溟龙契
 	}
