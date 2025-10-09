@@ -4506,6 +4506,7 @@ Donor: 捐赠者：
 Owner: 所有者：
 ShadowDashCD: 暗影突进冷却
 ShiftMoreInfo: 按住“左Shift”查看关于此特殊充能条的更多信息
+PressShiftForMoreInfo: 按住Shift查看详细信息...
 ShadowBar: 暗影值
 SolarBar: 耀阳值
 ShadowBarInfo:
@@ -4660,3 +4661,4 @@ LMDialog15: 这个物品的设计是失败的...你不应该使用它
 LMDialog16: 你难道没看到那个[NAME]吗？可真是不知死活
 LMDialog17: 我不收垃圾，谢谢
 LMDialog18: 你塞的是什么东西？
+NowLV: 当前等级

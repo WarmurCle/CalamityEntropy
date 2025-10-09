@@ -4466,6 +4466,7 @@ TSA9:
 	'''
 	The closer the distance to the target, the higher the damage caused, with a maximum additional damage of 35%
 	'''
+PressShiftForMoreInfo: Press shift for more info...
 TSU9: Need to kill Calamitas
 AchievementBookmarkInsertName: Good reading habits
 AchievementBookmarkInsertDesc: Insert any bookmark into an entropy book
@@ -4487,3 +4488,4 @@ LMDialog15: This item's design is a failure...You shouldn't use it.
 LMDialog16: Don't you see that [NAME]? What are you doing here!
 LMDialog17: I don't want your garbage.
 LMDialog18: What is this? You need a coin!
+NowLV: Level
