@@ -499,7 +499,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             else
             {
-                target.AddBuff<BurningBlood>(60 * 5);
+                target.AddBuff<HeavyBleeding>(60 * 5);
             }
             Color impactColor = Color.Red;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
