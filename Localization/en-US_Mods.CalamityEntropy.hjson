@@ -4130,8 +4130,8 @@ ArmorPrefixLastStandDescription:
 ArmorPrefixHeatDeathName: Heat Death
 ArmorPrefixHeatDeathDescription:
 	'''
-	+50% Defense
-	Multiply your damage by 1.5
+	+20% Defense
+	Multiply your damage by 1.2
 	[c/ff0000:Your attack will come with heat death, but your health will continue to drain]
 	'''
 PrefixEnchanted: Enchanted

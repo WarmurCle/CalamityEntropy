@@ -9,9 +9,9 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void UpdateEquip(Player player, Item item)
         {
-            player.GetDamage(DamageClass.Generic) *= 1.5f;
+            player.GetDamage(DamageClass.Generic) *= 1.2f;
             player.Entropy().addEquip("HEATDEATH");
-            if (Main.GameUpdateCount % 40 == 0)
+            if (Main.GameUpdateCount % 36 == 0)
             {
                 int deal = (int)(Math.Round(player.statLife * 0.018f) + 1);
                 if (player.statLife > deal)
@@ -25,14 +25,14 @@ namespace CalamityEntropy.Content.ArmorPrefixes
                 {
                     if (!npc.friendly)
                     {
-                        EGlobalNPC.AddVoidTouch(npc, 5, 0.04f * (1 - (CEUtils.getDistance(npc.Center, player.Center) / 2000f)), 400, int.Max(npc.lifeMax / 15000, 6));
+                        EGlobalNPC.AddVoidTouch(npc, 5, 0.03f * (1 - (CEUtils.getDistance(npc.Center, player.Center) / 2000f)), 400, int.Max(npc.lifeMax / 15000, 6));
                     }
                 }
             }
         }
         public override float AddDefense()
         {
-            return 0.5f;
+            return 0.2f;
         }
         public override int getRollChance()
         {

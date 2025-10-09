@@ -67,22 +67,15 @@ namespace CalamityEntropy.Content.Projectiles
             float sparkCount = 16;
             for (int i = 0; i < sparkCount; i++)
             {
-                Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
+                Vector2 sparkVelocity2 = Projectile.velocity.RotateRandom(0.2f) * Main.rand.NextFloat(0.5f, 1.8f);
                 int sparkLifetime2 = Main.rand.Next(20, 24);
                 float sparkScale2 = Main.rand.NextFloat(0.95f, 1.8f);
                 Color sparkColor2 = Color.DarkBlue;
 
                 float velc = 1f;
-                if (Main.rand.NextBool())
-                {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
-                }
-                else
-                {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
-                    GeneralParticleHandler.SpawnParticle(spark);
-                }
+                LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
+                GeneralParticleHandler.SpawnParticle(spark);
+
             }
             if (Projectile.ai[2] > 0)
             {

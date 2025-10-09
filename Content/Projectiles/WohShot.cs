@@ -165,19 +165,13 @@ namespace CalamityEntropy.Content.Projectiles
                     Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
                     int sparkLifetime2 = Main.rand.Next(20, 24);
                     float sparkScale2 = Main.rand.NextFloat(0.95f, 1.8f);
-                    Color sparkColor2 = Color.DarkBlue;
+                    Color sparkColor2 = Color.Purple;
 
                     float velc = 0.6f;
-                    if (Main.rand.NextBool())
-                    {
-                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
-                    }
-                    else
-                    {
-                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
-                        GeneralParticleHandler.SpawnParticle(spark);
-                    }
+
+                    LineParticle spark = new LineParticle(target.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
+                    GeneralParticleHandler.SpawnParticle(spark);
+
                 }
                 EGlobalNPC.AddVoidTouch(target, 30, 1);
                 Projectile.timeLeft = 20;
@@ -190,7 +184,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int tofs;
         public Color TrailColor(float completionRatio)
         {
-            Color result = new Color(200, 200, 255);
+            Color result = new Color(80, 20, 100);
             return result;
         }
 
@@ -198,7 +192,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (completionRatio > 0.92f)
             {
-                return 36 * Projectile.scale * MathHelper.SmoothStep(0, 1, (1 - (completionRatio - 0.92f) / 0.08f));
+                return 18 * Projectile.scale * MathHelper.SmoothStep(0, 1, (1 - (completionRatio - 0.92f) / 0.08f));
             }
             return MathHelper.Lerp(0, 36 * Projectile.scale, completionRatio);
         }
@@ -218,7 +212,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (mp.odp.Count > 1)
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
-                Color b = new Color(30, 66, 100);
+                Color b = new Color(60, 30, 100);
 
                 float a = 0;
                 float lr = 0;
@@ -226,10 +220,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 28,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 28,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();

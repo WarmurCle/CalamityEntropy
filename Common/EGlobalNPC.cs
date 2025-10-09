@@ -505,7 +505,7 @@ namespace CalamityEntropy.Common
             {
                 if (npc.HasBuff<HeatDeath>())
                 {
-                    modifiers.FinalDamage *= 1.2f;
+                    modifiers.FinalDamage *= 1.1f;
                 }
                 if (modifiers.DamageType != null && modifiers.DamageType.CountsAsClass(NoDRMelee.Instance))
                 {
