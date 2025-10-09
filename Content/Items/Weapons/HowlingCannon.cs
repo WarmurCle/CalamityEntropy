@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     heldOffset += -16;
                     if (hc.usecount % 3 == 1)
                     {
-                        heldOffset += -16;
+                        heldOffset += -12;
                     }
                     if (hc.usecount % 3 == 0)
                     {
@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 player.heldProj = Projectile.whoAmI;
                 player.SetHandRot(Projectile.rotation);
             }
-            heldOffset *= 0.94f;
+            heldOffset *= 0.86f;
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -126,7 +126,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             int dir = Projectile.rotation.ToRotationVector2().X > 0 ? 1 : -1;
             Vector2 origin = new Vector2(50, tex.Height / 2f);
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + new Vector2(heldOffset, 0).RotatedBy(Projectile.rotation), null, lightColor, Projectile.rotation, origin, Projectile.scale, effect);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + new Vector2(heldOffset, 0).RotatedBy(Projectile.rotation), null, lightColor, Projectile.rotation + dir * heldOffset * 0.024f, origin, Projectile.scale, effect);
             return false;
         }
     }
