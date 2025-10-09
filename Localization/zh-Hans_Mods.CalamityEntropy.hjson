@@ -3583,13 +3583,13 @@ Projectiles: {
 	AzafureHealingTowerSentry.DisplayName: 阿萨福勒治疗塔
 	AzafureProtectiveCannonShot.DisplayName: 阿萨福勒城防炮
 	ATBMProjectile.DisplayName: 阿萨福勒盾构机
-	// TlipocasScytheHeld.DisplayName: Tlipocas Scythe Held
-	// TSSlash.DisplayName: T S Slash
-	// TlipocasScytheThrow.DisplayName: Tlipocas Scythe Throw
-	// BloodCrack.DisplayName: Blood Crack
-	// HowlingCannonHeld.DisplayName: Howling Cannon Held
-	// HowlingBullet.DisplayName: Howling Bullet
-	// HowlingLaser.DisplayName: Howling Laser
+	TlipocasScytheHeld.DisplayName: 特莉波卡的镰刀
+	TSSlash.DisplayName: 斩击
+	TlipocasScytheThrow.DisplayName: 特莉波卡的镰刀
+	BloodCrack.DisplayName: 裂缝
+	HowlingCannonHeld.DisplayName: 哀嚎重炮
+	HowlingBullet.DisplayName: 哀嚎魂弹
+	HowlingLaser.DisplayName: 哀嚎死光
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4612,8 +4612,7 @@ TSU1: 需击败克苏鲁之眼
 TSA2: 右键将镰刀丢出，造成多次伤害
 TSA2B:
 	'''
-	击败硫磺火元素后，在丢出时按下左键将传送到鼠标处并发动一次较大的斩击，
-	该技能有15秒冷却时间，在击败巡游者后将降为10秒
+	击败硫磺火元素后，在丢出时按下左键将传送到鼠标处并发动一次较大的斩击，该技能有15秒冷却时间，在击败巡游者后将降为10秒
 	'''
 TSU2: 需击败任意邪恶Boss
 TSA3:
@@ -4624,14 +4623,12 @@ TSA3:
 TSU3: 需击败先知
 TSA4:
 	'''
-	传送斩击命中将使武器被虚空赋能，持续15秒，在击败巡游者后将提升至30秒
-	此时，造成的伤害将增加25%
+	传送斩击命中将使武器被虚空赋能，持续15秒，在击败巡游者后将提升至30秒，此时，造成的伤害将增加25%
 	'''
 TSU4: 需击败虚无双子
 TSA5:
 	'''
-	传送斩击会在原地也留下一个影子，影子也会进行一次大范围的劈砍
-	冲刺会额外产生一条垂直于原冲刺的斩击
+	传送斩击会在原地也留下一个影子，影子也会进行一次大范围的劈砍，并且冲刺会额外产生一条垂直于原冲刺的斩击
 	潜伏攻击命中的治疗量增加至30
 	'''
 TSU5: 需击败噬魂幽花
@@ -4643,67 +4640,23 @@ TSA8: 攻击造成虚空之触
 TSU8: 需击败巡游者
 TSA9: 与目标之间的距离越近，造成的伤害越高，最高额外造成35%伤害
 TSU9: 需击败至尊灾厄
-
-6: {
-	Projectiles: {
-		// VoidMark.DisplayName: Void Mark
-		// VoidBladeProj.DisplayName: Void Blade Proj
-		// VoidBladeHit.DisplayName: Void Blade Hit
-		// Slash.DisplayName: Slash
-		// Rvshoot.DisplayName: Rvshoot
-		// RevelationThrow.DisplayName: Revelation Throw
-		// RevelationMelee.DisplayName: Revelation Melee
-		// PrisonOfPermafrostCircle.DisplayName: Prison Of Permafrost Circle
-		// LightningSpear.DisplayName: Lightning Spear
-		// LightningBolt.DisplayName: Lightning Bolt
-		// Lcircle.DisplayName: Lcircle
-		// Impact.DisplayName: Impact
-		// Icicle.DisplayName: Icicle
-		// IceSpikeSmall.DisplayName: Ice Spike Small
-		// IceSpike.DisplayName: Ice Spike
-		// IceEdge.DisplayName: Ice Edge
-	}
-
-	Items: {
-		VoidRelics: {
-			// Tooltip: ""
-			// DisplayName: Void Relics
-		}
-
-		VoidBlade: {
-			// Tooltip: ""
-			// DisplayName: Void Blade
-		}
-
-		Weapons: {
-			Rogue: {
-				Revelation: {
-					// Tooltip: ""
-					// DisplayName: Revelation
-				}
-			}
-		}
-
-		PrisonOfPermafrost: {
-			// Tooltip: ""
-			// DisplayName: Prison Of Permafrost
-		}
-
-		Kinanition: {
-			// Tooltip: ""
-			// DisplayName: Kinanition
-		}
-	}
-
-	Buffs: {
-		VoidStorm: {
-			// Description: Mods.CalamityEntropy06.Buffs.VoidStorm.Description
-			// DisplayName: Void Storm
-		}
-	}
-}
-
-// "Achievements.Bookmark Insert!.FriendlyName": Bookmark  Insert!
-// "This is a description": Mods.CalamityEntropy.This is a description
 AchievementBookmarkInsertName: 良好的阅读习惯
 AchievementBookmarkInsertDesc: 将任意书签放入一本熵语之书
+LMDialog1: 你好，如你所见，我是一台抽奖机
+LMDialog2: 嘿，伙计，你的钱呢
+LMDialog3: 额，我是说，要钱才能启动
+LMDialog4: 你个白痴！
+LMDialog5: 你在耍我吗？
+LMDialog6: 我知道了，你就是想看我笑话
+LMDialog7: 你还有一次机会！
+LMDialog8: 你完了！
+LMDialog9: 把他拿走，会唐！
+LMDialog10: 嘿，为什么不早点拿出来......你在逗我吗？
+LMDialog11: 给，这是你的奖励;)
+LMDialog12: 嘿，为什么不早点拿出来......
+LMDialog13: 嘿，为什么不早点拿出来.....你可真是富有
+LMDialog14: 你知道这是什么的
+LMDialog15: 这个物品的设计是失败的...你不应该使用它
+LMDialog16: 你难道没看到那个[NAME]吗？可真是不知死活
+LMDialog17: 我不收垃圾，谢谢
+LMDialog18: 你塞的是什么东西？

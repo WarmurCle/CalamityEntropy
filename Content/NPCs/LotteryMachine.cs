@@ -18,6 +18,7 @@ using CalamityMod.Items.Weapons.Summon;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -496,7 +497,7 @@ namespace CalamityEntropy.Content.NPCs
                         openFrame++;
                         if (openFrame == 3)
                         {
-                            Say("你好，如你所见，我是一台抽奖机", Color.Green);
+                            Say("LMDialog1", Color.Green);
                         }
                     }
                 }
@@ -594,43 +595,43 @@ namespace CalamityEntropy.Content.NPCs
                     {
                         if (sameItemCount == 0)
                         {
-                            Say("嘿，伙计，你的钱呢", Color.Green);
+                            Say("LMDialog2", Color.Green);
                             textureSpecial = 8;
                             specialTime = 120;
                         }
                         else if (sameItemCount == 1)
                         {
-                            Say("额，我是说，要钱才能启动", Color.Orange);
+                            Say("LMDialog3", Color.Orange);
                             textureSpecial = 3;
                             specialTime = 160;
                         }
                         else if (sameItemCount == 2)
                         {
-                            Say("你个白痴！", Color.Orange);
+                            Say("LMDialog4", Color.Orange);
                             textureSpecial = 1;
                             specialTime = 160;
                         }
                         else if (sameItemCount == 3)
                         {
-                            Say("你在耍我吗？", Color.Orange);
+                            Say("LMDialog5", Color.Orange);
                             textureSpecial = 2;
                             specialTime = 160;
                         }
                         else if (sameItemCount == 4)
                         {
-                            Say("我知道了，你就是想看我笑话", Color.OrangeRed);
+                            Say("LMDialog6", Color.OrangeRed);
                             textureSpecial = 4;
                             specialTime = 160;
                         }
                         else if (sameItemCount == 5)
                         {
-                            Say("你还有一次机会！", Color.Red);
+                            Say("LMDialog7", Color.Red);
                             textureSpecial = 5;
                             specialTime = 160;
                         }
                         else if (sameItemCount >= 6)
                         {
-                            Say("你完了！", Color.Red);
+                            Say("LMDialog8", Color.Red);
                             textureSpecial = 7;
                             specialTime = 160;
                             SpawnTimer = 100;
@@ -639,7 +640,7 @@ namespace CalamityEntropy.Content.NPCs
                     }
                     else if (itemType == ItemID.PoopBlock || itemType == ItemID.PoopWall)
                     {
-                        Say("你完了！", Color.Red);
+                        Say("LMDialog8", Color.Red);
                         textureSpecial = 7;
                         specialTime = 160;
                         SpawnTimer = 100;
@@ -648,7 +649,7 @@ namespace CalamityEntropy.Content.NPCs
                     }
                     else if (itemType == ModContent.ItemType<AuricOre>())
                     {
-                        Say("把他拿走，会唐！", Color.Red);
+                        Say("LMDialog9", Color.Red);
                         textureSpecial = 9;
                         specialTime = 90;
                     }
@@ -660,13 +661,13 @@ namespace CalamityEntropy.Content.NPCs
                             textureSpecial = 9;
                             specialTime = 100;
                             SpawnTimer = 0;
-                            Say("嘿，为什么不早点拿出来......你在逗我吗？", Color.Yellow, 0.7f);
+                            Say("LMDialog10", Color.Yellow, 0.7f);
 
                         }
                         else
                         {
                             textureSpecial = -1;
-                            Say("给，这是你的奖励;)", Color.Yellow, 0.86f);
+                            Say("LMDialog11", Color.Yellow, 0.86f);
                             useCd = 160;
                             CEUtils.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
@@ -686,7 +687,7 @@ namespace CalamityEntropy.Content.NPCs
                             textureSpecial = 9;
                             specialTime = 100;
                             SpawnTimer = 0;
-                            Say("嘿，为什么不早点拿出来......", Color.Yellow, 0.7f);
+                            Say("LMDialog12", Color.Yellow, 0.7f);
 
                         }
                         else
@@ -723,7 +724,7 @@ namespace CalamityEntropy.Content.NPCs
                             textureSpecial = 9;
                             specialTime = 100;
                             SpawnTimer = 0;
-                            Say("嘿，为什么不早点拿出来......", Color.Yellow, 0.7f);
+                            Say("LMDialog12", Color.Yellow, 0.7f);
 
                         }
                         else
@@ -767,11 +768,11 @@ namespace CalamityEntropy.Content.NPCs
                             SpawnTimer = 0;
                             if (Main.hardMode)
                             {
-                                Say("嘿，为什么不早点拿出来.....", Color.Yellow, 0.7f);
+                                Say("LMDialog12", Color.Yellow, 0.7f);
                             }
                             else
                             {
-                                Say("嘿，为什么不早点拿出来.....你可真是富有", Color.Yellow, 0.7f);
+                                Say("LMDialog13", Color.Yellow, 0.7f);
                             }
 
                         }
@@ -819,7 +820,7 @@ namespace CalamityEntropy.Content.NPCs
                     }
                     else if (itemType == ModContent.ItemType<LotteryBox>())
                     {
-                        Say("你知道这是什么的", Color.Blue);
+                        Say("LMDialog14", Color.Blue);
                         textureSpecial = 8;
                         specialTime = 90;
                     }
@@ -831,61 +832,22 @@ namespace CalamityEntropy.Content.NPCs
                         }
                         else
                         {
-                            Say("这个物品的设计是失败的...你不应该使用它", Color.Red);
+                            Say("LMDialog15", Color.Red);
                         }
                     }
                     else if (hasBoss)
                     {
-                        Say("你难道没看到那个" + bossName + "吗？可真是不知死活", Color.Green, 0.7f);
-                    }
-                    else if (itemType == ItemID.StarCannon)
-                    {
-                        if (sameItemCount == 0)
-                        {
-                            Say("这是一把可以发射星星的武器，很适合拿来对付一些难的过分的boss", Color.Yellow, 0.7f);
-                        }
-                        else if (sameItemCount == 1)
-                        {
-                            Say("对了，记得准备多一点的星星和粘鞍", Color.Yellow);
-                        }
-                        else if (sameItemCount == 2)
-                        {
-                            Say("不过真的有人会用这把武器来打boss吗", Color.Yellow);
-                        }
-                        else
-                        {
-                            Say("你玩够没有", Color.Yellow);
-                        }
-                    }
-                    else if (itemType == ItemID.SuperStarCannon)
-                    {
-                        if (sameItemCount == 0)
-                        {
-                            Say("这是星星炮的加强版", Color.Yellow, 0.7f);
-                        }
-                        else if (sameItemCount == 1)
-                        {
-                            Say("或许有人能用来击败超越神明的造物？我不知道", Color.Yellow);
-                        }
-                    }
-                    else if (nxb != null && itemType == nxb.Find<ModItem>("NoxusSprayer").Type)
-                    {
-                        Say("把它拿开", Color.Red);
-                        Say("把它拿开", Color.Red);
-                        Say("把它拿开", Color.Red);
-                        Say("把它拿开", Color.Red);
-                        Say("把它拿开", Color.Red);
-                        Say("把它拿开", Color.Red);
+                        Say("LMDialog16", Color.Green, 0.7f, bossName);
                     }
                     else if (itemType == ItemID.DirtBlock || itemType == ItemID.StoneBlock || itemType == ItemID.Wood || itemType == ItemID.Mushroom || itemType == ItemID.Gel || itemType == 52)
                     {
-                        Say("我不收垃圾，谢谢", Color.Red);
+                        Say("LMDialog17", Color.Red);
                         textureSpecial = 10;
                         specialTime = 90;
                     }
                     else
                     {
-                        Say("你塞的是什么东西？", Color.Green, 0.4f);
+                        Say("LMDialog18", Color.Green, 0.4f);
 
                     }
 
@@ -894,12 +856,14 @@ namespace CalamityEntropy.Content.NPCs
         }
 
 
-        public void Say(string text, Color color, float pitch = 1)
+        public void Say(string key, Color color, float pitch = 1, string namereplace = "")
         {
             if (Main.dedServ)
             {
                 return;
             }
+
+            string text = Mod.GetLocalization(key).ToString().Replace("[NAME]", namereplace);
             int t = CombatText.NewText(NPC.getRect(), color, text);
             Main.combatText[t].lifeTime = 16 * text.Length;
             SoundStyle s1 = new("CalamityMod/Sounds/Custom/WulfrumDroidChirp1");

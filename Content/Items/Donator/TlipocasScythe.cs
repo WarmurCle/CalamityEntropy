@@ -30,13 +30,13 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
-    public class TlipocasScythe : RogueWeapon, IDonatorItem
+    public class TlipocasScythe : RogueWeapon, IDevItem
     {
         public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
-        public string DonatorName => "Kino";
+        public string DevName => "Kino";
         public override float StealthDamageMultiplier => 1f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 2f;
