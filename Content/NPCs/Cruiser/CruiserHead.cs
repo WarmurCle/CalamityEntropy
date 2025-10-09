@@ -32,6 +32,16 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
     [AutoloadBossHead]
     public class CruiserHead : ModNPC
     {
+        public class HitRecord
+        {
+            public int Timeleft = 200;
+            public int ProjID = -1;
+            public float dmgMult = 1;
+            public HitRecord(int id) {
+                ProjID = id;
+            }
+        }
+        public List<HitRecord> hitRecords = new List<HitRecord>();
         public float ProgressDraw = 0;
         private int length = 27;
         public float speedMuti = 1;
@@ -256,9 +266,36 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.Entropy().damageMul *= 0.98f;
             if (phase == 2)
             {
-                modifiers.FinalDamage *= 1.2f;
+                modifiers.SourceDamage *= 1.2f;
             }
-
+            bool flag = false;
+            HitRecord hr = null;
+            foreach(var hrc in hitRecords)
+            {
+                if(hrc.ProjID == projectile.whoAmI)
+                {
+                    flag = true;
+                    hr = hrc;
+                    break;
+                }
+            }
+            if(flag)
+            {
+                hr.dmgMult *= 0.8f;
+                modifiers.FinalDamage *= hr.dmgMult;
+                if(!projectile.minion)
+                {
+                    hr.Timeleft += 20;
+                    if(hr.Timeleft > 250)
+                    {
+                        hr.Timeleft = 250;
+                    }
+                }
+            }
+            else
+            {
+                hitRecords.Add(new HitRecord(projectile.whoAmI));
+            }
         }
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
@@ -470,6 +507,14 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public float camLerp = 0;
         public override void AI()
         {
+            for(int i = hitRecords.Count - 1; i >= 0; i--)
+            {
+                hitRecords[i].Timeleft--;
+                if(hitRecords[i].Timeleft < 1 || hitRecords[i].ProjID < 0 || !hitRecords[i].ProjID.ToProj().active || hitRecords[i].ProjID.ToProj().friendly)
+                {
+                    hitRecords.RemoveAt(i);
+                }
+            }
             bool canShoot = Main.netMode != NetmodeID.MultiplayerClient;
             if (DeathAnm)
             {

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static CalamityEntropy.Content.NPCs.Cruiser.CruiserHead;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
@@ -44,7 +45,40 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CruiserBoss");
             }
         }
-
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
+        {
+            if (Main.npc[(int)NPC.ai[1]].ModNPC is CruiserHead ch)
+            {
+                bool flag = false;
+                HitRecord hr = null;
+                foreach (var hrc in ch.hitRecords)
+                {
+                    if (hrc.ProjID == projectile.whoAmI)
+                    {
+                        flag = true;
+                        hr = hrc;
+                        break;
+                    }
+                }
+                if (flag)
+                {
+                    hr.dmgMult *= 0.8f;
+                    modifiers.FinalDamage *= hr.dmgMult;
+                    if (!projectile.minion)
+                    {
+                        hr.Timeleft += 20;
+                        if (hr.Timeleft > 250)
+                        {
+                            hr.Timeleft = 250;
+                        }
+                    }
+                }
+                else
+                {
+                    ch.hitRecords.Add(new HitRecord(projectile.whoAmI));
+                }
+            }
+        }
         public override bool CheckActive()
         {
             if (((int)NPC.ai[1]).ToNPC().active)
