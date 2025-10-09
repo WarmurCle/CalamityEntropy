@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                     CEUtils.PlaySound("howlingShoot", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
                     hc.JustShooted = false;
-                    heldOffset += -16;
+                    heldOffset += -18;
                     if (hc.usecount % 3 == 1)
                     {
                         heldOffset += -12;
@@ -126,7 +126,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             int dir = Projectile.rotation.ToRotationVector2().X > 0 ? 1 : -1;
             Vector2 origin = new Vector2(50, tex.Height / 2f);
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + new Vector2(heldOffset, 0).RotatedBy(Projectile.rotation), null, lightColor, Projectile.rotation + dir * heldOffset * 0.024f, origin, Projectile.scale, effect);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + new Vector2(heldOffset, 0).RotatedBy(Projectile.rotation), null, lightColor, Projectile.rotation + dir * heldOffset * 0f, origin, Projectile.scale, effect);
             return false;
         }
     }
