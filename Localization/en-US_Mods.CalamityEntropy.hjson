@@ -2861,6 +2861,11 @@ Items: {
 				Automatically picks up nearby items into your inventory
 			'''
 	}
+
+	HowlingCannon: {
+		DisplayName: Howling Cannon
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3373,6 +3378,9 @@ Projectiles: {
 	TSSlash.DisplayName: T S Slash
 	TlipocasScytheThrow.DisplayName: Tlipocas Scythe Throw
 	BloodCrack.DisplayName: Blood Crack
+	HowlingCannonHeld.DisplayName: Howling Cannon Held
+	HowlingBullet.DisplayName: Howling Bullet
+	HowlingLaser.DisplayName: Howling Laser
 }
 
 LegendTooltip: - Legend -

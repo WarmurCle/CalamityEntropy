@@ -3087,6 +3087,11 @@ Items: {
 			会自动拾取附近物品进入你的物品栏
 			'''
 	}
+
+	HowlingCannon: {
+		DisplayName: 哀嚎重炮
+		Tooltip: 发射会爆炸的灵魂和无限穿透的激光
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3582,6 +3587,9 @@ Projectiles: {
 	// TSSlash.DisplayName: T S Slash
 	// TlipocasScytheThrow.DisplayName: Tlipocas Scythe Throw
 	// BloodCrack.DisplayName: Blood Crack
+	// HowlingCannonHeld.DisplayName: Howling Cannon Held
+	// HowlingBullet.DisplayName: Howling Bullet
+	// HowlingLaser.DisplayName: Howling Laser
 }
 
 LegendTooltip: - 传奇物品 -

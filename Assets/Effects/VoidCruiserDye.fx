@@ -61,9 +61,9 @@ float4 PixelShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD
     float gao = ga;
     // ∫œ≤¢º∆À„
     float timeFactor = 0.64f + 0.36f * sin(uTime * 5.0f + (coords.y * uImageSize0.y - uSourceRect[1]) * 0.2f);
-    ga *= colory.a * timeFactor;
+    ga *= timeFactor;
     
-    return (colory * sampleColor) + (((gao < 0.6) ? GLOW_COLOR2 : GLOW_COLOR) * ga);
+    return (colory * sampleColor) + (((gao < 0.6) ? GLOW_COLOR2 : GLOW_COLOR) * ga) * float4(colory.a, colory.a, colory.a, colory.a) * sampleColor;
 }
 
 technique Technique1

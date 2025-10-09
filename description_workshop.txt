@@ -45,7 +45,7 @@ Polaris：主创，代码，概念设计
 
 Badbf-海啸: 音乐（虚无双子）
 
-
+Oxygen：贴图
 
 [h2]鸣谢名单[/h2]
 
@@ -85,6 +85,9 @@ Badbf-海啸: 音乐（虚无双子）
 
 英文Wiki：https://terrariamods.wiki.gg/wiki/Calamity_Entropy
 
+加入我们的Terraria组：https://steamcommunity.com/groups/ptmlg
+
 wiki仍在更新优化中，如有提供文本/维护/排版优化想法欢迎！
 
-关注我的推特：https://x.com/CLE581014192051
+关注我的推特：https://x.com/CLE581014192051[quote=tModLoader CalamityEntropy]
+Developed By Polaris[/quote]
