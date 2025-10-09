@@ -4467,19 +4467,13 @@ Biomes: {
 	''' */
 // TSLEnd: Finally paid off the debt, the task was perfectly completed!
 // TSA1: Hold Up and attack will push a certain distance towards the mouse direction
-/* TSA1B:
-	'''
-	After killing slime god,
-	Gain invincible time and deal damage to the targets you come into contact with
-	''' */
+// TSA1B: After killing slime god, Gain invincible time and deal damage to the targets you come into contact with
 // TSU1: Need to kill Eye of Cthulhu
 // TSA2: Press LMB to throw the scythe and causing multiple injuries
 /* TSA2B:
 	'''
-	After killing Brimstone Elemental,
-	Press LMB when throwing to teleport to the mouse and launch a larger slash
-	This skill has a 15 second cooldown time.
-	The cooling time will shrink to 10 after killing Cruiser
+	After killing Brimstone Elemental, Press LMB when throwing to teleport to the mouse and launch a larger slash
+	This skill has a 15 second cooldown time.The cooling time will shrink to 10 after killing Cruiser
 	''' */
 // TSU2: Need to kill any evil boss
 /* TSA3:
@@ -4491,33 +4485,25 @@ Biomes: {
 /* TSA4:
 	'''
 	Teleport slash will empowerment your weapon with void.
-	This will last for 15 seconds. After killing Cruiser, it will gain to 30 sec.
+	This will last for 15 seconds.After killing Cruiser, it will gain to 30 sec.
 	The damage you cause will increase by 25% when empowering.
 	''' */
 // TSU4: Need to kill Void Twins
 /* TSA5:
 	'''
-	Leave a shadow when teleport strike
-	Shadow will strike with you.
+	Leave a shadow when teleport strike, the shadow will strike with you.
 	Slash dash will generate an additional slash perpendicular to the original sprint
 	Increase the healing value when steal strike.
 	''' */
 // TSU5: Need to kill Polterghast
 // TSA6: Leave rift when slash dash. The rift will continuously causing harm
 // TSU6: Need to kill Devourer of Gods
-/* TSA7:
-	'''
-	Resist a fatal injury and restore your health to half of your maximum health
-	Need 5 min to cooling
-	''' */
+// TSA7: Resist a fatal injury and restore your health to half of your maximum health.Need 5 min to cooling
 // TSU7: Need to kill Yharon
 // TSA8: Attack will cause void touch
 // TSU8: Need to kill Cruiser
-/* TSA9:
-	'''
-	The closer the distance to the target, the higher the damage caused,
-	with a maximum additional damage of 35%
-	''' */
+// TSA9: The closer the distance to the target, the higher the damage caused, with a maximum additional damage of 35%
+// PressShiftForMoreInfo: Press shift for more info...
 // TSU9: Need to kill Calamitas
 // AchievementBookmarkInsertName: Good reading habits
 // AchievementBookmarkInsertDesc: Insert any bookmark into an entropy book
@@ -4539,3 +4525,4 @@ Biomes: {
 // LMDialog16: Don't you see that [NAME]? What are you doing here!
 // LMDialog17: I don't want your garbage.
 // LMDialog18: What is this? You need a coin!
+// NowLV: Level

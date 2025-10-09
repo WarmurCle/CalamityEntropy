@@ -4421,10 +4421,7 @@ TSL16:
 	'''
 TSLEnd: Finally paid off the debt, the task was perfectly completed!
 TSA1: Hold Up and attack will push a certain distance towards the mouse direction
-TSA1B:
-	'''
-	After killing slime god, Gain invincible time and deal damage to the targets you come into contact with
-	'''
+TSA1B: After killing slime god, Gain invincible time and deal damage to the targets you come into contact with
 TSU1: Need to kill Eye of Cthulhu
 TSA2: Press LMB to throw the scythe and causing multiple injuries
 TSA2B:
@@ -4455,17 +4452,11 @@ TSA5:
 TSU5: Need to kill Polterghast
 TSA6: Leave rift when slash dash. The rift will continuously causing harm
 TSU6: Need to kill Devourer of Gods
-TSA7:
-	'''
-	Resist a fatal injury and restore your health to half of your maximum health.Need 5 min to cooling
-	'''
+TSA7: Resist a fatal injury and restore your health to half of your maximum health.Need 5 min to cooling
 TSU7: Need to kill Yharon
 TSA8: Attack will cause void touch
 TSU8: Need to kill Cruiser
-TSA9:
-	'''
-	The closer the distance to the target, the higher the damage caused, with a maximum additional damage of 35%
-	'''
+TSA9: The closer the distance to the target, the higher the damage caused, with a maximum additional damage of 35%
 PressShiftForMoreInfo: Press shift for more info...
 TSU9: Need to kill Calamitas
 AchievementBookmarkInsertName: Good reading habits
