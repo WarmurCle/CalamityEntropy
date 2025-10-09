@@ -30,6 +30,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     [AutoloadBossHead]
+    [StaticImmunity(staticImmunityCooldown: 6)]
     public class CruiserHead : ModNPC
     {
         public class HitRecord
@@ -510,7 +511,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             for(int i = hitRecords.Count - 1; i >= 0; i--)
             {
                 hitRecords[i].Timeleft--;
-                if(hitRecords[i].Timeleft < 1 || hitRecords[i].ProjID < 0 || !hitRecords[i].ProjID.ToProj().active || hitRecords[i].ProjID.ToProj().friendly)
+                if(true || hitRecords[i].Timeleft < 1 || hitRecords[i].ProjID < 0 || !hitRecords[i].ProjID.ToProj().active || hitRecords[i].ProjID.ToProj().friendly)
                 {
                     hitRecords.RemoveAt(i);
                 }

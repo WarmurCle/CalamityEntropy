@@ -9,6 +9,7 @@ using static CalamityEntropy.Content.NPCs.Cruiser.CruiserHead;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
+    [StaticImmunity(typeof(CruiserHead))]
     public class CruiserBody : ModNPC
     {
         public override void SetStaticDefaults()

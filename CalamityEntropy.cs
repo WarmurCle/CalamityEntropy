@@ -715,7 +715,7 @@ namespace CalamityEntropy
                     }
                     hit.Damage = (int)(hit.Damage * aw.getDR());
                 }
-                if (self.boss && (EntropyMode || EDownedBosses.TDR || (self.ModNPC != null && (self.ModNPC is CruiserHead || self.ModNPC is CruiserBody || self.ModNPC is CruiserTail))))
+                if (self.boss && (EntropyMode || EDownedBosses.TDR))
                 {
                     if (hit.Damage > self.lifeMax * 0.035f)
                     {
