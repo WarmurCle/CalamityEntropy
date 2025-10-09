@@ -1116,6 +1116,68 @@ namespace CalamityEntropy.Common
                     }
                     return false;
                 }
+                if (item.rare == ModContent.RarityType<Soulight>())
+                {
+                    var font = FontAssets.MouseText.Value;
+                    float xa = 0;
+                    float h = 0;
+                    float xy = 0;
+                    for (int i = 0; i < line.Text.Length; i++)
+                    {
+                        string text = line.Text[i].ToString();
+
+                        Vector2 size = font.MeasureString(text);
+                        xy = size.Y;
+                        if (size.Y > h)
+                        {
+                            h = size.Y;
+                        }
+                        xa += size.X + 0;
+
+                    }
+                    SpriteBatch sb = Main.spriteBatch;
+                    sb.End();
+                    sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+                    Texture2D glow = CEUtils.getExtraTex("Soulight");
+                    sb.Draw(glow, new Vector2(line.X + xa / 2 + 1, line.Y + xy / 3), null, new Color(255, 255, 255) * 0.8f, 0, new Vector2(glow.Width / 2, glow.Height / 2), new Vector2((xa + 14) / glow.Width, (xy - 8) / glow.Height), SpriteEffects.None, 0);
+                    sb.End();
+                    sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+
+                    xa = 0;
+                    h = 0;
+                    xy = 0;
+                    for (int i = 0; i < line.Text.Length; i++)
+                    {
+                        string text = line.Text[i].ToString();
+
+                        Vector2 size = font.MeasureString(text);
+                        xy = size.Y;
+                        float yofs;
+                        if (size.Y > h)
+                        {
+                            h = size.Y;
+                        }
+                        Color color = new Color(210, 240, 255);
+                        yofs = 0;
+                        Color strokeColord = new Color(40, 140, 255);
+
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+
+
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs), color);
+
+                        xa += size.X + 0;
+
+                    }
+                    return false;
+                }
                 if (item.rare == ModContent.RarityType<AbyssalBlue>())
                 {
                     float xa = 0; var font = FontAssets.MouseText.Value;

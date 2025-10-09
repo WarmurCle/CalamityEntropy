@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             JustShooted = true;
             if(usecount % 3 == 1)
             {
-                Projectile.NewProjectile(source, position + velocity * 3.8f, velocity, ModContent.ProjectileType<HowlingLaser>(), damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position + velocity * 3.8f, velocity, ModContent.ProjectileType<HowlingLaser>(), damage * 3, knockback, player.whoAmI);
             }
             for(int i = 0; i < 2; i++)
             {
@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     for(float i = 0; i < 1; i += 0.1f)
                     {
-                        CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30, Projectile.rotation.ToRotationVector2() * 12 * (i + 0.2f), new Color(170, 170, 255), new Vector2(0.3f, 1f), Projectile.rotation, 0.1f, 0.2f + i * 0.24f, 20);
+                        CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30, Projectile.rotation.ToRotationVector2() * 64 * (i + 0.2f), new Color(170, 170, 255), new Vector2(0.3f, 1f), Projectile.rotation, 0.2f, 0.2f + i * 0.24f, 20);
                         GeneralParticleHandler.SpawnParticle(pulse);
                     }
                     CEUtils.PlaySound("howlingShoot", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
@@ -174,7 +174,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             t1.AddPoint(Projectile.Center + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * 12 * Projectile.scale);
             t2.AddPoint(Projectile.Center + Projectile.velocity.normalize().RotatedBy(-MathHelper.PiOver2) * 12 * Projectile.scale);
             oldPos.Add(Projectile.Center);
-            if (oldPos.Count > 8)
+            if (oldPos.Count > 20)
             {
                 oldPos.RemoveAt(0);
             }
