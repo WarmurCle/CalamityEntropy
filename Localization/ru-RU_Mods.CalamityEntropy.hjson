@@ -4519,67 +4519,23 @@ Biomes: {
 	with a maximum additional damage of 35%
 	''' */
 // TSU9: Need to kill Calamitas
-
-6: {
-	Projectiles: {
-		// VoidMark.DisplayName: Void Mark
-		// VoidBladeProj.DisplayName: Void Blade Proj
-		// VoidBladeHit.DisplayName: Void Blade Hit
-		// Slash.DisplayName: Slash
-		// Rvshoot.DisplayName: Rvshoot
-		// RevelationThrow.DisplayName: Revelation Throw
-		// RevelationMelee.DisplayName: Revelation Melee
-		// PrisonOfPermafrostCircle.DisplayName: Prison Of Permafrost Circle
-		// LightningSpear.DisplayName: Lightning Spear
-		// LightningBolt.DisplayName: Lightning Bolt
-		// Lcircle.DisplayName: Lcircle
-		// Impact.DisplayName: Impact
-		// Icicle.DisplayName: Icicle
-		// IceSpikeSmall.DisplayName: Ice Spike Small
-		// IceSpike.DisplayName: Ice Spike
-		// IceEdge.DisplayName: Ice Edge
-	}
-
-	Items: {
-		VoidRelics: {
-			// Tooltip: ""
-			// DisplayName: Void Relics
-		}
-
-		VoidBlade: {
-			// Tooltip: ""
-			// DisplayName: Void Blade
-		}
-
-		Weapons: {
-			Rogue: {
-				Revelation: {
-					// Tooltip: ""
-					// DisplayName: Revelation
-				}
-			}
-		}
-
-		PrisonOfPermafrost: {
-			// Tooltip: ""
-			// DisplayName: Prison Of Permafrost
-		}
-
-		Kinanition: {
-			// Tooltip: ""
-			// DisplayName: Kinanition
-		}
-	}
-
-	Buffs: {
-		VoidStorm: {
-			// Description: Mods.CalamityEntropy06.Buffs.VoidStorm.Description
-			// DisplayName: Void Storm
-		}
-	}
-}
-
-// "Achievements.Bookmark Insert!.FriendlyName": Bookmark  Insert!
-// "This is a description": Mods.CalamityEntropy.This is a description
 // AchievementBookmarkInsertName: Good reading habits
 // AchievementBookmarkInsertDesc: Insert any bookmark into an entropy book
+// LMDialog1: Howdy, my friend.
+// LMDialog2: Hey, where's your money!
+// LMDialog3: I said you need coins!
+// LMDialog4: Your idot!
+// LMDialog5: Are you kidding me？
+// LMDialog6: I see, you wanna make fun of me
+// LMDialog7: This is your last chance!
+// LMDialog8: You're done!
+// LMDialog9: Put it away, it will bounce your head away!
+// LMDialog10: Why don't took it out earlier......Wait, what the...
+// LMDialog11: Here's your reward;)
+// LMDialog12: Why don't took it out earlier......
+// LMDialog13: Why don't took it out earlier.....You are truly wealthy.
+// LMDialog14: You know what is it.
+// LMDialog15: This item's design is a failure...You shouldn't use it.
+// LMDialog16: Don't you see that [NAME]? What are you doing here!
+// LMDialog17: I don't want your garbage.
+// LMDialog18: What is this? You need a coin!

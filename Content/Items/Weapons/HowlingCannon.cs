@@ -5,8 +5,11 @@ using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
+using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Particles;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -22,10 +25,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 126;
             Item.height = 66;
-            Item.damage = 16000;
+            Item.damage = 900;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 18;
+            Item.useAnimation = Item.useTime = 15;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.channel = true;
             Item.knockBack = 1f;
@@ -67,6 +70,15 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
         }
 
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<Norfleet>()
+                .AddIngredient<RuinousSoul>(4)
+                .AddIngredient<AscendantSpiritEssence>(6)
+                .AddTile<CosmicAnvil>()
+                .Register();
+        }
     }
 
     public class HowlingCannonHeld : ModProjectile
@@ -90,11 +102,6 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.timeLeft = 2;
                 if(hc.JustShooted)
                 {
-                    for(float i = 0; i < 1; i += 0.1f)
-                    {
-                        CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30, Projectile.rotation.ToRotationVector2() * 64 * (i + 0.2f), new Color(170, 170, 255), new Vector2(0.3f, 1f), Projectile.rotation, 0.2f, 0.2f + i * 0.24f, 20);
-                        GeneralParticleHandler.SpawnParticle(pulse);
-                    }
                     CEUtils.PlaySound("howlingShoot", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
                     hc.JustShooted = false;
                     heldOffset += -18;
@@ -163,7 +170,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public TrailParticle t2;
         public override void AI()
         {
-            if(t1 == null || t2 == null)
+            if (t1 == null || t2 == null)
             {
                 t1 = new TrailParticle();
                 t2 = new TrailParticle();
@@ -177,6 +184,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (oldPos.Count > 20)
             {
                 oldPos.RemoveAt(0);
+            }
+            if (Projectile.timeLeft % 4 == 0)
+            {
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Projectile.velocity * 0.2f, new Color(100, 100, 160), new Vector2(0.3f, 1f), Projectile.velocity.ToRotation(), 0.4f, 0.2f, 30);
+                GeneralParticleHandler.SpawnParticle(pulse);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
@@ -213,7 +225,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override string Texture => CEUtils.WhiteTexPath;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            for(float i = 0; i < 360; i += 4)
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, new Color(200, 160, 200), new Vector2(1, 1f), 0, 0.2f, 0.8f, 42);
+            GeneralParticleHandler.SpawnParticle(pulse);
+            for (float i = 0; i < 360; i += 4)
             {
                 var d = Dust.NewDustDirect(target.Center, 1, 1, DustID.AncientLight, 0, 0, 0);
                 d.velocity = i.ToRadians().ToRotationVector2() * 8;
