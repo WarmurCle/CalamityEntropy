@@ -39,6 +39,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 16f;
             Item.DamageType = DamageClass.Ranged;
             Item.autoReuse = true;
+            Item.crit = 18;
         }
         public bool JustShooted = false;
         public int usecount = 0;
