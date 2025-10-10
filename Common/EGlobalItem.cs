@@ -181,6 +181,10 @@ namespace CalamityEntropy.Common
                         SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/Reforge");
                         SoundEngine.PlaySound(s);
                     }
+                    else
+                    {
+                        CEUtils.PlaySound("metalhit", 1);
+                    }
                 }
             }
         }

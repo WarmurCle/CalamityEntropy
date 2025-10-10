@@ -12,6 +12,7 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         {
             Item.width = Item.height = 46;
             Item.rare = ItemRarityID.Yellow;
+            Item.SetNameOverride(Item.Name.Replace("|", ArmorPrefix.findByName(PrefixName).GivenName));
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
