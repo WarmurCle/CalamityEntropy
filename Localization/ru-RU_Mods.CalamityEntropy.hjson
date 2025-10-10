@@ -4214,7 +4214,7 @@ ArmorPrefixHeatDeathDescription:
 // ArmorPrefixTheBodyDescription: +20% Max Life
 // ArmorPrefixTheMindName: Mind
 // ArmorPrefixTheMindDescription: +25% Max Mana
-// ArmorPrefixTheSoulName: Body
+// ArmorPrefixTheSoulName: Soul
 // ArmorPrefixTheSoulDescription: +0.5% Life Steal
 PrefixEnchanted: Зачарованный
 PrefixEnchantedDesc: +4% к увеличению маны

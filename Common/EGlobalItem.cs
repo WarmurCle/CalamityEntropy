@@ -167,7 +167,7 @@ namespace CalamityEntropy.Common
                         for (int i = 0; i < ItemLoader.ItemCount; i++)
                         {
                             var ins = ItemLoader.GetItem(i);
-                            if (ins is BasePrefixItem pi && pi.PrefixName == armorPrefixName && ins is not AncientPrefixItem)
+                            if (ins != null && ins is BasePrefixItem pi && pi.PrefixName == armorPrefixName && ins is not AncientPrefixItem && ins is not BlessingHeatDeath)
                             {
                                 flag = true;
                                 player.QuickSpawnItem(player.GetSource_FromThis(), new Item(ins.Type), 1);
