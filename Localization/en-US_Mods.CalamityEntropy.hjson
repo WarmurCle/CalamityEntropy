@@ -2866,6 +2866,26 @@ Items: {
 		DisplayName: Howling Cannon
 		Tooltip: ""
 	}
+
+	AncientFragmentsBody: {
+		DisplayName: Ancient Fragments Body
+		Tooltip: ""
+	}
+
+	AncientFragmentsEcho: {
+		DisplayName: Ancient Fragments Echo
+		Tooltip: ""
+	}
+
+	AncientFragmentsMind: {
+		DisplayName: Ancient Fragments Mind
+		Tooltip: ""
+	}
+
+	AncientFragmentsSoul: {
+		DisplayName: Ancient Fragments Soul
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -4142,8 +4162,21 @@ ArmorPrefixHeatDeathDescription:
 	Multiply your damage by 1.2
 	[c/ff0000:Your attack will come with heat death, but your health will continue to drain]
 	'''
+ArmorPrefixArmorPrefixEchoName: Echo
+ArmorPrefixArmorPrefixEchoDescription: +10% Rogue stealth
+ArmorPrefixTheBodyName: Body
+ArmorPrefixTheBodyDescription: +20% Max Life
+ArmorPrefixTheMindName: Mind
+ArmorPrefixTheMindDescription: +25% Max Mana
+ArmorPrefixTheSoulName: Soul
+ArmorPrefixTheSoulDescription: +0.5% Life Steal
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +4% Enhanced Mana
+AncientPrefixDesc:
+	'''
+	Ancient Item
+	Cannot take down by prefix clear knife
+	'''
 
 Prefixes: {
 	Enchanted.DisplayName: Enchanted

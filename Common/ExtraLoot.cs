@@ -1,8 +1,10 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
+using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Tiles;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,6 +15,15 @@ namespace CalamityEntropy.Common
     {
         public override void PostWorldGen()
         {
+            List<int> ancientPrefixItem = new List<int>();
+            for (int i = 0; i < ItemLoader.ItemCount; i++)
+            {
+                var ins = ItemLoader.GetItem(i);
+                if (ins != null && ins is AncientPrefixItem)
+                {
+                    ancientPrefixItem.Add(i);
+                }
+            }
             for (int i = 0; i < 3; i++)
             {
                 int bc = 0;
@@ -36,82 +47,95 @@ namespace CalamityEntropy.Common
                     continue;
                 }
                 Tile chestTile = Main.tile[chest.x, chest.y];
+                if(WorldGen.genRand.NextBool(7))
+                {
+                    for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                    {
+                        if (chest.item[inventoryIndex].type == ItemID.None)
+                        {
+                            chest.item[inventoryIndex].SetDefaults(ancientPrefixItem[WorldGen.genRand.Next(ancientPrefixItem.Count)]);
+                            itemsPlaced++;
+                            break;
+                        }
+                    }
+                }
                 if (chestTile.TileType == TileID.Containers)
                 {
                     if (chestTile.TileFrameX == 1 * 36)
                     {
-                        if (!WorldGen.genRand.NextBool(10))
-                            continue;
-                        for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                        if (WorldGen.genRand.NextBool(10))
                         {
-                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                             {
-                                chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<AuraCard>());
-                                itemsPlaced++;
-                                break;
+                                if (chest.item[inventoryIndex].type == ItemID.None)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<AuraCard>());
+                                    itemsPlaced++;
+                                    break;
+                                }
                             }
                         }
-
                     }
                     if (chestTile.TileFrameX == 13 * 36)
                     {
-                        if (!WorldGen.genRand.NextBool(2))
-                            continue;
-                        for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                        if (WorldGen.genRand.NextBool(2))
                         {
-                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                             {
-                                chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<IndigoCard>());
-                                itemsPlaced++;
-                                break;
+                                if (chest.item[inventoryIndex].type == ItemID.None)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<IndigoCard>());
+                                    itemsPlaced++;
+                                    break;
+                                }
                             }
                         }
-
                     }
                 }
                 if (chestTile.TileType == TileID.Containers2)
                 {
                     if (chestTile.TileFrameX == 10 * 36)
                     {
-                        if (!WorldGen.genRand.NextBool(3))
-                            continue;
+                        if (WorldGen.genRand.NextBool(3))
+                        {
+                            for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                            {
+
+                                if (chest.item[inventoryIndex].type == ItemID.None)
+                                {
+
+                                    chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<InspirationCard>());
+                                    itemsPlaced++;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (chestTile.TileType == ModContent.TileType<CalamityMod.Tiles.Abyss.AbyssTreasureChest>())
+                {
+                    if (WorldGen.genRand.NextBool(3))
+                    {
                         for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                         {
 
                             if (chest.item[inventoryIndex].type == ItemID.None)
                             {
+                                int type = ModContent.ItemType<WispLantern>();
 
-                                chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<InspirationCard>());
+                                if (WorldGen.genRand.NextBool(4))
+                                {
+                                    type = ModContent.ItemType<AbyssLantern>();
+                                }
+                                if (WorldGen.genRand.NextBool(2))
+                                {
+                                    type = ModContent.ItemType<EnduranceCard>();
+                                }
+
+                                chest.item[inventoryIndex].SetDefaults(type);
                                 itemsPlaced++;
                                 break;
                             }
-                        }
-
-                    }
-                }
-                if (chestTile.TileType == ModContent.TileType<CalamityMod.Tiles.Abyss.AbyssTreasureChest>())
-                {
-                    if (!WorldGen.genRand.NextBool(3))
-                        continue;
-                    for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
-                    {
-
-                        if (chest.item[inventoryIndex].type == ItemID.None)
-                        {
-                            int type = ModContent.ItemType<WispLantern>();
-
-                            if (WorldGen.genRand.NextBool(4))
-                            {
-                                type = ModContent.ItemType<AbyssLantern>();
-                            }
-                            if (WorldGen.genRand.NextBool(2))
-                            {
-                                type = ModContent.ItemType<EnduranceCard>();
-                            }
-
-                            chest.item[inventoryIndex].SetDefaults(type);
-                            itemsPlaced++;
-                            break;
                         }
                     }
 

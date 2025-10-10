@@ -1199,6 +1199,10 @@ namespace CalamityEntropy.Common
             HitCounter = 0;
             if (player != null)
             {
+                if(player.Entropy().LifeStealP > 0)
+                {
+                    player.Entropy().TryHealMeWithCd((int)(damage * player.Entropy().LifeStealP), 30);
+                }
                 if (player.Entropy().hasAcc("VastLV5") && hit.Crit)
                 {
                     npc.AddBuff<SoulDisorder>(360);

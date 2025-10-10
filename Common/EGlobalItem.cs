@@ -160,21 +160,27 @@ namespace CalamityEntropy.Common
             {
                 if (held.IsArmorReforgeItem(out var p))
                 {
+                    bool flag = true;
                     if (p == null)
                     {
+                        flag = false;
                         for (int i = 0; i < ItemLoader.ItemCount; i++)
                         {
                             var ins = ItemLoader.GetItem(i);
-                            if (ins is BasePrefixItem pi && pi.PrefixName == armorPrefixName)
+                            if (ins is BasePrefixItem pi && pi.PrefixName == armorPrefixName && ins is not AncientPrefixItem)
                             {
+                                flag = true;
                                 player.QuickSpawnItem(player.GetSource_FromThis(), new Item(ins.Type), 1);
                                 break;
                             }
                         }
                     }
-                    item.Entropy().SetArmorPrefix(p);
-                    SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/Reforge");
-                    SoundEngine.PlaySound(s);
+                    if (flag)
+                    {
+                        item.Entropy().SetArmorPrefix(p);
+                        SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/Reforge");
+                        SoundEngine.PlaySound(s);
+                    }
                 }
             }
         }

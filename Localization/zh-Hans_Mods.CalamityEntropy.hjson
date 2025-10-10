@@ -3092,6 +3092,26 @@ Items: {
 		DisplayName: 哀嚎重炮
 		Tooltip: 发射会爆炸的灵魂和无限穿透的激光
 	}
+
+	AncientFragmentsBody: {
+		DisplayName: 远古残片『|』
+		Tooltip: ""
+	}
+
+	AncientFragmentsEcho: {
+		DisplayName: 远古残片『|』
+		Tooltip: ""
+	}
+
+	AncientFragmentsMind: {
+		DisplayName: 远古残片『|』
+		Tooltip: ""
+	}
+
+	AncientFragmentsSoul: {
+		DisplayName: 远古残片『|』
+		Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -4352,8 +4372,21 @@ ArmorPrefixHeatDeathDescription:
 	周围敌怪将受到虚空的侵蚀
 	[c/ff0000:攻击附带热寂，但你的血量会持续流失]
 	'''
+ArmorPrefixArmorPrefixEchoName: 回响
+ArmorPrefixArmorPrefixEchoDescription: +10% 潜行值
+ArmorPrefixTheBodyName: 肉体
+ArmorPrefixTheBodyDescription: +20% 最大生命值
+ArmorPrefixTheMindName: 思想
+ArmorPrefixTheMindDescription: +25% 最大魔力
+ArmorPrefixTheSoulName: 灵魂
+ArmorPrefixTheSoulDescription: +0.5% 生命汲取
 PrefixEnchanted: 注魔
 PrefixEnchantedDesc: +4% 强化魔力
+AncientPrefixDesc:
+	'''
+	远古物品
+	无法被清刻之刃取下
+	'''
 
 Prefixes: {
 	Enchanted.DisplayName: 注魔

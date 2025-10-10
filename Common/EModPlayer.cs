@@ -420,9 +420,10 @@ namespace CalamityEntropy.Common
         public Dictionary<DamageClass, AddableFloat> CritDamage;
         public bool fruitCake;
         public bool roaringDye = false;
-
+        public float LifeStealP = 0;
         public override void ResetEffects()
         {
+            LifeStealP = 0;
             roaringDye = false;
             fruitCake = false;
             CritDamage = new Dictionary<DamageClass, AddableFloat>();
