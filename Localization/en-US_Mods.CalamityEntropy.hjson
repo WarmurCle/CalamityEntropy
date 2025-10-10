@@ -1872,7 +1872,10 @@ Items: {
 
 	BlessingHeatDeath: {
 		DisplayName: Blessing 『Heat Death』
-		Tooltip: ""
+		Tooltip: 
+		'''
+		Cannot took of using prefix clear knife
+		'''
 	}
 
 	BlessingLastStand: {
