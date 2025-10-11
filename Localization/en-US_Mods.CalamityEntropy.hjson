@@ -3271,6 +3271,7 @@ Projectiles: {
 	ElementalFractalThrown.DisplayName: Elemental Fractal Thrown
 	StarlitFractalHeld.DisplayName: Starlit Fractal Held
 	FractalStarBlade.DisplayName: Fractal Star Blade
+	FractalStar.DisplayName: Fractal Star
 	AbyssFractalHeld.DisplayName: Abyss Fractal Held
 	AbyssalBlade.DisplayName: Abyssal Blade
 	AbyssalBullet.DisplayName: Abyssal Bullet
@@ -3401,6 +3402,7 @@ Projectiles: {
 	HowlingCannonHeld.DisplayName: Howling Cannon Held
 	HowlingBullet.DisplayName: Howling Bullet
 	HowlingLaser.DisplayName: Howling Laser
+	FractalStarblight.DisplayName: Fractal Starblight
 }
 
 LegendTooltip: - Legend -
