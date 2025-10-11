@@ -2251,7 +2251,7 @@ namespace CalamityEntropy.Common
             if (scHealCD < 0 && Player.statLife < Player.statLifeMax2 && SCrown)
             {
                 scHealCD = 60;
-                Player.Heal(8);
+                Player.Heal(2);
             }
             if (!Player.dead)
             {
