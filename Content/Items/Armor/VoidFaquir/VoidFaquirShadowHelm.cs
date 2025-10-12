@@ -11,6 +11,10 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
     [AutoloadEquip(EquipType.Head)]
     public class VoidFaquirShadowHelm : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
+        }
         public override void SetDefaults()
         {
             Item.width = 18;

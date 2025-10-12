@@ -31,27 +31,49 @@ Items: {
 
 			Aquashard: {
 				DisplayName: Aquashard
-				Tooltip: ""
+				Tooltip:
+					'''
+					throws a fragile javelin that shatters into small crystals upon hitting an enemy
+					Stealth strikes grant limited pierce and causes the javelin to fracture upon hitting an enemy
+					'''
 			}
 
 			SpearOfRadiance: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Rapidly throws a holy javelin
+					Stealth strikes create a screen-wide cross
+					'''
 				DisplayName: Spear Of Radiance
 			}
 
 			AbyssalPiercer: {
 				DisplayName: Abyssal Piercer
-				Tooltip: ""
+				Tooltip:
+					'''
+					throws a drowned javelin that explodes into tracking water bursts
+					Stealth strikes cause the javelin to open an abyssal rift that spews tentacles
+					Additionally, stealth strikes can pierce up to 5 enemies
+					'''
 			}
 
 			AzureOfFirmament: {
-				Tooltip: ""
 				DisplayName: Azure Of Firmament
+				Tooltip:
+					'''
+					Rapidly throws a light javelin
+					Stealth strikes cause a burst of feathers around you that home into any npcs struck by the javelin.
+					'''
 			}
 
 			ArbitratorII: {
-				Tooltip: ""
 				DisplayName: Arbitrator II
+				Tooltip:
+					'''
+					Throws an exploding javelin
+					Stealth strikes cause the javelin to lodge into struck targets
+					after a brief delay, they explode, dealing damage to all nearby targets.
+					'''
 			}
 
 			Voidseeker: {
@@ -675,7 +697,7 @@ Items: {
 	}
 
 	RailPulseBow: {
-		Tooltip: ""
+		Tooltip: Fired arrows gain an arcing electrical burst that triggers upon contact with an enemy or the ground
 		DisplayName: Rail Pulse Bow
 	}
 
@@ -995,9 +1017,8 @@ Items: {
 		DisplayName: Reincarnation Badge
 		Tooltip:
 			'''
-			Press [KEY] to activate the coordinated state
-			In this state, you are not affected by gravity
-			And push away the surrounding projectiles
+			Press [KEY] to Ascend.
+			In this state, you are not affected by gravity, and push away surrounding projectiles
 			'''
 	}
 
@@ -1153,9 +1174,9 @@ Items: {
 	EventideSniper: {
 		Tooltip:
 			'''
-			Display the center position of the enemy when held
+			Displays the center of all nearby enemies when held
 			The more accurate the bullet hits, the higher the damage, up to a maximum increase of 200%
-			If you hit accurately enough, you will definitely hit critically and cause damage to the Void Touch, reducing its benefits
+			Hitting a bullseye garentees a critical hit, warping the fabric of space and applying Void Touch and healing you.
 			'''
 		DisplayName: Eventide
 	}
@@ -1813,16 +1834,18 @@ Items: {
 
 	RuneMachineGun: {
 		DisplayName: Rune Machine Gun
-		Tooltip: ""
+		Tooltip: Attacks are accompanied by oscillating runes
 	}
 
 	ForeseeOrb: {
 		DisplayName: Foresee Orb
 		Tooltip:
 			'''
-			When injured, reduce the damage to 100 and break it, and recover after 30 seconds
-			Provide a {DMG}% damage bonus when not broken
-			[c/ff0000:Removing it when broken will cause 90% damage to your maximum health]
+			While equipped, taken damage cannot exceed 100. 
+			However, any damage taken will break the Orb.
+			The Orb will take 30 seconds to recover.
+			When the is Orb is whole, it provides a {DMG}% damage bonus.
+			[c/ff0000:Removing the Orb will cause 90% damage to your maximum health]
 			"It drains your soul to repair itself. If forcibly severed, your soul will burst forth in a torrent"
 			'''
 	}
@@ -2647,42 +2670,53 @@ Items: {
 
 	Vast: {
 		DisplayName: Vast
-		Tooltip:
+		TooltipBase:
 			'''
 			The strength and effects of this accessory increase with progression.
 			Current Effects:
-
+			'''
+		Level0:
+			'''
 			8% reduced mana consumption
 			Automatically uses mana potions
-
-			#1Mana potions restore 10% more mana
-			#1While under the effects of Arcane Might, gain +4% magic critical strike chance
-
-			#2Automatically uses mana potions, 
-			#2with 75% of the restoration applied instantly and the remaining 25% recovered over 5 seconds.
-			#2If you take damage exceeding 80 points during this period, the restoration is interrupted, 
-			#2extending invincibility frames and briefly accelerating health regeneration.
-			#2"The tide of magic pulses through your veins..."
-
-			#3After consuming mana equivalent to 50% of your maximum mana, 
-			#3gain 4% Empowered Mania (stacks up to 5 times).
-
-			#4Effects of Mana Sickness and Mana Burn are halved.
-
-			#4Every 2 stacks of Empowered Mania grant 0.05% damage reduction.
-
-			#4Enhances health regeneration when hit while restoring mana.
-
-			#5Critical hits inflict the Soul Disarray debuff on the target.
-
-			#5Upon mana depletion, 
-			#5attacks switch from consuming mana to restoring mana for 6 seconds, 
-			#5while also applying the Mana Scorch debuff for 5 seconds. 
-			#5Taking damage during this period extends invincibility frames.
-
-			#6At full stacks of Manaflow, each mana depletion grants 
-			#6+1% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
 			'''
+		Level1:
+			'''
+			Mana potions restore 10% more mana
+			While under the effects of Arcane Might, gain +4% magic critical strike chance
+			'''
+		Level2:
+			'''
+			Automatically uses mana potions, with 75% of the restoration applied instantly.
+			The remaining 25% is recovered over 5 seconds.
+			If you take damage exceeding 80 points during this period, the restoration is interrupted,
+			extending invincibility frames and briefly accelerating health regeneration.
+			"The tide of magic pulses through your veins..."
+			'''
+		Level3:
+			'''
+			After consuming mana equivalent to 50% of your maximum mana,
+			gain 4% Empowered Mania (stacks up to 5 times).
+			'''
+		Level4:
+			'''
+			Effects of Mana Sickness and Mana Burn are halved.
+			Every 2 stacks of Empowered Mania grant 0.05% damage reduction.
+			Enhances health regeneration when hit while restoring mana.
+			'''
+		Level5:
+			'''
+			Critical hits inflict the Soul Disarray debuff on the target.
+			Upon mana depletion, attacks switch from consuming mana to restoring mana for 6 seconds,
+			while also applying the Mana Scorch debuff for 5 seconds.
+			Taking damage during this period extends invincibility frames.
+			'''
+		Level6:
+			'''
+			At full stacks of Manaflow, each mana depletion grants
+			+1% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
+			'''
+		Tooltip: ""
 	}
 
 	AzafureDetectionEquipment: {
@@ -2744,8 +2778,8 @@ Items: {
 		DisplayName: Smart Scope
 		Tooltip:
 			'''
-			Press the middle mouse button to lock the enemy
-			When using firearms, the bullet must hit the target
+			Press the middle mouse button to lock onto a target.
+			After marking a target, all bullets will autocorrect to the chosen target.
 			'''
 	}
 

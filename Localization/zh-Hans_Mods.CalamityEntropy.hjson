@@ -61,22 +61,22 @@ Items: {
 			}
 
 			AzureOfFirmament: {
+				DisplayName: 天穹之澈
 				Tooltip:
 					'''
 					丢出一把苍穹标枪
 					潜伏攻击会同时散射出羽毛
 					标枪击中目标后羽毛会飞向目标
 					'''
-				DisplayName: 天穹之澈
 			}
 
 			ArbitratorII: {
+				DisplayName: 仲裁者II
 				Tooltip:
 					'''
 					丢出一把会爆炸的标枪
 					潜伏攻击会插在目标身上并在一秒后产生更大的爆炸
 					'''
-				DisplayName: 仲裁者II
 			}
 
 			Voidseeker: {
@@ -2879,6 +2879,52 @@ Items: {
 
 	Vast: {
 		DisplayName: 无垠
+		/* TooltipBase:
+			'''
+			The strength and effects of this accessory increase with progression.
+			Current Effects:
+			''' */
+		/* Level0:
+			'''
+			8% reduced mana consumption
+			Automatically uses mana potions
+			''' */
+		/* Level1:
+			'''
+			Mana potions restore 10% more mana
+			While under the effects of Arcane Might, gain +4% magic critical strike chance
+			''' */
+		/* Level2:
+			'''
+			Automatically uses mana potions, with 75% of the restoration applied instantly.
+			The remaining 25% is recovered over 5 seconds.
+			If you take damage exceeding 80 points during this period, the restoration is interrupted,
+			extending invincibility frames and briefly accelerating health regeneration.
+			"The tide of magic pulses through your veins..."
+			''' */
+		/* Level3:
+			'''
+			After consuming mana equivalent to 50% of your maximum mana,
+			gain 4% Empowered Mania (stacks up to 5 times).
+			''' */
+		/* Level4:
+			'''
+			Effects of Mana Sickness and Mana Burn are halved.
+			Every 2 stacks of Empowered Mania grant 0.05% damage reduction.
+			Enhances health regeneration when hit while restoring mana.
+			''' */
+		/* Level5:
+			'''
+			Critical hits inflict the Soul Disarray debuff on the target.
+			Upon mana depletion, attacks switch from consuming mana to restoring mana for 6 seconds,
+			while also applying the Mana Scorch debuff for 5 seconds.
+			Taking damage during this period extends invincibility frames.
+			''' */
+		/* Level6:
+			'''
+			At full stacks of Manaflow, each mana depletion grants
+			+1% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
+			''' */
 		Tooltip:
 			'''
 			该饰品的强度和效果随进度增加
