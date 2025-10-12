@@ -4407,13 +4407,13 @@ ArmorPrefixHeatDeathDescription:
 	[c/ff0000:攻击附带热寂，但你的血量会持续流失]
 	'''
 ArmorPrefixArmorPrefixEchoName: 回响
-ArmorPrefixArmorPrefixEchoDescription: +10% 潜行值
+ArmorPrefixArmorPrefixEchoDescription: +4% 潜行值
 ArmorPrefixTheBodyName: 肉体
-ArmorPrefixTheBodyDescription: +20% 最大生命值
+ArmorPrefixTheBodyDescription: +10% 最大生命值
 ArmorPrefixTheMindName: 思想
-ArmorPrefixTheMindDescription: +25% 最大魔力
+ArmorPrefixTheMindDescription: +20% 最大魔力
 ArmorPrefixTheSoulName: 灵魂
-ArmorPrefixTheSoulDescription: +0.5% 生命汲取
+ArmorPrefixTheSoulDescription: +0.2% 生命汲取
 PrefixEnchanted: 注魔
 PrefixEnchantedDesc: +4% 强化魔力
 AncientPrefixDesc:
