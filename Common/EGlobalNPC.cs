@@ -1199,9 +1199,9 @@ namespace CalamityEntropy.Common
             HitCounter = 0;
             if (player != null)
             {
-                if(player.Entropy().LifeStealP > 0)
+                if(player.Entropy().LifeStealP > 0 && player.statLife < player.statLifeMax2)
                 {
-                    player.Entropy().TryHealMeWithCd((int)(damage * player.Entropy().LifeStealP), 30);
+                    player.Entropy().TryHealMeWithCd((int)(player.statLifeMax2 * player.Entropy().LifeStealP), 15);
                 }
                 if (player.Entropy().hasAcc("VastLV5") && hit.Crit)
                 {
