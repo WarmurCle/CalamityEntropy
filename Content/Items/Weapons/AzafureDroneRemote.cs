@@ -269,7 +269,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnKill(int timeLeft)
         {
-            CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center);
+            CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.55f);
             GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 1.5f, 8));
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 3.6f, 1, true, BlendState.Additive, 0, 16);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 2.4f, 1, true, BlendState.Additive, 0, 16);

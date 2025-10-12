@@ -23,7 +23,7 @@ namespace CalamityEntropy.Common.DrawLayers
         {
             Texture2D front = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Marivinium/Front").Value;
             Player player = drawInfo.drawPlayer;
-            Vector2 offset = drawInfo.GetFrameOrigin() + new Vector2(drawInfo.drawPlayer.width+1, drawInfo.drawPlayer.height - 15) + Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height] * drawInfo.drawPlayer.gravDir;
+            Vector2 offset = drawInfo.GetFrameOrigin() + new Vector2(5 * player.direction, 1) + new Vector2(drawInfo.drawPlayer.width, drawInfo.drawPlayer.height - 16) + Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height] * drawInfo.drawPlayer.gravDir;
             drawInfo.DrawDataCache.Add(new DrawData(front, offset, null, drawInfo.colorArmorBody, player.fullRotation, (front.Size() / 2f), 1, drawInfo.drawPlayer.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) { shader = drawInfo.drawPlayer.cBody });
 
         }

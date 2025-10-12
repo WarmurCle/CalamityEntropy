@@ -420,9 +420,10 @@ namespace CalamityEntropy.Common
         public Dictionary<DamageClass, AddableFloat> CritDamage;
         public bool fruitCake;
         public bool roaringDye = false;
-
+        public float LifeStealP = 0;
         public override void ResetEffects()
         {
+            LifeStealP = 0;
             roaringDye = false;
             fruitCake = false;
             CritDamage = new Dictionary<DamageClass, AddableFloat>();
@@ -2250,7 +2251,7 @@ namespace CalamityEntropy.Common
             if (scHealCD < 0 && Player.statLife < Player.statLifeMax2 && SCrown)
             {
                 scHealCD = 60;
-                Player.Heal(8);
+                Player.Heal(2);
             }
             if (!Player.dead)
             {

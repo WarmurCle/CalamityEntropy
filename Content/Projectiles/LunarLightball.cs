@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using CalamityMod.Buffs.DamageOverTime;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
@@ -31,9 +32,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 200;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
-            Projectile.ArmorPenetration = 12;
+            Projectile.ArmorPenetration = 40;
             Projectile.extraUpdates = 1;
-            Projectile.ArmorPenetration = 120;
         }
         public int counter = 0;
         public bool std = false;
@@ -118,6 +118,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(ModContent.BuffType<Nightwither>(), 180);
             if (!htd)
             {
                 Projectile.timeLeft = 34;

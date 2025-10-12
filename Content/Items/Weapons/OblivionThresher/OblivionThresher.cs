@@ -54,7 +54,6 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
-
         public override bool AltFunctionUse(Player player)
         {
             return !player.HasCooldown(OblivionThretherCooldown.ID);
@@ -63,6 +62,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         public override bool CanShoot(Player player)
         {
             Item.shoot = player.altFunctionUse == 2 ? ModContent.ProjectileType<OblivionCruiserDash>() : ModContent.ProjectileType<OblivionThresherHoldout>();
+
             return base.CanShoot(player);
         }
     }

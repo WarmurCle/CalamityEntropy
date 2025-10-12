@@ -523,10 +523,6 @@ namespace CalamityEntropy.Common
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
             if (projectile.owner >= 0 && projectile.friendly)
             {
-                if (projectile.GetOwner().Entropy().SCrown)
-                {
-                    modifiers.DisableCrit();
-                }
                 foreach (var v in projectile.GetOwner().Entropy().CritDamage)
                 {
                     if (projectile.DamageType.CountsAsClass(v.Key))
@@ -1199,6 +1195,10 @@ namespace CalamityEntropy.Common
             HitCounter = 0;
             if (player != null)
             {
+                if(player.Entropy().LifeStealP > 0 && player.statLife < player.statLifeMax2)
+                {
+                    player.Entropy().TryHealMeWithCd((int)(player.statLifeMax2 * player.Entropy().LifeStealP), 15);
+                }
                 if (player.Entropy().hasAcc("VastLV5") && hit.Crit)
                 {
                     npc.AddBuff<SoulDisorder>(360);
@@ -1224,7 +1224,7 @@ namespace CalamityEntropy.Common
                 }
                 if (player.Entropy().grudgeCard)
                 {
-                    if (Main.rand.NextBool(18))
+                    if (Main.rand.NextBool(100))
                     {
                         Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, CEUtils.randomPointInCircle(10), ModContent.ProjectileType<HealingSpirit>(), 0, 0, player.whoAmI);
                     }

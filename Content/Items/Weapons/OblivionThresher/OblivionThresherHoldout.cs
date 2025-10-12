@@ -1,5 +1,6 @@
 ﻿
 using CalamityEntropy.Common;
+using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Prophet;
@@ -45,7 +46,14 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Projectile.rotation = CEUtils.RotateTowardsAngle(CEUtils.RotateTowardsAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.1f, false), (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.1f, true);
             Projectile.Center = player.GetDrawCenter() - new Vector2(-Xoffset + 12, 0).RotatedBy(Projectile.rotation);
             player.Calamity().mouseWorldListener = true;
-
+            if(Projectile.owner == Main.myPlayer && Main.mouseRight)
+            {
+                if (!player.HasCooldown(OblivionThretherCooldown.ID))
+                {
+                    player.AddCooldown(OblivionThretherCooldown.ID, 320);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center, (Main.MouseWorld - player.Center).normalize() * 24, ModContent.ProjectileType<OblivionCruiserDash>(), Projectile.damage, Projectile.knockBack);
+                }
+            }
             Projectile.velocity = Projectile.rotation.ToRotationVector2() * player.HeldItem.shootSpeed;
             player.heldProj = Projectile.whoAmI;
             player.SetHandRot(Projectile.rotation);
@@ -133,6 +141,10 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Projectile.ai[2]++;
             if (Charge > 1)
                 Charge = 1;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<OblivionThresherShoot>()] > 3)
+            {
+                Charge = 0;
+            }
             if (ChargeIdle == null && !(Main.dedServ) && player.channel)
             {
                 ChargeIdle = new LoopSound(FableEye.sound);
@@ -419,9 +431,9 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                         CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(200, 136, 255), new Vector2(2f, 2f), 0, 0.2f, 1.2f * Projectile.scale * Projectile.ai[0] * (int.Min(Projectile.numHits, 10) / 10f), 36);
                         GeneralParticleHandler.SpawnParticle(pulse);
                     }
-                    Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 3f;
+                    Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * Utils.Remap(CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center), 500, 1400, 2.2f, 3);
                     Projectile.velocity *= 0.9f;
-                    if (CEUtils.getDistance(Projectile.GetOwner().Center, Projectile.Center) < Projectile.velocity.Length() * 4f)
+                    if (CEUtils.getDistance(Projectile.GetOwner().Center, Projectile.Center) < Projectile.velocity.Length() + 64)
                     {
                         CEUtils.PlaySound("Dizzy", 1f, Projectile.Center);
                         Projectile.Kill();
@@ -440,7 +452,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Projectile.FriendlySetDefaults(DamageClass.Ranged, false, -1);
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 12;
-            Projectile.timeLeft = 800;
+            Projectile.timeLeft = 1000;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {

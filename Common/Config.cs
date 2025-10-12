@@ -33,7 +33,6 @@ namespace CalamityEntropy.Common
         [Increment(0.05f)]
         public float EntropyMeleeWeaponSoundVolume { get; set; }
 
-
         [DefaultValue(true)]
         public bool MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons { get; set; }
 

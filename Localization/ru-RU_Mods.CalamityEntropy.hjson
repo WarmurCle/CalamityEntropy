@@ -2937,6 +2937,26 @@ Items: {
 		// DisplayName: Howling Cannon
 		// Tooltip: ""
 	}
+
+	AncientFragmentsBody: {
+		// DisplayName: Ancient Fragments Body
+		// Tooltip: ""
+	}
+
+	AncientFragmentsEcho: {
+		// DisplayName: Ancient Fragments Echo
+		// Tooltip: ""
+	}
+
+	AncientFragmentsMind: {
+		// DisplayName: Ancient Fragments Mind
+		// Tooltip: ""
+	}
+
+	AncientFragmentsSoul: {
+		// DisplayName: Ancient Fragments Soul
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3307,6 +3327,7 @@ Projectiles: {
 	ElementalFractalThrown.DisplayName: Elemental Fractal Thrown
 	StarlitFractalHeld.DisplayName: Starlit Fractal Held
 	FractalStarBlade.DisplayName: Fractal Star Blade
+	// FractalStar.DisplayName: Fractal Star
 	AbyssFractalHeld.DisplayName: Abyss Fractal Held
 	AbyssalBlade.DisplayName: Abyssal Blade
 	AbyssalBullet.DisplayName: Abyssal Bullet
@@ -3437,6 +3458,7 @@ Projectiles: {
 	// HowlingCannonHeld.DisplayName: Howling Cannon Held
 	// HowlingBullet.DisplayName: Howling Bullet
 	// HowlingLaser.DisplayName: Howling Laser
+	// FractalStarblight.DisplayName: Fractal Starblight
 }
 
 LegendTooltip: - Легенда -
@@ -4199,8 +4221,21 @@ ArmorPrefixHeatDeathDescription:
 	+2 прикосновение пустоты
 	[c/ff0000:Ваши атаки вызывают эффект тепловой смерти, но здоровье будет постоянно истощаться]
 	'''
+// ArmorPrefixArmorPrefixEchoName: Echo
+// ArmorPrefixArmorPrefixEchoDescription: +4% Rogue stealth
+// ArmorPrefixTheBodyName: Body
+// ArmorPrefixTheBodyDescription: +10% Max Life
+// ArmorPrefixTheMindName: Mind
+// ArmorPrefixTheMindDescription: +20% Max Mana
+// ArmorPrefixTheSoulName: Soul
+// ArmorPrefixTheSoulDescription: +0.2% Life Steal
 PrefixEnchanted: Зачарованный
 PrefixEnchantedDesc: +4% к увеличению маны
+/* AncientPrefixDesc:
+	'''
+	Ancient Item
+	Cannot take down by prefix clear knife
+	''' */
 
 Prefixes: {
 	Enchanted.DisplayName: Зачарованный

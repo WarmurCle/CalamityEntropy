@@ -106,6 +106,17 @@ namespace CalamityEntropy.Common
                 entity.shootSpeed *= 1.25f;
             }
         }
+        public bool GetOverrideName(Item item, string origName, out string NewName)
+        {
+            if(item.ModItem != null && item.ModItem is BasePrefixItem pitem)
+            {
+                NewName = origName.Replace("|", ArmorPrefix.findByName(pitem.PrefixName).GivenName);
+                return true;
+            }
+
+            NewName = origName;
+            return false;
+        }
 
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
@@ -160,21 +171,31 @@ namespace CalamityEntropy.Common
             {
                 if (held.IsArmorReforgeItem(out var p))
                 {
+                    bool flag = true;
                     if (p == null)
                     {
+                        flag = false;
                         for (int i = 0; i < ItemLoader.ItemCount; i++)
                         {
                             var ins = ItemLoader.GetItem(i);
-                            if (ins is BasePrefixItem pi && pi.PrefixName == armorPrefixName)
+                            if (ins != null && ins is BasePrefixItem pi && pi.PrefixName == armorPrefixName && ins is not AncientPrefixItem && ins is not BlessingHeatDeath)
                             {
+                                flag = true;
                                 player.QuickSpawnItem(player.GetSource_FromThis(), new Item(ins.Type), 1);
                                 break;
                             }
                         }
                     }
-                    item.Entropy().SetArmorPrefix(p);
-                    SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/Reforge");
-                    SoundEngine.PlaySound(s);
+                    if (flag)
+                    {
+                        item.Entropy().SetArmorPrefix(p);
+                        SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/Reforge");
+                        SoundEngine.PlaySound(s);
+                    }
+                    else
+                    {
+                        CEUtils.PlaySound("metalhit", 1);
+                    }
                 }
             }
         }

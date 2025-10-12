@@ -10,6 +10,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -87,6 +88,20 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Projectile.ai[1] < maxCharge)
                 {
                     Projectile.ai[1] += 1.8f * player.GetTotalAttackSpeed(DamageClass.Ranged) * (1 + player.Entropy().WeaponBoost);
+                    if (Projectile.ai[1] - SpawnArrow >= 10)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item4 with { PitchRange = (0f, 0.4f) }, Projectile.Center);
+                        SpawnArrow += 10;
+                        if(Main.myPlayer == Projectile.owner)
+                        {
+                            player.PickAmmo(player.HeldItem, out int projID, out float shootSpeed, out int damage, out float kb, out ammoID, false);
+                            int p = Projectile.NewProjectile(player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, ammoID), Projectile.Center, new Vector2(16, 0).RotatedBy(Projectile.rotation).RotatedByRandom(Main.zenithWorld ? 0.4f : 0) * (Projectile.ai[1] / (float)maxCharge), projID, (int)(damage * 0.3f), kb * 0.4f, Projectile.owner);
+                            p.ToProj().scale = 1.6f * Projectile.scale;
+                            p.ToProj().Entropy().WisperArrow = true;
+                            p.ToProj().MaxUpdates *= 2;
+                            p.ToProj().Entropy().wisperOffset = new Vector2(-128, 0) + CEUtils.randomPointInCircle(128);
+                        }
+                    }
                     if (Projectile.ai[1] >= maxCharge)
                     {
                         SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/ArtAttackCast"), Projectile.Center);
@@ -96,6 +111,16 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (!player.channel || (Projectile.ai[1] >= maxCharge && (player.HasBuff<SoyMilkBuff>() || player.Entropy().WeaponBoost > 0)))
             {
+                if (Projectile.ai[1] > 0)
+                {
+                    foreach(var p in Main.ActiveProjectiles)
+                    {
+                        if(p.Entropy().WisperArrow)
+                        {
+                            p.Entropy().Freeze = false;
+                        }
+                    }
+                }
                 if (Projectile.ai[1] > 16 && player.HasAmmo(player.HeldItem))
                 {
                     bamp = 24 * (Projectile.ai[1] / (float)maxCharge);
@@ -114,6 +139,10 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             int p = Projectile.NewProjectile(player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, ammoID), Projectile.Center, new Vector2(shootSpeed, 0).RotatedBy(Projectile.rotation).RotatedByRandom(Main.zenithWorld ? 0.4f : 0) * (Projectile.ai[1] / (float)maxCharge), projID, (int)(damage * (Projectile.ai[1] / (float)maxCharge) * (Projectile.ai[1] >= maxCharge ? 1.8f : 1) * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj == -1 ? 1 : TwistedTwinMinion.damageMul)), kb * (Projectile.ai[1] / (float)maxCharge), Projectile.owner);
                             p.ToProj().scale = 1.6f * Projectile.scale;
+                            if(p.ToProj().velocity.Length() * p.ToProj().MaxUpdates < 32 )
+                            {
+                                p.ToProj().velocity = p.ToProj().velocity.normalize() * (32f / p.ToProj().MaxUpdates);
+                            }
                             if (Projectile.ai[1] >= maxCharge)
                             {
                                 p.ToProj().CritChance = 100;
@@ -141,6 +170,7 @@ namespace CalamityEntropy.Content.Projectiles
                     SoundEngine.PlaySound(SwingSound, Projectile.Center);
                 }
                 Projectile.ai[1] = 0;
+                SpawnArrow = 0;
             }
             back += backspeed;
             backspeed *= 0.9f;
@@ -190,6 +220,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
 
         public int maxCharge = 70;
+        public float SpawnArrow = 0;
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
@@ -216,10 +247,8 @@ namespace CalamityEntropy.Content.Projectiles
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + new Vector2(-back, 0).RotatedBy(Projectile.rotation), null, Color.White, Projectile.rotation, texture.Size() / 2, Projectile.scale * scaled, (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically));
-
-
+            
 
             if (Projectile.ai[1] > 0)
             {
@@ -243,6 +272,21 @@ namespace CalamityEntropy.Content.Projectiles
 
                 }
                 Main.EntitySpriteDraw(TextureAssets.Item[ammoID].Value, Projectile.Center + new Vector2(-back, 0).RotatedBy(Projectile.rotation) + new Vector2(-Projectile.ai[1] * 0.64f - 32 * scaleX, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, null, Color.White, Projectile.rotation - MathHelper.PiOver2, TextureAssets.Item[ammoID].Value.Size() / 2 * new Vector2(1, 0), Projectile.scale * 1.5f * new Vector2(1, 2.7f), (Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
+
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                Texture2D star = CEUtils.getExtraTex("StarTexture");
+
+                float sx = (float)(Math.Cos(Main.GlobalTimeWrappedHourly * 24) * 0.15f + 0.9f);
+                Main.spriteBatch.Draw(star, Projectile.Center - Main.screenPosition + new Vector2(-Projectile.ai[1] * 0.64f - 18 * scaleX, 0).RotatedBy(Projectile.rotation) + new Vector2(-back, 0).RotatedBy(Projectile.rotation), null, Color.White, Projectile.rotation, star.Size() / 2, Projectile.scale * scaled * new Vector2(0.35f, 0.35f) * sx * (Projectile.ai[1] / maxCharge), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(star, Projectile.Center - Main.screenPosition + new Vector2(60, 0).RotatedBy(Projectile.rotation) + new Vector2(-back, 0).RotatedBy(Projectile.rotation), null, Color.White, Projectile.rotation, star.Size() / 2, Projectile.scale * scaled * new Vector2(0.7f, 0.7f) * sx * (Projectile.ai[1] / maxCharge), SpriteEffects.None, 0);
+                for(float i = 0; i < 1; i += 0.01f)
+                {
+                    Main.spriteBatch.Draw(star, Projectile.Center - Main.screenPosition + new Vector2(float.Lerp(60, -Projectile.ai[1] * 0.64f - 18 * scaleX, i), 0).RotatedBy(Projectile.rotation) + new Vector2(-back, 0).RotatedBy(Projectile.rotation), null, Color.MediumPurple, Projectile.rotation, star.Size() / 2, Projectile.scale * scaled * new Vector2(0.1f, 0.1f) * (Projectile.ai[1] / maxCharge), SpriteEffects.None, 0);
+                }
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             }
 
