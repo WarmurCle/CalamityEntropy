@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 68;
+            Item.damage = Main.zenithWorld ? 999 : 68;
             Item.DamageType = DamageClass.Melee;
             Item.width = 108;
             Item.height = 108;
@@ -132,9 +132,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                 init = false;
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    for (float i = -1; i <= 1; i += 1)
+                    if (Main.zenithWorld)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), owner.Center, new Vector2(owner.direction * -2, 0).RotatedBy(i * 0.6f), ModContent.ProjectileType<DarkBladeShoot>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, i);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), owner.Center, new Vector2(owner.direction * -2, 0), ModContent.ProjectileType<DarkBladeShoot>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0);
+                    }
+                    else
+                    {
+                        for (float i = -1; i <= 1; i += 1)
+                        {
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), owner.Center, new Vector2(owner.direction * -2, 0).RotatedBy(i * 0.6f), ModContent.ProjectileType<DarkBladeShoot>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, i);
+                        }
                     }
                 }
             }
@@ -258,7 +265,14 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("spearImpact", 1, Projectile.Center, 1);
+            if (Main.zenithWorld && target.life <= 0)
+            {
+                CEUtils.PlaySound("bksnd", 1, Projectile.Center, 1);
+            }
+            else
+            {
+                CEUtils.PlaySound(Main.zenithWorld ? "bksnd1" : "spearImpact", 1, Projectile.Center, 1);
+            }
             float sparkCount = 12;
             for (int i = 0; i < sparkCount; i++)
             {

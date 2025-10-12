@@ -385,6 +385,8 @@ namespace CalamityEntropy.Common
         }
         public override bool ShouldUpdatePosition(Projectile projectile)
         {
+            if (WisperArrow && Freeze)
+                return false;
             if (typhoonBullet || OverrideBulletMoveAI)
             {
                 return false;
@@ -415,6 +417,8 @@ namespace CalamityEntropy.Common
         public bool OverrideBulletMoveAI = false;
         public Vector2 typVel = Vector2.Zero;
         public bool SmartArcEffect = false;
+        public bool Freeze = true;//For wisper arrows
+        public EParticle ParticleOnMe = null;
         public override bool PreAI(Projectile projectile)
         {
             if (bulletInit)
@@ -473,6 +477,29 @@ namespace CalamityEntropy.Common
 
                 LineParticle spark = new LineParticle(top, velocity, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                 GeneralParticleHandler.SpawnParticle(spark);
+            }
+            if(WisperArrow)
+            {
+                if (Freeze)
+                {
+                    if(wisperShine)
+                        projectile.Center = projectile.GetOwner().Center + wisperOffset.RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.GetOwner().Center).ToRotation());
+                    else
+                        projectile.Center = Vector2.Lerp(projectile.Center, projectile.GetOwner().Center + wisperOffset.RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.GetOwner().Center).ToRotation()), 0.01f);
+                    projectile.GetOwner().Calamity().mouseWorldListener = true;
+                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.Center).ToRotation());
+                    projectile.timeLeft++;
+                    if(projectile.velocity.Length() * projectile.MaxUpdates < 46)
+                    {
+                        projectile.velocity = new Vector2(projectile.velocity.Length(), 0).normalize() * (46f / projectile.MaxUpdates);
+                    }
+                }
+                if (wisperShine)
+                {
+                    wisperShine = false;
+                    ParticleOnMe = new HeavenfallStar2();
+                    EParticle.spawnNew(ParticleOnMe, projectile.Center, Vector2.Zero, new Color(180, 120, 255), 0.8f, 1, true, BlendState.Additive, 0);
+                }
             }
             if (LuminarArrow)
             {
@@ -670,6 +697,10 @@ namespace CalamityEntropy.Common
                 playerPosL = projectile.owner.ToPlayer().Center;
                 projectile.owner.ToPlayer().Center = IndexOfTwistedTwinShootedThisProj.ToProj_Identity().Center;
             }
+            if(ParticleOnMe != null)
+            {
+                ParticleOnMe.Position = projectile.Center;
+            }
             projectile.Entropy().counter++;
             projectile.Entropy().odp.Add(projectile.Center);
             projectile.Entropy().odp2.Add(projectile.Center);
@@ -759,6 +790,29 @@ namespace CalamityEntropy.Common
         public bool evRu = true;
         public bool SmartScopeHoming = false;
         public static int SSCD = 3;
+        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        {
+            if(WisperArrow && Freeze)
+            {
+                return false;
+            }
+            return null;
+        }
+        public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
+        {
+            if (WisperArrow && Freeze)
+            {
+                return false;
+            }
+            return true;
+        }
+        public override void DrawBehind(Projectile projectile, int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            if(WisperArrow)
+            {
+                overPlayers.Add(index);
+            }
+        }
         public override void PostAI(Projectile projectile)
         {
             if (projectile.friendly && projectile.DamageType == DamageClass.Ranged && projectile.GetOwner().HeldItem.useAmmo == AmmoID.Bullet)
@@ -822,8 +876,31 @@ namespace CalamityEntropy.Common
         public bool rpBow = false;
         public float gwHoming = 0.06f;
         public FieldInfo SSMFInfo = null;
+        public bool WisperArrow = false;
+        public Vector2 wisperOffset = Vector2.Zero;
+        public bool wisperShine = true;
         public override void PostDraw(Projectile projectile, Color lightColor)
         {
+            if (GWBow || WisperArrow)
+            {
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                Texture2D star = CEUtils.getExtraTex("StarTexture");
+
+                float sx = (float)(Math.Cos(Main.GlobalTimeWrappedHourly * 24) * 0.15f + 0.9f);
+                float ls = GWBow ? 2 : 1;
+                sx *= ls;
+                Main.spriteBatch.Draw(star, projectile.Center - Main.screenPosition + new Vector2(-40, 0).RotatedBy(projectile.velocity.ToRotation()), null, Color.White, projectile.velocity.ToRotation(), star.Size() / 2, projectile.scale * new Vector2(0.03f, 0.03f) * sx, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(star, projectile.Center - Main.screenPosition + new Vector2(10, 0).RotatedBy(projectile.velocity.ToRotation()), null, Color.White, projectile.velocity.ToRotation(), star.Size() / 2, projectile.scale * new Vector2(0.14f, 0.14f) * sx, SpriteEffects.None, 0);
+                for (float i = 0; i < 1; i += 0.01f)
+                {
+                    Main.spriteBatch.Draw(star, projectile.Center - Main.screenPosition + new Vector2(float.Lerp(10, -40, i), 0).RotatedBy(projectile.velocity.ToRotation()), null, Color.MediumPurple, projectile.velocity.ToRotation(), star.Size() / 2, projectile.scale * new Vector2(0.1f, 0.01f) * (1.1f - i) * ls, SpriteEffects.None, 0);
+                }
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            }
             if (projectile.ModProjectile != null && projectile.ModProjectile is MurasamaSlash)
             {
                 if (projectile.GetOwner().name.ToLower().Contains("polaris") || projectile.GetOwner().name.ToLower().Contains("chalost"))
@@ -893,6 +970,8 @@ namespace CalamityEntropy.Common
         public StarTrailParticle starTrailPt = null;
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
+            if (WisperArrow)
+                return false;
             if (projectile.ModProjectile != null && projectile.ModProjectile is MurasamaSlash)
             {
                 if (projectile.GetOwner().name.ToLower().Contains("polaris") || projectile.GetOwner().name.ToLower().Contains("chalost"))

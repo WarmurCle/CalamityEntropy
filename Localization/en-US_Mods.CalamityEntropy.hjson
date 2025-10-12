@@ -693,9 +693,8 @@ Items: {
 		DisplayName: Silva's Crown
 		Tooltip:
 			'''
-			+ 8 Life Regen/s
-			Remove defense damage.
-			You can't hit critically
+			+ 2 Life Regen/s
+			Remove 99% defense damage.
 			-Death Mode-
 			'''
 	}
@@ -1872,7 +1871,7 @@ Items: {
 
 	BlessingHeatDeath: {
 		DisplayName: Blessing 『Heat Death』
-		Tooltip: ""
+		Tooltip: Cannot took of using prefix clear knife
 	}
 
 	BlessingLastStand: {
@@ -2866,6 +2865,26 @@ Items: {
 		DisplayName: Howling Cannon
 		Tooltip: ""
 	}
+
+	AncientFragmentsBody: {
+		DisplayName: Ancient Fragments Body
+		Tooltip: ""
+	}
+
+	AncientFragmentsEcho: {
+		DisplayName: Ancient Fragments Echo
+		Tooltip: ""
+	}
+
+	AncientFragmentsMind: {
+		DisplayName: Ancient Fragments Mind
+		Tooltip: ""
+	}
+
+	AncientFragmentsSoul: {
+		DisplayName: Ancient Fragments Soul
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3251,6 +3270,7 @@ Projectiles: {
 	ElementalFractalThrown.DisplayName: Elemental Fractal Thrown
 	StarlitFractalHeld.DisplayName: Starlit Fractal Held
 	FractalStarBlade.DisplayName: Fractal Star Blade
+	FractalStar.DisplayName: Fractal Star
 	AbyssFractalHeld.DisplayName: Abyss Fractal Held
 	AbyssalBlade.DisplayName: Abyssal Blade
 	AbyssalBullet.DisplayName: Abyssal Bullet
@@ -3381,6 +3401,7 @@ Projectiles: {
 	HowlingCannonHeld.DisplayName: Howling Cannon Held
 	HowlingBullet.DisplayName: Howling Bullet
 	HowlingLaser.DisplayName: Howling Laser
+	FractalStarblight.DisplayName: Fractal Starblight
 }
 
 LegendTooltip: - Legend -
@@ -4142,8 +4163,21 @@ ArmorPrefixHeatDeathDescription:
 	Multiply your damage by 1.2
 	[c/ff0000:Your attack will come with heat death, but your health will continue to drain]
 	'''
+ArmorPrefixArmorPrefixEchoName: Echo
+ArmorPrefixArmorPrefixEchoDescription: +4% Rogue stealth
+ArmorPrefixTheBodyName: Body
+ArmorPrefixTheBodyDescription: +10% Max Life
+ArmorPrefixTheMindName: Mind
+ArmorPrefixTheMindDescription: +20% Max Mana
+ArmorPrefixTheSoulName: Soul
+ArmorPrefixTheSoulDescription: +0.2% Life Steal
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +4% Enhanced Mana
+AncientPrefixDesc:
+	'''
+	Ancient Item
+	Cannot take down by prefix clear knife
+	'''
 
 Prefixes: {
 	Enchanted.DisplayName: Enchanted

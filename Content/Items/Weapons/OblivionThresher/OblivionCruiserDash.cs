@@ -18,8 +18,8 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.width = 60;
-            Projectile.height = 60;
+            Projectile.width = 128;
+            Projectile.height = 128;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = true;
@@ -64,6 +64,13 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                         {
                             player.velocity = -Projectile.velocity * 0.2f;
                             p.Kill();
+                            foreach(var kh in Main.ActiveProjectiles)
+                            {
+                                if(kh.owner == Projectile.owner && kh.ModProjectile is OblivionThresherHoldout)
+                                {
+                                    kh.Kill();
+                                }
+                            }
                             if (Projectile.owner == Main.myPlayer)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<OblivionThresherHoldout>(), (int)(Projectile.damage * 2.5f), Projectile.knockBack, Projectile.owner);

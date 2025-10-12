@@ -28,6 +28,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static System.Net.Mime.MediaTypeNames;
+using static Terraria.GameContent.Animations.IL_Actions.Sprites;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
@@ -79,7 +80,6 @@ namespace CalamityEntropy.Content.Items.Donator
             Check(DownedBossSystem.downedPrimordialWyrm);
 
             return Level;
-
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -637,6 +637,10 @@ namespace CalamityEntropy.Content.Items.Donator
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 146 * scale * ProjScale, targetHitbox, (int)(36 * ProjScale));
+        }
+        public override void CutTiles()
+        {
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 150 * Projectile.scale * scale * ProjScale, 54, DelegateMethods.CutTiles);
         }
         public override bool PreDraw(ref Color lightColor)
         {
