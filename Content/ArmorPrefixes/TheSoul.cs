@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void UpdateEquip(Player player, Item item)
         {
-            player.Entropy().LifeStealP += 0.5f;
+            player.Entropy().LifeStealP += 0.005f;
         }
         public override Color getColor()
         {

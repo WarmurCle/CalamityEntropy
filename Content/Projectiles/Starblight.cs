@@ -202,4 +202,94 @@ namespace CalamityEntropy.Content.Projectiles
 
 
     }
+    public class FractalStarblight : ModProjectile
+    {
+        public override string Texture => CEUtils.WhiteTexPath;
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Projectile.type] = 1;
+        }
+        public override void SetDefaults()
+        {
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.width = 24;
+            Projectile.height = 24;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.tileCollide = false;
+            Projectile.light = 1f;
+            Projectile.timeLeft = 260;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 0;
+            Projectile.ArmorPenetration = 12;
+        }
+        public int counter = 0;
+        public bool std = false;
+        public int homingTime = 60;
+        public StarTrailParticle spt = null;
+        public override void AI()
+        {
+            if (spt == null)
+            {
+                spt = new StarTrailParticle() { maxLength = 12 };
+                EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.LightBlue, 1f, 1, true, BlendState.Additive, 0);
+            }
+            spt.Velocity = Projectile.velocity;
+            spt.Lifetime = 30;
+            counter++;
+            Projectile.ai[0]++;
+
+            NPC target = Projectile.FindTargetWithinRange(1600, false);
+            if (target != null && CEUtils.getDistance(target.Center, Projectile.Center) < 200 && counter > 30)
+            {
+                homingTime = 0;
+                Projectile.velocity *= 0.9f;
+                Vector2 v = target.Center - Projectile.Center;
+                v.Normalize();
+
+                Projectile.velocity += v * 1.5f;
+            }
+            Projectile.rotation = Projectile.velocity.ToRotation();
+
+
+            if (Projectile.velocity.Length() > 3)
+            {
+                Projectile.velocity *= 0.995f - homing * 0.018f;
+            }
+            if (counter > 16)
+            {
+                if (homing < 4)
+                {
+                    homing += 0.1f;
+                }
+                NPC targett = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200);
+
+                if (targett != null)
+                {
+                    if (Projectile.timeLeft < 60)
+                    {
+                        Projectile.timeLeft = 60;
+                    }
+                    Projectile.velocity += (targett.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * homing * 2;
+                }
+            }
+        }
+        float homing = 0;
+
+        public override void OnKill(int timeLeft)
+        {
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(2f, 2f), 0, 0.02f, 0.85f * 0.4f, 18);
+            GeneralParticleHandler.SpawnParticle(pulse);
+            CEUtils.PlaySound("metalhit", Main.rand.NextFloat(1.6f, 2f), Projectile.Center, 6, 0.35f * CEUtils.WeapSound);
+        }
+
+        public int tofs;
+        float alpha_ = 1;
+        public override bool PreDraw(ref Color lightColor)
+        {
+            return false;
+        }
+
+
+    }
 }

@@ -689,6 +689,8 @@ Items: {
 		Tooltip:
 			'''
 			可以蓄力射击
+			蓄力时在后方产生悬浮的箭矢
+			释放时所有悬浮箭会齐发
 			蓄满力射出一发被虚空强化的箭
 			"贯穿星辰"
 			'''
@@ -2218,6 +2220,7 @@ Items: {
 		DisplayName: 破碎分形
 		Tooltip:
 			'''
+			突刺时发射威力随时间衰减的分形弹
 			[c/ff5300:曾经的神剑，但如今已失去了它的潜能]
 			[c/ff5300:或许以后你可以让它重现光芒]
 			'''
@@ -2240,12 +2243,21 @@ Items: {
 
 	WelkinFractal: {
 		DisplayName: 苍穹分形
-		Tooltip: "[c/d4fff8:它被苍穹所赐福]"
+		Tooltip:
+			'''
+			从天上与地下召唤分形之羽
+			从剑尖刺出分形光束
+			[c/d4fff8:它被苍穹所赐福]
+			'''
 	}
 
 	BrilliantFractal: {
 		DisplayName: 光辉分形
-		Tooltip: "[c/f2ffd4:吸纳了光辉能量]"
+		Tooltip:
+			'''
+			挥舞时发射众多追踪的神圣之星并发射一发追踪剑影
+			[c/f2ffd4:吸纳了光辉能量]
+			'''
 	}
 
 	BrokenHilt: {
@@ -2254,17 +2266,31 @@ Items: {
 	}
 
 	ElementalFractal: {
-		Tooltip: "[c/ff00a6:剑上闪耀着元素之光]"
+		Tooltip:
+			'''
+			旋转挥舞并生成许多元素光星，随后发射一道强力的剑影
+			[c/ff00a6:剑上闪耀着元素之光]
+			'''
 		DisplayName: 元素分形
 	}
 
 	StarlitFractal: {
 		DisplayName: 星熠分形
-		Tooltip: "[c/dd00ff:剑身浮动着星光]"
+		Tooltip:
+			'''
+			发射追踪剑影与会分裂的星熠
+			剑影命中后从上方降下星星
+			真近战命中后降下更多星星
+			[c/dd00ff:剑身浮动着星光]
+			'''
 	}
 
 	AbyssFractal: {
-		Tooltip: "[c/7045ff:剑身仿佛深不见底的深渊]"
+		Tooltip:
+			'''
+			发射追踪渊蚀弹与能撕开空间的剑影
+			[c/7045ff:剑身仿佛深不见底的深渊]
+			'''
 		DisplayName: 深渊分形
 	}
 
@@ -2279,14 +2305,20 @@ Items: {
 
 	SpiritFractal: {
 		DisplayName: 聚魂分形
-		Tooltip: "[c/dfe7cb:剑上聚集着众多亡魂]"
+		Tooltip:
+			'''
+			发射大量的聚魂剑影，并在每4此挥舞后投掷出武器本身，造成多次伤害并释放追踪灵魂
+			[c/dfe7cb:剑上聚集着众多亡魂]
+			'''
 	}
 
 	VoidFractal: {
 		Tooltip:
 			'''
+			发射虚空波，并在每6此挥舞后投掷出武器本身，造成多次伤害并释放追踪虚空新星
+			回收后进行一次大斩击，在命中的目标处生成空间流
+			右键以发动虚空斩并突进一段距离
 			[c/ba3ade:剑上附着薄薄一层虚空]
-			右键: 虚空斩
 			'''
 		DisplayName: 虚空分形
 	}
@@ -2340,8 +2372,10 @@ Items: {
 		DisplayName: 幽邃分形
 		Tooltip:
 			'''
+			从屏幕外向光标处发射大量剑影
+			挥舞8次后用锁链链接并掷出，刺入目标体内造成持续伤害
+			右键进行幽冥斩，向前突进一段距离并在途中向两侧发射剑影
 			[c/fcc7ff:异界的神剑]
-			右键:幽冥斩
 			'''
 	}
 
@@ -3478,6 +3512,7 @@ Projectiles: {
 	ElementalFractalThrown.DisplayName: 元素分形
 	StarlitFractalHeld.DisplayName: 星熠分形
 	FractalStarBlade.DisplayName: 分形星影
+	// FractalStar.DisplayName: Fractal Star
 	AbyssFractalHeld.DisplayName: 深渊分形
 	AbyssalBlade.DisplayName: 深渊剑影
 	AbyssalBullet.DisplayName: 渊水弹
@@ -3608,6 +3643,7 @@ Projectiles: {
 	HowlingCannonHeld.DisplayName: 哀嚎重炮
 	HowlingBullet.DisplayName: 哀嚎魂弹
 	HowlingLaser.DisplayName: 哀嚎死光
+	// FractalStarblight.DisplayName: Fractal Starblight
 }
 
 LegendTooltip: - 传奇物品 -
