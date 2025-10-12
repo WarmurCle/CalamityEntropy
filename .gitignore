@@ -359,8 +359,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /compile_temp/
-/CalamityEntropy.csproj
-/CalamityEntropy.csproj
 /Properties/Resources.Designer.cs
 /Properties/Resources.resx
 
