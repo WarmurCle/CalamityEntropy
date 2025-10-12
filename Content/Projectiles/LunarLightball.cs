@@ -119,6 +119,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<Nightwither>(), 180);
+            target.AddBuff(BuffID.Daybroken, 180);
             if (!htd)
             {
                 Projectile.timeLeft = 34;
