@@ -10,6 +10,7 @@ using CalamityMod.Schematics;
 using CalamityMod.UI;
 using CalamityMod.World;
 using InnoVault;
+using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Mono.Cecil.Cil;
@@ -26,6 +27,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
 using Terraria.ModLoader;
+using static InnoVault.GameSystem.ItemRebuildLoader;
 
 namespace CalamityEntropy.Content.ILEditing
 {
@@ -108,10 +110,23 @@ namespace CalamityEntropy.Content.ILEditing
             {
                 ANPCSupport.ANPCShopAdd.LoadHook();
             }
+            var Item_Name_Get_Method = typeof(Item).GetProperty("Name", BindingFlags.Instance | BindingFlags.Public).GetGetMethod();
+            if(Item_Name_Get_Method != null) {
+                EModHooks.Add(Item_Name_Get_Method, On_Name_Get_Hook);
+            }
 
             StoreForbiddenArchivePositionHook.LoadHook();
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
+        }
+        public static string On_Name_Get_Hook(On_GetItemName_get_Delegate orig, Item item)
+        {
+            string orgName = orig.Invoke(item);
+            if (item.Entropy().GetOverrideName(item, orgName, out string NameNew))
+            {
+                return NameNew;
+            }
+            return orgName;
         }
         public static FieldInfo mouseTextCacheField = null;
 

@@ -47,7 +47,7 @@ namespace CalamityEntropy.Common
                     continue;
                 }
                 Tile chestTile = Main.tile[chest.x, chest.y];
-                if(WorldGen.genRand.NextBool(7))
+                if(WorldGen.genRand.NextBool(10))
                 {
                     for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                     {

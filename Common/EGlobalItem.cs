@@ -106,6 +106,17 @@ namespace CalamityEntropy.Common
                 entity.shootSpeed *= 1.25f;
             }
         }
+        public bool GetOverrideName(Item item, string origName, out string NewName)
+        {
+            if(item.ModItem != null && item.ModItem is BasePrefixItem pitem)
+            {
+                NewName = origName.Replace("|", ArmorPrefix.findByName(pitem.PrefixName).GivenName);
+                return true;
+            }
+
+            NewName = origName;
+            return false;
+        }
 
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {

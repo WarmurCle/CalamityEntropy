@@ -10,6 +10,7 @@ namespace CalamityEntropy.Content.Items.PrefixItem
     {
         public override void SetDefaults()
         {
+            base.SetDefaults();
             Item.width = Item.height = 46;
             Item.rare = ItemRarityID.Red;
         }

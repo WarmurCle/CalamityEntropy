@@ -134,7 +134,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     if (Main.zenithWorld)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), owner.Center, new Vector2(owner.direction * -2, 0).RotatedBy(i * 0.6f), ModContent.ProjectileType<DarkBladeShoot>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), owner.Center, new Vector2(owner.direction * -2, 0), ModContent.ProjectileType<DarkBladeShoot>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0);
                     }
                     else
                     {
