@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void UpdateEquip(Player player, Item item)
         {
-            player.statManaMax2 += player.statManaMax2 / 4;
+            player.statManaMax2 += player.statManaMax2 / 5;
         }
         public override Color getColor()
         {
