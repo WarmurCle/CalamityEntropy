@@ -4164,13 +4164,13 @@ ArmorPrefixHeatDeathDescription:
 	[c/ff0000:Your attack will come with heat death, but your health will continue to drain]
 	'''
 ArmorPrefixArmorPrefixEchoName: Echo
-ArmorPrefixArmorPrefixEchoDescription: +10% Rogue stealth
+ArmorPrefixArmorPrefixEchoDescription: +4% Rogue stealth
 ArmorPrefixTheBodyName: Body
-ArmorPrefixTheBodyDescription: +20% Max Life
+ArmorPrefixTheBodyDescription: +10% Max Life
 ArmorPrefixTheMindName: Mind
-ArmorPrefixTheMindDescription: +25% Max Mana
+ArmorPrefixTheMindDescription: +20% Max Mana
 ArmorPrefixTheSoulName: Soul
-ArmorPrefixTheSoulDescription: +0.5% Life Steal
+ArmorPrefixTheSoulDescription: +0.2% Life Steal
 PrefixEnchanted: Enchanted
 PrefixEnchantedDesc: +4% Enhanced Mana
 AncientPrefixDesc:
