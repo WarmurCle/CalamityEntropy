@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             Item.width = 42;
             Item.height = 42;
-            Item.defense = 25;
+            Item.defense = 5;
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
             Item.rare = ModContent.RarityType<GlowGreen>();
             Item.accessory = true;
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Calamity().defenseDamageRatio = 0;
+            player.Calamity().defenseDamageRatio = 0.01f;
             player.Calamity().nextHitDealsDefenseDamage = false;
 
             player.Entropy().SCrown = true;
