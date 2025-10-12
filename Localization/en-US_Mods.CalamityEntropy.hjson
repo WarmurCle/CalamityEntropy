@@ -693,9 +693,8 @@ Items: {
 		DisplayName: Silva's Crown
 		Tooltip:
 			'''
-			+ 8 Life Regen/s
-			Remove defense damage.
-			You can't hit critically
+			+ 2 Life Regen/s
+			Remove 99% defense damage.
 			-Death Mode-
 			'''
 	}
