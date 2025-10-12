@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Calamity().defenseDamageRatio = 0;
+            player.Calamity().defenseDamageRatio = 0.01f;
             player.Calamity().nextHitDealsDefenseDamage = false;
 
             player.Entropy().SCrown = true;
