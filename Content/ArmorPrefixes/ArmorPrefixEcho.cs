@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
     {
         public override void UpdateEquip(Player player, Item item)
         {
-            player.Calamity().rogueStealth += 0.1f;
+            player.Calamity().rogueStealth += 0.04f;
         }
         public override Color getColor()
         {

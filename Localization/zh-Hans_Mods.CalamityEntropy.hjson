@@ -778,8 +778,8 @@ Items: {
 		DisplayName: 始源冠冕
 		Tooltip:
 			'''
-			+ 8/s 每秒生命再生
-			你不会受到防御损伤但同时使你无法暴击
+			+ 2/s 每秒生命再生
+			降低99%的防御损伤
 			-死亡模式专属-
 			'''
 	}
@@ -1508,9 +1508,8 @@ Items: {
 		DisplayName: 渊洋神迹胸甲
 		Tooltip:
 			'''
-			+15% 伤害
-			+15% 暴击
-			+250 最大魔力
+			增加15%伤害和暴击率
+			增加250点最大魔力值
 			使你能在深渊正常呼吸
 			'''
 	}
@@ -1519,10 +1518,9 @@ Items: {
 		DisplayName: 渊洋神迹头盔
 		Tooltip:
 			'''
-			+20% 伤害
-			+20% 暴击率
-			+30% 近战攻速
-			+250 最大生命值
+			增加20%伤害和暴击率
+			增加30%近战攻速
+			增加250点最大生命值
 			'''
 	}
 
@@ -1532,8 +1530,7 @@ Items: {
 			'''
 			大幅提升移动速度
 			减少20%魔力消耗
-			+20% 伤害
-			+5% 暴击
+			增加20%伤害和5%暴击率
 			'''
 	}
 
@@ -4410,13 +4407,13 @@ ArmorPrefixHeatDeathDescription:
 	[c/ff0000:攻击附带热寂，但你的血量会持续流失]
 	'''
 ArmorPrefixArmorPrefixEchoName: 回响
-ArmorPrefixArmorPrefixEchoDescription: +10% 潜行值
+ArmorPrefixArmorPrefixEchoDescription: +4% 潜行值
 ArmorPrefixTheBodyName: 肉体
-ArmorPrefixTheBodyDescription: +20% 最大生命值
+ArmorPrefixTheBodyDescription: +10% 最大生命值
 ArmorPrefixTheMindName: 思想
-ArmorPrefixTheMindDescription: +25% 最大魔力
+ArmorPrefixTheMindDescription: +20% 最大魔力
 ArmorPrefixTheSoulName: 灵魂
-ArmorPrefixTheSoulDescription: +0.5% 生命汲取
+ArmorPrefixTheSoulDescription: +0.2% 生命汲取
 PrefixEnchanted: 注魔
 PrefixEnchantedDesc: +4% 强化魔力
 AncientPrefixDesc:
