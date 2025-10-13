@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator
@@ -21,101 +22,89 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;
+            
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (true)
+            //unnecessary if statement
+
+            int level = (int)MathHelper.Clamp(Level(), 0, 5);
+            player.Entropy().addEquip("Vast", !hideVisual);
+            float ManaCostDecrease = 0f;
+            player.manaFlower = true;
+            if (player.HasBuff(BuffID.ManaRegeneration))
             {
-                player.Entropy().addEquip("Vast", !hideVisual);
-                float ManaCostDecrease = 0f;
-                player.manaFlower = true;
-                if (player.HasBuff(BuffID.ManaRegeneration))
-                {
-                    player.GetCritChance(DamageClass.Magic) += 4;
-                }
-
-                if (NPC.downedBoss2)
-                {
-                    player.Entropy().addEquip("VastLV2");
-                }
-                if (DownedBossSystem.downedSlimeGod)
-                {
-                    player.Entropy().addEquip("VastLV3");
-                }
-                if (DownedBossSystem.downedCryogen || DownedBossSystem.downedBrimstoneElemental)
-                {
-                    player.Entropy().addEquip("VastLV4");
-                }
-                if (EDownedBosses.downedProphet)
-                {
-                    player.Entropy().addEquip("VastLV5");
-
-                }
-                player.manaCost -= ManaCostDecrease;
+                player.GetCritChance(DamageClass.Magic) += 4;
             }
+            //cleaned this up.
+            player.Entropy().addEquip("VastLV" + level);
+
+
+            player.manaCost -= ManaCostDecrease;
+
         }
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Diamond)
                 .AddIngredient(ItemID.ManaFlower)
-                .AddIngredient(5339)
+                .AddIngredient(ItemID.ArcaneCrystal)
                 .AddCondition(Mod.GetLocalization("NearShimmer", () => "Near shimmer"), () => (Main.LocalPlayer.ZoneShimmer))
                 .Register();
         }
+
+        //so the issue was that the total tooltip was far too large.
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            for (int i = tooltips.Count - 1; i >= 0; i--)
+            int level = Level();
+
+            //don't ask why i named it this way, please :3
+            string baseKey = $"Mods.{Mod.Name}.Items.{Name}.TooltipBase";
+            if (Language.Exists(baseKey))
             {
-                if (tooltips[i].Mod == "Terraria" && tooltips[i].Text.StartsWith("#"))
+                foreach (string line in Language.GetTextValue(baseKey).Split('\n'))
                 {
-                    bool hide = true;
-                    if (int.TryParse(tooltips[i].Text[1].ToString(), out int n))
-                    {
-                        if (Level() >= n)
-                        { hide = false; }
-                    }
-                    tooltips[i].Text = tooltips[i].Text.Substring(2);
-                    if (hide)
-                    {
-                        tooltips.RemoveAt(i);
-                    }
+                    if (!string.IsNullOrWhiteSpace(line))
+                        tooltips.Add(new TooltipLine(Mod, "Base", line.Trim()));
+                }
+            }
+
+            for (int i = 0; i <= level; i++)
+            {
+                //just in case
+                string key = $"Mods.{Mod.Name}.Items.{Name}.Level{i}";
+                if (!Language.Exists(key))
+                    continue;
+
+                string text = Language.GetTextValue(key);
+                foreach (string line in text.Split('\n'))
+                {
+                    if (!string.IsNullOrWhiteSpace(line))
+                        tooltips.Add(new TooltipLine(Mod, $"Level{i}", line.Trim()));
                 }
             }
         }
+
+        //sorry not sorry. At least now its, what, 0.12% more efficient??? I don't know.
         public static int Level()
         {
-            int l = 0;
-            if (NPC.downedSlimeKing || NPC.downedBoss1 || NPC.downedBoss2 || DownedBossSystem.downedDesertScourge)
-            {
-                l = 1;
-            }
-            if (NPC.downedBoss2)
-            {
-                l = 2;
-            }
-            if (DownedBossSystem.downedSlimeGod)
-            {
-                l = 3;
-            }
-            if (DownedBossSystem.downedCryogen || DownedBossSystem.downedBrimstoneElemental)
-            {
-                l = 4;
-            }
-            if (EDownedBosses.downedProphet)
-            {
-                l = 5;
-            }
-            if (NPC.downedMoonlord)
-            {
-                l = 6;
-            }
             if (DownedBossSystem.downedPolterghast)
-            {
-                l = 7;
-            }
-            return l;
+                return 7;
+            if (NPC.downedMoonlord)
+                return 6;
+            if (EDownedBosses.downedProphet)
+                return 5;
+            if (DownedBossSystem.downedCryogen || DownedBossSystem.downedBrimstoneElemental)
+                return 4;
+            if (DownedBossSystem.downedSlimeGod)
+                return 3;
+            if (NPC.downedBoss2)
+                return 2;
+            if (NPC.downedSlimeKing || NPC.downedBoss1 || DownedBossSystem.downedDesertScourge)
+                return 1;
+
+            return 0;
         }
     }
     public class VastMPlayer : ModPlayer

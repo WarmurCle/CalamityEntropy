@@ -10,6 +10,10 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
     [AutoloadEquip(EquipType.Legs)]
     public class VoidFaquirCuises : ModItem, ILocalizedModType
     {
+        public override void SetStaticDefaults()
+        {
+            ArmorIDs.Legs.Sets.HidesBottomSkin[Item.legSlot] =true;
+        }
         public override void SetDefaults()
         {
             Item.width = 18;

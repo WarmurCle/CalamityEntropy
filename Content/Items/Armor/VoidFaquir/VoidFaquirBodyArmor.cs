@@ -10,6 +10,10 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
     [AutoloadEquip(EquipType.Body)]
     public class VoidFaquirBodyArmor : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ArmorIDs.Body.Sets.HidesHands[Item.bodySlot] = false;
+        }
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)

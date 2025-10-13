@@ -45,13 +45,13 @@ Items: {
 			}
 
 			AzureOfFirmament: {
-				Tooltip: ""
 				DisplayName: Лазурь небесного свода
+				Tooltip: ""
 			}
 
 			ArbitratorII: {
-				Tooltip: ""
 				DisplayName: Арбитр II
+				Tooltip: ""
 			}
 
 			Voidseeker: {
@@ -2707,42 +2707,53 @@ Items: {
 
 	Vast: {
 		// DisplayName: Vast
-		/* Tooltip:
+		/* TooltipBase:
 			'''
 			The strength and effects of this accessory increase with progression.
 			Current Effects:
-
+			''' */
+		/* Level0:
+			'''
 			8% reduced mana consumption
 			Automatically uses mana potions
-
-			#1Mana potions restore 10% more mana
-			#1While under the effects of Arcane Might, gain +4% magic critical strike chance
-
-			#2Automatically uses mana potions, 
-			#2with 75% of the restoration applied instantly and the remaining 25% recovered over 5 seconds.
-			#2If you take damage exceeding 80 points during this period, the restoration is interrupted, 
-			#2extending invincibility frames and briefly accelerating health regeneration.
-			#2"The tide of magic pulses through your veins..."
-
-			#3After consuming mana equivalent to 50% of your maximum mana, 
-			#3gain 4% Empowered Mania (stacks up to 5 times).
-
-			#4Effects of Mana Sickness and Mana Burn are halved.
-
-			#4Every 2 stacks of Empowered Mania grant 0.05% damage reduction.
-
-			#4Enhances health regeneration when hit while restoring mana.
-
-			#5Critical hits inflict the Soul Disarray debuff on the target.
-
-			#5Upon mana depletion, 
-			#5attacks switch from consuming mana to restoring mana for 6 seconds, 
-			#5while also applying the Mana Scorch debuff for 5 seconds. 
-			#5Taking damage during this period extends invincibility frames.
-
-			#6At full stacks of Manaflow, each mana depletion grants 
-			#6+1% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
 			''' */
+		/* Level1:
+			'''
+			Mana potions restore 10% more mana
+			While under the effects of Arcane Might, gain +4% magic critical strike chance
+			''' */
+		/* Level2:
+			'''
+			Automatically uses mana potions, with 75% of the restoration applied instantly.
+			The remaining 25% is recovered over 5 seconds.
+			If you take damage exceeding 80 points during this period, the restoration is interrupted,
+			extending invincibility frames and briefly accelerating health regeneration.
+			"The tide of magic pulses through your veins..."
+			''' */
+		/* Level3:
+			'''
+			After consuming mana equivalent to 50% of your maximum mana,
+			gain 4% Empowered Mania (stacks up to 5 times).
+			''' */
+		/* Level4:
+			'''
+			Effects of Mana Sickness and Mana Burn are halved.
+			Every 2 stacks of Empowered Mania grant 0.05% damage reduction.
+			Enhances health regeneration when hit while restoring mana.
+			''' */
+		/* Level5:
+			'''
+			Critical hits inflict the Soul Disarray debuff on the target.
+			Upon mana depletion, attacks switch from consuming mana to restoring mana for 6 seconds,
+			while also applying the Mana Scorch debuff for 5 seconds.
+			Taking damage during this period extends invincibility frames.
+			''' */
+		/* Level6:
+			'''
+			At full stacks of Manaflow, each mana depletion grants
+			+1% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
+			''' */
+		// Tooltip: ""
 	}
 
 	AzafureDetectionEquipment: {
@@ -2804,8 +2815,8 @@ Items: {
 		// DisplayName: Smart Scope
 		/* Tooltip:
 			'''
-			Press the middle mouse button to lock the enemy
-			When using firearms, the bullet must hit the target
+			Press the middle mouse button to lock onto a target.
+			After marking a target, all bullets will autocorrect to the chosen target.
 			''' */
 	}
 
