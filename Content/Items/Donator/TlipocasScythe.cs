@@ -659,15 +659,16 @@ namespace CalamityEntropy.Content.Items.Donator
             if (target.townNPC && target.life <= 0)
             {
                 SoundEngine.PlaySound(PerforatorHive.DeathSound, target.Center);
-                Item.NewItem(target.GetSource_Death(), target.getRect(), new Item(ItemID.SilverCoin, 10));
-                Item.NewItem(target.GetSource_Death(), target.getRect(), new Item(ModContent.ItemType<BloodOrb>(), 2));
+                var player = Projectile.GetOwner();
+                player.QuickSpawnItem(target.GetSource_Death(), new Item(ItemID.SilverCoin, 10), 10);
+                player.QuickSpawnItem(target.GetSource_Death(), new Item(ModContent.ItemType<BloodOrb>(), 2), 2);
                 if(NPC.downedPlantBoss)
                 {
-                    Item.NewItem(target.GetSource_Death(), target.getRect(), new Item(1508, 2));
+                    player.QuickSpawnItem(target.GetSource_Death(), new Item(1508, 2), 2);
                 }
                 if(NPC.downedMoonlord)
                 {
-                    Item.NewItem(target.GetSource_Death(), target.getRect(), new Item(ModContent.ItemType<Necroplasm>(), 2));
+                    player.QuickSpawnItem(target.GetSource_Death(), new Item(ModContent.ItemType<Necroplasm>(), 2), 2);
                 }
             }
             if (flagS)
