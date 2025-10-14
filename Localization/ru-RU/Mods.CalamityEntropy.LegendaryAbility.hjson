@@ -7,54 +7,131 @@ TlipocasScytheLegend: {
 	}
 
 	Ability: {
-		TScytheA1: ""
+		// TScytheA1: Hold Up and attack will push a certain distance towards the mouse direction
 		// TScytheA1B: Gain invincible time and deal damage to the targets you come into contact with
-		TScytheA2: ""
+		// TScytheA2: Press LMB to throw the scythe and causing multiple injuries
 		/* TScytheA2B:
 			'''
 			Press LMB when throwing to teleport to the mouse and launch a larger slash
 			This skill has a {0} second cooldown time.
 			''' */
-		TScytheA3: ""
-		TScytheA4: ""
-		TScytheA5: ""
-		TScytheA6: ""
-		TScytheA7: ""
-		TScytheA8: ""
-		TScytheA9: ""
+		/* TScytheA3:
+			'''
+			When throw out, press RMB to let the scythe follow your curser.
+			Stealth strikes will heal you with 15
+			''' */
+		/* TScytheA4:
+			'''
+			Teleport slash will empowerment your weapon with void in {0} seconds.
+			{1} increased damage while empowering
+			''' */
+		/* TScytheA5:
+			'''
+			Leave a shadow when teleport strike, the shadow will strike with you.
+			Slash dash will generate an additional slash perpendicular to the original sprint
+			Increase the healing value when steal strike.
+			''' */
+		// TScytheA6: Leave rift when slash dash. The rift will continuously causing harm
+		// TScytheA7: Resist a fatal injury and restore your health to half of your maximum health.Need 5 min to cooling
+		// TScytheA8: Attacks inflict void touch
+		// TScytheA9: The closer the distance to the target, the higher the damage dealt, with a maximum additional damage of 35%
 	}
 
 	Downed: {
-		TScytheU1: ""
+		// TScytheU1: Take down Eye of Cthulhu
 		// TScytheU1B: Take down Slimg God
-		TScytheU2: ""
+		// TScytheU2: Take down any evil boss
 		// TScytheU2B: Take down Brimstone Elemental
-		TScytheU3: ""
-		TScytheU4: ""
-		TScytheU5: ""
-		TScytheU6: ""
-		TScytheU7: ""
-		TScytheU8: ""
-		TScytheU9: ""
+		// TScytheU3: Take down Prophet
+		// TScytheU4: Take down Void Twins
+		// TScytheU5: Take down Polterghast
+		// TScytheU6: Take down Devourer of Gods
+		// TScytheU7: Take down Yharon
+		// TScytheU8: Take down Cruiser
+		// TScytheU9: Take down Supreme Witch
 	}
 
 	Dialog: {
-		TScytheDia1: ""
-		TScytheDia2: ""
-		TScytheDia3: ""
-		TScytheDia4: ""
-		TScytheDia5: ""
-		TScytheDia6: ""
-		TScytheDia7: ""
-		TScytheDia8: ""
-		TScytheDia9: ""
-		TScytheDia10: ""
-		TScytheDia11: ""
-		TScytheDia12: ""
-		TScytheDia13: ""
-		TScytheDia14: ""
-		TScytheDia15: ""
-		TScytheDia16: ""
+		/* TScytheDia1:
+			'''
+			The evil big eyes seem to have ill intentions towards we...
+			Let's go kill him!
+			''' */
+		/* TScytheDia2:
+			'''
+			Strange spirits resembling brains and worms?
+			Can I take it home to make a specimen？
+			''' */
+		/* TScytheDia3:
+			'''
+			Slime God? It looks sticky, dirty, and bubbling...
+			Shall we give it a bath？
+			''' */
+		/* TScytheDia4:
+			'''
+			A flesh and blood creation sealed with the spirit of the gods?
+			It seems that completing this task can bring a lot of souls...
+			''' */
+		/* TScytheDia5:
+			'''
+			Many souls are floating in the brimstone crag, howling in sorrow...
+			Continuously talking about a catastrophe from a hundred years ago...
+			Let's end their pain!
+			''' */
+		/* TScytheDia6:
+			'''
+			There is a terrifying red monster hovering in the night sky,
+			I can only feel madness from his soul. Or...Is that really a soul?
+			''' */
+		/* TScytheDia7:
+			'''
+			There're so much spirits in the dungeon...
+			Hey，there's a sealed spirit with strange scent.
+			I can't help but want to communicate with them!
+			''' */
+		/* TScytheDia8:
+			'''
+			How many strands of soul are attached to twisted flesh and blood? 
+			Some Disgusting, drive them back to their dreams!
+			''' */
+		/* TScytheDia9:
+			'''
+			These crazy cultists emit an aura similar to that prophet...
+			What are they worshiping? 
+			It feels like sending them to worship the Grim Reaper is a good idea.
+			''' */
+		// TScytheDia10: A huge, multi eyed octopus? Is this a monster that came out of a dream?
+		/* TScytheDia11:
+			'''
+			The faceless man wearing a purple cloak carried a lantern with a prophetic aura ..
+			I'm a little curious, I want to grab the lantern!
+			''' */
+		/* TScytheDia12:
+			'''
+			In the enchanted dungeon, these souls can never rest in peace.
+			It's so pitiful, let's take it away!
+			''' */
+		/* TScytheDia13:
+			'''
+			There is a purple serpent.
+			It want to devour the soul of we!
+			Don't even try this!
+			''' */
+		/* TScytheDia14:
+			'''
+			The strange lantern pointed towards this spatial fissure.
+			What will it bring?
+			''' */
+		/* TScytheDia15:
+			'''
+			A witch and a robot came to here，
+			Snatch their souls and my goal might be achieved！
+			''' */
+		/* TScytheDia16:
+			'''
+			The cultist asked us to use the discord wand in the abyss...
+			What will happen?
+			''' */
 		// TScytheDia17: Finally paid off the debt, the task was perfectly completed!
 	}
 
@@ -62,6 +139,6 @@ TlipocasScytheLegend: {
 }
 
 General: {
-	Locked: ""
+	// Locked: LOCKED
 	// PagesTips: Hold Left Alt to directly read the ability, press LMB to switch
 }
