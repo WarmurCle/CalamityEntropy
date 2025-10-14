@@ -1,39 +1,82 @@
-﻿[h1]This mod is an addon for CalamityMod[/h1]
+﻿[h1] Calamity Entropy Mod [/h1]
 
-[h2]-What we added-[/h2]
-4 new boss
-weapons
-Accessories
-new bossbar style
-Armor Prefixes
-some new pet
-Auric toilet that can sit
-Auric Boulder
+This mod is an expansion for the Calamity Mod, aiming to add more weapons and items to the Calamity progression, as well as new gameplay content.
 
-We will continue to add more new content in the future
+-This mod adds-
 
-[h2]-Credits-[/h2]
-Polaris: Leader, Code, Concept
-ChaLost: Sprite, Concept
-Serrat Antler: Sprite, Concept
-Ahirith: Sprite, Concept (Pets)
-JesterRomut: Sprite, Music (Title Theme), Code
-Special thanks to Hadrian (FRANCIUMKILLA) for making Cruiser & Prophet's theme
-TThanks to 鸡腿, Gel, 黑森林大蛇, 迷途, and myku for providing some textures (even though some of them have not been implemented yet).
-Thank you to all the donors for their support.
-Thanks to hocha113 for providing some code assistance.
+Four new bosses
 
+Unique weapons (including new weapon series for Warrior, Mage, and Rogue, as well as even more unique whips)
 
-Bug Reports: https://github.com/WarmurCle/CalamityEntropy/issues
+A large number of new accessories
 
-Discord Server: https://discord.com/invite/Mnmzd34Fda
+A new boss health bar style
 
-ChineseWiki：https://calentropy.miraheze.org
+A new armor reforging mechanic (optional)
 
-EnglishWiki：https://terrariamods.wiki.gg/wiki/Calamity_Entropy
+New pets
 
-Ko-Fi: https://ko-fi.com/calamity_entropy
+Vanity sets for the developers and their friends
 
-Try [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3161388997] Calamity Overhaul Mod [/url] too,We will have some interesting crossover content in the future.
+The Golden Genesis Toilet, which can be sat on or used to ascend
 
-Follow me on X: https://x.com/CLE581014192051
+The Void Toilet
+
+The Hallowed Genesis Monolith
+
+More new content will be added continuously in the future.
+
+[h1] Credits [/h1]
+
+Polaris: Lead Creator, Programmer, Concept Designer
+
+查诗络ChaLost: Co-Lead Creator, Spriter, Concept Designer
+
+冻结Ahirith: Spriter, Concept Designer (Pets)
+
+锯角Serrat Antler: Spriter, Concept Designer
+
+嘉登糖Jester Romut: Programmer, Spriter, Musician (Title Screen)
+
+雾梯: Spriter
+
+Badbf-海啸: Musician (The Void Twins)
+
+Oxygen：Spriter
+
+[h2] Special Thanks [/h2]
+
+Thanks to Hadrian (FRANCIUMKILLA) for composing the BGM for the Cruiser and the Prophet.
+
+Thanks to 鸡腿, 凝胶, 黑森林大蛇, 迷途, and myku for providing some sprites (although some of them have not yet been implemented).
+
+Thanks to all the donors for their support.
+Thanks to HoCha113 and Scarlet  for providing some coding assistance.
+
+[h1] Bug Reports & Discussion [/h1]
+
+Bug Reports: [https://github.com/WarmurCle/CalamityEntropy/issues](https://github.com/WarmurCle/CalamityEntropy/issues)
+
+Please provide logs or screenshots.
+
+[h1] Other [/h1]
+
+Also, try [url=[https://steamcommunity.com/sharedfiles/filedetails/?id=3161388997](https://steamcommunity.com/sharedfiles/filedetails/?id=3161388997)] Calamity Overhaul Mod [/url]! We will have many interesting collaborations in the future!
+
+Additionally, this mod adds a new health bar style. Bosses from vanilla, Calamity, and most Calamity add-ons have their own exclusive health bar colors.
+
+This mod can be enabled with most other Calamity add-ons without major issues.
+
+Official Calamity Entropy Discord Server: [https://discord.com/invite/Mnmzd34Fda](https://discord.com/invite/Mnmzd34Fda)
+
+Official Calamity Entropy QQ Group: 1016738628. Here you can contact the developers and join the discussion.
+
+The lead creator's Bilibili channel, where you can watch showcase videos of this mod: [https://space.bilibili.com/2143774956](https://space.bilibili.com/2143774956)
+
+Chinese Wiki: [https://calentropy.miraheze.org](https://calentropy.miraheze.org)
+
+English Wiki: [https://terrariamods.wiki.gg/wiki/Calamity_Entropy](https://terrariamods.wiki.gg/wiki/Calamity_Entropy)
+
+The wikis are still being updated and improved. Any help with text, maintenance, or layout optimization is welcome!
+
+Follow my Twitter: [https://x.com/CLE581014192051](https://x.com/CLE581014192051)

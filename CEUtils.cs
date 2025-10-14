@@ -5,7 +5,6 @@ using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.UI;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -18,6 +17,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -49,7 +49,7 @@ namespace CalamityEntropy
         }
         public static bool CheckChestDestroy(Player player, int i, int j)
         {
-            if(Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 ModPacket mp = CalamityEntropy.Instance.GetPacket();
                 mp.Write((byte)CEMessageType.DestroyChest);
@@ -78,7 +78,7 @@ namespace CalamityEntropy
                 if (!chest.item[k].IsAir)
                     SpawnTileBreakItem(i, j, ref chest.item[k], "ChestBroken");
             TryKillTile(i, j, player);
-            if(Main.dedServ)
+            if (Main.dedServ)
             {
                 NetMessage.SendTileSquare(-1, i, j);
             }
@@ -1242,5 +1242,209 @@ namespace CalamityEntropy
                 txc += 1;
             }
         }
+        #region Localization
+        public static string LocalPrefix => "Mods.CalamityEntropy";
+        /// <summary>
+        /// 干翻所有Tooltip，并借助本地化完全重写一次
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="replacedTextPath"></param>
+        public static void FuckThisTooltipAndReplace(this List<TooltipLine> tooltips, string replacedTextPath)
+        {
+            tooltips.RemoveAll((line) => line.Mod == "Terraria" && line.Name != "Tooltip0" && line.Name.StartsWith("Tooltip"));
+            TooltipLine getTooltip = tooltips.FirstOrDefault((x) => x.Name == "Tooltip0" && x.Mod == "Terraria");
+            if (getTooltip is not null)
+                getTooltip.Text = Language.GetTextValue(replacedTextPath);
+        }
+        /// <summary>
+        /// 干翻所有Tooltip，并借助本地化完全重写一次，附带键入值
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="replacedTextPath"></param>
+        /// <param name="args"></param>
+        public static void FuckThisTooltipAndReplace(this List<TooltipLine> tooltips, string replacedTextPath, params object[] args)
+        {
+            tooltips.RemoveAll((line) => line.Mod == "Terraria" && line.Name != "Tooltip0" && line.Name.StartsWith("Tooltip"));
+            TooltipLine getTooltip = tooltips.FirstOrDefault((x) => x.Name == "Tooltip0" && x.Mod == "Terraria");
+            string formateText = replacedTextPath.ToLangValue().ToFormatValue(args);
+            if (getTooltip is not null)
+                getTooltip.Text = formateText;
+        }
+        /// <summary>
+        /// 从最后一行Tooltip后插入值，需填入本地化路径
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="textPath"></param>
+        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
+        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
+        public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Mod mod = null, string LineName = "CEMod")
+        {
+            string text = textPath.ToLangValue();
+            Mod tooltipMod = mod ?? CalamityEntropy.Instance;
+            var newLine = new TooltipLine(tooltipMod, LineName, text)
+            {
+                OverrideColor = tooltips.Count > 0 ? tooltips[^1].OverrideColor : Color.White
+            };
+            if (tooltips.Count is 0)
+                tooltips.Add(newLine);
+            else
+                tooltips.Insert(tooltips.Count, newLine);
+        }
+        /// <summary>
+        /// 从最后一行Tooltip后插入值，需填入本地化路径，重载传参方法
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="textPath"></param>
+        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
+        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
+        public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Mod mod = null , string LineName = "CEMod", params object[] args)
+        {
+            string text = textPath.ToLangValue().ToFormatValue(args);
+            Mod tooltipMod = mod ?? CalamityEntropy.Instance;
+            var newLine = new TooltipLine(tooltipMod, LineName, text)
+            {
+                OverrideColor = tooltips.Count > 0 ? tooltips[^1].OverrideColor : Color.White
+            };
+            if (tooltips.Count is 0)
+                tooltips.Add(newLine);
+            else
+                tooltips.Insert(tooltips.Count, newLine);
+        }
+        /// <summary>
+        /// 从最后一行Tooltip后插入值，需填入本地化路径，重载颜色代码
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="textPath"></param>
+        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
+        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
+        public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Color color, Mod mod = null, string LineName = "CEMod")
+        {
+            string text = textPath.ToLangValue();
+            Mod tooltipMod = mod ?? CalamityEntropy.Instance;
+            var newLine = new TooltipLine(tooltipMod, LineName, text)
+            {
+                OverrideColor = color
+            };
+            if (tooltips.Count is 0)
+                tooltips.Add(newLine);
+            else
+                tooltips.Insert(tooltips.Count, newLine);
+        }
+        /// <summary>
+        /// 从最后一行Tooltip后插入值，需填入本地化路径，重载传参方法，颜色代码
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="textPath"></param>
+        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
+        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
+        public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Color color, Mod mod = null, string LineName = "CEMod", params object[] args)
+        {
+            string text = textPath.ToLangValue().ToFormatValue(args);
+            Mod tooltipMod = mod ?? CalamityEntropy.Instance;
+            var newLine = new TooltipLine(tooltipMod, LineName, text)
+            {
+                OverrideColor = color
+            };
+            if (tooltips.Count is 0)
+                tooltips.Add(newLine);
+            else
+                tooltips.Insert(tooltips.Count, newLine);
+        }
+        /// <summary>
+        /// 从最后一行Tooltip后插入值，需直接传入需要的文本内容而不是对应的本地化路径
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="textValue"></param>
+        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
+        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
+        public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Mod mod = null, string LineName = "CEMod")
+        {
+            Mod tooltipMod = mod ?? CalamityEntropy.Instance;
+            var newLine = new TooltipLine(tooltipMod, LineName, textValue)
+            {
+                OverrideColor = tooltips.Count > 0 ? tooltips[^1].OverrideColor : Color.White
+            };
+            if (tooltips.Count is 0)
+                tooltips.Add(newLine);
+            else
+                tooltips.Insert(tooltips.Count, newLine);
+        }
+        /// <summary>
+        /// 从最后一行Tooltip后插入值，需直接传入需要的文本内容而不是对应的本地化路径，重载传参方法
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="textValue"></param>
+        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
+        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
+        public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Mod mod = null, string LineName = "CEMod", params object[] args)
+        {
+            string text = textValue.ToFormatValue(args);
+            Mod tooltipMod = mod ?? CalamityEntropy.Instance;
+            var newLine = new TooltipLine(tooltipMod, LineName, text)
+            {
+                OverrideColor = tooltips.Count > 0 ? tooltips[^1].OverrideColor : Color.White
+            };
+            if (tooltips.Count is 0)
+                tooltips.Add(newLine);
+            else
+                tooltips.Insert(tooltips.Count, newLine);
+        }
+        /// <summary>
+        /// 从最后一行Tooltip后插入值，需直接传入需要的文本内容而不是对应的本地化路径，重载颜色代码
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="textValue">文本内容</param>
+        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
+        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
+        public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Color color, Mod mod = null, string LineName = "CEMod")
+        {
+            string text = textValue.ToLangValue();
+            Mod tooltipMod = mod ?? CalamityEntropy.Instance;
+            var newLine = new TooltipLine(tooltipMod, LineName, text)
+            {
+                OverrideColor = color
+            };
+            if (tooltips.Count is 0)
+                tooltips.Add(newLine);
+            else
+                tooltips.Insert(tooltips.Count, newLine);
+        }
+        /// <summary>
+        /// 从最后一行Tooltip后插入值，需直接传入需要的文本内容而不是对应的本地化路径，需直接传入需要的文本内容而不是对应的本地化路径，重载传参方法，颜色代码
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="textValue">文本内容</param>
+        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
+        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
+        public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Color color, Mod mod = null,string LineName = "CEMod", params object[] args)
+        {
+            string text = textValue.ToFormatValue(args);
+            Mod tooltipMod = mod ?? CalamityEntropy.Instance;
+            var newLine = new TooltipLine(tooltipMod, LineName, text)
+            {
+                OverrideColor = color
+            };
+            if (tooltips.Count is 0)
+                tooltips.Add(newLine);
+            else
+                tooltips.Insert(tooltips.Count, newLine);
+        }
+        public static string ToHexColor(this Color color) => $"{color.R:X2}{color.G:X2}{color.B:X2}";
+
+        public static string ToLangValue(this string textPath) => Language.GetTextValue(textPath);
+
+        public static string ToFormatValue(this string baseTextValue, params object[] args)
+        {
+            try
+            {
+                return string.Format(baseTextValue, args);
+            }
+            catch
+            {
+                return baseTextValue + "格式化出错";
+            }
+        }
+        #endregion
+
     }
 }

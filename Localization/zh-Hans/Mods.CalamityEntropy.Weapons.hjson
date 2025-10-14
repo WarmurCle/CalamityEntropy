@@ -1,0 +1,37 @@
+Rogue: {
+	HammerGeneral:
+		'''
+		无需盗贼套装也能进行潜伏攻击
+		少于10点潜伏值时提供10点潜伏值上限
+		'''
+
+	Gods: {
+		DisplayName: 双联神锤
+		Tooltip:
+			'''
+			投掷强大的星系之锤，命中敌人时释放星云射线
+			潜伏攻击时，掷出一个超高速的神明之锤，返程时释放星云射线
+			撞击敌人后分裂成两个子锤，子锤在一定时间后发起挂载，挂载结束时返程至玩家手上后回击
+			'''
+	}
+
+	Final: {
+		// Tooltip: ""
+		// DisplayName: Final
+	}
+
+	Hallowed: {
+		// DisplayName: Hallowed
+		// Tooltip: ""
+	}
+
+	Lunar: {
+		// DisplayName: Lunar
+		// Tooltip: ""
+	}
+
+	Paladin: {
+		// DisplayName: Paladin
+		// Tooltip: ""
+	}
+}

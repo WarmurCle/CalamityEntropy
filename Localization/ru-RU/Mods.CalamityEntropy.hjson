@@ -3459,6 +3459,8 @@ Projectiles: {
 	// HowlingBullet.DisplayName: Howling Bullet
 	// HowlingLaser.DisplayName: Howling Laser
 	// FractalStarblight.DisplayName: Fractal Starblight
+	// HexController.DisplayName: Hex Controller
+	// HexVertex.DisplayName: Hex Vertex
 }
 
 LegendTooltip: - Легенда -
@@ -4572,3 +4574,21 @@ Biomes: {
 // LMDialog17: I don't want your garbage.
 // LMDialog18: What is this? You need a coin!
 // NowLV: Level
+
+Test: {
+	Proj: {
+		// FinalEchoProj.DisplayName: Final Echo Proj
+		// FinalEchoProjMini.DisplayName: Final Echo Proj Mini
+		// FinalEchoProjSmall.DisplayName: Final Echo Proj Small
+		// PurpleBeam.DisplayName: Purple Beam
+		// PhantasmalHammer.DisplayName: Phantasmal Hammer
+	}
+
+	Projs: {
+		// FinalProj.DisplayName: Final Proj
+		// GodsProj.DisplayName: Gods Proj
+		// HallowedProj.DisplayName: Hallowed Proj
+		// LunarProj.DisplayName: Lunar Proj
+		// PaladinProj.DisplayName: Paladin Proj
+	}
+}

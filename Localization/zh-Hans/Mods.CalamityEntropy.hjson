@@ -3691,6 +3691,8 @@ Projectiles: {
 	HowlingBullet.DisplayName: 哀嚎魂弹
 	HowlingLaser.DisplayName: 哀嚎死光
 	// FractalStarblight.DisplayName: Fractal Starblight
+	// HexController.DisplayName: Hex Controller
+	// HexVertex.DisplayName: Hex Vertex
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4770,3 +4772,21 @@ LMDialog16: 你难道没看到那个[NAME]吗？可真是不知死活
 LMDialog17: 我不收垃圾，谢谢
 LMDialog18: 你塞的是什么东西？
 NowLV: 当前等级
+
+Test: {
+	Proj: {
+		// FinalEchoProj.DisplayName: Final Echo Proj
+		// FinalEchoProjMini.DisplayName: Final Echo Proj Mini
+		// FinalEchoProjSmall.DisplayName: Final Echo Proj Small
+		// PurpleBeam.DisplayName: Purple Beam
+		// PhantasmalHammer.DisplayName: Phantasmal Hammer
+	}
+
+	Projs: {
+		// FinalProj.DisplayName: Final Proj
+		// GodsProj.DisplayName: Gods Proj
+		// HallowedProj.DisplayName: Hallowed Proj
+		// LunarProj.DisplayName: Lunar Proj
+		// PaladinProj.DisplayName: Paladin Proj
+	}
+}

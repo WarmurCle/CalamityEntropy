@@ -9,8 +9,6 @@ namespace CalamityEntropy.Content.Items
 {
     public class VoidBar : ModItem
     {
-
-
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 25;
@@ -19,8 +17,6 @@ namespace CalamityEntropy.Content.Items
             ItemID.Sets.ItemNoGravity[Item.type] = true;
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(5, 8));
         }
-
-
         public override void SetDefaults()
         {
             Item.DefaultToPlaceableTile(ModContent.TileType<VoidBarTile>());
