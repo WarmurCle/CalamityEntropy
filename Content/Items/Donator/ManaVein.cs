@@ -9,6 +9,5 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Main.buffNoSave[Type] = false;
         }
-
     }
 }

@@ -1,0 +1,28 @@
+Rogue: {
+	HammerGeneral: ""
+
+	Gods: {
+		DisplayName: Gods
+		Tooltip: ""
+	}
+
+	Final: {
+		Tooltip: ""
+		DisplayName: Final
+	}
+
+	Hallowed: {
+		DisplayName: Hallowed
+		Tooltip: ""
+	}
+
+	Lunar: {
+		DisplayName: Lunar
+		Tooltip: ""
+	}
+
+	Paladin: {
+		DisplayName: Paladin
+		Tooltip: ""
+	}
+}

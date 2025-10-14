@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
@@ -10,25 +11,22 @@ using CalamityMod.Items;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs.Perforator;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Microsoft.Xna.Framework.Input;
-using Mono.Cecil;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection.Metadata;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
-using static Terraria.GameContent.Animations.IL_Actions.Sprites;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
@@ -50,7 +48,7 @@ namespace CalamityEntropy.Content.Items.Donator
             int Level = 0;
             bool flag = true;
             void Check(bool f)
-            {
+            {   
                 if (f && flag)
                 {
                     Level++;
@@ -60,7 +58,6 @@ namespace CalamityEntropy.Content.Items.Donator
                     flag = false;
                 }
             }
-
             //16
             Check(NPC.downedBoss1);
             Check(NPC.downedBoss2 || DownedBossSystem.downedPerforator || DownedBossSystem.downedHiveMind);
@@ -78,79 +75,289 @@ namespace CalamityEntropy.Content.Items.Donator
             Check(EDownedBosses.downedCruiser);
             Check(DownedBossSystem.downedCalamitas && DownedBossSystem.downedExoMechs);
             Check(DownedBossSystem.downedPrimordialWyrm);
-
             return Level;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Description", Mod.GetLocalization(Main.zenithWorld ? "TScytheZenithDesc" : "TScytheDesc").Value) { OverrideColor = Color.Crimson });
             
+            tooltips.Add(new TooltipLine(Mod, "Description", Mod.GetLocalization(Main.zenithWorld ? "TScytheZenithDesc" : "TScytheDesc").Value) { OverrideColor = Color.Crimson });
+            bool holdAlt = Keyboard.GetState().IsKeyDown(Keys.LeftAlt);
+            bool holdShift = Keyboard.GetState().IsKeyDown(Keys.LeftShift);
+            
+            //这里的tooltip染色处理都是用[c/16进制颜色：]的
+            #region 路径
+            string pathPrefix = $"{CEUtils.LocalPrefix}.LegendaryAbility.";
+            string lockedPath = pathPrefix + "General.Locked";
+            //武器路径
+            string pathBase = pathPrefix + $"{GetType().Name}Legend.";
+            string pathLore = pathBase + "Dialog.TScytheDia";
+            string pathAbility = pathBase + "Ability.TScytheA";
+            string pathCondition = pathBase + "Downed.TScytheU";
+            #endregion
+            //从方法列表中获取被手动分类过的能力Tooltip
+            string throwTooltip = AbilityThrowDesc(pathAbility, pathCondition, lockedPath);
+            string teleportTooltip = AbilityTeleportDesc(pathAbility, pathCondition, lockedPath);
+            string dashTooltip = AbilityDashDesc(pathAbility, pathCondition, lockedPath);
+            string statTooltip = AbilityStat(pathAbility, pathCondition, lockedPath);
+
+            bool isNeither = !holdShift && !holdAlt;
+            bool shouldDrawHoldshift = !holdAlt && holdShift;
+            bool shouldDrawPages = !holdShift && holdAlt;
+
+            bool shouldDrawPagesTips = isNeither || shouldDrawHoldshift;
+            bool shouldDrawHoldShiftTips = isNeither || shouldDrawPages;
+            bool isBoth = holdShift && holdAlt;
+            //显示按住左shift的能力文本
+            //我没有动原本的逻辑，只是为了处理翻页我才大幅度重写了这里的tooltip。如果有需求的话也可以直接把上方的能力列表全部组合起来变成按住左shift的文本
+            if (shouldDrawHoldshift)
+                HandleHoldShift(tooltips);
+            //显示按住左alt的能力文本
+            if (shouldDrawPages)
+                HandleSwapAbility(tooltips, throwTooltip, teleportTooltip, dashTooltip, statTooltip);
+            //显示按住左alt的提醒文本，或者两个一起按了
+            if (shouldDrawPagesTips || isBoth)
+                tooltips.QuickAddTooltip($"{pathPrefix}General.PagesTips", Color.Yellow, LineName: "PagesMoreInfo");
+            //显示按住左shift的提醒文本
+            if (shouldDrawHoldShiftTips || isBoth)
+                tooltips.QuickAddTooltipDirect(Mod.GetLocalization("PressShiftForMoreInfo").Value, Color.Yellow, LineName: "ShiftMoreInfo");
+
+            HandleLoreAndLevel(tooltips, pathLore);
+        }
+
+        private void HandleHoldShift(List<TooltipLine> tooltips)
+        {
             string Get(string key)
             {
                 return Mod.GetLocalization(key).Value;
             }
-            if(Keyboard.GetState().IsKeyDown(Keys.LeftShift))
-            {
-                bool flag = NPC.downedBoss1;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc",
-                    Get("TSA1") + (flag ? "" : Get("LOCKED") + " " + Get("TSU1")))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            bool flag = NPC.downedBoss1;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA1") + (flag ? "" : Get("LOCKED") + " " + Get("TSU1")))
+            { OverrideColor = flag ? Color.Yellow : Color.Gray });
 
-                flag = DownedBossSystem.downedSlimeGod;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc", Get("TSA1B"))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            flag = DownedBossSystem.downedSlimeGod;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc", Get("TSA1B"))
+            { OverrideColor = flag ? Color.Yellow : Color.Gray });
 
-                flag = AllowThrow();
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc",
-                    Get("TSA2") + (flag ? "" : Get("LOCKED") + " " + Get("TSU2")))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            flag = AllowThrow();
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA2") + (flag ? "" : Get("LOCKED") + " " + Get("TSU2")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-                flag = DownedBossSystem.downedBrimstoneElemental;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc", Get("TSA2B"))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            flag = DownedBossSystem.downedBrimstoneElemental;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc", Get("TSA2B"))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-                flag = EDownedBosses.downedProphet;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc",
-                    Get("TSA3") + (flag ? "" : Get("LOCKED") + " " + Get("TSU3")))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            flag = EDownedBosses.downedProphet;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA3") + (flag ? "" : Get("LOCKED") + " " + Get("TSU3")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-                flag = EDownedBosses.downedProphet;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc",
-                    Get("TSA4") + (flag ? "" : Get("LOCKED") + " " + Get("TSU4")))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            flag = EDownedBosses.downedProphet;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA4") + (flag ? "" : Get("LOCKED") + " " + Get("TSU4")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-                flag = EDownedBosses.downedNihilityTwin;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc",
-                    Get("TSA5") + (flag ? "" : Get("LOCKED") + " " + Get("TSU5")))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            flag = EDownedBosses.downedNihilityTwin;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA5") + (flag ? "" : Get("LOCKED") + " " + Get("TSU5")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-                flag = DownedBossSystem.downedDoG;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc",
-                    Get("TSA6") + (flag ? "" : Get("LOCKED") + " " + Get("TSU6")))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            flag = DownedBossSystem.downedDoG;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA6") + (flag ? "" : Get("LOCKED") + " " + Get("TSU6")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-                flag = DownedBossSystem.downedYharon;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc",
-                    Get("TSA7") + (flag ? "" : Get("LOCKED") + " " + Get("TSU7")))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            flag = DownedBossSystem.downedYharon;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA7") + (flag ? "" : Get("LOCKED") + " " + Get("TSU7")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-                flag = EDownedBosses.downedCruiser;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc",
-                    Get("TSA8") + (flag ? "" : Get("LOCKED") + " " + Get("TSU8")))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
+            flag = EDownedBosses.downedCruiser;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA8") + (flag ? "" : Get("LOCKED") + " " + Get("TSU8")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-                flag = DownedBossSystem.downedCalamitas;
-                tooltips.Add(new TooltipLine(Mod, "Ability Desc",
-                    Get("TSA9") + (flag ? "" : Get("LOCKED") + " " + Get("TSU9")))
-                { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
-            }
-            else
-            {
-                tooltips.Add(new TooltipLine(Mod, "ShiftMoreInfo", Mod.GetLocalization("PressShiftForMoreInfo").Value) { OverrideColor = Color.Yellow});
-            }
-            tooltips.Add(new TooltipLine(Mod, "NextGoal", Mod.GetLocalization(GetLevel() == 16 ? "TSLEnd" : ("TSL" + (GetLevel() + 1).ToString())).Value) { OverrideColor = Color.HotPink });
-            tooltips.Add(new TooltipLine(Mod, "NowLV", Mod.GetLocalization("NowLV").Value + " - " + GetLevel().ToString() + "/16") { OverrideColor = Color.Yellow });
+            flag = DownedBossSystem.downedCalamitas;
+            tooltips.Add(new TooltipLine(Mod, "Ability Desc",
+                Get("TSA9") + (flag ? "" : Get("LOCKED") + " " + Get("TSU9")))
+            { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
         }
+        #region Lore，与等级
+        private void HandleLoreAndLevel(List<TooltipLine> tooltips, string pathLore)
+        {
+            int LoreLevel = Math.Clamp(GetLevel() + 1, 1, 17);
+            string curLore = pathLore + LoreLevel.ToString();
+            tooltips.QuickAddTooltip(curLore, Color.HotPink);
+            //等级信息。
+            string curLevel = Mod.GetLocalization("NowLV").Value + " - " + GetLevel() + "/16";
+            TooltipLine levelTooltip = new(Mod, "CurLevel", curLevel) { OverrideColor = Color.Yellow };
+            tooltips.Add(levelTooltip);
+        }
+        #endregion
+        #region 文本翻页
+        private void HandleSwapAbility(List<TooltipLine> tooltips, string throwTooltip, string teleportTooltip, string dashTooltip, string statTooltip)
+        {
+            //切换选择
+            string selectedOne;
+            selectedOne = SelectedDesc switch
+            {
+                AbilityDescSelect.Throw => throwTooltip,
+                AbilityDescSelect.Dash => dashTooltip,
+                AbilityDescSelect.Teleport => teleportTooltip,
+                _ => statTooltip,
+            };
+            //重写原版的“Tooltip”内容。
+            //其实也不用重写，草，加一行就行了
+            tooltips.QuickAddTooltipDirect(selectedOne);
+        }
+        
+        //投掷能力
+        private string AbilityThrowDesc(string pathAbility, string pathCondition, string lockedPath)
+        {
+            //获取能力标题，并转化为文本值
+            string titleText = $"{CEUtils.LocalPrefix}.LegendaryAbility.{GetType().Name}Legend.Conditions.ThrowTitle".ToLangValue();
+            string lockedValue = lockedPath.ToLangValue();
+            //任意邪恶boss后 - 基本投掷
+            string baseThrowText = $"{pathAbility}2".ToLangValue();
+            string downedEvilText = $"{lockedValue} {$"{pathCondition}2".ToLangValue()}";
+            bool downedAnyEvil = NPC.downedBoss2 || DownedBossSystem.downedPerforator || DownedBossSystem.downedHiveMind;
+            //先知后 - 投掷按左键
+            string pressThrowText = $"{pathAbility}3".ToLangValue();
+            string downedProphetText = $"{lockedValue} {$"{pathCondition}3".ToLangValue()}";
+            //进入判定区，全部组合完毕后，再使用标准符进行染色
+            //能力锁定时，组合(锁定文本 +  能力文本)后染色并返回，实际文本将会为：[c/16进制颜色：总文本内容]，即进行了格式化字符串而非常规的复写颜色，下同
+            baseThrowText = downedAnyEvil ? DyeText(baseThrowText, Color.Yellow) : DyeText(downedEvilText + "\n" + baseThrowText, Color.Gray);
+            pressThrowText = EDownedBosses.downedProphet ? DyeText(pressThrowText, Color.Yellow) : DyeText(downedProphetText + "\n" + pressThrowText, Color.Gray);
+            //处理封存 - 邪恶boss
+            //最后组合： 标题 + 上述已经组合起来的能力文本 + 多个换行符
+            string combination = DyeText(titleText, Color.Crimson)
+                               + "\n" + baseThrowText
+                               + "\n" + pressThrowText;
+            return combination;
+        }
+        
+        //传送能力
+        private string AbilityTeleportDesc(string pathAbility, string pathCondition, string lockedPath)
+        {
+            //获取能力标题，并转化为文本值
+            string titleText = $"{CEUtils.LocalPrefix}.LegendaryAbility.{GetType().Name}Legend.Conditions.TeleportTitle".ToLangValue();
+            string lockedValue = lockedPath.ToLangValue();
+            //传送斩击启用
+            int cd = EDownedBosses.downedCruiser ? 10 : 15;
+            string allowTeleportSlice = $"{pathAbility}2B".ToLangValue();
+            //格式化
+            allowTeleportSlice = allowTeleportSlice.ToFormatValue(cd);
+            string downedBrimmyText = $"{lockedValue} {$"{pathCondition}2B".ToLangValue()})";
+            
+            //传送斩击附魔
+            int voidBuffTime = EDownedBosses.downedCruiser ? 30 : 15;
+            string enchanted = $"{pathAbility}4".ToLangValue();
+            enchanted = enchanted.ToFormatValue(voidBuffTime.ToString(), "25%");
+            string downedPolterText = $"{lockedValue} {$"{pathCondition}5".ToLangValue()})";
+
+            //进入判定区，全部组合完毕后，再使用标准符进行染色
+            //能力锁定时，组合(锁定文本 +  能力文本)后染色并返回，实际文本将会为：[c/16进制颜色：总文本内容]，即进行了格式化字符串而非常规的复写颜色，下同
+            allowTeleportSlice = NPC.downedBoss1 ? DyeText(allowTeleportSlice, Color.Yellow) : DyeText(downedBrimmyText + "\n" + allowTeleportSlice, Color.Gray);
+            enchanted = DownedBossSystem.downedDoG ? DyeText(enchanted, Color.Yellow) : DyeText(downedPolterText + "\n" + enchanted, Color.Gray);
+
+            //最后组合： 标题 + 上述已经组合起来的能力文本 + 多个换行符
+            string combination = DyeText(titleText, Color.Crimson)
+                               + "\n" + allowTeleportSlice
+                               + "\n" + enchanted;
+            return combination;
+        }
+        //突刺能力
+        private string AbilityDashDesc(string pathAbility, string pathCondition, string lockedPath)
+        {
+            //获取能力标题，并转化为文本值
+            string titleText = $"{CEUtils.LocalPrefix}.LegendaryAbility.{GetType().Name}Legend.Conditions.DashTitle".ToLangValue();
+            string lockedValue = lockedPath.ToLangValue();
+            string allowDashText = $"{pathAbility}1".ToLangValue();
+            //启用冲刺
+            string downedEoCText = $"{lockedValue} {$"{pathCondition}1".ToLangValue()})";
+            //冲刺滞留裂缝
+            string tearDashText = $"{pathAbility}5".ToLangValue();
+            string downedDoGText = $"{lockedValue} {$"{pathCondition}6".ToLangValue()})";
+
+            //进入判定区，全部组合完毕后，再使用标准符进行染色
+            //能力锁定时，组合(锁定文本 +  能力文本)后染色并返回，实际文本将会为：[c/16进制颜色：总文本内容]，即进行了格式化字符串而非常规的复写颜色，下同
+            allowDashText = NPC.downedBoss1 ? DyeText(allowDashText, Color.Yellow) : DyeText(downedEoCText + "\n" + allowDashText, Color.Gray);
+            tearDashText = DownedBossSystem.downedDoG ? DyeText(tearDashText, Color.Yellow) : DyeText(downedDoGText + "\n" + tearDashText, Color.Gray);
+
+            //最后组合： 标题 + 上述已经组合起来的能力文本 + 多个换行符
+            string combination = DyeText(titleText, Color.Crimson)
+                               + "\n" + allowDashText
+                               + "\n" + tearDashText;
+            return combination;
+        }
+
+        //数值能力
+        private string AbilityStat(string pathAbility, string pathCondition, string lockedPath)
+        {
+            //获取能力标题，并转化为文本值，染色。
+            string titleText = $"{CEUtils.LocalPrefix}.LegendaryAbility.{GetType().Name}Legend.Conditions.StatTitle".ToLangValue();
+            string lockedValue = lockedPath.ToLangValue();
+
+            //突刺时给予无敌，造成伤害 - 史莱姆神
+            string invinciDashText = $"{pathAbility}1B".ToLangValue();
+            string downedSGLocked = $"{lockedValue} {$"{pathCondition}1B".ToLangValue()}";
+            //自活 - 龙
+            string selfReviveText = $"{pathAbility}7".ToLangValue();
+            string dowendYharonLocked= $"{lockedValue} {$"{pathCondition}7".ToLangValue()}";
+            //虚空触 - 巡游
+            string voidTouchText = $"{pathAbility}8".ToLangValue();
+            string downedPurpleWormLocked = $"{lockedValue} {$"{pathCondition}8".ToLangValue()}";
+            //近程伤害 - 终灾
+            string closeDamageText = $"{pathAbility}9".ToLangValue();
+            string dowendScalLocked = $"{lockedValue} {$"{pathCondition}9".ToLangValue()}";
+            
+            //进入判定区，全部组合完毕后，再使用标准符进行染色
+            //能力锁定时，组合(锁定文本 +  能力文本)后染色并返回，实际文本将会为：[c/16进制颜色：总文本内容]，即进行了格式化字符串而非常规的复写颜色，下同
+            invinciDashText = DownedBossSystem.downedSlimeGod ? DyeText(invinciDashText, Color.Yellow) : DyeText(downedSGLocked + "\n" + invinciDashText, Color.Gray);
+            selfReviveText = DownedBossSystem.downedYharon ? DyeText(selfReviveText, Color.Yellow) : DyeText(dowendYharonLocked + "\n" + selfReviveText, Color.Gray);
+            voidTouchText = EDownedBosses.downedCruiser ? DyeText(voidTouchText, Color.Yellow) : DyeText(downedPurpleWormLocked + "\n" + voidTouchText, Color.Gray);
+            closeDamageText = DownedBossSystem.downedCalamitas ? DyeText(closeDamageText, Color.Yellow) : DyeText(dowendScalLocked + "\n" + closeDamageText, Color.Gray);
+
+            //最后组合： 标题 + 上述已经组合起来的能力文本 + 多个换行符
+            string combination = DyeText(titleText, Color.Crimson)
+                               + "\n" + invinciDashText
+                               + "\n" + selfReviveText
+                               + "\n" + voidTouchText
+                               + "\n" + closeDamageText;
+            return combination;
+        }
+        private static string DyeText(string textValue, Color color)
+        {
+            string colorValue =  $"{color.R:X2}{color.G:X2}{color.B:X2}";
+            //处理染色换行
+            string[] lines = textValue.Split(['\n'], StringSplitOptions.None);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                lines[i] = $"[c/{colorValue}:{lines[i]}]";
+            }
+            string realValue = string.Join("\n", lines);
+            return realValue;
+        }
+        //枚举
+        private enum AbilityDescSelect
+        {
+            Stat,
+            Throw,
+            Dash,
+            Teleport
+        }
+        private AbilityDescSelect SelectedDesc = AbilityDescSelect.Stat;
+        //右键切换物品描述需要的东西
+        public override bool CanRightClick() => Keyboard.GetState().IsKeyDown(Keys.LeftAlt);
+        public override bool ConsumeItem(Player player) => false;
+        public override void RightClick(Player player)
+        {
+            SelectedDesc++;
+            if ((int)SelectedDesc % 4 is 0)
+                SelectedDesc = AbilityDescSelect.Stat;
+        }
+        #endregion
         public override void UpdateInventory(Player player)
         {
             int dmg = 20;
@@ -176,7 +383,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 case 16: dmg = 3000;  break;
             }
             Item.damage = dmg;
-            if(player.name.ToLower() == "tlipoca")
+            if(player.name.ToLower() is "tlipoca")
             {
                 Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
             }
@@ -225,33 +432,24 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public int swing = 0;
         public static int throwType = -1;
-        public override bool AllowPrefix(int pre)
-        {
-            return false;
-        }
-        
-        public static bool AllowDash() { return NPC.downedBoss1; }
-        public static bool DashImmune() { return DownedBossSystem.downedSlimeGod; }
-        public static bool AllowThrow() { return NPC.downedBoss2 || DownedBossSystem.downedPerforator || DownedBossSystem.downedHiveMind; }
-        public static bool AllowSpin() { return EDownedBosses.downedProphet; }
-        public static bool DashUpgrade() { return DownedBossSystem.downedSignus; }
-        public static bool AllowRevive() { return DownedBossSystem.downedYharon; }
-        public static bool AllowVoidEmpowerment() { return EDownedBosses.downedNihilityTwin; }
-        public override bool AltFunctionUse(Player player)
-        {
-            if (AllowThrow())
-            {
-                return true;
-            }
-            return false;
-        }
+        public override bool AllowPrefix(int pre) => false;
+
+        public static bool AllowDash() => NPC.downedBoss1;
+        public static bool DashImmune() => DownedBossSystem.downedSlimeGod;
+        public static bool AllowThrow() => NPC.downedBoss2 || DownedBossSystem.downedPerforator || DownedBossSystem.downedHiveMind;
+        public static bool AllowSpin() => EDownedBosses.downedProphet;
+        public static bool DashUpgrade() => DownedBossSystem.downedSignus;
+        public static bool AllowRevive() => DownedBossSystem.downedYharon;
+        public static bool AllowVoidEmpowerment() => EDownedBosses.downedNihilityTwin;
+        public override bool AltFunctionUse(Player player) => AllowThrow();
         
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if(player.HasBuff<VoidEmpowerment>())
+            if (player.HasBuff<VoidEmpowerment>())
             {
                 damage = (int)(damage * 1.25f);
             }
+            
             if (player.altFunctionUse == 2)
             {
                 velocity *= 0.46f;

@@ -1,0 +1,1501 @@
+Items: {
+	VoidBlade: {
+	}
+
+	Weapons: {
+		Rogue: {
+			Revelation: {
+			}
+
+			Silence: {
+			}
+
+			ShadewindLance: {
+			}
+
+			Aquashard: {
+			}
+
+			SpearOfRadiance: {
+			}
+
+			AbyssalPiercer: {
+			}
+
+			AzureOfFirmament: {
+			}
+
+			ArbitratorII: {
+			}
+
+			Voidseeker: {
+			}
+
+			TheBeginingAndTheEnd: {
+			}
+
+			AmethystFrisbee: {
+			}
+
+			ProphecyFlyingKnife: {
+			}
+
+			TheDeadCut: {
+			}
+
+			LunarPlank: {
+			}
+
+			AzafureSurgeRod: {
+			}
+
+			TlipocasScythe: {
+			}
+		}
+	}
+
+	PrisonOfPermafrost: {
+	}
+
+	Kinanition: {
+	}
+
+	VoidRelics: {
+	}
+
+	AuricToilet: {
+	}
+
+	LotteryBox: {
+	}
+
+	ToyRock: {
+	}
+
+	YharimsStimulants: {
+	}
+
+	VoidBottle: {
+	}
+
+	VoidMonument: {
+	}
+
+	Lore: {
+	}
+
+	BrokenChainsaw: {
+	}
+
+	MechanicalChainsaw: {
+	}
+
+	EnslavedStar: {
+	}
+
+	Euangelion: {
+	}
+
+	Pioneer: {
+	}
+
+	GodsSnack: {
+	}
+
+	CruiserBag: {
+	}
+
+	CruiserRelic: {
+	}
+
+	DivineRemnants: {
+	}
+
+	VoidElytra: {
+	}
+
+	BottleDarkMatter: {
+	}
+
+	DivineIntervention: {
+	}
+
+	Godhead: {
+	}
+
+	VoidEcho: {
+	}
+
+	FriendBox: {
+	}
+
+	LightningPendant: {
+	}
+
+	EvilFriend: {
+	}
+
+	TheocracyPearlToy: {
+	}
+
+	CruiserTrophy: {
+	}
+
+	VoidMonolith: {
+	}
+
+	VoidToy: {
+	}
+
+	WingsOfHush: {
+	}
+
+	SoyMilk: {
+	}
+
+	DarkArts: {
+	}
+
+	VenomPiece: {
+	}
+
+	WisdomCard: {
+	}
+
+	TemperanceCard: {
+	}
+
+	RadianceCard: {
+	}
+
+	OracleDeck: {
+	}
+
+	MetropolisCard: {
+	}
+
+	InspirationCard: {
+	}
+
+	EntityCard: {
+	}
+
+	EnduranceCard: {
+	}
+
+	BrillianceCard: {
+	}
+
+	AuraCard: {
+	}
+
+	ThreadOfFate: {
+	}
+
+	RuneSong: {
+	}
+
+	GalaxyGrapeSoda: {
+	}
+
+	VoidAnnihilate: {
+	}
+
+	AuricBoulder: {
+	}
+
+	DustyStar: {
+	}
+
+	SoulCandle: {
+	}
+
+	KosRunePendant: {
+	}
+
+	OdinsRefuge: {
+	}
+
+	VoidBar: {
+	}
+
+	VoidOre: {
+	}
+
+	VoidScales: {
+	}
+
+	HolyMoonlight: {
+	}
+
+	PhantomPlanetKillerEngine: {
+	}
+
+	PowerOfTyrant: {
+	}
+
+	VoidFaquirCuises: {
+	}
+
+	VoidFaquirBodyArmor: {
+	}
+
+	VoidFaquirDevourerHelm: {
+	}
+
+	VoidFaquirCosmosHood: {
+	}
+
+	VoidFaquirEvokerHelm: {
+	}
+
+	VoidFaquirLurkerMask: {
+	}
+
+	VoidFaquirShadowHelm: {
+	}
+
+	GhostdomWhisper: {
+	}
+
+	Interdimensionallens: {
+	}
+
+	PowerBank: {
+	}
+
+	RustyGrenade: {
+	}
+
+	RustExpeditioner: {
+	}
+
+	VoidDevastator: {
+	}
+
+	GodSlayerRocket: {
+	}
+
+	RailPulseBow: {
+	}
+
+	JailerWhip: {
+	}
+
+	SilvasCrown: {
+	}
+
+	AbyssalDragon: {
+	}
+
+	ArchmagesHandmirror: {
+	}
+
+	SlimeYoyo: {
+	}
+
+	CelestialRing: {
+	}
+
+	ArmorReforgStation: {
+	}
+
+	OverloadFurnace: {
+	}
+
+	RustyDetectionEquipment: {
+	}
+
+	MagneticController: {
+	}
+
+	Mercy: {
+	}
+
+	CannedCarrion: {
+	}
+
+	LostSoul: {
+	}
+
+	ShadowOfVoid: {
+	}
+
+	HorizonssKey: {
+	}
+
+	SacrificalMask: {
+	}
+
+	TargetingWand: {
+	}
+
+	DimensionKey: {
+	}
+
+	DreamCatcher: {
+	}
+
+	AquaticFlute: {
+	}
+
+	HolyMantle: {
+	}
+
+	ToyKnife: {
+	}
+
+	DeusCore: {
+	}
+
+	CruiserPlush: {
+	}
+
+	AbyssalWraithPlush: {
+	}
+
+	Voidshade: {
+	}
+
+	GreedCard: {
+	}
+
+	Barren: {
+	}
+
+	Confuse: {
+	}
+
+	Fool: {
+	}
+
+	Frail: {
+	}
+
+	Nothing: {
+	}
+
+	Perplexed: {
+	}
+
+	Sacrifice: {
+	}
+
+	Tarnish: {
+	}
+
+	TaintedDeck: {
+	}
+
+	ThreadOfAbyss: {
+	}
+
+	VoidCandle: {
+	}
+
+	Antler: {
+	}
+
+	ReincarnationBadge: {
+	}
+
+	CrimsonNight: {
+	}
+
+	PoopPickup: {
+	}
+
+	BrokenAnkh: {
+	}
+
+	DustyWhistle: {
+	}
+
+	AquaticAmulet: {
+	}
+
+	NetherRift: {
+	}
+
+	MawOfTheVoid: {
+	}
+
+	TheRevelation: {
+	}
+
+	MosHat: {
+	}
+
+	AnimaSola: {
+	}
+
+	LightWisper: {
+	}
+
+	Oblivion: {
+	}
+
+	EyeOfIlmeris: {
+	}
+
+	GravityGaze: {
+	}
+
+	DivineRadience: {
+	}
+
+	NightProjection: {
+	}
+
+	OverloadLunar: {
+	}
+
+	EyeOfOtherside: {
+	}
+
+	EndlessAbyss: {
+	}
+
+	NihilityHorn: {
+	}
+
+	NihilityTwinBag: {
+	}
+
+	NihilityTwinRelic: {
+	}
+
+	NihilityTwinTrophy: {
+	}
+
+	NihilityShell: {
+	}
+
+	EventideSniper: {
+	}
+
+	NihilityBacteriophageWand: {
+	}
+
+	AntiVoid: {
+	}
+
+	AbyssLantern: {
+	}
+
+	WispLantern: {
+	}
+
+	WyrmToothNecklace: {
+	}
+
+	WyrmTooth: {
+	}
+
+	Vitalfeather: {
+	}
+
+	WindOfUndertaker: {
+	}
+
+	HadopelagicEchoII: {
+	}
+
+	StarlessNight: {
+	}
+
+	WhipOfService: {
+	}
+
+	Xytheron: {
+	}
+
+	AbyssalAltar: {
+	}
+
+	Ystralyn: {
+	}
+
+	VoidPathology: {
+	}
+
+	AnnihilateArrow: {
+	}
+
+	NegentropyBullet: {
+	}
+
+	Zyphros: {
+	}
+
+	FriendFinder: {
+	}
+
+	HeartOfStorm: {
+	}
+
+	Nyxolithraken: {
+	}
+
+	MariviniumBodyArmor: {
+	}
+
+	MariviniumHelmet: {
+	}
+
+	MariviniumLeggings: {
+	}
+
+	ToyGuitar: {
+	}
+
+	AncientScriptures: {
+	}
+
+	BookMarkBrimstone: {
+	}
+
+	BookMarkAerialite: {
+	}
+
+	BookMarkFlesh: {
+	}
+
+	BookMarkIce: {
+	}
+
+	InfiniteBook: {
+	}
+
+	BookMarkOfLight: {
+	}
+
+	BookMarkOfNight: {
+	}
+
+	BookMarkMechanical: {
+	}
+
+	BookMarkAstral: {
+	}
+
+	BookMarkTerra: {
+	}
+
+	BookMarkLunar: {
+	}
+
+	BookMarkAbyss: {
+	}
+
+	BookMarkProfaned: {
+	}
+
+	BookMarkVoid: {
+	}
+
+	BookMarkAuric: {
+	}
+
+	BookMarkSilva: {
+	}
+
+	BookMarkBee: {
+	}
+
+	BookMarkSunkenSea: {
+	}
+
+	BookMarkCorrupt: {
+	}
+
+	BookMarkCrimson: {
+	}
+
+	BookMarkGoozma: {
+	}
+
+	BookMarkIntergelactic: {
+	}
+
+	BookMarkAquarius: {
+	}
+
+	BookMarkAries: {
+	}
+
+	BookMarkTaurus: {
+	}
+
+	BookMarkCancer: {
+	}
+
+	BookMarkCapricorn: {
+	}
+
+	BookMarkLeo: {
+	}
+
+	BookMarkSagittarius: {
+	}
+
+	BookMarkPisces: {
+	}
+
+	BookMarkVirgo: {
+	}
+
+	BookMarkLibra: {
+	}
+
+	BookMarkGemini: {
+	}
+
+	BookMarkScorpio: {
+	}
+
+	BookmarkPactOfDecay: {
+	}
+
+	BookmarkPactOfWar: {
+	}
+
+	UpdraftTome: {
+	}
+
+	RedemptionBible: {
+	}
+
+	NightEpic: {
+	}
+
+	AshTranscript: {
+	}
+
+	VoidOde: {
+	}
+
+	BookMarkNeutron: {
+	}
+
+	ControlTerminal: {
+	}
+
+	TabooVolume: {
+	}
+
+	BookMarkRoyal: {
+	}
+
+	EntropyModeToggle: {
+	}
+
+	BookMarkPerfection: {
+	}
+
+	Crystedge: {
+	}
+
+	VoidToilet: {
+	}
+
+	Prominence: {
+	}
+
+	SinewLash: {
+	}
+
+	AzafureBatteringRam: {
+	}
+
+	MindCorruptor: {
+	}
+
+	AzafureChargeShield: {
+	}
+
+	ProphecyToken: {
+	}
+
+	ProphetBag: {
+	}
+
+	ProphetTrophy: {
+	}
+
+	ProphetRelic: {
+	}
+
+	UrnOfSouls: {
+	}
+
+	VetrasylsEye: {
+	}
+
+	SpiritBanner: {
+	}
+
+	RuneMachineGun: {
+	}
+
+	ForeseeOrb: {
+	}
+
+	RuneWing: {
+	}
+
+	BookMarkForesee: {
+	}
+
+	RuneStoneShining: {
+	}
+
+	PrefixClearKnife: {
+	}
+
+	RuneStoneSilence: {
+	}
+
+	BlessingEnd: {
+	}
+
+	BlessingHeatDeath: {
+	}
+
+	BlessingLastStand: {
+	}
+
+	BlessingVoid: {
+	}
+
+	BlessingVoidTouched: {
+	}
+
+	EnchantedScrollEvoker: {
+	}
+
+	EnchantedScrollMagical: {
+	}
+
+	EnchantedScrollMassive: {
+	}
+
+	EnchantedScrollMiracle: {
+	}
+
+	EnchantedScrollReckless: {
+	}
+
+	OriginGemDestinedGreatness: {
+	}
+
+	OriginGemGodForged: {
+	}
+
+	OriginGemGreat: {
+	}
+
+	OriginGemSacrifical: {
+	}
+
+	OriginGemWizard: {
+	}
+
+	RuneStoneBiochemistry: {
+	}
+
+	RuneStoneGuarded: {
+	}
+
+	RuneStoneHard: {
+	}
+
+	RuneStoneLight: {
+	}
+
+	RuneStoneRegen: {
+	}
+
+	RuneStoneThorny: {
+	}
+
+	HiveArrow: {
+	}
+
+	HiveBullet: {
+	}
+
+	SolarStorm: {
+	}
+
+	CondensedBullet: {
+	}
+
+	ShatteredFractal: {
+	}
+
+	ProphetMusicBox: {
+	}
+
+	CruiserMusicBox: {
+	}
+
+	NihilityTwinsMusicBox: {
+	}
+
+	WelkinFractal: {
+	}
+
+	BrilliantFractal: {
+	}
+
+	BrokenHilt: {
+	}
+
+	ElementalFractal: {
+	}
+
+	StarlitFractal: {
+	}
+
+	AbyssFractal: {
+	}
+
+	PlagueInternalCombustionEngine: {
+	}
+
+	SpiritFractal: {
+	}
+
+	VoidFractal: {
+	}
+
+	BurntLostClassics: {
+	}
+
+	ProphecyMasterpiece: {
+	}
+
+	ForeseeWhip: {
+	}
+
+	Nemesis: {
+	}
+
+	LashingBramblerod: {
+	}
+
+	FinalFractal: {
+	}
+
+	AzafureMiner: {
+	}
+
+	RequiemCard: {
+	}
+
+	GrudgeCard: {
+	}
+
+	ObscureCard: {
+	}
+
+	PurificationCard: {
+	}
+
+	WisperCard: {
+	}
+
+	MourningCard: {
+	}
+
+	IndigoCard: {
+	}
+
+	BitternessCard: {
+	}
+
+	DevouringCard: {
+	}
+
+	CursedThread: {
+	}
+
+	SoulDeck: {
+	}
+
+	LavaPancake: {
+	}
+
+	HellBohea: {
+	}
+
+	SulfurMeltCake: {
+	}
+
+	IlmeranAsylum: {
+	}
+
+	ProphetMusicBox2: {
+	}
+
+	StarlitPiercer: {
+	}
+
+	LuminarisMusicBox: {
+	}
+
+	LuminarisRelic: {
+	}
+
+	LuminarisBag: {
+	}
+
+	IllusionaryDew: {
+	}
+
+	LuminarisTrophy: {
+	}
+
+	Luminar: {
+	}
+
+	StarSootInjector: {
+	}
+
+	PhantomLightWing: {
+	}
+
+	AzafureAntiaircraftGun: {
+	}
+
+	RockBullet: {
+	}
+
+	TatteredGun: {
+	}
+
+	MoonlightSword: {
+	}
+
+	BookMarkBlackKnife: {
+	}
+
+	AzafureTeslaGun: {
+	}
+
+	AzafurePioneerCannon: {
+	}
+
+	ShadoidPotion: {
+	}
+
+	ShadowMantle: {
+	}
+
+	MineBox: {
+	}
+
+	LurkersCharm: {
+	}
+
+	ThiefsPocketwatchOfEclipse: {
+	}
+
+	GaleWristblades: {
+	}
+
+	WorshipRelic: {
+	}
+
+	ShadowPact: {
+	}
+
+	YanyusHat: {
+	}
+
+	LuminarDress: {
+	}
+
+	LuminarRing: {
+	}
+
+	LuminarTrousers: {
+	}
+
+	LunarMulse: {
+	}
+
+	CDRemove: {
+	}
+
+	TheReplicaofThePen: {
+	}
+
+	Typhoon: {
+	}
+
+	ShadowRune: {
+	}
+
+	LostChubbyBird: {
+	}
+
+	ConsecratedRune: {
+	}
+
+	MysteriousBook: {
+	}
+
+	HellIndustrialComponents: {
+	}
+
+	DragEntity: {
+	}
+
+	OblivionThresher: {
+	}
+
+	AcropolisRelic: {
+	}
+
+	AcropolisTrophy: {
+	}
+
+	PineappleDog: {
+	}
+
+	CelestialChronometer: {
+	}
+
+	TerrorOfAbyss: {
+	}
+
+	ScorchingShoot: {
+	}
+
+	TheFilthyContractWithMammon: {
+	}
+
+	SmartArc: {
+	}
+
+	LostHeirloom: {
+	}
+
+	Bramblecleave: {
+	}
+
+	BLUE: {
+	}
+
+	Vast: {
+	}
+
+	AzafureDetectionEquipment: {
+	}
+
+	FadingRoseateReverie: {
+	}
+
+	BloodstainedShirt: {
+	}
+
+	ScarletKilt: {
+	}
+
+	KitsunesFan: {
+	}
+
+	KitsunesMask: {
+	}
+
+	TrueMoonlightSword: {
+	}
+
+	DarkBlade: {
+	}
+
+	Fruitcake: {
+	}
+
+	SmartScope: {
+	}
+
+	ShadeCloak: {
+	}
+
+	LushGrassclassics: {
+	}
+
+	MiracleWreckage: {
+	}
+
+	TheocracyMark: {
+	}
+
+	AzafureFurnace: {
+	}
+
+	AzafurePulseWand: {
+	}
+
+	BookmarkSandstorm: {
+	}
+
+	BottledStarlightCocoon: {
+	}
+
+	AzafureRailgun: {
+	}
+
+	AzafureDroneRemote: {
+	}
+
+	AzafureHealingTowerRemote: {
+	}
+
+	Dyes: {
+		SpiritDye: {
+		}
+
+		VoidCruiseDye: {
+		}
+
+		RoaringDye: {
+		}
+	}
+
+	ReallocateIndicatorData: {
+	}
+
+	AzafureProtectiveCannon: {
+	}
+
+	AzafureTBMTerminal: {
+	}
+
+	HowlingCannon: {
+	}
+
+	AncientFragmentsBody: {
+	}
+
+	AncientFragmentsEcho: {
+	}
+
+	AncientFragmentsMind: {
+	}
+
+	AncientFragmentsSoul: {
+	}
+}
+
+Projectiles: {
+	HexController.DisplayName: Hex Controller
+	HexVertex.DisplayName: Hex Vertex
+}
+
+Buffs: {
+	VoidStorm: {
+	}
+
+	VoidTouch: {
+	}
+
+	WyrmChanBuff: {
+	}
+
+	YharimPower: {
+	}
+
+	DoGBuff: {
+	}
+
+	AstrumDeusBuff: {
+	}
+
+	WeakGravity: {
+	}
+
+	DivingShieldCooldown: {
+	}
+
+	TwistedTwinBuff: {
+	}
+
+	Rainstorm: {
+	}
+
+	LilBrimstoneBuff: {
+	}
+
+	AbyssBuff: {
+	}
+
+	VoidPal: {
+	}
+
+	SoyMilkBuff: {
+	}
+
+	StealthState: {
+	}
+
+	MelonCatBuff: {
+	}
+
+	DevourersAssassin: {
+	}
+
+	DevourerAndTheApostles: {
+	}
+
+	PlanetDestroyer: {
+	}
+
+	JailerWhipDebuff: {
+	}
+
+	TeletorBuff: {
+	}
+
+	EaterBuff: {
+	}
+
+	LostSoulBuff: {
+	}
+
+	AquaticChan: {
+	}
+
+	Deceive: {
+	}
+
+	VoidCandleBuff: {
+	}
+
+	DustyWhistleBuff: {
+	}
+
+	AquaticAmuletBuff: {
+	}
+
+	NihilityBacteriophageBuff: {
+	}
+
+	DragonWhipDebuff: {
+	}
+
+	CruiserWhipDebuff: {
+	}
+
+	ServiceBuff: {
+	}
+
+	EclipsedImprint: {
+	}
+
+	StareOfTheAbyss: {
+	}
+
+	WyrmWhipDebuff: {
+	}
+
+	WyrmPhantom: {
+	}
+
+	VoidVirus: {
+	}
+
+	NyxolithrakenBuff: {
+	}
+
+	AbyssalWrath: {
+	}
+
+	PlanteraChanBuff: {
+	}
+
+	NoHeal: {
+	}
+
+	MaliciousCode: {
+	}
+
+	SpiritGathering: {
+	}
+
+	SoulDisorder: {
+	}
+
+	ShatteredOrb: {
+	}
+
+	HeatDeath: {
+	}
+
+	GuardiansBuff: {
+	}
+
+	ProfBuff: {
+	}
+
+	ProfNGuardBuff: {
+	}
+
+	WindPressure: {
+	}
+
+	PenMountBuff: {
+	}
+
+	ConsecratedRefuge: {
+	}
+
+	ManaAwaken: {
+	}
+
+	ManaCaress: {
+	}
+
+	ManaPray: {
+	}
+
+	ManaVein: {
+	}
+
+	StarlightMoth: {
+	}
+
+	AzafureDrone: {
+	}
+
+	VoidEmpowerment: {
+	}
+}
+
+NPCs: {
+	CruiserHead: {
+		BossChecklistIntegration: {
+		}
+	}
+
+	PrimordialWyrmNPC: {
+		TownNPCMood: {
+		}
+	}
+
+	NihilityActeriophage: {
+		BossChecklistIntegration: {
+		}
+	}
+
+	TheProphet: {
+		BossChecklistIntegration: {
+		}
+	}
+
+	Luminaris: {
+		BossChecklistIntegration: {
+		}
+	}
+
+	AcropolisMachine: {
+		BossChecklistIntegration: {
+		}
+	}
+}
+
+Keybinds: {
+}
+
+Tiles: {
+}
+
+Configs: {
+	Config: {
+		VoidChargeBarX: {
+		}
+
+		Headers: {
+		}
+
+		VoidChargeBarY: {
+		}
+
+		ChainsawShakeScreen: {
+		}
+
+		BindingOfIsaac_Rep_BossMusic: {
+		}
+
+		RepBossMusicReplaceCalamityMusic: {
+		}
+
+		ItemAdditionalInfo: {
+		}
+
+		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
+		}
+
+		EntropyMeleeWeaponSoundVolume: {
+		}
+
+		ScreenWarpEffects: {
+		}
+	}
+
+	ServerConfig: {
+		CraftArmorWithPrefixChance: {
+		}
+
+		EnableSethomeCommand: {
+		}
+
+		LoreSpecialEffect: {
+		}
+
+		BramblecleaveAlwaysUnlockAllSkill: {
+		}
+	}
+}
+
+Prefixes: {
+	Weapon: {
+	}
+}
+
+DamageClasses: {
+}
+
+DraedonDialogs: {
+	Void: {
+	}
+}
+
+InfernumIntros: {
+}
+
+Biomes: {
+	VoidDummyBoime: {
+	}
+}
+
+Test: {
+	Proj: {
+		FinalEchoProj.DisplayName: Final Echo Proj
+		FinalEchoProjMini.DisplayName: Final Echo Proj Mini
+		FinalEchoProjSmall.DisplayName: Final Echo Proj Small
+		PurpleBeam.DisplayName: Purple Beam
+		PhantasmalHammer.DisplayName: Phantasmal Hammer
+	}
+
+	Projs: {
+		FinalProj.DisplayName: Final Proj
+		GodsProj.DisplayName: Gods Proj
+		HallowedProj.DisplayName: Hallowed Proj
+		LunarProj.DisplayName: Lunar Proj
+		PaladinProj.DisplayName: Paladin Proj
+	}
+}

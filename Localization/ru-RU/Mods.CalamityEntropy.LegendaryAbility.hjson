@@ -1,0 +1,67 @@
+TlipocasScytheLegend: {
+	Conditions: {
+		// DashTitle: Ability: Slash Dash
+		// StatTitle: Ability: Basic Stat
+		// TeleportTitle: Ability: Teleport Slash
+		// ThrowTitle: Ability: Throw
+	}
+
+	Ability: {
+		TScytheA1: ""
+		// TScytheA1B: Gain invincible time and deal damage to the targets you come into contact with
+		TScytheA2: ""
+		/* TScytheA2B:
+			'''
+			Press LMB when throwing to teleport to the mouse and launch a larger slash
+			This skill has a {0} second cooldown time.
+			''' */
+		TScytheA3: ""
+		TScytheA4: ""
+		TScytheA5: ""
+		TScytheA6: ""
+		TScytheA7: ""
+		TScytheA8: ""
+		TScytheA9: ""
+	}
+
+	Downed: {
+		TScytheU1: ""
+		// TScytheU1B: Take down Slimg God
+		TScytheU2: ""
+		// TScytheU2B: Take down Brimstone Elemental
+		TScytheU3: ""
+		TScytheU4: ""
+		TScytheU5: ""
+		TScytheU6: ""
+		TScytheU7: ""
+		TScytheU8: ""
+		TScytheU9: ""
+	}
+
+	Dialog: {
+		TScytheDia1: ""
+		TScytheDia2: ""
+		TScytheDia3: ""
+		TScytheDia4: ""
+		TScytheDia5: ""
+		TScytheDia6: ""
+		TScytheDia7: ""
+		TScytheDia8: ""
+		TScytheDia9: ""
+		TScytheDia10: ""
+		TScytheDia11: ""
+		TScytheDia12: ""
+		TScytheDia13: ""
+		TScytheDia14: ""
+		TScytheDia15: ""
+		TScytheDia16: ""
+		// TScytheDia17: Finally paid off the debt, the task was perfectly completed!
+	}
+
+	// General.CurLevel: ""
+}
+
+General: {
+	Locked: ""
+	// PagesTips: Hold Left Alt to directly read the ability, press LMB to switch
+}
