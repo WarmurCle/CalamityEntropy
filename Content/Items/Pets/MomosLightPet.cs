@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Pets.Deus;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -126,16 +127,40 @@ namespace CalamityEntropy.Content.Items.Pets
             Player player = Main.player[Projectile.owner];
 
             player.zephyrfish = false;
-            CEUtils.AddLight(Projectile.Center, Color.White, 8);
+            CEUtils.AddLight(Projectile.Center, Color.White, 4);
+            Vector2 lp = Projectile.Center;
+            bool addlight = false;
+            float r = (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).ToRotation();
+            for (int i = 0; i < 1000; i += 8)
+            {
+                Point tpos = ((lp + r.ToRotationVector2() * i) / 16f).ToPoint();
+                if (CEUtils.inWorld(tpos.X, tpos.Y))
+                {
+                    if (Main.tile[tpos].IsTileSolid())
+                    {
+                        addlight = true;
+                        lp = tpos.ToVector2() * 16;
+                        break;
+                    }
+                }
+            }
+            if (addlight)
+            {
+                CEUtils.AddLight(lp, Color.White, 3);
+            }
             SpawnLighting();
             return true;
         }
         public void SpawnLighting()
         {
-            float rot = (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).ToRotation();
-            for (float i = 0; i < 700; i += 10)
+            for (float r = -0.12f; r <= 0.12f; r += 0.01f)
             {
-                CEUtils.AddLight(Projectile.Center + Projectile.velocity + rot.ToRotationVector2() * i, Color.White * 0.14f, float.Max(4, i * 0.06f));
+                float rot = (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).ToRotation() + r;
+
+                for (float i = 0; i < 900; i += 8)
+                {
+                    CEUtils.AddLight(Projectile.Center + Projectile.velocity + rot.ToRotationVector2() * i, Color.White, ((910 - i) / 900f) * (5f * (0.2f - Math.Abs(r))));
+                }
             }
         }
         public int shotCd = 0;
