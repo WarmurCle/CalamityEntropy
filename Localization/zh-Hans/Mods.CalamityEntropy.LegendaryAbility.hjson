@@ -86,7 +86,7 @@ TlipocasScytheLegend: {
 		TScytheDia17: 终于还清灵魂债务咯，任务完美完成～
 	}
 
-	// General.CurLevel: ""
+	General.CurLevel: ""
 }
 
 General: {

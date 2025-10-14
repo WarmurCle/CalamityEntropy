@@ -16,22 +16,22 @@ Rogue: {
 	}
 
 	Final: {
-		// Tooltip: ""
-		// DisplayName: Final
+		Tooltip: ""
+		DisplayName: 终焉
 	}
 
 	Hallowed: {
-		// DisplayName: Hallowed
-		// Tooltip: ""
+		DisplayName: 圣洁
+		Tooltip: ""
 	}
 
 	Lunar: {
-		// DisplayName: Lunar
-		// Tooltip: ""
+		DisplayName: 皓月
+		Tooltip: ""
 	}
 
 	Paladin: {
-		// DisplayName: Paladin
-		// Tooltip: ""
+		DisplayName: 圣骑
+		Tooltip: ""
 	}
 }

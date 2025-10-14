@@ -2912,67 +2912,47 @@ Items: {
 
 	Vast: {
 		DisplayName: 无垠
-		/* TooltipBase:
-			'''
-			The strength and effects of this accessory increase with progression.
-			Current Effects:
-			''' */
-		/* Level0:
-			'''
-			8% reduced mana consumption
-			Automatically uses mana potions
-			''' */
-		/* Level1:
-			'''
-			Mana potions restore 10% more mana
-			While under the effects of Arcane Might, gain +4% magic critical strike chance
-			''' */
-		/* Level2:
-			'''
-			Automatically uses mana potions, with 75% of the restoration applied instantly.
-			The remaining 25% is recovered over 5 seconds.
-			If you take damage exceeding 80 points during this period, the restoration is interrupted,
-			extending invincibility frames and briefly accelerating health regeneration.
-			"The tide of magic pulses through your veins..."
-			''' */
-		/* Level3:
-			'''
-			After consuming mana equivalent to 50% of your maximum mana,
-			gain 4% Empowered Mania (stacks up to 5 times).
-			''' */
-		/* Level4:
-			'''
-			Effects of Mana Sickness and Mana Burn are halved.
-			Every 2 stacks of Empowered Mania grant 0.05% damage reduction.
-			Enhances health regeneration when hit while restoring mana.
-			''' */
-		/* Level5:
-			'''
-			Critical hits inflict the Soul Disarray debuff on the target.
-			Upon mana depletion, attacks switch from consuming mana to restoring mana for 6 seconds,
-			while also applying the Mana Scorch debuff for 5 seconds.
-			Taking damage during this period extends invincibility frames.
-			''' */
-		/* Level6:
-			'''
-			At full stacks of Manaflow, each mana depletion grants
-			+1% magic critical strike chance and +3% magic critical damage (stacks up to 5 times).
-			''' */
-		Tooltip:
+		TooltipBase:
 			'''
 			该饰品的强度和效果随进度增加
 			当前效果：
+			'''
+		Level0:
+			'''
+			-8%魔力消耗
 			必要时自动使用魔力药水
+			'''
+		Level1:
+			'''
+			魔力药水额外回复10%的魔力
 			拥有魔能增益时，增加4%魔法暴击率
-			#2使用魔力药水后，其恢复量有75%比例立即生效，剩余25%在5秒内逐步恢复，
-			#2期间受到超过80点的伤害会使此恢复中断，使此次受击无敌帧延长并短暂加速回血
-			#2“潮水般的魔力在你的血液中脉动...”
-			#3每消耗 150+基础魔力上限的20% 魔力后，获得一层魔流增益，每层增加4%强化魔力，最多可叠加5层
-			#3每1点强化魔力会为你提供0.05%的伤害减免
-			#4魔力病与魔力烧蚀的影响减半
-			#4增加回复魔力时受击后的回血效果
-			#5暴击会对目标造成灵魂紊乱减益
-			#6每层魔流额外提供1%魔法暴击率和3%魔法暴击伤害加成
+			'''
+		Level2:
+			'''
+			使用魔力药水后，其恢复量有75%比例立即生效，剩余25%在5秒内逐步恢复，
+			期间受到超过80点的伤害会使此恢复中断，使此次受击无敌帧延长并短暂加速回血
+			“潮水般的魔力在你的血液中脉动...”
+			'''
+		Level3:
+			'''
+			每消耗 150+基础魔力上限的20% 魔力后，获得一层魔流增益，每层增加4%强化魔力，最多可叠加5层
+			每1点强化魔力会为你提供0.05%的伤害减免
+			'''
+		Level4:
+			'''
+			魔力病与魔力烧蚀的影响减半
+			增加回复魔力时受击后的回血效果
+			'''
+		Level5:
+			'''
+			暴击会对目标造成灵魂紊乱减益
+			'''
+		Level6:
+			'''
+			每层魔流额外提供1%魔法暴击率和3%魔法暴击伤害加成
+			''' 
+		Tooltip:
+			'''
 			'''
 	}
 
