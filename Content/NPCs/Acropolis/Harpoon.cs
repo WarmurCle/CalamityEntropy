@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             NPC.width = 40;
             NPC.height = 40;
-            NPC.damage = 18;
+            NPC.damage = 26;
             NPC.dontTakeDamage = true;
             NPC.lifeMax = 1400;
             NPC.HitSound = SoundID.NPCHit4;
