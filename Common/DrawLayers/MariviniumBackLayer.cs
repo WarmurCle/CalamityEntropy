@@ -14,10 +14,8 @@ namespace CalamityEntropy.Common.DrawLayers
             return drawInfo.drawPlayer.body == EquipLoader.GetEquipSlot(Mod, "MariviniumBodyArmor", EquipType.Body);
         }
 
-        public override Position GetDefaultPosition()
-        {
-            return new BeforeParent(PlayerDrawLayers.ArmorLongCoat);
-        }
+        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.BackAcc);
+        
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
