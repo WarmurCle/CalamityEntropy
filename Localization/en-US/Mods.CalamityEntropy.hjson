@@ -2921,7 +2921,7 @@ Items: {
 	}
 
 	MomosLightPet: {
-		DisplayName: "Momo's Light Pet"
+		DisplayName: Momo's Light Pet
 		Tooltip: ""
 	}
 }

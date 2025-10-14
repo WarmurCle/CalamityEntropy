@@ -145,7 +145,7 @@ namespace CalamityEntropy.Content.Items.Pets
             counter++;
             Player player = Main.player[Projectile.owner];
             MoveToTarget(player.Center + new Vector2(0, -100));
-            if (!player.dead && player.HasBuff(ModContent.BuffType<AstrumDeusBuff>()))
+            if (!player.dead && player.HasBuff(ModContent.BuffType<MomosLightPetBuff>()))
             {
                 Projectile.timeLeft = 2;
             }
