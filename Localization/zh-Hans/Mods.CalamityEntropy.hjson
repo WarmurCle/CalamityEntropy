@@ -3191,6 +3191,11 @@ Items: {
 		DisplayName: 远古残片『|』
 		Tooltip: ""
 	}
+
+	MomosLightPet: {
+		DisplayName: Momo的照明宠物
+		Tooltip:  "它的主人至今没有给它取名"
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3559,7 +3564,7 @@ Projectiles: {
 	ElementalFractalThrown.DisplayName: 元素分形
 	StarlitFractalHeld.DisplayName: 星熠分形
 	FractalStarBlade.DisplayName: 分形星影
-	// FractalStar.DisplayName: Fractal Star
+	FractalStar.DisplayName: 分形之星
 	AbyssFractalHeld.DisplayName: 深渊分形
 	AbyssalBlade.DisplayName: 深渊剑影
 	AbyssalBullet.DisplayName: 渊水弹
@@ -3690,9 +3695,10 @@ Projectiles: {
 	HowlingCannonHeld.DisplayName: 哀嚎重炮
 	HowlingBullet.DisplayName: 哀嚎魂弹
 	HowlingLaser.DisplayName: 哀嚎死光
-	// FractalStarblight.DisplayName: Fractal Starblight
-	// HexController.DisplayName: Hex Controller
-	// HexVertex.DisplayName: Hex Vertex
+	FractalStarblight.DisplayName: 分形星弹
+	HexController.DisplayName: HexController
+	HexVertex.DisplayName: Hex Vertex
+	Molightpet.DisplayName: Mo的照明宠物
 }
 
 LegendTooltip: - 传奇物品 -
@@ -3996,6 +4002,11 @@ Buffs: {
 	VoidEmpowerment: {
 		DisplayName: 虚空赋能
 		Description: 武器强化
+	}
+
+	MomosLightPetBuff: {
+		DisplayName: 没名字的照明宠物
+		Description: ""
 	}
 }
 
@@ -4772,21 +4783,4 @@ LMDialog16: 你难道没看到那个[NAME]吗？可真是不知死活
 LMDialog17: 我不收垃圾，谢谢
 LMDialog18: 你塞的是什么东西？
 NowLV: 当前等级
-
-Test: {
-	Proj: {
-		// FinalEchoProj.DisplayName: Final Echo Proj
-		// FinalEchoProjMini.DisplayName: Final Echo Proj Mini
-		// FinalEchoProjSmall.DisplayName: Final Echo Proj Small
-		// PurpleBeam.DisplayName: Purple Beam
-		// PhantasmalHammer.DisplayName: Phantasmal Hammer
-	}
-
-	Projs: {
-		// FinalProj.DisplayName: Final Proj
-		// GodsProj.DisplayName: Gods Proj
-		// HallowedProj.DisplayName: Hallowed Proj
-		// LunarProj.DisplayName: Lunar Proj
-		// PaladinProj.DisplayName: Paladin Proj
-	}
 }

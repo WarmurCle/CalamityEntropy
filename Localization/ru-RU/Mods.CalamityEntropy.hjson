@@ -2957,6 +2957,11 @@ Items: {
 		// DisplayName: Ancient Fragments Soul
 		// Tooltip: ""
 	}
+
+	MomosLightPet: {
+		// DisplayName: Momos Light Pet
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3461,6 +3466,7 @@ Projectiles: {
 	// FractalStarblight.DisplayName: Fractal Starblight
 	// HexController.DisplayName: Hex Controller
 	// HexVertex.DisplayName: Hex Vertex
+	// Molightpet.DisplayName: Molightpet
 }
 
 LegendTooltip: - Легенда -
@@ -3764,6 +3770,11 @@ Buffs: {
 	VoidEmpowerment: {
 		// DisplayName: Void Empowerment
 		// Description: ""
+	}
+
+	MomosLightPetBuff: {
+		// DisplayName: Momos Light Pet Buff
+		// Description: Mods.CalamityEntropy.Buffs.MomosLightPetBuff.Description
 	}
 }
 

@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Pets.Deus;
 using CalamityMod;
@@ -15,6 +16,10 @@ namespace CalamityEntropy.Content.Items.Pets
     public class MomosLightPet : ModItem, IDonatorItem
     {
         public string DonatorName => "Momodzmz";
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<MosHat>();
+        }
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.ZephyrFish);
@@ -74,11 +79,11 @@ namespace CalamityEntropy.Content.Items.Pets
                 return false;
             }
             List<Texture2D> list = new List<Texture2D>();
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Molightpet").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/mo/mo2").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/mo/mo3").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/mo/mo4").Value);
-            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/mo/mo5").Value);
+            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Pets/Molightpet").Value);
+            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Pets/mo/mo2").Value);
+            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Pets/mo/mo3").Value);
+            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Pets/mo/mo4").Value);
+            list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Pets/mo/mo5").Value);
 
             Texture2D tx = list[(counter / 4) % list.Count];
             if (Main.player[Projectile.owner].Calamity().mouseWorld.X > Projectile.Center.X)
@@ -101,7 +106,7 @@ namespace CalamityEntropy.Content.Items.Pets
 
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(CEUtils.getExtraTex("GlowCone"), Projectile.Center - Main.screenPosition, null, Color.White * 0.7f, (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).ToRotation(), new Vector2(0, 250), new Vector2(1.4f, 0.8f), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(CEUtils.getExtraTex("GlowCone"), Projectile.Center - Main.screenPosition, null, Color.White * 0.2f, (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).ToRotation(), new Vector2(0, 250), new Vector2(1.4f, 0.8f), SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
 
             return false;
@@ -121,7 +126,7 @@ namespace CalamityEntropy.Content.Items.Pets
             Player player = Main.player[Projectile.owner];
 
             player.zephyrfish = false;
-            CEUtils.AddLight(Projectile.Center, Color.White, 4);
+            CEUtils.AddLight(Projectile.Center, Color.White, 8);
             SpawnLighting();
             return true;
         }
@@ -139,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Pets
         {
             counter++;
             Player player = Main.player[Projectile.owner];
-            MoveToTarget(player.Center + new Vector2(0, -200));
+            MoveToTarget(player.Center + new Vector2(0, -100));
             if (!player.dead && player.HasBuff(ModContent.BuffType<AstrumDeusBuff>()))
             {
                 Projectile.timeLeft = 2;

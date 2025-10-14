@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Pets;
 using CalamityMod;
 using Terraria;
 using Terraria.ID;
@@ -22,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Vanity
 
         public override void SetStaticDefaults()
         {
-
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<MomosLightPet>();
             if (Main.netMode == NetmodeID.Server)
                 return;
 
