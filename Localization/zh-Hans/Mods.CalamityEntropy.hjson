@@ -2951,9 +2951,7 @@ Items: {
 			'''
 			每层魔流额外提供1%魔法暴击率和3%魔法暴击伤害加成
 			''' 
-		Tooltip:
-			'''
-			'''
+		Tooltip:""
 	}
 
 	AzafureDetectionEquipment: {
