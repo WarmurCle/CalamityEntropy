@@ -52,11 +52,6 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
             player.statManaMax2 += 150;
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-
-        }
-
         public override void AddRecipes()
         {
             CreateRecipe()

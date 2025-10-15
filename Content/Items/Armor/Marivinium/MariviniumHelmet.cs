@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Common;
+﻿
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
@@ -33,9 +34,10 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             return body.type == ModContent.ItemType<MariviniumBodyArmor>() && legs.type == ModContent.ItemType<MariviniumLeggings>();
         }
 
-
+        
         public override void UpdateArmorSet(Player player)
         {
+            player.setBonus = Mod.GetLocalization("MariviniumSet").Value;
             player.Entropy().meleeDamageReduce += 0.2f;
             player.maxMinions += 10;
             player.Entropy().damageReduce += 0.10f;
@@ -103,13 +105,6 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.statLifeMax2 += 250;
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            if (Main.LocalPlayer.Entropy().MariviniumSet)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Armor Bonus", Mod.GetLocalization("MariviniumSet").Value));
-            }
-        }
         public override void AddRecipes()
         {
             CreateRecipe()
