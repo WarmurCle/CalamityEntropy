@@ -4274,7 +4274,7 @@ Configs: {
 
 		LeastDamageSufferedBasedOnMaxHealth: {
 			Label: 至少受到的伤害
-			Tooltip: "基于你的最大生命值，每次受击至少会扣除一定的生命值，默认为0，即不生效"
+			Tooltip: 基于你的最大生命值，每次受击至少会扣除一定的生命值，默认为0，即不生效
 		}
 	}
 }
