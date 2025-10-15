@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
+using CalamityMod.Items.Accessories;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -15,6 +16,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
@@ -1429,6 +1431,22 @@ namespace CalamityEntropy
             else
                 tooltips.Insert(tooltips.Count, newLine);
         }
+        /// <summary>
+        /// 将整型、浮点与双精度直接变成带百分比符号的字符串，用于进行Tooltip的插值。
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string ToPercent(this object obj)
+        {
+            if (obj is int interga)
+                return $"{interga}%";
+            if (obj is float floatSingle)
+                return $"{(int)(floatSingle * 100f)}%";
+            if (obj is double doubleSingle)
+                return $"{(int)(doubleSingle * 100)}%";
+            return "转化出错";
+
+        }
         public static string ToHexColor(this Color color) => $"{color.R:X2}{color.G:X2}{color.B:X2}";
 
         public static string ToLangValue(this string textPath) => Language.GetTextValue(textPath);
@@ -1445,6 +1463,69 @@ namespace CalamityEntropy
             }
         }
         #endregion
+        #region 搜索boss掉落物
+        /// <summary>
+        /// 快速遍历单个Boss所有掉落物并存入字典
+        /// </summary>
+        /// <typeparam name="T">NPC类型</typeparam>
+        /// <param name="includeMaterial">是否包含材料</param>
+        /// <returns></returns>
+        public static List<int> FindLoots<T>(bool includeMaterial = true) where T : ModNPC => FindLoots(ModContent.NPCType<T>(), includeMaterial);
+        /// <summary>
+        /// 遍历单个boss所有的掉落物并存入字典
+        /// </summary>
+        /// <param name="type">NPC类型</param>
+        /// <param name="includeMaterial">是否包含材料</param>
+        /// </summary>
+        public static List<int> FindLoots(int type, bool includeMaterial = true, Mod mod = null)
+        {
+            mod ??= CalamityEntropy.Instance;
 
+            var list = new List<int>();
+            List<IItemDropRule> rulesForNPCID = Main.ItemDropsDB.GetRulesForNPCID(type, false);
+            List<DropRateInfo> list2 = [];
+            DropRateInfoChainFeed ratesInfo = new(1f);
+            foreach (var rule in rulesForNPCID)
+            {
+                if (rule is LeadingConditionRule lcr && lcr.condition == DropHelper.GFB)
+                    continue;
+                rule.ReportDroprates(list2, ratesInfo);
+            }
+            list.AddRange(list2.Where(i => IsNotMaterial(ContentSamples.ItemsByType[i.itemId], mod, includeMaterial)).Select(item2 => item2.itemId));
+
+            List<int> bagdrops = [];
+            foreach (var bag in list)
+            {
+                var baglist = Main.ItemDropsDB.GetRulesForItemID(bag);
+                if (baglist.Count > 0)
+                {
+                    List<DropRateInfo> list3 = [];
+                    foreach (var rule in baglist)
+                    {
+                        if (rule is LeadingConditionRule lcr && lcr.condition == DropHelper.GFB) continue;
+                        rule.ReportDroprates(list3, ratesInfo);
+                    }
+                    bagdrops.AddRange(list3.Where(i => IsNotMaterial(ContentSamples.ItemsByType[i.itemId], mod, includeMaterial)).Select(i3 => i3.itemId));
+                }
+            }
+            list.AddRange(bagdrops);
+            return list;
+        }
+        public static bool IsNotMaterial(Item item, Mod mod, bool dontNeedCheck = true)
+        {
+            if (item.ModItem != null)
+            {
+                if (item.ModItem.Mod != mod)
+                    return false;
+            }
+            if (dontNeedCheck)
+                return true;
+            if (item.damage > 0 && item.ammo <= 0)
+                return true;
+            if (item.accessory || item.headSlot > 0 || item.bodySlot > 0 || item.legSlot > 0)
+                return false;
+            return false;
+        }
+        #endregion
     }
 }

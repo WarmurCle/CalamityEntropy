@@ -184,6 +184,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     points[i] = points[i - 1] + pointRots[i].ToRotationVector2() * Length / 8f * (npc.IsABestiaryIconDummy ? 0.5f : 1);
                 }
             }
+            
             public CCTentacle(float r, float l)
             {
                 rot = r;

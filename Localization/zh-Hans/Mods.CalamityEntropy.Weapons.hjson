@@ -35,3 +35,9 @@ Rogue: {
 		Tooltip: ""
 	}
 }
+
+StatBloats: {
+	Percent: 膨胀倍率：{0}x
+	Direct: 伤害膨胀: {0} -> {1}
+	Title: 跨模组联动：启用灾厄遗产数值膨胀
+}

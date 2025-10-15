@@ -31,6 +31,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     [AutoloadBossHead]
     [StaticImmunity(staticImmunityCooldown: 6)]
+    
     public class CruiserHead : ModNPC
     {
         public class HitRecord

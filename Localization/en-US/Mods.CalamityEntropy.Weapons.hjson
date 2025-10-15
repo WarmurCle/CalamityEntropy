@@ -26,3 +26,9 @@ Rogue: {
 		Tooltip: ""
 	}
 }
+
+StatBloats: {
+	Percent: ""
+	Direct: "{0}{1}"
+	Title: ""
+}
