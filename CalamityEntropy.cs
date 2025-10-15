@@ -198,7 +198,7 @@ namespace CalamityEntropy
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
             On_Player.UpdateItemDye += update_item_dye;
-            
+            On_Player.Hurt_HurtInfo_bool += on_player_hurt;
 
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
@@ -220,6 +220,14 @@ namespace CalamityEntropy
                 PlayerDashManager.TryAddDash(dashEffect);
             }
 
+        }
+
+        private void on_player_hurt(On_Player.orig_Hurt_HurtInfo_bool orig, Player self, Player.HurtInfo info, bool quiet)
+        {
+            int leastDmg = (int)((ModContent.GetInstance<ServerConfig>().LeastDamageSufferedBasedOnMaxHealth * 0.01f) * self.statLifeMax2);
+            if (info.Damage < leastDmg)
+                info.Damage = leastDmg;
+            orig(self, info, quiet);
         }
 
         private void render_player(On_LegacyPlayerRenderer.orig_DrawPlayer orig, LegacyPlayerRenderer self, Camera camera, Player drawPlayer, Vector2 position, float rotation, Vector2 rotationOrigin, float shadow, float scale)
@@ -395,6 +403,7 @@ namespace CalamityEntropy
             On_Main.DrawThickCursor -= draw_thick_cursor_hook;
             On_Player.UpdateItemDye -= update_item_dye;
             On_LegacyPlayerRenderer.DrawPlayer -= render_player;
+            On_Player.Hurt_HurtInfo_bool -= on_player_hurt;
         }
 
         private Vector2 draw_thick_cursor_hook(On_Main.orig_DrawThickCursor orig, bool smart)

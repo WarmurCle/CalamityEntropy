@@ -4070,6 +4070,11 @@ Configs: {
 			// Label: Bramblecleave Always Unlock All Skill
 			// Tooltip: ""
 		}
+
+		LeastDamageSufferedBasedOnMaxHealth: {
+			// Label: Least Damage Suffered Based On Max Health
+			// Tooltip: ""
+		}
 	}
 }
 

@@ -330,6 +330,7 @@ namespace CalamityEntropy.Common
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
             modifiers.SourceDamage *= (1 - meleeDamageReduce);
+            
         }
         public bool MariviniumSet = false;
         public void addEquip(string id, bool hasVisual = true)
