@@ -1635,7 +1635,7 @@ Items: {
 
 	BookMarkLunar: {
 		DisplayName: 夜明书签
-		Tooltip: 射弹会伤害靠近足够久的敌人
+		Tooltip: 使用夜明书签的时，靠近射弹的目标会逐渐变暗，到一定程度会受到一次额外攻击。
 	}
 
 	BookMarkAbyss: {
