@@ -271,7 +271,7 @@ namespace CalamityEntropy.Core.StatBloats
     public class StatBloatToNPC : GlobalNPC
     {
         //TODO：写在这里会有个多人同步的问题
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void SetDefaults(NPC npc)
         {
             if (!CrossModStatBloats.ActiveStatBloats)
                 return;
@@ -279,7 +279,7 @@ namespace CalamityEntropy.Core.StatBloats
             if(npc.type == ModContent.NPCType<CruiserHead>() || npc.type == ModContent.NPCType<CruiserBody>() || npc.type == ModContent.NPCType<CruiserTail>())
             {
                 npc.lifeMax = (int)(npc.lifeMax * 5f);
-                npc.life = (int)(npc.lifeMax * 5f);
+                npc.life = (int)(npc.life * 5f);
                 npc.defense = (int)(npc.defense * 2.5f);
             }
             if(npc.type == ModContent.NPCType<NihilityActeriophage>() || npc.type == ModContent.NPCType<ChaoticCell>())
