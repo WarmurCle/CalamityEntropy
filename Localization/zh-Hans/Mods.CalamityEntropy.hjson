@@ -4444,7 +4444,7 @@ ArmorPrefixHeatDeathDescription:
 	[c/ff0000:攻击附带热寂，但你的血量会持续流失]
 	'''
 ArmorPrefixArmorPrefixEchoName: 回响
-ArmorPrefixArmorPrefixEchoDescription: +4% 潜行值
+ArmorPrefixArmorPrefixEchoDescription: +4% 潜行值回复速度
 ArmorPrefixTheBodyName: 肉体
 ArmorPrefixTheBodyDescription: +10% 最大生命值
 ArmorPrefixTheMindName: 思想

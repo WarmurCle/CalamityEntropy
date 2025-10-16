@@ -4216,7 +4216,7 @@ ArmorPrefixHeatDeathDescription:
 	[c/ff0000:Your attack will come with heat death, but your health will continue to drain]
 	'''
 ArmorPrefixArmorPrefixEchoName: Echo
-ArmorPrefixArmorPrefixEchoDescription: +4% Rogue stealth
+ArmorPrefixArmorPrefixEchoDescription: +4% Rogue stealth regen
 ArmorPrefixTheBodyName: Body
 ArmorPrefixTheBodyDescription: +10% Max Life
 ArmorPrefixTheMindName: Mind
