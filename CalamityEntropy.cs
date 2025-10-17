@@ -601,18 +601,21 @@ namespace CalamityEntropy
             if (orig != null && self != null && gameTime != null)
             {
                 orig(self, gameTime);
-                EModSys.mi = false;
-                if (LoopSoundManager.sounds != null)
+                try
                 {
-                    if (LoopSoundManager.sounds.Count > 0)
+                    EModSys.mi = false;
+                    if (LoopSoundManager.sounds != null)
                     {
-                        for (int i = 0; i < LoopSoundManager.sounds.Count; i++)
+                        if (LoopSoundManager.sounds.Count > 0)
                         {
-                            var sound = LoopSoundManager.sounds[i];
-                            sound.stop();
+                            for (int i = 0; i < LoopSoundManager.sounds.Count; i++)
+                            {
+                                var sound = LoopSoundManager.sounds[i];
+                                sound.stop();
+                            }
                         }
+                        LoopSoundManager.sounds.Clear();
                     }
-                    LoopSoundManager.sounds.Clear();
                 }
             }
         }

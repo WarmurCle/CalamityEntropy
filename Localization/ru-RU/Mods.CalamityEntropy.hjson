@@ -4240,7 +4240,7 @@ ArmorPrefixHeatDeathDescription:
 	[c/ff0000:Ваши атаки вызывают эффект тепловой смерти, но здоровье будет постоянно истощаться]
 	'''
 // ArmorPrefixArmorPrefixEchoName: Echo
-// ArmorPrefixArmorPrefixEchoDescription: +4% Rogue stealth
+// ArmorPrefixArmorPrefixEchoDescription: +4% Rogue stealth regen
 // ArmorPrefixTheBodyName: Body
 // ArmorPrefixTheBodyDescription: +10% Max Life
 // ArmorPrefixTheMindName: Mind
