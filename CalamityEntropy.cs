@@ -617,6 +617,7 @@ namespace CalamityEntropy
                         LoopSoundManager.sounds.Clear();
                     }
                 }
+                catch { }
             }
         }
 
