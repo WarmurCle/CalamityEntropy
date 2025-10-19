@@ -1635,7 +1635,7 @@ Items: {
 
 	BookMarkLunar: {
 		DisplayName: 夜明书签
-		Tooltip: 射弹会伤害靠近足够久的敌人
+		Tooltip: 靠近射弹的目标会逐渐变暗，到一定程度会受到一次额外攻击
 	}
 
 	BookMarkAbyss: {
@@ -4659,7 +4659,7 @@ TeleportSlashCooldown: 强化斩击冷却
 ScytheReviveCooldown: 复活冷却
 TScytheZenithName: 夜之主的镰刀
 TScytheSpecialName: 小红
-TScytheZenithDesc: “为我加冕，我的王，世界将会迎来终夜。”
+TScytheZenithDesc:“为我加冕，我的王，世界将迎来终夜。”
 TScytheDesc: “猩红的镰刀，小死神的灵魂附着其上”
 TSL1: 邪恶的大眼珠子似乎对猊下不怀好意...我们去干掉他吧!
 TSL2: 脑子和虫子状的奇怪恶魂？我可以带回家做成标本吗..？
