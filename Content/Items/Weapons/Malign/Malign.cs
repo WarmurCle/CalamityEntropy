@@ -100,10 +100,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                     MousePressed = !player.mouseInterface && Main.mouseLeft;
                     if(MousePressed && ActiveProgress > 0.8f)
                     {
+                        if(player.manaRegenDelay < 16)
+                            player.manaRegenDelay = 16;
                         if (Projectile.ai[1] <= 0)
                         {
                             Projectile.ai[1] = player.HeldItem.useTime;
-                            Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), Projectile.Center + Projectile.rotation.ToRotationVector2() * 90, Projectile.velocity.RotatedByRandom(0.6f) * 2, ModContent.ProjectileType<MalignBullet>(), player.GetWeaponDamage(player.HeldItem), player.GetWeaponKnockback(player.HeldItem), player.whoAmI);
+                            if(player.CheckMana(player.HeldItem.mana, true))
+                                Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), Projectile.Center + Projectile.rotation.ToRotationVector2() * 90, Projectile.velocity.RotatedByRandom(0.6f) * 2, ModContent.ProjectileType<MalignBullet>(), player.GetWeaponDamage(player.HeldItem), player.GetWeaponKnockback(player.HeldItem), player.whoAmI);
                         }
                     }
                 }
