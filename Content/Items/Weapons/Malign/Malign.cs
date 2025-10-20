@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 42;
+            Item.damage = 58;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 6;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             Item.rare = ItemRarityID.Pink;
             Item.shoot = ModContent.ProjectileType<MalignHeld>();
             Item.shootSpeed = 16f;
-            Item.mana = 6;
+            Item.mana = 3;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
             Item.useTurn = true;
@@ -100,7 +100,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                     MousePressed = !player.mouseInterface && Main.mouseLeft;
                     if(MousePressed && ActiveProgress > 0.8f)
                     {
-                        if(player.manaRegenDelay < 16)
+                        player.channel = true;
+                        if(player.manaRegenDelay < 16 && player.CheckMana(player.HeldItem.mana, false))
                             player.manaRegenDelay = 16;
                         if (Projectile.ai[1] <= 0)
                         {

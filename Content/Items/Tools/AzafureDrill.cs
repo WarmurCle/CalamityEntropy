@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Tools
             Item.knockBack = 0f;
             Item.useTime = 6;
             Item.useAnimation = 25;
-            Item.pick = 46;
+            Item.pick = 70;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
