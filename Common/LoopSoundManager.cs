@@ -46,7 +46,7 @@ namespace CalamityEntropy.Common
         }
         public void play()
         {
-            if (!Main.dedServ)
+            if (!Main.dedServ && LoopSoundManager.sounds != null)
             {
                 if (LoopSoundManager.sounds.Count < 5)
                 {
