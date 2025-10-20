@@ -2929,6 +2929,16 @@ Items: {
 		DisplayName: Malign
 		Tooltip: ""
 	}
+
+	AzafureDrill: {
+		DisplayName: Azafure Drill
+		Tooltip: ""
+	}
+
+	AzafurePowerSaw: {
+		DisplayName: Azafure Power Saw
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3453,6 +3463,7 @@ Projectiles: {
 	MalignBullet.DisplayName: Malign Bullet
 	MalignLightning.DisplayName: Malign Lightning
 	MalignLaser.DisplayName: Malign Laser
+	AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
 }
 
 LegendTooltip: - Legend -

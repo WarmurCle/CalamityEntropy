@@ -3171,10 +3171,17 @@ Items: {
 
 	Malign: {
 		DisplayName: 魔灵
-		Tooltip: 
-		'''
-		快速发射会迸发出电弧和激光的子弹
-		'''
+		Tooltip: 快速发射会迸发出电弧和激光的子弹
+	}
+
+	AzafureDrill: {
+		DisplayName: 阿萨福勒手提钻
+		Tooltip: ""
+	}
+
+	AzafurePowerSaw: {
+		DisplayName: 阿萨福勒动力锯
+		Tooltip: ""
 	}
 }
 
@@ -3683,6 +3690,7 @@ Projectiles: {
 	// MalignBullet.DisplayName: Malign Bullet
 	// MalignLightning.DisplayName: Malign Lightning
 	// MalignLaser.DisplayName: Malign Laser
+	// AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
 }
 
 LegendTooltip: - 传奇物品 -
