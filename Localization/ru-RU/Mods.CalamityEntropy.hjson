@@ -2962,6 +2962,11 @@ Items: {
 		// DisplayName: Momo's Light Pet
 		// Tooltip: ""
 	}
+
+	Malign: {
+		// DisplayName: Malign
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3467,6 +3472,9 @@ Projectiles: {
 	// HexController.DisplayName: Hex Controller
 	// HexVertex.DisplayName: Hex Vertex
 	// Molightpet.DisplayName: Molightpet
+	// MalignHeld.DisplayName: Malign Held
+	// MalignBullet.DisplayName: Malign Bullet
+	// MalignLightning.DisplayName: Malign Lightning
 }
 
 LegendTooltip: - Легенда -

@@ -27,6 +27,31 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static float CustomLerp2(float p)
+        {
+            return float.Lerp(1, 0, (1 - p) * (1 - p)* (1 - p));
+        }
+        public static void StickToPlayer(this Projectile proj)
+        {
+            Player player = proj.GetOwner();
+            player.Calamity().mouseWorldListener = true;
+            proj.Center = player.GetDrawCenter();
+            proj.rotation = (player.mouseWorld() - proj.Center).ToRotation();
+            proj.velocity = proj.rotation.ToRotationVector2() * player.HeldItem.shootSpeed;
+            player.heldProj = proj.whoAmI;
+        }
+        public static Vector2 mouseWorld(this Player player)
+        {
+            player.Calamity().mouseWorldListener = true;
+            return player.Calamity().mouseWorld;
+        }
+        public static void CheckAndSpawnHeldProj(this Player player, int type)
+        {
+            if (player.ownedProjectileCounts[type] < 1 && Main.myPlayer == player.whoAmI)
+            {
+                Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center, Vector2.Zero, type, player.GetWeaponDamage(player.HeldItem), 0, player.whoAmI);
+            }
+        }
         public static bool TryKillTileAndChest(int x, int y, Player player)
         {
             bool t = TryKillTile(x, y, player);
