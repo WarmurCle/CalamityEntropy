@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
@@ -50,6 +51,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             return false;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.CrystalSerpent)
+                .AddIngredient(ItemID.Ectoplasm, 6)
+                .AddIngredient<AshesofCalamity>(4)
+                .Register();
         }
     }
     public class MalignHeld : ModProjectile
