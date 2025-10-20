@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 9;
+            Item.damage = 12;
             Item.shootSpeed = 24;
             Item.ArmorPenetration = 10;
         }
@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.light = 0;
             Projectile.tileCollide = true;
             Projectile.width = Projectile.height = 8;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 6;
         }
         public int Penet = 3;
         public List<int> hitedNPC = new();

@@ -3452,6 +3452,7 @@ Projectiles: {
 	MalignHeld.DisplayName: Malign Held
 	MalignBullet.DisplayName: Malign Bullet
 	MalignLightning.DisplayName: Malign Lightning
+	MalignLaser.DisplayName: Malign Laser
 }
 
 LegendTooltip: - Legend -

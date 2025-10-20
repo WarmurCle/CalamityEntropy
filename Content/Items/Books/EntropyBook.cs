@@ -745,7 +745,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             return _points;
         }
-        public virtual int OnHitEffectProb => 4;
+        public virtual int OnHitEffectProb => 6;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.NextBool(OnHitEffectProb))
@@ -868,7 +868,8 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void PostAI()
         {
-            _points = cauculatePoints();
+            if(Main.GameUpdateCount % 4 == 0)
+                _points = cauculatePoints();
         }
     }
     public abstract class EBookProjectileEffect : ModType

@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.useTime = Item.useAnimation = 6;
-            Item.damage = 1600;
+            Item.damage = 100;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<InfiniteBookHeld>();
         public override int SlotCount => 24;

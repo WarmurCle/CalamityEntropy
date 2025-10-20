@@ -23,7 +23,7 @@ namespace CalamityEntropy.Common
         public static int BMVoid = 0;
         public static int BMAuric = 0;
         public static int MineBoxCd = 0;
-
+        public static int BMTaurus = 0;
         public static void Update()
         {
             CountDown(ref BMLightCD);
@@ -33,6 +33,8 @@ namespace CalamityEntropy.Common
             CountDown(ref BMVoid);
             CountDown(ref BMAuric);
             CountDown(ref MineBoxCd);
+            CountDown(ref BMTaurus);
+
             for (int i = 0; i < cooldowns.Count; i++)
             {
                 cooldowns[i].Time--;

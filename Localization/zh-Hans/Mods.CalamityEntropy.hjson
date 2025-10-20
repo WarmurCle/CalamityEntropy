@@ -3170,8 +3170,11 @@ Items: {
 	}
 
 	Malign: {
-		// DisplayName: Malign
-		// Tooltip: ""
+		DisplayName: 魔灵
+		Tooltip: 
+		'''
+		快速发射会迸发出电弧和激光的子弹
+		'''
 	}
 }
 
@@ -3679,6 +3682,7 @@ Projectiles: {
 	// MalignHeld.DisplayName: Malign Held
 	// MalignBullet.DisplayName: Malign Bullet
 	// MalignLightning.DisplayName: Malign Lightning
+	// MalignLaser.DisplayName: Malign Laser
 }
 
 LegendTooltip: - 传奇物品 -

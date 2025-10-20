@@ -275,7 +275,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (base.Projectile.owner == Main.myPlayer)
             {
-                int num = 30;
+                int num = 8;
                 float num2 = MathF.PI * 2f / (float)num;
                 int type = ModContent.ProjectileType<BrimstoneShootSmall>();
                 float num3 = 6.5f;
@@ -285,7 +285,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Vector2 velocity = spinningpoint.RotatedBy(num2 * (float)i);
                     if (this.ShooterModProjectile is EntropyBookHeldProjectile ebook)
                     {
-                        ebook.ShootSingleProjectile(type, Projectile.Center, velocity, 0.4f, initAction: (projectile) => { projectile.ai[0] = 0f; projectile.ai[1] = Projectile.ai[1]; projectile.ai[2] = num3 * 1.5f; }, shotSpeedMul: 0.7f);
+                        ebook.ShootSingleProjectile(type, Projectile.Center, velocity, 0.7f, initAction: (projectile) => { projectile.ai[0] = 0f; projectile.ai[1] = Projectile.ai[1]; projectile.ai[2] = num3 * 1.5f; }, shotSpeedMul: 0.7f);
                     }
                 }
             }
