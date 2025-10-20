@@ -99,7 +99,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
             {
                 CEUtils.PlaySound("chainsawHit", 1, Projectile.Center, volume: 0.4f);
             }
-            Projectile.Center = player.Center + Projectile.rotation.ToRotationVector2() * 32 * Projectile.scale + player.gfxOffY * Vector2.UnitY;
+            Projectile.Center = player.Center + Projectile.rotation.ToRotationVector2() * 48 * Projectile.scale + player.gfxOffY * Vector2.UnitY;
             if (Projectile.Entropy().OnProj != -1)
             {
                 Projectile.Center = Projectile.Entropy().OnProj.ToProj().Center + Projectile.rotation.ToRotationVector2() * 32 * Projectile.scale;
@@ -145,15 +145,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            Player player = Main.player[Projectile.owner];
-            int bsize = ((int)(80 * Projectile.scale));
-            Vector2 c = player.Center + Projectile.rotation.ToRotationVector2() * bsize / 2;
-            if (Projectile.Entropy().OnProj != -1)
-            {
-                c = Projectile.Entropy().OnProj.ToProj().Center + Projectile.rotation.ToRotationVector2() * bsize / 2;
-            }
-            return new Rectangle((int)c.X - bsize / 2, (int)c.Y - bsize / 2, bsize, bsize).Intersects(targetHitbox);
-
+            return CEUtils.LineThroughRect(Projectile.GetOwner().Center, Projectile.GetOwner().Center + Projectile.rotation.ToRotationVector2() * 216, targetHitbox, 42);
         }
         public int soundCd = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -169,10 +161,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
             {
                 CalamityEntropy.Instance.screenShakeAmp = 1;
             }
-            float sparkCount = 1;
+            float sparkCount = 12;
             for (int i = 0; i < sparkCount; i++)
             {
-                Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
+                Vector2 sparkVelocity2 = new Vector2(18, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
                 int sparkLifetime2 = Main.rand.Next(23, 35);
                 float sparkScale2 = Main.rand.NextFloat(0.95f, 1.8f);
                 Color sparkColor2 = Color.DarkRed;
@@ -180,7 +172,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
                 float velc = 0.7f;
                 if (Main.rand.NextBool())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
+                    AltSparkParticle spark = new AltSparkParticle(target.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
                 else

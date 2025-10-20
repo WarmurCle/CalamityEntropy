@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Tools
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item23;
             Item.autoReuse = true;
-            Item.useTurn = true;
+            Item.useTurn = false;
             Item.tileBoost = -1;
         }
 
@@ -46,7 +46,6 @@ namespace CalamityEntropy.Content.Items.Tools
         {
             player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
             float itemRotation = player.compositeFrontArm.rotation + MathHelper.PiOver2 * player.gravDir;
-
             Vector2 itemPosition = player.MountedCenter + itemRotation.ToRotationVector2() * 6f;
             Vector2 itemSize = new Vector2(Item.width, Item.height);
             Vector2 itemOrigin = new Vector2(Main.rand.NextFloat(-2, 2), Main.rand.NextFloat(-2, 2));
