@@ -46,11 +46,11 @@ namespace CalamityEntropy.Content.Projectiles
 
                 Vector2 avc = Projectile.velocity;
                 avc.Normalize();
-                for (int i = 0; i < 64; i++)
+                for (int i = 0; i < 22; i++)
                 {
                     points.Add(vc);
-                    vc += avc * 14;
-                    avc = avc.RotatedByRandom(0.2f);
+                    vc += avc * 36;
+                    avc = avc.RotatedByRandom(0.42f);
                 }
             }
             Projectile.ai[0] += 1;
@@ -75,12 +75,11 @@ namespace CalamityEntropy.Content.Projectiles
             }
             return false;
         }
-        public float PrimitiveWidthFunction(float completionRatio) => (1 - completionRatio) * Projectile.scale * 6 * ((10f - Projectile.ai[0]) / 10f);
+        public float PrimitiveWidthFunction(float completionRatio) => Projectile.scale * 8 * ((10f - Projectile.ai[0]) / 10f);
 
         public Color PrimitiveColorFunction(float completionRatio)
         {
-            float colorInterpolant = (float)Math.Sin(Projectile.identity / 3f + completionRatio * 20f + Main.GlobalTimeWrappedHourly * 1.1f) * 0.5f + 0.5f;
-            Color color = new Color(255, 190, 255);
+            Color color = new Color(255, 100, 255);
             return color;
         }
         public override bool PreDraw(ref Color lightColor)
@@ -89,13 +88,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return false;
             }
-            Color color = new Color(255, 190, 255);
-            GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"].UseImage1("Images/Misc/Perlin");
-            GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"].Apply();
-
-            PrimitiveRenderer.RenderTrail(points, new(PrimitiveWidthFunction, PrimitiveColorFunction, (_) => Projectile.Size * 0.2f, false,
-                shader: GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"]), 10);
-
+            Color color = new Color(255, 200, 255);
+            CEUtils.DrawLines(points, color, 8 * (1 - (Projectile.ai[0] / 10f)));
+            CEUtils.DrawLines(points, color * 0.4f, 16 * (1 - (Projectile.ai[0] / 10f)));
             return false;
         }
     }

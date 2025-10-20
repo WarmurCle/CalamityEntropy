@@ -24,9 +24,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 58;
+            Item.damage = 28;
             Item.noMelee = true;
-            Item.useAnimation = Item.useTime = 6;
+            Item.useAnimation = Item.useTime = 5;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 0;
             Item.maxStack = 1;
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             Item.rare = ItemRarityID.Pink;
             Item.shoot = ModContent.ProjectileType<MalignHeld>();
             Item.shootSpeed = 16f;
-            Item.mana = 3;
+            Item.mana = 5;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
             Item.useTurn = true;
@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                         {
                             Projectile.ai[1] = player.HeldItem.useTime;
                             if(player.CheckMana(player.HeldItem.mana, true))
-                                Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), Projectile.Center + Projectile.rotation.ToRotationVector2() * 90, Projectile.velocity.RotatedByRandom(0.6f) * 2, ModContent.ProjectileType<MalignBullet>(), player.GetWeaponDamage(player.HeldItem), player.GetWeaponKnockback(player.HeldItem), player.whoAmI);
+                                Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), Projectile.Center + Projectile.rotation.ToRotationVector2() * 90, Projectile.velocity.RotatedByRandom(0.4f) * 2, ModContent.ProjectileType<MalignBullet>(), player.GetWeaponDamage(player.HeldItem), player.GetWeaponKnockback(player.HeldItem), player.whoAmI);
                         }
                     }
                 }
@@ -173,13 +173,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             {
                 for(float i = 0; i <= 1; i += 0.005f)
                 {
-                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.2f, 1f) }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, new Color(255, 40, 255), CEUtils.CustomLerp2(1 - i) + 0.1f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 16);
+                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.2f, 1f) }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, new Color(255, 40, 255), CEUtils.CustomLerp2(1 - i) * 0.7f + 0.1f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 16);
                 }
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 200, 255), 0.6f, 1, true, BlendState.Additive, 0, 16);
                 for(int i = 0; i < 3; i++)
                 {
                     Vector2 v = Projectile.velocity.RotateRandom(0.4f);
-                    GeneralParticleHandler.SpawnParticle(new LineParticle(Projectile.Center - v * 0.1f, v * -0.01f, false, 16, 2, new Color(255, 190, 255)));
+                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1.5f) }, Projectile.Center, v * -0.0002f, new Color(255, 200, 255), 1.2f, 1, true, BlendState.Additive, v.ToRotation(), 16);
+                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1.5f) }, Projectile.Center, v * -0.0002f, new Color(255, 200, 255), 1.2f, 1, true, BlendState.Additive, v.ToRotation(), 16);
+
                 }
             }
         }
@@ -209,7 +211,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             if (Projectile.localAI[2]++ == 0)
             {
-                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(1f, 1.6f), Projectile.Center, volume:0.84f);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity, Vector2.Zero, new Color(255, 190, 255), 0.4f, 1, true, BlendState.Additive, 0, 5);
+                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.9f, 1.4f), Projectile.Center, volume:0.84f);
             }
             if(Main.myPlayer == Projectile.owner)
             {
@@ -220,20 +223,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             }
             if(trail == null)
             {
-                trail = new TrailParticle() { maxLength = 20};
-                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(255, 190, 255), 1.6f, 1, true, BlendState.Additive);
+                trail = new TrailParticle() { maxLength = 12, SameAlpha = true};
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(255, 190, 255), 1.2f, 1, true, BlendState.Additive);
             }
-            EParticle.spawnNew(new Content.Particles.ELineParticle(2f, 0.8f, 0.8f), Projectile.Center + CEUtils.randomPointInCircle(8), Projectile.velocity.RotatedByRandom(0.2f), new Color(255, 190, 255) * 0.8f, 2, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 6);
+            EParticle.spawnNew(new Content.Particles.ELineParticle(3.4f, 0.8f, 0.84f), Projectile.Center + CEUtils.randomPointInCircle(4), Projectile.velocity.RotatedByRandom(0.12f), new Color(255, 190, 255) * 0.8f, 2, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 6);
             
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             trail.TimeLeftMax = trail.Lifetime = 13;
             Projectile.rotation = Projectile.velocity.ToRotation();
             if(Projectile.timeLeft < 22)
             {
-                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 800);
+                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 340);
                 if (target != null)
                 {
-                    Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.02f, true).ToRotationVector2() * Projectile.velocity.Length();
+                    Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.12f, true).ToRotationVector2() * Projectile.velocity.Length();
                 }
             }
         }

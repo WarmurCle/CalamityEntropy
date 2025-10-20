@@ -10,6 +10,19 @@ namespace CalamityEntropy.Content.Particles
         public override void AI()
         {
             base.AI();
+
+            counter++;
+
+            this.Velocity *= r;
+            b = Vector2.Lerp(this.Position, b, this.c);
+            if (CEUtils.getDistance(this.Position, b) < 2 && counter > 20)
+            {
+                this.Lifetime = 0;
+            }
+            else
+            {
+                this.Lifetime = 2;
+            }
         }
         public Vector2 b;
         public override void OnSpawn()
@@ -28,18 +41,7 @@ namespace CalamityEntropy.Content.Particles
         public int counter = 0;
         public override void Draw()
         {
-            counter++;
             CEUtils.drawLine(this.Position, b, this.Color, width);
-            this.Velocity *= r;
-            b = Vector2.Lerp(this.Position, b, this.c);
-            if (CEUtils.getDistance(this.Position, b) < 2 && counter > 20)
-            {
-                this.Lifetime = 0;
-            }
-            else
-            {
-                this.Lifetime = 2;
-            }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace CalamityEntropy.Content.Particles
     public class TrailParticle : EParticle
     {
         public List<Vector2> odp = new List<Vector2>();
+        public bool SameAlpha = false;
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Trail").Value;
         public override void OnSpawn()
         {
@@ -53,10 +54,10 @@ namespace CalamityEntropy.Content.Particles
             {
                 ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * this.Scale,
                       new Vector3((((float)i) / odp.Count), 1, 1),
-                      b * ((odp.Count - i) / (float)odp.Count)));
+                      b * (SameAlpha ? 1 : ((odp.Count - i - 1) / (float)odp.Count))));
                 ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * this.Scale,
                       new Vector3((((float)i) / odp.Count), 0, 1),
-                      b * ((odp.Count - i) / (float)odp.Count)));
+                      b * (SameAlpha ? 1 : ((odp.Count - i - 1) / (float)odp.Count))));
             }
             SpriteBatch sb = Main.spriteBatch;
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
