@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 80;
+            Item.damage = 42;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 6;
             Item.useStyle = ItemUseStyleID.Shoot;
