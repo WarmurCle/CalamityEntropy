@@ -406,7 +406,7 @@ Items: {
 			+[MN] Minion Slot
 			+[ATS]% Melee speed
 			+100% Light
-			Heal players nearby 10 per 5 sec
+			Heal players nearby by 20 per 5 sec
 			'''
 		DisplayName: Oracle Deck
 	}

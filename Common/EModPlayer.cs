@@ -2433,7 +2433,7 @@ namespace CalamityEntropy.Common
                     {
                         if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2)
                         {
-                            Main.LocalPlayer.Heal(10);
+                            Main.LocalPlayer.Heal(20);
                         }
                     }
                 }
