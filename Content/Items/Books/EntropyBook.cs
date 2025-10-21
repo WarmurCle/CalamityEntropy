@@ -868,8 +868,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void PostAI()
         {
-            if(Main.GameUpdateCount % 4 == 0)
-                _points = cauculatePoints();
+            _points = cauculatePoints();
         }
     }
     public abstract class EBookProjectileEffect : ModType
