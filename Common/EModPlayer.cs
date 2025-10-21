@@ -463,7 +463,7 @@ namespace CalamityEntropy.Common
                 foreseeOrbLast = foreseeOrbItem != null;
             }
             foreseeOrbItem = null;
-            soulDicorder = false;
+            soulDisorder = false;
             equipAccs = new List<EquipInfo>();
             vetrasylsEye = false;
             maliciousCode = false;
@@ -1038,6 +1038,10 @@ namespace CalamityEntropy.Common
                 voidResistance += NihilityTwinLore.VoidRes;
                 Player.wingTimeMax = (int)(Player.wingTimeMax * (1 + NihilityTwinLore.MaxFlyTimeAddition));
             }
+            if(soulDisorder)
+            {
+                HitCooldown -= 0.5f;
+            }
             if (ProphetLoreBonus)
             {
                 HitCooldown += ProphetLore.ImmuneAdd;
@@ -1233,9 +1237,9 @@ namespace CalamityEntropy.Common
             deusCoreAdd = 0;
 
             modifiers.ModifyHurtInfo += EPHurtModifier;
-            if (soulDicorder)
+            if (soulDisorder)
             {
-                modifiers.SourceDamage += 0.05f;
+                modifiers.SourceDamage *= 1.25f;
             }
             if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {
@@ -2614,7 +2618,7 @@ namespace CalamityEntropy.Common
             {
                 RogueStealthRegen += 0.02f * Player.velocity.Length();
             }
-            if (soulDicorder)
+            if (soulDisorder)
             {
                 Player.statDefense -= 14;
             }
@@ -2871,7 +2875,7 @@ namespace CalamityEntropy.Common
             }
         }
         public List<Item> EBookStackItems = null;
-        public bool soulDicorder = false;
+        public bool soulDisorder = false;
         public bool obscureCard = false;
         public bool grudgeCard = false;
         public bool mourningCard = false;

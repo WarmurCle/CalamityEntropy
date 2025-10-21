@@ -119,11 +119,11 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             }
             if (CalamityWorld.death)
             {
-                NPC.damage += 2;
+                NPC.damage += 12;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 4;
+                NPC.damage += 6;
             }
             var snd = CEUtils.GetSound("prophet_hurt", maxIns: 1);
             var snd2 = CEUtils.GetSound("prophet_death");

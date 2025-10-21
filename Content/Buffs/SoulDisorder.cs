@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.Entropy().soulDicorder = true;
+            player.Entropy().soulDisorder = true;
         }
     }
 
