@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         float yx = 0;
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 8 * 60);
         }
 
         public override bool PreDraw(ref Color lightColor)

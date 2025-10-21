@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 5 * 60);
+            target.AddBuff(ModContent.BuffType<SoulDisorder>(), 8 * 60);
         }
         internal float WidthFunction(float completionRatio)
         {
