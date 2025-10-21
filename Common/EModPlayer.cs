@@ -26,6 +26,7 @@ using CalamityEntropy.Content.UI.Poops;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
+using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework.Audio;
@@ -2837,9 +2838,17 @@ namespace CalamityEntropy.Common
         {
             if (Player.Calamity().ZoneAstral)
             {
-                if (Main.rand.NextBool(18))
+                if (Main.rand.NextBool(18) && attempt.uncommon)
                 {
                     itemDrop = ModContent.ItemType<GreedCard>();
+                }
+            }
+            if(Player.Calamity().ZoneSunkenSea)
+            {
+                if(attempt.common && Main.rand.NextBool(10))
+                {
+                    itemDrop = ModContent.ItemType<Voidstone>();
+
                 }
             }
         }
