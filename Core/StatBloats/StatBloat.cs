@@ -96,6 +96,7 @@ namespace CalamityEntropy.Core.StatBloats
             DictionaryAdd<Zyphros>(DirectTweaks, 4537);
             //至尊灾厄就只掉一把武器吗，哈基熵，你这家伙……
             DictionaryAdd<TheFilthyContractWithMammon>(DirectTweaks, 4050);
+            DictionaryAdd<Mercy>(DirectTweaks, 720);
 
             //仅仅用于调试目的
             var giantList = WeaponsVoid.Concat(WeaponsCosmicBar)
