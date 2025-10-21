@@ -786,7 +786,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if(Projectile.Calamity().stealthStrike)
             {
-                ySc = 0.34f;
+                ySc = 0.5f;
                 ProjScale *= 2f;
             }
             float r = 3.6f;
