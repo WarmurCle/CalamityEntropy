@@ -67,6 +67,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             Projectile.FriendlySetDefaults(DamageClass.Magic, false, -1);
         }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return false;
+        }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/Malign/Malign";
         public Texture2D tCircle1 => this.getTextureAlt("Circle1");
         public Texture2D tCircle2 => this.getTextureAlt("Circle2");
