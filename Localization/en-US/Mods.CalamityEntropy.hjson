@@ -2939,6 +2939,11 @@ Items: {
 		DisplayName: Azafure Power Saw
 		Tooltip: ""
 	}
+
+	AzafureElectrocauteryWand: {
+		DisplayName: Azafure Electrocautery Wand
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3464,6 +3469,8 @@ Projectiles: {
 	MalignLightning.DisplayName: Malign Lightning
 	MalignLaser.DisplayName: Malign Laser
 	AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
+	AzafureElectrocauteryWandHeld.DisplayName: Azafure Electrocautery Wand Held
+	AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
 }
 
 LegendTooltip: - Legend -
