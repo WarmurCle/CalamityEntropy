@@ -16,10 +16,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 1400;
+            Item.damage = 1600;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 60;
+            Item.useAnimation = Item.useTime = 33;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.ArmorPenetration = 50;
             Item.knockBack = 1f;
@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
             Item.rare = ModContent.RarityType<DarkBlue>();
             Item.shoot = ModContent.ProjectileType<SilenceThrow>();
-            Item.shootSpeed = 18f;
+            Item.shootSpeed = 15f;
             Item.DamageType = CEUtils.RogueDC;
             Item.rare = ItemRarityID.Red;
             Item.Entropy().stroke = true;
