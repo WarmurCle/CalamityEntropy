@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     public class ShadeCloak : ModItem
     {
         public static float BaseDamage = 25;
-        public static int CooldownTicks = 30 * 60;
+        public static int CooldownTicks = 45 * 60;
         public override void SetDefaults()
         {
             Item.width = 42;
