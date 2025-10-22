@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.HallowedBar, 8)
+                .AddRecipeGroup(CERecipeGroups.AnyOrichalcumBar, 8)
                 .AddIngredient<HellIndustrialComponents>(6)
                 .AddIngredient<AzafurePulseWand>()
                 .AddTile(TileID.Anvils)
