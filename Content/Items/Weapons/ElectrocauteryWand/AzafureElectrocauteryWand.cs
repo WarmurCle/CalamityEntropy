@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
             Projectile.light = 1;
         }
         public float Charge = 0;
-        public int AfterAnm = 60;
+        public int AfterAnm = 30;
         public float DrawOffset = 0;
         public float OffsetVel = -8;
         public bool Shoot = true;
