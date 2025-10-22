@@ -19,12 +19,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 780;
+            Item.damage = 600;
             Item.crit = 10;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = Item.useAnimation = 22;
+            Item.useTime = Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 CEUtils.PlaySound("VoidAnticipation", 1, position, volume: CEUtils.WeapSound);
                 player.AddBuff(BuffID.ChaosState, 15 * 60);
-                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 30, 0, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 40, 0, player.whoAmI);
                 return false;
             }
             int at = 2;
@@ -171,7 +171,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 48 * scale * Projectile.scale;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 8, Projectile.knockBack, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
                     }
                 }
                 alpha = 1;
@@ -221,7 +221,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     if (progress > 0.2f && shoot)
                     {
                         shoot = false;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2)(CEUtils.normalize(Projectile.velocity) * 12 + CEUtils.randomPointInCircle(6)), ModContent.ProjectileType<VoidWave>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2)(CEUtils.normalize(Projectile.velocity) * 12 + CEUtils.randomPointInCircle(6)), ModContent.ProjectileType<VoidWave>(), Projectile.damage * 2, Projectile.knockBack, Projectile.owner);
                     }
                     if (progress < 0.6f)
                     {
