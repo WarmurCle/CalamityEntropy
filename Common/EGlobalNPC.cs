@@ -951,6 +951,16 @@ namespace CalamityEntropy.Common
         public bool needExitShader = false;
         public override void OnKill(NPC npc)
         {
+            if(npc.type == NPCID.WallofFlesh)
+            {
+                for(int i = 0; i < 32; i++)
+                {
+                    float rot;
+                    rot = CEUtils.randomRot();
+                    Main.item[Item.NewItem(npc.GetSource_Death(), npc.Center + rot.ToRotationVector2() * 128, new Item(ItemID.SoulofLight, 2))].velocity = rot.ToRotationVector2() * Main.rand.NextFloat(2, 32);
+                    Main.item[Item.NewItem(npc.GetSource_Death(), npc.Center + rot.ToRotationVector2() * 128, new Item(ItemID.SoulofNight, 2))].velocity = rot.ToRotationVector2() * Main.rand.NextFloat(2, 32);
+                }
+            }
             if ((Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCrimson || Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneCorrupt) && Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].Center.Y > Main.worldSurface + 256)
             {
                 if (Main.rand.NextBool(54))
