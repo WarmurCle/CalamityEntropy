@@ -21,7 +21,8 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
         {
             Item.width = 24;
             Item.height = 24;
-            Item.damage = 80;
+            Item.damage = 120;
+            Item.crit = 12;
             Item.DamageType = DamageClass.Magic;
             Item.useTime = 36;
             Item.useAnimation = 36;
@@ -33,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = null;
             Item.autoReuse = false;
-            Item.shootSpeed = 7f;
+            Item.shootSpeed = 22f;
             Item.channel = true;
             Item.noUseGraphic = true;
             Item.mana = 12;
@@ -42,9 +43,9 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<AerialiteBar>(5)
-                .AddIngredient<HellIndustrialComponents>(4)
-                .AddIngredient<PlasmaRod>()
+                .AddIngredient(ItemID.HallowedBar, 8)
+                .AddIngredient<HellIndustrialComponents>(6)
+                .AddIngredient<AzafurePulseWand>()
                 .AddTile(TileID.Anvils)
                 .Register();
         }
@@ -108,7 +109,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                         Projectile.Kill();
                         return;
                     }
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 60, Projectile.velocity, ModContent.ProjectileType<AzafureElectrocauteryWandBomb>(), (int)(Projectile.damage * Charge), Projectile.knockBack * Charge, Projectile.owner, 0, 0, Charge);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 60, Projectile.velocity * (0.3f + 0.7f * Charge), ModContent.ProjectileType<AzafureElectrocauteryWandBomb>(), (int)(Projectile.damage * Charge), Projectile.knockBack * Charge, Projectile.owner, 0, 0, Charge);
                     for (int i = 0; i < (int)(20 * Charge); i++)
                         GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(4) + (Projectile.velocity.X > 0 ? new Vector2(80, 8) : new Vector2(80, -8)).RotatedBy(Projectile.rotation), CEUtils.randomPointInCircle(6), Color.Lerp(Color.Yellow, Color.White, 0.5f), 22, Main.rand.NextFloat(0.12f, 0.36f), 0.6f, 0.006f, true));
                     for (int i = 0; i < 3;i++)
@@ -157,6 +158,9 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Magic, false, -1);
+
+            Projectile.light = 1;
+            Projectile.width = Projectile.height = 12;
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -170,6 +174,9 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
         public override void AI()
         {
             Projectile.ai[0]++;
+            if (Projectile.ai[0] == 24)
+                for(int i = 0; i < 5; i++)
+                    CEUtils.PlaySound("alert2", 1f, Projectile.Center, 10, 2);
             if (Projectile.ai[0] < 32)
             {
                 if (Projectile.ai[0] > 8)
@@ -198,7 +205,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                         {
                             if (!npc.friendly && !npc.dontTakeDamage & npc.CanBeChasedBy(Projectile))
                             {
-                                if (!target.Contains(npc))
+                                if (!target.Contains(npc) && CEUtils.getDistance(npc.Center, Projectile.Center) < PulseScale)
                                 {
                                     target.Add(npc);
                                 }
@@ -209,8 +216,8 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                 if (Projectile.ai[0] > 66)
                 {
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 256, Projectile.DamageType);
-                    GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Gold, 0.06f, 1.2f, 16));
-                    GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.06f, 1.6f, 16));
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.06f, 2.4f, 16));
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.06f, 2.6f, 16));
                     foreach(var npc in target)
                     {
                         if (npc.active)
@@ -222,7 +229,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                             }
                         }
                     }
-                    CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(255, 180, 180), new Vector2(2f, 2f), 0, 0.1f, 0.4f, 16);
+                    CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(255, 122, 122), new Vector2(2f, 2f), 0, 0.1f, 0.4f, 16);
                     GeneralParticleHandler.SpawnParticle(pulse);
                     CEUtils.SetShake(Projectile.Center, 4);
                     CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
