@@ -3186,11 +3186,11 @@ Items: {
 
 	AzafureElectrocauteryWand: {
 		DisplayName: 阿萨福勒电灼杖
-		Tooltip: 
-		'''
-		充能发射脉冲炸弹
-		脉冲炸弹会从周围目标上方引导雷电劈下
-		'''
+		Tooltip:
+			'''
+			充能发射脉冲炸弹
+			脉冲炸弹会从周围目标上方引导雷电劈下
+			'''
 	}
 }
 

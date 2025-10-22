@@ -205,7 +205,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                         {
                             if (!npc.friendly && !npc.dontTakeDamage & npc.CanBeChasedBy(Projectile))
                             {
-                                if (!target.Contains(npc) && CEUtils.getDistance(npc.Center, Projectile.Center) < PulseScale)
+                                if (!target.Contains(npc) && CEUtils.getDistance(npc.Center, Projectile.Center) < PulseScale / 2)
                                 {
                                     target.Add(npc);
                                 }
