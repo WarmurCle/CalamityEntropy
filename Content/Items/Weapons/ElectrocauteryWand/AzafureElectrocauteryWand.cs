@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
             Item.shootSpeed = 22f;
             Item.channel = true;
             Item.noUseGraphic = true;
-            Item.mana = 12;
+            Item.mana = 22;
         }
 
         public override void AddRecipes()
