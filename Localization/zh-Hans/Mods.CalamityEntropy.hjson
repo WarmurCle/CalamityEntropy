@@ -3183,6 +3183,15 @@ Items: {
 		DisplayName: 阿萨福勒动力锯
 		Tooltip: ""
 	}
+
+	AzafureElectrocauteryWand: {
+		DisplayName: 阿萨福勒电灼杖
+		Tooltip:
+			'''
+			充能发射脉冲炸弹
+			脉冲炸弹会从周围目标上方引导雷电劈下
+			'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3691,6 +3700,8 @@ Projectiles: {
 	// MalignLightning.DisplayName: Malign Lightning
 	// MalignLaser.DisplayName: Malign Laser
 	// AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
+	// AzafureElectrocauteryWandHeld.DisplayName: Azafure Electrocautery Wand Held
+	// AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4780,3 +4791,4 @@ LMDialog16: 你难道没看到那个[NAME]吗？可真是不知死活
 LMDialog17: 我不收垃圾，谢谢
 LMDialog18: 你塞的是什么东西？
 NowLV: 当前等级
+AnyOrichalcumBar: 秘银锭或山铜锭

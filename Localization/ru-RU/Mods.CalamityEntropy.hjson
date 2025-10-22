@@ -2977,6 +2977,11 @@ Items: {
 		// DisplayName: Azafure Power Saw
 		// Tooltip: ""
 	}
+
+	AzafureElectrocauteryWand: {
+		// DisplayName: Azafure Electrocautery Wand
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3487,6 +3492,8 @@ Projectiles: {
 	// MalignLightning.DisplayName: Malign Lightning
 	// MalignLaser.DisplayName: Malign Laser
 	// AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
+	// AzafureElectrocauteryWandHeld.DisplayName: Azafure Electrocautery Wand Held
+	// AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
 }
 
 LegendTooltip: - Легенда -
@@ -4610,3 +4617,4 @@ Biomes: {
 // LMDialog17: I don't want your garbage.
 // LMDialog18: What is this? You need a coin!
 // NowLV: Level
+// AnyOrichalcumBar: Any Orichalcum Bar
