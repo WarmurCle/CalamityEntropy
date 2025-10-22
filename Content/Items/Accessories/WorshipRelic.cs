@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class WorshipRelic : ModItem
     {
-        public static int ArrowDamage = 160;
+        public static int ArrowDamage = 75;
         public override void SetDefaults()
         {
             Item.width = 42;
