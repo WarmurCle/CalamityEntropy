@@ -22,7 +22,6 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().worshipRelic = true;
             player.Entropy().NoNaturalStealthRegen = true;
             player.Entropy().WeaponsNoCostRogueStealth = true;
-            player.GetCritChance(CEUtils.RogueDC) -= 80;
         }
         public override void AddRecipes()
         {
