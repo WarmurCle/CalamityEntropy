@@ -11,7 +11,6 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.damage = 15;
-            Item.useTime = Item.useAnimation = 25;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<AncientScripturesHeld>();
         public override int SlotCount => 1;
