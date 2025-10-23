@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             CreateRecipe().AddIngredient<UpdraftTome>()
                 .AddIngredient<AshesofCalamity>(6)
-                .AddTile(TileID.WorkBenches)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
     }
