@@ -1,7 +1,6 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
-using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
