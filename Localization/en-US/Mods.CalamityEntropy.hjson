@@ -2779,7 +2779,7 @@ Items: {
 			'''
 			Press the middle mouse button to lock onto a target.
 			After marking a target, all bullets will autocorrect to the chosen target.
-			
+			Only one bullet screen can be applied per frame at most.
 			'''
 	}
 
