@@ -38,7 +38,10 @@ namespace CalamityEntropy.Content.Items.Donator
                 player.GetCritChance(DamageClass.Magic) += 4;
             }
             //cleaned this up.
-            player.Entropy().addEquip("VastLV" + level);
+            for (int i = 0; i <= level; i++)
+            {
+                player.Entropy().addEquip("VastLV" + i);
+            }
 
 
             player.manaCost -= ManaCostDecrease;
