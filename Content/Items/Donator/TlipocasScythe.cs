@@ -451,7 +451,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 velocity *= 0.46f;
                 type = throwType;
-                damage /= 1;
+                damage = (int)(damage / 2.8f);
             }
             if (AllowDash() && player.controlUp && !player.HasCooldown(TlipocasScytheSlashCooldown.ID))
             {
@@ -568,7 +568,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     if(DownedBossSystem.downedDoG)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity / 16f, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 4, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity / 16f, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 6, 0, Projectile.owner);
                     }
                     player.Entropy().screenShift = 1;
                     player.Entropy().screenPos = player.Center;
@@ -588,8 +588,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     if (DownedBossSystem.downedDoG)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 4, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 4, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 6, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 6, 0, Projectile.owner);
                     }
                     Vector2 top = Projectile.Center;
                     Vector2 sparkVelocity2 = Projectile.velocity * 0.04f;
