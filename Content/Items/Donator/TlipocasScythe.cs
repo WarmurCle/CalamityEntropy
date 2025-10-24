@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Donator
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
         public string DevName => "Kino";
-        public override float StealthDamageMultiplier => 1f;
+        public override float StealthDamageMultiplier => 1.6f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 2f;
 
@@ -1078,7 +1078,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     counter = 0;
                     StickOnMouse = true;
                     CEUtils.SyncProj(Projectile.whoAmI);
-                    Projectile.damage /= 3;
+                    Projectile.damage = (int)(Projectile.damage / 2.5f);
                 }
                 RightLast = Main.mouseRight;
             }
