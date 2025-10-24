@@ -401,7 +401,7 @@ Items: {
 			+15% Move Speed
 			+[ST] Max Stealth
 			-30% Mana Cost
-			-10% Damage Taken
+			-5% Damage Taken
 			+[AP] Armor Penetration
 			+[MN] Minion Slot
 			+[ATS]% Melee speed
@@ -939,7 +939,7 @@ Items: {
 		Tooltip:
 			'''
 			-5% Critical Strike Chance
-			+16% Attack Speed
+			+10% Melee Attack Speed
 			"Speed of the Troubled Mind"
 			'''
 	}
@@ -2469,7 +2469,7 @@ Items: {
 			tealth no longer regenerates passively.
 			Hitting enemies with Rogue weapons restores some Stealth.
 			When Stealth is full, your attack becomes a Stealth Strike and fires additional Solar Arrows
-			-80% Rogue Crit
+			Forbid Crit
 			'''
 	}
 

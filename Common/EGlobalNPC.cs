@@ -523,6 +523,10 @@ namespace CalamityEntropy.Common
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.01f * (1 - npc.Entropy().VoidTouchDR);
             if (projectile.owner >= 0 && projectile.friendly)
             {
+                if (projectile.GetOwner().Entropy().worshipRelic)
+                {
+                    modifiers.DisableCrit();
+                }
                 foreach (var v in projectile.GetOwner().Entropy().CritDamage)
                 {
                     if (projectile.DamageType.CountsAsClass(v.Key))

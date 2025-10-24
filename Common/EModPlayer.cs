@@ -1129,7 +1129,7 @@ namespace CalamityEntropy.Common
             }
             if (Player.Entropy().oracleDeck)
             {
-                d += 0.10f;
+                d += 0.05f;
             }
             if (Player.Entropy().VFHelmMelee)
             {
