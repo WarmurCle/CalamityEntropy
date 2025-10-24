@@ -13,7 +13,6 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void SetDefaults()
         {
             Item.width = 36;
-            Item.defense = 2;
             Item.height = 46;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
@@ -34,8 +33,8 @@ namespace CalamityEntropy.Content.Items.Accessories
                 }
                 player.rocketBoots += 30;
                 player.noFallDmg = true;
-                player.jumpSpeedBoost += 1.5f;
-                player.maxRunSpeed *= 1.05f;
+                player.jumpSpeedBoost += 0.5f;
+                player.maxRunSpeed *= 1.10f;
                 player.Entropy().addEquip(ID, !hideVisual);
                 if (Item.Calamity().Charge < 0)
                     Item.Calamity().Charge = 0;

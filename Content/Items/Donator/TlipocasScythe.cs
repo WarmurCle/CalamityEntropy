@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Books.BookMarks;
@@ -452,7 +452,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 velocity *= 0.46f;
                 type = throwType;
-                damage /= 3;
+                damage /= 1;
             }
             if (AllowDash() && player.controlUp && !player.HasCooldown(TlipocasScytheSlashCooldown.ID))
             {
@@ -471,7 +471,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 if (player.ownedProjectileCounts[throwType] > 0)
                     return false;
-                int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, swing == 0 ? 1 : -1);
+                int p = Projectile.NewProjectile(source, position, velocity, type, damage * 1, knockback, player.whoAmI, swing == 0 ? 1 : -1);
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[p].Calamity().stealthStrike = true;
@@ -569,7 +569,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     if(DownedBossSystem.downedDoG)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity / 16f, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 36, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity / 16f, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 4, 0, Projectile.owner);
                     }
                     player.Entropy().screenShift = 1;
                     player.Entropy().screenPos = player.Center;
@@ -589,8 +589,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     if (DownedBossSystem.downedDoG)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 36, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 36, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 4, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) / 16f / 2, ModContent.ProjectileType<BloodCrack>(), Projectile.damage / 4, 0, Projectile.owner);
                     }
                     Vector2 top = Projectile.Center;
                     Vector2 sparkVelocity2 = Projectile.velocity * 0.04f;
@@ -699,12 +699,12 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 else
                 {
-                    target.AddBuff<HeavyBleeding>(60 * 5);
+                    target.AddBuff<Laceration>(60 * 5);
                 }
             }
             else
             {
-                target.AddBuff<BurningBlood>(60 * 5);
+                target.AddBuff<HeavyBleeding>(60 * 5);
             }
             Color impactColor = Color.Red;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
@@ -959,12 +959,12 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 else
                 {
-                    target.AddBuff<HeavyBleeding>(60 * 5);
+                    target.AddBuff<Laceration>(60 * 5);
                 }
             }
             else
             {
-                target.AddBuff<BurningBlood>(60 * 5);
+                target.AddBuff<HeavyBleeding>(60 * 5);
             }
             Color impactColor = Color.Red;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);

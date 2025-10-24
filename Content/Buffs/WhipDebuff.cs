@@ -153,11 +153,11 @@ namespace CalamityEntropy.Content.Buffs
             {
                 if (!Main.rand.NextBool(3))
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 3, 1, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 8, 1, projectile.owner);
                 }
                 if (projectile.TryGetOwner(out var owner))
                 {
-                    owner.Heal((int)MathHelper.Max(damageDone / 4000, 1));
+                    owner.Heal((int)MathHelper.Max(damageDone / 1200, 0));
                 }
             }
             foreach (var t in Tags)
