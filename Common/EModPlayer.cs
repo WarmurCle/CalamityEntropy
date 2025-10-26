@@ -24,16 +24,19 @@ using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Typeless;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -425,6 +428,8 @@ namespace CalamityEntropy.Common
         public float LifeStealP = 0;
         public float SnowgraveCharge = 0;
         public int SnowgraveChargeTime = 0;
+        public bool SulphurousBubble = false;
+        public int SulphurousBubbleRecharge = 3600;
         public override void ResetEffects()
         {
             LifeStealP = 0;
@@ -1363,11 +1368,11 @@ namespace CalamityEntropy.Common
             {
                 Player.Calamity().defenseDamageRatio = 0f;
             }
-            if (HolyShield)
+            if (HolyShield && info.Damage > 120)
             {
                 return;
             }
-            if (MariviniumShieldCount > 0)
+            if (MariviniumShieldCount > 0 && info.Damage > Player.statLifeMax2 / 20)
             {
                 return;
             }
@@ -1379,6 +1384,29 @@ namespace CalamityEntropy.Common
                     CEUtils.PlaySound("amethyst_break", 1, Player.Center);
                     info.Damage = info.Damage > 100 ? 100 : info.Damage;
                     Player.AddBuff(ModContent.BuffType<ShatteredOrb>(), 30 * 60);
+                }
+            }
+            if (!setToOne)
+            {
+                if (SulphurousBubble && info.Damage > 9)
+                {
+                    setToOne = true;
+                    info.Cancelled = true;
+                    immune = 60;
+                    SulphurousBubbleRecharge = 0;
+                    SulphurousBubble = false;
+                    if (BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var ebk))
+                        ((CommonExplotionFriendly)CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ebk.CauculateProjectileDamage(12), 580, DamageClass.Magic).ModProjectile).onHitAction = (target, hit, dmg) => { target.AddBuff<SulphuricPoisoning>(600); };
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, new Color(10, 190, 10), 0.2f, 5.45f, 16));
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, new Color(10, 190, 10), 0.2f, 5.8f, 16));
+                    for(int i = 0; i < 80; i++)
+                    {
+                        BasePRT particle = new PRT_Light(Player.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(1f, 10f)
+                    , Main.rand.NextFloat(0.3f, 0.6f), new Color(0, 60, 0), 60, 0.2f);
+                        PRTLoader.AddParticle(particle);
+                    }
+                    SoundEngine.PlaySound(in SoundID.Item54, Player.position);
+                    CEUtils.PlaySound("beast_lavaball_rise1", 1, Player.Center);
                 }
             }
             if (!setToOne)
@@ -1496,10 +1524,27 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public override void PostUpdate()
         {
-            if(SnowgraveChargeTime-- > 0)
+            bool addSRec = true;
+            if(BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSulphurousBMEffect>(Player))
+            {
+                if(SulphurousBubbleRecharge >= 3600)
+                {
+                    addSRec = false;
+                    SulphurousBubble = true;
+                }
+            }
+            else
+            {
+                SulphurousBubble = false;
+            }
+            if(addSRec)
+            {
+                SulphurousBubbleRecharge++;
+            }
+            if (SnowgraveChargeTime-- > 0)
             {
                 SnowgraveCharge += 0.001f;
-                if(SnowgraveCharge >= 1)
+                if (SnowgraveCharge >= 1)
                 {
                     SnowgraveChargeTime = 0;
                     SnowgraveCharge = 1;

@@ -60,7 +60,38 @@ namespace CalamityEntropy.Common
                 ModifyShootCooldown = modifyShootCooldown
             };
         }
-
+        public static bool GetPlayerHeldEntropyBook(Player player, out EntropyBookHeldProjectile eb)
+        {
+            eb = null;
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.owner == player.whoAmI && p.ModProjectile != null && p.ModProjectile is EntropyBookHeldProjectile ebh)
+                {
+                    eb = ebh;
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static bool HeldingBookAndHasBookmarkEffect<T>(Player player) where T : EBookProjectileEffect
+        {
+            if (player.HeldItem.ModItem != null && player.HeldItem.ModItem is EntropyBook ebi && GetPlayerHeldEntropyBook(player, out var eb))
+            {
+                int c = player.GetMyMaxActiveBookMarks(player.HeldItem);
+                if (c > 0)
+                {
+                    for (int i = 0; i < c; i++)
+                    {
+                        Item it = player.Entropy().EBookStackItems[i];
+                        if(IsABookMark(it) && GetEffect(it) is T)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
         public static bool HasEmptyBookMarkSlot(Item item, Player player)
         {
             bool f = false;

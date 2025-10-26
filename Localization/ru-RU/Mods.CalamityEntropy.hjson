@@ -2999,6 +2999,11 @@ Items: {
 		// DisplayName: Big Shot's Wing
 		// Tooltip: '''"It's time to be a..."'''
 	}
+
+	BookmarkSulphurous: {
+		// DisplayName: Bookmark Sulphurous
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"

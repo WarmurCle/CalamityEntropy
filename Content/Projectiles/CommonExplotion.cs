@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -46,6 +47,11 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.ignoreWater = true;
+        }
+        public Action<NPC, NPC.HitInfo, int> onHitAction = null;
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            onHitAction?.Invoke(target, hit, damageDone);
         }
         public override bool PreDraw(ref Color lightColor)
         {

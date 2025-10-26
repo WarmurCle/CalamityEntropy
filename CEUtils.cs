@@ -352,10 +352,18 @@ namespace CalamityEntropy
         {
             Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotion>(), damage, 0, 0, r);
         }
-        public static void SpawnExplotionFriendly(IEntitySource source, Player player, Vector2 position, int damage, float r, DamageClass damageClass)
+        public static Projectile SpawnExplotionFriendly(IEntitySource source, Player player, Vector2 position, int damage, float r, DamageClass damageClass)
         {
             if (Main.myPlayer == player.whoAmI)
-                Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotionFriendly>(), damage, 0, player.whoAmI, r).ToProj().DamageType = damageClass;
+            {
+                var p = Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotionFriendly>(), damage, 0, player.whoAmI, r).ToProj();
+                p.DamageType = damageClass;
+                return p;
+            }
+            else
+            {
+                return Main.projectile[0];
+            }
         }
         public static void SetShake(Vector2 center, float strength, float MaxDist = 4000)
         {
