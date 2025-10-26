@@ -88,7 +88,15 @@ namespace CalamityEntropy.Common
         public int friendFinderOwner = 0;
         public int TDRCounter = 3 * 60 * 60;
         public int HitCounter = 0;
-        
+
+        public override void SetupTravelShop(int[] shop, ref int nextSlot)
+        {
+            if (Main.rand.NextBool(9))
+            {
+                shop[nextSlot] = ModContent.ItemType<BigShotsWing>();
+                nextSlot++;
+            }
+        }
         public override void SetStaticDefaults()
         {
             //---如果希望注册原版NPC，解除下面的注释查看效果---///
@@ -649,6 +657,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            if(npc.type == NPCID.Deerclops)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
+            }
             if (npc.type == ModContent.NPCType<SupremeCalamitas>())
             {
                 npcLoot.Add(ModContent.ItemType<TheFilthyContractWithMammon>(), 3, 1, 1);

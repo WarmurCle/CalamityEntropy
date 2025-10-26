@@ -24,7 +24,8 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 3;
             Projectile.width = 2;
             Projectile.height = 2;
-            Projectile.timeLeft = 3;
+            Projectile.timeLeft = 10;
+            Projectile.netImportant = true;
         }
 
         public override void AI()
@@ -38,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return;
             }
-            Projectile.timeLeft = 3;
+            Projectile.timeLeft = 5;
             var player = Projectile.owner.ToPlayer();
             Projectile.Center = player.MountedCenter + Vector2.UnitY * player.gfxOffY + new Vector2(-26 * Projectile.ai[0], -16).RotatedBy(player.fullRotation + player.headRotation) - player.velocity;
             if (rope == null)

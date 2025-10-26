@@ -3010,6 +3010,7 @@ Items: {
 			对敌人按下鼠标中键锁定该敌人
 			使用枪械类武器时子弹必定命中
 			对衍生弹幕一样有效
+			每帧最多对一个弹幕生效
 			'''
 	}
 
@@ -3190,6 +3191,25 @@ Items: {
 			'''
 			充能发射脉冲炸弹
 			脉冲炸弹会从周围目标上方引导雷电劈下
+			'''
+	}
+
+	BookmarkSnowgrave: {
+		DisplayName: 雪葬书签
+		Tooltip:
+			'''
+			你的射弹击中时积攒充能
+			充能为满时你的下一次攻击将会释放雪葬，造成持续的伤害并施加冰河时代减益
+			“[前进]”
+			'''
+	}
+
+	BigShotsWing: {
+		DisplayName: 大人物翅膀
+		Tooltip:
+			'''
+			因为被提线操纵，飞行速度较慢
+			“是时候成为...”
 			'''
 	}
 }
@@ -3702,6 +3722,7 @@ Projectiles: {
 	// AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
 	// AzafureElectrocauteryWandHeld.DisplayName: Azafure Electrocautery Wand Held
 	// AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
+	// Snowgrave.DisplayName: Snowgrave
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4121,6 +4142,16 @@ WyrmChat9: 你说我和那位硫火女巫谁更强大
 WyrmChat10: 你问我当时为什么要袭击你...我的使命是保护那件圣物。
 WyrmChat11: 混沌能量总是让我感到不适。
 WyrmChatDonors: 感谢[0]的支持，感谢你们！
+WyrmChatEclipse1: 这些玩意是从哪冒出来的？算了，我还有别的事情。
+WyrmChatEclipse2: 我相信这些怪物不会对你造成什么影响，但请别让它们打扰我。
+WyrmChatBloodMoon1: 月亮在流血...这让我有点压抑，我都想回深渊了。
+WyrmChatBloodMoon2: 也许你应该睡一觉。
+WyrmChatRain1: 下雨了，真清爽。我以前从没感受过。
+WyrmChatRain2: 雨水落在身上挺舒服。这可比不上深渊水压的万分之一。
+WyrmChatRain3: 很清爽，不是吗？
+WyrmChatCOHalibut1: 你给我带来了海鲜？等等...
+WyrmChatCOHalibut2: 我能尝尝这个吗？什么，不行吗...
+WyrmChatCOHalibut3: 那是个啥，看起来不错，嘿嘿...
 loreCruiser:
 	'''
 	生命摄取能量以进行熵减。
