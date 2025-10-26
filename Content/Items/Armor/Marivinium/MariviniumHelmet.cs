@@ -37,6 +37,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
         
         public override void UpdateArmorSet(Player player)
         {
+            player.setBonus = Mod.GetLocalization("MariviniumSet").Value;
             player.Entropy().meleeDamageReduce += 0.2f;
             player.maxMinions += 10;
             player.Entropy().damageReduce += 0.10f;

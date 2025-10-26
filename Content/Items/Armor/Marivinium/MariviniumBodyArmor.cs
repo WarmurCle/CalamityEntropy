@@ -41,10 +41,6 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (Main.LocalPlayer.Entropy().MariviniumSet)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Armor Bonus", Mod.GetLocalization("MariviniumSet").Value));
-            }
         }
     }
 }
