@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     projectile.GetOwner().Entropy().SnowgraveCharge = 0;
                     projectile.GetOwner().Entropy().SnowgraveChargeTime = 0;
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, sgtype, eb.CauculateProjectileDamage(0.36f), 0.2f, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, sgtype, eb.CauculateProjectileDamage(0.42f), 0.4f, projectile.owner);
                 }
             }
         }
@@ -55,7 +55,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.height = 2048;
             Projectile.timeLeft = 360;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 5;
+            Projectile.localNPCHitCooldown = 4;
+            Projectile.ArmorPenetration = 4000;
         }
 
         public override void AI()
