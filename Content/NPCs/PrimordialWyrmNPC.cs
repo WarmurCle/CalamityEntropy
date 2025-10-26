@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -70,6 +71,11 @@ namespace CalamityEntropy.Content.NPCs
         {
             WeightedRandom<string> chat = new WeightedRandom<string>();
             {
+                if(MaliciousCode.CALAMITY__OVERHAUL && Main.LocalPlayer.HeldItem.type == ModContent.ItemType<HalibutCannon>())
+                {
+                    chat.Add(Mod.GetLocalization("WyrmChatCOHalibut" + Main.rand.Next(1, 3).ToString()).Value);
+                    return chat;
+                }
                 if (Main.rand.NextBool(6))
                 {
                     string dns = "";
@@ -100,6 +106,21 @@ namespace CalamityEntropy.Content.NPCs
                     else
                     {
                         chat.Add(Mod.GetLocalization("WyrmChat" + Main.rand.Next(1, 12).ToString()).Value);
+                        if(Main.raining)
+                            chat.Add(Mod.GetLocalization("WyrmChatRain" + Main.rand.Next(1, 3).ToString()).Value);
+                    }
+                }
+                else
+                {
+                    if (Main.eclipse)
+                    {
+                        chat.Add(Mod.GetLocalization("WyrmChatEclipse1").Value);
+                        chat.Add(Mod.GetLocalization("WyrmChatEclipse2").Value);
+                    }
+                    if (Main.bloodMoon)
+                    {
+                        chat.Add(Mod.GetLocalization("WyrmChatBloodMoon1").Value);
+                        chat.Add(Mod.GetLocalization("WyrmChatBloodMoon2").Value);
                     }
                 }
                 return chat;
