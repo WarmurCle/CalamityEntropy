@@ -52,13 +52,13 @@ namespace CalamityEntropy.Common.DrawLayers
             drawLine(player.GetBackHandPositionImproved(player.compositeBackArm));
             drawLine(origin + new Vector2(player.velocity.Y == 0 ? 5 : 8, 10).RotatedBy(player.fullRotation));
             drawLine(origin + new Vector2(player.velocity.Y == 0 ? -5 : -8, 10).RotatedBy(player.fullRotation));
-            drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(255, 255, 0)), rRot, new Vector2(0, 15), new Vector2(1f, 1.8f) * scale, SpriteEffects.None) { shader = drawInfo.drawPlayer.cWings });
+            drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(200, 200, 0)), rRot, new Vector2(0, 15), new Vector2(1f, 1.8f) * scale, SpriteEffects.None) { shader = drawInfo.drawPlayer.cWings });
             drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(0, 80, 0)), lRot, new Vector2(0, texture.Height - 15), new Vector2(1f, 1.8f) * scale, SpriteEffects.FlipVertically) { shader = drawInfo.drawPlayer.cWings });
 
             drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(Color.Pink), rRot, new Vector2(0, 15), new Vector2(1f, 1.1f) * scale, SpriteEffects.None) { shader = drawInfo.drawPlayer.cWings });
             drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(0, 0, 205)), lRot, new Vector2(0, texture.Height - 15), new Vector2(1f, 1.1f) * scale, SpriteEffects.FlipVertically) { shader = drawInfo.drawPlayer.cWings });
 
-            drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(255, 140, 200)), rRot, new Vector2(0, 15), new Vector2(1f, 0.45f) * scale, SpriteEffects.None) { shader = drawInfo.drawPlayer.cWings });
+            drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(255, 60, 120)), rRot, new Vector2(0, 15), new Vector2(1f, 0.45f) * scale, SpriteEffects.None) { shader = drawInfo.drawPlayer.cWings });
             drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(30, 0, 160)), lRot, new Vector2(0, texture.Height - 15), new Vector2(1f, 0.45f) * scale, SpriteEffects.FlipVertically) { shader = drawInfo.drawPlayer.cWings });
 
 
