@@ -3931,6 +3931,16 @@ WyrmChat9: Как думаешь, кто сильнее, я или эта Вед
 WyrmChat10: Ты спросил меня, почему я напал на тебя тогда? Моя миссия — защитить этот священный объект.
 WyrmChat11: Хаос всегда заставляет меня чувствовать себя неуютно.
 WyrmChatDonors: Thank you to [0] for support, thank you all!
+// WyrmChatEclipse1: Where did these things come from? Never mind, I have other things to do.
+// WyrmChatEclipse2: I believe these monsters won't have any impact on you, but please don't let them disturb me.
+// WyrmChatBloodMoon1: The moon is bleeding This makes me a little depressed, I want to go back to the abyss.
+// WyrmChatBloodMoon2: Maybe you should go bed.
+// WyrmChatRain1: It's raining, it's really refreshing. I have never felt it before.
+// WyrmChatRain2: Rainwater falling on the body feels quite comfortable. This is not comparable to the water pressure in the abyss.
+// WyrmChatRain3: The air is very fresh, isn't it?
+// WyrmChatCOHalibut1: Did you bring me seafood? wait...
+// WyrmChatCOHalibut2: Can I taste this? What, can't it be done...
+// WyrmChatCOHalibut3: What is that? It looks good, hehe...
 loreCruiser:
 	'''
 	Жизнь поглощает энергию для уменьшения энтропии.

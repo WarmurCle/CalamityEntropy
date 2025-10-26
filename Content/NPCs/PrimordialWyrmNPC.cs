@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.NPCs
             {
                 if(MaliciousCode.CALAMITY__OVERHAUL && Main.LocalPlayer.HeldItem.type == ModContent.ItemType<HalibutCannon>())
                 {
-                    chat.Add(Mod.GetLocalization("WyrmChatCOHalibut" + Main.rand.Next(1, 3).ToString()).Value);
+                    chat.Add(Mod.GetLocalization("WyrmChatCOHalibut" + Main.rand.Next(1, 4).ToString()).Value);
                     return chat;
                 }
                 if (Main.rand.NextBool(6))
@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.NPCs
                     {
                         chat.Add(Mod.GetLocalization("WyrmChat" + Main.rand.Next(1, 12).ToString()).Value);
                         if(Main.raining)
-                            chat.Add(Mod.GetLocalization("WyrmChatRain" + Main.rand.Next(1, 3).ToString()).Value);
+                            chat.Add(Mod.GetLocalization("WyrmChatRain" + Main.rand.Next(1, 4).ToString()).Value);
                     }
                 }
                 else
