@@ -2985,8 +2985,14 @@ Items: {
 	}
 
 	BookmarkSnowgrave: {
-		// DisplayName: Bookmark Snowgrave
-		// Tooltip: ""
+		// DisplayName: Bookmark - Snowgrave
+		/* Tooltip:
+			'''
+			Charge energy when your projectile hit enemies
+			When energy is full, your next attack will cast a snowgrave
+			Snowgrave will causing sustained damage
+			"[Proceed]"
+			''' */
 	}
 }
 

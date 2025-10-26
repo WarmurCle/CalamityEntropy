@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Items.Accessories;
+using CalamityMod;
 using CalamityMod.Buffs.StatBuffs;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,8 +14,8 @@ namespace CalamityEntropy.Common.DrawLayers
     {
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            return false;
-            if (drawInfo.drawPlayer.dead || drawInfo.shadow != 0)
+            //return false;
+            if (drawInfo.drawPlayer.dead || drawInfo.shadow != 0 || (drawInfo.drawPlayer.Entropy().vanityWing != null && !(drawInfo.drawPlayer.Entropy().vanityWing.ModItem is BigShotsWing)))
                 return false;
             return true;
         }
@@ -40,7 +41,7 @@ namespace CalamityEntropy.Common.DrawLayers
             var _drawInfo = drawInfo;
             void drawLine(Vector2 start)
             {
-                Vector2 end = start + new Vector2((start.X - origin.X) * 0.9f, -1000);
+                Vector2 end = start + new Vector2((start.X - origin.X)+ player.GetModPlayer<BigShotWingPlayer>().StringsOffset, -1000);
                 _drawInfo.DrawDataCache.Add(new DrawData(CEUtils.getExtraTex("jl"), start - Main.screenPosition, null, new Color(60, 255, 60) * 0.6f, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(CEUtils.getDistance(start, end) / 1024f, 2), SpriteEffects.None));
             }
             drawLine(origin + new Vector2(50, -22).RotatedBy(rRot) * scale);
@@ -69,10 +70,12 @@ namespace CalamityEntropy.Common.DrawLayers
     {
         public Vector2 lpoint = Vector2.Zero;
         public Vector2 rpoint = Vector2.Zero;
+        public float StringsOffset = 0;
         public float scaleBoost => Player.HasBuff<AdrenalineMode>() ? 1.8f : (Player.HasBuff<RageMode>() ? 1.3f : 1);
         public float scale = 1;
         public override void PostUpdate()
         {
+            StringsOffset = float.Lerp(StringsOffset, Player.velocity.X * 12, 0.16f);
             float dist = 50;
             Vector2 origin = Player.MountedCenter + new Vector2(0, -8);
             bool flying = Player.wingTime > 0 && Player.controlJump;

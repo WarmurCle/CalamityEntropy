@@ -88,7 +88,15 @@ namespace CalamityEntropy.Common
         public int friendFinderOwner = 0;
         public int TDRCounter = 3 * 60 * 60;
         public int HitCounter = 0;
-        
+
+        public override void SetupTravelShop(int[] shop, ref int nextSlot)
+        {
+            if (Main.rand.NextBool(10))
+            {
+                shop[nextSlot] = ModContent.ItemType<BigShotsWing>();
+                nextSlot++;
+            }
+        }
         public override void SetStaticDefaults()
         {
             //---如果希望注册原版NPC，解除下面的注释查看效果---///
