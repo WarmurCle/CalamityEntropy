@@ -469,6 +469,11 @@ namespace CalamityEntropy.Common
                         drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.GetModPlayer<CapricornBookmarkRecordPlayer>().SandStormCharge, new Color(246, 201, 122));
                         baroffsety += 20;
                     }
+                    if (Main.LocalPlayer.Entropy().SnowgraveCharge > 0)
+                    {
+                        drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.Entropy().SnowgraveCharge, new Color(170, 170, 255));
+                        baroffsety += 20;
+                    }
                     if (Main.LocalPlayer.Entropy().mawOfVoidCharge > 0)
                     {
                         drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.Entropy().mawOfVoidCharge, Color.Red);

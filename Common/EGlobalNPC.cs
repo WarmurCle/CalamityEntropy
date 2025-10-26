@@ -649,6 +649,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            if(npc.type == NPCID.Deerclops)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
+            }
             if (npc.type == ModContent.NPCType<SupremeCalamitas>())
             {
                 npcLoot.Add(ModContent.ItemType<TheFilthyContractWithMammon>(), 3, 1, 1);

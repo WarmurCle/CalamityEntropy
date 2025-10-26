@@ -2945,6 +2945,17 @@ Items: {
 		DisplayName: Azafure Electrocautery Wand
 		Tooltip: ""
 	}
+
+	BookmarkSnowgrave: {
+		DisplayName: Bookmark - Snowgrave
+		Tooltip: 
+		'''
+		Charge energy when your projectile hit enemies
+		When energy is full, your next attack will cast a snowgrave
+		Snowgrave will causing sustained damage
+		"[Proceed]"
+		'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3472,6 +3483,7 @@ Projectiles: {
 	AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
 	AzafureElectrocauteryWandHeld.DisplayName: Azafure Electrocautery Wand Held
 	AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
+	Snowgrave.DisplayName: Snowgrave
 }
 
 LegendTooltip: - Legend -

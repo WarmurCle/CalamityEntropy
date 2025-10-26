@@ -2983,6 +2983,11 @@ Items: {
 		// DisplayName: Azafure Electrocautery Wand
 		// Tooltip: ""
 	}
+
+	BookmarkSnowgrave: {
+		// DisplayName: Bookmark Snowgrave
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3495,6 +3500,7 @@ Projectiles: {
 	// AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
 	// AzafureElectrocauteryWandHeld.DisplayName: Azafure Electrocautery Wand Held
 	// AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
+	// Snowgrave.DisplayName: Snowgrave
 }
 
 LegendTooltip: - Легенда -

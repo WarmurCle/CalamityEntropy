@@ -53,17 +53,22 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     EBookUsingTime++;
                 }
             }
+            bool sgbm = false;
             bool ssbm = false;
-            if (EBookUsingTime > 11 && book != null && book.ModProjectile is EntropyBookHeldProjectile ebk && Main.myPlayer == Player.whoAmI)
+            if (book != null && book.ModProjectile is EntropyBookHeldProjectile ebk && Main.myPlayer == Player.whoAmI)
             {
                 for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, ebk.bookItem), Player.Entropy().EBookStackItems.Count); i++)
                 {
                     Item it = Player.Entropy().EBookStackItems[i];
                     if (BookMarkLoader.IsABookMark(it))
                     {
-                        if (BookMarkLoader.GetEffect(it) is SandstormBMEffect)
+                        if (BookMarkLoader.GetEffect(it) is SandstormBMEffect && EBookUsingTime > 11)
                         {
                             ssbm = true;
+                        }
+                        if (BookMarkLoader.GetEffect(it) is SnowgraveBMEffect)
+                        {
+                            sgbm = true;
                         }
                     }
                 }
@@ -93,6 +98,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             else
             {
                 SandStormCharge = 0;
+            }
+            if(!sgbm)
+            {
+                Player.Entropy().SnowgraveCharge = 0;
+                Player.Entropy().SnowgraveChargeTime = 0;
             }
         }
     }

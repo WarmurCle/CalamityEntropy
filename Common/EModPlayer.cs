@@ -423,6 +423,8 @@ namespace CalamityEntropy.Common
         public bool fruitCake;
         public bool roaringDye = false;
         public float LifeStealP = 0;
+        public float SnowgraveCharge = 0;
+        public int SnowgraveChargeTime = 0;
         public override void ResetEffects()
         {
             LifeStealP = 0;
@@ -1494,6 +1496,15 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public override void PostUpdate()
         {
+            if(SnowgraveChargeTime-- > 0)
+            {
+                SnowgraveCharge += 0.001f;
+                if(SnowgraveCharge >= 1)
+                {
+                    SnowgraveChargeTime = 0;
+                    SnowgraveCharge = 1;
+                }
+            }
             if (roaringDye && Main.GameUpdateCount % 4 == 0)
             {
                 EParticle.spawnNew(new PlayerShadow() { plr = Player }, Player.position, new Vector2(Player.direction * -4, 0), Color.White, 1, 1, true, BlendState.AlphaBlend);
