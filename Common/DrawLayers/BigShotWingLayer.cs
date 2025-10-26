@@ -17,7 +17,7 @@ namespace CalamityEntropy.Common.DrawLayers
             //return false;
             if (drawInfo.drawPlayer.dead || drawInfo.shadow != 0 || (drawInfo.drawPlayer.Entropy().vanityWing != null && !(drawInfo.drawPlayer.Entropy().vanityWing.ModItem is BigShotsWing)))
                 return false;
-            return true;
+            return drawInfo.drawPlayer.Entropy().hasAccVisual("BSWing");
         }
 
         public override Position GetDefaultPosition()

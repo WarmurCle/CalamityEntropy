@@ -91,7 +91,7 @@ namespace CalamityEntropy.Common
 
         public override void SetupTravelShop(int[] shop, ref int nextSlot)
         {
-            if (Main.rand.NextBool(10))
+            if (Main.rand.NextBool(9))
             {
                 shop[nextSlot] = ModContent.ItemType<BigShotsWing>();
                 nextSlot++;

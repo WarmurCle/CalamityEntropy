@@ -2956,6 +2956,11 @@ Items: {
 			"[Proceed]"
 			'''
 	}
+
+	BigShotsWing: {
+		DisplayName: Big Shot's Wing
+		Tooltip: '''"It's time to be a..."'''
+	}
 }
 
 LOCKED: ": [LOCKED]"

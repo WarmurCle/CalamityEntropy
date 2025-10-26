@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             Item.width = 22;
             Item.height = 20;
-            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
+            Item.value = Item.buyPrice(0, 12, 25);
             Item.rare = ItemRarityID.Pink;
             Item.accessory = true;
 
@@ -39,23 +39,23 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().addEquip("PLWing", !hideVisual);
+            player.Entropy().addEquip("BSWing", !hideVisual);
             if (!hideVisual)
             {
-                player.Entropy().light += 0.8f;
+                player.Entropy().light += 0.5f;
             }
         }
         public override void UpdateVanity(Player player)
         {
-            player.Entropy().addEquipVisual("PLWing");
+            player.Entropy().addEquipVisual("BSWing");
         }
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
             ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
             ascentWhenRising = 0.12f;
-            maxCanAscendMultiplier = 1.2f;
-            maxAscentMultiplier = 2.8f;
-            constantAscend = 0.13f;
+            maxCanAscendMultiplier = 1f;
+            maxAscentMultiplier = 1.2f;
+            constantAscend = 0.06f;
         }
 
     }

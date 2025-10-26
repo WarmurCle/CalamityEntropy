@@ -3203,6 +3203,15 @@ Items: {
 			“[前进]”
 			'''
 	}
+
+	BigShotsWing: {
+		DisplayName: 大人物翅膀
+		Tooltip:
+			'''
+			因为被提线操纵，飞行速度较慢
+			“是时候成为...”
+			'''
+	}
 }
 
 LOCKED: ：[已锁定]
