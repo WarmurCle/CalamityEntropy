@@ -3001,8 +3001,14 @@ Items: {
 	}
 
 	BookmarkSulphurous: {
-		// DisplayName: Bookmark Sulphurous
-		// Tooltip: ""
+		// DisplayName: Bookmark - Sulphurous
+		/* Tooltip:
+			'''
+			Creat a bubble to protect your
+			Bubble will pop after taken damage
+			Bubble need 60 sec to respawn
+			When there isn't a bubble, your damage will causing sulphurous poitioning
+			''' */
 	}
 }
 
