@@ -127,6 +127,7 @@ namespace CalamityEntropy.Content.Projectiles
                     EParticle.NewParticle(new Smoke() { Lifetime = 20, timeleftmax = 20 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGreen, 0.09f, 1, true, BlendState.Additive);
                     EParticle.NewParticle(new Smoke() { Lifetime = 20, timeleftmax = 20 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGray, 0.09f, 1, true, BlendState.Additive);
                 }
+                //CEUtils.ExplotionParticleLOL(Projectile.Center);
             }
         }
         public void DrawHead()

@@ -52,9 +52,9 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
             ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
-            ascentWhenRising = 0.12f;
+            ascentWhenRising = 0.04f;
             maxCanAscendMultiplier = 1f;
-            maxAscentMultiplier = 1.2f;
+            maxAscentMultiplier = 0.8f;
             constantAscend = 0.06f;
         }
 
