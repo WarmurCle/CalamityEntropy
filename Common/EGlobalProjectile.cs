@@ -487,11 +487,13 @@ namespace CalamityEntropy.Common
                     else
                         projectile.Center = Vector2.Lerp(projectile.Center, projectile.GetOwner().Center + wisperOffset.RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.GetOwner().Center).ToRotation()), 0.01f);
                     projectile.GetOwner().Calamity().mouseWorldListener = true;
+                    if (projectile.velocity.Length() < 2)
+                        projectile.velocity = Vector2.One * 2;
                     projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.Center).ToRotation());
                     projectile.timeLeft++;
                     if(projectile.velocity.Length() * projectile.MaxUpdates < 46)
                     {
-                        projectile.velocity = new Vector2(projectile.velocity.Length(), 0).normalize() * (46f / projectile.MaxUpdates);
+                        projectile.velocity = new Vector2(projectile.velocity.Length(), 0).normalize().RotatedBy(projectile.velocity.ToRotation()) * (46f / projectile.MaxUpdates);
                     }
                 }
                 if (wisperShine)
