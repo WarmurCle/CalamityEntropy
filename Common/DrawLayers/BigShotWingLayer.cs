@@ -22,7 +22,7 @@ namespace CalamityEntropy.Common.DrawLayers
 
         public override Position GetDefaultPosition()
         {
-            return new BeforeParent(PlayerDrawLayers.ArmorLongCoat);
+            return new BeforeParent(PlayerDrawLayers.Wings);
         }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
@@ -33,8 +33,11 @@ namespace CalamityEntropy.Common.DrawLayers
             {
                 return Color.Lerp(Lighting.GetColor((player.Center / 16).ToPoint(), color) * 0.4f, Color.White, ((float)(0.5f + 0.5f * (Math.Cos(Main.GameUpdateCount * 0.14f))) * (player.HasBuff<AdrenalineMode>() ? 1f : (player.HasBuff<RageMode>() ? 0.5f : 0))));
             }
+            float num = player.GetModPlayer<BigShotWingPlayer>().Num;
+            float cCount = player.GetModPlayer<BigShotWingPlayer>().cCount;
+            player.GetModPlayer<BigShotWingPlayer>().cCount += float.Lerp(0.16f, 0.042f, num);
             Vector2 origin = player.GetDrawCenter() + new Vector2(0, -8);
-            float rotj = (float)Math.Cos(Main.GameUpdateCount * (player.controlJump ? 0.2f : 0.04f)) * (player.controlJump ? 0.9f : 0.2f);
+            float rotj = (float)Math.Cos(cCount) * float.Lerp(0.9f, 0.2f, num);
             float rRot = (player.GetModPlayer<BigShotWingPlayer>().rpoint - origin).ToRotation() + rotj;
             float lRot = (player.GetModPlayer<BigShotWingPlayer>().lpoint - origin).ToRotation() - rotj;
             float scale = player.GetModPlayer<BigShotWingPlayer>().scale * 1.15f;
@@ -71,6 +74,8 @@ namespace CalamityEntropy.Common.DrawLayers
         public Vector2 lpoint = Vector2.Zero;
         public Vector2 rpoint = Vector2.Zero;
         public float StringsOffset = 0;
+        public float Num = 1;
+        public float cCount = 0;
         public float scaleBoost => Player.HasBuff<AdrenalineMode>() ? 1.8f : (Player.HasBuff<RageMode>() ? 1.3f : 1);
         public float scale = 1;
         public override void PostUpdate()
@@ -80,12 +85,13 @@ namespace CalamityEntropy.Common.DrawLayers
             Vector2 origin = Player.MountedCenter + new Vector2(0, -8);
             bool flying = Player.wingTime > 0 && Player.controlJump;
             float rot = Player.fullRotation + (Player.velocity.X * 0.036f);
-            Vector2 ltarget = origin + (flying ? (rot + MathHelper.Pi + 0.5f).ToRotationVector2() * dist : (rot + MathHelper.Pi - 0.3f).ToRotationVector2() * dist);
-            Vector2 rtarget = origin + (flying ? (rot - 0.5f).ToRotationVector2() * dist : (rot + 0.3f).ToRotationVector2() * dist);
+            Vector2 ltarget = origin + float.Lerp((rot + MathHelper.Pi + 0.6f), (rot + MathHelper.Pi - 0.3f), Num).ToRotationVector2() * dist;
+            Vector2 rtarget = origin + float.Lerp((rot - 0.6f), (rot + 0.3f), Num).ToRotationVector2() * dist;
+            Num = float.Lerp(Num, flying ? 0 : 1, 0.09f);
             lpoint = origin + (lpoint - origin).normalize() * dist;
             rpoint = origin + (rpoint - origin).normalize() * dist;
-            lpoint = Vector2.Lerp(lpoint, ltarget, 0.36f);
-            rpoint = Vector2.Lerp(rpoint, rtarget, 0.36f);
+            lpoint = Vector2.Lerp(lpoint, ltarget, 0.38f);
+            rpoint = Vector2.Lerp(rpoint, rtarget, 0.38f);
             scale = float.Lerp(scale, scaleBoost, 0.04f);
         }
     }
