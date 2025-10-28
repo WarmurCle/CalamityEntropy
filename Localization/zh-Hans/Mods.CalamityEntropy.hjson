@@ -3724,14 +3724,14 @@ Projectiles: {
 	HexController.DisplayName: HexController
 	HexVertex.DisplayName: Hex Vertex
 	Molightpet.DisplayName: Mo的照明宠物
-	// MalignHeld.DisplayName: Malign Held
-	// MalignBullet.DisplayName: Malign Bullet
-	// MalignLightning.DisplayName: Malign Lightning
-	// MalignLaser.DisplayName: Malign Laser
-	// AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
-	// AzafureElectrocauteryWandHeld.DisplayName: Azafure Electrocautery Wand Held
-	// AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
-	// Snowgrave.DisplayName: Snowgrave
+	MalignHeld.DisplayName: 魔灵
+	MalignBullet.DisplayName: 魔灵导弹
+	MalignLightning.DisplayName: 魔灵电弧
+	MalignLaser.DisplayName: 魔灵激光
+	AzafurePowerSawProj.DisplayName: 阿萨福勒动力锯
+	AzafureElectrocauteryWandHeld.DisplayName: 手持弹幕
+	AzafureElectrocauteryWandBomb.DisplayName: 电磁炸弹
+	Snowgrave.DisplayName: 雪葬
 }
 
 LegendTooltip: - 传奇物品 -
