@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             //EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(0, 0) + new Vector2(0, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
             //EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(0, 0) + new Vector2(0, -40) + new Vector2(0, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
-
+            EParticle.NewParticle(new SnowStorm() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(Main.rand.NextFloat(-260, 260), 1024), new Vector2(0, -20), Color.White, 10, 1, true, BlendState.Additive, 0);
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -88,6 +88,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<GlacialState>(250);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            return false;
         }
     }
     
