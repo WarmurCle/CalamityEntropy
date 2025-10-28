@@ -86,13 +86,13 @@ namespace CalamityEntropy.Content.Menu
                     particles.RemoveAt(i);
                 }
             }
-            for (int i = 1; i < 10; i++)
+            for (int i = 1; i < 19; i+=3)
             {
-                float rot = 0;
-                for (int j = 0; j < 8; j++)
+                float rot = counter * 0.008f;
+                for (int j = 0; j < 16; j++)
                 {
                     spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logool").Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i * 0.5f), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
-                    rot += MathHelper.ToRadians(45);
+                    rot += MathHelper.ToRadians(22.5f);
                 }
             }
 
