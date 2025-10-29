@@ -80,7 +80,8 @@ namespace CalamityEntropy.Content.Items.Donator
             tooltips.Add(new TooltipLine(Mod, "Description", Mod.GetLocalization(Main.zenithWorld ? "TScytheZenithDesc" : "TScytheDesc").Value) { OverrideColor = Color.Crimson });
             bool holdAlt = Keyboard.GetState().IsKeyDown(Keys.LeftAlt);
             bool holdShift = Keyboard.GetState().IsKeyDown(Keys.LeftShift);
-            
+            if (holdShift && holdAlt)
+                holdAlt = false;
             //这里的tooltip染色处理都是用[c/16进制颜色：]的
             #region 路径
             string pathPrefix = $"{CEUtils.LocalPrefix}.LegendaryAbility.";
@@ -103,19 +104,22 @@ namespace CalamityEntropy.Content.Items.Donator
 
             bool shouldDrawPagesTips = isNeither || shouldDrawHoldshift;
             bool shouldDrawHoldShiftTips = isNeither || shouldDrawPages;
-            bool isBoth = holdShift && holdAlt;
+            bool any = holdAlt || holdShift;
+            
             //显示按住左shift的能力文本
             //我没有动原本的逻辑，只是为了处理翻页我才大幅度重写了这里的tooltip。如果有需求的话也可以直接把上方的能力列表全部组合起来变成按住左shift的文本
             if (shouldDrawHoldshift)
+            {
                 HandleHoldShift(tooltips);
+            }
             //显示按住左alt的能力文本
             if (shouldDrawPages)
                 HandleSwapAbility(tooltips, throwTooltip, teleportTooltip, dashTooltip, statTooltip);
-            //显示按住左alt的提醒文本，或者两个一起按了
-            if (shouldDrawPagesTips || isBoth)
+            //显示按住左alt的提醒文本
+            if (shouldDrawPagesTips && !any)
                 tooltips.QuickAddTooltip($"{pathPrefix}General.PagesTips", Color.Yellow, LineName: "PagesMoreInfo");
             //显示按住左shift的提醒文本
-            if (shouldDrawHoldShiftTips || isBoth)
+            if (shouldDrawHoldShiftTips && !any)
                 tooltips.QuickAddTooltipDirect(Mod.GetLocalization("PressShiftForMoreInfo").Value, Color.Yellow, LineName: "ShiftMoreInfo");
 
             HandleLoreAndLevel(tooltips, pathLore);
