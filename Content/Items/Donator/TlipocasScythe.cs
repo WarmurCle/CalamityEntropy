@@ -249,19 +249,22 @@ namespace CalamityEntropy.Content.Items.Donator
             
             //传送斩击附魔
             int voidBuffTime = EDownedBosses.downedCruiser ? 30 : 15;
-            string enchanted = $"{pathAbility}4".ToLangValue();
+            string enchanted = $"{pathAbility}A5".ToLangValue();
             enchanted = enchanted.ToFormatValue(voidBuffTime.ToString(), "25%");
-            string downedPolterText = $"{lockedValue} {$"{pathCondition}5".ToLangValue()})";
+            string downedPolterText = $"{lockedValue} {$"{pathCondition}A5".ToLangValue()})";
+
+            string dogText = DyeText(DownedBossSystem.downedDoG ? $"{pathAbility}A6".ToLangValue() : $"{lockedValue} {$"{pathCondition}A6".ToLangValue()})", DownedBossSystem.downedDoG ? Color.Yellow : Color.Gray);
 
             //进入判定区，全部组合完毕后，再使用标准符进行染色
             //能力锁定时，组合(锁定文本 +  能力文本)后染色并返回，实际文本将会为：[c/16进制颜色：总文本内容]，即进行了格式化字符串而非常规的复写颜色，下同
             allowTeleportSlice = NPC.downedBoss1 ? DyeText(allowTeleportSlice, Color.Yellow) : DyeText(downedBrimmyText + "\n" + allowTeleportSlice, Color.Gray);
-            enchanted = DownedBossSystem.downedDoG ? DyeText(enchanted, Color.Yellow) : DyeText(downedPolterText + "\n" + enchanted, Color.Gray);
+            enchanted = DownedBossSystem.downedPolterghast ? DyeText(enchanted, Color.Yellow) : DyeText(downedPolterText + "\n" + enchanted, Color.Gray);
 
             //最后组合： 标题 + 上述已经组合起来的能力文本 + 多个换行符
             string combination = DyeText(titleText, Color.Crimson)
                                + "\n" + allowTeleportSlice
-                               + "\n" + enchanted;
+                               + "\n" + enchanted
+                               + "\n" + dogText;
             return combination;
         }
         //突刺能力
