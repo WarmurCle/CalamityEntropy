@@ -32,6 +32,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddIngredient<OverloadedSludge>()
                 .AddIngredient(ItemID.WoodenArrow)
                 .AddIngredient(ItemID.SlimeCrown)
+                .AddIngredient<PurifiedGel>(8)
                 .Register();
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
