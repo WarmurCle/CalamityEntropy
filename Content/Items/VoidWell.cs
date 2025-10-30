@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items
                 .AddIngredient(ModContent.ItemType<VoidScales>(), 10)
                 .AddIngredient(ModContent.ItemType<GalacticaSingularity>(), 10)
                 .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 10)
-                .AddTile<CosmicAnvil>()
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }
