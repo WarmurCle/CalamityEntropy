@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Atbm;
 using CalamityEntropy.Content.Items.Books.BookMarks;
@@ -1303,6 +1304,11 @@ namespace CalamityEntropy
                     "AddCustomizedSource",
                     this.GetLocalization("AbyssalPiercerObt").Value,
                     new int[1] { ModContent.ItemType<AbyssalPiercer>() });
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("AstralFishing").Value,
+                    new int[1] { ModContent.ItemType<GreedCard>() });
+                
             }
             CalEnchantsRegistry();
             cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>(), BuffID.PotionSickness };
