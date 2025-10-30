@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -40,9 +41,9 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 10)
                 .AddIngredient(ItemID.CrystalBall, 1)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
         public override bool MagicPrefix()
