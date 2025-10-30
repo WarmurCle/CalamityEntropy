@@ -89,7 +89,14 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<ChaliceOfTheBloodGod>().AddIngredient<TheAbsorber>().AddIngredient<Radiance>().AddIngredient(5295).AddIngredient<AshesofAnnihilation>(4).AddIngredient<AscendantSpiritEssence>(2).AddTile(TileID.WorkBenches).Register();
+            CreateRecipe().
+                    AddIngredient<ChaliceOfTheBloodGod>().
+                    AddIngredient<TheAbsorber>().
+                    AddIngredient<Radiance>().
+                    AddIngredient(5295).
+                    AddIngredient<FadingRunestone>(3).
+                    AddTile<VoidWellTile>()
+                    Register();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
