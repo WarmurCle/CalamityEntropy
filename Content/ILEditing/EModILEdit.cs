@@ -121,6 +121,8 @@ namespace CalamityEntropy.Content.ILEditing
         }
         public static string On_Name_Get_Hook(On_GetItemName_get_Delegate orig, Item item)
         {
+            if (Main.gameMenu)
+                return orig(item);
             string orgName = orig.Invoke(item);
             if (item.Entropy().GetOverrideName(item, orgName, out string NameNew))
             {
