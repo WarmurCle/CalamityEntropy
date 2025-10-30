@@ -27,6 +27,13 @@ namespace CalamityEntropy.Content.Items
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<VoidCondenser>())
+                .AddIngredient(ModContent.ItemType<VoidScales>(), 12)
+                .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 10)
+		        .AddIngredient(ModContent.ItemType<GalacticaSingularity>(), 10)
+                .AddTile<CosmicAnvil>()
+                .Register();
         }
     }
 }
