@@ -1280,14 +1280,15 @@ namespace CalamityEntropy
             }
             if (ModLoader.TryGetMod("MoreObtainingTooltips", out Mod moreObtainingTooltips))
             {
+                this.Logger.Info("MOT Support:" + moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("HallowedEnemiesDrop").Value,
+                    new int[1] { ModContent.ItemType<HolyMantle>()}));
+                
                 moreObtainingTooltips.Call(
                     "AddCustomizedSource",
-                    this.GetLocalization("HallowedEnemiesDrop"),
-                    new int[0]);
-                moreObtainingTooltips.Call(
-                    "AddCustomizedSource",
-                    this.GetLocalization("VoidOreMine"),
-                    new int[0]);
+                    this.GetLocalization("VoidOreMine").Value,
+                    new int[1] { ModContent.ItemType<VoidOre>() });
                 
             }
             CalEnchantsRegistry();
