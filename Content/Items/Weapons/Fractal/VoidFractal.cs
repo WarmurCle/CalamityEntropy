@@ -87,10 +87,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<SpiritFractal>()
-                .AddIngredient<VoidBar>(10)
+            CreateRecipe()
+                .AddIngredient<SpiritFractal>()
                 .AddIngredient<VoidAnnihilate>()
-                .AddTile<CosmicAnvil>().Register();
+                .AddIngredient<VoidBar>(5)
+                .AddTile<VoidWellTile>()
+                .Register();
         }
     }
 
