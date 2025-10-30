@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items
                 .AddIngredient<ExoPrism>(5)
                 .AddIngredient<AshesofAnnihilation>(5)
                 .AddIngredient<VoidBar>(5)
-                .AddTile<VoidWell>()
+                .AddTile<VoidWellTile>()
                 .Register();
         }
     }
