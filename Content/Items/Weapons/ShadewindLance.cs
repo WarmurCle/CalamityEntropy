@@ -3,6 +3,8 @@ using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Weapons;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Items.Weapons.Rogue;
 using Terraria;
 using Terraria.DataStructures;
@@ -60,8 +62,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
-                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 8)
+                .AddIngredient(ModContent.ItemType<Phantasmal Ruin>())
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
