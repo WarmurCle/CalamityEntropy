@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items
         {
             Item.value = Item.sellPrice(gold: 60);
             Item.rare = ModContent.RarityType<VoidPurple>();
-            Item.maxStack = 4;
+            Item.maxStack = 9999;
         }
 
 
