@@ -44,8 +44,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 18)
-                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 8)
-                .AddIngredient(ModContent.ItemType<TwistingNether>(), 10)
+                .AddIngredient(ModContent.ItemType<TwistingNether>(), 5)
                 .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
