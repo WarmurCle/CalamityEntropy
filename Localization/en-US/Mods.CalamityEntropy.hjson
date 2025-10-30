@@ -2972,6 +2972,16 @@ Items: {
 			When there isn't a bubble, your damage will causing sulphurous poitioning
 			'''
 	}
+
+	VoidWell: {
+		DisplayName: Mods.CalamityEntropy.Items.VoidWell.DisplayName
+		Tooltip: ""
+	}
+
+	FadingRunestone: {
+		DisplayName: Fading Runestone
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"

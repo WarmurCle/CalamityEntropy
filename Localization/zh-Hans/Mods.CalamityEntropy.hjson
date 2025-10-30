@@ -3222,6 +3222,20 @@ Items: {
 			泡泡需要60秒恢复，在此期间你的所有射弹都将造成硫磺海剧毒减益
 			'''
 	}
+
+	VoidWell: {
+		DisplayName: "以虚空为物品赋能，将其打造成新的存在"
+		Tooltip: ""
+	}
+
+	FadingRunestone: {
+		DisplayName: 消逝符石
+		Tooltip: 
+		'''
+		质量出奇的大
+		有那么一瞬间，你似乎感觉不到自己的存在了
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
