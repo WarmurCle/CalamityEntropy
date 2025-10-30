@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<DivineGeode>(6)
                 .AddIngredient<HellIndustrialComponents>(4)
                 .AddIngredient(ItemID.LunarBar, 8)
-                .AddTile<LunarCraftingStation>()
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }
