@@ -458,7 +458,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 velocity *= 0.46f;
                 type = throwType;
-                damage = (int)(damage / 2.8f);
+                damage = (int)(damage / 1.5f);
             }
             if (AllowDash() && player.controlUp && !player.HasCooldown(TlipocasScytheSlashCooldown.ID))
             {
