@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Items.Weapons.Ranged;
 using Terraria;
 using Terraria.ID;
@@ -37,10 +38,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 8)
+            CreateRecipe()
                 .AddIngredient(ModContent.ItemType<CleansingBlaze>())
-                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 2)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
     }
