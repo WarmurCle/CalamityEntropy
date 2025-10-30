@@ -384,7 +384,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 case 13: dmg = 1200;  break;
                 case 14: dmg = 1800;  break;
                 case 15: dmg = 2200;  break;
-                case 16: dmg = 3000;  break;
+                case 16: dmg = 3600;  break;
             }
             Item.damage = dmg;
             if(player.name.ToLower() is "tlipoca")
@@ -451,14 +451,14 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             if (player.HasBuff<VoidEmpowerment>())
             {
-                damage = (int)(damage * 1.25f);
+                damage = (int)(damage * 1.2f);
             }
             
             if (player.altFunctionUse == 2)
             {
                 velocity *= 0.46f;
                 type = throwType;
-                damage = (int)(damage / 1.2f);
+                damage = (int)(damage / 1.5f);
             }
             if (AllowDash() && player.controlUp && !player.HasCooldown(TlipocasScytheSlashCooldown.ID))
             {
