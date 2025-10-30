@@ -4576,11 +4576,14 @@ KilledByVoidVirus1: ""
 KilledByVoidVirus2: 血液里只剩下虚无
 KilledByAstral: 被星辉残蚀殆尽
 CdFF: 寻友护符冷却
-TooltipBookMark: 需放入熵语之书系列武器以生效
+TooltipBookMark: 
+'''需放入熵语之书系列武器以生效
+(打开UI时右键书签物品可快速放入/取出)
+'''
 SlotInfo: 放入书签
 EBookTooltip:
 	'''
-	右键打开书签UI
+	手持右键打开书签UI
 	放入书签以对其进行强化
 	- 熵语之书 -
 	'''
