@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items.Materials;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Items.Placeables.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ID;
@@ -33,7 +32,7 @@ namespace CalamityEntropy.Content.Items
                 .AddIngredient(ModContent.ItemType<VoidScales>(), 10)
                 .AddIngredient(ModContent.ItemType<GalacticaSingularity>(), 10)
                 .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 10)
-                .AddTile<CosmicAnvilTile>()
+                .AddTile<CosmicAnvil>()
                 .Register();
         }
     }
