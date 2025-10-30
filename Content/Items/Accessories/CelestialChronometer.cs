@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                     AddIngredient<Radiance>().
                     AddIngredient(5295).
                     AddIngredient<FadingRunestone>(3).
-                    AddTile<VoidWellTile>()
+                    AddTile<VoidWellTile>().
                     Register();
         }
 
