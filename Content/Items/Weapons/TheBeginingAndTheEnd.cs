@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 18;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.ArmorPenetration = 86;
+            Item.ArmorPenetration = 100;
             Item.knockBack = 1f;
             Item.UseSound = null;
             Item.autoReuse = true;
@@ -86,9 +86,11 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<JawsOfOblivion>())
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<JawsOfOblivion>())
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 12)
-                .AddTile(ModContent.TileType<AbyssalAltarTile>())
+                .AddIngredient(ModContent.ItemType<FadingRunestone>())
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
     }
