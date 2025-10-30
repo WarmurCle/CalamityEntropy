@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Items.Materials;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.DataStructures;
