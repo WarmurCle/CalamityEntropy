@@ -59,7 +59,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
         {
             CreateRecipe().AddIngredient<TheBurningSky>()
                 .AddIngredient<GalactusBlade>()
-                .AddTile<DraedonsForge>()
+                .AddIngredient<>()
+                .AddTile<VoidWell>()
                 .Register();
         }
     }
