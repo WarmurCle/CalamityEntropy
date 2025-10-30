@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+using CalamityEntropy.Content.Tiles;
+using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.CalPlayer;
@@ -6,7 +7,6 @@ using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using System;
 using Terraria;
 using Terraria.ModLoader;
