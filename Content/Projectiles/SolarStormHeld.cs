@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Projectiles
                         {
                             for (int i = 0; i < 4; i++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + CEUtils.randomPointInCircle(36) + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(-84, 84), Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed, projID, damage, kb, player.whoAmI);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + (CEUtils.randomPointInCircle(36) * new Vector2(1, 0.6f)).RotatedBy(Projectile.rotation) + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(-64, 152), Projectile.velocity.SafeNormalize(Vector2.One) * shootSpeed, projID, damage, kb, player.whoAmI);
                             }
                         }
                         var snd = SoundID.DD2_BallistaTowerShot;
@@ -356,7 +356,7 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (BurstFXDirection) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 1.5f, randomColor, new Vector2(2.7f, 1.3f), true);
+                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (BurstFXDirection) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.3f, randomColor, new Vector2(2.7f, 1.3f), true);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
                 for (int k = 0; k < 25; k++)
@@ -369,7 +369,7 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30 * 0.16f, 30 * 0.16f), BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.04f, 0.095f), randomColor, new Vector2(0.3f, 1.6f));
+                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30 * 0.16f, 30 * 0.16f), BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.03f), randomColor, new Vector2(0.3f, 1.6f));
                     GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 for (int i = 0; i < 16; i++)
@@ -382,7 +382,7 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (-BurstFXDirection) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 1.5f, randomColor, new Vector2(2.7f, 1.3f), true);
+                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (-BurstFXDirection) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.3f, randomColor, new Vector2(2.7f, 1.3f), true);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
                 for (int k = 0; k < 25; k++)
@@ -395,7 +395,7 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), -BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.04f, 0.095f), randomColor, new Vector2(0.3f, 1.6f));
+                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), -BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.03f), randomColor, new Vector2(0.3f, 1.6f));
                     GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 Vector2 BurstFXDirection2 = new Vector2(6 * 0.16f, 0).RotatedBy(MathHelper.PiOver4);
@@ -409,7 +409,7 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (BurstFXDirection2) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 1.5f, randomColor, new Vector2(2.7f, 1.3f), true);
+                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (BurstFXDirection2) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.3f, randomColor, new Vector2(2.7f, 1.3f), true);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
                 for (int k = 0; k < 25; k++)
@@ -422,7 +422,7 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.04f, 0.095f), randomColor, new Vector2(0.3f, 1.6f));
+                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.03f), randomColor, new Vector2(0.3f, 1.6f));
                     GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 for (int i = 0; i < 16; i++)
@@ -435,7 +435,7 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (-BurstFXDirection2) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 1.5f, randomColor, new Vector2(2.7f, 1.3f), true);
+                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (-BurstFXDirection2) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.3f, randomColor, new Vector2(2.7f, 1.3f), true);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
                 for (int k = 0; k < 25; k++)
@@ -448,7 +448,7 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), -BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.04f, 0.095f), randomColor, new Vector2(0.3f, 1.6f));
+                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), -BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.03f), randomColor, new Vector2(0.3f, 1.6f));
                     GeneralParticleHandler.SpawnParticle(spark2);
                 }
 
