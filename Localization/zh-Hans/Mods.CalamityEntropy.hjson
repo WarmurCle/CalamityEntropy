@@ -4853,4 +4853,7 @@ NowLV: 当前等级
 AnyOrichalcumBar: 秘银锭或山铜锭
 BCBarInfo: 苍郁充能(按住鼠标中键拖动)
 HallowedEnemiesDrop: 从地下神圣之地敌人掉落
+EvilEnemiesDrop: 从地下神圣之地敌人掉落
+DungeonEnemiesDrop: 从地牢敌人掉落
 VoidOreMine: 击败巡游者后在太空层生成
+AbyssalPiercerObt: 击败渊海灾虫后由巨大乌贼掉落

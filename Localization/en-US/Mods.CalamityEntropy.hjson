@@ -4644,4 +4644,7 @@ NowLV: Level
 AnyOrichalcumBar: Any Orichalcum Bar
 BCBarInfo: Bramble Bar(Hold [mouse middle] to drag)
 HallowedEnemiesDrop: Dropping from undergronud hallowed enemies
+EvilEnemiesDrop: Dropping from undergronud evil biomes' enemies
+DungeonEnemiesDrop: Dropping from undergronud dungeon's enemies
 VoidOreMine: Generate in space layer after defeating Cruiser boss
+AbyssalPiercerObt: Dropping from giant squid after defeating aquatic scourge

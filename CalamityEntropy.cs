@@ -5,7 +5,9 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Atbm;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Pets;
@@ -1289,7 +1291,18 @@ namespace CalamityEntropy
                     "AddCustomizedSource",
                     this.GetLocalization("VoidOreMine").Value,
                     new int[1] { ModContent.ItemType<VoidOre>() });
-                
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("EvilEnemiesDrop").Value,
+                    new int[1] { ModContent.ItemType<BitternessCard>() });
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("DungeonEnemiesDrop").Value,
+                    new int[1] { ModContent.ItemType<BookMarkBlackKnife>() });
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("AbyssalPiercerObt").Value,
+                    new int[1] { ModContent.ItemType<AbyssalPiercer>() });
             }
             CalEnchantsRegistry();
             cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>(), BuffID.PotionSickness };
