@@ -5,7 +5,10 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Atbm;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Pets;
@@ -25,6 +28,7 @@ using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Skies;
+using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Utilities;
@@ -1276,6 +1280,35 @@ namespace CalamityEntropy
                 initializeIntro(ModContent.NPCType<NihilityActeriophage>(), Color.Blue, Color.LightBlue, "NihilityTwin");
                 initializeIntro(ModContent.NPCType<TheProphet>(), Color.LightBlue, Color.SkyBlue, "Prophet", 1);
                 initializeIntro(ModContent.NPCType<Luminaris>(), new Color(190, 180, 220), Color.Purple, "Luminaris", 1);
+            }
+            if (ModLoader.TryGetMod("MoreObtainingTooltips", out Mod moreObtainingTooltips))
+            {
+                this.Logger.Info("MOT Support:" + moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("HallowedEnemiesDrop").Value,
+                    new int[1] { ModContent.ItemType<HolyMantle>()}));
+                
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("VoidOreMine").Value,
+                    new int[1] { ModContent.ItemType<VoidOre>() });
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("EvilEnemiesDrop").Value,
+                    new int[1] { ModContent.ItemType<BitternessCard>() });
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("DungeonEnemiesDrop").Value,
+                    new int[1] { ModContent.ItemType<BookMarkBlackKnife>() });
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("AbyssalPiercerObt").Value,
+                    new int[1] { ModContent.ItemType<AbyssalPiercer>() });
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("AstralFishing").Value,
+                    new int[1] { ModContent.ItemType<GreedCard>() });
+                
             }
             CalEnchantsRegistry();
             cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>(), BuffID.PotionSickness };
