@@ -37,6 +37,10 @@ namespace CalamityEntropy.Content.Tiles
             return true;
         }
 
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+            Main.LocalPlayer.Entropy().AWraith = true;
+        }
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Lighting.AddLight(new Vector2(i, j) * 16, 0.4f, 0.4f, 1.2f);

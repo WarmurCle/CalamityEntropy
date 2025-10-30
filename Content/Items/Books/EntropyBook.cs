@@ -599,6 +599,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 initColor = false;
                 color = baseColor;
+                Projectile.CritChance /= 2;
             }
             return true;
         }
