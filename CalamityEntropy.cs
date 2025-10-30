@@ -25,6 +25,7 @@ using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Skies;
+using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Utilities;
@@ -1276,6 +1277,18 @@ namespace CalamityEntropy
                 initializeIntro(ModContent.NPCType<NihilityActeriophage>(), Color.Blue, Color.LightBlue, "NihilityTwin");
                 initializeIntro(ModContent.NPCType<TheProphet>(), Color.LightBlue, Color.SkyBlue, "Prophet", 1);
                 initializeIntro(ModContent.NPCType<Luminaris>(), new Color(190, 180, 220), Color.Purple, "Luminaris", 1);
+            }
+            if (ModLoader.TryGetMod("MoreObtainingTooltips", out Mod moreObtainingTooltips))
+            {
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("HallowedEnemiesDrop"),
+                    new int[0]);
+                moreObtainingTooltips.Call(
+                    "AddCustomizedSource",
+                    this.GetLocalization("VoidOreMine"),
+                    new int[0]);
+                
             }
             CalEnchantsRegistry();
             cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>(), BuffID.PotionSickness };
