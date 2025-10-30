@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<DeathhailStaff>())
                 .AddIngredient(ModContent.ItemType<ClamorNoctus>())
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
-                .AddTile(ModContent.TileType<HiveWellTile>())
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
         #region Animations
