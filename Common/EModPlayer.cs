@@ -1524,6 +1524,16 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public override void PostUpdate()
         {
+            /*for (int i = 0; i < 16; i++)
+            {
+                var vel = (-Vector2.UnitY).RotatedByRandom(1.4f) * Main.rand.NextFloat(8, 15);
+                EParticle.spawnNew(new ShadeDashParticle() { TL = Main.rand.Next(40, 72), c1 = Color.Red, c2 = Color.Black }, Player.Center, vel * 2, Color.White, Main.rand.NextFloat(0.9f, 1.2f), 1, true, BlendState.AlphaBlend, 0, 18);
+                EParticle.spawnNew(new SlashDarkRed(), Player.Center, vel, Color.Red, Main.rand.NextFloat(0.5f, 1.4f), 1, true, BlendState.AlphaBlend, vel.ToRotation(), 38);
+            }*/
+            /*for(float i = 0; i < 1; i += 0.05f)
+            {
+                EParticle.spawnNew(new SlashDarkRed() { scw = 1f}, Player.Center - Player.velocity, Player.velocity * i, Color.Red, Main.rand.NextFloat(0.1f, 0.12f), 1, true, BlendState.AlphaBlend, Player.velocity.ToRotation(), 10);
+            }*/
             bool addSRec = true;
             if(BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSulphurousBMEffect>(Player))
             {

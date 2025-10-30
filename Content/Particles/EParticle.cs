@@ -133,10 +133,18 @@ namespace CalamityEntropy.Content.Particles
             Main.spriteBatch.End();
             if (alphaBlendDraw.Count > 0)
             {
+                List<EParticle> extraDrawParti = new();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (EParticle p in alphaBlendDraw)
                 {
                     p.Draw();
+                    if (p is SlashDarkRed)
+                        extraDrawParti.Add(p);
+                }
+                foreach(EParticle p in extraDrawParti)
+                {
+                    if (p is SlashDarkRed sldr)
+                        sldr.DrawEffect();
                 }
                 Main.spriteBatch.End();
             }
