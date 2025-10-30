@@ -43,7 +43,6 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             CreateRecipe()
                 .AddIngredient<SuperradiantSlaughterer>()
                 .AddIngredient<VoidBar>(5)
-                .AddIngredient<RuinousSoul>(4)
                 .AddTile<VoidWellTile>()
                 .Register();
         }
