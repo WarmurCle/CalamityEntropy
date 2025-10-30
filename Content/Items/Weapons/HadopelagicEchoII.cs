@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.shoot = ModContent.ProjectileType<HadopelagicEchoIIProj>();
             Item.shootSpeed = 16f;
-            Item.mana = 40;
+            Item.mana = 25;
             Item.DamageType = DamageClass.Magic;
             Item.ArmorPenetration = 100;
         }
