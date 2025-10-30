@@ -29,10 +29,10 @@ namespace CalamityEntropy.Content.Items
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidCondenser>())
-                .AddIngredient(ModContent.ItemType<VoidScales>(), 12)
+                .AddIngredient(ModContent.ItemType<VoidScales>(), 10)
+                .AddIngredient(ModContent.ItemType<GalacticaSingularity>(), 10)
                 .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 10)
-		        .AddIngredient(ModContent.ItemType<GalacticaSingularity>(), 10)
-                .AddTile<CosmicAnvil>()
+                .AddTile<CosmicAnvilTile>()
                 .Register();
         }
     }
