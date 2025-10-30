@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Items.Materials;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -34,7 +35,13 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 12).AddIngredient(ModContent.ItemType<ArmoredShell>(), 8).AddIngredient(ModContent.ItemType<CoreofCalamity>(), 1).AddIngredient(ItemID.Celeb2, 1).AddTile(TileID.LunarCraftingStation).Register();
+            CreateRecipe()
+                    .AddIngredient(ItemID.Celeb2, 1)
+                    .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
+                    .AddIngredient(ModContent.ItemType<ArmoredShell>(), 8)
+                    .AddIngredient(ModContent.ItemType<CoreofCalamity>(), 1)
+                    .AddTile(ModContent.TileType<VoidWellTile>())
+                    .Register();
         }
         public override bool RangedPrefix()
         {
