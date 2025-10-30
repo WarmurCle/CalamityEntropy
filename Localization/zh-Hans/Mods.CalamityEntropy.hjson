@@ -3224,8 +3224,8 @@ Items: {
 	}
 
 	VoidWell: {
-		DisplayName: "以虚空为物品赋能，将其打造成新的存在"
-		Tooltip: ""
+		DisplayName: "虚空井"
+		Tooltip: "以虚空为物品赋能，将其打造成新的存在"
 	}
 
 	FadingRunestone: {
