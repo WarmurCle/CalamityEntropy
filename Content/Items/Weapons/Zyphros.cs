@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<Drataliornus>(), 1)
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 14)
-                .AddIngredient<FadingRunestone>()
+                .AddIngredient
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }
