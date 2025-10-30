@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityMod.Items.Materials;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.SummonItems;
