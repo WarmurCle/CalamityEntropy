@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -43,9 +44,11 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<CrescentMoon>())
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
-                .AddTile(TileID.LunarCraftingStation).Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<CrescentMoon>())
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
+                .AddTile(ModContent.TileType<VoidWellTile>())
+                .Register();
         }
     }
 }
