@@ -53,11 +53,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
-                .AddIngredient(ModContent.ItemType<ReaperTooth>(), 4)
                 .AddIngredient(ModContent.ItemType<DeathhailStaff>())
                 .AddIngredient(ModContent.ItemType<ClamorNoctus>())
-                .AddTile(ModContent.TileType<CosmicAnvil>())
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
+                .AddTile(ModContent.TileType<HiveWellTile>())
                 .Register();
         }
         #region Animations
