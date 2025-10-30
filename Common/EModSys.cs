@@ -394,6 +394,7 @@ namespace CalamityEntropy.Common
         public static float lhBarTarget2 = 1;
         public static float lhBarTarget = 1;
         public static float lhRedLerp = 0;
+        public static Vector2 bbarOffset = Vector2.Zero;
         private static void DrawLifeBarText(SpriteBatch spriteBatch, Vector2 topLeftAnchor)
         {
             Vector2 vector = topLeftAnchor + new Vector2(130f, -24f);
@@ -405,13 +406,22 @@ namespace CalamityEntropy.Common
             spriteBatch.DrawString(FontAssets.MouseText.Value, localPlayer.statLife + "/" + localPlayer.statLifeMax2, vector + new Vector2(vector2.X * 0.5f, 0f), color, 0f, new Vector2(FontAssets.MouseText.Value.MeasureString(localPlayer.statLife + "/" + localPlayer.statLifeMax2).X, 0f), 1f, SpriteEffects.None, 0f);
         }
         public static float bbar = 0;
+
         public static void DrawBrambleBar()
         {
             Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
             Texture2D bar = CEUtils.getExtraTex("BrambleBar");
             bbar = float.Lerp(bbar, Main.LocalPlayer.Entropy().BrambleBarCharge, 0.16f);
-            Main.spriteBatch.Draw(bar, Main.ScreenSize.ToVector2() / 2f * new Vector2(1, 0.28f) + new Vector2(0, -100), new Rectangle(0, 0, 66, 34), Color.White, 0, new Vector2(33, 17), 1.4f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(bar, Main.ScreenSize.ToVector2() / 2f * new Vector2(1, 0.28f) + new Vector2(0, -100), new Rectangle(12, 36, (int)(42 * bbar), 8), Color.White, 0, new Vector2(21, 5), 1.4f, SpriteEffects.None, 0);
+            Vector2 center = new Vector2(Main.screenWidth / 2, Main.screenHeight / 16);
+            if((center + bbarOffset).getRectCentered(100, 46).Intersects(Main.MouseScreen.getRectCentered(2, 2)))
+            {
+                Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("BCBarInfo").Value);
+                if(Mouse.GetState().MiddleButton == ButtonState.Pressed)
+                    bbarOffset = Main.MouseScreen - center;
+            }
+            center += bbarOffset;
+            Main.spriteBatch.Draw(bar, center, new Rectangle(0, 0, 66, 34), Color.White, 0, new Vector2(33, 17), 1.4f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bar, center, new Rectangle(12, 36, (int)(42 * bbar), 8), Color.White, 0, new Vector2(21, 5), 1.4f, SpriteEffects.None, 0);
             Main.spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -430,12 +440,12 @@ namespace CalamityEntropy.Common
                         Texture2D t1 = CEUtils.getExtraTex("llBar1");
                         Texture2D t2 = CEUtils.getExtraTex("llBar2");
                         Texture2D t3 = CEUtils.getExtraTex("llBar3");
-
-                        Main.spriteBatch.Draw(t3, new Vector2(1100, 10), Color.White);
-                        Main.spriteBatch.DrawString(CalamityEntropy.efont2, Main.LocalPlayer.statLife.ToString(), new Vector2(1130, 34), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
-                        Main.spriteBatch.Draw(t1, new Vector2(1200, 38), Color.White);
-                        Main.spriteBatch.Draw(t2, new Vector2(1208, 44), new Rectangle(0, 0, (int)((float)t2.Width * lhBarTarget2), t2.Height), new Color(255, 160, 160));
-                        Main.spriteBatch.Draw(t2, new Vector2(1208, 44), new Rectangle(0, 0, (int)((float)t2.Width * lhBarTarget), t2.Height), Color.White);
+                        Vector2 offset = new Vector2(Main.screenWidth - 610, 10);
+                        Main.spriteBatch.Draw(t3, offset, Color.White);
+                        Main.spriteBatch.DrawString(CalamityEntropy.efont2, Main.LocalPlayer.statLife.ToString(), offset + new Vector2(30, 24), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
+                        Main.spriteBatch.Draw(t1, offset + new Vector2(100, 28), Color.White);
+                        Main.spriteBatch.Draw(t2, offset + new Vector2(108, 34), new Rectangle(0, 0, (int)((float)t2.Width * lhBarTarget2), t2.Height), new Color(255, 160, 160));
+                        Main.spriteBatch.Draw(t2, offset + new Vector2(108, 34), new Rectangle(0, 0, (int)((float)t2.Width * lhBarTarget), t2.Height), Color.White);
                         Vector2 vector = new Vector2(Main.screenWidth - 300 + 4, 15f);
                         vector.Y += 6f;
                         DrawLifeBarText(Main.spriteBatch, vector + new Vector2(-4f, 3f));
@@ -484,10 +494,7 @@ namespace CalamityEntropy.Common
                         drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.Entropy().revelationCharge, new Color(255, 255, 190));
                         baroffsety += 20;
                     }
-                    if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Bramblecleave>())
-                    {
-                        DrawBrambleBar();
-                    }
+                    
                     return true;
                 }, InterfaceScaleType.None));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Poop UI", () =>
@@ -502,6 +509,10 @@ namespace CalamityEntropy.Common
                 }, InterfaceScaleType.UI));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Xyth Bar", () =>
                 {
+                    if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Bramblecleave>())
+                    {
+                        DrawBrambleBar();
+                    }
                     drawXythBar();
                     return true;
                 }, InterfaceScaleType.UI));
