@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 AddIngredient(ModContent.ItemType<RampartofDeities>(), 1).
                 AddIngredient(ModContent.ItemType<HolyMantle>(), 1).
                 AddIngredient(ModContent.ItemType<VoidBar>(), 10).
-                AddTile(ModContent.TileType<DraedonsForge>()).
+                AddTile(ModContent.TileType<VoidWellTile>()).
                 Register();
         }
     }
