@@ -38,8 +38,8 @@ namespace CalamityEntropy.Content.Items.Accessories
             CreateRecipe().
                 AddIngredient(ItemID.CelestialShell).
                 AddIngredient(ModContent.ItemType<DarkSunRing>()).
-                AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 6).
-                AddIngredient(ModContent.ItemType<AuricBar>(), 6)
+                AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 4).
+                AddIngredient(ModContent.ItemType<AuricBar>(), 5)
                 .AddTile(TileID.LunarCraftingStation).
                 Register();
         }
