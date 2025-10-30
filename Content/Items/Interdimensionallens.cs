@@ -10,12 +10,8 @@ namespace CalamityEntropy.Content.Items
         public override void SetDefaults()
         {
             Item.width = 24;
-            Item.height = 28;
+            Item.height = 24;
             Item.maxStack = 1;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.rare = ItemRarityID.LightRed;
             Item.accessory = true;
