@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Tiles
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop, 4, 0);
             TileObjectData.addTile(Type);
             Main.tileFrameImportant[(int)base.Type] = true;
-            AddMapEntry(new Color(134, 180, 240), CalamityUtils.GetItemName<VoidWell>());
+            AddMapEntry(new Color(80, 0, 180), CalamityUtils.GetItemName<VoidWell>());
 
             DustType = DustID.CorruptTorch;
 
