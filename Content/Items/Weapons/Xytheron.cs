@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<StarlessNight>())
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 10)
-                .AddIngredient(ModContent.ItemType<AshesofAnnihilation>(), 5)
+                .AddIngredient(ModContent.ItemType<FadingRunestone>())
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }

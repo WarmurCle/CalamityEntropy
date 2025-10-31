@@ -1,7 +1,9 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items.Materials;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Items.Weapons.DraedonsArsenal;
 using CalamityMod.Items.Weapons.Summon;
 using Terraria;
@@ -53,11 +55,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<EndothermicEnergy>(), 8)
                 .AddIngredient(ModContent.ItemType<CosmicViperEngine>())
                 .AddIngredient(ModContent.ItemType<PoleWarper>())
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 8)
-                .AddTile(TileID.LunarCraftingStation).Register();
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
+                .AddTile(ModContent.TileType<VoidWellTile>()).Register();
         }
     }
 }

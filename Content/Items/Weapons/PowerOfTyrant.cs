@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -39,10 +40,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<DefiledGreatsword>(), 1).
-                AddIngredient(ModContent.ItemType<VoidBar>(), 5).
+            CreateRecipe().
+                AddIngredient(ModContent.ItemType<DefiledGreatsword>(), 1).
                 AddIngredient(ModContent.ItemType<NightmareFuel>(), 10).
-                AddTile(TileID.LunarCraftingStation).Register();
+                AddIngredient(ModContent.ItemType<VoidBar>(), 5).
+                AddTile(ModContent.TileType<VoidWellTile>()).
+                Register();
         }
 
         public override bool MeleePrefix()

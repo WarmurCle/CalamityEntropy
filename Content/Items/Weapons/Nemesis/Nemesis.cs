@@ -1,5 +1,9 @@
-﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
@@ -59,7 +63,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
         {
             CreateRecipe().AddIngredient<TheBurningSky>()
                 .AddIngredient<GalactusBlade>()
-                .AddTile<DraedonsForge>()
+                .AddIngredient<FadingRunestone>()
+                .AddTile<VoidWellTile>()
                 .Register();
         }
     }

@@ -1,8 +1,10 @@
 ﻿using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Items.Weapons.Ranged;
 using Terraria;
 using Terraria.DataStructures;
@@ -42,8 +44,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             CreateRecipe()
                 .AddIngredient<SuperradiantSlaughterer>()
                 .AddIngredient<VoidBar>(5)
-                .AddIngredient<RuinousSoul>(4)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddTile<VoidWellTile>()
                 .Register();
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

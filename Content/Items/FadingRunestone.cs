@@ -1,5 +1,8 @@
-﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
+using CalamityMod;
+using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -33,6 +36,12 @@ namespace CalamityEntropy.Content.Items
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<ExoPrism>(5)
+                .AddIngredient<AshesofAnnihilation>(5)
+                .AddIngredient<VoidBar>(5)
+                .AddTile<VoidWellTile>()
+                .Register();
         }
     }
 }

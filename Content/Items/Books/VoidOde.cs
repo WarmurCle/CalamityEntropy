@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,8 +31,8 @@ namespace CalamityEntropy.Content.Items.Books
         {
 
             CreateRecipe().AddIngredient<AshTranscript>()
-                .AddIngredient<VoidBar>(8)
-                .AddTile<CosmicAnvil>()
+                .AddIngredient<VoidBar>(5)
+                .AddTile<VoidWellTile>()
                 .Register();
         }
     }
