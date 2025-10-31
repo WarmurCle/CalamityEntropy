@@ -2959,14 +2959,14 @@ Items: {
 
 	BigShotsWing: {
 		DisplayName: Big Shot's Wing
-		Tooltip: 
-		'''
-		Horizontal speed: [A]
-		Acceleration multiplier: [B]
-		Disappointing vertical speed
-		Flight time: [C]
-		"It's time to be a..."
-		'''
+		Tooltip:
+			'''
+			Horizontal speed: [A]
+			Acceleration multiplier: [B]
+			Disappointing vertical speed
+			Flight time: [C]
+			"It's time to be a..."
+			'''
 	}
 
 	BookmarkSulphurous: {
@@ -2982,7 +2982,7 @@ Items: {
 
 	VoidWell: {
 		DisplayName: Mods.CalamityEntropy.Items.VoidWell.DisplayName
-		Tooltip: 
+		Tooltip:
 			'''
 			A magic well that exudes the power of nothingness, which said can devour a star.
 			Use the void to empower items, to create void equipment.
@@ -2991,7 +2991,7 @@ Items: {
 
 	FadingRunestone: {
 		DisplayName: Fading Runestone
-		Tooltip: 
+		Tooltip:
 			'''
 			A mysterious creation that does not belong to this world.
 			It is so heavy as if it could distort the space-time.

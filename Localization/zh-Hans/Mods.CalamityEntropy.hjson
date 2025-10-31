@@ -3230,7 +3230,7 @@ Items: {
 
 	VoidWell: {
 		DisplayName: 虚空井
-		Tooltip: 
+		Tooltip:
 			'''
 			一口弥散着虚无之力的魔法井，据说能吞噬一颗恒星
 			以虚空为物品赋能，将其打造成新的存在
