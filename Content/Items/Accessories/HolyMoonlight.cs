@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
@@ -35,9 +36,9 @@ namespace CalamityEntropy.Content.Items.Accessories
                 AddIngredient(ModContent.ItemType<RoverDrive>(), 1).
                 AddIngredient(ModContent.ItemType<ManaPolarizer>(), 1).
                 AddIngredient(ModContent.ItemType<CryoStone>(), 1).
-                AddIngredient(ModContent.ItemType<VoidBar>(), 6).
+                AddIngredient(ModContent.ItemType<VoidBar>(), 5).
                 AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 4).
-                AddTile(TileID.LunarCraftingStation).
+                AddTile(ModContent.TileType<VoidWellTile>()).
                 Register();
         }
     }

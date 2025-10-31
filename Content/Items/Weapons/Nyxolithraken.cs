@@ -56,6 +56,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<EndoHydraStaff>()
                 .AddIngredient<YharonsKindleStaff>()
                 .AddIngredient<WyrmTooth>(10)
+                .AddIngredient<FadingRunestone>()
                 .AddTile<AbyssalAltarTile>().Register();
         }
     }

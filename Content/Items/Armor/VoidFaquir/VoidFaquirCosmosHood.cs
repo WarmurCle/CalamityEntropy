@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -56,9 +58,8 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 14)
-                .AddIngredient(ModContent.ItemType<RuinousSoul>(), 6)
-                .AddIngredient(ModContent.ItemType<TwistingNether>(), 8)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddIngredient(ModContent.ItemType<TwistingNether>(), 4)
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
     }

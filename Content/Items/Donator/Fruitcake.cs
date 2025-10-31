@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityMod.Items.Materials;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.SummonItems;
@@ -32,6 +33,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddIngredient<OverloadedSludge>()
                 .AddIngredient(ItemID.WoodenArrow)
                 .AddIngredient(ItemID.SlimeCrown)
+                .AddIngredient<PurifiedGel>(8)
                 .Register();
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)

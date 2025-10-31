@@ -384,7 +384,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 case 13: dmg = 1200;  break;
                 case 14: dmg = 1800;  break;
                 case 15: dmg = 2200;  break;
-                case 16: dmg = 3000;  break;
+                case 16: dmg = 3600;  break;
             }
             Item.damage = dmg;
             if(player.name.ToLower() is "tlipoca")
@@ -451,14 +451,14 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             if (player.HasBuff<VoidEmpowerment>())
             {
-                damage = (int)(damage * 1.25f);
+                damage = (int)(damage * 1.2f);
             }
             
             if (player.altFunctionUse == 2)
             {
                 velocity *= 0.46f;
                 type = throwType;
-                damage = (int)(damage / 2.8f);
+                damage = (int)(damage / 1.5f);
             }
             if (AllowDash() && player.controlUp && !player.HasCooldown(TlipocasScytheSlashCooldown.ID))
             {
@@ -1071,10 +1071,10 @@ namespace CalamityEntropy.Content.Items.Donator
                     player.AddCooldown(TeleportSlashCooldown.ID, (EDownedBosses.downedCruiser ? 10 : 15) * 60);
                     player.Entropy().screenShift = 1f;
                     player.Entropy().screenPos = player.Center;
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).SafeNormalize((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX)) * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 16, Projectile.knockBack, player.whoAmI, 1, 1);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).SafeNormalize((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX)) * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 9, Projectile.knockBack, player.whoAmI, 1, 1);
                     if(DownedBossSystem.downedPolterghast)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).SafeNormalize((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX)) * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 16, Projectile.knockBack, player.whoAmI, 1, 1, 1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).SafeNormalize((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX)) * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), Projectile.damage * 9, Projectile.knockBack, player.whoAmI, 1, 1, 1);
                         EParticle.spawnNew(new PlayerShadowBlack() { plr = player }, player.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, 60);
                     }
                     Projectile.Kill();

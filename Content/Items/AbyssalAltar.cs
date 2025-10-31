@@ -1,9 +1,12 @@
-﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ID;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items
@@ -29,9 +32,8 @@ namespace CalamityEntropy.Content.Items
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AltarOfTheAccursedItem>())
-                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 4)
-                .AddIngredient(ModContent.ItemType<AshesofAnnihilation>(), 2)
-                .AddTile(TileID.MythrilAnvil)
+                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 10)
+                .AddTile<VoidWellTile>()
                 .Register();
         }
     }

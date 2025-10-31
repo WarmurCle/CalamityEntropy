@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria.ID;
@@ -36,13 +37,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<VoidBar>(), 8)
+            CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidAnnihilate>())
                 .AddIngredient(ModContent.ItemType<Silence>())
                 .AddIngredient(ModContent.ItemType<VoidEcho>())
                 .AddIngredient(ModContent.ItemType<WingsOfHush>())
                 .AddIngredient(ModContent.ItemType<VoidRelics>())
-                .AddTile(ModContent.TileType<DraedonsForge>())
+                .AddIngredient(ModContent.ItemType<FadingRunestone>())
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
 
         }

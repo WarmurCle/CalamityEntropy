@@ -20,9 +20,9 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetDamage<GenericDamageClass>() += 0.24f;
+            player.GetDamage<GenericDamageClass>() += 0.25f;
             player.GetArmorPenetration<GenericDamageClass>() += 100;
-            player.GetCritChance(DamageClass.Generic) += 14;
+            player.GetCritChance(DamageClass.Generic) += 15;
         }
 
         public override void AddRecipes()
@@ -30,7 +30,8 @@ namespace CalamityEntropy.Content.Items.Accessories
             CreateRecipe().
                 AddIngredient<ReaperToothNecklace>().
                 AddIngredient<WyrmTooth>(9).
-                 AddTile(ModContent.TileType<AbyssalAltarTile>()).
+                AddIngredient<FadingRunestone>().
+                AddTile(ModContent.TileType<AbyssalAltarTile>()).
                 Register();
         }
     }

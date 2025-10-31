@@ -1,5 +1,7 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,8 +34,9 @@ namespace CalamityEntropy.Content.Items.Ammo
 
         public override void AddRecipes()
         {
-            CreateRecipe(100).AddIngredient(ModContent.ItemType<VoidBar>())
-                .AddTile(TileID.LunarCraftingStation)
+            CreateRecipe(999)
+                .AddIngredient(ModContent.ItemType<VoidBar>())
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
     }

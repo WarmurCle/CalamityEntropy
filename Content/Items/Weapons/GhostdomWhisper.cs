@@ -1,7 +1,9 @@
 ﻿using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Items.Weapons.Ranged;
 using Terraria;
 using Terraria.DataStructures;
@@ -55,9 +57,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AstrealDefeat>(), 1)
                 .AddIngredient(ModContent.ItemType<Deathwind>(), 1)
-                .AddIngredient(ModContent.ItemType<VoidBar>(), 10)
                 .AddIngredient(ModContent.ItemType<DarkPlasma>(), 8)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
     }
