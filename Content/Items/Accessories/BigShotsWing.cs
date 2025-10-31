@@ -10,8 +10,8 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class BigShotsWing : ModItem, ISpecialDrawingWing
     {
-        public static float HorSpeed = 5f;
-        public static float AccMul = 0.6f;
+        public static float HorSpeed = 4.8f;
+        public static float AccMul = 0.5f;
         public static int wTime = 1000;
         public int AnimationTick => 4;
         public int FallingFrame => 2;
