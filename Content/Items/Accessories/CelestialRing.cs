@@ -1,6 +1,7 @@
 ﻿using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Rarities;
 using Terraria;
 using Terraria.ID;
@@ -40,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 AddIngredient(ModContent.ItemType<DarkSunRing>()).
                 AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 4).
                 AddIngredient(ModContent.ItemType<AuricBar>(), 5)
-                .AddTile(TileID.LunarCraftingStation).
+                .AddTile(ModContent.TileType<CosmicAnvil>()).
                 Register();
         }
     }
