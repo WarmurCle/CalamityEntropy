@@ -2959,7 +2959,14 @@ Items: {
 
 	BigShotsWing: {
 		DisplayName: Big Shot's Wing
-		Tooltip: '''"It's time to be a..."'''
+		Tooltip: 
+		'''
+		Horizontal speed: [A]
+		Acceleration multiplier: [B]
+		Disappointing vertical speed
+		Flight time: [C]
+		"It's time to be a..."
+		'''
 	}
 
 	BookmarkSulphurous: {
