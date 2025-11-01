@@ -16,8 +16,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 185;
-            Item.useAnimation = Item.useTime = 27;
+            Item.damage = 195;
+            Item.useAnimation = Item.useTime = 25;
             Item.crit = 10;
             Item.mana = 12;
             Item.rare = ModContent.RarityType<Turquoise>();
