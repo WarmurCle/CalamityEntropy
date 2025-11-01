@@ -19,9 +19,9 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.damage = 70;
-            Item.useAnimation = Item.useTime = 16;
+            Item.useAnimation = Item.useTime = 11;
             Item.crit = 15;
-            Item.mana = 8;
+            Item.mana = 5;
             Item.rare = ItemRarityID.Yellow;
             Item.expert = true;
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
