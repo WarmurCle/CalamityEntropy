@@ -18,7 +18,6 @@ using CalamityMod.Items.Weapons.Summon;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
