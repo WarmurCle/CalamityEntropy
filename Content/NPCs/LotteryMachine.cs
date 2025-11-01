@@ -149,7 +149,7 @@ namespace CalamityEntropy.Content.NPCs
             NPC.damage = 0;
             NPC.defense = 2;
             NPC.lifeMax = 200;
-
+            NPC.Entropy().VoidTouchDR = 1;
             NPC.value = 0f;
             NPC.knockBackResist = 1f;
             NPC.noTileCollide = false;
@@ -174,7 +174,8 @@ namespace CalamityEntropy.Content.NPCs
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage *= 0;
+            modifiers.FinalDamage *= 0.6f;
+            modifiers.SetMaxDamage(36);
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
