@@ -167,10 +167,6 @@ namespace CalamityEntropy.Content.NPCs
         {
             return false;
         }
-        public override bool? CanBeHitByProjectile(Projectile projectile)
-        {
-            return false;
-        }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             modifiers.FinalDamage *= 0;
@@ -282,6 +278,9 @@ namespace CalamityEntropy.Content.NPCs
 
         public override void AI()
         {
+            if (NPC.velocity.Y == 0)
+                NPC.velocity.X *= 0.8f;
+            NPC.velocity.X *= 0.96f;
             if (sd)
             {
                 sd = false;
