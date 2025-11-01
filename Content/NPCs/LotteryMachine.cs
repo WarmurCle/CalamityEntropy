@@ -158,6 +158,11 @@ namespace CalamityEntropy.Content.NPCs
             NPC.netAlways = true;
 
         }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if(NPC.life <= 0)
+                CEUtils.ExplotionParticleLOL(NPC.Center);
+        }
         public override void OnSpawn(IEntitySource source)
         {
 
