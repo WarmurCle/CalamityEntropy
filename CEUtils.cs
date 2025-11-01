@@ -195,7 +195,7 @@ namespace CalamityEntropy
         }
         public static void ExplotionParticleLOL(Vector2 pos)
         {
-            EParticle.NewParticle(new RealisticExplosion(), pos, Vector2.Zero, Color.White, 2, 1, true, BlendState.Additive);
+            EParticle.NewParticle(new RealisticExplosion(), pos, Vector2.Zero, Color.White, 2, 1, true, BlendState.AlphaBlend);
         }
         public static void AddBuff<T>(this NPC npc, int time, bool quiet = false) where T : ModBuff
         {

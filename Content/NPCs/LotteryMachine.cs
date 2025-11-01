@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -146,7 +147,7 @@ namespace CalamityEntropy.Content.NPCs
             NPC.width = 176;
             NPC.height = 176;
             NPC.damage = 0;
-            NPC.defense = 16;
+            NPC.defense = 2;
             NPC.lifeMax = 200;
 
             NPC.value = 0f;
@@ -154,14 +155,14 @@ namespace CalamityEntropy.Content.NPCs
             NPC.noTileCollide = false;
             NPC.noGravity = false;
             NPC.friendly = true;
-
+            NPCID.Sets.ImmuneToAllBuffs[Type] = true;
             NPC.netAlways = true;
 
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
             if(NPC.life <= 0)
-                CEUtils.ExplotionParticleLOL(NPC.Center);
+                EParticle.NewParticle(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 4, 1, true, BlendState.AlphaBlend);
         }
         public override void OnSpawn(IEntitySource source)
         {
@@ -470,7 +471,6 @@ namespace CalamityEntropy.Content.NPCs
                 }
                 mouseRightClicked = Mouse.GetState().RightButton == ButtonState.Pressed;
             }
-            NPC.life = NPC.lifeMax;
             if (nucTime > 0)
             {
                 nucTime = 0;
