@@ -485,7 +485,8 @@ namespace CalamityEntropy.Common
                     if(wisperShine)
                         projectile.Center = projectile.GetOwner().Center + wisperOffset.RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.GetOwner().Center).ToRotation());
                     else
-                        projectile.Center = Vector2.Lerp(projectile.Center, projectile.GetOwner().Center + wisperOffset.RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.GetOwner().Center).ToRotation()), 0.01f);
+                        for(int i = 0; i < int.Max(9 - projectile.MaxUpdates, 1); i++)
+                            projectile.Center = Vector2.Lerp(projectile.Center, projectile.GetOwner().Center + wisperOffset.RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.GetOwner().Center).ToRotation()), 0.01f);
                     projectile.GetOwner().Calamity().mouseWorldListener = true;
                     if (projectile.velocity.Length() < 2)
                         projectile.velocity = Vector2.One * 2;
@@ -664,19 +665,36 @@ namespace CalamityEntropy.Common
             }
             if (GWBow && projectile.arrow)
             {
-                if (Main.rand.NextBool(2))
+                if(Main.rand.NextBool(4 * projectile.maxPenetrate))
                 {
-                    Vector2 direction = new Vector2(-1, 0).RotatedBy(projectile.velocity.ToRotation());
-                    Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.9f;
-                    CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
-                    GeneralParticleHandler.SpawnParticle(smoke);
-
-                    if (Main.rand.NextBool(3))
+                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = Vector2.One }, projectile.Center + CEUtils.randomPointInCircle(16), projectile.velocity * 0.3f, Main.hslToRgb(0.85f, 1, 0.8f), 0.3f, 1, true, BlendState.Additive, 0);
+                }
+                if (Main.rand.NextBool(projectile.maxPenetrate))
+                {
+                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1f) }, projectile.Center + CEUtils.randomPointInCircle(12), projectile.velocity * 0.1f, Main.hslToRgb(0.85f, 1, 0.8f), 1.2f, 1, true, BlendState.Additive, projectile.velocity.ToRotation(), 16);
+                }
+                for (float i = 0; i < 1; i += 0.25f)
+                {
+                    if (Main.rand.NextBool(int.Max(1, projectile.MaxUpdates / 3)))
                     {
-                        CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, Main.hslToRgb(0.85f, 1, 0.8f), 20, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, true, 0.01f, true);
-                        GeneralParticleHandler.SpawnParticle(smokeGlow);
+                        Vector2 direction = new Vector2(-1, 0).RotatedBy(projectile.velocity.ToRotation());
+                        Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.9f;
+
+                        Vector2 p = projectile.Center - projectile.velocity * i;
+                        if (Main.rand.NextBool(2))
+                        {
+                            CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(p + direction * 46f, smokeSpeed + projectile.velocity, Color.Lerp(Color.Purple, Color.Blue, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 16f)), 30, Main.rand.NextFloat(0.6f, 0.7f), 0.8f, 0, false, 0, true);
+                            smoke.Rotation = CEUtils.randomRot();
+                            GeneralParticleHandler.SpawnParticle(smoke);
+                        }
+                        {
+                            CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(p + direction * 46f, smokeSpeed + projectile.velocity, Main.hslToRgb(0.85f, 1, 0.8f), 20, Main.rand.NextFloat(0.36f, 0.5f), 0.8f, 0.01f, true, 0.01f, true);
+                            smokeGlow.Rotation = CEUtils.randomRot();
+                            GeneralParticleHandler.SpawnParticle(smokeGlow);
+                        }
                     }
                 }
+
 
                 NPC target = projectile.FindTargetWithinRange(1000, false);
                 if (target != null && counter > 15)
@@ -1156,6 +1174,12 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if(GWBow)
+            {
+                CEUtils.PlaySound("bne_hit", 1.2f + 0.2f * projectile.numHits, target.Center);
+                EParticle.spawnNew(new HeavenfallStar2() { drawScale = Vector2.One }, target.Center, Vector2.Zero, Main.hslToRgb(0.85f, 1, 0.8f), 2.6f, 1, true, BlendState.Additive, 0, 28);
+                EParticle.spawnNew(new HeavenfallStar2() { drawScale = Vector2.One }, target.Center, Vector2.Zero, Main.hslToRgb(0.85f, 1, 0.8f), 1.4f, 1, true, BlendState.Additive, MathHelper.PiOver4, 40);
+            }
             if (projectile.friendly && projectile.DamageType.CountsAsClass(DamageClass.Ranged))
             {
                 if (projectile.GetOwner().Entropy().fruitCake)
