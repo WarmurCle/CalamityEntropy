@@ -44,8 +44,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<EidolicWail>())
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<EidolicWail>())
                 .AddIngredient(ModContent.ItemType<WyrmTooth>(), 12)
+                .AddIngredient(ModContent.ItemType<FadingRunestone>())
                 .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }
