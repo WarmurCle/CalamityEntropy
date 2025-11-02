@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -64,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<PhantasmalRuin>())
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
     }
