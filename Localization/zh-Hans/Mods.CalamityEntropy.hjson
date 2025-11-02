@@ -3230,11 +3230,7 @@ Items: {
 
 	VoidWell: {
 		DisplayName: 虚空井
-		Tooltip:
-			'''
-			一口弥散着虚无之力的魔法井，据说能吞噬一颗恒星
-			以虚空为物品赋能，将其打造成新的存在
-			'''
+		Tooltip: 以虚空为物品赋能，将其打造成新的存在
 	}
 
 	FadingRunestone: {
@@ -3243,6 +3239,15 @@ Items: {
 			'''
 			不属于这个世界的神秘造物，其质量之大仿佛能让时空扭曲
 			有那么一瞬间，你似乎感觉不到自己的存在了
+			'''
+	}
+
+	DedicatedOracle: {
+		DisplayName: 赐死神旨
+		Tooltip:
+			'''
+			仅能进行潜伏攻击
+			冲向距离光标最近的目标并进行快速连续的斩击
 			'''
 	}
 }
@@ -3755,6 +3760,7 @@ Projectiles: {
 	AzafureElectrocauteryWandHeld.DisplayName: 手持弹幕
 	AzafureElectrocauteryWandBomb.DisplayName: 电磁炸弹
 	Snowgrave.DisplayName: 雪葬
+	DedicatedOracleSlashProj.DisplayName: 监邢之眼
 }
 
 LegendTooltip: - 传奇物品 -

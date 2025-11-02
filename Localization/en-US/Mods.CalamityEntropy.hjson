@@ -2998,6 +2998,15 @@ Items: {
 			There was a moment when you even felt you were going to disappear.
 			'''
 	}
+
+	DedicatedOracle: {
+		DisplayName: Dedicated Oracle
+		Tooltip:
+			'''
+			Only able to conduct stealth strikes
+			Rush towards the target closest to the cursor and perform rapid and continuous slashing
+			'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3525,6 +3534,7 @@ Projectiles: {
 	AzafureElectrocauteryWandHeld.DisplayName: Azafure Electrocautery Wand Held
 	AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
 	Snowgrave.DisplayName: Snowgrave
+	DedicatedOracleSlashProj.DisplayName: Dedicated Oracle Slash Proj
 }
 
 LegendTooltip: - Legend -

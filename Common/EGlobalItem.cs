@@ -1725,7 +1725,7 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ModContent.ItemType<CalamitasCloneBag>())
             {
-                itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 10));
+                //itemLoot.Add(ModContent.ItemType<FriendBox>(), new Fraction(1, 10));
             }
             if (item.type == ItemID.PlanteraBossBag)
             {
