@@ -108,15 +108,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.timeLeft = 2;
                 if (counter > 6 && counter % 4 == 0)
                 {
+                    CEUtils.SetShake(Projectile.Center, 4);
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 10, 128, Projectile.DamageType).ArmorPenetration = 200;
 
-                    CEUtils.PlaySound("slice", 1, Projectile.Center, 16, 0.5f);
+                    CEUtils.PlaySound("slice", Main.rand.NextFloat(0.9f, 1.2f), Projectile.Center, 16, 0.5f);
                     for (int i = 0; i < 3; i++)
                     {
-                        EParticle.spawnNew(new ShadeDashParticle() { TL = Main.rand.Next(40, 72), c1 = Color.Red, c2 = Color.Black }, player.Center, CEUtils.randomRot().ToRotationVector2() * 32, Color.White, Main.rand.NextFloat(0.9f, 1.2f), 1, true, BlendState.AlphaBlend, 0, 18);
+                        EParticle.spawnNew(new ShadeDashParticle() { TL = Main.rand.Next(80, 102), c1 = Color.Red, c2 = Color.Black }, player.Center, CEUtils.randomRot().ToRotationVector2() * 12, Color.White, Main.rand.NextFloat(0.4f, 0.6f), 1, true, BlendState.AlphaBlend, 0, 18);
 
                         float rot = CEUtils.randomRot();
-                        EParticle.spawnNew(new SlashDarkRed() { scw = 0.3f, height = Main.rand.NextFloat(6f, 7f) }, Projectile.Center - rot.ToRotationVector2() * 34, Vector2.Zero, Color.Red, Main.rand.NextFloat(0.2f, 0.24f), 1, true, BlendState.AlphaBlend, rot, 8);
+                        EParticle.spawnNew(new DOracleSlash(), Projectile.Center, Vector2.Zero, Color.Red, Main.rand.NextFloat(250, 280), 1, true, BlendState.NonPremultiplied, rot, 8);
                     }
                 }
             }
@@ -133,6 +134,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage * 2, 256, Projectile.DamageType).Calamity().stealthStrike = true;
                 player.velocity = ((origPos - Projectile.Center) * new Vector2(1, 0.2f)).normalize() * 46;
                 player.Entropy().XSpeedSlowdownTime = 34;
+                CEUtils.SetShake(Projectile.Center, 12);
             }
         }
         public override bool PreDraw(ref Color lightColor)

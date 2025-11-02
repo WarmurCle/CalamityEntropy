@@ -3039,7 +3039,11 @@ Items: {
 
 	DedicatedOracle: {
 		// DisplayName: Dedicated Oracle
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Only able to conduct stealth strikes
+			Rush towards the target closest to the cursor and perform rapid and continuous slashing
+			''' */
 	}
 }
 
