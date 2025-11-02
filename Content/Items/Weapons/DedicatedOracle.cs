@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using Humanizer;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -51,6 +52,12 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.CostStealthForPlr(player);
             }
             return false;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<MeldConstruct>(2)
+                .AddIngredient<SolarVeil>(8).Register();
         }
     }
     public class DedicatedOracleSlashProj : ModProjectile
@@ -135,6 +142,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 player.velocity = ((origPos - Projectile.Center) * new Vector2(1, 0.2f)).normalize() * 46;
                 player.Entropy().XSpeedSlowdownTime = 34;
                 CEUtils.SetShake(Projectile.Center, 12);
+                CalamityEntropy.Instance.screenShakeAmp = 14;
             }
         }
         public override bool PreDraw(ref Color lightColor)
