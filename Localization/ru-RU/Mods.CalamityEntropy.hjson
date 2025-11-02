@@ -3029,7 +3029,7 @@ Items: {
 	}
 
 	VoidWell: {
-		// DisplayName: Mods.CalamityEntropy.Items.VoidWell.DisplayName
+		// DisplayName: Void Well
 		/* Tooltip:
 			'''
 			A magic well that exudes the power of nothingness, which said can devour a star.
