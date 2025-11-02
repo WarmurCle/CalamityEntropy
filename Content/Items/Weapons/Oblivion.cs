@@ -57,6 +57,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<Onyxplate>(), 8)
                 .AddIngredient(ModContent.ItemType<Voidstone>(), 4)
                 .AddIngredient(ModContent.ItemType<DivineGeode>(), 6)
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }

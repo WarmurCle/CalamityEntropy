@@ -21,8 +21,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = ModContent.GetInstance<MeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = 24;
-            Item.useAnimation = 24;
+            Item.useTime = 18;
+            Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 3;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
