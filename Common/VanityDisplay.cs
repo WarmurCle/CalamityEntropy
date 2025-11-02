@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityMod;
 using CalamityMod.Graphics.Renderers;
+using CalamityMod.Items.Accessories.Vanity;
 using CalamityMod.Items.Materials;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.Xna.Framework.Graphics;
@@ -54,9 +55,9 @@ namespace CalamityEntropy.Common
                     dummy.cBackpack = 0;
                     dummy.cTail = 0;
                     dummy.cShieldFallback = 0;
-                    dummy.legs = EquipLoader.GetEquipSlot(Mod, item.ModItem.Name, EquipType.Legs);
-                    dummy.body = EquipLoader.GetEquipSlot(Mod, item.ModItem.Name, EquipType.Body);
-                    dummy.head = EquipLoader.GetEquipSlot(Mod, item.ModItem.Name, EquipType.Head);
+                    dummy.legs = EquipLoader.GetEquipSlot(item.ModItem.Mod, item.ModItem.Name, EquipType.Legs);
+                    dummy.body = EquipLoader.GetEquipSlot(item.ModItem.Mod, item.ModItem.Name, EquipType.Body);
+                    dummy.head = EquipLoader.GetEquipSlot(item.ModItem.Mod, item.ModItem.Name, EquipType.Head);
 
                     //Main.PlayerRenderer.DrawPlayer(new Terraria.Graphics.Camera(), dummy, new Vector2(line.X, line.Y) + Main.screenPosition, 0, Vector2.Zero, 0, 1);
                     var drawInfo = default(PlayerDrawSet);
@@ -86,6 +87,8 @@ namespace CalamityEntropy.Common
         }
         public static bool IsASkinVanity(Item item)
         {
+            if (item.ModItem != null && (item.ModItem is HapuFruit || item.ModItem is RedBow || item.ModItem is OracleHeadphones))
+                return true;
             return VanityItems.Contains(item.type);
         }
         public static void SetupVanities()

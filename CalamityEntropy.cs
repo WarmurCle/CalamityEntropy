@@ -1277,7 +1277,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
-
+            VanityDisplaySys.SetupVanities();
             if (ModLoader.TryGetMod("InfernumMode", out var _))
             {
                 InfFont.InfernumFont.SetFont();
