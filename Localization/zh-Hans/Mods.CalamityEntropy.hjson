@@ -145,6 +145,16 @@ Items: {
 				DisplayName: 特莉波卡的镰刀
 				Tooltip: ""
 			}
+
+			AzafureLightMachineGun: {
+				DisplayName: 阿萨福勒轻机枪
+				Tooltip: 
+				'''
+				快速发射激光
+				激光命中后为你回复少量潜行值
+				潜伏攻击将发射一枚会爆炸的榴弹，造成范围伤害
+				'''
+			}
 		}
 	}
 
@@ -3251,6 +3261,11 @@ Items: {
 			使用后短时间内无法回复潜行值
 			'''
 	}
+
+	AzafureLightMachineGun: {
+		// DisplayName: Azafure Light Machine Gun
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3762,6 +3777,10 @@ Projectiles: {
 	AzafureElectrocauteryWandBomb.DisplayName: 电磁炸弹
 	Snowgrave.DisplayName: 雪葬
 	DedicatedOracleSlashProj.DisplayName: 监邢之眼
+	// ALMGLaser.DisplayName: A L M G Laser
+	// AzafureLightMachineGunHeld.DisplayName: Azafure Light Machine Gun Held
+	// AzafureLightMachineGunStealth.DisplayName: Azafure Light Machine Gun Stealth
+	// ALMGShell.DisplayName: A L M G Shell
 }
 
 LegendTooltip: - 传奇物品 -

@@ -13,6 +13,7 @@ using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Prefixes;
@@ -1760,7 +1761,7 @@ namespace CalamityEntropy.Common
             }
             LastStealth = Player.Calamity().rogueStealth;
             LastStealthStrikeAble = Player.Calamity().StealthStrikeAvailable();
-            if (!worshipRelic)
+            if (worshipStealthRegenTime > 0 && !worshipRelic && !(Player.HeldItem.ModItem is AzafureLightMachineGun))
             {
                 worshipStealthRegenTime = 0;
             }

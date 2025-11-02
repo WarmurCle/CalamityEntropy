@@ -1,24 +1,28 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
 {
-    public class AzafureLightMachineGun : ModItem
+    public class AzafureLightMachineGun : RogueWeapon
     {
         public override void SetDefaults()
         {
             Item.damage = 20;
-            Item.DamageType = DamageClass.Ranged;
+            Item.DamageType = CEUtils.RogueDC;
             Item.width = 82;
             Item.height = 32;
             Item.useTime = 8;
@@ -30,17 +34,31 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
             Item.UseSound = null;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<AzafureLightMachineGunHeld>();
-            Item.shootSpeed = 6;
+            Item.shootSpeed = 26;
             Item.channel = true;
             Item.noUseGraphic = true;
         }
         public override void AddRecipes()
         {
         }
-
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
+            if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
+            {
+                Main.projectile[p].Calamity().stealthStrike = true;
+                p.ToProj().netUpdate = true;
+                CEUtils.CostStealthForPlr(player);
+            }
+            return false;
+        }
+        public override float StealthDamageMultiplier => 2;
+        public override float StealthKnockbackMultiplier => 2;
     }
     public class AzafureLightMachineGunHeld : ModProjectile
     {
+        public float rotup = 0;
+        public float rotv = 0.16f;
         public override bool ShouldUpdatePosition()
         {
             return false;
@@ -55,19 +73,45 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
         }
         public override void AI()
         {
+            Projectile.GetOwner().Calamity().mouseWorldListener = true;
             Player player = Projectile.GetOwner();
-            if (player.channel)
+            if (Projectile.Calamity().stealthStrike)
             {
-                Projectile.timeLeft = 3;
+                rotup += rotv;
+                rotv *= 0.8f;
+                rotup *= 0.82f;
+                if (Projectile.ai[0]++ == 0)
+                {
+                    CEUtils.PlaySound("AAGShot", 1.55f, Projectile.Center, 2, 0.41f);
+                    Projectile.timeLeft = 32;
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.normalize() * 32, Projectile.velocity, ModContent.ProjectileType<AzafureLightMachineGunStealth>(), Projectile.damage * 8, Projectile.knockBack * 10, Projectile.owner).ToProj().Calamity().stealthStrike = true; ;
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 2, Projectile.velocity.RotatedBy(-2.3f * player.direction).normalize() * 12, ModContent.ProjectileType<ALMGShell>(), 0, 0, Projectile.owner);
+                    }
+                }
                 player.Calamity().mouseWorldListener = true;
                 Projectile.rotation = (player.Calamity().mouseWorld - player.Center).ToRotation();
                 Projectile.velocity = Projectile.rotation.ToRotationVector2() * 16;
                 player.SetHandRot(((player.Calamity().mouseWorld - player.Center).ToRotation().ToRotationVector2() + new Vector2(0, 1f)).ToRotation());
                 player.itemAnimation = player.itemTime = 4;
                 player.heldProj = Projectile.whoAmI;
-                if (Projectile.ai[2] <= 0)
+                Projectile.Center = player.GetDrawCenter() + Projectile.rotation.ToRotationVector2() * 24;
+                return;
+            }
+
+            if (player.channel)
+            {
+                Projectile.timeLeft = 4;
+                player.Calamity().mouseWorldListener = true;
+                Projectile.rotation = (player.Calamity().mouseWorld - player.Center).ToRotation();
+                Projectile.velocity = Projectile.rotation.ToRotationVector2() * 16;
+                player.SetHandRot(((player.Calamity().mouseWorld - player.Center).ToRotation().ToRotationVector2() + new Vector2(0, 1f)).ToRotation());
+                player.itemAnimation = player.itemTime = 4;
+                player.heldProj = Projectile.whoAmI;
+                if (Projectile.ai[2]-- <= 0)
                 {
-                    Projectile.ai[2] = Utils.Remap(Projectile.ai[2], 0, 120, 26, 5);
+                    Projectile.ai[2] = 4;
                     if (Main.myPlayer == Projectile.owner)
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.normalize() * 32, Projectile.velocity, ModContent.ProjectileType<ALMGLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
@@ -76,13 +120,13 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
             {
                 Projectile.Kill();
             }
-            Projectile.Center = player.GetDrawCenter();
+            Projectile.Center = player.GetDrawCenter() + Projectile.rotation.ToRotationVector2() * 24;
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D t = Projectile.GetTexture();
-            Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition - Projectile.rotation.ToRotationVector2() * 10, CEUtils.GetCutTexRect(t, 2, (int)Main.GameUpdateCount / 4 % 2, false), lightColor, Projectile.rotation, t.Size() / new Vector2(2, 4), Projectile.scale, (Projectile.velocity.X > 0) ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition - Projectile.rotation.ToRotationVector2() * 10, CEUtils.GetCutTexRect(t, 2, (int)Main.GameUpdateCount / 4 % 2, false), lightColor, Projectile.rotation + (Math.Sign(Projectile.velocity.X) * -rotup), t.Size() / new Vector2(2, 4), Projectile.scale, (Projectile.velocity.X > 0) ? SpriteEffects.None : SpriteEffects.FlipVertically);
             
             return false;
         }
@@ -101,17 +145,29 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
             Projectile.penetrate = -1; 
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
         }
         public float dist = 0;
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation();
+            
             if (Projectile.ai[0]++ == 0)
             {
-                CEUtils.PlaySound("DudFire", 1.6f, Projectile.Center, 6, 0.4f);
-                EParticle.NewParticle(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Red, 0.3f, 1, true, BlendState.Additive, 0, 12);
-                EParticle.NewParticle(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.12f, 1, true, BlendState.Additive, 0, 12);
-
+                Vector2 mousew = Projectile.GetOwner().Calamity().mouseWorld;
+                Projectile.Center = Projectile.GetOwner().GetDrawCenter();
+                Projectile.velocity = new Vector2(8, 0).RotatedBy((mousew - Projectile.Center).ToRotation());
+                Projectile.rotation = Projectile.velocity.ToRotation();
+                Projectile.Center += (mousew - Projectile.Center).normalize() + new Vector2(60, -8 * (Projectile.velocity.X > 0 ? 1 : -1)).RotatedBy(Projectile.rotation);
+                dist = 0;
+                List<NPC> checkNpcs = new();
+                foreach(NPC n in Main.ActiveNPCs)
+                {
+                    if(!n.dontTakeDamage && !n.friendly && CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 1800, n.getRect(), 6))
+                    {
+                        checkNpcs.Add(n);
+                    }
+                }
                 for (float d = 0; d < 1800; d += 4)
                 {
                     dist = d;
@@ -120,16 +176,38 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     {
                         break;
                     }
+                    bool brk = false;
+                    foreach(var n in checkNpcs)
+                    {
+                        if((Projectile.Center + Projectile.rotation.ToRotationVector2() * d).getRectCentered(6, 6).Intersects(n.Hitbox))
+                        {
+                            dist += 4;
+                            brk = true;
+                            break;
+                        }
+                    }
+                    if (brk)
+                        break;
                 }
+                CEUtils.PlaySound("DudFire", 2f, Projectile.Center, 6, 0.4f);
+                EParticle.NewParticle(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Red, 0.5f, 1, true, BlendState.Additive, 0, 12);
+                EParticle.NewParticle(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.2f, 1, true, BlendState.Additive, 0, 12);
+
+                
                 Vector2 edp = Projectile.Center + Projectile.rotation.ToRotationVector2() * dist;
-                EParticle.NewParticle(new ShineParticle(), edp, Vector2.Zero, Color.Red, 0.3f, 1, true, BlendState.Additive, 0, 12);
-                EParticle.NewParticle(new ShineParticle(), edp, Vector2.Zero, Color.White, 0.12f, 1, true, BlendState.Additive, 0, 12);
+                EParticle.NewParticle(new ShineParticle(), edp, Vector2.Zero, Color.Red, 0.5f, 1, true, BlendState.Additive, 0, 12);
+                EParticle.NewParticle(new ShineParticle(), edp, Vector2.Zero, Color.White, 0.2f, 1, true, BlendState.Additive, 0, 12);
 
             }
+
         }
         public override bool ShouldUpdatePosition()
         {
             return false;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * dist, targetHitbox, 6);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -137,8 +215,8 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D tex = CEUtils.getExtraTex("MaskLaserLine");
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255) * 0.4f, Projectile.rotation, new Vector2(0, tex.Height / 2), new Vector2(dist / tex.Width, Projectile.scale), SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 10, 10), Projectile.rotation, new Vector2(0, tex.Height / 2), new Vector2(dist / tex.Width, Projectile.scale * 0.4f), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255), Projectile.rotation, new Vector2(0, tex.Height / 2), new Vector2(dist / tex.Width, Projectile.scale * 0.3f * (Projectile.timeLeft / 12f)), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 10, 10), Projectile.rotation, new Vector2(0, tex.Height / 2), new Vector2(dist / tex.Width, Projectile.scale * 0.5f * (Projectile.timeLeft / 12f)), SpriteEffects.None, 0);
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -146,32 +224,74 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
         }
         public override void OnKill(int timeLeft)
         {
-            CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center);
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 0.6f, 8));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 1.6f, 1, true, BlendState.Additive, 0, 12);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 1f, 1, true, BlendState.Additive, 0, 12);
-            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 128, Projectile.DamageType);
         }
 
-        public void DrawEnergyBall(Vector2 pos, float size, float alpha)
-        {
-            Projectile.rotation = Projectile.velocity.ToRotation();
-            Texture2D tex = CEUtils.getExtraTex("a_circle");
-            Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(250, 250, 250) * alpha, Projectile.rotation, tex.Size() * 0.5f, new Vector2(1 + (Projectile.velocity.Length() * 0.4f), 1) * size * 0.18f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(255, 80, 80) * alpha, Projectile.rotation, tex.Size() * 0.5f, new Vector2(1 + (Projectile.velocity.Length() * 0.4f), 1) * size * 0.32f, SpriteEffects.None, 0);
-            Main.spriteBatch.End();
-            Main.spriteBatch.begin_();
-        }
-        public TrailParticle trail = null;
-        public TrailParticle trail2 = null;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 0.4f, 8));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 1.2f, 1, true, BlendState.Additive, 0, 12);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.7f, 1, true, BlendState.Additive, 0, 12);
+            Projectile.GetOwner().Entropy().worshipStealthRegenTime = 18;
+        }
+    }
 
-            CEUtils.PlaySound("pulseBlast", 1f, Projectile.Center, 6, 0.7f);
+    public class AzafureLightMachineGunStealth : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(CEUtils.RogueDC, true, 1);
+            Projectile.width = Projectile.height = 16;
+            Projectile.extraUpdates = 5;
+        }
+        public TrailParticle trail = new TrailParticle();
+        public override void AI()
+        {
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            if (Projectile.ai[0]++ == 0)
+            {
+                Vector2 mousew = Projectile.GetOwner().Calamity().mouseWorld;
+                Projectile.Center = Projectile.GetOwner().GetDrawCenter();
+                Projectile.velocity = new Vector2(8, 0).RotatedBy((mousew - Projectile.Center).ToRotation());
+                Projectile.rotation = Projectile.velocity.ToRotation();
+                Projectile.Center += (mousew - Projectile.Center).normalize() + new Vector2(60, -8 * (Projectile.velocity.X > 0 ? 1 : -1)).RotatedBy(Projectile.rotation);
+
+                for (int i = 0; i < 16; i++)
+                {
+                    Vector2 top = Projectile.Center;
+                    Vector2 velocity = Projectile.velocity;
+                    Vector2 sparkVelocity2 = velocity.normalize().RotateRandom(0.22f) * Main.rand.NextFloat(6f, 36f);
+                    int sparkLifetime2 = Main.rand.Next(6, 8);
+                    float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
+                    var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
+
+                    LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
+                }
+                trail = new TrailParticle() { maxLength = 40};
+                EParticle.NewParticle(trail, Projectile.Center, Vector2.Zero, new Color(255, 120, 120), 0.6f, 1, true, BlendState.Additive);
+
+            }
+            trail.Lifetime = 13;
+            trail.AddPoint(Projectile.Center + Projectile.velocity);
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.FinalDamage *= 0.1f;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.55f);
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 1.7f, 8));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 4f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 2.8f, 1, true, BlendState.Additive, 0, 16);
+            if (Projectile.owner == Main.myPlayer)
+            {
+                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 256, Projectile.DamageType);
+            }
+            for (int i = 0; i < 32; i++)
+            {
+                var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Firework_Yellow);
+                d.scale = 0.8f;
+                d.velocity = CEUtils.randomPointInCircle(14);
+                d.position += d.velocity * 4;
+            }
         }
     }
 }
