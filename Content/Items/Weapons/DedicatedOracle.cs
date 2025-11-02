@@ -74,6 +74,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public NPC target => ((int)Projectile.ai[0]).ToNPC();
         public Vector2 origPos = Vector2.Zero;
         public Vector2 lastPlrPos = Vector2.Zero;
+        public Vector2 targetPos = Vector2.Zero;
         public override void AI()
         {
             if(target == null && !target.active)
@@ -85,8 +86,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             int counter = (int)Projectile.ai[1]++;
             if(counter == 0)
             {
+                targetPos = target.Center;
                 origPos = player.Center;
             }
+            target.Center = targetPos;
             player.Entropy().immune = 30;
             player.itemTime = player.itemAnimation = 4;
             Projectile.Center = target.Center;
@@ -131,6 +134,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (counter == 0) CEUtils.PlaySound("swing4", 1.6f, Projectile.Center);
             if (counter == 60)
             {
+                int stealthRegenDelay = 160.ApplyCdDec(player);
+                player.Entropy().StealthRegenDelay = stealthRegenDelay;
                 for (int i = 0; i < 16; i++)
                 {
                     var vel = (-Vector2.UnitY).RotatedByRandom(2.2f) * Main.rand.NextFloat(8, 15);

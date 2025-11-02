@@ -326,7 +326,7 @@ namespace CalamityEntropy.Content.ILEditing
         }
         private static float UpdateStealthGenHook(Func<CalamityPlayer, float> orig, CalamityPlayer self)
         {
-            if (self.Player.TryGetModPlayer<EModPlayer>(out var mp) && mp.NoNaturalStealthRegen)
+            if (self.Player.TryGetModPlayer<EModPlayer>(out var mp) && (mp.NoNaturalStealthRegen || mp.StealthRegenDelay > 0))
             {
                 return 0;
             }
