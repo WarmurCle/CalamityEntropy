@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 16;
             Item.useAnimation = 16;
             Item.useStyle = -1;
-            Item.damage = 460;
+            Item.damage = 500;
             Item.DamageType = CEUtils.RogueDC;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -56,8 +56,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<MeldConstruct>(2)
-                .AddIngredient<SolarVeil>(8).Register();
+                .AddIngredient<MeldConstruct>(9)
+                .AddIngredient<SolarVeil>(8)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
     public class DedicatedOracleSlashProj : ModProjectile
