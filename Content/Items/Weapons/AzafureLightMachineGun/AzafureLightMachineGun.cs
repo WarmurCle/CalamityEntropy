@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
     {
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 18;
             Item.DamageType = CEUtils.RogueDC;
             Item.width = 82;
             Item.height = 32;
@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     Projectile.timeLeft = 32;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.normalize() * 32, Projectile.velocity, ModContent.ProjectileType<AzafureLightMachineGunStealth>(), Projectile.damage * 6, Projectile.knockBack * 10, Projectile.owner).ToProj().Calamity().stealthStrike = true; ;
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.normalize() * 32, Projectile.velocity, ModContent.ProjectileType<AzafureLightMachineGunStealth>(), Projectile.damage * 14, Projectile.knockBack * 10, Projectile.owner).ToProj().Calamity().stealthStrike = true; ;
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 2, Projectile.velocity.RotatedBy(-2.3f * player.direction).normalize() * 12, ModContent.ProjectileType<ALMGShell>(), 0, 0, Projectile.owner);
                     }
                 }
