@@ -116,7 +116,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (counter > 6 && counter % 4 == 0)
                 {
                     CEUtils.SetShake(Projectile.Center, 4);
-                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 10, 128, Projectile.DamageType).ArmorPenetration = 200;
+                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 10, 280, Projectile.DamageType).ArmorPenetration = 200;
 
                     CEUtils.PlaySound("slice", Main.rand.NextFloat(0.9f, 1.2f), Projectile.Center, 16, 0.5f);
                     for (int i = 0; i < 3; i++)
@@ -138,7 +138,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     EParticle.spawnNew(new SlashDarkRed(), player.Center, vel, Color.Red, Main.rand.NextFloat(0.5f, 1.4f), 1, true, BlendState.AlphaBlend, vel.ToRotation(), 38);
                 }
                 CEUtils.PlaySound("AbyssalBladeLaunch", 1, Projectile.Center);
-                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage * 2, 256, Projectile.DamageType).Calamity().stealthStrike = true;
+                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage * 2, 600, Projectile.DamageType).Calamity().stealthStrike = true;
                 player.velocity = ((origPos - Projectile.Center) * new Vector2(1, 0.2f)).normalize() * 46;
                 player.Entropy().XSpeedSlowdownTime = 34;
                 CEUtils.SetShake(Projectile.Center, 12);
