@@ -150,6 +150,7 @@ namespace CalamityEntropy.Common
         public int UsingItemCounter = 0;
         public float VanityTailRot = 0;
         public int JetpackDye = -1;
+        public int StealthRegenDelay = 0;
         public class SpecialWingDrawingData
         {
             public int MaxFrame = 3;
@@ -1525,6 +1526,7 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public override void PostUpdate()
         {
+            StealthRegenDelay--;
             DontDrawTime--;
             
             /*for(float i = 0; i < 1; i += 0.05f)
