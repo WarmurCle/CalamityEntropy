@@ -131,6 +131,7 @@ namespace CalamityEntropy
         public string EntropyWikiURL;
         public override void Load()
         {
+            VanityDisplaySys.VanityItems = new();
             CEUtils.TexCache = new Dictionary<string, Texture2D>();
             theVoid_SCBIE = new CESpawnConditionBestiaryInfoElement(this.GetLocalizationKey("TheVoid"), 0, "CalamityEntropy/Assets/VoidBack");
             BookMarkLoader.CustomBMEffectsByName = new Dictionary<string, BookMarkLoader.BookmarkEffectFunctionGroups>();
@@ -350,6 +351,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            VanityDisplaySys.VanityItems = null;
             CEUtils.SoundStyles = null;
             theVoid_SCBIE = null;
             EModILEdit.edgeTex = null;

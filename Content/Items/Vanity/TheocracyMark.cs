@@ -2,10 +2,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class TheocracyMark : ModItem
+    public class TheocracyMark : ModItem, IVanitySkin
     {
         public override void Load()
         {

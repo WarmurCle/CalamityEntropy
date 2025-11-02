@@ -5,10 +5,11 @@ using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class GalaxyGrapeSoda : ModItem, IDevItem
+    public class GalaxyGrapeSoda : ModItem, IDevItem, IVanitySkin
     {
         public string DevName => "Fr9e_es";
         public override void Load()

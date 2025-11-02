@@ -4,10 +4,11 @@ using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class MosHat : ModItem, IDonatorItem
+    public class MosHat : ModItem, IDonatorItem, IVanitySkin
     {
         public string DonatorName => "momodzmz";
 

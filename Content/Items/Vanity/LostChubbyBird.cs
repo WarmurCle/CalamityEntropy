@@ -2,10 +2,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class LostChubbyBird : ModItem, IDonatorItem
+    public class LostChubbyBird : ModItem, IDonatorItem, IVanitySkin
     {
         public string DonatorName => "心斩狂歌";
 

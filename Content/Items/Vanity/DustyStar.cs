@@ -5,10 +5,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class DustyStar : ModItem, IDevItem
+    public class DustyStar : ModItem, IDevItem, IVanitySkin
     {
         public string DevName => "Polaris";
         public override void Load()

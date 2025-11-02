@@ -1,10 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class BLUE : ModItem
+    public class BLUE : ModItem, IVanitySkin
     {
         public override void Load()
         {

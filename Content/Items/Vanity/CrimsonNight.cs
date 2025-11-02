@@ -2,10 +2,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class CrimsonNight : ModItem, IDevItem
+    public class CrimsonNight : ModItem, IDevItem, IVanitySkin
     {
         public string DevName => "AwayAstral";
         public override void Load()

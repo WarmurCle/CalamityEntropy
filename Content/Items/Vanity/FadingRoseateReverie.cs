@@ -2,10 +2,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class FadingRoseateReverie : ModItem, IDonatorItem
+    public class FadingRoseateReverie : ModItem, IDonatorItem, IVanitySkin
     {
         public string DonatorName => "Rathyep";
 

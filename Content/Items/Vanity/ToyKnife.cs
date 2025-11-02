@@ -3,10 +3,11 @@ using CalamityMod;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class ToyKnife : ModItem, IDevItem
+    public class ToyKnife : ModItem, IDevItem, IVanitySkin
     {
         public string DevName => "ChaLost";
         public override void Load()

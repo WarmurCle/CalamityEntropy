@@ -2,10 +2,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class PineappleDog : ModItem, IDonatorItem
+    public class PineappleDog : ModItem, IDonatorItem, IVanitySkin
     {
         public string DonatorName => "Nienie";
 

@@ -2,10 +2,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class Antler : ModItem, IDevItem
+    public class Antler : ModItem, IDevItem, IVanitySkin
     {
         public string DevName => "锯角";
         public override void Load()
