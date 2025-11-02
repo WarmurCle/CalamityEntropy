@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
     {
         public override void SetDefaults()
         {
-            Item.damage = 20;
+            Item.damage = 18;
             Item.DamageType = CEUtils.RogueDC;
             Item.width = 82;
             Item.height = 32;
@@ -40,6 +40,11 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
         }
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient(ItemID.Minishark)
+                .AddIngredient<HellIndustrialComponents>(4)
+                .AddIngredient(ItemID.AdamantiteBar, 6)
+                .Register();
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -86,7 +91,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     Projectile.timeLeft = 32;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.normalize() * 32, Projectile.velocity, ModContent.ProjectileType<AzafureLightMachineGunStealth>(), Projectile.damage * 8, Projectile.knockBack * 10, Projectile.owner).ToProj().Calamity().stealthStrike = true; ;
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.normalize() * 32, Projectile.velocity, ModContent.ProjectileType<AzafureLightMachineGunStealth>(), Projectile.damage * 14, Projectile.knockBack * 10, Projectile.owner).ToProj().Calamity().stealthStrike = true; ;
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 2, Projectile.velocity.RotatedBy(-2.3f * player.direction).normalize() * 12, ModContent.ProjectileType<ALMGShell>(), 0, 0, Projectile.owner);
                     }
                 }

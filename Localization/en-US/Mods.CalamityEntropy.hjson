@@ -136,12 +136,12 @@ Items: {
 
 			AzafureLightMachineGun: {
 				DisplayName: Azafure Light Machine Gun
-				Tooltip: 
-				'''
-				Quickly emit laser
-				Stealth strike will launch a grenade
-				Gen stealth when laser hited
-				'''
+				Tooltip:
+					'''
+					Quickly emit laser
+					Stealth strike will launch a grenade
+					Gen stealth when laser hited
+					'''
 			}
 		}
 	}
