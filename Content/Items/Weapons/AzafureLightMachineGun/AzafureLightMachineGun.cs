@@ -321,13 +321,13 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
         }
         public override void OnKill(int timeLeft)
         {
-            CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.55f);
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 1.7f, 8));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 4f, 1, true, BlendState.Additive, 0, 16);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 2.8f, 1, true, BlendState.Additive, 0, 16);
+            CEUtils.PlaySound("pulseBlast", 0.95f, Projectile.Center, 6, 0.55f);
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 2.4f, 8));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 6f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 4f, 1, true, BlendState.Additive, 0, 16);
             if (Projectile.owner == Main.myPlayer)
             {
-                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 256, Projectile.DamageType);
+                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 320, Projectile.DamageType);
             }
             for (int i = 0; i < 32; i++)
             {
