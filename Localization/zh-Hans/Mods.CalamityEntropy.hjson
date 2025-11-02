@@ -3261,11 +3261,6 @@ Items: {
 			使用后短时间内无法回复潜行值
 			'''
 	}
-
-	AzafureLightMachineGun: {
-		// DisplayName: Azafure Light Machine Gun
-		// Tooltip: ""
-	}
 }
 
 LOCKED: ：[已锁定]
@@ -3777,10 +3772,10 @@ Projectiles: {
 	AzafureElectrocauteryWandBomb.DisplayName: 电磁炸弹
 	Snowgrave.DisplayName: 雪葬
 	DedicatedOracleSlashProj.DisplayName: 监邢之眼
-	// ALMGLaser.DisplayName: A L M G Laser
-	// AzafureLightMachineGunHeld.DisplayName: Azafure Light Machine Gun Held
-	// AzafureLightMachineGunStealth.DisplayName: Azafure Light Machine Gun Stealth
-	// ALMGShell.DisplayName: A L M G Shell
+	ALMGLaser.DisplayName: 阿萨福勒轻机枪子弹
+	AzafureLightMachineGunHeld.DisplayName: 阿萨福勒轻机枪
+	AzafureLightMachineGunStealth.DisplayName: 阿萨福勒轻机枪子弹榴弹
+	ALMGShell.DisplayName: 弹壳
 }
 
 LegendTooltip: - 传奇物品 -
