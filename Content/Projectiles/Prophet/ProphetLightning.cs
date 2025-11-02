@@ -142,10 +142,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 float lr = 0;
                 for (int i = 1; i < points.Count; i++)
                 {
-                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 4,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 1.6f,
                           new Vector3((float)(i + 1) / points.Count, 1, 1),
                         b * a));
-                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 4,
+                    ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 1.6f,
                           new Vector3((float)(i + 1) / points.Count, 0, 1),
                           b * a));
                     lr = (points[i] - points[i - 1]).ToRotation();
