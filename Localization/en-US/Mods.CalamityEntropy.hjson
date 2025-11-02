@@ -133,6 +133,16 @@ Items: {
 				DisplayName: Tlipoca's Scythe
 				Tooltip: ""
 			}
+
+			AzafureLightMachineGun: {
+				DisplayName: Azafure Light Machine Gun
+				Tooltip: 
+				'''
+				Quickly emit laser
+				Stealth strike will launch a grenade
+				Gen stealth when laser hited
+				'''
+			}
 		}
 	}
 
@@ -3007,6 +3017,11 @@ Items: {
 			Rush towards the target closest to the cursor and perform rapid and continuous slashing
 			'''
 	}
+
+	AzafureLightMachineGun: {
+		DisplayName: Azafure Light Machine Gun
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3535,6 +3550,10 @@ Projectiles: {
 	AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
 	Snowgrave.DisplayName: Snowgrave
 	DedicatedOracleSlashProj.DisplayName: Dedicated Oracle Slash Proj
+	ALMGLaser.DisplayName: A L M G Laser
+	AzafureLightMachineGunHeld.DisplayName: Azafure Light Machine Gun Held
+	AzafureLightMachineGunStealth.DisplayName: Azafure Light Machine Gun Stealth
+	ALMGShell.DisplayName: A L M G Shell
 }
 
 LegendTooltip: - Legend -
