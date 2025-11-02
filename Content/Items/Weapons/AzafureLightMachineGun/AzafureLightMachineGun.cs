@@ -44,6 +44,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                 .AddIngredient(ItemID.Minishark)
                 .AddIngredient<HellIndustrialComponents>(4)
                 .AddIngredient(ItemID.AdamantiteBar, 6)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
