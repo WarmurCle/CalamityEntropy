@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
     {
         public override void SetDefaults()
         {
-            Item.damage = 18;
+            Item.damage = 25;
             Item.DamageType = CEUtils.RogueDC;
             Item.width = 82;
             Item.height = 32;
@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     Projectile.timeLeft = 32;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.normalize() * 32, Projectile.velocity, ModContent.ProjectileType<AzafureLightMachineGunStealth>(), Projectile.damage * 14, Projectile.knockBack * 10, Projectile.owner).ToProj().Calamity().stealthStrike = true; ;
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.normalize() * 32, Projectile.velocity, ModContent.ProjectileType<AzafureLightMachineGunStealth>(), Projectile.damage * 6, Projectile.knockBack * 6, Projectile.owner).ToProj().Calamity().stealthStrike = true; ;
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity.normalize() * 2, Projectile.velocity.RotatedBy(-2.3f * player.direction).normalize() * 12, ModContent.ProjectileType<ALMGShell>(), 0, 0, Projectile.owner);
                     }
                 }
@@ -326,7 +326,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 4f, 1, true, BlendState.Additive, 0, 16);
             if (Projectile.owner == Main.myPlayer)
             {
-                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 320, Projectile.DamageType);
+                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 180, Projectile.DamageType);
             }
             for (int i = 0; i < 32; i++)
             {

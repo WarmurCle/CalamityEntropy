@@ -3055,11 +3055,6 @@ Items: {
 			Rush towards the target closest to the cursor and perform rapid and continuous slashing
 			''' */
 	}
-
-	AzafureLightMachineGun: {
-		// DisplayName: Azafure Light Machine Gun
-		// Tooltip: ""
-	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
