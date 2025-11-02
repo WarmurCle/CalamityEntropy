@@ -14,8 +14,6 @@ namespace CalamityEntropy.Content.Items.Vanity
             if (Main.netMode != NetmodeID.Server)
             {
                 EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/wyrm_Head", EquipType.Head, this);
-
-
                 EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/wyrm_Body", EquipType.Body, this);
                 EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/wyrm_Legs", EquipType.Legs, this);
             }

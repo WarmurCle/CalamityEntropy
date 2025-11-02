@@ -1,12 +1,22 @@
-﻿using CalamityEntropy.Content.Items.Donator;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Donator;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity.Luminar
 {
-    public class LunarMulse : ModItem, IDonatorItem
+    public class LunarMulse : ModItem, IDonatorItem, IVanitySkin
     {
+        public override void Load()
+        {
+            if (Main.netMode != NetmodeID.Server)
+            {
+                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/Luminar/LuminarRing_Head", EquipType.Head, this);
+                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/Luminar/LuminarDress_Body", EquipType.Body, this);
+                EquipLoader.AddEquipTexture(Mod, "CalamityEntropy/Content/Items/Vanity/Luminar/LuminarTrousers_Legs", EquipType.Legs, this);
+            }
+        }
         public string DonatorName => "玲瓏";
         public override void SetDefaults()
         {

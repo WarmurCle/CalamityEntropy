@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityEntropy.Content.Items.Vanity.Luminar;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -12,7 +13,7 @@ namespace CalamityEntropy.Common.DrawLayers
         {
             if (drawInfo.drawPlayer.dead)
                 return false;
-            return drawInfo.drawPlayer.head == EquipLoader.GetEquipSlot(Mod, "LuminarRing", EquipType.Head);
+            return drawInfo.drawPlayer.head == EquipLoader.GetEquipSlot(Mod, "LuminarRing", EquipType.Head) || drawInfo.drawPlayer.head == EquipLoader.GetEquipSlot(Mod, "LunarMulse", EquipType.Head);
         }
 
         public override bool IsHeadLayer => true;
