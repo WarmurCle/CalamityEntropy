@@ -12,6 +12,7 @@ namespace CalamityEntropy.Content.Particles
         public Vector2 ownerLastPos = Vector2.Zero;
         public bool flag = false;
         public float orgScale = -1;
+        public Vector2 drawScale = Vector2.One;
         public override void AI()
         {
             if (FollowOwner != null)
@@ -44,6 +45,23 @@ namespace CalamityEntropy.Content.Particles
                         Main.dust[Dust.NewDust(Position, 0, 0, DustID.MagicMirror)].velocity = CEUtils.randomPointInCircle(Scale * 3);
                 }
             }
+        }
+        public override void Draw()
+        {
+            Color clr = this.Color;
+            if (!this.glow)
+            {
+                clr = Lighting.GetColor(((int)(this.Position.X / 16)), ((int)(this.Position.Y / 16)), clr);
+            }
+            if (!this.useAdditive && !this.useAlphaBlend)
+            {
+                clr.A = (byte)(clr.A * Opacity);
+            }
+            else
+            {
+                clr *= Opacity;
+            }
+            Main.spriteBatch.Draw(this.Texture, this.Position - Main.screenPosition, null, clr, Rotation, getOrigin(), Scale * drawScale, SpriteEffects.None, 0);
         }
     }
 }
