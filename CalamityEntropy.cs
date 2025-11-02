@@ -237,9 +237,12 @@ namespace CalamityEntropy
         private void render_player(On_LegacyPlayerRenderer.orig_DrawPlayer orig, LegacyPlayerRenderer self, Camera camera, Player drawPlayer, Vector2 position, float rotation, Vector2 rotationOrigin, float shadow, float scale)
         {
             bool hide = false;
-            if (Main.netMode == NetmodeID.MultiplayerClient && !Main.gameMenu && drawPlayer.GetModPlayer<AtbmPlayer>().Active && !drawPlayer.GetModPlayer<AtbmPlayer>().CanDraw)
+            if (!Main.gameMenu)
             {
-                hide = true;
+                if(Main.netMode == NetmodeID.MultiplayerClient && drawPlayer.GetModPlayer<AtbmPlayer>().Active && !drawPlayer.GetModPlayer<AtbmPlayer>().CanDraw)
+                    hide = true;
+                if (drawPlayer.Entropy().DontDrawTime > 0)
+                    hide = true;
             }
             if (!hide) { 
                 orig(self, camera, drawPlayer, position, rotation, rotationOrigin, shadow, scale);

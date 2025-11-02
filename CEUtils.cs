@@ -27,6 +27,24 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static void CostStealthForPlr(Player player)
+        {
+            if (player.Calamity().StealthStrikeAvailable())
+            {
+                float cost = 1;
+                if (player.Calamity().stealthStrike90Cost)
+                    cost = 0.9f;
+                if (player.Calamity().stealthStrike75Cost)
+                    cost = 0.75f;
+                if (player.Calamity().stealthStrikeHalfCost)
+                    cost = 0.5f;
+                player.Calamity().rogueStealth -= player.Calamity().rogueStealthMax * cost;
+            }
+            else
+            {
+                player.Calamity().rogueStealth = 0;
+            }
+        }
         public static float CustomLerp2(float p)
         {
             return float.Lerp(1, 0, (1 - p) * (1 - p)* (1 - p));
