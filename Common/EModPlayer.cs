@@ -2678,7 +2678,7 @@ namespace CalamityEntropy.Common
             if (worshipRelic || shadowPact)
             {
                 Player.Calamity().stealthStrike75Cost = false;
-                Player.Calamity().stealthStrike85Cost = false;
+                Player.Calamity().stealthStrike90Cost = false;
                 Player.Calamity().stealthStrikeHalfCost = false;
             }
             if (hasAcc(ShadowMantle.ID))

@@ -495,8 +495,8 @@ namespace CalamityEntropy.Content.Items.Donator
             if (player.Calamity().StealthStrikeAvailable())
             {
                 float cost = 1;
-                if (player.Calamity().stealthStrike85Cost)
-                    cost = 0.85f;
+                if (player.Calamity().stealthStrike90Cost)
+                    cost = 0.9f;
                 if (player.Calamity().stealthStrike75Cost)
                     cost = 0.75f;
                 if (player.Calamity().stealthStrikeHalfCost)
