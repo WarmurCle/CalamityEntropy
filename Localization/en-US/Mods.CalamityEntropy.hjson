@@ -901,7 +901,7 @@ Items: {
 		DisplayName: Phantom Card 『Barren』
 		Tooltip:
 			'''
-			Rogue projectiles gain homing, but deal 25% less Rogue damage and critical strike chance
+			Rogue projectiles gain homing, but deal 5% less Rogue damage and critical strike chance
 			"Hunt of the Withered"
 			'''
 	}
@@ -948,8 +948,8 @@ Items: {
 		DisplayName: Phantom Card 『Perplexed』
 		Tooltip:
 			'''
-			-5% Critical Strike Chance
-			+10% Melee Attack Speed
+			-10% Critical Strike Chance
+			+16% Attack Speed
 			"Speed of the Troubled Mind"
 			'''
 	}
@@ -982,11 +982,12 @@ Items: {
 			Launch shadow flames during attack
 			+3% damage for each summon slots
 			+30% Damage
+			+16 Attack Speed
 			+4 Void Touch
-			+30% Damage taken
+			+35% Damage taken
 			-70% Life Regen
 			+16% Mana Cost
-			-4% Crit
+			-12% Crit
 			'''
 	}
 

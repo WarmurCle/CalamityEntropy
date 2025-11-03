@@ -22,8 +22,8 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EModPlayer>().PerplexedCard = true;
-            player.GetCritChance(DamageClass.Generic) -= 5;
-            player.GetAttackSpeed(DamageClass.Melee) += 0.10f;
+            player.GetCritChance(DamageClass.Generic) -= 10;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.16f;
         }
 
         public override void AddRecipes()

@@ -43,17 +43,18 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.Entropy().AttackVoidTouch += 0.06f;
 
             player.GetModPlayer<EModPlayer>().PerplexedCard = true;
-            player.GetCritChance(DamageClass.Generic) -= 4;
+            player.GetCritChance(DamageClass.Generic) -= 12;
 
             player.GetModPlayer<EModPlayer>().SacrificeCard = true;
             player.lifeRegen = (int)(player.lifeRegen * 0.3f);
 
 
-            player.GetDamage(DamageClass.Generic) += 0.3f;
+            player.GetDamage(DamageClass.Generic) += 0.35f;
 
             player.GetModPlayer<EModPlayer>().TarnishCard = true;
 
             player.Entropy().taintedDeckInInv = true;
+            ModContent.GetInstance<Perplexed>().UpdateAccessory(player, hideVisual);
 
         }
         public override void UpdateInventory(Player player)
