@@ -59,6 +59,7 @@ namespace CalamityEntropy.Common
                     dummy.body = EquipLoader.GetEquipSlot(item.ModItem.Mod, item.ModItem.Name, EquipType.Body);
                     dummy.head = EquipLoader.GetEquipSlot(item.ModItem.Mod, item.ModItem.Name, EquipType.Head);
                     dummy.direction = 1;
+                    dummy.velocity = Vector2.Zero;
                     //Main.PlayerRenderer.DrawPlayer(new Terraria.Graphics.Camera(), dummy, new Vector2(line.X, line.Y) + Main.screenPosition, 0, Vector2.Zero, 0, 1);
                     var drawInfo = default(PlayerDrawSet);
                     drawInfo.isSitting = drawInfo.isSleeping = false;

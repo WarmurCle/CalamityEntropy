@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
                 type = ModContent.ProjectileType<NemesisAlt>();
 
                 Projectile.NewProjectile(Source, ShootSpanPos, ShootVelocity.RotatedByRandom(0.66f)
-                    , type, Projectile.damage * 5, Projectile.knockBack, Owner.whoAmI, 0f, 0);
+                    , type, Projectile.damage * 10, Projectile.knockBack, Owner.whoAmI, 0f, 0);
 
                 return;
             }
