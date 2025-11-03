@@ -433,6 +433,7 @@ namespace CalamityEntropy.Common
         public bool SulphurousBubble = false;
         public int SulphurousBubbleRecharge = 3600;
         public int DontDrawTime = 0;
+        public int HeatEffectTime = 0;
         public override void ResetEffects()
         {
             LifeStealP = 0;
@@ -2314,7 +2315,8 @@ namespace CalamityEntropy.Common
                 rBadgeActive = false;
             }
 
-            if (AWraith)
+            if (HeatEffectTime > 0) HeatEffectTime--;
+            if (AWraith || HeatEffectTime > 0)
             {
                 Player.ManageSpecialBiomeVisuals("HeatDistortion", true);
             }

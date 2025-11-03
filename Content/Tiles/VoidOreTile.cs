@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Tiles
 
         public override void NearbyEffects(int i, int j, bool closer)
         {
-            Main.LocalPlayer.Entropy().AWraith = true;
+            Main.LocalPlayer.Entropy().HeatEffectTime = 5;
         }
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
