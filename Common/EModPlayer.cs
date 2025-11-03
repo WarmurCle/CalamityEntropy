@@ -2314,7 +2314,6 @@ namespace CalamityEntropy.Common
             {
                 rBadgeActive = false;
             }
-
             if (HeatEffectTime > 0) HeatEffectTime--;
             if (AWraith || HeatEffectTime > 0)
             {
