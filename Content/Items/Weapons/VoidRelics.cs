@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Terraria;
@@ -41,14 +42,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.mana = 5;
             Item.buffType = ModContent.BuffType<VoidStorm>();
-            Item.rare = ModContent.RarityType<DarkBlue>();
-            Item.Entropy().stroke = true;
-            Item.Entropy().strokeColor = new Color(20, 26, 92);
-            Item.Entropy().tooltipStyle = 4;
-            Item.Entropy().NameColor = new Color(60, 80, 140);
-            Item.Entropy().Legend = true;
-            Item.Entropy().HasCustomStrokeColor = true;
-            Item.Entropy().HasCustomNameColor = true;
+            Item.rare = ModContent.RarityType<VoidPurple>();
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
