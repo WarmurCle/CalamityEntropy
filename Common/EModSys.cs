@@ -308,6 +308,8 @@ namespace CalamityEntropy.Common
                 CalamityEntropy.cutScreen = 0;
                 CalamityEntropy.cutScreenVel = 0;
             }
+            //if (Main.mouseRight)
+            //    Item.NewItem(Main.LocalPlayer.GetSource_FromThis(), Main.MouseWorld, new Item(ItemID.SilverCoin));
         }
 
         public override void PostUpdatePlayers()

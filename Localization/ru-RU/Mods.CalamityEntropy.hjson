@@ -3060,6 +3060,11 @@ Items: {
 		// DisplayName: Glittering Beak
 		// Tooltip: ""
 	}
+
+	GatheringSwarm: {
+		// DisplayName: Gathering Swarm
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3578,6 +3583,7 @@ Projectiles: {
 	// AzafureLightMachineGunHeld.DisplayName: Azafure Light Machine Gun Held
 	// AzafureLightMachineGunStealth.DisplayName: Azafure Light Machine Gun Stealth
 	// ALMGShell.DisplayName: A L M G Shell
+	// PickingSwarm.DisplayName: Picking Swarm
 }
 
 LegendTooltip: - Легенда -
@@ -3885,7 +3891,12 @@ Buffs: {
 
 	MomosLightPetBuff: {
 		// DisplayName: Momos Light Pet Buff
-		// Description: Mods.CalamityEntropy.Buffs.MomosLightPetBuff.Description
+		// Description: ""
+	}
+
+	PickingSwarmBuff: {
+		// DisplayName: Gathering Swarm
+		// Description: Swarms pick coins for you!
 	}
 }
 

@@ -3273,6 +3273,15 @@ Items: {
 			右键以更大的范围挖掘
 			'''
 	}
+
+	GatheringSwarm: {
+		DisplayName: 蜂群集结
+		Tooltip:
+			'''
+			召唤蜂群，它们会为你拾取钱币
+			装备在时装栏也能生效
+			'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3788,6 +3797,7 @@ Projectiles: {
 	AzafureLightMachineGunHeld.DisplayName: 阿萨福勒轻机枪
 	AzafureLightMachineGunStealth.DisplayName: 阿萨福勒轻机枪子弹榴弹
 	ALMGShell.DisplayName: 弹壳
+	PickingSwarm.DisplayName: 蜂群集结
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4096,6 +4106,11 @@ Buffs: {
 	MomosLightPetBuff: {
 		DisplayName: 没名字的照明宠物
 		Description: ""
+	}
+
+	PickingSwarmBuff: {
+		DisplayName: 蜂群集结
+		Description: 嗡嗡
 	}
 }
 
