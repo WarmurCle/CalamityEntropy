@@ -136,9 +136,9 @@ namespace CalamityEntropy.Content.Items.Pets
                 }
             }
             Vector2 tpos = player.Center + new Vector2(0, -50);
-            Projectile.velocity += (tpos - Projectile.Center).normalize() * 0.6f;
-            Projectile.velocity *= 0.99f;
-            if(CEUtils.getDistance(Projectile.Center, player.Center) > 3600)
+            Projectile.velocity += (tpos - Projectile.Center).normalize() * 1.6f;
+            Projectile.velocity *= 0.98f;
+            if(CEUtils.getDistance(Projectile.Center, player.Center) > 2600)
             {
                 Projectile.Center = tpos;
                 Projectile.velocity *= 0;
