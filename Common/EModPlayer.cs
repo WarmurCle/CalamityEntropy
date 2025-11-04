@@ -860,7 +860,7 @@ namespace CalamityEntropy.Common
             }
             if (TarnishCard && Main.myPlayer == Player.whoAmI)
             {
-                if (Player.channel)
+                if (Player.channel && Player.HeldItem.damage > 0)
                 {
                     if (BlackFlameCd < 1)
                     {
