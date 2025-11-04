@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Tools
         {
             Item.width = 70;
             Item.height = 70;
-            Item.damage = 3000;
+            Item.damage = 1000;
             Item.knockBack = 9f;
             Item.useTime = 8;
             Item.useAnimation = 8;
