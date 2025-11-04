@@ -230,6 +230,13 @@ namespace CalamityEntropy
         private void on_player_hurt(On_Player.orig_Hurt_HurtInfo_bool orig, Player self, Player.HurtInfo info, bool quiet)
         {
             int leastDmg = (int)((ModContent.GetInstance<ServerConfig>().LeastDamageSufferedBasedOnMaxHealth * 0.01f) * self.statLifeMax2);
+            if(self.Entropy().oracleDeck)
+            {
+                if(info.Damage > self.statLifeMax2 / 2)
+                {
+                    info.Damage = self.statLifeMax2 / 2;
+                }
+            }
             if (info.Damage < leastDmg)
                 info.Damage = leastDmg;
             orig(self, info, quiet);

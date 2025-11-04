@@ -1,10 +1,14 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.LoreItems;
+using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
+using CalamityMod.Particles;
+using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.Schematics;
 using CalamityMod.UI;
@@ -89,6 +93,15 @@ namespace CalamityEntropy.Content.ILEditing
             new Type[] { typeof(Player) },
             null);
             _hook = EModHooks.Add(originalMethod, canuseitem_hook);
+
+            originalMethod = typeof(MurasamaSlash)
+            .GetMethod("OnHitNPC",
+                      System.Reflection.BindingFlags.Public |
+                      System.Reflection.BindingFlags.Instance,
+                      null,
+            new Type[] { typeof(NPC), typeof(NPC.HitInfo), typeof(int) },
+            null);
+            _hook = EModHooks.Add(originalMethod, murasama_on_hit);
 
             //public static CooldownInstance AddCooldown(this Player p, string id, int duration, bool overwrite = true)
             originalMethod = typeof(CalamityUtils)
@@ -339,6 +352,68 @@ namespace CalamityEntropy.Content.ILEditing
                 return true;
             }
             return orig(self, player);
+        }
+        private static void murasama_on_hit(Action<MurasamaSlash, NPC, NPC.HitInfo, int> orig, MurasamaSlash self, NPC target, NPC.HitInfo info, int damageDone)
+        {
+            if(EGlobalProjectile.VoidsamaTex(self.Projectile))
+            {
+                MuraOnHitSpec(self.Projectile, target, info, damageDone);
+            }
+            else
+            {
+                orig(self, target, info, damageDone);
+            }
+        }
+        private static void MuraOnHitSpec(Projectile Projectile, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            MurasamaSlash mp = (MurasamaSlash)Projectile.ModProjectile;
+            Player Owner = Projectile.GetOwner();
+            if (target.Organic())
+                SoundEngine.PlaySound(Murasama.OrganicHit with { Pitch = (mp.Slash2 ? -0.1f : mp.Slash3 ? 0.1f : mp.Slash1 ? -0.15f : 0) }, Projectile.Center);
+            else
+                SoundEngine.PlaySound(Murasama.InorganicHit with { Pitch = (mp.Slash2 ? -0.1f : mp.Slash3 ? 0.1f : mp.Slash1 ? -0.15f : 0) }, Projectile.Center);
+
+            for (int i = 0; i < 3; i++)
+            {
+                Color impactColor = mp.Slash3 ? Main.rand.NextBool(3) ? new Color(62, 35, 92) : Color.SkyBlue : Main.rand.NextBool(4) ? new Color(62, 35, 92) : Color.MediumPurple
+                    ;
+                float impactParticleScale = Main.rand.NextFloat(1f, 1.75f);
+
+                if (mp.Slash3)
+                {
+                    SparkleParticle impactParticle2 = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, Color.SkyBlue, Color.SkyBlue, impactParticleScale * 1.2f, 8, 0, 4.5f);
+                    GeneralParticleHandler.SpawnParticle(impactParticle2);
+                }
+                SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, new Color(62, 35, 92), impactParticleScale, 8, 0, 2.5f);
+                GeneralParticleHandler.SpawnParticle(impactParticle);
+            }
+
+            float sparkCount = MathHelper.Clamp(mp.Slash3 ? 18 - Projectile.numHits * 3 : 5 - Projectile.numHits * 2, 0, 18);
+            for (int i = 0; i < sparkCount; i++)
+            {
+                Vector2 sparkVelocity2 = Projectile.velocity.RotatedBy(mp.Slash2 ? -0.45f * Owner.direction : mp.Slash3 ? 0 : mp.Slash1 ? 0.45f * Owner.direction : 0).RotatedByRandom(0.35f) * Main.rand.NextFloat(0.5f, 1.8f);
+                int sparkLifetime2 = Main.rand.Next(23, 35);
+                float sparkScale2 = Main.rand.NextFloat(0.95f, 1.8f);
+                Color sparkColor2 = mp.Slash3 ? Main.rand.NextBool(3) ? new Color(62, 35, 92) : Color.MediumPurple : Main.rand.NextBool() ? new Color(62, 35, 92) : new Color(62, 35, 92);
+                if (Main.rand.NextBool())
+                {
+                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * (mp.Slash3 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (mp.Slash3 ? 1.2f : 1f)), sparkScale2 * (mp.Slash3 ? 1.4f : 1f), sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
+                }
+                else
+                {
+                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? new Color(92, 35, 62) : new Color(62, 35, 92));
+                    GeneralParticleHandler.SpawnParticle(spark);
+                }
+            }
+            float dustCount = MathHelper.Clamp(mp.Slash3 ? 25 - Projectile.numHits * 3 : 12 - Projectile.numHits * 2, 0, 25);
+            for (int i = 0; i <= dustCount; i++)
+            {
+                int dustID = Main.rand.NextBool(3) ? 182 : Main.rand.NextBool() ? mp.Slash3 ? 309 : 296 : 90;
+                Dust dust2 = Dust.NewDustPerfect(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), dustID, Projectile.velocity.RotatedBy(mp.Slash2 ? -0.45f * Owner.direction : mp.Slash3 ? 0 : mp.Slash1 ? 0.45f * Owner.direction : 0).RotatedByRandom(0.55f) * Main.rand.NextFloat(0.3f, 1.1f));
+                dust2.scale = Main.rand.NextFloat(0.9f, 2.4f);
+                dust2.noGravity = true;
+            }
         }
     }
     public static class StoreForbiddenArchivePositionHook

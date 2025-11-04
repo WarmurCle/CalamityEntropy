@@ -923,7 +923,7 @@ namespace CalamityEntropy.Common
             }
             if (projectile.ModProjectile != null && projectile.ModProjectile is MurasamaSlash)
             {
-                if (projectile.GetOwner().name.ToLower().Contains("polaris") || projectile.GetOwner().name.ToLower().Contains("chalost"))
+                if (VoidsamaTex(projectile))
                 {
                     TextureAssets.Projectile[projectile.type] = muraTex;
                 }
@@ -950,6 +950,10 @@ namespace CalamityEntropy.Common
             {
                 projectile.owner.ToPlayer().Center = lastCenter;
             }
+        }
+        public static bool VoidsamaTex(Projectile projectile)
+        {
+            return projectile.GetOwner().name.ToLower().Contains("polaris") || projectile.GetOwner().name.ToLower().Contains("chalost");
         }
         public static float GetEventideDamageMultiplier(float radian, float maxR, float maxDmgMul)
         {

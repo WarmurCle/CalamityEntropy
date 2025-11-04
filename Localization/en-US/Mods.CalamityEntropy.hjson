@@ -417,6 +417,7 @@ Items: {
 			+[ATS]% Melee speed
 			+100% Light
 			Heal players nearby by 20 per 5 sec
+			You will take at most half of your maximum health in damage
 			'''
 		DisplayName: Oracle Deck
 	}
