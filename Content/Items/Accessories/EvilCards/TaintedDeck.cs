@@ -46,8 +46,6 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.GetCritChance(DamageClass.Generic) -= 12;
 
             player.GetModPlayer<EModPlayer>().SacrificeCard = true;
-            player.lifeRegen = (int)(player.lifeRegen * 0.3f);
-
 
             player.GetDamage(DamageClass.Generic) += 0.35f;
 

@@ -23,8 +23,6 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EModPlayer>().SacrificeCard = true;
-            player.lifeRegen = (int)(player.lifeRegen * 0.4f);
-            player.Entropy().lifeRegenPerSec = (int)(player.Entropy().lifeRegenPerSec * 0.4f);
             player.GetDamage(DamageClass.Generic) += 0.1f;
         }
 

@@ -1008,6 +1008,11 @@ namespace CalamityEntropy.Common
                 Player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += ShadowRune.WhipAtkSpeedAddition;
 
             }
+            if(SacrificeCard)
+            {
+                Player.lifeRegen -= (int)(Player.lifeRegen * 0.7f);
+                lifeRegenPerSec = (int)(lifeRegenPerSec * 0.4f);
+            }
             if (obscureCard)
             {
                 bool f = false;
