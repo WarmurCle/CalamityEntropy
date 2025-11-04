@@ -119,8 +119,13 @@ namespace CalamityEntropy.Content.Items.Pets
             return true;
         }
         public List<Swarm> swarms = null;
+        public static int itype = -1;
         public override void AI()
         {
+            if(itype == -1)
+            {
+                itype = ModContent.ItemType<GatheringSwarm>();
+            }
             Player player = Projectile.GetOwner();
             if(swarms == null)
             {
@@ -194,12 +199,15 @@ namespace CalamityEntropy.Content.Items.Pets
                     {
                         foreach (Item i in Main.ActiveItems)
                         {
-                            if (ItemID.Sets.CommonCoin[i.type] && CEUtils.getDistance(i.Center, player.Center) < 3000)
+                            if (ItemID.Sets.CommonCoin[i.type] || player.HeldItem.type == itype)
                             {
-                                if (!itemCarrying.Contains(i.whoAmI))
+                                if (CEUtils.getDistance(i.Center, player.Center) < 4000)
                                 {
-                                    swarm.CurrentCarryItem = i.whoAmI;
-                                    itemCarrying.Add(i.whoAmI);
+                                    if (!itemCarrying.Contains(i.whoAmI))
+                                    {
+                                        swarm.CurrentCarryItem = i.whoAmI;
+                                        itemCarrying.Add(i.whoAmI);
+                                    }
                                 }
                             }
                         }
