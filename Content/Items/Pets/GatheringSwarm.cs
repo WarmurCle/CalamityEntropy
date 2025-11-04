@@ -216,9 +216,9 @@ namespace CalamityEntropy.Content.Items.Pets
                 swarm.Alpha = float.Lerp(swarm.Alpha, swarm.CurrentCarryItem < 0 ? ((player.Entropy().hasAcc("GSwarm") && !player.Entropy().hasAccVisual("GSwarm")) ? 0 : 0.66f) : 1, 0.08f);
                 swarm.Position += swarm.velocity;
                 if (flag) {swarm.velocity *= (CEUtils.getDistance(swarm.Position, player.Center) < 256 ? 0.955f : (swarm.CurrentCarryItem >= 0 ? 0.97f : 0.98f));}
-                if(CEUtils.getDistance(swarm.Position, player.Center) > 2400)
+                if(CEUtils.getDistance(swarm.Position, player.Center) > 4400)
                 {
-                    swarm.Position = player.Center;
+                    swarm.Position = player.Center + CEUtils.randomPointInCircle(16);
                 }
             }
             if (!player.dead && player.HasBuff(ModContent.BuffType<PickingSwarmBuff>()))
