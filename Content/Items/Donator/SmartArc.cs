@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 p.ToProj().Entropy().SmartArcEffect = true;
                 CEUtils.SyncProj(p);
             }
-            CEUtils.PlaySound("gunshot_large", 1, player.Center, volume: 0.9f);
+            CEUtils.PlaySound("gunshot_large", 1, player.Center, volume: 0.66f);
             return false;
         }
         #region Animations

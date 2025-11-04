@@ -3055,6 +3055,11 @@ Items: {
 			Rush towards the target closest to the cursor and perform rapid and continuous slashing
 			''' */
 	}
+
+	GlitteringBeak: {
+		// DisplayName: Glittering Beak
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"

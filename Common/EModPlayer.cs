@@ -1501,6 +1501,14 @@ namespace CalamityEntropy.Common
                 deusCoreAdd = info.Damage;
                 info.Damage = 0;
             }
+            if(setToOne && !info.Cancelled)
+            {
+                if(immune < 40)
+                {
+                    immune = 40;
+                    Player.Heal(1);
+                }
+            }
         }
         public float DashCD = 1;
         public int OracleDeckHealCd = 0;
