@@ -43,6 +43,7 @@ namespace CalamityEntropy.Content.Items.Tools
             Item.value = CalamityGlobalItem.RarityHotPinkBuyPrice;
             Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.crit = 18;
+            Item.useTurn = true;
         }
 
         public override bool AltFunctionUse(Player player) => true;
@@ -119,7 +120,7 @@ namespace CalamityEntropy.Content.Items.Tools
             CreateRecipe().
                 AddRecipeGroup("LunarPickaxe").
                 AddIngredient<WyrmTooth>(5).
-                AddTile<VoidWellTile>().
+                AddTile<AbyssalAltarTile>().
                 Register();
         }
     }
