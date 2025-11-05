@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Rider干的
 .idea
+/CalamityEntropy.csproj
