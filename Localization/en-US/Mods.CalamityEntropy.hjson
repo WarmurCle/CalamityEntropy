@@ -1345,6 +1345,7 @@ Items: {
 			- Death -
 			'''
 		DisplayName: Heart Of Storm
+		CWRGanged: Calamity Overhaul synergy effect: Summons the Storm Weaver’s lingering soul to fight alongside you.
 	}
 
 	Nyxolithraken: {
