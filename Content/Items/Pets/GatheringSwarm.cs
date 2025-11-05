@@ -149,6 +149,17 @@ namespace CalamityEntropy.Content.Items.Pets
                 if(swc.CurrentCarryItem >= 0)
                     itemCarrying.Add(swc.CurrentCarryItem);
             }
+            List<int> fav = new List<int>();
+            for (int i = 0; i < player.inventory.Length; i++)
+            {
+                if (player.inventory[i].favorited)
+                {
+                    if(!fav.Contains(player.inventory[i].type))
+                    {
+                        fav.Add(player.inventory[i].type);
+                    }
+                }
+            }
             foreach (Swarm swarm in swarms)
             {
                 foreach (Swarm sw in swarms)
@@ -199,7 +210,7 @@ namespace CalamityEntropy.Content.Items.Pets
                     {
                         foreach (Item i in Main.ActiveItems)
                         {
-                            if (ItemID.Sets.CommonCoin[i.type] || player.HeldItem.type == itype)
+                            if (ItemID.Sets.CommonCoin[i.type] || player.HeldItem.type == itype || fav.Contains(i.type))
                             {
                                 if (CEUtils.getDistance(i.Center, player.Center) < 4000)
                                 {

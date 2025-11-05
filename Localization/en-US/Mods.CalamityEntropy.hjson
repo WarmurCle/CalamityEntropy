@@ -3027,7 +3027,11 @@ Items: {
 
 	GatheringSwarm: {
 		DisplayName: Gathering Swarm
-		Tooltip: ""
+		Tooltip: 
+		'''
+		Summon swarms that pick coins and your favourited items
+		Swarms will collect all item if this item is helding
+		'''
 	}
 }
 
