@@ -4429,6 +4429,8 @@ AmmoSnowball: Snowball
 AmmoStake: Stake
 AmmoStyngerBolt: Stynger Bolt
 AmmoBoulders: Boulder
+AmmoAle: Ale
+AmmoBloodrune: Blood Rune
 AmmoStarblightSoot: Starblight Soot
 AmmoType: Ammo type
 UseAmmo: Use Ammo

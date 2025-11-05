@@ -351,8 +351,9 @@ namespace CalamityEntropy.Common
             armorPrefix = ArmorPrefix.findByName(armorPrefixName);
         }
 
-        public string getAmmoName(int type)
+        public static string getAmmoName(int type)
         {
+            var Mod = CalamityEntropy.Instance;
             if (type == AmmoID.Solution)
             {
                 return Mod.GetLocalization("AmmoSolution").Value;
@@ -417,6 +418,10 @@ namespace CalamityEntropy.Common
             {
                 return Mod.GetLocalization("AmmoStyngerBolt").Value;
             }
+            if (type == 353)
+            {
+                return Mod.GetLocalization("AmmoAle").Value;
+            }
             if (ModLoader.HasMod("MoreBoulders") && type == 540)
             {
                 return Mod.GetLocalization("AmmoBoulders").Value;
@@ -424,6 +429,10 @@ namespace CalamityEntropy.Common
             if (type == 3728)
             {
                 return Mod.GetLocalization("AmmoStarblightSoot").Value;
+            }
+            if (type == 5809)
+            {
+                return Mod.GetLocalization("AmmoBloodrune").Value;
             }
             if (type == 6259 || type == 8584)
             {
@@ -1836,7 +1845,7 @@ namespace CalamityEntropy.Common
                 itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("nicholas")), ModContent.ItemType<PineappleDog>());
 
                 itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("lily") || info.player.name.Contains("莉莉")), ModContent.ItemType<LostHeirloom>());
-                itemLoot.AddIf((info) => info.player.name.ToLower() == "tlipoca", ModContent.ItemType<TlipocasScythe>());
+                itemLoot.AddIf((info) => info.player.name.ToLower() == "tlipoca" || info.player.name.ToLower().Contains("kino"), ModContent.ItemType<TlipocasScythe>());
 
                 if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
                 {
