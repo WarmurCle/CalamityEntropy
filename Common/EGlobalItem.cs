@@ -1836,7 +1836,7 @@ namespace CalamityEntropy.Common
                 itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("nicholas")), ModContent.ItemType<PineappleDog>());
 
                 itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("lily") || info.player.name.Contains("莉莉")), ModContent.ItemType<LostHeirloom>());
-                itemLoot.AddIf((info) => info.player.name.ToLower() == "tlipoca", ModContent.ItemType<TlipocasScythe>());
+                itemLoot.AddIf((info) => info.player.name.ToLower() == "tlipoca" || info.player.name.ToLower().Contains("kino"), ModContent.ItemType<TlipocasScythe>());
 
                 if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
                 {
