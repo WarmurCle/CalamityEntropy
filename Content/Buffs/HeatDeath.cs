@@ -28,7 +28,8 @@ namespace CalamityEntropy.Content.Buffs
                 int del = (int)(npc.lifeMax / (16f * 60 * 60) + 1) + 2;
                 if (npc.life > del)
                 {
-                    npc.life -= del;
+                    if(Main.GameUpdateCount % 2 == 0)
+                        npc.life -= del;
                     if (Main.GameUpdateCount % 16 == 0)
                     {
                         CombatText.NewText(npc.getRect(), Color.DarkRed, del * 16, false, true);
