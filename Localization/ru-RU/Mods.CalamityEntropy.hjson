@@ -1394,6 +1394,7 @@ Items: {
 			- Смерть -
 			'''
 		DisplayName: Сердце шторма
+		// CWRGanged: Calamity Overhaul synergy effect: Summons the Storm Weaver’s lingering soul to fight alongside you.
 	}
 
 	Nyxolithraken: {
@@ -4452,6 +4453,8 @@ AmmoSnowball: Снежок
 AmmoStake: Кол
 AmmoStyngerBolt: Болт Стингера
 AmmoBoulders: Валун
+// AmmoAle: Ale
+// AmmoBloodrune: Blood Rune
 AmmoStarblightSoot: Звёздная сажа
 AmmoType: Тип боеприпасов
 UseAmmo: Использует боеприпасы

@@ -1505,6 +1505,7 @@ Items: {
 			- 死亡模式专属 -
 			'''
 		DisplayName: 风暴之心
+		CWRGanged: 灾厄大修联动效果:召唤风暴女神残魂配合你作战
 	}
 
 	Nyxolithraken: {
@@ -4679,9 +4680,9 @@ AmmoSnowball: 雪球
 AmmoStake: 桩
 AmmoStyngerBolt: 毒刺
 AmmoBoulders: 巨石
-AmmoStarblightSoot: 凋星微尘
 AmmoAle: 麦芽酒
 AmmoBloodrune: 血之符文
+AmmoStarblightSoot: 凋星微尘
 AmmoType: 弹药类型
 UseAmmo: 使用弹药
 OrbPunishDeath0: 的灵魂破碎了
