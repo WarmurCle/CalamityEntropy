@@ -351,8 +351,9 @@ namespace CalamityEntropy.Common
             armorPrefix = ArmorPrefix.findByName(armorPrefixName);
         }
 
-        public string getAmmoName(int type)
+        public static string getAmmoName(int type)
         {
+            var Mod = CalamityEntropy.Instance;
             if (type == AmmoID.Solution)
             {
                 return Mod.GetLocalization("AmmoSolution").Value;
@@ -417,6 +418,10 @@ namespace CalamityEntropy.Common
             {
                 return Mod.GetLocalization("AmmoStyngerBolt").Value;
             }
+            if (type == 353)
+            {
+                return Mod.GetLocalization("AmmoAle").Value;
+            }
             if (ModLoader.HasMod("MoreBoulders") && type == 540)
             {
                 return Mod.GetLocalization("AmmoBoulders").Value;
@@ -424,6 +429,10 @@ namespace CalamityEntropy.Common
             if (type == 3728)
             {
                 return Mod.GetLocalization("AmmoStarblightSoot").Value;
+            }
+            if (type == 5809)
+            {
+                return Mod.GetLocalization("AmmoBloodrune").Value;
             }
             if (type == 6259 || type == 8584)
             {
