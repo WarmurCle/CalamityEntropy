@@ -1005,6 +1005,12 @@ namespace CalamityEntropy
         }
         public override object Call(params object[] args)
         {
+            var obj = ModCall.Call(args);
+            if (obj != null)
+            {
+                return obj;
+            }
+
             if (args.Length > 0)
             {
                 if (args[0] is string str)
