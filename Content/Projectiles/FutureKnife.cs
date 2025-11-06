@@ -35,10 +35,10 @@ namespace CalamityEntropy.Content.Projectiles
                 if (trail == null)
                 {
                     trail = new TrailParticle() { maxLength = 16 };
-                    EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.AliceBlue * 0.6f, 1, 1, true, BlendState.Additive);
+                    EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.AliceBlue * 0.6f, Projectile.scale * 0.6f * (Projectile.Calamity().stealthStrike ? 2 : 1), 1, true, BlendState.Additive);
                 }
                 trail.Lifetime = 30;
-                trail.AddPoint(Projectile.Center);
+                trail.AddPoint(Projectile.Center + Projectile.velocity);
             }
             if (Projectile.Calamity().stealthStrike)
             {
@@ -89,6 +89,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
+            return false;
         }
     }
 
