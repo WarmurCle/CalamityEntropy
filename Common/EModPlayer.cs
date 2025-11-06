@@ -2945,7 +2945,7 @@ namespace CalamityEntropy.Common
                     itemDrop = ModContent.ItemType<GreedCard>();
                 }
             }
-            if(Player.Calamity().ZoneSunkenSea)
+            if(Player.Calamity().ZoneSulphur)
             {
                 if(attempt.common && Main.rand.NextBool(10))
                 {
