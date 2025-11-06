@@ -955,7 +955,9 @@ namespace CalamityEntropy
 
         public static float BrillianceCardValue = 1.5f;
         public static float OracleDeckBrilValue = 2f;
-        public static float brillianceLightMulti { get
+        public static float brillianceLightMulti
+        {
+            get
             {
                 if (Main.gameMenu) { return 1; }
                 float Value = 1;
@@ -965,6 +967,7 @@ namespace CalamityEntropy
                     Value += 0.3f;
                 return Value;
             }
+        }
         private void al_vv(On_Lighting.orig_AddLight_Vector2_Vector3 orig, Vector2 position, Vector3 rgb)
         {
             orig(position, rgb * brillianceLightMulti);
