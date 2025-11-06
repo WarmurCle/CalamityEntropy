@@ -8,7 +8,7 @@ using static CalamityEntropy.Content.NPCs.Cruiser.CruiserHead;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
-    [StaticImmunity(typeof(CruiserHead))]
+    //[StaticImmunity(typeof(CruiserHead))]
     public class CruiserTail : ModNPC
     {
         public override void SetStaticDefaults()
@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (Main.npc[(int)NPC.ai[1]].ModNPC is CruiserHead ch)
+            if (Main.npc[(int)NPC.ai[3]].ModNPC is CruiserHead ch)
             {
                 bool flag = false;
                 HitRecord hr = null;
@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 }
                 if (flag)
                 {
-                    hr.dmgMult *= 0.8f;
+                    hr.dmgMult *= CruiserHead.ProjDamageReduce;
                     modifiers.FinalDamage *= hr.dmgMult;
                     if (!projectile.minion)
                     {
@@ -91,14 +91,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
         public override void AI()
         {
-            NPC.scale = Main.npc[(int)NPC.ai[1]].scale;
-            NPC.Entropy().VoidTouchDR = Main.npc[(int)NPC.ai[1]].Entropy().VoidTouchDR;
-            NPC.defense = Main.npc[(int)NPC.ai[1]].defense;
-            NPC.Calamity().DR = Main.npc[(int)NPC.ai[1]].Calamity().DR;
-            NPC.dontTakeDamage = Main.npc[(int)NPC.ai[1]].dontTakeDamage;
+            NPC.scale = Main.npc[(int)NPC.ai[3]].scale;
+            NPC.Entropy().VoidTouchDR = Main.npc[(int)NPC.ai[3]].Entropy().VoidTouchDR;
+            NPC.defense = Main.npc[(int)NPC.ai[3]].defense;
+            NPC.Calamity().DR = Main.npc[(int)NPC.ai[3]].Calamity().DR;
+            NPC.dontTakeDamage = Main.npc[(int)NPC.ai[3]].dontTakeDamage;
             NPC.ai[0] += 1;
-            NPC.life = Main.npc[(int)NPC.ai[1]].life;
-            NPC.lifeMax = Main.npc[(int)NPC.ai[1]].lifeMax;
+            NPC.life = Main.npc[(int)NPC.ai[3]].life;
+            NPC.lifeMax = Main.npc[(int)NPC.ai[3]].lifeMax;
+
             if (NPC.ai[0] < 5)
             {
                 return;

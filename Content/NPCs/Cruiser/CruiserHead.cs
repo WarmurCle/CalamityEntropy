@@ -30,10 +30,11 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     [AutoloadBossHead]
-    [StaticImmunity(staticImmunityCooldown: 6)]
+    //[StaticImmunity(staticImmunityCooldown: 6)]
     
     public class CruiserHead : ModNPC
     {
+        public static float ProjDamageReduce = 0.3f;
         public class HitRecord
         {
             public int Timeleft = 200;
@@ -266,10 +267,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             NPC.Entropy().damageMul *= 0.98f;
-            if (phase == 2)
-            {
-                modifiers.SourceDamage *= 1.2f;
-            }
             bool flag = false;
             HitRecord hr = null;
             foreach(var hrc in hitRecords)
@@ -283,7 +280,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             if(flag)
             {
-                hr.dmgMult *= 0.8f;
+                hr.dmgMult *= CruiserHead.ProjDamageReduce;
                 modifiers.FinalDamage *= hr.dmgMult;
                 if(!projectile.minion)
                 {
@@ -302,10 +299,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             NPC.Entropy().damageMul *= 0.98f;
-            if (phase == 2)
-            {
-                modifiers.FinalDamage *= 1.2f;
-            }
         }
         public override bool CheckDead()
         {
@@ -511,8 +504,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             for(int i = hitRecords.Count - 1; i >= 0; i--)
             {
-                hitRecords[i].Timeleft--;
-                if(true || hitRecords[i].Timeleft < 1 || hitRecords[i].ProjID < 0 || !hitRecords[i].ProjID.ToProj().active || hitRecords[i].ProjID.ToProj().friendly)
+                hitRecords[i].dmgMult = float.Lerp(hitRecords[i].dmgMult, 1, 0.06f);
+                if(hitRecords[i].ProjID < 0 || !hitRecords[i].ProjID.ToProj().active)
                 {
                     hitRecords.RemoveAt(i);
                 }
