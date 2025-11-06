@@ -1327,12 +1327,12 @@ namespace CalamityEntropy.Common
             if (Main.rand.NextDouble() < dodgeChance)
             {
                 deusCoreBloodOut -= deusCoreAdd;
-                immune = 60;
+                immune = 30;
                 return true;
             }
             if (info.Damage > Player.statLifeMax2 / 20 && MariviniumShieldCount > 0)
             {
-                immune = 90;
+                immune = 45;
                 MariviniumShieldCount--;
                 Player.Heal(140);
                 CEUtils.PlaySound("crystalShieldBreak", 1, Player.Center, 1, 0.7f);
