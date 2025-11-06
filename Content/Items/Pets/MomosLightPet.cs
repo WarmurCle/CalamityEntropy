@@ -1,13 +1,9 @@
-﻿using CalamityEntropy.Content.Buffs.Pets;
-using CalamityEntropy.Content.Items.Donator;
+﻿using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Vanity;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.Pets.Deus;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

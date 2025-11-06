@@ -1,7 +1,5 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityMod;
-using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

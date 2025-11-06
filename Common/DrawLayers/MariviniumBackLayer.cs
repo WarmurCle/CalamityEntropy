@@ -15,7 +15,7 @@ namespace CalamityEntropy.Common.DrawLayers
         }
 
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.BackAcc);
-        
+
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {

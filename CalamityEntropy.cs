@@ -28,7 +28,6 @@ using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Skies;
-using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Utilities;
@@ -94,7 +93,6 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using Terraria.UI;
-using Terraria.Utilities;
 namespace CalamityEntropy
 {
     public partial class CalamityEntropy : Mod
@@ -150,7 +148,7 @@ namespace CalamityEntropy
                 setup.DompLoadText();
             }
             LoopSoundManager.init();
-            
+
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
             efont3 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/MaruMonica", AssetRequestMode.ImmediateLoad).Value;
@@ -174,7 +172,7 @@ namespace CalamityEntropy
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserBody>());
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
             EntropySkies.setUpSkies();
-            
+
             On_MapHeadRenderer.DrawPlayerHead += drawPlayerHeadHook;
             On_Lighting.AddLight_int_int_int_float += al_iiif;
             On_Lighting.AddLight_int_int_float_float_float += al_iifff;
@@ -231,9 +229,9 @@ namespace CalamityEntropy
         private void on_player_hurt(On_Player.orig_Hurt_HurtInfo_bool orig, Player self, Player.HurtInfo info, bool quiet)
         {
             int leastDmg = (int)((ModContent.GetInstance<ServerConfig>().LeastDamageSufferedBasedOnMaxHealth * 0.01f) * self.statLifeMax2);
-            if(self.Entropy().oracleDeck)
+            if (self.Entropy().oracleDeck)
             {
-                if(info.Damage > self.statLifeMax2 / 2)
+                if (info.Damage > self.statLifeMax2 / 2)
                 {
                     info.Damage = self.statLifeMax2 / 2;
                 }
@@ -248,12 +246,13 @@ namespace CalamityEntropy
             bool hide = false;
             if (!Main.gameMenu)
             {
-                if(Main.netMode == NetmodeID.MultiplayerClient && drawPlayer.GetModPlayer<AtbmPlayer>().Active && !drawPlayer.GetModPlayer<AtbmPlayer>().CanDraw)
+                if (Main.netMode == NetmodeID.MultiplayerClient && drawPlayer.GetModPlayer<AtbmPlayer>().Active && !drawPlayer.GetModPlayer<AtbmPlayer>().CanDraw)
                     hide = true;
                 if (drawPlayer.Entropy().DontDrawTime > 0)
                     hide = true;
             }
-            if (!hide) { 
+            if (!hide)
+            {
                 orig(self, camera, drawPlayer, position, rotation, rotationOrigin, shadow, scale);
             }
         }
@@ -1316,8 +1315,8 @@ namespace CalamityEntropy
                 this.Logger.Info("MOT Support:" + moreObtainingTooltips.Call(
                     "AddCustomizedSource",
                     this.GetLocalization("HallowedEnemiesDrop").Value,
-                    new int[1] { ModContent.ItemType<HolyMantle>()}));
-                
+                    new int[1] { ModContent.ItemType<HolyMantle>() }));
+
                 moreObtainingTooltips.Call(
                     "AddCustomizedSource",
                     this.GetLocalization("VoidOreMine").Value,
@@ -1338,7 +1337,7 @@ namespace CalamityEntropy
                     "AddCustomizedSource",
                     this.GetLocalization("AstralFishing").Value,
                     new int[1] { ModContent.ItemType<GreedCard>() });
-                
+
             }
             CalEnchantsRegistry();
             cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>(), BuffID.PotionSickness };

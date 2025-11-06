@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             if (ProjType == -1) ProjType = ModContent.ProjectileType<Snowgrave>();
-            if(owner != null && owner.ownedProjectileCounts[ProjType] < 1)
+            if (owner != null && owner.ownedProjectileCounts[ProjType] < 1)
             {
                 this.Opacity *= 0.7f;
             }

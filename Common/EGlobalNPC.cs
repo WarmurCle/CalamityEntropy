@@ -657,7 +657,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if(npc.type == NPCID.Deerclops)
+            if (npc.type == NPCID.Deerclops)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
             }
@@ -963,9 +963,9 @@ namespace CalamityEntropy.Common
         public bool needExitShader = false;
         public override void OnKill(NPC npc)
         {
-            if(npc.type == NPCID.WallofFlesh)
+            if (npc.type == NPCID.WallofFlesh)
             {
-                for(int i = 0; i < 32; i++)
+                for (int i = 0; i < 32; i++)
                 {
                     float rot;
                     rot = CEUtils.randomRot();
@@ -1221,7 +1221,7 @@ namespace CalamityEntropy.Common
             HitCounter = 0;
             if (player != null)
             {
-                if(player.Entropy().LifeStealP > 0 && player.statLife < player.statLifeMax2)
+                if (player.Entropy().LifeStealP > 0 && player.statLife < player.statLifeMax2)
                 {
                     player.Entropy().TryHealMeWithCd((int)(player.statLifeMax2 * player.Entropy().LifeStealP), 15);
                 }

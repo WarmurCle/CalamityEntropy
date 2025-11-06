@@ -83,13 +83,13 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                     slotDist = 0;
                 }
             }
-            if(!Main.dedServ && !BookmarkInsertCondition.Instance.IsCompleted)
+            if (!Main.dedServ && !BookmarkInsertCondition.Instance.IsCompleted)
             {
-                if(active)
+                if (active)
                 {
-                    foreach(var i in Main.LocalPlayer.Entropy().EBookStackItems)
+                    foreach (var i in Main.LocalPlayer.Entropy().EBookStackItems)
                     {
-                        if(BookMarkLoader.IsABookMark(i))
+                        if (BookMarkLoader.IsABookMark(i))
                         {
                             BookmarkInsertCondition.Instance.Complete();
                         }

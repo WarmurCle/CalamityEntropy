@@ -1,9 +1,7 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
@@ -121,9 +119,9 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     if (Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity.normalize() * 32, Projectile.velocity, ModContent.ProjectileType<ALMGLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        
+
                     }
-                    if(!Main.dedServ)
+                    if (!Main.dedServ)
                     {
                         Main.gore[Gore.NewGore(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-2.3f * player.direction).normalize() * 4, Mod.Find<ModGore>("ALMGShellGore").Type)].timeLeft = 100;
                     }
@@ -143,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
         {
             Texture2D t = Projectile.GetTexture();
             Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition - Projectile.rotation.ToRotationVector2() * 10, CEUtils.GetCutTexRect(t, 2, (int)Main.GameUpdateCount / 4 % 2, false), lightColor, Projectile.rotation + (Math.Sign(Projectile.velocity.X) * -rotup), t.Size() / new Vector2(2, 4), Projectile.scale, (Projectile.velocity.X > 0) ? SpriteEffects.None : SpriteEffects.FlipVertically);
-            
+
             return false;
         }
     }
@@ -158,7 +156,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
             Projectile.tileCollide = true;
             Projectile.light = 0.6f;
             Projectile.timeLeft = 12;
-            Projectile.penetrate = -1; 
+            Projectile.penetrate = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.usesLocalNPCImmunity = true;
@@ -167,7 +165,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
         public float dist = 0;
         public override void AI()
         {
-            
+
             if (Projectile.ai[0]++ == 0)
             {
                 Vector2 mousew = Projectile.GetOwner().Calamity().mouseWorld;
@@ -188,11 +186,11 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
-                
+
                 List<NPC> checkNpcs = new();
-                foreach(NPC n in Main.ActiveNPCs)
+                foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if(!n.dontTakeDamage && !n.friendly && CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 1800, n.getRect(), 6))
+                    if (!n.dontTakeDamage && !n.friendly && CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 1800, n.getRect(), 6))
                     {
                         checkNpcs.Add(n);
                     }
@@ -206,9 +204,9 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                         break;
                     }
                     bool brk = false;
-                    foreach(var n in checkNpcs)
+                    foreach (var n in checkNpcs)
                     {
-                        if((Projectile.Center + Projectile.rotation.ToRotationVector2() * d).getRectCentered(6, 6).Intersects(n.Hitbox))
+                        if ((Projectile.Center + Projectile.rotation.ToRotationVector2() * d).getRectCentered(6, 6).Intersects(n.Hitbox))
                         {
                             dist += 4;
                             brk = true;
@@ -308,7 +306,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
-                trail = new TrailParticle() { maxLength = 40};
+                trail = new TrailParticle() { maxLength = 40 };
                 EParticle.NewParticle(trail, Projectile.Center, Vector2.Zero, new Color(255, 120, 120), 0.6f, 1, true, BlendState.Additive);
 
             }

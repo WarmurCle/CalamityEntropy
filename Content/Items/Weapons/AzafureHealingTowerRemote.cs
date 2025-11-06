@@ -1,7 +1,6 @@
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Magic;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;

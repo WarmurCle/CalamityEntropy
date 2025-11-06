@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Armor.VoidFaquir
     {
         public override void SetStaticDefaults()
         {
-            ArmorIDs.Legs.Sets.HidesBottomSkin[Item.legSlot] =true;
+            ArmorIDs.Legs.Sets.HidesBottomSkin[Item.legSlot] = true;
         }
         public override void SetDefaults()
         {

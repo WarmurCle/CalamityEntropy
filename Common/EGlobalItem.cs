@@ -81,9 +81,9 @@ namespace CalamityEntropy.Common
         public float[] wispColor = null;
         public override bool CanBeConsumedAsAmmo(Item ammo, Item weapon, Player player)
         {
-            if(LoreReworkSystem.Enabled<LoreSkeletron>())
+            if (LoreReworkSystem.Enabled<LoreSkeletron>())
             {
-                if(ammo.stack >= LESkeletron.AmountLimit && Main.rand.NextFloat() < LESkeletron.Perc)
+                if (ammo.stack >= LESkeletron.AmountLimit && Main.rand.NextFloat() < LESkeletron.Perc)
                 {
                     return false;
                 }
@@ -120,7 +120,7 @@ namespace CalamityEntropy.Common
         }
         public bool GetOverrideName(Item item, string origName, out string NewName)
         {
-            if(item.ModItem != null && item.ModItem is BasePrefixItem pitem)
+            if (item.ModItem != null && item.ModItem is BasePrefixItem pitem)
             {
                 NewName = origName.Replace("|", ArmorPrefix.findByName(pitem.PrefixName).GivenName);
                 return true;

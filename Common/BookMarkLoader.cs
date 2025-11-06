@@ -63,9 +63,9 @@ namespace CalamityEntropy.Common
         public static bool GetPlayerHeldEntropyBook(Player player, out EntropyBookHeldProjectile eb)
         {
             eb = null;
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.owner == player.whoAmI && p.ModProjectile != null && p.ModProjectile is EntropyBookHeldProjectile ebh)
+                if (p.owner == player.whoAmI && p.ModProjectile != null && p.ModProjectile is EntropyBookHeldProjectile ebh)
                 {
                     eb = ebh;
                     return true;
@@ -83,7 +83,7 @@ namespace CalamityEntropy.Common
                     for (int i = 0; i < c; i++)
                     {
                         Item it = player.Entropy().EBookStackItems[i];
-                        if(IsABookMark(it) && GetEffect(it) is T)
+                        if (IsABookMark(it) && GetEffect(it) is T)
                         {
                             return true;
                         }

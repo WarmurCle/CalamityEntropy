@@ -1,9 +1,9 @@
-﻿using CalamityMod.Items.Placeables;
+﻿using CalamityEntropy.Common;
+using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Placeables.FurnitureAbyss;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {

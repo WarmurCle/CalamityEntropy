@@ -1,13 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs.Pets;
-using CalamityEntropy.Content.Items.Donator;
-using CalamityEntropy.Content.Items.Vanity;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.Pets.Deus;
-using CalamityMod;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -104,7 +96,7 @@ namespace CalamityEntropy.Content.Items.Pets
                 return false;
             }
 
-            foreach(Swarm swarm in swarms)
+            foreach (Swarm swarm in swarms)
             {
                 swarm.Draw();
             }
@@ -122,23 +114,23 @@ namespace CalamityEntropy.Content.Items.Pets
         public static int itype = -1;
         public override void AI()
         {
-            if(itype == -1)
+            if (itype == -1)
             {
                 itype = ModContent.ItemType<GatheringSwarm>();
             }
             Player player = Projectile.GetOwner();
-            if(swarms == null)
+            if (swarms == null)
             {
                 swarms = new List<Swarm>();
-                for(int i = 0; i < 16; i++)
+                for (int i = 0; i < 16; i++)
                 {
-                    swarms.Add(new Swarm() { Position = Projectile.Center + CEUtils.randomPointInCircle(8)});
+                    swarms.Add(new Swarm() { Position = Projectile.Center + CEUtils.randomPointInCircle(8) });
                 }
             }
             Vector2 tpos = player.Center + new Vector2(0, -50);
             Projectile.velocity += (tpos - Projectile.Center).normalize() * 1.6f;
             Projectile.velocity *= 0.98f;
-            if(CEUtils.getDistance(Projectile.Center, player.Center) > 2600)
+            if (CEUtils.getDistance(Projectile.Center, player.Center) > 2600)
             {
                 Projectile.Center = tpos;
                 Projectile.velocity *= 0;
@@ -146,7 +138,7 @@ namespace CalamityEntropy.Content.Items.Pets
             List<int> itemCarrying = new List<int>();
             foreach (Swarm swc in swarms)
             {
-                if(swc.CurrentCarryItem >= 0)
+                if (swc.CurrentCarryItem >= 0)
                     itemCarrying.Add(swc.CurrentCarryItem);
             }
             List<int> fav = new List<int>();
@@ -154,7 +146,7 @@ namespace CalamityEntropy.Content.Items.Pets
             {
                 if (player.inventory[i].favorited)
                 {
-                    if(!fav.Contains(player.inventory[i].type))
+                    if (!fav.Contains(player.inventory[i].type))
                     {
                         fav.Add(player.inventory[i].type);
                     }
@@ -226,8 +218,8 @@ namespace CalamityEntropy.Content.Items.Pets
                 }
                 swarm.Alpha = float.Lerp(swarm.Alpha, swarm.CurrentCarryItem < 0 ? ((player.Entropy().hasAcc("GSwarm") && !player.Entropy().hasAccVisual("GSwarm")) ? 0 : 0.66f) : 1, 0.08f);
                 swarm.Position += swarm.velocity;
-                if (flag) {swarm.velocity *= (CEUtils.getDistance(swarm.Position, player.Center) < 256 ? 0.955f : (swarm.CurrentCarryItem >= 0 ? 0.97f : 0.98f));}
-                if(CEUtils.getDistance(swarm.Position, player.Center) > 4400)
+                if (flag) { swarm.velocity *= (CEUtils.getDistance(swarm.Position, player.Center) < 256 ? 0.955f : (swarm.CurrentCarryItem >= 0 ? 0.97f : 0.98f)); }
+                if (CEUtils.getDistance(swarm.Position, player.Center) > 4400)
                 {
                     swarm.Position = player.Center + CEUtils.randomPointInCircle(16);
                 }

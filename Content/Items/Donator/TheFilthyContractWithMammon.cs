@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using InnoVault.PRT;
@@ -296,7 +295,7 @@ namespace CalamityEntropy.Content.Items.Donator
             float impactParticleScale = 3;
             SparkleParticle impactParticle = new SparkleParticle(Projectile.Center, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 14, 0f, 3f);
             GeneralParticleHandler.SpawnParticle(impactParticle);
-            CEUtils.PlaySound("sf_hit1", 1, Projectile.Center, volume:0.4f);
+            CEUtils.PlaySound("sf_hit1", 1, Projectile.Center, volume: 0.4f);
         }
     }
 }

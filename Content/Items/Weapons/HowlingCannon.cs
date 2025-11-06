@@ -1,12 +1,8 @@
-﻿using CalamityEntropy.Content.NPCs.SpiritFountain;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Particles;
 using CalamityMod.Tiles.Furniture.CraftingStations;
@@ -47,11 +43,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             usecount++;
             JustShooted = true;
-            if(usecount % 3 == 1)
+            if (usecount % 3 == 1)
             {
                 Projectile.NewProjectile(source, position + velocity * 3.8f, velocity, ModContent.ProjectileType<HowlingLaser>(), damage * 3, knockback, player.whoAmI);
             }
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Projectile.NewProjectile(source, position, velocity + CEUtils.randomRot().ToRotationVector2() * 0.6f, type, damage / 2, knockback, player.whoAmI);
             }
@@ -98,10 +94,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            if(player.HeldItem.ModItem is HowlingCannon hc)
+            if (player.HeldItem.ModItem is HowlingCannon hc)
             {
                 Projectile.timeLeft = 2;
-                if(hc.JustShooted)
+                if (hc.JustShooted)
                 {
                     CEUtils.PlaySound("howlingShoot", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
                     hc.JustShooted = false;
@@ -157,7 +153,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnKill(int timeLeft)
         {
-            CEUtils.PlaySound("blackholeEnd", 3f, Projectile.Center, volume:0.6f);
+            CEUtils.PlaySound("blackholeEnd", 3f, Projectile.Center, volume: 0.6f);
             GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.AliceBlue, 0.1f, 0.8f, 8));
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.SkyBlue * 0.8f, 1.5f, 1, true, BlendState.Additive, 0, 16);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.4f, 1, true, BlendState.Additive, 0, 16);
@@ -234,7 +230,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 d.velocity = i.ToRadians().ToRotationVector2() * 8;
                 d.position = target.Center + i.ToRadians().ToRotationVector2() * 12;
                 d.scale = 1.2f;
-                
+
                 d.noGravity = true;
             }
             EParticle.NewParticle(new HeavenfallStar(), target.Center, Vector2.Zero, Color.White * 0.6f, 4, 1, true, BlendState.Additive, Projectile.velocity.ToRotation() + MathHelper.PiOver2);
@@ -271,7 +267,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.7f, 1, true, BlendState.Additive, 0, 12);
 
                 CEUtils.PlaySound("CrystalBallActive", 1.2f, Projectile.Center);
-                for(int i = 80; i < 2000; i += 10)
+                for (int i = 80; i < 2000; i += 10)
                 {
                     EParticle.NewParticle(new HeavenfallStar(), Projectile.Center + Projectile.velocity.normalize() * i, Vector2.Zero, new Color(20, 20, 160), 2f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 12);
                 }
@@ -287,7 +283,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             shader.CurrentTechnique.Passes[0].Apply();
             Main.spriteBatch.Draw(laser, Projectile.Center - Main.screenPosition, new Rectangle(-(int)((Main.GameUpdateCount * 400) % laser.Width), 0, 8000, laser.Height), Color.Blue, Projectile.velocity.ToRotation(), new Vector2(0, laser.Height / 2), new Vector2(1, CEUtils.Parabola(Projectile.timeLeft / 10f, 1)) * Projectile.scale * 0.4f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
-            
+
             return false;
         }
     }

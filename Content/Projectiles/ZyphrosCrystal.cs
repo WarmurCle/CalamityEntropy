@@ -112,18 +112,18 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 2)
             {
                 Projectile.GetOwner().Heal(5);
-		        target.AddBuff(ModContent.BuffType<CrushDepth>(), 300);
-		        target.AddBuff(ModContent.BuffType<Nightwither>(), 300);
+                target.AddBuff(ModContent.BuffType<CrushDepth>(), 300);
+                target.AddBuff(ModContent.BuffType<Nightwither>(), 300);
             }
             if (Projectile.ai[0] == 4)
             {
                 target.AddBuff(ModContent.BuffType<Dragonfire>(), 300);
-		        target.AddBuff(ModContent.BuffType<HolyFlames>(), 300);
+                target.AddBuff(ModContent.BuffType<HolyFlames>(), 300);
             }
             if (Projectile.ai[0] == 5)
             {
                 target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
-		        target.AddBuff(ModContent.BuffType<Plague>(), 300);
+                target.AddBuff(ModContent.BuffType<Plague>(), 300);
             }
             if (Projectile.ai[0] == 1)
             {
@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Projectile.timeLeft = 1;
                 }
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ZyphrosCrystal>(), Projectile.damage/12, Projectile.knockBack, Projectile.owner, Main.rand.Next(2, 6));
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ZyphrosCrystal>(), Projectile.damage / 12, Projectile.knockBack, Projectile.owner, Main.rand.Next(2, 6));
             }
         }
     }

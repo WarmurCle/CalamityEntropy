@@ -3,8 +3,6 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
@@ -94,34 +92,34 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             Player player = Projectile.GetOwner();
             Projectile.ai[1]--;
-            if(player.HeldItem.ModItem is Malign)
+            if (player.HeldItem.ModItem is Malign)
             {
                 Projectile.timeLeft = 2;
                 Projectile.StickToPlayer();
                 player.SetHandRot(Projectile.rotation);
-                if(Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner)
                 {
-                    if((!player.mouseInterface && Main.mouseLeft) != MousePressed)
+                    if ((!player.mouseInterface && Main.mouseLeft) != MousePressed)
                     {
                         CEUtils.SyncProj(Projectile.whoAmI);
                     }
                     MousePressed = !player.mouseInterface && Main.mouseLeft;
-                    if(MousePressed && ActiveProgress > 0.8f)
+                    if (MousePressed && ActiveProgress > 0.8f)
                     {
                         player.channel = true;
-                        if(player.manaRegenDelay < 16 && player.CheckMana(player.HeldItem.mana, false))
+                        if (player.manaRegenDelay < 16 && player.CheckMana(player.HeldItem.mana, false))
                             player.manaRegenDelay = 16;
                         if (Projectile.ai[1] <= 0)
                         {
                             Projectile.ai[1] = player.HeldItem.useTime;
-                            if(player.CheckMana(player.HeldItem.mana, true))
+                            if (player.CheckMana(player.HeldItem.mana, true))
                                 Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), Projectile.Center + Projectile.rotation.ToRotationVector2() * 90, Projectile.velocity.RotatedByRandom(0.4f) * 2, ModContent.ProjectileType<MalignBullet>(), player.GetWeaponDamage(player.HeldItem), player.GetWeaponKnockback(player.HeldItem), player.whoAmI);
                         }
                     }
                 }
-                if(MousePressed)
+                if (MousePressed)
                 {
-                    if(ActiveProgress < 1)
+                    if (ActiveProgress < 1)
                     {
                         ActiveProgress = float.Lerp(ActiveProgress, 1, 0.1f);
                     }
@@ -129,12 +127,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                 }
                 else
                 {
-                    if(ActiveProgress > 0)
+                    if (ActiveProgress > 0)
                     {
                         ActiveProgress = float.Lerp(ActiveProgress, 0, 0.1f);
                     }
                 }
-                if(MousePressed || ActiveProgress > 0.3)
+                if (MousePressed || ActiveProgress > 0.3)
                 {
                     player.itemTime = player.itemAnimation = 3;
                 }
@@ -148,7 +146,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            
+
             Vector2 top = Projectile.Center + Projectile.rotation.ToRotationVector2() * (56 + 10 * ActiveProgress) * Projectile.scale;
             Main.EntitySpriteDraw(tPart1, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * (ActiveProgress * 18 - 12), null, Color.White * 0.5f * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + 0.3f * ActiveProgress, new Vector2(0, tPart1.Height / 2), Projectile.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(tPart2, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * (ActiveProgress * 18 - 12), null, Color.White * 0.5f * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + -0.3f * ActiveProgress, new Vector2(tPart2.Width / 2, tPart2.Height), Projectile.scale, SpriteEffects.None);
@@ -179,12 +177,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             if (Projectile.localAI[2]++ == 0)
             {
-                for(float i = 0; i <= 1; i += 0.005f)
+                for (float i = 0; i <= 1; i += 0.005f)
                 {
                     EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.2f, 1f) }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, new Color(255, 40, 255), CEUtils.CustomLerp2(1 - i) * 0.7f + 0.1f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 16);
                 }
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 200, 255), 0.6f, 1, true, BlendState.Additive, 0, 16);
-                for(int i = 0; i < 3; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     Vector2 v = Projectile.velocity.RotateRandom(0.4f);
                     EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1.5f) }, Projectile.Center, v * -0.0002f, new Color(255, 200, 255), 1.2f, 1, true, BlendState.Additive, v.ToRotation(), 16);
@@ -220,26 +218,26 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             if (Projectile.localAI[2]++ == 0)
             {
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity, Vector2.Zero, new Color(255, 190, 255), 0.4f, 1, true, BlendState.Additive, 0, 5);
-                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.9f, 1.4f), Projectile.Center, volume:0.84f);
+                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.9f, 1.4f), Projectile.Center, volume: 0.84f);
             }
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
-                if(Projectile.timeLeft == 23 || Projectile.timeLeft == 13)
+                if (Projectile.timeLeft == 23 || Projectile.timeLeft == 13)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<MalignLightning>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner);
                 }
             }
-            if(trail == null)
+            if (trail == null)
             {
-                trail = new TrailParticle() { maxLength = 12, SameAlpha = true};
+                trail = new TrailParticle() { maxLength = 12, SameAlpha = true };
                 EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(255, 100, 255), 1.2f, 1, true, BlendState.Additive);
             }
             EParticle.spawnNew(new Content.Particles.ELineParticle(3.4f, 0.8f, 0.84f), Projectile.Center + CEUtils.randomPointInCircle(4), Projectile.velocity.RotatedByRandom(0.12f), new Color(255, 190, 255) * 0.8f, 2, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 6);
-            
+
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             trail.TimeLeftMax = trail.Lifetime = 13;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if(Projectile.timeLeft < 22)
+            if (Projectile.timeLeft < 22)
             {
                 NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 340);
                 if (target != null)
@@ -253,7 +251,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             Texture2D tex = Projectile.GetTexture();
             Texture2D glow = this.getTextureGlow();
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, new Color(255, 95, 255), Projectile.velocity.ToRotation(), glow.Size() / 2f, Projectile.scale * 0.14f,SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, new Color(255, 95, 255), Projectile.velocity.ToRotation(), glow.Size() / 2f, Projectile.scale * 0.14f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 95, 255), Projectile.velocity.ToRotation(), tex.Size() / 2f, Projectile.scale * 0.1f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;

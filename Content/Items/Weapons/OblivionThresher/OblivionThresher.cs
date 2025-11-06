@@ -3,8 +3,6 @@ using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using CalamityMod.Items.Weapons.Ranged;
 using Terraria;
 using Terraria.DataStructures;

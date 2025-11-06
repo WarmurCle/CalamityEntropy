@@ -358,7 +358,7 @@ namespace CalamityEntropy.Common
         private static void DrawBloodEffect(GraphicsDevice graphicsDevice)
         {
             bool f = false;
-            foreach(var p in Main.ActiveProjectiles)
+            foreach (var p in Main.ActiveProjectiles)
             {
                 if (p.ModProjectile != null && p.ModProjectile is BloodCrack)
                 {

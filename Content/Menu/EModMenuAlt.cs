@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Menu
                     particles.RemoveAt(i);
                 }
             }
-            for (int i = 1; i < 19; i+=3)
+            for (int i = 1; i < 19; i += 3)
             {
                 float rot = counter * 0.008f;
                 for (int j = 0; j < 16; j++)

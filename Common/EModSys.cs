@@ -413,10 +413,10 @@ namespace CalamityEntropy.Common
             Texture2D bar = CEUtils.getExtraTex("BrambleBar");
             bbar = float.Lerp(bbar, Main.LocalPlayer.Entropy().BrambleBarCharge, 0.16f);
             Vector2 center = new Vector2(Main.screenWidth / 2, Main.screenHeight / 16);
-            if((center + bbarOffset).getRectCentered(100, 46).Intersects(Main.MouseScreen.getRectCentered(2, 2)))
+            if ((center + bbarOffset).getRectCentered(100, 46).Intersects(Main.MouseScreen.getRectCentered(2, 2)))
             {
                 Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("BCBarInfo").Value);
-                if(Mouse.GetState().MiddleButton == ButtonState.Pressed)
+                if (Mouse.GetState().MiddleButton == ButtonState.Pressed)
                     bbarOffset = Main.MouseScreen - center;
             }
             center += bbarOffset;
@@ -494,7 +494,7 @@ namespace CalamityEntropy.Common
                         drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.Entropy().revelationCharge, new Color(255, 255, 190));
                         baroffsety += 20;
                     }
-                    
+
                     return true;
                 }, InterfaceScaleType.None));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Poop UI", () =>

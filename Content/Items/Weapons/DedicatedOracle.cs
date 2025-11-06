@@ -1,12 +1,8 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using Humanizer;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -46,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if(castTarget != null)
+            if (castTarget != null)
             {
                 Projectile.NewProjectile(source, position, Vector2.Zero, type, damage, knockback, player.whoAmI, castTarget.whoAmI);
                 CEUtils.CostStealthForPlr(player);
@@ -79,14 +75,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         public Vector2 targetPos = Vector2.Zero;
         public override void AI()
         {
-            if(target == null && !target.active)
+            if (target == null && !target.active)
             {
                 Projectile.Kill();
                 return;
             }
             Player player = Projectile.GetOwner();
             int counter = (int)Projectile.ai[1]++;
-            if(counter == 0)
+            if (counter == 0)
             {
                 targetPos = target.Center;
                 origPos = player.Center;
@@ -95,11 +91,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.Entropy().immune = 30;
             player.itemTime = player.itemAnimation = 4;
             Projectile.Center = target.Center;
-            if(counter <= 8)
+            if (counter <= 8)
             {
                 Vector2 plrPos = Vector2.Lerp(origPos, Projectile.Center, counter / 8f);
                 player.Center = plrPos;
-                if(counter > 0)
+                if (counter > 0)
                 {
                     Vector2 from = lastPlrPos;
                     Vector2 to = plrPos;

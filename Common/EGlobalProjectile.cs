@@ -478,21 +478,21 @@ namespace CalamityEntropy.Common
                 LineParticle spark = new LineParticle(top, velocity, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
-            if(WisperArrow)
+            if (WisperArrow)
             {
                 if (Freeze)
                 {
-                    if(wisperShine)
+                    if (wisperShine)
                         projectile.Center = projectile.GetOwner().Center + wisperOffset.RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.GetOwner().Center).ToRotation());
                     else
-                        for(int i = 0; i < int.Max(9 - projectile.MaxUpdates, 1); i++)
+                        for (int i = 0; i < int.Max(9 - projectile.MaxUpdates, 1); i++)
                             projectile.Center = Vector2.Lerp(projectile.Center, projectile.GetOwner().Center + wisperOffset.RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.GetOwner().Center).ToRotation()), 0.01f);
                     projectile.GetOwner().Calamity().mouseWorldListener = true;
                     if (projectile.velocity.Length() < 2)
                         projectile.velocity = Vector2.One * 2;
                     projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy((projectile.GetOwner().Calamity().mouseWorld - projectile.Center).ToRotation());
                     projectile.timeLeft++;
-                    if(projectile.velocity.Length() * projectile.MaxUpdates < 46)
+                    if (projectile.velocity.Length() * projectile.MaxUpdates < 46)
                     {
                         projectile.velocity = new Vector2(projectile.velocity.Length(), 0).normalize().RotatedBy(projectile.velocity.ToRotation()) * (46f / projectile.MaxUpdates);
                     }
@@ -665,7 +665,7 @@ namespace CalamityEntropy.Common
             }
             if (GWBow && projectile.arrow)
             {
-                if(Main.rand.NextBool(4 * projectile.maxPenetrate))
+                if (Main.rand.NextBool(4 * projectile.maxPenetrate))
                 {
                     EParticle.spawnNew(new HeavenfallStar2() { drawScale = Vector2.One }, projectile.Center + CEUtils.randomPointInCircle(16), projectile.velocity * 0.3f, Main.hslToRgb(0.85f, 1, 0.8f), 0.3f, 1, true, BlendState.Additive, 0);
                 }
@@ -717,7 +717,7 @@ namespace CalamityEntropy.Common
                 playerPosL = projectile.owner.ToPlayer().Center;
                 projectile.owner.ToPlayer().Center = IndexOfTwistedTwinShootedThisProj.ToProj_Identity().Center;
             }
-            if(ParticleOnMe != null)
+            if (ParticleOnMe != null)
             {
                 ParticleOnMe.Position = projectile.Center;
             }
@@ -812,7 +812,7 @@ namespace CalamityEntropy.Common
         public static int SSCD = 3;
         public override bool? CanHitNPC(Projectile projectile, NPC target)
         {
-            if(WisperArrow && Freeze)
+            if (WisperArrow && Freeze)
             {
                 return false;
             }
@@ -828,7 +828,7 @@ namespace CalamityEntropy.Common
         }
         public override void DrawBehind(Projectile projectile, int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            if(WisperArrow)
+            if (WisperArrow)
             {
                 overPlayers.Add(index);
             }
@@ -1178,7 +1178,7 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(GWBow)
+            if (GWBow)
             {
                 CEUtils.PlaySound("bne_hit", 1.2f + 0.2f * projectile.numHits, target.Center);
                 EParticle.spawnNew(new HeavenfallStar2() { drawScale = Vector2.One }, target.Center, Vector2.Zero, Main.hslToRgb(0.85f, 1, 0.8f), 2.6f, 1, true, BlendState.Additive, 0, 28);

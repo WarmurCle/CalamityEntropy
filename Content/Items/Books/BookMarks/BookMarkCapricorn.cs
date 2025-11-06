@@ -99,7 +99,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 SandStormCharge = 0;
             }
-            if(!sgbm)
+            if (!sgbm)
             {
                 Player.Entropy().SnowgraveCharge = 0;
                 Player.Entropy().SnowgraveChargeTime = 0;

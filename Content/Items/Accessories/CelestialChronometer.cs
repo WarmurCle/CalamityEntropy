@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using System;
 using System.Collections.Generic;

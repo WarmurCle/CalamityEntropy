@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Common;
-using CalamityMod.Items.Materials;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.SummonItems;
 using System.Collections.Generic;
 using Terraria;

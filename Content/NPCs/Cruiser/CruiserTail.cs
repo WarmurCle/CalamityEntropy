@@ -1,5 +1,4 @@
 ﻿using CalamityMod;
-using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;

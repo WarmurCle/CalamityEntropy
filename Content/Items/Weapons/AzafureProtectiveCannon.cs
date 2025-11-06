@@ -120,7 +120,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if(!ShouldUpdatePosition())
+            if (!ShouldUpdatePosition())
             {
                 return false;
             }

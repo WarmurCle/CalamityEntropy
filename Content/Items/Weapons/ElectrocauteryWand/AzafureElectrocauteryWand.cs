@@ -2,14 +2,10 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Tools;
-using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -87,7 +83,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                 Projectile.timeLeft = 3;
                 if (Charge < 1)
                 {
-                    if(Charge == 0)
+                    if (Charge == 0)
                     {
                         CEUtils.PlaySound("scholarStaffAttack", 0.4f, Projectile.Center);
                     }
@@ -102,7 +98,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
             }
             else
             {
-                if(Shoot)
+                if (Shoot)
                 {
                     if (Charge < 0.2f)
                     {
@@ -112,7 +108,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 60, Projectile.velocity * (0.3f + 0.7f * Charge), ModContent.ProjectileType<AzafureElectrocauteryWandBomb>(), (int)(Projectile.damage * Charge), Projectile.knockBack * Charge, Projectile.owner, 0, 0, Charge);
                     for (int i = 0; i < (int)(20 * Charge); i++)
                         GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(4) + (Projectile.velocity.X > 0 ? new Vector2(80, 8) : new Vector2(80, -8)).RotatedBy(Projectile.rotation), CEUtils.randomPointInCircle(6), Color.Lerp(Color.Yellow, Color.White, 0.5f), 22, Main.rand.NextFloat(0.12f, 0.36f), 0.6f, 0.006f, true));
-                    for (int i = 0; i < 3;i++)
+                    for (int i = 0; i < 3; i++)
                         CEUtils.PlaySound("cannon", 1, Projectile.Center, volume: Charge);
                     Shoot = false;
                     Charge = 0;
@@ -121,7 +117,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                 DrawOffset += OffsetVel;
                 OffsetVel *= 0.78f;
                 DrawOffset *= 0.86f;
-                if(AfterAnm <= 0)
+                if (AfterAnm <= 0)
                 {
                     Projectile.Kill();
                     player.itemTime = player.itemAnimation = 0;
@@ -175,7 +171,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
         {
             Projectile.ai[0]++;
             if (Projectile.ai[0] == 24)
-                for(int i = 0; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                     CEUtils.PlaySound("alert2", 1f, Projectile.Center, 10, 2);
             if (Projectile.ai[0] < 32)
             {
@@ -191,10 +187,10 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                     PulseScaleV *= 0.96f;
                     if (Projectile.ai[0] > 60)
                         PulseAlpha *= 0.9f;
-                    for(int i = target.Count - 1; i >= 0; i--)
+                    for (int i = target.Count - 1; i >= 0; i--)
                     {
                         NPC t = target[i];
-                        if(t.dontTakeDamage || !t.active)
+                        if (t.dontTakeDamage || !t.active)
                         {
                             target.RemoveAt(i);
                         }
@@ -218,7 +214,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 256, Projectile.DamageType);
                     GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.06f, 2.4f, 16));
                     GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.06f, 2.6f, 16));
-                    foreach(var npc in target)
+                    foreach (var npc in target)
                     {
                         if (npc.active)
                         {
@@ -233,7 +229,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                     GeneralParticleHandler.SpawnParticle(pulse);
                     CEUtils.SetShake(Projectile.Center, 4);
                     CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
-     
+
                     Projectile.Kill();
                 }
             }
@@ -264,7 +260,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                         CEUtils.DrawLines(lol, Color.Red * 0.85f, 4);
                     }
                 }
-                if(PulseScale > 0)
+                if (PulseScale > 0)
                     Main.spriteBatch.Draw(pulse, Projectile.Center - Main.screenPosition, null, new Color(255, 180, 180) * 0.76f * PulseAlpha, 0, pulse.Size() / 2f, (PulseScale / (float)pulse.Width), SpriteEffects.None, 0);
 
                 List<Vector2> l = new List<Vector2>();

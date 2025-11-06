@@ -1,5 +1,4 @@
-﻿using CalamityMod.Items;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

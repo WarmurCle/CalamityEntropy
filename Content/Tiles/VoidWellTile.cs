@@ -1,7 +1,5 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityMod;
-using CalamityMod.Dusts;
-using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
 using Terraria.DataStructures;

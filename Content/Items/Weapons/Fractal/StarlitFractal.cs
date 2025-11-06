@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public int useCount = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if(useCount++ % 2 == 1)
+            if (useCount++ % 2 == 1)
             {
                 Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<FractalStar>(), damage, knockback, player.whoAmI);
             }

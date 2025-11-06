@@ -14,7 +14,6 @@ using CalamityMod.Events;
 using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
-using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -31,7 +30,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     [AutoloadBossHead]
     //[StaticImmunity(staticImmunityCooldown: 6)]
-    
+
     public class CruiserHead : ModNPC
     {
         public static float ProjDamageReduce = 0.3f;
@@ -40,7 +39,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             public int Timeleft = 200;
             public int ProjID = -1;
             public float dmgMult = 1;
-            public HitRecord(int id) {
+            public HitRecord(int id)
+            {
                 ProjID = id;
             }
         }
@@ -269,23 +269,23 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.Entropy().damageMul *= 0.98f;
             bool flag = false;
             HitRecord hr = null;
-            foreach(var hrc in hitRecords)
+            foreach (var hrc in hitRecords)
             {
-                if(hrc.ProjID == projectile.whoAmI)
+                if (hrc.ProjID == projectile.whoAmI)
                 {
                     flag = true;
                     hr = hrc;
                     break;
                 }
             }
-            if(flag)
+            if (flag)
             {
                 hr.dmgMult *= CruiserHead.ProjDamageReduce;
                 modifiers.FinalDamage *= hr.dmgMult;
-                if(!projectile.minion)
+                if (!projectile.minion)
                 {
                     hr.Timeleft += 20;
-                    if(hr.Timeleft > 250)
+                    if (hr.Timeleft > 250)
                     {
                         hr.Timeleft = 250;
                     }
@@ -502,10 +502,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public float camLerp = 0;
         public override void AI()
         {
-            for(int i = hitRecords.Count - 1; i >= 0; i--)
+            for (int i = hitRecords.Count - 1; i >= 0; i--)
             {
                 hitRecords[i].dmgMult = float.Lerp(hitRecords[i].dmgMult, 1, 0.1f);
-                if(hitRecords[i].ProjID < 0 || !hitRecords[i].ProjID.ToProj().active)
+                if (hitRecords[i].ProjID < 0 || !hitRecords[i].ProjID.ToProj().active)
                 {
                     hitRecords.RemoveAt(i);
                 }

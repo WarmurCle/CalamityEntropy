@@ -1,11 +1,11 @@
-﻿using CalamityEntropy.Content.Items.Donator;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityEntropy.Common;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {

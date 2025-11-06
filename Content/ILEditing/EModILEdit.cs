@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
@@ -14,7 +13,6 @@ using CalamityMod.Schematics;
 using CalamityMod.UI;
 using CalamityMod.World;
 using InnoVault;
-using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Mono.Cecil.Cil;
@@ -124,7 +122,8 @@ namespace CalamityEntropy.Content.ILEditing
                 ANPCSupport.ANPCShopAdd.LoadHook();
             }
             var Item_Name_Get_Method = typeof(Item).GetProperty("Name", BindingFlags.Instance | BindingFlags.Public).GetGetMethod();
-            if(Item_Name_Get_Method != null) {
+            if (Item_Name_Get_Method != null)
+            {
                 EModHooks.Add(Item_Name_Get_Method, On_Name_Get_Hook);
             }
 
@@ -355,7 +354,7 @@ namespace CalamityEntropy.Content.ILEditing
         }
         private static void murasama_on_hit(Action<MurasamaSlash, NPC, NPC.HitInfo, int> orig, MurasamaSlash self, NPC target, NPC.HitInfo info, int damageDone)
         {
-            if(EGlobalProjectile.VoidsamaTex(self.Projectile))
+            if (EGlobalProjectile.VoidsamaTex(self.Projectile))
             {
                 MuraOnHitSpec(self.Projectile, target, info, damageDone);
             }

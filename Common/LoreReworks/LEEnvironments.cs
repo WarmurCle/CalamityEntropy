@@ -1,6 +1,5 @@
 ﻿using CalamityMod.Items.LoreItems;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common.LoreReworks

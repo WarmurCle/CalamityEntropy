@@ -2,16 +2,10 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Projectiles.Melee;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -36,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Tools
             Item.useAnimation = 8;
             Item.pick = PickPower;
             Item.axe = PickPower / 5;
-            Item.tileBoost =  120;
+            Item.tileBoost = 120;
             Item.DamageType = DamageClass.Melee;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
@@ -51,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Tools
         public Vector2 mousePos = Vector2.Zero;
         public override bool? UseItem(Player player)
         {
-            if(Main.myPlayer == player.whoAmI)
+            if (Main.myPlayer == player.whoAmI)
             {
                 if (player.altFunctionUse == 2)
                 {
@@ -85,12 +79,12 @@ namespace CalamityEntropy.Content.Items.Tools
                         for (float i = 0; i <= 1; i += 0.01f)
                         {
                             KillCircleTile(Vector2.Lerp(Main.MouseWorld, mouseLast, i));
-                            if(c++ % 10 == 0) EParticle.NewParticle(new HadCircle2() { CScale = 0.14f }, Vector2.Lerp(Main.MouseWorld, mouseLast, i), Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
+                            if (c++ % 10 == 0) EParticle.NewParticle(new HadCircle2() { CScale = 0.14f }, Vector2.Lerp(Main.MouseWorld, mouseLast, i), Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
                         }
                     }
                     else
                     {
-                        if(Main.SmartCursorShowing)
+                        if (Main.SmartCursorShowing)
                             EParticle.NewParticle(new HadCircle2() { CScale = 0.14f }, new Vector2(Main.SmartCursorX * 16 + 8, Main.SmartCursorY * 16 + 8), Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
                     }
                 }

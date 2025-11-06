@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Projectile.rotation = CEUtils.RotateTowardsAngle(CEUtils.RotateTowardsAngle(Projectile.rotation, (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.1f, false), (player.Calamity().mouseWorld - Projectile.Center).ToRotation(), 0.1f, true);
             Projectile.Center = player.GetDrawCenter() - new Vector2(-Xoffset + 12, 0).RotatedBy(Projectile.rotation);
             player.Calamity().mouseWorldListener = true;
-            if(Projectile.owner == Main.myPlayer && Main.mouseRight)
+            if (Projectile.owner == Main.myPlayer && Main.mouseRight)
             {
                 if (!player.HasCooldown(OblivionThretherCooldown.ID))
                 {

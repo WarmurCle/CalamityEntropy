@@ -8,7 +8,6 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Armor.OmegaBlue;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             return body.type == ModContent.ItemType<MariviniumBodyArmor>() && legs.type == ModContent.ItemType<MariviniumLeggings>();
         }
 
-        
+
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Mod.GetLocalization("MariviniumSet").Value;

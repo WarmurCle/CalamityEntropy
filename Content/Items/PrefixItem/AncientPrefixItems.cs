@@ -1,10 +1,4 @@
-﻿using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityMod.Items.Materials;
-using System.Collections.Generic;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace CalamityEntropy.Content.Items.PrefixItem
+﻿namespace CalamityEntropy.Content.Items.PrefixItem
 {
     public class AncientFragmentsEcho : AncientPrefixItem
     {

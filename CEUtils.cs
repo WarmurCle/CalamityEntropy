@@ -6,7 +6,6 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
-using CalamityMod.Items.Accessories;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -47,7 +46,7 @@ namespace CalamityEntropy
         }
         public static float CustomLerp2(float p)
         {
-            return float.Lerp(1, 0, (1 - p) * (1 - p)* (1 - p));
+            return float.Lerp(1, 0, (1 - p) * (1 - p) * (1 - p));
         }
         public static void StickToPlayer(this Projectile proj)
         {
@@ -1350,7 +1349,7 @@ namespace CalamityEntropy
         /// <param name="textPath"></param>
         /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
         /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
-        public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Mod mod = null , string LineName = "CEMod", params object[] args)
+        public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Mod mod = null, string LineName = "CEMod", params object[] args)
         {
             string text = textPath.ToLangValue().ToFormatValue(args);
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;
@@ -1469,7 +1468,7 @@ namespace CalamityEntropy
         /// <param name="textValue">文本内容</param>
         /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
         /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
-        public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Color color, Mod mod = null,string LineName = "CEMod", params object[] args)
+        public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Color color, Mod mod = null, string LineName = "CEMod", params object[] args)
         {
             string text = textValue.ToFormatValue(args);
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;

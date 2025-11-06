@@ -1,11 +1,8 @@
-﻿using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
+﻿using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
-using static Terraria.GameContent.Bestiary.IL_BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions;
 
 namespace CalamityEntropy.Common.LoreReworks
 {
@@ -13,7 +10,7 @@ namespace CalamityEntropy.Common.LoreReworks
     {
         public override int ItemType => ModContent.ItemType<LoreWallofFlesh>();
         public static int Cooldown = 20;
-        public static float DmgReduce = 0.05f; 
+        public static float DmgReduce = 0.05f;
         public override void ModifyTooltip(TooltipLine tooltip)
         {
             tooltip.Text = tooltip.Text.Replace("{1}", DmgReduce.ToPercent().ToString());

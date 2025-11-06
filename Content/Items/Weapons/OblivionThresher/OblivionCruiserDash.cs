@@ -64,9 +64,9 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                         {
                             player.velocity = -Projectile.velocity * 0.2f;
                             p.Kill();
-                            foreach(var kh in Main.ActiveProjectiles)
+                            foreach (var kh in Main.ActiveProjectiles)
                             {
-                                if(kh.owner == Projectile.owner && kh.ModProjectile is OblivionThresherHoldout)
+                                if (kh.owner == Projectile.owner && kh.ModProjectile is OblivionThresherHoldout)
                                 {
                                     kh.Kill();
                                 }

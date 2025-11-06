@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Particles
                     if (p is SlashDarkRed)
                         extraDrawParti.Add(p);
                 }
-                foreach(EParticle p in extraDrawParti)
+                foreach (EParticle p in extraDrawParti)
                 {
                     if (p is SlashDarkRed sldr)
                         sldr.DrawEffect();

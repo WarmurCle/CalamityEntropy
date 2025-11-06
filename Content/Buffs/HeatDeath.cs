@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Buffs
                 int del = (int)(npc.lifeMax / (16f * 60 * 60) + 1) + 2;
                 if (npc.life > del)
                 {
-                    if(Main.GameUpdateCount % 2 == 0)
+                    if (Main.GameUpdateCount % 2 == 0)
                         npc.life -= del;
                     if (Main.GameUpdateCount % 16 == 0)
                     {

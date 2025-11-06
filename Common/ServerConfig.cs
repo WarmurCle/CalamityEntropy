@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Common
 {

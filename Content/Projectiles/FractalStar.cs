@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Particles;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -44,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Shoot = false;
                 CEUtils.PlaySound("bne_hit", 1, Projectile.Center, 6, 0.56f * CEUtils.WeapSound);
                 int type = ModContent.ProjectileType<FractalStarblight>();
-                for (int i = 0; i < 360; i+=90)
+                for (int i = 0; i < 360; i += 90)
                 {
                     float rot = ((float)i).ToRadians() + Projectile.rotation;
                     GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, rot.ToRotationVector2() * 12, false, 22, Projectile.scale * 0.04f, Color.DeepSkyBlue, Vector2.One, false, true));
@@ -57,7 +56,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D tex = Projectile.GetTexture();
             float w = 0.12f;
-            if(Projectile.timeLeft < 20)
+            if (Projectile.timeLeft < 20)
             {
                 w = CEUtils.Parabola(Projectile.timeLeft / 20f, 1.4f);
                 if (Projectile.timeLeft > 10 && w < 0.2f)

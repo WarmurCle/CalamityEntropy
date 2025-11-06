@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;
-            
+
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

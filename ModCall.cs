@@ -22,7 +22,7 @@ namespace CalamityEntropy
         /// </summary>
         public static void Initialize()
         {
-            if (_initialized) 
+            if (_initialized)
             {
                 return;
             }
@@ -314,7 +314,7 @@ namespace CalamityEntropy
                     return modPlayer.brillianceCard;
                 case "shadowpact":
                     return modPlayer.shadowPact;
-                
+
                 //装备效果
                 case "heartofstorm":
                     return modPlayer.heartOfStorm;
@@ -336,7 +336,7 @@ namespace CalamityEntropy
                     return modPlayer.MagiShield;
                 case "nihilityshell":
                     return modPlayer.nihShell;
-                
+
                 //状态数据
                 case "liferegenpersec":
                     return modPlayer.lifeRegenPerSec;
@@ -356,7 +356,7 @@ namespace CalamityEntropy
                     return modPlayer.WingSpeed;
                 case "wingtimemult":
                     return modPlayer.WingTimeMult;
-                
+
                 //伤害相关
                 case "thorn":
                     return modPlayer.Thorn;
@@ -367,7 +367,7 @@ namespace CalamityEntropy
                     return modPlayer.summonCrit;
                 case "meleedamagereduce":
                     return modPlayer.meleeDamageReduce;
-                
+
                 //潜行相关
                 case "roguestealthregen":
                     return modPlayer.RogueStealthRegen;
@@ -381,7 +381,7 @@ namespace CalamityEntropy
                     return modPlayer.ExtraStealth;
                 case "shadowstealth":
                     return modPlayer.shadowStealth;
-                
+
                 //武器状态
                 case "weaponboost":
                     return modPlayer.WeaponBoost;
@@ -389,7 +389,7 @@ namespace CalamityEntropy
                     return modPlayer.shootSpeed;
                 case "manacost":
                     return modPlayer.ManaCost;
-                
+
                 //Boss 相关
                 case "cruiserlorebon­us":
                     return modPlayer.CruiserLoreBonus;
@@ -397,7 +397,7 @@ namespace CalamityEntropy
                     return modPlayer.NihilityTwinLoreBonus;
                 case "prophetlorebon­us":
                     return modPlayer.ProphetLoreBonus;
-                
+
                 //冷却时间
                 case "laststandcd":
                     return modPlayer.lastStandCd;
@@ -407,7 +407,7 @@ namespace CalamityEntropy
                     return modPlayer.magiShieldCd;
                 case "healingcd":
                     return modPlayer.HealingCd;
-                
+
                 //特殊状态
                 case "godhead":
                     return modPlayer.Godhead;
@@ -419,7 +419,7 @@ namespace CalamityEntropy
                     return modPlayer.MariviniumSet;
                 case "mariviniumshieldcount":
                     return modPlayer.MariviniumShieldCount;
-                
+
                 default:
                     throw new ArgumentException($"Unknown player data key: {key}");
             }
@@ -450,14 +450,14 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("VoidCharge requires float or double value");
                     break;
-                
+
                 case "brilliancecard":
                     if (args[2] is int intVal)
                         modPlayer.brillianceCard = intVal;
                     else
                         throw new ArgumentException("brillianceCard requires int value");
                     break;
-                
+
                 //装备效果 (布尔值)
                 case "heartofstorm":
                     if (args[2] is bool boolVal)
@@ -465,35 +465,35 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("heartOfStorm requires bool value");
                     break;
-                
+
                 case "deuscore":
                     if (args[2] is bool boolVal2)
                         modPlayer.deusCore = boolVal2;
                     else
                         throw new ArgumentException("deusCore requires bool value");
                     break;
-                
+
                 case "holymantle":
                     if (args[2] is bool boolVal3)
                         modPlayer.holyMantle = boolVal3;
                     else
                         throw new ArgumentException("holyMantle requires bool value");
                     break;
-                
+
                 case "holyshield":
                     if (args[2] is bool boolVal4)
                         modPlayer.HolyShield = boolVal4;
                     else
                         throw new ArgumentException("HolyShield requires bool value");
                     break;
-                
+
                 case "magishield":
                     if (args[2] is int intVal2)
                         modPlayer.MagiShield = intVal2;
                     else
                         throw new ArgumentException("MagiShield requires int value");
                     break;
-                
+
                 //状态数据
                 case "liferegenpersec":
                     if (args[2] is int intVal3)
@@ -501,7 +501,7 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("lifeRegenPerSec requires int value");
                     break;
-                
+
                 case "dodgechance":
                     if (args[2] is float floatVal2)
                         modPlayer.dodgeChance = floatVal2;
@@ -510,7 +510,7 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("dodgeChance requires float or double value");
                     break;
-                
+
                 case "voidresistance":
                     if (args[2] is float floatVal3)
                         modPlayer.voidResistance = floatVal3;
@@ -519,7 +519,7 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("voidResistance requires float or double value");
                     break;
-                
+
                 case "temporaryarmor":
                     if (args[2] is float floatVal4)
                         modPlayer.temporaryArmor = floatVal4;
@@ -528,7 +528,7 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("temporaryArmor requires float or double value");
                     break;
-                
+
                 case "movespeed":
                     if (args[2] is float floatVal5)
                         modPlayer.moveSpeed = floatVal5;
@@ -537,7 +537,7 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("moveSpeed requires float or double value");
                     break;
-                
+
                 case "cooldowntimemult":
                     if (args[2] is float floatVal6)
                         modPlayer.CooldownTimeMult = floatVal6;
@@ -546,21 +546,21 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("CooldownTimeMult requires float or double value");
                     break;
-                
+
                 case "weaponboost":
                     if (args[2] is int intVal4)
                         modPlayer.WeaponBoost = intVal4;
                     else
                         throw new ArgumentException("WeaponBoost requires int value");
                     break;
-                
+
                 case "voidinspire":
                     if (args[2] is int intVal5)
                         modPlayer.VoidInspire = intVal5;
                     else
                         throw new ArgumentException("VoidInspire requires int value");
                     break;
-                
+
                 case "extrastealth":
                     if (args[2] is float floatVal7)
                         modPlayer.ExtraStealth = floatVal7;
@@ -569,7 +569,7 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("ExtraStealth requires float or double value");
                     break;
-                
+
                 case "shadowstealth":
                     if (args[2] is float floatVal8)
                         modPlayer.shadowStealth = floatVal8;
@@ -578,7 +578,7 @@ namespace CalamityEntropy
                     else
                         throw new ArgumentException("shadowStealth requires float or double value");
                     break;
-                
+
                 default:
                     throw new ArgumentException($"Unknown or read-only player data key: {key}");
             }

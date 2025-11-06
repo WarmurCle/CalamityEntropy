@@ -1,19 +1,10 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
-using Humanizer;
-using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -45,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Atbm
         {
             if (player.ownedProjectileCounts[Item.shoot] > 0)
             {
-                foreach(Projectile p in Main.ActiveProjectiles)
+                foreach (Projectile p in Main.ActiveProjectiles)
                 {
                     if (p.owner == player.whoAmI && p.type == Item.shoot)
                     {
@@ -79,11 +70,11 @@ namespace CalamityEntropy.Content.Items.Atbm
         public bool CanDraw = false;
         public override void PostUpdateMiscEffects()
         {
-            if(tbmtype == 0)
+            if (tbmtype == 0)
             {
                 tbmtype = ModContent.ProjectileType<ATBMProjectile>();
             }
-            if(Active)
+            if (Active)
             {
                 camPos = Vector2.Lerp(camPos, proj.Center - Main.ScreenSize.ToVector2() / 2f, 0.1f);
             }
@@ -109,13 +100,13 @@ namespace CalamityEntropy.Content.Items.Atbm
                 {
                     Player.Center = opos;
                 }
-                
+
             }
             LastActive = Active;
         }
         public override void ModifyScreenPosition()
         {
-            if(tbmtype > 0 && Active)
+            if (tbmtype > 0 && Active)
             {
                 Main.screenPosition = camPos;
             }
@@ -163,17 +154,19 @@ namespace CalamityEntropy.Content.Items.Atbm
                 return false;
             }
         }
-        public Projectile proj { get
+        public Projectile proj
+        {
+            get
             {
-                foreach(Projectile p in Main.ActiveProjectiles)
+                foreach (Projectile p in Main.ActiveProjectiles)
                 {
-                    if(p.type == tbmtype && p.owner == Player.whoAmI)
+                    if (p.type == tbmtype && p.owner == Player.whoAmI)
                     {
                         return p;
                     }
                 }
                 return null;
-            } 
+            }
         }
         public Vector2 camPos = Vector2.Zero;
     }
@@ -217,10 +210,10 @@ namespace CalamityEntropy.Content.Items.Atbm
                     segs.Add(new Seg(Projectile.Center - Projectile.velocity.normalize() * 30 * i, Projectile.velocity.ToRotation(), 30));
                 }
             }
-            if(!player.dead)
+            if (!player.dead)
                 Projectile.timeLeft = 3;
             InGround = false;
-            if(CEUtils.CheckSolidTile(Projectile.Center.getRectCentered(42, 42)) || Projectile.wet)
+            if (CEUtils.CheckSolidTile(Projectile.Center.getRectCentered(42, 42)) || Projectile.wet)
             {
                 InGround = true;
             }
@@ -240,7 +233,7 @@ namespace CalamityEntropy.Content.Items.Atbm
                     moveVect = Projectile.rotation.ToRotationVector2() * -MoveSpeed * 0.2f;
                 }
             }
-            if(backing && !b)
+            if (backing && !b)
             {
                 Projectile.velocity *= 0;
             }
@@ -249,12 +242,12 @@ namespace CalamityEntropy.Content.Items.Atbm
             {
                 moveVect *= (Utils.Remap(Projectile.Distance(pct), 12000, 20000, 1, 0));
             }
-            
-            if(InGround)
+
+            if (InGround)
             {
                 Projectile.velocity += moveVect;
                 Projectile.velocity *= 0.9f;
-                if(Active)
+                if (Active)
                 {
                     Dig();
                 }
@@ -264,7 +257,7 @@ namespace CalamityEntropy.Content.Items.Atbm
                 Projectile.velocity *= 0.996f;
                 Projectile.velocity += new Vector2(0, 0.46f);
             }
-            if(Projectile.velocity.Length() > 0.01f && !backing)
+            if (Projectile.velocity.Length() > 0.01f && !backing)
             {
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.1f, false);
             }
@@ -275,24 +268,24 @@ namespace CalamityEntropy.Content.Items.Atbm
             }
             SpawnLighting();
             counter += Projectile.velocity.Length() * (Active ? 2 : 1) * 0.025f + (Active ? 0.25f : 0);
-            while(counter > 1)
+            while (counter > 1)
             {
                 counter--;
                 Frame += (backing ? -1 : 1);
-                if(Frame > 4)
+                if (Frame > 4)
                 {
                     Frame = 0;
                 }
-                if(Frame < 0)
+                if (Frame < 0)
                 {
                     Frame = 4;
                 }
             }
             PickUpNearbyItems();
             List<Rectangle> CantGoThrough = new();
-            for(int i = -3; i <= 3; i++)
+            for (int i = -3; i <= 3; i++)
             {
-                for(int j = -3; j <= 3; j++)
+                for (int j = -3; j <= 3; j++)
                 {
                     Point p = (Projectile.Center / 16f + new Vector2(i, j)).ToPoint();
                     if (!CEUtils.inWorld(p.X, p.Y) || !Main.tile[p].IsTileSolid())
@@ -303,14 +296,15 @@ namespace CalamityEntropy.Content.Items.Atbm
                     }
                 }
             }
-            
+
             Rectangle myRect = (Projectile.Center + Projectile.velocity * 2).getRectCentered(Projectile.width, Projectile.height);
             foreach (Rectangle r in CantGoThrough)
             {
-                if(myRect.Intersects(r))
+                if (myRect.Intersects(r))
                 {
                     bool h = Math.Abs(r.Center.X - myRect.Center.X) > Math.Abs(r.Center.Y - myRect.Center.Y);
-                    if (h) {
+                    if (h)
+                    {
                         Projectile.velocity.Y = 0;
                     }
                     else
@@ -330,7 +324,7 @@ namespace CalamityEntropy.Content.Items.Atbm
         {
             foreach (Item i in Main.ActiveItems)
             {
-                if(Projectile.Distance(i.Center) < 68 && player.Distance(i.Center) > 256)
+                if (Projectile.Distance(i.Center) < 68 && player.Distance(i.Center) > 256)
                 {
                     i.Center = player.Center;
                 }
@@ -342,7 +336,7 @@ namespace CalamityEntropy.Content.Items.Atbm
             {
                 EParticle.NewParticle(new EMediumSmoke(), Projectile.Center + CEUtils.randomPointInCircle(12 * Projectile.scale), CEUtils.randomPointInCircle(12 * Projectile.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1f) * Projectile.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 70);
             }
-            foreach(var s in segs)
+            foreach (var s in segs)
             {
                 for (int i = 0; i < 12; i++)
                 {
@@ -389,13 +383,13 @@ namespace CalamityEntropy.Content.Items.Atbm
                 Main.PlayerRenderer.DrawPlayer(Main.Camera, player, mplayer.opos - new Vector2(player.width, player.height) / 2f, 0, Vector2.Zero);
                 mplayer.CanDraw = false;
             }
-            if(player.HeldItem.dye > 0)
+            if (player.HeldItem.dye > 0)
             {
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
                 GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(player.HeldItem.type), Projectile);
             }
-            
+
             Texture2D head = Projectile.GetTexture();
             Texture2D body = this.getTextureAlt("Seg");
             Texture2D body2 = this.getTextureAlt("Seg2");
@@ -416,7 +410,7 @@ namespace CalamityEntropy.Content.Items.Atbm
             Main.spriteBatch.Draw(CEUtils.getExtraTex("GlowCone"), Projectile.Center - Main.screenPosition, null, Color.White * 0.7f, Projectile.rotation, new Vector2(0, 250), new Vector2(1.4f, 0.8f), SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
 
-            
+
             return false;
         }
         public void SpawnLighting()

@@ -3,13 +3,11 @@ using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
-using CalamityMod;
 using CalamityMod.Items.Materials;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -30,7 +28,7 @@ namespace CalamityEntropy.Core.StatBloats
         #endregion
         internal static List<int> GiantList = [];
         #region 需要单独打表的武器
-        internal static Dictionary<int,ItemDamageData> DirectTweaks = [];
+        internal static Dictionary<int, ItemDamageData> DirectTweaks = [];
         #endregion
         public static bool ActiveStatBloats = false;
         public override void PostAddRecipes()
@@ -66,7 +64,7 @@ namespace CalamityEntropy.Core.StatBloats
                 if (HandleWeaponsAbyssalWyrm(recipe, item))
                     WeaponsAbyssalWyrm.Add(itemID);
             }
-            
+
             //这些也太少了，单独打表了
             Add<SolarStorm>(WeaponsAuric);
             Add<PrisonOfPermafrost>(WeaponsAuric);
@@ -78,7 +76,7 @@ namespace CalamityEntropy.Core.StatBloats
             WeaponsCruiser.AddRange(purpleWormItem.Where(id => !WeaponsCruiser.Contains(id)).Distinct());
             var voidTwinItem = CEUtils.FindLoots<NihilityActeriophage>(false);
             WeaponsVoidTwin.AddRange(voidTwinItem.Where(id => !WeaponsVoidTwin.Contains(id)).Distinct());
-            
+
 
             //最后处理：部分物品如果跟随全局数值膨胀过于爆破，或者你就是想一些武器直接精确修改膨胀后的数值，则按如下格式进行修改：
             //1 首先将跟随了全局膨胀的武器从对应的表单中移除。
@@ -110,7 +108,7 @@ namespace CalamityEntropy.Core.StatBloats
                                         .Concat(WeaponsAbyssalWyrm);
             GiantList = [.. giantList];
         }
-        
+
         #region 私有方法集合
         private static void Add<T>(List<int> list) where T : ModItem => list.Add(ModContent.ItemType<T>());
         private static void DictionaryAdd<T>(Dictionary<int, ItemDamageData> list, int modifyValue) where T : ModItem
@@ -277,13 +275,13 @@ namespace CalamityEntropy.Core.StatBloats
             if (!CrossModStatBloats.ActiveStatBloats)
                 return;
             //傻逼紫色虫子：五倍血量与2.5倍防御
-            if(npc.type == ModContent.NPCType<CruiserHead>() || npc.type == ModContent.NPCType<CruiserBody>() || npc.type == ModContent.NPCType<CruiserTail>())
+            if (npc.type == ModContent.NPCType<CruiserHead>() || npc.type == ModContent.NPCType<CruiserBody>() || npc.type == ModContent.NPCType<CruiserTail>())
             {
                 npc.lifeMax = (int)(npc.lifeMax * 5f);
                 npc.life = (int)(npc.life * 5f);
                 npc.defense = (int)(npc.defense * 2.5f);
             }
-            if(npc.type == ModContent.NPCType<NihilityActeriophage>() || npc.type == ModContent.NPCType<ChaoticCell>())
+            if (npc.type == ModContent.NPCType<NihilityActeriophage>() || npc.type == ModContent.NPCType<ChaoticCell>())
             {
                 npc.lifeMax = (int)(npc.lifeMax * 2.5f);
                 npc.life = (int)(npc.life * 2.5f);
@@ -339,9 +337,9 @@ namespace CalamityEntropy.Core.StatBloats
 
             if (CrossModStatBloats.WeaponsVoidTwin.Contains(entity.type))
                 entity.damage = (int)(entity.damage * PostProviWeaponsBoost);
-            
+
             //遍历这个字典实现批量调整。
-            foreach(var (itemID, ItemDamageData) in CrossModStatBloats.DirectTweaks)
+            foreach (var (itemID, ItemDamageData) in CrossModStatBloats.DirectTweaks)
             {
                 //而后修改这个伤害
                 if (entity.type == itemID)
@@ -402,7 +400,7 @@ namespace CalamityEntropy.Core.StatBloats
                 }
             }
             //如果可能，就往Tooltip的前一行进行添加
-            if(insertIndex != -1)
+            if (insertIndex != -1)
             {
                 tooltips.Insert(insertIndex, newLine);
                 tooltips.Insert(insertIndex, titleLine);
@@ -420,7 +418,7 @@ namespace CalamityEntropy.Core.StatBloats
         {
             IEnumerable<int> intList = [];
             foreach (var singleList in list)
-            intList = intList.Concat(singleList);
+                intList = intList.Concat(singleList);
             List<int> toList = [.. intList];
 
             if (toList.Contains(item.type))

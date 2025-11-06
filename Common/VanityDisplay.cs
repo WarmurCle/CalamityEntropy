@@ -1,15 +1,8 @@
-﻿using CalamityEntropy.Content.ArmorPrefixes;
-using CalamityEntropy.Content.Items.Vanity;
-using CalamityMod;
-using CalamityMod.Graphics.Renderers;
-using CalamityMod.Items.Accessories.Vanity;
-using CalamityMod.Items.Materials;
-using Microsoft.CodeAnalysis.Text;
+﻿using CalamityMod.Items.Accessories.Vanity;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.ModLoader;
 

@@ -1,13 +1,9 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Dusts;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -95,5 +91,5 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             return false;
         }
     }
-    
+
 }

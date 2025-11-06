@@ -37,7 +37,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -245,7 +244,7 @@ namespace CalamityEntropy.Common
                 SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/holyshield_shatter") { Volume = 0.6f }, Player.Center);
                 return false;
             }
-            if(!Player.HasCooldown(ScytheReviveCooldown.ID) && Player.HeldItem.ModItem is TlipocasScythe && TlipocasScythe.AllowRevive())
+            if (!Player.HasCooldown(ScytheReviveCooldown.ID) && Player.HeldItem.ModItem is TlipocasScythe && TlipocasScythe.AllowRevive())
             {
                 Player.AddCooldown(ScytheReviveCooldown.ID, 5 * 60 * 60);
                 Player.statLife = Player.statLifeMax2 / 2;
@@ -336,7 +335,7 @@ namespace CalamityEntropy.Common
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
             modifiers.SourceDamage *= (1 - meleeDamageReduce);
-            
+
         }
         public bool MariviniumSet = false;
         public void addEquip(string id, bool hasVisual = true)
@@ -939,7 +938,7 @@ namespace CalamityEntropy.Common
         }
         public List<Vector2> daPoints = new List<Vector2>();
         public Vector2 daLastP = Vector2.Zero;
-        
+
         public override void PostUpdateRunSpeeds()
         {
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<WyrmDash>()] > 0)
@@ -1003,9 +1002,9 @@ namespace CalamityEntropy.Common
         public float WingTimeMult = 1;
         public override void PostUpdateMiscEffects()
         {
-            if(LoreReworkSystem.Enabled<LoreHiveMind>())
+            if (LoreReworkSystem.Enabled<LoreHiveMind>())
             {
-                if(hitTimeCount < LEHiveCorrupt.TimeSec * 60)
+                if (hitTimeCount < LEHiveCorrupt.TimeSec * 60)
                 {
                     Player.GetDamage(DamageClass.Generic) += LEHiveCorrupt.DamageAddition;
                 }
@@ -1015,7 +1014,7 @@ namespace CalamityEntropy.Common
                 Player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += ShadowRune.WhipAtkSpeedAddition;
 
             }
-            if(SacrificeCard)
+            if (SacrificeCard)
             {
                 Player.lifeRegen -= (int)(Player.lifeRegen * 0.7f);
                 lifeRegenPerSec = (int)(lifeRegenPerSec * 0.4f);
@@ -1062,7 +1061,7 @@ namespace CalamityEntropy.Common
                 voidResistance += NihilityTwinLore.VoidRes;
                 Player.wingTimeMax = (int)(Player.wingTimeMax * (1 + NihilityTwinLore.MaxFlyTimeAddition));
             }
-            if(soulDisorder)
+            if (soulDisorder)
             {
                 HitCooldown -= 0.7f;
             }
@@ -1379,12 +1378,12 @@ namespace CalamityEntropy.Common
 
         public bool noCsDodge = false;
         private void EPHurtModifier2(ref Player.HurtInfo info)
-        { 
-            if(info.Damage > 10 && !info.Cancelled)
+        {
+            if (info.Damage > 10 && !info.Cancelled)
             {
-                if(LoreReworkSystem.Enabled<LoreWallofFlesh>())
+                if (LoreReworkSystem.Enabled<LoreWallofFlesh>())
                 {
-                    if(!Player.HasCooldown(DamageReduceCD.ID))
+                    if (!Player.HasCooldown(DamageReduceCD.ID))
                     {
                         Player.AddCooldown(DamageReduceCD.ID, LEWof.Cooldown * 60);
                         info.Damage = (int)(info.Damage * (1 - LEWof.DmgReduce));
@@ -1430,7 +1429,7 @@ namespace CalamityEntropy.Common
                         ((CommonExplotionFriendly)CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ebk.CauculateProjectileDamage(12), 580, DamageClass.Magic).ModProjectile).onHitAction = (target, hit, dmg) => { target.AddBuff<SulphuricPoisoning>(600); };
                     GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, new Color(10, 190, 10), 0.2f, 5.45f, 16));
                     GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, new Color(10, 190, 10), 0.2f, 5.8f, 16));
-                    for(int i = 0; i < 80; i++)
+                    for (int i = 0; i < 80; i++)
                     {
                         BasePRT particle = new PRT_Light(Player.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(1f, 10f)
                     , Main.rand.NextFloat(0.3f, 0.6f), new Color(0, 60, 0), 60, 0.2f);
@@ -1523,9 +1522,9 @@ namespace CalamityEntropy.Common
                 deusCoreAdd = info.Damage;
                 info.Damage = 0;
             }
-            if(setToOne && !info.Cancelled)
+            if (setToOne && !info.Cancelled)
             {
-                if(immune < 40)
+                if (immune < 40)
                 {
                     immune = 40;
                     Player.Heal(1);
@@ -1565,15 +1564,15 @@ namespace CalamityEntropy.Common
         {
             StealthRegenDelay--;
             DontDrawTime--;
-            
+
             /*for(float i = 0; i < 1; i += 0.05f)
             {
                 EParticle.spawnNew(new SlashDarkRed() { scw = 1f}, Player.Center - Player.velocity, Player.velocity * i, Color.Red, Main.rand.NextFloat(0.1f, 0.12f), 1, true, BlendState.AlphaBlend, Player.velocity.ToRotation(), 10);
             }*/
             bool addSRec = true;
-            if(BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSulphurousBMEffect>(Player))
+            if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSulphurousBMEffect>(Player))
             {
-                if(SulphurousBubbleRecharge >= 3600)
+                if (SulphurousBubbleRecharge >= 3600)
                 {
                     addSRec = false;
                     SulphurousBubble = true;
@@ -1583,7 +1582,7 @@ namespace CalamityEntropy.Common
             {
                 SulphurousBubble = false;
             }
-            if(addSRec)
+            if (addSRec)
             {
                 SulphurousBubbleRecharge++;
             }
@@ -2945,9 +2944,9 @@ namespace CalamityEntropy.Common
                     itemDrop = ModContent.ItemType<GreedCard>();
                 }
             }
-            if(Player.Calamity().ZoneSulphur)
+            if (Player.Calamity().ZoneSulphur)
             {
-                if(attempt.common && Main.rand.NextBool(10))
+                if (attempt.common && Main.rand.NextBool(10))
                 {
                     itemDrop = ModContent.ItemType<Voidstone>();
 

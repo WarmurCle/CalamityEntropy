@@ -1,6 +1,4 @@
-﻿using InnoVault.Trails;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -19,9 +17,9 @@ namespace CalamityEntropy.Content.Particles
             base.AI();
             sW = float.Lerp(sW, 0, ((float)this.Lifetime / TimeLeftMax) * 0.1f);
             this.Velocity *= 0.9f;
-            this.Opacity = (float)this.Lifetime / (TimeLeftMax/1.8f);
+            this.Opacity = (float)this.Lifetime / (TimeLeftMax / 1.8f);
             if (Opacity > 1) Opacity = 1;
-           
+
         }
         public float sW = 1;
         public float height = 0.4f;

@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
-using CalamityMod.Rarities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

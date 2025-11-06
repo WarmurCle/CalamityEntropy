@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.Achievements;
+﻿using Terraria.Achievements;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -17,7 +11,7 @@ namespace CalamityEntropy.Common
         {
         }
     }
-    
+
     public class BookmarkInsertAchievement : ModAchievement
     {
         public override bool IsLoadingEnabled(Mod mod)

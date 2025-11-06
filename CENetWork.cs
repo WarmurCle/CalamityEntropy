@@ -257,7 +257,7 @@ namespace CalamityEntropy
             }
             else if (messageType == CEMessageType.DestroyChest)
             {
-                if(Main.dedServ)
+                if (Main.dedServ)
                 {
                     Player player = reader.ReadInt32().ToPlayer();
                     int x = reader.ReadInt32();

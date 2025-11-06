@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (ModLoader.HasMod("CalamityOverhaul")) 
+            if (ModLoader.HasMod("CalamityOverhaul"))
             {
                 var line = new TooltipLine(Mod, "CWRGanged", CWRGanged.Value);
                 line.OverrideColor = VaultUtils.MultiStepColorLerp(Main.LocalPlayer.miscCounter % 300 / 300f

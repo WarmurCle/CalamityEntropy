@@ -1,7 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Donator;
-using CalamityEntropy.Content.Projectiles.Pets.DoG;
-using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
+﻿using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Microsoft.CodeAnalysis;
@@ -10,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
@@ -77,7 +73,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if(player.HeldItem.type > ItemID.None)
+            if (player.HeldItem.type > ItemID.None)
             {
                 CalculateStatsForPlayer(player);
                 ApplyStatModify(player);
@@ -122,7 +118,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
                 tt = tt.Replace("[8]", NegCheck(mp.WingTime.ToPercent()));
                 tt = tt.Replace("[9]", NegCheckI(mp.Crit));
                 tt = tt.Replace("[ITEMNAME]", Main.LocalPlayer.HeldItem.Name);
-                tooltips.Add(new TooltipLine(Mod, "RID Attributes", tt) {OverrideColor = Color.Yellow});
+                tooltips.Add(new TooltipLine(Mod, "RID Attributes", tt) { OverrideColor = Color.Yellow });
             }
         }
         public class FloatListGenerator
@@ -138,7 +134,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
                     targetSum = maxPossibleSum;
 
                 UnifiedRandom random = new UnifiedRandom(seed);
-                
+
                 List<float> result = new List<float>();
 
                 for (int i = 0; i < length; i++)

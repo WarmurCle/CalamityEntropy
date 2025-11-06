@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common.DrawLayers
@@ -44,7 +43,7 @@ namespace CalamityEntropy.Common.DrawLayers
             var _drawInfo = drawInfo;
             void drawLine(Vector2 start)
             {
-                Vector2 end = start + new Vector2((start.X - origin.X)+ player.GetModPlayer<BigShotWingPlayer>().StringsOffset, -1000);
+                Vector2 end = start + new Vector2((start.X - origin.X) + player.GetModPlayer<BigShotWingPlayer>().StringsOffset, -1000);
                 _drawInfo.DrawDataCache.Add(new DrawData(CEUtils.getExtraTex("jl"), start - Main.screenPosition, null, new Color(60, 255, 60) * 0.6f, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(CEUtils.getDistance(start, end) / 1024f, 2), SpriteEffects.None));
             }
             drawLine(origin + new Vector2(50, -22).RotatedBy(rRot) * scale);

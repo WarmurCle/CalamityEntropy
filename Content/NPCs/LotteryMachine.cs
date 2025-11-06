@@ -161,7 +161,7 @@ namespace CalamityEntropy.Content.NPCs
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            if(NPC.life <= 0)
+            if (NPC.life <= 0)
                 EParticle.NewParticle(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 4, 1, true, BlendState.AlphaBlend);
         }
         public override void OnSpawn(IEntitySource source)

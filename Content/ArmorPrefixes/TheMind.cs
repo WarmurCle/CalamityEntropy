@@ -1,6 +1,4 @@
-﻿using CalamityMod;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria;
 
 namespace CalamityEntropy.Content.ArmorPrefixes
 {

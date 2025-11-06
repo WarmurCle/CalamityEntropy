@@ -1,6 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Buffs
 {

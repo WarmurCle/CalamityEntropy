@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Accessories;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.DataStructures;
