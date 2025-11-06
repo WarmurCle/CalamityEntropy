@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles
                     trail = new TrailParticle() { maxLength = 16 };
                     EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.AliceBlue * 0.6f, Projectile.scale * 0.6f * (Projectile.Calamity().stealthStrike ? 2 : 1), 1, true, BlendState.Additive);
                 }
-                trail.Lifetime = 30;
+                trail.Lifetime = 24;
                 trail.AddPoint(Projectile.Center + Projectile.velocity);
             }
             if (Projectile.Calamity().stealthStrike)
@@ -65,7 +65,6 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            trail?.AddPoint(Projectile.Center);
             for (int i = 0; i < 6; i++)
             {
                 EParticle.NewParticle(new Particles.RuneParticle(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, 0.5f, 1, true, BlendState.AlphaBlend, 0);
