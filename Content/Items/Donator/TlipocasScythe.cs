@@ -13,6 +13,7 @@ using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs.Perforator;
 using CalamityMod.Particles;
+using CalamityMod.Projectiles.Magic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
@@ -462,6 +463,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (AllowDash() && player.controlUp && !player.HasCooldown(TlipocasScytheSlashCooldown.ID))
             {
+                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<TlipocasScytheHeld>(), DashUpgrade() ? damage * 4 : damage, knockback, player.whoAmI, swing == 0 ? 1 : -1, -1);
                 player.AddCooldown(TlipocasScytheSlashCooldown.ID, 7 * 60);
                 int p = Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 2, knockback, player.whoAmI);
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
@@ -788,10 +790,22 @@ namespace CalamityEntropy.Content.Items.Donator
                     counter = (int)(0.1f * player.itemAnimationMax * Projectile.MaxUpdates + 1);
                 }
             }
-            if(Projectile.Calamity().stealthStrike)
+            if (Projectile.ai[1] == -1)
+            {
+                if (progress < 0.3f)
+                {
+                    counter = (int)(0.3f * player.itemAnimationMax * Projectile.MaxUpdates + 1);
+                }
+            }
+            if (Projectile.Calamity().stealthStrike)
             {
                 ySc = 0.5f;
                 ProjScale *= 2f;
+            }
+            if (Projectile.ai[1] == -1)
+            {
+                ySc = 0.12f;
+                ProjScale = 4.4f;
             }
             float r = 3.6f;
             float r1 = 0.5f;
@@ -889,17 +903,25 @@ namespace CalamityEntropy.Content.Items.Donator
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
 
-            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * ProjScale * scale, effect);
+            TlipocasScytheHeld.shader ??= ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/RedTrans", AssetRequestMode.ImmediateLoad).Value;
+            if (Projectile.GetOwner().HasBuff<VoidEmpowerment>())
+            {
+                Main.spriteBatch.EnterShaderRegion(BlendState.AlphaBlend, shader);
+                shader.CurrentTechnique.Passes[0].Apply();
+            }
 
-   
+            Main.spriteBatch.Draw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * ProjScale * scale, effect, 0);
+
+
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
-        
+        public static Effect shader = null;    
         public float alpha = 1;
         public float ProjScale = 1;
         public float scale = 1;
     }
+
     public class TlipocasScytheThrow : ModProjectile
     {
         public override string Texture => "CalamityEntropy/Content/Items/Donator/TlipocasScythe";
@@ -1135,8 +1157,14 @@ namespace CalamityEntropy.Content.Items.Donator
             Vector2 origin = tex.Size() / 2f;
             float rot = Projectile.rotation;
 
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * ProjScale * scale, SpriteEffects.None);
-
+            TlipocasScytheHeld.shader ??= ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/RedTrans", AssetRequestMode.ImmediateLoad).Value;
+            if (Projectile.GetOwner().HasBuff<VoidEmpowerment>())
+            {
+                Main.spriteBatch.EnterShaderRegion(BlendState.AlphaBlend, TlipocasScytheHeld.shader);
+                TlipocasScytheHeld.shader.CurrentTechnique.Passes[0].Apply();
+            }
+            
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * ProjScale * scale, SpriteEffects.None, 0);
 
             Main.spriteBatch.ExitShaderRegion();
             return false;
