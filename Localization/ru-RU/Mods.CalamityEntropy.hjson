@@ -4484,6 +4484,16 @@ LoreCorruptionDesc: Даёт {1}% к снижению получаемого у�
 LoreBrainofCthulhuDesc: +{1}% критического удара, но -{2}% Урона
 LoreQueenBeeDesc: +{2}% Урона, но -{1}% критического удара
 LuminarisLoreDesc: +{1}% Максимальное время полета крыльев
+// LoreHiveMindDesc: In {1} sec after hit, +{2}% Damage
+LorePerforatorsDesc: "[0]% шанс восстановить [1] здоровья при получении урона"
+LoreEaterofWorldsDesc: Иммунитет к пролятому огню
+// LoreSkeletronDesc: Ammo that stacks more than {1} have {2} probability not be consumed
+// LoreSlimeGodDesc: Increase the jumping height slightly
+// LoreUnderworldDesc: You will not be harmed for the first {1} seconds after entering lava
+// LoreWallofFleshDesc: Reduces incoming damage by {1}%, cooldown {2} seconds
+// LoreBloodMoonDesc: Enhance night vision capability
+// LoreQueenSlimeDesc: +{1}% Falling Speed
+// LoreArchmageDesc: Increase the speed of Cold debuff decay
 
 DraedonDialogs: {
 	Void: {
@@ -4509,6 +4519,7 @@ KilledByBloodBoiling: " кровь закипает"
 BloodBoiling: Кипящая кровь
 BloodBoilingDescr: Постоянное использование предметов увеличивает скорость атаки, но наносит постепенный урон.
 PrefixHeavyDesc: +10% к скорости падения
+// DamageReduceCD: Damage Reduce Cooldown
 
 InfernumIntros: {
 	NihilityTwin:
@@ -4549,8 +4560,6 @@ SolarBarInfo:
 	После попадания по цели оружием Разбойника увеличивается солнечная энергия
 	Когда заряд достигает максимума, атака выпускает несколько самонаводящихся Солнечных Стрел
 	'''
-LorePerforatorsDesc: "[0]% шанс восстановить [1] здоровья при получении урона"
-LoreEaterofWorldsDesc: Иммунитет к пролятому огню
 RPDonorName: 冷级
 Acropolis: ""
 OblivionThretherCooldown: Откат рывка Жнеца Забвения

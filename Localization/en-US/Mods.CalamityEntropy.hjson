@@ -4459,7 +4459,7 @@ LoreCrabulonDesc: Obtain mushy for {1} seconds after injury
 LoreEyeofCthulhuDesc: Reduce dash cooldown by {1}%
 LoreCorruptionDesc: Gain {1}% Damage Reduce
 LoreBrainofCthulhuDesc: Immune to bleeding
-LoreQueenBeeDesc: +{2}%Damage, but -{1}% Crit
+LoreQueenBeeDesc: +{1}% Damage, but -{2}% Crit
 LuminarisLoreDesc: +{1}% Max Wing Time
 LoreHiveMindDesc: In {1} sec after hit, +{2}% Damage
 LorePerforatorsDesc: "{1}% Chance to heal {2} after hitted"
@@ -4497,6 +4497,7 @@ BloodBoiling: Boiling Blood
 BloodBoilingDescr: Continuously using items increases attack speed, but it will cause sustained damage to yourself
 PrefixHeavyDesc: +10% Fall Speed
 DamageReduceCD: Damage Reduce Cooldown
+
 InfernumIntros: {
 	NihilityTwin:
 		'''
@@ -4536,7 +4537,6 @@ SolarBarInfo:
 	After hitting the target with Rogue weapons, there is an increase in solar energy
 	When fully charged, the attack will release some tracking Solar Arrows
 	'''
-
 RPDonorName: 冷级
 Acropolis: ""
 OblivionThretherCooldown: Oblivion Threther Dash Cooldown
