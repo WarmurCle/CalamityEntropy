@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 540;
+            Item.damage = 560;
             Item.crit = 10;
             Item.DamageType = DamageClass.Melee;
             Item.width = 60;

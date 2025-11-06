@@ -21,8 +21,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 18;
+            Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
