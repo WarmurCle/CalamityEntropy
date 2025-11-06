@@ -129,7 +129,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 }
                 if (flag)
                 {
-                    Main.NewText(hr.dmgMult);
                     hr.dmgMult *= CruiserHead.ProjDamageReduce;
                     modifiers.FinalDamage *= hr.dmgMult;
                     if (!projectile.minion)
