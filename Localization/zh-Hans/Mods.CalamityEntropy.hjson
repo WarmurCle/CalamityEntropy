@@ -4715,6 +4715,9 @@ LoreSlimeGodDesc: 增加些许跳跃高度
 LoreUnderworldDesc: 进入岩浆的前{1}秒不会受到伤害
 LoreWallofFleshDesc: 将受到的伤害减伤{1}%，冷却时间{2}秒
 LoreBloodMoonDesc: 提升夜视能力
+LoreQueenSlimeDesc: +{1}%下落速度
+LoreArchmageDesc: 增加冷系减益流逝速度
+
 DraedonDialogs: {
 	Void: {
 		Inquiry: 虚空

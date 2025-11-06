@@ -4469,6 +4469,8 @@ LoreSlimeGodDesc: Increase the jumping height slightly
 LoreUnderworldDesc: You will not be harmed for the first {1} seconds after entering lava
 LoreWallofFleshDesc: Reduces incoming damage by {1}%, cooldown {2} seconds
 LoreBloodMoonDesc: Enhance night vision capability
+LoreQueenSlimeDesc: +{1}% Falling Speed
+LoreArchmageDesc: Increase the speed of Cold debuff decay
 
 DraedonDialogs: {
 	Void: {
