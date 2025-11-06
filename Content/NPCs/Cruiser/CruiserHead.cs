@@ -504,7 +504,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             for(int i = hitRecords.Count - 1; i >= 0; i--)
             {
-                hitRecords[i].dmgMult = float.Lerp(hitRecords[i].dmgMult, 1, 0.06f);
+                hitRecords[i].dmgMult = float.Lerp(hitRecords[i].dmgMult, 1, 0.1f);
                 if(hitRecords[i].ProjID < 0 || !hitRecords[i].ProjID.ToProj().active)
                 {
                     hitRecords.RemoveAt(i);
