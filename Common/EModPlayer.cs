@@ -1050,9 +1050,9 @@ namespace CalamityEntropy.Common
             {
                 foreach (var lore in enabledLoreItems)
                 {
-                    if (LoreReworkSystem.loreEffects.ContainsKey(lore))
+                    if (LoreReworkSystem.loreEffects.TryGetValue(lore, out var lef))
                     {
-                        LoreReworkSystem.loreEffects[lore].UpdateEffects(Player);
+                        lef.UpdateEffects(Player);
                     }
                 }
             }
