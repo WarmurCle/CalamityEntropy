@@ -726,7 +726,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 Vector2 sparkVelocity2 = (target.Center - Projectile.Center).normalize().RotatedByRandom(p * 0.4f) * Main.rand.NextFloat(6, 20 * (2 - p)) * (1 + TlipocasScythe.GetLevel() * 0.1f);
                 int sparkLifetime2 = (int)((2 - p) * 16);
                 float sparkScale2 = 0.6f + (1 - p);
-                sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.06f);
+                sparkScale2 *= (1 + TlipocasScythe.GetLevel() * 0.06f);
                 Color sparkColor2 = Color.Lerp(Color.DarkRed, Color.IndianRed, p);
                 if (Projectile.GetOwner().HasBuff<VoidEmpowerment>())
                 {
@@ -986,7 +986,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 Vector2 sparkVelocity2 = CEUtils.randomRot().ToRotationVector2().RotatedByRandom(p * 0.4f) * Main.rand.NextFloat(6, 20 * (2 - p)) * (1 + TlipocasScythe.GetLevel() * 0.1f);
                 int sparkLifetime2 = (int)((2 - p) * 16);
                 float sparkScale2 = 0.6f + (1 - p);
-                sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.06f);
+                sparkScale2 *= (1 + TlipocasScythe.GetLevel() * 0.06f);
                 Color sparkColor2 = Color.Lerp(Color.DarkRed, Color.IndianRed, p);
                 if (Projectile.GetOwner().HasBuff<VoidEmpowerment>())
                 {
