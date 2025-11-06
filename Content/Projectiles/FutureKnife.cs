@@ -85,6 +85,11 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
         }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
+        }
     }
 
 
