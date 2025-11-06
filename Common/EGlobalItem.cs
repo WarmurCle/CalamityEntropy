@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.ArmorPrefixes;
+﻿using CalamityEntropy.Common.LoreReworks;
+using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -19,6 +20,7 @@ using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Items.Fishing.SulphurCatches;
+using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.TreasureBags;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
@@ -77,7 +79,17 @@ namespace CalamityEntropy.Common
         public bool HasCustomStrokeColor = false;
         public List<S3Particle> particles1 = new List<S3Particle>();
         public float[] wispColor = null;
-
+        public override bool CanBeConsumedAsAmmo(Item ammo, Item weapon, Player player)
+        {
+            if(LoreReworkSystem.Enabled<LoreSkeletron>())
+            {
+                if(ammo.stack >= LESkeletron.AmountLimit && Main.rand.NextFloat() < LESkeletron.Perc)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public readonly static Dictionary<int, int> GemItemIDToTileIDMap = new() {
             {ItemID.Ruby, TileID.Ruby },
             {ItemID.Sapphire, TileID.Sapphire },

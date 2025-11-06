@@ -4707,7 +4707,14 @@ LoreCorruptionDesc: 所受伤害减少{1}%
 LoreBrainofCthulhuDesc: 使你免疫流血减益
 LoreQueenBeeDesc: +{2}%伤害, 但是-{1}%暴击率
 LuminarisLoreDesc: +{1}%最大飞行时间
-
+LorePerforatorsDesc: 受伤后有{1}%的概率回复{2}点血量
+LoreEaterofWorldsDesc: 使你免疫诅咒烈焰减益
+LoreHiveMindDesc: 在受伤后的{1}秒内，增加{2}%伤害
+LoreSkeletronDesc: 堆叠数量大于等于{1}的弹药有{2}%的概率不被消耗
+LoreSlimeGodDesc: 增加些许跳跃高度
+LoreUnderworldDesc: 进入岩浆的前{1}秒不会受到伤害
+LoreWallofFleshDesc: 将受到的伤害减伤{1}%，冷却时间{2}秒
+LoreBloodMoonDesc: 提升夜视能力
 DraedonDialogs: {
 	Void: {
 		Inquiry: 虚空
@@ -4725,7 +4732,7 @@ DraedonDialogs: {
 			'''
 	}
 }
-
+DamageReduceCD: 减伤冷却
 SlotInfo2: 存放物品
 LightModeTip: 警告：颜色以外的照明模式会导致灾熵的部分射弹和敌怪不显示，最好使用颜色照明
 KilledByBloodBoiling: 的血液沸腾了
@@ -4772,8 +4779,7 @@ SolarBarInfo:
 	使用盗贼武器击中目标后增长
 	充满时攻击会触发潜伏攻击并额外发射一些追踪的耀阳矢
 	'''
-LorePerforatorsDesc: 受伤后有[0]%的概率回复[1]点血量
-LoreEaterofWorldsDesc: 使你免疫诅咒烈焰减益
+
 RPDonorName: 冷级
 Acropolis: 阿萨福勒量产的攻击型机甲，曾被用于大规模战争
 OblivionThretherCooldown: 虚漩巡锯突进冷却

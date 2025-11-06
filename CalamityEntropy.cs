@@ -37,6 +37,7 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Events;
+using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Pets;
 using CalamityMod.Items.Placeables;
@@ -954,8 +955,16 @@ namespace CalamityEntropy
 
         public static float BrillianceCardValue = 1.5f;
         public static float OracleDeckBrilValue = 2f;
-        public static float brillianceLightMulti { get { if (Main.gameMenu) { return 1; } if (Main.LocalPlayer.Entropy().oracleDeck) { return OracleDeckBrilValue; } else if (BrilEnable) { return BrillianceCardValue; } else { return 1; } } }
-
+        public static float brillianceLightMulti { get
+            {
+                if (Main.gameMenu) { return 1; }
+                float Value = 1;
+                if (Main.LocalPlayer.Entropy().oracleDeck) { Value = OracleDeckBrilValue; }
+                else if (BrilEnable) { Value = BrillianceCardValue; }
+                if (LoreReworkSystem.Enabled<LoreBloodMoon>())
+                    Value += 0.3f;
+                return Value;
+            }
         private void al_vv(On_Lighting.orig_AddLight_Vector2_Vector3 orig, Vector2 position, Vector3 rgb)
         {
             orig(position, rgb * brillianceLightMulti);

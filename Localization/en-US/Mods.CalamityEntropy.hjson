@@ -4461,6 +4461,14 @@ LoreCorruptionDesc: Gain {1}% Damage Reduce
 LoreBrainofCthulhuDesc: Immune to bleeding
 LoreQueenBeeDesc: +{2}%Damage, but -{1}% Crit
 LuminarisLoreDesc: +{1}% Max Wing Time
+LoreHiveMindDesc: In {1} sec after hit, +{2}% Damage
+LorePerforatorsDesc: "{1}% Chance to heal {2} after hitted"
+LoreEaterofWorldsDesc: Immune to Cursed Inferno
+LoreSkeletronDesc: Ammo that stacks more than {1} have {2} probability not be consumed
+LoreSlimeGodDesc: Increase the jumping height slightly
+LoreUnderworldDesc: You will not be harmed for the first {1} seconds after entering lava
+LoreWallofFleshDesc: Reduces incoming damage by {1}%, cooldown {2} seconds
+LoreBloodMoonDesc: Enhance night vision capability
 
 DraedonDialogs: {
 	Void: {
@@ -4486,7 +4494,7 @@ KilledByBloodBoiling: "'s blood is boiling"
 BloodBoiling: Boiling Blood
 BloodBoilingDescr: Continuously using items increases attack speed, but it will cause sustained damage to yourself
 PrefixHeavyDesc: +10% Fall Speed
-
+DamageReduceCD: Damage Reduce Cooldown
 InfernumIntros: {
 	NihilityTwin:
 		'''
@@ -4526,8 +4534,7 @@ SolarBarInfo:
 	After hitting the target with Rogue weapons, there is an increase in solar energy
 	When fully charged, the attack will release some tracking Solar Arrows
 	'''
-LorePerforatorsDesc: "[0]% Chance to heal [1] after hitted"
-LoreEaterofWorldsDesc: Immune to Cursed Inferno
+
 RPDonorName: 冷级
 Acropolis: ""
 OblivionThretherCooldown: Oblivion Threther Dash Cooldown

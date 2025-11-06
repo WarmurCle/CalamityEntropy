@@ -1003,6 +1003,13 @@ namespace CalamityEntropy.Common
         public float WingTimeMult = 1;
         public override void PostUpdateMiscEffects()
         {
+            if(LoreReworkSystem.Enabled<LoreHiveMind>())
+            {
+                if(hitTimeCount < LEHiveCorrupt.TimeSec * 60)
+                {
+                    Player.GetDamage(DamageClass.Generic) += LEHiveCorrupt.DamageAddition;
+                }
+            }
             if (shadowRune)
             {
                 Player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += ShadowRune.WhipAtkSpeedAddition;
@@ -1254,6 +1261,7 @@ namespace CalamityEntropy.Common
             deusCoreAdd = 0;
 
             modifiers.ModifyHurtInfo += EPHurtModifier;
+            modifiers.ModifyHurtInfo += EPHurtModifier2;
             if (soulDisorder)
             {
                 modifiers.SourceDamage *= 1.25f;
@@ -1370,6 +1378,20 @@ namespace CalamityEntropy.Common
         }
 
         public bool noCsDodge = false;
+        private void EPHurtModifier2(ref Player.HurtInfo info)
+        { 
+            if(info.Damage > 10 && !info.Cancelled)
+            {
+                if(LoreReworkSystem.Enabled<LoreWallofFlesh>())
+                {
+                    if(!Player.HasCooldown(DamageReduceCD.ID))
+                    {
+                        Player.AddCooldown(DamageReduceCD.ID, LEWof.Cooldown * 60);
+                        info.Damage = (int)(info.Damage * (1 - LEWof.DmgReduce));
+                    }
+                }
+            }
+        }
         private void EPHurtModifier(ref Player.HurtInfo info)
         {
             noCsDodge = false;
