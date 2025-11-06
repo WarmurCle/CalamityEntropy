@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.Items.Pets
             if(swarms == null)
             {
                 swarms = new List<Swarm>();
-                for(int i = 0; i < 24; i++)
+                for(int i = 0; i < 16; i++)
                 {
                     swarms.Add(new Swarm() { Position = Projectile.Center + CEUtils.randomPointInCircle(8)});
                 }
