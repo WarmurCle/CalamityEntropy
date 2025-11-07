@@ -15,6 +15,7 @@ namespace CalamityEntropy.Assets.Register
         public static Effect FlowWithAShader;
         public static Effect PolarDistortShader;
         public static Effect DisplacemenShader;
+        public static Effect DisplacemenShaderP;
         public override void Load()
         {
             if (Main.dedServ)
@@ -23,9 +24,11 @@ namespace CalamityEntropy.Assets.Register
             FlowWithAShader = LoadShader(nameof(FlowWithAShader));
             PolarDistortShader = LoadShader(nameof(PolarDistortShader));
             DisplacemenShader = LoadShader(nameof(DisplacemenShader));
+            DisplacemenShaderP = LoadShader(nameof(DisplacemenShaderP));
             RegisShader(FlowWithAShader, "EntropyFlowWithAShader", "FlowWithAShader");
             RegisShader(PolarDistortShader, "EntropyPolarDistortShader", "PolarDistortShader");
             RegisShader(DisplacemenShader, "EntropyDisplacementShader", "EntropyDisplacementShader");
+            RegisShader(DisplacemenShaderP, "EntropyDisplacement2Shader", "EntropyDisplacement2Shader");
         }
         public override void Unload()
         {

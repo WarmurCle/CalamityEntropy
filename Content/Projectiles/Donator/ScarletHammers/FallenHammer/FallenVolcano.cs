@@ -165,11 +165,15 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
         }
         private void PickTagColor(out Color baseColor, out Color targetColor)
         {
+            string name = Owner.name.ToLower();
+            if (name.Contains("polaris"))
+                name = "polaris";
             switch (Owner.name.ToLower())
             {
                 //绯红书架 - 红
                 case "scarletshelf":
                 case "truescarlet":
+                case "polaris":
                 case "fakeaqua":
                     baseColor = Color.LightCoral;
                     targetColor = Color.Red;
@@ -274,14 +278,27 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
         private void DrawPillar(Texture2D tex, Vector2 scale, Rectangle cutSource, Vector2 ori)
         {
             PickTagColor(out Color baseColor, out Color tarColor);
-            EntropyShaderHandler.DisplacemenShader.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly * 45);
-            EntropyShaderHandler.DisplacemenShader.Parameters["uIntensity"].SetValue(0.20f);
-            EntropyShaderHandler.DisplacemenShader.Parameters["uBaseColor"].SetValue(baseColor.ToVector4() * 0.3f);
-            EntropyShaderHandler.DisplacemenShader.Parameters["uTargetColor"].SetValue(tarColor.ToVector4() * 0.9f);
-            EntropyShaderHandler.DisplacemenShader.Parameters["uNoiseScale"].SetValue(new Vector2(8f, 5f));
-            EntropyShaderHandler.DisplacemenShader.Parameters["UseColor"].SetValue(true);
-            EntropyShaderHandler.DisplacemenShader.Parameters["uFadeRange"].SetValue(0.6f);
-            EntropyShaderHandler.DisplacemenShader.CurrentTechnique.Passes[0].Apply();
+            Effect shader = EntropyShaderHandler.DisplacemenShader;
+            if (Owner.name.ToLower().Contains("polaris"))
+            {
+                shader = EntropyShaderHandler.DisplacemenShaderP;
+                shader.Parameters["uBaseColor1"].SetValue(new Color(70, 8, 255).ToVector4() * 0.3f);
+                shader.Parameters["uTargetColor1"].SetValue(new Color(120, 60, 255).ToVector4() * 0.9f);
+                shader.Parameters["uBaseColor2"].SetValue(Color.Crimson.ToVector4() * 0.3f);
+                shader.Parameters["uTargetColor2"].SetValue(new Color(255, 150, 150).ToVector4() * 0.9f);
+            }
+            else
+            {
+                shader.Parameters["uBaseColor"].SetValue(baseColor.ToVector4() * 0.3f);
+                shader.Parameters["uTargetColor"].SetValue(tarColor.ToVector4() * 0.9f);
+            }
+            shader.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly * 45);
+            shader.Parameters["uIntensity"].SetValue(0.20f);
+            
+            shader.Parameters["uNoiseScale"].SetValue(new Vector2(8f, 5f));
+            shader.Parameters["UseColor"].SetValue(true);
+            shader.Parameters["uFadeRange"].SetValue(0.6f);
+            shader.CurrentTechnique.Passes[0].Apply();
             Main.graphics.GraphicsDevice.Textures[1] = TextureRegister.Noise_Misc2.Value;
 
             //叠图4次以增强层次感 

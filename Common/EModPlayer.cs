@@ -634,7 +634,7 @@ namespace CalamityEntropy.Common
                 //锤子常驻10潜伏值，这个效果不再有任何条件制约
                 calPlayer.rogueStealthMax += BaseHammerItem.BaseMaxStealth;
                 //手持火锤与最终吹提供减半潜伏值效果
-                if (heldType == ModContent.ItemType<GrandHammer>() || heldType == ModContent.ItemType<FallenHammer>())
+                if (heldType == ModContent.ItemType<FallenHammer>()) // heldType == ModContent.ItemType<GrandHammer>()
                     calPlayer.stealthStrikeHalfCost = true;
                 ShouldHandleHammerStealth = true;
             }
