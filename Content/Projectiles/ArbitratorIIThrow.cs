@@ -23,8 +23,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = CEUtils.RogueDC;
-            Projectile.width = 46;
-            Projectile.height = 46;
+            Projectile.width = 70;
+            Projectile.height = 70;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -208,6 +208,21 @@ namespace CalamityEntropy.Content.Projectiles
                         GeneralParticleHandler.SpawnParticle(spark);
                     }
                 }
+                if (!Projectile.Calamity().stealthStrike)
+                {
+                    for (int j = 0; j < 32; j++)
+                    {
+                        Projectile.localNPCImmunity[target.whoAmI] = 0;
+                        AltSparkParticle spark = new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(12), false, 60, Main.rand.NextFloat(1.4f, 2.4f), Color.Black);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                    for (int j = 0; j < 32; j++)
+                    {
+                        Projectile.localNPCImmunity[target.whoAmI] = 0;
+                        AltSparkParticle spark = new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(12), false, 60, Main.rand.NextFloat(1.4f, 2.4f), Color.OrangeRed);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                    }
+                }
             }
             if (exp)
             {
@@ -221,23 +236,36 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     if (hitc == 1)
                     {
+                        Projectile.Resize(600, 600);
+                        Projectile.timeLeft = 2;
                         SoundEngine.PlaySound(in SoundID.NPCDeath56, Projectile.Center);
                         for (int i = 0; i < 4; i++)
                         {
-                            for (int j = 0; j < 32; j++)
+                            for (int j = 0; j < 20; j++)
                             {
                                 Projectile.localNPCImmunity[target.whoAmI] = 0;
                                 AltSparkParticle spark = new AltSparkParticle(target.Center + new Vector2(Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(-4, 4)), new Vector2(Main.rand.NextFloat(0, 16)).RotatedBy(MathHelper.ToRadians(i * 90)), false, 60, Main.rand.NextFloat(1, 1.4f), Color.Black);
                                 GeneralParticleHandler.SpawnParticle(spark);
                                 AltSparkParticle spark2 = new AltSparkParticle(target.Center + new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6)), new Vector2(Main.rand.NextFloat(0, 16)).RotatedBy(MathHelper.ToRadians(i * 90)), false, 60, Main.rand.NextFloat(1, 1.4f), Color.OrangeRed);
                                 GeneralParticleHandler.SpawnParticle(spark2);
-                                Projectile.Resize(600, 600);
-                                Projectile.timeLeft = 2;
+                                
                             }
+                        }
+                        for (int j = 0; j < 46; j++)
+                        {
+                            Projectile.localNPCImmunity[target.whoAmI] = 0;
+                            AltSparkParticle spark = new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(12), false, 60, Main.rand.NextFloat(1.4f, 2.4f), Color.Black);
+                            GeneralParticleHandler.SpawnParticle(spark);
+                        }
+                        for (int j = 0; j < 46; j++)
+                        {
+                            Projectile.localNPCImmunity[target.whoAmI] = 0;
+                            AltSparkParticle spark = new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(12), false, 60, Main.rand.NextFloat(1.4f, 2.4f), Color.OrangeRed);
+                            GeneralParticleHandler.SpawnParticle(spark);
                         }
                         for (int i = 0; i < 64; i++)
                         {
-                            EclipseMetaball.SpawnParticle(target.Center, CEUtils.randomPointInCircle(16), Main.rand.NextFloat(30f, 64f));
+                            EclipseMetaball.SpawnParticle(target.Center, CEUtils.randomPointInCircle(21), Main.rand.NextFloat(30f, 64f));
                         }
                         exp = false;
                     }

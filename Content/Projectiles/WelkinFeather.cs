@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityMod;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -28,6 +30,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public bool setv = true;
         bool c = true;
+        public float homingStrength = 0;
+        public bool flag = true;
         public NPC homingTarget { get { if (Projectile.ai[1] < 0) { return null; } else { return ((int)(Projectile.ai[1])).ToNPC(); } } }
         public override void AI()
         {
@@ -36,21 +40,56 @@ namespace CalamityEntropy.Content.Projectiles
                 c = false;
                 Projectile.ai[1] = -1;
             }
+            
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (homingTarget != null && homingTarget.active)
             {
+                for (float i = 0; i <= 1; i += 0.5f)
+                {
+                    Vector2 velocity1 = CEUtils.randomPointInCircle(1.6f);
+                    Particle sparkle1 = new CritSpark(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 0.6f, velocity1, Color.White * 0.6f, Color.SkyBlue, 0.26f, 12, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                    GeneralParticleHandler.SpawnParticle(sparkle1);
+                }
+                if (flag)
+                {
+                    flag = false;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        Vector2 velocity = ((MathHelper.TwoPi * i / 8) - (MathHelper.Pi / 16f)).ToRotationVector2() * 6f;
+                        Particle sparkle = new CritSpark(Projectile.Center, velocity, Color.White, Color.SkyBlue, 0.8f, 30, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                        GeneralParticleHandler.SpawnParticle(sparkle);
+                    }
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() * 3, 0).RotatedBy((homingTarget.Center - Projectile.Center).ToRotation());
+                }
                 NPC target = homingTarget;
-                Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.34f;
-                Projectile.velocity *= 0.98f;
+                if(homingStrength < 1)
+                { homingStrength += 0.01f; }
+                Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 2f * homingStrength;
+                Projectile.velocity *= 1 - homingStrength * 0.1f;
 
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(1.6f, 1.9f), target.Center, 20, 0.3f);
+            float r = Main.GameUpdateCount * 0.064f;
+            for (int i = 0; i < 6; i++)
+            {
+                Vector2 velocity = ((MathHelper.TwoPi * i / 6) - (MathHelper.Pi / 16f) + r).ToRotationVector2() * 10f;
+                Particle sparkle = new CritSpark(target.Center, velocity, Color.White, Color.SkyBlue, 0.6f, 20, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                GeneralParticleHandler.SpawnParticle(sparkle);
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D t = TextureAssets.Projectile[Projectile.type].Value;
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, t.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-
+            if(homingTarget != null && homingTarget.active)
+            {
+                t = this.getTextureAlt("Outline");
+                Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.AliceBlue, Projectile.rotation, t.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+            }
             return false;
         }
     }

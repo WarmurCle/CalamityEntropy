@@ -1,12 +1,16 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityMod;
+using CalamityMod.Graphics.Primitives;
 using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,6 +24,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
         }
         public override void SetDefaults()
         {
@@ -66,6 +72,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
+            if(Projectile.ai[0] > 12 && Projectile.Calamity().stealthStrike && Main.myPlayer == Projectile.owner && ++Projectile.localAI[1] % 3 == 0)
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - Projectile.velocity * 3, Projectile.velocity * 0.1f, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.25), 0f, Projectile.owner).ToProj().DamageType = CEUtils.RogueDC;
+
             if (odp.Count > 16)
             {
                 odp.RemoveAt(0);
@@ -153,6 +162,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool spawnShard = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            CEUtils.PlaySound("slice", Projectile.Calamity().stealthStrike ? 1.2f : 1f, target.Center);
             if (spawnShard)
             {
                 spawnShard = false;
@@ -163,6 +173,17 @@ namespace CalamityEntropy.Content.Projectiles
                         Vector2 velocity = CalamityUtils.RandomVelocity(100f, 70f, 100f);
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.6), 0f, Projectile.owner).ToProj().DamageType = CEUtils.RogueDC;
                     }
+                }
+            }
+            for(int i = 0; i < 32; i++)
+            {
+                EParticle.spawnNew(new EGlowOrb(), CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity * 0.4f * Main.rand.NextFloat(0.2f, 1), Color.SkyBlue, 0.2f, 1, true, BlendState.Additive, 0, 18);
+            }
+            if(Projectile.Calamity().stealthStrike)
+            {
+                for (int i = 0; i < 32; i++)
+                {
+                    EParticle.spawnNew(new EGlowOrb(), target.Center, CEUtils.randomPointInCircle(16), Color.SkyBlue, 0.32f, 1, true, BlendState.Additive, 0, 18);
                 }
             }
         }
@@ -187,9 +208,33 @@ namespace CalamityEntropy.Content.Projectiles
             return null;
         }
         public bool eff = true;
+        public Color ColorFunction(float completionRatio)
+        {
+            return Color.Lerp(Color.Aqua, Color.AliceBlue, MathHelper.Clamp(completionRatio * 0.8f, 0f, 1f)) * base.Projectile.Opacity;
+        }
 
+        public float WidthFunction(float completionRatio)
+        {
+            float num = 8f;
+            float num2 = ((!(completionRatio < 0.1f)) ? MathHelper.Lerp(num, 0f, Utils.GetLerpValue(0.1f, 1f, completionRatio, clamped: true)) : ((float)Math.Sin(completionRatio / 0.1f * (MathF.PI / 2f)) * num + 0.1f));
+            return num2 * base.Projectile.Opacity * Projectile.scale * 3.4f
+            ;
+        }
         public override bool PreDraw(ref Color lightColor)
         {
+            if (Projectile.ai[0] > 14 && Projectile.Calamity().stealthStrike)
+            {
+                Main.spriteBatch.EnterShaderRegion();
+                GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StreakGoop"));
+                GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
+                List<Vector2> lt = new List<Vector2>();
+                for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Type]; i++)
+                {
+                    lt.Add(Projectile.oldPos[i] + Projectile.Size / 2 + Projectile.oldRot[i].ToRotationVector2() * 68);
+                }
+                PrimitiveRenderer.RenderTrail(lt, new PrimitiveSettings(WidthFunction, ColorFunction, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+                Main.spriteBatch.ExitShaderRegion();
+            }
             Texture2D tx = TextureAssets.Projectile[Projectile.type].Value;
             float rj = 0;
             if (Projectile.ai[0] < 12)
