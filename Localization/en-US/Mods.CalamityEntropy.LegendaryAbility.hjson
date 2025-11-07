@@ -136,6 +136,8 @@ TlipocasScytheLegend: {
 	}
 
 	General.CurLevel: ""
+	TlipocazKilledNPC: Press Middle Mouse to allow you slain friendly target
+	TlipocazKilledNPCNot: Press Middle Mouse again to prevent you from killing friendly target
 }
 
 General: {

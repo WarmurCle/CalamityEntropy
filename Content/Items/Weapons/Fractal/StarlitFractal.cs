@@ -261,7 +261,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 for (int i = 0; i < num; i++)
                 {
                     Color newColor = Main.hslToRgb(0.5f, 1f, 0.5f);
-                    int num2 = Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, 267, 0f, 0f, 0, newColor);
+                    int num2 = Dust.NewDust(base.Projectile.position, base.Projectile.width, base.Projectile.height, DustID.RainbowMk2, 0f, 0f, 0, newColor);
                     Main.dust[num2].position = base.Projectile.Center + Main.rand.NextVector2Circular(base.Projectile.width, base.Projectile.height) * 0.5f;
                     Main.dust[num2].velocity *= Main.rand.NextFloat() * 0.8f;
                     Main.dust[num2].noGravity = true;

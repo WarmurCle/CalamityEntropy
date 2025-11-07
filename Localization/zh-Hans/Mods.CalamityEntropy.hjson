@@ -3786,11 +3786,57 @@ Projectiles: {
 	HexController.DisplayName: HexController
 	HexVertex.DisplayName: Hex Vertex
 	Molightpet.DisplayName: Mo的照明宠物
+	// GrandSlamProj.DisplayName: Grand Slam Proj
+
+	Rogue: {
+		// ElementalHammerProj.DisplayName: Elemental Hammer Proj
+		// FallenSky.DisplayName: Fallen Sky
+		// FallenHammerProj.DisplayName: Fallen Hammer Proj
+		// GodsHammerProj.DisplayName: Gods Hammer Proj
+		// NebulaEnegry.DisplayName: Nebula Enegry
+		// GrandEchoProj.DisplayName: Grand Echo Proj
+		// GrandEchoProjSmall.DisplayName: Grand Echo Proj Small
+		// GrandEcho.DisplayName: Grand Echo
+		// GrandHammerProj.DisplayName: Grand Hammer Proj
+		// HexController.DisplayName: Hex Controller
+		// HexVertex.DisplayName: Hex Vertex
+		// PurpleBeam.DisplayName: Purple Beam
+		// PureHammerProj.DisplayName: Pure Hammer Proj
+		// PhantasmalHammerClone.DisplayName: Phantasmal Hammer Clone
+		// PhantasmalHammer.DisplayName: Phantasmal Hammer
+		// VortexRocket.DisplayName: Vortex Rocket
+		// PureStar.DisplayName: Pure Star
+		// PureStarMounted.DisplayName: Pure Star Mounted
+		// SolarFireball.DisplayName: Solar Fireball
+		// StardustSpark.DisplayName: Stardust Spark
+		// DarkEnergy.DisplayName: Dark Energy
+		// NightmareArrow.DisplayName: Nightmare Arrow
+		// NightmareHammerProj.DisplayName: Nightmare Hammer Proj
+		// HolyPunishment.DisplayName: Holy Punishment
+		// PunishmentHammerProj.DisplayName: Punishment Hammer Proj
+		// PunishmentMounted.DisplayName: Punishment Mounted
+		// PunishmentStar.DisplayName: Punishment Star
+		// PunishmentStarMounted.DisplayName: Punishment Star Mounted
+		// HolyJudgement.DisplayName: Holy Judgement
+		// HolyJudgementMounted.DisplayName: Holy Judgement Mounted
+		// HolyJudgementMountedAlt.DisplayName: Holy Judgement Mounted Alt
+		// FallenEruption.DisplayName: Fallen Eruption
+		// FallenVolcano.DisplayName: Fallen Volcano
+		// RebornDarkEnergy.DisplayName: Reborn Dark Energy
+		// RebornFallenEruption.DisplayName: Reborn Fallen Eruption
+		// RebornFallenVolcano.DisplayName: Reborn Fallen Volcano
+		// RebornNebulaStar.DisplayName: Reborn Nebula Star
+		// RebornNightmareArrow.DisplayName: Reborn Nightmare Arrow
+		// RebornPunishmentStar.DisplayName: Reborn Punishment Star
+		// ScarletSpearProj.DisplayName: Scarlet Spear Proj
+	}
+
 	MalignHeld.DisplayName: 魔灵
 	MalignBullet.DisplayName: 魔灵导弹
 	MalignLightning.DisplayName: 魔灵电弧
 	MalignLaser.DisplayName: 魔灵激光
 	AzafurePowerSawProj.DisplayName: 阿萨福勒动力锯
+	// Typeless.StardustSparkController.DisplayName: Stardust Spark Controller
 	AzafureElectrocauteryWandHeld.DisplayName: 手持弹幕
 	AzafureElectrocauteryWandBomb.DisplayName: 电磁炸弹
 	Snowgrave.DisplayName: 雪葬
@@ -4919,11 +4965,30 @@ LMDialog16: 你难道没看到那个[NAME]吗？可真是不知死活
 LMDialog17: 我不收垃圾，谢谢
 LMDialog18: 你塞的是什么东西？
 NowLV: 当前等级
-AnyOrichalcumBar: 秘银锭或山铜锭
-BCBarInfo: 苍郁充能(按住鼠标中键拖动)
-HallowedEnemiesDrop: 从地下神圣之地敌人掉落
-EvilEnemiesDrop: 从地下神圣之地敌人掉落
-DungeonEnemiesDrop: 从地牢敌人掉落
-VoidOreMine: 击败巡游者后在太空层生成
-AbyssalPiercerObt: 击败渊海灾虫后由巨大乌贼掉落
-AstralFishing: 在星辉地钓鱼获取
+
+Test: {
+	Proj: {
+		// PurpleBeam.DisplayName: Purple Beam
+		// FinalEchoProjSmall.DisplayName: Final Echo Proj Small
+		// FinalEchoProjMini.DisplayName: Final Echo Proj Mini
+		// FinalEchoProj.DisplayName: Final Echo Proj
+		// PhantasmalHammer.DisplayName: Phantasmal Hammer
+		// GrandEchoProjMini.DisplayName: Grand Echo Proj Mini
+	}
+
+	Projs: {
+		// FinalProj.DisplayName: Final Proj
+		// GodsProj.DisplayName: Gods Proj
+		// HallowedProj.DisplayName: Hallowed Proj
+		// LunarProj.DisplayName: Lunar Proj
+		// PaladinProj.DisplayName: Paladin Proj
+	}
+}
+
+// BCBarInfo: Bramble Bar(Hold [mouse middle] to drag)
+// HallowedEnemiesDrop: Dropping from undergronud hallowed enemies
+// EvilEnemiesDrop: Dropping from undergronud evil biomes' enemies
+// DungeonEnemiesDrop: Dropping from undergronud dungeon's enemies
+// VoidOreMine: Generate in space layer after defeating Cruiser boss
+// AbyssalPiercerObt: Dropping from giant squid after defeating aquatic scourge
+// AstralFishing: Fishing from astral infection

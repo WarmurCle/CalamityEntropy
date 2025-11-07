@@ -1513,6 +1513,84 @@ namespace CalamityEntropy
             }
         }
         #endregion
+        /// <summary>
+        /// 获取玩家到鼠标位置的单位向量
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public static Vector2 GetPlayerToMouseVector2(this Player player)
+        {
+            Vector2 vec = Main.MouseWorld - player.Center;
+            vec = vec.SafeNormalize(Vector2.UnitX);
+            return vec;
+        }
+        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color, float rotation, int drawTime = 4)
+        {
+            Texture2D tex = proj.GetTexture();
+            Vector2 orig = tex.Size() / 2;
+            Vector2 drawPos = proj.Center - Main.screenPosition;
+            for (int i = 1; i < drawTime; i++)
+            {
+                Vector2 trailingDrawPos = drawPos - proj.velocity * i * offset;
+                float faded = 1 - i / (float)drawTime;
+                //平方放缩
+                faded = MathF.Pow(faded, 2);
+                Color trailColor = color * faded;
+                Main.spriteBatch.Draw(tex, trailingDrawPos, null, trailColor, rotation, orig, proj.scale, 0, 0);
+            }
+            //直接绘制主射弹位于最顶层
+            Main.spriteBatch.Draw(tex, drawPos, null, color, rotation, orig, proj.scale, 0, 0.1f);
+
+        }
+        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color)
+        {
+            QuickDrawWithTrailing(proj, offset, color, proj.oldPos.Length);
+        }
+        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color, int drawTime = 4)
+        {
+            Texture2D tex = proj.GetTexture();
+            Vector2 orig = tex.Size() / 2;
+            Vector2 drawPos = proj.Center - Main.screenPosition;
+            for (int i = 1; i < drawTime; i++)
+            {
+                Vector2 trailingDrawPos = drawPos - proj.velocity * i * offset;
+                float faded = 1 - i / (float)drawTime;
+                //平方放缩
+                faded = MathF.Pow(faded, 2);
+                Color trailColor = color * faded;
+                Main.spriteBatch.Draw(tex, trailingDrawPos, null, trailColor, proj.oldRot[i], orig, proj.scale, 0, 0);
+            }
+            //直接绘制主射弹位于最顶层
+            Main.spriteBatch.Draw(tex, drawPos, null, color, proj.rotation, orig, proj.scale, 0, 0.1f);
+
+        }
+        public static SpriteEffects FlipHorizonHandler(this Projectile projectile) => projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+        /// <summary>
+        /// 为你的射弹绘制一个发光描边。基于射弹本体颜色
+        /// </summary>
+        /// <param name="proj"></param>
+        /// <param name="totalDrawTime"></param>
+        /// <param name="posMove"></param>
+        public static void QuickDrawBloomEdge(this Projectile proj, int totalDrawTime = 8, float posMove = 2f)
+        {
+            for (int i = 0; i < totalDrawTime; i++)
+            {
+                Main.spriteBatch.Draw(proj.GetTexture(), proj.Center - Main.screenPosition + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 4f, null, Color.White with { A = 0 }, proj.rotation, proj.GetTexture().Size() / 2, proj.scale, SpriteEffects.None, 0f);
+            }
+        }
+        /// <summary>
+        /// 为你的射弹绘制一个发光描边。基于射弹本体，重载输入颜色
+        /// </summary>
+        /// <param name="proj"></param>
+        /// <param name="totalDrawTime"></param>
+        /// <param name="posMove"></param>
+        public static void QuickDrawBloomEdge(this Projectile proj, Color color, int totalDrawTime = 8, float posMove = 2f)
+        {
+            for (int i = 0; i < totalDrawTime; i++)
+            {
+                Main.spriteBatch.Draw(proj.GetTexture(), proj.Center - Main.screenPosition + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 4f, null, color with { A = 0 }, proj.rotation, proj.GetTexture().Size() / 2, proj.scale, SpriteEffects.None, 0f);
+            }
+        }
         #region 搜索boss掉落物
         /// <summary>
         /// 快速遍历单个Boss所有掉落物并存入字典
@@ -1574,6 +1652,326 @@ namespace CalamityEntropy
                 return true;
             if (item.accessory || item.headSlot > 0 || item.bodySlot > 0 || item.legSlot > 0)
                 return false;
+            return false;
+        }
+        #endregion
+        public static string InvisAsset => "CalamityEntropy/Assets/InvisibleProj";
+        /// <summary>
+        /// 新的追踪方法，这个会指定一个NPC, 且可以自定义输入额外更新，以及强制速度不受距离影响
+        /// 目前没有角度限制等一类的东西，如果需要则可以补上。
+        /// </summary>
+        /// <param name="proj">射弹</param>
+        /// <param name="target">射弹目标</param>
+        /// <param name="distRequired">最大范围</param>
+        /// <param name="speed">射弹速度</param>
+        /// <param name="inertia">惯性</param>
+        /// <param name="giveExtraUpdate">给予额外更新，默认1</param>
+        /// <param name="forceSpeed">指定射弹无视距离，使射弹使用你输入的速度。这个效果有一个距离特判，即距离比你输入的射弹速度还短的时候才会生效, 一般可无视。</param>
+        /// <param name="maxAngleChage">角度限制，默认为空. </param>
+        /// <param name="ignoreDist">使这个射弹无视索敌距离(distRequired), 默认取否. </param>
+        public static void HomingNPCBetter(this Projectile proj, NPC target, float distRequired, float speed, float inertia, int giveExtraUpdate = 0, float? forceSpeed = null, float? maxAngleChage = null, bool ignoreDist = false)
+        {
+            //一般来说你用这个方法就说明target理论上应当可以被追，但……just in case
+            if (!proj.friendly || target == null || !target.active)
+                return;
+            bool canHome;
+
+            float curDist = Vector2.Distance(target.Center, proj.Center);
+            //存储射弹当前额外更新
+            if (proj.GetGlobalProjectile<EGlobalProjectile>().StoredEU == -1)
+                proj.GetGlobalProjectile<EGlobalProjectile>().StoredEU = proj.extraUpdates;
+
+            if (!target.chaseable || curDist > distRequired && !ignoreDist)
+                canHome = false;
+            else canHome = true;
+            if (canHome)
+            {
+                //给予额外更新
+                proj.extraUpdates = proj.GetGlobalProjectile<EGlobalProjectile>().StoredEU + giveExtraUpdate;
+                //开始追踪target
+                Vector2 home = (target.Center - proj.Center).SafeNormalize(Vector2.UnitY);
+                Vector2 velo = (proj.velocity * inertia + home * speed) / (inertia + 1f);
+                //这里给了一个角度限制
+                if (maxAngleChage.HasValue)
+                {
+                    float curAngle = proj.velocity.ToRotation();
+                    float tarAngle = velo.ToRotation();
+                    float angleDiffer = MathHelper.WrapAngle(tarAngle - curAngle);
+                    //转弧度
+                    float maxRadians = MathHelper.ToRadians(maxAngleChage.Value);
+                    if (Math.Abs(angleDiffer) > maxRadians)
+                    {
+                        float clampedAngle = curAngle + Math.Sign(angleDiffer) * maxRadians;
+                        float setSpeed = velo.Length();
+                        velo = new Vector2((float)Math.Cos(clampedAngle), (float)Math.Sin(clampedAngle)) * setSpeed;
+                    }
+                }
+                //除非你当前距离比射弹速度还少, 我们才会重新设定速度
+                if (forceSpeed.HasValue && curDist < speed)
+                    velo = proj.velocity.SafeNormalize(Vector2.Zero) * home * forceSpeed.Value;
+                //设定速度
+                proj.velocity = velo;
+            }
+            //否则返回射弹原本的额外更新
+            else
+                proj.extraUpdates = proj.GetGlobalProjectile<EGlobalProjectile>().StoredEU;
+        }
+        /// <summary>
+        /// 重载追踪方法，直接快速设定无视距离的追踪
+        /// </summary>
+        /// <param name="proj"></param>
+        /// <param name="target"></param>
+        /// <param name="speed"></param>
+        /// <param name="inertia"></param>
+        /// <param name="giveExtraUpdate"></param>
+        /// <param name="forceSpeed"></param>
+        /// <param name="maxAngleChage"></param>
+        public static void HomingNPCBetter(this Projectile proj, NPC target, float speed, float inertia, int giveExtraUpdate = 0, float? forceSpeed = null, float? maxAngleChage = null) => proj.HomingNPCBetter(target, 1f, speed, inertia, giveExtraUpdate, forceSpeed, maxAngleChage, true);
+
+        /// <summary>
+        /// 数学公式：将角度转化为椭圆上的一个点
+        /// </summary>
+        /// <param name="radians">当前点的弧度</param>
+        /// <param name="shortAxis">半短轴长度(短半径)</param>
+        /// <param name="longAxis">半长轴长度(长半径)</param>
+        /// <param name="rotation">椭圆整体旋转角度(弧度)</param>
+        /// <returns>椭圆上相对于原点的点坐标</returns>
+        public static Vector2 ToEllipseVector2Edge(this float radians, float shortAxis, float longAxis, float rotation = 0f)
+        {
+            float x = longAxis * (float)Math.Cos(radians);
+            float y = shortAxis * (float)Math.Sin(radians);
+            float cosRot = (float)Math.Cos(rotation);
+            float sinRot = (float)Math.Sin(rotation);
+            float rotX = x * cosRot - y * sinRot;
+            float rotY = x * sinRot + y * cosRot;
+            return new Vector2(rotX, rotY);
+        }
+        public static void ClearInvalidPoint(this Projectile proj, out List<Vector2> validPos, out List<float> validRot, Vector2[] rawPosList = null, float[] rawRotList = null)
+        {
+            validPos = [];
+            validRot = [];
+            Vector2[] rawPos = rawPosList ?? proj.oldPos;
+            float[] rawRot = rawRotList ?? proj.oldRot;
+            for (int i = 0; i < rawPos.Length; i++)
+            {
+                if (rawPos[i] == Vector2.Zero)
+                    continue;
+                validPos.Add(rawPos[i]);
+                validRot.Add(rawRot[i]);
+            }
+        }
+        /// <summary>
+        /// 用于搜索距离射弹最近的npc单位，并返回NPC实例。
+        /// </summary>
+        /// <param name="p">射弹</param>
+        /// <param name="maxDist">最大搜索距离</param>
+        /// <param name="ignoreTiles">穿墙搜索, 默认为</param>
+        /// <param name="arrayFirst">数组优先, 这个将会使射弹优先针对数组内第一个单位,默认为否</param>
+        /// <returns>返回一个NPC实例</returns>
+        public static NPC FindClosestTarget(this Projectile p, float maxDist, bool ignoreTiles = true, bool arrayFirst = false)
+        {
+            //bro我真的要遍历整个NPC吗？
+            float distStoraged = maxDist;
+            NPC acceptableTarget = null;
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                float exDist = npc.width + npc.height;
+                //单位不可被追踪 或者 超出索敌距离则continue
+                if (Vector2.Distance(p.Center, npc.Center) > distStoraged + exDist)
+                    continue;
+
+                if (!npc.active || npc.friendly || npc.lifeMax < 5 || !npc.CanBeChasedBy(p.Center, false))
+                    continue;
+
+                //搜索符合条件的敌人, 准备返回这个NPC实例
+                float curNpcDist = Vector2.Distance(npc.Center, p.Center);
+                if (curNpcDist < distStoraged && (ignoreTiles || Collision.CanHit(p.Center, 1, 1, npc.Center, 1, 1)))
+                {
+                    distStoraged = curNpcDist;
+                    acceptableTarget = npc;
+                    //如果是数组优先，直接在这返回实例
+                    if (arrayFirst)
+                        return acceptableTarget;
+                }
+            }
+            //返回这个NPC实例
+            return acceptableTarget;
+        }
+        /// <summary>
+        /// 为射弹获取目标，重载Out与判定方法
+        /// </summary>
+        /// <param name="proj"></param>
+        /// <param name="target"></param>
+        /// <param name="targetIndex"></param>
+        /// <param name="anotherDistance"></param>
+        /// <returns></returns>
+        public static bool GetTargetSafe(this Projectile proj, out NPC target, int targetIndex, bool canSearchSecondTarget, float anotherDistance = 1800f)
+        {
+            NPC npc = Main.npc[targetIndex];
+            if ((!npc.CanBeChasedBy(proj) || targetIndex == 0) && canSearchSecondTarget)
+                npc = proj.FindClosestTarget(anotherDistance);
+
+            target = npc;
+            return npc != null;
+        }
+        [Obsolete("临时重载方法，方便过编译，最后这个方法会被废弃")]
+        public static bool GetTargetSafe(this Projectile proj, out NPC target, int targetIndex, float anotherDistance = 1800f)
+        {
+            NPC npc = Main.npc[targetIndex];
+            if (!npc.CanBeChasedBy(proj) || targetIndex == 0)
+                npc = proj.FindClosestTarget(anotherDistance);
+            target = npc;
+            return npc != null;
+        }
+
+        /// <summary>
+        /// 基于当前速度与基准速度比例动态计算部分间隔类的数值。（如用于生成频率和触发间隔等）
+        /// 速度越快，间隔越小，速度越慢，间隔越大
+        /// </summary>
+        /// <param name="baseRates">基准间隔</param>
+        /// <param name="minRates">最小间隔限制</param>
+        /// <param name="maxRates">最大间隔限制</param>
+        /// <param name="baseSpeed">基准速度</param>
+        /// <param name="curSpeed">当前实际速度</param>
+        /// <returns>被动态调整后的整数间隔值（四舍五入取整）</returns>
+        /// <remarks>
+        /// 使用示例：部分受到速度影响导致总体生成频率被降低的射弹生成（如夜明锤子）
+        /// </remarks>
+        public static int RatesBaseOnSpeed(float baseRates, float minRates, float maxRates, float baseSpeed, float curSpeed)
+        {
+            //计算当前速度的模长
+            float dynamicSpawnSpeed = (baseSpeed / curSpeed) * baseRates;
+            //基于速度间隔进行刻计算
+            dynamicSpawnSpeed = MathHelper.Clamp(dynamicSpawnSpeed, minRates, maxRates);
+            //控制在合理范围内
+            int spawnRates = (int)Math.Round(dynamicSpawnSpeed);
+            //返回
+            return spawnRates;
+        }
+        /// <summary>
+        /// 使射弹较为平滑地冲向一个地点。
+        /// </summary>
+        /// <param name="proj"></param>
+        /// <param name="targetPosition"></param>
+        /// <param name="speed"></param>
+        /// <param name="acceleration"></param>
+        /// <param name="killDistance"></param>
+        public static void AccelerateToTarget(this Projectile proj, Vector2 targetPosition, float speed, float acceleration, int killDistance = 0)
+        {
+            Vector2 dist = targetPosition - proj.Center;
+            float distLength = dist.Length();
+            distLength = speed / distLength;
+            dist.X *= distLength;
+            dist.Y *= distLength;
+            if (proj.velocity.X < dist.X)
+            {
+                proj.velocity.X += acceleration;
+                if (proj.velocity.X < 0f && dist.X > 0f)
+                    proj.velocity.X += acceleration;
+            }
+            else if (proj.velocity.X > dist.X)
+            {
+                proj.velocity.X -= acceleration;
+                if (proj.velocity.X > 0f && dist.X < 0f)
+                    proj.velocity.X -= acceleration;
+            }
+            if (proj.velocity.Y < dist.Y)
+            {
+                proj.velocity.Y += acceleration;
+                if (proj.velocity.Y < 0f && dist.Y > 0f)
+                    proj.velocity.Y += acceleration;
+            }
+            else if (proj.velocity.Y > dist.Y)
+            {
+                proj.velocity.Y -= acceleration;
+                if (proj.velocity.Y > 0f && dist.Y < 0f)
+                    proj.velocity.Y -= acceleration;
+            }
+        }
+        public static void BeginDefault(this SpriteBatch SB) =>
+            SB.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        #region ShaderSB
+        public static void BeginShader(this SpriteBatch SB) =>
+            SB.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        public static void BeginShader(this SpriteBatch SB, BlendState blendState) =>
+            SB.Begin(SpriteSortMode.Immediate, blendState, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        public static void BeginShader(this SpriteBatch SB, BlendState blendState, Matrix matrix) =>
+            SB.Begin(SpriteSortMode.Immediate, blendState, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, matrix);
+        public static void BeginShader(this SpriteBatch SB, BlendState blendState, SamplerState samplerState) =>
+            SB.Begin(SpriteSortMode.Immediate, blendState, samplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        public static void BeginShader(this SpriteBatch SB, BlendState blendState, SamplerState samplerState, Matrix matrix) =>
+            SB.Begin(SpriteSortMode.Immediate, blendState, samplerState, DepthStencilState.None, RasterizerState.CullNone, null, matrix);
+        public static void ReSetToBeginShader()
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+        public static void ReSetToBeginShader(BlendState blendState)
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, blendState, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+        public static void ReSetToBeginShader(BlendState blendState, Matrix matrix)
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, blendState, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, matrix);
+        }
+        public static void ReSetToBeginShader(BlendState blendState, SamplerState samplerState)
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, blendState, samplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+        public static void ReSetToBeginShader(BlendState blendState, SamplerState samplerState, Matrix matrix)
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, blendState, samplerState, DepthStencilState.None, Main.Rasterizer, null, matrix);
+        }
+        public static void ReSetToEndShader()
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+        public static void BeginDrawVertex(this SpriteBatch SB, SpriteSortMode SM = SpriteSortMode.Immediate) => SB.Begin(SM, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+        /// <summary>
+        /// 快速生成一个简单明了的圆形粒子组
+        /// </summary>
+        /// <param name="dPos"></param>
+        /// <param name="dCounts"></param>
+        /// <param name="dScale"></param>
+        /// <param name="dType"></param>
+        /// <param name="dSpeed"></param>
+        /// <param name="dPosOffset"></param>
+        /// <param name="dGrav"></param>
+        /// <param name="dAlpha"></param>
+        public static void CirclrDust(this Vector2 dPos, int dCounts, float dScale, int dType, int dSpeed, float dPosOffset = 0f, bool dGrav = true, int dAlpha = 255)
+        {
+            float rotArg = 360f / dCounts;
+            for (int i = 0; i < dCounts; i++)
+            {
+                float rot = MathHelper.ToRadians(i * rotArg);
+                Vector2 offsetPos = new Vector2(dPosOffset, 0f).RotatedBy(rot);
+                Vector2 dVel = new Vector2(dSpeed, 0f).RotatedBy(rot);
+                Dust d = Dust.NewDustPerfect(dPos + offsetPos, dType, dVel);
+                d.noGravity = dGrav;
+                d.velocity = dVel;
+                d.scale = dScale;
+                d.alpha = dAlpha;
+            }
+        }
+        public static float ToClamp(this float value, float min = 0f, float max = 1f) => MathHelper.Clamp(value, min, max);
+        public static bool OutOffScreen(Vector2 pos)
+        {
+            if (pos.X < Main.screenPosition.X - Main.screenWidth / 2)
+                return true;
+
+            if (pos.Y < Main.screenPosition.Y - Main.screenHeight / 2)
+                return true;
+
+            if (pos.X > Main.screenPosition.X + Main.screenWidth * 1.5f)
+                return true;
+            if (pos.Y > Main.screenPosition.Y + Main.screenHeight * 1.5f)
+                return true;
+
             return false;
         }
         #endregion

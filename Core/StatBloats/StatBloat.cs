@@ -1,9 +1,11 @@
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityMod.Items.Materials;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,7 @@ namespace CalamityEntropy.Core.StatBloats
         internal static List<int> WeaponsCruiser = [];
         #endregion
         internal static List<int> GiantList = [];
+        internal static List<int> LegendaryList = [];
         #region 需要单独打表的武器
         internal static Dictionary<int, ItemDamageData> DirectTweaks = [];
         #endregion
@@ -107,6 +110,12 @@ namespace CalamityEntropy.Core.StatBloats
                                         .Concat(WeaponsAuric)
                                         .Concat(WeaponsAbyssalWyrm);
             GiantList = [.. giantList];
+            //传奇武器的数值膨胀跟随基本没招，所有传奇武器都得用打表去做
+            Add<TlipocasScythe>(LegendaryList);
+            Add<Bramblecleave>(LegendaryList);
+            Add<HorizonssKey>(LegendaryList);
+            Add<VoidRelics>(LegendaryList);
+            Add<PrisonOfPermafrost>(LegendaryList);
         }
 
         #region 私有方法集合
@@ -118,6 +127,7 @@ namespace CalamityEntropy.Core.StatBloats
         }
         private void GetActive()
         {
+            //没启用灾厄遗产时不要试图启用不存在的数值膨胀选项
             bool loadedMod = ModLoader.TryGetMod("CalamityInheritance", out Mod inheritance);
             if (!loadedMod)
                 return;
@@ -289,7 +299,7 @@ namespace CalamityEntropy.Core.StatBloats
             }
         }
     }
-    internal class StatBloatToWeapons : GlobalItem
+    internal partial class StatBloatToWeapons : GlobalItem
     {
         public override bool InstancePerEntity => true;
         #region 伤害增幅
@@ -305,7 +315,7 @@ namespace CalamityEntropy.Core.StatBloats
         private const float RuinousSoulWeaponsBoost = 2.4f;
         private const float CosmicBarWeaponsBoost = 3f;
         #endregion
-        //直接修改SD属性
+               //直接修改SD属性
         public override void SetDefaults(Item entity)
         {
             if (!CrossModStatBloats.ActiveStatBloats)
@@ -364,7 +374,7 @@ namespace CalamityEntropy.Core.StatBloats
             HandleBoostText(item, tooltips, RuinousSoulWeaponsBoost, CrossModStatBloats.WeaponsRuinousSoul);
             HandleBoostText(item, tooltips, PostProviWeaponsBoost, CrossModStatBloats.WeaponsPostProvi, CrossModStatBloats.WeaponsVoidTwin);
             HandleBoostText(item, tooltips, LunarBarWeaponsBoost, CrossModStatBloats.WeaponsLunarBar);
-
+            HandleBoostText(item, tooltips, SelectedBloat(), CrossModStatBloats.LegendaryList);
             //单独打表的情况
             foreach (var (itemID, damage) in CrossModStatBloats.DirectTweaks)
                 HandleBoostTextDirect(item, tooltips, itemID, damage.ItemModifyDamage, damage.ItemDamage);

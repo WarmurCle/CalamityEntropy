@@ -132,6 +132,20 @@ namespace CalamityEntropy.Common
         public int hittingTarget = -1;
         public bool IlmeranEnhanced = false;
         public bool LuminarArrow = false;
+        /// <summary>
+        /// 初次生成
+        /// </summary>
+        public bool FirstFrames = true;
+        /// <summary>
+        /// 其余AI栏位
+        /// </summary>
+        public float[] ExtraProjAI = new float[100];
+        /// <summary>
+        /// 用于临时存储的额外更新
+        /// </summary>
+        public int StoredEU = -1;
+        //全局表示是否处于右键状态
+        public bool IsRightClick = false;
 
         public Dictionary<string, SynchronousData> DataSynchronous = new Dictionary<string, SynchronousData>();
         public void DefineSynchronousData(SyncDataType type, string name, object defaultValue)
@@ -199,7 +213,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(IlmeranEnhanced);
             binaryWriter.Write(LuminarArrow);
             binaryWriter.Write(SmartArcEffect);
-
+            binaryWriter.Write(FirstFrames);
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].Write(binaryWriter);
@@ -222,7 +236,7 @@ namespace CalamityEntropy.Common
             IlmeranEnhanced = binaryReader.ReadBoolean();
             LuminarArrow = binaryReader.ReadBoolean();
             SmartArcEffect = binaryReader.ReadBoolean();
-
+            FirstFrames = binaryReader.ReadBoolean();
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].ReadToValue(binaryReader);
@@ -239,14 +253,18 @@ namespace CalamityEntropy.Common
         public bool netsnc = true;
         public static bool checkHoldOut = true;
         public bool dmgUpFrd = true;
-
+        public override void AI(Projectile projectile)
+        {
+            if (FirstFrames)
+                FirstFrames = false;
+        }
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             if (Main.gameMenu)
             {
                 return;
             }
-            if (projectile.type == 735)
+            if (projectile.type == ProjectileID.Terragrim)
             {
                 projectile.scale *= 2;
             }
@@ -1236,7 +1254,7 @@ namespace CalamityEntropy.Common
             {
                 target.AddBuff(ModContent.BuffType<CrushDepth>(), 400);
             }
-            if (projectile.type == 735 && projectile.velocity.Y > 0 && projectile.velocity.Y > Math.Abs(projectile.velocity.X))
+            if (projectile.type == ProjectileID.Terragrim && projectile.velocity.Y > 0 && projectile.velocity.Y > Math.Abs(projectile.velocity.X))
             {
                 projectile.GetOwner().velocity.Y = -projectile.velocity.Y * 0.4f;
                 projectile.GetOwner().Entropy().gravAddTime = 30;

@@ -11,6 +11,7 @@ using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Donator.Scarlet;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun;
@@ -24,6 +25,7 @@ using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
+using CalamityEntropy.Core.Construction;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
@@ -31,12 +33,14 @@ using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Typeless;
+using CalamityMod.Tiles.FurnitureMonolith;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -151,6 +155,7 @@ namespace CalamityEntropy.Common
         public float VanityTailRot = 0;
         public int JetpackDye = -1;
         public int StealthRegenDelay = 0;
+        public bool CanSlainTownNPC = false;
         public class SpecialWingDrawingData
         {
             public int MaxFrame = 3;
@@ -208,6 +213,7 @@ namespace CalamityEntropy.Common
         public bool accWispLantern = false;
         public bool visualWispLantern = false;
 
+        public int HammerStrikeTimes = 0;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
             if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
@@ -275,6 +281,7 @@ namespace CalamityEntropy.Common
                 }
             }
             voidcharge = 0; VoidInspire = 0; lastStandCd = 0; mantleCd = 0; magiShieldCd = 0; sJudgeCd = 2;
+            
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -556,7 +563,11 @@ namespace CalamityEntropy.Common
             reincarnationBadge = false;
             visualWispLantern = false;
             accWispLantern = false;
+            CanSlainTownNPC = false;
+            RogueHammerReset();
         }
+
+        
         public int crSky = 0;
         public int NihSky = 0;
         public int llSky = 0;
@@ -596,6 +607,68 @@ namespace CalamityEntropy.Common
         {
             wingData = null;
         }
+        //一个EModPlayer塞tm3000行我都不知道我的内容塞也太他妈绝望了
+        //反正这里专门处理锤子的各种有的没的特殊情况
+        //分别用到钩子都会有注释专门写明白
+        #region 盗贼潜伏锤处理
+        //当前场上是否有盗贼挂载锤
+        public bool _anyHammerAttacking = false;
+        public int _cacheHammer = -1;
+        public int _cacheHeadType = -1;
+        public int _cacheBodyType = -1;
+        public int _cacheLegsType = -1;
+        public bool ShouldHandleHammerStealth = false;
+        /// <summary>
+        /// 在ResetEffect内处理手持锤子的效果，包括不限于玩家是否有挂载中的锤子，手持启用潜伏条等
+        /// </summary>
+        private void RogueHammerReset()
+        {
+            var calPlayer = Player.Calamity();
+            _anyHammerAttacking = false;
+            int heldType = Player.HeldItem.type;
+            //缓存的锤子也会算进去，因为这里需要处理从锤子切入到其他盗贼武器时重置潜伏条的情况
+            if (EntropyList.RogueHammer.Contains(heldType) || EntropyList.RogueHammer.Contains(_cacheHammer))
+            {
+                //所有锤子启用潜伏条
+                calPlayer.wearingRogueArmor = true;
+                //锤子常驻10潜伏值，这个效果不再有任何条件制约
+                calPlayer.rogueStealthMax += BaseHammerItem.BaseMaxStealth;
+                //手持火锤与最终吹提供减半潜伏值效果
+                if (heldType == ModContent.ItemType<GrandHammer>() || heldType == ModContent.ItemType<FallenHammer>())
+                    calPlayer.stealthStrikeHalfCost = true;
+                ShouldHandleHammerStealth = true;
+            }
+            else
+                ShouldHandleHammerStealth = false;
+        }
+        /// <summary>
+        /// 在MiscEffect内书写的专门处理锤子潜伏条重置方式。
+        /// </summary>
+        private void DisableStealthBarOnHeldingHammerIfNeed()
+        {
+            //只有锤子才会重置潜伏条
+            if (!ShouldHandleHammerStealth)
+                return;
+            int heldType = Player.HeldItem.type;
+            //无论什么情况下，切换至锤子时都强行重置一次潜伏条
+            if (heldType != _cacheHammer)
+            {
+                Player.Calamity().rogueStealth = 0f;
+                _cacheHammer = heldType;
+            }
+            //特殊情况：在切装的情况下判定
+            //但凡有一件有不同就干掉潜伏条
+            if (Player.armor[0].type != _cacheHeadType || Player.armor[1].type != _cacheBodyType || Player.armor[2].type != _cacheLegsType)
+            {
+                Player.Calamity().rogueStealth = 0f;
+                _cacheHeadType = Player.armor[0].type;
+                _cacheBodyType = Player.armor[1].type;
+                _cacheLegsType = Player.armor[2].type;
+            }
+        }
+
+        #endregion
+        
         public override void PreUpdate()
         {
 
@@ -1251,6 +1324,8 @@ namespace CalamityEntropy.Common
                         Player.endurance = McEndurance;
                     }
                 }
+                //这里为了处理锤子的潜伏条生成
+                DisableStealthBarOnHeldingHammerIfNeed();
             }
         }
         public int manaNorm = 0;
@@ -2713,7 +2788,7 @@ namespace CalamityEntropy.Common
             if (worshipRelic || shadowPact)
             {
                 Player.Calamity().stealthStrike75Cost = false;
-                Player.Calamity().stealthStrike90Cost = false;
+                //Player.Calamity().stealthStrike90Cost = false;
                 Player.Calamity().stealthStrikeHalfCost = false;
             }
             if (hasAcc(ShadowMantle.ID))

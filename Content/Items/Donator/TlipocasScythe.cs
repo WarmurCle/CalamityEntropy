@@ -120,10 +120,13 @@ namespace CalamityEntropy.Content.Items.Donator
             //显示按住左shift的提醒文本
             if (shouldDrawHoldShiftTips && !any)
                 tooltips.QuickAddTooltipDirect(Mod.GetLocalization("PressShiftForMoreInfo").Value, Color.Yellow, LineName: "ShiftMoreInfo");
-
+            bool isKilledNPC = Main.LocalPlayer.GetModPlayer<TlipocasSingleHit>().isPressed;
+            if (isKilledNPC)
+                tooltips.QuickAddTooltip($"{pathBase}TlipocazKilledNPC", Color.Red, LineName: "CanKilledNPC");
+            else
+                tooltips.QuickAddTooltip($"{pathBase}TlipocazKilledNPCNot", Color.Gray, LineName: "CanNotKileldNPC");
             HandleLoreAndLevel(tooltips, pathLore);
         }
-
         private void HandleHoldShift(List<TooltipLine> tooltips)
         {
             string Get(string key)
@@ -397,6 +400,12 @@ namespace CalamityEntropy.Content.Items.Donator
             if (throwType == -1)
                 throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
             Item.useTime = Item.useAnimation = (44 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
+            FuncKilledTownNPC(player);           
+        }
+        private void FuncKilledTownNPC(Player player)
+        {
+            if (Item.favorited && Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                player.Entropy().CanSlainTownNPC = true;
         }
         public override void HoldItem(Player player)
         {
@@ -495,7 +504,7 @@ namespace CalamityEntropy.Content.Items.Donator
             if (player.Calamity().StealthStrikeAvailable())
             {
                 float cost = 1;
-                if (player.Calamity().stealthStrike90Cost)
+                //if (player.Calamity().stealthStrike90Cost)
                     cost = 0.9f;
                 if (player.Calamity().stealthStrike75Cost)
                     cost = 0.75f;
@@ -763,9 +772,14 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             return false;
         }
+        public override bool? CanDamage() => Canhit;
         public override bool? CanHitNPC(NPC target)
         {
-            return Canhit;
+            var togglePlayer = Projectile.GetOwner().GetModPlayer<TlipocasSingleHit>();
+            //你他妈真的假的啊让他能砍塔防水晶，哥们打塔防一刀把自己水晶劈死了啊
+            bool canDealDamageToAll = (target.type != NPCID.DD2EterniaCrystal && !togglePlayer.isPressed);
+            bool canDealDamageToNotFridly = !target.friendly && togglePlayer.isPressed;
+            return canDealDamageToAll || canDealDamageToNotFridly;
         }
         public override void AI()
         {
@@ -918,6 +932,34 @@ namespace CalamityEntropy.Content.Items.Donator
         public float alpha = 1;
         public float ProjScale = 1;
         public float scale = 1;
+    }
+    internal class TlipocasSingleHit : ModPlayer
+    {
+        public bool isToggle = false;
+        public bool isPressed = false;
+        public override void PostUpdate()
+        {
+            //终极史山
+            if(Main.mouseMiddle && Player.HeldItem.type == ModContent.ItemType<TlipocasScythe>())
+            {
+                if (Main.mouseMiddleRelease)
+                {
+                    if (isPressed)
+                    {
+                        isPressed = false;
+                        Player.Center.CirclrDust(36, 1.26f, DustID.GemRuby, 6, 3f);
+                        SoundEngine.PlaySound(SoundID.Item103 with { MaxInstances = 4, Pitch = 0.4f });
+                    }
+                    else
+                    {
+                        isPressed = true;
+                        Player.Center.CirclrDust(36, 1.26f, DustID.GemRuby, -6, 3f);
+                        SoundEngine.PlaySound(SoundID.Item103 with { MaxInstances = 4, Pitch = 0.4f });
+                    }
+
+                }
+            }
+        }
     }
 
     public class TlipocasScytheThrow : ModProjectile

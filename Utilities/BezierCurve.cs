@@ -18,6 +18,8 @@ namespace CalamityEntropy.Utilities
         /// <returns></returns>
         public static BaseBezierCurveInfo GetValidBeizerCurvePow(List<Vector2> rawPositionList, List<float> rawRotationList, int drawPointTime = 3)
         {
+            if (rawPositionList.Count < 2 || rawRotationList.Count < 2)
+                return new BaseBezierCurveInfo(new List<Vector2>(rawPositionList), new List<float>(rawRotationList));
             List<Vector2> smoothPos = [];
             List<float> smoothRot = [];
             for (int i = 0; i < rawPositionList.Count - 1; i++)
@@ -58,9 +60,9 @@ namespace CalamityEntropy.Utilities
         /// <param name="drawPointTime"></param>
         public static void GetValidBeizerCurvePow(List<Vector2> rawPositionList, List<float> rawRotationList, out List<Vector2> smoothPosList, out List<float> smoothRotList, int drawPointTime = 3)
         {
-            BaseBezierCurveInfo BezierCurve = GetValidBeizerCurvePow(rawPositionList, rawRotationList, drawPointTime);
-            smoothPosList = BezierCurve.CurvePositionList;
-            smoothRotList = BezierCurve.CurveRotationList;
+            BaseBezierCurveInfo bezierCurve = GetValidBeizerCurvePow(rawPositionList, rawRotationList, drawPointTime);
+            smoothPosList = bezierCurve.CurvePositionList;
+            smoothRotList = bezierCurve.CurveRotationList;
 
         }
         private static Vector2 BezierCurve(Vector2 startPos, Vector2 controlPos, Vector2 endPos, float t)
@@ -71,23 +73,48 @@ namespace CalamityEntropy.Utilities
 
         private static Vector2 CalculateControlPoint(List<Vector2> points, int index)
         {
+            //返回
             if (index == 0)
             {
-                //第一个点的控制点：使用下下个点方向
-                Vector2 nextNext = points[index + 2];
-                return points[index + 1] - (nextNext - points[index + 1]) * 0.25f;
+                if (points.Count < 3)
+                {
+                    //仅存在两个点，则控制两袋奶连线往外延申。
+                    return points[index + 1] - (points[index + 1] - points[index]) * 0.25f;
+                }
+                else
+                {
+                    //第一个点的控制点：使用下下个点方向
+                    Vector2 nextNext = points[index + 2];
+                    return points[index + 1] - (nextNext - points[index + 1]) * 0.25f;
+                }
             }
+            //最后一个点的控制
             else if (index == points.Count - 2)
             {
-                //最后一个点的控制点：使用前前点方向
-                Vector2 prevPrev = points[index - 1];
-                return points[index] + (points[index] - prevPrev) * 0.25f;
+
+                //index-1不存在时(index=0的情况)，使用index本身
+                if (index - 1 < 0)
+                {
+                    //控制点沿两点连线向外延申
+                    return points[index] + (points[index + 1] - points[index]) * 0.25f;
+                }
+                else
+                {
+                    //最后一个点的控制点：使用前前点方向
+                    Vector2 prevPrev = points[index - 1];
+                    return points[index] + (points[index] - prevPrev) * 0.25f;
+                }
             }
             else
             {
+                //index+2超出范围（如：长度=3，index=1，index+2=3越界）
+                bool hasNextNext = index + 2 < points.Count;
+                //index-1超出范围，仅仅用于保险
+                bool hasPrevPrev = index - 1 >= 0;
+
                 //中间点的控制点：使用前后点的切线方向
-                Vector2 prev = points[index - 1];
-                Vector2 next = points[index + 2];
+                Vector2 prev = hasPrevPrev? points[index - 1] : points[index];
+                Vector2 next = hasNextNext ? points[index + 2] : points[index + 1];
                 return (points[index] + points[index + 1]) / 2f + (next - prev) * 0.1f;
             }
         }

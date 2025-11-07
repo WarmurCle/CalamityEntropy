@@ -3575,11 +3575,57 @@ Projectiles: {
 	// HexController.DisplayName: Hex Controller
 	// HexVertex.DisplayName: Hex Vertex
 	// Molightpet.DisplayName: Molightpet
+	// GrandSlamProj.DisplayName: Grand Slam Proj
+
+	Rogue: {
+		// ElementalHammerProj.DisplayName: Elemental Hammer Proj
+		// FallenSky.DisplayName: Fallen Sky
+		// FallenHammerProj.DisplayName: Fallen Hammer Proj
+		// GodsHammerProj.DisplayName: Gods Hammer Proj
+		// NebulaEnegry.DisplayName: Nebula Enegry
+		// GrandEchoProj.DisplayName: Grand Echo Proj
+		// GrandEchoProjSmall.DisplayName: Grand Echo Proj Small
+		// GrandEcho.DisplayName: Grand Echo
+		// GrandHammerProj.DisplayName: Grand Hammer Proj
+		// HexController.DisplayName: Hex Controller
+		// HexVertex.DisplayName: Hex Vertex
+		// PurpleBeam.DisplayName: Purple Beam
+		// PureHammerProj.DisplayName: Pure Hammer Proj
+		// PhantasmalHammerClone.DisplayName: Phantasmal Hammer Clone
+		// PhantasmalHammer.DisplayName: Phantasmal Hammer
+		// VortexRocket.DisplayName: Vortex Rocket
+		// PureStar.DisplayName: Pure Star
+		// PureStarMounted.DisplayName: Pure Star Mounted
+		// SolarFireball.DisplayName: Solar Fireball
+		// StardustSpark.DisplayName: Stardust Spark
+		// DarkEnergy.DisplayName: Dark Energy
+		// NightmareArrow.DisplayName: Nightmare Arrow
+		// NightmareHammerProj.DisplayName: Nightmare Hammer Proj
+		// HolyPunishment.DisplayName: Holy Punishment
+		// PunishmentHammerProj.DisplayName: Punishment Hammer Proj
+		// PunishmentMounted.DisplayName: Punishment Mounted
+		// PunishmentStar.DisplayName: Punishment Star
+		// PunishmentStarMounted.DisplayName: Punishment Star Mounted
+		// HolyJudgement.DisplayName: Holy Judgement
+		// HolyJudgementMounted.DisplayName: Holy Judgement Mounted
+		// HolyJudgementMountedAlt.DisplayName: Holy Judgement Mounted Alt
+		// FallenEruption.DisplayName: Fallen Eruption
+		// FallenVolcano.DisplayName: Fallen Volcano
+		// RebornDarkEnergy.DisplayName: Reborn Dark Energy
+		// RebornFallenEruption.DisplayName: Reborn Fallen Eruption
+		// RebornFallenVolcano.DisplayName: Reborn Fallen Volcano
+		// RebornNebulaStar.DisplayName: Reborn Nebula Star
+		// RebornNightmareArrow.DisplayName: Reborn Nightmare Arrow
+		// RebornPunishmentStar.DisplayName: Reborn Punishment Star
+		// ScarletSpearProj.DisplayName: Scarlet Spear Proj
+	}
+
 	// MalignHeld.DisplayName: Malign Held
 	// MalignBullet.DisplayName: Malign Bullet
 	// MalignLightning.DisplayName: Malign Lightning
 	// MalignLaser.DisplayName: Malign Laser
 	// AzafurePowerSawProj.DisplayName: Azafure Power Saw Proj
+	// Typeless.StardustSparkController.DisplayName: Stardust Spark Controller
 	// AzafureElectrocauteryWandHeld.DisplayName: Azafure Electrocautery Wand Held
 	// AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
 	// Snowgrave.DisplayName: Snowgrave
@@ -4738,7 +4784,26 @@ Biomes: {
 // LMDialog17: I don't want your garbage.
 // LMDialog18: What is this? You need a coin!
 // NowLV: Level
-// AnyOrichalcumBar: Any Orichalcum Bar
+
+Test: {
+	Proj: {
+		// PurpleBeam.DisplayName: Purple Beam
+		// FinalEchoProjSmall.DisplayName: Final Echo Proj Small
+		// FinalEchoProjMini.DisplayName: Final Echo Proj Mini
+		// FinalEchoProj.DisplayName: Final Echo Proj
+		// PhantasmalHammer.DisplayName: Phantasmal Hammer
+		// GrandEchoProjMini.DisplayName: Grand Echo Proj Mini
+	}
+
+	Projs: {
+		// FinalProj.DisplayName: Final Proj
+		// GodsProj.DisplayName: Gods Proj
+		// HallowedProj.DisplayName: Hallowed Proj
+		// LunarProj.DisplayName: Lunar Proj
+		// PaladinProj.DisplayName: Paladin Proj
+	}
+}
+
 // BCBarInfo: Bramble Bar(Hold [mouse middle] to drag)
 // HallowedEnemiesDrop: Dropping from undergronud hallowed enemies
 // EvilEnemiesDrop: Dropping from undergronud evil biomes' enemies

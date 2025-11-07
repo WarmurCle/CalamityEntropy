@@ -87,6 +87,8 @@ TlipocasScytheLegend: {
 	}
 
 	General.CurLevel: ""
+	TlipocazKilledNPC: 按下鼠标中键以允许你击杀城镇NPC
+	TlipocazKilledNPCNot: 再次按下鼠标中键以阻止你击杀城镇NPC
 }
 
 General: {

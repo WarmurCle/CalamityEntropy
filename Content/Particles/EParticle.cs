@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 
 namespace CalamityEntropy.Content.Particles
 {
@@ -21,6 +23,7 @@ namespace CalamityEntropy.Content.Particles
         public bool PixelShader = false;
         public int UpdateTimes = 1;
         public static List<EParticle> particles = new List<EParticle>();
+        
         public static void DrawPixelShaderParticles()
         {
             List<EParticle> additiveDraw = new List<EParticle>();
@@ -249,6 +252,10 @@ namespace CalamityEntropy.Content.Particles
             }
             Main.spriteBatch.Draw(this.Texture, this.Position - Main.screenPosition, null, clr, Rotation, getOrigin(), Scale, SpriteEffects.None, 0);
         }
-        public virtual Texture2D Texture => null;
+        /// <summary>
+        /// 默认为本文件夹下的路径+类名
+        /// </summary>
+        public virtual Texture2D Texture => ModContent.Request<Texture2D>((GetType().Namespace + "." + GetType().Name).Replace(".", "/")).Value;
+        public virtual BlendState BlendState => BlendState.AlphaBlend;
     }
 }
