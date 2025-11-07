@@ -291,7 +291,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
                 shader.Parameters["uBaseColor1"].SetValue(new Color(70, 8, 255).ToVector4() * 0.3f);
                 shader.Parameters["uTargetColor1"].SetValue(new Color(120, 60, 255).ToVector4() * 0.9f);
                 shader.Parameters["uBaseColor2"].SetValue(Color.Crimson.ToVector4() * 0.3f);
-                shader.Parameters["uTargetColor2"].SetValue(new Color(255, 150, 150).ToVector4() * 0.9f);
+                shader.Parameters["uTargetColor2"].SetValue(new Color(255, 90, 90).ToVector4() * 0.9f);
             }
             else
             {
