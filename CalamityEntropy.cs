@@ -141,7 +141,7 @@ namespace CalamityEntropy
             AprilFool = today.Month == 4 && today.Day == 1;
             CEUtils.SoundStyles = new Dictionary<string, Terraria.Audio.SoundStyle>();
 
-            ILoaders = VaultUtils.GetDerivedInstances<ICELoader>();
+            ILoaders = VaultUtils.GetSubInterface<ICELoader>();
             foreach (ICELoader setup in ILoaders)
             {
                 setup.LoadData();

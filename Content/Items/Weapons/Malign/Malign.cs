@@ -232,8 +232,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                 trail = new TrailParticle() { maxLength = 12, SameAlpha = true };
                 EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(255, 100, 255), 1.2f, 1, true, BlendState.Additive);
             }
-            EParticle.spawnNew(new Content.Particles.ELineParticle(3.4f, 0.8f, 0.84f), Projectile.Center + CEUtils.randomPointInCircle(4), Projectile.velocity.RotatedByRandom(0.12f), new Color(255, 190, 255) * 0.8f, 2, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 6);
-
+            
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             trail.TimeLeftMax = trail.Lifetime = 13;
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -245,6 +244,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                     Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.12f, true).ToRotationVector2() * Projectile.velocity.Length();
                 }
             }
+            EParticle.spawnNew(new Content.Particles.ELineParticle(3.4f, 0.8f, 0.84f), Projectile.Center + CEUtils.randomPointInCircle(4), Projectile.velocity.RotatedByRandom(0.12f), new Color(255, 190, 255) * 0.8f, 2, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 6);
+
         }
         public override bool PreDraw(ref Color lightColor)
         {
