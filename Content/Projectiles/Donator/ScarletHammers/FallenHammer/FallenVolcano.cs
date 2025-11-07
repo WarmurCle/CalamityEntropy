@@ -122,6 +122,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
         private void PickTagDust(out short HigherDust, out short BottemDust)
         {
             string name = Owner.name.ToLower();
+            if (name.Contains("polaris"))
+                name = "polaris";
             switch (name)
             {
                 case "scarletshelf":
@@ -147,6 +149,10 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
                 case "锯角":
                     HigherDust = DustID.PurpleTorch;
                     BottemDust = DustID.WhiteTorch;
+                    break;
+                case "polaris":
+                    HigherDust = DustID.PurpleTorch;
+                    BottemDust = DustID.CrimsonTorch;
                     break;
                 case "fr9ezes":
                     HigherDust = DustID.JungleTorch;

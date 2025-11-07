@@ -71,6 +71,10 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
         }
         private void PickTagDust(out short Pick)
         {
+            if(Owner.name.ToLower().Contains("polaris"))
+            {
+                Pick = DustID.PurpleTorch;return;
+            }
             Pick = Owner.name.ToLower() switch
             {
                 "scarletshelf" or "truescarlet" or "fakeaqua" => DustID.CrimsonTorch,
@@ -85,6 +89,12 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
         }
         private void PickTagColor(out Color baseColor, out Color targetColor)
         {
+            if (Owner.name.ToLower().Contains("polaris"))
+            {
+                baseColor = new Color(70, 8, 255);
+                targetColor = new Color(120, 60, 255);
+                return;
+            }
             switch (Owner.name.ToLower())
             {
                 case "scarletshelf":
