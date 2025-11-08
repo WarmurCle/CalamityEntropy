@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
             //Timer应延后自增避免出现执行问题
             AttackTimer += 1;
             //敌对单位非空
-            if (Projectile.GetTargetSafe(out NPC target, TargetIndex))
+            if (Projectile.GetTargetSafe(out NPC target, TargetIndex, true))
             {
                 //只有在特定帧后才允许锤子进行挂载
                 if (AttackTimer > StartSpinTime * 2)
@@ -38,10 +38,10 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
                     DoGeneric();
                     return;
                 }
-                ReleaseDarkEnegry(target);
+                ReleaseDarkEnegry();
             }
         }
-        private void ReleaseDarkEnegry(NPC center)
+        private void ReleaseDarkEnegry()
         {
             /*
             下方是一段基于主射弹当前速度而做出动态变化的射弹生成代码
@@ -71,14 +71,14 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
             NebulaArrowRotation = direction.ToRotation();
             if (AttackTimer % spawnRates == 0)
             {
-                //这里的暗温魔能不会必中
+                //这里的暗温魔能会必中
                 float baseFlareSpeed = Main.rand.NextFloat(12f, 16f);
                 //依据锤子当前的速度，以对数的形式给予伤害加成
                 int flareDamage = (int)(Projectile.damage + 2 * (float)Math.Log(1 + Projectile.velocity.Length() / 1.5));
                 Vector2 velocity = direction * baseFlareSpeed;
                 if (Projectile.owner != Main.myPlayer)
                     return;
-                //火星机枪的音效
+                //鬼魂音效
                 SoundEngine.PlaySound(SoundID.Item103 with { MaxInstances = 4, Pitch = 0.7f });
                 //生成
                 Projectile flares = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<DarkEnergy>(), flareDamage, 1.1f, Owner.whoAmI, 0f, Main.rand.Next(3));

@@ -20,7 +20,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.PunishmentH
     {
         
         #region 攻击逻辑的枚举
-        internal const short IsAddition = 3;
         private enum DoType
         {
             IsShooted,
@@ -51,8 +50,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.PunishmentH
         );
         //总的挂载时间
         private const int TotalSpinTime = 1800;
-        //敌怪的搜索距离，会影响所有搜索的地方
-        private const float TilesToSearch = 1800f;
         private int MountedIndex = -1;
         #endregion
         #region Typedef
@@ -104,7 +101,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.PunishmentH
                 return;
             
             TargetIndex = target.whoAmI;
-            
+            SoundStyle pickSound2 = Utils.SelectRandom(Main.rand, HammerSoundID.HammerStrike.ToArray());
+            SoundEngine.PlaySound(pickSound2 with { Pitch = Main.rand.NextFloat(0.6f, 0.7f), Volume = 0.7f, MaxInstances = 1 }, target.Center);
             //处于挂载条件下，持续发射神圣新星
             if (AttackType == DoType.IsStealth)
             {
@@ -285,7 +283,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.PunishmentH
         private void DoAddition()
         {
             //其他情况下投掷出来的潜伏锤子只会正常回击并于玩家位置生成echo锤
-            bool hasValidTarget = Projectile.GetTargetSafe(out NPC target, TargetIndex);
+            bool hasValidTarget = Projectile.GetTargetSafe(out NPC target, TargetIndex, true);
             if (hasValidTarget)
             {
                 for (int i = 0; i < 6; i++)

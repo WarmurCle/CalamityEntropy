@@ -37,6 +37,7 @@ namespace CalamityEntropy.Assets.Register
             FlowWithAShader = null;
             PolarDistortShader = null;
             DisplacemenShader = null;
+            DisplacemenShaderP = null;
         }
         private static Effect LoadShader(string name) => ModContent.Request<Effect>($"{ShaderPath}{name}", AssetRequestMode.ImmediateLoad).Value;
         private static void RegisShader(Effect shader) => RegisShader(shader, "Entropy" + nameof(shader), nameof(shader));

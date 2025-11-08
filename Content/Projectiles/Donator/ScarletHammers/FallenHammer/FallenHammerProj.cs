@@ -190,7 +190,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
                     targetColor = Color.Gold;
                     break;
                 //银九 - 粉
-                case "yinJiu":
+                case "yinjiu":
                 case "银九":
                     baseColor = Color.HotPink;
                     targetColor = Color.Pink;

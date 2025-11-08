@@ -1,19 +1,14 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.MainHammer;
 using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.ScarletParticles;
-using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,7 +19,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
     {
         public new string LocalizationCategory => "Projectiles.Rogue";
         public Player Owner => Main.player[Projectile.owner];
-        public EModPlayer ModPlayer => Owner.Entropy();
         public EGlobalProjectile ModProj => Projectile.Entropy();
         public override string Texture => BaseHammerClass.TexturePathBase + "GodsHammer";
         public int TargetIndex
@@ -57,7 +51,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 2;
         }
-        
         public override void OnSpawn(IEntitySource source)
         {
             //生成的一瞬确定这个锤子的“旋转朝向”
@@ -153,31 +146,23 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         }
         public override Color? GetAlpha(Color lightColor) => new(251, 184, 255, 100);
         private SpriteBatch SB { get => Main.spriteBatch; }
-        private GraphicsDevice GD {get => Main.graphics.GraphicsDevice;}
         #region  Draw
-        //DrawProjWidth
         public float SetProjWidth(float ratio)
         {
             float width = Projectile.width;
             width *= MathHelper.SmoothStep(0.8f, 0.6f, Utils.GetLerpValue(0f, 0.5f, ratio, true));
             return width;
         }
-        //DrawTrailColor
-        float Hue = 1.7f;
         public Color SetTrailColor(float ratio)
         {
-            float hue = Hue % 1f + 0.2f;
-            if (hue >= 0.99f)
-                hue = 0.99f;
-
-            float velocityOpacityFadeout = Utils.GetLerpValue(2f, 5f, Projectile.velocity.Length(), true);
+            float velocityOpacityFadeout = Utils.GetLerpValue(1f, 5f, Projectile.velocity.Length(), true);
             Color c = GodsHammerProj.TrailColor * Projectile.Opacity * (1f - ratio);
-            return c * Utils.GetLerpValue(0.04f, 0.2f, ratio, true) * velocityOpacityFadeout;
+            return c * Utils.GetLerpValue(0.04f, 0.1f, ratio, true) * velocityOpacityFadeout;
         }
         //DrawOffset
         public Vector2 PrimitiveOffsetFunction(float ratio)
         {
-            return Projectile.Size * 0.5f + Projectile.velocity.SafeNormalize(Vector2.Zero) * Projectile.scale * 0.5f * Vector2.UnitX;
+            return Projectile.Size * 0.5f + Projectile.velocity.SafeNormalize(Vector2.Zero) * Projectile.scale * 0.5f * 0.5f;
         }
 
         public void DrawVertex()
@@ -194,8 +179,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 DrawVertex();
                 SB.ExitShaderRegion();
             }
-            Projectile.QuickDrawBloomEdge(); 
-            Projectile.QuickDrawWithTrailing(0.7f, Color.White, 4);
+            Projectile.QuickDrawBloomEdge(Color.LightPink, rotOffset: -MathHelper.PiOver4);
+            Projectile.QuickDrawWithTrailing(0.7f, Color.GhostWhite, -MathHelper.PiOver4);
             return false;
         }
         #endregion
@@ -263,13 +248,12 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 //转化为椭圆点
                 Vector2 toEdge = spawnPos + angle.ToEllipseVector2Edge(10f, 30f, baseRot);
                 //设置速度，略微朝内
-                GlowOrbParticle orb = new(toEdge, Vector2.Zero, false, 80, 0.7f, GodsHammerProj.TrailColor);
-                GeneralParticleHandler.SpawnParticle(orb);
+                ShinyOrbParticle orbs = new ShinyOrbParticle(toEdge, Vector2.Zero, GodsHammerProj.TrailColor, 40, 0.7f, BlendState.Additive);
+                orbs.Spawn();
             }
             int yetAnotherParticlesCounts = 12;
             for (int k = 0; k < 18; k++)
             {
-                Vector2 theDir = Projectile.velocity.SafeNormalize(Vector2.UnitX);
                 float shortAxis = 6f - k;
                 float longAxis = 16f - k;
                 for (int j = 0; j < yetAnotherParticlesCounts; j++)
@@ -277,8 +261,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                     float angleStep = (float)(MathHelper.TwoPi / yetAnotherParticlesCounts);
                     float angle = j * angleStep;
                     Vector2 edge = spawnPos + angle.ToEllipseVector2Edge(shortAxis, longAxis, baseRot);
-                    GlowOrbParticle orb = new(edge, Vector2.Zero, false, 80, 0.6f, GodsHammerProj.TrailColor);
-                    GeneralParticleHandler.SpawnParticle(orb);
+                    ShinyOrbParticle orbs = new ShinyOrbParticle(edge, Vector2.Zero, GodsHammerProj.TrailColor, 40, 0.6f, BlendState.Additive);
+                    orbs.Spawn();
                 }
             }
         }

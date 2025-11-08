@@ -6,6 +6,8 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
+using Microsoft.Build.Tasks;
+using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -43,6 +45,11 @@ namespace CalamityEntropy
             {
                 player.Calamity().rogueStealth = 0;
             }
+        }
+        public static void ProjTrailData(this Projectile proj, int length, int mode)
+        {
+            ProjectileID.Sets.TrailCacheLength[proj.type] = length;
+            ProjectileID.Sets.TrailingMode[proj.type] = mode;
         }
         public static float CustomLerp2(float p)
         {
@@ -1524,11 +1531,15 @@ namespace CalamityEntropy
             vec = vec.SafeNormalize(Vector2.UnitX);
             return vec;
         }
-        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color, float rotation, int drawTime = 4)
+        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color, float rotFix = 0) => QuickDrawWithTrailing(proj, offset, color, proj.Center, proj.scale, 4, rotFix);
+        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color, int drawTime, float rotFix = 0) => QuickDrawWithTrailing(proj, offset, color, proj.Center, proj.scale, drawTime, rotFix);
+        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color, int drawTime, Vector2 drawCenter, float rotFix = 0) => QuickDrawWithTrailing(proj, offset, color, drawCenter, proj.scale, drawTime, rotFix);
+        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color, int drawTime, Vector2 drawCenter, float scale, float rotFix = 0) => QuickDrawWithTrailing(proj, offset, color, drawCenter, scale, drawTime, rotFix);
+        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color, Vector2 drawCenter, float scale, int drawTime = 4, float rotFix = 0)
         {
             Texture2D tex = proj.GetTexture();
             Vector2 orig = tex.Size() / 2;
-            Vector2 drawPos = proj.Center - Main.screenPosition;
+            Vector2 drawPos = drawCenter - Main.screenPosition;
             for (int i = 1; i < drawTime; i++)
             {
                 Vector2 trailingDrawPos = drawPos - proj.velocity * i * offset;
@@ -1536,47 +1547,25 @@ namespace CalamityEntropy
                 //平方放缩
                 faded = MathF.Pow(faded, 2);
                 Color trailColor = color * faded;
-                Main.spriteBatch.Draw(tex, trailingDrawPos, null, trailColor, rotation, orig, proj.scale, 0, 0);
+                Main.spriteBatch.Draw(tex, trailingDrawPos, null, trailColor, proj.oldRot[i] + rotFix, orig, scale, 0, 0);
             }
             //直接绘制主射弹位于最顶层
-            Main.spriteBatch.Draw(tex, drawPos, null, color, rotation, orig, proj.scale, 0, 0.1f);
+            Main.spriteBatch.Draw(tex, drawPos, null, color, proj.rotation + rotFix, orig, scale, 0, 0.1f);
 
         }
-        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color)
+        public static SpriteEffects FlipHorizonHandler(this Projectile projectile)
         {
-            QuickDrawWithTrailing(proj, offset, color, proj.oldPos.Length);
+            return projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
-        public static void QuickDrawWithTrailing(this Projectile proj, float offset, Color color, int drawTime = 4)
-        {
-            Texture2D tex = proj.GetTexture();
-            Vector2 orig = tex.Size() / 2;
-            Vector2 drawPos = proj.Center - Main.screenPosition;
-            for (int i = 1; i < drawTime; i++)
-            {
-                Vector2 trailingDrawPos = drawPos - proj.velocity * i * offset;
-                float faded = 1 - i / (float)drawTime;
-                //平方放缩
-                faded = MathF.Pow(faded, 2);
-                Color trailColor = color * faded;
-                Main.spriteBatch.Draw(tex, trailingDrawPos, null, trailColor, proj.oldRot[i], orig, proj.scale, 0, 0);
-            }
-            //直接绘制主射弹位于最顶层
-            Main.spriteBatch.Draw(tex, drawPos, null, color, proj.rotation, orig, proj.scale, 0, 0.1f);
-
-        }
-        public static SpriteEffects FlipHorizonHandler(this Projectile projectile) => projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         /// <summary>
         /// 为你的射弹绘制一个发光描边。基于射弹本体颜色
         /// </summary>
         /// <param name="proj"></param>
         /// <param name="totalDrawTime"></param>
         /// <param name="posMove"></param>
-        public static void QuickDrawBloomEdge(this Projectile proj, int totalDrawTime = 8, float posMove = 2f)
+        public static void QuickDrawBloomEdge(this Projectile proj, int totalDrawTime = 8, float rotOffset = 0, float posMove = 2f)
         {
-            for (int i = 0; i < totalDrawTime; i++)
-            {
-                Main.spriteBatch.Draw(proj.GetTexture(), proj.Center - Main.screenPosition + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 4f, null, Color.White with { A = 0 }, proj.rotation, proj.GetTexture().Size() / 2, proj.scale, SpriteEffects.None, 0f);
-            }
+            QuickDrawBloomEdge(proj, Color.White, totalDrawTime, rotOffset, posMove);
         }
         /// <summary>
         /// 为你的射弹绘制一个发光描边。基于射弹本体，重载输入颜色
@@ -1584,11 +1573,11 @@ namespace CalamityEntropy
         /// <param name="proj"></param>
         /// <param name="totalDrawTime"></param>
         /// <param name="posMove"></param>
-        public static void QuickDrawBloomEdge(this Projectile proj, Color color, int totalDrawTime = 8, float posMove = 2f)
+        public static void QuickDrawBloomEdge(this Projectile proj, Color color, int totalDrawTime = 8, float rotOffset = 0, float posMove = 2f)
         {
             for (int i = 0; i < totalDrawTime; i++)
             {
-                Main.spriteBatch.Draw(proj.GetTexture(), proj.Center - Main.screenPosition + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 4f, null, color with { A = 0 }, proj.rotation, proj.GetTexture().Size() / 2, proj.scale, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(proj.GetTexture(), proj.Center - Main.screenPosition + MathHelper.ToRadians(i * 60f).ToRotationVector2() * posMove, null, color with { A = 0 }, proj.rotation + rotOffset, proj.GetTexture().Size() / 2, proj.scale, 0, 0f);
             }
         }
         #region 搜索boss掉落物
@@ -1683,7 +1672,8 @@ namespace CalamityEntropy
 
             if (!target.chaseable || curDist > distRequired && !ignoreDist)
                 canHome = false;
-            else canHome = true;
+            else 
+                canHome = true;
             if (canHome)
             {
                 //给予额外更新
@@ -1811,15 +1801,6 @@ namespace CalamityEntropy
             if ((!npc.CanBeChasedBy(proj) || targetIndex == 0) && canSearchSecondTarget)
                 npc = proj.FindClosestTarget(anotherDistance);
 
-            target = npc;
-            return npc != null;
-        }
-        [Obsolete("临时重载方法，方便过编译，最后这个方法会被废弃")]
-        public static bool GetTargetSafe(this Projectile proj, out NPC target, int targetIndex, float anotherDistance = 1800f)
-        {
-            NPC npc = Main.npc[targetIndex];
-            if (!npc.CanBeChasedBy(proj) || targetIndex == 0)
-                npc = proj.FindClosestTarget(anotherDistance);
             target = npc;
             return npc != null;
         }
@@ -1958,12 +1939,12 @@ namespace CalamityEntropy
                 d.alpha = dAlpha;
             }
         }
+
         public static float ToClamp(this float value, float min = 0f, float max = 1f) => MathHelper.Clamp(value, min, max);
-        public static bool OutOffScreen(Vector2 pos)
+        public static bool OutOffScreen(this Vector2 pos)
         {
             if (pos.X < Main.screenPosition.X - Main.screenWidth / 2)
                 return true;
-
             if (pos.Y < Main.screenPosition.Y - Main.screenHeight / 2)
                 return true;
 

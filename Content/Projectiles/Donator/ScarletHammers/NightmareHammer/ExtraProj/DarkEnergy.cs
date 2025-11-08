@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
         }
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Type] = 24;
+            ProjectileID.Sets.TrailCacheLength[Type] = 16;
             ProjectileID.Sets.TrailingMode[Type] = 2;
         }
         public override void SetDefaults()
@@ -72,10 +72,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
             //生成逻辑。
             AttackTimer += 1;
             float progress = AttackTimer / 20f;
-            Projectile.scale = MathHelper.Lerp(0f, 1f, progress);
-            Projectile.Opacity = MathHelper.Lerp(0f, 1f, progress);
-            Projectile.scale = MathHelper.Clamp(Projectile.scale, 0f, 1f);
-            Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity, 0f, 1f);
+            Projectile.scale = MathHelper.Lerp(0f, 1f, progress).ToClamp();
+            Projectile.Opacity = MathHelper.Lerp(0f, 1f, progress).ToClamp();
             Lighting.AddLight(Projectile.Center, TorchID.White);
             if(AttackTimer > 20f)
             {
@@ -100,27 +98,26 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
         }
         private void DoChasingToTarget()
         {
-            if(Projectile.GetTargetSafe(out NPC target, TargetIndex))
+            if(Projectile.GetTargetSafe(out NPC target, TargetIndex, true))
                 Projectile.HomingNPCBetter(target, 24f, 20f, 1);
         }
         private SpriteBatch SB { get => Main.spriteBatch; }
         private GraphicsDevice GD { get => Main.graphics.GraphicsDevice; }
-        public Asset<Texture2D> Trail => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/rvslash");
         public override bool PreDraw(ref Color lightColor)
         {
             
             SB.End();
             SB.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            Texture2D tex = TextureRegister.General_WhiteOrb.Value;
-            SB.Draw(tex, Projectile.Center, null, Color.Black, Projectile.rotation, tex.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-            SB.Draw(tex, Projectile.Center, null, Color.White, Projectile.rotation, tex.Size() / 2, Projectile.scale / 2, SpriteEffects.None, 0);
-            DrawTrail(Color.Black, 10);
-
+            //我踩到地雷了孩子们。
+            DrawTrail(new Color(75,0,130), 10.5f);
+            DrawTrail(Color.Black, 10f);
+            DrawTrail(Color.Black, 9.8f);
+            DrawTrail(Color.Black, 9.5f);
             SB.End();
             SB.BeginDefault();
             return false;
         }
-        private void DrawTrail(Color color, int height, int width = 0)
+        private void DrawTrail(Color color, float height, int width = 0)
         {
             //做掉可能存在的零向量。
             Projectile.ClearInvalidPoint(out List<Vector2> validPos, out List<float> validRot, Projectile.oldPos, Projectile.oldRot);
@@ -133,14 +130,14 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
                 Vector2 oldCenter = worldCenter - Main.screenPosition;
                 float progress = (float)i / (smoothPos.Count - 1);
                 Vector2 posOffset = new Vector2(0, height).RotatedBy(smoothRot[i]);
-                VertexPosition2DColorTexture upClass = new(oldCenter + posOffset, color, new Vector2(progress, 0), 0);
-                VertexPosition2DColorTexture downClass = new(oldCenter - posOffset, color, new Vector2(progress, 1), 0);
+                VertexPosition2DColorTexture upClass = new(oldCenter + posOffset, color, new Vector2(progress, 1), 0);
+                VertexPosition2DColorTexture downClass = new(oldCenter - posOffset, color, new Vector2(progress, 0), 0);
                 list.Add(upClass);
                 list.Add(downClass);
             }
             if (list.Count >= 3)
             {
-                GD.Textures[0] = Trail.Value;
+                GD.Textures[0] = TextureRegister.Trail_RvSlash.Value;
                 GD.DrawUserPrimitives(PrimitiveType.TriangleStrip, list.ToArray(), 0, list.Count - 2);
             }
         }

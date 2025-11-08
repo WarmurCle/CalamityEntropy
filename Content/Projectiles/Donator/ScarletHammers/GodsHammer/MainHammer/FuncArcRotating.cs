@@ -52,6 +52,9 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         private const float ArcRadius = 12 * 16;
         #endregion
         #region ArcRotation
+        /// <summary>
+        /// 超级大史山，必须得找个时间重构了
+        /// </summary>
         private void DrawDynamicArc()
         {
             //平滑玩家自身位置，因为玩家自身是一个不断位移的单位
@@ -138,9 +141,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                     //自增
                     _drawArcTime++;
                     _isArcRotating = false;
-                    //恢复原本的速度，并从切线方向飞出
-                    //不是沿切线飞出，而是沿射弹圆弧最终点所朝向向量飞出
-                    Projectile.velocity = finalDir * _originalSpeed;
                 }
             }
         }

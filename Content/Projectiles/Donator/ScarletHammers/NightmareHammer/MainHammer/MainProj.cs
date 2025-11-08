@@ -57,8 +57,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
         private const int TotalSpinTime = 480;
         //我也不知道这个是干嘛的，但是我建议别改（
         private int StartSpinTime => 30 * Projectile.extraUpdates;
-        //挂载时，最大月炎射线量
-        const int MaxHangingFlares = 4;
         #endregion
         #region 其余与平衡无关的杂项。
         public ref float NebulaArrowRotation => ref ModProj.ExtraProjAI[0];
@@ -86,7 +84,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
         }
         public override void AI()
         {
-            NPC target = Main.npc[TargetIndex];
             DoGeneric();
             switch (AttackType)
             {
@@ -250,7 +247,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
                 NightmareArrowDrop(target, flareDamage);
             //每次攻击缩减
             //双锤子以上时，每把锤子最低只有15的攻击频率
-            int leastHitCD = hasOver2Hammer ? 15 * Projectile.extraUpdates : 5 * Projectile.extraUpdates;
+            int leastHitCD = hasOver2Hammer ? 13 * Projectile.extraUpdates : 5 * Projectile.extraUpdates;
             Projectile.localNPCHitCooldown -= 5 * Projectile.extraUpdates;
             if (Projectile.localNPCHitCooldown < leastHitCD)
                 Projectile.localNPCHitCooldown = leastHitCD;
@@ -259,24 +256,13 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
         {
             //这下面一长串都是为了处理……生成的
             //返程写的挺fuck的
-            float flareSpeed = Main.rand.NextFloat(15f, 18f);
             float xDist = Main.rand.NextFloat(10f, 220f) * Main.rand.NextBool().ToDirectionInt();
             float yDist = Main.rand.NextFloat(800f, 1000f);
             Vector2 srcPos = target.Center + new Vector2(xDist, -yDist);
-
-            float xVar = target.width / 4f < 8f ? 8f : target.width / 4f;
-            float yVar = target.height / 4f < 8f ? 8f : target.height / 4f;
-            float xOff = Main.rand.NextFloat(-xVar, xVar);
-            float yOff = Main.rand.NextFloat(-yVar, yVar);
-            Vector2 offsetTarget = target.Center + new Vector2(xOff, yOff);
-            Vector2 direction = offsetTarget - srcPos;
-            direction.Normalize();
-            Vector2 velocity = direction * flareSpeed;
-            
             if (Projectile.owner != Main.myPlayer)
                 return;
-            //在滞留所有的射弹
 
+            //在滞留所有的射弹
             Projectile sparks = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), srcPos, Vector2.Zero, ModContent.ProjectileType<NightmareArrow>(), flareDamage, 1.1f, Owner.whoAmI);
             sparks.Calamity().stealthStrike = true;
             sparks.ai[2] = target.whoAmI;

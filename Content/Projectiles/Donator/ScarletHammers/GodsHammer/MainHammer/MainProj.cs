@@ -1,23 +1,18 @@
-using CalamityEntropy.Utilities;
+using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.ScarletParticles;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
-using System.Collections.Generic;
-using System.Reflection.PortableExecutable;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.MainHammer
 {
-    public partial class GodsHammerProj: BaseHammerClass, ILocalizedModType
+    public partial class GodsHammerProj : BaseHammerClass, ILocalizedModType
     {
         protected override BoomerangDefault BoomerangStat => new(
             returnTime: 34,
@@ -50,10 +45,10 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         #region Typedef
         public ref bool Update => ref Projectile.netUpdate;
         public ref bool IsHanging => ref ModPlayer._anyHammerAttacking;
-        public int CahceEU
+        public bool CanDrawTrail
         {
-            get => (int)ModProj.ExtraProjAI[0];
-            set => ModProj.ExtraProjAI[0] = value;
+            get => ModProj.ExtraProjAI[0] == 1f;
+            set => ModProj.ExtraProjAI[0] = value ? 1f : 0f;
         }
         public ref float SpriteRotation => ref ModProj.ExtraProjAI[1];
         #endregion
@@ -91,7 +86,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         }
         public override bool PreKill(int timeLeft)
         {
-            if (AttackType is DoType.IsStealth && _drawArcTime > 0)
+            //额外锤子不要震屏
+            if (AttackType is DoType.IsStealth && _drawArcTime > 0 && Stealth)
             {
                 SoundStyle select = Utils.SelectRandom(Main.rand, HammerSoundID.HammerStrike.ToArray());
                 SoundEngine.PlaySound(select, Projectile.Center);
@@ -102,17 +98,35 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            SoundEngine.PlaySound(HitSound with {MaxInstances = 2}, Projectile.Center);
-            if (Stealth && AttackType is DoType.IsStealth && _drawArcTime > 0)
-                StealthHit(target, hit.Damage, target.whoAmI);
-            if (!Stealth)
+            //允许绘制轨迹的锤子永远不会执行普攻效果
+            //byd什么史山啊
+            bool canSpawnSpark = (CanDrawTrail && !Stealth && AttackType == DoType.IsStealth) || (Stealth);
+            if (canSpawnSpark)
             {
-                NormalHit(target);
+                DrawHitSpark(target, hit.Damage);
+                //只有潜伏状态下才允许额外生成锤子，其余状态处死
+                if (AttackType == DoType.IsStealth)
+                {
+                    if (_drawArcTime > 0 && Stealth)
+                        StealthHit(target, hit.Damage, target.whoAmI);
+                    Projectile.Kill();
+                }
             }
+            if (CanDrawTrail)
+                return;
+
+            NormalHit(target);
+            TargetIndex = target.whoAmI;
+            SoundEngine.PlaySound(HitSound with { MaxInstances = 2 }, Projectile.Center);
+        }
+        private void DrawHitSpark(NPC target, int damage)
+        {
+            SoundStyle pickSound2 = Utils.SelectRandom(Main.rand, HammerSoundID.HammerStrike.ToArray());
+            SoundEngine.PlaySound(pickSound2 with { Pitch = Main.rand.NextFloat(0.6f, 0.7f), Volume = 0.7f, MaxInstances = 1 }, target.Center);
+            PrettySpark(damage);
         }
         private SpriteBatch SB { get => Main.spriteBatch; }
         #region DrawMethod
-        //DrawProjWidth
         public float SetProjWidth(float ratio)
         {
             float width = Projectile.width;
@@ -129,18 +143,20 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
 
             float velocityOpacityFadeout = Utils.GetLerpValue(2f, 5f, Projectile.velocity.Length(), true);
             Color c = TrailColor * Projectile.Opacity * (1f - ratio);
-            return c * Utils.GetLerpValue(0.04f, 0.2f, ratio, true) * velocityOpacityFadeout;
+            return c * Utils.GetLerpValue(0.04f, 0.1f, ratio, true) * velocityOpacityFadeout;
         }
-        //DrawOffset
         public Vector2 PrimitiveOffsetFunction(float ratio)
         {
-            return Projectile.Size * 0.5f + Projectile.velocity.SafeNormalize(Vector2.Zero) * Projectile.scale * 0.5f * Vector2.UnitX;
+            Vector2 off = Projectile.Size * 0.5f + Projectile.velocity.SafeNormalize(Vector2.Zero) * Projectile.scale * 0.2f * Vector2.UnitX;
+            return off;
         }
         #endregion
         //TODO：下面那个轨迹把归元漩涡的轨迹改成另外一种，现在这个纯纯占位符
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Stealth)
+            Projectile.QuickDrawBloomEdge(rotOffset: -MathHelper.PiOver4);
+            Projectile.QuickDrawWithTrailing(0.7f, Color.White, 4, -MathHelper.PiOver4);
+            if (CanDrawTrail && !Projectile.Center.OutOffScreen())
             {
                 SB.EnterShaderRegion(BlendState.Additive);
                 float spinRotation = Main.GlobalTimeWrappedHourly * 5.2f;
@@ -148,13 +164,11 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(SetProjWidth, SetTrailColor, PrimitiveOffsetFunction, shader: GameShaders.Misc["CalamityMod:SideStreakTrail"]), 51);
                 SB.ExitShaderRegion();
             }
-            Projectile.QuickDrawBloomEdge();
-            Projectile.QuickDrawWithTrailing(0.7f, Color.White, 4);
+
             return false;
         }
-          private void DoStealth()
+        private void DoStealth()
         {
-            NPC target = Projectile.FindClosestTarget(4800f);
             //初始化上一锚点缓存位为玩家中心
             if (_lastAnchorPosition == Vector2.Zero)
                 _lastAnchorPosition = Owner.Center;
@@ -162,47 +176,53 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             //如果玩家突然死亡，处死自己
             if (Owner.dead)
                 Projectile.Kill();
-    
-            //小于特定次数前ban掉下方所有AI
-            if (_drawArcTime < 1)
+            if (CanDrawTrail && !Stealth && AttackTimer < 10f)
             {
+                AttackTimer += 1;
+                return;
+            }
+            else if (_drawArcTime < 1 && Stealth)
+            {
+                //小于特定次数前ban掉下方所有AI
+                //并且额外生成的锤子别直接去画圆弧，而是冲过去
                 DrawDynamicArc();
                 return;
             }
-            if (target != null)
+
+            if (Projectile.GetTargetSafe(out NPC target, TargetIndex, true, 4800f))
             {
                 //以超高的速度冲向你的敌怪
                 Projectile.HomingNPCBetter(target, 1f, 24f, 18f, 2, ignoreDist: true);
             }
         }
-        private void DoGeneric() 
+        private void DoGeneric()
         {
-            if (!Stealth)
-            {
-                Projectile.rotation += ProjStat.RotationSpeed;
-                if (Main.rand.NextBool(8))
-                {
-                    Vector2 offset = new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(360f));
-                    Vector2 velOffset = new Vector2(2, 0).RotatedBy(offset.ToRotation());
-                    Dust dust = Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y) + offset, DustID.WitherLightning, new Vector2(Projectile.velocity.X * 0.2f + velOffset.X, Projectile.velocity.Y * 0.2f + velOffset.Y), 100, default, 0.8f);
-                    dust.noGravity = true;
-                }
-
-                if (Main.rand.NextBool(10))
-                {
-                    Vector2 offset = new Vector2(12, 0).RotatedByRandom(MathHelper.ToRadians(360f));
-                    Vector2 velOffset = new Vector2(4, 0).RotatedBy(offset.ToRotation());
-                    Dust dust = Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y) + offset, DustID.GemDiamond, new Vector2(Projectile.velocity.X * 0.15f + velOffset.X, Projectile.velocity.Y * 0.15f + velOffset.Y), 100, default, 0.8f);
-                    dust.noGravity = true;
-                }
-
-            }
-            else
+            //潜伏射弹允许绘制轨迹
+            if (Stealth)
+                CanDrawTrail = true;
+            //所有允许绘制轨迹的锤子都不会执行普攻的特效
+            if (CanDrawTrail)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 IsHanging = true;
+                return;
             }
-            
+            Projectile.rotation += ProjStat.RotationSpeed;
+            if (Main.rand.NextBool(8))
+            {
+                Vector2 offset = new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(360f));
+                Vector2 velOffset = new Vector2(2, 0).RotatedBy(offset.ToRotation());
+                Dust dust = Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y) + offset, DustID.WitherLightning, new Vector2(Projectile.velocity.X * 0.2f + velOffset.X, Projectile.velocity.Y * 0.2f + velOffset.Y), 100, default, 0.8f);
+                dust.noGravity = true;
+            }
+
+            if (Main.rand.NextBool(10))
+            {
+                Vector2 offset = new Vector2(12, 0).RotatedByRandom(MathHelper.ToRadians(360f));
+                Vector2 velOffset = new Vector2(4, 0).RotatedBy(offset.ToRotation());
+                Dust dust = Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y) + offset, DustID.GemDiamond, new Vector2(Projectile.velocity.X * 0.15f + velOffset.X, Projectile.velocity.Y * 0.15f + velOffset.Y), 100, default, 0.8f);
+                dust.noGravity = true;
+            }
         }
         private void DoShooted()
         {
@@ -210,43 +230,55 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             bool ShouldACT = AttackTimer is 0 && Stealth;
             if (ShouldACT)
             {
-                CahceEU = Projectile.extraUpdates;
                 Projectile.extraUpdates = Projectile.extraUpdates + 2;
+                Projectile.localNPCHitCooldown = 20;
                 SoundStyle selectOne = Utils.SelectRandom(Main.rand, HammerSoundID.HammerTypes.ToArray()) with { Volume = 0.8f, MaxInstances = 0 };
                 SoundEngine.PlaySound(selectOne, Projectile.Center);
             }
 
             AttackTimer += 1;
-            if (AttackTimer > BoomerangStat.ReturnTime)
+            float retTime = BoomerangStat.ReturnTime;
+            if (AttackTimer > retTime)
             {
                 AttackTimer = 0;
                 AttackType = DoType.IsReturning;
-                //恢复普通EU
-                if (ShouldACT)
-                    Projectile.extraUpdates = CahceEU;
+                if (Stealth)
+                    SpawnSkyFallHammer();
                 Update = true;
             }
         }
         private void DoReturning()
         {
             Projectile.AccelerateToTarget(Owner.Center, BoomerangStat.ReturnSpeed, BoomerangStat.Acceleration, BoomerangStat.KillDistance);
-            if (Projectile.Hitbox.Intersects(Owner.Hitbox))
+            if (!Projectile.Hitbox.Intersects(Owner.Hitbox))
+                return;
+
+            //允许绘制轨迹的所有锤子都会执行潜伏的AI
+            if (!CanDrawTrail)
             {
-                //当前有任何挂载锤，所有的攻击都会直接在返回后杀掉弹幕
-                if (!Stealth)
-                {
-                    Projectile.Kill();
-                    Update = true;
-                    return;
-                }
-                else
-                {
-                    AttackType = DoType.IsStealth;
-                    //重新设定无敌帧
-                    Projectile.localNPCHitCooldown = 45;
-                    Update = true;
-                }
+                Projectile.Kill();
+                Update = true;
+                return;
             }
+            //否则，其他情况下都会执行这个潜伏ai
+            AttackType = DoType.IsStealth;
+            //重新设定无敌帧
+            Projectile.localNPCHitCooldown = 45;
+            Update = true;
+        }
+
+        private void SpawnSkyFallHammer()
+        {
+
+            Vector2 pos = new Vector2(Main.MouseWorld.X + Main.rand.NextFloat(-300f, 300f), Main.MouseWorld.Y - 1200f);
+            Vector2 vel = (Main.MouseWorld - pos).SafeNormalize(Vector2.UnitX) * 22f;
+            Projectile extraHammer = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<GodsHammerProj>(), Projectile.damage / 2, Projectile.knockBack);
+            //启用轨迹。
+            extraHammer.Entropy().ExtraProjAI[0] = 1f;
+            extraHammer.extraUpdates = 6;
+            //这个射弹直接从回程至玩家进行
+            extraHammer.ai[0] = (float)DoType.IsShooted;
+            extraHammer.ai[1] = -30f;
         }
     }
 }

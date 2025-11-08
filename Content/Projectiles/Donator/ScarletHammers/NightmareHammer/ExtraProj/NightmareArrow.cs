@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.ScarletParticles;
+﻿using CalamityEntropy.Assets.Register;
+using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.ScarletParticles;
 using CalamityEntropy.Core.Construction;
 using CalamityEntropy.Utilities;
 using CalamityMod.Graphics.Primitives;
@@ -124,8 +125,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
                 Color drawColor = i == 0 ? Color.Black : new(75, 0, 130);
                 ShinyOrbParticle shinyOrbParticle = new ShinyOrbParticle(spawnPosition, realVel, drawColor, 140, 1.2f, i != 0 ? BlendState.Additive : BlendState.AlphaBlend);
                 shinyOrbParticle.Spawn();
-                //GlowOrbParticle orbs = new GlowOrbParticle(spawnPosition, realVel, false, 140, 1.2f, i == 0 ? Color.Black : new(75, 0, 130), i != 0);
-                //GeneralParticleHandler.SpawnParticle(orbs);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -140,7 +139,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
         #region AI方法合集
         private void DoChasing()
         {
-            if(Projectile.GetTargetSafe(out NPC target, TargetIndex))
+            if(Projectile.GetTargetSafe(out NPC target, TargetIndex,true))
                 Projectile.HomingNPCBetter(target, 24f, 10f, 2);
 
             AttackTimer += 1;
@@ -162,7 +161,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
             //转化为实际点位
             Vector2 offsetPos = new(-xOffset, -yOffset);
             //获取目标位置。
-            if(Projectile.GetTargetSafe(out NPC target, TargetIndex))
+            if(Projectile.GetTargetSafe(out NPC target, TargetIndex, true))
             {
                 //更新射弹位置
                 Projectile.Center = target.Center + offsetPos;
@@ -183,7 +182,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
             //重新给予射弹向上的初速度。
         }
         #endregion
-        Texture2D TopPointTrail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/rvslash").Value;
         private void DrawTrail(Color color, int height, int width = 0)
         {
             //干掉可能存在零向量
@@ -208,7 +206,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
             {
                 GraphicsDevice GD = Main.graphics.GraphicsDevice;
                 //我不会用Shader，我只能先这样搞
-                Texture2D value = TopPointTrail;
+                Texture2D value = TextureRegister.Trail_RvSlash.Value;
                 //贴图
                 GD.Textures[0] = value;
                 //绘制
