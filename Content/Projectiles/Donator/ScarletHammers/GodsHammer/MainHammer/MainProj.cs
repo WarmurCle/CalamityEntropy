@@ -108,8 +108,12 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 if (AttackType == DoType.IsStealth)
                 {
                     if (_drawArcTime > 0 && Stealth)
+                    {
                         StealthHit(target, hit.Damage, target.whoAmI);
-                    Projectile.Kill();
+                        Projectile.Kill();
+                    }
+                    else if (CanDrawTrail && !Stealth)
+                        Projectile.Kill();
                 }
             }
             if (CanDrawTrail)

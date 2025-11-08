@@ -187,6 +187,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.PunishmentH
                 Dust dust = Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y) + offset, DustID.HallowedWeapons, new Vector2(Projectile.velocity.X * 0.15f + velOffset.X, Projectile.velocity.Y * 0.15f + velOffset.Y), 100, default, 0.8f);
                 dust.noGravity = true;
             }
+            Projectile.ArmorPenetration = 30;
         }
         private void NormalShootPunishmentStar(NPC target)
         {

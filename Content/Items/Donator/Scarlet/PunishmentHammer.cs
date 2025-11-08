@@ -19,10 +19,6 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
             Item.value = Item.buyPrice(gold: 12);
         }
         //临时写一下，用于调试
-        public override void UpdateInventory(Player player)
-        {
-            Item.damage = 32;
-        }
         public override void AddRecipes()
         {
             CreateRecipe().
