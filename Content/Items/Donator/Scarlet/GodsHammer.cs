@@ -17,12 +17,12 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         public override void ExSD()
         {
             Item.width = Item.height = 86;
-            Item.damage = 457;
-            Item.useTime = 10;
-            Item.useAnimation = 10;
+            Item.damage = 180;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
             Item.shootSpeed = 20f;
             Item.rare = ModContent.RarityType<DarkBlue>();
-            Item.value = Item.buyPrice(gold: 12);
+            Item.value = Item.buyPrice(gold: 28);
         }
     }
     public class GodsHammerShimmerIL : ModSystem
