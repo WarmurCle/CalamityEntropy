@@ -2606,7 +2606,7 @@ namespace CalamityEntropy.Common
                 if (OracleDeckHealCd <= 0)
                 {
                     OracleDeckHealCd = 300.ApplyCdDec(Player);
-                    if (CEUtils.getDistance(Main.LocalPlayer.Center, Player.Center) < 1600)
+                    if (CEUtils.getDistance(Main.LocalPlayer.Center, Player.Center) < 6000)
                     {
                         if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2)
                         {
