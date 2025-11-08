@@ -83,7 +83,7 @@ namespace CalamityEntropy.Common.LoreReworks
 
         public override void ModifyTooltip(TooltipLine tooltip)
         {
-            tooltip.Text = tooltip.Text.Replace("{1}", (TimeSec * 60).ToString());
+            tooltip.Text = tooltip.Text.Replace("{1}", TimeSec.ToString());
             tooltip.Text = tooltip.Text.Replace("{2}", DamageAddition.ToPercent().ToString());
         }
     }
