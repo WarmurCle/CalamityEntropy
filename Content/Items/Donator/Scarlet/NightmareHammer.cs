@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         {
             Item.width = 88;
             Item.height = 94;
-            Item.damage = 66;
+            Item.damage = 40;
             Item.useTime = 18;
             //这里的UseTime是有意改的很慢的
             Item.useAnimation = 18;
