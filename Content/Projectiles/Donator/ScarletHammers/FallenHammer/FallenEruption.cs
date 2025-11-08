@@ -13,6 +13,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
 {
     public class FallenEruption : BaseScarletProj
     {
+        public override string Texture => CEUtils.InvisAsset;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
@@ -59,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
                     Timer = 0;
                 }
             }
-            if(CanHome)
+            if (CanHome)
             {
                 if (Timer < 50)
                     Timer++;
@@ -73,14 +74,15 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
         {
             if(Owner.name.ToLower().Contains("polaris"))
             {
-                Pick = DustID.PurpleTorch;return;
+                Pick = DustID.PurpleTorch;
+                return;
             }
             Pick = Owner.name.ToLower() switch
             {
                 "scarletshelf" or "truescarlet" or "fakeaqua" => DustID.CrimsonTorch,
                 "chalost" or "查诗络" => DustID.YellowTorch,
-                "yinjiu" or "银九" => DustID.PinkTorch,
-                "kino" => DustID.BlueTorch,
+                "yinjiu" or "银九" => DustID.HallowedTorch,
+                "kino" => DustID.UnusedWhiteBluePurple,
                 "锯角" => DustID.PurpleTorch,
                 "fr9ezes" => DustID.JungleTorch,
                 "kikastorm" or "kika" => DustID.WhiteTorch,
@@ -166,14 +168,15 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
             //绘制残影
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {
-                Vector2 projCenter = (Projectile.Center - Main.screenPosition) - Projectile.velocity * i * 0.45f;
+                Vector2 projCenter = (Projectile.Center - Main.screenPosition) - Projectile.velocity * i * 0.42f;
                 scale *= 0.94f;
                 float radius = (float)i / (Projectile.oldPos.Length);
-                Color color = ((Color.Lerp(baseColor, targetColor, radius)) * 0.6f * (1 - radius));
+                Color color = ((Color.Lerp(baseColor, targetColor, radius)) * 0.5f * (1 - radius));
                 Main.spriteBatch.Draw(tex, projCenter , null, color * Projectile.Opacity, Projectile.oldRot[i], tex.Size() / 2f, Projectile.scale * new Vector2(1.0f, scale), SpriteEffects.None, 0f);
             }
             //绘制火球本身
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, baseColor with { A = 100}, Projectile.rotation, tex.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, targetColor with { A = 100}, Projectile.rotation, tex.Size() / 2f, Projectile.scale / 2f, SpriteEffects.None, 0);
             
             return false;
         }

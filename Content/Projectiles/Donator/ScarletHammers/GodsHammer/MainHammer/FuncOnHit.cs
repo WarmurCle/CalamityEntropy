@@ -29,6 +29,9 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 Main.projectile[echo].Calamity().stealthStrike = true;
                 ProjID.Add(echo);
             }
+        }
+        private void PrettySpark(int hitDamage)
+        {
             //圆环
             Vector2 dir = Projectile.velocity.SafeNormalize(Vector2.UnitX) * Projectile.scale;
             for (int i = 0; i < 36; i++)
@@ -42,8 +45,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             }
             //从灾厄抄写的锤子特效
             float damageInterpolant = Utils.GetLerpValue(950f, 2000f, hitDamage, true);
-            Vector2 splatterDirection = Projectile.velocity;
-            for (int i = 0; i < 20; i++)
+            Vector2 splatterDirection = Projectile.velocity * 0.8f;
+            for (int i = 0; i < 10; i++)
             {
                 int sparkLifetime = Main.rand.Next(55, 70);
                 float sparkScale = Main.rand.NextFloat(0.7f, Main.rand.NextFloat(3.3f, 5.5f)) + damageInterpolant * 0.85f;
@@ -55,10 +58,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 SparkParticle spark = new(Projectile.Center, sparkVelocity, false, sparkLifetime, sparkScale, sparkColor);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
-            //强行处死射弹
-            Projectile.Kill();
-        }
 
+        }
         public void NormalHit(NPC target)
         {
             int dustSets = Main.rand.Next(5, 8);

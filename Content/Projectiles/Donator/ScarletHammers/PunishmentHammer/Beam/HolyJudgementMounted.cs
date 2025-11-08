@@ -71,9 +71,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.PunishmentH
                     break;
             }
         }
-
-        
-
         private void DoBeginAI()
         {
             //这里的generalprogress会被动画受限并不断累积至1.

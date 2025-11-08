@@ -17,6 +17,7 @@ namespace CalamityEntropy.Assets.Register
         public static Asset<Texture2D> Trail_MotionTrail3 { get; private set; }
         public static Asset<Texture2D> Trail_MotionTrail4 { get; private set; }
         public static Asset<Texture2D> Trail_Streak1w { get; private set; }
+        public static Asset<Texture2D> Trail_RvSlash { get; private set; }
         public static Asset<Texture2D> Noise_Misc1 {  get; private set; }
         public static Asset<Texture2D> Noise_Misc2 {  get; private set; }
         public static Asset<Texture2D> General_Shockwave {  get; private set; }
@@ -32,6 +33,7 @@ namespace CalamityEntropy.Assets.Register
             Trail_MotionTrail3 = RegisByAssets("MotionTrail3");
             Trail_MotionTrail4 = RegisByAssets("MotionTrail4");
             Trail_Streak1w = RegisByExtra("Streak1w");
+            Trail_RvSlash = RegisByExtra("rvslash");
 
             Noise_Misc1 = RegisByAssets("MiscNoise01");
             Noise_Misc2 = RegisByAssets("MiscNoise02");
@@ -52,6 +54,7 @@ namespace CalamityEntropy.Assets.Register
             Trail_MotionTrail4 = null;
             Trail_Streak1w = null;
             Trail_SlashWrap = null;
+            Trail_RvSlash = null;
             Noise_Misc1 = null;
             Noise_Misc2 = null;
             General_Shockwave = null;

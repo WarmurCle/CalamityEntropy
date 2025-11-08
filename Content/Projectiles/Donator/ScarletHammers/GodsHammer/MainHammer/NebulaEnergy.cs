@@ -1,11 +1,9 @@
-using CalamityEntropy.Common;
+using CalamityEntropy.Assets.Register;
+using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.ScarletParticles;
 using CalamityEntropy.Core.Construction;
-using CalamityEntropy.Utilities;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
-using InfernumMode.Content.BehaviorOverrides.BossAIs.Dragonfolly;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -34,22 +32,13 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         private ref float TargetIndex => ref Projectile.ai[0];
         private ref float Accele => ref Projectile.ai[1];
         private bool IsHit = false; 
-        private ref float CurRotation => ref Projectile.localAI[0];
         private ref float Progress => ref Projectile.localAI[2];
         private ref float SpriteRotation => ref Projectile.localAI[1];
-        private EGlobalProjectile ModProj => Projectile.Entropy();
-        private bool Differ
-        {
-            get => ModProj.ExtraProjAI[0] == 1f;
-            set => ModProj.ExtraProjAI[0] = value ? 1f : 0f;
-        }
-        private float _arcStartRotation;
-        private float _originalSpeed;
-        float Length = 16;
+
         public override string Texture => CEUtils.InvisAsset;
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Type] = 30;
+            ProjectileID.Sets.TrailCacheLength[Type] = 20;
             ProjectileID.Sets.TrailingMode[Type] = 2;
         }
         public override void SetDefaults()
@@ -73,16 +62,12 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             //初始化
             if (Accele is 0)
             {
-                InitDust(Projectile.Center, Projectile.velocity);
+                //InitDust(Projectile.Center, Projectile.velocity);
                 SpawnFlyingDust();
                 Accele += 1;
                 Progress = 45f;
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            SpriteRotation += MathHelper.ToRadians(1f);
-            SpriteRotation %= MathHelper.TwoPi;
-            if (SpriteRotation < 0)
-                SpriteRotation += MathHelper.TwoPi;
             switch (AttackType)
             {
                 case DoType.IsArcRotating:
@@ -108,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         {
             //获取敌对单位
             //重新搜索一次单位
-            if (!Projectile.GetTargetSafe(out NPC target, (int)TargetIndex))
+            if (!Projectile.GetTargetSafe(out NPC target, (int)TargetIndex,true))
                 return;
             
             Projectile.HomingNPCBetter(target, 24f + Accele / 2f, 20f, 2);
@@ -148,40 +133,10 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 dust.noGravity = true;
             }
         }
-        private void InitDust(Vector2 spawnPos, Vector2 dir)
-        {
-            int particlesCounts = 24;
-            float baseRot = dir.ToRotation() + MathHelper.PiOver2;
-            for (int i = 0; i < particlesCounts; i++)
-            {
-                //角度步长
-                float angleStep = (float)(MathHelper.TwoPi / particlesCounts);
-                //粒子角度
-                float angle = i * angleStep;
-                //转化为椭圆点
-                Vector2 toEdge = spawnPos + angle.ToEllipseVector2Edge(10f, 30f, baseRot);
-                //设置速度，略微朝内
-                GlowOrbParticle orb = new(toEdge, Vector2.Zero, false, 80, 0.7f, GodsHammerProj.TrailColor);
-                GeneralParticleHandler.SpawnParticle(orb);
-            }
-            int maxK = 16;
-            for (int k = 0; k < maxK; k++)
-            {
-                Vector2 randOffset = Main.rand.NextVector2Circular(4f, 2f);
-                Vector2 yetPos = Projectile.Center + randOffset;
-                float speed = MathHelper.Clamp(2f, 0f, 2f);
-                Vector2 vel = Projectile.velocity.SafeNormalize(Vector2.UnitX) * speed;
-                float scale = MathHelper.Lerp(0.7f, 0f, k / 16);
-                scale = MathHelper.Clamp(scale, 0f, 0.7f);
-                GlowOrbParticle orb2 = new(yetPos, vel, false, 60, scale, GodsHammerProj.TrailColor);
-                GeneralParticleHandler.SpawnParticle(orb2);
-            }
-        }
         private SpriteBatch SB { get => Main.spriteBatch; }
         private GraphicsDevice GD { get => Main.graphics.GraphicsDevice; }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D Trail = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak1w").Value;
             Texture2D StarLine = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StarTexture").Value;
             SB.End();
             SB.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullClockwise, null, Main.GameViewMatrix.TransformationMatrix);
@@ -205,7 +160,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             }
             if (list.Count >= 3)
             {
-                GD.Textures[0] = Trail;
+                GD.Textures[0] = TextureRegister.Trail_Streak1w.Value;
                 GD.DrawUserPrimitives(PrimitiveType.TriangleStrip, list.ToArray(), 0, list.Count - 2);
                 GD.Textures[0] = null;
             }

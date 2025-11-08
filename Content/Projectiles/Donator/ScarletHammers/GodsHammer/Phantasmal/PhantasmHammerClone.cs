@@ -5,6 +5,7 @@ using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
+using rail;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -48,6 +49,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         }
         private ref float AttackTimer => ref Projectile.ai[1];
         private int TargetIndex => (int)Projectile.ai[2];
+        private float InitCenterX => Projectile.localAI[0];
+        private float InitCenterY => Projectile.localAI[1];
         private Player Owner => Projectile.GetOwner();
         public override void SetStaticDefaults()
         {
@@ -104,14 +107,14 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 float normalized = 1f / (1f + _originalSpeed * decayFactor); 
                 //映射到 0.4f ~ 0.8f
                 float arcSpeed = MathHelper.Lerp(0.6f, 0.9f, normalized);
-                arcSpeed = MathHelper.Clamp(arcSpeed, 0.55f, 0.62f);
+                arcSpeed = MathHelper.Clamp(arcSpeed, 0.65f, 0.9f);
                 //降低初始速度以减小旋转半径
                 Projectile.velocity *= arcSpeed;
             }
             if (_initArcRotation)
             {
                 //当前进程
-                float arcProgress = AttackTimer / TotalArcDuration;
+                float arcProgress = AttackTimer / (TotalArcDuration /1.5f);
                 //物品转角
                 CurArcRotation = _arcStartRotation + realArcAngle * arcProgress;
                 Projectile.velocity = CurArcRotation.ToRotationVector2() * Projectile.velocity.Length();
@@ -167,9 +170,9 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             //从灾厄抄写的锤子特效
             SoundStyle select = Utils.SelectRandom(Main.rand, HammerSoundID.HammerStrike.ToArray());
             SoundEngine.PlaySound(select, Projectile.Center);
-            float damageInterpolant = Utils.GetLerpValue(950f, 2000f, hit.Damage, true);
+            float damageInterpolant = Utils.GetLerpValue(950f, 1600f, hit.Damage, true);
             Vector2 splatterDirection = Projectile.velocity;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 8; i++)
             {
                 int sparkLifetime = Main.rand.Next(55, 70);
                 float sparkScale = Main.rand.NextFloat(0.7f, Main.rand.NextFloat(3.3f, 5.5f)) + damageInterpolant * 0.85f;
@@ -181,21 +184,23 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 SparkParticle spark = new(Projectile.Center, sparkVelocity, false, sparkLifetime, sparkScale, sparkColor);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
+            if (AttackType != AttackStyle.DoReverse)
+                return;
             //命中时的圆环
-            Vector2 dir = Projectile.velocity.SafeNormalize(Vector2.UnitX) * Projectile.scale;
+            Vector2 dir = Projectile.velocity.SafeNormalize(Vector2.UnitX) * 0.5f;
             for (int i = 0; i < 36; i++)
             {
-                Vector2 dir2 = MathHelper.ToRadians(i * 10f).ToRotationVector2() * Projectile.scale;
+                Vector2 dir2 = MathHelper.ToRadians(i * 10f).ToRotationVector2() * 0.5f;
                 dir2.X /= 3.6f;
                 dir2 = dir2.RotatedBy(Projectile.velocity.ToRotation());
                 Vector2 pos = Projectile.Center + dir * 8f + dir2 * 10f;
                 ShinyOrbParticle shinyOrbParticle = new ShinyOrbParticle(pos, dir2 * 5f, Main.rand.NextBool() ? Color.White : Color.HotPink, 40, (3.5f - Math.Abs(18f - i) / 6f), BlendState.Additive);
                 shinyOrbParticle.Spawn();
             }
-
+            SoundStyle pickSound2 = Utils.SelectRandom(Main.rand, HammerSoundID.HammerStrike.ToArray());
+            SoundEngine.PlaySound(pickSound2 with { Pitch = Main.rand.NextFloat(0.6f, 0.7f), Volume = 0.7f, MaxInstances = 1 }, target.Center);
         }
         private SpriteBatch SB { get => Main.spriteBatch; }
-        private GraphicsDevice GD { get => Main.graphics.GraphicsDevice; }
         #region DrawMethod
         //DrawProjWidth
         public float SetProjWidth(float ratio)
@@ -204,22 +209,17 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             width *= MathHelper.SmoothStep(1.4f, 1.0f, Utils.GetLerpValue(0f, 0.5f, ratio, true));
             return width;
         }
-        //DrawTrailColor
-        float Hue = 1.7f;
         public Color SetTrailColor(float ratio)
         {
-            float hue = Hue % 1f + 0.2f;
-            if (hue >= 0.99f)
-                hue = 0.99f;
-
             float velocityOpacityFadeout = Utils.GetLerpValue(2f, 5f, Projectile.velocity.Length(), true);
             Color c = GodsHammerProj.TrailColor * Projectile.Opacity * (1f - ratio);
-            return c * Utils.GetLerpValue(0.04f, 0.2f, ratio, true) * velocityOpacityFadeout;
+            return c * Utils.GetLerpValue(0.04f, 0.08f, ratio, true) * velocityOpacityFadeout;
         }
         //DrawOffset
         public Vector2 PrimitiveOffsetFunction(float ratio)
         {
-            return Projectile.Size * 0.1f + Projectile.velocity.SafeNormalize(Vector2.Zero) * Projectile.scale * 0.5f * Vector2.UnitX;
+            Vector2 pos = Projectile.Size * 0.4f + Projectile.velocity.SafeNormalize(Vector2.Zero) * Projectile.scale * 0.5f;
+            return pos;
         }
         #endregion
 
@@ -232,8 +232,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(SetProjWidth, SetTrailColor, PrimitiveOffsetFunction, shader: GameShaders.Misc["CalamityMod:SideStreakTrail"]), 51);
             SB.ExitShaderRegion();
 
-            Projectile.QuickDrawBloomEdge();
-            Projectile.QuickDrawWithTrailing(0.7f, Color.White, drawTime: 4);
+            Projectile.QuickDrawBloomEdge(Color.HotPink, rotOffset: -MathHelper.PiOver4);
+            Projectile.QuickDrawWithTrailing(0.7f, Color.GhostWhite, 4, -MathHelper.PiOver4);
             
             return false;
         }

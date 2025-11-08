@@ -1,21 +1,11 @@
 ﻿using CalamityEntropy.Assets.Register;
-using InfernumMode.Content.BehaviorOverrides.BossAIs.WallOfFlesh;
-using InfernumMode.Content.Dusts;
-using Microsoft.Build.Framework;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 
 namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHammer
 {
@@ -193,26 +183,25 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
                 //银九 - 粉
                 case "yinjiu":
                 case "银九":
-
-                    baseColor = Color.HotPink;
-                    targetColor = Color.Pink;
+                    baseColor = Color.Violet;
+                    targetColor = Color.LightPink;
                     break;
                 //Kino - 蓝
                 case "kino":
                     baseColor = Color.RoyalBlue;
-                    targetColor = Color.LightBlue;
+                    targetColor = Color.AliceBlue;
                     break;
                 //聚胶 - 紫
                 case "锯角":
                     baseColor = Color.DarkViolet;
                     targetColor = Color.White;
                     break;
-                //绿
+                //冻结 - 绿
                 case "fr9ezes":
                     baseColor = Color.LimeGreen;
                     targetColor = Color.White;
                     break;
-                //银 - 未指定
+                //kika - 银/白
                 case "kikastorm":
                 case "kika":
                     baseColor = Color.DarkGray;
@@ -226,10 +215,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) =>
            targetHitbox.Intersects(Utils.CenteredRectangle(Projectile.Center - Vector2.UnitY * 10.5f * GetScaleFromAI().X, new Vector2(10, 21) * GetScaleFromAI()));
-        public override bool? CanDamage()
-        {
-            return base.CanDamage();
-        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
@@ -281,9 +266,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
                 }
             }
         }
-        private void DrawPillar(Texture2D tex, Vector2 scale, Rectangle cutSource, Vector2 ori)
+        private Effect PickShader(Color baseColor, Color tarColor)
         {
-            PickTagColor(out Color baseColor, out Color tarColor);
             Effect shader = EntropyShaderHandler.DisplacemenShader;
             if (Owner.name.ToLower().Contains("polaris"))
             {
@@ -292,18 +276,29 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
                 shader.Parameters["uTargetColor1"].SetValue(new Color(120, 60, 255).ToVector4() * 0.9f);
                 shader.Parameters["uBaseColor2"].SetValue(Color.Crimson.ToVector4() * 0.3f);
                 shader.Parameters["uTargetColor2"].SetValue(new Color(255, 90, 90).ToVector4() * 0.9f);
+                shader.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly * 45);
+                shader.Parameters["uIntensity"].SetValue(0.20f);
+                shader.Parameters["uNoiseScale"].SetValue(new Vector2(8f, 5f));
+                shader.Parameters["UseColor"].SetValue(true);
+                shader.Parameters["uFadeRange"].SetValue(0.6f);
             }
             else
             {
                 shader.Parameters["uBaseColor"].SetValue(baseColor.ToVector4() * 0.3f);
                 shader.Parameters["uTargetColor"].SetValue(tarColor.ToVector4() * 0.9f);
+                shader.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly * 45);
+                shader.Parameters["uIntensity"].SetValue(0.20f);
+                shader.Parameters["uNoiseScale"].SetValue(new Vector2(8f, 5f));
+                shader.Parameters["UseColor"].SetValue(true);
+                shader.Parameters["uFadeRange"].SetValue(0.6f);
             }
-            shader.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly * 45);
-            shader.Parameters["uIntensity"].SetValue(0.20f);
-            
-            shader.Parameters["uNoiseScale"].SetValue(new Vector2(8f, 5f));
-            shader.Parameters["UseColor"].SetValue(true);
-            shader.Parameters["uFadeRange"].SetValue(0.6f);
+            return shader;
+
+        }
+        private void DrawPillar(Texture2D tex, Vector2 scale, Rectangle cutSource, Vector2 ori)
+        {
+            PickTagColor(out Color baseColor, out Color tarColor);
+            Effect shader = PickShader(baseColor,tarColor);
             shader.CurrentTechnique.Passes[0].Apply();
             Main.graphics.GraphicsDevice.Textures[1] = TextureRegister.Noise_Misc2.Value;
 
