@@ -618,6 +618,7 @@ namespace CalamityEntropy.Common
         public int _cacheBodyType = -1;
         public int _cacheLegsType = -1;
         public bool ShouldHandleHammerStealth = false;
+        public bool CanDisableGuideForGodsHammer = false;
         /// <summary>
         /// 在ResetEffect内处理手持锤子的效果，包括不限于玩家是否有挂载中的锤子，手持启用潜伏条等
         /// </summary>
@@ -640,6 +641,30 @@ namespace CalamityEntropy.Common
             }
             else
                 ShouldHandleHammerStealth = false;
+        }
+        //存储。
+        private void HammerTagSave(TagCompound tag)
+        {
+            tag.Add("CanDisableGuideForGodsHammer", CanDisableGuideForGodsHammer);
+        }
+
+        private void HammerTagLoad(TagCompound tag)
+        {
+            CanDisableGuideForGodsHammer = tag.GetBool("CanDisableGuideForGodsHammer");
+        }
+        /// <summary>
+        /// 梦魇锤投掷微光转为弑神锤的引导
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private bool StopGodHammerShimemrGuide(Item item)
+        {
+            if (item.type == ModContent.ItemType<GodsHammer>() && DownedBossSystem.downedDoG)
+            {
+                CanDisableGuideForGodsHammer = true;
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 在MiscEffect内书写的专门处理锤子潜伏条重置方式。
@@ -666,9 +691,14 @@ namespace CalamityEntropy.Common
                 _cacheLegsType = Player.armor[2].type;
             }
         }
-
-        #endregion
         
+        #endregion
+        public override bool OnPickup(Item item)
+        {
+            if (StopGodHammerShimemrGuide(item))
+                return true;
+            return base.OnPickup(item);
+        } 
         public override void PreUpdate()
         {
 
@@ -3035,6 +3065,7 @@ namespace CalamityEntropy.Common
         }
         public override void SaveData(TagCompound tag)
         {
+            HammerTagSave(tag);
             var boost = new List<string>();
             boost.AddWithCondition("CruiserLore", CruiserLoreBonus);
             boost.AddWithCondition("NihTwinLore", NihilityTwinLoreBonus);
@@ -3059,6 +3090,9 @@ namespace CalamityEntropy.Common
                 }
             }
         }
+
+        
+
         public List<Item> EBookStackItems = null;
         public bool soulDisorder = false;
         public bool obscureCard = false;
@@ -3092,6 +3126,7 @@ namespace CalamityEntropy.Common
         }
         public override void LoadData(TagCompound tag)
         {
+            HammerTagLoad(tag);
             var boost = tag.GetList<string>("EntropyBoosts");
             CruiserLoreBonus = boost.Contains("CruiserLore");
             NihilityTwinLoreBonus = boost.Contains("NihTwinLore");

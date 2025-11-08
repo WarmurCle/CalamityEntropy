@@ -38,9 +38,9 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         {
             CreateRecipe().
                 AddIngredient<PunishmentHammer>().
-                AddIngredient(ItemID.BrokenHeroSword).
-                AddIngredient<UnholyCore>(20).
-                AddIngredient<LifeAlloy>(10).
+                AddIngredient(ItemID.PaladinsHammer).
+                AddIngredient<UnholyCore>(10).
+                AddIngredient<LifeAlloy>(5).
                 AddTile(TileID.MythrilAnvil).
                 Register();
         }

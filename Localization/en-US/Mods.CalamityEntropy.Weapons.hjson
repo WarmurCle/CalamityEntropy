@@ -41,8 +41,8 @@ Rogue: {
 			While charging toward enemies, it continuously releases Dark Energy Orbs that lock onto and attack enemies after a delay.
 			When latched, the damage and number of falling Nightmare Stars increase gradually with each hit dealt.
 			[c/BA55D3:Meditate in nightmares, summon falling stars to return, and lure nightmares to devour foes]
-
 			'''
+		ShimmmerTooltip: "111"
 	}
 
 	PunishmentHammer: {

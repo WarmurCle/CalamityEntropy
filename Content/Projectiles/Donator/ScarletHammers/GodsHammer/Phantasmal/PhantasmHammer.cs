@@ -201,9 +201,10 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 dust.velocity = velOffset;
                 dust.scale = 1.2f;
             }
-            SoundEngine.PlaySound(GodsHammerProj.HitSound, Projectile.Center);
+            SoundEngine.PlaySound(GodsHammerProj.HitSound with {Volume = 0.8f }, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item109 with {MaxInstances = 1, Pitch = 0.2f, PitchVariance = 0.1f }, Owner.Center);
             TargetIndex = target.whoAmI;
-            if (Projectile.numHits % 2 is 0)
+            //if (Projectile.numHits % 2 is 0)
                 SpawnNebulaShot(Projectile, target);
             
         }
@@ -214,8 +215,9 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             projectile.netUpdate = true;
             Vector2 targetPos = target.Center;
             int laserID = ModContent.ProjectileType<NebulaEnegry>();
-            //每轮生成两个。
-            for (int i = 0; i < 2; ++i)
+            //每轮生成两个，超过3把以上的锤子在场时生成一个
+            int maxCount = Owner.ownedProjectileCounts[Type] < 3 ? 2 : 1;
+            for (int i = 0; i < maxCount; ++i)
             {
                 //确定位置
                 Vector2 spawnPosBase = (target.Center - Owner.Center).SafeNormalize(Vector2.UnitX);
