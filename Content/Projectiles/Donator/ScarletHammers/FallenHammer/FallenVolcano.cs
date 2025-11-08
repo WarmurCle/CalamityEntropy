@@ -307,8 +307,11 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
             shader.CurrentTechnique.Passes[0].Apply();
             Main.graphics.GraphicsDevice.Textures[1] = TextureRegister.Noise_Misc2.Value;
 
-            //叠图4次以增强层次感 
-            for (int j = 0; j < 4; j++)
+            //叠图4次以增强层次感
+            int drawCount = 4;
+            if (Owner.name.ToLower().Contains("polaris"))
+                drawCount = 20;
+            for (int j = 0; j < drawCount; j++)
             {
                 //以1起步进行多次绘制缩放
                 for (float i = 1; i >= 0; i -= 0.1f)
