@@ -3,14 +3,12 @@ using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.ScarletParticle
 using CalamityEntropy.Core.Construction;
 using CalamityEntropy.Utilities;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 
 namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHammer.ExtraProj
 {

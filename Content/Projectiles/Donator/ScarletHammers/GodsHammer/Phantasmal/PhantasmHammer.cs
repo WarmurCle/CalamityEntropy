@@ -51,12 +51,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 2;
         }
-        public override void OnSpawn(IEntitySource source)
-        {
-            //生成的一瞬确定这个锤子的“旋转朝向”
-            IsFlip = TotalArcAngle < 0;
-            SpriteRotation = Projectile.velocity.ToRotation();
-        }
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 66;
@@ -82,6 +76,12 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         public override bool? CanDamage() => AttackTimer > ArcDuration;
         public override void AI()
         {
+            if(AttackTimer == 0f)
+            {
+                IsFlip = TotalArcAngle < 0;
+                SpriteRotation = Projectile.velocity.ToRotation();
+            }
+
             if (Projectile.timeLeft < 50)
                 Projectile.Kill();
 
@@ -231,7 +231,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 SpawnDust(spawnPos, vel);
                 if (projectile.owner == Main.myPlayer)
                 {
-                    Projectile proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), spawnPos, vel, laserID, projectile.damage / 2, 2.5f, projectile.owner, target.whoAmI);
+                    Projectile proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), spawnPos, vel, laserID, projectile.damage / 3, 2.5f, projectile.owner, target.whoAmI);
                     proj.DamageType = ModContent.GetInstance<RogueDamageClass>();
                     proj.Entropy().ExtraProjAI[0] = (Main.rand.NextBool() ? (float)NebulaEnegry.Flip.DoFlip : (float)NebulaEnegry.Flip.None);
                 }

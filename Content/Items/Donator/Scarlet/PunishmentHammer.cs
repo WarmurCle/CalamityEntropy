@@ -18,7 +18,6 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 12);
         }
-        public override float StealthDamageMultiplier => 0.60f;
         public override void AddRecipes()
         {
             CreateRecipe().

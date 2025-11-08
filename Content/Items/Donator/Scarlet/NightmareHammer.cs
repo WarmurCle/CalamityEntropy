@@ -1,5 +1,3 @@
-using CalamityEntropy.Assets.Register;
-using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHammer.ExtraProj;
 using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHammer.MainHammer;
 using CalamityMod;
 using CalamityMod.Items.Materials;
@@ -7,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         {
             Item.width = 88;
             Item.height = 94;
-            Item.damage = 40;
+            Item.damage = 90;
             Item.useTime = 18;
             //这里的UseTime是有意改的很慢的
             Item.useAnimation = 18;

@@ -1,12 +1,6 @@
 ﻿using CalamityEntropy.Assets.Register;
-using CalamityEntropy.Utilities;
-using CalamityMod;
-using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 
 namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHammer

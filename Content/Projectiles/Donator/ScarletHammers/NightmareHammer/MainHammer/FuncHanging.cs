@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
                 //这里的暗温魔能会必中
                 float baseFlareSpeed = Main.rand.NextFloat(12f, 16f);
                 //依据锤子当前的速度，以对数的形式给予伤害加成
-                int flareDamage = (int)(Projectile.damage + 2 * (float)Math.Log(1 + Projectile.velocity.Length() / 1.5));
+                int flareDamage = (int)(Projectile.damage + 2 * (float)Math.Log(Projectile.velocity.Length() / 1.5));
                 Vector2 velocity = direction * baseFlareSpeed;
                 if (Projectile.owner != Main.myPlayer)
                     return;

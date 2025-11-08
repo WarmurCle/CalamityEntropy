@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
             ExSD();
         }
         //全体锤子：降低潜伏伤害倍率
-        public override float StealthDamageMultiplier => 0.75f;
+        public override float StealthDamageMultiplier => 0.55f;
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             ExModifyTooltips(tooltips);

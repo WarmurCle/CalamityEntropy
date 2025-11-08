@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
             Projectile.friendly = true;
             Projectile.timeLeft = 600;
             Projectile.extraUpdates = 6;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 2;
         }
         public override void AI()
         {

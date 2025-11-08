@@ -1,5 +1,6 @@
 using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.ScarletParticles;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -98,6 +99,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<GodSlayerInferno>(600);
             //允许绘制轨迹的锤子永远不会执行普攻效果
             //byd什么史山啊
             bool canSpawnSpark = (CanDrawTrail && !Stealth && AttackType == DoType.IsStealth) || (Stealth);
@@ -137,14 +139,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             width *= MathHelper.SmoothStep(0.8f, 0.6f, Utils.GetLerpValue(0f, 0.5f, ratio, true));
             return width;
         }
-        //DrawTrailColor
-        float Hue = 1.7f;
         public Color SetTrailColor(float ratio)
         {
-            float hue = Hue % 1f + 0.2f;
-            if (hue >= 0.99f)
-                hue = 0.99f;
-
             float velocityOpacityFadeout = Utils.GetLerpValue(2f, 5f, Projectile.velocity.Length(), true);
             Color c = TrailColor * Projectile.Opacity * (1f - ratio);
             return c * Utils.GetLerpValue(0.04f, 0.1f, ratio, true) * velocityOpacityFadeout;
@@ -168,7 +164,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(SetProjWidth, SetTrailColor, PrimitiveOffsetFunction, shader: GameShaders.Misc["CalamityMod:SideStreakTrail"]), 51);
                 SB.ExitShaderRegion();
             }
-
             return false;
         }
         private void DoStealth()
@@ -177,9 +172,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             if (_lastAnchorPosition == Vector2.Zero)
                 _lastAnchorPosition = Owner.Center;
 
-            //如果玩家突然死亡，处死自己
-            if (Owner.dead)
-                Projectile.Kill();
             if (CanDrawTrail && !Stealth && AttackTimer < 10f)
             {
                 AttackTimer += 1;
@@ -276,7 +268,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
 
             Vector2 pos = new Vector2(Main.MouseWorld.X + Main.rand.NextFloat(-300f, 300f), Main.MouseWorld.Y - 1200f);
             Vector2 vel = (Main.MouseWorld - pos).SafeNormalize(Vector2.UnitX) * 22f;
-            Projectile extraHammer = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<GodsHammerProj>(), Projectile.damage / 2, Projectile.knockBack);
+            Projectile extraHammer = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<GodsHammerProj>(), Projectile.damage / 3, Projectile.knockBack);
             //启用轨迹。
             extraHammer.Entropy().ExtraProjAI[0] = 1f;
             extraHammer.extraUpdates = 6;
