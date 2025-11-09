@@ -92,7 +92,7 @@ namespace CalamityEntropy.Core.StatBloats
             Remove<HadopelagicEchoII>(WeaponsAbyssalWyrm);
             Remove<Zyphros>(WeaponsAbyssalWyrm);
             //胎儿之梦移除出去
-            Remove<TaijinoYume>(WeaponsPostProvi);
+            //Remove<TaijinoYume>(WeaponsPostProvi);
             //2 以DictionaryAdd<武器名>(DirectTweaks, 伤害值) 将你需要的调整写入字典，完成。
             //妖龙大剑
             DictionaryAdd<Xytheron>(DirectTweaks, 50000);
