@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
                 && Projectile.Center.Distance(player.Center) < Projectile.width)
             {
                 int num = Main.rand.Next(6, 10);
-                player.Entropy().TryHealMeWithCd(num, 10);
+                player.Entropy().TryHealMeWithCd(num, 3);
                 SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact);
                 canHeal = true;
             }
