@@ -4,6 +4,7 @@ using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.UI.ResourceSets;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.UI
@@ -151,6 +152,19 @@ namespace CalamityEntropy.Content.UI
                     }
                 }
             }
+        }
+
+        public override bool DisplayHoverText(PlayerStatsSnapshot snapshot, IPlayerResourcesDisplaySet displaySet, bool drawingLife)
+        {
+            if(!drawingLife && Main.LocalPlayer.Entropy().enhancedMana > 0)
+            {
+                string str = $"{snapshot.Mana}/{Main.LocalPlayer.Entropy().manaNorm}[c/f0af00:+{snapshot.ManaMax - Main.LocalPlayer.Entropy().manaNorm}]";
+                Main.LocalPlayer.cursorItemIconEnabled = true;
+                Main.LocalPlayer.cursorItemIconID = -1;
+                Main.LocalPlayer.cursorItemIconText = str;
+                return false;
+            }
+            return true;
         }
 
         private bool CompareAssets(Asset<Texture2D> currentAsset, string compareAssetPath)

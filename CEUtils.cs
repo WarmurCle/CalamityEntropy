@@ -28,6 +28,37 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static string MouseText
+        {
+            get
+            {
+                var fInfo = typeof(Main).GetField("_mouseTextCache", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Instance);
+                if(fInfo != null)
+                {
+                    object obj = fInfo.GetValue(Main.instance);
+                    var strInfo = obj.GetType().GetField("cursorText");
+                    if (strInfo != null)
+                        return (string)(strInfo.GetValue(obj));
+                    else
+                        return "";
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                var fInfo = typeof(Main).GetField("_mouseTextCache", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Instance);
+                if (fInfo != null)
+                {
+                    object obj = fInfo.GetValue(Main.instance);
+                    var strInfo = obj.GetType().GetField("cursorText");
+                    if (strInfo != null)
+                        strInfo.SetValue(obj, value);
+                }
+            }
+        }
         public static void CostStealthForPlr(Player player)
         {
             if (player.Calamity().StealthStrikeAvailable())
