@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
     {
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 30;
             Item.DamageType = CEUtils.RogueDC;
             Item.width = 82;
             Item.height = 32;

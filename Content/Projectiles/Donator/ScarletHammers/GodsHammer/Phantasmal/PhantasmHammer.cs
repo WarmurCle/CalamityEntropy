@@ -51,19 +51,13 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 2;
         }
-        public override void OnSpawn(IEntitySource source)
-        {
-            //生成的一瞬确定这个锤子的“旋转朝向”
-            IsFlip = TotalArcAngle < 0;
-            SpriteRotation = Projectile.velocity.ToRotation();
-        }
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 66;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
+            Projectile.localNPCHitCooldown = 10;
             Projectile.extraUpdates = SetUpdate;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 300;
@@ -82,6 +76,12 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         public override bool? CanDamage() => AttackTimer > ArcDuration;
         public override void AI()
         {
+            if(AttackTimer == 0f)
+            {
+                IsFlip = TotalArcAngle < 0;
+                SpriteRotation = Projectile.velocity.ToRotation();
+            }
+
             if (Projectile.timeLeft < 50)
                 Projectile.Kill();
 
@@ -204,7 +204,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             SoundEngine.PlaySound(GodsHammerProj.HitSound with {Volume = 0.8f }, Projectile.Center);
             SoundEngine.PlaySound(SoundID.Item109 with {MaxInstances = 1, Pitch = 0.2f, PitchVariance = 0.1f }, Owner.Center);
             TargetIndex = target.whoAmI;
-            //if (Projectile.numHits % 2 is 0)
+            if (Projectile.numHits % 2 is 0)
                 SpawnNebulaShot(Projectile, target);
             
         }
@@ -231,7 +231,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 SpawnDust(spawnPos, vel);
                 if (projectile.owner == Main.myPlayer)
                 {
-                    Projectile proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), spawnPos, vel, laserID, projectile.damage / 2, 2.5f, projectile.owner, target.whoAmI);
+                    Projectile proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), spawnPos, vel, laserID, projectile.damage, 2.5f, projectile.owner, target.whoAmI);
                     proj.DamageType = ModContent.GetInstance<RogueDamageClass>();
                     proj.Entropy().ExtraProjAI[0] = (Main.rand.NextBool() ? (float)NebulaEnegry.Flip.DoFlip : (float)NebulaEnegry.Flip.None);
                 }
@@ -250,7 +250,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 //转化为椭圆点
                 Vector2 toEdge = spawnPos + angle.ToEllipseVector2Edge(10f, 30f, baseRot);
                 //设置速度，略微朝内
-                ShinyOrbParticle orbs = new ShinyOrbParticle(toEdge, Vector2.Zero, GodsHammerProj.TrailColor, 40, 0.7f, BlendState.Additive);
+                ShinyOrbParticle orbs = new ShinyOrbParticle(toEdge, Vector2.Zero, GodsHammerProj.TrailColor, 30, 0.7f, BlendState.Additive);
                 orbs.Spawn();
             }
             int yetAnotherParticlesCounts = 12;
@@ -263,7 +263,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                     float angleStep = (float)(MathHelper.TwoPi / yetAnotherParticlesCounts);
                     float angle = j * angleStep;
                     Vector2 edge = spawnPos + angle.ToEllipseVector2Edge(shortAxis, longAxis, baseRot);
-                    ShinyOrbParticle orbs = new ShinyOrbParticle(edge, Vector2.Zero, GodsHammerProj.TrailColor, 40, 0.6f, BlendState.Additive);
+                    ShinyOrbParticle orbs = new ShinyOrbParticle(edge, Vector2.Zero, GodsHammerProj.TrailColor, 30, 0.6f, BlendState.Additive);
                     orbs.Spawn();
                 }
             }

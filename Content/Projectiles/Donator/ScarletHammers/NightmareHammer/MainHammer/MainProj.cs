@@ -105,6 +105,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
         private void DoGeneric() 
         {
             Projectile.rotation += ProjStat.RotationSpeed;
+            if (!Stealth)
+                Projectile.ArmorPenetration = 50;
             Lighting.AddLight(Projectile.Center, TorchID.Purple);
             DrawTrailingDust();
         }
@@ -241,13 +243,13 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHa
             if (FlaresCounts < numFlares)
                 FlaresCounts += 1;
             //用对数计算控制伤害
-            int flareDamage = (int)(Projectile.damage / 2 * Math.Log(2 + FlaresCounts));
+            int flareDamage = (int)(Projectile.damage / 2 * Math.Log(1 + FlaresCounts));
             
             for (int i = 0; i < numFlares; i++)
                 NightmareArrowDrop(target, flareDamage);
             //每次攻击缩减
             //双锤子以上时，每把锤子最低只有15的攻击频率
-            int leastHitCD = hasOver2Hammer ? 13 * Projectile.extraUpdates : 5 * Projectile.extraUpdates;
+            int leastHitCD = hasOver2Hammer ? 12 * Projectile.extraUpdates : 6 * Projectile.extraUpdates;
             Projectile.localNPCHitCooldown -= 5 * Projectile.extraUpdates;
             if (Projectile.localNPCHitCooldown < leastHitCD)
                 Projectile.localNPCHitCooldown = leastHitCD;

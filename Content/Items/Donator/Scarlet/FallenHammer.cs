@@ -9,23 +9,18 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
 {
     public class FallenHammer: BaseHammerItem
     {
-        //右键没刷新时间
         public override int ShootProjID => ModContent.ProjectileType<FallenHammerProj>();
         public override void ExSD()
         {
             Item.width = Item.height = 66;
-            Item.damage = 32;
+            //30的面板你破的了防哥们？
+            Item.damage = 64;
             //这里的ut有意为之
             Item.useTime = 8;
             Item.useAnimation = 8;
             Item.shootSpeed = 18f;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.buyPrice(gold: 12);
-        }
-        //临时写一下，用于调试
-        public override void UpdateInventory(Player player)
-        {
-            Item.damage = 32;
         }
 
         public override void ExModifyTooltips(List<TooltipLine> tooltips)

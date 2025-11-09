@@ -1561,6 +1561,10 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<PlagueInternalCombustionEngine>(), 4);
             }
+	        if (item.Is<CalamitasCloneBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<FriendBox>(), 5);
+            }
             if (item.type == ModContent.ItemType<HiveMindBag>())
             {
                 itemLoot.Add(ModContent.ItemType<MindCorruptor>(), 3);

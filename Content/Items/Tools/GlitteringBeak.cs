@@ -113,6 +113,7 @@ namespace CalamityEntropy.Content.Items.Tools
         {
             CreateRecipe().
                 AddRecipeGroup("LunarPickaxe").
+                AddIngredient<FadingRunestone>().
                 AddIngredient<WyrmTooth>(5).
                 AddTile<AbyssalAltarTile>().
                 Register();

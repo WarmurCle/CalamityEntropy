@@ -609,10 +609,10 @@ namespace CalamityEntropy.Common
             }
             if (BarrenHoming)
             {
-                NPC target = projectile.FindTargetWithinRange(Math.Max(projectile.width, projectile.height) + 800, projectile.tileCollide);
+                NPC target = projectile.FindTargetWithinRange(Math.Max(projectile.width, projectile.height) + 600, projectile.tileCollide);
                 if (target != null)
                 {
-                    float homingSpeed = 0.46f;
+                    float homingSpeed = 0.35f;
                     projectile.velocity += (target.Center - projectile.Center).SafeNormalize(Vector2.Zero) * homingSpeed;
                     projectile.velocity *= 1 - homingSpeed * (projectile.tileCollide ? 0.05f : 0.02f);
                 }

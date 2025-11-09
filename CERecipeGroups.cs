@@ -15,6 +15,7 @@ namespace CalamityEntropy
             butterflies = new RecipeGroup(() => "Butterflies", ItemID.EmpressButterfly, ItemID.GoldButterfly, ItemID.HellButterfly, ItemID.JuliaButterfly, ItemID.MonarchButterfly, ItemID.PurpleEmperorButterfly, ItemID.RedAdmiralButterfly, ItemID.SulphurButterfly, ItemID.TreeNymphButterfly, ItemID.UlyssesButterfly, ItemID.ZebraSwallowtailButterfly);
         }
 
+
         public static void unload()
         {
             gems = null;

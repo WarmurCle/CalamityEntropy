@@ -1,5 +1,6 @@
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Donator.Scarlet;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.NPCs.Cruiser;
@@ -74,6 +75,8 @@ namespace CalamityEntropy.Core.StatBloats
             Add<ScorchingShoot>(WeaponsAuric);
             Add<Vitalfeather>(WeaponsAuric);
 
+            //弑神锤移除了合成表，因此需要重新打一个表上去
+            Add<GodsHammer>(WeaponsCosmicBar);
             //遍历所有掉落物，除了材料
             var purpleWormItem = CEUtils.FindLoots<CruiserHead>(false);
             WeaponsCruiser.AddRange(purpleWormItem.Where(id => !WeaponsCruiser.Contains(id)).Distinct());
@@ -88,6 +91,8 @@ namespace CalamityEntropy.Core.StatBloats
             Remove<Xytheron>(WeaponsAbyssalWyrm);
             Remove<HadopelagicEchoII>(WeaponsAbyssalWyrm);
             Remove<Zyphros>(WeaponsAbyssalWyrm);
+            //胎儿之梦移除出去
+            Remove<TaijinoYume>(WeaponsPostProvi);
             //2 以DictionaryAdd<武器名>(DirectTweaks, 伤害值) 将你需要的调整写入字典，完成。
             //妖龙大剑
             DictionaryAdd<Xytheron>(DirectTweaks, 50000);

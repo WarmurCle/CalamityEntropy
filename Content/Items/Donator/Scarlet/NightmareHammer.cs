@@ -1,5 +1,3 @@
-using CalamityEntropy.Assets.Register;
-using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHammer.ExtraProj;
 using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.NightmareHammer.MainHammer;
 using CalamityMod;
 using CalamityMod.Items.Materials;
@@ -7,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         {
             Item.width = 88;
             Item.height = 94;
-            Item.damage = 66;
+            Item.damage = 90;
             Item.useTime = 18;
             //这里的UseTime是有意改的很慢的
             Item.useAnimation = 18;
@@ -39,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
             if (DownedBossSystem.downedDoG && !Main.LocalPlayer.Entropy().CanDisableGuideForGodsHammer)
                 tooltips.QuickAddTooltip($"Mods.CalamityEntropy.Weapons.Rogue.{GetType().Name}.ShimmmerTooltip", Color.LightPink);
         }
-        private float UpdatePos
+        private static float UpdatePos
         {
             get
             {
@@ -49,7 +46,6 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             //草拟吗瑞德
-
             //没有击倒神长，正常绘制这把锤子
             if (!DownedBossSystem.downedDoG)
                 return true;

@@ -11,14 +11,13 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         public override void ExSD()
         {
             Item.width = Item.height = 58;
-            Item.damage = 40;
+            Item.damage = 28;
             Item.useTime = 13;
             Item.useAnimation = 13;
             Item.shootSpeed = 18f;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 12);
         }
-        public override float StealthDamageMultiplier => 0.60f;
         public override void AddRecipes()
         {
             CreateRecipe().

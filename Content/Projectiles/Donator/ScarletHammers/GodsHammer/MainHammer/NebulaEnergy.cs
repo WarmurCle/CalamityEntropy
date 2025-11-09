@@ -33,7 +33,6 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
         private ref float Accele => ref Projectile.ai[1];
         private bool IsHit = false; 
         private ref float Progress => ref Projectile.localAI[2];
-        private ref float SpriteRotation => ref Projectile.localAI[1];
 
         public override string Texture => CEUtils.InvisAsset;
         public override void SetStaticDefaults()

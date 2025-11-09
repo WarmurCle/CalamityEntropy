@@ -104,6 +104,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.FallenHamme
         //终 极 史 山
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(BuffID.Daybreak, 500);
             //非右键逻辑下攻击的敌怪传入
             if (AttackType != DoType.IsAddition && !MouseRight)
                 TargetIndex = target.whoAmI;

@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.PunishmentH
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
             //这玩意是转起来的，所以实际dps会更少的，给他多点判定吧！！
-            Projectile.localNPCHitCooldown = 8;
+            Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.scale = 1f;
