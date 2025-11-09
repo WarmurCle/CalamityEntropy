@@ -188,7 +188,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 134, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
 
                         CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
-                        CEUtils.SetShake(Projectile.Center, 2);
+                        CEUtils.SetShake(Projectile.Center - Projectile.rotation.ToRotationVector2() * 16, 4);
                         for (int i = 0; i < 8; i++)
                         {
                             Vector2 top = Projectile.Center + Projectile.velocity.normalize() * 130;

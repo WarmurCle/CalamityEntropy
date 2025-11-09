@@ -358,6 +358,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            ScreenShaker.Unload();
             VanityDisplaySys.VanityItems = null;
             CEUtils.SoundStyles = null;
             theVoid_SCBIE = null;
@@ -1301,6 +1302,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
+            ScreenShaker.Init();
             VanityDisplaySys.SetupVanities();
             if (ModLoader.TryGetMod("InfernumMode", out var _))
             {

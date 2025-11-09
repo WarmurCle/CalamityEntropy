@@ -290,6 +290,7 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateDusts()
         {
+            ScreenShaker.Update();
             if (CalamityEntropy.FlashEffectStrength > 0)
             {
                 CalamityEntropy.FlashEffectStrength -= 0.02f;
