@@ -63,11 +63,11 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             HitCount++;
             var p = Projectile.NewProjectile(source, position, velocity, type, damage * (HitCount > 6 ? 4 : 1), knockback, player.whoAmI).ToProj();
-            CEUtils.SetShake(position, 4);
+            CEUtils.SetShake(position - velocity, 6);
             p.GetGlobalProjectile<ScorchingGProj>().Active = true;
             for (int i = 0; i < (HitCount > 6 ? 36 : 16); i++)
             {
-                Vector2 top = position;
+                Vector2 top = position + velocity * 2;
                 Vector2 sparkVelocity2 = velocity.normalize().RotateRandom(0.1f) * Main.rand.NextFloat(16f, 36f);
                 int sparkLifetime2 = Main.rand.Next(6, 10);
                 float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
