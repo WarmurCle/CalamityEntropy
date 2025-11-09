@@ -1270,7 +1270,7 @@ namespace CalamityEntropy.Common
             Player.statManaMax2 += (int)(Player.statManaMax2 * enhancedMana);
             if (Player.statMana > manaNorm)
             {
-                Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.001f;
+                Player.GetDamage(DamageClass.Magic) += (Player.statMana - manaNorm) * 0.0015f;
             }
             Player player = Player;
             if (bitternessCard)
