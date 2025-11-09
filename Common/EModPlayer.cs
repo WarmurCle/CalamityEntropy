@@ -1667,6 +1667,19 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public override void PostUpdate()
         {
+            foreach(var plr in Main.ActivePlayers)
+            {
+                if (plr.Distance(Player.Center) > 6000)
+                    continue;
+                if(plr.Entropy().hasAcc("SoulDeck"))
+                {
+                    HitCooldown += WisperCard.ImmuneAdd;
+                }
+                if (plr.Entropy().hasAcc("TDeck"))
+                {
+                    LifeStealP += 0.003f;
+                }
+            }
             StealthRegenDelay--;
             DontDrawTime--;
 

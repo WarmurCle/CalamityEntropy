@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
             player.Entropy().obscureCard = true;
             player.Entropy().DebuffTime -= PurificationCard.DebuffTimeReduce;
             player.Entropy().CooldownTimeMult -= RequiemCard.CooldownDec;
-            player.Entropy().HitCooldown += WisperCard.ImmuneAdd;
+            player.Entropy().addEquip("SoulDeck", !hideVisual);
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
