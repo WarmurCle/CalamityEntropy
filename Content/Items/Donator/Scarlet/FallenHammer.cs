@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         {
             Item.width = Item.height = 66;
             //30的面板你破的了防哥们？
-            Item.damage = 64;
+            Item.damage = 48;
             //这里的ut有意为之
             Item.useTime = 8;
             Item.useAnimation = 8;
