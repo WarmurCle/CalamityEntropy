@@ -1,4 +1,5 @@
 using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.ScarletParticles;
+using CalamityEntropy.Core;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
@@ -22,8 +23,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             killDistance: 1800
         );
         protected override BaseProjSD ProjStat => new(
-            //这里的无敌帧有意整成10
-            HitCooldown: 10,
+            //这里的无敌帧有意整成15
+            HitCooldown: 15,
             //这里存续时间无所谓，因为会在AI里时刻被更新
             LifeTime: 200,
             Width: 86,
@@ -93,7 +94,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 SoundStyle select = Utils.SelectRandom(Main.rand, HammerSoundID.HammerStrike.ToArray());
                 SoundEngine.PlaySound(select, Projectile.Center);
                 //震屏
-                Owner.Calamity().GeneralScreenShakePower = 8;
+                ScreenShakeSystem.AddScreenShakes(Projectile.Center, 40 * -Owner.direction, 15, Projectile.rotation, 0.2f, true, 1000);
             }
             return true;
         }
@@ -268,7 +269,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
 
             Vector2 pos = new Vector2(Main.MouseWorld.X + Main.rand.NextFloat(-300f, 300f), Main.MouseWorld.Y - 1200f);
             Vector2 vel = (Main.MouseWorld - pos).SafeNormalize(Vector2.UnitX) * 22f;
-            Projectile extraHammer = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<GodsHammerProj>(), Projectile.damage / 3, Projectile.knockBack);
+            Projectile extraHammer = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<GodsHammerProj>(), Projectile.damage / 2, Projectile.knockBack);
             //启用轨迹。
             extraHammer.Entropy().ExtraProjAI[0] = 1f;
             extraHammer.extraUpdates = 6;

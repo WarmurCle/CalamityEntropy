@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.PunishmentH
             {
                 float totalOffset = i * angleStep;
                 Vector2 dir = Vector2.UnitX.RotatedBy(beginAngle + totalOffset);
-                Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir * 8f, PureStarID, Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir * 8f, PureStarID, (int)(Projectile.damage * 0.80f), Projectile.knockBack, Projectile.owner);
                 //标记ai2为1f，让这个射弹在发起追踪前进行一段圆弧运动
                 proj.ai[2] = 1f;
             }

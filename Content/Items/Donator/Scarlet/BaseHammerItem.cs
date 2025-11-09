@@ -13,7 +13,6 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
 {
     public abstract class BaseHammerItem : RogueWeapon, ILocalizedModType, IDevItem
     {
-        
         public new string LocalizationCategory => "Weapons.Rogue";
         public virtual int ShootProjID { get; }
         //锤类武器初始提供的潜伏值
@@ -37,8 +36,14 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
             Item.knockBack = 18f;
             ExSD();
         }
-        //全体锤子：降低潜伏伤害倍率
-        public override float StealthDamageMultiplier => 0.55f;
+        //全体锤子采用0.7f伤害倍率
+        public override float StealthDamageMultiplier => 0.75f;
+        //复写modifyshoot，我们只让其生效潜伏伤害倍率
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (player.Calamity().StealthStrikeAvailable())
+                damage = (int)(damage * StealthDamageMultiplier);
+        }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             ExModifyTooltips(tooltips);
@@ -49,9 +54,8 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         public virtual void ExSD() { }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            bool stealth = player.Calamity().StealthStrikeAvailable();
             Projectile st = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-            st.Calamity().stealthStrike = stealth;
+            st.Calamity().stealthStrike = player.Calamity().StealthStrikeAvailable();
             return false;
         }
     }

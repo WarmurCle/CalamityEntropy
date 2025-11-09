@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
             if (DownedBossSystem.downedDoG && !Main.LocalPlayer.Entropy().CanDisableGuideForGodsHammer)
                 tooltips.QuickAddTooltip($"Mods.CalamityEntropy.Weapons.Rogue.{GetType().Name}.ShimmmerTooltip", Color.LightPink);
         }
-        private float UpdatePos
+        private static float UpdatePos
         {
             get
             {
@@ -46,7 +46,6 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             //草拟吗瑞德
-
             //没有击倒神长，正常绘制这把锤子
             if (!DownedBossSystem.downedDoG)
                 return true;

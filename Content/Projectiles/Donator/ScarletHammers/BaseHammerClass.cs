@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (!Stealth)
-                modifiers.DefenseEffectiveness *= 0f;
+                modifiers.DefenseEffectiveness *= 0.3f;
         }
         public virtual void ExModifyHit(NPC target, ref NPC.HitModifiers modifiers) { }
     }

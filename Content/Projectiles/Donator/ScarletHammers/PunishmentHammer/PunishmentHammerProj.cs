@@ -243,9 +243,8 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.PunishmentH
                         Projectile.usesLocalNPCImmunity = false;
                         Projectile.timeLeft = TotalSpinTime;
                         Projectile.usesIDStaticNPCImmunity = true;
-                        //仍然使用10静态无敌帧
-                        Projectile.idStaticNPCHitCooldown = 25;
-         
+                        Projectile.idStaticNPCHitCooldown = 40;
+                        Projectile.damage = (int)(Projectile.damage *  2f); 
                     }
                     //否则，执行其他AI
                     else

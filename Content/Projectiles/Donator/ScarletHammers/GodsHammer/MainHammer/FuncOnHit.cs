@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
             //生成一点星云射线。
             Projectile.netUpdate = true;
             int laserID = ModContent.ProjectileType<NebulaShot>();
-            int laserDamage = Projectile.damage / 2;
+            int laserDamage = Projectile.damage / 3;
             float laserKB = 2.5f;
             int numLasers = 3;
             for (int i = 0; i < numLasers; ++i)

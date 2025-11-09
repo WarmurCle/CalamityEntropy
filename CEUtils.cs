@@ -1316,6 +1316,24 @@ namespace CalamityEntropy
                 getTooltip.Text = Language.GetTextValue(replacedTextPath);
         }
         /// <summary>
+        /// 干翻所有Tooltip，并借助本地化完全重写一次，重载染色，附带键入值
+        /// </summary>
+        /// <param name="tooltips"></param>
+        /// <param name="replacedTextPath"></param>
+        /// <param name="args"></param>
+        public static void FuckThisTooltipAndReplace(this List<TooltipLine> tooltips, string replacedTextPath, Color textColor, params object[] args)
+        {
+            tooltips.RemoveAll((line) => line.Mod == "Terraria" && line.Name != "Tooltip0" && line.Name.StartsWith("Tooltip"));
+            TooltipLine getTooltip = tooltips.FirstOrDefault((x) => x.Name == "Tooltip0" && x.Mod == "Terraria");
+            string formateText = replacedTextPath.ToLangValue().ToFormatValue(args);
+            if (getTooltip is not null)
+            {
+                getTooltip.Text = formateText;
+                getTooltip.OverrideColor = textColor;
+            }
+
+        }
+        /// <summary>
         /// 干翻所有Tooltip，并借助本地化完全重写一次，附带键入值
         /// </summary>
         /// <param name="tooltips"></param>
