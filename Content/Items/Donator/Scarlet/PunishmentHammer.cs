@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
         public override void ExSD()
         {
             Item.width = Item.height = 58;
-            Item.damage = 28;
+            Item.damage = 15;
             Item.useTime = 13;
             Item.useAnimation = 13;
             Item.shootSpeed = 18f;

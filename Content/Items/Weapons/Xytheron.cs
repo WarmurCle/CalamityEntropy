@@ -1,7 +1,8 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
+using CalamityMod.Items;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -23,8 +24,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 6;
-            Item.value = 12000;
             Item.rare = ModContent.RarityType<AbyssalBlue>();
+	        Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.UseSound = null;
             Item.noMelee = true;
             Item.noUseGraphic = true;
