@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Donator.Scarlet
             ExSD();
         }
         //全体锤子采用0.7f伤害倍率
-        public override float StealthDamageMultiplier => 0.75f;
+        public override float StealthDamageMultiplier => 0.5f;
         //复写modifyshoot，我们只让其生效潜伏伤害倍率
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
