@@ -13,7 +13,7 @@ namespace CalamityEntropy
         {
             public Vector2 Direction;
             public float amplitude;
-            public float Counter = 0;
+            public float Counter = Main.rand.NextFloat() * MathHelper.TwoPi;
             public bool active => ScreenShaker.shakes.Contains(this);
             public ScreenShake(Vector2 direction, float amplitude)
             {
@@ -22,15 +22,15 @@ namespace CalamityEntropy
             }
             public virtual void Update()
             {
-                amplitude -= 0.1f;
-                amplitude *= 0.9f;
+                amplitude -= 0.01f;
+                amplitude *= 0.96f;
                 if(amplitude < 0)
                     amplitude = 0;
-                Counter += amplitude;
+                Counter += Direction.Length() == 0 ? 1 : amplitude;
             }
             public virtual Vector2 GetShiftVec()
             {
-                return Direction * (0.5f + ((float)(Math.Cos(Counter * 0.034f)) * 0.5f + 0.5f)) * amplitude;
+                return Direction * (0.2f + ((float)(Math.Cos(Counter * 0.04f)) * 0.5f + 0.5f)) * amplitude + Direction.RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-1, 1) * amplitude * 0.32f + new Vector2((float)(Math.Cos(Counter * 0.67f)) * Main.rand.NextFloat(), (float)(Math.Cos(Counter * -0.73f + MathHelper.PiOver4)) * Main.rand.NextFloat()) * (1 - float.Min(1, Direction.Length())) * amplitude;
             }
         }
         public static List<ScreenShake> shakes;

@@ -452,7 +452,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity *= -0.5f;
                 Projectile.localAI[0] = 16 * Projectile.MaxUpdates;
-                Main.LocalPlayer.Calamity().GeneralScreenShakePower = 14;
+                float s = Utils.Remap(Main.LocalPlayer.Distance(target.Center), 1600, 300, 0f, 8);
+                ScreenShaker.AddShake((Main.LocalPlayer.Center - target.Center).normalize() * 10, s);
                 Projectile.netUpdate = true;
                 CEUtils.PlaySound("scatter", 1, Projectile.Center, volume: CEUtils.WeapSound);
                 Projectile.ai[2] = 74;
