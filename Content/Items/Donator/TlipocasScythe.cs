@@ -968,6 +968,10 @@ namespace CalamityEntropy.Content.Items.Donator
         public override string Texture => "CalamityEntropy/Content/Items/Donator/TlipocasScythe";
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
+            //跟随鼠标状态下造成更低的伤害
+            if (StickOnMouse)
+                modifiers.SourceDamage /= 2.5f;
+
             if (DownedBossSystem.downedCalamitas)
             {
                 float dmgMult = Utils.Remap(CEUtils.getDistance(target.Center, Projectile.Center), 160, 300, 1.35f, 1);
@@ -1145,10 +1149,9 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 if (!StickOnMouse && Main.mouseRight && TlipocasScythe.AllowSpin() && !RightLast)
                 {
-                    counter = 0;
+                    counter = -80;
                     StickOnMouse = true;
                     CEUtils.SyncProj(Projectile.whoAmI);
-                    Projectile.damage = (int)(Projectile.damage / 2.5f);
                 }
                 RightLast = Main.mouseRight;
             }
@@ -1157,6 +1160,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             return Projectile.Center.getRectCentered((int)(142 * ProjScale), (int)(142 * ProjScale)).Intersects(targetHitbox);
         }
+        
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
