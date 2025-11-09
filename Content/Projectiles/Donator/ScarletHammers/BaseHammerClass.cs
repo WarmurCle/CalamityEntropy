@@ -75,5 +75,11 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers
             ExSD();
         }
         public virtual void ExSD() { }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (!Stealth)
+                modifiers.DefenseEffectiveness *= 0f;
+        }
+        public virtual void ExModifyHit(NPC target, ref NPC.HitModifiers modifiers) { }
     }
 }
