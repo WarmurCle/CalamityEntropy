@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
@@ -6,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-    public class AzafureDetectionEquipment : ModItem
+    public class AzafureDetectionEquipment : ModItem, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -22,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.rocketBoots += 90;
             player.noFallDmg = true;
-            player.jumpSpeedBoost += 0.8f;
+            player.jumpSpeedBoost += player.AzafureEnhance() ? 1.6f : 0.8f;
             player.maxRunSpeed *= 1.12f;
             player.Entropy().addEquip(ID, !hideVisual);
         }

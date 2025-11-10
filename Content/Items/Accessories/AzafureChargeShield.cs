@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Enums;
@@ -17,7 +18,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Shield)]
-    public class AzafureChargeShield : ModItem
+    public class AzafureChargeShield : ModItem, IAzafureEnhancable
     {
         public const int ShieldSlamDamage = 70;
         public const float ShieldSlamKnockback = 8f;
@@ -92,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Time = 0;
             PostHit = false;
             player.Entropy().AzDash = 3;
-            (player.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield).charge -= 1;
+            (player.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield).charge -= player.AzafureEnhance() ? 0.6f : 1;
         }
 
         public override void MidDashEffects(Player player, ref float dashSpeed, ref float dashSpeedDecelerationFactor, ref float runSpeedDecelerationFactor)

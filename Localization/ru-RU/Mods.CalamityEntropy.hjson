@@ -3070,6 +3070,21 @@ Items: {
 			Swarms will collect all item if this item is helding
 			''' */
 	}
+
+	AzafureHeavyArmor: {
+		// DisplayName: Azafure Heavy Armor
+		// Tooltip: ""
+	}
+
+	AzafureHeavyHelmet: {
+		// DisplayName: Azafure Heavy Helmet
+		// Tooltip: ""
+	}
+
+	AzafureHeavyLeggings: {
+		// DisplayName: Azafure Heavy Leggings
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"

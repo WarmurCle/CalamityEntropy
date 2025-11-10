@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Books.BookMarks;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
@@ -364,7 +365,6 @@ namespace CalamityEntropy.Common
                 }
             }
 
-
             LoopSoundManager.update();
         }
         public void drawChargeBar(Vector2 center, float prog, Color color)
@@ -515,6 +515,14 @@ namespace CalamityEntropy.Common
                         DrawBrambleBar();
                     }
                     drawXythBar();
+                    return true;
+                }, InterfaceScaleType.UI));
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Durability Bar", () =>
+                {
+                    if (Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus)
+                    {
+                        AzafureHeavyArmorPlayer.DrawDuraBar(Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>().durability);
+                    }
                     return true;
                 }, InterfaceScaleType.UI));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer(
