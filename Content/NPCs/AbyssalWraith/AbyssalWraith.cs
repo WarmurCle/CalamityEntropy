@@ -184,7 +184,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             }
             if (deathAnm && deathSoundPlay && !Main.dedServ)
             {
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/awdead"));
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/awdead") { Volume = 0.5f});
                 deathSoundPlay = false;
             }
             wingRotLeft *= 0.86f;
@@ -204,8 +204,8 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             }
             if (!Main.dedServ)
             {
-                Main.LocalPlayer.Entropy().screenShift = camLerp;
-                Main.LocalPlayer.Entropy().screenPos = NPC.Center;
+                //Main.LocalPlayer.Entropy().screenShift = camLerp;
+                //Main.LocalPlayer.Entropy().screenPos = NPC.Center;
             }
             if (portalTime > 0)
             {
@@ -1126,13 +1126,6 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         {
             lastLife = NPC.life;
             checkLife = true;
-            maxDmgCanTake = getMaxDamageCanTake();
-            if (maxDmgCanTake > 0)
-            {
-                modifiers.SetMaxDamage(maxDmgCanTake);
-            }
-
-
         }
         public override void HitEffect(NPC.HitInfo hit)
         {

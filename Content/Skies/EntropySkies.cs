@@ -12,7 +12,8 @@ namespace CalamityEntropy.Content.Skies
             SkyManager.Instance["CalamityEntropy:DimensionLens"] = new LlSky();
             Terraria.Graphics.Effects.Filters.Scene["CalamityEntropy:NihTwin"] = new Filter(new TransScreenShaderData("FilterMiniTower").UseColor(Color.Transparent).UseOpacity(0f), EffectPriority.VeryHigh);
             SkyManager.Instance["CalamityEntropy:NihTwin"] = new NihTwinSky();
-
+            Terraria.Graphics.Effects.Filters.Scene["CalamityEntropy:VoidVortex"] = new Filter(new TransScreenShaderData("FilterMiniTower").UseColor(new Color(60, 30, 100)).UseOpacity(0f), EffectPriority.VeryHigh);
+            SkyManager.Instance["CalamityEntropy:VoidVortex"] = new VoidVortexSky();
         }
     }
 }

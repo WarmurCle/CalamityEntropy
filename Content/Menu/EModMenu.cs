@@ -162,6 +162,17 @@ namespace CalamityEntropy.Content.Menu
             op *= alpha;
             Main.spriteBatch.Draw(tx, pos, null, Color.AliceBlue * op * 0.8f, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.1f, SpriteEffects.None, 0);
         }
+        public void draw(float opc)
+        {
+            Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightball").Value;
+            float op = 1;
+            if (timeleft < 60)
+            {
+                op = (float)timeleft / 60f;
+            }
+            op *= alpha * opc;
+            Main.spriteBatch.Draw(tx, pos, null, Color.AliceBlue * op * 0.8f, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.1f, SpriteEffects.None, 0);
+        }
         public static List<MenuParticle> particles = new List<MenuParticle>();
     }
 

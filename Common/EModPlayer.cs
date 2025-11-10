@@ -570,6 +570,7 @@ namespace CalamityEntropy.Common
         
         public int crSky = 0;
         public int NihSky = 0;
+        public int VortexSky = 0;
         public int llSky = 0;
         public int magiShieldCd = 0;
         public int sJudgeCd = 30 * 60;
@@ -1029,6 +1030,8 @@ namespace CalamityEntropy.Common
             {
                 NihSky--;
             }
+            if (VortexSky > 0)
+            { VortexSky--; }
             if (llSky > 0)
             {
                 llSky--;

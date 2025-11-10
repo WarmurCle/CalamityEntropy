@@ -978,7 +978,7 @@ Items: {
 
 	AbyssalWraithPlush: {
 		Tooltip: ""
-		DisplayName: 祟界虚灵玩偶
+		DisplayName: 幽邃魔灵玩偶
 	}
 
 	Voidshade: {
@@ -4195,7 +4195,7 @@ NPCs: {
 	}
 
 	CruiserBody.DisplayName: 巡游者
-	AbyssalWraith.DisplayName: 祟界虚灵
+	AbyssalWraith.DisplayName: 幽邃魔灵
 	VoidCultistAssassin.DisplayName: 虚空邪教徒
 	VoidPope.DisplayName: 虚空教主
 	VoidPopeHand.DisplayName: 虚空教主
@@ -4789,7 +4789,7 @@ DraedonDialogs: {
 
 			我一直有对虚空进行研究,早在我遇见亚利姆之前。
 
-			在与亚利姆合作期间,我曾提出对虚空进行更深入了研究,于是亚利姆便找到了一位先知,请他对虚空投去一瞥。
+			在与亚利姆合作期间,我曾提出对虚空进行更深入的研究,于是亚利姆便找到了一位先知,请他对虚空投去一瞥。
 
 			尽管后来他的下场不怎么好,但这也没阻止我对虚空的进一步研究。
 
