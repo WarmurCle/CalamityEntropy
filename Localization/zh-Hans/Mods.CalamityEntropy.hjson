@@ -4982,6 +4982,24 @@ LMDialog17: 我不收垃圾，谢谢
 LMDialog18: 你塞的是什么东西？
 NowLV: 当前等级
 
+Test: {
+	Proj: {
+		// PurpleBeam.DisplayName: Purple Beam
+		// FinalEchoProjSmall.DisplayName: Final Echo Proj Small
+		// FinalEchoProjMini.DisplayName: Final Echo Proj Mini
+		// FinalEchoProj.DisplayName: Final Echo Proj
+		// PhantasmalHammer.DisplayName: Phantasmal Hammer
+		// GrandEchoProjMini.DisplayName: Grand Echo Proj Mini
+	}
+
+	Projs: {
+		// FinalProj.DisplayName: Final Proj
+		// GodsProj.DisplayName: Gods Proj
+		// HallowedProj.DisplayName: Hallowed Proj
+		// LunarProj.DisplayName: Lunar Proj
+		// PaladinProj.DisplayName: Paladin Proj
+	}
+}
 
 BCBarInfo: 苍郁充能
 HallowedEnemiesDrop: 掉落自神圣之地地下敌怪
@@ -4990,20 +5008,17 @@ DungeonEnemiesDrop: 掉落自地牢敌怪
 VoidOreMine: 击败巡游者后在太空层挖取
 AbyssalPiercerObt: 击败渊海灾虫后掉落自巨大乌贼
 AstralFishing: 星辉地钓鱼获取
-
 AzafureSet:
-'''
-穿着此盔甲时所有阿萨福勒装备将获得部分强化
-获得耐力条
-耐力条会为你提供至多18点护甲与50%伤害减免，同时减慢你的移动速度
-在受到伤害时会根据伤害值扣除耐力
-耐力会在受击5秒后缓慢回复
-当耐力清空时会失效，并需要一段时间重新启用
-'''
+	'''
+	穿着此盔甲时所有阿萨福勒装备将获得部分强化
+	获得耐力条
+	耐力条会为你提供至多18点护甲与50%伤害减免，同时减慢你的移动速度
+	在受到伤害时会根据伤害值扣除耐力
+	耐力会在受击5秒后缓慢回复
+	当耐力清空时会失效，并需要一段时间重新启用
+	'''
 
-AzafureEnhances: 
-{
+AzafureEnhances: {
 	AzafureChargeShield: 冲刺所需的充能减少
 	AzafureDetectionEquipment: 增加跳跃高度
-
 }
