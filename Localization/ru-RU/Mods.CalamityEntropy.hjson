@@ -4858,4 +4858,5 @@ AzafureEnhances: {
 	// AzafureElectrocauteryWand: Increase charging speed
 	// AzafureLightMachineGun: Increase stealth regen speed when laser hitted
 	// AzafurePowerSaw: Increase weapon's damage and it won't overheat
+	// AzafureDrill: Increase pick power and pick range
 }
