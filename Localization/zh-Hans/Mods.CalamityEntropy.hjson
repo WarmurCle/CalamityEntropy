@@ -5038,4 +5038,5 @@ AzafureEnhances: {
 	AzafureElectrocauteryWand: 增加充能速度
 	AzafureLightMachineGun: 增加普通攻击命中后回复的潜行值
 	AzafurePowerSaw: 增加链锯伤害并且不会过热
+	AzafureDrill: 增加镐力和挖掘范围
 }
