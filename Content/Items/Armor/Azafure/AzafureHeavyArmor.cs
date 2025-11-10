@@ -5,6 +5,7 @@ using CalamityMod.Items.Armor.OmegaBlue;
 using CalamityMod.Rarities;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Armor.Azafure
@@ -27,6 +28,12 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<HellIndustrialComponents>(10)
+                .AddIngredient(ItemID.Obsidian, 8)
+                .AddIngredient(ItemID.HellstoneBar, 6)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
 
     }

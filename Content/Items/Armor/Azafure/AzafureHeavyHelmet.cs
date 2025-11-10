@@ -48,6 +48,11 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<HellIndustrialComponents>(6)
+                .AddIngredient(ItemID.Obsidian, 6)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
     public interface IAzafureEnhancable

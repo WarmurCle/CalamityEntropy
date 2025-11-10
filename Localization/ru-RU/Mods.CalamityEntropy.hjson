@@ -4844,4 +4844,18 @@ AzafureEnhances: {
 	// AzafureDetectionEquipment: Increase jump speed
 	// AzafureTBMTerminal: Increase the movement speed during excavation
 	// ReallocateIndicatorData: Increase average attribute bonus
+	// AzafureAntiaircraftGun: +30% Attack Speed
+	// AzafureBatteringRam: Reduce charging time
+	// AzafureDroneRemote: Increase minion shooting speed
+	// AzafureFurnace: Increase charging speed based on durability
+	// AzafureHealingTowerRemote: Increase healing and attack speed
+	// AzafurePioneerCannon: Increase the upper limit of ammunition loading
+	// AzafureProtectiveCannon: Reduce cooldown time
+	// AzafurePulseWand: Increase tag limit and search range
+	// AzafureRailgun: Increase the number of small tracking bullets
+	// AzafureSurgeRod: The projectile can deliver an additional electric shock to a target
+	// AzafureTeslaGun: Increase arc damage
+	// AzafureElectrocauteryWand: Increase charging speed
+	// AzafureLightMachineGun: Increase stealth regen speed when laser hitted
+	// AzafurePowerSaw: Increase weapon's damage and it won't overheat
 }
