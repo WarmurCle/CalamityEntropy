@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -15,7 +16,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
 {
-    public class AzafureLightMachineGun : RogueWeapon
+    public class AzafureLightMachineGun : RogueWeapon, IAzafureEnhancable
     {
         public override void SetDefaults()
         {

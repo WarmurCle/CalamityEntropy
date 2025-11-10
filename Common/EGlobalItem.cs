@@ -456,9 +456,9 @@ namespace CalamityEntropy.Common
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if(item.ModItem != null && item.ModItem is IAzafureEnhancable)
+            if(item.ModItem != null && item.ModItem is IAzafureEnhancable && Main.LocalPlayer.AzafureEnhance())
             {
-                tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow});
+                tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow});
             }
             if (ModContent.GetInstance<Config>().ItemAdditionalInfo)
             {

@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
 {
-    public class AzafurePowerSaw : ModItem
+    public class AzafurePowerSaw : ModItem, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -44,6 +45,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
                 AddIngredient(ItemID.Chain, 2).
                 AddTile(TileID.Anvils).
                 Register();
+        }
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        {
+            damage *= (player.AzafureEnhance() ? 1.3f : 1);
         }
     }
     public class AzafurePowerSawProj : ModProjectile
@@ -122,7 +127,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
             soundCd--;
 
             Projectile.ai[2]++;
-            if (Projectile.ai[2] > 480 * Projectile.MaxUpdates)
+            if (!player.AzafureEnhance() && Projectile.ai[2] > 480 * Projectile.MaxUpdates)
             {
                 CEUtils.PlaySound("chainsaw_break", 1, Projectile.Center, 1, 0.6f * CEUtils.WeapSound);
                 player.itemTime = 120;

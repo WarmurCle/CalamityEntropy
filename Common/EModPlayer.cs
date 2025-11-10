@@ -1925,7 +1925,7 @@ namespace CalamityEntropy.Common
             }
             if (worshipStealthRegenTime-- > 0)
             {
-                Player.Calamity().rogueStealth += 0.1f / 30f * Player.Calamity().rogueStealthMax;
+                Player.Calamity().rogueStealth += ((Player.AzafureEnhance() && Player.HeldItem.ModItem is AzafureLightMachineGun) ? 0.2f : 0.1f) / 30f * Player.Calamity().rogueStealthMax;
                 if (Player.Calamity().rogueStealth > Player.Calamity().rogueStealthMax)
                 {
                     Player.Calamity().rogueStealth = Player.Calamity().rogueStealthMax;

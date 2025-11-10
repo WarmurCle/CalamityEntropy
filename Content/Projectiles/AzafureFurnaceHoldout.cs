@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (Projectile.ai[0] < maxTime)
             {
-                Projectile.ai[0] += 1 * owner.GetAttackSpeed(DamageClass.Magic) * (1 + owner.Entropy().WeaponBoost * 0.6f);
+                Projectile.ai[0] += 1 * owner.GetAttackSpeed(DamageClass.Magic) * (1 + owner.Entropy().WeaponBoost * 0.6f + owner.AzafureDurability() * 0.6f);
                 if (Projectile.ai[0] >= maxTime)
                 {
                     SoundStyle s = SoundID.DD2_BetsyFireballShot;

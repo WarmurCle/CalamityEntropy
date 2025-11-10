@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
 {
-    public class AzafureElectrocauteryWand : ModItem
+    public class AzafureElectrocauteryWand : ModItem, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -87,7 +88,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                     {
                         CEUtils.PlaySound("scholarStaffAttack", 0.4f, Projectile.Center);
                     }
-                    Charge += 0.02f;
+                    Charge += player.AzafureEnhance() ? 0.035f : 0.02f;
                     if (Charge >= 1)
                     {
                         CEUtils.PlaySound("beep", 1, Projectile.Center);

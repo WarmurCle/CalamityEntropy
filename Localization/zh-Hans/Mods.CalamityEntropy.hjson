@@ -5017,8 +5017,25 @@ AzafureSet:
 	耐力会在受击5秒后缓慢回复
 	当耐力清空时会失效，并需要一段时间重新启用
 	'''
+AzafureEnhance: 能力强化
 
 AzafureEnhances: {
 	AzafureChargeShield: 冲刺所需的充能减少
 	AzafureDetectionEquipment: 增加跳跃高度
+	AzafureTBMTerminal: 增加挖掘时的移动速度
+	ReallocateIndicatorData: 增加平均属性加成
+	AzafureAntiaircraftGun: +30%攻击速度
+	AzafureBatteringRam: 加快充能速度
+	AzafureDroneRemote: 增加仆从攻击频率
+	AzafureFurnace: 根据耐久条加速充能
+	AzafureHealingTowerRemote: 增加治疗与攻击频率
+	AzafurePioneerCannon: 增加装弹上限
+	AzafureProtectiveCannon: 减少冷却时间
+	AzafurePulseWand: 增加标记上限与搜索范围
+	AzafureRailgun: 增加小型追踪弹的数量
+	AzafureSurgeRod: 射弹可额外电击一个目标
+	AzafureTeslaGun: 增加电弧伤害
+	AzafureElectrocauteryWand: 增加充能速度
+	AzafureLightMachineGun: 增加普通攻击命中后回复的潜行值
+	AzafurePowerSaw: 增加链锯伤害并且不会过热
 }

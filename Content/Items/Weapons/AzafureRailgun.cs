@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -13,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzafureRailgun : ModItem
+    public class AzafureRailgun : ModItem, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -112,7 +113,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     else
                     {
                         CEUtils.PlaySound("shockBlast", 1.5f - 0.5f * Charge, FirePos, volume: Charge);
-                        int bulletCounts = 1 + (int)(Charge * 9);
+                        int bulletCounts = 1 + (int)((Charge + player.AzafureDurability() * 0.5f) * 9);
                         for (int i = 0; i < bulletCounts; i++)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), FirePos, Projectile.velocity.RotatedByRandom((1 - Charge)) * Main.rand.NextFloat(0.6f, 1) * 2.6f * (0.3f + 0.7f * Charge), ModContent.ProjectileType<RailgunSmallShot>(), (int)(Charge * Projectile.damage / bulletCounts), Projectile.knockBack / 10, Projectile.owner);
@@ -186,7 +187,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Projectile.ai[1]++ % 24 == 0)
+            if (Projectile.ai[1]++ % (int)((1 - Projectile.GetOwner().AzafureDurability()) * 14 + 10) == 0)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) * 0.6f, ModContent.ProjectileType<RailgunSmallShot>(), Projectile.damage / 8, Projectile.knockBack / 10, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) * 0.6f, ModContent.ProjectileType<RailgunSmallShot>(), Projectile.damage / 8, Projectile.knockBack / 10, Projectile.owner);

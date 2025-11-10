@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzafureBatteringRam : ModItem
+    public class AzafureBatteringRam : ModItem, IAzafureEnhancable
     {
         public int charge = 0;
         public override void SetDefaults()

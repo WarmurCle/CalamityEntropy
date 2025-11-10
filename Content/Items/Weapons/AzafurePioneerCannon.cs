@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -15,7 +16,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzafurePioneerCannon : ModItem
+    public class AzafurePioneerCannon : ModItem, IAzafureEnhancable
     {
         public override void SetStaticDefaults()
         {
@@ -83,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool steamSound = true;
         public bool slSound = true;
         public int LoadedAmmo = 0;
-        public static int MaxAmmo => Main.zenithWorld ? 591 : 5;
+        public int MaxAmmo => Main.zenithWorld ? 591 : 5 + (Projectile.GetOwner().AzafureEnhance() ? 3 : 0);
         public int FrameCount = 0;
         public float LoadCounter = 0;
         public float FlywheelRot = 0;

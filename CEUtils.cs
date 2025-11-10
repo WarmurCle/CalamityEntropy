@@ -35,6 +35,8 @@ namespace CalamityEntropy
         }
         public static float AzafureDurability(this Player player)
         {
+            if (!player.AzafureEnhance())
+                return 0;
             return player.GetModPlayer<AzafureHeavyArmorPlayer>().durability;
         }
         public static string MouseText

@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Atbm
 {
-    public class AzafureTBMTerminal : ModItem
+    public class AzafureTBMTerminal : ModItem, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -219,7 +220,7 @@ namespace CalamityEntropy.Content.Items.Atbm
             }
             if (CEUtils.inWorld((Projectile.Center / 16).ToPoint().X, (Projectile.Center / 16).ToPoint().Y) && Main.tile[(Projectile.Center / 16).ToPoint()].WallType != WallID.None)
                 InGround = true;
-            float MoveSpeed = Active ? 0.6f : 1.4f;
+            float MoveSpeed = Active ? (player.AzafureEnhance() ? 1 : 0.6f) : 1.4f;
             Vector2 moveVect = Projectile.rotation.ToRotationVector2() * MoveSpeed * 0.6f + 0.4f * new Vector2(((mplayer.ControlA ? -1 : 0) + (mplayer.ControlD ? 1 : 0)) * MoveSpeed, ((mplayer.ControlW ? -1 : 0) + (mplayer.ControlS ? 1 : 0)) * MoveSpeed);
             Vector2 pct = Main.netMode == NetmodeID.MultiplayerClient ? mplayer.opos : player.Center;
             bool b = false;

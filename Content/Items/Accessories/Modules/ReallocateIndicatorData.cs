@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Microsoft.CodeAnalysis;
@@ -24,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
         public float WingTime;
         public int Crit;
     }
-    public class ReallocateIndicatorData : ModItem
+    public class ReallocateIndicatorData : ModItem, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -43,7 +44,10 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
                 seed += player.position.ToPoint().GetHashCode();
             }
             float sum = new UnifiedRandom(seed).NextFloat(MaxDeviation / -4f, MaxDeviation / 2f);
-
+            if(player.AzafureEnhance())
+            {
+                sum += 0.2f;
+            }    
             List<float> ModifyMap = FloatListGenerator.GenerateFloatList(seed, 9, sum, -0.26f, 0.26f);
             float Dmg = ModifyMap[0];
             float Asp = ModifyMap[1] * 0.6f;

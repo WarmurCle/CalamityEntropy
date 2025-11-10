@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Cooldowns;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -13,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzafureProtectiveCannon : ModItem
+    public class AzafureProtectiveCannon : ModItem, IAzafureEnhancable
     {
         public override void SetStaticDefaults()
         {
@@ -43,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             damage *= 16;
-            player.AddCooldown(ProtectiveCannonCooldown.ID, Cooldown);
+            player.AddCooldown(ProtectiveCannonCooldown.ID, Cooldown / (player.AzafureEnhance() ? 2 : 1));
             position = Main.MouseWorld + new Vector2(-600, -2000);
             Vector2 vel = (Main.MouseWorld - position) / 10f;
             Projectile.NewProjectile(source, position, vel, type, damage, knockback, player.whoAmI, Main.MouseWorld.X, Main.MouseWorld.Y);

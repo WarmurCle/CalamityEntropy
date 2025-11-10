@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -15,7 +16,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzafureSurgeRod : RogueWeapon
+    public class AzafureSurgeRod : RogueWeapon, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -158,6 +159,19 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Vector2 velocity = ((MathHelper.TwoPi * i / 16f) - (MathHelper.Pi / 16f)).ToRotationVector2() * 12f;
                         Particle sparkle = new CritSpark(stick != null ? stick.Center : Projectile.Center, velocity, (Projectile.Calamity().stealthStrike ? Color.DarkRed : Color.White), (Projectile.Calamity().stealthStrike ? Color.DarkRed : Color.White), 0.8f, 30, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
                         GeneralParticleHandler.SpawnParticle(sparkle);
+                    }
+                    if(Projectile.GetOwner().AzafureEnhance())
+                    {
+                        Func<int, bool> filter2 = (i) => (!StickOnNPC || i != stick.whoAmI) && (npc == null || i != npc.whoAmI);
+                        NPC npc2 = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 400, filter2);
+                        if (npc2 == null)
+                        {
+                            npc2 = stick;
+                        }
+                        if (npc2 != null)
+                        {
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), stick != null ? stick.Center : Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TeslaLightningRed>(), Projectile.damage, 0, Projectile.owner, npc2.Center.X, npc2.Center.Y, (Projectile.Calamity().stealthStrike ? 1 : 0)).ToProj().DamageType = Projectile.DamageType;
+                        }
                     }
                     Projectile.timeLeft = 1;
                 }

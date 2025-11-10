@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -15,7 +16,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzafurePulseWand : ModItem
+    public class AzafurePulseWand : ModItem, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -111,7 +112,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Projectile.timeLeft = 36;
                 Charge++;
-                if (AttackR < 1200)
+                if (AttackR < (player.AzafureDurability() * 600 + 1200))
                 {
                     RVel += 0.25f;
                     AttackR += RVel;
@@ -121,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     RPulseAlpha *= 0.94f;
                 }
                 player.itemAnimation = player.itemTime = 36;
-                if (RPulseAlpha > 0.3f && Helding && targetNpcs.Count < 6)
+                if (RPulseAlpha > 0.3f && Helding && targetNpcs.Count < (player.AzafureEnhance() ? 12 : 6))
                 {
                     foreach (var npc in Main.ActiveNPCs)
                     {

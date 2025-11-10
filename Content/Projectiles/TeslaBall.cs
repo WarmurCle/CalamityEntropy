@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles
                         if (npc.Distance(Projectile.Center) < range && !npc.friendly && !npc.dontTakeDamage)
                         {
                             l--;
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 4, ModContent.ProjectileType<TeslaLightning>(), Projectile.damage / 4, 0, Projectile.owner, npc.Center.X, npc.Center.Y);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 4, ModContent.ProjectileType<TeslaLightning>(), Projectile.damage / (Projectile.GetOwner().AzafureEnhance() ? 3 : 4), 0, Projectile.owner, npc.Center.X, npc.Center.Y);
                             if (l <= 0)
                             {
                                 break;

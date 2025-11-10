@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
@@ -16,7 +17,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzafureAntiaircraftGun : ModItem
+    public class AzafureAntiaircraftGun : ModItem, IAzafureEnhancable
     {
         public override void SetStaticDefaults()
         {
@@ -89,6 +90,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             int MaxTime = player.itemTimeMax * Projectile.MaxUpdates;
             float progress = counter / MaxTime;
             Projectile.rotation = Projectile.velocity.ToRotation();
+            if (counter == 0 && player.AzafureEnhance())
+            {
+                player.itemTimeMax = (int)(player.itemTimeMax * 0.7f);
+            }
             if (progress < 0.2f)
             {
                 BarrelOffset = CEUtils.Parabola(progress / 0.2f, 60);

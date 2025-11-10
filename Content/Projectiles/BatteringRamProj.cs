@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (charge < 1)
             {
                 Projectile.velocity = (player.Calamity().mouseWorld - player.Center).normalize() * Projectile.velocity.Length();
-                charge += 0.025f * player.GetTotalAttackSpeed(Projectile.DamageType);
+                charge += 0.025f * player.GetTotalAttackSpeed(Projectile.DamageType) * (player.AzafureEnhance() ? 1.6f : 1);
                 player.direction = Projectile.velocity.X > 0 ? 1 : -1;
                 Projectile.rotation = (player.Calamity().mouseWorld - player.Center).ToRotation() - player.direction * ((float)Math.Cos(((float)Math.Cos(((float)Math.Cos(charge * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.Pi - MathHelper.Pi) * 0.5f + 0.5f) * MathHelper.ToRadians(150);
                 Projectile.timeLeft = 70;

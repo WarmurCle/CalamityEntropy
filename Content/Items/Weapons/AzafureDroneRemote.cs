@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -16,7 +17,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzafureDroneRemote : ModItem
+    public class AzafureDroneRemote : ModItem, IAzafureEnhancable
     {
         public override void SetStaticDefaults()
         {
@@ -176,7 +177,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (ReadyToFire <= 0)
                     {
                         ReadyToFire = -1;
-                        FireCooldown = 60;
+                        FireCooldown = player.AzafureEnhance() ? 45 : 60;
                         if (Main.myPlayer == Projectile.owner)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(0, 6), ModContent.ProjectileType<AzafureDroneBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

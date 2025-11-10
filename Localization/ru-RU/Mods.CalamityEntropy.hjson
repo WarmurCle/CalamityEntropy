@@ -4837,8 +4837,11 @@ Test: {
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
 	''' */
+// AzafureEnhance: Enhance
 
 AzafureEnhances: {
 	// AzafureChargeShield: Reduce energy cost
 	// AzafureDetectionEquipment: Increase jump speed
+	// AzafureTBMTerminal: Increase the movement speed during excavation
+	// ReallocateIndicatorData: Increase average attribute bonus
 }
