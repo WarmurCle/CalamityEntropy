@@ -950,7 +950,7 @@ Items: {
 		Tooltip:
 			'''
 			-10% Critical Strike Chance
-			+16% Melee Attack Speed
+			+20% Attack Speed
 			"Speed of the Troubled Mind"
 			'''
 	}
@@ -983,7 +983,7 @@ Items: {
 			Launch shadow flames during attack
 			+3% damage for each summon slots
 			+30% Damage
-			+16 Melee Attack Speed
+			+20% Attack Speed
 			+4 Void Touch
 			+35% Damage taken
 			-70% Life Regen
