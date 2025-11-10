@@ -3287,18 +3287,18 @@ Items: {
 	}
 
 	AzafureHeavyArmor: {
-		// DisplayName: Azafure Heavy Armor
-		// Tooltip: ""
+		DisplayName: 阿萨福勒重型护甲
+		Tooltip: ""
 	}
 
 	AzafureHeavyHelmet: {
-		// DisplayName: Azafure Heavy Helmet
-		// Tooltip: ""
+		DisplayName: 阿萨福勒重型头盔
+		Tooltip: ""
 	}
 
 	AzafureHeavyLeggings: {
-		// DisplayName: Azafure Heavy Leggings
-		// Tooltip: ""
+		DisplayName: 阿萨福勒重型腿甲
+		Tooltip: ""
 	}
 }
 
