@@ -4815,3 +4815,10 @@ Durability is consumed based on damage taken when hit
 Durability slowly regenerates 5 seconds after taking damage
 When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
 '''
+
+AzafureEnhances: 
+{
+	AzafureChargeShield: Reduce energy cost
+	AzafureDetectionEquipment: Increase jump speed
+
+}

@@ -32,6 +32,7 @@ namespace CalamityEntropy
         public static bool AzafureEnhance(this Player player)
         {
             return player.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus;
+        }
         public static float AzafureDurability(this Player player)
         {
             return player.GetModPlayer<AzafureHeavyArmorPlayer>().durability;

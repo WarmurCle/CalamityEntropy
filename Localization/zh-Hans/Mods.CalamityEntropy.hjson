@@ -5001,8 +5001,9 @@ AzafureSet:
 当耐力清空时会失效，并需要一段时间重新启用
 '''
 
-AzafureEnhances: {
-AzafureChargeShield: 冲刺所需的充能减少
-AzafureDetectionEquipment: 增加跳跃高度
+AzafureEnhances: 
+{
+	AzafureChargeShield: 冲刺所需的充能减少
+	AzafureDetectionEquipment: 增加跳跃高度
 
 }

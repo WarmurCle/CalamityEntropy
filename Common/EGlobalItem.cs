@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Armor.VoidFaquir;
 using CalamityEntropy.Content.Items.Atbm;
 using CalamityEntropy.Content.Items.Books.BookMarks;
@@ -455,6 +456,10 @@ namespace CalamityEntropy.Common
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if(item.ModItem != null && item.ModItem is IAzafureEnhancable)
+            {
+                tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow});
+            }
             if (ModContent.GetInstance<Config>().ItemAdditionalInfo)
             {
                 if (item.ammo != AmmoID.None)
