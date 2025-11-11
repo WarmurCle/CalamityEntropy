@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 origPos = player.Center;
             }
             target.Center = targetPos;
-            player.Entropy().immune = 52;
+            player.Entropy().immune = 80;
             player.itemTime = player.itemAnimation = 4;
             Projectile.Center = target.Center;
             if (counter <= 6)
@@ -129,7 +129,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (counter < 60)
             {
                 Projectile.timeLeft = 2;
-                if (counter > 6 && counter < 38 && counter % 3 == 0)
+                if (counter > 6 && counter < 36 && counter % 3 == 0)
                 {
                     if (counter % 9 == 0)
                         EParticle.NewParticle(new PrismShard() { PixelShader = true}, target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
@@ -151,9 +151,19 @@ namespace CalamityEntropy.Content.Items.Weapons
                     CEUtils.PlaySound("AntivoidDash", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, 16, 0.5f);
                 }
             }
-            if(counter == 46)
+            if (counter == 42)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 1200), new Vector2(0, 26), ModContent.ProjectileType<CBPSmash>(), Projectile.damage, Projectile.knockBack, Projectile.owner); ;
+                for(int i = 0; i < 32; i++)
+                {
+                    var ps = target.Center + new Vector2(Main.rand.NextFloat(-120, 120), Main.rand.NextFloat(-80, 80));
+                    EParticle.NewParticle(new ShineParticle(), ps, (target.Center + new Vector2(0, -1000) - ps) / 12f, new Color(140, 140, 255), 0.5f, 1, true, BlendState.Additive, 0, 12);
+                }
+            }
+            if (counter == 46)
+            {
+                EParticle.spawnNew(new DOracleSlash() { widthMult = 2, centerColor = Color.White, vel = 2 }, target.Center + new Vector2(0, -2400), Vector2.Zero, new Color(80, 80, 255), Main.rand.NextFloat(250, 280), 16f, true, BlendState.NonPremultiplied, MathHelper.PiOver2, 16);
+
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 1200), new Vector2(0, 26), ModContent.ProjectileType<CBPSmash>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             if (counter == 0) CEUtils.PlaySound("AntivoidDashHit", 1.2f, Projectile.Center);
             if (counter == 60)
@@ -161,7 +171,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 int stealthRegenDelay = 160.ApplyCdDec(player);
                 player.Entropy().StealthRegenDelay = stealthRegenDelay;
                 CEUtils.PlaySound("CastTriangles", 0.8f, Projectile.Center);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<NetherRiftCrack>(), Projectile.damage, 1, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<NetherRiftCrack>(), Projectile.damage * 2, 1, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
                 for (int i = 0; i < 64; i++)
                 {
                     Particle p = new Particle();

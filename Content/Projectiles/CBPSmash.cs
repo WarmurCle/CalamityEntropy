@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             
             Projectile.GetOwner().Entropy().screenPos = Projectile.Center;
-            Projectile.GetOwner().Entropy().screenShift = float.Lerp(Projectile.GetOwner().Entropy().screenShift, 1, 0.1f);
+            Projectile.GetOwner().Entropy().screenShift = float.Lerp(Projectile.GetOwner().Entropy().screenShift, 0.4f, 0.1f);
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
@@ -73,7 +73,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnKill(int timeLeft)
         {
-            EParticle.NewParticle(new HeavenfallStar2(), Projectile.GetOwner().Center, Vector2.Zero, Color.LightSkyBlue, 5, 1, true, BlendState.Additive);
+            ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 64));
+            EParticle.NewParticle(new HeavenfallStar2(), Projectile.GetOwner().Center, Vector2.Zero, new Color(100, 100, 255), 12, 1, true, BlendState.Additive);
         }
     }
 
