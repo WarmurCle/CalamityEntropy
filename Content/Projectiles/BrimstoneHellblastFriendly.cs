@@ -285,7 +285,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Vector2 velocity = spinningpoint.RotatedBy(num2 * (float)i);
                     if (this.ShooterModProjectile is EntropyBookHeldProjectile ebook)
                     {
-                        ebook.ShootSingleProjectile(type, Projectile.Center, velocity, 0.7f, initAction: (projectile) => { projectile.ai[0] = 0f; projectile.ai[1] = Projectile.ai[1]; projectile.ai[2] = num3 * 1.5f; }, shotSpeedMul: 0.7f);
+                        ebook.ShootSingleProjectile(type, Projectile.Center, velocity, 0.2f, initAction: (projectile) => { projectile.ai[0] = 0f; projectile.ai[1] = Projectile.ai[1]; projectile.ai[2] = num3 * 1.5f; projectile.damage = Projectile.damage / 5; }, shotSpeedMul: 0.7f);
                     }
                 }
             }
@@ -428,40 +428,14 @@ namespace CalamityEntropy.Content.Projectiles
                     base.Projectile.damage = (NPC.AnyNPCs(ModContent.NPCType<SupremeCalamitas>()) ? base.Projectile.GetProjectileDamage(ModContent.NPCType<SupremeCalamitas>()) : base.Projectile.GetProjectileDamage(ModContent.NPCType<CalamitasClone>()));
                 }
             }
-
+            //Main.NewText(Projectile.damage);
             Lighting.AddLight(base.Projectile.Center, 0.75f * base.Projectile.Opacity, 0f, 0f);
             time++;
-        }
-
-        public override bool CanHitPlayer(Player target)
-        {
-            return base.Projectile.Opacity == 1f;
-        }
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            if (info.Damage > 0 && base.Projectile.Opacity == 1f)
-            {
-                if (base.Projectile.ai[0] == 0f || Main.zenithWorld)
-                {
-                    target.AddBuff(ModContent.BuffType<VulnerabilityHex>(), 180);
-                }
-                else
-                {
-                    target.AddBuff(ModContent.BuffType<BrimstoneFlames>(), 90);
-                }
-            }
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor.R = (byte)(255f * base.Projectile.Opacity);
-            if (CalamityGlobalNPC.SCal != -1 && NPC.AnyNPCs(ModContent.NPCType<SupremeCalamitas>()) && Main.npc[CalamityGlobalNPC.SCal].active && Main.npc[CalamityGlobalNPC.SCal].ModNPC<SupremeCalamitas>().permafrost)
-            {
-                lightColor.G = (byte)(255f * base.Projectile.Opacity);
-                lightColor.B = (byte)(255f * base.Projectile.Opacity);
-                lightColor.R = 0;
-            }
 
             CalamityUtils.DrawAfterimagesCentered(base.Projectile, ProjectileID.Sets.TrailingMode[base.Projectile.type], lightColor);
             return false;

@@ -3085,6 +3085,11 @@ Items: {
 		// DisplayName: Azafure Heavy Leggings
 		// Tooltip: ""
 	}
+
+	BookmarkHammer: {
+		// DisplayName: Bookmark Hammer
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3650,6 +3655,7 @@ Projectiles: {
 	// AzafureLightMachineGunStealth.DisplayName: Azafure Light Machine Gun Stealth
 	// ALMGShell.DisplayName: A L M G Shell
 	// PickingSwarm.DisplayName: Picking Swarm
+	// BMHammerProjectile.DisplayName: B M Hammer Projectile
 }
 
 LegendTooltip: - Легенда -

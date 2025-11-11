@@ -1670,6 +1670,13 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public override void PostUpdate()
         {
+            if(BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb) && BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(Player))
+            {
+                if (Player.ownedProjectileCounts[BookmarkHammer.ProjType] < 1)
+                {
+                    eb.ShootSingleProjectile(BookmarkHammer.ProjType, Player.Center, Vector2.UnitY * -12, 1, 1, 1);
+                }
+            }
             foreach(var plr in Main.ActivePlayers)
             {
                 if (plr.Distance(Player.Center) > 6000)

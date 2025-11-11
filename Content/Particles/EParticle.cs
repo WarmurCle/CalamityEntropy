@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Particles
         public bool PixelShader = false;
         public int UpdateTimes = 1;
         public static List<EParticle> particles = new List<EParticle>();
-        
+        public bool ShouldDraw = true;
         public static void DrawPixelShaderParticles()
         {
             List<EParticle> additiveDraw = new List<EParticle>();
@@ -102,7 +102,7 @@ namespace CalamityEntropy.Content.Particles
             Dictionary<Effect, List<EParticle>> useEffectParticle = new Dictionary<Effect, List<EParticle>>();
             foreach (EParticle p in particles)
             {
-                if (p.PixelShader)
+                if (p.PixelShader || !p.ShouldDraw)
                 {
                     continue;
                 }

@@ -3300,6 +3300,11 @@ Items: {
 		DisplayName: 阿萨福勒重型腿甲
 		Tooltip: ""
 	}
+
+	BookmarkHammer: {
+		DisplayName: 魔锤书签
+		Tooltip: "手持法书时召唤一把自动攻击的魔锤"
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3862,6 +3867,7 @@ Projectiles: {
 	AzafureLightMachineGunStealth.DisplayName: 阿萨福勒轻机枪子弹榴弹
 	ALMGShell.DisplayName: 弹壳
 	PickingSwarm.DisplayName: 蜂群集结
+	// BMHammerProjectile.DisplayName: B M Hammer Projectile
 }
 
 LegendTooltip: - 传奇物品 -

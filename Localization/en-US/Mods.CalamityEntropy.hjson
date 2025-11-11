@@ -3049,6 +3049,14 @@ Items: {
 		DisplayName: Azafure Heavy Leggings
 		Tooltip: ""
 	}
+
+	BookmarkHammer: {
+		DisplayName: Bookmark Hammer
+		Tooltip: 
+		'''
+		Summon a hammer fight for you
+		'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3628,6 +3636,7 @@ Projectiles: {
 	AzafureLightMachineGunStealth.DisplayName: Azafure Light Machine Gun Stealth
 	ALMGShell.DisplayName: A L M G Shell
 	PickingSwarm.DisplayName: Picking Swarm
+	BMHammerProjectile.DisplayName: B M Hammer Projectile
 }
 
 LegendTooltip: - Legend -
