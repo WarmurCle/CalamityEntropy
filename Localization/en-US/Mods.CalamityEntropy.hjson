@@ -3065,6 +3065,15 @@ Items: {
 		DisplayName: Bookmark Hammer
 		Tooltip: Summon a hammer fight for you
 	}
+
+	CrossBorderPursuit: {
+		DisplayName: Cross Border Pursuit
+		Tooltip: "
+		'''
+		Only able to conduct stealth strikes
+		Rush towards the target closest to the cursor and perform rapid and continuous slashing
+		'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3652,6 +3661,7 @@ Projectiles: {
 	GodsHammerFlyUpProj.DisplayName: Gods Hammer Fly Up Proj
 	GrandHammerFallenProj.DisplayName: Grand Hammer Fallen Proj
 	BMHammerProjectile.DisplayName: B M Hammer Projectile
+	CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
 }
 
 LegendTooltip: - Legend -

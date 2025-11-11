@@ -3101,6 +3101,11 @@ Items: {
 		// DisplayName: Bookmark Hammer
 		// Tooltip: Summon a hammer fight for you
 	}
+
+	CrossBorderPursuit: {
+		// DisplayName: Cross Border Pursuit
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3674,6 +3679,7 @@ Projectiles: {
 	// GodsHammerFlyUpProj.DisplayName: Gods Hammer Fly Up Proj
 	// GrandHammerFallenProj.DisplayName: Grand Hammer Fallen Proj
 	// BMHammerProjectile.DisplayName: B M Hammer Projectile
+	// CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
 }
 
 LegendTooltip: - Легенда -

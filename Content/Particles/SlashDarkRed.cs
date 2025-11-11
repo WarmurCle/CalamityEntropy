@@ -23,6 +23,7 @@ namespace CalamityEntropy.Content.Particles
         }
         public float sW = 1;
         public float height = 0.4f;
+        public Color colorInside = Color.Black;
         public override void Draw()
         {
             float scale = sW;// (this.Lifetime - 2f) / TimeLeftMax;
@@ -48,7 +49,7 @@ namespace CalamityEntropy.Content.Particles
                 clr *= Opacity;
             }
             float scale = sW;// (this.Lifetime - 2f) / TimeLeftMax;
-            DrawSlash(Scale * 128, height, scale * scw, Rotation, Color.Black * Opacity, Position);
+            DrawSlash(Scale * 128, height, scale * scw, Rotation, colorInside * Opacity, Position);
         }
         public float scw = 0.36f;
         public void DrawSlash(float width, float HeightMult, float scale, float rotation, Color color, Vector2 center)

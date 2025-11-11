@@ -11,8 +11,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.width = 256;
-            Projectile.height = 256;
+            Projectile.width = 360;
+            Projectile.height = 360;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.penetrate = -1;
@@ -25,6 +25,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
+            if (Projectile.DamageType.CountsAsClass(CEUtils.RogueDC))
+                Projectile.scale = 1.4f;
             if (Projectile.ai[0] == 0)
             {
                 Projectile.rotation = CEUtils.randomRot();
@@ -40,6 +42,10 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
             Main.spriteBatch.begin_();
             return false;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return Projectile.Center.getRectCentered(280 * Projectile.scale, 280 * Projectile.scale).Intersects(targetHitbox);
         }
     }
 

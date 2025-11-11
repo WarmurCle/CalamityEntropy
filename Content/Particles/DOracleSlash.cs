@@ -21,12 +21,13 @@ namespace CalamityEntropy.Content.Particles
             vel *= 0.88f;
             B = float.Lerp(B, A, 0.02f);
         }
+        public Color centerColor = Color.Black;
         public override void Draw()
         {
             Vector2 size = new Vector2(float.Min(1, Lifetime / 6f) * Scale / 720f * 0.3f, (A - B) * Scale / 720f);
             Vector2 drawPos = Position + Rotation.ToRotationVector2() * Scale * ((A + B) / 2f);
             Main.EntitySpriteDraw(Texture, drawPos - Main.screenPosition, null, Color, Rotation + MathHelper.PiOver2, Texture.Size() / 2f, size, SpriteEffects.None);
-            Main.EntitySpriteDraw(Texture, drawPos - Main.screenPosition, null, Color.Black, Rotation + MathHelper.PiOver2, Texture.Size() / 2f, size * 0.6f, SpriteEffects.None);
+            Main.EntitySpriteDraw(Texture, drawPos - Main.screenPosition, null, centerColor, Rotation + MathHelper.PiOver2, Texture.Size() / 2f, size * 0.6f, SpriteEffects.None);
 
         }
     }

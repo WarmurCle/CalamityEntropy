@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.Particles;
@@ -86,16 +87,6 @@ namespace CalamityEntropy.Common
 
             //绘制初始屏幕
             DrawInitialScreen(graphicsDevice);
-
-            //准备像素着色器
-            PreparePixelShader(graphicsDevice);
-
-            //绘制 NPC 和投射物
-            DrawNPCsAndProjectiles(graphicsDevice);
-
-            //应用像素着色器
-            ApplyPixelShader(graphicsDevice);
-
             //绘制投射物特效
             DrawProjectileEffects(graphicsDevice);
 
@@ -112,6 +103,16 @@ namespace CalamityEntropy.Common
 
             //我也不知道叫啥的特效 虚寂之翼用了
             DrawRandomEffect(graphicsDevice);
+            //准备像素着色器
+            PreparePixelShader(graphicsDevice);
+
+            //绘制 NPC 和投射物
+            DrawNPCsAndProjectiles(graphicsDevice);
+
+            //应用像素着色器
+            ApplyPixelShader(graphicsDevice);
+
+            
 
             //绘制玩家和投射物特效
             DrawPlayerAndProjectileEffects(graphicsDevice);
@@ -864,6 +865,10 @@ namespace CalamityEntropy.Common
                     Color color = Color.White;
                     p.ModProjectile.PreDraw(ref color);
                 }
+                if(p.ModProjectile is CrossBorderPursuitProj cbp)
+                {
+                    cbp.DrawEye();
+                }
                 else if (p.type == voidWraithType)
                 {
                     if (p.ModProjectile is VoidWraith vw)
@@ -889,7 +894,6 @@ namespace CalamityEntropy.Common
                     Main.spriteBatch.Draw(voidStar.Value, p.Center - Main.screenPosition, null, c * ((255 - p.alpha) / 255f), p.rotation, voidStar.Value.Size() / 2, p.scale, SpriteEffects.None, 0);
                 }
             }
-
             Main.spriteBatch.End();
 
             graphicsDevice.SetRenderTarget(Main.screenTarget);
