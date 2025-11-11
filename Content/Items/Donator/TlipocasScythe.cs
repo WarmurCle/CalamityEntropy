@@ -1146,6 +1146,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     }
                     Projectile.Kill();
                     player.Center = Projectile.Center;
+                    player.Entropy().immune = 32;
                 }
                 if (!StickOnMouse && Main.mouseRight && TlipocasScythe.AllowSpin() && !RightLast)
                 {
