@@ -3050,12 +3050,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	TaijinoYume: {
-		DisplayName: Taijino Yume
-		Tooltip: ""
-		Lore: ""
-	}
-
 	GrandHammer: {
 		DisplayName: Grand Hammer
 		Tooltip: ""
@@ -3068,7 +3062,7 @@ Items: {
 
 	CrossBorderPursuit: {
 		DisplayName: Cross Border Pursuit
-		Tooltip: "
+		Tooltip:
 		'''
 		Only able to conduct stealth strikes
 		Rush towards the target closest to the cursor and perform rapid and continuous slashing
