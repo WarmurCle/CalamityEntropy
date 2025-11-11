@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 origPos = player.Center;
             }
             target.Center = targetPos;
-            player.Entropy().immune = 30;
+            player.Entropy().immune = 52;
             player.itemTime = player.itemAnimation = 4;
             Projectile.Center = target.Center;
             if (counter <= 8)
@@ -142,10 +142,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                 }
                 CEUtils.PlaySound("AbyssalBladeLaunch", 1, Projectile.Center);
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage * 2, 600, Projectile.DamageType).Calamity().stealthStrike = true;
-                player.velocity = ((origPos - Projectile.Center) * new Vector2(1, 0.2f)).normalize() * 46;
+                player.velocity = ((origPos - Projectile.Center) * new Vector2(1, 0.6f)).normalize() * 46;
+                if (player.velocity.Y < -24)
+                    player.velocity.Y = -24;
                 player.Entropy().XSpeedSlowdownTime = 34;
-                CEUtils.SetShake(Projectile.Center, 12);
-                CalamityEntropy.Instance.screenShakeAmp = 14;
+                player.Entropy().gravAddTime = 34;
+                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(player.velocity.normalize() * 4, 16));
+                CalamityEntropy.Instance.screenShakeAmp = 4;
             }
         }
         public override bool PreDraw(ref Color lightColor)
