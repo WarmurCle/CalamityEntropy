@@ -68,13 +68,13 @@ namespace CalamityEntropy.Content.Tiles
             {
                 if (Main.netMode == NetmodeID.SinglePlayer)
                 {
-                    Main.NewText(BlessedWithVoidOreMessage.Value, 50, 255, 130);
+                    Main.NewText(BlessedWithVoidOreMessage.Value, 50, 255, 180);
                 }
                 else if (Main.netMode == NetmodeID.Server)
                 {
                     ChatHelper.BroadcastChatMessage(BlessedWithVoidOreMessage.ToNetworkText(), new Color(50, 255, 130));
                 }
-                int splotches = (int)(16 * (Main.maxTilesX / 4200f));
+                int splotches = (int)(24 * (Main.maxTilesX / 4200f));
                 int highestY = 80;
                 int downY = 180;
                 for (int iteration = 0; iteration < splotches; iteration++)

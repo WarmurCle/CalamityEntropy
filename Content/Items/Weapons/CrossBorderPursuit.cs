@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -56,9 +57,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<MeldConstruct>(9)
-                .AddIngredient<SolarVeil>(8)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddIngredient<VoidBar>(8)
+                .AddIngredient<DedicatedOracle>()
+                .AddTile<VoidWellTile>()
                 .Register();
         }
     }
