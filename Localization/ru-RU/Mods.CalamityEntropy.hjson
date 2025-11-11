@@ -3086,12 +3086,6 @@ Items: {
 		// Tooltip: ""
 	}
 
-	TaijinoYume: {
-		// DisplayName: Taijino Yume
-		// Tooltip: ""
-		// Lore: ""
-	}
-
 	GrandHammer: {
 		// DisplayName: Grand Hammer
 		// Tooltip: ""
@@ -3684,6 +3678,7 @@ Projectiles: {
 	// GrandHammerFallenProj.DisplayName: Grand Hammer Fallen Proj
 	// BMHammerProjectile.DisplayName: B M Hammer Projectile
 	// CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
+	// CBPSmash.DisplayName: C B P Smash
 }
 
 LegendTooltip: - Легенда -

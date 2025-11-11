@@ -84,6 +84,7 @@ using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using Terraria;
 using Terraria.Graphics;
@@ -240,7 +241,7 @@ namespace CalamityEntropy
                 info.Damage = leastDmg;
             orig(self, info, quiet);
         }
-
+        public static int cbptype = -1;
         private void render_player(On_LegacyPlayerRenderer.orig_DrawPlayer orig, LegacyPlayerRenderer self, Camera camera, Player drawPlayer, Vector2 position, float rotation, Vector2 rotationOrigin, float shadow, float scale)
         {
             bool hide = false;
@@ -253,6 +254,19 @@ namespace CalamityEntropy
             }
             if (!hide)
             {
+                if(cbptype == -1)
+                    cbptype = ModContent.ProjectileType<CBPSmash>();
+                if (drawPlayer.ownedProjectileCounts[cbptype] > 0)
+                {
+                    foreach(var pj in Main.ActiveProjectiles)
+                    {
+                        if(pj.owner == drawPlayer.whoAmI && pj.type == cbptype)
+                        {
+                            position = pj.Center;
+                            break;
+                        }
+                    }
+                }
                 orig(self, camera, drawPlayer, position, rotation, rotationOrigin, shadow, scale);
             }
         }

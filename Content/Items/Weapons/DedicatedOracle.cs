@@ -87,6 +87,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 targetPos = target.Center;
                 origPos = player.Center;
             }
+            if (target == null || !target.active)
+            {
+                if (counter < 59)
+                    Projectile.ai[1] = 59;
+            }
             target.Center = targetPos;
             player.Entropy().immune = 52;
             player.itemTime = player.itemAnimation = 4;
@@ -117,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (counter > 6 && counter % 4 == 0)
                 {
                     CEUtils.SetShake(Projectile.Center, 4);
-                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 10, 280, Projectile.DamageType).ArmorPenetration = 200;
+                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 9, 280, Projectile.DamageType).ArmorPenetration = 200;
 
                     CEUtils.PlaySound("slice", Main.rand.NextFloat(0.9f, 1.2f), Projectile.Center, 16, 0.5f);
                     for (int i = 0; i < 3; i++)

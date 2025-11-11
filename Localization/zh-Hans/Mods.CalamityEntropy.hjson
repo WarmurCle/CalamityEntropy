@@ -3301,12 +3301,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	TaijinoYume: {
-		// DisplayName: Taijino Yume
-		// Tooltip: ""
-		// Lore: ""
-	}
-
 	GrandHammer: {
 		DisplayName: 天劫之回轮
 		Tooltip: ""
@@ -3318,7 +3312,7 @@ Items: {
 	}
 
 	CrossBorderPursuit: {
-		DisplayName: Cross Border Pursuit
+		DisplayName: 祟界宣杀
 		Tooltip:
 			'''
 			仅能进行潜伏攻击
@@ -3897,6 +3891,7 @@ Projectiles: {
 	// GrandHammerFallenProj.DisplayName: Grand Hammer Fallen Proj
 	// BMHammerProjectile.DisplayName: B M Hammer Projectile
 	// CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
+	// CBPSmash.DisplayName: C B P Smash
 }
 
 LegendTooltip: - 传奇物品 -

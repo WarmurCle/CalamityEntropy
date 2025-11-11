@@ -3063,10 +3063,10 @@ Items: {
 	CrossBorderPursuit: {
 		DisplayName: Cross Border Pursuit
 		Tooltip:
-		'''
-		Only able to conduct stealth strikes
-		Rush towards the target closest to the cursor and perform rapid and continuous slashing
-		'''
+			'''
+			Only able to conduct stealth strikes
+			Rush towards the target closest to the cursor and perform rapid and continuous slashing
+			'''
 	}
 }
 
@@ -3656,6 +3656,7 @@ Projectiles: {
 	GrandHammerFallenProj.DisplayName: Grand Hammer Fallen Proj
 	BMHammerProjectile.DisplayName: B M Hammer Projectile
 	CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
+	CBPSmash.DisplayName: C B P Smash
 }
 
 LegendTooltip: - Legend -

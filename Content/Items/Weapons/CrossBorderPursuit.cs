@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 16;
             Item.useAnimation = 16;
             Item.useStyle = -1;
-            Item.damage = 1000;
+            Item.damage = 1250;
             Item.DamageType = CEUtils.RogueDC;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -89,6 +89,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             Player player = Projectile.GetOwner();
             int counter = (int)Projectile.ai[1]++;
+            if(target == null || !target.active)
+            {
+                if (counter < 59)
+                    Projectile.ai[1] = 59;
+            }
             if (counter == 0)
             {
                 targetPos = target.Center;
@@ -115,18 +120,21 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                player.Entropy().DontDrawTime = 2;
+                if (counter < 38)
+                {
+                    player.Entropy().DontDrawTime = 2;
+                }
                 player.Center = Projectile.Center;
             }
             if (counter < 60)
             {
                 Projectile.timeLeft = 2;
-                if (counter > 6 && counter % 3 == 0)
+                if (counter > 6 && counter < 38 && counter % 3 == 0)
                 {
                     if (counter % 9 == 0)
                         EParticle.NewParticle(new PrismShard() { PixelShader = true}, target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                     CEUtils.SetShake(Projectile.Center, 4);
-                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 10, 280, Projectile.DamageType).ArmorPenetration = 200;
+                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 4, 280, Projectile.DamageType).ArmorPenetration = 200;
                     float rot = CEUtils.randomRot();
                     for(int i = 0; i < 24; i++)
                     {
@@ -138,10 +146,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                         p.velocity = (rot.ToRotationVector2() * 38 + CEUtils.randomPointInCircle(4)) * Main.rand.NextFloat(0.2f, 1);
                         VoidParticles.particles.Add(p);
                     }
-                    EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, PixelShader = true }, Projectile.Center, Vector2.Zero, new Color(180, 180, 255), Main.rand.NextFloat(250, 280), 0.6f, true, BlendState.NonPremultiplied, rot, 8);
+                    EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, PixelShader = true }, target.Hitbox.randomPoint(), Vector2.Zero, new Color(180, 180, 255), Main.rand.NextFloat(250, 280), 0.6f, true, BlendState.NonPremultiplied, rot, 8);
 
                     CEUtils.PlaySound("AntivoidDash", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, 16, 0.5f);
                 }
+            }
+            if(counter == 46)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 1200), new Vector2(0, 26), ModContent.ProjectileType<CBPSmash>(), Projectile.damage, Projectile.knockBack, Projectile.owner); ;
             }
             if (counter == 0) CEUtils.PlaySound("AntivoidDashHit", 1.2f, Projectile.Center);
             if (counter == 60)
