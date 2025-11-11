@@ -7,6 +7,7 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
+using CalamityMod.Graphics.Primitives;
 using Microsoft.Build.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
@@ -1554,7 +1555,7 @@ namespace CalamityEntropy
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string ToPercent(this object obj)
+        public static string ToPercentReal(this object obj)
         {
             if (obj is int interga)
                 return $"{interga}%";
@@ -1856,10 +1857,11 @@ namespace CalamityEntropy
         /// <param name="targetIndex"></param>
         /// <param name="anotherDistance"></param>
         /// <returns></returns>
-        public static bool GetTargetSafe(this Projectile proj, out NPC target, int targetIndex, bool canSearchSecondTarget, float anotherDistance = 1800f)
+        public static bool GetTargetSafe(this Projectile proj, out NPC target, int targetIndex, bool canSearchSecondTarget = true, float anotherDistance = 1800f)
         {
             NPC npc = Main.npc[targetIndex];
-            if ((!npc.CanBeChasedBy(proj) || targetIndex == 0) && canSearchSecondTarget)
+            //当前敌人不可被追踪，跳过这一步并进行下一步
+            if (!npc.CanBeChasedBy(proj) || canSearchSecondTarget)
                 npc = proj.FindClosestTarget(anotherDistance);
 
             target = npc;
@@ -1930,7 +1932,7 @@ namespace CalamityEntropy
                     proj.velocity.Y -= acceleration;
             }
         }
-        public static void BeginDefault(this SpriteBatch SB) =>
+                public static void BeginDefault(this SpriteBatch SB) =>
             SB.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         #region ShaderSB
         public static void BeginShader(this SpriteBatch SB) =>

@@ -1,0 +1,35 @@
+Ranged: {
+	// $parentVal: ""
+	// GrandSlamBall.DisplayName: Grand Slam Ball
+}
+
+BloodyTrophy: {
+	DisplayName: 血肉证章
+	Tooltip:
+		'''
+		+1 HP/s 生命恢复速度
+		增强治疗药水{0}治疗量，提升{1}最大生命上限
+		减免接触伤害的{2}，这一效果触发后有{3}秒冷却时间
+		使你免疫击退，受到攻击时延长无敌帧，并减少25%使用治疗药水的冷却时间
+		"这东西有点眼熟……"
+		'''
+}
+
+BloodyAmulet: {
+	DisplayName: 血腥护符
+	Tooltip:
+		'''
+		增强治疗药水{0}治疗量，提升{1}最大生命值
+		减免接触伤害的{2}，这一效果触发后有{3}秒冷却时间
+		使你免疫击退
+		'''
+}
+
+BloodyMark: {
+	DisplayName: 血神之印
+	Tooltip:
+		'''
+		+1 HP/s 生命恢复速度
+		受到攻击时延长无敌帧，并减少25%使用治疗药水的冷却时间
+		'''
+}

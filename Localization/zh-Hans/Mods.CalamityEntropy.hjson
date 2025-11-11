@@ -3305,6 +3305,44 @@ Items: {
 		DisplayName: 魔锤书签
 		Tooltip: 手持法书时召唤一把自动攻击的魔锤
 	}
+
+	TaijinoYume: {
+		DisplayName: 胎儿之梦
+		Tooltip:
+			'''
+			传送至距离指针最近的目标后方进行刺杀
+			刺杀成功时，造成死亡低语，致残敌人，并削减其20%伤害减免
+			刺杀最大造成敌人当前生命值的5.14%伤害
+			刺杀后使玩家短暂无敌，并在10秒内极大提升玩家所有伤害
+			「曾被用来无意识杀人的小刀，似乎残留着少女的体温……」
+			'''
+		Lore:
+			'''
+			"梦是人深处的欲望与焦虑的具现，是与无意识沟通的渠道。"
+			曾经，女孩和「玛丽」形影不离，可随着女孩长大，她渐渐冷落了「玛丽」。
+			等到搬家的时候，女孩把「玛丽」丢弃在垃圾场，和父母一起住进新家。
+			某天深夜，当女孩呆在二楼房间内时，响起了电话铃声。
+			「你好，我是玛丽，现在在垃圾场里。」
+			只说了这一句话，电话就挂断了，女孩满心疑惑地放下听筒，可电话又响了起来。
+			「你好，我是玛丽，现在在你家门口。」
+			依然只说了一句话就结束了，女孩子觉得可能是恶作剧，决定不再理会。
+			然而电话又响了，本打算就这么放着，可电话响个不停，完全没有停下的意思。
+			无奈之下，女孩只好拿起电话。
+			「你好，我是玛丽，现在正要上楼。」
+			不知是不是心理作用，楼梯上似乎传来轻微的脚步声。
+			女孩握着电话听筒的手渗出了冷汗，心脏紧张地地跳动着，而在这时，电话又响了。
+			「你好，我是玛丽，现在在你的房间门口。」
+			女孩赶忙冲向房门口处，将门锁上，这或许是自己吓自己，但这么做至少能安心一些。
+			这时，电话又响了，女孩颤颤巍巍地拿起电话听筒，里面传来的声音是：
+			「你好，我是玛丽，现在在你的背后。」
+			……
+			'''
+	}
+
+	GrandHammer: {
+		DisplayName: 天劫之回轮
+		Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3850,6 +3888,10 @@ Projectiles: {
 		// RebornNightmareArrow.DisplayName: Reborn Nightmare Arrow
 		// RebornPunishmentStar.DisplayName: Reborn Punishment Star
 		// ScarletSpearProj.DisplayName: Scarlet Spear Proj
+		// ScarletSpearDuplicate.DisplayName: Scarlet Spear Duplicate
+		// ThunderSky.DisplayName: Thunder Sky
+		// ThunderEcho.DisplayName: Thunder Echo
+		// ThunderHandler.DisplayName: Thunder Handler
 	}
 
 	MalignHeld.DisplayName: 魔灵
@@ -3868,6 +3910,9 @@ Projectiles: {
 	ALMGShell.DisplayName: 弹壳
 	PickingSwarm.DisplayName: 蜂群集结
 	// BMHammerProjectile.DisplayName: B M Hammer Projectile
+	// TaijinoYumeProj.DisplayName: Taijino Yume Proj
+	// GodsHammerFlyUpProj.DisplayName: Gods Hammer Fly Up Proj
+	// GrandHammerFallenProj.DisplayName: Grand Hammer Fallen Proj
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4685,6 +4730,7 @@ Prefixes: {
 DamageClasses: {
 	NoneTypeDamageClass.DisplayName: 伤害
 	NoDRMelee.DisplayName: No D R Melee
+	KoishiDamageClass.DisplayName: "[c/ABCDBB:无意识伤害]"
 }
 
 hkLevel: 当前解锁进度
