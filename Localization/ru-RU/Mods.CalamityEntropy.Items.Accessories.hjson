@@ -1,0 +1,19 @@
+Ranged: {
+	// $parentVal: ""
+	// GrandSlamBall.DisplayName: Grand Slam Ball
+}
+
+BloodyTrophy: {
+	// DisplayName: Bloody Trophy
+	// Tooltip: "{0}{1}{2}{3}"
+}
+
+BloodyAmulet: {
+	// DisplayName: Bloody Amulet
+	// Tooltip: ""
+}
+
+BloodyMark: {
+	// DisplayName: Bloody Mark
+	// Tooltip: ""
+}

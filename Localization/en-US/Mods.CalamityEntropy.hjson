@@ -3050,6 +3050,17 @@ Items: {
 		Tooltip: ""
 	}
 
+	TaijinoYume: {
+		DisplayName: Taijino Yume
+		Tooltip: ""
+		Lore: ""
+	}
+
+	GrandHammer: {
+		DisplayName: Grand Hammer
+		Tooltip: ""
+	}
+
 	BookmarkHammer: {
 		DisplayName: Bookmark Hammer
 		Tooltip: Summon a hammer fight for you
@@ -3616,6 +3627,10 @@ Projectiles: {
 		RebornNightmareArrow.DisplayName: Reborn Nightmare Arrow
 		RebornPunishmentStar.DisplayName: Reborn Punishment Star
 		ScarletSpearProj.DisplayName: Scarlet Spear Proj
+		ScarletSpearDuplicate.DisplayName: Scarlet Spear Duplicate
+		ThunderSky.DisplayName: Thunder Sky
+		ThunderEcho.DisplayName: Thunder Echo
+		ThunderHandler.DisplayName: Thunder Handler
 	}
 
 	MalignHeld.DisplayName: Malign Held
@@ -3633,6 +3648,9 @@ Projectiles: {
 	AzafureLightMachineGunStealth.DisplayName: Azafure Light Machine Gun Stealth
 	ALMGShell.DisplayName: A L M G Shell
 	PickingSwarm.DisplayName: Picking Swarm
+	TaijinoYumeProj.DisplayName: Taijino Yume Proj
+	GodsHammerFlyUpProj.DisplayName: Gods Hammer Fly Up Proj
+	GrandHammerFallenProj.DisplayName: Grand Hammer Fallen Proj
 	BMHammerProjectile.DisplayName: B M Hammer Projectile
 }
 
@@ -4450,6 +4468,7 @@ Prefixes: {
 DamageClasses: {
 	NoneTypeDamageClass.DisplayName: Damage
 	NoDRMelee.DisplayName: No D R Melee
+	KoishiDamageClass.DisplayName: Koishi Damage Class
 }
 
 hkLevel: Level

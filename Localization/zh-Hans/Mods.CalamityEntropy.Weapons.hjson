@@ -24,12 +24,13 @@ Rogue: {
 			撞击敌人后分裂成两个子锤，子锤在一定时间后发起挂载
 			子锤挂载期间，从玩家身后召唤多个追踪的光之矢冲向你的敌人
 			挂载结束后，子锤将会返程至玩家手中并再进行一次回击
+			[c/ABCDEF:在地表按下右键，使其飞升，并看看会发生什么……]
 			'''
 	}
 
 	GrandHammer: {
-		// DisplayName: Grand Hammer
-		// Tooltip: ""
+		DisplayName: 天劫之回轮
+		Tooltip: ""
 	}
 
 	NightmareHammer: {
