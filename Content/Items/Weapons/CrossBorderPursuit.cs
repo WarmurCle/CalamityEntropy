@@ -58,7 +58,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe()
                 .AddIngredient<VoidBar>(8)
+                .AddIngredient<AscendantSpiritEssence>(2)
                 .AddIngredient<DedicatedOracle>()
+                .AddIngredient<AnimaSola>()
                 .AddTile<VoidWellTile>()
                 .Register();
         }
@@ -178,7 +180,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Vector2 drawPos = Projectile.Center + new Vector2(0, adjustDrawingYPos);
                  float alpha = float.Min(counter / 12, 1);
                 DrawChain(target.Center, alpha + 0.3f + (counter > 46 ? ((counter - 46) / 8f) : 0));
-                Main.EntitySpriteDraw(circle, target.Center - Main.screenPosition, null, Color.White * (0.85f + 0.15f * (float)(Math.Cos(Main.GameUpdateCount * 0.15f))), Main.GlobalTimeWrappedHourly * 1.2f, circle.Size() / 2f, Projectile.scale * 1.5f, SpriteEffects.None);
+                Main.EntitySpriteDraw(circle, target.Center - Main.screenPosition, null, Color.White * (0.6f + 0.2f * (float)(Math.Cos(Main.GameUpdateCount * 0.15f))) * float.Min(1, counter / 12f), Main.GlobalTimeWrappedHourly * 1.2f, circle.Size() / 2f, Projectile.scale * 1.5f, SpriteEffects.None);
                 
             }
             return false;
