@@ -3303,7 +3303,7 @@ Items: {
 
 	BookmarkHammer: {
 		DisplayName: 魔锤书签
-		Tooltip: "手持法书时召唤一把自动攻击的魔锤"
+		Tooltip: 手持法书时召唤一把自动攻击的魔锤
 	}
 }
 

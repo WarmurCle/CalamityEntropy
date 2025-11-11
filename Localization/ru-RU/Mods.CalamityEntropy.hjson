@@ -3088,7 +3088,7 @@ Items: {
 
 	BookmarkHammer: {
 		// DisplayName: Bookmark Hammer
-		// Tooltip: ""
+		// Tooltip: Summon a hammer fight for you
 	}
 }
 

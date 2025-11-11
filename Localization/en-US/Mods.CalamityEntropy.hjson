@@ -3052,10 +3052,7 @@ Items: {
 
 	BookmarkHammer: {
 		DisplayName: Bookmark Hammer
-		Tooltip: 
-		'''
-		Summon a hammer fight for you
-		'''
+		Tooltip: Summon a hammer fight for you
 	}
 }
 
