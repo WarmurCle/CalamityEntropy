@@ -106,9 +106,9 @@ Items: {
 				// DisplayName: Azafure Surge Rod
 				/* Tooltip:
 					'''
-					Insert into target after hitting.
-					After a period of time, burst lightning towards other nearby targets
-					Stealth strikes will throw large amount of it and hover in the air and track nearby targets
+					Insert into target on hit.
+					Burst lightning towards targets nearby after a delay
+					Stealth strikes will throw multiple rods, hovering in the air and home in on targets nearby
 					''' */
 			}
 
@@ -121,9 +121,8 @@ Items: {
 				// DisplayName: Azafure Light Machine Gun
 				/* Tooltip:
 					'''
-					Quickly emit laser
-					Stealth strike will launch a grenade
-					Gen stealth when laser hited
+					Fires laser rapidly, minor restores stealth on hit
+					Stealth strike will launch a grenade affected by gravity
 					''' */
 			}
 		}
@@ -438,6 +437,7 @@ Items: {
 			Выносливость: Сундук бездны: 33% (Конфликтует с режимом Инфернума)
 			'''
 		DisplayName: Нить судьбы
+		// HoldShiftForDetails: ""
 	}
 
 	RuneSong: {
@@ -3103,6 +3103,11 @@ Items: {
 			Only able to conduct stealth strikes
 			Rush towards the target closest to the cursor and perform rapid and continuous slashing
 			''' */
+	}
+
+	TaijinoYume: {
+		// DisplayName: Taijino Yume
+		// Tooltip: ""
 	}
 }
 

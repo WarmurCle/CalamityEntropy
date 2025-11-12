@@ -17,10 +17,7 @@ Items: {
 
 			Silence: {
 				DisplayName: Silence
-				Tooltip:
-					'''
-					Toss out a flying disk can pull
-					'''
+				Tooltip: Toss out a flying disk can pull
 			}
 
 			ShadewindLance: {
@@ -260,7 +257,7 @@ Items: {
 
 	GodsSnack: {
 		DisplayName: Gods Snack
-		Tooltip: "Summon DoG-Chan"
+		Tooltip: Summon DoG-Chan
 	}
 
 	CruiserBag: {
@@ -293,7 +290,7 @@ Items: {
 
 	BottleDarkMatter: {
 		DisplayName: Bottled Dark Matter
-		Tooltip: "Summon Ceaseless-Void...Chan?"
+		Tooltip: Summon Ceaseless-Void...Chan?
 	}
 
 	DivineIntervention: {
@@ -494,23 +491,26 @@ Items: {
 		Tooltip:
 			'''
 			Can be used to craft Oracle Deck
-			The following materials are required:
-			[i:CalamityEntropy/AuraCard]Aura: Golden Chest，Iron Crate: 10%
+			Press Left Alt to check the card list
+			'''
+		DisplayName: Thread Of Fate
+		HoldShiftForDetails:
+			'''
+			[i:CalamityEntropy/AuraCard]Aura Card: Golden Chest，Iron Crate: 10%
 			[i:CalamityEntropy/BrillianceCard]Brilliance: Selling at merchants' premises
 			[i:CalamityEntropy/EntityCard]Entity: Loot from Giant Clam
 			[i:CalamityEntropy/InspirationCard]Inspiration: Desert Chest: 30%
-			[i:CalamityEntropy/MetropolicsCard]Metropolics: Crafted by Bookcase
+			[i:CalamityEntropy/MetropolisCard]Metropolics: Crafted by Bookcase
 			[i:CalamityEntropy/WisdomCard]Wisdom: Loot from Skeletron
 			[i:CalamityEntropy/RadianceCard]Radiance: Crafed by Crystal Ball
 			[i:CalamityEntropy/TemperanceCard]Temperance: Loot from Skeletron Prime
 			[i:CalamityEntropy/EnduranceCard]Endurance: Abyssal Chests / Abyssal Crate : 33%
 			'''
-		DisplayName: Thread Of Fate
 	}
 
 	RuneSong: {
 		DisplayName: Rune Song
-		Tooltip: "Fires arrow of rune on use"
+		Tooltip: Fires arrow of rune on use
 	}
 
 	GalaxyGrapeSoda: {
@@ -534,7 +534,7 @@ Items: {
 
 	AuricBoulder: {
 		DisplayName: Auric Boulder
-		Tooltip: "Red-tropy"
+		Tooltip: Red-tropy
 	}
 
 	DustyStar: {
@@ -3089,6 +3089,11 @@ Items: {
 			Only able to conduct stealth strikes
 			Rush towards the target closest to the cursor and perform rapid and continuous slashing
 			'''
+	}
+
+	TaijinoYume: {
+		DisplayName: Taijino Yume
+		Tooltip: ""
 	}
 }
 

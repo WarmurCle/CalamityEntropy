@@ -24,6 +24,7 @@ Items: {
 					'''
 			}
 
+
 			ShadewindLance: {
 				Tooltip:
 					'''
@@ -502,20 +503,31 @@ Items: {
 	ThreadOfFate: {
 		Tooltip:
 			'''
-			用于制作神谕卡组
-			需要以下卡牌
-			灵光:金箱子，铁匣，秘银匣10%概率获取
-			辉煌:商人5金币出售
-			实体:掉落自巨像蛤
-			启迪:砂岩箱，绿洲匣，幻象匣30%获取
-			都市:恶魔骨灰5，混乱精华3，书架处合成
-			智慧:掉落自骷髅王
-			光芒:凋星微尘5，日光精华5，光明之魂3，水晶球处合成
-			克己:掉落自机械骷髅王
-			坚忍:深渊宝藏箱33%概率获取
-			(如果你加了炼狱模式的话，坚忍卡牌不会正常生成，请尝试从渊泉匣获取)
+			用于制作[i:CalamityEntropy/OracleDeck]神谕卡组
+			按住左Alt来查看卡牌需求
 			'''
 		DisplayName: 命运之绳
+		HoldShiftForDetails:
+			'''
+			[i:CalamityEntropy/AuraCard][c/ABEE0F:卡片 -『灵光』]
+			金箱子，铁匣/秘银匣10%概率获取
+			[i:CalamityEntropy/BrillianceCard][c/ABEE0F:卡片 -『辉煌』]
+			由商人5金币出售
+			[i:CalamityEntropy/EntityCard][c/ABEE0F:卡片 -『实体』]
+			掉落自巨像蛤
+			[i:CalamityEntropy/InspirationCard][c/ABEE0F:卡片 -『启迪』]
+			砂岩箱，绿洲匣/幻象匣30%获取
+			[i:CalamityEntropy/MetropolisCard][c/ABEE0F:卡片 -『都市』]
+			恶魔骨灰5，混乱精华3，书架处合成
+			[i:CalamityEntropy/WisdomCard][c/ABEE0F:卡片 -『智慧』]
+			掉落自骷髅王
+			[i:CalamityEntropy/RadianceCard][c/ABEE0F:卡片 -『光芒』]
+			凋星微尘5，日光精华5，光明之魂3，水晶球处合成
+			[i:CalamityEntropy/TemperanceCard][c/ABEE0F:卡片 -『克己』]
+			掉落自机械骷髅王
+			[i:CalamityEntropy/EnduranceCard][c/ABEE0F:卡片 -『坚忍』]
+			深渊宝藏箱/渊泉匣33%概率获取
+			'''
 	}
 
 	RuneSong: {
@@ -3319,6 +3331,11 @@ Items: {
 			冲向距离光标最近的目标并进行快速连续的斩击
 			使用后短时间内无法回复潜行值
 			'''
+	}
+
+	TaijinoYume: {
+		// DisplayName: Taijino Yume
+		// Tooltip: ""
 	}
 }
 
