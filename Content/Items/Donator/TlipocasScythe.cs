@@ -940,7 +940,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void PostUpdate()
         {
             //终极史山
-            if(Main.mouseMiddle && Player.HeldItem.type == ModContent.ItemType<TlipocasScythe>())
+            if (Main.mouseMiddle && Main.HoverItem.type == ModContent.ItemType<TlipocasScythe>() && Main.playerInventory)
             {
                 if (Main.mouseMiddleRelease)
                 {
@@ -1296,3 +1296,4 @@ namespace CalamityEntropy.Content.Items.Donator
         }
     }
 }
+
