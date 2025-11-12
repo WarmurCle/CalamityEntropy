@@ -1030,6 +1030,7 @@ Items: {
 			Weakness: Loot from Slime God
 			Nothing: Loot from Eidolon Wyrm
 			'''
+		HoldShiftForDetails: ""
 	}
 
 	VoidCandle: {
@@ -2288,6 +2289,7 @@ Items: {
 			Woe: Rare drop from Underground Evil Biome enemies
 			Soulrend: Dropped by Paladins
 			'''
+		HoldShiftForDetails: ""
 	}
 
 	SoulDeck: {

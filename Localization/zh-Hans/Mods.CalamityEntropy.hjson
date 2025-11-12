@@ -24,7 +24,6 @@ Items: {
 					'''
 			}
 
-
 			ShadewindLance: {
 				Tooltip:
 					'''
@@ -503,30 +502,30 @@ Items: {
 	ThreadOfFate: {
 		Tooltip:
 			'''
-			用于制作[i:CalamityEntropy/OracleDeck]神谕卡组
-			按住左Alt来查看卡牌需求
+			用于制作[i:CalamityEntropy/OracleDeck][c/87CEFA:神谕卡组]
+			按住左Alt来查看卡组需求
 			'''
 		DisplayName: 命运之绳
 		HoldShiftForDetails:
 			'''
-			[i:CalamityEntropy/AuraCard][c/ABEE0F:卡片 -『灵光』]
-			金箱子，铁匣/秘银匣10%概率获取
-			[i:CalamityEntropy/BrillianceCard][c/ABEE0F:卡片 -『辉煌』]
-			由商人5金币出售
-			[i:CalamityEntropy/EntityCard][c/ABEE0F:卡片 -『实体』]
-			掉落自巨像蛤
-			[i:CalamityEntropy/InspirationCard][c/ABEE0F:卡片 -『启迪』]
-			砂岩箱，绿洲匣/幻象匣30%获取
-			[i:CalamityEntropy/MetropolisCard][c/ABEE0F:卡片 -『都市』]
-			恶魔骨灰5，混乱精华3，书架处合成
-			[i:CalamityEntropy/WisdomCard][c/ABEE0F:卡片 -『智慧』]
-			掉落自骷髅王
-			[i:CalamityEntropy/RadianceCard][c/ABEE0F:卡片 -『光芒』]
-			凋星微尘5，日光精华5，光明之魂3，水晶球处合成
-			[i:CalamityEntropy/TemperanceCard][c/ABEE0F:卡片 -『克己』]
-			掉落自机械骷髅王
-			[i:CalamityEntropy/EnduranceCard][c/ABEE0F:卡片 -『坚忍』]
-			深渊宝藏箱/渊泉匣33%概率获取
+			[i:CalamityEntropy/AuraCard][c/87CEFA:卡片 -『灵光』]
+			由 金箱子/铁匣/秘银匣 获取
+			[i:CalamityEntropy/BrillianceCard][c/87CEFA:卡片 -『辉煌』]
+			由 商人 出售
+			[i:CalamityEntropy/EntityCard][c/87CEFA:卡片 -『实体』]
+			由 巨像蛤 掉落
+			[i:CalamityEntropy/InspirationCard][c/87CEFA:卡片 -『启迪』]
+			由 砂岩箱/绿洲匣/幻象匣 获取
+			[i:CalamityEntropy/MetropolisCard][c/87CEFA:卡片 -『都市』]
+			由 恶魔骨灰(5)，混乱精华(3)合成
+			[i:CalamityEntropy/WisdomCard][c/87CEFA:卡片 -『智慧』]
+			由 骷髅王 掉落
+			[i:CalamityEntropy/RadianceCard][c/87CEFA:卡片 -『光芒』]
+			由 凋星微尘(5)，日光精华(5)，光明之魂(3)合成
+			[i:CalamityEntropy/TemperanceCard][c/87CEFA:卡片 -『克己』]
+			由 机械骷髅王 掉落
+			[i:CalamityEntropy/EnduranceCard][c/87CEFA:卡片 -『坚忍』]
+			由 深渊宝藏箱/渊泉匣 获取
 			'''
 	}
 
@@ -1113,17 +1112,29 @@ Items: {
 		DisplayName: 深渊之绳
 		Tooltip:
 			'''
-			用于制作堕化卡组
-			需要以下卡牌
-			迷茫:双子魔眼掉落
-			晦暗:哥布林巫士掉落
-			迷惑:售卖于树妖
-			荒芜:售卖于强盗
-			愚者:幻妖灵巫掉落
-			献祭:6混乱核心+2永恒锭合成
-			贪婪:星辉地钓鱼获得
-			孱弱:史莱姆之神掉落
-			虚无:幻海妖龙掉落
+			用于制作[i:CalamityEntropy/TaintedDeck][c/FF6347:堕化卡组]
+			按住左Alt以查看卡组需求
+			'''
+		HoldShiftForDetails:
+			'''
+			[i:CalamityEntropy/Perplexed][c/FF6347: 卡片 -『迷茫』]
+			由 双子魔眼 掉落
+			[i:CalamityEntropy/Tarnish][c/FF6347: 卡片 -『晦暗』]
+			由 哥布林巫师 掉落
+			[i:CalamityEntropy/Confuse][c/FF6347: 卡片 -『迷惑』]
+			由 树妖 出售
+			[i:CalamityEntropy/Barren][c/FF6347: 卡片 -『荒芜』]
+			由 盗贼 出售
+			[i:CalamityEntropy/Fool][c/FF6347: 卡片 -『愚者』]
+			由 幻妖灵巫 掉落
+			[i:CalamityEntropy/Sacrifice][c/FF6347: 卡片 -『献祭』]
+			由 混乱核心(6)和永恒锭(2)合成
+			[i:CalamityEntropy/GreedCard][c/FF6347: 卡片 -『贪婪』]
+			由 星辉瘟疫钓鱼 获取
+			[i:CalamityEntropy/Frail][c/FF6347: 卡片 -『孱弱』]
+			由 史莱姆之神 掉落
+			[i:CalamityEntropy/Nothing][c/FF6347: 卡片 -『虚无』]
+			由 幻海妖龙 掉落
 			'''
 	}
 
@@ -2506,17 +2517,29 @@ Items: {
 		DisplayName: 诅咒之绳
 		Tooltip:
 			'''
-			用于制作灵魂卡组
-			需要以下卡片:
-			魂歌：地牢幽魂掉落
-			低语：菌生蟹掉落
-			净化：神圣宝箱怪掉落
-			幽冥：邪恶地形宝匣开出
-			怨念：由12个灵气微光转化而成
-			靛蓝：空岛箱或天空匣开出
-			悲恸：石巨人掉落
-			幽怨：地下邪恶地形敌怪概率掉落
-			噬魂：圣骑士掉落
+			用于制作[i:CalamityEntropy/SoulDeck][c/ADFF2F:灵魂卡组]
+			按住左Alt以查看卡组需求
+			'''
+		HoldShiftForDetails:
+			'''
+			[i:CalamityEntropy/RequiemCard][c/ADFF2F: 卡片 -『魂歌』]
+			由 地牢幽魂 掉落
+			[i:CalamityEntropy/WisperCard][c/ADFF2F: 卡片 -『低语』]
+			由 菌生蟹 掉落
+			[i:CalamityEntropy/PurificationCard][c/ADFF2F: 卡片 -『净化』]
+			由 神圣宝箱怪 掉落
+			[i:CalamityEntropy/ObscureCard][c/ADFF2F: 卡片 -『幽冥』]
+			由 任意邪恶地形板条箱 获取
+			[i:CalamityEntropy/GrudgeCard][c/ADFF2F: 卡片 -『怨念』]
+			由 灵气(12)微光转化
+			[i:CalamityEntropy/IndigoCard][c/ADFF2F: 卡片 -『靛蓝』]
+			由 天空箱/天空匣 获取
+			[i:CalamityEntropy/MourningCard][c/ADFF2F: 卡片 -『悲恸』]
+			由 石巨人 掉落
+			[i:CalamityEntropy/BitternessCard][c/ADFF2F: 卡片 -『幽怨』]
+			由 任意邪恶地下敌怪 掉落
+			[i:CalamityEntropy/DevouringCard][c/ADFF2F: 卡片 -『噬魂』]
+			由 圣骑士 掉落
 			'''
 	}
 

@@ -21,6 +21,7 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -73,9 +74,30 @@ namespace CalamityEntropy.Content.Items.Donator
             Check(DownedBossSystem.downedPrimordialWyrm);
             return Level;
         }
+        private static float UpdatePos
+        {
+            get
+            {
+                return ((float)(MathF.Sin(Main.GlobalTimeWrappedHourly * 1f) * 1.2f + 1.4f)).ToClamp(1.0f,2.4f);
+            }
+        }
+
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            Texture2D tex = TextureAssets.Item[Type].Value;
+            Vector2 position = Item.position - Main.screenPosition + tex.Size() / 2;
+            Rectangle iFrame = tex.Frame();
+            //为锤子添加描边，并时刻更新大小
+            //如果你要是有能力做渐变的话，so be it
+            for (int i = 0; i < 16; i++)
+                spriteBatch.Draw(tex, position + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 2f, null, Color.DarkRed with { A = 0 }, 0f, tex.Size() / 2, scale, 0, 0f);
+            //然后绘制锤子本身。
+            spriteBatch.Draw(tex, position, iFrame, Color.White, 0f, tex.Size() / 2, scale, 0f, 0f);
+            Lighting.AddLight(position, TorchID.Red);
+            return false;
+        }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-
             tooltips.Add(new TooltipLine(Mod, "Description", Mod.GetLocalization(Main.zenithWorld ? "TScytheZenithDesc" : "TScytheDesc").Value) { OverrideColor = Color.Crimson });
             bool holdAlt = Keyboard.GetState().IsKeyDown(Keys.LeftAlt);
             bool holdShift = Keyboard.GetState().IsKeyDown(Keys.LeftShift);

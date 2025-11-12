@@ -437,7 +437,18 @@ Items: {
 			Выносливость: Сундук бездны: 33% (Конфликтует с режимом Инфернума)
 			'''
 		DisplayName: Нить судьбы
-		// HoldShiftForDetails: ""
+		/* HoldShiftForDetails:
+			'''
+			[i:CalamityEntropy/AuraCard]Aura Card: Golden Chest，Iron Crate: 10%
+			[i:CalamityEntropy/BrillianceCard]Brilliance: Selling at merchants' premises
+			[i:CalamityEntropy/EntityCard]Entity: Loot from Giant Clam
+			[i:CalamityEntropy/InspirationCard]Inspiration: Desert Chest: 30%
+			[i:CalamityEntropy/MetropolisCard]Metropolics: Crafted by Bookcase
+			[i:CalamityEntropy/WisdomCard]Wisdom: Loot from Skeletron
+			[i:CalamityEntropy/RadianceCard]Radiance: Crafed by Crystal Ball
+			[i:CalamityEntropy/TemperanceCard]Temperance: Loot from Skeletron Prime
+			[i:CalamityEntropy/EnduranceCard]Endurance: Abyssal Chests / Abyssal Crate : 33%
+			''' */
 	}
 
 	RuneSong: {
@@ -1003,6 +1014,7 @@ Items: {
 			Слабость: лут с Бога слизней
 			Ничего: лут с Эйдолонского змея
 			'''
+		// HoldShiftForDetails: ""
 	}
 
 	VoidCandle: {
@@ -2296,6 +2308,7 @@ Items: {
 			Печаль: редкий дроп с врагов Подземного Злого Биома
 			Разрыв Души: выпадает с Паладинов
 			'''
+		// HoldShiftForDetails: ""
 	}
 
 	SoulDeck: {

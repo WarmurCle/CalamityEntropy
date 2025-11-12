@@ -3,9 +3,11 @@ using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -58,6 +60,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void UpdateInventory(Player player)
         {
             Item.damage = (int)(15 * damageMul());
+        }
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            Item.QuickDrawItemWithBloomToWorld(spriteBatch, Color.HotPink, ref scale);
+            return false;
         }
         public override bool? UseItem(Player player)
         {
