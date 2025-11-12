@@ -91,8 +91,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             int counter = (int)Projectile.ai[1]++;
             if(target == null || !target.active)
             {
-                if (counter < 59)
-                    Projectile.ai[1] = 59;
+                if (counter < 79)
+                    Projectile.ai[1] = 79;
             }
             if (counter == 0)
             {
@@ -120,16 +120,16 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                if (counter < 38)
+                if (counter < 58)
                 {
                     player.Entropy().DontDrawTime = 2;
                 }
                 player.Center = Projectile.Center;
             }
-            if (counter < 60)
+            if (counter < 80)
             {
                 Projectile.timeLeft = 2;
-                if (counter > 6 && counter < 36 && counter % 3 == 0)
+                if (counter > 6 && counter < 56 && counter % 3 == 0)
                 {
                     if (counter % 9 == 0)
                         EParticle.NewParticle(new PrismShard() { PixelShader = true}, target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     CEUtils.PlaySound("AntivoidDash", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, 16, 0.5f);
                 }
             }
-            if (counter == 42)
+            if (counter == 62)
             {
                 for(int i = 0; i < 32; i++)
                 {
@@ -159,14 +159,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                     EParticle.NewParticle(new ShineParticle(), ps, (target.Center + new Vector2(0, -1000) - ps) / 12f, new Color(140, 140, 255), 0.5f, 1, true, BlendState.Additive, 0, 12);
                 }
             }
-            if (counter == 46)
+            if (counter == 66)
             {
                 EParticle.spawnNew(new DOracleSlash() { widthMult = 2, centerColor = Color.White, vel = 2 }, target.Center + new Vector2(0, -2400), Vector2.Zero, new Color(80, 80, 255), Main.rand.NextFloat(250, 280), 16f, true, BlendState.NonPremultiplied, MathHelper.PiOver2, 16);
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 1200), new Vector2(0, 26), ModContent.ProjectileType<CBPSmash>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             if (counter == 0) CEUtils.PlaySound("AntivoidDashHit", 1.2f, Projectile.Center);
-            if (counter == 60)
+            if (counter == 80)
             {
                 int stealthRegenDelay = 160.ApplyCdDec(player);
                 player.Entropy().StealthRegenDelay = stealthRegenDelay;
