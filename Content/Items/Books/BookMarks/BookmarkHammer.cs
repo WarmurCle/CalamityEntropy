@@ -102,13 +102,16 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             float tofs = target == null ? 180 : (target.width + target.height) / 2f + 180;
             if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(player))
                 Projectile.timeLeft = 3;
-            if (trail == null)
+            if (trail == null && ++Projectile.localAI[2] > 2)
             {
                 trail = new TrailParticle() { maxLength = 42, ShouldDraw = false};
-                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Goldenrod * 0.4f, 1f, 1, true, BlendState.AlphaBlend);
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Goldenrod * 0.4f, 1f * Projectile.scale, 1, true, BlendState.AlphaBlend);
             }
-            trail.Lifetime = 24;
-            trail.AddPoint(Projectile.Center + Projectile.rotation.ToRotationVector2() * (8 + Offset));
+            if (Projectile.localAI[2] > 2)
+            {
+                trail.Lifetime = 24;
+                trail.AddPoint(Projectile.Center + Projectile.rotation.ToRotationVector2() * (8 + Offset));
+            }
             if(target == null || !target.active || CEUtils.getDistance(target.Center, Projectile.Center) > 6000 || target.dontTakeDamage)
             {
                 target = CEUtils.FindMinionTarget(Projectile, 3200);
@@ -244,8 +247,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            CEUtils.PlaySound("ExoHit1", Main.rand.NextFloat(0.9f, 1.2f), Projectile.Center);
-            CEUtils.PlaySound("metalhit", 0.6f, Projectile.Center, volume: 0.5f);
+            CEUtils.PlaySound("ExoHit1", Main.rand.NextFloat(0.8f, 1.4f), Projectile.Center);
+            CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.5f, 0.8f), Projectile.Center, volume: 0.5f);
 
             if(aiStyle == AIStyle.Smash)
             {
@@ -261,15 +264,15 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
                 for(float i = 0f; i <= 1; i += 0.2f)
                 {
-                    GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Projectile.velocity * 0.01f, Color.Gold * (1.2f - i), new Vector2(0.2f, 1), Projectile.rotation, 0.1f, i * 5 + 0.2f, 42));
+                    GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Projectile.velocity * 0.01f, Color.Gold * (1.2f - i), new Vector2(0.2f, 1), Projectile.rotation, 0.1f, (i * 5 + 0.2f) * Projectile.scale, 42));
                 }
                 Projectile.velocity *= -0.2f;
-                ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -5, 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -5, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
             }
             else
             {
-                ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, 6 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
-                GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Vector2.Zero, Color.Gold, new Vector2(0.2f, 1), Projectile.rotation + MathHelper.PiOver2 * num2, 0.1f, 1.4f, 42));
+                ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 6 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Vector2.Zero, Color.Gold, new Vector2(0.2f, 1), Projectile.rotation + MathHelper.PiOver2 * num2, 0.1f, 1.4f * Projectile.scale, 42));
                 for (int i = 0; i < 32; i++)
                 {
                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * num2).RotatedByRandom(0.32f) * Main.rand.NextFloat(4, 32), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(Color.Gold, Color.White, Main.rand.NextFloat())));

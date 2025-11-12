@@ -8,6 +8,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookMarkTaurus : BookMark
     {
+        public static bool DontDestroy(EBookBaseProjectile proj)
+        {
+            if (proj is BMHammerProjectile)
+                return true;
+            return false;
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -87,11 +93,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             {
                                 p.ToProj().penetrate = projectile.penetrate + 1;
                             }
+                            if (BookMarkTaurus.DontDestroy(eb))
+                                p.ToProj().penetrate = 1;
                             m.ShooterModProjectile = esb.ShooterModProjectile;
                             m.homing = esb.homing;
                             p.ToProj().scale = projectile.scale * 0.4f;
                         }
-                        projectile.Kill();
+                        if(!BookMarkTaurus.DontDestroy(eb))
+                            projectile.Kill();
                     }
                 }
             }

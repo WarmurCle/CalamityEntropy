@@ -585,6 +585,7 @@ namespace CalamityEntropy.Content.Items.Books
         public bool EffectInit = true;
         public int lifeSteal = 0;
         public float gravity = 0;
+        
         public virtual Color baseColor => Color.White;
         public Color color;
         public bool initColor = true;
