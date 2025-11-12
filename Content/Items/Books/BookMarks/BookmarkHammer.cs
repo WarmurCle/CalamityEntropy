@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.penetrate = -1;
             Projectile.light = 0.4f;
             Projectile.localNPCHitCooldown = -1;
-            Projectile.width = Projectile.height = 64;
+            Projectile.width = Projectile.height = 46;
             Projectile.extraUpdates = 2;
         }
         public List<Vector2> OldPos = new();
@@ -126,7 +126,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (aiStyle == AIStyle.Idle)
                     aiStyle = AIStyle.Chase;
             }
-            Projectile.pushByOther(1);
+            Projectile.pushByOther(0.1f);
             if (target != null)
             {
                 if (aiStyle == AIStyle.Chase)
@@ -222,7 +222,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 Vector2 taretPos = player.Center + new Vector2(0, -140);
                 float targetRot = -MathHelper.PiOver2 + Projectile.velocity.X * 0.12f;
-                Projectile.velocity = (taretPos - Projectile.Center) * 0.1f;
+                Projectile.velocity += (taretPos - Projectile.Center) * 0.001f;
+                Projectile.velocity *= 0.98f;
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.1f, false);
             }
             OldRot.Add(Projectile.rotation);
@@ -243,6 +244,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override bool? CanHitNPC(NPC target)
         {
             return aiStyle == AIStyle.Strike || aiStyle == AIStyle.Smash;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            base.OnKill(timeLeft);
+            trail.ShouldDraw = true;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
