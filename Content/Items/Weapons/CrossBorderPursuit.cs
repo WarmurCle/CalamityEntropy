@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 16;
             Item.useAnimation = 16;
             Item.useStyle = -1;
-            Item.damage = 1250;
+            Item.damage = 1360;
             Item.DamageType = CEUtils.RogueDC;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -89,10 +89,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             Player player = Projectile.GetOwner();
             int counter = (int)Projectile.ai[1]++;
+            int MaxTime = 102;
             if(target == null || !target.active)
             {
-                if (counter < 79)
-                    Projectile.ai[1] = 79;
+                if (counter < MaxTime - 1)
+                    Projectile.ai[1] = MaxTime - 1;
             }
             if (counter == 0)
             {
@@ -100,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 origPos = player.Center;
             }
             target.Center = targetPos;
-            player.Entropy().immune = 80;
+            player.Entropy().immune = 84;
             player.itemTime = player.itemAnimation = 4;
             Projectile.Center = target.Center;
             if (counter <= 6)
@@ -120,16 +121,16 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                if (counter < 58)
+                if (counter < MaxTime - 22)
                 {
                     player.Entropy().DontDrawTime = 2;
                 }
                 player.Center = Projectile.Center;
             }
-            if (counter < 80)
+            if (counter < MaxTime)
             {
                 Projectile.timeLeft = 2;
-                if (counter > 6 && counter < 56 && counter % 3 == 0)
+                if (counter > 6 && counter < MaxTime - 24 && counter % 3 == 0)
                 {
                     if (counter % 9 == 0)
                         EParticle.NewParticle(new PrismShard() { PixelShader = true}, target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
@@ -151,7 +152,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     CEUtils.PlaySound("AntivoidDash", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, 16, 0.5f);
                 }
             }
-            if (counter == 62)
+            if (counter == MaxTime - 18)
             {
                 for(int i = 0; i < 32; i++)
                 {
@@ -159,16 +160,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                     EParticle.NewParticle(new ShineParticle(), ps, (target.Center + new Vector2(0, -1000) - ps) / 12f, new Color(140, 140, 255), 0.5f, 1, true, BlendState.Additive, 0, 12);
                 }
             }
-            if (counter == 66)
+            if (counter == MaxTime - 14)
             {
                 EParticle.spawnNew(new DOracleSlash() { widthMult = 2, centerColor = Color.White, vel = 2 }, target.Center + new Vector2(0, -2400), Vector2.Zero, new Color(80, 80, 255), Main.rand.NextFloat(250, 280), 16f, true, BlendState.NonPremultiplied, MathHelper.PiOver2, 16);
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 1200), new Vector2(0, 26), ModContent.ProjectileType<CBPSmash>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             if (counter == 0) CEUtils.PlaySound("AntivoidDashHit", 1.2f, Projectile.Center);
-            if (counter == 80)
+            if (counter == MaxTime)
             {
-                int stealthRegenDelay = 160.ApplyCdDec(player);
+                int stealthRegenDelay = 200.ApplyCdDec(player);
                 player.Entropy().StealthRegenDelay = stealthRegenDelay;
                 CEUtils.PlaySound("CastTriangles", 0.8f, Projectile.Center);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<NetherRiftCrack>(), Projectile.damage * 2, 1, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
