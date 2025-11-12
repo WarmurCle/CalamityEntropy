@@ -17,7 +17,10 @@ Items: {
 
 			Silence: {
 				DisplayName: Silence
-				Tooltip: ""
+				Tooltip:
+					'''
+					Toss out a flying disk can pull
+					'''
 			}
 
 			ShadewindLance: {
@@ -86,27 +89,31 @@ Items: {
 				Tooltip:
 					'''
 					Throw The Beginning or The End using left or right button
-					The End will apply Stare of Abyss debuff
-					The Beginning will apply Eclipsed Imprint debuff
-					When another type of knife hits, clear the debuff and generate Echo Soul or Eclipsed Soul based on the number of debuff layers
-					Echo Soul will continue to attack enemy monsters and disappear after a few seconds
-					Eclipsed soul will fly towards you and heal you, while temporarily increasing attack speed, attack damage, and crit chance
-					Stealth attack will simultaneously throw two knives and track the target, unleashing a large number of two types of souls upon impact
+					The End inflicts Stare of Abyss while The Beginning inflicts Eclipsed Imprint
+					Vanish and spawn Echo Soul or Eclipsed Soul based on stacks of debuff once alternative type hit
+					Echo Soul continuously attacking your target for a while
+					Eclipsed soul heals you on return, while temporarily increasing attack speed, attack damage, and crit chance
+					Stealth strikes simulaneously throw a double homing knives, unleashing a large number of souls on hit
 					'''
 			}
 
 			AmethystFrisbee: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Toss out a disk returns on hit
+					Reverse and ignore gravity on return
+					Stealth strike creates a shockwave on hit
+					'''
 				DisplayName: Amethyst Frisbee
 			}
 
 			ProphecyFlyingKnife: {
 				Tooltip:
 					'''
-					Fires several homing throwing knives.
-					Stealth attack summons 6 orbiting rune orbs that attack enemies after a short time.
+					Fires several homing knives.
+					Stealth strike throws a kinfe that spawn 6 orbiting rune orbs on hit.
 					'''
-				DisplayName: Prophecy Flying Knife
+				DisplayName: Prophecy Knife
 			}
 
 			TheDeadCut: {
@@ -123,9 +130,9 @@ Items: {
 				DisplayName: Azafure Surge Rod
 				Tooltip:
 					'''
-					Insert into target after hitting.
-					After a period of time, burst lightning towards other nearby targets
-					Stealth strikes will throw large amount of it and hover in the air and track nearby targets
+					Insert into target on hit.
+					Burst lightning towards targets nearby after a delay
+					Stealth strikes will throw multiple rods, hovering in the air and home in on targets nearby
 					'''
 			}
 
@@ -138,9 +145,8 @@ Items: {
 				DisplayName: Azafure Light Machine Gun
 				Tooltip:
 					'''
-					Quickly emit laser
-					Stealth strike will launch a grenade
-					Gen stealth when laser hited
+					Fires laser rapidly, minor restores stealth on hit
+					Stealth strike will launch a grenade affected by gravity
 					'''
 			}
 		}
@@ -159,11 +165,9 @@ Items: {
 		DisplayName: Kinanition
 		Tooltip:
 			'''
-			[c/ce97fa:Left click to launch a series of lightning arrows]
+			[c/ce97fa:Launches a series of lightning arrows, home in on target on hit]
 			[c/ce97fa:Lightning arrows retain the original effect of ammunition]
-			[c/ce97fa:and track after hitting the target,]
-			[c/0078b9:Right click to launch a tracking Thunderbolt Spear]
-			[c/0078b9:Burst out with lightning after hitting the target]
+			[c/0078b9:Right click to launch a homing Thunderbolt Spear, burst out with lightning on hit]
 			'''
 	}
 
@@ -171,9 +175,10 @@ Items: {
 		DisplayName: Void Relics
 		Tooltip:
 			'''
-			Spawns a Void Mark follow your mouse
-			Consume all summon slots
-			The more slots consumed, the higher the damage
+			Spawns a Void Mark follow your cursor
+			Consume all summon slots, damage scales base on your slots consumed
+			Can only be one Void Mark at the same time
+			Releases a bigger slash that deals double damage, inflicts Death Wishlet if continously using
 			'''
 	}
 
@@ -182,7 +187,8 @@ Items: {
 			'''
 			This was used by the Yharim
 			Sitting on such a throne would be a disgrace to all
-			"Now it can sit"
+			At least you can sit on it now
+			"What the heck"
 			'''
 		DisplayName: Auric Toilet
 	}
@@ -192,7 +198,7 @@ Items: {
 		Tooltip:
 			'''
 			Spawn a Lottery Machine
-			"May have a hot temper"
+			"Maybe a little agressive"
 			'''
 	}
 
@@ -206,7 +212,7 @@ Items: {
 	}
 
 	YharimsStimulants: {
-		DisplayName: Yharims Stimulants
+		DisplayName: Yharim's Stimulants
 		Tooltip: Gives decent buffs to ALL offensive and defensive stats
 	}
 
@@ -254,7 +260,7 @@ Items: {
 
 	GodsSnack: {
 		DisplayName: Gods Snack
-		Tooltip: ""
+		Tooltip: "Summon DoG-Chan"
 	}
 
 	CruiserBag: {
@@ -286,8 +292,8 @@ Items: {
 	}
 
 	BottleDarkMatter: {
-		DisplayName: Bottle Dark Matter
-		Tooltip: ""
+		DisplayName: Bottled Dark Matter
+		Tooltip: "Summon Ceaseless-Void...Chan?"
 	}
 
 	DivineIntervention: {
@@ -301,8 +307,12 @@ Items: {
 	}
 
 	Godhead: {
-		DisplayName: Godhead
-		Tooltip: Your projectile will carry a halo, causing sustained damage to enemies within the halo
+		DisplayName: Divine
+		Tooltip:
+			'''
+			Projectiles carry an aura, unleashing sustained damage upon your target
+			Aura ignores immnue frames, and visual of aura can be disbaled by accessories visibility
+			'''
 	}
 
 	VoidEcho: {
@@ -319,8 +329,8 @@ Items: {
 		DisplayName: Friend Box
 		Tooltip:
 			'''
-			Summon a pair of entangled twins, duplicating your barrage
-			Duplicated barrage deals 100% damage of the original weapon
+			Summon a pair of entangled twins, duplicating your projectile
+			Duplicated projectile deals 100% damage of the original weapon
 			"So, what is the price?"
 			[c/ff0000: your damage becomes 1/5 of the original]
 			Each pair of entangled twinses 4 summon slots.
@@ -364,12 +374,16 @@ Items: {
 
 	SoyMilk: {
 		DisplayName: Soy Milk
-		Tooltip: More attack speed, less damage
+		Tooltip: Massively increased your attack speed at the cost of damage
 	}
 
 	DarkArts: {
-		Tooltip: "[c/ff0000:This item is now WIP]"
-		DisplayName: Dark Arts
+		Tooltip:
+			'''
+			Use to let you stealth for 2 seconds, takes no damage and mark all enemies and hostile projectiles
+			Deals damage to all marked enemies and clear makred projectiles once effect fadeds
+			'''
+		DisplayName: Art of the Darkness
 	}
 
 	VenomPiece: {
@@ -390,7 +404,7 @@ Items: {
 		DisplayName: Oracle Card 『Temperance』
 		Tooltip:
 			'''
-			+[T] Summon Slot  
+			+[T] Max Minions  
 			"Restrain desire, command legions"  
 			'''
 	}
@@ -399,7 +413,7 @@ Items: {
 		DisplayName: Oracle Card 『Radiance』
 		Tooltip:
 			'''
-			+[LR]% Life Regeneration  
+			+[LR]% Life Regen Speed  
 			"Emit light, mend the soul"  
 			'''
 	}
@@ -413,8 +427,8 @@ Items: {
 			-30% Mana Cost
 			-5% Damage Taken
 			+[AP] Armor Penetration
-			+[MN] Minion Slot
-			+[ATS]% Melee speed
+			+[MN] Max Minions
+			+[ATS]% Generic Attack speed
 			+100% Light
 			Heal players nearby by 20 per 5 sec
 			You will take at most half of your maximum health in damage
@@ -444,7 +458,7 @@ Items: {
 		DisplayName: Oracle Card 『Entity』
 		Tooltip:
 			'''
-			+10% Melee Attack Speed  
+			+10% Generic Attack Speed  
 			"Flesh as blade, swift as shadow"  
 			'''
 	}
@@ -481,26 +495,30 @@ Items: {
 			'''
 			Can be used to craft Oracle Deck
 			The following materials are required:
-			Aura: Golden Chest，Iron Crate: 10%
-			Brilliance: Selling at merchants' premises
-			Entity: Loot from Giant Clam
-			Inspiration:Desert Chest: 30%
-			Metropolics: Using bookshelf to create
-			Wisdom: Loot from Skeletron
-			Radiance: Using Crystal Ball to create
-			Temperance: Loot from Skeletron Prime
-			Endurance: Abyssal Chests / Abyssal Crate : 33%
+			[i:CalamityEntropy/AuraCard]Aura: Golden Chest，Iron Crate: 10%
+			[i:CalamityEntropy/BrillianceCard]Brilliance: Selling at merchants' premises
+			[i:CalamityEntropy/EntityCard]Entity: Loot from Giant Clam
+			[i:CalamityEntropy/InspirationCard]Inspiration: Desert Chest: 30%
+			[i:CalamityEntropy/MetropolicsCard]Metropolics: Crafted by Bookcase
+			[i:CalamityEntropy/WisdomCard]Wisdom: Loot from Skeletron
+			[i:CalamityEntropy/RadianceCard]Radiance: Crafed by Crystal Ball
+			[i:CalamityEntropy/TemperanceCard]Temperance: Loot from Skeletron Prime
+			[i:CalamityEntropy/EnduranceCard]Endurance: Abyssal Chests / Abyssal Crate : 33%
 			'''
 		DisplayName: Thread Of Fate
 	}
 
 	RuneSong: {
 		DisplayName: Rune Song
-		Tooltip: ""
+		Tooltip: "Fires arrow of rune on use"
 	}
 
 	GalaxyGrapeSoda: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			Combining Grapes, Essences of Gods and...Crimliate Guardians?
+			Turns you into Devourer of Gods
+			'''
 		DisplayName: Galaxy Grape Soda
 	}
 
@@ -508,7 +526,7 @@ Items: {
 		DisplayName: Void Annihilate
 		Tooltip:
 			'''
-			throw a Void Annihilate
+			Throw a Void Annihilate
 			Press [KEY] To Retrieve all
 			Right click a void annihilate to teleport to it.
 			'''
@@ -516,11 +534,15 @@ Items: {
 
 	AuricBoulder: {
 		DisplayName: Auric Boulder
-		Tooltip: ""
+		Tooltip: "Red-tropy"
 	}
 
 	DustyStar: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			Turns you into the main developer
+			Don't forget to leave a like!
+			'''
 		DisplayName: Dusty Star
 	}
 
