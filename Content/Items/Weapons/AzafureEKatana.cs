@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             target.AddBuff<GalvanicCorrosion>(8 * 60);
             target.AddBuff<Crumbling>(8 * 60);
             target.AddBuff(BuffID.Electrified, 8 * 60);
-            ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Projectile.velocity.normalize() * 2, 4f));
+            ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Projectile.velocity.normalize() * -2, 4f));
         }
     }
 }

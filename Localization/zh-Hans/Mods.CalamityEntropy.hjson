@@ -3363,10 +3363,7 @@ Items: {
 
 	AzafureEKatana: {
 		DisplayName: 阿萨福勒电太刀
-		Tooltip: 
-		'''
-		"电光飞溅"
-		'''
+		Tooltip: '''"电光飞溅"'''
 	}
 }
 
@@ -5082,6 +5079,8 @@ Test: {
 	}
 }
 
+AnyOrichalcumBar: 任何山铜锭
+AnyEvilBar: 任何邪恶锭
 BCBarInfo: 苍郁充能
 HallowedEnemiesDrop: 掉落自神圣之地地下敌怪
 EvilEnemiesDrop: 掉落自邪恶地形地下敌怪
@@ -5122,6 +5121,3 @@ AzafureEnhances: {
 	AzafureDrill: 增加镐力和挖掘范围
 	AzafureEKatana: 增加攻击距离
 }
-
-AnyEvilBar: 任何邪恶锭
-AnyOrichalcumBar: 任何山铜锭

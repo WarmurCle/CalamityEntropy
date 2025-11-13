@@ -4861,6 +4861,7 @@ Test: {
 		PaladinProj.DisplayName: Paladin Proj
 	}
 }
+
 AnyOrichalcumBar: Any Orichalcum Bar
 AnyEvilBar: Any Evil Bar
 BCBarInfo: Bramble Bar(Hold [mouse middle] to drag)
