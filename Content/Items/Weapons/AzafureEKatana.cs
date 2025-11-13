@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 10;
             Item.autoReuse = true;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.damage = 34;
+            Item.damage = 68;
             Item.knockBack = 4;
             Item.crit = 7;
             Item.channel = true;
@@ -58,7 +58,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe()
                 .AddIngredient<HellIndustrialComponents>(4)
-                .AddIngredient(CERecipeGroups.)
+                .AddIngredient(ItemID.HellstoneBar, 8)
+                .AddIngredient(ItemID.TitaniumBar, 8)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
     }
 
