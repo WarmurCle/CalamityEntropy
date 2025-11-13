@@ -16,8 +16,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.SetDefaults();
             Projectile.MaxUpdates = 6;
-            this.segments = 30;
-            this.rangeMult = 1.6f;
+            this.segments = 36;
+            this.rangeMult = 2f;
         }
         public override string getTagEffectName => "LashingBramblerod";
         public override SoundStyle? WhipSound => SoundID.Grass;
@@ -31,7 +31,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             var points = new List<Vector2>();
             Projectile.FillWhipControlPoints(Projectile, points);
-            EParticle.NewParticle(new LifeLeaf(), points[points.Count - 1], CEUtils.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, CEUtils.randomRot());
+            if(FlyProgress > 0.44f && FlyProgress < 0.88f)
+                EParticle.NewParticle(new LifeLeaf(), points[points.Count - 1], CEUtils.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, CEUtils.randomRot());
 
             return base.PreAI();
         }
