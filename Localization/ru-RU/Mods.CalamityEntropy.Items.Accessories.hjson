@@ -5,15 +5,32 @@ Ranged: {
 
 BloodyTrophy: {
 	// DisplayName: Bloody Trophy
-	// Tooltip: "{0}{1}{2}{3}"
+	/* Tooltip:
+		'''
+		+1 HP/s life regen speed
+		{0} increased effect of the healing potions, and increase your max HP by {1}
+		Reduce contact damage by {2}, has {3} seconds cooldown once triggered
+		Grants immnue time when damaged, and 25% reduced cooldown of healing potions
+		Grants immnuity to Knockback
+		"This...looks familiar."
+		''' */
 }
 
 BloodyAmulet: {
 	// DisplayName: Bloody Amulet
-	// Tooltip: ""
+	/* Tooltip:
+		'''
+		{0} increased effect of the healing potions, and increase your max HP by {1}
+		Reduce contact damage by {2}, has {3} seconds cooldown once triggered
+		Grants immnuity to Knockback
+		''' */
 }
 
 BloodyMark: {
 	// DisplayName: Bloody Mark
-	// Tooltip: ""
+	/* Tooltip:
+		'''
+		+1 HP/s life regen speed
+		Grants immnue time when damaged, and 25% reduced cooldown of healing potions
+		''' */
 }

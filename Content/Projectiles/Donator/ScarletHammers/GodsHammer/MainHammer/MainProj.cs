@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GodsHammer.
                 SoundStyle select = Utils.SelectRandom(Main.rand, HammerSoundID.HammerStrike.ToArray());
                 SoundEngine.PlaySound(select, Projectile.Center);
                 //震屏
-                ScreenShakeSystem.AddScreenShakes(Projectile.Center, 40 * -Owner.direction, 15, Projectile.rotation, 0.2f, true, 1000);
+                ScreenShakeSystem.AddScreenShakes(Projectile.Center, -40 * Owner.direction, 15, Projectile.rotation, 0.2f, true, 1000);
             }
             return true;
         }
