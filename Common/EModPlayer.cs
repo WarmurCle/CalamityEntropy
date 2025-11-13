@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common.LoreReworks;
-using CalamityEntropy.Content.BeesGame;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.ILEditing;
@@ -3053,14 +3052,6 @@ namespace CalamityEntropy.Common
                     Player.controlUp = false;
                     break;
                 }
-            }
-            if (BeeGame.Active)
-            {
-                Player.controlDown = false;
-                Player.controlJump = false;
-                Player.controlLeft = false;
-                Player.controlRight = false;
-                Player.controlUp = false;
             }
         }
 
