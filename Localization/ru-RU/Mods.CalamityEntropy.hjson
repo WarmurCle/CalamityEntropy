@@ -3125,7 +3125,7 @@ Items: {
 
 	BookmarkSword: {
 		// DisplayName: Bookmark Sword
-		// Tooltip: ""
+		// Tooltip: Summon a sword fight for you
 	}
 }
 
