@@ -3093,14 +3093,14 @@ Items: {
 			'''
 	}
 
-	TaijinoYume: {
-		DisplayName: Taijino Yume
-		Tooltip: ""
-	}
-
 	BookmarkSword: {
 		DisplayName: Bookmark Sword
 		Tooltip: Summon a sword fight for you
+	}
+
+	AzafureEKatana: {
+		DisplayName: Azafure E-Katana
+		Tooltip: ""
 	}
 }
 
@@ -3692,6 +3692,7 @@ Projectiles: {
 	CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
 	CBPSmash.DisplayName: C B P Smash
 	BMSwordProjectile.DisplayName: B M Sword Projectile
+	AzafureEKatanaSlash.DisplayName: Azafure E Katana Slash
 }
 
 LegendTooltip: - Legend -
@@ -4860,7 +4861,8 @@ Test: {
 		PaladinProj.DisplayName: Paladin Proj
 	}
 }
-
+AnyOrichalcumBar: Any Orichalcum Bar
+AnyEvilBar: Any Evil Bar
 BCBarInfo: Bramble Bar(Hold [mouse middle] to drag)
 HallowedEnemiesDrop: Dropping from undergronud hallowed enemies
 EvilEnemiesDrop: Dropping from undergronud evil biomes' enemies
@@ -4901,4 +4903,5 @@ AzafureEnhances: {
 	AzafureLightMachineGun: Increase stealth regen speed when laser hitted
 	AzafurePowerSaw: Increase weapon's damage and it won't overheat
 	AzafureDrill: Increase pick power and pick range
+	AzafureEKatana: Increase attack range
 }

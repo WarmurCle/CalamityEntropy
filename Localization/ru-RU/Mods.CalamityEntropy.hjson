@@ -3127,6 +3127,11 @@ Items: {
 		// DisplayName: Bookmark Sword
 		// Tooltip: Summon a sword fight for you
 	}
+
+	AzafureEKatana: {
+		// DisplayName: Azafure E Katana
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3703,6 +3708,7 @@ Projectiles: {
 	// CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
 	// CBPSmash.DisplayName: C B P Smash
 	// BMSwordProjectile.DisplayName: B M Sword Projectile
+	// AzafureEKatanaSlash.DisplayName: Azafure E Katana Slash
 }
 
 LegendTooltip: - Легенда -
