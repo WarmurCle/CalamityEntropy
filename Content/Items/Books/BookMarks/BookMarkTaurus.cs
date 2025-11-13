@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public static bool DontDestroy(EBookBaseProjectile proj)
         {
-            if (proj is BMHammerProjectile)
+            if (proj is BMHammerProjectile || proj is BMSwordProjectile)
                 return true;
             return false;
         }

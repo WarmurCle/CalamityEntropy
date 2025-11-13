@@ -3360,6 +3360,11 @@ Items: {
 		// DisplayName: Taijino Yume
 		// Tooltip: ""
 	}
+
+	BookmarkSword: {
+		DisplayName: 魔剑书签
+		Tooltip: 手持法书时召唤一把自动攻击的魔剑
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3932,6 +3937,7 @@ Projectiles: {
 	// BMHammerProjectile.DisplayName: B M Hammer Projectile
 	// CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
 	// CBPSmash.DisplayName: C B P Smash
+	// BMSwordProjectile.DisplayName: B M Sword Projectile
 }
 
 LegendTooltip: - 传奇物品 -

@@ -3122,6 +3122,11 @@ Items: {
 		// DisplayName: Taijino Yume
 		// Tooltip: ""
 	}
+
+	BookmarkSword: {
+		// DisplayName: Bookmark Sword
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3697,6 +3702,7 @@ Projectiles: {
 	// BMHammerProjectile.DisplayName: B M Hammer Projectile
 	// CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
 	// CBPSmash.DisplayName: C B P Smash
+	// BMSwordProjectile.DisplayName: B M Sword Projectile
 }
 
 LegendTooltip: - Легенда -

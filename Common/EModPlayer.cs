@@ -1669,11 +1669,15 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public override void PostUpdate()
         {
-            if(BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb) && BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(Player))
+            if(BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb))
             {
-                if (Player.ownedProjectileCounts[BookmarkHammer.ProjType] < 1)
+                if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(Player) && Player.ownedProjectileCounts[BookmarkHammer.ProjType] < 1)
                 {
-                    eb.ShootSingleProjectile(BookmarkHammer.ProjType, Player.Center, Vector2.UnitY * -12, 1, 1, 1);
+                    eb.ShootSingleProjectile(BookmarkHammer.ProjType, Player.Center, Vector2.UnitY * -0.02f, 1, 1, 1);
+                }
+                if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSwordBMEffect>(Player) && Player.ownedProjectileCounts[BookmarkSword.ProjType] < 1)
+                {
+                    eb.ShootSingleProjectile(BookmarkSword.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1);
                 }
             }
             foreach(var plr in Main.ActivePlayers)

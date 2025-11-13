@@ -100,22 +100,25 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         }
         public override void OnHurt(Player.HurtInfo info)
         {
-            if (DurabilityActive)
+            if (ArmorSetBonus)
             {
-                CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.6f);
-                if (DurabilityRegenDelay < 5 * 60)
-                    DurabilityRegenDelay = 5 * 60;
-                durability -= float.Min(0.6f, info.Damage / 420f);
-
-                //耐久没了暂时失效
-                if (durability <= 0)
+                if (DurabilityActive)
                 {
-                    durability = 0;
-                    DurabilityActive = false;
-                    CEUtils.PlaySound("chainsaw_break", 1.3f, Player.Center, 6, 0.6f);
-                    for (int i = 0; i < 16; i++)
+                    CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.6f);
+                    if (DurabilityRegenDelay < 5 * 60)
+                        DurabilityRegenDelay = 5 * 60;
+                    durability -= float.Min(0.6f, info.Damage / 420f);
+
+                    //耐久没了暂时失效
+                    if (durability <= 0)
                     {
-                        EParticle.NewParticle(new EMediumSmoke(), Player.Center + CEUtils.randomPointInCircle(12), CEUtils.randomPointInCircle(16), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 2f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
+                        durability = 0;
+                        DurabilityActive = false;
+                        CEUtils.PlaySound("chainsaw_break", 1.3f, Player.Center, 6, 0.6f);
+                        for (int i = 0; i < 16; i++)
+                        {
+                            EParticle.NewParticle(new EMediumSmoke(), Player.Center + CEUtils.randomPointInCircle(12), CEUtils.randomPointInCircle(16), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 2f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
+                        }
                     }
                 }
             }

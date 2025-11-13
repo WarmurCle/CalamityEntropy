@@ -3097,6 +3097,11 @@ Items: {
 		DisplayName: Taijino Yume
 		Tooltip: ""
 	}
+
+	BookmarkSword: {
+		DisplayName: Bookmark Sword
+		Tooltip: Summon a sword fight for you
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3686,6 +3691,7 @@ Projectiles: {
 	BMHammerProjectile.DisplayName: B M Hammer Projectile
 	CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
 	CBPSmash.DisplayName: C B P Smash
+	BMSwordProjectile.DisplayName: B M Sword Projectile
 }
 
 LegendTooltip: - Legend -
