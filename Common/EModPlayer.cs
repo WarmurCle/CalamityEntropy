@@ -10,7 +10,6 @@ using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
-using CalamityEntropy.Content.Items.Donator.Scarlet;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun;
@@ -18,7 +17,6 @@ using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Prefixes;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.Donator.ScarletHammers.GrandHammer;
 using CalamityEntropy.Content.Projectiles.HBProj;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
@@ -1267,11 +1265,6 @@ namespace CalamityEntropy.Common
                         Player.endurance = McEndurance;
                     }
                 }
-                //胎儿之梦CD
-                if (koishiStabTimer > 0)
-                    koishiStabTimer--;
-                if (koishiStabTimer == 0)
-                    koishiStabTimer = TaijinoYume.KoishiStabCD;
             }
         }
 

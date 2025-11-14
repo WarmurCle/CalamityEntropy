@@ -1,6 +1,5 @@
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Donator;
-using CalamityEntropy.Content.Items.Donator.Scarlet;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.NPCs.Cruiser;
@@ -75,8 +74,6 @@ namespace CalamityEntropy.Core.StatBloats
             Add<ScorchingShoot>(WeaponsAuric);
             Add<Vitalfeather>(WeaponsAuric);
 
-            //弑神锤移除了合成表，因此需要重新打一个表上去
-            Add<GodsHammer>(WeaponsCosmicBar);
             //遍历所有掉落物，除了材料
             var purpleWormItem = CEUtils.FindLoots<CruiserHead>(false);
             WeaponsCruiser.AddRange(purpleWormItem.Where(id => !WeaponsCruiser.Contains(id)).Distinct());
