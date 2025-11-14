@@ -55,10 +55,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 player.itemTimeMax *= 2;
                 player.itemAnimationMax *= 2;
 
-                if (player.Calamity().stealthStrike90Cost)
-                {
-                    sCost = 0.9f;
-                }
+                //if (player.Calamity().stealthStrike90Cost)
+                //{
+                //    sCost = 0.9f;
+                //}
                 if (player.Calamity().stealthStrike75Cost)
                 {
                     sCost = 0.75f;

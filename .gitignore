@@ -365,3 +365,5 @@ FodyWeavers.xsd
 # Rider干的
 .idea
 /CalamityEntropy.csproj
+
+.vs/CalamityEntropy/v17/HierarchyCache.v1.txt

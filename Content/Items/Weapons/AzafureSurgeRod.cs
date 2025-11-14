@@ -75,7 +75,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<HellIndustrialComponents>(), 6).AddIngredient(ItemID.CobaltBar, 8).AddIngredient<MysteriousCircuitry>(2).AddTile(TileID.Anvils).Register();
+            CreateRecipe().
+                AddIngredient<HellIndustrialComponents>(6).
+                AddIngredient<MysteriousCircuitry>(2).
+                AddIngredient(ItemID.CobaltBar, 8).
+                AddTile(TileID.Anvils).
+                Register();
         }
     }
 

@@ -15,6 +15,7 @@ namespace CalamityEntropy.Assets.Register
         //下面的字段名最好和资源名一致……
         public static SoundStyle SmashToGroundHeavy => new(SetPath + nameof(SmashToGroundHeavy));
         public static SoundStyle Pipes => new(SetPath + nameof(Pipes));
+        private static string SoundPath => "CalamityEntropy/Assets/Sounds/";
 
     }
 }

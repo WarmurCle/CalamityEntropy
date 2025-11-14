@@ -1,5 +1,7 @@
 ﻿using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityMod.Items;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,7 +20,11 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
             Item.rare = ItemRarityID.Yellow;
             Item.material = true;
-
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt))
+                tooltips.FuckThisTooltipAndReplace($"{CEUtils.LocalPrefix}.Items.{GetType().Name}.HoldShiftForDetails");
         }
     }
 }
