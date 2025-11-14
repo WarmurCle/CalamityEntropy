@@ -42,6 +42,11 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            //不是哥们谁往盔甲部件补盔甲效果文本啊？
+            //if (Main.LocalPlayer.Entropy().MariviniumSet)
+            //{
+            //    tooltips.Add(new TooltipLine(Mod, "Armor Bonus", Mod.GetLocalization("MariviniumSet").Value));
+            //}
         }
     }
 }

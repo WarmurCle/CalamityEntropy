@@ -37,9 +37,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<AerialiteBar>(8)
-                .AddIngredient<DubiousPlating>(8)
                 .AddIngredient<HellIndustrialComponents>(4)
+                .AddIngredient<DubiousPlating>(8)
+                .AddIngredient<AerialiteBar>(8)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

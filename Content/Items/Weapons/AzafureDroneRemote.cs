@@ -60,10 +60,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient<HellIndustrialComponents>(6)
+                .AddIngredient<MysteriousCircuitry>()
                 .AddIngredient<AerialiteBar>(8)
                 .AddRecipeGroup(RecipeGroupID.IronBar, 8)
-                .AddIngredient<MysteriousCircuitry>()
-                .AddIngredient<HellIndustrialComponents>(6)
                 .AddIngredient<EnergyCore>()
                 .AddIngredient(ItemID.Dynamite, 2)
                 .AddTile(TileID.Anvils)

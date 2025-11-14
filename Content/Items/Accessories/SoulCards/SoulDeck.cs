@@ -54,18 +54,19 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BitternessCard>(), 1)
-                .AddIngredient(ModContent.ItemType<DevouringCard>(), 1)
-                .AddIngredient(ModContent.ItemType<GrudgeCard>(), 1)
-                .AddIngredient(ModContent.ItemType<IndigoCard>(), 1)
-                .AddIngredient(ModContent.ItemType<MourningCard>(), 1)
-                .AddIngredient(ModContent.ItemType<ObscureCard>(), 1)
-                .AddIngredient(ModContent.ItemType<PurificationCard>(), 1)
-                .AddIngredient(ModContent.ItemType<RequiemCard>(), 1)
-                .AddIngredient(ModContent.ItemType<WisperCard>(), 1)
-                .AddIngredient(ModContent.ItemType<CursedThread>(), 1)
+                .AddIngredient<BitternessCard>()
+                .AddIngredient<DevouringCard>()
+                .AddIngredient<GrudgeCard>()
+                .AddIngredient<IndigoCard>()
+                .AddIngredient<MourningCard>()
+                .AddIngredient<ObscureCard>()
+                .AddIngredient<PurificationCard>()
+                .AddIngredient<RequiemCard>()
+                .AddIngredient<WisperCard>()
+                .AddIngredient<CursedThread>()
                 .AddIngredient<CoreofCalamity>()
-                .AddTile(TileID.Bookcases).Register();
+                .AddTile(TileID.Bookcases)
+                .Register();
         }
         public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
         {

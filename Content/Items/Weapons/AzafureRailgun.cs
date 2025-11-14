@@ -38,8 +38,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<SeaPrism>(8)
                 .AddIngredient<HellIndustrialComponents>(4)
+                .AddIngredient<SeaPrism>(8)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

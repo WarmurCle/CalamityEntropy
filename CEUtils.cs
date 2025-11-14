@@ -1875,11 +1875,19 @@ namespace CalamityEntropy
         /// <param name="targetIndex"></param>
         /// <param name="anotherDistance"></param>
         /// <returns></returns>
-        public static bool GetTargetSafe(this Projectile proj, out NPC target, int targetIndex, bool canSearchSecondTarget = true, float anotherDistance = 1800f)
+        public static bool GetTargetSafe(this Projectile proj, out NPC target, int? targetIndex = null, bool canSearchSecondTarget = true, float anotherDistance = 1800f)
         {
-            NPC npc = Main.npc[targetIndex];
-            //当前敌人不可被追踪，跳过这一步并进行下一步
-            if (!npc.CanBeChasedBy(proj) || canSearchSecondTarget)
+            NPC npc;
+            if (targetIndex.HasValue)
+            {
+                npc = Main.npc[targetIndex.Value];
+                //当前敌人不可被追踪，跳过这一步并进行下一步
+                if (!npc.CanBeChasedBy(proj) || canSearchSecondTarget)
+                    npc = proj.FindClosestTarget(anotherDistance);
+                else
+                    npc = null;
+            }
+            else
                 npc = proj.FindClosestTarget(anotherDistance);
 
             target = npc;

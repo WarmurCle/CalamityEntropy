@@ -1,5 +1,5 @@
 Rogue: {
-	HammerGeneral: 准许启用潜伏条，提供10点潜伏值上限，切换武器/盔甲时潜伏条将被重置
+	HammerGeneral: 启用且仅消耗一半潜伏值，无法获得潜伏增伤，切换武器/盔甲时潜伏条将被重置
 	HammerHalfStealth: 投掷这把武器只会消耗一半潜伏值，不会与饰品效果叠加
 
 	FallenHammer: {

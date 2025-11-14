@@ -38,8 +38,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient(ModContent.ItemType<OverloadFurnace>()).
-                AddIngredient(ModContent.ItemType<HellIndustrialComponents>(), 4).
+                AddIngredient<HellIndustrialComponents>(4).
+                AddIngredient<OverloadFurnace>().
                 AddIngredient(ItemID.SoulofNight, 10).
                 AddTile(TileID.MythrilAnvil).
                 Register();

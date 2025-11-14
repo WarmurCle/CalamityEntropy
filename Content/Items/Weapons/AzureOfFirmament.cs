@@ -60,7 +60,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<AerialiteBar>(), 8).AddIngredient(ItemID.SunplateBlock, 6).AddIngredient(ItemID.Feather, 2).AddTile(TileID.Anvils).Register();
+            CreateRecipe().
+                AddIngredient<AerialiteBar>(8).
+                AddIngredient(ItemID.SunplateBlock, 6).
+                AddIngredient(ItemID.Feather, 2).
+                AddTile(TileID.Anvils).
+                Register();
         }
     }
 }

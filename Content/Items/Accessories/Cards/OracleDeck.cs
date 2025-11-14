@@ -57,18 +57,19 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AuraCard>(), 1)
-                .AddIngredient(ModContent.ItemType<BrillianceCard>(), 1)
-                .AddIngredient(ModContent.ItemType<EntityCard>(), 1)
-                .AddIngredient(ModContent.ItemType<InspirationCard>(), 1)
-                .AddIngredient(ModContent.ItemType<MetropolisCard>(), 1)
-                .AddIngredient(ModContent.ItemType<WisdomCard>(), 1)
-                .AddIngredient(ModContent.ItemType<RadianceCard>(), 1)
-                .AddIngredient(ModContent.ItemType<TemperanceCard>(), 1)
-                .AddIngredient(ModContent.ItemType<EnduranceCard>(), 1)
-                .AddIngredient(ModContent.ItemType<ThreadOfFate>(), 1)
+                .AddIngredient<AuraCard>()
+                .AddIngredient<BrillianceCard>()
+                .AddIngredient<EntityCard>()
+                .AddIngredient<InspirationCard>()
+                .AddIngredient<MetropolisCard>()
+                .AddIngredient<WisdomCard>()
+                .AddIngredient<RadianceCard>()
+                .AddIngredient<TemperanceCard>()
+                .AddIngredient<EnduranceCard>()
+                .AddIngredient<ThreadOfFate>()
                 .AddIngredient<CoreofCalamity>()
-                .AddTile(TileID.Bookcases).Register();
+                .AddTile(TileID.Bookcases)
+                .Register();
         }
     }
 }

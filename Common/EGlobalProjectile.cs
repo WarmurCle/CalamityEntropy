@@ -109,7 +109,7 @@ namespace CalamityEntropy.Common
         public bool gh = false;
         public int ghcounter = 0;
         public int IndexOfTwistedTwinShootedThisProj = -1;
-
+        public Color CacheColor = Color.White;
         [VaultLoaden("CalamityEntropy/Assets/Extra/Voidsama")]
         public static Asset<Texture2D> voidSamaSlash;
         public static Asset<Texture2D> muraTex = null;

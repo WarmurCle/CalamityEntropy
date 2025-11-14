@@ -57,11 +57,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient<HellIndustrialComponents>(4)
+                .AddIngredient<MysteriousCircuitry>()
                 .AddIngredient(ItemID.HallowedBar, 6)
                 .AddRecipeGroup(RecipeGroupID.IronBar, 6)
                 .AddIngredient(ItemID.Wire, 12)
-                .AddIngredient<MysteriousCircuitry>()
-                .AddIngredient<HellIndustrialComponents>(4)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
