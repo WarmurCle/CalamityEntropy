@@ -4906,3 +4906,5 @@ AzafureEnhances: {
 	AzafureDrill: Increase pick power and pick range
 	AzafureEKatana: Increase attack range
 }
+
+DeathExplode: "[PlayerName] exploded"

@@ -5096,6 +5096,7 @@ AzafureSet:
 	在受到伤害时会根据伤害值扣除耐力
 	耐力会在受击5秒后缓慢回复
 	当耐力清空时会失效，并需要一段时间重新启用
+	死亡后产生威力巨大的爆炸
 	'''
 AzafureEnhance: 能力强化
 
@@ -5121,3 +5122,5 @@ AzafureEnhances: {
 	AzafureDrill: 增加镐力和挖掘范围
 	AzafureEKatana: 增加攻击距离
 }
+
+DeathExplode: "[PlayerName]爆炸了"
