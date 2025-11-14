@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework.Input;
 
 namespace CalamityEntropy.Content.Items.Accessories.SoulCards
 {
@@ -18,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt))
+            if (Main.keyState.IsKeyDown(Keys.LeftShift))
                 tooltips.FuckThisTooltipAndReplace($"{CEUtils.LocalPrefix}.Items.{GetType().Name}.HoldShiftForDetails");
         }
     }

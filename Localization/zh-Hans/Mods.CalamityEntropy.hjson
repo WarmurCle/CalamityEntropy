@@ -2518,7 +2518,7 @@ Items: {
 		Tooltip:
 			'''
 			用于制作[i:CalamityEntropy/SoulDeck][c/ADFF2F:灵魂卡组]
-			按住左Alt以查看卡组需求
+			按住左Shift以查看卡组需求
 			'''
 		HoldShiftForDetails:
 			'''
