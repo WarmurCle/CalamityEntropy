@@ -682,9 +682,12 @@ namespace CalamityEntropy.Content.Items.Donator
         public bool flagS = true;
         public bool flag = true;
         public bool Canhit = false;
+        public bool shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.SetShake(target.Center, Projectile.Calamity().stealthStrike ? 8 : 4);
+            if(shake)
+                CEUtils.SetShake(target.Center, Projectile.Calamity().stealthStrike ? 8 : 4);
+            shake = false;
             if (Projectile.ai[1] == 1 && TlipocasScythe.AllowVoidEmpowerment())
             {
                 int VETime = EDownedBosses.downedCruiser ? 30 : 15;
@@ -1017,10 +1020,12 @@ namespace CalamityEntropy.Content.Items.Donator
         public bool flag = true;
         public bool StickOnMouse = false;
         public bool RightLast = true;
-
+        public bool shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.SetShake(target.Center, Projectile.Calamity().stealthStrike ? 8 : 4);
+            if(shake || StickOnMouse)
+                CEUtils.SetShake(target.Center, (Projectile.Calamity().stealthStrike ? 8 : 4) * (StickOnMouse ? 0.5f : 1);
+            shake = false;
             if (Projectile.numHits == 1)
             {
                 if (TlipocasScythe.AllowSpin() && Projectile.Calamity().stealthStrike)
