@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
         public int AttackTimer = 120;
         public int DCounter = 0;
         public int DashToPlayer = -120;
-        
+        public List<Vector2> OldPos = new List<Vector2>();
         public override bool? CanHitNPC(NPC target)
         {
             if (!Attacking)
@@ -141,6 +141,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
         public NPC target;
         public override void AI()
         {
+            OldPos.Add(Projectile.Center);
+            if (OldPos.Count > 6)
+                OldPos.RemoveAt(0);
             Counter++;
             if(Counter == 1)
             {
@@ -183,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                             AttackTimer = 300;
                             Attacking = true;
                             Projectile.ResetLocalNPCHitImmunity();
-                            Projectile.velocity = (target.Center + target.velocity * 3 - Projectile.Center).normalize() * 32;
+                            Projectile.velocity = (target.Center + target.velocity * CEUtils.getDistance(Projectile.Center, target.Center) / 30f - Projectile.Center).normalize() * 32;
                         }
                     }
                     DashToPlayer--;
@@ -206,11 +209,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                     }
                     else
                     {
-                        Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.4f;
+                        Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.6f;
                         Projectile.velocity *= 0.97f;
+                        Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center + target.velocity * CEUtils.getDistance(Projectile.Center, target.Center) / 30f - Projectile.Center).ToRotation(), 0.034f));
                     } 
                 }
             }
+            if (!Attacking)
+                OldPos.Clear();
             DCounter--;
             Projectile.MinionCheck<CogflyBuff>();
         }
@@ -226,8 +232,21 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                 frame = null;
             Projectile.spriteDirection = -1 * (target != null ? Math.Sign(target.Center.X - Projectile.Center.X) : Math.Sign(Projectile.GetOwner().Center.X - Projectile.Center.X));
             Rectangle frameWing = CEUtils.GetCutTexRect(tex, 4, ((int)Main.GameUpdateCount / 4) % 2, false);
-            if(Counter > 25)
+            if(Counter > 25 && !Attacking)
                 Main.EntitySpriteDraw(wingTex, Projectile.Center - Main.screenPosition, frameWing, Color.White, Projectile.rotation, new Vector2(wingTex.Width / 2f, wingTex.Height / 8f), Projectile.scale, (Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
+
+            if (Attacking)
+            {
+                OldPos.Add(Projectile.Center);
+                for (int i = 1; i < OldPos.Count; i++)
+                {
+                    for (float j = 0; j < 1; j += 0.1f)
+                    {
+                        Main.EntitySpriteDraw(draw, Vector2.Lerp(OldPos[i - 1], OldPos[i], j) - Main.screenPosition, frame, lightColor * 0.12f * ((float)i / OldPos.Count), Projectile.rotation, new Vector2(draw.Width / 2f, 24), Projectile.scale, (Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
+                    }
+                }
+                OldPos.RemoveAt(OldPos.Count - 1);
+            }
             Main.EntitySpriteDraw(draw, Projectile.Center - Main.screenPosition, frame, lightColor, Projectile.rotation, new Vector2(draw.Width / 2f, 24), Projectile.scale, (Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
 
             return false;
