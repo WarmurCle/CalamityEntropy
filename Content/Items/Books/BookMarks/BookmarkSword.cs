@@ -242,7 +242,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             base.ModifyHitNPC(target, ref modifiers);
-            modifiers.SourceDamage *= aiStyle == AIStyle.Strike ? 1.5f : 1;
+            modifiers.SourceDamage *= aiStyle == AIStyle.Strike ? 0.7f : 1;
 
         }
         public override bool? CanHitNPC(NPC target)

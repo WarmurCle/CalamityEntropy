@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
         }
         public override void SetDefaults()
         {
-            Item.damage = 38;
+            Item.damage = 28;
             Item.DamageType = DamageClass.Summon;
             Item.width = 42;
             Item.height = 42;

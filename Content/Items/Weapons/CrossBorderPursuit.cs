@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 16;
             Item.useAnimation = 16;
             Item.useStyle = -1;
-            Item.damage = 1360;
+            Item.damage = 1700;
             Item.DamageType = CEUtils.RogueDC;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -57,10 +57,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<VoidBar>(8)
-                .AddIngredient<AscendantSpiritEssence>(2)
                 .AddIngredient<DedicatedOracle>()
                 .AddIngredient<AnimaSola>()
+                .AddIngredient<VoidBar>(5)
+                .AddIngredient<AscendantSpiritEssence>(2)
                 .AddTile<VoidWellTile>()
                 .Register();
         }
