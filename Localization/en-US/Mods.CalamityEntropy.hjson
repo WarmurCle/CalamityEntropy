@@ -3105,11 +3105,11 @@ Items: {
 
 	AzafureCogfly: {
 		DisplayName: Azafure Cogfly
-		Tooltip: 
-		'''
-		Summon a cogfly
-		It will automatically attack enemies
-		'''
+		Tooltip:
+			'''
+			Summon a cogfly
+			It will automatically attack enemies
+			'''
 	}
 }
 

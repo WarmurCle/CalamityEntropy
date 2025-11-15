@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
@@ -52,6 +53,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
             Main.projectile[projectile].originalDamage = Item.damage;
 
             return false;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<HellIndustrialComponents>(4)
+                .AddRecipeGroup(RecipeGroupID.IronBar, 4)
+                .AddIngredient<MysteriousCircuitry>()
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
     public class CogflyBuff : BaseMinionBuff

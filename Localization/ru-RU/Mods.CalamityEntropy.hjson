@@ -3130,7 +3130,11 @@ Items: {
 
 	AzafureCogfly: {
 		// DisplayName: Azafure Cogfly
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Summon a cogfly
+			It will automatically attack enemies
+			''' */
 	}
 }
 
@@ -3696,19 +3700,16 @@ Projectiles: {
 	// AzafureElectrocauteryWandBomb.DisplayName: Azafure Electrocautery Wand Bomb
 	// Snowgrave.DisplayName: Snowgrave
 	// DedicatedOracleSlashProj.DisplayName: Dedicated Oracle Slash Proj
-	// ALMGLaser.DisplayName: A L M G Laser
+	// ALMGLaser.DisplayName: ALMG Laser
 	// AzafureLightMachineGunHeld.DisplayName: Azafure Light Machine Gun Held
 	// AzafureLightMachineGunStealth.DisplayName: Azafure Light Machine Gun Stealth
-	// ALMGShell.DisplayName: A L M G Shell
+	// ALMGShell.DisplayName: ALMG Shell
 	// PickingSwarm.DisplayName: Picking Swarm
-	// TaijinoYumeProj.DisplayName: Taijino Yume Proj
-	// GodsHammerFlyUpProj.DisplayName: Gods Hammer Fly Up Proj
-	// GrandHammerFallenProj.DisplayName: Grand Hammer Fallen Proj
-	// BMHammerProjectile.DisplayName: B M Hammer Projectile
-	// CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
-	// CBPSmash.DisplayName: C B P Smash
-	// BMSwordProjectile.DisplayName: B M Sword Projectile
-	// AzafureEKatanaSlash.DisplayName: Azafure E Katana Slash
+	// BMHammerProjectile.DisplayName: Hammer
+	// CrossBorderPursuitProj.DisplayName: Cross Border Pursuit
+	// CBPSmash.DisplayName: Smash
+	// BMSwordProjectile.DisplayName: Sword
+	// AzafureEKatanaSlash.DisplayName: Azafure E-Katana Slash
 	// AzafureCogflyMinion.DisplayName: Azafure Cogfly Minion
 }
 
@@ -4026,8 +4027,8 @@ Buffs: {
 	}
 
 	CogflyBuff: {
-		// DisplayName: Cogfly Buff
-		// Description: Mods.CalamityEntropy.Buffs.CogflyBuff.Description
+		// DisplayName: Cogfly
+		// Description: Azafure Cogfly will fight for you
 	}
 }
 
@@ -4928,6 +4929,7 @@ AzafureEnhances: {
 	// AzafurePowerSaw: Increase weapon's damage and it won't overheat
 	// AzafureDrill: Increase pick power and pick range
 	// AzafureEKatana: Increase attack range
+	// AzafureCogfly: Increase minion attacking speed
 }
 
 // DeathExplode: "[PlayerName] exploded"

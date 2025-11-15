@@ -3368,10 +3368,7 @@ Items: {
 
 	AzafureCogfly: {
 		DisplayName: 阿萨福勒齿轮蜂
-		Tooltip: 
-		'''
-		召唤一只自动攻击敌人的齿轮蜂
-		'''
+		Tooltip: 召唤一只自动攻击敌人的齿轮蜂
 	}
 }
 
