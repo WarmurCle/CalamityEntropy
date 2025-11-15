@@ -29,13 +29,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
         }
         public override void SetDefaults()
         {
-            Item.damage = 32;
+            Item.damage = 38;
             Item.DamageType = DamageClass.Summon;
             Item.width = 42;
             Item.height = 42;
             Item.useTime = 16;
             Item.useAnimation = 16;
-            Item.knockBack = 2;
+            Item.knockBack = 7;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.shoot = ModContent.ProjectileType<AzafureCogflyMinion>();
             Item.shootSpeed = 2f;
@@ -79,8 +79,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.width = 32;
-            Projectile.height = 32;
+            Projectile.width = 44;
+            Projectile.height = 44;
             Projectile.friendly = true;
             Projectile.aiStyle = -1;
             Projectile.hostile = false;
@@ -169,7 +169,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                 {
                     AttackTimer--;
                     Vector2 tpos = player.Center + new Vector2(-player.direction * 80, -100);
-                    Projectile.pushByOther(0.1f);
+                    Projectile.pushByOther(0.06f);
                     if (DCounter <= 0)
                         Projectile.velocity += (tpos - Projectile.Center).normalize() * float.Min(0.6f, CEUtils.getDistance(Projectile.Center, tpos) / 400);
                     else
@@ -201,7 +201,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                 {
                     if (target == null || AttackTimer-- < 0 || !target.active || target.dontTakeDamage)
                     {
-                        AttackTimer = player.AzafureEnhance() ? 60 : 80;
+                        AttackTimer = player.AzafureEnhance() ? 50 : 80;
                         Attacking = false;
                     }
                     else
