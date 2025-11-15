@@ -1,10 +1,12 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
+using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.Cogfly
 {
-    public class AzafureCogfly : ModItem
+    public class AzafureCogfly : ModItem, IAzafureEnhancable
     {
         public override void SetStaticDefaults()
         {
@@ -36,12 +38,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
             Item.useStyle = ItemUseStyleID.Swing;
             Item.shoot = ModContent.ProjectileType<AzafureCogflyMinion>();
             Item.shootSpeed = 2f;
-            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
+            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.autoReuse = true;
             Item.UseSound = CEUtils.GetSound("CogflyUse");
             Item.noMelee = true;
             Item.buffType = ModContent.BuffType<CogflyBuff>();
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ModContent.RarityType<DarkOrange>();
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

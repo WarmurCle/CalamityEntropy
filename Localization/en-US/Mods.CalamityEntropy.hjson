@@ -4917,6 +4917,7 @@ AzafureEnhances: {
 	AzafurePowerSaw: Increase weapon's damage and it won't overheat
 	AzafureDrill: Increase pick power and pick range
 	AzafureEKatana: Increase attack range
+	AzafureCogfly: Increase minion attacking speed
 }
 
 DeathExplode: "[PlayerName] exploded"

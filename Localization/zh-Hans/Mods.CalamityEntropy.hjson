@@ -5132,6 +5132,7 @@ AzafureEnhances: {
 	AzafurePowerSaw: 增加链锯伤害并且不会过热
 	AzafureDrill: 增加镐力和挖掘范围
 	AzafureEKatana: 增加攻击距离
+	AzafureCogfly: 增加攻击频率
 }
 
 DeathExplode: "[PlayerName]爆炸了"
