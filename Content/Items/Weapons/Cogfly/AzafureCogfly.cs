@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
             Player player = Projectile.GetOwner();
             for (int i = 0; i < 8; i++)
             {
-                Vector2 top = target.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * Main.rand.NextFloat(-12, 12);
+                Vector2 top = Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize() * Main.rand.NextFloat(-12, 12);
                 Vector2 sparkVelocity2 = Projectile.velocity.RotateRandom(0.4f) * 0.32f * Main.rand.NextFloat(0.3f, 1f);
                 int sparkLifetime2 = Main.rand.Next(24, 28);
                 float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
@@ -123,7 +123,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
 
             for (int i = 0; i < 5; i++)
             {
-                Vector2 top = target.Center;
+                Vector2 top = Projectile.Center;
                 Vector2 sparkVelocity2 = Projectile.velocity.RotateRandom(0.6f) * 0.4f * Main.rand.NextFloat(0.4f, 1f);
                 int sparkLifetime2 = Main.rand.Next(24, 28);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
