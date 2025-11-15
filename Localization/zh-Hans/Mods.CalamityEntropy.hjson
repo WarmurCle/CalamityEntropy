@@ -3365,6 +3365,14 @@ Items: {
 		DisplayName: 阿萨福勒电太刀
 		Tooltip: '''"电光飞溅"'''
 	}
+
+	AzafureCogfly: {
+		DisplayName: 阿萨福勒齿轮蜂
+		Tooltip: 
+		'''
+		召唤一只自动攻击敌人的齿轮蜂
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3931,14 +3939,12 @@ Projectiles: {
 	AzafureLightMachineGunStealth.DisplayName: 阿萨福勒轻机枪子弹榴弹
 	ALMGShell.DisplayName: 弹壳
 	PickingSwarm.DisplayName: 蜂群集结
-	// TaijinoYumeProj.DisplayName: Taijino Yume Proj
-	// GodsHammerFlyUpProj.DisplayName: Gods Hammer Fly Up Proj
-	// GrandHammerFallenProj.DisplayName: Grand Hammer Fallen Proj
-	// BMHammerProjectile.DisplayName: B M Hammer Projectile
-	// CrossBorderPursuitProj.DisplayName: Cross Border Pursuit Proj
-	// CBPSmash.DisplayName: C B P Smash
-	// BMSwordProjectile.DisplayName: B M Sword Projectile
-	// AzafureEKatanaSlash.DisplayName: Azafure E Katana Slash
+	BMHammerProjectile.DisplayName: 魔锤
+	CrossBorderPursuitProj.DisplayName: 祟灵之眼
+	CBPSmash.DisplayName: 裂缝
+	BMSwordProjectile.DisplayName: 魔剑
+	AzafureEKatanaSlash.DisplayName: 阿萨福勒电太刀
+	AzafureCogflyMinion.DisplayName: 阿萨福勒齿轮蜂
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4252,6 +4258,11 @@ Buffs: {
 	PickingSwarmBuff: {
 		DisplayName: 蜂群集结
 		Description: 嗡嗡
+	}
+
+	CogflyBuff: {
+		DisplayName: 齿轮蜂
+		Description: 阿萨福勒齿轮蜂将为你战斗
 	}
 }
 

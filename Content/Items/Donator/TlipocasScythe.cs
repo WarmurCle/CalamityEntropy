@@ -1024,7 +1024,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if(shake || StickOnMouse)
-                CEUtils.SetShake(target.Center, (Projectile.Calamity().stealthStrike ? 8 : 4) * (StickOnMouse ? 0.5f : 1);
+                CEUtils.SetShake(target.Center, (Projectile.Calamity().stealthStrike ? 8 : 4) * (StickOnMouse ? 0.5f : 1));
             shake = false;
             if (Projectile.numHits == 1)
             {

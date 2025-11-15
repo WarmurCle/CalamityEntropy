@@ -3127,6 +3127,11 @@ Items: {
 		// DisplayName: Azafure E-Katana
 		// Tooltip: ""
 	}
+
+	AzafureCogfly: {
+		// DisplayName: Azafure Cogfly
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3704,6 +3709,7 @@ Projectiles: {
 	// CBPSmash.DisplayName: C B P Smash
 	// BMSwordProjectile.DisplayName: B M Sword Projectile
 	// AzafureEKatanaSlash.DisplayName: Azafure E Katana Slash
+	// AzafureCogflyMinion.DisplayName: Azafure Cogfly Minion
 }
 
 LegendTooltip: - Легенда -
@@ -4017,6 +4023,11 @@ Buffs: {
 	PickingSwarmBuff: {
 		// DisplayName: Gathering Swarm
 		// Description: Swarms pick coins for you!
+	}
+
+	CogflyBuff: {
+		// DisplayName: Cogfly Buff
+		// Description: Mods.CalamityEntropy.Buffs.CogflyBuff.Description
 	}
 }
 
