@@ -5,7 +5,7 @@ float alpha;
 float uTime;
 float4 EffectFunction(float2 coords : TEXCOORD0) : COLOR0
 {
-    float4 colory = tex2D(uImage, float2(frac(coords.x * 0.8 + uTime), coords.y));
+    float4 colory = tex2D(uImage, float2(frac(coords.x * 0.6 + uTime), coords.y));
     float4 color3 = float4(0, 0, 0, 0);
     return (lerp(color1, color2, colory.r) + color3) * float4(1, 1, 1, colory.r * alpha) * (coords.x + (1 - coords.x) * coords.x) * 1.2;
 }

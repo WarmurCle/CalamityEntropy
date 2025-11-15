@@ -87,11 +87,9 @@ namespace CalamityEntropy.Content.Items.Donator
             Texture2D tex = TextureAssets.Item[Type].Value;
             Vector2 position = Item.position - Main.screenPosition + tex.Size() / 2;
             Rectangle iFrame = tex.Frame();
-            //为锤子添加描边，并时刻更新大小
-            //如果你要是有能力做渐变的话，so be it
             for (int i = 0; i < 16; i++)
                 spriteBatch.Draw(tex, position + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 2f, null, Color.DarkRed with { A = 0 }, 0f, tex.Size() / 2, scale, 0, 0f);
-            //然后绘制锤子本身。
+
             spriteBatch.Draw(tex, position, iFrame, Color.White, 0f, tex.Size() / 2, scale, 0f, 0f);
             Lighting.AddLight(position, TorchID.Red);
             return false;
@@ -903,6 +901,7 @@ namespace CalamityEntropy.Content.Items.Donator
             List<ColoredVertex> ve = new List<ColoredVertex>();
             float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail3", AssetRequestMode.ImmediateLoad).Value;
 
             {
                 for (int i = 0; i < oldRots.Count; i++)
@@ -919,14 +918,13 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     var gd = Main.graphics.GraphicsDevice;
                     SpriteBatch sb = Main.spriteBatch;
-                    Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail3", AssetRequestMode.ImmediateLoad).Value;
-
+                    
                     sb.End();
                     sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
                     shader.Parameters["color1"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? Color.Purple : Color.Firebrick).ToVector4());
-                    shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(160, 160, 255) : Color.OrangeRed).ToVector4());
+                    shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(190, 190, 255) : new Color(255, 60, 60)).ToVector4());
 
-                    shader.Parameters["uTime"].SetValue(Main.GameUpdateCount * 2);
+                    shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 2.4f);
                     shader.Parameters["alpha"].SetValue(1);
                     shader.CurrentTechnique.Passes["EffectPass"].Apply();
                     gd.Textures[0] = CEUtils.getExtraTex("Streak2");
@@ -934,7 +932,36 @@ namespace CalamityEntropy.Content.Items.Donator
                     Main.spriteBatch.ExitShaderRegion();
                 }
             }
+            ve.Clear();
+            {
+                for (int i = 0; i < oldRots.Count; i++)
+                {
+                    Color b = new Color(255, 255, 255);
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(158 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
+                          new Vector3((i) / ((float)oldRots.Count - 1), 1, 1),
+                          b));
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(100 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
+                          new Vector3((i) / ((float)oldRots.Count - 1), 0, 1),
+                          b));
+                }
+                if (ve.Count >= 3)
+                {
+                    var gd = Main.graphics.GraphicsDevice;
+                    SpriteBatch sb = Main.spriteBatch;
+                    sb.End();
+                    sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
+                    shader.Parameters["color1"].SetValue(new Vector4(1, 1, 1, 0));
+                    shader.Parameters["color2"].SetValue((Color.White).ToVector4() * 0.82f);
 
+                    shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 3f);
+                    shader.Parameters["alpha"].SetValue(1);
+                    shader.CurrentTechnique.Passes["EffectPass"].Apply();
+                    gd.Textures[0] = CEUtils.getExtraTex("Streak1");
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    Main.spriteBatch.ExitShaderRegion();
+                }
+            }
+            Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             int dir = (int)(Projectile.ai[0]) * Math.Sign(Projectile.velocity.X);
             Vector2 origin = dir > 0 ? new Vector2(0, tex.Height) : new Vector2(tex.Width, tex.Height);
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -1197,14 +1224,16 @@ namespace CalamityEntropy.Content.Items.Donator
             float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
 
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail3", AssetRequestMode.ImmediateLoad).Value;
+
             {
                 for (int i = 0; i < oldRots.Count; i++)
                 {
                     Color b = new Color(255, 255, 255);
-                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(84 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(74 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
                           new Vector3((i) / ((float)oldRots.Count - 1), 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(50 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(40 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
                           new Vector3((i) / ((float)oldRots.Count - 1), 0, 1),
                           b));
                 }
@@ -1212,13 +1241,12 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     var gd = Main.graphics.GraphicsDevice;
                     SpriteBatch sb = Main.spriteBatch;
-                    Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail3", AssetRequestMode.ImmediateLoad).Value;
 
                     sb.End();
                     sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
                     shader.Parameters["color1"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? Color.Purple : Color.Firebrick).ToVector4());
-                    shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(160, 160, 255) : Color.OrangeRed).ToVector4());
-                    shader.Parameters["uTime"].SetValue(Main.GameUpdateCount * 2);
+                    shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(190, 190, 255) : new Color(255, 60, 60)).ToVector4());
+                    shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 2.4f);
                     shader.Parameters["alpha"].SetValue(1);
                     shader.CurrentTechnique.Passes["EffectPass"].Apply();
                     gd.Textures[0] = CEUtils.getExtraTex("Streak2");
@@ -1226,6 +1254,38 @@ namespace CalamityEntropy.Content.Items.Donator
                     Main.spriteBatch.ExitShaderRegion();
                 }
             }
+
+            ve.Clear();
+            {
+                for (int i = 0; i < oldRots.Count; i++)
+                {
+                    Color b = new Color(255, 255, 255);
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(69 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
+                          new Vector3((i) / ((float)oldRots.Count - 1), 1, 1),
+                          b));
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(45 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
+                          new Vector3((i) / ((float)oldRots.Count - 1), 0, 1),
+                          b));
+                }
+                if (ve.Count >= 3)
+                {
+                    var gd = Main.graphics.GraphicsDevice;
+                    SpriteBatch sb = Main.spriteBatch;
+                    
+                    sb.End();
+                    sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
+                    shader.Parameters["color1"].SetValue(new Vector4(1, 1, 1, 0));
+                    shader.Parameters["color2"].SetValue(Color.White.ToVector4() * 0.82f);
+                    shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 3f);
+                    shader.Parameters["alpha"].SetValue(1);
+                    shader.CurrentTechnique.Passes["EffectPass"].Apply();
+                    gd.Textures[0] = CEUtils.getExtraTex("Streak1");
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    Main.spriteBatch.ExitShaderRegion();
+                }
+            }
+
+            Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
 
             Vector2 origin = tex.Size() / 2f;
             float rot = Projectile.rotation;
