@@ -136,6 +136,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 160 * Scale, targetHitbox, 256);
         }
+        public bool shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player Owner = Projectile.GetOwner();
@@ -165,7 +166,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             target.AddBuff<GalvanicCorrosion>(8 * 60);
             target.AddBuff<Crumbling>(8 * 60);
             target.AddBuff(BuffID.Electrified, 8 * 60);
-            ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Projectile.velocity.normalize() * -2, 4f));
+            if(shake)
+                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Projectile.velocity.normalize() * -2, 4f));
+            shake = false;
         }
     }
 }
