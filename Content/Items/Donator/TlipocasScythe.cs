@@ -1233,7 +1233,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(74 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
                           new Vector3((i) / ((float)oldRots.Count - 1), 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(40 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(30 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
                           new Vector3((i) / ((float)oldRots.Count - 1), 0, 1),
                           b));
                 }
@@ -1263,7 +1263,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(69 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
                           new Vector3((i) / ((float)oldRots.Count - 1), 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(45 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
+                    ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(35 * Projectile.scale * oldScale[i] * ProjScale, 0).RotatedBy(oldRots[i])),
                           new Vector3((i) / ((float)oldRots.Count - 1), 0, 1),
                           b));
                 }
