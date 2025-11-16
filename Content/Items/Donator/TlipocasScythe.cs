@@ -901,7 +901,7 @@ namespace CalamityEntropy.Content.Items.Donator
             List<ColoredVertex> ve = new List<ColoredVertex>();
             float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
-            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail3", AssetRequestMode.ImmediateLoad).Value;
+            Effect _shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail3", AssetRequestMode.ImmediateLoad).Value;
 
             {
                 for (int i = 0; i < oldRots.Count; i++)
@@ -920,13 +920,13 @@ namespace CalamityEntropy.Content.Items.Donator
                     SpriteBatch sb = Main.spriteBatch;
                     
                     sb.End();
-                    sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
-                    shader.Parameters["color1"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? Color.Purple : Color.Firebrick).ToVector4());
-                    shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(190, 190, 255) : new Color(255, 60, 60)).ToVector4());
+                    sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, _shader, Main.GameViewMatrix.TransformationMatrix);
+                    _shader.Parameters["color1"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? Color.Purple : Color.Firebrick).ToVector4());
+                    _shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(190, 190, 255) : new Color(255, 60, 60)).ToVector4());
 
-                    shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 2.4f);
-                    shader.Parameters["alpha"].SetValue(1);
-                    shader.CurrentTechnique.Passes["EffectPass"].Apply();
+                    _shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 2.4f);
+                    _shader.Parameters["alpha"].SetValue(1);
+                    _shader.CurrentTechnique.Passes["EffectPass"].Apply();
                     gd.Textures[0] = CEUtils.getExtraTex("Streak2");
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     Main.spriteBatch.ExitShaderRegion();
@@ -949,13 +949,13 @@ namespace CalamityEntropy.Content.Items.Donator
                     var gd = Main.graphics.GraphicsDevice;
                     SpriteBatch sb = Main.spriteBatch;
                     sb.End();
-                    sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
-                    shader.Parameters["color1"].SetValue(new Vector4(1, 1, 1, 0));
-                    shader.Parameters["color2"].SetValue((Color.White).ToVector4() * 0.82f);
+                    sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, _shader, Main.GameViewMatrix.TransformationMatrix);
+                    _shader.Parameters["color1"].SetValue(new Vector4(1, 1, 1, 0));
+                    _shader.Parameters["color2"].SetValue((Color.White).ToVector4() * 0.82f);
 
-                    shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 3f);
-                    shader.Parameters["alpha"].SetValue(1);
-                    shader.CurrentTechnique.Passes["EffectPass"].Apply();
+                    _shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 3f);
+                    _shader.Parameters["alpha"].SetValue(1);
+                    _shader.CurrentTechnique.Passes["EffectPass"].Apply();
                     gd.Textures[0] = CEUtils.getExtraTex("Streak1");
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                     Main.spriteBatch.ExitShaderRegion();
@@ -970,8 +970,8 @@ namespace CalamityEntropy.Content.Items.Donator
             TlipocasScytheHeld.shader ??= ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/RedTrans", AssetRequestMode.ImmediateLoad).Value;
             if (Projectile.GetOwner().HasBuff<VoidEmpowerment>())
             {
-                Main.spriteBatch.EnterShaderRegion(BlendState.AlphaBlend, shader);
-                shader.CurrentTechnique.Passes[0].Apply();
+                Main.spriteBatch.EnterShaderRegion(BlendState.AlphaBlend, TlipocasScytheHeld.shader);
+                TlipocasScytheHeld.shader.CurrentTechnique.Passes[0].Apply();
             }
 
             Main.spriteBatch.Draw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * ProjScale * scale, effect, 0);
