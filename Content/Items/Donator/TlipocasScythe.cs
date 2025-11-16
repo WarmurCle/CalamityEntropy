@@ -670,7 +670,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Projectile.FriendlySetDefaults(CEUtils.RogueDC, false, -1);
             Projectile.light = 0.2f;
-            Projectile.MaxUpdates = 16;
+            Projectile.MaxUpdates = 30;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
@@ -876,7 +876,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 oldScale.Add(scale);
                 oldRots.Add(Projectile.rotation);
-                if (oldRots.Count > 120)
+                if (oldRots.Count > 170)
                 {
                     oldRots.RemoveAt(0);
                     oldScale.RemoveAt(0);
