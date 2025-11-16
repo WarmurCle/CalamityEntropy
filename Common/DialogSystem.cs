@@ -103,7 +103,9 @@ namespace CalamityEntropy.Common
                 {
                     if (this.sound.HasValue)
                     {
-                        if (this.text[this.charCount] != ' ' && this.text[this.charCount] != '£¬' && this.text[this.charCount] != '¡£' && this.text[this.charCount] != '¡±' && this.text[this.charCount] != '¡°')
+                        char char_ = this.text[this.charCount];
+                        string noSound = " £¬¡£¡°¡±£¡,.\'\"/<>[]{}!@#$%^&*()+-*";
+                        if (!noSound.Contains(char_))
                         {
                             SoundEngine.PlaySound(this.sound.Value);
                         }
