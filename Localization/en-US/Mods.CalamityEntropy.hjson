@@ -491,7 +491,7 @@ Items: {
 		Tooltip:
 			'''
 			Can be used to craft Oracle Deck
-			Press Left Alt to check the card list
+			Press Left Shift to check the card list
 			'''
 		DisplayName: Thread Of Fate
 		HoldShiftForDetails:

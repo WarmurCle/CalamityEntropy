@@ -503,7 +503,7 @@ Items: {
 		Tooltip:
 			'''
 			用于制作[i:CalamityEntropy/OracleDeck][c/87CEFA:神谕卡组]
-			按住左Alt来查看卡组需求
+			按住左Shift来查看卡组需求
 			'''
 		DisplayName: 命运之绳
 		HoldShiftForDetails:
@@ -1113,7 +1113,7 @@ Items: {
 		Tooltip:
 			'''
 			用于制作[i:CalamityEntropy/TaintedDeck][c/FF6347:堕化卡组]
-			按住左Alt以查看卡组需求
+			按住左Shift以查看卡组需求
 			'''
 		HoldShiftForDetails:
 			'''
