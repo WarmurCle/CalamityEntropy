@@ -104,6 +104,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 6));
             EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White }, Projectile.Center - Projectile.velocity * 0.8f, Vector2.Zero, new Color(122, 122, 255), Main.rand.NextFloat(380, 420), 1f, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi, 8);
             if (Projectile.ai[1]-- > -3)
             {

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using CalamityMod;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy
 {
@@ -79,7 +81,7 @@ namespace CalamityEntropy
             {
                 vec += ss.GetShiftVec();
             }    
-            return vec;
+            return vec * ModContent.GetInstance<CalamityConfig>().ScreenshakePower;
         }
     }
 }

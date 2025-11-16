@@ -197,7 +197,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
 
             if (!PlaySound)
             {
-                CEUtils.SetShake(target.Center, 4 * Projectile.scale);
+                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Projectile.velocity.normalize() * -4, 3));
                 PlaySound = true;
                 CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.4f), target.Center);
             }
