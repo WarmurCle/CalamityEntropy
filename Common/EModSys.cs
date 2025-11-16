@@ -171,6 +171,18 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.End();
             }
 
+            /*Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            if (typer == null || CEKeybinds.RuneDashHotKey.JustPressed)
+            {
+                string text = "一只无辜的蜂后，被迫成为了苦难的载体，这简直是对自然的亵渎。\n在没有征求我意见的情况下，嘉登试图将早已准备好的丛林蜜蜂进行武器化。\n当他向我展示他的成果时，我彻底愤怒了。他最终还是卑鄙地奴役了它们，着实无耻。\n嘉登并不关心我的愤怒，没有多说什么，便去忙其他工作了。\n从那以后，我不再向嘉登提出任何要求。我已经见到了他的真面目。\n尽管后来我自己的所作所为也称不上贤明，但我绝不会给一个生物戴上镣铐，还让它以我的名义战斗。\n做出如此恶行的人，和我所追猎的那些披着神圣外皮的畜生相比，好不到哪去。";
+                typer = new Typer(text, FontAssets.MouseText.Value, 1, 9999, 2, 0, Color.Yellow);
+            }
+            typer.draw(Main.spriteBatch, new Vector2(400, 200));
+
+            Main.spriteBatch.End();
+            typer.sound = new Terraria.Audio.SoundStyle($"CalamityMod/Sounds/Custom/Codebreaker/DraedonTalk{Main.rand.Next(1, 4)}");
+            typer.update();*/
+
         }
         public int ptype = -1;
         public int sftype = -1;

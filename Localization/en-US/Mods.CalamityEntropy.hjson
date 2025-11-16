@@ -491,7 +491,7 @@ Items: {
 		Tooltip:
 			'''
 			Can be used to craft Oracle Deck
-			Press Left Shift to check the card list
+			Press Left Alt to check the card list
 			'''
 		DisplayName: Thread Of Fate
 		HoldShiftForDetails:
@@ -3112,14 +3112,14 @@ Items: {
 			'''
 	}
 
-	Gungnir: {
-		DisplayName: Eternal Spear: Gungnir
+	StarBreaker: {
 		Tooltip: ""
+		DisplayName: 星启破军
 	}
 
-	StarBreaker: {
-		DisplayName: Star Breaker
-		Tooltip: ""
+	Gungnir: {
+		Tooltip: 击中后降下闪电和陨星
+		DisplayName: 永恒神枪 冈格尼尔
 	}
 }
 
@@ -3710,7 +3710,7 @@ Projectiles: {
 	BMSwordProjectile.DisplayName: Sword
 	AzafureEKatanaSlash.DisplayName: Azafure E-Katana Slash
 	AzafureCogflyMinion.DisplayName: Azafure Cogfly Minion
-	StarBreakerHeld.DisplayName: Star Breaker Held
+	GungnirThrow.DisplayName: Gungnir Throw
 }
 
 LegendTooltip: - Legend -

@@ -503,7 +503,7 @@ Items: {
 		Tooltip:
 			'''
 			用于制作[i:CalamityEntropy/OracleDeck][c/87CEFA:神谕卡组]
-			按住左Shift来查看卡组需求
+			按住左Alt来查看卡组需求
 			'''
 		DisplayName: 命运之绳
 		HoldShiftForDetails:
@@ -1113,7 +1113,7 @@ Items: {
 		Tooltip:
 			'''
 			用于制作[i:CalamityEntropy/TaintedDeck][c/FF6347:堕化卡组]
-			按住左Shift以查看卡组需求
+			按住左Alt以查看卡组需求
 			'''
 		HoldShiftForDetails:
 			'''
@@ -3371,14 +3371,14 @@ Items: {
 		Tooltip: 召唤一只自动攻击敌人的齿轮蜂
 	}
 
-	Gungnir: {
-		DisplayName: 永恒神枪 冈格尼尔
-		Tooltip: 击中后降下闪电和陨星
+	StarBreaker: {
+		// Tooltip: ""
+		// DisplayName: 星启破军
 	}
 
-	StarBreaker: {
-		DisplayName: 星启破军
-		Tooltip: ""
+	Gungnir: {
+		// Tooltip: 击中后降下闪电和陨星
+		// DisplayName: 永恒神枪 冈格尼尔
 	}
 }
 
@@ -3952,7 +3952,7 @@ Projectiles: {
 	BMSwordProjectile.DisplayName: 魔剑
 	AzafureEKatanaSlash.DisplayName: 阿萨福勒电太刀
 	AzafureCogflyMinion.DisplayName: 阿萨福勒齿轮蜂
-	// StarBreakerHeld.DisplayName: Star Breaker Held
+	// GungnirThrow.DisplayName: Gungnir Throw
 }
 
 LegendTooltip: - 传奇物品 -

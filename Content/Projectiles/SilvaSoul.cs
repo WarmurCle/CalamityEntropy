@@ -63,8 +63,8 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     CEUtils.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.6f);
                     Projectile.Kill();
-                    Projectile.GetOwner().Entropy().TryHealMeWithCd(Projectile.GetOwner().statLifeMax2 / 240 + 1);
-                    Projectile.GetOwner().Entropy().temporaryArmor += 1f;
+                    Projectile.GetOwner().Heal(Projectile.GetOwner().statLifeMax2 / 140 + 2);
+                    Projectile.GetOwner().Entropy().temporaryArmor += 3f;
                     return;
                 }
 
