@@ -3111,6 +3111,16 @@ Items: {
 			It will automatically attack enemies
 			'''
 	}
+
+	Gungnir: {
+		DisplayName: Eternal Spear: Gungnir
+		Tooltip: ""
+	}
+
+	StarBreaker: {
+		DisplayName: Star Breaker
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3700,6 +3710,7 @@ Projectiles: {
 	BMSwordProjectile.DisplayName: Sword
 	AzafureEKatanaSlash.DisplayName: Azafure E-Katana Slash
 	AzafureCogflyMinion.DisplayName: Azafure Cogfly Minion
+	StarBreakerHeld.DisplayName: Star Breaker Held
 }
 
 LegendTooltip: - Legend -

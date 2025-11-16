@@ -3370,6 +3370,16 @@ Items: {
 		DisplayName: 阿萨福勒齿轮蜂
 		Tooltip: 召唤一只自动攻击敌人的齿轮蜂
 	}
+
+	Gungnir: {
+		DisplayName: 永恒神枪 冈格尼尔
+		Tooltip: 击中后降下闪电和陨星
+	}
+
+	StarBreaker: {
+		DisplayName: 星启破军
+		Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3942,6 +3952,7 @@ Projectiles: {
 	BMSwordProjectile.DisplayName: 魔剑
 	AzafureEKatanaSlash.DisplayName: 阿萨福勒电太刀
 	AzafureCogflyMinion.DisplayName: 阿萨福勒齿轮蜂
+	// StarBreakerHeld.DisplayName: Star Breaker Held
 }
 
 LegendTooltip: - 传奇物品 -
