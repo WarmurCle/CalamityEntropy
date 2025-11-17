@@ -60,8 +60,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 if (ownern == null) { ownern = ((int)(Projectile.ai[0])).ToNPC(); }
                 if (ownern != null && ownern.active)
                 {
-                    Projectile.Center = ownern.Center + (ownern.ModNPC is NihilityActeriophage ? ownern.rotation.ToRotationVector2() * 30 : Vector2.Zero);
-                    Projectile.rotation = ownern.rotation;
+                    Projectile.Center = ownern.Center + (ownern.ModNPC is NihilityActeriophage ? ownern.velocity.normalize() * 30 : Vector2.Zero);
+                    Projectile.rotation = ownern.velocity.ToRotation();
                 }
                 else
                 {
