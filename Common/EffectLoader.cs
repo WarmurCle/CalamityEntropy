@@ -609,8 +609,8 @@ namespace CalamityEntropy.Common
                     GameShaders.Armor.GetShaderFromItemId(dye).Apply(null, new(Screen1, Vector2.Zero, Color.White));
                 }
                 Main.spriteBatch.Draw(Screen1, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
             }
-            Main.spriteBatch.End();
 
         }
         public static Texture2D ScaleTexture(Texture2D originalTexture, float scale, GraphicsDevice graphicsDevice)

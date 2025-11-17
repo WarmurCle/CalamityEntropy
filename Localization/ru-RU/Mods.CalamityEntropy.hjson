@@ -4277,6 +4277,7 @@ Configs: {
 		Headers: {
 			Misc: Разное
 			Other: Другое
+			// Compatibility: Compatibility
 		}
 
 		DisplayName: Конфигурация
@@ -4329,6 +4330,11 @@ Configs: {
 		EnableLoopingSound: {
 			// Label: Enable Looping Sound
 			// Tooltip: ""
+		}
+
+		EnableRetroLighting: {
+			// Label: Allow Retro Lighting
+			// Tooltip: If you still want use retro light mode, set this to true. Ensure the Enable Pixel Effect option closed to show UI correct
 		}
 	}
 

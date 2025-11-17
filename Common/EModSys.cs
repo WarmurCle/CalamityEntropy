@@ -289,9 +289,16 @@ namespace CalamityEntropy.Common
                     sayTip = false;
                 }
             }
-            if (Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro || Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy)
+            if (!ModContent.GetInstance<Config>().EnableRetroLighting)
             {
-                Lighting.Mode = Terraria.Graphics.Light.LightMode.Color;
+                if (Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro || Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy)
+                {
+                    Lighting.Mode = Terraria.Graphics.Light.LightMode.Color;
+                }
+                if (ModContent.GetInstance<Config>().EnablePixelEffect)
+                {
+                    ModContent.GetInstance<Config>().EnablePixelEffect = false;
+                }
             }
             noItemUse = false;
             counter += 1f;
