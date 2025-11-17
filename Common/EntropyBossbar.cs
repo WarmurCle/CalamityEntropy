@@ -147,6 +147,8 @@ namespace CalamityEntropy.Common
                 prog = (float)sgLifes / (float)ModContent.GetInstance<EModSys>().slimeGodMaxLife;
 
             }
+            if (prog < 0)
+                prog = 0;
             if (prog == 0)
             {
                 if (!immune)
