@@ -8,9 +8,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Pets
 {
-    public class ChaosCore : ModItem, IDevItem
+    public class ChaosCore : ModItem, IDonatorItem
     {
-        public string DevName => "ShadowWarrior";
+        public string DonatorName => "ShadowWarrior";
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.ZephyrFish);
@@ -31,10 +31,10 @@ namespace CalamityEntropy.Content.Items.Pets
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient(ItemID.SoulofLight, 2).
-                AddIngredient(ItemID.HallowedBar, 4).
-                AddIngredient<EssenceofSunlight>().
-                AddTile(TileID.WorkBenches).
+                AddIngredient(1508, 5).
+                AddIngredient(1729, 4).
+                AddIngredient<CoreofHavoc>(7).
+                AddTile(TileID.MythrilAnvil).
                 Register();
         }
     }
