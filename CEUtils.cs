@@ -107,6 +107,15 @@ namespace CalamityEntropy
             proj.velocity = proj.rotation.ToRotationVector2() * player.HeldItem.shootSpeed;
             player.heldProj = proj.whoAmI;
         }
+        public static void StickToPlayer(this Projectile proj, float RotLerp = 0.1f)
+        {
+            Player player = proj.GetOwner();
+            player.Calamity().mouseWorldListener = true;
+            proj.Center = player.GetDrawCenter();
+            proj.rotation = CEUtils.RotateTowardsAngle(proj.rotation, (player.mouseWorld() - proj.Center).ToRotation(), RotLerp, false);
+            proj.velocity = proj.rotation.ToRotationVector2() * player.HeldItem.shootSpeed;
+            player.heldProj = proj.whoAmI;
+        }
         public static Vector2 mouseWorld(this Player player)
         {
             player.Calamity().mouseWorldListener = true;

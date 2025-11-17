@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -69,6 +70,18 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             Item.channel = true;
             Item.crit = 12;
         }
+
+        public override void HoldItem(Player player)
+        {
+            if (player.ownedProjectileCounts[Item.shoot] < 1)
+            {
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, (Main.MouseWorld - player.Center).normalize() * Item.shootSpeed, Item.shoot, player.GetWeaponDamage(Item), player.GetWeaponKnockback(Item), player.whoAmI).ToProj().CritChance = player.GetWeaponCrit(Item);
+            }
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            return false;
+        }
     }
     public class StarBreakerHeld : ModProjectile
     {
@@ -90,10 +103,17 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
         public float RotP = 0;
         public float BaseScale = 0;
         public float num = 0;
+        public override bool? CanHitNPC(NPC target)
+        {
+            return (Projectile.GetOwner().channel) ? null : false;
+        }
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            Projectile.StickToPlayer();
+
+            player.direction = Math.Sign(Projectile.velocity.X);
+
+            Projectile.StickToPlayer(player.channel ? 1 : 0.25f);
 
             Projectile.rotation += RotP;
             Projectile.Center = player.HandPosition.Value;
@@ -103,18 +123,28 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             if (BaseScale == 0)
                 BaseScale = Projectile.scale;
             
+            if(Main.myPlayer == Projectile.owner)
+            {
+                if(Main.mouseLeft && !Main.LocalPlayer.mouseInterface)
+                {
+                    player.channel = true;
+                }
+            }
+            if(player.HeldItem.ModItem is StarBreaker)
+            {
+                Projectile.timeLeft = 2;
+            }
+            if (AttackCount % 4 == 3 && AttackDelay <= 0)
+            {
+                Projectile.scale = BaseScale * 1.5f;
+            }
+            else
+            {
+                Projectile.scale = BaseScale;
+            }
             if (player.channel)
             {
                 player.itemTime = player.itemAnimation = 3;
-                Projectile.timeLeft = 3;
-                if (AttackCount % 4 == 3 && AttackDelay <= 0)
-                {
-                    Projectile.scale = BaseScale * 1.5f;
-                }
-                else
-                {
-                    Projectile.scale = BaseScale;
-                }
                 AttackDelay--;
                 if(AttackDelay < 0 || AttackTime > 0)
                 {
@@ -150,18 +180,20 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             }
             else
             {
-                Projectile.Kill();
-                return;
+                RotP = 0;
+                AttackDelay = 0;
+                AttackCount = 0;
+                AttackTime = 0;
             }
 
 
             Vector2 ropePoint = Projectile.Center + Projectile.rotation.ToRotationVector2() * 234 * Projectile.scale;
             if (rope == null)
             {
-                rope = new Rope(ropePoint, 20, 5.4f * Projectile.scale, new Vector2(0, 0.5f), 0.35f, 64);
+                rope = new Rope(ropePoint, 10, 11f * Projectile.scale, new Vector2(0, 0.5f), 0.2f, 64);
             }
             Vector2 lst = rope.Start;
-            rope.gravity = Projectile.rotation.ToRotationVector2().RotatedBy((float)Math.Sin(Main.GameUpdateCount * 0.025f) * 0.5f) * -0.4f;
+            rope.gravity = (Vector2.Lerp(Vector2.UnitY, -Projectile.rotation.ToRotationVector2(), 0.56f)).RotatedBy((float)Math.Sin(Main.GameUpdateCount * 0.028f) * 0.3f) * 0.6f;
             for (float r = 0.5f; r <= 1; r += 0.5f)
             {
                 rope.Start = Vector2.Lerp(lst, ropePoint, r);
@@ -251,6 +283,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             var tex = Projectile.GetTexture();
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver4, new Vector2(32, tex.Height - 32), Projectile.scale, 0f, 0f);
             Texture2D arrow = CEUtils.getExtraTex("SpearArrow");
+            Texture2D glow = CEUtils.getExtraTex("SpearArrowGlow");
             float arrowAlpha = CEUtils.Parabola(AttackTime, 1) - 0.6f;
             if (arrowAlpha < 0)
                 arrowAlpha = 0;
@@ -264,9 +297,22 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             {
                 Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 330 + CEUtils.randomPointInCircle(24), null, applyAlpha(Color.Red), Projectile.rotation + Main.rand.NextFloat(-0.22f, 0.22f), arrow.Size() / 2f, new Vector2(2f, 1) * Projectile.scale * 0.4f, SpriteEffects.None, 0);
             }
+
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, new Color(255, 16, 16) * arrowAlpha, Projectile.rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
             Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, applyAlpha(Color.Red), Projectile.rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, applyAlpha(Color.White) * 2, Projectile.rotation, arrow.Size() / 2f, new Vector2(1.7f, 0.4f) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 440, null, applyAlpha(Color.White), Projectile.rotation, arrow.Size() / 2f, new Vector2(1.8f, 1f) * Projectile.scale * 0.24f * Projectile.scale, SpriteEffects.None, 0);
+
+
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, Color.White * arrowAlpha * 2, Projectile.rotation, arrow.Size() / 2f, new Vector2(1.7f, 0.4f) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
+            //Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
+            //Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, applyAlpha(Color.White), Projectile.rotation, arrow.Size() / 2f, new Vector2(1.7f, 0.4f) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
+
+            //Main.spriteBatch.UseBlendState(BlendState.Additive);
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 440, null, Color.White * arrowAlpha * 0.5f, Projectile.rotation, arrow.Size() / 2f, new Vector2(1.8f, 1f) * Projectile.scale * 0.24f * Projectile.scale, SpriteEffects.None, 0);
+            //Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
+            //Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 440, null, applyAlpha(Color.White), Projectile.rotation, arrow.Size() / 2f, new Vector2(1.8f, 1f) * Projectile.scale * 0.24f * Projectile.scale, SpriteEffects.None, 0);
 
             Main.spriteBatch.ExitShaderRegion();
             List<Vector2> points = new();
