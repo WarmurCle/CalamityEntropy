@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DamageClasses;
+using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
@@ -740,6 +741,7 @@ namespace CalamityEntropy.Common
             }
         }
         public float WhiteLerp = 0;
+
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (npc.type != NPCID.BrainofCthulhu && (npc.type != NPCID.DukeFishron || npc.ai[0] <= 9f) && npc.active)
@@ -956,6 +958,18 @@ namespace CalamityEntropy.Common
                 shaders[shaders.Count - 1].CurrentTechnique.Passes[0].Apply();
 
                 needExitShader = true;
+            }
+            if(CalamityEntropy.EntropyMode)
+            {
+                if (npc.type == NPCID.AncientLight || npc.type == NPCID.AncientDoom || EModILEdit.LostNPCsEntropy.Contains(npc.type))
+                {
+                    needExitShader = true;
+                    Effect trans = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Trans", AssetRequestMode.ImmediateLoad).Value;
+                    Main.spriteBatch.EnterShaderRegion(BlendState.AlphaBlend, trans);
+                    trans.Parameters["strength"].SetValue(1);
+                    trans.Parameters["color"].SetValue(new Vector4(0, 0, 0, 1));
+                    trans.CurrentTechnique.Passes[0].Apply();
+                }
             }
             return true;
         }

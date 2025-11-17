@@ -258,6 +258,7 @@ namespace CalamityEntropy.Common
             if (FirstFrames)
                 FirstFrames = false;
         }
+        public bool Losted = false;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             if (Main.gameMenu)
@@ -295,15 +296,35 @@ namespace CalamityEntropy.Common
                     projectile.velocity *= player.Entropy().shootSpeed;
 
                 }
-                if (s.Entity is NPC np)
+                if (s.Entity is NPC npc)
                 {
-                    ToFriendly = np.Entropy().ToFriendly;
+                    ToFriendly = npc.Entropy().ToFriendly;
+                    if(CalamityEntropy.EntropyMode)
+                    {
+                        if (npc.type == NPCID.Golem || npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead || npc.type == NPCID.GolemHeadFree)
+                        {
+                            Losted = true;
+                            projectile.netSpam = 0;
+                            projectile.netUpdate = true;
+                        }
+                        if (npc.type == NPCID.CultistBoss || npc.type == NPCID.AncientLight || npc.type == NPCID.AncientDoom)
+                        { 
+                            Losted = true;
+                            projectile.netSpam = 0;
+                            projectile.netUpdate = true;
+                        }
 
+                    }
                 }
                 if (s.Entity is Projectile pj)
                 {
                     ToFriendly = pj.Entropy().ToFriendly;
-
+                    if(pj.Entropy().Losted)
+                    {
+                        Losted = true;
+                        projectile.netSpam = 0;
+                        projectile.netUpdate = true;
+                    }
                 }
                 if (ToFriendly)
                 {
@@ -437,8 +458,14 @@ namespace CalamityEntropy.Common
         public bool SmartArcEffect = false;
         public bool Freeze = true;//For wisper arrows
         public EParticle ParticleOnMe = null;
+        public bool slowFlag = true;
         public override bool PreAI(Projectile projectile)
         {
+            if (Losted && slowFlag)
+            {
+                projectile.velocity *= 0.6f;
+                slowFlag = false;
+            }
             if (bulletInit)
             {
                 bulletInit = false;
@@ -919,6 +946,8 @@ namespace CalamityEntropy.Common
         public bool wisperShine = true;
         public override void PostDraw(Projectile projectile, Color lightColor)
         {
+            if (Losted)
+                Main.spriteBatch.ExitShaderRegion();
             if (GWBow || WisperArrow)
             {
 
@@ -1012,6 +1041,14 @@ namespace CalamityEntropy.Common
         public StarTrailParticle starTrailPt = null;
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
+            if (Losted)
+            {
+                Effect trans = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Trans", AssetRequestMode.ImmediateLoad).Value;
+                Main.spriteBatch.EnterShaderRegion(BlendState.AlphaBlend, trans);
+                trans.Parameters["strength"].SetValue(1);
+                trans.Parameters["color"].SetValue(new Vector4(0, 0, 0, 1));
+                trans.CurrentTechnique.Passes[0].Apply();
+            }
             if (WisperArrow)
                 return false;
             if (projectile.ModProjectile != null && projectile.ModProjectile is MurasamaSlash)

@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.ILEditing;
+using CalamityEntropy.Content.Particles;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -95,6 +96,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
+            if (CalamityEntropy.EntropyMode)
+            {
+                if (npc.type == NPCID.CultistBoss || npc.type == NPCID.Golem || npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead || npc.type == NPCID.GolemHeadFree || npc.type == NPCID.CultistBossClone || npc.type == NPCID.AncientLight || npc.type == NPCID.AncientDoom || EModILEdit.LostNPCsEntropy.Contains(npc.type))
+                    drawColor = Color.Black;
+            }
             drawColor = Color.Lerp(drawColor, new Color(9, 30, 72), progress);
         }
     }

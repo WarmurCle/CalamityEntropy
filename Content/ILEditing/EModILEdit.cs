@@ -28,6 +28,8 @@ using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
+using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static InnoVault.GameSystem.ItemRebuildLoader;
 
@@ -127,10 +129,30 @@ namespace CalamityEntropy.Content.ILEditing
                 EModHooks.Add(Item_Name_Get_Method, On_Name_Get_Hook);
             }
 
+            var NPC_Get_Name = typeof(NPC).GetProperty("TypeName", BindingFlags.Instance | BindingFlags.Public).GetGetMethod();
+            if (NPC_Get_Name != null)
+            {
+                EModHooks.Add(NPC_Get_Name, On_NPC_Get_Hook);
+            }
+
             StoreForbiddenArchivePositionHook.LoadHook();
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
+        public delegate string On_GetNPCName_get_Delegate(NPC npc);
+        public static List<int> LostNPCsEntropy = new() { 454, 455, 456, 457, 458, 459, 521 };
+        public static string On_NPC_Get_Hook(On_GetNPCName_get_Delegate orig, NPC npc)
+        {
+            string n = orig(npc);
+            if(CalamityEntropy.EntropyMode)
+            {
+                if(npc.type == NPCID.CultistBoss || npc.type == NPCID.Golem || npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead || npc.type == NPCID.GolemHeadFree || LostNPCsEntropy.Contains(npc.type))
+                n = (Language.ActiveCulture == GameCulture.FromCultureName(GameCulture.CultureName.Chinese) ? "失心" : "Lost") + " " + n;
+
+            }
+            return n;
+        }
+        
         public static string On_Name_Get_Hook(On_GetItemName_get_Delegate orig, Item item)
         {
             if (Main.gameMenu)

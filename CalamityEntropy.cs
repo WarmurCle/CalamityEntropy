@@ -730,6 +730,20 @@ namespace CalamityEntropy
                     orig(self, i);
                     self.position -= self.velocity * 0.85f;
                 }
+                if (EntropyMode)
+                {
+                    if (self.type == NPCID.Golem || self.type == NPCID.GolemHead || self.type == NPCID.GolemHeadFree)
+                    {
+                        orig(self, i);
+                        self.Center -= self.velocity * 0.5f;
+                        orig(self, i);
+                        self.Center -= self.velocity * 0.5f;
+                    }
+                    if(self.type == NPCID.CultistBoss)
+                    {
+                        orig(self, i);
+                    }
+                }
                 orig(self, i);
             }
         }
