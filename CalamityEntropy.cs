@@ -376,6 +376,7 @@ namespace CalamityEntropy
             VanityDisplaySys.VanityItems = null;
             CEUtils.SoundStyles = null;
             theVoid_SCBIE = null;
+            StartBagGItem.items = null;
             EModILEdit.edgeTex = null;
             if (ILoaders != null)
             {
@@ -1331,7 +1332,16 @@ namespace CalamityEntropy
         public override void PostSetupContent()
         {
             ScreenShaker.Init();
+            StartBagGItem.items = new List<int>();
             VanityDisplaySys.SetupVanities();
+            for(int i = 0; i < ItemLoader.ItemCount; i++)
+            {
+                Item item = ContentSamples.ItemsByType[i];
+                if (item.ModItem != null && item.ModItem is IGetFromStarterBag)
+                {
+                    StartBagGItem.items.Add(i);
+                }
+            }
             if (ModLoader.TryGetMod("InfernumMode", out var _))
             {
                 InfFont.InfernumFont.SetFont();

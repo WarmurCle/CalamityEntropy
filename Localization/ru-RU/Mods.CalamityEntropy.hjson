@@ -3151,6 +3151,11 @@ Items: {
 		// DisplayName: Chaos Core
 		// Tooltip: ""
 	}
+
+	ReindeerBell: {
+		// DisplayName: Reindeer Bell
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3654,7 +3659,6 @@ Projectiles: {
 	// HowlingLaser.DisplayName: Howling Laser
 	// FractalStarblight.DisplayName: Fractal Starblight
 	// Molightpet.DisplayName: Molightpet
-	// GrandSlamProj.DisplayName: Grand Slam Proj
 	// MalignHeld.DisplayName: Malign Held
 	// MalignBullet.DisplayName: Malign Bullet
 	// MalignLightning.DisplayName: Malign Lightning
@@ -3676,6 +3680,7 @@ Projectiles: {
 	// AzafureEKatanaSlash.DisplayName: Azafure E-Katana Slash
 	// AzafureCogflyMinion.DisplayName: Azafure Cogfly Minion
 	// GungnirThrow.DisplayName: Gungnir Throw
+	// Sorensen.DisplayName: Sorensen
 }
 
 LegendTooltip: - Легенда -
@@ -3998,7 +4003,7 @@ Buffs: {
 
 	ChaosTyrant: {
 		// DisplayName: Chaos Tyrant
-		// Description: Mods.CalamityEntropy.Buffs.ChaosTyrant.Description
+		// Description: ""
 	}
 }
 

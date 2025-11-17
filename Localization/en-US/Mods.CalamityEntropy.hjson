@@ -3126,6 +3126,11 @@ Items: {
 		DisplayName: Chaos Core
 		Tooltip: ""
 	}
+
+	ReindeerBell: {
+		DisplayName: Reindeer Bell
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"

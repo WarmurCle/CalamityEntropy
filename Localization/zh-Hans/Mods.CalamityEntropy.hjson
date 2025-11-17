@@ -3383,9 +3383,18 @@ Items: {
 
 	ChaosCore: {
 		DisplayName: 混沌核心
+		Tooltip: '''"跟某个神灵的形象意外的相似"'''
+	}
+
+	ReindeerBell: {
+		DisplayName: 驯鹿铃铛
 		Tooltip: 
 		'''
-		"跟某个神灵的形象意外的相似"
+		“
+		我要长出巨大的天使翅膀。
+		尽我所能地飞远，回望这一切...
+		天际线如节日的彩灯般闪闪发光...
+		”
 		'''
 	}
 }
