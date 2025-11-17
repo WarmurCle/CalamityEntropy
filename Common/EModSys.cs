@@ -295,7 +295,9 @@ namespace CalamityEntropy.Common
                 {
                     Lighting.Mode = Terraria.Graphics.Light.LightMode.Color;
                 }
+                Main.WaveQuality = 3;
             }
+
             noItemUse = false;
             counter += 1f;
             if (ArmorForgingStationUI.Visible)
