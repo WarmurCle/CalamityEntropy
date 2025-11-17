@@ -3380,6 +3380,14 @@ Items: {
 		Tooltip: 击中后降下闪电和陨星
 		DisplayName: 永恒神枪 冈格尼尔
 	}
+
+	ChaosCore: {
+		DisplayName: 混沌核心
+		Tooltip: 
+		'''
+		"跟某个神灵的形象意外的相似"
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3880,7 +3888,6 @@ Projectiles: {
 	HowlingLaser.DisplayName: 哀嚎死光
 	FractalStarblight.DisplayName: 分形星弹
 	Molightpet.DisplayName: Mo的照明宠物
-	// GrandSlamProj.DisplayName: Grand Slam Proj
 	MalignHeld.DisplayName: 魔灵
 	MalignBullet.DisplayName: 魔灵导弹
 	MalignLightning.DisplayName: 魔灵电弧
@@ -3902,6 +3909,7 @@ Projectiles: {
 	AzafureEKatanaSlash.DisplayName: 阿萨福勒电太刀
 	AzafureCogflyMinion.DisplayName: 阿萨福勒齿轮蜂
 	GungnirThrow.DisplayName: 冈格尼尔
+	Sorensen.DisplayName: 索伦森
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4220,6 +4228,11 @@ Buffs: {
 	CogflyBuff: {
 		DisplayName: 齿轮蜂
 		Description: 阿萨福勒齿轮蜂将为你战斗
+	}
+
+	ChaosTyrant: {
+		DisplayName: 混沌暴君
+		Description: ""
 	}
 }
 

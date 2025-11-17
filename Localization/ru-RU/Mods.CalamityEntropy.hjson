@@ -3146,6 +3146,11 @@ Items: {
 		// Tooltip: 击中后降下闪电和陨星
 		// DisplayName: 永恒神枪 冈格尼尔
 	}
+
+	ChaosCore: {
+		// DisplayName: Chaos Core
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3989,6 +3994,11 @@ Buffs: {
 	CogflyBuff: {
 		// DisplayName: Cogfly
 		// Description: Azafure Cogfly will fight for you
+	}
+
+	ChaosTyrant: {
+		// DisplayName: Chaos Tyrant
+		// Description: Mods.CalamityEntropy.Buffs.ChaosTyrant.Description
 	}
 }
 
