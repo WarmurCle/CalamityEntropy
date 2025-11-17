@@ -295,16 +295,16 @@ namespace CalamityEntropy.Common
                 {
                     Lighting.Mode = Terraria.Graphics.Light.LightMode.Color;
                 }
-                if (ModContent.GetInstance<Config>().EnablePixelEffect)
-                {
-                    ModContent.GetInstance<Config>().EnablePixelEffect = false;
-                }
             }
             noItemUse = false;
             counter += 1f;
             if (ArmorForgingStationUI.Visible)
             {
                 CalamityEntropy.Instance.userInterface?.Update(gameTime);
+            }
+            if (ModContent.GetInstance<Config>().EnableRetroLighting && ModContent.GetInstance<Config>().EnablePixelEffect)
+            {
+                ModContent.GetInstance<Config>().EnablePixelEffect = false;
             }
         }
 

@@ -3879,11 +3879,8 @@ Projectiles: {
 	HowlingBullet.DisplayName: 哀嚎魂弹
 	HowlingLaser.DisplayName: 哀嚎死光
 	FractalStarblight.DisplayName: 分形星弹
-	HexController.DisplayName: HexController
-	HexVertex.DisplayName: Hex Vertex
 	Molightpet.DisplayName: Mo的照明宠物
-
-
+	// GrandSlamProj.DisplayName: Grand Slam Proj
 	MalignHeld.DisplayName: 魔灵
 	MalignBullet.DisplayName: 魔灵导弹
 	MalignLightning.DisplayName: 魔灵电弧
@@ -5046,7 +5043,6 @@ LMDialog16: 你难道没看到那个[NAME]吗？可真是不知死活
 LMDialog17: 我不收垃圾，谢谢
 LMDialog18: 你塞的是什么东西？
 NowLV: 当前等级
-
 AnyOrichalcumBar: 任何山铜锭
 AnyEvilBar: 任何邪恶锭
 BCBarInfo: 苍郁充能

@@ -3639,8 +3639,6 @@ Projectiles: {
 	FractalStarblight.DisplayName: Fractal Starblight
 	Molightpet.DisplayName: Molightpet
 	GrandSlamProj.DisplayName: Grand Slam Proj
-
-
 	MalignHeld.DisplayName: Malign Held
 	MalignBullet.DisplayName: Malign Bullet
 	MalignLightning.DisplayName: Malign Lightning
@@ -4832,7 +4830,6 @@ LMDialog16: Don't you see that [NAME]? What are you doing here!
 LMDialog17: I don't want your garbage.
 LMDialog18: What is this? You need a coin!
 NowLV: Level
-
 AnyOrichalcumBar: Any Orichalcum Bar
 AnyEvilBar: Any Evil Bar
 BCBarInfo: Bramble Bar(Hold [mouse middle] to drag)
