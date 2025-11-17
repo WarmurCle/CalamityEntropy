@@ -4548,6 +4548,16 @@ Configs: {
 			Label: 屏幕特效
 			Tooltip: 是否绘制扭曲切屏等特效
 		}
+
+		EnablePixelEffect: {
+			Label: 启用像素特效
+			Tooltip: "是否绘制某些像素化的特效，仅推荐在部分UI无法正常显示时关闭"
+		}
+
+		EnableLoopingSound: {
+			Label: 启用持续性的音效
+			Tooltip: "是否播放某些持续音效，仅推荐在某些武器（过载熔炉等）导致闪退时关闭"
+		}
 	}
 
 	ServerConfig: {

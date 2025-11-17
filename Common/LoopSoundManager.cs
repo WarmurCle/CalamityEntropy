@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common
 {
@@ -50,8 +51,11 @@ namespace CalamityEntropy.Common
             {
                 if (LoopSoundManager.sounds.Count < 5)
                 {
-                    instance.Play();
-                    LoopSoundManager.sounds.Add(this);
+                    if (ModContent.GetInstance<Config>().EnableLoopingSound)
+                    {
+                        instance.Play();
+                        LoopSoundManager.sounds.Add(this);
+                    }
                 }
             }
         }

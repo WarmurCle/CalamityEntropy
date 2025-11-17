@@ -4309,6 +4309,16 @@ Configs: {
 			Label: Screen Effects
 			Tooltip: Do or do not draw the screen wrap and cut screen effect
 		}
+
+		EnablePixelEffect: {
+			Label: Enable Pixel Effect
+			Tooltip: ""
+		}
+
+		EnableLoopingSound: {
+			Label: Enable Looping Sound
+			Tooltip: ""
+		}
 	}
 
 	ServerConfig: {

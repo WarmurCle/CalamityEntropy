@@ -82,55 +82,56 @@ namespace CalamityEntropy.Common
         //----HoCha113 2025-5-6
         private static void CE_EffectHandler(GraphicsDevice graphicsDevice)
         {
-            //初始化
-            InitializeEffectHandler();
+            if (ModContent.GetInstance<Config>().EnablePixelEffect)
+            {
+                //初始化
+                InitializeEffectHandler();
 
-            //绘制初始屏幕
-            DrawInitialScreen(graphicsDevice);
-            //绘制投射物特效
-            DrawProjectileEffects(graphicsDevice);
+                //绘制初始屏幕
+                DrawInitialScreen(graphicsDevice);
+                //绘制投射物特效
+                DrawProjectileEffects(graphicsDevice);
 
-            //绘制粒子效果
-            DrawParticleEffects(graphicsDevice);
+                //绘制粒子效果
+                DrawParticleEffects(graphicsDevice);
 
-            //应用背景着色器
-            ApplyBackgroundShader(graphicsDevice);
+                //应用背景着色器
+                ApplyBackgroundShader(graphicsDevice);
 
-            //深渊类型Shader
-            DrawAbyssalEffect(graphicsDevice);
+                //深渊类型Shader
+                DrawAbyssalEffect(graphicsDevice);
 
-            DrawBloodEffect(graphicsDevice);
+                DrawBloodEffect(graphicsDevice);
 
-            //我也不知道叫啥的特效 虚寂之翼用了
-            DrawRandomEffect(graphicsDevice);
-            //准备像素着色器
-            PreparePixelShader(graphicsDevice);
+                //我也不知道叫啥的特效 虚寂之翼用了
+                DrawRandomEffect(graphicsDevice);
+                //准备像素着色器
+                PreparePixelShader(graphicsDevice);
 
-            //绘制 NPC 和投射物
-            DrawNPCsAndProjectiles(graphicsDevice);
+                //绘制 NPC 和投射物
+                DrawNPCsAndProjectiles(graphicsDevice);
 
-            //应用像素着色器
-            ApplyPixelShader(graphicsDevice);
+                //应用像素着色器
+                ApplyPixelShader(graphicsDevice);
 
-            
+                //绘制玩家和投射物特效
+                DrawPlayerAndProjectileEffects(graphicsDevice);
 
-            //绘制玩家和投射物特效
-            DrawPlayerAndProjectileEffects(graphicsDevice);
+                //绘制切片效果
+                DrawSlashEffects(graphicsDevice);
 
-            //绘制切片效果
-            DrawSlashEffects(graphicsDevice);
+                //应用最终着色器
+                ApplyFinalShader(graphicsDevice);
 
-            //应用最终着色器
-            ApplyFinalShader(graphicsDevice);
+                //处理屏幕切割效果
+                HandleCutScreenEffect(graphicsDevice);
 
-            //处理屏幕切割效果
-            HandleCutScreenEffect(graphicsDevice);
+                //绘制黑色遮罩
+                DrawBlackMask();
 
-            //绘制黑色遮罩
-            DrawBlackMask();
-
-            //旋转屏幕
-            DrawScreenRotation(graphicsDevice);
+                //旋转屏幕
+                DrawScreenRotation(graphicsDevice);
+            }
         }
         public static float ScreenRotAmp = 0;
         private static void DrawScreenRotation(GraphicsDevice graphicsDevice)
@@ -490,9 +491,12 @@ namespace CalamityEntropy.Common
         }
         public static void PreparePixelShader(GraphicsDevice graphicsDevice)
         {
-            DrawInitialScreen(graphicsDevice);
-            graphicsDevice.SetRenderTarget(Screen2);
-            graphicsDevice.Clear(Color.Transparent);
+            if (ModContent.GetInstance<Config>().EnablePixelEffect)
+            {
+                DrawInitialScreen(graphicsDevice);
+                graphicsDevice.SetRenderTarget(Screen2);
+                graphicsDevice.Clear(Color.Transparent);
+            }
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
 
         }
@@ -567,42 +571,45 @@ namespace CalamityEntropy.Common
 
         public static void ApplyPixelShader(GraphicsDevice graphicsDevice, int dye = 0, Entity dyeEnt = null, bool GameZoom = false)
         {
-            graphicsDevice.SetRenderTarget(Screen1);
-            graphicsDevice.Clear(Color.Transparent);
-            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
-            shader.CurrentTechnique = shader.Techniques["Technique1"];
-            shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2() / Main.GameViewMatrix.Zoom);
-            if (GameZoom)
-                shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
-            shader.CurrentTechnique.Passes[0].Apply();
-
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader);
-            Main.spriteBatch.Draw(Screen2, Vector2.Zero, Color.White);
-            Main.spriteBatch.End();
-            graphicsDevice.SetRenderTarget(Main.screenTarget);
-            graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
-
-            Main.spriteBatch.End();
-            Effect dyeShader = null;
-            if (dye != 0)
+            if (ModContent.GetInstance<Config>().EnablePixelEffect)
             {
-                //GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(dye), dyeEnt, new Terraria.DataStructures.DrawData(Screen1, Vector2.Zero, Color.White));
+                graphicsDevice.SetRenderTarget(Screen1);
+                graphicsDevice.Clear(Color.Transparent);
+                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
+                shader.CurrentTechnique = shader.Techniques["Technique1"];
+                shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2() / Main.GameViewMatrix.Zoom);
+                if (GameZoom)
+                    shader.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
+                shader.CurrentTechnique.Passes[0].Apply();
 
-                dyeShader = GameShaders.Armor.GetShaderFromItemId(dye).Shader;
-            }
-            Matrix m = Main.GameViewMatrix.ZoomMatrix;
-            if (GameZoom)
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, m);
-            else
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader);
+                Main.spriteBatch.Draw(Screen2, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+                graphicsDevice.SetRenderTarget(Main.screenTarget);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
 
-            if (dye != 0)
-            {
-                GameShaders.Armor.GetShaderFromItemId(dye).Apply(null, new(Screen1, Vector2.Zero, Color.White));
+                Main.spriteBatch.End();
+                Effect dyeShader = null;
+                if (dye != 0)
+                {
+                    //GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(dye), dyeEnt, new Terraria.DataStructures.DrawData(Screen1, Vector2.Zero, Color.White));
+
+                    dyeShader = GameShaders.Armor.GetShaderFromItemId(dye).Shader;
+                }
+                Matrix m = Main.GameViewMatrix.ZoomMatrix;
+                if (GameZoom)
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, m);
+                else
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null);
+
+                if (dye != 0)
+                {
+                    GameShaders.Armor.GetShaderFromItemId(dye).Apply(null, new(Screen1, Vector2.Zero, Color.White));
+                }
+                Main.spriteBatch.Draw(Screen1, Vector2.Zero, Color.White);
             }
-            Main.spriteBatch.Draw(Screen1, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
 
         }

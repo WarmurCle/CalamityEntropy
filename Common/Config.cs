@@ -44,7 +44,11 @@ namespace CalamityEntropy.Common
         [DefaultValue(false)]
         public bool RepBossMusicReplaceCalamityMusic { get; set; }
 
+        [DefaultValue(true)]
+        public bool EnablePixelEffect { get; set; }
 
+        [DefaultValue(true)]
+        public bool EnableLoopingSound {  get; set; }
 
     }
 }
