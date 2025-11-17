@@ -239,6 +239,12 @@ namespace CalamityEntropy
             }
             if (info.Damage < leastDmg)
                 info.Damage = leastDmg;
+
+            if (self.Entropy().deusCore && info.Damage > 2)
+            {
+                self.Entropy().deusCoreBloodOut += info.Damage - 2;
+                info.Damage = 2;
+            }
             orig(self, info, quiet);
         }
         public static int cbptype = -1;

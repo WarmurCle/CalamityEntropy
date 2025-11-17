@@ -1532,12 +1532,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if (deusCore && info.Damage > 1)
-            {
-                deusCoreBloodOut += info.Damage;
-                deusCoreAdd = info.Damage;
-                info.Damage = 0;
-            }
+
             if (setToOne && !info.Cancelled)
             {
                 if (immune < 40)
