@@ -891,7 +891,7 @@ Items: {
 			'''
 			Transform the damage received into astral erosion, reducing the corresponding health for a period of time
 			The attack can erode and transfer astral erosion to the target, dealing more damage
-			[c/ff0000:However, due to the affliction of a serious illness, you will suffer more damage.]
+			Reduce healing potion's effect by 50%
 			- Death -
 			'''
 	}

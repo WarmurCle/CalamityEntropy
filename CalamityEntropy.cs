@@ -462,6 +462,8 @@ namespace CalamityEntropy
 
         private void player_heal(On_Player.orig_Heal orig, Player self, int amount)
         {
+            if (self.Entropy().deusCore)
+                amount /= 2;
             if (!self.HasBuff<VoidVirus>() && !(EntropyMode && self.Entropy().HitTCounter > 0))
             {
                 orig(self, amount);

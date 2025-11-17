@@ -256,7 +256,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                 float w = 7 * Projectile.scale;
                 int xp = 0;
                 List<ColoredVertex> ve = new List<ColoredVertex>();
-                Color b = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f));
+                Color b = Lighting.GetColor((odp[0] / 16).ToPoint());
                 b = b * Projectile.GetOwner().Entropy().alpha;
                 ve.Add(new ColoredVertex(new Vector2(xp, 0) + odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * w,
                           new Vector3((float)0, 1, 1),
@@ -266,6 +266,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                       b));
                 for (int i = 1; i < odp.Count; i++)
                 {
+                    b = Lighting.GetColor((odp[i] / 16).ToPoint());
                     ve.Add(new ColoredVertex(new Vector2(xp, 0) + odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * w,
                           new Vector3((float)(i + 1) / odp.Count, 1, 1),
                           b));
