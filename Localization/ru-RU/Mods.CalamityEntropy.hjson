@@ -4282,7 +4282,7 @@ Configs: {
 		}
 
 		EnableRetroLighting: {
-			// Label: Allow Retro Lighting
+			// Label: Allow Retro Lighting and allow zero wave quality
 			// Tooltip: If you still want use retro light mode, set this to true. Ensure the Enable Pixel Effect option closed to show UI correct
 		}
 	}
