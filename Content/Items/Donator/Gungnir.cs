@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.damage = 1300;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 16;
+            Item.useAnimation = Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 1f;
             Item.UseSound = SoundID.Item1;

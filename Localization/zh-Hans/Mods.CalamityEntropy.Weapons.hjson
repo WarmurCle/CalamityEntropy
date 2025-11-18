@@ -28,6 +28,11 @@ Rogue: {
 			'''
 	}
 
+	Gods: {
+		// Tooltip: ""
+		// DisplayName: Gods
+	}
+
 	GrandHammer: {
 		DisplayName: 天劫之回轮
 		Tooltip: ""
@@ -69,6 +74,26 @@ Rogue: {
 			潜伏模式下，小型投枪的生成将不再需要以命中作为前置条件
 			[c/DC143C:专注，战斗，取胜]
 			'''
+	}
+
+	Paladin: {
+		// Tooltip: ""
+		// DisplayName: Paladin
+	}
+
+	Lunar: {
+		// Tooltip: ""
+		// DisplayName: Lunar
+	}
+
+	Hallowed: {
+		// Tooltip: ""
+		// DisplayName: Hallowed
+	}
+
+	Final: {
+		// DisplayName: Final
+		// Tooltip: ""
 	}
 }
 

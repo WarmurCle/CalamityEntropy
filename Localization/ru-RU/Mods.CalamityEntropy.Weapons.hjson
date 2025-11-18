@@ -27,6 +27,11 @@ Rogue: {
 			''' */
 	}
 
+	Gods: {
+		// Tooltip: ""
+		// DisplayName: Gods
+	}
+
 	GrandHammer: {
 		// DisplayName: ���֮����
 		// Tooltip: ""
@@ -60,6 +65,26 @@ Rogue: {
 
 	ScarletSpear: {
 		// DisplayName: Scarlet Spear
+		// Tooltip: ""
+	}
+
+	Paladin: {
+		// Tooltip: ""
+		// DisplayName: Paladin
+	}
+
+	Lunar: {
+		// Tooltip: ""
+		// DisplayName: Lunar
+	}
+
+	Hallowed: {
+		// Tooltip: ""
+		// DisplayName: Hallowed
+	}
+
+	Final: {
+		// DisplayName: Final
 		// Tooltip: ""
 	}
 }

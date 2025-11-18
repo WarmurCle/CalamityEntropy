@@ -475,7 +475,6 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                                 }
                                 if (VineType == 1)
                                 {
-                                    Projectile.GetOwner().Entropy().BrambleBarCharge -= 0.2f;
                                 }
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BrambleVine>(), Projectile.damage * 2, 0, Projectile.owner, VineType);
                             }
