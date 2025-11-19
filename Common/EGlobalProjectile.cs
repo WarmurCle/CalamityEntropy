@@ -299,7 +299,7 @@ namespace CalamityEntropy.Common
                 }
                 if (s.Entity is NPC npc)
                 {
-                    if(!npc.friendly && projectile.hostile)
+                    if(!npc.friendly)
                     {
                         Shooter = npc.whoAmI;
                         projectile.netSpam = 0;

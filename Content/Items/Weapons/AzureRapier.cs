@@ -152,7 +152,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.PlaySound("metalhit", 1.4f, player.Center);
             CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
             player.velocity = targetVel - player.velocity;
-            Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center, Vector2.Zero, ModContent.ProjectileType<AzureRapierBlockSlash>(), player.GetWeaponDamage(player.HeldItem), 2, player.whoAmI);
+            Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), targetPos, Vector2.Zero, ModContent.ProjectileType<AzureRapierBlockSlash>(), player.GetWeaponDamage(player.HeldItem), 2, player.whoAmI);
         }
     }
     public class AzureRapierBlockSlash : ModProjectile

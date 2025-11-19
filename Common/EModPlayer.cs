@@ -1430,9 +1430,13 @@ namespace CalamityEntropy.Common
                 {
                     if (ent is NPC)
                         source = ent;
-                    if(ent is Projectile proj && proj.Entropy().Shooter >= 0)
+                    
+                    if(ent is Projectile proj)
                     {
-                        source = proj.Entropy().Shooter.ToNPC();
+                        if (proj.Entropy().Shooter >= 0)
+                        {
+                            source = proj.Entropy().Shooter.ToNPC();
+                        }
                         if (!source.active)
                             source = null;
                     }
