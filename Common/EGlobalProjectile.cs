@@ -259,6 +259,7 @@ namespace CalamityEntropy.Common
                 FirstFrames = false;
         }
         public bool Losted = false;
+        public int Shooter = -1;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             if (Main.gameMenu)
@@ -298,6 +299,12 @@ namespace CalamityEntropy.Common
                 }
                 if (s.Entity is NPC npc)
                 {
+                    if(!npc.friendly && projectile.hostile)
+                    {
+                        Shooter = npc.whoAmI;
+                        projectile.netSpam = 0;
+                        projectile.netUpdate = true;
+                    }
                     ToFriendly = npc.Entropy().ToFriendly;
                     if(CalamityEntropy.EntropyMode)
                     {
@@ -318,6 +325,12 @@ namespace CalamityEntropy.Common
                 }
                 if (s.Entity is Projectile pj)
                 {
+                    Shooter = pj.Entropy().Shooter;
+                    if(Shooter >= 0)
+                    {
+                        projectile.netSpam = 0;
+                        projectile.netUpdate = true;
+                    }
                     ToFriendly = pj.Entropy().ToFriendly;
                     if(pj.Entropy().Losted)
                     {

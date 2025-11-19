@@ -3132,43 +3132,13 @@ Items: {
 		Tooltip: ""
 	}
 
-	GumgumGun: {
-		Tooltip: 형형색색의 껌을 발사합니다
-		DisplayName: 껌껌총
-	}
-
-	CarlosIceCream: {
+	AzureRapier: {
+		DisplayName: Azure Rapier
 		Tooltip:
 			'''
-			웜을 소환합니다
-			『[c/fafad2:Wuppo]』
+			Perform rapid stabbing attacks
+			Right Click to block and counterattack
 			'''
-		DisplayName: 카를로의 아이스크림
-	}
-
-	UhrwerkHammer: {
-		Tooltip: '''"붕괴(崩壞)"'''
-		DisplayName: 케렌슈미츠
-	}
-
-	SilverFramedGlasses: {
-		DisplayName: 은빛 테두리 안경
-		Tooltip: ""
-	}
-
-	"Kitsune'sMask": {
-		Tooltip: ""
-		DisplayName: Kitsune's Mask
-	}
-
-	"Kitsune'sFan": {
-		Tooltip: ""
-		DisplayName: Kitsune's Fan
-	}
-
-	TestItem: {
-		Tooltip: ""
-		DisplayName: 테스트 아이템
 	}
 }
 
@@ -4953,3 +4923,4 @@ AzafureEnhances: {
 }
 
 DeathExplode: "[PlayerName] exploded"
+BlockingCooldown: Blocking Cooldown

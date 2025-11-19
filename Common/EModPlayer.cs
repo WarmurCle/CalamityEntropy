@@ -439,9 +439,11 @@ namespace CalamityEntropy.Common
         public bool SulphurousBubble = false;
         public int SulphurousBubbleRecharge = 3600;
         public int DontDrawTime = 0;
+        public int AzureRapierBlock = 0;
         public int HeatEffectTime = 0;
         public override void ResetEffects()
         {
+            AzureRapierBlock--;
             LifeStealP = 0;
             roaringDye = false;
             fruitCake = false;
@@ -1409,6 +1411,43 @@ namespace CalamityEntropy.Common
         }
         private void EPHurtModifier(ref Player.HurtInfo info)
         {
+            if(AzureRapierBlock > 0)
+            {
+                bool AllBlock = false;
+                if(!Player.HasCooldown(BlockingCooldown.ID))
+                {
+                    info.Cancelled = true;
+                    AllBlock = true;
+                    info.Damage = 0;
+                    immune = 16;
+                }
+                else
+                {
+                    info.Damage = (int)(info.Damage * (Player.Calamity().cooldowns[BlockingCooldown.ID].timeLeft / 600f));
+                }
+                Entity source = null;
+                if(info.DamageSource.TryGetCausingEntity(out Entity ent))
+                {
+                    if (ent is NPC)
+                        source = ent;
+                    if(ent is Projectile proj && proj.Entropy().Shooter >= 0)
+                    {
+                        source = proj.Entropy().Shooter.ToNPC();
+                        if (!source.active)
+                            source = null;
+                    }
+                }
+                if (source == null)
+                    source = CEUtils.FindTarget_HomingProj(Player, Player.Center, 1000);
+                if (source == null)
+                    source = Player;
+                AzureRapierHeld.OnBlock(Player, source.Center, source.velocity);
+                if(AllBlock)
+                {
+                    info.Cancelled = true;
+                    return;
+                }
+            }
             noCsDodge = false;
             if (SCrown)
             {
