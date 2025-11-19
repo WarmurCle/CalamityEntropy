@@ -565,8 +565,32 @@ namespace CalamityEntropy.Common
                 },
                 InterfaceScaleType.UI)
             );
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer(
+                "CalamityEntropy: Dialog UI",
+                delegate
+                {
+                    if (Typer.activeTypers.Count > 0)
+                    {
+                        Typer.activeTypers[0].sound = new Terraria.Audio.SoundStyle($"CalamityMod/Sounds/Custom/Codebreaker/DraedonTalk{Main.rand.Next(1, 4)}");
+
+                        var t = Typer.activeTypers[0];
+                        t.update();
+                        t.draw();
+
+                        if (Typer.activeTypers[0].Finish() && Main.mouseLeft && !MLPrd && !Main.LocalPlayer.mouseInterface)
+                        {
+                            Typer.activeTypers.RemoveAt(0);
+                        }
+                        MLPrd = Main.mouseLeft;
+                    }
+                    return true;
+                },
+                InterfaceScaleType.UI));
+                
             }
         }
+
+        public bool MLPrd = false;
 
         public void DrawVoidChargeBar(SpriteBatch spriteBatch)
         {

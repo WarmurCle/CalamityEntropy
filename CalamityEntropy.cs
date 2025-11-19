@@ -378,6 +378,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            Typer.activeTypers = null;
             ScreenShaker.Unload();
             VanityDisplaySys.VanityItems = null;
             CEUtils.SoundStyles = null;
@@ -1340,6 +1341,7 @@ namespace CalamityEntropy
         public override void PostSetupContent()
         {
             ScreenShaker.Init();
+            Typer.activeTypers = new();
             StartBagGItem.items = new List<int>();
             VanityDisplaySys.SetupVanities();
             for(int i = 0; i < ItemLoader.ItemCount; i++)
