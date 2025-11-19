@@ -289,7 +289,8 @@ namespace CalamityEntropy.Content.Items.Books
             if (ItemLoader.Shoot(bookItem, Projectile.GetOwner(), new Terraria.DataStructures.EntitySource_ItemUse_WithAmmo(Projectile.GetOwner(), bookItem, 0), pos, velocity * ContentSamples.ProjectilesByType[type].MaxUpdates, type, dmg, kb))
             {
                 Projectile proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, shootVel, type, dmg, kb, Projectile.owner).ToProj();
-                proj.penetrate += modifer.PenetrateAddition;
+                if(proj.penetrate >= 0)
+                    proj.penetrate += modifer.PenetrateAddition;
                 proj.CritChance = bookItem.crit + (int)modifer.Crit;
                 proj.scale *= modifer.Size * scaleMul;
                 proj.ArmorPenetration += (int)(Projectile.GetOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration + bookItem.ArmorPenetration);
