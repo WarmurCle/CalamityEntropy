@@ -41,6 +41,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ModContent.RarityType<Soulight>();
             Item.Calamity().devItem = true;
+            Item.ArmorPenetration = 16;
         }
         public override bool AltFunctionUse(Player player)
         {
@@ -106,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             var player = Projectile.GetOwner();
             player.heldProj = Projectile.whoAmI;
-            int MaxTime = (int)(player.itemTimeMax * 2.4f);
+            int MaxTime = (int)(player.itemTimeMax * 1.4f);
             counter++;
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.Center = player.HandPosition.Value;
@@ -152,20 +153,26 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.PlaySound("metalhit", 1.4f, player.Center);
             CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
             player.velocity = targetVel - player.velocity;
-            Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), targetPos, Vector2.Zero, ModContent.ProjectileType<AzureRapierBlockSlash>(), player.GetWeaponDamage(player.HeldItem), 2, player.whoAmI);
+            Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), targetPos, Vector2.Zero, ModContent.ProjectileType<AzureRapierBlockSlash>(), player.GetWeaponDamage(player.HeldItem) * 2 + 1, 2, player.whoAmI);
         }
     }
     public class AzureRapierBlockSlash : ModProjectile
     {
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if(target.type != NPCID.WallofFlesh)
+                target.velocity *= 0.24f;
+        }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/AzureRapier";
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(ModContent.GetInstance<TrueMeleeDamageClass>(), false, -1);
             Projectile.timeLeft = 60;
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.localNPCHitCooldown = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.width = 700;
             Projectile.height = 400;
+            Projectile.ArmorPenetration += 60;
         }
         public int counter = 0;
         public Vector2 plrPos = Vector2.Zero;
@@ -176,6 +183,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             var player = Projectile.GetOwner();
+            if (player.dead)
+                Projectile.Kill();
             counter++;
             if(counter == 2)
             {
@@ -235,8 +244,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), Color.Aqua));
-                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * -Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), Color.Aqua));
+                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), Color.Aqua));
+                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * -Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), Color.Aqua));
                 }
             }
             player.Entropy().AzureRapierBlock = 2;
