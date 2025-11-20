@@ -38,7 +38,9 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             this.Opacity = this.Lifetime / (float)this.TimeLeftMax;
+            Opacity *= alpha;
         }
+        public float alpha = 1;
         public Player clone = null;
         public override void Draw()
         {

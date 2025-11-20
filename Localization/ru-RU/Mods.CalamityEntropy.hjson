@@ -3165,6 +3165,11 @@ Items: {
 			Right Click to block and counterattack
 			''' */
 	}
+
+	FetalDream: {
+		// DisplayName: Fetal Dream
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3690,11 +3695,7 @@ Projectiles: {
 	// AzafureCogflyMinion.DisplayName: Azafure Cogfly Minion
 	// GungnirThrow.DisplayName: Gungnir Throw
 	// Sorensen.DisplayName: Sorensen
-	// GrandSlamProj.DisplayName: Grand Slam Proj
-	// HexVertex.DisplayName: Hex Vertex
-	// HexController.DisplayName: Hex Controller
-	// GumProj.DisplayName: Gum Proj
-	// WuppoPet.DisplayName: Wuppo Pet
+	// FetalDreamSlash.DisplayName: Fetal Dream Slash
 }
 
 LegendTooltip: - Легенда -
@@ -4020,9 +4021,9 @@ Buffs: {
 		// Description: ""
 	}
 
-	WumBuff: {
-		// Description: 웜이 당신을 따라다닙니다
-		// DisplayName: 웜
+	Koishi: {
+		// DisplayName: Koishi
+		// Description: ""
 	}
 }
 
@@ -4119,8 +4120,6 @@ NPCs: {
 	Harpoon.DisplayName: Гарпун
 	// SpiritFountain.DisplayName: Spirit Fountain
 	// SpiritRing.DisplayName: Spirit Ring
-	// TrasherFriendly.DisplayName: 우호적인 파괴자
-	// WulfrumHovercraftFriendly.DisplayName: 우호적인 울프럼 호버크래프트
 }
 
 WyrmChatNoHome: Куда мы идем теперь?
@@ -4321,31 +4320,11 @@ Configs: {
 			// Label: Allow Retro Lighting and allow zero wave quality
 			// Tooltip: If you still want use retro light mode, set this to true. Ensure the Enable Pixel Effect option closed to show UI correct
 		}
-
-		CraftArmorWithPrefixChance: {
-			// Tooltip: ""
-			// Label: 갑옷을 제작할 때 접두사가 붙을 확률을 가집니다
-		}
-
-		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			// Tooltip: ""
-			// Label: 마리비니움 갑옷 세트가 로그 무기를 들고 있을 때만 스텔스 미터를 제공
-		}
 	}
 
 	ServerConfig: {
 		DisplayName: Конфигурация сервера
 		Headers.Misc: Другой заголовок
-
-		CraftArmorWithPrefixChance: {
-			Label: Создать броню с шансом префикса
-			Tooltip: ""
-		}
-
-		EnableSethomeCommand: {
-			Label: Включить команду sethome
-			Tooltip: ""
-		}
 
 		LoreSpecialEffect: {
 			Label: Специальный эффект историй
@@ -4936,3 +4915,4 @@ AzafureEnhances: {
 
 // DeathExplode: "[PlayerName] exploded"
 // BlockingCooldown: Blocking Cooldown
+// FetalDreamCooldown: Fetal Dream Cooldown

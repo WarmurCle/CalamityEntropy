@@ -3407,6 +3407,11 @@ Items: {
 			格挡有10秒冷却时间，在此期间你依然可以使用格挡但不能挡下全部伤害
 			'''
 	}
+
+	FetalDream: {
+		DisplayName: 胎儿之梦
+		Tooltip: 传送到目标身后并刺向目标，降低目标的伤害减免并为你提供增伤
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3929,11 +3934,7 @@ Projectiles: {
 	AzafureCogflyMinion.DisplayName: 阿萨福勒齿轮蜂
 	GungnirThrow.DisplayName: 冈格尼尔
 	Sorensen.DisplayName: 索伦森
-	// GrandSlamProj.DisplayName: Grand Slam Proj
-	// HexVertex.DisplayName: Hex Vertex
-	// HexController.DisplayName: Hex Controller
-	// GumProj.DisplayName: Gum Proj
-	// WuppoPet.DisplayName: Wuppo Pet
+	FetalDreamSlash.DisplayName: Fetal Dream Slash
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4259,9 +4260,9 @@ Buffs: {
 		Description: ""
 	}
 
-	WumBuff: {
-		// Description: 웜이 당신을 따라다닙니다
-		// DisplayName: 웜
+	Koishi: {
+		DisplayName: 本我的解放
+		Description: ""
 	}
 }
 
@@ -4358,8 +4359,6 @@ NPCs: {
 	Harpoon.DisplayName: 叉矛
 	SpiritFountain.DisplayName: 冥魂泉
 	SpiritRing.DisplayName: 冥魂泉
-	// TrasherFriendly.DisplayName: 우호적인 파괴자
-	// WulfrumHovercraftFriendly.DisplayName: 우호적인 울프럼 호버크래프트
 }
 
 WyrmChatNoHome: 我们现在要去哪？
@@ -4557,31 +4556,11 @@ Configs: {
 			Label: 允许复古照明模式和关闭水波
 			Tooltip: 如果你任然想使用复古照明并关闭水波质量模式，开启此选项。确保你同时关闭了[启用像素特效]选项，否则由于Bug，UI可能不会正常显示
 		}
-
-		CraftArmorWithPrefixChance: {
-			// Tooltip: ""
-			// Label: 갑옷을 제작할 때 접두사가 붙을 확률을 가집니다
-		}
-
-		MariviniumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			// Tooltip: ""
-			// Label: 마리비니움 갑옷 세트가 로그 무기를 들고 있을 때만 스텔스 미터를 제공
-		}
 	}
 
 	ServerConfig: {
 		DisplayName: 模组配置
 		Headers.Misc: 杂项
-
-		CraftArmorWithPrefixChance: {
-			Label: 合成带有词缀的盔甲的概率
-			Tooltip: ""
-		}
-
-		EnableSethomeCommand: {
-			Label: 允许sethome和home指令
-			Tooltip: ""
-		}
 
 		LoreSpecialEffect: {
 			Label: 传颂之物特殊效果
@@ -5144,3 +5123,4 @@ AzafureEnhances: {
 
 DeathExplode: "[PlayerName]爆炸了"
 BlockingCooldown: 招架冷却
+FetalDreamCooldown: 胎儿之梦冷却

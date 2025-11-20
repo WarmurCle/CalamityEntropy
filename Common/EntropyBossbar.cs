@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.NPCs;
+﻿using CalamityEntropy.Content.ILEditing;
+using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.SpiritFountain;
 using CalamityMod;
@@ -270,7 +271,7 @@ namespace CalamityEntropy.Common
             statDrawPos.X += 105 + 45 + 4 + 146;
 
             Main.spriteBatch.Draw(df, statDrawPos, null, Color.White, 0, df.Size() / 2, 1, SpriteEffects.None, 0);
-            dstring = npc.defense.ToString() + "(-" + (int)(npc.Calamity().DR * 100f) + "%)";
+            dstring = npc.defense.ToString() + "(-" + (int)(npc.Calamity().DR * EModILEdit.GetNPCDRMultiply(npc) * 100f) + "%)";
             Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.44f, SpriteEffects.None, 0);
 
             statDrawPos.X += 70 + 33;

@@ -1,10 +1,15 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
+using CalamityMod.Events;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.NPCs;
+using CalamityMod.NPCs.Providence;
+using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Melee;
@@ -18,7 +23,6 @@ using Microsoft.Xna.Framework.Input;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
-
 using ReLogic.Content;
 using System;
 using System.Collections.Concurrent;
@@ -134,10 +138,42 @@ namespace CalamityEntropy.Content.ILEditing
             {
                 EModHooks.Add(NPC_Get_Name, On_NPC_Get_Hook);
             }
+            var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
+            EModHooks.Add(ApplyDRMethod, apply_dr_hook);
+            if (ApplyDRMethod != null)
+            {
+            }
 
             StoreForbiddenArchivePositionHook.LoadHook();
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
+        }
+        public delegate void ApplyDRDelegate(CalamityGlobalNPC self, NPC npc, ref NPC.HitModifiers modifer);
+        public static void apply_dr_hook(ApplyDRDelegate orig, CalamityGlobalNPC self, NPC npc, ref NPC.HitModifiers modifer)
+        {
+            orig(self, npc, ref modifer);
+            NPC.HitModifiers dummy = new NPC.HitModifiers();
+            dummy.FinalDamage = new StatModifier(0, 1);
+            orig(self, npc, ref dummy);
+            float NowDR = dummy.FinalDamage.Multiplicative;
+            float mult = GetNPCDRMultiply(npc);
+
+            //修改伤害减免
+            if (mult != 1)
+            {
+                float DRShouldApply = 1 - (1 - NowDR) * mult;
+                modifer.FinalDamage /= NowDR;
+                modifer.FinalDamage *= DRShouldApply;
+            }
+        }
+        public static float GetNPCDRMultiply(NPC npc)
+        {
+            float mult = 1;
+
+            if (npc.HasBuff<Koishi>())
+                mult *= 0.8f;
+
+            return mult;
         }
         public delegate string On_GetNPCName_get_Delegate(NPC npc);
         public static List<int> LostNPCsEntropy = new() { 454, 455, 456, 457, 458, 459, 521 };
