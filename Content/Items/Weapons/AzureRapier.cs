@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.scale = 2f;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.damage = 9;
+            Item.damage = 12;
             Item.knockBack = 4;
             Item.crit = 6;
             Item.shoot = ModContent.ProjectileType<AzureRapierHeld>();
@@ -108,10 +108,13 @@ namespace CalamityEntropy.Content.Items.Weapons
             var player = Projectile.GetOwner();
             player.heldProj = Projectile.whoAmI;
             int MaxTime = (int)(player.itemTimeMax * 1.4f);
+            if (MaxTime < 5)
+                MaxTime = 5;
             counter++;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.Center = player.HandPosition.Value;
-            Projectile.Center += Projectile.rotation.ToRotationVector2() * (CEUtils.Parabola((float)counter / MaxTime, 60 * player.HeldItem.scale) - 16);
+            player.SetHandRot(Projectile.rotation, (Player.CompositeArmStretchAmount)(Main.rand.Next(0, 3)));
+            Projectile.Center = player.GetFrontHandPositionImproved(player.compositeFrontArm);
+            Projectile.Center += Projectile.rotation.ToRotationVector2() * (CEUtils.Parabola((float)counter / MaxTime, 22 * player.HeldItem.scale) - 16);
             if(counter >= MaxTime)
             {
                 Projectile.timeLeft = 0;
@@ -130,13 +133,15 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             var player = Projectile.GetOwner();
             int MaxTime = (int)(player.itemTimeMax * 1.4f);
+            if (MaxTime < 5)
+                MaxTime = 5;
             Texture2D tex = Projectile.GetTexture();
             Texture2D glow = CEUtils.getExtraTex("SpearArrowGlow2");
-            float alpha = CEUtils.Parabola((float)counter / MaxTime, 1);
+            float alpha = 1 - ((float)counter / MaxTime);
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4, new Vector2(4, tex.Height - 4), Projectile.scale, SpriteEffects.None);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 50, null, Color.Aqua, Projectile.rotation, new Vector2(0, glow.Height / 2), new Vector2(0.7f, 0.16f) * Projectile.scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 50, null, Color.White, Projectile.rotation, new Vector2(0, glow.Height / 2), new Vector2(0.7f, 0.1f) * Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 50, null, Color.Aqua * alpha, Projectile.rotation, new Vector2(0, glow.Height / 2), new Vector2(0.7f, 0.2f * alpha) * Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 50, null, Color.White * alpha, Projectile.rotation, new Vector2(0, glow.Height / 2), new Vector2(0.7f, 0.1f * alpha) * Projectile.scale, SpriteEffects.None, 0);
 
             Main.spriteBatch.ExitShaderRegion();
             return false;
@@ -248,8 +253,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), Color.Aqua));
-                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * -Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), Color.Aqua));
+                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), new Color(240, 240, 255)));
+                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * -Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), new Color(240, 240, 255)));
                 }
             }
             player.Entropy().AzureRapierBlock = 2;
@@ -266,8 +271,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D glow = CEUtils.RequestTex("CalamityEntropy/Content/Particles/ThinEndedLine");
-            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, Color.Aqua * TAlpha * 2, Projectile.rotation + MathHelper.PiOver2, glow.Size() / 2f, new Vector2(1.2f, TScale), SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, Color.White * TAlpha * 2, Projectile.rotation + MathHelper.PiOver2, glow.Size() / 2f, new Vector2(0.8f, TScale), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, Color.Aqua * TAlpha * 2, Projectile.rotation + MathHelper.PiOver2, glow.Size() / 2f, new Vector2(1f, TScale), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, Color.White * TAlpha * 2, Projectile.rotation + MathHelper.PiOver2, glow.Size() / 2f, new Vector2(0.75f, TScale), SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }

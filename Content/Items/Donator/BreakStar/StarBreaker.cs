@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                     player.channel = true;
                 }
             }
-            if(player.HeldItem.ModItem is StarBreaker)
+            if(!player.dead && player.HeldItem.ModItem is StarBreaker)
             {
                 Projectile.timeLeft = 2;
             }

@@ -312,6 +312,19 @@ namespace CalamityEntropy
                 owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, r - (float)(Math.PI * 0.5f));
             }
         }
+        public static void SetHandRot(this Player owner, float r, Player.CompositeArmStretchAmount stretch)
+        {
+            if (r.ToRotationVector2().X > 0)
+            {
+                owner.direction = 1;
+                owner.SetCompositeArmFront(true, stretch, r - (float)(Math.PI * 0.5f));
+            }
+            else
+            {
+                owner.direction = -1;
+                owner.SetCompositeArmFront(true, stretch, r - (float)(Math.PI * 0.5f));
+            }
+        }
         public static void SetHandRotWithDir(this Player owner, float r, int dir)
         {
             owner.direction = dir;
