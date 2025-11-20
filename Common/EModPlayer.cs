@@ -3023,6 +3023,13 @@ namespace CalamityEntropy.Common
 
                 }
             }
+            if(Player.Calamity().ZoneAbyssLayer4)
+            {
+                if(attempt.rare && Main.rand.NextBool(8))
+                {
+                    itemDrop = ModContent.ItemType<FetalDream>();
+                }
+            }
         }
 
         public override void Initialize()

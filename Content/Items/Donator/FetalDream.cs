@@ -17,8 +17,6 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.GameContent.Animations.IL_Actions.Sprites;
-using static Terraria.GameContent.Bestiary.IL_BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
@@ -28,6 +26,14 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient(ItemID.StoneBlock)
+                .AddIngredient(ItemID.BlackLens, 5)
+                .AddIngredient<BloodOrb>(9)
+                .AddIngredient<BloodstoneCore>(6)
+                .AddCondition(Condition.BloodMoon)
+                .AddCondition(Condition.NearWater)
+                .Register();
         }
 
         public override void SetDefaults()
@@ -47,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.rare = ItemRarityID.Blue;
             Item.shoot = ModContent.ProjectileType<FetalDreamSlash>();
             Item.shootSpeed = 16;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.Default;
         }
     }
     public class FetalDreamSlash : ModProjectile
