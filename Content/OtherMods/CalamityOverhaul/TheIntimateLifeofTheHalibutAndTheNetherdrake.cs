@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.OtherMods.CalamityOverhaul
 {
-    [ExtendsFromMod("CalamityOverhaul")]
+    /*[ExtendsFromMod("CalamityOverhaul")]
     [JITWhenModsEnabled("CalamityOverhaul")]
     internal class TheIntimateLifeofTheHalibutAndTheNetherdrake : ADVScenarioBase, ILocalizedModType
     {
@@ -13,10 +13,10 @@ namespace CalamityEntropy.Content.OtherMods.CalamityOverhaul
         }
 
         protected override void Build() {
-            DialogueBoxBase.RegisterPortrait("比目鱼", ADVAsset.HelenADV);
+            *//*DialogueBoxBase.RegisterPortrait("比目鱼", ADVAsset.HelenADV);
             DialogueBoxBase.RegisterPortrait("始源妖龙", ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/PrimordialWyrmNPC_Head").Value);
             Add("比目鱼", "XXXXXXXXXXXXXXX");
-            Add("始源妖龙", "XXXXXXXXXXXXXXX");
+            Add("始源妖龙", "XXXXXXXXXXXXXXX");*//*
         }
 
         public static void StartThis() {
@@ -24,5 +24,5 @@ namespace CalamityEntropy.Content.OtherMods.CalamityOverhaul
                 ScenarioManager.Start<TheIntimateLifeofTheHalibutAndTheNetherdrake>();
             }
         }
-    }
+    }*/
 }
