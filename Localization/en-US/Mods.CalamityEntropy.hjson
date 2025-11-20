@@ -3137,6 +3137,7 @@ Items: {
 			'''
 			Perform rapid stabbing attacks
 			Right Click to block and counterattack
+			Has a chance to apply debuff with each hit
 			'''
 	}
 

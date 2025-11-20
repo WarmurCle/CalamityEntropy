@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables;
@@ -93,6 +94,17 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(1.2f, 1.6f), target.Center);
+            if(Main.rand.NextBool(10))
+                target.AddBuff<Eutrophication>(6 * 60);
+
+            if (Main.rand.NextBool(10))
+                target.AddBuff<ArmorCrunch>(6 * 60);
+
+            if (Main.rand.NextBool(10))
+                target.AddBuff<Crumbling>(6 * 60);
+
+            if (Main.rand.NextBool(10))
+                target.AddBuff(BuffID.Bleeding, 6 * 60);
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
