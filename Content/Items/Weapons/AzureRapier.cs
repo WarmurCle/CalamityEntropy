@@ -97,20 +97,20 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(1.2f, 1.6f), target.Center);
             if(Main.rand.NextBool(6))
-                target.AddBuff<Eutrophication>(6 * 60);
+                target.AddBuff<Eutrophication>(12 * 60);
 
             if (Main.rand.NextBool(6))
-                target.AddBuff<ArmorCrunch>(6 * 60);
+                target.AddBuff<ArmorCrunch>(12 * 60);
 
             if (Main.rand.NextBool(6))
-                target.AddBuff<Crumbling>(6 * 60);
+                target.AddBuff<Crumbling>(10 * 60);
 
             if (Main.rand.NextBool(6))
-                target.AddBuff(BuffID.Bleeding, 6 * 60);
+                target.AddBuff(BuffID.Bleeding, 16 * 60);
 
 
             if (Main.rand.NextBool(6))
-                target.AddBuff<RiptideDebuff>(6 * 60);
+                target.AddBuff<RiptideDebuff>(10 * 60);
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
