@@ -821,22 +821,20 @@ namespace CalamityEntropy.Common
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.GelBalloonBuff].Value);
                     if (npc.markedByScytheWhip) // Dark Harvest whip, the only Whip debuff that has an NPC bool
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.ScytheWhipEnemyDebuff].Value);
-                    if (npc.HasBuff<VoidVirus>())
+
+                    void AddBuffDraw<T>() where T : ModBuff
                     {
-                        currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<VoidVirus>()].Value);
+                        if (npc.HasBuff<T>())
+                        {
+                            currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<T>()].Value);
+                        }
                     }
-                    if (npc.HasBuff<Deceive>())
-                    {
-                        currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<Deceive>()].Value);
-                    }
-                    if (npc.HasBuff<SoulDisorder>())
-                    {
-                        currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<SoulDisorder>()].Value);
-                    }
-                    if (npc.HasBuff<HeatDeath>())
-                    {
-                        currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<HeatDeath>()].Value);
-                    }
+                    AddBuffDraw<VoidVirus>();
+                    AddBuffDraw<Deceive>();
+                    AddBuffDraw<SoulDisorder>();
+                    AddBuffDraw<HeatDeath>();
+                    AddBuffDraw<Koishi>();
+                    
                     if (npc.GetGlobalNPC<ScorpioEffectNPC>().effectLevel > 0)
                     {
                         currentDebuffs.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Buffs/AstralScorpionPoisonous").Value);
