@@ -120,7 +120,11 @@ Items: {
 
 			LunarPlank: {
 				DisplayName: Lunar Plank
-				Tooltip: ""
+				Tooltip: 
+				'''
+				Throw a lunar plank to hit enemies
+				Steal strikes will cause a pulse and release some homing lunar arrows
+				'''
 			}
 
 			AzafureSurgeRod: {
@@ -3071,11 +3075,6 @@ Items: {
 
 	AzafureHeavyLeggings: {
 		DisplayName: Azafure Heavy Leggings
-		Tooltip: ""
-	}
-
-	GrandHammer: {
-		DisplayName: Grand Hammer
 		Tooltip: ""
 	}
 

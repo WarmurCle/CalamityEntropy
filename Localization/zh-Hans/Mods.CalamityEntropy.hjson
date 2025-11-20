@@ -129,7 +129,11 @@ Items: {
 
 			LunarPlank: {
 				DisplayName: 幻光石板
-				Tooltip: ""
+				Tooltip: 
+				'''
+				扔出并砸向你的敌人
+				潜伏攻击会造成范围伤害并释放几发追踪幻光矢
+				'''
 			}
 
 			AzafureSurgeRod: {
@@ -3083,7 +3087,7 @@ Items: {
 
 	MiracleWreckage: {
 		DisplayName: 神迹残骸
-		Tooltip: ""
+		Tooltip: "用奇迹之火延长剑刃并挥舞"
 	}
 
 	TheocracyMark: {
@@ -3287,8 +3291,8 @@ Items: {
 		DisplayName: 消逝符石
 		Tooltip:
 			'''
-			不属于这个世界的神秘造物，其质量之大仿佛能让时空扭曲
-			有那么一瞬间，你似乎感觉不到自己的存在了
+			浓缩着巨量未知能量的石板，质量出奇的大
+			“有那么一瞬间，你似乎感觉不到自己的存在了”
 			'''
 	}
 
@@ -3333,11 +3337,6 @@ Items: {
 
 	AzafureHeavyLeggings: {
 		DisplayName: 阿萨福勒重型腿甲
-		Tooltip: ""
-	}
-
-	GrandHammer: {
-		DisplayName: 天劫之回轮
 		Tooltip: ""
 	}
 
