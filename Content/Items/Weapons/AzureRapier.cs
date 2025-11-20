@@ -147,13 +147,17 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public static void OnBlock(Player player, Vector2 targetPos, Vector2 targetVel)
         {
-            player.AddCooldown(BlockingCooldown.ID, 600);
-            CEUtils.PlaySound("metalhit", 1.4f, player.Center);
-            CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
-            CEUtils.PlaySound("metalhit", 1.4f, player.Center);
-            CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
-            player.velocity = targetVel - player.velocity;
-            Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), targetPos, Vector2.Zero, ModContent.ProjectileType<AzureRapierBlockSlash>(), player.GetWeaponDamage(player.HeldItem) * 2 + 1, 2, player.whoAmI);
+            int pjtype = ModContent.ProjectileType<AzureRapierBlockSlash>();
+            if (player.ownedProjectileCounts[pjtype] < 1)
+            {
+                player.AddCooldown(BlockingCooldown.ID, 600);
+                CEUtils.PlaySound("metalhit", 1.4f, player.Center);
+                CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
+                CEUtils.PlaySound("metalhit", 1.4f, player.Center);
+                CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
+                player.velocity = targetVel - player.velocity;
+                Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), targetPos, Vector2.Zero, pjtype, player.GetWeaponDamage(player.HeldItem) * 2 + 1, 2, player.whoAmI);
+            }
         }
     }
     public class AzureRapierBlockSlash : ModProjectile
