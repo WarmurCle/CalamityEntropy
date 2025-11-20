@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -109,7 +110,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
 
             if (Main.rand.NextBool(6))
-                target.AddBuff<Riptide>(6 * 60);
+                target.AddBuff<RiptideDebuff>(6 * 60);
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
