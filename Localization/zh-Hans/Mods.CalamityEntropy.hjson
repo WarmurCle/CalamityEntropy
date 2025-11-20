@@ -129,11 +129,11 @@ Items: {
 
 			LunarPlank: {
 				DisplayName: 幻光石板
-				Tooltip: 
-				'''
-				扔出并砸向你的敌人
-				潜伏攻击会造成范围伤害并释放几发追踪幻光矢
-				'''
+				Tooltip:
+					'''
+					扔出并砸向你的敌人
+					潜伏攻击会造成范围伤害并释放几发追踪幻光矢
+					'''
 			}
 
 			AzafureSurgeRod: {
@@ -3087,7 +3087,7 @@ Items: {
 
 	MiracleWreckage: {
 		DisplayName: 神迹残骸
-		Tooltip: "用奇迹之火延长剑刃并挥舞"
+		Tooltip: 用奇迹之火延长剑刃并挥舞
 	}
 
 	TheocracyMark: {

@@ -3099,11 +3099,6 @@ Items: {
 		// Tooltip: ""
 	}
 
-	GrandHammer: {
-		// DisplayName: Grand Hammer
-		// Tooltip: ""
-	}
-
 	BookmarkHammer: {
 		// DisplayName: Bookmark Hammer
 		// Tooltip: Summon a hammer fight for you

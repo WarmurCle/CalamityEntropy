@@ -120,11 +120,11 @@ Items: {
 
 			LunarPlank: {
 				DisplayName: Lunar Plank
-				Tooltip: 
-				'''
-				Throw a lunar plank to hit enemies
-				Steal strikes will cause a pulse and release some homing lunar arrows
-				'''
+				Tooltip:
+					'''
+					Throw a lunar plank to hit enemies
+					Steal strikes will cause a pulse and release some homing lunar arrows
+					'''
 			}
 
 			AzafureSurgeRod: {
