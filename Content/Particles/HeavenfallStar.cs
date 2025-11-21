@@ -36,21 +36,39 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => CEUtils.getExtraTex("StarTexture_White");
         public Color InitialColor;
         public Vector2 drawScale = Vector2.One;
+        public bool Inverse = false;
+        public float InitialScale = 1;
         public override void OnSpawn()
         {
             InitialColor = Color;
+            InitialScale = Scale;
         }
+        private float orgScale = -1;
         public override void AI()
         {
+            if (orgScale == -1)
+            {
+                orgScale = Scale;
+                Scale = 0;
+            }
             base.AI();
-            Scale *= 0.92f;
             float LifetimeCompletion = 1 - ((float)Lifetime / TimeLeftMax);
-            Color = Color.Lerp(InitialColor, Color.Transparent, (float)Math.Pow(LifetimeCompletion, 3D));
+            if (Inverse)
+            {
+                Scale += Lifetime * orgScale * 0.002f;
+                Color = InitialColor * ((float)Lifetime / TimeLeftMax);
+            }
+            else
+            {
+                Scale = InitialScale * (1-LifetimeCompletion);
+                Color = Color.Lerp(InitialColor, Color.Transparent, (float)Math.Pow(LifetimeCompletion, 3D));
+            }
             Velocity *= 0.92f;
         }
         public override void Draw()
         {
             Vector2 scaled = drawScale * Scale;
+
             SpriteBatch spriteBatch = Main.spriteBatch;
             spriteBatch.Draw(Texture, Position - Main.screenPosition, null, Color
                 , Rotation + MathHelper.PiOver2, Texture.Size() * 0.5f, scaled, 0, 0f);
