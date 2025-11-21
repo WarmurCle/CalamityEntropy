@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,12 +8,12 @@ namespace CalamityEntropy.Content.Items
 {
     public class CDRemove : ModItem
     {
-
+        public float CooldownReduce = 0;
         public override void SetDefaults()
         {
             Item.maxStack = 1;
-            Item.width = 30;
-            Item.height = 30;
+            Item.width = 44;
+            Item.height = 44;
             Item.rare = ItemRarityID.Master;
             Item.useTime = Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
@@ -27,6 +28,31 @@ namespace CalamityEntropy.Content.Items
         {
             player.Calamity().cooldowns.Clear();
             return true;
+        }
+
+        public override bool CanRightClick()
+        {
+            return true;
+        }
+        public override void RightClick(Player player)
+        {
+            CooldownReduce -= 0.25f;
+            if(CooldownReduce < 0)
+            {
+                CooldownReduce = 1;
+            }
+        }
+        public override bool ConsumeItem(Player player)
+        {
+            return false;
+        }
+        public override void UpdateInventory(Player player)
+        {
+            player.Entropy().CooldownTimeMult = (1 - CooldownReduce);
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Replace("[R]", CooldownReduce.ToPercent().ToString());
         }
     }
 }

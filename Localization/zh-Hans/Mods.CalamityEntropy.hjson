@@ -2804,7 +2804,12 @@ Items: {
 
 	CDRemove: {
 		DisplayName: 测试物品-移除所有冷却
-		Tooltip: ""
+		Tooltip:
+			'''
+			左键移除所有冷却
+			在背包右键设置冷却倍率
+			当前：-[R]%冷却时间
+			'''
 	}
 
 	TheReplicaofThePen: {
@@ -3412,6 +3417,11 @@ Items: {
 		DisplayName: 胎儿之梦
 		Tooltip: 传送到目标身后并刺向目标，额外造成目标最大生命值5.14%的伤害，同时降低目标的伤害减免并为你提供增伤
 	}
+
+	DustCarver: {
+		// DisplayName: Dust Carver
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3935,6 +3945,7 @@ Projectiles: {
 	GungnirThrow.DisplayName: 冈格尼尔
 	Sorensen.DisplayName: 索伦森
 	FetalDreamSlash.DisplayName: Fetal Dream Slash
+	// DustCarverHeld.DisplayName: Dust Carver Held
 }
 
 LegendTooltip: - 传奇物品 -

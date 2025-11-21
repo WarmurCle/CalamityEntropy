@@ -3158,11 +3158,17 @@ Items: {
 			'''
 			Perform rapid stabbing attacks
 			Right Click to block and counterattack
+			Has a chance to apply debuff with each hit
 			''' */
 	}
 
 	FetalDream: {
 		// DisplayName: Fetal Dream
+		// Tooltip: ""
+	}
+
+	DustCarver: {
+		// DisplayName: Dust Carver
 		// Tooltip: ""
 	}
 }
@@ -3691,6 +3697,7 @@ Projectiles: {
 	// GungnirThrow.DisplayName: Gungnir Throw
 	// Sorensen.DisplayName: Sorensen
 	// FetalDreamSlash.DisplayName: Fetal Dream Slash
+	// DustCarverHeld.DisplayName: Dust Carver Held
 }
 
 LegendTooltip: - Легенда -

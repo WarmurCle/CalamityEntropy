@@ -15,6 +15,7 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.CrystalBalls;
+using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
@@ -1266,6 +1267,62 @@ namespace CalamityEntropy.Common
                     sb.End();
                     sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
 
+                    return false;
+                }
+                if (item.ModItem != null && item.ModItem is DustCarver)
+                {
+                    float xa = 0; var font = FontAssets.MouseText.Value;
+                    float h = 0;
+                    for (int i = 0; i < line.Text.Length; i++)
+                    {
+                        string text = line.Text[i].ToString();
+
+                        Vector2 size = font.MeasureString(text);
+                        if (size.Y > h)
+                        {
+                            h = size.Y;
+                        }
+                        xa += size.X;
+
+                    }
+                    SpriteBatch sb = Main.spriteBatch;
+                    sb.End();
+                    sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+                    Texture2D glow = CEUtils.getExtraTex("Glow");
+                    sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(255, 0, 0) * 0.8f, 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.34f), SpriteEffects.None, 0);
+                    sb.End();
+                    sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+                    xa = 0;
+                    h = 0;
+                    for (int i = 0; i < line.Text.Length; i++)
+                    {
+                        string text = line.Text[i].ToString();
+
+                        Vector2 size = font.MeasureString(text);
+                        float yofs;
+                        if (size.Y > h)
+                        {
+                            h = size.Y;
+                        }
+                        Color color = new Color(0, 0, 0);
+                        yofs = 0;
+                        Color strokeColord = new Color(255, 0, 0);
+
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(0, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+
+
+                        Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs), color);
+
+                        xa += size.X;
+
+                    }
                     return false;
                 }
                 if (item.rare == ModContent.RarityType<Golden>())

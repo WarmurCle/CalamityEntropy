@@ -2553,7 +2553,11 @@ Items: {
 
 	CDRemove: {
 		DisplayName: Test Item - Remove All Cooldowns
-		Tooltip: ""
+		Tooltip:
+			'''
+			Right click in inventory to set cooldown time multiplier
+			Current: Reduce [R]% Cooldown time
+			'''
 	}
 
 	TheReplicaofThePen: {
@@ -3145,6 +3149,11 @@ Items: {
 		DisplayName: Fetal Dream
 		Tooltip: ""
 	}
+
+	DustCarver: {
+		DisplayName: Dust Carver
+		Tooltip: ""
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3685,6 +3694,7 @@ Projectiles: {
 	GungnirThrow.DisplayName: Gungnir Throw
 	Sorensen.DisplayName: Sorensen
 	FetalDreamSlash.DisplayName: Fetal Dream Slash
+	DustCarverHeld.DisplayName: Dust Carver Held
 }
 
 LegendTooltip: - Legend -
