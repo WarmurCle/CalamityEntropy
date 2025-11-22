@@ -134,19 +134,16 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
 
                     EParticle.NewParticle(new ShockParticle(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.NonPremultiplied, CEUtils.randomRot());
                 }
-                if (Player.whoAmI == Main.myPlayer)
+                if(DeathExplosion == 0 || DeathExplosion == 6 || DeathExplosion == 12)
                 {
-                    if (DeathExplosion == 0 || DeathExplosion == 6 || DeathExplosion == 12)
-                    {
-                        CEUtils.PlaySound("pulseBlast", 0.6f, Player.Center, 6, 1f);
-                        CEUtils.PlaySound("blackholeEnd", 0.6f, Player.Center, 6, 1f);
-
-                        GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, Color.Firebrick, 0.1f, 9f, 8));
-                        EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 16f, 1, true, BlendState.Additive, 0, 16);
-                        EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 14f, 1, true, BlendState.Additive, 0, 16);
-                        ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 100));
-                        CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, 450, 800, DamageClass.Generic);
-                    }
+                    CEUtils.PlaySound("pulseBlast", 0.6f, Player.Center, 6, 1f);
+                    CEUtils.PlaySound("blackholeEnd", 0.6f, Player.Center, 6, 1f);
+                    
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, Color.Firebrick, 0.1f, 9f, 8));
+                    EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 16f, 1, true, BlendState.Additive, 0, 16);
+                    EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 14f, 1, true, BlendState.Additive, 0, 16);
+                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 100));
+                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, 450, 800, DamageClass.Generic);
                 }
                 if(DeathExplosion == 0)
                 {
