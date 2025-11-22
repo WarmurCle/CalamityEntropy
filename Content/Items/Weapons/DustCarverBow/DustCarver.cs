@@ -166,23 +166,23 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 int dmg = 20;
                 switch (lv)
                 {
-                    case 0: dmg = 20; break;
-                    case 1: dmg = 36; break;
-                    case 2: dmg = 40; break;
-                    case 3: dmg = 54; break;
+                    case 0: dmg = 26; break;
+                    case 1: dmg = 40; break;
+                    case 2: dmg = 50; break;
+                    case 3: dmg = 56; break;
                     case 4: dmg = 60; break;
                     case 5: dmg = 70; break;
                     case 6: dmg = 80; break;
                     case 7: dmg = 90; break;
-                    case 8: dmg = 120; break;
+                    case 8: dmg = 110; break;
                     case 9: dmg = 160; break;
                     case 10: dmg = 200; break;
                     case 11: dmg = 260; break;
                     case 12: dmg = 320; break;
                     case 13: dmg = 500; break;
-                    case 14: dmg = 600; break;
-                    case 15: dmg = 800; break;
-                    case 16: dmg = 900; break;
+                    case 14: dmg = 700; break;
+                    case 15: dmg = 900; break;
+                    case 16: dmg = 1200; break;
                 }
                 Item.damage = dmg;
                 Item.damage = dmg;
@@ -220,7 +220,10 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         {
             return StartBagGItem.NameContains(player, "polaris");
         }
-
+        public override bool RangedPrefix()
+        {
+            return true;
+        }
         public int PenetAddition => LevelNow / 4 + 1;
     }
     public class DustCarverHeld : ModProjectile
