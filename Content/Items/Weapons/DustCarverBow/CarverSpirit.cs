@@ -136,16 +136,19 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                         {
                             if (p.hostile && !p.friendly && p.damage > 0 && Math.Max(p.width, p.height) < 150 && CEUtils.getDistance(Projectile.Center, p.Center) < distance && CEUtils.getDistance(player.Center, p.Center) < 256)
                             {
-                                if (Delay <= 0 && p.Colliding(p.getRect(), Projectile.getRect()))
+                                if (p.Colliding(p.getRect(), p.Center.getRectCentered(16, 16)) && !p.Colliding(p.getRect(), (p.Center + p.rotation.ToRotationVector2() * 320).getRectCentered(36, 36)) && !p.Colliding(p.getRect(), (p.Center + p.velocity.normalize() * 320).getRectCentered(36, 36)))
                                 {
-                                    p.Kill();
-                                    Delay = 300;
-                                }
-                                else
-                                {
-                                    tar = p;
-                                    distance = CEUtils.getDistance(Projectile.Center, p.Center);
-                                    hasproj = true;
+                                    if (Delay <= 0 && p.Colliding(p.getRect(), Projectile.getRect()))
+                                    {
+                                        p.Kill();
+                                        Delay = 300;
+                                    }
+                                    else
+                                    {
+                                        tar = p;
+                                        distance = CEUtils.getDistance(Projectile.Center, p.Center);
+                                        hasproj = true;
+                                    }
                                 }
                             }
                         }

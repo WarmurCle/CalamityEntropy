@@ -58,8 +58,11 @@ namespace CalamityEntropy.Content.Projectiles
                     float d = CEUtils.getDistance(p.Center, Projectile.Center);
                     if (p.hostile && Math.Max(p.width, p.height) < 100 && d < dist)
                     {
-                        target = p;
-                        dist = d;
+                        if (p.Colliding(p.getRect(), p.Center.getRectCentered(16, 16)) && !p.Colliding(p.getRect(), (p.Center + p.rotation.ToRotationVector2() * 320).getRectCentered(36, 36)) && !p.Colliding(p.getRect(), (p.Center + p.velocity.normalize() * 320).getRectCentered(36, 36)))
+                        {
+                            target = p;
+                            dist = d;
+                        }
                     }
                 }
                 if (target != null)
