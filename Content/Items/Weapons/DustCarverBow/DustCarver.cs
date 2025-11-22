@@ -394,7 +394,6 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                     mproj.HomingRange = 200 + dc.LevelNow * 40;
                     mproj.active = true;
                     CEUtils.SyncProj(p);
-                    projectile.MaxUpdates *= 4;
                 }
             }
             Vector2 p1 = Projectile.Center - Projectile.rotation.ToRotationVector2() * 30 * Projectile.scale + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 66 * Projectile.scale;
@@ -488,10 +487,16 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             float num2 = ((!(completionRatio < 0.1f)) ? MathHelper.Lerp(num, 0f, Utils.GetLerpValue(0.1f, 1f, completionRatio, clamped: true)) : ((float)Math.Sin(completionRatio / 0.1f * (MathF.PI / 2f)) * num + 0.1f));
             return num2 * projectile.Opacity * projectile.scale;
         }
+        public bool init = true;
         public override bool PreAI(Projectile projectile)
         {
             if(active)
             {
+                if(init)
+                {
+                    init = false; 
+                    projectile.MaxUpdates *= 4;
+                }
                 oldPos.Insert(0, projectile.Center + projectile.velocity.normalize() * 24);
                 if (oldPos.Count > 24)
                     oldPos.RemoveAt(oldPos.Count - 1);
