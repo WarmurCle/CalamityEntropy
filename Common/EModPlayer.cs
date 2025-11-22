@@ -13,6 +13,7 @@ using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun;
+using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Prefixes;
@@ -2786,6 +2787,11 @@ namespace CalamityEntropy.Common
                     {
                         Player.lifeRegen += 8;
                     }
+                }
+                if(p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is CarverSpirit cs && cs.mode == CarverSpirit.Mode.Defending)
+                {
+                    Player.statDefense += 5;
+                    Player.endurance += 0.025f;
                 }
             }
             if (worshipRelic || shadowPact)
