@@ -507,7 +507,7 @@ Items: {
 		Tooltip:
 			'''
 			用于制作[i:CalamityEntropy/OracleDeck][c/87CEFA:神谕卡组]
-			按住左Alt来查看卡组需求
+			按住左Shift来查看卡组需求
 			'''
 		DisplayName: 命运之绳
 		HoldShiftForDetails:
@@ -1097,7 +1097,7 @@ Items: {
 		DisplayName: 堕化卡组
 		Tooltip:
 			'''
-			盗贼弹幕获得追踪能力，但是盗贼属性大幅降低
+			盗贼弹幕获得追踪能力
 			攻击使敌人中蒙蔽debuff，减少其移动速度
 			攻击附带虚空之触减益
 			攻击时发射暗隐火焰
@@ -1117,7 +1117,7 @@ Items: {
 		Tooltip:
 			'''
 			用于制作[i:CalamityEntropy/TaintedDeck][c/FF6347:堕化卡组]
-			按住左Alt以查看卡组需求
+			按住左Shift以查看卡组需求
 			'''
 		HoldShiftForDetails:
 			'''

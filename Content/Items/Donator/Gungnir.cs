@@ -48,7 +48,8 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Item.width = 120;
             Item.height = 120;
-            Item.damage = 1300;
+            Item.damage = 1000;
+            Item.crit = 10;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 30;
@@ -60,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.rare = ItemRarityID.Blue;
             Item.shoot = ModContent.ProjectileType<GungnirThrow>();
-            Item.shootSpeed = 42;
+            Item.shootSpeed = 28;
             Item.DamageType = DamageClass.Melee;
         }
     }
@@ -73,7 +74,8 @@ namespace CalamityEntropy.Content.Items.Donator
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.MaxUpdates = 4;
-            Projectile.timeLeft = 60;
+            Projectile.penetrate = 7;
+            Projectile.timeLeft = 240;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -106,18 +108,18 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 6));
             EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White }, Projectile.Center - Projectile.velocity * 0.8f, Vector2.Zero, new Color(122, 122, 255), Main.rand.NextFloat(380, 420), 1f, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi, 8);
-            if (Projectile.ai[1]-- > -3)
+            if (Projectile.ai[1]-- > -1)
             {
                 CEUtils.PlaySound("ThunderStrike", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 6, 0.4f);
                 CEUtils.PlaySound("ystn_hit", 2.7f, target.Center);
                 for (int i = 0; i < 8; i++)
                 {
                     Vector2 pos = target.Center + new Vector2(0, -900) + CEUtils.randomPointInCircle(600);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 4, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 6, Projectile.owner);
                 }
                 for (int i = 0; i < 1; i++)
                 {
-                    int lightningDamage = (int)(Projectile.damage * 0.6f);
+                    int lightningDamage = (int)(Projectile.damage * 1.25f);
                     Vector2 lightningSpawnPosition = Projectile.Center - Vector2.UnitY.RotatedByRandom(0.2f) * 1000f;
                     Vector2 lightningShootVelocity = (target.Center - lightningSpawnPosition + target.velocity * 7.5f).SafeNormalize(Vector2.UnitY) * 15f;
                     int lightning = Projectile.NewProjectile(Projectile.GetSource_FromThis(), lightningSpawnPosition, lightningShootVelocity, ModContent.ProjectileType<StormfrontLightning>(), lightningDamage, 0f, Projectile.owner);
