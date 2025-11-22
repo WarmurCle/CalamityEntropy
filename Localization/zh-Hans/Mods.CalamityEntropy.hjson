@@ -3952,11 +3952,11 @@ Projectiles: {
 	AzafureCogflyMinion.DisplayName: 阿萨福勒齿轮蜂
 	GungnirThrow.DisplayName: 冈格尼尔
 	Sorensen.DisplayName: 索伦森
-	FetalDreamSlash.DisplayName: Fetal Dream Slash
-	// DustCarverHeld.DisplayName: Dust Carver Held
-	// CarverSpike.DisplayName: Carver Spike
-	// CarverBolt.DisplayName: Carver Bolt
-	// CarverSpirit.DisplayName: Carver Spirit
+	FetalDreamSlash.DisplayName: 斩击
+	DustCarverHeld.DisplayName: 刻尘者
+	CarverSpike.DisplayName: 刻尘尖刺
+	CarverBolt.DisplayName: 刻尘深渊束
+	CarverSpirit.DisplayName: 刻尘魔灵
 }
 
 LegendTooltip: - 传奇物品 -
