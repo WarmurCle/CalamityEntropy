@@ -45,6 +45,8 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             {
                 Projectile.timeLeft = 4;
             }
+            Projectile.damage = player.GetWeaponDamage(player.HeldItem);
+            Projectile.MaxUpdates = 1;
             if(CEUtils.getDistance(Projectile.Center, player.Center) > 4000)
             {
                 Projectile.Center = player.Center + CEUtils.randomPointInCircle(100);
