@@ -49,6 +49,9 @@ TlipocasScytheLegend: {
 		TScytheU7: Take down Yharon
 		TScytheU8: Take down Cruiser
 		TScytheU9: Take down Supreme Witch
+		TWOF: Take down Wall of Flesh
+		TALLMECHBOSS: Take down all mech bosses
+		TLevel2: Need reach level 2
 	}
 
 	Dialog: {
@@ -133,6 +136,67 @@ TlipocasScytheLegend: {
 			What will happen?
 			'''
 		TScytheDia17: Finally paid off the debt, the task was perfectly completed!
+		DCarverDia0:
+			'''
+			Was it you who awakened me?
+			Indeed, as you can see, I have lost most of my power.
+			If you wish to prove yourself worthy of my service, first slay the Evil Eye!
+			'''
+		DCarverDia1:
+			'''
+			Good, I can sense both you and I growing stronger.
+			Slay the spawn of the defiled land, and prove your might to me.
+			'''
+		DCarverDia2:
+			'''
+			You have proven your strength, but there is still a long road ahead.
+			I can now awaken my slumbering servants. If you defeat more powerful beings, you can awaken more of my followers.
+			Next, defeat the incomplete deity composed of feeble beings!
+			'''
+		DCarverDia3: The time for reckoning has come. Go to the Foundation of the World, slay the twisted creation, and release the long-sealed soul.
+		DCarverDia4: Slay the defiled primal spirit deep underground and reclaim the power that was stolen from me!
+		DCarverDia5:
+			'''
+			I have seen that witch before.
+			But now, she seems... different.
+			In any case, her power is far less than before, or perhaps this is just a failed imitation.
+			'''
+		DCarverDia6: There is a restless stirring beneath the jungle. If we can eradicate its source, we might find a fragment of myself.
+		DCarverDia7:
+			'''
+			I can sense a frenzied construct of flesh approaching.
+			It is composed of thousands of entities craving vengeance. Perhaps we can gain something from it.
+			'''
+		DCarverDia8:
+			'''
+			It is time to reclaim a sealed part of me from those cultists.
+			They once sacrificed me to summon their evil god.
+			'''
+		DCarverDia9: To protect this land and continue our journey, eradicate those outsiders completely!
+		DCarverDia10:
+			'''
+			Profane flames burn. The fall of the outer god has awakened something unpleasant.
+			We must stop her before the situation spirals out of control.
+			'''
+		DCarverDia11:
+			'''
+			A great number of vengeful spirits remain deep within the dungeon, even amalgamating into a powerful entity.
+			It seems we have no choice but to cleanse them.
+			'''
+		DCarverDia12: That hypocritical worm has come for us. It seems we must act.
+		DCarverDia13:
+			'''
+			I know him.
+			He was once under the Seeker of Gods, but he left in the end.
+			It seems necessary to settle this with him.
+			'''
+		DCarverDia14:
+			'''
+			Our journey nears its end, and I have regained most of my lost power.
+			Now, face the witch and the Destroyer Mech in a final battle!
+			'''
+		DCarverDial15: Slay the ancient leviathan in the deepest part of the abyssal ocean, and bring this journey to an end!
+		DCarverDial16: Our journey together has reached its conclusion, but many powerful enemies still await. Press on, my master!
 	}
 
 	General.CurLevel: ""

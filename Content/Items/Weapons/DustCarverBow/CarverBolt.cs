@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         float drawcount = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.position, Vector2.Zero, new Color(0, 255, 0), new Vector2(2f, 2f), 0, 0f, 0.2f, 8);
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.position, Vector2.Zero, new Color(255, 40, 40), new Vector2(2f, 2f), 0, 0f, 0.4f, 16);
             GeneralParticleHandler.SpawnParticle(pulse);
 
             CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, CEUtils.WeapSound * 0.6f);
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 Vector2 sparkVelocity2 = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(4, 12);
                 int sparkLifetime2 = 12;
                 float sparkScale2 = 0.34f;
-                sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.05f);
+                sparkScale2 *= 1.4f;
                 Color sparkColor2 = Color.Lerp(Color.DarkRed, Color.Crimson, Main.rand.NextFloat());
 
                 AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);

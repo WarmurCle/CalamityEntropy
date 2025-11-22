@@ -4,6 +4,8 @@ using CalamityEntropy.Content.Projectiles.Pets.DoG;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
+using CalamityMod.Particles;
 using CalamityOverhaul.OtherMods.ImproveGame;
 using Microsoft.Xna.Framework.Graphics;
 using Steamworks;
@@ -11,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -20,12 +23,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 {
-    public class DustCarver : ModItem
+    public class DustCarver : ModItem, IGetFromStarterBag
     {
         public int LevelNow = 1;
         public static int GetLevel()
         {
-            return Main.LocalPlayer.inventory[9].stack;
+            //return Main.LocalPlayer.inventory[9].stack;
             int Level = 0;
             bool flag = true;
             void Check(bool f)
@@ -46,18 +49,61 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Check(Main.hardMode);
             Check(DownedBossSystem.downedBrimstoneElemental);
             Check(DownedBossSystem.downedCalamitasClone);
-            Check(EDownedBosses.downedProphet);
+            Check(NPC.downedPlantBoss);
             Check(DownedBossSystem.downedRavager);
             Check(NPC.downedAncientCultist);
             Check(NPC.downedMoonlord);
-            Check(DownedBossSystem.downedSignus);
+            Check(DownedBossSystem.downedProvidence);
             Check(DownedBossSystem.downedPolterghast);
             Check(DownedBossSystem.downedDoG);
-            Check(EDownedBosses.downedCruiser);
+            Check(DownedBossSystem.downedYharon);
             Check(DownedBossSystem.downedCalamitas && DownedBossSystem.downedExoMechs);
             Check(DownedBossSystem.downedPrimordialWyrm);
             return Level;
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string Get(string path)
+            {
+                return Mod.GetLocalization($"LegendaryAbility.{path}").Value;
+            }
+            tooltips.Replace("[LV]", LevelNow.ToString());
+            foreach(var line in tooltips)
+            {
+                if(line.Text.StartsWith("$"))
+                {
+                    line.Text = line.Text.Replace("$", "");
+                    line.OverrideColor = LevelNow > 1 ? Color.Yellow : Color.Gray;
+                    if(LevelNow < 2 && line.Text.StartsWith("^"))
+                    {
+                        line.Text += $" {Get("General.Locked")}{Get("Downed.TLevel2")}";
+                    }
+                    line.Text = line.Text.Replace("^", "");
+                }
+                if (line.Text.StartsWith("%"))
+                {
+                    line.Text = line.Text.Replace("%", "");
+                    line.OverrideColor = Main.hardMode ? Color.Yellow : Color.Gray;
+                    if (!Main.hardMode)
+                    {
+                        line.Text += $" {Get("General.Locked")}{Get("Downed.TWOF")}";
+                    }
+                }
+                if (line.Text.StartsWith("&"))
+                {
+                    bool flag = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
+                    line.Text = line.Text.Replace("&", "");
+                    line.OverrideColor = (flag) ? Color.Yellow : Color.Gray;
+                    if (!flag)
+                    {
+                        line.Text += $" {Get("General.Locked")}{Get("Downed.TALLMECHBOSS")}";
+                    }
+                }
+                
+            }
+            tooltips.Add(new TooltipLine(Mod, "Lore", Get("Dialog.DCarverDia" + LevelNow.ToString())) { OverrideColor = Color.Crimson});
+        }
+        public int SpiritCount => int.Min(6, GetLevel() / 2);
         public override void SetDefaults()
         {
             Item.width = 80;
@@ -78,6 +124,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Item.useAmmo = AmmoID.Arrow;
             Item.channel = true;
             Item.noUseGraphic = true;
+            Item.Entropy().Legend = true;
         }
         public override void HoldItem(Player player)
         {
@@ -85,7 +132,13 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             {
                 Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, (Main.MouseWorld - player.Center).normalize() * Item.shootSpeed, Item.shoot, 0, 0, player.whoAmI);
             }
+            int spirit = ModContent.ProjectileType<CarverSpirit>();
+            if (player.ownedProjectileCounts[spirit] < SpiritCount)
+            {
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, (Main.MouseWorld - player.Center).normalize() * Item.shootSpeed, spirit, player.GetWeaponDamage(Item) / 6, 0, player.whoAmI);
+            }
         }
+        
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             return false;
@@ -93,6 +146,16 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         public override void UpdateInventory(Player player)
         {
             CheckLevel(GetLevel());
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<BloodOrb>(5)
+                .AddRecipeGroup(CERecipeGroups.evilBar, 4)
+                .AddIngredient(ItemID.Silk, 4)
+                .AddIngredient(ItemID.RichMahogany, 12)
+                .AddTile(TileID.WorkBenches)
+                .Register();
         }
         public void CheckLevel(int lv)
         {
@@ -105,20 +168,20 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                     case 0: dmg = 20; break;
                     case 1: dmg = 36; break;
                     case 2: dmg = 40; break;
-                    case 3: dmg = 60; break;
-                    case 4: dmg = 80; break;
-                    case 5: dmg = 140; break;
-                    case 6: dmg = 180; break;
-                    case 7: dmg = 220; break;
-                    case 8: dmg = 280; break;
-                    case 9: dmg = 340; break;
-                    case 10: dmg = 440; break;
-                    case 11: dmg = 540; break;
-                    case 12: dmg = 720; break;
-                    case 13: dmg = 1100; break;
-                    case 14: dmg = 1600; break;
-                    case 15: dmg = 2000; break;
-                    case 16: dmg = 3200; break;
+                    case 3: dmg = 54; break;
+                    case 4: dmg = 60; break;
+                    case 5: dmg = 70; break;
+                    case 6: dmg = 80; break;
+                    case 7: dmg = 90; break;
+                    case 8: dmg = 120; break;
+                    case 9: dmg = 160; break;
+                    case 10: dmg = 200; break;
+                    case 11: dmg = 260; break;
+                    case 12: dmg = 320; break;
+                    case 13: dmg = 500; break;
+                    case 14: dmg = 600; break;
+                    case 15: dmg = 800; break;
+                    case 16: dmg = 900; break;
                 }
                 Item.damage = dmg;
                 Item.damage = dmg;
@@ -151,6 +214,12 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             }
             return ret;
         }
+
+        public bool OwnAble(Player player, ref int count)
+        {
+            return StartBagGItem.NameContains(player, "polaris");
+        }
+
         public int PenetAddition => LevelNow / 4 + 1;
     }
     public class DustCarverHeld : ModProjectile
@@ -161,6 +230,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         public bool active = false;
         public int SpikeTimer = 0;
         public int BoltTimer = 60;
+        public bool RMBLast = false;
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Ranged, false, -1);
@@ -184,11 +254,35 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Projectile.StickToPlayer();
             player.SetHandRot(Projectile.rotation);
 
-            if(!(player.HeldItem.ModItem is DustCarver))
+            if(!(player.HeldItem.ModItem is DustCarver) || player.dead)
             {
                 Projectile.Kill();
                 return;
             }
+
+            if(Main.myPlayer == Projectile.owner && !RMBLast && Main.mouseRight && !player.mouseInterface)
+            {
+                int sprType = ModContent.ProjectileType<CarverSpirit>();
+                if (player.ownedProjectileCounts[sprType] > 0)
+                {
+                    SoundEngine.PlaySound(SoundID.Item4 with { PitchRange = (-0.4f, -0.2f) }, Projectile.Center);
+                    foreach(var proj in Main.ActiveProjectiles)
+                    {
+                        if(proj.owner == player.whoAmI && proj.type == sprType)
+                        {
+                            proj.ai[0] += 1;
+                            if (proj.ai[0] > 2)
+                            {
+                                proj.ai[0] = 0;
+                            }
+                            proj.netUpdate = true;
+                            for (float i = 0; i <= 1f; i+= 0.1f)
+                                GeneralParticleHandler.SpawnParticle(new AltLineParticle(Vector2.Lerp(Projectile.Center, proj.Center, i), (proj.Center - Projectile.Center).normalize() * 0.04f, false, 12, 1.4f, Color.Crimson));
+                        }
+                    }
+                }
+            }
+            RMBLast = Main.mouseRight;
             Vector2 particlePos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 32;
             if (sParticle != null)
             {
