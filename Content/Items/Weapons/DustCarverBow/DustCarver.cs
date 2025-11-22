@@ -279,7 +279,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                             {
                                 proj.ai[0] = 0;
                             }
-                            proj.netUpdate = true;
+                            CEUtils.SyncProj(proj.whoAmI);
                             for (float i = 0; i <= 1f; i+= 0.1f)
                                 GeneralParticleHandler.SpawnParticle(new AltLineParticle(Vector2.Lerp(Projectile.Center, proj.Center, i), (proj.Center - Projectile.Center).normalize() * 0.04f, false, 12, 1.4f, Color.Crimson));
                         }
