@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return mode == Mode.Penetrate;
+            return mode == Mode.Penetrate ? null : false;
         }
         public Mode mode { get { return (Mode)Projectile.ai[0]; } set { Projectile.ai[0] = (int)value; } }
         public int Delay = 0;
