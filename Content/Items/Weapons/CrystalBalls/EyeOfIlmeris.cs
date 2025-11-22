@@ -33,8 +33,8 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<SeaPrism>(), 5)
                 .AddIngredient(ModContent.ItemType<PearlShard>(), 2)
+                .AddIngredient(ModContent.ItemType<SeaPrism>(), 5)
                 .AddIngredient(ItemID.Glass, 10)
                 .AddTile(TileID.WorkBenches)
                 .Register();

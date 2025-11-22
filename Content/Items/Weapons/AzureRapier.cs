@@ -70,9 +70,9 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<SeaPrism>(6)
+            CreateRecipe().AddIngredient<PearlShard>(4)
+                .AddIngredient<SeaPrism>(6)
                 .AddIngredient<CalamityMod.Items.Placeables.PrismShard>(10)
-                .AddIngredient<PearlShard>(4)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
