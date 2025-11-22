@@ -17,6 +17,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static System.Net.Mime.MediaTypeNames;
@@ -76,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                     line.OverrideColor = LevelNow > 1 ? Color.Yellow : Color.Gray;
                     if(LevelNow < 2 && line.Text.StartsWith("^"))
                     {
-                        line.Text += $" {Get("General.Locked")}{Get("Downed.TLevel2")}";
+                        line.Text += $" {Get("General.Locked")} {Get("TlipocasScytheLegend.Downed.TLevel2")}";
                     }
                     line.Text = line.Text.Replace("^", "");
                 }
@@ -86,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                     line.OverrideColor = Main.hardMode ? Color.Yellow : Color.Gray;
                     if (!Main.hardMode)
                     {
-                        line.Text += $" {Get("General.Locked")}{Get("Downed.TWOF")}";
+                        line.Text += $" {Get("General.Locked")} {Get("TlipocasScytheLegend.Downed.TWOF")}";
                     }
                 }
                 if (line.Text.StartsWith("&"))
@@ -96,12 +97,12 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                     line.OverrideColor = (flag) ? Color.Yellow : Color.Gray;
                     if (!flag)
                     {
-                        line.Text += $" {Get("General.Locked")}{Get("Downed.TALLMECHBOSS")}";
+                        line.Text += $" {Get("General.Locked")} {Get("TlipocasScytheLegend.Downed.TALLMECHBOSS")}";
                     }
                 }
                 
             }
-            tooltips.Add(new TooltipLine(Mod, "Lore", Get("Dialog.DCarverDia" + LevelNow.ToString())) { OverrideColor = Color.Crimson});
+            tooltips.Add(new TooltipLine(Mod, "Lore", Language.GetOrRegister("Mods.CalamityEntropy.LegendaryAbility.DCarverDia" + LevelNow.ToString()).Value) { OverrideColor = Color.Crimson});
         }
         public int SpiritCount => int.Min(6, GetLevel() / 2);
         public override void SetDefaults()
