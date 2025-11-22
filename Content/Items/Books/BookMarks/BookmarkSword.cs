@@ -247,7 +247,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return aiStyle == AIStyle.Strike || aiStyle == AIStyle.Smash;
+            return (aiStyle == AIStyle.Strike || aiStyle == AIStyle.Smash) ? null : false;
         }
         public override void OnKill(int timeLeft)
         {
