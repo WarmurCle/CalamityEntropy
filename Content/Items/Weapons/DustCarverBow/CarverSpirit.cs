@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                             if (Delay <= 0)
                             {
                                 Delay = 40;
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), Projectile.damage * 6, 4, Projectile.owner).ToProj().scale *= 0.7f;
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), Projectile.damage * 4, 4, Projectile.owner).ToProj().scale *= 0.7f;
                                 Projectile.velocity -= Projectile.rotation.ToRotationVector2() * 12;
                             }
                         }
