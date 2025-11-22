@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Item.UseSound = null;
             Item.autoReuse = false;
             Item.shoot = ModContent.ProjectileType<DustCarverHeld>();
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 18f;
             Item.useAmmo = AmmoID.Arrow;
             Item.channel = true;
             Item.noUseGraphic = true;
@@ -382,14 +382,16 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                     if (!projectile.usesLocalNPCImmunity)
                     {
                         projectile.usesLocalNPCImmunity = true;
-                        projectile.localNPCHitCooldown = -1;
+
                     }
+
+                    projectile.localNPCHitCooldown = -1;
+                    projectile.penetrate += dc.PenetAddition;
                     DustCarverArrorGProj mproj = projectile.GetGlobalProjectile<DustCarverArrorGProj>();
                     mproj.HomingRange = 200 + dc.LevelNow * 40;
                     mproj.active = true;
                     CEUtils.SyncProj(p);
-                    projectile.MaxUpdates *= 8;
-                    projectile.penetrate += dc.PenetAddition;
+                    projectile.MaxUpdates *= 4;
                 }
             }
             Vector2 p1 = Projectile.Center - Projectile.rotation.ToRotationVector2() * 30 * Projectile.scale + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * 66 * Projectile.scale;
@@ -481,8 +483,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         {
             float num = 22;
             float num2 = ((!(completionRatio < 0.1f)) ? MathHelper.Lerp(num, 0f, Utils.GetLerpValue(0.1f, 1f, completionRatio, clamped: true)) : ((float)Math.Sin(completionRatio / 0.1f * (MathF.PI / 2f)) * num + 0.1f));
-            return num2 * projectile.Opacity * projectile.scale
-            ;
+            return num2 * projectile.Opacity * projectile.scale;
         }
         public override bool PreAI(Projectile projectile)
         {
@@ -502,7 +503,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                         projectile.velocity = projectile.velocity.RotatedBy(CEUtils.getRotateAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), 0.5f * Homing));
                     }
                 }
-                return false;
+                return true;
             }
             return true;
         }
