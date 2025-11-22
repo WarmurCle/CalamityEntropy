@@ -3946,6 +3946,8 @@ Projectiles: {
 	Sorensen.DisplayName: 索伦森
 	FetalDreamSlash.DisplayName: Fetal Dream Slash
 	// DustCarverHeld.DisplayName: Dust Carver Held
+	// CarverSpike.DisplayName: Carver Spike
+	// CarverBolt.DisplayName: Carver Bolt
 }
 
 LegendTooltip: - 传奇物品 -

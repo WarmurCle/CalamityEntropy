@@ -4,25 +4,29 @@ using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Projectiles
+namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 {
-    public class BrambleShoot : ModProjectile
+    public class CarverBolt : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = DamageClass.Melee;
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.width = 16;
+            Projectile.height = 16;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
@@ -37,12 +41,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            if (Projectile.localAI[2]++ == 0)
-            {
-                Projectile.scale *= 2;
-            }
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.position, 1400);
-            if (target != null && drawcount > 16)
+            if (target != null && drawcount > 12)
             {
                 Projectile.velocity *= 0.94f;
                 Vector2 v = target.Center - Projectile.position;
@@ -68,21 +68,20 @@ namespace CalamityEntropy.Content.Projectiles
                 int sparkLifetime2 = 12;
                 float sparkScale2 = 0.34f;
                 sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.05f);
-                Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, Main.rand.NextFloat());
+                Color sparkColor2 = Color.Lerp(Color.DarkRed, Color.Crimson, Main.rand.NextFloat());
 
                 AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
         }
-        public override string Texture => CEUtils.WhiteTexPath;
         public Color ColorFunction(float completionRatio)
         {
-            return Color.Lerp(Color.LawnGreen, Color.Green, MathHelper.Clamp(completionRatio * 0.8f, 0f, 1f)) * base.Projectile.Opacity;
+            return Color.Lerp(Color.Crimson, Color.DarkRed, MathHelper.Clamp(completionRatio * 0.8f, 0f, 1f)) * base.Projectile.Opacity;
         }
 
         public float WidthFunction(float completionRatio)
         {
-            float num = 8f;
+            float num = 20f;
             float num2 = ((!(completionRatio < 0.1f)) ? MathHelper.Lerp(num, 0f, Utils.GetLerpValue(0.1f, 1f, completionRatio, clamped: true)) : ((float)Math.Sin(completionRatio / 0.1f * (MathF.PI / 2f)) * num + 0.1f));
             return num2 * base.Projectile.Opacity * Projectile.scale
             ;
@@ -95,11 +94,9 @@ namespace CalamityEntropy.Content.Projectiles
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
-            Texture2D value = CEUtils.getExtraTex("Leaf");
+            Texture2D value = Projectile.GetTexture();
             Main.EntitySpriteDraw(value, Projectile.position - Main.screenPosition, null, Color.White, Projectile.rotation, value.Size() * 0.5f, base.Projectile.scale, SpriteEffects.None);
             return false;
         }
     }
-
-
 }

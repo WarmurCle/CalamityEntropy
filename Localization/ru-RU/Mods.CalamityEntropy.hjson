@@ -3698,6 +3698,8 @@ Projectiles: {
 	// Sorensen.DisplayName: Sorensen
 	// FetalDreamSlash.DisplayName: Fetal Dream Slash
 	// DustCarverHeld.DisplayName: Dust Carver Held
+	// CarverSpike.DisplayName: Carver Spike
+	// CarverBolt.DisplayName: Carver Bolt
 }
 
 LegendTooltip: - Легенда -
