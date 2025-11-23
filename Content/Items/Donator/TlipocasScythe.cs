@@ -1,6 +1,7 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
+using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
@@ -409,7 +410,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 case 16: dmg = 3200; break;
             }
             Item.damage = dmg;
-            if (player.name.ToLower() is "tlipoca")
+            if (player.name.ToLower() is "tlipoca" || player.GetModPlayer<VanityModPlayer>().vanityEquipped == "BlackFlower")
             {
                 Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
             }
