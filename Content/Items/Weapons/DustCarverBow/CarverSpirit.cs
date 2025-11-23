@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                     EParticle.NewParticle(new DOracleSlash() { centerColor = Color.White }, target.Center + (Projectile.Center - target.Center).normalize() * 80, Vector2.Zero, Color.Crimson, 140, 1, true, BlendState.Additive, (target.Center - Projectile.Center).ToRotation(), 16);
                                     Projectile.ResetLocalNPCHitImmunity();
                                     Delay = (int)(8 / DelayMult);
-                                    Projectile.velocity = (target.Center + (target.Center - Projectile.Center).normalize() * 250 - Projectile.Center) / 8f;
+                                    Projectile.velocity = (target.Center + (target.Center - Projectile.Center).normalize() * 250 - Projectile.Center) / (int)(8 / DelayMult);
                                 }
                             }
                             else
