@@ -49,6 +49,8 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             {
                 return;
             }
+            float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
+            Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
             Projectile.damage = player.GetWeaponDamage(player.HeldItem) / 8;
             Projectile.MaxUpdates = 1;
             if(CEUtils.getDistance(Projectile.Center, player.Center) > 4000)
@@ -97,7 +99,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                     CEUtils.PlaySound("SwiftSlice", Main.rand.NextFloat(1.6f, 2), Projectile.Center);
                                     EParticle.NewParticle(new DOracleSlash() { centerColor = Color.White }, target.Center + (Projectile.Center - target.Center).normalize() * 80, Vector2.Zero, Color.Crimson, 140, 1, true, BlendState.Additive, (target.Center - Projectile.Center).ToRotation(), 16);
                                     Projectile.ResetLocalNPCHitImmunity();
-                                    Delay = 8;
+                                    Delay = (int)(8 / DelayMult);
                                     Projectile.velocity = (target.Center + (target.Center - Projectile.Center).normalize() * 250 - Projectile.Center) / 8f;
                                 }
                             }
@@ -124,7 +126,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                         {
                             if (Delay <= 0)
                             {
-                                Delay = 40;
+                                Delay = (int)(40 / DelayMult);
                                 GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 90, 90), new Vector2(0.25f, 1), Projectile.rotation, 0.05f, 0.36f, 24));
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
@@ -152,7 +154,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                     if (Delay <= 0 && p.Colliding(p.getRect(), Projectile.getRect()))
                                     {
                                         p.Kill();
-                                        Delay = 300;
+                                        Delay = (int)(300 / DelayMult);
                                         CEUtils.PlaySound("LightHit", 1, Projectile.Center);
                                     }
                                     else
