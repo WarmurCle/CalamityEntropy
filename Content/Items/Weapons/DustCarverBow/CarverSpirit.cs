@@ -154,7 +154,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                     if (Delay <= 0 && p.Colliding(p.getRect(), Projectile.getRect()))
                                     {
                                         p.Kill();
-                                        Delay = (int)(160 / DelayMult);
+                                        Delay = (int)(180 / DelayMult);
                                         CEUtils.PlaySound("LightHit", 1, Projectile.Center);
                                     }
                                     else
