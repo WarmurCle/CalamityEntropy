@@ -36,8 +36,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
             if (Projectile.ai[0] == 1 && Projectile.IsOwnedByLocalPlayer() && !canHeal
                 && Projectile.Center.Distance(player.Center) < Projectile.width)
             {
-                int num = Main.rand.Next(6, 10);
-                player.Entropy().TryHealMeWithCd(num, 3);
+                int num = Main.rand.Next(10, 15);
+                player.Entropy().TryHealMeWithCd(num, 5);
                 SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact);
                 canHeal = true;
             }
