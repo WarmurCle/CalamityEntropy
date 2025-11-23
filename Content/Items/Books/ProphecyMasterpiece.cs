@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
                 if (ShooterModProjectile is EntropyBookHeldProjectile eb)
                 {
-                    if (Main.GameUpdateCount % 16 == 0)
+                    if (Main.GameUpdateCount % 24 == 0)
                     {
                         Item bookItem = eb.bookItem;
                         for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
@@ -131,6 +131,7 @@ namespace CalamityEntropy.Content.Items.Books
                                 if (e != null)
                                 {
                                     e.OnShoot(eb);
+                                    e.OnProjectileSpawn(Projectile, Main.myPlayer == Projectile.owner);
                                 }
                             }
                         }

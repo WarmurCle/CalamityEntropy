@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             int spirit = ModContent.ProjectileType<CarverSpirit>();
             if (player.ownedProjectileCounts[spirit] < SpiritCount)
             {
-                Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, (Main.MouseWorld - player.Center).normalize() * Item.shootSpeed, spirit, player.GetWeaponDamage(Item) / 6, 0, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, (Main.MouseWorld - player.Center).normalize() * Item.shootSpeed, spirit, player.GetWeaponDamage(Item) / 12, 0, player.whoAmI);
             }
         }
         
