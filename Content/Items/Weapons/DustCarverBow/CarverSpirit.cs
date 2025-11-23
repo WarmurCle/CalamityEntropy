@@ -90,6 +90,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                             {
                                 if (Delay <= 0)
                                 {
+                                    CEUtils.PlaySound("SwiftSlice", Main.rand.NextFloat(1.6f, 2), Projectile.Center);
                                     EParticle.NewParticle(new DOracleSlash() { centerColor = Color.White }, target.Center + (Projectile.Center - target.Center).normalize() * 80, Vector2.Zero, Color.Crimson, 140, 1, true, BlendState.Additive, (target.Center - Projectile.Center).ToRotation(), 16);
                                     Projectile.ResetLocalNPCHitImmunity();
                                     Delay = 8;
@@ -120,6 +121,9 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                             if (Delay <= 0)
                             {
                                 Delay = 40;
+                                GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 90, 90), new Vector2(0.25f, 1), Projectile.rotation, 0.05f, 0.36f, 24));
+                                CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1.3f, 1.6f), target.Center);
+                                CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1.3f, 1.6f), target.Center);
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), Projectile.damage * 4, 4, Projectile.owner).ToProj().scale *= 0.7f;
                                 Projectile.velocity -= Projectile.rotation.ToRotationVector2() * 12;
                             }
@@ -142,6 +146,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                     {
                                         p.Kill();
                                         Delay = 300;
+                                        CEUtils.PlaySound("LightHit", 1, Projectile.Center);
                                     }
                                     else
                                     {
