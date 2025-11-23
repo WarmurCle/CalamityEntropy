@@ -1,11 +1,12 @@
 ﻿using CalamityEntropy.Common;
+using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class BlackFlower : ModItem, IVanitySkin
+    public class BlackFlower : ModItem, IVanitySkin, IGetFromStarterBag
     {
         public override void Load()
         {
@@ -62,11 +63,17 @@ namespace CalamityEntropy.Content.Items.Vanity
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Glowstick, 8)
-                .AddIngredient(ItemID.Gel, 8
-                )
+                .AddIngredient(ItemID.Sunflower)
+                .AddIngredient<BloodOrb>(2)
+                .AddIngredient(ItemID.Ruby)
+                .AddCondition(Condition.InGraveyard)
                 .AddTile(TileID.WorkBenches)
                 .Register();
+        }
+
+        public bool OwnAble(Player player, ref int count)
+        {
+            return StartBagGItem.NameContains(player, "tlipoca");
         }
     }
 }

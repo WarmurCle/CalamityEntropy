@@ -150,6 +150,7 @@ namespace CalamityEntropy.Content.Items.Donator
             target.AddBuff<MarkedforDeath>(12 * 60);
             if(!player.HasCooldown(FetalDreamCooldown.ID))
             {
+                CalamityEntropy.FlashEffectStrength = 0.8f;
                 player.Entropy().immune = 80;
                 target.AddBuff<Koishi>(16 * 60);
                 player.AddCooldown(FetalDreamCooldown.ID, 4320);
