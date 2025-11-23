@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             int id = 0;
             foreach(Projectile proj in Main.ActiveProjectiles)
             {
-                if(proj.type == Projectile.type && proj.owner == Projectile.owner)
+                if(proj.type == Projectile.type && proj.owner == Projectile.owner && proj.ModProjectile is CarverSpirit cs && cs.mode == mode)
                 {
                     if (proj.whoAmI == Projectile.whoAmI)
                     {
@@ -193,13 +193,25 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                         break;
                     }
             }
+            white--;
             OldPos.Add(Projectile.Center);
             if (OldPos.Count > 8)
                 OldPos.RemoveAt(0);
         }
-
+        public int white = 0;
         public override bool PreDraw(ref Color lightColor)
         {
+            if(Main.myPlayer == Projectile.owner)
+            {
+                if (white > 0)
+                {
+                    Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Main.spriteBatch.EnterShaderRegion();
+                    shader.CurrentTechnique.Passes[0].Apply();
+                    shader.Parameters["strength"].SetValue(0.5f + 0.5f * ((float)Math.Cos(Main.GlobalTimeWrappedHourly * 18)));
+                    lightColor = Color.White;
+                }
+            }
             var tex = (mode == Mode.Penetrate ? Projectile.GetTexture() : (mode == Mode.Shooting ? this.getTextureAlt() : this.getTextureAlt("AltB" + (((int)Main.GameUpdateCount / 4) % 3).ToString())));
             if (mode == Mode.Defending && Delay > 5)
                 lightColor *= 0.4f;
@@ -216,6 +228,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 OldPos.RemoveAt(OldPos.Count - 1);
             }
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor, tex));
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }

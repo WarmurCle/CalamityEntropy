@@ -8,6 +8,7 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityOverhaul.OtherMods.ImproveGame;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Steamworks;
 using System;
 using System.Collections.Generic;
@@ -263,26 +264,72 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 Projectile.Kill();
                 return;
             }
+            int sprType = ModContent.ProjectileType<CarverSpirit>();
 
-            if(Main.myPlayer == Projectile.owner && !RMBLast && Main.mouseRight && !player.mouseInterface)
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
             {
-                int sprType = ModContent.ProjectileType<CarverSpirit>();
+                Projectile clost_ = null;
+                float dist_ = 99999;
+                foreach (var proj in Main.ActiveProjectiles)
+                {
+                    if (proj.owner == player.whoAmI && proj.type == sprType)
+                    {
+                        if (clost_ == null || CEUtils.getDistance(proj.Center, Main.MouseWorld) < dist_)
+                        {
+                            dist_ = CEUtils.getDistance(proj.Center, Main.MouseWorld);
+                            clost_ = proj;
+                        }
+                    }
+                }
+                if (clost_ != null)
+                    if (clost_.ModProjectile is CarverSpirit spirit)
+                    {
+                        spirit.white = 3;
+                    }
+            }
+            if (Main.myPlayer == Projectile.owner && !RMBLast && Main.mouseRight && !player.mouseInterface)
+            {
                 if (player.ownedProjectileCounts[sprType] > 0)
                 {
-                    SoundEngine.PlaySound(SoundID.Item4 with { PitchRange = (-0.4f, -0.2f) }, Projectile.Center);
-                    foreach(var proj in Main.ActiveProjectiles)
+                    
+                    void Toggle(Projectile proj)
                     {
-                        if(proj.owner == player.whoAmI && proj.type == sprType)
+                        proj.ai[0] += 1;
+                        if (proj.ai[0] > 2)
                         {
-                            proj.ai[0] += 1;
-                            if (proj.ai[0] > 2)
-                            {
-                                proj.ai[0] = 0;
-                            }
-                            CEUtils.SyncProj(proj.whoAmI);
-                            for (float i = 0; i <= 1f; i+= 0.1f)
-                                GeneralParticleHandler.SpawnParticle(new AltLineParticle(Vector2.Lerp(Projectile.Center, proj.Center, i), (proj.Center - Projectile.Center).normalize() * 0.04f, false, 12, 1.4f, Color.Crimson));
+                            proj.ai[0] = 0;
                         }
+                        GeneralParticleHandler.SpawnParticle(new PulseRing(proj.Center, Vector2.Zero, Color.Crimson, 0.1f, 0.4f, 18));
+                        CEUtils.SyncProj(proj.whoAmI);
+                        for (float i = 0; i <= 1f; i += 0.1f)
+                            GeneralParticleHandler.SpawnParticle(new AltLineParticle(Vector2.Lerp(Projectile.Center, proj.Center, i), (proj.Center - Projectile.Center).normalize() * 0.04f, false, 12, 1.4f, Color.Crimson));
+                    }
+                    SoundEngine.PlaySound(SoundID.Item4 with { PitchRange = (-0.4f, -0.2f) }, Projectile.Center);
+                    List<Projectile> SetList = new();
+                    Projectile clost = null;
+                    float dist = 99999;
+                    foreach (var proj in Main.ActiveProjectiles)
+                    {
+                        if (proj.owner == player.whoAmI && proj.type == sprType)
+                        {
+                            if (clost == null || CEUtils.getDistance(proj.Center, Main.MouseWorld) < dist)
+                            {
+                                dist = CEUtils.getDistance(proj.Center, Main.MouseWorld);
+                                clost = proj;
+                            }
+                            
+                            SetList.Add(proj);
+                        }
+                    }
+                    if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                    {
+                        if (clost != null)
+                            Toggle(clost);
+                    }
+                    else
+                    {
+                        foreach (var proj in SetList)
+                            Toggle(proj);
                     }
                 }
             }
