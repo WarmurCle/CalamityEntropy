@@ -410,7 +410,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 case 16: dmg = 3200; break;
             }
             Item.damage = dmg;
-            if (player.name.ToLower() is "tlipoca" || player.GetModPlayer<VanityModPlayer>().vanityEquipped == "BlackFlower")
+            Item.ClearNameOverride();
+            if (player.name.ToLower() is "tlipoca" || player.GetModPlayer<VanityModPlayer>().vanityEquippedLast == "BlackFlower")
             {
                 Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
             }

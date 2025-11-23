@@ -10,6 +10,8 @@ namespace CalamityEntropy.Content.Items.Vanity
         //一个ModPlayer，用于将时装效果作用于玩家
 
         //当前装备的时装，留空为未装备
+
+        public string vanityEquippedLast = "";
         public string vanityEquipped = "";
         public int TheocrazyDye = -1;
         public int TheocrazyDyeItemID = -1;
@@ -31,6 +33,7 @@ namespace CalamityEntropy.Content.Items.Vanity
         public override void ResetEffects()
         {
             //每帧重置效果
+            vanityEquippedLast = vanityEquipped;
             TheocracyMark = false;
             vanityEquipped = "";
         }

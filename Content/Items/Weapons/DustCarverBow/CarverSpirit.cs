@@ -41,6 +41,17 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         public override void AI()
         {
             Player player = Projectile.GetOwner();
+            if(player.heldProj < 0)
+            {
+                foreach(var pr in Main.ActiveProjectiles)
+                {
+                    if(pr.owner == Projectile.owner && pr.ModProjectile is DustCarverHeld)
+                    {
+                        player.heldProj = pr.whoAmI;
+                        break;
+                    }
+                }
+            }
             if(player.HeldItem.ModItem is DustCarver && !player.dead && player.heldProj >= 0)
             {
                 Projectile.timeLeft = 4;
