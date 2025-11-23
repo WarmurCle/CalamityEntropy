@@ -389,7 +389,8 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                     }
 
                     projectile.localNPCHitCooldown = -1;
-                    projectile.penetrate += dc.PenetAddition;
+                    if(projectile.penetrate > 0)
+                        projectile.penetrate += dc.PenetAddition;
                     DustCarverArrorGProj mproj = projectile.GetGlobalProjectile<DustCarverArrorGProj>();
                     mproj.HomingRange = 200 + dc.LevelNow * 40;
                     mproj.active = true;
