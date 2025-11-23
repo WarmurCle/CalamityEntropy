@@ -2790,8 +2790,8 @@ namespace CalamityEntropy.Common
                 }
                 if(p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is CarverSpirit cs && cs.mode == CarverSpirit.Mode.Defending)
                 {
-                    Player.statDefense += 5;
-                    Player.endurance += 0.025f;
+                    Player.statDefense += 6;
+                    Player.endurance += 0.05f;
                 }
             }
             if (worshipRelic || shadowPact)
