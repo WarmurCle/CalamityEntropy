@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
+using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -61,7 +62,11 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 if (ownern != null && ownern.active)
                 {
                     Projectile.Center = ownern.Center + (ownern.ModNPC is NihilityActeriophage ? ownern.velocity.normalize() * 30 : Vector2.Zero);
-                    Projectile.rotation = ownern.velocity.ToRotation();
+                    Projectile.rotation = ownern.rotation;
+                    if(ownern.ModNPC is TheProphet)
+                    {
+                        Projectile.rotation = ownern.velocity.ToRotation();
+                    }
                 }
                 else
                 {
