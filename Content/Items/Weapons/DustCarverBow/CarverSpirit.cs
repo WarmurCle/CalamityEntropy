@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             {
                 return;
             }
-            Projectile.damage = player.GetWeaponDamage(player.HeldItem);
+            Projectile.damage = player.GetWeaponDamage(player.HeldItem) / 8;
             Projectile.MaxUpdates = 1;
             if(CEUtils.getDistance(Projectile.Center, player.Center) > 4000)
             {
