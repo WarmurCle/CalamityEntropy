@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnKill(int timeLeft)
         {
             ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 64));
-            EParticle.NewParticle(new HeavenfallStar2(), Projectile.GetOwner().Center, Vector2.Zero, new Color(100, 100, 255), 12, 1, true, BlendState.Additive);
+            EParticle.NewParticle(new HeavenfallStar3(), Projectile.GetOwner().Center, Vector2.Zero, new Color(100, 100, 255), 12, 1, true, BlendState.Additive);
         }
     }
 
