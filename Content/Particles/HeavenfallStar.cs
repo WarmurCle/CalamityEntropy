@@ -42,6 +42,7 @@ namespace CalamityEntropy.Content.Particles
         {
             InitialColor = Color;
             InitialScale = Scale;
+            Lifetime = 16;
         }
         private float orgScale = -1;
         public override void AI()
