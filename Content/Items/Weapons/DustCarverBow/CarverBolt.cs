@@ -52,6 +52,10 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             }
             drawcount++;
             Projectile.rotation = Projectile.velocity.ToRotation();
+            if(Projectile.timeLeft < 30)
+            {
+                Projectile.Opacity -= 1 / 30f;
+            }
         }
         float drawcount = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -95,7 +99,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
             Texture2D value = Projectile.GetTexture();
-            Main.EntitySpriteDraw(value, Projectile.position - Main.screenPosition, null, Color.White, Projectile.rotation, value.Size() * 0.5f, base.Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(value, Projectile.position - Main.screenPosition, null, Color.White * Projectile.Opacity, Projectile.rotation, value.Size() * 0.5f, base.Projectile.scale, SpriteEffects.None);
             return false;
         }
     }
