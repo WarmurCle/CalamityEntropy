@@ -44,7 +44,8 @@ namespace CalamityEntropy.Content.Projectiles.Pets
                 Projectile.Center = Main.player[Projectile.owner].Center;
             }
 
-            Projectile.Center += (targetPos - Projectile.Center) * 0.1f;
+            Projectile.velocity += (targetPos - Projectile.Center) * 0.01f;
+            Projectile.velocity *= 0.94f;
         }
         public override void AI()
         {

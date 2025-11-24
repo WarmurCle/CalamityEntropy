@@ -31,7 +31,23 @@ namespace CalamityEntropy.Content.Projectiles.Pets
         public override bool PreAI()
         {
             Player player = Main.player[Projectile.owner];
-
+            int type = ModContent.ProjectileType<Pooney>();
+            if (player.ownedProjectileCounts[type] > 0)
+            {
+                int p = -1;
+                foreach(var proj in Main.ActiveProjectiles)
+                {
+                    if(proj.type == type)
+                    {
+                        p = proj.whoAmI;
+                        break;
+                    }
+                }
+                if(p >= 0)
+                {
+                    Projectile pn = p.ToProj();
+                }
+            }
             player.zephyrfish = false;
             return true;
         }
