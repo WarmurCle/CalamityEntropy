@@ -144,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), Projectile.damage * 4, 4, Projectile.owner).ToProj().scale *= 0.7f;
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), (int)(Projectile.damage * 2.7f), 4, Projectile.owner).ToProj().scale *= 0.7f;
                                 Projectile.velocity -= Projectile.rotation.ToRotationVector2() * 12;
                             }
                         }
