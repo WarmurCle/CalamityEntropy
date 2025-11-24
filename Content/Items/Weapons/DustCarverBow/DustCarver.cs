@@ -110,10 +110,10 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         {
             Item.width = 80;
             Item.height = 150;
-            Item.damage = 20;
+            Item.damage = 30;
             Item.DamageType = DamageClass.Ranged;
-            Item.useTime = 40;
-            Item.useAnimation = 40;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 6f;
@@ -164,15 +164,15 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             if(LevelNow != lv)
             {
                 LevelNow = lv;
-                int dmg = 20;
+                int dmg = 30;
                 switch (lv)
                 {
-                    case 0: dmg = 26; break;
-                    case 1: dmg = 36; break;
-                    case 2: dmg = 42; break;
-                    case 3: dmg = 48; break;
-                    case 4: dmg = 55; break;
-                    case 5: dmg = 65; break;
+                    case 0: dmg = 30; break;
+                    case 1: dmg = 45; break;
+                    case 2: dmg = 50; break;
+                    case 3: dmg = 55; break;
+                    case 4: dmg = 60; break;
+                    case 5: dmg = 70; break;
                     case 6: dmg = 75; break;
                     case 7: dmg = 90; break;
                     case 8: dmg = 115; break;
@@ -195,16 +195,16 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             int ret = 14;
             switch (LevelNow)
             {
-                case 0: ret = 40; break;
-                case 1: ret = 38; break;
-                case 2: ret = 36; break;
-                case 3: ret = 34; break;
-                case 4: ret = 32; break;
-                case 5: ret = 30; break;
-                case 6: ret = 28; break;
-                case 7: ret = 26; break;
-                case 8: ret = 24; break;
-                case 9: ret = 22; break;
+                case 0: ret = 30; break;
+                case 1: ret = 29; break;
+                case 2: ret = 28; break;
+                case 3: ret = 27; break;
+                case 4: ret = 26; break;
+                case 5: ret = 25; break;
+                case 6: ret = 24; break;
+                case 7: ret = 23; break;
+                case 8: ret = 22; break;
+                case 9: ret = 21; break;
                 case 10: ret = 20; break;
                 case 11: ret = 19; break;
                 case 12: ret = 18; break;
