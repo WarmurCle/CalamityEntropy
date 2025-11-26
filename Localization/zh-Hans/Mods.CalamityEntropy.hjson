@@ -159,6 +159,15 @@ Items: {
 					潜伏攻击将发射一枚会爆炸的榴弹，造成范围伤害
 					'''
 			}
+
+			AzafureAirReaper: {
+				DisplayName: 阿萨福勒压力统镰
+				Tooltip: 
+				'''
+				扔出一把镰刀，击中后黏附在目标上造成多次伤害
+				潜伏攻击扔出一把在击中后持续追逐目标并来回斩切的镰刀
+				'''
+			}
 		}
 	}
 
@@ -3451,7 +3460,7 @@ Items: {
 
 	SentryRemover: {
 		DisplayName: 哨兵拆除器
-		Tooltip: "拆除你部署的哨兵"
+		Tooltip: 拆除你部署的哨兵
 	}
 }
 
@@ -3983,6 +3992,7 @@ Projectiles: {
 	// AzafureRadioMissile.DisplayName: Azafure Radio Missile
 	// MissileSilo.DisplayName: Missile Silo
 	// SentryRemoverHeld.DisplayName: Sentry Remover Held
+	// AzafureAirReaperThrow.DisplayName: Azafure Air Reaper Throw
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5168,6 +5178,7 @@ AzafureEnhances: {
 	AzafureEKatana: 增加攻击距离
 	AzafureCogfly: 增加攻击频率
 	AzafureTacticalRadio: 增加发射的导弹数量
+	AzafureAirReaper: 增加镰刀追逐目标的时间
 }
 
 DeathExplode: "[PlayerName]爆炸了"

@@ -150,6 +150,15 @@ Items: {
 					Stealth strike will launch a grenade affected by gravity
 					'''
 			}
+
+			AzafureAirReaper: {
+				DisplayName: Azafure Air Reaper
+				Tooltip: 
+				'''
+				Throw a sickle, hit it and stick it to the target, causing multiple injuries
+				Stealth attack throws a sickle that continues to chase the target and chop back and forth after being hit
+				'''
+			}
 		}
 	}
 
@@ -3191,10 +3200,7 @@ Items: {
 
 	SentryRemover: {
 		DisplayName: Sentry Remover
-		Tooltip: 
-		'''
-		Remove your sentry
-		'''
+		Tooltip: Remove your sentry
 	}
 }
 
@@ -3743,6 +3749,7 @@ Projectiles: {
 	AzafureRadioMissile.DisplayName: Azafure Radio Missile
 	MissileSilo.DisplayName: Missile Silo
 	SentryRemoverHeld.DisplayName: Sentry Remover Held
+	AzafureAirReaperThrow.DisplayName: Azafure Air Reaper Throw
 }
 
 LegendTooltip: - Legend -
@@ -4958,6 +4965,7 @@ AzafureEnhances: {
 	AzafureEKatana: Increase attack range
 	AzafureCogfly: Increase minion attacking speed
 	AzafureTacticalRadio: Increase missile num
+	AzafureAirReaper: Increase chasing time
 }
 
 DeathExplode: "[PlayerName] exploded"

@@ -125,6 +125,11 @@ Items: {
 					Stealth strike will launch a grenade affected by gravity
 					''' */
 			}
+
+			AzafureAirReaper: {
+				// DisplayName: Azafure Air Reaper
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -3208,7 +3213,7 @@ Items: {
 
 	SentryRemover: {
 		// DisplayName: Sentry Remover
-		// Tooltip: ""
+		// Tooltip: Remove your sentry
 	}
 }
 
@@ -3743,6 +3748,7 @@ Projectiles: {
 	// AzafureRadioMissile.DisplayName: Azafure Radio Missile
 	// MissileSilo.DisplayName: Missile Silo
 	// SentryRemoverHeld.DisplayName: Sentry Remover Held
+	// AzafureAirReaperThrow.DisplayName: Azafure Air Reaper Throw
 }
 
 LegendTooltip: - Легенда -
