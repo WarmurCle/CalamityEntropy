@@ -3200,6 +3200,16 @@ Items: {
 			"
 			''' */
 	}
+
+	AzafureTacticalRadio: {
+		// DisplayName: Azafure Tactical Radio
+		// Tooltip: Deploy a missile launch well, locate the nearest target and launch missiles beyond it
+	}
+
+	SentryRemover: {
+		// DisplayName: Sentry Remover
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3730,6 +3740,9 @@ Projectiles: {
 	// CarverSpike.DisplayName: Carver Spike
 	// CarverBolt.DisplayName: Carver Bolt
 	// CarverSpirit.DisplayName: Carver Spirit
+	// AzafureRadioMissile.DisplayName: Azafure Radio Missile
+	// MissileSilo.DisplayName: Missile Silo
+	// SentryRemoverHeld.DisplayName: Sentry Remover Held
 }
 
 LegendTooltip: - Легенда -
@@ -4945,6 +4958,7 @@ AzafureEnhances: {
 	// AzafureDrill: Increase pick power and pick range
 	// AzafureEKatana: Increase attack range
 	// AzafureCogfly: Increase minion attacking speed
+	// AzafureTacticalRadio: Increase missile num
 }
 
 // DeathExplode: "[PlayerName] exploded"

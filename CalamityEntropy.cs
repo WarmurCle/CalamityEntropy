@@ -550,7 +550,7 @@ namespace CalamityEntropy
                 {
                     AzShieldBarAlpha = float.Lerp(AzShieldBarAlpha, 1, 0.1f);
                 }
-                CEUtils.DrawChargeBar(1.5f, Main.LocalPlayer.Center - Main.screenPosition + new Vector2(0, -42), ((float)charge / maxCharge), ((charge > 1) ? Color.Lerp(Color.OrangeRed, Color.Orange, (float)Math.Cos(Main.GameUpdateCount * 0.2f) * 0.5f + 0.5f) : Color.Firebrick) * AzShieldBarAlpha);
+                CEUtils.DrawChargeBar(1.5f, Main.LocalPlayer.Center + Main.LocalPlayer.gfxOffY * Vector2.UnitY - Main.screenPosition + new Vector2(0, -42), ((float)charge / maxCharge), ((charge > 1) ? Color.Lerp(Color.OrangeRed, Color.Orange, (float)Math.Cos(Main.GameUpdateCount * 0.2f) * 0.5f + 0.5f) : Color.Firebrick) * AzShieldBarAlpha);
             }
             else
             {

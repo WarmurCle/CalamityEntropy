@@ -3443,6 +3443,16 @@ Items: {
 			”
 			'''
 	}
+
+	AzafureTacticalRadio: {
+		DisplayName: 阿萨福勒战术电台
+		Tooltip: 部署一台导弹发射井，锁定最近的目标并超其发射导弹
+	}
+
+	SentryRemover: {
+		DisplayName: 哨兵拆除器
+		Tooltip: "拆除你部署的哨兵"
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3970,6 +3980,9 @@ Projectiles: {
 	CarverSpike.DisplayName: 刻尘尖刺
 	CarverBolt.DisplayName: 刻尘深渊束
 	CarverSpirit.DisplayName: 刻尘魔灵
+	// AzafureRadioMissile.DisplayName: Azafure Radio Missile
+	// MissileSilo.DisplayName: Missile Silo
+	// SentryRemoverHeld.DisplayName: Sentry Remover Held
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5154,6 +5167,7 @@ AzafureEnhances: {
 	AzafureDrill: 增加镐力和挖掘范围
 	AzafureEKatana: 增加攻击距离
 	AzafureCogfly: 增加攻击频率
+	AzafureTacticalRadio: 增加发射的导弹数量
 }
 
 DeathExplode: "[PlayerName]爆炸了"

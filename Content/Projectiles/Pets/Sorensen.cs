@@ -1,4 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
+using CalamityEntropy.Content.Particles;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -31,23 +33,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
         public override bool PreAI()
         {
             Player player = Main.player[Projectile.owner];
-            int type = ModContent.ProjectileType<Pooney>();
-            if (player.ownedProjectileCounts[type] > 0)
-            {
-                int p = -1;
-                foreach(var proj in Main.ActiveProjectiles)
-                {
-                    if(proj.type == type)
-                    {
-                        p = proj.whoAmI;
-                        break;
-                    }
-                }
-                if(p >= 0)
-                {
-                    Projectile pn = p.ToProj();
-                }
-            }
+
             player.zephyrfish = false;
             return true;
         }
@@ -57,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             {
                 Projectile.Center = Main.player[Projectile.owner].Center;
             }
-            if(CEUtils.getDistance(Projectile.Center, targetPos) > 120)
+            if (CEUtils.getDistance(Projectile.Center, targetPos) > 120)
                 Projectile.velocity += (targetPos - Projectile.Center).normalize() * 1.2f;
             Projectile.velocity *= 0.95f;
         }
@@ -65,6 +51,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
         {
             counter++;
             Player player = Main.player[Projectile.owner];
+
             MoveToTarget(player.Center + new Vector2(0, -80) + new Vector2(-140 * player.direction, 0));
 
             if (!player.dead && player.HasBuff(ModContent.BuffType<ChaosTyrant>()))
