@@ -2,6 +2,7 @@
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -60,11 +61,18 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             {
                 return;
             }
+
             float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
             Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
             Projectile.damage = player.GetWeaponDamage(player.HeldItem) / 8;
             Projectile.MaxUpdates = 1;
-            if(CEUtils.getDistance(Projectile.Center, player.Center) > 4000)
+
+            if (Main.myPlayer == Projectile.owner && Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+            {
+                Projectile.velocity *= 0;
+                return;
+            }
+            if (CEUtils.getDistance(Projectile.Center, player.Center) > 4000)
             {
                 Projectile.Center = player.Center + CEUtils.randomPointInCircle(100);
                 Projectile.velocity *= 0;
@@ -208,6 +216,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 OldPos.RemoveAt(0);
         }
         public int white = 0;
+        
         public override bool PreDraw(ref Color lightColor)
         {
             if(Main.myPlayer == Projectile.owner)
