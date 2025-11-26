@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
         {
             Item.width = 38;
             Item.height = 32;
-            Item.damage = 240;
+            Item.damage = 80;
             Item.mana = 0;
             Item.useTime = Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
@@ -108,6 +108,11 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
                     }
                 }
                 targetPos = target.Center;
+                if (ShootDelay <= 0)
+                {
+                    ShootDelay = 60;
+                    ShootCount = player.AzafureEnhance() ? 3 : 2;
+                }
             }
             else
             {
@@ -117,11 +122,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
                 if (ShootDelay > 0)
                     ShootDelay--;
             }
-            if (ShootDelay <= 0)
-            {
-                ShootDelay = 60;
-                ShootCount = player.AzafureEnhance() ? 3 : 2;
-            }
+            
 
         }
         public float Num = 0;
@@ -187,7 +188,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
                     EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1f, 0) }, center, Vector2.Zero, Color.OrangeRed, 0.36f, 1, true, BlendState.Additive, 0, 18);
                     EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1f, 0) }, center, Vector2.Zero, Color.White, 0.25f, 1, true, BlendState.Additive, 0, 18);
                 }
-                CEUtils.PlaySound("aprclaunch", Main.rand.NextFloat(1, 1.4f), Projectile.Center);
+                CEUtils.PlaySound("aprclaunch", Main.rand.NextFloat(1, 1.4f), Projectile.Center, 16);
                 for (float i = 0.5f; i < 1; i += 0.025f)
                 {
                     EParticle.NewParticle(new Smoke() { timeleftmax = 18, Lifetime = 18 }, Projectile.Center - Projectile.velocity * (1 - i), CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.05f, 0.07f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
