@@ -23,6 +23,8 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.timeLeft = 5;
+            Projectile.minion = true;
+            Projectile.minionSlots = 0;
         }
 
         public enum Mode
