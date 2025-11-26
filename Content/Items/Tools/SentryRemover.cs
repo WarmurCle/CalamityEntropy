@@ -56,6 +56,7 @@ namespace CalamityEntropy.Content.Items.Tools
         {
             return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 40, targetHitbox, 24);
         }
+        public bool flag = true;
         public override void AI()
         {
             Projectile.StickToPlayer();
@@ -63,13 +64,19 @@ namespace CalamityEntropy.Content.Items.Tools
             Projectile.Center = Projectile.GetOwner().gfxOffY * Vector2.UnitY + Projectile.GetOwner().GetFrontHandPositionImproved(Projectile.GetOwner().compositeFrontArm);
             Projectile.ai[1] = CEUtils.Parabola((Projectile.ai[0]++ / (Projectile.GetOwner().itemTimeMax)), 1);
             Projectile.Center += Projectile.rotation.ToRotationVector2() * (Projectile.ai[1] * 24 - 30);
-            foreach (var p in Main.ActiveProjectiles)
+            if (flag)
             {
-                if (p.sentry && p.owner == Projectile.owner && Projectile.Colliding(Projectile.getRect(), p.getRect()))
+                foreach (var p in Main.ActiveProjectiles)
                 {
-                    p.Kill();
-                    SoundEngine.PlaySound(SoundID.DD2_DefenseTowerSpawn with { Pitch = 1 }, Projectile.Center);
-                    Projectile.GetOwner().UpdateMaxTurrets();
+                    if (p.sentry && p.owner == Projectile.owner && Projectile.Colliding(Projectile.getRect(), p.getRect()))
+                    {
+                        p.Kill();
+                        SoundEngine.PlaySound(SoundID.DD2_DefenseTowerSpawn with { Pitch = 1 }, Projectile.Center);
+                        Projectile.GetOwner().UpdateMaxTurrets();
+                        CEUtils.SyncProj(p.whoAmI);
+                        flag = false;
+                        break;
+                    }
                 }
             }
             if (Projectile.ai[0] >= Projectile.GetOwner().itemTimeMax)
