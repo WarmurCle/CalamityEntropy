@@ -267,6 +267,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
             {
+                player.itemTime = player.itemAnimation = 3;
                 Projectile clost_ = null;
                 float dist_ = 99999;
                 foreach (var proj in Main.ActiveProjectiles)
