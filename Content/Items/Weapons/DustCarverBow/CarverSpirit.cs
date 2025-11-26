@@ -137,14 +137,12 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                         {
                             if (Delay <= 0)
                             {
-                                Delay = (int)(40 / DelayMult);
+                                Delay = (int)(26 / DelayMult);
                                 GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 90, 90), new Vector2(0.25f, 1), Projectile.rotation, 0.05f, 0.36f, 24));
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
-                                CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
-                                CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), (int)(Projectile.damage * 2.7f), 4, Projectile.owner).ToProj().scale *= 0.7f;
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), (int)(Projectile.damage * 3f), 4, Projectile.owner).ToProj().scale *= 0.7f;
                                 Projectile.velocity -= Projectile.rotation.ToRotationVector2() * 12;
                             }
                         }
