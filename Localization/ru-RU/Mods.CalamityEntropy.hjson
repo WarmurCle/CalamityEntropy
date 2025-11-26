@@ -128,7 +128,11 @@ Items: {
 
 			AzafureAirReaper: {
 				// DisplayName: Azafure Air Reaper
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Throw a sickle, hit it and stick it to the target, causing multiple injuries
+					Stealth attack throws a sickle that continues to chase the target and chop back and forth after being hit
+					''' */
 			}
 		}
 	}
@@ -4965,6 +4969,7 @@ AzafureEnhances: {
 	// AzafureEKatana: Increase attack range
 	// AzafureCogfly: Increase minion attacking speed
 	// AzafureTacticalRadio: Increase missile num
+	// AzafureAirReaper: Increase chasing time
 }
 
 // DeathExplode: "[PlayerName] exploded"

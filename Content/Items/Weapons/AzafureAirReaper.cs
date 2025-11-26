@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = CEUtils.RogueDC;
             Item.useTime = 32;
             Item.useAnimation = 32;
-            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.knockBack = 1f;

@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
         {
             Player player = Main.player[Projectile.owner];
 
-            var target_ = Projectile.FindMinionTarget(6000);
+            var target_ = Projectile.FindMinionTarget(10000);
             if(target_ != null && target != target_)
             {
                 Num = 0;
@@ -164,11 +164,23 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
         {
             return false;
         }
+        public NPC target = null;
         public Vector2 targetPos => new Vector2(Projectile.ai[0], Projectile.ai[1]);
         public override void AI()
         {
+            if (target != null && !target.active)
+                target = null;
             if (Projectile.ai[2] == 0)
             {
+                target = CEUtils.FindTarget_HomingProj(Projectile, targetPos, 10000);
+                if (Projectile.GetOwner().MinionAttackTargetNPC >= 0) {
+                    var npc = Projectile.GetOwner().MinionAttackTargetNPC.ToNPC();
+                    if(npc.active)
+                    {
+                        target = npc;
+                    }
+                }
+
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 center = Projectile.Center - new Vector2(0, Projectile.velocity.Y / 2f);
@@ -191,7 +203,12 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             Projectile.ai[2]++;
             if (Projectile.ai[2] == 25)
             {
-                Projectile.Center = targetPos + Projectile.velocity * 25;
+                Vector2 pos = targetPos;
+                if (target != null)
+                {
+                    pos = target.Center + target.velocity * 24;
+                }
+                Projectile.Center = pos + Projectile.velocity * 25;
                 Projectile.velocity *= -1;
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
@@ -202,17 +219,17 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             CEUtils.PlaySound("pulseBlast", 0.5f, Projectile.Center, 4, 1.4f);
             int lifetime = 20;
             Vector2 center = Projectile.Center;
-            EParticle.spawnNew(new ERing() { LineWidth = 120 }, center, Vector2.Zero, new Color(255, 140, 140), 200, 1, true, BlendState.Additive, 0, 16);
-            for(int i = 0; i < 3; i++)
+            EParticle.spawnNew(new ERing() { LineWidth = 120 }, center, Vector2.Zero, new Color(255, 140, 140), 300, 1, true, BlendState.Additive, 0, 16);
+            for(int i = 0; i < 2; i++)
             {
-                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.Firebrick, 0.8f, 1, true, BlendState.Additive, 0, lifetime);
-                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.White, 0.5f, 1, true, BlendState.Additive, 0, lifetime);
-                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.Firebrick, 0.8f, 1, true, BlendState.Additive, MathHelper.PiOver2, lifetime);
-                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.White, 0.5f, 1, true, BlendState.Additive, MathHelper.PiOver2, lifetime);
+                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.Firebrick, 0.6f, 1f, true, BlendState.Additive, 0, lifetime);
+                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.White, 0.3f, 1f, true, BlendState.Additive, 0, lifetime);
+                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.Firebrick, 0.6f, 1, true, BlendState.Additive, MathHelper.PiOver2, lifetime);
+                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.White, 0.3f, 1, true, BlendState.Additive, MathHelper.PiOver2, lifetime);
             }
-            GeneralParticleHandler.SpawnParticle(new PulseRing(center, Vector2.Zero, Color.OrangeRed, 0.1f, 2.7f, lifetime));
+            GeneralParticleHandler.SpawnParticle(new PulseRing(center, Vector2.Zero, Color.OrangeRed, 0.1f, 3f, lifetime));
             ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 6));
-            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 200, Projectile.DamageType);
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 260, Projectile.DamageType);
         }
         public override bool PreDraw(ref Color lightColor)
         {
