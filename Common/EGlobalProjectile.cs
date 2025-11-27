@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Donator;
@@ -314,7 +315,7 @@ namespace CalamityEntropy.Common
                             projectile.netSpam = 0;
                             projectile.netUpdate = true;
                         }
-                        if (npc.type == NPCID.CultistBoss || npc.type == NPCID.AncientLight || npc.type == NPCID.AncientDoom)
+                        if (npc.type == NPCID.CultistBoss || npc.type == NPCID.AncientLight || npc.type == NPCID.AncientDoom || EModILEdit.LostNPCsEntropy.Contains(npc.type))
                         { 
                             Losted = true;
                             projectile.netSpam = 0;

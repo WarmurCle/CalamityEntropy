@@ -86,6 +86,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
@@ -752,6 +753,11 @@ namespace CalamityEntropy
                     if(self.type == NPCID.CultistBoss)
                     {
                         orig(self, i);
+                    }
+                    if(new List<int> { NPCID.SkeletronPrime, 128, 129, 130, 131, NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, 139, 125, 126 }.Contains(self.type))
+                    {
+                        orig(self, i);
+                        self.position -= self.velocity;
                     }
                 }
                 orig(self, i);
