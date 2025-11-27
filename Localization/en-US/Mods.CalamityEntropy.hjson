@@ -4082,12 +4082,12 @@ Buffs: {
 
 	LifeOppress: {
 		DisplayName: Life Oppress
-		Description: "You saw your death"
+		Description: You saw your death
 	}
 
 	MechanicalTrauma: {
 		DisplayName: Mechanical Trauma
-		Description: "You feel pain all over your body"
+		Description: You feel pain all over your body
 	}
 }
 

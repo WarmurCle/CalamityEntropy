@@ -768,17 +768,17 @@ namespace CalamityEntropy.Common
                 if (CalamityClientConfig.Instance.DebuffDisplay && (npc.boss || BossHealthBarManager.MinibossHPBarList.Contains(npc.type) || BossHealthBarManager.OneToMany.ContainsKey(npc.type) || CalamityLists.needsDebuffIconDisplayList.Contains(npc.type)))
                 {
                     List<Texture2D> currentDebuffs = new List<Texture2D>() { };
-
-                    for (int b = 0; b < moddedDebuffTextureList.Count(); b++)
+                    CalamityGlobalNPC cnpc = npc.Calamity();
+                    for (int b = 0; b < CalamityGlobalNPC.moddedDebuffTextureList.Count(); b++)
                     {
-                        if (moddedDebuffTextureList[b].Item2.Invoke(npc))
+                        if (CalamityGlobalNPC.moddedDebuffTextureList[b].Item2.Invoke(npc))
                         {
-                            currentDebuffs.Add(Request<Texture2D>(moddedDebuffTextureList[b].Item1).Value);
+                            currentDebuffs.Add(Request<Texture2D>(CalamityGlobalNPC.moddedDebuffTextureList[b].Item1).Value);
                         }
                     }
 
                     // Vanilla damage over time debuffs
-                    if (electrified > 0)
+                    if (cnpc.electrified > 0)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Electrified].Value);
                     if (npc.onFire)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.OnFire].Value);
@@ -818,9 +818,9 @@ namespace CalamityEntropy.Common
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Confused].Value);
                     if (npc.ichor)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Ichor].Value);
-                    if (slowed > 0)
+                    if (cnpc.slowed > 0)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Slow].Value);
-                    if (webbed > 0)
+                    if (cnpc.webbed > 0)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Webbed].Value);
                     if (npc.midas)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Midas].Value);
