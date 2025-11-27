@@ -81,7 +81,7 @@ namespace CalamityEntropy
             {
                 vec += ss.GetShiftVec();
             }    
-            return vec * ModContent.GetInstance<CalamityConfig>().ScreenshakePower;
+            return vec * ModContent.GetInstance<CalamityClientConfig>().ScreenshakePower;
         }
     }
 }

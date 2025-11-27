@@ -283,7 +283,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 (MathHelper.Clamp(AITimer, 0f, TimeBeforeDash) / TimeBeforeDash);
             float AfterimageFade = MathHelper.Lerp(0f, 1f, interpolant);
 
-            if (CurrentState == IceClasperAIState.Dashing && CalamityMod.CalamityConfig.Instance.Afterimages)
+            if (CurrentState == IceClasperAIState.Dashing && CalamityMod.CalamityClientConfig.Instance.Afterimages)
             {
                 for (int i = 0; i < NPC.oldPos.Length; i++)
                 {

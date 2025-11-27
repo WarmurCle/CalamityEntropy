@@ -283,7 +283,7 @@ namespace CalamityEntropy.Content.ILEditing
             {
                 if (stealthBar.Intersects(mouseHitbox))
                 {
-                    if (!CalamityConfig.Instance.MeterPosLock)
+                    if (!CalamityClientConfig.Instance.MeterPosLock)
                         Main.LocalPlayer.mouseInterface = true;
 
                     if (modPlayer.rogueStealthMax > 0f && modPlayer.stealthUIAlpha >= 0.5f)
