@@ -1247,6 +1247,10 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if(zypArrow)
+            {
+                target.AddBuff<LifeOppress>(600);
+            }
             if (GWBow)
             {
                 CEUtils.PlaySound("bne_hit", 1.2f + 0.2f * projectile.numHits, target.Center);

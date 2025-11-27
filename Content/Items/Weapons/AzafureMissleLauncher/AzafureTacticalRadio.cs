@@ -1,5 +1,7 @@
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
@@ -230,7 +232,12 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             }
             GeneralParticleHandler.SpawnParticle(new PulseRing(center, Vector2.Zero, Color.OrangeRed, 0.1f, 3f, lifetime));
             ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 6));
-            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 260, Projectile.DamageType);
+            void onhit(NPC target, NPC.HitInfo info, int damage)
+            {
+                target.AddBuff<MechanicalTrauma>(300);
+            }
+            ((CommonExplotionFriendly)CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 260, Projectile.DamageType).ModProjectile).onHitAction = onhit;
+            ;
         }
         public override bool PreDraw(ref Color lightColor)
         {

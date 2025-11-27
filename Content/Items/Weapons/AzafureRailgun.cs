@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
@@ -243,6 +244,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public TrailParticle trail2 = null;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<MechanicalTrauma>(300);
             GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 0.4f, 8));
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 1.2f, 1, true, BlendState.Additive, 0, 12);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.7f, 1, true, BlendState.Additive, 0, 12);

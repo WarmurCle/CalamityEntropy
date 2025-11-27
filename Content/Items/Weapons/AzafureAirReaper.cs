@@ -1,3 +1,4 @@
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
@@ -87,6 +88,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public int StickNPC = -1;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<MechanicalTrauma>(260);
             if (StickNPC < 0)
             {
                 StickNPC = target.whoAmI;

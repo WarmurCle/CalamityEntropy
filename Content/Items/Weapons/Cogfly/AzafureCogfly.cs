@@ -108,6 +108,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<MechanicalTrauma>(200);
             Player player = Projectile.GetOwner();
             for (int i = 0; i < 8; i++)
             {

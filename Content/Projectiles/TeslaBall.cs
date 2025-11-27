@@ -1,4 +1,5 @@
-﻿using CalamityMod.Particles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -22,6 +23,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 1024;
             Projectile.penetrate = 1;
             Projectile.MaxUpdates = 4;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff<MechanicalTrauma>(260);
         }
         public override void AI()
         {

@@ -155,6 +155,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<LifeOppress>(600);
             target.AddBuff(ModContent.BuffType<WhisperingDeath>(), 300);
             if (CrackCd <= 0)
             {

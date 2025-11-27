@@ -1,4 +1,5 @@
-﻿using CalamityMod.Particles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -35,6 +36,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity.Y += 0.02f;
             }
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(ModContent.BuffType<MechanicalTrauma>(), 180);
         }
         public override void OnKill(int timeLeft)
         {

@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Particles;
@@ -66,6 +67,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<LifeOppress>(600);
             for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 6 : 1); i++)
             {
                 EParticle.NewParticle(new AbyssalLine() { lx = (Projectile.Calamity().stealthStrike ? 3 : 1.6f), xadd = (Projectile.Calamity().stealthStrike ? 3 : 1.6f) }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());

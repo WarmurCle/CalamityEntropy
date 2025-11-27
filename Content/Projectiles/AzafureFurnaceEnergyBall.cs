@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityMod;
 using CalamityMod.Particles;
@@ -34,6 +35,10 @@ namespace CalamityEntropy.Content.Projectiles
         public TrailParticle t3 = new TrailParticle();
         public TrailParticle t4 = new TrailParticle();
         public List<TrailParticle> ts = new List<TrailParticle>();
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff<MechanicalTrauma>(340);
+        }
         public override void AI()
         {
             if (Projectile.localAI[1] == 0)

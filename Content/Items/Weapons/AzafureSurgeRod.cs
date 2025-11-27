@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -237,6 +238,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<MechanicalTrauma>(260);
             if (!StickOnGround && !StickOnNPC)
             {
                 StickOnNPC = true;

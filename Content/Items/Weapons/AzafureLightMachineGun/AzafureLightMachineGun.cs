@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
@@ -272,11 +273,16 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.GetOwner().Entropy().worshipStealthRegenTime = 18;
+            target.AddBuff<MechanicalTrauma>(60);
         }
     }
 
     public class AzafureLightMachineGunStealth : ModProjectile
     {
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff<MechanicalTrauma>(320);
+        }
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(CEUtils.RogueDC, true, 1);

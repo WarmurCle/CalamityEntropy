@@ -66,6 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<LifeOppress>(600);
             var player = Projectile.GetOwner();
             player.AddBuff(ModContent.BuffType<WyrmPhantom>(), 480);
             target.AddBuff(ModContent.BuffType<WyrmWhipDebuff>(), 380);

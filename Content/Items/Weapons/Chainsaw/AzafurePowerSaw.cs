@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityMod;
 using CalamityMod.Particles;
@@ -153,6 +154,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
         public int soundCd = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<MechanicalTrauma>(260);
             Player Owner = Main.player[Projectile.owner];
             SoundStyle hitSound = new SoundStyle("CalamityEntropy/Assets/Sounds/chainsaw", SoundType.Ambient) { Volume = 0.3f };
             if (soundCd <= 0)

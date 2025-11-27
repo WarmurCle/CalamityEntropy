@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -41,6 +42,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public Vector2 sVel = Vector2.Zero;
         public bool Stuck = false;
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(ModContent.BuffType<MechanicalTrauma>(), 180);
+        }
         public override void AI()
         {
             PullCD--;

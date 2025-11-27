@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
@@ -203,6 +204,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<MechanicalTrauma>(260);
             target.AddBuff<ArmorCrunch>(300);
             CEUtils.PlaySound("ystn_hit", 0.8f, Projectile.Center);
             for (int i = 0; i < 16; i++)

@@ -1,4 +1,5 @@
-﻿using CalamityMod.Particles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -57,6 +58,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<LifeOppress>(600);
             CalamityEntropy.Instance.screenShakeAmp = 6;
             CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, new Color(170, 170, 255), new Vector2(2f, 2f), 0, 0.1f, 1f, 30);
             GeneralParticleHandler.SpawnParticle(pulse);

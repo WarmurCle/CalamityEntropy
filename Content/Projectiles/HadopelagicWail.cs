@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -42,6 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<LifeOppress>(600);
             EParticle.NewParticle(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
             EParticle.NewParticle(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
         }

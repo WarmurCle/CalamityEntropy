@@ -3989,10 +3989,10 @@ Projectiles: {
 	CarverSpike.DisplayName: 刻尘尖刺
 	CarverBolt.DisplayName: 刻尘深渊束
 	CarverSpirit.DisplayName: 刻尘魔灵
-	// AzafureRadioMissile.DisplayName: Azafure Radio Missile
-	// MissileSilo.DisplayName: Missile Silo
-	// SentryRemoverHeld.DisplayName: Sentry Remover Held
-	// AzafureAirReaperThrow.DisplayName: Azafure Air Reaper Throw
+	AzafureRadioMissile.DisplayName: 导弹
+	MissileSilo.DisplayName: 导弹井
+	SentryRemoverHeld.DisplayName: 哨兵拆除器
+	AzafureAirReaperThrow.DisplayName: 阿萨福勒压力统镰
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4321,6 +4321,16 @@ Buffs: {
 	Koishi: {
 		DisplayName: 本我的解放
 		Description: ""
+	}
+
+	LifeOppress: {
+		// DisplayName: Life Oppress
+		// Description: Mods.CalamityEntropy.Buffs.LifeOppress.Description
+	}
+
+	MechanicalTrauma: {
+		// DisplayName: Mechanical Trauma
+		// Description: Mods.CalamityEntropy.Buffs.MechanicalTrauma.Description
 	}
 }
 
@@ -4910,7 +4920,7 @@ AmmoPenetrate: 穿透次数
 AmmoPenetrateInfinite: 无限
 PrefixEchoDescr: +12 最大潜行值
 PrefixVigorousDescr: +15% 潜行值回复速度
-WikiURL: http://calentropy.miraheze.org/wiki/
+WikiURL: ""
 GameTips.VoidOreTip: 虚渺矿会在击败巡游者后在太空生成
 LoreAwakeningDesc: 小幅增加移动速度和跳跃高度
 LoreKingSlimeDesc: 提升跳跃高度，但会减少移动速度

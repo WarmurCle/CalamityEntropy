@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityMod;
 using CalamityMod.CalPlayer;
@@ -171,8 +172,11 @@ namespace CalamityEntropy.Content.ILEditing
             float mult = 1;
 
             if (npc.HasBuff<Koishi>())
-                mult *= 0.8f;
-
+                mult -= 0.2f;
+            if (npc.HasBuff<LifeOppress>())
+                mult -= 0.65f;
+            if (mult < 0)
+                mult = 0;
             return mult;
         }
         public delegate string On_GetNPCName_get_Delegate(NPC npc);

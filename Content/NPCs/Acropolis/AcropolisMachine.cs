@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -187,7 +188,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             });
         }
         public bool SetBoss = true;
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(ModContent.BuffType<MechanicalTrauma> (), 180);
+        }
         public override void SetDefaults()
         {
             NPC.width = 142;

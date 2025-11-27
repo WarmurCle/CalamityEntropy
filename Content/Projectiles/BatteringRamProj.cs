@@ -182,6 +182,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<MechanicalTrauma>(260);
             OnHitBothSide(target);
             if (Main.zenithWorld)
             {

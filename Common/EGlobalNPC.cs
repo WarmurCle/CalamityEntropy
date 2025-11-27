@@ -186,8 +186,24 @@ namespace CalamityEntropy.Common
 
             }
         }
+        public int LastLife = -1;
         public override void PostAI(NPC npc)
         {
+            if (LastLife < 0)
+                LastLife = npc.life;
+
+            if(npc.HasBuff<LifeOppress>())
+            {
+                if (npc.life > LastLife && !npc.dontTakeDamage)
+                {
+                    npc.life = LastLife;
+                }
+            }
+
+            if(npc.life >= 0)
+            {
+                LastLife = npc.life;
+            }
             HitCounter++;
             if (npc.ModNPC != null && npc.ModNPC is PrimordialWyrmHead && HitCounter > 120)
             {
@@ -834,7 +850,9 @@ namespace CalamityEntropy.Common
                     AddBuffDraw<SoulDisorder>();
                     AddBuffDraw<HeatDeath>();
                     AddBuffDraw<Koishi>();
-                    
+                    AddBuffDraw<MechanicalTrauma>();
+                    AddBuffDraw<LifeOppress>();
+
                     if (npc.GetGlobalNPC<ScorpioEffectNPC>().effectLevel > 0)
                     {
                         currentDebuffs.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Buffs/AstralScorpionPoisonous").Value);

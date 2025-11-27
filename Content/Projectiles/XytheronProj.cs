@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Weapons;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
@@ -49,6 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int addcharge = 3;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<LifeOppress>(600);
             CEUtils.PlaySound("xhit", Main.rand.NextFloat(0.8f, 1.1f), Projectile.Center, 8, volume: 0.32f);
             CEUtils.PlaySound("DevourerDeathImpact", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, 8, volume: 0.32f);
             CalamityEntropy.Instance.screenShakeAmp = 5;

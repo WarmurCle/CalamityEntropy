@@ -4079,6 +4079,16 @@ Buffs: {
 		DisplayName: Koishi
 		Description: ""
 	}
+
+	LifeOppress: {
+		DisplayName: Life Oppress
+		Description: Mods.CalamityEntropy.Buffs.LifeOppress.Description
+	}
+
+	MechanicalTrauma: {
+		DisplayName: Mechanical Trauma
+		Description: Mods.CalamityEntropy.Buffs.MechanicalTrauma.Description
+	}
 }
 
 Uh: ""
