@@ -680,6 +680,11 @@ namespace CalamityEntropy.Common
 
         public override void PostAddRecipes()
         {
+            Recipe.Create(ItemID.BloodMoonStarter)
+                .AddRecipeGroup(CERecipeGroups.evilBar, 4)
+                .AddIngredient(ItemID.Lens, 4)
+                .AddTile(TileID.DemonAltar)
+                .Register();
             foreach (var recipe in Main.recipe)
             {
                 if (recipe.createItem.type == ModContent.ItemType<CalamityMod.Items.Placeables.FurnitureAuric.AuricToilet>())

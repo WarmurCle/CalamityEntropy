@@ -154,7 +154,7 @@ namespace CalamityEntropy
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
             efont3 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/MaruMonica", AssetRequestMode.ImmediateLoad).Value;
-            CERecipeGroups.init();
+            
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
             userInterface = new UserInterface();
