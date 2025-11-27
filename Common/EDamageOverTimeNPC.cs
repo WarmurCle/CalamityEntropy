@@ -19,7 +19,7 @@ namespace CalamityEntropy.Common
                     npc.lifeRegen = 0;
             if (npc.HasBuff<LifeOppress>())
             {
-                damageApply += 9600;
+                damageApply += 1600;
             }
             if (npc.HasBuff<MechanicalTrauma>())
             {
