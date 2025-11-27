@@ -4324,13 +4324,13 @@ Buffs: {
 	}
 
 	LifeOppress: {
-		// DisplayName: Life Oppress
-		// Description: Mods.CalamityEntropy.Buffs.LifeOppress.Description
+		DisplayName: 生命压制
+		Description: 你看见了你的死亡
 	}
 
 	MechanicalTrauma: {
-		// DisplayName: Mechanical Trauma
-		// Description: Mods.CalamityEntropy.Buffs.MechanicalTrauma.Description
+		DisplayName: 机械性创伤
+		Description: 你浑身疼痛不堪
 	}
 }
 
