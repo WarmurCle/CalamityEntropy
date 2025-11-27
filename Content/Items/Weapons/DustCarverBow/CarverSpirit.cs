@@ -41,8 +41,23 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         public int Delay = 0;
 
         public List<Vector2> OldPos = new List<Vector2>();
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 64;
+            
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if(HealingCooldown <= 0)
+            {
+                HealingCooldown = 30.ApplyCdDec(Projectile.GetOwner());
+                Projectile.GetOwner().Heal(1);
+            }
+        }
+        public int HealingCooldown = 0;
         public override void AI()
         {
+            HealingCooldown--;
             Player player = Projectile.GetOwner();
             if(player.heldProj < 0)
             {
@@ -152,7 +167,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), (int)(Projectile.damage * 3f), 4, Projectile.owner).ToProj().scale *= 0.7f;
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), (int)(Projectile.damage * 3.5f), 4, Projectile.owner).ToProj().scale *= 0.7f;
                                 Projectile.velocity -= Projectile.rotation.ToRotationVector2() * 12;
                             }
                         }
