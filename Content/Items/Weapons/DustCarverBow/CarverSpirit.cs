@@ -58,6 +58,8 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         public override void AI()
         {
             HealingCooldown--;
+
+            white--;
             Player player = Projectile.GetOwner();
             if(player.heldProj < 0)
             {
@@ -227,7 +229,6 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                         break;
                     }
             }
-            white--;
             OldPos.Add(Projectile.Center);
             if (OldPos.Count > 8)
                 OldPos.RemoveAt(0);
