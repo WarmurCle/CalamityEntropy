@@ -100,7 +100,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 new FlavorTextBestiaryInfoElement("Mods.CalamityEntropy.ProphetBestiary")
             });
         }
-
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            if (AIStyle == 1 || AIStyle == 11)
+                return true;
+            return false;
+        }
         public override void DrawBehind(int index)
         {
             Main.instance.DrawCacheNPCsOverPlayers.Add(index);
