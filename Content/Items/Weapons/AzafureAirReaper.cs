@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 78;
             Item.height = 78;
-            Item.damage = 8;
+            Item.damage = 15;
             Item.DamageType = CEUtils.RogueDC;
             Item.useTime = 32;
             Item.useAnimation = 32;
