@@ -3467,6 +3467,15 @@ Items: {
 		DisplayName: 仙灵书签
 		Tooltip: 召唤三只追逐敌人并攻击的仙灵
 	}
+
+	AzafureCylinder: {
+		DisplayName: 阿萨福勒音桶
+		Tooltip:
+			'''
+			发射出带电的金属球，靠近敌人炸开
+			“存储着带有魔法的旋律”
+			'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3999,6 +4008,9 @@ Projectiles: {
 	SentryRemoverHeld.DisplayName: 哨兵拆除器
 	AzafureAirReaperThrow.DisplayName: 阿萨福勒压力统镰
 	FairyBMMinion.DisplayName: 仙灵
+	// AzafureCylinderHeld.DisplayName: Azafure Cylinder Held
+	// MetalBall.DisplayName: Metal Ball
+	// AzafureMagicBlast.DisplayName: Azafure Magic Blast
 }
 
 LegendTooltip: - 传奇物品 -

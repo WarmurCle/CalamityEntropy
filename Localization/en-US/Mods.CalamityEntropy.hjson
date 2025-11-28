@@ -3207,6 +3207,15 @@ Items: {
 		DisplayName: Bookmark - Fairy
 		Tooltip: Spawn three fairies fight for you
 	}
+
+	AzafureCylinder: {
+		DisplayName: Azafure Cylinder
+		Tooltip:
+			'''
+			Launch a charged metal ball that explodes upon nearing the enemy
+			"Storing melodies with magic"
+			'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3756,6 +3765,9 @@ Projectiles: {
 	SentryRemoverHeld.DisplayName: Sentry Remover Held
 	AzafureAirReaperThrow.DisplayName: Azafure Air Reaper Throw
 	FairyBMMinion.DisplayName: Fairy
+	AzafureCylinderHeld.DisplayName: Azafure Cylinder Held
+	MetalBall.DisplayName: Metal Ball
+	AzafureMagicBlast.DisplayName: Azafure Magic Blast
 }
 
 LegendTooltip: - Legend -

@@ -1,23 +1,11 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.Pets.DoG;
-using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
-using static CalamityEntropy.Content.Items.Weapons.DustCarverBow.CarverSpirit;
-using static CalamityEntropy.ScreenShaker;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -80,7 +68,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
             float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
             Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
-            Projectile.damage = player.GetWeaponDamage(player.HeldItem) * 2;
+            Projectile.damage = (int)(player.GetWeaponDamage(player.HeldItem) * 0.6f);
             Projectile.MaxUpdates = 1;
 
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3000)
