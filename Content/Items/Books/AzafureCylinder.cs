@@ -115,8 +115,14 @@ namespace CalamityEntropy.Content.Items.Books
             gravity = 0.8f;
             Projectile.timeLeft = 8 * 60;
         }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            fallThrough = false;
+            return true;
+        }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            
             if (oldVelocity.X != 0 && Projectile.velocity.X == 0)
             {
                 Projectile.velocity.X = oldVelocity.X * -0.5f;
@@ -151,7 +157,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             trail.Lifetime = 26;
             trail.AddPoint(Projectile.Center + Projectile.velocity);
-            CEUtils.AddLight(Projectile.Center, new Color(255, 70, 70));
+            CEUtils.AddLight(Projectile.Center, new Color(150, 10, 30));
         }
         public override void OnKill(int timeLeft)
         {

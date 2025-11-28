@@ -187,11 +187,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                     GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Lerp(Color.Red, Color.Orange, i) * i, 0.02f, i + 1.2f, 16));
             }
         }
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-        {
-            fallThrough = false;
-            return true;
-        }
+        
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
