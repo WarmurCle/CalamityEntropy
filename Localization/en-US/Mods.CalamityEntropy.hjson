@@ -3204,8 +3204,11 @@ Items: {
 	}
 
 	BookmarkFairy: {
-		DisplayName: Bookmark Fairy
-		Tooltip: ""
+		DisplayName: Bookmark - Fairy
+		Tooltip: 
+		'''
+		Spawn three fairies fight for you
+		'''
 	}
 }
 
@@ -4938,6 +4941,7 @@ LMDialog18: What is this? You need a coin!
 NowLV: Level
 AnyOrichalcumBar: Any Orichalcum Bar
 AnyEvilBar: Any Evil Bar
+AnyFairy: Any Fairy
 BCBarInfo: Bramble Bar(Hold [mouse middle] to drag)
 HallowedEnemiesDrop: Dropping from undergronud hallowed enemies
 EvilEnemiesDrop: Dropping from undergronud evil biomes' enemies

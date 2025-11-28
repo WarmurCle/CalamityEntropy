@@ -3464,8 +3464,8 @@ Items: {
 	}
 
 	BookmarkFairy: {
-		// DisplayName: Bookmark Fairy
-		// Tooltip: ""
+		DisplayName: 仙灵书签
+		Tooltip: "召唤三只追逐敌人并攻击的仙灵"
 	}
 }
 
@@ -5152,6 +5152,7 @@ LMDialog18: 你塞的是什么东西？
 NowLV: 当前等级
 AnyOrichalcumBar: 任何山铜锭
 AnyEvilBar: 任何邪恶锭
+AnyFairy: 任何仙灵
 BCBarInfo: 苍郁充能
 HallowedEnemiesDrop: 掉落自神圣之地地下敌怪
 EvilEnemiesDrop: 掉落自邪恶地形地下敌怪

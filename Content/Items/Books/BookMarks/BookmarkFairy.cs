@@ -38,7 +38,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Color tooltipColor => Color.Pink;
         public override void AddRecipes()
         {
-
+            CreateRecipe()
+                .AddRecipeGroup(CERecipeGroups.fairys, 1)
+                .AddIngredient(ItemID.FallenStar, 5)
+                .AddTile(TileID.WorkBenches)
+                .Register();
         }
         private static int projType = -1;
         public static int ProjType { get { if (projType == -1) { projType = ModContent.ProjectileType<FairyBMMinion>(); } return projType; } }

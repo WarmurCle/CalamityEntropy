@@ -10,26 +10,31 @@ namespace CalamityEntropy
         public static string AnyOrichalcumBar = "OrichalcumBars";
         public static string butterflies = "Butterflies";
         public static string evilBar = "EvilBars";
+        public static string fairys = "Fairys";
         public static RecipeGroup gems_;
         public static RecipeGroup AnyOrichalcumBar_;
         public static RecipeGroup butterflies_;
         public static RecipeGroup evilBar_;
+        public static RecipeGroup fairys_;
         public override void AddRecipeGroups()
         {
             gems = $"{Mod.Name}:" + gems;
             AnyOrichalcumBar = $"{Mod.Name}:" + AnyOrichalcumBar;
             butterflies = $"{Mod.Name}:" + butterflies;
             evilBar = $"{Mod.Name}:" + evilBar;
+            fairys = $"{Mod.Name}:" + fairys;
 
             AnyOrichalcumBar_ = new RecipeGroup(() => CalamityEntropy.Instance.GetLocalization("AnyOrichalcumBar").Value, ItemID.OrichalcumBar, ItemID.MythrilBar);
             gems_ = new RecipeGroup(() => "Gems", ItemID.Ruby, ItemID.Sapphire, ItemID.Diamond, ItemID.Emerald, ItemID.Topaz, ItemID.Amethyst);
             butterflies_ = new RecipeGroup(() => "Butterflies", ItemID.EmpressButterfly, ItemID.GoldButterfly, ItemID.HellButterfly, ItemID.JuliaButterfly, ItemID.MonarchButterfly, ItemID.PurpleEmperorButterfly, ItemID.RedAdmiralButterfly, ItemID.SulphurButterfly, ItemID.TreeNymphButterfly, ItemID.UlyssesButterfly, ItemID.ZebraSwallowtailButterfly);
             evilBar_ = new RecipeGroup(() => CalamityEntropy.Instance.GetLocalization("AnyEvilBar").Value, ItemID.CrimtaneBar, ItemID.DemoniteBar);
-            
+            fairys_ = new RecipeGroup(() => CalamityEntropy.Instance.GetLocalization("AnyFairy").Value, 4068, 4069, 4070);
+
             RecipeGroup.RegisterGroup(AnyOrichalcumBar, AnyOrichalcumBar_);
             RecipeGroup.RegisterGroup(gems, gems_);
             RecipeGroup.RegisterGroup(butterflies, butterflies_);
             RecipeGroup.RegisterGroup(evilBar, evilBar_);
+            RecipeGroup.RegisterGroup(fairys, fairys_);
         }
 
 
