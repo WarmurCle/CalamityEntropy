@@ -169,6 +169,12 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         {
             return false;
         }
+        public override bool? CanHitNPC(NPC target)
+        {
+
+            Projectile.penetrate = -1;
+            return null;
+        }
         public override void AI()
         {
             base.AI();
