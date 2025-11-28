@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityMod;
 using CalamityMod.Items.LoreItems;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books
 {
-    public class AzafureCylinder : EntropyBook
+    public class AzafureCylinder : EntropyBook, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -140,6 +141,8 @@ namespace CalamityEntropy.Content.Items.Books
         {
             if (Projectile.localAI[2] ++ == 0)
             {
+                if (Projectile.GetOwner().AzafureEnhance())
+                    Projectile.timeLeft *= 2;
                 CEUtils.PlaySound("aprclaunch", Main.rand.NextFloat(2, 2.4f), Projectile.Center);
             }
             if(trail == null)

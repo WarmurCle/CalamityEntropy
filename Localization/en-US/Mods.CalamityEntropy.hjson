@@ -4995,6 +4995,7 @@ AzafureEnhances: {
 	AzafureCogfly: Increase minion attacking speed
 	AzafureTacticalRadio: Increase missile num
 	AzafureAirReaper: Increase chasing time
+	AzafureCylinder: Extend the metal ball's existence time
 }
 
 DeathExplode: "[PlayerName] exploded"

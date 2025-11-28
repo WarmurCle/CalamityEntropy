@@ -5208,6 +5208,7 @@ AzafureEnhances: {
 	AzafureCogfly: 增加攻击频率
 	AzafureTacticalRadio: 增加发射的导弹数量
 	AzafureAirReaper: 增加镰刀追逐目标的时间
+	AzafureCylinder: 延长金属球存在时间
 }
 
 DeathExplode: "[PlayerName]爆炸了"
