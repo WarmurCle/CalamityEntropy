@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 15;
+            Item.damage = 25;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<AzafureCylinderHeld>();
         public override int SlotCount => 3;
@@ -153,7 +153,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.AI();
             foreach(NPC n in Main.ActiveNPCs)
             {
-                if (!n.friendly && !n.dontTakeDamage && n.Hitbox.Intersects(Projectile.Center.getRectCentered(200, 200)))
+                if (!n.friendly && !n.dontTakeDamage && n.Hitbox.Intersects(Projectile.Center.getRectCentered(140, 140)))
                 {
                     Projectile.Kill();
                 }

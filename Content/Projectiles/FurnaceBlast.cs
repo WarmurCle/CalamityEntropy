@@ -150,8 +150,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.width = 330;
-            Projectile.height = 330;
+            Projectile.width = 420;
+            Projectile.height = 420;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.penetrate = -1;
