@@ -158,6 +158,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 300;
+            Projectile.penetrate = 42;
         }
         public float Scale = 0;
         public float Counter = 0;
