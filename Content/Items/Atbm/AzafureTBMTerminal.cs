@@ -5,6 +5,7 @@ using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
@@ -217,7 +218,7 @@ namespace CalamityEntropy.Content.Items.Atbm
             else
             {
                 if(Main.myPlayer == Projectile.owner)
-                    Projectile.timeLeft = 240;
+                    Projectile.timeLeft = 16 * 60;
             }
             InGround = false;
             if (CEUtils.CheckSolidTile(Projectile.Center.getRectCentered(42, 42)) || Projectile.wet)
@@ -381,6 +382,14 @@ namespace CalamityEntropy.Content.Items.Atbm
         public float counter = 0;
         public void SpawnDiggingParticle()
         {
+        }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.timeLeft);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Projectile.timeLeft = reader.ReadInt32();
         }
         public override bool PreDraw(ref Color lightColor)
         {
