@@ -77,6 +77,8 @@ namespace CalamityEntropy.Common
         {
             if (player.HeldItem.ModItem != null && player.HeldItem.ModItem is EntropyBook ebi && GetPlayerHeldEntropyBook(player, out var eb))
             {
+                if (eb.UIOpen)
+                    return false;
                 int c = player.GetMyMaxActiveBookMarks(player.HeldItem);
                 if (c > 0)
                 {

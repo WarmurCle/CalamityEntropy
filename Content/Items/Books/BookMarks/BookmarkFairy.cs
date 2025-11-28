@@ -137,6 +137,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
 
         }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return num >= 0 ? null : false;
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Items/Books/BookMarks/Fairy/F" + (1+(int)Projectile.ai[2]));
