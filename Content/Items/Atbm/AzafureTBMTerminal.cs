@@ -202,8 +202,9 @@ namespace CalamityEntropy.Content.Items.Atbm
         public bool backing = false;
         public override void AI()
         {
-            Projectile.netUpdate = true;
-            Projectile.netSpam = 0;
+            if (Projectile.owner == Main.myPlayer)
+                if (Main.GameUpdateCount % 10 == 0)
+                    CEUtils.SyncProj(Projectile.whoAmI);
             if (segs.Count == 0)
             {
                 for (int i = 0; i < 7; i++)
@@ -211,8 +212,13 @@ namespace CalamityEntropy.Content.Items.Atbm
                     segs.Add(new Seg(Projectile.Center - Projectile.velocity.normalize() * 30 * i, Projectile.velocity.ToRotation(), 30));
                 }
             }
-            if (!player.dead)
-                Projectile.timeLeft = 3;
+            if (player.dead)
+                Projectile.Kill();
+            else
+            {
+                if(Main.myPlayer == Projectile.owner)
+                    Projectile.timeLeft = 240;
+            }
             InGround = false;
             if (CEUtils.CheckSolidTile(Projectile.Center.getRectCentered(42, 42)) || Projectile.wet)
             {
