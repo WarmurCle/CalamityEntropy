@@ -3998,7 +3998,7 @@ Projectiles: {
 	MissileSilo.DisplayName: 导弹井
 	SentryRemoverHeld.DisplayName: 哨兵拆除器
 	AzafureAirReaperThrow.DisplayName: 阿萨福勒压力统镰
-	// FairyBMMinion.DisplayName: Fairy B M Minion
+	FairyBMMinion.DisplayName: 仙灵
 }
 
 LegendTooltip: - 传奇物品 -
