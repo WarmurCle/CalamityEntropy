@@ -3205,10 +3205,7 @@ Items: {
 
 	BookmarkFairy: {
 		DisplayName: Bookmark - Fairy
-		Tooltip: 
-		'''
-		Spawn three fairies fight for you
-		'''
+		Tooltip: Spawn three fairies fight for you
 	}
 }
 

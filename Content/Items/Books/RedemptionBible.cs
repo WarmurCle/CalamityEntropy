@@ -15,8 +15,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 90;
-            Item.useAnimation = Item.useTime = 36;
+            Item.damage = 60;
+            Item.useAnimation = Item.useTime = 29;
             Item.crit = 10;
             Item.mana = 15;
         }
@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Books
                     BookMarkLoader.ModifyStat(it, m);
                 }
             }
-            return ((float)_shotCooldown / m.attackSpeed) * 0.36f;
+            return ((float)_shotCooldown / m.attackSpeed) * 0.38f;
         }
         public float getscale()
         {
@@ -75,6 +75,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void AI()
         {
+            CEUtils.AddLight(Projectile.Center, Color.LightGoldenrodYellow);
             base.AI();
             Player player = Projectile.GetOwner();
 
@@ -115,8 +116,10 @@ namespace CalamityEntropy.Content.Items.Books
             return false;
         }
         public Vector2 mouse = Vector2.Zero;
+        public int Delay = 0;
         public override void AI()
         {
+            CEUtils.AddLight(Projectile.Center, Color.LightGoldenrodYellow);
             base.AI();
             if (Projectile.GetOwner().dead)
             {
@@ -175,14 +178,18 @@ namespace CalamityEntropy.Content.Items.Books
 
                 if (eb.active)
                 {
-                    Projectile.ai[0]++;
-                    float shootCd = eb.getBowShootCd();
-                    if (Projectile.ai[0] > shootCd)
+                    if (Delay-- < 0)
                     {
-                        Projectile.ai[0] -= shootCd;
-                        if (Main.myPlayer == Projectile.owner)
+                        Projectile.ai[0]++;
+                        float shootCd = eb.getBowShootCd();
+                        if (Projectile.ai[0] > shootCd)
                         {
-                            eb.ShootSingleProjectile(ModContent.ProjectileType<RedemptionArrow>(), Projectile.Center, Projectile.rotation.ToRotationVector2(), 0.18f, 1, 1.6f);
+                            Projectile.ai[0] -= shootCd;
+                            if (Main.myPlayer == Projectile.owner)
+                            {
+                                Delay = 8;
+                                eb.ShootSingleProjectile(ModContent.ProjectileType<RedemptionArrow>(), Projectile.Center, Projectile.rotation.ToRotationVector2(), 0.24f, 1, 1.6f);
+                            }
                         }
                     }
                 }
@@ -220,6 +227,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void AI()
         {
+            CEUtils.AddLight(Projectile.Center, Color.LightGoldenrodYellow);
             base.AI();
             Projectile.rotation = Projectile.velocity.ToRotation();
         }

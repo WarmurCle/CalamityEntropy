@@ -3465,7 +3465,7 @@ Items: {
 
 	BookmarkFairy: {
 		DisplayName: 仙灵书签
-		Tooltip: "召唤三只追逐敌人并攻击的仙灵"
+		Tooltip: 召唤三只追逐敌人并攻击的仙灵
 	}
 }
 

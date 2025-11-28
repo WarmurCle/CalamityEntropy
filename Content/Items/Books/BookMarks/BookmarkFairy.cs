@@ -141,11 +141,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 value = Color.RoyalBlue;
                 value2 = Color.LightBlue;
             }
-            if (Main.rand.NextBool(4))
+            if (Main.rand.NextBool(4) || num >= 0)
             {
                 Dust dust17 = Dust.NewDustDirect(Projectile.Center - new Vector2(num98) * 0.5f, num98 + 4, num98 + 4, 278, 0f, 0f, 200, Color.Lerp(value, value2, Main.rand.NextFloat()), 0.65f);
                 dust17.noGravity = true;
-                dust17.velocity = Projectile.velocity * 0.4f;
+                dust17.velocity = Projectile.velocity * 0.06f;
             }
 
         }

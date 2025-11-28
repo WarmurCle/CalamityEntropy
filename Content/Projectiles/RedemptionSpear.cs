@@ -32,18 +32,19 @@ namespace CalamityEntropy.Content.Projectiles
 
             Vector2 top = Projectile.Center;
             Vector2 sparkVelocity2 = Projectile.velocity * -0.1f;
-            int sparkLifetime2 = Main.rand.Next(5, 7);
-            float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
+            int sparkLifetime2 = 4;
+            float sparkScale2 = Main.rand.NextFloat(0.6f, 1f);
             Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.Gold, Main.rand.NextFloat(0, 1));
             LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
             GeneralParticleHandler.SpawnParticle(spark);
+            CEUtils.AddLight(Projectile.Center, Color.LightGoldenrodYellow);
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, this.color, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
-            CEUtils.DrawGlow(Projectile.Center, new Color(this.color.R, this.color.G * 0.82f, this.color.B * 0.1f) * 0.6f, Projectile.scale * 4);
+            CEUtils.DrawGlow(Projectile.Center, new Color(this.color.R * 0.6f, this.color.G * 0.5f, this.color.B * 0.05f) * 0.3f, Projectile.scale * 4);
             return false;
         }
         public override Color baseColor => Color.White;
