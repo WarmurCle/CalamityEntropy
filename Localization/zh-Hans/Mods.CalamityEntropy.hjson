@@ -3462,6 +3462,11 @@ Items: {
 		DisplayName: 哨兵拆除器
 		Tooltip: 拆除你部署的哨兵
 	}
+
+	BookmarkFairy: {
+		// DisplayName: Bookmark Fairy
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3993,6 +3998,7 @@ Projectiles: {
 	MissileSilo.DisplayName: 导弹井
 	SentryRemoverHeld.DisplayName: 哨兵拆除器
 	AzafureAirReaperThrow.DisplayName: 阿萨福勒压力统镰
+	// FairyBMMinion.DisplayName: Fairy B M Minion
 }
 
 LegendTooltip: - 传奇物品 -

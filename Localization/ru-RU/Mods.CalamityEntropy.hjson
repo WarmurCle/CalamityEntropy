@@ -3219,6 +3219,11 @@ Items: {
 		// DisplayName: Sentry Remover
 		// Tooltip: Remove your sentry
 	}
+
+	BookmarkFairy: {
+		// DisplayName: Bookmark Fairy
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3753,6 +3758,7 @@ Projectiles: {
 	// MissileSilo.DisplayName: Missile Silo
 	// SentryRemoverHeld.DisplayName: Sentry Remover Held
 	// AzafureAirReaperThrow.DisplayName: Azafure Air Reaper Throw
+	// FairyBMMinion.DisplayName: Fairy B M Minion
 }
 
 LegendTooltip: - Легенда -

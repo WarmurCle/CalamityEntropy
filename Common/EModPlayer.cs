@@ -1627,6 +1627,12 @@ namespace CalamityEntropy.Common
                 {
                     eb.ShootSingleProjectile(BookmarkSword.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1);
                 }
+                if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkFairyEffect>(Player) && Player.ownedProjectileCounts[BookmarkFairy.ProjType] < 1)
+                {
+                    eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj)=>{ proj.ai[2] = 0; });
+                    eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj) => { proj.ai[2] = 1; });
+                    eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj) => { proj.ai[2] = 2; });
+                }
             }
             foreach(var plr in Main.ActivePlayers)
             {
