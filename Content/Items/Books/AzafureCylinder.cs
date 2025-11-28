@@ -166,7 +166,8 @@ namespace CalamityEntropy.Content.Items.Books
         {
             CEUtils.PlaySound("explosionbig", 1.6f, Projectile.Center, 8, 0.26f);
             CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 8, 0.46f);
-            ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<AzafureMagicBlast>(), Projectile.Center, Vector2.Zero, 1, 1, 0);
+            if(Main.myPlayer == Projectile.owner)
+                ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<AzafureMagicBlast>(), Projectile.Center, Vector2.Zero, 1, 1, 0);
         }
         public override bool? CanHitNPC(NPC target)
         {
