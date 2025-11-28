@@ -63,6 +63,10 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Check(DownedBossSystem.downedPrimordialWyrm);
             return Level;
         }
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            return false;
+        }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             string Get(string path)
