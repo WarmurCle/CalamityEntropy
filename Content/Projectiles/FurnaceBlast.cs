@@ -172,7 +172,6 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         }
         public override bool? CanHitNPC(NPC target)
         {
-
             Projectile.penetrate = -1;
             return null;
         }
