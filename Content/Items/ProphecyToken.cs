@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Items
         {
             CreateRecipe().AddIngredient(ItemID.Book, 4)
                 .AddIngredient(ItemID.SoulofLight, 6)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(TileID.WorkBenches)
                 .Register();
         }
     }
