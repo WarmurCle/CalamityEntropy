@@ -222,6 +222,7 @@ namespace CalamityEntropy.Content.Items.Pets
                 if (CEUtils.getDistance(swarm.Position, player.Center) > 4400)
                 {
                     swarm.Position = player.Center + CEUtils.randomPointInCircle(16);
+                    swarm.CurrentCarryItem = -1;
                 }
             }
             if (!player.dead && player.HasBuff(ModContent.BuffType<PickingSwarmBuff>()))

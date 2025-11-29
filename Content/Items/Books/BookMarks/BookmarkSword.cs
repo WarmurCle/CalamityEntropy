@@ -101,8 +101,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             var player = Projectile.GetOwner();
             //Projectile.damage = ((EntropyBookHeldProjectile)ShooterModProjectile).CauculateProjectileDamage(2);
             float tofs = target == null ? 120 : (target.width + target.height) / 2f + 120;
-            if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSwordBMEffect>(player))
+            if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSwordBMEffect>(player) || Main.myPlayer != Projectile.owner)
                 Projectile.timeLeft = 3;
+            Projectile.netUpdate = true;
             if (trail == null && ++Projectile.localAI[2] > 2)
             {
                 trail = new TrailParticle() { maxLength = 42, ShouldDraw = false};
