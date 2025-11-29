@@ -15,6 +15,7 @@ using CalamityMod;
 using CalamityMod.Items.Ammo;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.Systems;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
@@ -22,6 +23,7 @@ using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.ResourceSets;
@@ -113,6 +115,9 @@ namespace CalamityEntropy.Common
         }
         public override void PostDrawTiles()
         {
+            //修复液体绘制
+            ModContent.GetInstance<LavaRendering>().WaterStyleMaxCount = ModContent.GetContent<ModWaterStyle>().Count() + LoaderManager.Get<WaterStylesLoader>().VanillaCount;
+
             if (CalamityEntropy.SetupBossbarClrAuto)
             {
                 CalamityEntropy.SetupBossbarClrAuto = false;
