@@ -104,13 +104,21 @@ public class EPlayerDash : ModPlayer
                 p.velocity = newVelocity;
                 p.alpha = 0.36f;
                 p.vd = 0.9f;
-                p.velocity += new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101)) / 100;
+                p.velocity += CEUtils.randomPointInCircle(6);
                 VoidParticles.particles.Add(p);
             }
         }
 
         if (DashDelay > 0)
+        {
             DashDelay--;
+            if(DashDelay <= 0)
+            {
+                Player.dashDelay = 20;
+                if(DashDir == DashUp)
+                    Player.Entropy().gravAddTime = 30;
+            }
+        }
 
         if (DashTimer > 0)
         {
@@ -127,12 +135,13 @@ public class EPlayerDash : ModPlayer
             p.vd = 0.9f;
             VoidParticles.particles.Add(p);
             p = new Particle();
-            p.position = Player.Center - new Vector2(Player.direction * -(Player.velocity.X / 2), 0);
+            p.position = Player.Center - Player.velocity / 2;
             p.velocity = Vector2.Zero;
             p.alpha = 0.34f;
             p.vd = 0.9f;
             VoidParticles.particles.Add(p);
             DashTimer--;
+            Player.dashDelay = -1;
         }
     }
 

@@ -1708,12 +1708,12 @@ namespace CalamityEntropy.Common
                     if (avTrail == null || avTrail.Lifetime <= 0)
                     {
                         avTrail = new DashBeam();
-                        EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 150), 1f, 1, true, BlendState.NonPremultiplied);
+                        EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 210), 1f, 1, true, BlendState.NonPremultiplied);
                         avTrail.maxLength = 30;
                     }
                     ResetRot = true;
                     Player.fullRotation = (new Vector2(Math.Abs(Player.velocity.X), Player.velocity.Y).ToRotation()) * Player.direction;
-                    avTrail.Lifetime = 30;
+                    
                     if (Player.GetModPlayer<SCDashMP>().flag)
                     {
                         Player.GetModPlayer<SCDashMP>().Cooldown = 158.ApplyCdDec(Player);
@@ -1730,18 +1730,21 @@ namespace CalamityEntropy.Common
                     {
                         if (hasAcc(ShadeCloak.ID))
                         {
-                            Player.velocity.X /= 1.4f;
+                            Player.velocity /= 1.6f;
                         }
                     }
                     if (Player.GetModPlayer<SCDashMP>().Cooldown > 160.ApplyCdDec(Player) - 24)
                     {
+                        avTrail.Lifetime = 30;
                         for (int i = 0; i < 4; i++)
                         {
                             EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
                                 + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
                         }
                         if (hasAcc(ShadeCloak.ID))
-                            Player.velocity = new Vector2(Math.Sign(Player.velocity.X), 0) * Player.velocity.Length();
+                        {
+                            //Player.velocity = new Vector2(Math.Sign(Player.velocity.X), 0) * Player.velocity.Length();
+                        }
                     }
                     if (hasAcc(ShadeCloak.ID))
                     {
@@ -1760,7 +1763,7 @@ namespace CalamityEntropy.Common
                         }
                         if (Player.Entropy().immune < 6)
                             Player.Entropy().immune = 6;
-                        Player.velocity.X *= 1.4f;
+                        Player.velocity *= 1.6f;
 
                     }
                 }

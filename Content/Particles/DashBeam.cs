@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Particles
                 return;
             }
             List<ColoredVertex> ve = new List<ColoredVertex>();
-            Color b = this.Color * 0.16f;
+            Color b = this.Color * 0.4f;
             ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 60 * this.Scale,
                       new Vector3((((float)0) / odp.Count), 1, 1),
                       b));
