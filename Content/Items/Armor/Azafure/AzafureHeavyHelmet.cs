@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 Player.Entropy().noItemTime = 5;
                 if(DeathExplosion < 70 && DeathExplosion % 8 == 0)
                 {
-                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 10));
+                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(Player.Center), 4000, 1000, 0, 12)));
 
                     EParticle.NewParticle(new ShockParticle(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.NonPremultiplied, CEUtils.randomRot());
                 }
