@@ -475,18 +475,18 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             SpriteEffects effect = Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
             Vector2 origin = Projectile.velocity.X > 0 ? new Vector2(tex.Width / 2, 83) : new Vector2(tex.Width / 2, tex.Height - 83);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, origin, Projectile.scale, effect, 0);
-            Main.spriteBatch.SetBlendState(BlendState.NonPremultiplied);
-            Color eyeColor = Color.White;
+            Main.spriteBatch.SetBlendState(BlendState.AlphaBlend);
+            Color eyeColor = Color.White * (0.6f + 0.2f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2));
             Main.spriteBatch.Draw(eye, Projectile.Center - Main.screenPosition, null, eyeColor, Projectile.rotation, origin, Projectile.scale, effect, 0);
-
+            Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
             float stringOffset = 0;
             if(Charging > 0.5f)
             {
                 stringOffset -= CEUtils.Parabola((Charging - 0.5f), 1) * 70 * Projectile.scale;
             }
-            Vector2 p1 = Projectile.Center - Projectile.rotation.ToRotationVector2() * 22 + new Vector2(0, Projectile.velocity.X > 0 ? 62 : 82).RotatedBy(Projectile.rotation);
-            Vector2 p2 = Projectile.Center - Projectile.rotation.ToRotationVector2() * 22 + new Vector2(0, Projectile.velocity.X <= 0 ? -62 : -82).RotatedBy(Projectile.rotation);
-            Vector2 pc = Projectile.Center - Projectile.rotation.ToRotationVector2() * (22 - stringOffset);
+            Vector2 p1 = Projectile.Center - Projectile.rotation.ToRotationVector2() * 24 + new Vector2(0, Projectile.velocity.X > 0 ? 64 : 64).RotatedBy(Projectile.rotation);
+            Vector2 p2 = Projectile.Center - Projectile.rotation.ToRotationVector2() * 28 + new Vector2(0, Projectile.velocity.X <= 0 ? -64 : -64).RotatedBy(Projectile.rotation);
+            Vector2 pc = Projectile.Center - Projectile.rotation.ToRotationVector2() * (26 - stringOffset);
             CEUtils.drawLine(p1, pc, Color.Crimson, 2, 2);
             CEUtils.drawLine(p2, pc, Color.Crimson, 2, 2);
 
@@ -501,7 +501,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 Color c2 = new Color(255, 230, 230).MultiplyRGBA(new Color(1, 1, 1, sAlpha));
 
                 float w = 64 * Projectile.scale;
-                Vector2 pos = Projectile.Center - Projectile.rotation.ToRotationVector2() * (14 - stringOffset);
+                Vector2 pos = Projectile.Center - Projectile.rotation.ToRotationVector2() * (24 - stringOffset);
                 Main.spriteBatch.Draw(star, pos + new Vector2(0, sOffset * w).RotatedBy(Projectile.rotation) - Main.screenPosition, null, c1, Projectile.rotation, star.Size() / 2f, sScale * 0.3f, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(star, pos + new Vector2(0, sOffset * -w).RotatedBy(Projectile.rotation) - Main.screenPosition, null, c1, Projectile.rotation, star.Size() / 2f, sScale * 0.3f, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(star, pos + new Vector2(0, sOffset * w).RotatedBy(Projectile.rotation) - Main.screenPosition, null, c2, Projectile.rotation, star.Size() / 2f, sScale * 0.26f, SpriteEffects.None, 0);
