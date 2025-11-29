@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -38,6 +39,7 @@ namespace CalamityEntropy.Content.Items.Tools
         {
             CreateRecipe().
                 AddIngredient<HellIndustrialComponents>(4).
+                AddIngredient<DubiousPlating>(6).
                 AddRecipeGroup(RecipeGroupID.IronBar, 6).
                 AddTile(TileID.Anvils).
                 Register();

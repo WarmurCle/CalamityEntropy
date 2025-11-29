@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Items
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<EnergyCore>()
-                .AddIngredient<DubiousPlating>(6)
                 .AddIngredient<HellIndustrialComponents>(6)
+                .AddIngredient<DubiousPlating>(6)
                 .AddRecipeGroup(RecipeGroupID.IronBar, 2)
                 .AddTile(TileID.HeavyWorkBench)
                 .Register();

@@ -411,7 +411,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             Item.damage = dmg;
             Item.ClearNameOverride();
-            if (player.name.ToLower() is "tlipoca" || player.GetModPlayer<VanityModPlayer>().vanityEquippedLast == "BlackFlower")
+            if (player.name.ToLower() is "tlipoca" or "Kino" || player.GetModPlayer<VanityModPlayer>().vanityEquippedLast == "BlackFlower")
             {
                 Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
             }
@@ -421,7 +421,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (throwType == -1)
                 throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
-            Item.useTime = Item.useAnimation = (44 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
+            Item.useTime = Item.useAnimation = (40 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
             FuncKilledTownNPC(player);           
         }
         private void FuncKilledTownNPC(Player player)
@@ -494,6 +494,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<TlipocasScytheHeld>(), DashUpgrade() ? damage : damage / 4, knockback, player.whoAmI, swing == 0 ? 1 : -1, -1);
                 player.AddCooldown(TlipocasScytheSlashCooldown.ID, 7 * 60);
+                CalamityEntropy.FlashEffectStrength = 0.3f;
                 int p = Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 2, knockback, player.whoAmI);
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {
@@ -512,7 +513,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[p].Calamity().stealthStrike = true;
-                    int ut = 44 - GetLevel();
+                    int ut = 40 - GetLevel();
                     SpeedUpTime += ut + (int)(ut * 0.35f);
                 }
                 CostStealthForPlr(player);
@@ -590,6 +591,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 CEUtils.PlaySound("AbyssalBladeLaunch", 1, Projectile.Center);
             }
             Player player = Projectile.GetOwner();
+            CalamityEntropy.FlashEffectStrength = 0.3f;
             if (Projectile.ai[1] == 0 && MovePlayer)
             {
                 Vector2 odp = player.Center;
@@ -698,15 +700,16 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 SoundEngine.PlaySound(PerforatorHive.DeathSound, target.Center);
                 var player = Projectile.GetOwner();
-                player.QuickSpawnItem(target.GetSource_Death(), new Item(ItemID.SilverCoin, 10), 10);
-                player.QuickSpawnItem(target.GetSource_Death(), new Item(ModContent.ItemType<BloodOrb>(), 2), 2);
+                player.QuickSpawnItem(target.GetSource_Death(), new Item(73, 20), 20);
+                player.QuickSpawnItem(target.GetSource_Death(), new Item(ModContent.ItemType<BloodOrb>(), 30), 30);
                 if (NPC.downedPlantBoss)
                 {
-                    player.QuickSpawnItem(target.GetSource_Death(), new Item(1508, 2), 2);
+                    player.QuickSpawnItem(target.GetSource_Death(), new Item(1508, 20), 20);
+                    player.QuickSpawnItem(target.GetSource_Death(), new Item(74, 514), 20);
                 }
                 if (NPC.downedMoonlord)
                 {
-                    player.QuickSpawnItem(target.GetSource_Death(), new Item(ModContent.ItemType<Necroplasm>(), 2), 2);
+                    player.QuickSpawnItem(target.GetSource_Death(), new Item(ModContent.ItemType<Necroplasm>(), 20), 20);
                 }
             }
             if (flagS)
@@ -730,12 +733,18 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 target.AddBuff<VulnerabilityHex>(60 * 5);
             }
-            else
             if (DownedBossSystem.downedRavager)
             {
                 if (DownedBossSystem.downedProvidence)
                 {
-                    target.AddBuff<Shred>(60 * 5);
+                    if (DownedBossSystem.downedPrimordialWyrm)
+                    {
+                        target.AddBuff<LifeOppress>(60 * 5);
+                    }
+                    else
+                    {
+                        target.AddBuff<Koishi>(60 * 5);
+                    }
                 }
                 else
                 {
@@ -818,7 +827,7 @@ namespace CalamityEntropy.Content.Items.Donator
             int dir = (int)Projectile.ai[0] * Math.Sign(Projectile.velocity.X);
 
             float ySc = 0.6f;
-            ProjScale = 1.4f + TlipocasScythe.GetLevel() * 0.04f;
+            ProjScale = 1.56f + TlipocasScythe.GetLevel() * 0.04f;
             ProjScale *= (1 + Projectile.ai[1] * 0.5f);
             if (Projectile.ai[1] == 1)
             {
@@ -1079,12 +1088,18 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 target.AddBuff<VulnerabilityHex>(60 * 5);
             }
-            else
             if (DownedBossSystem.downedRavager)
             {
                 if (DownedBossSystem.downedProvidence)
                 {
-                    target.AddBuff<Shred>(60 * 5);
+                    if (DownedBossSystem.downedPrimordialWyrm)
+                    {
+                        target.AddBuff<LifeOppress>(60 * 5);
+                    }
+                    else
+                    {
+                        target.AddBuff<Koishi>(60 * 5);
+                    }
                 }
                 else
                 {
@@ -1102,14 +1117,14 @@ namespace CalamityEntropy.Content.Items.Donator
             GeneralParticleHandler.SpawnParticle(impactParticle);
 
 
-            float sparkCount = 14 + TlipocasScythe.GetLevel();
+            float sparkCount = 6 + TlipocasScythe.GetLevel();
             for (int i = 0; i < sparkCount; i++)
             {
                 float p = Main.rand.NextFloat();
                 Vector2 sparkVelocity2 = CEUtils.randomRot().ToRotationVector2().RotatedByRandom(p * 0.4f) * Main.rand.NextFloat(6, 20 * (2 - p)) * (1 + TlipocasScythe.GetLevel() * 0.1f);
-                int sparkLifetime2 = (int)((2 - p) * 16);
-                float sparkScale2 = 0.6f + (1 - p);
-                sparkScale2 *= (1 + TlipocasScythe.GetLevel() * 0.06f);
+                int sparkLifetime2 = (int)((2 - p) * 9);
+                float sparkScale2 = 0.4f + (1 - p);
+                sparkScale2 *= (1 + TlipocasScythe.GetLevel() * 0.03f);
                 Color sparkColor2 = Color.Lerp(Color.DarkRed, Color.IndianRed, p);
                 if (Projectile.GetOwner().HasBuff<VoidEmpowerment>())
                 {

@@ -63,9 +63,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<HellIndustrialComponents>(6)
                 .AddIngredient<MysteriousCircuitry>()
                 .AddIngredient<AerialiteBar>(8)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 8)
                 .AddIngredient<EnergyCore>()
-                .AddIngredient(ItemID.Dynamite, 2)
+                .AddIngredient(ItemID.Dynamite, 1)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
