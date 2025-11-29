@@ -115,9 +115,6 @@ namespace CalamityEntropy.Common
         }
         public override void PostDrawTiles()
         {
-            //修复液体绘制
-            ModContent.GetInstance<LavaRendering>().WaterStyleMaxCount = ModContent.GetContent<ModWaterStyle>().Count() + LoaderManager.Get<WaterStylesLoader>().VanillaCount;
-
             if (CalamityEntropy.SetupBossbarClrAuto)
             {
                 CalamityEntropy.SetupBossbarClrAuto = false;
