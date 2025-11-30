@@ -34,8 +34,8 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient<HellIndustrialComponents>(4).
                 AddIngredient<RustyDetectionEquipment>().
+                AddIngredient<HellIndustrialComponents>(4).
                 AddIngredient<AerialiteBar>(8).
                 AddTile(TileID.Anvils).
                 Register();

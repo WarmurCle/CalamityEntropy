@@ -28,7 +28,6 @@ namespace CalamityEntropy.Content.Items.Books
             CreateRecipe()
                 .AddIngredient<HellIndustrialComponents>(6)
                 .AddIngredient(ItemID.ManaCrystal)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 6)
                 .AddIngredient(ItemID.HellstoneBar, 8)
                 .AddIngredient(ItemID.Obsidian, 6)
                 .AddTile(TileID.Hellforge)

@@ -47,7 +47,6 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<DubiousPlating>(10)
                 .AddIngredient<AerialiteBar>(5)
                 .AddIngredient(ItemID.HellstoneBar, 18)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 20)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

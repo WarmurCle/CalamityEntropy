@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
         {
             Item.width = 38;
             Item.height = 32;
-            Item.damage = 80;
+            Item.damage = 100;
             Item.mana = 0;
             Item.useTime = Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
@@ -52,6 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
         {
             CreateRecipe()
                 .AddIngredient<HellIndustrialComponents>(8)
+                .AddIngredient<MysteriousCircuitry>(4)
                 .AddIngredient(ItemID.HallowedBar, 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

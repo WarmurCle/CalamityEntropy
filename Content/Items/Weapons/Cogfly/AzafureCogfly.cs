@@ -57,8 +57,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<HellIndustrialComponents>(4)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 4)
                 .AddIngredient<MysteriousCircuitry>()
+                .AddRecipeGroup(RecipeGroupID.IronBar, 4)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

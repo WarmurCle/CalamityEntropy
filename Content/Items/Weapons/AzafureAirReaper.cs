@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 78;
             Item.height = 78;
-            Item.damage = 15;
+            Item.damage = 12;
             Item.DamageType = CEUtils.RogueDC;
             Item.useTime = 32;
             Item.useAnimation = 32;
@@ -49,8 +49,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe()
                 .AddIngredient<HellIndustrialComponents>(5)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 8)
                 .AddIngredient<MysteriousCircuitry>(4)
+                .AddRecipeGroup(RecipeGroupID.IronBar, 8)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
