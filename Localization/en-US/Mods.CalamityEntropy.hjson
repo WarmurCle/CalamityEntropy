@@ -3216,6 +3216,14 @@ Items: {
 			"Storing melodies with magic"
 			'''
 	}
+
+	BookmarkStinger: {
+		DisplayName: Bookmark Stinger
+		Tooltip: 
+		'''
+		Automatic shoot stingers to enemies nearly
+		'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3768,6 +3776,7 @@ Projectiles: {
 	AzafureCylinderHeld.DisplayName: Azafure Cylinder Held
 	MetalBall.DisplayName: Metal Ball
 	AzafureMagicBlast.DisplayName: Azafure Magic Blast
+	Stinger.DisplayName: Stinger
 }
 
 LegendTooltip: - Legend -

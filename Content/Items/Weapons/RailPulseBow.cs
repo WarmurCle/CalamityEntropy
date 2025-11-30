@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class RailPulseBow : ModItem
+    public class RailPulseBow : ModItem, IPriceFromRecipe
     {
         public override void SetDefaults()
         {
@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 5f;
-            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = null;
             Item.autoReuse = false;

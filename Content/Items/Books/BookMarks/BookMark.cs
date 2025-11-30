@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             foreach (TooltipLine tooltipLine in tooltips)
             {
-                if (tooltipLine.Name == "ItemName")
+                if (!tooltipLine.Name.StartsWith("Tooltip"))
                 {
                     continue;
                 }

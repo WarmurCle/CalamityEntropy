@@ -25,11 +25,30 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using System.Reflection;
 
 namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static int GetPriceFromRecipe(this ModItem item, Recipe recipe)
+        {
+            int total = 0;
+            foreach(var i in recipe.requiredItem)
+            {
+                total += i.value * i.stack;
+            }
+            return total;
+        }
+        public static Recipe FindRecipe(int type)
+        {
+            foreach(Recipe r in Main.recipe)
+            {
+                if (r.createItem.type == type)
+                    return r;
+            }
+            return null;
+        }
         public static bool AzafureEnhance(this Player player)
         {
             return player.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus;

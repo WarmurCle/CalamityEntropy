@@ -642,9 +642,9 @@ namespace CalamityEntropy
         {
             if (orig != null && self != null && gameTime != null)
             {
-                orig(self, gameTime);
                 try
                 {
+                    orig(self, gameTime);
                     EModSys.mi = false;
                     if (LoopSoundManager.sounds != null)
                     {

@@ -3233,6 +3233,11 @@ Items: {
 			"Storing melodies with magic"
 			''' */
 	}
+
+	BookmarkStinger: {
+		// DisplayName: Bookmark Stinger
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3771,6 +3776,7 @@ Projectiles: {
 	// AzafureCylinderHeld.DisplayName: Azafure Cylinder Held
 	// MetalBall.DisplayName: Metal Ball
 	// AzafureMagicBlast.DisplayName: Azafure Magic Blast
+	// Stinger.DisplayName: Stinger
 }
 
 LegendTooltip: - Легенда -

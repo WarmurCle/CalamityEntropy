@@ -9,13 +9,12 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
-    public class BookmarkFairy : BookMark
+    public class BookmarkFairy : BookMark, IPriceFromRecipe
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
             Item.rare = ItemRarityID.Pink;
-            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
         }
         public override Texture2D UITexture => BookMark.GetUITexture("Fairy");
         public override EBookProjectileEffect getEffect()

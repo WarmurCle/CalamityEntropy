@@ -16,13 +16,12 @@ using static CalamityEntropy.ScreenShaker;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
-    public class BookmarkSword : BookMark
+    public class BookmarkSword : BookMark, IPriceFromRecipe
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
             Item.rare = ItemRarityID.Green;
-            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
         }
         public override Texture2D UITexture => BookMark.GetUITexture("Sword");
         public override EBookProjectileEffect getEffect()

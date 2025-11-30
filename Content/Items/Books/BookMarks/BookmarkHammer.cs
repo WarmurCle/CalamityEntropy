@@ -15,13 +15,12 @@ using static CalamityEntropy.ScreenShaker;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
-    public class BookmarkHammer : BookMark
+    public class BookmarkHammer : BookMark, IPriceFromRecipe
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
             Item.rare = ItemRarityID.Green;
-            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
         }
         public override Texture2D UITexture => BookMark.GetUITexture("Hammer");
         public override EBookProjectileEffect getEffect()

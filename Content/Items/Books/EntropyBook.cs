@@ -16,6 +16,7 @@ namespace CalamityEntropy.Content.Items.Books
 {
     public abstract class EntropyBook : ModItem
     {
+        public static string BaseFolder = "CalamityEntropy/Content/Items/Books/";
         public override void SetDefaults()
         {
             Item.DamageType = DamageClass.Magic;
@@ -279,10 +280,10 @@ namespace CalamityEntropy.Content.Items.Books
             }
             return modifer;
         }
-        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null)
+        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1)
         {
             var modifer = GetProjectileModifer();
-            Vector2 shootVel = (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax);
+            Vector2 shootVel = (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax * randomRotMult);
             float kb = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback);
             int dmg = CauculateProjectileDamage(modifer, damageMul);
             bookItem.channel = false;
@@ -458,7 +459,7 @@ namespace CalamityEntropy.Content.Items.Books
                         player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - (float)(Math.PI * 0.5f));
                     }
                 }
-                if (active && openAnim >= 2)
+                if (active && Opened)
                 {
                     if (shotCooldown <= 0 && CanShoot())
                     {
@@ -521,6 +522,12 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
+            UpdateAnimations();
+            Projectile.GetOwner().heldProj = Projectile.whoAmI;
+        }
+        public virtual bool Opened => openAnim >= 2;
+        public virtual void UpdateAnimations()
+        {
             Projectile.frameCounter++;
             if (!active && !UIOpen && openAnim == 0)
             {
@@ -567,7 +574,6 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
-            Projectile.GetOwner().heldProj = Projectile.whoAmI;
         }
         public override bool PreDraw(ref Color lightColor)
         {

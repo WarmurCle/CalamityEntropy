@@ -3476,6 +3476,11 @@ Items: {
 			“存储着带有魔法的旋律”
 			'''
 	}
+
+	BookmarkStinger: {
+		DisplayName: 毒刺书签
+		Tooltip: "自动向附近敌人发射毒刺"
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -4011,6 +4016,7 @@ Projectiles: {
 	// AzafureCylinderHeld.DisplayName: Azafure Cylinder Held
 	// MetalBall.DisplayName: Metal Ball
 	// AzafureMagicBlast.DisplayName: Azafure Magic Blast
+	// Stinger.DisplayName: Stinger
 }
 
 LegendTooltip: - 传奇物品 -
