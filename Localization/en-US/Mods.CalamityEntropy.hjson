@@ -3218,11 +3218,8 @@ Items: {
 	}
 
 	BookmarkStinger: {
-		DisplayName: Bookmark Stinger
-		Tooltip: 
-		'''
-		Automatic shoot stingers to enemies nearly
-		'''
+		DisplayName: Bookmark - Stinger
+		Tooltip: Automatic shoot stingers to enemies nearly
 	}
 }
 

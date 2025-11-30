@@ -3479,7 +3479,7 @@ Items: {
 
 	BookmarkStinger: {
 		DisplayName: 毒刺书签
-		Tooltip: "自动向附近敌人发射毒刺"
+		Tooltip: 自动向附近敌人发射毒刺
 	}
 }
 

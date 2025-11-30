@@ -3236,7 +3236,7 @@ Items: {
 
 	BookmarkStinger: {
 		// DisplayName: Bookmark Stinger
-		// Tooltip: ""
+		// Tooltip: Automatic shoot stingers to enemies nearly
 	}
 }
 
