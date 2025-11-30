@@ -186,12 +186,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.06f;
             if (Projectile.Distance(targetPos) > 260)
             {
-                Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.4f;
+                Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 1.2f;
                 Projectile.velocity *= 0.98f;
                 Projectile.rotation = Projectile.velocity.X * 0.06f;
             }
-            Projectile.velocity *= 0.992f;
-            float dist = 128;
+            Projectile.velocity *= 0.96f;
+            float dist = 300;
             for (float i = 0; i < 360; i += 1)
             {
                 Vector2 p = Projectile.Center + MathHelper.ToRadians(i).ToRotationVector2() * dist;
