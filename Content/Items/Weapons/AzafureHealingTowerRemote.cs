@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 26;
             Item.height = 56;
-            Item.damage = 5;
+            Item.damage = 7;
             Item.mana = 10;
             Item.useTime = Item.useAnimation = 25;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 AttackMode = false;
                 if (CheckCD <= 0)
                 {
-                    CheckCD = (int)(25f * (100f / player.GetTotalDamage(DamageClass.Summon).ApplyTo(100f)) * (1 - 0.5f * player.AzafureDurability()));
+                    CheckCD = (int)(30f * (100f / player.GetTotalDamage(DamageClass.Summon).ApplyTo(100f)) * (1 - 0.5f * player.AzafureDurability()));
                     healing.Heal(1);
                     for (int i = 0; i < 3; i++)
                         EParticle.spawnNew(new HealingParticle(), healing.position + CEUtils.randomPoint(new Rectangle(-6, -6, 12 + healing.width, 12 + healing.height)), new Vector2(0, -2), Color.White, 0.8f, 1, true, BlendState.AlphaBlend);

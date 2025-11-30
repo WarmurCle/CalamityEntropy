@@ -51,8 +51,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<HellIndustrialComponents>(4)
                 .AddIngredient<AzafureAntiaircraftGun>()
+                .AddIngredient<HellIndustrialComponents>(4)
                 .AddIngredient<DivineGeode>(6)
                 .AddIngredient(ItemID.LunarBar, 8)
                 .AddTile(TileID.LunarCraftingStation)

@@ -28,9 +28,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AddRecipes()
         {
             CreateRecipe()
+            .AddIngredient(ModContent.ItemType<HellIndustrialComponents>(), 10)
             .AddIngredient(ItemID.SoulofNight, 10)
             .AddIngredient(ItemID.SoulofLight, 10)
-            .AddIngredient(ModContent.ItemType<HellIndustrialComponents>(), 10)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

@@ -41,9 +41,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 10;
             Item.autoReuse = true;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.damage = 68;
+            Item.damage = 120;
             Item.knockBack = 4;
-            Item.crit = 7;
+            Item.crit = 15;
             Item.channel = true;
             Item.shoot = ModContent.ProjectileType<AzafureEKatanaSlash>();
             Item.shootSpeed = 12;
@@ -59,8 +59,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe()
                 .AddIngredient<HellIndustrialComponents>(4)
-                .AddIngredient(ItemID.HellstoneBar, 8)
                 .AddIngredient(ItemID.TitaniumBar, 8)
+                .AddIngredient(ItemID.HellstoneBar, 8)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
