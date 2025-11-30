@@ -1283,9 +1283,10 @@ namespace CalamityEntropy.Common
                 }
                 if (player.Entropy().grudgeCard)
                 {
-                    if (Main.rand.NextBool(100))
+                    if (Main.rand.NextBool(32) && !CECooldowns.HasCooldown("GrudgeCD"))
                     {
-                        Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, CEUtils.randomPointInCircle(10), ModContent.ProjectileType<HealingSpirit>(), 0, 0, player.whoAmI);
+                        CECooldowns.AddCooldown("GrudgeCD", 10);
+                        Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, CEUtils.randomPointInCircle(8), ModContent.ProjectileType<HealingSpirit>(), 0, 0, player.whoAmI);
                     }
                 }
                 if (player.Entropy().heartOfStorm)
