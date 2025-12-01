@@ -116,13 +116,18 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            CEUtils.PlaySound("SporeGas", 1, Projectile.Center);
-            ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<SporeGas>(), Projectile.Center, Vector2.Zero, 0.15f);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            Projectile.Kill();
+            if(active)
+            {
+                CEUtils.PlaySound("SporeGas", 1, Projectile.Center);
+                ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<SporeGas>(), Projectile.Center, Vector2.Zero, 0.15f);
+                Projectile.timeLeft = 240;
+                active = false;
+            }
+
         }
     }
     public class SporeGas : EBookBaseProjectile
@@ -156,6 +161,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     GeneralParticleHandler.SpawnParticle(new MediumMistParticle(Projectile.Center + CEUtils.randomPointInCircle(100), CEUtils.randomPointInCircle(2), Color.Lerp(this.color, Color.White, 0.5f), this.color, Projectile.scale, 230, 0.005f));
                 }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (target.velocity.Length() > 2)
+                target.velocity *= 0.64f;
         }
     }
 }
