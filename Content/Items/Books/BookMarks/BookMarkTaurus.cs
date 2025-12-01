@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public static bool DontDestroy(EBookBaseProjectile proj)
         {
-            if (proj is BMHammerProjectile || proj is BMSwordProjectile || proj is FairyBMMinion)
+            if (proj is BMHammerProjectile || proj is BMSwordProjectile || proj is FairyBMMinion || proj is ExplosiveSpore)
                 return true;
             return false;
         }
@@ -94,7 +94,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                                 p.ToProj().penetrate = projectile.penetrate + 1;
                             }
                             if (BookMarkTaurus.DontDestroy(eb))
+                            {
+                                p.ToProj().ResetLocalNPCHitImmunity();
                                 p.ToProj().penetrate = 1;
+                            }
                             m.ShooterModProjectile = esb.ShooterModProjectile;
                             m.homing = esb.homing;
                             p.ToProj().scale = projectile.scale * 0.4f;

@@ -52,7 +52,6 @@ namespace CalamityEntropy.Content.Items.Books
         {
             var m = base.getBaseModifer();
             m.lifeSteal += 2;
-            m.PenetrateAddition += 2;
             m.armorPenetration += 40;
             return m;
         }
@@ -145,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Books
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<VulnerabilityHex>(), 4 * 60);
+            target.AddBuff(ModContent.BuffType<VulnerabilityHex>(), 6 * 60);
         }
     }
 }

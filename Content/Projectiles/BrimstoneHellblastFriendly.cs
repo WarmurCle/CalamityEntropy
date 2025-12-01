@@ -285,7 +285,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Vector2 velocity = spinningpoint.RotatedBy(num2 * (float)i);
                     if (this.ShooterModProjectile is EntropyBookHeldProjectile ebook)
                     {
-                        ebook.ShootSingleProjectile(type, Projectile.Center, velocity, 0.2f, initAction: (projectile) => { projectile.ai[0] = 0f; projectile.ai[1] = Projectile.ai[1]; projectile.ai[2] = num3 * 1.5f; projectile.damage = Projectile.damage / 5; }, shotSpeedMul: 0.7f);
+                        ebook.ShootSingleProjectile(type, Projectile.Center, velocity, 0.12f, initAction: (projectile) => { projectile.ai[0] = 0f; projectile.ai[1] = Projectile.ai[1]; projectile.ai[2] = num3 * 1.5f; }, shotSpeedMul: 0.7f);
                     }
                 }
             }
@@ -358,18 +358,6 @@ namespace CalamityEntropy.Content.Projectiles
                 this.homingRange *= 3;
             }
             base.AI();
-            bool bossRushActive = BossRushEvent.BossRushActive;
-            int num = Player.FindClosest(base.Projectile.Center, 1, 1);
-            float num2 = ((num == -1 || Main.player[num].dead || !Main.player[num].active || Main.player[num] == null) ? 1000f : Vector2.Distance(Main.player[num].Center, base.Projectile.Center));
-            if (base.Projectile.velocity.Length() < base.Projectile.ai[2])
-            {
-                base.Projectile.velocity *= (bossRushActive ? 1.0125f : 1.01f);
-                if (base.Projectile.velocity.Length() > base.Projectile.ai[2])
-                {
-                    base.Projectile.velocity.Normalize();
-                    base.Projectile.velocity *= base.Projectile.ai[2];
-                }
-            }
 
             base.Projectile.rotation = base.Projectile.velocity.ToRotation() + MathF.PI / 2f;
             base.Projectile.frameCounter++;
@@ -389,19 +377,7 @@ namespace CalamityEntropy.Content.Projectiles
                 base.Projectile.Opacity = MathHelper.Clamp((float)base.Projectile.timeLeft / 60f, 0f, 1f);
             }
 
-            if (base.Projectile.ai[0] == 2f && base.Projectile.timeLeft > 570)
-            {
-                int num3 = Player.FindClosest(base.Projectile.Center, 1, 1);
-                Vector2 vector = Main.player[num3].Center - base.Projectile.Center;
-                float num4 = base.Projectile.velocity.Length();
-                vector.Normalize();
-                vector *= num4;
-                base.Projectile.velocity = (base.Projectile.velocity * 15f + vector) / 16f;
-                base.Projectile.velocity.Normalize();
-                base.Projectile.velocity *= num4;
-            }
-
-            if ((base.Projectile.ai[1] == 2f || (base.Projectile.ai[1] == 4f && time > 10)) && num2 < 1400f)
+            if ((base.Projectile.ai[1] == 2f || (base.Projectile.ai[1] == 4f && time > 10)))
             {
                 GeneralParticleHandler.SpawnParticle(new SparkParticle(base.Projectile.Center - base.Projectile.velocity * 0.5f, -base.Projectile.velocity * Main.rand.NextFloat(0.1f, 0.6f), affectedByGravity: false, (int)MathHelper.Clamp(9f * Utils.GetLerpValue(630f, 690f, base.Projectile.timeLeft), 2f, 9f), 1.1f, (Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f)) * base.Projectile.Opacity * 0.85f));
             }
@@ -420,14 +396,6 @@ namespace CalamityEntropy.Content.Projectiles
                 dust.scale = Main.rand.NextFloat(0.2f, 0.6f);
             }
 
-            if (base.Projectile.localAI[0] == 0f)
-            {
-                base.Projectile.localAI[0] = 1f;
-                if (base.Projectile.ai[0] == 0f)
-                {
-                    base.Projectile.damage = (NPC.AnyNPCs(ModContent.NPCType<SupremeCalamitas>()) ? base.Projectile.GetProjectileDamage(ModContent.NPCType<SupremeCalamitas>()) : base.Projectile.GetProjectileDamage(ModContent.NPCType<CalamitasClone>()));
-                }
-            }
             //Main.NewText(Projectile.damage);
             Lighting.AddLight(base.Projectile.Center, 0.75f * base.Projectile.Opacity, 0f, 0f);
             time++;
