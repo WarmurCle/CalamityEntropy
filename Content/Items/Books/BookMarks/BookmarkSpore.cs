@@ -58,6 +58,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.localNPCHitCooldown = -1;
             Projectile.width = Projectile.height = 16;
             Projectile.timeLeft = 12 * 60;
+            Projectile.ArmorPenetration = 16;
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -116,7 +117,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             base.OnKill(timeLeft);
             CEUtils.PlaySound("SporeGas", 1, Projectile.Center);
-            ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<SporeGas>(), Projectile.Center, Vector2.Zero, 0.06f);
+            ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<SporeGas>(), Projectile.Center, Vector2.Zero, 0.15f);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

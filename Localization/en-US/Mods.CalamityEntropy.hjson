@@ -3224,10 +3224,7 @@ Items: {
 
 	BookmarkSpore: {
 		DisplayName: Bookmark - Spore
-		Tooltip: 
-		'''
-		Generates spores that track enemies and leave behind lingering spore clouds when attacking
-		'''
+		Tooltip: Generates spores that track enemies and leave behind lingering spore clouds when attacking
 	}
 }
 

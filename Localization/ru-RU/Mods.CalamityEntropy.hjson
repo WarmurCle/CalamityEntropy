@@ -3240,8 +3240,8 @@ Items: {
 	}
 
 	BookmarkSpore: {
-		// DisplayName: Bookmark Spore
-		// Tooltip: ""
+		// DisplayName: Bookmark - Spore
+		// Tooltip: Generates spores that track enemies and leave behind lingering spore clouds when attacking
 	}
 }
 

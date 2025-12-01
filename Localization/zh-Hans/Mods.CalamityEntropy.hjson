@@ -3484,10 +3484,7 @@ Items: {
 
 	BookmarkSpore: {
 		DisplayName: 孢子书签
-		Tooltip: 
-		'''
-		攻击时产生会追踪敌人并留下滞留孢子云的孢子
-		'''
+		Tooltip: 攻击时产生会追踪敌人并留下滞留孢子云的孢子
 	}
 }
 
