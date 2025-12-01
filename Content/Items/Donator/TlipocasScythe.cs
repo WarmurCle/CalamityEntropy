@@ -1218,9 +1218,9 @@ namespace CalamityEntropy.Content.Items.Donator
                     Projectile.Kill();
                     Vector2 v1 = player.position;
                     Vector2 v2 = Projectile.Center - new Vector2(player.width, player.height) / 2;
-                    for(float i = 0; i <= 1; i += 0.01f)
+                    for(float i = 0; i <= 1; i += 0.05f)
                     {
-                        EParticle.NewParticle(new PlayerShadowBlack() { plr = player }, Vector2.Lerp(v1, v2, i), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, 42);
+                        EParticle.NewParticle(new PlayerShadowBlack() { plr = player }, Vector2.Lerp(v1, v2, i), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, 12);
                     }
                     player.Center = Projectile.Center;
                     player.Entropy().immune = 32;
