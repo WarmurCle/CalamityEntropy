@@ -1146,7 +1146,7 @@ namespace CalamityEntropy.Common
             {
                 if (p.ModProjectile is JewelSapphire)
                 {
-                    if (p.Distance(Player.Center) <= 130)
+                    if (p.Distance(Player.Center) <= 300)
                     {
                         Player.lifeRegen += 8;
                         Player.endurance += 0.05f;
