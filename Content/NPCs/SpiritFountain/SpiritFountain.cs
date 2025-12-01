@@ -27,7 +27,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         public float trailDrawOffset = 0;
         public float alpha = 1;
         public float scale = 1;
-
+        public float Num = 0;
+        public int id = 0;
         public FountainColumn(float a)
         {
             alpha = a;
@@ -41,8 +42,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
     [StaticImmunity(staticImmunityCooldown: 6)]
     public class SpiritFountain : ModNPC
     {
-        public FountainColumn column1 = new FountainColumn(0);
-        public FountainColumn column2 = new FountainColumn(0);
+        public FountainColumn column1 = new FountainColumn(0) { id = 0};
+        public FountainColumn column2 = new FountainColumn(0) { id = 1};
         public int CenterRing = 0;
         public int GatheringAnimation = 300;
         public override void SetStaticDefaults()
@@ -196,7 +197,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             Boomerang,
             Lasers,
             RingFountains,
-            PhaseTranse1
+            PhaseTranse1,
+            SpiritSlicing
         }
         public AIStyle ai = AIStyle.SpawnAnimation;
         public void Shoot(int type, Vector2 pos, Vector2 velo, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0)
@@ -520,13 +522,40 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 DontTakeDmg = true;
                 column1.offset *= 0;
                 column2.alpha = float.Lerp(column2.alpha, 0.6f, 0.04f);
+                column2.id = 1;
                 aiTimer++;
                 if (aiTimer > 140)
                 {
                     DontTakeDmg = false;
                     aiTimer = 0;
-                    ai = AIStyle.Moving;
+                    ai = AIStyle.SpiritSlicing;
                     column2.alpha = 0.6f;
+                }
+            }
+            if (ai == AIStyle.SpiritSlicing)
+            {
+                NPC.dontTakeDamage = false;
+                EyeAlphaT = 1;
+                int t = 90 + 42;
+                if(aiTimer == 1)
+                {
+                    column1.rotation = -MathHelper.PiOver2;
+                    column2.rotation = 0;
+                    column1.Num = 1400 * (Main.rand.NextBool() ? 1 : -1);
+                    column2.Num = 1400 * (Main.rand.NextBool() ? 1 : -1);
+                }
+                column1.offset.X = float.Lerp(column1.offset.X, column1.Num, 0.056f);
+                column2.offset.Y = float.Lerp(column2.offset.Y, column2.Num, 0.056f);
+                if (aiTimer % t == 90)
+                {
+                    column1.Num *= -1;
+                    column2.Num *= -1;
+                }
+
+                if (aiTimer > 800 && aiTimer % t < 40)
+                {
+                    ai = AIStyle.SpiritSlicing;
+                    aiTimer = 0;
                 }
             }
             NPC.localAI[2] = NPC.HasValidTarget ? 0 : NPC.localAI[2] + 1;

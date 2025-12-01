@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles.SpiritFountainShoots;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles.SpiritFountainShoots;
 using CalamityMod;
 using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
@@ -127,6 +128,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 }
             }
             drawColorLerp = Color.AliceBlue;
+
+            #region Phase1
             if (fountain.ai == SpiritFountain.AIStyle.Moving)
             {
                 float targetofs = Index * 1900 + (float)Math.Sin(fountain.Counter * 0.02f) * 400;
@@ -134,7 +137,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 TrailLength = float.Lerp(TrailLength, 68, 0.05f);
             }
             Player target = owner.HasValidTarget ? owner.target.ToPlayer() : Main.player[0];
-
+            
             if (fountain.ai == SpiritFountain.AIStyle.Boomerang)
             {
                 if (fountain.aiTimer == 10)
@@ -344,6 +347,9 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             {
                 AlphaWaveWarning = 0;
             }
+            #endregion
+
+            #region phase2
             if (fountain.ai == SpiritFountain.AIStyle.PhaseTranse1)
             {
                 float targetofs = Index * 1900 + (float)Math.Sin(fountain.Counter * 0.02f) * 400;
@@ -351,7 +357,28 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 TrailLength = float.Lerp(TrailLength, 74, 0.05f);
                 NPC.damage = 0;
             }
+            if (fountain.ai == SpiritFountain.AIStyle.SpiritSlicing)
+            {
+                TrailLength = float.Lerp(TrailLength, 100, 0.05f);
+                int counter = fountain.aiTimer;
+                int t = 90;
+                if( counter % (t + 42) < t)
+                    NPC.damage = 0;
+                if (counter % (t + 42) == 1)
+                {
+                    LerpTo(Main.rand.NextFloat(-1200, 1200));
+                }
+                if (counter % (t + 42) == 51)
+                {
+                    Vector2 offset = column.id == 0 ? new Vector2(column.Num < 0 ? 1 : -1, 0) : new Vector2(0, column.Num < 0 ? 1 : -1);
+                    EParticle.spawnNew(new HadLine() { hm = 0.36f }, NPC.Center + offset * 80, Vector2.Zero, Color.LightBlue, 3f, 1, true, BlendState.Additive, offset.ToRotation(), 32);
+                    EParticle.spawnNew(new HadLine() { hm = 0.36f }, NPC.Center + offset * 80, Vector2.Zero, Color.LightBlue, 3f, 1, true, BlendState.Additive, offset.ToRotation(), 32);
 
+                }
+            }
+
+
+            #endregion
             if (OnColumn)
             {
                 if (!DontSetPos)
