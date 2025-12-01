@@ -282,6 +282,8 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1)
         {
+            if (!Projectile.active)
+                return;
             var modifer = GetProjectileModifer();
             Vector2 shootVel = (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax * randomRotMult);
             float kb = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback);
