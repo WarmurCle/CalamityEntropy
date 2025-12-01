@@ -3481,6 +3481,14 @@ Items: {
 		DisplayName: 毒刺书签
 		Tooltip: 自动向附近敌人发射毒刺并施加中毒减益
 	}
+
+	BookmarkSpore: {
+		DisplayName: 孢子书签
+		Tooltip: 
+		'''
+		攻击时产生会追踪敌人并留下滞留孢子云的孢子
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -4017,6 +4025,8 @@ Projectiles: {
 	// MetalBall.DisplayName: Metal Ball
 	// AzafureMagicBlast.DisplayName: Azafure Magic Blast
 	// Stinger.DisplayName: Stinger
+	// ExplosiveSpore.DisplayName: Explosive Spore
+	// SporeGas.DisplayName: Spore Gas
 }
 
 LegendTooltip: - 传奇物品 -

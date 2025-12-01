@@ -1618,6 +1618,7 @@ namespace CalamityEntropy.Common
             if (item.Is<CrabulonBag>())
             {
                 itemLoot.Add(ModContent.ItemType<WisperCard>(), 2);
+                itemLoot.Add(ModContent.ItemType<BookmarkSpore>(), 2);
             }
             if (item.Is<PlaguebringerGoliathBag>())
             {

@@ -704,6 +704,8 @@ namespace CalamityEntropy.Common
             if (npc.type == ModContent.NPCType<Crabulon>())
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<WisperCard>(), 2);
+
+                npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSpore>(), 3);
             }
             if (npc.type == NPCID.Golem)
             {

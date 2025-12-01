@@ -3221,6 +3221,14 @@ Items: {
 		DisplayName: Bookmark - Stinger
 		Tooltip: Automatic shoot stingers to enemies nearly
 	}
+
+	BookmarkSpore: {
+		DisplayName: Bookmark - Spore
+		Tooltip: 
+		'''
+		Generates spores that track enemies and leave behind lingering spore clouds when attacking
+		'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3774,6 +3782,8 @@ Projectiles: {
 	MetalBall.DisplayName: Metal Ball
 	AzafureMagicBlast.DisplayName: Azafure Magic Blast
 	Stinger.DisplayName: Stinger
+	ExplosiveSpore.DisplayName: Explosive Spore
+	SporeGas.DisplayName: Spore Gas
 }
 
 LegendTooltip: - Legend -
