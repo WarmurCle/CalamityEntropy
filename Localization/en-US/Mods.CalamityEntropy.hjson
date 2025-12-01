@@ -3781,6 +3781,8 @@ Projectiles: {
 	Stinger.DisplayName: Stinger
 	ExplosiveSpore.DisplayName: Explosive Spore
 	SporeGas.DisplayName: Spore Gas
+	AzureRapierHeld: Azure Rapier
+	AzureRapierBlockSlash: Azure Rapier Slash
 }
 
 LegendTooltip: - Legend -

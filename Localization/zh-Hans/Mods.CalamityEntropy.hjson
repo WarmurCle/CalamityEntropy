@@ -4022,12 +4022,14 @@ Projectiles: {
 	SentryRemoverHeld.DisplayName: 哨兵拆除器
 	AzafureAirReaperThrow.DisplayName: 阿萨福勒压力统镰
 	FairyBMMinion.DisplayName: 仙灵
-	// AzafureCylinderHeld.DisplayName: Azafure Cylinder Held
-	// MetalBall.DisplayName: Metal Ball
-	// AzafureMagicBlast.DisplayName: Azafure Magic Blast
-	// Stinger.DisplayName: Stinger
-	// ExplosiveSpore.DisplayName: Explosive Spore
-	// SporeGas.DisplayName: Spore Gas
+	AzafureCylinderHeld.DisplayName: 阿萨福勒音桶
+	MetalBall.DisplayName: 金属球
+	AzafureMagicBlast.DisplayName: 金属球磁暴
+	Stinger.DisplayName: 毒刺
+	ExplosiveSpore.DisplayName: 爆炸孢子
+	SporeGas.DisplayName: 孢子云
+	AzureRapierHeld: 苍蓝刺剑
+	AzureRapierBlockSlash: 苍蓝刺剑防反
 }
 
 LegendTooltip: - 传奇物品 -
