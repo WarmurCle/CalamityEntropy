@@ -511,7 +511,6 @@ namespace CalamityEntropy.Content.Items.Books
 
                             }
                             shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
-                            Main.NewText(m.attackSpeed);
                         }
                         else
                         {
