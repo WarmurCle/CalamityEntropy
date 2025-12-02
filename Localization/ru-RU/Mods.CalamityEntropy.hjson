@@ -3258,8 +3258,9 @@ Items: {
 		// DisplayName: Magic Bookmark Holder
 		/* Tooltip:
 			'''
-			Gives an additional bookmark slot for entropy books
 			+[D]% Magic damage
+			Gives an additional bookmark slot for entropy books
+			"Surprisingly, using this holder to clamp bookmarks can perfectly achieve the desired effect"
 			''' */
 	}
 }
