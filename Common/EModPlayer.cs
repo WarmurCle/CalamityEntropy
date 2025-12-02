@@ -442,8 +442,10 @@ namespace CalamityEntropy.Common
         public int DontDrawTime = 0;
         public int AzureRapierBlock = 0;
         public int HeatEffectTime = 0;
+        public int AdditionalBookmarkSlot = 0;
         public override void ResetEffects()
         {
+            AdditionalBookmarkSlot = 0;
             AzureRapierBlock--;
             LifeStealP = 0;
             roaringDye = false;
