@@ -93,7 +93,7 @@ namespace CalamityEntropy.Common
 
         public override void SetupTravelShop(int[] shop, ref int nextSlot)
         {
-            if (Main.rand.NextBool(8))
+            if (Main.rand.NextBool(4))
             {
                 shop[nextSlot] = ModContent.ItemType<ExquisiteBookmarkHolder>();
                 nextSlot++;
