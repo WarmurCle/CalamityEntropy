@@ -48,7 +48,10 @@ namespace CalamityEntropy.Content.Items.Books
 
         public override EBookStatModifer getBaseModifer()
         {
-            return new EBookStatModifer() { Homing = 1f, HomingRange = 1.25f };
+            var m = getBaseModifer();
+            m.Homing = 1f;
+            m.HomingRange = 1.25f;
+            return m; 
         }
         public override float randomShootRotMax => 0.16f;
         public override int baseProjectileType => ModContent.ProjectileType<DarkBullet>();

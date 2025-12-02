@@ -129,7 +129,12 @@ namespace CalamityEntropy.Content.Items.Books
 
         public virtual EBookStatModifer getBaseModifer()
         {
-            EBookStatModifer modifer = new EBookStatModifer() { Damage = 1, Knockback = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack), Crit = Projectile.GetOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.CritChance, attackSpeed = Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType), armorPenetration = Projectile.ArmorPenetration };
+            EBookStatModifer modifer = new EBookStatModifer();
+            modifer.Damage = 1;
+            modifer.Knockback = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack);
+            modifer.Crit = Projectile.GetOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.CritChance;
+            modifer.attackSpeed = Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType);
+            modifer.armorPenetration = Projectile.ArmorPenetration;
             return modifer;
         }
 
@@ -476,7 +481,7 @@ namespace CalamityEntropy.Content.Items.Books
                             {
                                 playTurnPageAnimation();
                             }
-                            shotCooldown = (int)(bookItem.useTime * Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType));
+                            shotCooldown = bookItem.useTime;
 
                             EBookStatModifer m = getBaseModifer();
                             for (int i = 0; i < Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem); i++)
@@ -506,7 +511,7 @@ namespace CalamityEntropy.Content.Items.Books
 
                             }
                             shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
-
+                            Main.NewText(m.attackSpeed);
                         }
                         else
                         {
