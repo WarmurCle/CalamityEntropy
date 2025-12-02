@@ -244,7 +244,7 @@ namespace CalamityEntropy.Content.Items.Books
         public virtual bool Shoot()
         {
             int type = getShootProjectileType();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem); i++)
             {
                 var bm = Projectile.owner.ToPlayer().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(bm))
@@ -275,7 +275,7 @@ namespace CalamityEntropy.Content.Items.Books
         public EBookStatModifer GetProjectileModifer()
         {
             EBookStatModifer modifer = getBaseModifer();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Projectile.GetOwner().GetMyMaxActiveBookMarks(bookItem); i++)
             {
                 Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(it))
@@ -309,7 +309,7 @@ namespace CalamityEntropy.Content.Items.Books
                     bp.homingRange *= modifer.HomingRange;
                     bp.attackSpeed = modifer.attackSpeed;
                     bp.lifeSteal += modifer.lifeSteal;
-                    for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
+                    for (int i = 0; i < Math.Min(Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
                     {
                         Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                         if (BookMarkLoader.IsABookMark(it))
@@ -339,7 +339,7 @@ namespace CalamityEntropy.Content.Items.Books
             int _shotCooldown = bookItem.useTime;
 
             EBookStatModifer m = getBaseModifer();
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem); i++)
             {
                 Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(it))
@@ -429,7 +429,7 @@ namespace CalamityEntropy.Content.Items.Books
                     Projectile.netUpdate = true;
                     if (active)
                     {
-                        for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
+                        for (int i = 0; i < Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem); i++)
                         {
                             Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                             if (BookMarkLoader.IsABookMark(it))
@@ -479,7 +479,7 @@ namespace CalamityEntropy.Content.Items.Books
                             shotCooldown = bookItem.useTime;
 
                             EBookStatModifer m = getBaseModifer();
-                            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
+                            for (int i = 0; i < Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem); i++)
                             {
                                 Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
                                 if (BookMarkLoader.IsABookMark(it))
@@ -517,7 +517,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (active)
             {
-                for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Projectile.GetOwner(), bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
+                for (int i = 0; i < Projectile.GetOwner().GetMyMaxActiveBookMarks(bookItem); i++)
                 {
                     Item item = Projectile.GetOwner().Entropy().EBookStackItems[i];
                     if (BookMarkLoader.IsABookMark(item))

@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             int type = getShootProjectileType();
 
-            for (int i = 0; i < Math.Min(EBookUI.getMaxSlots(Main.LocalPlayer, bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
+            for (int i = 0; i < Projectile.GetOwner().GetMyMaxActiveBookMarks(bookItem); i++)
             {
                 var bm = Projectile.owner.ToPlayer().Entropy().EBookStackItems[i];
                 if (BookMarkLoader.IsABookMark(bm))
