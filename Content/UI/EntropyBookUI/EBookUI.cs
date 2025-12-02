@@ -19,13 +19,14 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
         public static Item bookItem = null;
         public static int getMaxSlots(Player player, Item item)
         {
-            if (item == null)
+            int additional = 0;
+            if (item == null || item.ModItem == null)
             {
                 return 0;
             }
             if (item.ModItem is EntropyBook eb)
             {
-                return eb.SlotCount;
+                return eb.SlotCount + additional;
             }
             return 0;
         }
