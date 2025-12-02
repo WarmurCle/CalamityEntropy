@@ -93,6 +93,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 Projectile.timeLeft = 20;
             }
+            if (Projectile.timeLeft > 21)
+                Projectile.timeLeft = 21;
             if (Projectile.timeLeft == 20)
             {
                 if (Projectile.Opacity < 1)
