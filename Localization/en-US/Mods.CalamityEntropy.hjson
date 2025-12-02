@@ -3246,6 +3246,7 @@ Items: {
 			"Surprisingly, using this holder to clamp bookmarks can perfectly achieve the desired effect"
 			'''
 	}
+
 	ExquisiteBookmarkHolder: {
 		DisplayName: Exquisite Bookmark Holder
 		Tooltip:
@@ -3253,9 +3254,10 @@ Items: {
 			+[S]% Magic Weapons' Attack Speed
 			Gives an additional bookmark slot for entropy books
 			"Exquisite bookmark holder with a magic hat on top"
-		    Sold by Traveling Merchant
+			   Sold by Traveling Merchant
 			'''
 	}
+
 	HolyBookmarkHolder: {
 		DisplayName: Holy Bookmark Holder
 		Tooltip:
