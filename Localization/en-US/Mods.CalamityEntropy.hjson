@@ -3236,6 +3236,15 @@ Items: {
 		DisplayName: Selenbite Volume
 		Tooltip: Release the stranded stars, which will chase nearby targets and cause damage
 	}
+
+	MagicBookmarkHolder: {
+		DisplayName: Magic Bookmark Holder
+		Tooltip: 
+		'''
+		Gives an additional bookmark slot for entropy books
+		+[D]% Magic damage
+		'''
+	}
 }
 
 LOCKED: ": [LOCKED]"

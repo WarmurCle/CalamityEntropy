@@ -12,14 +12,15 @@ namespace CalamityEntropy
 {
     public interface IPriceFromRecipe
     {
+        public virtual int AdditionalPrice => 0;
     }
     public class PriceSetGItem : GlobalItem
     {
         public override void SetDefaults(Item entity)
         {
-            if(PriceSetSys.Inited && entity.ModItem != null && entity.ModItem is IPriceFromRecipe)
+            if(PriceSetSys.Inited && entity.ModItem != null && entity.ModItem is IPriceFromRecipe pfr)
             {
-                entity.value = entity.ModItem.GetPriceFromRecipe(CEUtils.FindRecipe(entity.type));
+                entity.value = entity.ModItem.GetPriceFromRecipe(CEUtils.FindRecipe(entity.type)) + pfr.AdditionalPrice;
             }
         }
     }
@@ -44,9 +45,9 @@ namespace CalamityEntropy
             for (int i = 0; i < ItemLoader.ItemCount; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (item.ModItem != null && item.ModItem is IPriceFromRecipe)
+                if (item.ModItem != null && item.ModItem is IPriceFromRecipe pfr)
                 {
-                    item.value = item.ModItem.GetPriceFromRecipe(CEUtils.FindRecipe(item.type));
+                    item.value = item.ModItem.GetPriceFromRecipe(CEUtils.FindRecipe(item.type)) + pfr.AdditionalPrice;
                 }
             }
         }

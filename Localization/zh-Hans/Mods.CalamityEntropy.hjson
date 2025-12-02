@@ -3500,6 +3500,15 @@ Items: {
 		DisplayName: 月蚀卷册
 		Tooltip: 释放滞留的星星，星星会追逐附近的目标并造成伤害
 	}
+
+	MagicBookmarkHolder: {
+		DisplayName: 魔法书签夹
+		Tooltip: 
+		'''
+		为所有熵语之书增加一个额外的书签栏位
+		+[D]% 魔法伤害
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
