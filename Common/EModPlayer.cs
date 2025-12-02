@@ -443,8 +443,10 @@ namespace CalamityEntropy.Common
         public int AzureRapierBlock = 0;
         public int HeatEffectTime = 0;
         public int AdditionalBookmarkSlot = 0;
+        public List<Texture2D> BookmarkHolderSpecialTextures = new();
         public override void ResetEffects()
         {
+            BookmarkHolderSpecialTextures.Clear();
             AdditionalBookmarkSlot = 0;
             AzureRapierBlock--;
             LifeStealP = 0;

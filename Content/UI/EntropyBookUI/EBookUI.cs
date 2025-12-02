@@ -110,12 +110,18 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
             if (active || closeAnm > 0)
             {
                 int c = getMaxSlots(Main.LocalPlayer, bookItem);
+                List<Texture2D> texSpecial = Main.LocalPlayer.Entropy().BookmarkHolderSpecialTextures;
                 for (int i = 0; i < c; i++)
                 {
                     Vector2 pos = Main.ScreenSize.ToVector2() / 2 + (MathHelper.ToRadians(i * (360f / c)) + slotRot).ToRotationVector2() * slotDist;
                     if (bookItem.ModItem is EntropyBook eb)
                     {
-                        Main.spriteBatch.Draw(eb.BookMarkTexture, pos, null, Color.White * (closeAnm / 11f), 0, eb.BookMarkTexture.Size() / 2, 1, SpriteEffects.None, 0);
+                        Texture2D holderTexture = eb.BookMarkTexture;
+                        if(i >= c - texSpecial.Count)
+                        {
+                            holderTexture = texSpecial[c - texSpecial.Count - i];
+                        }
+                        Main.spriteBatch.Draw(holderTexture, pos, null, Color.White * (closeAnm / 11f), 0, holderTexture.Size() / 2, 1, SpriteEffects.None, 0);
                     }
 
                     if (Main.LocalPlayer.Entropy().EBookStackItems.Count > i && Main.LocalPlayer.Entropy().EBookStackItems[i].type != ItemID.None)
