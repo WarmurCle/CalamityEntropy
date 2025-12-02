@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Cooldowns;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -178,7 +179,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
             player.velocity = targetVel - player.velocity;
             Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), targetPos, Vector2.Zero, pjtype, player.GetWeaponDamage(player.HeldItem) * 2 + 1, 2, player.whoAmI);
-
+            CECooldowns.AddCooldown("AzureBlock", 40);
         }
     }
     public class AzureRapierBlockSlash : ModProjectile
@@ -203,7 +204,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public Vector2 plrPos = Vector2.Zero;
         public override bool? CanHitNPC(NPC target)
         {
-            return counter > 16;
+            return counter > 16 ? null : true;
         }
         public override void AI()
         {
