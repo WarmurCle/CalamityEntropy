@@ -3490,6 +3490,16 @@ Items: {
 			孢子云会对接触到的敌人持续造成伤害并减缓其速度
 			'''
 	}
+
+	DarkScripture: {
+		DisplayName: 黑暗秘典
+		Tooltip: 发射追踪的黑暗弹
+	}
+
+	SelenbiteVolume: {
+		DisplayName: 月蚀卷册
+		Tooltip: 释放滞留的星星，星星会追逐附近的目标并造成伤害
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -4030,6 +4040,10 @@ Projectiles: {
 	SporeGas.DisplayName: 孢子云
 	AzureRapierHeld: 苍蓝刺剑
 	AzureRapierBlockSlash: 苍蓝刺剑防反
+	DarkScriptureHeld.DisplayName: 黑暗秘典
+	DarkBullet.DisplayName: 黑暗弹
+	// SelenbiteStar.DisplayName: Selenbite Star
+	// SelenbiteVolumeHeld.DisplayName: Selenbite Volume Held
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4680,6 +4694,11 @@ Configs: {
 		LeastDamageSufferedBasedOnMaxHealth: {
 			Label: 至少受到的伤害
 			Tooltip: 基于你的最大生命值，每次受击至少会扣除一定的生命值，默认为0，即不生效
+		}
+
+		ClearStealthWhenChangeEquipSet: {
+			Label: 切换装备时清空潜行条
+			Tooltip: ""
 		}
 	}
 }

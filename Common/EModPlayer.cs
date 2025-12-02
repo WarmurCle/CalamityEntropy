@@ -747,10 +747,10 @@ namespace CalamityEntropy.Common
             {
                 CEUtils.PlaySound("beep", 1, Player.Center);
             }
-            temporaryArmor *= 0.995f;
+            temporaryArmor *= 0.988f;
             if (temporaryArmor > 0)
             {
-                temporaryArmor -= 0.0015f;
+                temporaryArmor -= 0.005f;
             }
             if (temporaryArmor < 0)
             {
@@ -1615,9 +1615,26 @@ namespace CalamityEntropy.Common
         public DashBeam avTrail = null;
         public bool NDFlag = false;
         public bool ResetRot = false;
+        public int TDeckTime = 0;
+        public int SDeckTime = 0;
+        public float StealthMaxLast = -1;
+        public bool RstStealth = false;
         public override void PostUpdate()
         {
-            if(BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb))
+            if (StealthMaxLast == -1)
+                StealthMaxLast = Player.Calamity().rogueStealthMax;
+            if(ModContent.GetInstance<ServerConfig>().ClearStealthWhenChangeEquipSet)
+            {
+                if (StealthMaxLast != Player.Calamity().rogueStealthMax)
+                {
+                    Player.Calamity().rogueStealth = 0;
+                    RstStealth = true;
+                }
+            }
+
+            StealthMaxLast = Player.Calamity().rogueStealthMax;
+
+            if (BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb))
             {
                 if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(Player) && Player.ownedProjectileCounts[BookmarkHammer.ProjType] < 1)
                 {
@@ -1634,15 +1651,21 @@ namespace CalamityEntropy.Common
                     eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj) => { proj.ai[2] = 2; });
                 }
             }
+            if (hasAcc("SoulDeck"))
+                SDeckTime = 5;
+            if (hasAcc("TaintedDeck"))
+                TDeckTime = 5;
+            SDeckTime--;
+            TDeckTime--;
             foreach(var plr in Main.ActivePlayers)
             {
                 if (plr.Distance(Player.Center) > 6000)
                     continue;
-                if(plr.Entropy().hasAcc("SoulDeck"))
+                if(plr.Entropy().SDeckTime > 0)
                 {
                     HitCooldown += WisperCard.ImmuneAdd;
                 }
-                if (plr.Entropy().hasAcc("TDeck"))
+                if (plr.Entropy().TDeckTime > 0)
                 {
                     LifeStealP += 0.003f;
                 }
@@ -1878,10 +1901,14 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if (WeaponsNoCostRogueStealth && Player.Calamity().rogueStealth == 0 && LastStealth > 0 && !LastStealthStrikeAble)
+            if (!RstStealth)
             {
-                Player.Calamity().rogueStealth = LastStealth;
+                if (WeaponsNoCostRogueStealth && Player.Calamity().rogueStealth == 0 && LastStealth > 0 && !LastStealthStrikeAble)
+                {
+                    Player.Calamity().rogueStealth = LastStealth;
+                }
             }
+            RstStealth = false;
             LastStealth = Player.Calamity().rogueStealth;
             LastStealthStrikeAble = Player.Calamity().StealthStrikeAvailable();
             if (worshipStealthRegenTime > 0 && !worshipRelic && !(Player.HeldItem.ModItem is AzafureLightMachineGun))

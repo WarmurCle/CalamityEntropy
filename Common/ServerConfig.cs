@@ -8,7 +8,8 @@ namespace CalamityEntropy.Common
         public override ConfigScope Mode => ConfigScope.ServerSide;
         [Header("Misc")]
 
-
+        [DefaultValue(true)]
+        public bool ClearStealthWhenChangeEquipSet { get; set; }
 
         [DefaultValue(false)]
         public bool BramblecleaveAlwaysUnlockAllSkill { get; set; }

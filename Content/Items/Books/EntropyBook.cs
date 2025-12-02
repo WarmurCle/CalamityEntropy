@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Books
 {
     public abstract class EntropyBook : ModItem
     {
-        public static string BaseFolder = "CalamityEntropy/Content/Items/Books/";
+        public static string BaseFolder = "CalamityEntropy/Content/Items/Books";
         public override void SetDefaults()
         {
             Item.DamageType = DamageClass.Magic;
@@ -90,6 +90,11 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnKill(int timeLeft)
         {
             active = false;
+        }
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            if (active)
+                overPlayers.Add(index);
         }
         public int ItemType => (int)Projectile.ai[0];
         public int openAnim = 0;

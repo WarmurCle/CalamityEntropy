@@ -140,10 +140,12 @@ namespace CalamityEntropy.Content.ILEditing
                 EModHooks.Add(NPC_Get_Name, On_NPC_Get_Hook);
             }
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
-            EModHooks.Add(ApplyDRMethod, apply_dr_hook);
             if (ApplyDRMethod != null)
             {
+                EModHooks.Add(ApplyDRMethod, apply_dr_hook);
             }
+            var update_rogue_stealth_f = typeof(CalamityPlayer).GetMethod("UpdateRogueStealth", BindingFlags.Public | BindingFlags.Instance);
+            EModHooks.Add(update_rogue_stealth_f, UpdateRogueStealthHook);
 
             StoreForbiddenArchivePositionHook.LoadHook();
 
@@ -192,7 +194,68 @@ namespace CalamityEntropy.Content.ILEditing
             }
             return n;
         }
-        
+        private static void UpdateRogueStealthHook(CalamityPlayer self)
+        {
+            Player Player = self.Player;
+            // If the player un-equips rogue armor, then reset the sound so it'll play again when they re-equip it
+            if (!self.wearingRogueArmor)
+            {
+                self.rogueStealth = 0f;
+                self.playRogueStealthSound = false;
+                return;
+            }
+
+            if (self.playRogueStealthSound && self.rogueStealth >= self.rogueStealthMax && Player.whoAmI == Main.myPlayer)
+            {
+                self.playRogueStealthSound = false;
+                SoundEngine.PlaySound(CalamityPlayer.RogueStealthSound, Player.Center);
+            }
+
+            else if (self.rogueStealth < self.rogueStealthMax)
+                self.playRogueStealthSound = true;
+
+            var UpdateStealthGenStatsField = typeof(CalamityPlayer).GetMethod("UpdateStealthGenStats", BindingFlags.Instance | BindingFlags.NonPublic);
+            float currentStealthGen = (float)UpdateStealthGenStatsField.Invoke(self, null);
+            self.rogueStealth += self.rogueStealthMax * (currentStealthGen / 120f); // 120 frames = 2 seconds
+            if (self.rogueStealth > self.rogueStealthMax)
+                self.rogueStealth = self.rogueStealthMax;
+
+            var ProvideStealthStatBonusesField = typeof(CalamityPlayer).GetMethod("ProvideStealthStatBonuses", BindingFlags.Instance | BindingFlags.NonPublic);
+            ProvideStealthStatBonusesField.Invoke(self, null);
+
+            Item it = Player.ActiveItem();
+            bool hasDamage = it.damage > 0;
+            bool hasHitboxes = !it.noMelee || it.shoot > ProjectileID.None;
+            bool isPickaxe = it.pick > 0;
+            bool isAxe = it.axe > 0;
+            bool isHammer = it.hammer > 0;
+            bool isPlaced = it.createTile != -1;
+            bool isChannelable = it.channel;
+            bool hasNonWeaponFunction = isPickaxe || isAxe || isHammer || isPlaced || isChannelable;
+            bool playerUsingWeapon = hasDamage && hasHitboxes && !hasNonWeaponFunction;
+
+            // The Gem Tech armor's rogue crystal ensures that stealth is not consumed by non-rogue items.
+            if ((it.IsAir || !it.CountsAsClass<RogueDamageClass>()) && self.GemTechSet && self.GemTechState.IsRedGemActive)
+                playerUsingWeapon = false;
+
+            // Animation check depends on whether the item is "clockwork", like Clockwork Assault Rifle.
+            // "Clockwork" weapons can chain-fire multiple stealth strikes (really only 2 max) until you run out of stealth.
+            bool animationCheck = it.useAnimation == it.useTime
+                ? Player.itemAnimation == Player.itemAnimationMax - 1 // Standard weapon (first frame of use animation)
+                : Player.itemTime == (int)(it.useTime / Player.GetTotalAttackSpeed<RogueDamageClass>()); // Clockwork weapon (first frame of any individual use event)
+
+            if (!self.stealthStrikeThisFrame && animationCheck && playerUsingWeapon)
+            {
+                bool canStealthStrike = self.StealthStrikeAvailable();
+
+                // If you can stealth strike, you do.
+                if (canStealthStrike)
+                    self.ConsumeStealthByAttacking();
+                // Otherwise you get a "partial stealth strike" (stealth damage is still added to the weapon) and return to normally attacking.
+                else
+                    self.rogueStealth = 0f;
+            }
+        }
         public static string On_Name_Get_Hook(On_GetItemName_get_Delegate orig, Item item)
         {
             if (Main.gameMenu)

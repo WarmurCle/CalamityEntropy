@@ -1287,7 +1287,7 @@ namespace CalamityEntropy.Common
                 {
                     if (Main.rand.NextBool(32) && !CECooldowns.HasCooldown("GrudgeCD"))
                     {
-                        CECooldowns.AddCooldown("GrudgeCD", 10);
+                        CECooldowns.AddCooldown("GrudgeCD", 30);
                         Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, CEUtils.randomPointInCircle(8), ModContent.ProjectileType<HealingSpirit>(), 0, 0, player.whoAmI);
                     }
                 }

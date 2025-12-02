@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             switch (Style)
             {
-                case 0: frame = GetRect(tex, openAnim, OpenAnmCount); break;
+                case 0: frame = GetRect(tex, OpenAnmCount - 1 - openAnim, OpenAnmCount); break;
                 case 1: frame = GetRect(tex, pageTurnAnm, PageAnmCount); break;
                 case 2: frame = GetRect(tex, UIOpenAnm, UIOpenAnmCount); break;
                 default: break;

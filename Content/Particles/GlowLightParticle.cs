@@ -20,8 +20,9 @@ namespace CalamityEntropy.Content.Particles
             {
                 this.Opacity = 1;
             }
+            this.Velocity *= 0.96f;
         }
-        public Color lightColor = Color.White * 0.8f;
+        public Color lightColor = Color.White * 0.2f;
 
         public override void Draw()
         {

@@ -3243,6 +3243,16 @@ Items: {
 		// DisplayName: Bookmark - Spore
 		// Tooltip: Generates spores that track enemies and leave behind lingering spore clouds when attacking
 	}
+
+	DarkScripture: {
+		// DisplayName: Dark Scripture
+		// Tooltip: Shoot homing dark bullet
+	}
+
+	SelenbiteVolume: {
+		// DisplayName: Selenbite Volume
+		// Tooltip: Release the stranded stars, which will chase nearby targets and cause damage
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3786,6 +3796,10 @@ Projectiles: {
 	// SporeGas.DisplayName: Spore Gas
 	// AzureRapierHeld: Azure Rapier
 	// AzureRapierBlockSlash: Azure Rapier Slash
+	// DarkScriptureHeld.DisplayName: Dark Scripture Held
+	// DarkBullet.DisplayName: Dark Bullet
+	// SelenbiteStar.DisplayName: Selenbite Star
+	// SelenbiteVolumeHeld.DisplayName: Selenbite Volume Held
 }
 
 LegendTooltip: - Легенда -
@@ -4438,6 +4452,11 @@ Configs: {
 
 		LeastDamageSufferedBasedOnMaxHealth: {
 			// Label: Least Damage Suffered Based On Max Health
+			// Tooltip: ""
+		}
+
+		ClearStealthWhenChangeEquipSet: {
+			// Label: Clear Stealth When Change Equip Set
 			// Tooltip: ""
 		}
 	}

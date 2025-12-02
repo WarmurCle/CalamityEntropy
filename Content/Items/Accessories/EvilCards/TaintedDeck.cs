@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
 
             player.Entropy().taintedDeckInInv = true;
             ModContent.GetInstance<Perplexed>().UpdateAccessory(player, hideVisual);
-            player.Entropy().addEquip("TDeck", !hideVisual);
+            player.Entropy().addEquip("TaintedDeck", !hideVisual);
         }
         public override void UpdateInventory(Player player)
         {
