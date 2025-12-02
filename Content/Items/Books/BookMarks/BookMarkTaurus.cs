@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -46,6 +47,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
+            if (projectile.ModProjectile is AstralBullet)
+                return;
             if (CECooldowns.BMTaurus <= 0)
             {
                 CECooldowns.BMTaurus = 20;
