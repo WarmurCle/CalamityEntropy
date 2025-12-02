@@ -3256,7 +3256,11 @@ Items: {
 
 	MagicBookmarkHolder: {
 		// DisplayName: Magic Bookmark Holder
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Gives an additional bookmark slot for entropy books
+			+[D]% Magic damage
+			''' */
 	}
 }
 
