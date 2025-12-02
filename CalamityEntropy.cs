@@ -1210,7 +1210,11 @@ namespace CalamityEntropy
                         }
                         if (str.Equals("AddBookMarkSlot"))
                         {
-                            return ((Player)args[1]).Entropy().AdditionalBookmarkSlot += (int)args[2];
+                            ((Player)args[1]).Entropy().AdditionalBookmarkSlot += (int)args[2];
+                        }
+                        if (str.Equals("AddBookMarkSlotSpecialTexture"))
+                        {
+                            ((Player)args[1]).Entropy().BookmarkHolderSpecialTextures.Add((Texture2D)args[2]);
                         }
                         if (str.Equals("CopyProjForTTwin"))
                         {
