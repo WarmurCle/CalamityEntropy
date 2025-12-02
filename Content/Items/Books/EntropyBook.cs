@@ -476,7 +476,7 @@ namespace CalamityEntropy.Content.Items.Books
                             {
                                 playTurnPageAnimation();
                             }
-                            shotCooldown = bookItem.useTime;
+                            shotCooldown = (int)(bookItem.useTime * Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType));
 
                             EBookStatModifer m = getBaseModifer();
                             for (int i = 0; i < Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem); i++)
