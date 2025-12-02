@@ -14,6 +14,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 return true;
             return false;
         }
+        public static bool DontSetHitcd(EBookBaseProjectile proj)
+        {
+            if (DontDestroy(proj) || proj is DecayPactMaelstrom)
+                return true;
+            return false;
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -95,8 +101,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             }
                             if (BookMarkTaurus.DontDestroy(eb))
                             {
-                                p.ToProj().ResetLocalNPCHitImmunity();
                                 p.ToProj().penetrate = 1;
+                            }
+                            if(BookMarkTaurus.DontSetHitcd(eb))
+                            {
+                                p.ToProj().ResetLocalNPCHitImmunity();
                             }
                             m.ShooterModProjectile = esb.ShooterModProjectile;
                             m.homing = esb.homing;
