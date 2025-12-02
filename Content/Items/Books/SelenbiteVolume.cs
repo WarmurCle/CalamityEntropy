@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Books
 
         public override EBookStatModifer getBaseModifer()
         {
-            var m = new EBookStatModifer();
+            var m = base.getBaseModifer();
             m.Homing = 1f;
             m.HomingRange = 0.8f;
             return m;
