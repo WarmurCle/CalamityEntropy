@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         Texture2D holderTexture = eb.BookMarkTexture;
                         if(i >= c - texSpecial.Count)
                         {
-                            holderTexture = texSpecial[c - texSpecial.Count - i];
+                            holderTexture = texSpecial[i - (c - texSpecial.Count)];
                         }
                         Main.spriteBatch.Draw(holderTexture, pos, null, Color.White * (closeAnm / 11f), 0, holderTexture.Size() / 2, 1, SpriteEffects.None, 0);
                     }

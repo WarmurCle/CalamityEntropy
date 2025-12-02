@@ -6,10 +6,10 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
-    public class MagicBookmarkHolder : ModItem, IPriceFromRecipe
+    public class HolyBookmarkHolder : ModItem
     {
-        public int AdditionalPrice => 200;
-        public static float MAGEDAMAGE = 0.05f;
+        public static float MAGESPEED = 0.08f;
+        public static float MAGEDAMAGE = 0.1f;
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -17,26 +17,29 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.accessory = true;
+            Item.value = Item.buyPrice(0, 10, 0, 0);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Entropy().AdditionalBookmarkSlot += 1;
+            player.Entropy().AdditionalBookmarkSlot += 2;
+            player.GetAttackSpeed(DamageClass.Magic) += MAGESPEED;
             player.GetDamage(DamageClass.Magic) += MAGEDAMAGE;
-            if (!Main.dedServ)
-                player.Entropy().BookmarkHolderSpecialTextures.Add(CEUtils.RequestTex("CalamityEntropy/Content/UI/EntropyBookUI/Extra1"));
+            if (!Main.dedServ) 
+                for(int i = 0; i < 2; i++)
+                    player.Entropy().BookmarkHolderSpecialTextures.Add(CEUtils.RequestTex("CalamityEntropy/Content/UI/EntropyBookUI/Extra3"));
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Replace("[D]", MAGEDAMAGE.ToPercent().ToString());
+            tooltips.Replace("[S]", MAGESPEED.ToPercent().ToString());
         }
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ItemID.FallenStar, 2)
-                .AddIngredient(ItemID.Silk, 5)
-                .AddIngredient(ItemID.RichMahogany, 4)
-                .AddTile(TileID.WorkBenches)
+            CreateRecipe().AddIngredient<MagicBookmarkHolder>()
+                .AddIngredient<ExquisiteBookmarkHolder>()
+                .AddIngredient(ItemID.HallowedBar, 2)
+                .AddTile(TileID.CrystalBall)
                 .Register();
         }
     }

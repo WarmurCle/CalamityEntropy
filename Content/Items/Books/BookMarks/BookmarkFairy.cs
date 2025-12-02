@@ -77,8 +77,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             Delay--;
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Vector2.Lerp(player.Center, Projectile.Center, 0.32f), 3400);
-            if (--num == 0)
-                Projectile.velocity *= 0.36f;
+            if (--num == 1)
+                Projectile.velocity *= 0.2f;
             if (target == null)
             {
                 Projectile.pushByOther(0.6f);
