@@ -40,7 +40,6 @@ namespace CalamityEntropy.Content.Particles
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Wind"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
-            Main.spriteBatch.ExitShaderRegion();
             Main.spriteBatch.UseBlendState(this.useAlphaBlend ? BlendState.AlphaBlend : (this.useAdditive ? BlendState.Additive : BlendState.NonPremultiplied));
         }
 

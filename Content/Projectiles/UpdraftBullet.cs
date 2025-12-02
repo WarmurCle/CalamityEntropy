@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.AI();
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Main.GameUpdateCount % 3 == 0)
+            if (Main.GameUpdateCount % 5 == 0)
             {
                 EParticle.NewParticle(new WindParticle() { v1 = 9, v2 = 3, r = Projectile.rotation + MathHelper.Pi, dir = -1 }, Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi);
                 EParticle.NewParticle(new WindParticle() { v1 = 9, v2 = 3, r = Projectile.rotation + MathHelper.Pi, dir = 1 }, Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi);
