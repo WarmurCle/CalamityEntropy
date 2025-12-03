@@ -241,9 +241,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void AI()
         {
-            if (Projectile.owner != Main.myPlayer || Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 0)
+            if (Projectile.owner != Main.myPlayer || BookMarkLoader.HeldingBookAndHasBookmarkEffect<WarPactBMEffect>(Projectile.GetOwner()))
             {
                 Projectile.timeLeft = 4;
+            }
+            else
+            {
+                Projectile.Kill();
             }
             if (sp)
             {

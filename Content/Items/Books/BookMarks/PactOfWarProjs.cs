@@ -20,6 +20,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             if (Projectile.frameCounter % 4 == 0)
             {
                 Projectile.frame++;
+                if (Projectile.frame > 3)
+                    Projectile.frame = 0;
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (s)
@@ -34,8 +36,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.tileCollide = false;
             Projectile.light = 0.4f;
             Projectile.ignoreWater = true;
-            Projectile.width = Projectile.height = 46;
-            Projectile.timeLeft *= 2;
+            Projectile.width = Projectile.height = 70;
+            Projectile.timeLeft = 120;
+            Projectile.penetrate = 3;
         }
         public override bool PreDraw(ref Color lightColor)
         {
