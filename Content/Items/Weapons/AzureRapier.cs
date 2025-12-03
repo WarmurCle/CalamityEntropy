@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.scale = 2f;
             Item.DamageType = DamageClass.Melee;
-            Item.damage = 12;
+            Item.damage = 10;
             Item.knockBack = 4;
             Item.crit = 6;
             Item.shoot = ModContent.ProjectileType<AzureRapierHeld>();
@@ -181,7 +181,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.PlaySound("metalhit", 1.4f, player.Center);
                 CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
                 player.velocity = targetVel - player.velocity;
-                Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), targetPos, Vector2.Zero, pjtype, player.GetWeaponDamage(player.HeldItem) * 2 + 1, 2, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), targetPos, Vector2.Zero, pjtype, (int)(player.GetWeaponDamage(player.HeldItem) * 1.5f + 1), 2, player.whoAmI);
                 CECooldowns.AddCooldown("AzureBlock", 30);
             }
         }
