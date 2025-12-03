@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 240;
+            Item.damage = 210;
             Item.useAnimation = Item.useTime = 100;
             Item.crit = 10;
             Item.mana = 8;
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BookMark8").Value;
         public override int HeldProjectileType => ModContent.ProjectileType<TabooVolumeHeld>();
-        public override int SlotCount => 6;
+        public override int SlotCount => 7;
 
         public override void AddRecipes()
         {

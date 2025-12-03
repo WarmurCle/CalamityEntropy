@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 60;
             Item.useAnimation = Item.useTime = 18;
             Item.crit = 16;
-            Item.mana = 7;
+            Item.mana = 15;
             Item.rare = ItemRarityID.Red;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/SV").Value;
