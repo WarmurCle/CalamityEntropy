@@ -127,11 +127,15 @@ namespace CalamityEntropy.Content.Items.Books
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             Texture2D tex = CEUtils.getExtraTex("StarTexture");
-            float num = 0.7f * (float)Math.Sin(Projectile.localAI[1] + Main.GameUpdateCount / 10f);
-            float num2 = 0.7f * (float)Math.Sin(Projectile.localAI[1] + Main.GameUpdateCount / 10f + MathHelper.PiOver4);
+            float num = 0.5f * (float)Math.Sin(Projectile.localAI[1] + Main.GameUpdateCount / 10f);
+            float num2 = 0.5f * (float)Math.Sin(Projectile.localAI[1] + Main.GameUpdateCount / 10f + MathHelper.PiOver4);
 
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, color * Projectile.Opacity, 0, tex.Size() / 2f, new Vector2(1 + num, 1 - num) * Projectile.scale * 0.24f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, color * Projectile.Opacity, 0, tex.Size() / 2f, new Vector2(1 - num2, 1 + num2) * Projectile.scale * 0.24f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, color * Projectile.Opacity, MathHelper.PiOver4, tex.Size() / 2f, new Vector2(1 + num, 1 - num) * Projectile.scale * 0.16f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, color * Projectile.Opacity, MathHelper.PiOver4, tex.Size() / 2f, new Vector2(1 - num2, 1 + num2) * Projectile.scale * 0.16f, SpriteEffects.None, 0);
+
+
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
