@@ -9,11 +9,34 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookMarkNeutron : BookMark
     {
+        private readonly static string[] fullItems =
+                ["0", "0", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "0", "0",
+                    "CalamityEntropy/BookMarkNeutron"
+                ];
+        public override void Load()
+        {
+            if (ModLoader.TryGetMod("CalamityOverhaul", out var co))
+            {
+                co.Call(0, fullItems);
+            }
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();
             Item.rare = ItemRarityID.Red;
             Item.value = CalamityGlobalItem.RarityHotPinkBuyPrice;
+            if (ModLoader.TryGetMod("CalamityOverhaul", out var co))
+            {
+                co.Call(1, Item, fullItems);
+            }
         }
         public override Texture2D UITexture => BookMark.GetUITexture("Neutron");
         public override EBookProjectileEffect getEffect()
