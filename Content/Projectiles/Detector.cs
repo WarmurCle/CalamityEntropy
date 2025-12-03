@@ -23,6 +23,8 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
         bool back = false;
+        public int ShootTimes = 10;
+        public int ShootDelay = 0;
         public override void AI()
         {
             Projectile.pushByOther(1.4f);
@@ -39,11 +41,15 @@ namespace CalamityEntropy.Content.Projectiles
             else
             {
                 NPC target = Projectile.FindTargetWithinRange(3000);
+                ShootDelay--;
                 if (target != null)
                 {
-                    Projectile.velocity *= 0.99f;
-                    Projectile.velocity += (target.Center - Projectile.Center).normalize() * 0.7f;
-                    if (CEUtils.getDistance(Projectile.Center, target.Center) < 500)
+                    if (CEUtils.getDistance(Projectile.Center, target.Center) > 400)
+                    {
+                        Projectile.velocity *= 0.99f;
+                        Projectile.velocity += (target.Center - Projectile.Center).normalize() * 0.7f;
+                    }
+                    if (CEUtils.getDistance(Projectile.Center, target.Center) < 800 && ShootDelay <= 0)
                     {
                         if (Main.myPlayer == Projectile.owner)
                         {
@@ -51,8 +57,12 @@ namespace CalamityEntropy.Content.Projectiles
                             p.ToProj().usesLocalNPCImmunity = true;
                             p.ToProj().localNPCHitCooldown = 16;
                         }
+                        ShootDelay = 25;
                         SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
-                        back = true;
+                        if (ShootTimes-- == 0)
+                        {
+                            back = true;
+                        }
                     }
                     Projectile.rotation = (target.Center - Projectile.Center).ToRotation();
                 }
