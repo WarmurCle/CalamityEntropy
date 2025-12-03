@@ -433,6 +433,7 @@ Items: {
 			'''
 			+[CR]% Crit Chance
 			+15% Move Speed
+			+[HP] Max Life
 			+[ST] Max Stealth
 			-30% Mana Cost
 			-5% Damage Taken

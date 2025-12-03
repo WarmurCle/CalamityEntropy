@@ -27,6 +27,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         public static int MINIONADD = 1;
         public static int ArmorPenet = 10;
         public static float MELEEAS = 0.05f;
+        public static int MaxLife = 60;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().oracleDeckInInv = true;
@@ -35,6 +36,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
             player.maxMinions += MINIONADD;
             player.GetArmorPenetration(DamageClass.Generic) += ArmorPenet;
             player.GetAttackSpeed(DamageClass.Melee) += MELEEAS;
+            player.statLifeMax2 += MaxLife;
             player.GetModPlayer<EModPlayer>().oracleDeck = true;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -44,6 +46,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
             tooltips.Replace("[MN]", MINIONADD);
             tooltips.Replace("[AP]", ArmorPenet);
             tooltips.Replace("[ATS]", MELEEAS.ToPercent());
+            tooltips.Replace("[HP]", MaxLife);
         }
         public override void UpdateInventory(Player player)
         {
