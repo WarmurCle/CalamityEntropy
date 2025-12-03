@@ -1599,7 +1599,7 @@ Items: {
 		Tooltip:
 			'''
 			Attacks cause a small area-of-effect explosion
-			+14% Damage
+			+6% Damage
 			'''
 	}
 
@@ -1613,7 +1613,7 @@ Items: {
 		Tooltip:
 			'''
 			Projectiles reduce the speed and damage of enemy projectiles they collide with
-			+100% Projectile Size
+			+50% Projectile Size
 			'''
 	}
 
@@ -1625,8 +1625,8 @@ Items: {
 	BookMarkLeo: {
 		Tooltip:
 			'''
-			+20% Damage
-			+40% Projectile Size
+			+12% Damage
+			+20% Projectile Size
 			'''
 		DisplayName: Bookmark - Leo
 	}

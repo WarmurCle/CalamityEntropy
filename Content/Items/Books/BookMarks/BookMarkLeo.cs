@@ -21,8 +21,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Color tooltipColor => Color.LightBlue;
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.Damage += 0.2f;
-            modifer.Size += 0.4f;
+            modifer.Damage += 0.12f;
+            modifer.Size += 0.2f;
         }
     }
 

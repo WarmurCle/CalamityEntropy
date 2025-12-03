@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Color tooltipColor => Color.LightBlue;
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.Size += 1.0f;
+            modifer.Size += 0.5f;
         }
         public override EBookProjectileEffect getEffect()
         {
@@ -39,9 +39,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     if (p.velocity.Length() * p.MaxUpdates > 4)
                     {
-                        p.velocity *= 0.9f;
+                        p.velocity *= 0.96f;
                     }
-                    p.damage = (int)(p.damage * 0.95f);
+                    p.damage = (int)(p.damage * 0.96f);
                 }
             }
         }
