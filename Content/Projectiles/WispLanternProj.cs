@@ -86,15 +86,15 @@ namespace CalamityEntropy.Content.Projectiles
                 if (accChangeCd <= 0 || maxAccs == 0)
                 {
                     maxAccs = 1;
-                    if (Main.rand.NextBool(2))
+                    if (Main.rand.NextBool(3))
                     {
                         maxAccs++;
                     }
-                    if (Main.rand.NextBool(2))
+                    if (Main.rand.NextBool(4))
                     {
                         maxAccs++;
                     }
-                    accChangeCd = Main.rand.Next(5, 20) * 60;
+                    accChangeCd = Main.rand.Next(3, 16) * 60;
                     Projectile.netUpdate = true;
                 }
                 List<Item> CanApply = new List<Item>();
