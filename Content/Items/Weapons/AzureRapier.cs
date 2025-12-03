@@ -173,14 +173,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             int pjtype = ModContent.ProjectileType<AzureRapierBlockSlash>();
             player.AddCooldown(BlockingCooldown.ID, 600);
-            CEUtils.PlaySound("metalhit", 1.4f, player.Center);
-            CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
-            CEUtils.PlaySound("metalhit", 1.4f, player.Center);
-            CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
-            player.velocity = targetVel - player.velocity;
 
             if (!CECooldowns.HasCooldown("AzureBlock"))
             {
+                CEUtils.PlaySound("metalhit", 1.4f, player.Center);
+                CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
+                CEUtils.PlaySound("metalhit", 1.4f, player.Center);
+                CEUtils.PlaySound("SwordHit0", 1.5f, player.Center);
+                player.velocity = targetVel - player.velocity;
                 Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), targetPos, Vector2.Zero, pjtype, player.GetWeaponDamage(player.HeldItem) * 2 + 1, 2, player.whoAmI);
                 CECooldowns.AddCooldown("AzureBlock", 30);
             }

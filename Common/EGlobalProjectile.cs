@@ -457,6 +457,8 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
+            if (target.Entropy().immune > 0)
+                return false;
             return base.CanHitPlayer(projectile, target);
         }
         public Vector2? plrOldPos = null;

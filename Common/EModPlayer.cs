@@ -912,7 +912,7 @@ namespace CalamityEntropy.Common
             {
                 Player.immune = true;
                 Player.immuneTime = immune;
-                immune--;
+                _immune--;
             }
             if (SacredJudgeShields < 2)
             {
@@ -1293,11 +1293,13 @@ namespace CalamityEntropy.Common
                 modifiers.DisableSound();
             }
         }
-        public int immune = 0;
+        private int _immune = 0;
+        public int immune { get { return _immune; } set { if (value > _immune) _immune = value; } }
         public bool cHat = false;
         public float HitCooldown = 0;
         public float DebuffTime = 1;
 
+        
         public override void OnHurt(Player.HurtInfo info)
         {
             if (Player.statLife - info.Damage > 0)
