@@ -168,6 +168,8 @@ namespace CalamityEntropy.Content.NPCs
         {
             if (projectile.friendly)
             {
+                open = true;
+                openFrame = 3;
                 if (specialTime < 1)
                 {
                     sameItemCount = 12;
@@ -178,6 +180,12 @@ namespace CalamityEntropy.Content.NPCs
                     useCd = 10;
                 }
             }
+        }
+        public override bool? CanBeHitByProjectile(Projectile projectile)
+        {
+            if (projectile.hostile)
+                return false;
+            return null;
         }
         public override void OnSpawn(IEntitySource source)
         {
