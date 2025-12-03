@@ -1450,11 +1450,11 @@ namespace CalamityEntropy.Common
                     source = CEUtils.FindTarget_HomingProj(Player, Player.Center, 1000);
                 if (source == null)
                     source = Player;
-                if(!CECooldowns.HasCooldown("AzureBlock"))
-                    AzureRapierHeld.OnBlock(Player, source.Center, source.velocity);
+                AzureRapierHeld.OnBlock(Player, source.Center, source.velocity);
                 if(AllBlock)
                 {
                     info.Cancelled = true;
+                    immune = 40;
                     return;
                 }
             }
