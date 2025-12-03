@@ -1439,6 +1439,8 @@ namespace CalamityEntropy
             for (int i = 0; i < NPCLoader.NPCCount; i++)
             {
                 NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Content.Buffs.HeatDeath>()] = false;
+                NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Content.Buffs.LifeOppress>()] = false;
+                NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Koishi>()] = false;
             }
             if (ModLoader.TryGetMod("IsaacMod", out Mod isaac))
             {
