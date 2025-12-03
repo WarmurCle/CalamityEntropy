@@ -164,6 +164,21 @@ namespace CalamityEntropy.Content.NPCs
             if (NPC.life <= 0)
                 EParticle.NewParticle(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 4, 1, true, BlendState.AlphaBlend);
         }
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            if (projectile.friendly)
+            {
+                if (specialTime < 1)
+                {
+                    sameItemCount = 12;
+                    Say("LMDialog8", Color.Red);
+                    textureSpecial = 7;
+                    specialTime = 160;
+                    SpawnTimer = 100;
+                    useCd = 10;
+                }
+            }
+        }
         public override void OnSpawn(IEntitySource source)
         {
 
@@ -452,7 +467,7 @@ namespace CalamityEntropy.Content.NPCs
                             {
                                 if (useCd <= 0)
                                 {
-                                    useCd = 60;
+                                    useCd = 16;
 
                                     NPC.ai[0] = 1;
                                     NPC.ai[1] = Main.myPlayer;

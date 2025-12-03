@@ -732,7 +732,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (lifeSteal > 0)
             {
-                Projectile.GetOwner()?.Entropy().TryHealMeWithCd(lifeSteal);
+                Projectile.GetOwner()?.Entropy().TryHealMeWithCd(lifeSteal, 4);
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
