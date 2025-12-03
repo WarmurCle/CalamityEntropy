@@ -1655,6 +1655,11 @@ namespace CalamityEntropy.Common
                     eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj) => { proj.ai[2] = 1; });
                     eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj) => { proj.ai[2] = 2; });
                 }
+                if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<WarPactBMEffect>(Player))
+                {
+                    BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var book);
+                    WarPactBMEffect.CheckProj(book);
+                }
             }
             if (hasAcc("SoulDeck"))
                 SDeckTime = 5;

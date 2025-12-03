@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Common;
+using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
@@ -36,13 +37,16 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             target.AddBuff(ModContent.BuffType<MiracleBlight>(), 180);
         }
-        public override void OnActive(EntropyBookHeldProjectile book)
+        public static void CheckProj(EntropyBookHeldProjectile book)
         {
+            Player player = book.Projectile.GetOwner();
             int projtype1 = ModContent.ProjectileType<WarPactApollo>();
-            book.ShootSingleProjectile(projtype1, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.5f, 1);
+            if (player.ownedProjectileCounts[projtype1] < 1)
+                book.ShootSingleProjectile(projtype1, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.5f, 1);
 
             int projtype2 = ModContent.ProjectileType<WarPactArtemis>();
-            book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.5f, 1);
+            if (player.ownedProjectileCounts[projtype2] < 1) 
+                book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.5f, 1);
 
         }
 
@@ -73,9 +77,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         NPC target = null;
         public override void AI()
         {
-            if (Projectile.owner != Main.myPlayer || Projectile.owner.ToPlayer().GetModPlayer<CapricornBookmarkRecordPlayer>().EBookUsingTime > 0)
+            if (Projectile.owner != Main.myPlayer || BookMarkLoader.HeldingBookAndHasBookmarkEffect<WarPactBMEffect>(Projectile.GetOwner()))
             {
                 Projectile.timeLeft = 4;
+            }
+            else
+            {
+                Projectile.Kill();
             }
             if (sp)
             {
