@@ -107,14 +107,14 @@ namespace CalamityEntropy.Content.Projectiles
                     if (item.active && item.accessory)
                     {
                         bool skip = false;
-                        foreach (ActiveAcc acc in accs)
+                        /*foreach (ActiveAcc acc in accs)
                         {
                             if (player.inventory[acc.index].type == item.type)
                             {
                                 skip = true;
                                 break;
                             }
-                        }
+                        }*/
                         foreach (var pp in CanApply)
                         {
                             if (pp.type == item.type)
