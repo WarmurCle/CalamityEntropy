@@ -1,4 +1,5 @@
-﻿using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod.Buffs.DamageOverTime;
 using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -46,7 +47,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
-            target.AddBuff(ModContent.BuffType<Dragonfire>(), 180);
+            target.AddBuff(ModContent.BuffType<Dragonfire>(), 320);
+            target.AddBuff(ModContent.BuffType<LifeOppress>(), 320);
             player.ApplyDamageToNPC(target, player.GetShootState().WeaponDamage / 3, 0f, 0
                 , false, DamageClass.Default, true);
             float thirdDustScale = Main.rand.NextFloat(2, 4);
