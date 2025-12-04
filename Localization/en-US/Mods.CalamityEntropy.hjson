@@ -3294,6 +3294,11 @@ Items: {
 			Wulfrum drone will crash an explode after a while
 			'''
 	}
+
+	BookmarkCosmic: {
+		DisplayName: Bookmark Cosmic
+		Tooltip: "Spawn a God Slayer fight for you"
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3432,6 +3437,7 @@ Projectiles: {
 	RustyGrenadeProjectile.DisplayName: Rusty Grenade Projectile
 	GodSlayerRocket.DisplayName: God Slayer Rocket
 	GodSlayerRocketProjectile.DisplayName: God Slayer Rocket Projectile
+	GodSlayer.DisplayName: God Slayer
 	RailPulseBowProjectile.DisplayName: Rail Pulse Bow Projectile
 	JailerWhipProjectile.DisplayName: Jailer Whip Projectile
 	VoidLightBall.DisplayName: Void Light Ball

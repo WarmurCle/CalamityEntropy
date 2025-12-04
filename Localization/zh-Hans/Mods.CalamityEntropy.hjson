@@ -3558,6 +3558,11 @@ Items: {
 			无人机会在3秒后坠毁并爆炸
 			'''
 	}
+
+	BookmarkCosmic: {
+		DisplayName: 寰宇书签
+		Tooltip: "召唤弑神之蟒为你而战"
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -3691,6 +3696,7 @@ Projectiles: {
 	RustyGrenadeProjectile.DisplayName: 锈蚀榴弹
 	GodSlayerRocket.DisplayName: 弑神者火箭
 	GodSlayerRocketProjectile.DisplayName: 弑神者火箭
+	// GodSlayer.DisplayName: God Slayer
 	RailPulseBowProjectile.DisplayName: 磁轨脉冲弓
 	JailerWhipProjectile.DisplayName: 狱卒长鞭
 	VoidLightBall.DisplayName: 虚光射线

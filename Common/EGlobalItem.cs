@@ -1615,6 +1615,10 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<ObscureCard>(), 5);
             }
+            if (item.Is<DevourerofGodsBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BookmarkCosmic>(), 2);
+            }
             if (item.Is<CrabulonBag>())
             {
                 itemLoot.Add(ModContent.ItemType<WisperCard>(), 2);

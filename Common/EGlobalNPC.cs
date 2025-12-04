@@ -686,6 +686,10 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
             }
+            if (npc.type == ModContent.NPCType<DevourerofGodsHead>())
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkCosmic>(), 3, 1, 1);
+            }
             if (npc.type == ModContent.NPCType<SupremeCalamitas>())
             {
                 npcLoot.Add(ModContent.ItemType<TheFilthyContractWithMammon>(), 3, 1, 1);
