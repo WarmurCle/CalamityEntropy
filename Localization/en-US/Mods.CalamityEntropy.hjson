@@ -3270,6 +3270,30 @@ Items: {
 			making it easy to tightly clip bookmarks into books"
 			'''
 	}
+
+	IllusoryGodfang: {
+		DisplayName: Illusory Godfang
+		Tooltip: ""
+	}
+
+	BookmarkStarwreckage: {
+		DisplayName: Bookmark - Starwreckage
+		Tooltip: Throwing out metallic chunk that ignore invincible frames
+	}
+
+	BookmarkLacewings: {
+		DisplayName: Bookmark - Lacewings
+		Tooltip: Summon 3 prismatic lacewing that shoot prismatic ray to enemies
+	}
+
+	BookmarkWulfrum: {
+		DisplayName: Bookmark - Wulfrum
+		Tooltip: 
+		'''
+		Spawns a wulfrum drone that shoot wulfrum scrap to enemies nearby
+		Wulfrum drone will crash an explode after a while
+		'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3831,6 +3855,11 @@ Projectiles: {
 	DarkBullet.DisplayName: Dark Bullet
 	SelenbiteStar.DisplayName: Selenbite Star
 	SelenbiteVolumeHeld.DisplayName: Selenbite Volume Held
+	IllusoryBladeMinion.DisplayName: Illusory Blade Minion
+	MetallicChunkProj.DisplayName: Metallic Chunk Proj
+	LacewingBMMinion.DisplayName: Lacewing B M Minion
+	WulfrumBMDrone.DisplayName: Wulfrum B M Drone
+	WulfrumScrapProj.DisplayName: Wulfrum Scrap Proj
 }
 
 LegendTooltip: - Legend -
@@ -4169,6 +4198,11 @@ Buffs: {
 	MechanicalTrauma: {
 		DisplayName: Mechanical Trauma
 		Description: You feel pain all over your body
+	}
+
+	IllusoryBlade: {
+		DisplayName: Illusory Blade
+		Description: Mods.CalamityEntropy.Buffs.IllusoryBlade.Description
 	}
 }
 

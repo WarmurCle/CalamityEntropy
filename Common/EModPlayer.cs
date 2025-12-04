@@ -1662,6 +1662,10 @@ namespace CalamityEntropy.Common
                     BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var book);
                     WarPactBMEffect.CheckProj(book);
                 }
+                if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkLacewingsEffect>(Player) && Player.ownedProjectileCounts[BookmarkLacewings.ProjType] < 3)
+                {
+                    eb.ShootSingleProjectile(BookmarkLacewings.ProjType, Player.Center, Vector2.UnitY * -0.001f, 1, 1, 1);
+                }
             }
             if (hasAcc("SoulDeck"))
                 SDeckTime = 5;

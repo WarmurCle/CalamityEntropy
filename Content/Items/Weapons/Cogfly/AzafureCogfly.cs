@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
         {
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
-            ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 3;
+            ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 1;
         }
         public override void SetDefaults()
         {
