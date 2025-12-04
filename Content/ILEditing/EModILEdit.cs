@@ -644,8 +644,5 @@ namespace CalamityEntropy.Content.ILEditing
             _hooks.Clear();
         }
 
-        internal static void Add(Action<SpriteBatch> exitShaderRegion, object esrHook)
-        {
-        }
     }
 }

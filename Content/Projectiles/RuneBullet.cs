@@ -109,6 +109,12 @@ namespace CalamityEntropy.Content.Projectiles
                 b.A = 255;
                 float a = 0;
                 float lr = 0;
+                ve.Add(new ColoredVertex(mp.odp[0] - Main.screenPosition + (mp.odp[1] - mp.odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14 * Projectile.scale,
+                          new Vector3(0, 1, 1),
+                        b * (1f / (float)mp.odp.Count)));
+                ve.Add(new ColoredVertex(mp.odp[0] - Main.screenPosition + (mp.odp[1] - mp.odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14 * Projectile.scale,
+                      new Vector3(0, 0, 1),
+                      b * (1f / (float)mp.odp.Count)));
                 for (int i = 1; i < mp.odp.Count; i++)
                 {
                     a += 1f / (float)mp.odp.Count;

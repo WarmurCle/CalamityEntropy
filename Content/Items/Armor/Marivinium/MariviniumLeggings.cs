@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
 
         public override void UpdateEquip(Player player)
         {
-            player.Entropy().moveSpeed += 0.30f;
+            player.Entropy().moveSpeed += 0.36f;
             player.Entropy().ManaCost -= 0.2f;
             player.GetDamage(DamageClass.Generic) += 0.2f;
             player.GetCritChance(DamageClass.Generic) += 5;
