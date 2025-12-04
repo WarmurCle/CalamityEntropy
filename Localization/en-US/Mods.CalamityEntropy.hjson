@@ -3297,7 +3297,7 @@ Items: {
 
 	BookmarkCosmic: {
 		DisplayName: Bookmark Cosmic
-		Tooltip: "Spawn a God Slayer fight for you"
+		Tooltip: Spawn a God Slayer fight for you
 	}
 }
 
@@ -3863,8 +3863,8 @@ Projectiles: {
 	SelenbiteVolumeHeld.DisplayName: Selenbite Volume Held
 	IllusoryBladeMinion.DisplayName: Illusory Blade Minion
 	MetallicChunkProj.DisplayName: Metallic Chunk Proj
-	LacewingBMMinion.DisplayName: Lacewing B M Minion
-	WulfrumBMDrone.DisplayName: Wulfrum B M Drone
+	LacewingBMMinion.DisplayName: Lacewing
+	WulfrumBMDrone.DisplayName: Wulfrum Drone
 	WulfrumScrapProj.DisplayName: Wulfrum Scrap Proj
 }
 

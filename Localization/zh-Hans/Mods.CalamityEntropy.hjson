@@ -3561,7 +3561,7 @@ Items: {
 
 	BookmarkCosmic: {
 		DisplayName: 寰宇书签
-		Tooltip: "召唤弑神之蟒为你而战"
+		Tooltip: 召唤弑神之蟒为你而战
 	}
 }
 
@@ -3696,7 +3696,7 @@ Projectiles: {
 	RustyGrenadeProjectile.DisplayName: 锈蚀榴弹
 	GodSlayerRocket.DisplayName: 弑神者火箭
 	GodSlayerRocketProjectile.DisplayName: 弑神者火箭
-	// GodSlayer.DisplayName: God Slayer
+	GodSlayer.DisplayName: 弑神者
 	RailPulseBowProjectile.DisplayName: 磁轨脉冲弓
 	JailerWhipProjectile.DisplayName: 狱卒长鞭
 	VoidLightBall.DisplayName: 虚光射线
@@ -4118,13 +4118,13 @@ Projectiles: {
 	AzureRapierBlockSlash: 苍蓝刺剑防反
 	DarkScriptureHeld.DisplayName: 黑暗秘典
 	DarkBullet.DisplayName: 黑暗弹
-	// SelenbiteStar.DisplayName: Selenbite Star
-	// SelenbiteVolumeHeld.DisplayName: Selenbite Volume Held
-	// IllusoryBladeMinion.DisplayName: Illusory Blade Minion
-	// MetallicChunkProj.DisplayName: Metallic Chunk Proj
-	// LacewingBMMinion.DisplayName: Lacewing B M Minion
-	// WulfrumBMDrone.DisplayName: Wulfrum B M Drone
-	// WulfrumScrapProj.DisplayName: Wulfrum Scrap Proj
+	SelenbiteStar.DisplayName: 月蚀星
+	SelenbiteVolumeHeld.DisplayName: 月蚀卷册
+	IllusoryBladeMinion.DisplayName: 虚神之利
+	MetallicChunkProj.DisplayName: 金属块
+	LacewingBMMinion.DisplayName: 七彩草蛉
+	WulfrumBMDrone.DisplayName: 钨钢无人机
+	WulfrumScrapProj.DisplayName: 钨钢废料
 }
 
 LegendTooltip: - 传奇物品 -

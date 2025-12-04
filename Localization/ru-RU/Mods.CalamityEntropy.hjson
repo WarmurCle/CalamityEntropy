@@ -3313,7 +3313,7 @@ Items: {
 
 	BookmarkCosmic: {
 		// DisplayName: Bookmark Cosmic
-		// Tooltip: ""
+		// Tooltip: Spawn a God Slayer fight for you
 	}
 }
 
