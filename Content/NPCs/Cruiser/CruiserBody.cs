@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CruiserBoss");
             }
         }
-
+        public bool Phase2 => (Main.npc[(int)NPC.ai[3]].ModNPC is CruiserHead ch && ch.phaseTrans >= 120) ? true : false;
         public override void AI()
         {
             NPC.scale = Main.npc[(int)NPC.ai[3]].scale;

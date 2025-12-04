@@ -40,13 +40,13 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     float scale = 1;
                     if (npc.ModNPC != null)
                     {
-                        if (npc.ModNPC is CruiserBody)
+                        if (npc.ModNPC is CruiserBody cb && !cb.Phase2)
                         {
                             needDraw = true;
                             tex = crBody;
                             drawRot = npc.rotation;
                         }
-                        if (npc.ModNPC is CruiserTail)
+                        if (npc.ModNPC is CruiserTail ct && !ct.Phase2)
                         {
                             needDraw = true;
                             tex = crTail;
