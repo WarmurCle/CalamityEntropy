@@ -62,6 +62,16 @@ namespace CalamityEntropy
         {
             shakes.Add(shake);
         }
+        public static void AddShakeWithRangeFade(ScreenShake shake, float distance, float maxDist = 1600)
+        {
+            shake.amplitude *= Utils.Remap(distance, 0, maxDist, 1, 0);
+            shakes.Add(shake);
+        }
+        public static void AddShakeWithRangeFade(ScreenShake shake, Vector2 pos, float maxDist = 1600)
+        {
+            shake.amplitude *= Utils.Remap(CEUtils.getDistance(pos, Main.LocalPlayer.Center), 0, maxDist, 1, 0);
+            shakes.Add(shake);
+        }
         public static ScreenShake AddShake(float direction, float amp)
         {
             var s = new ScreenShake(direction.ToRotationVector2(), amp);
