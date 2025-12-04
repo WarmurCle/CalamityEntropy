@@ -65,7 +65,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void ApplyHoming()
         {
-
+            if (Projectile.localAI[1] > 100)
+                base.ApplyHoming();
         }
 
         public override void AI()
@@ -150,10 +151,6 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.timeLeft = 480;
             Projectile.tileCollide = true;
             Projectile.width = Projectile.height = 16;
-        }
-        public override void ApplyHoming()
-        {
-
         }
 
         public override void AI()

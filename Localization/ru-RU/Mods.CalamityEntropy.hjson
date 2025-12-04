@@ -3303,8 +3303,12 @@ Items: {
 	}
 
 	BookmarkWulfrum: {
-		// DisplayName: Bookmark Wulfrum
-		// Tooltip: ""
+		// DisplayName: Bookmark - Wulfrum
+		/* Tooltip:
+			'''
+			Spawns a wulfrum drone that shoot wulfrum scrap to enemies nearby
+			Wulfrum drone will crash an explode after a while
+			''' */
 	}
 }
 
