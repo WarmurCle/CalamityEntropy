@@ -9,11 +9,37 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookMarkNeutron : BookMark
     {
+        //这样可以修复联动配方没有加载的问题
+        private readonly static string[] fullItems =
+                ["0", "0", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityOverhaul/NeutronStarIngot", "CalamityEntropy/VoidBar", "0", "0",
+                    "0", "0", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "CalamityEntropy/VoidBar", "0", "0",
+                    "CalamityEntropy/BookMarkNeutron"
+                ];
+        //配方加载需要在Load阶段才能保证时机正确
+        public override void Load()
+        {
+            if (ModLoader.TryGetMod("CalamityOverhaul", out var co))
+            {
+                co.Call(0, fullItems);
+            }
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();
             Item.rare = ItemRarityID.Red;
             Item.value = CalamityGlobalItem.RarityHotPinkBuyPrice;
+            //设置物品实例的终焉配方用于自动分配合成内容
+            if (ModLoader.TryGetMod("CalamityOverhaul", out var co))
+            {
+                co.Call(1, Item, fullItems);
+            }
         }
         public override Texture2D UITexture => BookMark.GetUITexture("Neutron");
         public override EBookProjectileEffect getEffect()
