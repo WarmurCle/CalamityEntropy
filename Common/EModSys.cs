@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using ReLogic.Graphics;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -111,7 +112,6 @@ namespace CalamityEntropy.Common
                     Fruitcake.ammoList[ContentSamples.ItemsByType[i].ammo].Add(i);
                 }
             }
-
         }
         public override void PostDrawTiles()
         {
