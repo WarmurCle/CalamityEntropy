@@ -137,6 +137,17 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
                 else
                 {
+                    if(Projectile.Entropy().counter % 16 == 0)
+                    {
+                        if (Projectile.owner == Main.myPlayer)
+                        {
+                            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 12, 88, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            p.ToProj().usesLocalNPCImmunity = true;
+                            p.ToProj().localNPCHitCooldown = 16;
+                        }
+
+                        SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.6f}, Projectile.Center);
+                    }
                     AttackTarget(target);
                 }
             }
@@ -171,6 +182,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             base.ModifyHitNPC(target, ref modifiers);
+            modifiers.ArmorPenetration += 64;
             if (DashTime > 0)
             {
                 modifiers.SourceDamage *= 4;
