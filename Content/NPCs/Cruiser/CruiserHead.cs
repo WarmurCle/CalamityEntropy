@@ -102,6 +102,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 index = icon;
             }
         }
+        public override void BossHeadRotation(ref float rotation)
+        {
+            rotation = NPC.rotation - MathHelper.PiOver2;
+        }
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 1;

@@ -11,6 +11,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
     //[StaticImmunity(typeof(CruiserHead))]
     public class CruiserBody : ModNPC
     {
+        public override void BossHeadRotation(ref float rotation)
+        {
+            rotation = NPC.rotation;
+        }
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 1;
