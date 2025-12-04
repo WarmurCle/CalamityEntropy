@@ -1,5 +1,3 @@
-using CalamityEntropy.Content.Items.Weapons.Fractal;
-using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
@@ -8,13 +6,9 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Rogue;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -95,6 +89,11 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 480 * Projectile.scale, Projectile.Center, targetHitbox, 140);
+        }
+        public override void CutTiles()
+        {
+            if(Projectile.GetOwner().channel)
+                Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 480 * Projectile.scale, 128, DelegateMethods.CutTiles);
         }
         public Rope rope = null;
         public int AttackCount = 0;
