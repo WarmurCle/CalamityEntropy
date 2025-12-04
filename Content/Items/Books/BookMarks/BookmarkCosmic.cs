@@ -1,13 +1,8 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Items;
-using CalamityMod.NPCs.TownNPCs;
-using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
