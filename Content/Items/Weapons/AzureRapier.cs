@@ -13,12 +13,15 @@ using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
@@ -49,21 +52,26 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool AltFunctionUse(Player player)
         {
-            return true;
-        }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            if (player.altFunctionUse == 2)
-            {
-                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<AzureRapierBlock>(), damage, knockback, player.whoAmI);
-            }
-            else
-            {
-                return true;
-            }
             return false;
         }
-
+        public bool RMBLast = true;
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            return true;
+        }
+        public override void HoldItem(Player player)
+        {
+            if (Main.myPlayer == player.whoAmI)
+            {
+                int type = ModContent.ProjectileType<AzureRapierBlock>();
+                if (!RMBLast && Main.mouseRight && !Main.LocalPlayer.mouseInterface && player.ownedProjectileCounts[type] < 1)
+                {
+                    player.direction = Math.Sign(Main.MouseWorld.X - player.Center.X);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, (Main.MouseWorld - player.MountedCenter).normalize() * 8, type, player.GetWeaponDamage(Item), 0, player.whoAmI);
+                }
+                RMBLast = Main.mouseRight;
+            }
+        }
         public override bool MeleePrefix()
         {
             return true;
