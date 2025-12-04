@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnProjectileSpawn(Projectile projectile, bool ownerClient)
         {
-            (projectile.ModProjectile as EBookBaseProjectile).color = Color.Black;
+            (projectile.ModProjectile as EBookBaseProjectile).color = Color.DarkGray;
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
