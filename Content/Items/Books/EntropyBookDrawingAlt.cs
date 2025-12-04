@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = getTexture();
-            Main.EntitySpriteDraw(texture, Projectile.Center + Projectile.gfxOffY * Vector2.UnitY - Main.screenPosition, GetFrame(), lightColor, Projectile.rotation, GetOrigin(), Projectile.scale, (Projectile.velocity.X > 0 || UIOpen ? SpriteEffects.None : SpriteEffects.FlipVertically), 0);
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, GetFrame(), lightColor, Projectile.rotation, GetOrigin(), Projectile.scale, (Projectile.velocity.X > 0 || UIOpen ? SpriteEffects.None : SpriteEffects.FlipVertically), 0);
             return false;
         }
     }

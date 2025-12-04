@@ -428,7 +428,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.rotation = 0;
             }
             shotCooldown--;
-            Projectile.Center = Projectile.GetOwner().Center + (UIOpen ? Vector2.UnitY * -52 : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
+            Projectile.Center = Projectile.GetOwner().GetDrawCenter() + (UIOpen ? Vector2.UnitY * -52 : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
             if (Main.myPlayer == Projectile.owner)
             {
                 bool flag = Main.mouseLeft && !Main.LocalPlayer.mouseInterface && !UIOpen && Projectile.GetOwner().CheckMana(bookItem.mana, false);
@@ -593,7 +593,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = getTexture();
-            Main.EntitySpriteDraw(texture, Projectile.Center + Projectile.gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor, Projectile.rotation, texture.Size() / 2, Projectile.scale, (Projectile.velocity.X > 0 || UIOpen ? SpriteEffects.None : SpriteEffects.FlipVertically), 0);
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, texture.Size() / 2, Projectile.scale, (Projectile.velocity.X > 0 || UIOpen ? SpriteEffects.None : SpriteEffects.FlipVertically), 0);
             return false;
         }
     }
