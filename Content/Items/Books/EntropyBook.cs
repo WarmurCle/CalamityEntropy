@@ -33,6 +33,10 @@ namespace CalamityEntropy.Content.Items.Books
             Item.noUseGraphic = true;
             Item.rare = ItemRarityID.Orange;
         }
+        public override bool CanUseItem(Player player)
+        {
+            return false;
+        }
         public virtual int HeldProjectileType => -1;
         public virtual int SlotCount => 6;
         public virtual Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BookMark1").Value;
