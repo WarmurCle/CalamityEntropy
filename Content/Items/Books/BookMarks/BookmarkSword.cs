@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             var player = Projectile.GetOwner();
             //Projectile.damage = ((EntropyBookHeldProjectile)ShooterModProjectile).CauculateProjectileDamage(2);
             float tofs = target == null ? 120 : (target.width + target.height) / 2f + 120;
-            if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSwordBMEffect>(player) || Main.myPlayer != Projectile.owner)
+            if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSwordBMEffect>(player))
                 Projectile.timeLeft = 3;
             Projectile.netUpdate = true;
             if (trail == null && ++Projectile.localAI[2] > 2)
@@ -252,7 +252,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            trail.ShouldDraw = true;
+            if(trail != null)
+                trail.ShouldDraw = true;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkFairyEffect>(player))
+            if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkFairyEffect>(player))
             {
                 Projectile.timeLeft = 3;
             }

@@ -128,9 +128,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 d.velocity = CEUtils.randomPointInCircle(14);
                 d.position += d.velocity * 4;
             }
-            for(int i = 0; i < 12; i++)
+            if (Projectile.owner == Main.myPlayer)
             {
-                ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<WulfrumScrapProj>(), Projectile.Center, CEUtils.randomRot().ToRotationVector2(), 0.5f, 1, Main.rand.NextFloat(0.3f, 0.54f), (proj) => { proj.tileCollide = false; proj.damage = proj.damage.Softlimitation(16); });
+                for (int i = 0; i < 12; i++)
+                {
+                    ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<WulfrumScrapProj>(), Projectile.Center, CEUtils.randomRot().ToRotationVector2(), 0.5f, 1, Main.rand.NextFloat(0.3f, 0.54f), (proj) => { proj.tileCollide = false; proj.damage = proj.damage.Softlimitation(16); });
+                }
             }
         }
         public override bool PreDraw(ref Color lightColor)
