@@ -191,7 +191,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
             num2 = CEUtils.RotateTowardsAngle(num2, (target.Center - Projectile.Center).ToRotation(), num, false);
             Projectile.velocity *= 0.96f;
             Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, MathHelper.Pi * 1.5f + (target.Center - Projectile.Center).ToRotation(), 0.06f, false);
-            Projectile.pushByOther(2);
+            Projectile.pushByOther(0.1f);
         }
         List<float> odr = new List<float>();
         List<Vector2> odp = new List<Vector2>();
