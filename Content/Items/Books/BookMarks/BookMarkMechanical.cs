@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnProjectileSpawn(Projectile projectile, bool ownerClient)
         {
-            if (ownerClient && Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 8) && CECooldowns.CheckCD("MechanicalBookmark", 30))
+            if (ownerClient && (projectile.ModProjectile is EBookBaseProjectile eb && eb.mainProj) && Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 8) && CECooldowns.CheckCD("MechanicalBookmark", 30))
             {
                 Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.UnitY * -8, ModContent.ProjectileType<Detector>(), projectile.damage / 5, projectile.knockBack, projectile.owner);
             }
