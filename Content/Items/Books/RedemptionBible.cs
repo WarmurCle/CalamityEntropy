@@ -150,14 +150,24 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (target != null)
             {
-                Vector2 tpos = target.Center + (Projectile.Center - target.Center).normalize() * 400;
-                Projectile.Center += (tpos - Projectile.Center) * 0.18f;
-                Projectile.rotation = (target.Center - Projectile.Center).ToRotation();
+                if (CEUtils.getDistance(Projectile.Center, target.Center) > 300)
+                {
+                    Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1f;
+                    Projectile.velocity *= 0.985f;
+                }
+                else
+                {
+                    Projectile.velocity -= (target.Center - Projectile.Center).normalize() * 1f;
+                    Projectile.velocity *= 0.985f;
+                }
+                float targetRot = (target.Center - Projectile.Center).ToRotation();
+                Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.1f, false);
+                Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.1f, true);
             }
             else
             {
                 Vector2 tpos = Projectile.GetOwner().Center + new Vector2(-100 * Projectile.GetOwner().direction, -80);
-                Projectile.Center += (tpos - Projectile.Center) * 0.16f;
+                Projectile.Center += (tpos - Projectile.Center) * 0.07f;
                 Projectile.rotation = (mouse - Projectile.Center).ToRotation();
             }
             if (this.ShooterModProjectile is RedemptionBibleHeld eb)
@@ -188,6 +198,7 @@ namespace CalamityEntropy.Content.Items.Books
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Delay = 8;
+                                CEUtils.PlaySound("portal_emerge", Main.rand.NextFloat(2.6f, 3), Projectile.Center, volume:0.5f);
                                 eb.ShootSingleProjectile(ModContent.ProjectileType<RedemptionArrow>(), Projectile.Center, Projectile.rotation.ToRotationVector2(), 0.24f, 1, 1.6f, MainProjectile:true);
                             }
                         }
