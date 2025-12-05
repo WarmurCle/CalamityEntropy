@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         if (target != null)
                             rt = (target.Center - Projectile.Center).normalize().RotatedByRandom(0.2f);
 
-                        ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<WulfrumScrapProj>(), Projectile.Center, rt, 0.18f, 1, 0.7f, (proj) => { proj.damage = proj.damage.Softlimitation(16); });
+                        ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<WulfrumScrapProj>(), Projectile.Center, rt, 0.1f, 1, 0.65f, (proj) => { proj.damage = proj.damage.Softlimitation(16); });
                     }
                     CEUtils.PlaySound("wulfrumShoot", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
                 }
@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Stone);
             if (Projectile.owner == Main.myPlayer)
             {
-                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage * 3, 160, Projectile.DamageType);
+                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage * 2, 160, Projectile.DamageType);
             }
             for (int i = 0; i < 32; i++)
             {
@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 for (int i = 0; i < 12; i++)
                 {
-                    ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<WulfrumScrapProj>(), Projectile.Center, CEUtils.randomRot().ToRotationVector2(), 0.5f, 1, Main.rand.NextFloat(0.3f, 0.54f), (proj) => { proj.tileCollide = false; proj.damage = proj.damage.Softlimitation(16); });
+                    ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<WulfrumScrapProj>(), Projectile.Center, CEUtils.randomRot().ToRotationVector2(), 0.25f, 1, Main.rand.NextFloat(0.3f, 0.54f), (proj) => { proj.tileCollide = false; proj.damage = proj.damage.Softlimitation(16); });
                 }
             }
         }

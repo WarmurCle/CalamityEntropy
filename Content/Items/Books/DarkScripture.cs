@@ -63,8 +63,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.width = 40;
-            Projectile.height = 40;
+            Projectile.width = 30;
+            Projectile.height = 30;
             Projectile.tileCollide = true;
             Projectile.light = 0.2f;
             Projectile.timeLeft = 800;
