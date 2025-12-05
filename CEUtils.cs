@@ -827,7 +827,7 @@ namespace CalamityEntropy
         {
             foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if (p.type == proj.type && p.Colliding(p.Center.getRectCentered(p.width * p.scale, p.height * p.scale), proj.Center.getRectCentered(proj.width * proj.scale, proj.height * proj.scale)) && !(p.whoAmI == proj.whoAmI))
+                if (p.type == proj.type && p.owner == proj.owner && p.Colliding(p.Center.getRectCentered(p.width * p.scale, p.height * p.scale), proj.Center.getRectCentered(proj.width * proj.scale, proj.height * proj.scale)) && !(p.whoAmI == proj.whoAmI))
                 {
                     proj.velocity += (proj.Center - p.Center).SafeNormalize(randomRot().ToRotationVector2()) * strength;
                 }
