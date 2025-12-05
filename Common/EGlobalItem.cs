@@ -174,7 +174,7 @@ namespace CalamityEntropy.Common
                             item.TurnToAir();
                             if (Main.netMode != NetmodeID.SinglePlayer)
                             {
-                                PlayerLoader.SyncPlayer(Main.LocalPlayer, -1, Main.myPlayer, false);
+                                Main.LocalPlayer.Entropy().SyncPlayer(-1, Main.myPlayer, false);
                             }
                         }
                     }

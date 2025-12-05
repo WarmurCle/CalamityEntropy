@@ -1641,7 +1641,7 @@ namespace CalamityEntropy.Common
 
             StealthMaxLast = Player.Calamity().rogueStealthMax;
 
-            if (BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb))
+            if (Main.myPlayer == Player.whoAmI && BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb))
             {
                 if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(Player) && Player.ownedProjectileCounts[BookmarkHammer.ProjType] < 1)
                 {
@@ -1694,7 +1694,7 @@ namespace CalamityEntropy.Common
                 EParticle.spawnNew(new SlashDarkRed() { scw = 1f}, Player.Center - Player.velocity, Player.velocity * i, Color.Red, Main.rand.NextFloat(0.1f, 0.12f), 1, true, BlendState.AlphaBlend, Player.velocity.ToRotation(), 10);
             }*/
             bool addSRec = true;
-            if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSulphurousBMEffect>(Player))
+            if (Main.myPlayer == Player.whoAmI && BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSulphurousBMEffect>(Player))
             {
                 if (SulphurousBubbleRecharge >= 3600)
                 {
@@ -3133,27 +3133,22 @@ namespace CalamityEntropy.Common
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            if (Main.netMode != NetmodeID.SinglePlayer)
+            var mp = Mod.GetPacket();
+            mp.Write((byte)255);
+            mp.Write(enabledLoreItems.Count);
+            foreach (var item in enabledLoreItems)
             {
-                if (fromWho == Main.myPlayer)
-                {
-                    var mp = Mod.GetPacket();
-                    mp.Write((byte)255);
-                    mp.Write(enabledLoreItems.Count);
-                    foreach (var item in enabledLoreItems)
-                    {
-                        mp.Write(item);
-                    }
-                    mp.Write(this.EBookStackItems.Count);
-                    foreach (var item in this.EBookStackItems)
-                    {
-                        mp.Write(item.type);
-                        ItemIO.Send(item, mp);
-                    }
-                    mp.Send();
-                }
+                mp.Write(item);
             }
+            mp.Write(this.EBookStackItems.Count);
+            foreach (var item in this.EBookStackItems)
+            {
+                mp.Write(item.type);
+                ItemIO.Send(item, mp);
+            }
+            mp.Send();
         }
+
         public override void LoadData(TagCompound tag)
         {
             var boost = tag.GetList<string>("EntropyBoosts");

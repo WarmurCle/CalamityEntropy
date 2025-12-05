@@ -164,6 +164,8 @@ namespace CalamityEntropy.Common
 
         public static int GetMyMaxActiveBookMarks(this Player player, Item book)
         {
+            if (player.Entropy().EBookStackItems == null)
+                return 0;
             return Math.Min(EBookUI.getMaxSlots(player, book), player.Entropy().EBookStackItems.Count);
         }
         public static Texture2D GetUITexture(Item item)
