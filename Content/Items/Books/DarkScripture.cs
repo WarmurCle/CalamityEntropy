@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override string OpenAnimationPath => $"{EntropyBook.BaseFolder}/Textures/DarkScripture/Open";
         public override string PageAnimationPath => $"{EntropyBook.BaseFolder}/Textures/DarkScripture/Page";
         public override string UIOpenAnimationPath => $"{EntropyBook.BaseFolder}/Textures/DarkScripture/UI";
-
+        public override int frameChange => 3;
         public override EBookStatModifer getBaseModifer()
         {
             var m = base.getBaseModifer();
