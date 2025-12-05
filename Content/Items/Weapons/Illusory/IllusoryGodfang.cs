@@ -88,8 +88,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.width = 44;
-            Projectile.height = 44;
+            Projectile.width = 128;
+            Projectile.height = 128;
             Projectile.friendly = true;
             Projectile.aiStyle = -1;
             Projectile.hostile = false;

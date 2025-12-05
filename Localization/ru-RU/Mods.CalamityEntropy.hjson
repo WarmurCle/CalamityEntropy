@@ -3289,7 +3289,11 @@ Items: {
 
 	IllusoryGodfang: {
 		// DisplayName: Illusory Godfang
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Summon an Illusory blade fight for you.
+			Need 2 minion slots.
+			''' */
 	}
 
 	BookmarkStarwreckage: {
@@ -4210,7 +4214,7 @@ Buffs: {
 
 	IllusoryBlade: {
 		// DisplayName: Illusory Blade
-		// Description: Mods.CalamityEntropy.Buffs.IllusoryBlade.Description
+		// Description: Illusory blade will fight for you
 	}
 }
 

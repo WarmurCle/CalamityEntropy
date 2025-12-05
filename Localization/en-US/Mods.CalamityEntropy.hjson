@@ -3273,11 +3273,11 @@ Items: {
 
 	IllusoryGodfang: {
 		DisplayName: Illusory Godfang
-		Tooltip: 
-		'''
-		Summon an Illusory blade fight for you.
-		Need 2 minion slots.
-		'''
+		Tooltip:
+			'''
+			Summon an Illusory blade fight for you.
+			Need 2 minion slots.
+			'''
 	}
 
 	BookmarkStarwreckage: {
