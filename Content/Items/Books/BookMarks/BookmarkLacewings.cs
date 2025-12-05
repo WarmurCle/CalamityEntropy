@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.Particles;
@@ -138,8 +139,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (Main.rand.Next(5) == 0)
                 {
                     float num6 = MathHelper.Lerp(0.9f, 0.6f, Projectile.Opacity);
-                    Color newColor = Main.hslToRgb(Main.GlobalTimeWrappedHourly * 0.3f % 1f, 1f, 0.5f) * 0.5f;
-                    int num7 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 267, 0f, 0f, 0, newColor);
+                    colorDraw = Main.hslToRgb(Main.GlobalTimeWrappedHourly * 0.3f % 1f, 1f, 0.5f) * 0.5f;
+                    int num7 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 267, 0f, 0f, 0, colorDraw);
                     Main.dust[num7].position = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width, Projectile.height);
                     Main.dust[num7].velocity *= Main.rand.NextFloat() * 0.8f;
                     Main.dust[num7].velocity += Projectile.velocity * 0.6f;
@@ -157,6 +158,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
 
         }
+        public Color colorDraw = Color.White;
         public int dir = 1;
         public override bool? CanHitNPC(NPC target)
         {
@@ -166,7 +168,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Items/Books/BookMarks/Fairy/Lacewing");
             Rectangle frame = new Rectangle(0, 24 * (((int)Main.GameUpdateCount / 4) % 3), tex.Width, 24);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, Color.White * Projectile.Opacity, 0, new Vector2(12, 11), Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, Color.Lerp(colorDraw, Color.White, 0.7f) * Projectile.Opacity, 0, new Vector2(12, 11), Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            for(float i = 0; i < 360; i += 60)
+            {
+                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + (MathHelper.ToRadians(i) + Main.GlobalTimeWrappedHourly * 6).ToRotationVector2() * 4, frame, Color.Lerp(colorDraw, Color.White, 0.2f) * Projectile.Opacity * 0.8f, 0, new Vector2(12, 11), Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+            }
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
         public override string Texture => CEUtils.WhiteTexPath;
