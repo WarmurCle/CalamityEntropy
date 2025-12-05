@@ -3536,7 +3536,11 @@ Items: {
 
 	IllusoryGodfang: {
 		DisplayName: 虚神之利
-		Tooltip: ""
+		Tooltip: 
+		'''
+		召唤一把能够干净利落的切碎任何敌人的虚幻神锋
+		消耗2召唤栏
+		'''
 	}
 
 	BookmarkStarwreckage: {
@@ -4466,8 +4470,8 @@ Buffs: {
 	}
 
 	IllusoryBlade: {
-		// DisplayName: Illusory Blade
-		// Description: Mods.CalamityEntropy.Buffs.IllusoryBlade.Description
+		DisplayName: 虚幻神锋
+		Description: 虚幻神锋将为你而战
 	}
 }
 

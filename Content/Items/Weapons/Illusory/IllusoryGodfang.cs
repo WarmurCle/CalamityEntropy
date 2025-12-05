@@ -3,9 +3,12 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
+using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         }
         public override void SetDefaults()
         {
-            Item.damage = 1680;
+            Item.damage = 480;
             Item.DamageType = DamageClass.Summon;
             Item.width = 36;
             Item.height = 50;
@@ -40,12 +43,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.shoot = ModContent.ProjectileType<IllusoryBladeMinion>();
             Item.shootSpeed = 2f;
-            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
+            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item4;
             Item.noMelee = true;
             Item.buffType = ModContent.BuffType<IllusoryBlade>();
-            Item.rare = ModContent.RarityType<DarkOrange>();
+            Item.rare = ModContent.RarityType<VoidPurple>();
+            Item.Calamity().donorItem = true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -57,11 +61,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         }
         public override void AddRecipes()
         {
-
+            CreateRecipe().AddIngredient<DazzlingStabberStaff>()
+                .AddIngredient<VoidBar>(8)
+                .AddIngredient<FadingRunestone>()
+                .AddTile<VoidWellTile>()
+                .Register();
         }
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return false;
+            return true;
         }
     }
     public class IllusoryBlade : BaseMinionBuff
@@ -100,7 +108,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         public float WhiteAlpha = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            
+            CEUtils.PlaySound("slice", Main.rand.NextFloat(1, 1.4f), target.Center);
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize(), false, 6, 5f, new Color(160, 160, 255), new Vector2(0.016f, 0.036f), true, false));
         }
         public NPC target;
         public override void AI()
@@ -147,15 +156,37 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
             }
             else
             {
-
+                AttackTarget(target);
+                WhiteAlpha = 0;
+                trailAlpha = 1;
             }
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
-            if (odp.Count > 128)
+            if (odp.Count > 64)
             {
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
             }
+        }
+        public float num = 0;
+        public float num2 = 0;
+        internal void AttackTarget(NPC target)
+        {
+            Projectile.velocity += num2.ToRotationVector2() * 1.4f;
+            if (CEUtils.getDistance(Projectile.Center, target.Center) > 150)
+            {
+                num += 0.05f;
+            }
+            else
+            {
+                num = 0;
+            }
+            if (num > 1)
+                num = 1;
+            num2 = CEUtils.RotateTowardsAngle(num2, (target.Center - Projectile.Center).ToRotation(), num, false);
+            Projectile.velocity *= 0.96f;
+            Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, MathHelper.Pi * 1.5f + (target.Center - Projectile.Center).ToRotation(), 0.06f, false);
+            Projectile.pushByOther(2);
         }
         List<float> odr = new List<float>();
         List<Vector2> odp = new List<Vector2>();
