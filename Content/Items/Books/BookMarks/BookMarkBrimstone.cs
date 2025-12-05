@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (!(projectile.ModProjectile is BrimstoneVortex))
             {
-                if (ownerClient && (projectile.ModProjectile is EBookBaseProjectile eb && eb.mainProj) && Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 2 : 3))
+                if (ownerClient && ((projectile.ModProjectile is EBookBaseProjectile eb && eb.mainProj) || Main.rand.NextBool(6)) && Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 2 : 3))
                 {
                     Vector2 pos = projectile.Center - projectile.velocity.normalize() * 190 + CEUtils.randomVec(128);
                     int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), pos, (Main.MouseWorld - pos).normalize() * 32, ModContent.ProjectileType<BrimstoneVortex>(), projectile.damage / 16, projectile.knockBack, projectile.owner);
