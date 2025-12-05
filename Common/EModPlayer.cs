@@ -3133,6 +3133,10 @@ namespace CalamityEntropy.Common
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
+            if (enabledLoreItems == null)
+                enabledLoreItems = new();
+            if (EBookStackItems == null)
+                EBookStackItems = new();
             var mp = Mod.GetPacket();
             mp.Write((byte)255);
             mp.Write(enabledLoreItems.Count);
