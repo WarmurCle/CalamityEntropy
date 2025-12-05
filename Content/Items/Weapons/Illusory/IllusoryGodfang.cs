@@ -62,6 +62,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<DazzlingStabberStaff>()
+                .AddIngredient(ItemID.EmpressBlade)
                 .AddIngredient<VoidBar>(8)
                 .AddIngredient<FadingRunestone>()
                 .AddTile<VoidWellTile>()
