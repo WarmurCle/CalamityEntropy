@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Items.Books
             Player player = Projectile.GetOwner();
             for (int i = 0; i < Main.rand.Next(6, 10); i++)
             {
-                ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, 1, 1, Main.rand.NextFloat(0.2f, 1));
+                ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, 1, 1, Main.rand.NextFloat(0.2f, 1), MainProjectile:true);
                 
                 EParticle.NewParticle(new GlowLightParticle() { lightColor = Color.YellowGreen * 0.25f }, player.MountedCenter, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 2.5f, Color.YellowGreen, Main.rand.NextFloat(0.4f, 0.8f), 1, true, BlendState.Additive, 0, 30);
                 EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0.05f, scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f }, player.MountedCenter, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.YellowGreen, 0.5f, 1, true, BlendState.Additive, 0);

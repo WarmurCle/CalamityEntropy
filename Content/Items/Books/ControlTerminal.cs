@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override bool Shoot()
         {
             int type = ModContent.ProjectileType<ExoWhirl>();
-            ShootSingleProjectile(type, Projectile.Center, Projectile.velocity);
+            ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, MainProjectile:true);
             return true;
         }
         public override bool canApplyShootCDModifer => false;

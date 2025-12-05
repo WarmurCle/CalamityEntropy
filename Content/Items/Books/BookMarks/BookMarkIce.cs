@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnProjectileSpawn(Projectile projectile, bool ownerClient)
         {
-            if (ownerClient)
+            if (ownerClient && projectile.ModProjectile is EBookBaseProjectile bp && bp.mainProj)
             {
                 Vector2 pos = projectile.Center - projectile.velocity.normalize() * 168 + CEUtils.randomVec(128);
                 int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), pos, (Main.MouseWorld - pos).normalize() * 32, ModContent.ProjectileType<IceEdge2>(), (projectile.damage / 5).Softlimitation(100), projectile.knockBack, projectile.owner);

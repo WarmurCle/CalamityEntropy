@@ -265,7 +265,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
-            ShootSingleProjectile(type, Projectile.Center, Projectile.velocity);
+            ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, MainProjectile:true);
 
             return true;
         }
@@ -294,7 +294,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             return modifer;
         }
-        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1)
+        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1, bool MainProjectile = false)
         {
             if (!Projectile.active)
                 return;
@@ -313,6 +313,7 @@ namespace CalamityEntropy.Content.Items.Books
                 proj.ArmorPenetration += (int)(Projectile.GetOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration + bookItem.ArmorPenetration);
                 if (proj.ModProjectile is EBookBaseProjectile bp)
                 {
+                    bp.mainProj = MainProjectile;
                     bp.ShooterModProjectile = this;
                     bp.homing += modifer.Homing;
                     bp.homingRange *= modifer.HomingRange;
@@ -607,7 +608,7 @@ namespace CalamityEntropy.Content.Items.Books
         public bool EffectInit = true;
         public int lifeSteal = 0;
         public float gravity = 0;
-        
+        public bool mainProj = false;
         public virtual Color baseColor => Color.White;
         public Color color;
         public bool initColor = true;
