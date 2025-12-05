@@ -171,15 +171,7 @@ namespace CalamityEntropy.Content.ILEditing
         }
         public static float GetNPCDRMultiply(NPC npc)
         {
-            float mult = 1;
-
-            if (npc.HasBuff<Koishi>())
-                mult -= 0.2f;
-            if (npc.HasBuff<LifeOppress>())
-                mult -= 0.65f;
-            if (mult < 0)
-                mult = 0;
-            return mult;
+            return EGlobalNPC.DamageReduceMult(npc);
         }
         public delegate string On_GetNPCName_get_Delegate(NPC npc);
         public static List<int> LostNPCsEntropy = new() { 454, 455, 456, 457, 458, 459, 521 };

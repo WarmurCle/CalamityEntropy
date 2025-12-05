@@ -90,7 +90,21 @@ namespace CalamityEntropy.Common
         public int friendFinderOwner = 0;
         public int TDRCounter = 3 * 60 * 60;
         public int HitCounter = 0;
+        public static float DamageReduceMult(NPC npc)
+        {
+            float mult = 1;
 
+            if (npc.HasBuff<Koishi>())
+                mult -= 0.2f;
+            if (npc.HasBuff<LifeOppress>())
+                mult -= 0.65f;
+            if (npc.HasBuff<SoulDisorder>())
+                mult -= 0.2f;
+
+            if (mult < 0)
+                mult = 0;
+            return mult;
+        }
         public override void SetupTravelShop(int[] shop, ref int nextSlot)
         {
             if (Main.rand.NextBool(4))

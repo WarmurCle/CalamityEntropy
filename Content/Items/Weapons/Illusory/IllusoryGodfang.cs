@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         }
         public override void SetDefaults()
         {
-            Item.damage = 480;
+            Item.damage = 250;
             Item.DamageType = DamageClass.Summon;
             Item.width = 36;
             Item.height = 50;
@@ -106,10 +106,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         }
         public int Counter = 0;
         public float WhiteAlpha = 0;
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 64;
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("slice", Main.rand.NextFloat(1, 1.4f), target.Center);
             GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize(), false, 6, 5f, new Color(160, 160, 255), new Vector2(0.016f, 0.036f), true, false));
+            target.AddBuff<SoulDisorder>(180);
         }
         public NPC target;
         public override void AI()
@@ -143,7 +148,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
                             MyID++;
                     }
                 }
-                Vector2 targetPos = player.Center + new Vector2(-(40 + MyID * 16) * player.direction, -80 + 10 * (float)(Math.Sin(Main.GameUpdateCount / 16f - MyID * 0.3f)));
+                Vector2 targetPos = player.Center + player.velocity * 2 + new Vector2(-(40 + MyID * 16) * player.direction, -80 + 10 * (float)(Math.Sin(Main.GameUpdateCount / 16f - MyID * 0.3f)));
                 Projectile.velocity = (targetPos - Projectile.Center) * 0.04f;
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, MathHelper.PiOver2 + MyID * player.direction * 0.1f, 0.04f, false);
                 WhiteAlpha = ((float)(Math.Sin(Main.GameUpdateCount / 9f - MyID * 0.5f)) * 0.5f + 0.5f);
