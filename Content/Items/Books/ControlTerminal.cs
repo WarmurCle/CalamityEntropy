@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
-            ShootSingleProjectile(type, pos, vel, shotSpeedMul: 0.6f);
+            ShootSingleProjectile(type, pos, vel, shotSpeedMul: 0.6f, MainProjectile:true);
         }
     }
     public class ControlTerminalBookBaseEffect : EBookProjectileEffect

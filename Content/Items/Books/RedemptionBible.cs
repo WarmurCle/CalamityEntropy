@@ -188,7 +188,7 @@ namespace CalamityEntropy.Content.Items.Books
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Delay = 8;
-                                eb.ShootSingleProjectile(ModContent.ProjectileType<RedemptionArrow>(), Projectile.Center, Projectile.rotation.ToRotationVector2(), 0.24f, 1, 1.6f);
+                                eb.ShootSingleProjectile(ModContent.ProjectileType<RedemptionArrow>(), Projectile.Center, Projectile.rotation.ToRotationVector2(), 0.24f, 1, 1.6f, MainProjectile:true);
                             }
                         }
                     }

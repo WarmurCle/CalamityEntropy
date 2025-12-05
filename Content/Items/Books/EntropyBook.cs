@@ -646,6 +646,7 @@ namespace CalamityEntropy.Content.Items.Books
             writer.Write(Projectile.CritChance);
             writer.Write(lifeSteal);
             writer.Write(gravity);
+            writer.Write(mainProj);
 
             writer.Write(ProjectileEffects.Count);
             foreach (var effect in ProjectileEffects)
@@ -663,6 +664,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.CritChance = reader.ReadInt32();
             lifeSteal = reader.ReadInt32();
             gravity = reader.ReadSingle();
+            mainProj = reader.ReadBoolean();
 
             this.ProjectileEffects.Clear();
             int r = reader.ReadInt32();
