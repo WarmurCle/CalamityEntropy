@@ -1,7 +1,10 @@
 ﻿using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
+using CalamityMod;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -35,7 +38,22 @@ namespace CalamityEntropy.Content.Items
             float brightness = Main.essScale * Main.rand.NextFloat(0.9f, 1.1f);
             Lighting.AddLight(Item.Center, 0.3f * brightness, 0.3f * brightness, 1f * brightness);
         }
-
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            CalamityUtils.DrawInventoryCustomScale(
+                spriteBatch,
+                texture: TextureAssets.Item[Type].Value,
+                position,
+                frame,
+                drawColor,
+                itemColor,
+                origin,
+                scale,
+                wantedScale: 1f,
+                drawOffset: new(-1f, 0f)
+            );
+            return false;
+        }
         public override void AddRecipes()
         {
             CreateRecipe(5).
