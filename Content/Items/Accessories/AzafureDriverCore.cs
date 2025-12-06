@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             CreateRecipe()
                 .AddIngredient<AzafureChargeShield>()
                 .AddIngredient<RoverDrive>()
-                .AddIngredient<AshesofCalamity>()
+                .AddIngredient<AshesofCalamity>(6)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
