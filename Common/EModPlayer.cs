@@ -516,21 +516,24 @@ namespace CalamityEntropy.Common
             }
         }
         public float DriverScale = 0;
-        public void DriverShieldHit(Player.HurtInfo info)
+        public void DriverShieldHit(ref Player.HurtInfo info)
         {
             if (DriverShield > 0)
             {
+                int reduceDmg = 0;
                 int DamageToShield = (int)(info.Damage * (Player.AzafureEnhance() ? 0.6f : 1));
                 if (DriverShield >= DamageToShield)
                 {
                     DriverShield -= DamageToShield;
                     info.Cancelled = true;
-                    immune = 24;
+                    immune = 40;
+                    reduceDmg = DamageToShield;
                     CEUtils.PlaySound("RoverDriveHit", 1.4f, Player.Center);
                 }
                 else
                 {
-                    info.Damage -= DriverShield;
+                    reduceDmg = DriverShield;
+                    info.Damage = info.Damage - DriverShield;
                     DriverShield = 0;
                     CEUtils.PlaySound("RoverDriveBreak", 1.4f, Player.Center);
                 }
@@ -539,6 +542,7 @@ namespace CalamityEntropy.Common
                 {
                     GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + new Vector2(Main.rand.NextFloat(-28, 28), Main.rand.NextFloat(-28, 28)), CEUtils.randomPointInCircle(12), Main.rand.NextFloat(1.6f, 2f), Color.OrangeRed * 0.6f, Main.rand.Next(6, 12)));
                 }
+                CombatText.NewText(Player.getRect(), Color.OrangeRed, "-" + reduceDmg);
             }
         }
         public override void ResetEffects()
@@ -1400,6 +1404,8 @@ namespace CalamityEntropy.Common
         
         public override void OnHurt(Player.HurtInfo info)
         {
+            if(DriverShield <= 0)
+                DriverRecharge = 0;
             if (Player.statLife - info.Damage > 0)
             {
                 if ((hasAcc("VastLV2") && ManaRegenTime > 0) || Player.HasBuff<ManaAwaken>())
@@ -1560,7 +1566,7 @@ namespace CalamityEntropy.Common
             }
             if (AzafureDriverShieldItem != null)
             {
-                DriverShieldHit(info);
+                DriverShieldHit(ref info);
                 if (info.Cancelled)
                     return;
             }

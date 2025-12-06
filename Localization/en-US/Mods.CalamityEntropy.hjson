@@ -1833,10 +1833,7 @@ Items: {
 	}
 
 	AzafureChargeShield: {
-		Tooltip: 
-		'''
-		Cost energy to dash through enemies
-		'''
+		Tooltip: Cost energy to dash through enemies
 		DisplayName: Azafure Charge Shield
 	}
 
@@ -3318,11 +3315,11 @@ Items: {
 
 	AzafureDriverCore: {
 		DisplayName: Azafure Driver Core
-		Tooltip: 
-		'''
-		Give you [S] shield
-		Cost energy to dash through enemies
-		'''
+		Tooltip:
+			'''
+			Give you [S] shield
+			Cost energy to dash through enemies
+			'''
 	}
 }
 

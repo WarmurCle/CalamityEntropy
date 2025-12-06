@@ -27,8 +27,8 @@ namespace CalamityEntropy.Content.Items.Accessories
         public static int DashDelay = 20;
         public float charge = 0;
         public float maxCharge = 4f;
-        public static int RechargeTime = 20 * 60;
-        public static int MaxShield = 100;
+        public static int RechargeTime = 18 * 60;
+        public static int MaxShield = 120;
         public override void SetDefaults()
         {
             Item.width = 60;

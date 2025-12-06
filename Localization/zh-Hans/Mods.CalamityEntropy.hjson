@@ -3579,11 +3579,11 @@ Items: {
 
 	AzafureDriverCore: {
 		DisplayName: 阿萨福勒驱动核心
-		Tooltip: 
-		'''
-		为你提供[S]点护盾
-		消耗充能进行冲刺，充能会缓慢恢复
-		'''
+		Tooltip:
+			'''
+			为你提供[S]点护盾
+			消耗充能进行冲刺，充能会缓慢恢复
+			'''
 	}
 }
 

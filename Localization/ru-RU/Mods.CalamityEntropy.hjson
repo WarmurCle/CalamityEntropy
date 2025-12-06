@@ -3331,7 +3331,11 @@ Items: {
 
 	AzafureDriverCore: {
 		// DisplayName: Azafure Driver Core
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Give you [S] shield
+			Cost energy to dash through enemies
+			''' */
 	}
 }
 
