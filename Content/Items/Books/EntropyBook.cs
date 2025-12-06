@@ -403,7 +403,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (!player.mouseInterface && Main.myPlayer == Projectile.owner)
             {
-                if (Main.mouseRight && !mouseRightLast)
+                if (Main.mouseRight && !mouseRightLast && !active)
                 {
                     UIOpen = !UIOpen;
                     EBookUI.active = UIOpen;
