@@ -5131,6 +5131,7 @@ AzafureEnhances: {
 	// AzafureTacticalRadio: Increase missile num
 	// AzafureAirReaper: Increase chasing time
 	// AzafureCylinder: Extend the metal ball's existence time
+	// AzafurePeaceKey: Shoot 2 n-bomb one time
 	/* AzafureDriverCore:
 		'''
 		Reduce energy cost
