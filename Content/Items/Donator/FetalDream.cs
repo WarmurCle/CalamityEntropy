@@ -55,6 +55,16 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.shootSpeed = 16;
             Item.DamageType = DamageClass.Default;
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach(var tl in tooltips)
+            {
+                if(tl.Mod == "Terraria" && tl.Name == "Damage")
+                {
+                    tl.Text = $"{Main.LocalPlayer.GetWeaponDamage(Item, true).ToString()} {Mod.GetLocalization("FetalDreamDamage").Value}";
+                }
+            }
+        }
     }
     public class FetalDreamSlash : ModProjectile
     {
