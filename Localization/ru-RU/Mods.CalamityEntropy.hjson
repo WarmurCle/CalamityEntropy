@@ -3322,7 +3322,11 @@ Items: {
 
 	AzafurePeaceKey: {
 		// DisplayName: Azafure Peace Key
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Summon a launcher that lauching n-bomb to enemies
+			You can only summon one launcher at a time
+			''' */
 	}
 }
 
@@ -3878,7 +3882,7 @@ Projectiles: {
 	// WulfrumBMDrone.DisplayName: Wulfrum Drone
 	// WulfrumScrapProj.DisplayName: Wulfrum Scrap Proj
 	// NucLauncher.DisplayName: Nuc Launcher
-	// PeaceJR.DisplayName: Peace J R
+	// PeaceJR.DisplayName: Peace JR
 }
 
 LegendTooltip: - Легенда -

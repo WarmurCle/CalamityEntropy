@@ -3306,11 +3306,11 @@ Items: {
 
 	AzafurePeaceKey: {
 		DisplayName: Azafure Peace Key
-		Tooltip: 
-		'''
-		Summon a launcher that lauching n-bomb to enemies
-		You can only summon one launcher at a time
-		'''
+		Tooltip:
+			'''
+			Summon a launcher that lauching n-bomb to enemies
+			You can only summon one launcher at a time
+			'''
 	}
 }
 

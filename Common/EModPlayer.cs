@@ -751,10 +751,10 @@ namespace CalamityEntropy.Common
             {
                 CEUtils.PlaySound("beep", 1, Player.Center);
             }
-            temporaryArmor *= 0.988f;
+            temporaryArmor *= 0.992f;
             if (temporaryArmor > 0)
             {
-                temporaryArmor -= 0.005f;
+                temporaryArmor -= 0.003f;
             }
             if (temporaryArmor < 0)
             {
