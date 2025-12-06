@@ -832,7 +832,7 @@ Items: {
 	ArchmagesHandmirror: {
 		Tooltip:
 			'''
-			给予你30%的额外魔力
+			给予你40%的额外魔力
 			每1点额外魔力提供0.1%魔法伤害加成
 			'''
 		DisplayName: 大魔导师手镜

@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         spos = target.Center + CEUtils.randomRot().ToRotationVector2() * 460;
                         rot = (target.Center - spos).ToRotation();
                     }
-                    eb.ShootSingleProjectile(BookmarkCosmic.ProjType, spos, rot.ToRotationVector2(), 0.1f, 1, 1f);
+                    eb.ShootSingleProjectile(BookmarkCosmic.ProjType, spos, rot.ToRotationVector2(), 0.16f, 1, 1f);
                 }
             }
         }
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.penetrate = -1;
             Projectile.timeLeft = 100 * 3;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 16;
+            Projectile.localNPCHitCooldown = 15;
             Projectile.extraUpdates = 3;
         }
         public override bool? CanCutTiles()

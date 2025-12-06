@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
             float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
             Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
-            Projectile.damage = (int)(player.GetWeaponDamage(player.HeldItem) * 0.6f);
+            Projectile.damage = (int)(player.GetWeaponDamage(player.HeldItem) * 0.5f);
             Projectile.MaxUpdates = 1;
 
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3000)

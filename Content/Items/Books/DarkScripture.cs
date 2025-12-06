@@ -18,8 +18,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 40;
-            Item.useAnimation = Item.useTime = 24;
+            Item.damage = 45;
+            Item.useAnimation = Item.useTime = 22;
             Item.mana = 7;
             Item.rare = ItemRarityID.Red;
         }
@@ -50,6 +50,7 @@ namespace CalamityEntropy.Content.Items.Books
             var m = base.getBaseModifer();
             m.Homing = 1f;
             m.HomingRange = 1.25f;
+            m.armorPenetration += 16;
             return m; 
         }
         public override float randomShootRotMax => 0.16f;

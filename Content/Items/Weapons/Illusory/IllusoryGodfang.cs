@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         }
         public override void SetDefaults()
         {
-            Item.damage = 250;
+            Item.damage = 220;
             Item.DamageType = DamageClass.Summon;
             Item.width = 36;
             Item.height = 50;
@@ -49,6 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
             Item.noMelee = true;
             Item.buffType = ModContent.BuffType<IllusoryBlade>();
             Item.rare = ModContent.RarityType<VoidPurple>();
+            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.Calamity().donorItem = true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -61,10 +62,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<DazzlingStabberStaff>()
+            CreateRecipe()
+        .AddIngredient<DazzlingStabberStaff>()
                 .AddIngredient(ItemID.EmpressBlade)
-                .AddIngredient<VoidBar>(8)
-                .AddIngredient<FadingRunestone>()
+                .AddIngredient<VoidBar>(5)
                 .AddTile<VoidWellTile>()
                 .Register();
         }
@@ -120,10 +121,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         public NPC target;
         public override void AI()
         {
-            if(Counter == 0)
+            if (Counter == 0)
             {
                 Projectile.rotation = -MathHelper.PiOver2;
-            }    
+            }
             Counter++;
             Player player = Projectile.GetOwner();
             target = Projectile.FindMinionTarget();
@@ -141,7 +142,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
                 int MyID = 0;
                 foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if(proj.owner == Projectile.owner && proj.type == Projectile.type)
+                    if (proj.owner == Projectile.owner && proj.type == Projectile.type)
                     {
                         if (proj.whoAmI == Projectile.whoAmI)
                             break;
@@ -154,11 +155,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, MathHelper.PiOver2 + MyID * player.direction * 0.1f, 0.04f, false);
                 WhiteAlpha = ((float)(Math.Sin(Main.GameUpdateCount / 9f - MyID * 0.5f)) * 0.5f + 0.5f);
                 trailAlpha = float.Min(1, Projectile.velocity.Length() * 0.4f);
-                if(trailAlpha < 0.02f)
+                if (trailAlpha < 0.02f)
                 {
                     odp.Clear();
                     odr.Clear();
-                }    
+                }
             }
             else
             {

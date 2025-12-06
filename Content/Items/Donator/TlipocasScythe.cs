@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             get
             {
-                return ((float)(MathF.Sin(Main.GlobalTimeWrappedHourly * 1f) * 1.2f + 1.4f)).ToClamp(1.0f,2.4f);
+                return ((float)(MathF.Sin(Main.GlobalTimeWrappedHourly * 1f) * 1.2f + 1.4f)).ToClamp(1.0f, 2.4f);
             }
         }
 
@@ -177,12 +177,12 @@ namespace CalamityEntropy.Content.Items.Donator
                 Get("TSA3") + (flag ? "" : Get("LOCKED") + " " + Get("TSU3")))
             { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-            flag = EDownedBosses.downedProphet;
+            flag = EDownedBosses.downedNihilityTwin;
             tooltips.Add(new TooltipLine(Mod, "Ability Desc",
                 Get("TSA4") + (flag ? "" : Get("LOCKED") + " " + Get("TSU4")))
             { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-            flag = EDownedBosses.downedNihilityTwin;
+            flag = DownedBossSystem.downedPolterghast;
             tooltips.Add(new TooltipLine(Mod, "Ability Desc",
                 Get("TSA5") + (flag ? "" : Get("LOCKED") + " " + Get("TSU5")))
             { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
@@ -422,7 +422,7 @@ namespace CalamityEntropy.Content.Items.Donator
             if (throwType == -1)
                 throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
             Item.useTime = Item.useAnimation = (40 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
-            FuncKilledTownNPC(player);           
+            FuncKilledTownNPC(player);
         }
         private void FuncKilledTownNPC(Player player)
         {
@@ -494,7 +494,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<TlipocasScytheHeld>(), DashUpgrade() ? damage : damage / 4, knockback, player.whoAmI, swing == 0 ? 1 : -1, -1);
                 player.AddCooldown(TlipocasScytheSlashCooldown.ID, 7 * 60);
-                CalamityEntropy.FlashEffectStrength = 0.3f;
+                CalamityEntropy.FlashEffectStrength = 0.2f;
                 int p = Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 2, knockback, player.whoAmI);
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {
@@ -528,7 +528,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 float cost = 1;
                 //if (player.Calamity().stealthStrike90Cost)
-                    cost = 0.9f;
+                cost = 0.9f;
                 if (player.Calamity().stealthStrike75Cost)
                     cost = 0.75f;
                 if (player.Calamity().stealthStrikeHalfCost)
@@ -687,7 +687,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public bool shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(shake)
+            if (shake)
                 CEUtils.SetShake(target.Center, Projectile.Calamity().stealthStrike ? 8 : 4);
             shake = false;
             if (Projectile.ai[1] == 1 && TlipocasScythe.AllowVoidEmpowerment())
@@ -929,7 +929,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     var gd = Main.graphics.GraphicsDevice;
                     SpriteBatch sb = Main.spriteBatch;
-                    
+
                     sb.End();
                     sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, _shader, Main.GameViewMatrix.TransformationMatrix);
                     _shader.Parameters["color1"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? Color.Purple : Color.Firebrick).ToVector4());
@@ -1061,7 +1061,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public bool shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(shake || StickOnMouse)
+            if (shake || StickOnMouse)
                 CEUtils.SetShake(target.Center, (Projectile.Calamity().stealthStrike ? 8 : 4) * (StickOnMouse ? 0.5f : 1));
             shake = false;
             if (Projectile.numHits == 1)
@@ -1218,7 +1218,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     Projectile.Kill();
                     Vector2 v1 = player.position;
                     Vector2 v2 = Projectile.Center - new Vector2(player.width, player.height) / 2;
-                    for(float i = 0; i <= 1; i += 0.05f)
+                    for (float i = 0; i <= 1; i += 0.05f)
                     {
                         EParticle.NewParticle(new PlayerShadowBlack() { plr = player }, Vector2.Lerp(v1, v2, i), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, 12);
                     }
@@ -1238,7 +1238,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             return Projectile.Center.getRectCentered((int)(142 * ProjScale), (int)(142 * ProjScale)).Intersects(targetHitbox);
         }
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
@@ -1294,7 +1294,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     var gd = Main.graphics.GraphicsDevice;
                     SpriteBatch sb = Main.spriteBatch;
-                    
+
                     sb.End();
                     sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
                     shader.Parameters["color1"].SetValue(new Vector4(1, 1, 1, 0));
@@ -1406,4 +1406,3 @@ namespace CalamityEntropy.Content.Items.Donator
         }
     }
 }
-

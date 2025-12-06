@@ -3068,7 +3068,7 @@ namespace CalamityEntropy.Common
             }
             if (ArchmagesMirror)
             {
-                enhancedMana += 0.3f;
+                enhancedMana += 0.4f;
             }
             enhancedMana += Player.GetModPlayer<VastMPlayer>().GetEnhancedMana;
             if (EvilDeck)
