@@ -1,5 +1,6 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
@@ -27,8 +28,8 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.noMelee = true;
             Item.knockBack = 5f;
-            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
-            Item.rare = ItemRarityID.Green;
+            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
+            Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.DD2_DefenseTowerSpawn;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<NucLauncher>();
@@ -59,9 +60,9 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<HellIndustrialComponents>(8)
-                .AddIngredient<MysteriousCircuitry>(4)
-                .AddIngredient(ItemID.HallowedBar, 10)
+                .AddIngredient<AzafureProtectiveCannon>()
+                .AddIngredient<AzafureTacticalRadio>()
+                .AddIngredient<ScoriaBar>(6)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
