@@ -66,6 +66,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .Register();
         }
     }
+
     public class AzafureProtectiveCannonShot : ModProjectile
     {
         public override void SetDefaults()
