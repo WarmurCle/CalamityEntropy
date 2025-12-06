@@ -135,7 +135,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.Center = player.Center + CEUtils.randomPointInCircle(128);
             }
             bool f = false;
-            if (CEKeybinds.CommandMinions.Current && Projectile.owner == Main.myPlayer)
+            if (player.whoAmI == Main.myPlayer && CEKeybinds.CommandMinions.Current && Projectile.owner == Main.myPlayer)
             {
                 f = true;
                 if (ai != AIStyle.AroundOwner)
