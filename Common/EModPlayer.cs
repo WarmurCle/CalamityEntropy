@@ -29,6 +29,8 @@ using CalamityMod;
 using CalamityMod.Balancing;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.CalPlayer;
+using CalamityMod.Cooldowns;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
@@ -444,6 +446,101 @@ namespace CalamityEntropy.Common
         public int HeatEffectTime = 0;
         public int AdditionalBookmarkSlot = 0;
         public List<Texture2D> BookmarkHolderSpecialTextures = new();
+        public int DriverShield = 0;
+        public int DriverRecharge = 0;
+        public int DriverRegenDelay = 0;
+        public void UpdateDriverShield()
+        {
+            bool Equiped = AzafureDriverShieldItem != null;
+            DriverScale = float.Lerp(DriverScale, Equiped ? (DriverShield > 0 ? 2.5f : 1.9f) : 0, 0.05f);
+            if (Equiped)
+            {
+                if (Player.Calamity().cooldowns.TryGetValue(DriverCoreCooldown.ID, out var value4))
+                {
+                    value4.timeLeft = DriverShield > 0 ? (AzafureDriverCore.MaxShield - DriverShield) : AzafureDriverCore.RechargeTime - DriverRecharge;
+                    if (DriverShield > 0)
+                    {
+                        value4.duration = AzafureDriverCore.MaxShield;
+                    }
+                    else
+                    {
+                        value4.duration = AzafureDriverCore.RechargeTime;
+                    }
+                }
+                else
+                {
+                    Player.AddCooldown(DriverCoreCooldown.ID, AzafureDriverCore.RechargeTime);
+                }
+                if (DriverShield > 0)
+                {
+                    if (DriverRegenDelay-- < 0)
+                    {
+                        if (DriverShield < AzafureDriverCore.MaxShield)
+                        {
+                            int dl = Player.AzafureEnhance() ? 4 : 5;
+                            if (DriverRegenDelay < 3)
+                                DriverRegenDelay = 3;
+                            DriverShield += 1;
+                            if(DriverShield > AzafureDriverCore.MaxShield)
+                            {
+                                DriverShield = AzafureDriverCore.MaxShield;
+                            }
+                        }
+                    }
+                    DriverRecharge = 0;
+                }
+                else
+                {
+                    DriverRecharge += Player.AzafureEnhance() ? Main.rand.Next(1, 3) : 1;
+                    if(DriverRecharge > AzafureDriverCore.RechargeTime)
+                    {
+                        CEUtils.PlaySound("RoverDriveActivate", 1.4f, Player.Center);
+                        DriverShield = AzafureDriverCore.MaxShield;
+                    }
+                }
+            }
+            else
+            {
+                DriverRecharge = 0;
+                DriverShield = 0;
+                DriverRegenDelay = 5 * 60;
+                RemoveCooldown(DriverCoreCooldown.ID);
+            }
+        }
+        public void RemoveCooldown(string id)
+        {
+            Player p = Player;
+            if(p.HasCooldown(id))
+            {
+                p.Calamity().cooldowns.Remove(id);
+            }
+        }
+        public float DriverScale = 0;
+        public void DriverShieldHit(Player.HurtInfo info)
+        {
+            if (DriverShield > 0)
+            {
+                int DamageToShield = (int)(info.Damage * (Player.AzafureEnhance() ? 0.6f : 1));
+                if (DriverShield >= DamageToShield)
+                {
+                    DriverShield -= DamageToShield;
+                    info.Cancelled = true;
+                    immune = 24;
+                    CEUtils.PlaySound("RoverDriveHit", 1.4f, Player.Center);
+                }
+                else
+                {
+                    info.Damage -= DriverShield;
+                    DriverShield = 0;
+                    CEUtils.PlaySound("RoverDriveBreak", 1.4f, Player.Center);
+                }
+                DriverRegenDelay = 5 * 60;
+                for(int i = 0; i < 16; i++)
+                {
+                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + new Vector2(Main.rand.NextFloat(-28, 28), Main.rand.NextFloat(-28, 28)), CEUtils.randomPointInCircle(12), Main.rand.NextFloat(1.6f, 2f), Color.OrangeRed * 0.6f, Main.rand.Next(6, 12)));
+                }
+            }
+        }
         public override void ResetEffects()
         {
             BookmarkHolderSpecialTextures.Clear();
@@ -493,6 +590,7 @@ namespace CalamityEntropy.Common
             vetrasylsEye = false;
             maliciousCode = false;
             AzafureChargeShieldItem = null;
+            AzafureDriverShieldItem = null;
             visualMagiShield = false;
             MariviniumSet = false;
             meleeDamageReduce = 0;
@@ -1418,10 +1516,10 @@ namespace CalamityEntropy.Common
         }
         private void EPHurtModifier(ref Player.HurtInfo info)
         {
-            if(AzureRapierBlock > 0)
+            if (AzureRapierBlock > 0)
             {
                 bool AllBlock = false;
-                if(!Player.HasCooldown(BlockingCooldown.ID))
+                if (!Player.HasCooldown(BlockingCooldown.ID))
                 {
                     info.Cancelled = true;
                     AllBlock = true;
@@ -1433,12 +1531,12 @@ namespace CalamityEntropy.Common
                     info.Damage = (int)(info.Damage * (Player.Calamity().cooldowns[BlockingCooldown.ID].timeLeft / 600f));
                 }
                 Entity source = null;
-                if(info.DamageSource.TryGetCausingEntity(out Entity ent))
+                if (info.DamageSource.TryGetCausingEntity(out Entity ent))
                 {
                     if (ent is NPC)
                         source = ent;
-                    
-                    if(ent is Projectile proj)
+
+                    if (ent is Projectile proj)
                     {
                         if (proj.Entropy().Shooter >= 0)
                         {
@@ -1453,12 +1551,18 @@ namespace CalamityEntropy.Common
                 if (source == null)
                     source = Player;
                 AzureRapierHeld.OnBlock(Player, source.Center, source.velocity);
-                if(AllBlock)
+                if (AllBlock)
                 {
                     info.Cancelled = true;
                     immune = 40;
                     return;
                 }
+            }
+            if (AzafureDriverShieldItem != null)
+            {
+                DriverShieldHit(info);
+                if (info.Cancelled)
+                    return;
             }
             noCsDodge = false;
             if (SCrown)
@@ -1602,6 +1706,8 @@ namespace CalamityEntropy.Common
         public int damageRecord = 0;
 
         public Item AzafureChargeShieldItem = null;
+        public Item AzafureDriverShieldItem = null;
+
         public bool VSoundsPlayed = false;
         public bool DashFlag = false;
         public bool maliciousCode = false;
@@ -1628,6 +1734,7 @@ namespace CalamityEntropy.Common
         public bool RstStealth = false;
         public override void PostUpdate()
         {
+            UpdateDriverShield();
             if (StealthMaxLast == -1)
                 StealthMaxLast = Player.Calamity().rogueStealthMax;
             if(ModContent.GetInstance<ServerConfig>().ClearStealthWhenChangeEquipSet)

@@ -3576,6 +3576,15 @@ Items: {
 			你最多只能部署一台发射井
 			'''
 	}
+
+	AzafureDriverCore: {
+		DisplayName: 阿萨福勒驱动核心
+		Tooltip: 
+		'''
+		为你提供[S]点护盾
+		消耗充能进行冲刺，充能会缓慢恢复
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -5348,8 +5357,15 @@ AzafureEnhances: {
 	AzafureTacticalRadio: 增加发射的导弹数量
 	AzafureAirReaper: 增加镰刀追逐目标的时间
 	AzafureCylinder: 延长金属球存在时间
+	AzafureDriverCore:
+		'''
+		减小充能消耗
+		-40% 护盾承受的伤害
+		增加护盾恢复速度
+		'''
 }
 
 DeathExplode: "[PlayerName]爆炸了"
 BlockingCooldown: 招架冷却
 FetalDreamCooldown: 胎儿之梦冷却
+DriverCoreCooldown: 驱动核心护盾

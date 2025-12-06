@@ -1833,7 +1833,10 @@ Items: {
 	}
 
 	AzafureChargeShield: {
-		Tooltip: ""
+		Tooltip: 
+		'''
+		Cost energy to dash through enemies
+		'''
 		DisplayName: Azafure Charge Shield
 	}
 
@@ -3311,6 +3314,15 @@ Items: {
 			Summon a launcher that lauching n-bomb to enemies
 			You can only summon one launcher at a time
 			'''
+	}
+
+	AzafureDriverCore: {
+		DisplayName: Azafure Driver Core
+		Tooltip: 
+		'''
+		Give you [S] shield
+		Cost energy to dash through enemies
+		'''
 	}
 }
 
@@ -5119,8 +5131,15 @@ AzafureEnhances: {
 	AzafureTacticalRadio: Increase missile num
 	AzafureAirReaper: Increase chasing time
 	AzafureCylinder: Extend the metal ball's existence time
+	AzafureDriverCore:
+		'''
+		Reduce energy cost
+		-40% damage taken by shield
+		Increase shield regen speed
+		'''
 }
 
 DeathExplode: "[PlayerName] exploded"
 BlockingCooldown: Blocking Cooldown
 FetalDreamCooldown: Fetal Dream Cooldown
+DriverCoreCooldown: Driver Core Shield

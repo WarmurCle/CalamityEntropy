@@ -541,11 +541,22 @@ namespace CalamityEntropy
 
             Texture2D shell = CEUtils.getExtraTex("shell");
             Texture2D crystalShield = CEUtils.getExtraTex("MariviniumShield");
-            if (Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
+            if (Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null || Main.LocalPlayer.Entropy().AzafureDriverShieldItem != null)
             {
-                var mi = Main.LocalPlayer.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield;
-                float charge = mi.charge;
-                float maxCharge = mi.maxCharge;
+                float charge = 0;
+                float maxCharge = 0;
+                if(Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
+                {
+                    var mi = Main.LocalPlayer.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield;
+                    charge = mi.charge;
+                    maxCharge = mi.maxCharge;
+                }
+                if (Main.LocalPlayer.Entropy().AzafureDriverShieldItem != null)
+                {
+                    var mi = Main.LocalPlayer.Entropy().AzafureDriverShieldItem.ModItem as AzafureDriverCore;
+                    charge = mi.charge;
+                    maxCharge = mi.maxCharge;
+                }
                 if (charge >= maxCharge)
                 {
                     AzShieldBarAlpha = float.Lerp(AzShieldBarAlpha, 0, 0.1f);

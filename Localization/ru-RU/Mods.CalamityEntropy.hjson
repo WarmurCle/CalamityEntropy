@@ -3328,6 +3328,11 @@ Items: {
 			You can only summon one launcher at a time
 			''' */
 	}
+
+	AzafureDriverCore: {
+		// DisplayName: Azafure Driver Core
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -5122,8 +5127,15 @@ AzafureEnhances: {
 	// AzafureTacticalRadio: Increase missile num
 	// AzafureAirReaper: Increase chasing time
 	// AzafureCylinder: Extend the metal ball's existence time
+	/* AzafureDriverCore:
+		'''
+		Reduce energy cost
+		-40% damage taken by shield
+		Increase shield regen speed
+		''' */
 }
 
 // DeathExplode: "[PlayerName] exploded"
 // BlockingCooldown: Blocking Cooldown
 // FetalDreamCooldown: Fetal Dream Cooldown
+// DriverCoreCooldown: Driver Core Shield

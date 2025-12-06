@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+﻿using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Vanity;
@@ -113,8 +114,55 @@ namespace CalamityEntropy.Common
                 }
             }
         }
+
+        public static void DrawDriverShield(Player player, float progress, bool active, Vector2 center)
+        {
+            center += player.gfxOffY * Vector2.UnitY;
+            float scale = player.Entropy().DriverScale;
+            Texture2D noise = CEUtils.getExtraTex("Noise_14");
+            Texture2D tex = CEUtils.getExtraTex("RectShield");
+            if(active)
+            {
+                float alpha = 0.5f + 0.5f * progress;
+                Main.spriteBatch.Begin(0, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                Color clr = Color.Lerp(new Color(190, 40, 40), Color.White, 0.5f + 0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 10))) * 0.8f;
+                int offset = (int)Main.GameUpdateCount;
+                Vector2 so = new Vector2(12, 12) * scale;
+                Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset, offset, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset / 2, offset / 2, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, clr * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
+
+                Main.spriteBatch.End();
+            }
+            else
+            {
+                float alpha = 0.6f * progress;
+                Main.spriteBatch.Begin(0, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                Color clr = Color.Lerp(new Color(255, 100, 100), Color.White, 0.5f + 0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 36)));
+                int offset = (int)Main.GameUpdateCount;
+                Vector2 so = new Vector2(12, 12) * scale;
+                Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset, offset, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset / 2, offset / 2, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, clr * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
+
+                Main.spriteBatch.End();
+            }
+        }
         public override void PostDrawTiles()
         {
+            foreach(Player player in Main.ActivePlayers)
+            {
+                EModPlayer mp = player.Entropy();
+                if(mp.AzafureDriverShieldItem != null)
+                {
+                    float p = (float)mp.DriverShield / AzafureDriverCore.MaxShield;
+                    if(mp.DriverShield <= 0)
+                    {
+                        p = (float)mp.DriverRecharge / AzafureDriverCore.RechargeTime;
+                    }
+                    DrawDriverShield(player, p, mp.DriverShield > 0, player.Center);
+                }
+            }
             if (CalamityEntropy.SetupBossbarClrAuto)
             {
                 CalamityEntropy.SetupBossbarClrAuto = false;
