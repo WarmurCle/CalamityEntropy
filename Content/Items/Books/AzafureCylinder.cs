@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityMod;
@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 19;
+            Item.damage = 22;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<AzafureCylinderHeld>();
         public override int SlotCount => 3;
