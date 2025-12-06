@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
@@ -18,9 +18,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 37;
-            Item.useAnimation = Item.useTime = 18;
-            Item.crit = 16;
+            Item.damage = 40;
+            Item.useAnimation = Item.useTime = 24;
             Item.mana = 7;
             Item.rare = ItemRarityID.Red;
         }
@@ -45,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override string OpenAnimationPath => $"{EntropyBook.BaseFolder}/Textures/DarkScripture/Open";
         public override string PageAnimationPath => $"{EntropyBook.BaseFolder}/Textures/DarkScripture/Page";
         public override string UIOpenAnimationPath => $"{EntropyBook.BaseFolder}/Textures/DarkScripture/UI";
-
+        public override int frameChange => 3;
         public override EBookStatModifer getBaseModifer()
         {
             var m = base.getBaseModifer();
@@ -63,8 +62,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.width = 40;
-            Projectile.height = 40;
+            Projectile.width = 30;
+            Projectile.height = 30;
             Projectile.tileCollide = true;
             Projectile.light = 0.2f;
             Projectile.timeLeft = 800;
