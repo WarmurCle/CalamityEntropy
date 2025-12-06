@@ -31,9 +31,6 @@ namespace CalamityEntropy.Content.Projectiles
                 if (target != null)
                 {
                     float rot = CEUtils.randomRot();
-                    int pjex = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 270 * Projectile.WhipSettings.RangeMultiplier, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 0, Projectile.owner, 0, -0.8f);
-                    pjex.ToProj().hostile = false;
-                    pjex.ToProj().MaxUpdates *= 2;
                     for (int i = 0; i < 4; i++)
                     {
                         float a = rot + MathHelper.ToRadians(i * 90);
@@ -41,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((target.Center - Projectile.Center).ToRotation());
                     homing = false;
-                    for (int i = 0; i < 16; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         Vector2 top = Projectile.Center;
                         Vector2 sparkVelocity2 = Projectile.velocity.RotateRandom(0.26f) * -1 * Main.rand.NextFloat(1, 5);
@@ -51,7 +48,7 @@ namespace CalamityEntropy.Content.Projectiles
                         LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                         GeneralParticleHandler.SpawnParticle(spark);
                     }
-                    for (int i = 0; i < 42; i++)
+                    for (int i = 0; i < 16; i++)
                     {
                         PixelParticle p = new PixelParticle(Projectile.Center, Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(100, 256), Projectile.Center, Main.rand.Next(20, 42), Color.White, new Color(180, 180, 255));
                         PixelParticle.particles.Add(p);
