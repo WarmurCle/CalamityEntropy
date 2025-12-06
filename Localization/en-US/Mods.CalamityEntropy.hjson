@@ -778,6 +778,7 @@ Items: {
 			'''
 			Gives you 30% extra mana
 			Every 1 extra mana provides 0.1% magic damage bonus
+			-15% Mana Cost
 			'''
 		DisplayName: Archmage's Handmirror
 	}
@@ -3165,7 +3166,31 @@ Items: {
 
 	FetalDream: {
 		DisplayName: Fetal Dream
-		Tooltip: ""
+		Tooltip:
+			'''
+			Teleport behind the target and dealing damage
+			reducing the target's damage reduction and providing you with increased damage
+			'''
+		HoldShiftForDetails:
+			'''
+			Once, the girl and "Mary" were inseparable, but as the girl grew older, she gradually neglected "Mary."
+			When it was time to move, the girl abandoned "Mary" in the junkyard and moved into her new home with her parents.
+			One late night, while the girl was in her second-floor room, the phone rang.
+			"Hello, this is Mary. I'm in the junkyard now."
+			After saying just that, the phone hung up. The girl, puzzled, put down the receiver, but the phone rang again.
+			"Hello, this is Mary. I'm at your door now."
+			Still just that one sentence. The girl thought it was a prank and decided to ignore it.
+			However, the phone rang again. She intended to just leave it, but the phone kept ringing, showing no sign of stopping.
+			Frustrated, the girl picked up the phone.
+			"Hello, this is Mary. I'm coming upstairs now."
+			Perhaps it was just her imagination, but she seemed to hear faint footsteps on the stairs.
+			The girl's hand, gripping the phone receiver, was sweaty; her heart pounded with anxiety. Just then, the phone rang again.
+			"Hello, this is Mary. I'm at your door now."
+			The girl rushed to the door and locked it. Perhaps she was just scaring herself, but it gave her some peace of mind.
+			Then, the phone rang again. The girl picked up the receiver tremblingly. The voice on the other end said:
+			"Hello, this is Mary. I'm at your..."
+			[c/EB3324:...behind]
+			'''
 	}
 
 	DustCarver: {
@@ -3367,7 +3392,7 @@ MariviniumSet:
 	When using true melee weapons, +15% Damage reduce and 25 defense
 	When using a whip, enhance summoner attributes
 	Stealth strike has a probability of causing an water explosion
-	Obtain 2 layers of shields, which will take 15 seconds to recover after being shattered
+	Obtain 2 layers of shields, which will take 20 seconds to recover after being shattered
 	After shield shattered, treat 140 health points and double your damage for 5 seconds
 	'''
 DeathMode: Death Mode

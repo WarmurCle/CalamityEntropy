@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateEquip(Player player)
         {
             player.Entropy().ArchmagesMirror = true;
-
+	    player.Entropy().ManaCost -= 0.15f;
         }
     }
 }

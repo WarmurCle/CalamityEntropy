@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.damage = 40;
-            Item.useAnimation = Item.useTime = 24;
+            Item.useAnimation = Item.useTime = 20;
             Item.mana = 7;
             Item.rare = ItemRarityID.Red;
         }

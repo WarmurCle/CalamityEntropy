@@ -32,10 +32,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Color tooltipColor => new Color(160, 170, 120);
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<WulfrumMetalScrap>(4)
+            CreateRecipe()
+		.AddIngredient<WulfrumMetalScrap>(4)
                 .AddIngredient<EnergyCore>()
                 .AddIngredient(ItemID.FallenStar, 2)
-                .AddTile(TileID.Anvils)
+                .AddTile(TileID.Bookcases)
                 .Register();
         }
     }

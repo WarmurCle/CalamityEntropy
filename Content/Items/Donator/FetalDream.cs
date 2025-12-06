@@ -5,6 +5,7 @@ using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Rarities;
 using CalamityMod.Projectiles.Rogue;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,7 +21,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
-    public class FetalDream : ModItem, IDevItem
+    public class FetalDream : ModItem, ILocalizedModType, IDevItem
     {
         public string DevName => "银九";
 
@@ -43,17 +44,26 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.damage = 514;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 80;
+            Item.useAnimation = Item.useTime = 40;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 4f;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.maxStack = 1;
-            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ModContent.RarityType<PureGreen>();
+            Item.Entropy().stroke = true;
+            Item.Entropy().NameColor = Color.LightGreen;
+            Item.Entropy().strokeColor = Color.DarkGreen;
+            Item.Entropy().tooltipStyle = 4;
             Item.shoot = ModContent.ProjectileType<FetalDreamSlash>();
             Item.shootSpeed = 16;
-            Item.DamageType = DamageClass.Default;
+            Item.DamageType = ModContent.GetInstance<KoishiDamageClass>();
+        }
+        public override bool AllowPrefix(int pre) => false;
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+                tooltips.FuckThisTooltipAndReplace($"{CEUtils.LocalPrefix}.Items.{GetType().Name}.HoldShiftForDetails", Color.MediumOrchid);
         }
     }
     public class FetalDreamSlash : ModProjectile
@@ -148,15 +158,17 @@ namespace CalamityEntropy.Content.Items.Donator
             CEUtils.PlaySound("ystn_hit", 2.7f, target.Center);
             var player = Projectile.GetOwner();
             target.AddBuff<MarkedforDeath>(12 * 60);
+            target.AddBuff<Koishi>(12 * 60);
             if(!player.HasCooldown(FetalDreamCooldown.ID))
             {
                 CalamityEntropy.FlashEffectStrength = 0.8f;
                 player.Entropy().immune = 80;
-                target.AddBuff<Koishi>(16 * 60);
+                target.AddBuff<Koishi>(24 * 60);
+                target.AddBuff<MarkedforDeath>(24 * 60);
                 player.AddCooldown(FetalDreamCooldown.ID, 4320);
                 CEUtils.PlaySound("ThunderStrike", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 6, 0.6f);
                 target.StrikeNPC(target.CalculateHitInfo((int)(target.lifeMax * 0.0514), Projectile.velocity.X > 0 ? 1 : -1, false, 6, DamageClass.Default));
-                player.AddBuff(ModContent.BuffType<Koishi>(), 600);
+                player.AddBuff(ModContent.BuffType<Koishi>(), 540);
             }
             
         }
@@ -200,6 +212,26 @@ namespace CalamityEntropy.Content.Items.Donator
             return false;
         }
 
+    }
+    
+    internal class KoishiDamageClass : DamageClass
+    {
+        internal static KoishiDamageClass Instance;
+        public override void Load() => Instance = this;
+        public override void Unload() => Instance = null;
+        public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
+        {
+            StatInheritanceData statInheritanceData = new(0, 0, 0, 0, 0);
+            if (damageClass == Generic || damageClass == default)
+                return statInheritanceData;
+            return base.GetModifierInheritance(damageClass);
+        }
+        public override void SetDefaultStats(Player player)
+        {
+            player.GetArmorPenetration<KoishiDamageClass>() += 514;
+        }
+        public override bool UseStandardCritCalcs => true;
+        public override bool ShowStatTooltipLine(Player player, string lineName) => true;
     }
     public class Koishi: ModBuff
     {

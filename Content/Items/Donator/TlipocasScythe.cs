@@ -177,12 +177,12 @@ namespace CalamityEntropy.Content.Items.Donator
                 Get("TSA3") + (flag ? "" : Get("LOCKED") + " " + Get("TSU3")))
             { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-            flag = EDownedBosses.downedProphet;
+            flag = EDownedBosses.downedNihilityTwin;
             tooltips.Add(new TooltipLine(Mod, "Ability Desc",
                 Get("TSA4") + (flag ? "" : Get("LOCKED") + " " + Get("TSU4")))
             { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
 
-            flag = EDownedBosses.downedNihilityTwin;
+            flag = DownedBossSystem.downedPolterghast;
             tooltips.Add(new TooltipLine(Mod, "Ability Desc",
                 Get("TSA5") + (flag ? "" : Get("LOCKED") + " " + Get("TSU5")))
             { OverrideColor = (flag ? Color.Yellow : Color.Gray) });
@@ -494,7 +494,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<TlipocasScytheHeld>(), DashUpgrade() ? damage : damage / 4, knockback, player.whoAmI, swing == 0 ? 1 : -1, -1);
                 player.AddCooldown(TlipocasScytheSlashCooldown.ID, 7 * 60);
-                CalamityEntropy.FlashEffectStrength = 0.3f;
+                CalamityEntropy.FlashEffectStrength = 0.2f;
                 int p = Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 2, knockback, player.whoAmI);
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {

@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             CreateRecipe()
                 .AddRecipeGroup(CERecipeGroups.fairys, 1)
                 .AddIngredient(ItemID.FallenStar, 5)
-                .AddTile(TileID.WorkBenches)
+                .AddTile(TileID.Bookcases)
                 .Register();
         }
         private static int projType = -1;
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
             float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
             Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
-            Projectile.damage = (int)(player.GetWeaponDamage(player.HeldItem) * 0.6f);
+            Projectile.damage = (int)(player.GetWeaponDamage(player.HeldItem) * 0.5f);
             Projectile.MaxUpdates = 1;
 
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3000)

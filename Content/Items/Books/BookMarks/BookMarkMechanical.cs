@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             .AddIngredient(ModContent.ItemType<HellIndustrialComponents>(), 10)
             .AddIngredient(ItemID.SoulofNight, 10)
             .AddIngredient(ItemID.SoulofLight, 10)
-            .AddTile(TileID.MythrilAnvil)
+            .AddTile(TileID.Bookcases)
             .Register();
         }
     }
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (ownerClient && (projectile.ModProjectile is EBookBaseProjectile eb && eb.mainProj) && Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 8) && CECooldowns.CheckCD("MechanicalBookmark", 30))
             {
-                Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.UnitY * -8, ModContent.ProjectileType<Detector>(), projectile.damage / 5, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.UnitY * -8, ModContent.ProjectileType<Detector>(), projectile.damage / 4, projectile.knockBack, projectile.owner);
             }
         }
     }

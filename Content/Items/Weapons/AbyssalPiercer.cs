@@ -2,6 +2,7 @@
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Weapons.Rogue;
 using Terraria;
 using Terraria.DataStructures;
@@ -36,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
 
 
-        public override float StealthDamageMultiplier => 1.2f;
+        public override float StealthDamageMultiplier => 1.0f;
         public override float StealthVelocityMultiplier => 1.5f;
         public override float StealthKnockbackMultiplier => 3f;
 
@@ -57,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<CorrodedFossil>(), 6).AddIngredient(ModContent.ItemType<DepthCells>(), 2).AddTile(TileID.Anvils).Register();
+            CreateRecipe().AddIngredient(ModContent.ItemType<CorrodedFossil>(), 6).AddIngredient(ModContent.ItemType<Voidstone>(), 10).AddTile(TileID.Anvils).Register();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 195;
+            Item.damage = 160;
             Item.useAnimation = Item.useTime = 25;
             Item.crit = 10;
             Item.mana = 12;
@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override EBookStatModifer getBaseModifer()
         {
             var m = base.getBaseModifer();
-            m.PenetrateAddition += 2;
+            m.PenetrateAddition += 12;
             return m;
         }
         public override float randomShootRotMax => 0.02f;

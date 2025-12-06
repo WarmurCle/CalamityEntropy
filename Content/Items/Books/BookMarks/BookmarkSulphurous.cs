@@ -25,7 +25,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Color tooltipColor => Color.LimeGreen;
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<SulphuricScale>(4)
+            CreateRecipe()
+		.AddIngredient<SulphuricScale>(40)
                 .AddIngredient<SulphurousSand>(40)
                 .AddTile(TileID.Bookcases)
                 .Register();
@@ -38,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (projectile.GetOwner().Entropy().SulphurousBubbleRecharge < 3600)
             {
-                target.AddBuff<SulphuricPoisoning>(5 * 60);
+                target.AddBuff<SulphuricPoisoning>(1 * 60);
             }
         }
     }

@@ -38,6 +38,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             target.AddBuff(BuffID.Poisoned, 500);
+	    target.AddBuff(BuffID.Venom, 90);
         }
         public static int type = -1;
         public override void BookUpdate(Projectile projectile, bool ownerClient)

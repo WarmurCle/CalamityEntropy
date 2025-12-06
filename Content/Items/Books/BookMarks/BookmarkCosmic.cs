@@ -136,9 +136,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     {
                         if (Projectile.owner == Main.myPlayer)
                         {
-                            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 12, 88, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 12, 88, (int)(Projectile.damage * 5.0f), Projectile.knockBack, Projectile.owner);
                             p.ToProj().usesLocalNPCImmunity = true;
-                            p.ToProj().localNPCHitCooldown = 16;
+                            p.ToProj().localNPCHitCooldown = 12;
                         }
 
                         SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.6f}, Projectile.Center);
@@ -180,7 +180,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             modifiers.ArmorPenetration += 64;
             if (DashTime > 0)
             {
-                modifiers.SourceDamage *= 4;
+                modifiers.SourceDamage *= 10;
                 modifiers.SetCrit();
             }
         }

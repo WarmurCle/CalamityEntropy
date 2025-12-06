@@ -553,6 +553,26 @@ namespace CalamityEntropy.Common
                 tl.OverrideColor = new Microsoft.Xna.Framework.Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
                 tooltips.Add(tl);
             }
+            if (item.DamageType.CountsAsClass(KoishiDamageClass.Instance))
+            {
+                foreach (TooltipLine line in tooltips)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Damage")
+                    {
+                        float fade = (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 3f) + 1f) / 2f;
+                        Color color1 = Color.White;
+                        Color color2 = Color.PaleTurquoise;     
+                        Color finalColor = Color.Lerp(color1, color2, fade);
+                        string hexColor = finalColor.R.ToString("X2") + finalColor.G.ToString("X2") + finalColor.B.ToString("X2");
+                        string targetText = "无意识伤害";
+                        if (line.Text.Contains(targetText))
+                        {
+                            line.OverrideColor = null; 
+                            line.Text = line.Text.Replace(targetText, $"[c/{hexColor}:{targetText}]");
+                        }
+                    }
+                }
+            }
         }
 
         public override GlobalItem Clone(Item from, Item to)

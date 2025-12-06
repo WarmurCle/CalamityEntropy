@@ -23,7 +23,7 @@ namespace CalamityEntropy.Common
             }
             if (npc.HasBuff<MechanicalTrauma>())
             {
-                damageApply += 34;
+                damageApply += 18;
             }
             damage += damageApply * 2;
             npc.lifeRegen -= damageApply * 2;

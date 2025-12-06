@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             CreateRecipe().AddIngredient<MagicBookmarkHolder>()
                 .AddIngredient<ExquisiteBookmarkHolder>()
-                .AddIngredient(ItemID.HallowedBar, 2)
+                .AddIngredient(ItemID.HallowedBar, 18)
                 .AddTile(TileID.CrystalBall)
                 .Register();
         }

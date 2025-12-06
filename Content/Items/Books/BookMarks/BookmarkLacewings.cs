@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 .AddIngredient<BookmarkFairy>()
                 .AddIngredient<BookMarkLibra>()
                 .AddIngredient(ItemID.EmpressButterfly)
-                .AddTile(TileID.WorkBenches)
+                .AddTile(TileID.Bookcases)
                 .Register();
         }
         private static int projType = -1;
@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
             float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
             Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
-            Projectile.damage = (int)(player.GetWeaponDamage(player.HeldItem) * 0.6f);
+            Projectile.damage = (int)(player.GetWeaponDamage(player.HeldItem) * 1.2f);
             Projectile.MaxUpdates = 1;
 
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3000)
@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.pushByOther(0.05f);
                 if (CEUtils.getDistance(Projectile.Center, target.Center) < 600 && Delay <= 0)
                 {
-                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), target.Center + target.velocity, (int)(Projectile.damage / 2.4f), 6, Projectile.DamageType).CritChance = Projectile.CritChance;
+                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), target.Center + target.velocity, (int)(Projectile.damage / 2.0f), 6, Projectile.DamageType).CritChance = Projectile.CritChance;
                     ;
                     for (float i = 0.04f; i <= 1; i+=0.02f)
                     {

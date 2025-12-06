@@ -742,6 +742,7 @@ Items: {
 			'''
 			Даёт вам 30% дополнительной маны
 			Каждый 1 дополнительный запас маны дает 0,1% бонуса к магическому урону
+			-15% к стоимости маны
 			'''
 		DisplayName: Зеркало Архимага
 	}
@@ -3181,7 +3182,31 @@ Items: {
 
 	FetalDream: {
 		// DisplayName: Fetal Dream
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Teleport behind the target and dealing damage
+			reducing the target's damage reduction and providing you with increased damage
+			'''*/
+		/* HoldShiftForDetails:
+			'''
+			Once, the girl and "Mary" were inseparable, but as the girl grew older, she gradually neglected "Mary."
+			When it was time to move, the girl abandoned "Mary" in the junkyard and moved into her new home with her parents.
+			One late night, while the girl was in her second-floor room, the phone rang.
+			"Hello, this is Mary. I'm in the junkyard now."
+			After saying just that, the phone hung up. The girl, puzzled, put down the receiver, but the phone rang again.
+			"Hello, this is Mary. I'm at your door now."
+			Still just that one sentence. The girl thought it was a prank and decided to ignore it.
+			However, the phone rang again. She intended to just leave it, but the phone kept ringing, showing no sign of stopping.
+			Frustrated, the girl picked up the phone.
+			"Hello, this is Mary. I'm coming upstairs now."
+			Perhaps it was just her imagination, but she seemed to hear faint footsteps on the stairs.
+			The girl's hand, gripping the phone receiver, was sweaty; her heart pounded with anxiety. Just then, the phone rang again.
+			"Hello, this is Mary. I'm at your door now."
+			The girl rushed to the door and locked it. Perhaps she was just scaring herself, but it gave her some peace of mind.
+			Then, the phone rang again. The girl picked up the receiver tremblingly. The voice on the other end said:
+			"Hello, this is Mary. I'm at your..."
+			[c/EB3324:...behind]
+			'''*/
 	}
 
 	DustCarver: {
@@ -3369,7 +3394,7 @@ MariviniumSet:
 	При использовании истинного оружия ближнего боя: +15% к снижению урона и +25 к защите
 	При использовании кнута улучшаются характеристики призывателя
 	Атака из скрытности может вызвать взрыв воды с некоторой вероятностью
-	Получаете 2 слоя щита, которые восстанавливаются за 15 секунд после разрушения
+	Получаете 2 слоя щита, которые восстанавливаются за 20 секунд после разрушения
 	После разрушения щита: восстанавливает 140 ед. здоровья и удваивает урон на 5 секунд
 	'''
 DeathMode: Смерть

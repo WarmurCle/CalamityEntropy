@@ -24,9 +24,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemID.SandBlock, 40)
+            CreateRecipe()
+		.AddIngredient(ItemID.SandBlock, 40)
                 .AddIngredient(ItemID.AntlionMandible)
-                .AddTile(TileID.WorkBenches)
+                .AddTile(TileID.Bookcases)
                 .Register();
         }
         public override Color tooltipColor => new Color(246, 201, 122);
