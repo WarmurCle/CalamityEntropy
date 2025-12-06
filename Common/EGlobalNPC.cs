@@ -1411,7 +1411,6 @@ namespace CalamityEntropy.Common
                     player.Entropy().bloodTrCD = 24;
                     player.Entropy().deusCoreBloodOut -= btransfer;
                     deusBloodOut += btransfer * 5;
-                    Main.NewText(btransfer);
                 }
                 if (player.Entropy().ConfuseCard)
                 {
