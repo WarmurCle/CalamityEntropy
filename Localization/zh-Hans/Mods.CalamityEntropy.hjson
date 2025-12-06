@@ -5357,6 +5357,7 @@ AzafureEnhances: {
 	AzafureTacticalRadio: 增加发射的导弹数量
 	AzafureAirReaper: 增加镰刀追逐目标的时间
 	AzafureCylinder: 延长金属球存在时间
+	AzafurePeaceKey: 每次发射两发核弹
 	AzafureDriverCore:
 		'''
 		减小充能消耗
